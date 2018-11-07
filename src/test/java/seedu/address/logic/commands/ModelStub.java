@@ -18,6 +18,12 @@ import seedu.address.model.person.Person;
  * A default model stub that have all of the methods failing.
  */
 public class ModelStub implements Model {
+
+    @Override
+    public boolean authorisationCanBeGivenTo(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     @Override
     public void addPerson(Person person) {
         throw new AssertionError("This method should not be called.");

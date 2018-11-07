@@ -18,12 +18,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
@@ -43,10 +43,9 @@ public class EditUserCommand extends Command {
 
     public static final String COMMAND_WORD = "editUser";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-        + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the current user. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
+        + "Parameters: "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -55,28 +54,25 @@ public class EditUserCommand extends Command {
         + "[" + PREFIX_TIMETABLE + "TIMETABLE] "
         + "[" + PREFIX_INTEREST + "INTEREST] "
         + "[" + PREFIX_TAG + "TAG]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "Example: " + COMMAND_WORD + " "
         + PREFIX_PHONE + "91234567 "
         + PREFIX_EMAIL + "johndoe@example.com "
-        + PREFIX_PASSWORD + "password"
+        + PREFIX_PASSWORD + "password "
         + PREFIX_TIMETABLE + "http://modsn.us/H4v8s";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-
-    private final Index index;
+    public static final String MESSAGE_NO_USER_IS_LOGGED_IN = "There is no user logged-in.";
+    public static final String MESSAGE_USER_DOES_NOT_HAVE_AUTHORITY = "The current user does not have the authority"
+            + " for this command.";
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditUserCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
+    public EditUserCommand(EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(editPersonDescriptor);
-
-        this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -84,24 +80,34 @@ public class EditUserCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        try {
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (!model.hasSetCurrentUser()) {
+                throw new CommandException(MESSAGE_NO_USER_IS_LOGGED_IN);
+            }
+
+            Person personToEdit = model.getCurrentUser();
+
+            if (!model.authorisationCanBeGivenTo(personToEdit)) {
+                throw new CommandException(MESSAGE_USER_DOES_NOT_HAVE_AUTHORITY);
+            }
+            model.removeCurrentUser();
+
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+            if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            updateFriendListsDueToEditedPerson(model, lastShownList, personToEdit, editedPerson);
+
+            model.updatePerson(personToEdit, editedPerson);
+            model.setCurrentUser(editedPerson);
+            model.authenticateUser(editedPerson);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
-
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        updateFriendListsDueToEditedPerson(model, lastShownList, personToEdit, editedPerson);
-
-        model.updatePerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**
@@ -167,8 +173,7 @@ public class EditUserCommand extends Command {
 
         // state check
         EditUserCommand e = (EditUserCommand) other;
-        return index.equals(e.index)
-            && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
