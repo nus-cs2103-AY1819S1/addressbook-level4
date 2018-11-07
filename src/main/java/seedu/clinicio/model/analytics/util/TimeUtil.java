@@ -32,7 +32,6 @@ public class TimeUtil {
      * @return the number of occurrences for each time period.
      */
     public static List<Tuple<Tuple<Time, Time>, Integer>> getTimeGroupsCount(List<Time> times) {
-
         List<Tuple<Tuple<Time, Time>, Integer>> timeGroupsCount = new ArrayList<>();
         for (Tuple<Time, Time> timePeriod : timePeriods) {
             long count = times.stream()

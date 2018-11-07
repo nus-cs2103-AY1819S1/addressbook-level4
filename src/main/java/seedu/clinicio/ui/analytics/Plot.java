@@ -2,6 +2,7 @@ package seedu.clinicio.ui.analytics;
 
 import java.util.List;
 
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -54,41 +55,65 @@ public class Plot {
         case VERTICAL_BAR:
             plotVBar((VisualizationData<String>) data, chartPane);
             break;
-
         case HORIZONTAL_BAR:
             plotHBar((VisualizationData<String>) data, chartPane);
             break;
-
         case STACKED_BAR:
             plotStackedBar((VisualizationData<String>) data, chartPane);
             break;
-
         case LINE:
             plotLine(data, chartPane);
             break;
-
         case AREA:
             break;
-
         default:
             break;
         }
     }
 
     /**
+     *
+     */
+    public static Tuple<Axis, Axis> getAxes(String xTitle, String yTitle) {
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel(xTitle);
+
+        NumberAxis yAxis = new NumberAxis(0, 25, 5);
+        yAxis.setLabel(yTitle);
+
+        return new Tuple<>(xAxis, yAxis);
+    }
+
+    /**
+     *
+     */
+    public static void getStackedBarChart(Axis xAxis, Axis yAxis, String id, String title) {
+        StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(xAxis, yAxis);
+        stackedBarChart.setTitle(title);
+        stackedBarChart.setId(id);
+    }
+
+    /**
+     *
+     */
+    public static void getVerticalBarChart() {
+
+    }
+
+    /**
+     *
+     */
+    public static void getHorizontalBarChart() {
+
+    }
+
+
+    /**
      * Plots a stacked bar chart.
      * Assumes a minimum of two groups of data.
      */
     public static void plotStackedBar(VisualizationData<String> data, Pane chartPane) {
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel(data.getXTitle());
 
-        NumberAxis yAxis = new NumberAxis(0, 25, 5);
-        yAxis.setLabel(data.getYTitle());
-
-        StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(xAxis, yAxis);
-        stackedBarChart.setTitle(data.getChartTitle());
-        stackedBarChart.setId(data.getId());
 
         for (int i = 0; i < data.getDataGroups().size(); i++) {
             List<Tuple<String, Integer>> seriesData = data.getDataGroups().get(i);
