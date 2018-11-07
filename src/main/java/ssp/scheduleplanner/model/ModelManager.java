@@ -114,6 +114,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void removeCategory(String name) {
+        versionedSchedulePlanner.removeCategory(name);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
     public void addTask(Task task) {
         versionedSchedulePlanner.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);

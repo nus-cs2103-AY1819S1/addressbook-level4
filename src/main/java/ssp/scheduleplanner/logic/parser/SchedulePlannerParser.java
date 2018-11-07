@@ -29,6 +29,7 @@ import ssp.scheduleplanner.logic.commands.ListWeekCommand;
 import ssp.scheduleplanner.logic.commands.ProgressTodayCommand;
 import ssp.scheduleplanner.logic.commands.ProgressWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
+import ssp.scheduleplanner.logic.commands.RemoveCategoryCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
@@ -68,6 +69,9 @@ public class SchedulePlannerParser {
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
+
+        case RemoveCategoryCommand.COMMAND_WORD:
+            return new RemoveCategoryCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);

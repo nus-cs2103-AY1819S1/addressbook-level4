@@ -48,6 +48,12 @@ public interface Model {
      * Change name of a category.
      */
     void editCategory(String original, String categoryName);
+
+    /**
+     * Remove the entire category together with tags stored under this category.
+     */
+    void removeCategory(String name);
+
     /**
      * Deletes the given task.
      * The task must exist in the Schedule Planner.
