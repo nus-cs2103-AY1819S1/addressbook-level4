@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ public class DeleteDoctorCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        String userInput = " " + PREFIX_NAME + GEORGE.getName();
-        assertParseSuccess(parser, userInput, new DeleteDoctorCommand(GEORGE.getName()));
+        String userInput = " " + PREFIX_NAME + GEORGE_DOCTOR.getName();
+        assertParseSuccess(parser, userInput, new DeleteDoctorCommand(GEORGE_DOCTOR.getName()));
     }
 
     @Test

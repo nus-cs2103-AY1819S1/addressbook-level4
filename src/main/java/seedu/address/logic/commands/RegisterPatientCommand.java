@@ -35,7 +35,7 @@ public class RegisterPatientCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New patient registered: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "There exists a patient/doctor with this name in the HealthBook";
+            "There exists a patient/doctor with this name and number in the HealthBook";
 
     private final Patient patientToRegister;
 

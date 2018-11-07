@@ -4,10 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA_DOCTOR;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Test;
@@ -33,14 +33,14 @@ public class DeletePersonCommandTest {
 
     @Test
     public void execute_validPatient_success() {
-        Patient patientToDelete = ALICE;
+        Patient patientToDelete = ALICE_PATIENT;
         DeletePatientCommand deletePatientCommand =
                 new DeletePatientCommand(patientToDelete.getName());
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePerson(patientToDelete); // Test
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(deletePatientCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -53,13 +53,13 @@ public class DeletePersonCommandTest {
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
 
         // not patient
-        assertCommandFailure(new DeletePatientCommand(GEORGE.getName()),
+        assertCommandFailure(new DeletePatientCommand(GEORGE_DOCTOR.getName()),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
     }
 
     @Test
     public void execute_validDoctor_success() {
-        Doctor doctorToDelete = GEORGE;
+        Doctor doctorToDelete = GEORGE_DOCTOR;
         DeleteDoctorCommand deleteDoctorCommand =
                 new DeleteDoctorCommand(doctorToDelete.getName());
 
@@ -79,17 +79,17 @@ public class DeletePersonCommandTest {
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
 
         // not doctor
-        assertCommandFailure(new DeleteDoctorCommand(ALICE.getName()),
+        assertCommandFailure(new DeleteDoctorCommand(ALICE_PATIENT.getName()),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
     }
 
     @Test
     public void executeUndoRedo_validPatient_success() throws Exception {
-        Patient patientToDelete = ALICE;
+        Patient patientToDelete = ALICE_PATIENT;
         DeletePatientCommand deletePatientCommand =
                 new DeletePatientCommand(patientToDelete.getName());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePerson(patientToDelete); // Test
         expectedModel.commitAddressBook();
 
         // delete -> first person deleted
@@ -106,7 +106,7 @@ public class DeletePersonCommandTest {
 
     @Test
     public void executeUndoRedo_validDoctor_success() throws Exception {
-        Doctor doctorToDelete = GEORGE;
+        Doctor doctorToDelete = GEORGE_DOCTOR;
         DeleteDoctorCommand deleteDoctorCommand =
                 new DeleteDoctorCommand(doctorToDelete.getName());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -149,19 +149,19 @@ public class DeletePersonCommandTest {
 
     @Test
     public void equals() {
-        DeletePatientCommand deleteFirstCommand = new DeletePatientCommand(ALICE.getName());
-        DeletePatientCommand deleteSecondCommand = new DeletePatientCommand(BENSON.getName());
-        DeleteDoctorCommand deleteThirdCommand = new DeleteDoctorCommand(FIONA.getName());
-        DeleteDoctorCommand deleteFourthCommand = new DeleteDoctorCommand(GEORGE.getName());
+        DeletePatientCommand deleteFirstCommand = new DeletePatientCommand(ALICE_PATIENT.getName());
+        DeletePatientCommand deleteSecondCommand = new DeletePatientCommand(BENSON_PATIENT.getName());
+        DeleteDoctorCommand deleteThirdCommand = new DeleteDoctorCommand(FIONA_DOCTOR.getName());
+        DeleteDoctorCommand deleteFourthCommand = new DeleteDoctorCommand(GEORGE_DOCTOR.getName());
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
         assertTrue(deleteThirdCommand.equals(deleteThirdCommand));
 
         // same values -> returns true
-        DeletePatientCommand deleteFirstCommandCopy = new DeletePatientCommand(ALICE.getName());
+        DeletePatientCommand deleteFirstCommandCopy = new DeletePatientCommand(ALICE_PATIENT.getName());
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
-        DeleteDoctorCommand deleteThirdCommandCopy = new DeleteDoctorCommand(FIONA.getName());
+        DeleteDoctorCommand deleteThirdCommandCopy = new DeleteDoctorCommand(FIONA_DOCTOR.getName());
         assertTrue(deleteThirdCommandCopy.equals(deleteThirdCommandCopy));
 
         // different types -> returns false
