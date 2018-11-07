@@ -34,6 +34,7 @@ public class TotalBudgetPanelTest extends GuiUnitTest {
         assertTrue(budgetPanelHandle.isColorRed());
     }
 
+
     /**
      * Tests if the UI elements, expenseDisplay, budgetDisplay and budgetBar have the corrct values
      * @param expense to set

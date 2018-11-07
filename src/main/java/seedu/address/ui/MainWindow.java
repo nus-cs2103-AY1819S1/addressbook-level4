@@ -7,7 +7,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -29,6 +28,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.address.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -85,6 +85,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane statisticsPane;
+
+    @FXML
+    private CategoriesPanel categoriesPanel;
+
+    @FXML
+    private SplitPane rightSplitPane;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -163,8 +169,12 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from statistics to list
      */
     public void swapToList() {
+        Timeline timeline = new Timeline();
+        leftPanelPlaceholder.setOpacity(0.0);
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        addFadeInAnimation(leftPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     //@@author snookerballs
@@ -172,8 +182,12 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from list to statistics
      */
     public void swapToStat() {
-        Platform.runLater(() -> leftPanelPlaceholder.getChildren().clear());
-        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsPane));
+        Timeline timeline = new Timeline();
+        leftPanelPlaceholder.setOpacity(0.0);
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(statisticsPane);
+        addFadeInAnimation(leftPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     //@@author snookerballs
@@ -189,6 +203,7 @@ public class MainWindow extends UiPart<Stage> {
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getExpenseTrackerDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
 
@@ -198,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel(logic.getNotificationList());
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        CategoriesPanel categoriesPanel = new CategoriesPanel();
+        categoriesPanel = new CategoriesPanel(logic.getCategoryBudgets());
 
         statisticsPanel = new StatisticsPanel(
                 logic.getExpenseStats(),
@@ -209,8 +224,11 @@ public class MainWindow extends UiPart<Stage> {
 
         statisticsPane = new AnchorPane();
         statisticsPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
-        statisticsPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsPane.setTopAnchor(categoriesPanel.getRoot(), 320.00);
         statisticsPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
+
+        rightSplitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
 
         swapToStat();
         fadeInPanels();
@@ -363,5 +381,12 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
         }
+    }
+
+    @Subscribe
+    public void handleUpdateCategoriesPanelEvent(UpdateCategoriesPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        categoriesPanel.setConnection(event.categoryBudgets);
+        System.out.println("WHY ARE YOU CALLING TWICE");
     }
 }
