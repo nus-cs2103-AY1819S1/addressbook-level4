@@ -256,13 +256,17 @@ Suggests friends for the 1st user in the Event Organiser that have at least one 
 // tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`
 
-Compares the schedule of multiple users and return a string of common free time. +
-Format: `maxSchedule INDEX INDEX...`
+Compares the schedule of multiple users and return a string of common free time. LIMIT is a XXXX-XXX specified timing to limit the time range displayed. +
+Format: `maxSchedule INDEX INDEX [sl/ LIMIT]...`
 
 Example:
 
 * `maxSchedule 1 2` +
-Compares the schedule of users of index 1 and 2 and return a string of common free time.
+Compares the schedule of users of index 1 and 2 and return a string of all common free time.
+
+* `maxSchedule 1 2 sl/ 0800-0900` +
+Compares the schedule of users of index 1 and 2 and return a string of common free time limited to 0800 to 0900 hours inclusive.
+
 // end::maxschedule[]
 
 // tag::KengJi[]
@@ -495,8 +499,9 @@ e.g.`selectUser 2`
 * *History* : `history`
 
 // tag::maxschedule[]
-* *Free time between persons*: `maxSchedule INDEX INDEX ...` +
+* *Free time between persons*: `maxSchedule INDEX INDEX ... [sl/ LIMIT]` +
 e.g. `maxSchedule 1 2 3`
+e.g. `maxSchedule 1 2 3 sl/ 0800-0900`
 // end::maxschedule[]
 
 // tag::KengJi(Summary)[]
