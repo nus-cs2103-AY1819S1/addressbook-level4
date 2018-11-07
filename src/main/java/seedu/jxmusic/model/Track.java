@@ -56,6 +56,8 @@ public class Track {
         while (mediaPlayer.getStatus() != READY) {
         }
         this.fileDuration = media.getDuration();
+        media = null;
+        mediaPlayer = null;
     }
 
     public Track(File file) {
@@ -71,6 +73,8 @@ public class Track {
         while (mediaPlayer.getStatus() != READY) {
         }
         this.fileDuration = media.getDuration();
+        media = null;
+        mediaPlayer = null;
     }
 
     public File getFile() {

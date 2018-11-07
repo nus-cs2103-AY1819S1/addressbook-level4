@@ -13,8 +13,8 @@ public class SeekCommand extends Command {
 
     public static final String COMMAND_PHRASE = "seek";
 
-    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": seek the playpoint to the specified time point.\n"
-            + "Parameters: ti/TIME"
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": seek the play point to the specified time point.\n"
+            + "Parameters: d/TIME"
             + "TIME is in the format of  in the format of [[h ]m ]s each of which "
             + "represents a unit of time that will be summed up to get the time point.\n";
 

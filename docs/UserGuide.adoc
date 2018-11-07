@@ -251,7 +251,7 @@ The playlist stops playing and replays from the first track.
 === Seeking time point : `seek`
 
 Steps to the specified time point of the current track. +
-Format: `seek t/TIME`
+Format: `seek d/TIME`
 
 ****
 * `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the time point.
@@ -266,10 +266,10 @@ Format: `seek t/TIME`
 Examples:
 
 * `play t/Some Song.mp3` +
-`seek t/100` +
+`seek d/100` +
 The track seeks to the 1 min 40 sec point and starts from there.
 * `play t/Some Song.mp3` +
-`seek t/200000` +
+`seek d/200000` +
 If `TIME` is longer than the song duration, the seek command fails.
 
 === Stepping a track : `step`
@@ -484,8 +484,8 @@ Format: `exit`
 * *Pause track* : `pause`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
-* *Seek time point* : `seek t/TIME` +
-eg. `seek t/01:10`
+* *Seek time point* : `seek d/TIME` +
+eg. `seek d/1 10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +

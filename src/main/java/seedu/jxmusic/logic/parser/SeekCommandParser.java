@@ -15,7 +15,9 @@ import seedu.jxmusic.logic.parser.exceptions.ParseException;
  */
 public class SeekCommandParser implements Parser<SeekCommand> {
     /**
-     *
+     * Parses the given {@code String} of arguments in the context of the SeekCommand
+     * and returns an SeekCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public SeekCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
