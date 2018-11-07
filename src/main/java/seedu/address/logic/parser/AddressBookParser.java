@@ -11,7 +11,6 @@ import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.commands.AddmhCommand;
-import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.CheckoutCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -24,6 +23,7 @@ import seedu.address.logic.commands.GendataCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.ViewCommand;
@@ -66,8 +66,8 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case CheckinCommand.COMMAND_WORD:
-            return new CheckinCommandParser().parse(arguments);
+        case RegisterCommand.COMMAND_WORD:
+            return new RegisterCommandParser().parse(arguments);
 
         case CheckoutCommand.COMMAND_WORD:
             return new CheckoutCommandParser().parse(arguments);

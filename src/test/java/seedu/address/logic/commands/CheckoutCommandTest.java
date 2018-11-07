@@ -76,7 +76,7 @@ public class CheckoutCommandTest {
         Person otherPatient = new PersonBuilder().withNric(VALID_NRIC_BOB).withName(VALID_NAME_BOB).build();
         CheckoutCommand checkoutCommand = new CheckoutCommand(patientNric);
         CheckoutCommand checkoutCommandCopy = new CheckoutCommand(patientNric);
-        CheckinCommand checkinCommand = new CheckinCommand(patient);
+        RegisterCommand registerCommand = new RegisterCommand(patient);
         CheckoutCommand checkoutOtherNricCommand = new CheckoutCommand(otherPatient.getNric());
 
         // compare with itself -> returns true
@@ -86,7 +86,7 @@ public class CheckoutCommandTest {
         assertTrue(checkoutCommand.equals(checkoutCommandCopy));
 
         // compare with a different type of command -> returns false
-        assertFalse(checkoutCommand.equals(checkinCommand));
+        assertFalse(checkoutCommand.equals(registerCommand));
 
         // different Nric -> returns false
         assertFalse(checkoutCommand.equals(checkoutOtherNricCommand));

@@ -35,7 +35,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CheckinCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -45,8 +45,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
-public class CheckinCommandParserTest {
-    private CheckinCommandParser parser = new CheckinCommandParser();
+public class RegisterCommandParserTest {
+    private RegisterCommandParser parser = new RegisterCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -54,30 +54,30 @@ public class CheckinCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new CheckinCommand(expectedPerson));
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new RegisterCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NRIC_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new CheckinCommand(expectedPerson));
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new RegisterCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new CheckinCommand(expectedPerson));
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new RegisterCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new CheckinCommand(expectedPerson));
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new RegisterCommand(expectedPerson));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new CheckinCommand(expectedPerson));
+                + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN, new RegisterCommand(expectedPerson));
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_DRUG_ALLERGY_ASPIRIN,
                 VALID_DRUG_ALLERGY_PENICILLIN).build();
         assertParseSuccess(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN + DRUG_ALLERGY_DESC_PENICILLIN,
-                new CheckinCommand(expectedPersonMultipleTags));
+                new RegisterCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -85,12 +85,12 @@ public class CheckinCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                        + ADDRESS_DESC_AMY, new CheckinCommand(expectedPerson));
+                        + ADDRESS_DESC_AMY, new RegisterCommand(expectedPerson));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckinCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE);
 
         // missing nric prefix
         assertParseFailure(parser, VALID_NRIC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -157,6 +157,6 @@ public class CheckinCommandParserTest {
         assertParseFailure(parser,
                 PREAMBLE_NON_EMPTY + NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_PENICILLIN + DRUG_ALLERGY_DESC_ASPIRIN,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckinCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE));
     }
 }

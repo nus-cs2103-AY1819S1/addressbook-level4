@@ -21,7 +21,6 @@ import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.commands.AddmhCommand;
-import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.CheckoutCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -32,6 +31,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.logic.commands.VisitorinCommand;
@@ -83,10 +83,10 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_checkin() throws Exception {
+    public void parseCommand_register() throws Exception {
         Person person = new PersonBuilder().build();
-        CheckinCommand command = (CheckinCommand) parser.parseCommand(PersonUtil.getCheckinCommand(person));
-        assertEquals(new CheckinCommand(person), command);
+        RegisterCommand command = (RegisterCommand) parser.parseCommand(PersonUtil.getRegisterCommand(person));
+        assertEquals(new RegisterCommand(person), command);
     }
 
     @Test

@@ -9,9 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.CheckoutCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -22,10 +22,10 @@ import seedu.address.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns a checkin command string for adding the {@code person}.
+     * Returns a register command string for registering the {@code person}.
      */
-    public static String getCheckinCommand(Person person) {
-        return CheckinCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getRegisterCommand(Person person) {
+        return RegisterCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
@@ -36,10 +36,10 @@ public class PersonUtil {
     }
 
     /**
-     * Returns a checkin command string for adding the {@code person} with different NRIC
+     * Returns a register command string for registering the {@code person} with different NRIC
      */
-    public static String getCheckinCommandDiffNric(Person person) {
-        return CheckinCommand.COMMAND_WORD + " " + getPersonDetailsDiffNric(person);
+    public static String getRegisterCommandDiffNric(Person person) {
+        return RegisterCommand.COMMAND_WORD + " " + getPersonDetailsDiffNric(person);
     }
 
     public static String getViewmhCommand(Person person) {

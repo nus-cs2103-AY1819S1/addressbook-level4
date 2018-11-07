@@ -16,13 +16,13 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Checks in a patient into the HMS
+ * Resgister a new patient into HealthBase
  */
-public class CheckinCommand extends Command {
+public class RegisterCommand extends Command {
 
-    public static final String COMMAND_WORD = "checkin";
+    public static final String COMMAND_WORD = "register";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks in a patient into the HMS \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a new patient into HealthBase \n"
             + "Parameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "
@@ -39,43 +39,43 @@ public class CheckinCommand extends Command {
             + PREFIX_DRUG_ALLERGY + "aspirin "
             + PREFIX_DRUG_ALLERGY + "insulin";
 
-    public static final String MESSAGE_SUCCESS = "New patient checked in: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person is already checked in";
-    public static final String MESSAGE_DUPLICATE_NRIC = "A person of this NRIC is already checked in";
+    public static final String MESSAGE_SUCCESS = "New patient registered successfully: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person is already registered in the system";
+    public static final String MESSAGE_DUPLICATE_NRIC = "A person of this NRIC is already registered";
 
-    private final Person toCheckin;
+    private final Person toRegister;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an RegisterCommand to register the specified {@code Person}
      */
-    public CheckinCommand(Person person) {
+    public RegisterCommand(Person person) {
         requireNonNull(person);
-        toCheckin = person;
+        toRegister = person;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model); // note: throws a nullpt exception
 
-        if (model.hasPerson(toCheckin)) {
+        if (model.hasPerson(toRegister) || model.hasCheckedOutPerson(toRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                                                        .filtered(p -> toCheckin.getNric().equals(p.getNric()));
+                                                        .filtered(p -> toRegister.getNric().equals(p.getNric()));
 
         if (filteredByNric.size() == 1) {
             throw new CommandException(MESSAGE_DUPLICATE_NRIC);
         }
 
-        model.addPerson(toCheckin);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheckin));
+        model.addPerson(toRegister);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRegister));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CheckinCommand // instanceof handles nulls
-                        && toCheckin.equals(((CheckinCommand) other).toCheckin));
+                || (other instanceof RegisterCommand // instanceof handles nulls
+                        && toRegister.equals(((RegisterCommand) other).toRegister));
     }
 }

@@ -116,17 +116,17 @@ Example(s):
 rest and rehydrate. doc/Dr. Zhang De`
 //end::addmh[]
 
-=== Check-in a patient: `checkin`
-Add a person to the patient queue.
+=== Register a new patient to the system: `register`
+Register a new patient together with necessary information into the system.
 
 
-Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 
-* If the patient is already checked in, the command will not be allowed.
+* If the patient is already registered, the command will not be allowed.
 
 Example(s):
 
-* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 
 === Check-out a patient: `checkout`
 Remove a patient from the patient queue.
@@ -377,10 +377,10 @@ Each command below will be summarised in the following format:
 * `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
 * `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to rest and rehydrate. doc/Dr.Zhang De Chou`
 
-*checkin*
+*register*
 
-* `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
-* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 
 *checkout*
 

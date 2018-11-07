@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.CheckinCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -22,24 +22,24 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new CheckinCommand object
+ * Parses input arguments and creates a new RegisterCommand object
  */
-public class CheckinCommandParser implements Parser<CheckinCommand> {
+public class RegisterCommandParser implements Parser<RegisterCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CheckinCommand
-     * and returns an CheckinCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RegisterCommand
+     * and returns an RegisterCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public CheckinCommand parse(String args) throws ParseException {
+    public RegisterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DRUG_ALLERGY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckinCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE));
         }
 
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
@@ -51,7 +51,7 @@ public class CheckinCommandParser implements Parser<CheckinCommand> {
 
         Person person = new Person(nric, name, phone, email, address, drugAllergyList);
 
-        return new CheckinCommand(person);
+        return new RegisterCommand(person);
     }
 
     /**
