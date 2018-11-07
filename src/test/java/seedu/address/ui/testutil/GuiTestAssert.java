@@ -64,14 +64,18 @@ public class GuiTestAssert {
      *
      * @see PersonCard#getTagColorStyleFor(String)
      */
+    private static String BLUE_CHAS_COLOUR = "blue";
+    private static String ORANGE_CHAS_COLOUR = "orange";
+    private static String PIONEER_CHAS_COLOUR = "orange";
+
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
         case "blue":
-            return "blue";
+            return BLUE_CHAS_COLOUR;
         case "orange":
-            return "orange";
+            return ORANGE_CHAS_COLOUR;
         case "pioneer":
-            return "red";
+            return PIONEER_CHAS_COLOUR;
         default:
             throw new AssertionError(tagName + " does not have a color assigned.");
         }
