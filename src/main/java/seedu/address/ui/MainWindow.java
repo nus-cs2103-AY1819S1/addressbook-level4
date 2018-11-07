@@ -208,12 +208,11 @@ public class MainWindow extends UiPart<Stage> {
             informationPanel = new InformationPanel("InformationPanel.fxml");
             informationPlaceholder.getChildren().add(informationPanel.getRoot());
             informationPanel.changePanel(event.getNewSelection());
-        } else if (event.getNewSelection() instanceof Doctor) {
+        }
+        if (event.getNewSelection() instanceof Doctor) {
             informationPanel = new InformationPanel("InformationPanelDoctor.fxml");
             informationPlaceholder.getChildren().add(informationPanel.getRoot());
             informationPanel.changePanel(event.getNewSelection());
-        } else {
-            informationPanel.changePanel(null);
         }
     }
 }
