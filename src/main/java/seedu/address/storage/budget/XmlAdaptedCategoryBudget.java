@@ -23,7 +23,6 @@ public class XmlAdaptedCategoryBudget extends XmlAdaptedBudget {
 
     public XmlAdaptedCategoryBudget(String category, String budget) {
         super(budget);
-        System.out.println("First constructor is called");
         this.category = category;
 
     }

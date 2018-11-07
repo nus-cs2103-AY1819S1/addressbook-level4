@@ -21,7 +21,6 @@ public class TotalBudget extends Budget {
     public static final String NOT_SET = "NOT_SET";
     public static final String SPENDING_RESET = "SPENDING_RESET";
     public static final String DO_NOTHING = "DO_NOTHING";
-
     protected long numberOfSecondsToRecurAgain;
     private LocalDateTime nextRecurrence;
     private HashSet<CategoryBudget> categoryBudgets;
@@ -135,7 +134,6 @@ public class TotalBudget extends Budget {
 
     @Override
     public void clearSpending() {
-        System.out.println("Clear spending is called");
         super.clearSpending();
         this.categoryBudgets.forEach(expense -> expense.clearSpending());
     }
