@@ -1,4 +1,3 @@
-﻿= ClinicIO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,11 +13,33 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-1/main
 
+= ClinicIO - Developer Guide
+
+Thank you for your interest in contributing to ClinicIO! +
+
 By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
+
+= About this guide
+
+This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features and cover everything you need to know
+when developing ClinicIO.
+
+This guide assume that readers has certain developers knowledge with Java and JavaFX.
+
+If you are new to development, you can try working step-by-step tutorial from Oracle:
+
+- https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
+- https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
+
+If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start
+set up ClinicIO project.
 
 == Setting up
 
 === Prerequisites
+
+Before you start setting up the project, these are the list of prerequisites that you need to install: +
 
 . *JDK `9`* or later
 +
@@ -31,7 +52,6 @@ Windows developers are highly recommended to use JDK `9`.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
 
 === Setting up the project in your computer
 
@@ -421,13 +441,14 @@ The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
 * `cancelappt` Command - Cancels appointments found within the appointment schedule.
-* `listapptday` Command - Lists the appointment schedule of the date specified.
+* `listappt` Command - Lists the appointment schedule of the date specified.
 
-Each `Appointment` object consists of a `Date`, `Time`, and `Patient`.
+Each `Appointment` object consists of a `Date`, `Time`, `Type` and `Patient`.
 
 ==== `addappt` Command
 
-The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in a `Patient` id. +
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified upon the addition of `Patient IC` in v2.0. +
+
 The image below illustrates this process.
 
 .Appointment construction process.
@@ -435,13 +456,21 @@ image::ApptConstructorSequenceDiagram.png[width="0"]
 
 Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
 
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)`. Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
 
-`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to the it's latest state. i.e. The addition of a new `Appointment` object. This means that this command can be undone or redone.
+Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
 
-==== `listapptday` Command
+`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest state, i.e. The addition of a new `Appointment` object.
 
-The `listapptday` command searches for appointments in the `UniqueAppointmentList` that land on the date that was entered by the user. For example, `listapptday 03032018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed.
+This means that this command can be undone or redone.
+
+==== `listappt` Command
+
+The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList` containing appointments that land on the date that was entered by the user.
+
+A `Date` object is instantiated from the user-entered date. This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate` object. The list of filtered appointments by date are generated once the method `ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with appointments chronologically ordered with their respective indices.
+
+For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed. [too much create!!!]
 
 ==== `cancelappt` Command
 
@@ -594,23 +623,32 @@ operation. Easier to implement.
 ** Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.
 // end::export[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::login[]
-=== Login
+=== User Authentication
 
 ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
 
 ==== Current Implementation
 
-ClinicIO's login mechanism is facilitated by `UniqueStaffList` to retrieve a list of staff. +
+The User Authentication feature comprises of `LoginCommand` and `LogoutCommand`.
 
-These operations are exposed in the Model interface as Model#hasStaff() and Model#checkStaffCred()  respectively.
+===== `LoginCommand`
+
+The `LoginCommand` contains multiple operations to manipulate the `UniqueStaffList` indirectly.
+The implemented operations include: +
+
+* ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO
+* ClinicIo#getStaff(): Retrieve the staff record from the `UniqueStaffList`
+* Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the `UniqueStaffList`
+
+These operations are exposed in the `Model` interface as `Model#checkStaffCredentials()`.
+
+`HashUtil` is used to manage the encryption and verification of password.
+
+These are operations inside `HashUtil`:
+
+- HashUtil#hashToString(): Hash the password
+- HashUtil#verifyPassword(): Check if the password matches the hashed password
 
 Given below is a scenario to illustrate the login authentication at each step: +
 
@@ -626,25 +664,58 @@ Step 5: To indicate successful completion of verification, the `login` command r
 
 Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
 
-The following sequence diagram shows how the login authentication works:
+The following sequence diagram shows how the login works:
 
 image::LoginSequenceDiagram.png[width="1080"]
 
-The following activity diagram summarizes what happens when a user executes the login command:
+The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
 image::LoginActivityDiagram.png[width="1080"]
+
+===== `LogoutCommand`
+
+The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
+the `EventCenter` to communicate between components without requiring the components to register with
+each other explicitly.
+
+Here is a step-by-step on how `LogoutCommand` notify `MainWindow` that you want to log out of ClinicIo: +
+
+Step 1: The `LogoutCommand` post a new `LogoutClinicIoEvent` to the `EventsCenter`.
+
+Step 2: The `eventBus` post the newly created `LogoutClinicIoEvent` (from Step 1) to make the event available to any listeners in `EventBus`.
+
+Step 3: ClinicIo will listen for `handleLogoutClinicIoEvent()` to receive the event and update the user session status.
 
 ==== Design Considerations
 
 ===== Aspect: Retrieval of password
 
-An alternative is to open an additional alert window to prompt the user for a password.
+* *Alternative 1 (current choice)*: Create a `PasswordPrefixFormatter` to handle
+`CommandBox` whenever user type 'pass/' prefix.
 
-* Pros: Greater security as the entire password will be censored.
+** Pros: More secure for being able to mask password.
+** Cons: Complex as it will require certain manipulation of the password in order to mask password.
 
-* Cons: Require a new window to be opened.
+* *Alternative 2*: Open an additional alert window to prompt the user for a password.
+
+** Pros: Greater security as the entire password will be censored.
+** Cons: Require a new window to be opened.
 This will consume time depending on the system.
 In addition, this will detract from the user experience due to the shift in focus required.
+
+===== Aspect: Keep track of user session
+
+* *Alternative 1 (current choice)*: Have a `UserSession` class to handle user session
+
+** Pros : Allow developers to handle user session easily.
+** Cons : Too troublesome as user will to login to ClinicIO at every startup.
+
+* *Alternative 2*: Save user session state in a file.
+
+** Pros: More convenience for users as they does not need to login on every startup.
+** Cons: Less secure as users, who understand how ClinicIO works,
+could edit the role of the user to have unauthorised access
+to ClinicIO.
 
 // end::login[]
 

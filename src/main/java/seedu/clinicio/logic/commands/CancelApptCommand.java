@@ -38,7 +38,7 @@ public class CancelApptCommand extends Command {
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
         //from the appt list shown, select index of appt and cancel

@@ -97,6 +97,12 @@ public class TypicalPersons {
     public static final Staff BEN = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
+    // Manually added (Patient)
+    public static final Patient ALEX = new PatientBuilder().withName("Alex").withNric("S9951423J")
+            .withPreferredDoctor(ADAM).build();
+    public static final Patient BRYAN = new PatientBuilder().withName("Bryan").withNric("S9106823A")
+            .withPreferredDoctor(BEN).build();
+
     //Not inside ClinicIO
     public static final Staff CAT = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_CAT)
             .withPassword(VALID_HASH_PASSWORD_CAT, true).build();
@@ -132,6 +138,9 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
+        /*for (Patient patient: getTypicalPatients()) {
+            clinicIo.addPatient(patient);
+        }*/
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }
@@ -147,10 +156,13 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    public static List<Patient> getTypicalPatients() {
+        return new ArrayList<>(Arrays.asList(ALEX, BRYAN));
+    }
+
     public static List<Staff> getTypicalStaffs() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN, ALAN, FRANK));
     }
-
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));

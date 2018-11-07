@@ -1,5 +1,7 @@
 package seedu.clinicio.model.appointment;
 
+//@@author gingivitiss
+
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
