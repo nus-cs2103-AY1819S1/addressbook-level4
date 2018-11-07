@@ -482,11 +482,11 @@ For EditCommand, despite the fact that schedule piggybacks off the original edit
 
 ===== Aspect: Storage of schedule in person
 
-* **Alternative 1:**: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
+* **Alternative 1** Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
 ** Pros: All information about the schedule are stored.
 ** Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.
 
-* **Alternative 2:**: Store weekly schedule
+* **Alternative 2:** (current implementation) Store weekly schedule
 ** Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.
 ** Cons: Explict details of the schedule may be lost such as an event that appears only once a year.
 
@@ -500,13 +500,20 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 
 Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application
 
+image::ScheduleDiagram.png[width="800"]
+
+As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.
+
 ===== Aspect: Schedule Update
 
-As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.
+As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.
 
 ===== Aspect: MaxSchedule Command
 
 Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
+
+Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.
 
 
 // end::schedule[]
@@ -521,7 +528,26 @@ This section explains the implementation of the features associated with the Tim
 
 `EditUserCommand` - The base Edit command for person with one addition - Timetable parameter
 
-TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.
+`AddUserCommand` - The base Add command for person with one addition - Timetable parameter
+
+TimeTable is data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand.
+This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.
+
+
+===== Aspect: Timetable Source
+
+* **Alternative 1** Google Calendar
+** Pros: Academic and non-academic calendar events can be downloaded.
+** Cons: Not tailored for NUS students - students must acquire their academic events from their own CORS (NUS module slot bidding) result to populate their own google calendar. Google authorization token (per user) will have to stored securely.
+
+* **Alternative 2:** (current implementation) NusMod
+** Pros: Academic events can be downloaded. Many students are already using this platform to store their academic events.
+** Cons: Non-academic events cannot be downloaded from this source.
+
+NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manaully update those slots.
+This way, we will be able to provide the most convenient way for the student to populate the schedule.
+
+===== Aspect: Timetable Download
 
 As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/... full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.
 
@@ -1123,7 +1149,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
 - [x] V1.2: Users able to specify friendships with other people.
-- [ ] V1.3: Users able to form groups and find mutual friends.
+- [x] V1.3: Users able to form groups and find mutual friends.
 
 #### Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
@@ -1547,6 +1573,7 @@ _{ more test cases ... }_
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Corrupted XML file: the application would not run to prevent unexpected responses.
 
-_{ more test cases ... }_
+.. Missing XML file: the application will re-generate the sample xml, and save it as data/addressbook.xml when a change in the sample data.
+
