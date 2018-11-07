@@ -74,11 +74,11 @@ Examples:
 
 ==== Adding a picture to resident detail : `image`
 
-Uploads the image of resident staying in the specified room to Hallper. +
+Uploads the image of resident staying in the specified room to Hallper and opens the profile page of the resident (*without the profile picture*). +
 Format: `image r/ROOM f/FILEPATH`
 
 ****
-* The image must be in *`.jpg`* or *`.png`*.
+* The image must be in *`.jpg`*.
 ****
 
 Example:
@@ -251,12 +251,14 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
+* `search SoC` +
+Searches Hallper and lists all residents that are studying in `SoC`.
 * `search basketball` +
-Searches Hallper and lists all contacts associated with `basketball`.
+Searches Hallper and lists all residents that are in `basketball`.
 * `search A123` +
-Searches Hallper and lists all contacts associated with `A123`.
-* `search basketball A123` +
-Searches Hallper and lists all contacts associated with `basketball` and `A123`.
+Searches Hallper and lists all residents that are staying in room `A123`.
+* `search basketball A123 Soc` +
+Searches Hallper and lists all residents that are in `basketball`, staying in room`A123` and studying in `SoC`.
 
 ==== Locating persons by name: `find`
 Finds persons whose names contain any of the given keywords. +
@@ -461,6 +463,7 @@ image::delete_event_diagram_after_valid.png[width="790"]
 
 ==== Viewing calendar : `view_calendar`
 
+*Currently doesn't work on Mac OS* +
 Loads the specified monthly calendar `.ics` file into the UI. UI by default displays the current week. +
 Format: `view_calendar month/MMM year/YYYY`
 
@@ -688,56 +691,70 @@ There is no need to save manually.
 
 == Command Summary
 
+===== Updating Hallper
 * *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOCK r/ROOM NUMBER s/SCHOOL [c/CCA]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com b/C r/420 s/School of Computing c/Basketball`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Erase* : `erase CCA` +
-e.g. `erase basketball`
 * *Clear* : `clear KEYWORD [MORE_KEYWORDS]` +
 e.g. `clear basketball A123`
 * *Clear all* : `clear all`
-* *Import* : `import f/FILEPATH`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Erase* : `erase CCA` +
+e.g. `erase basketball`
 * *Export* : `export dst/PATH fn/FILENAME`
+* *Import* : `import f/FILEPATH`
 * *Image* : `image r/ROOM f/FILEPATH`
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `search basketball A123`
+
+===== Viewing Hallper
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search basketball A123`
+
+===== Email
 * *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
 e.g. `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday content/Hey there's a meeting this friday.`
 * *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +
 e.g. `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Hey there's a meeting this friday.`
-* *List Emails*: `list_emails`
-* *View Email*: `view_email SUBJECT` +
+* *List Emails* : `list_emails`
+* *View Email* : `view_email SUBJECT` +
 e.g. `view_email Meeting this Friday`
-* *Create Calendar* : `create_calendar MONTH` +
-e.g. `create_calendar month/Feb year/2018`
-* *View Calendar* : `view_calendar MONTH` +
-e.g. `view_calendar Feb`
-* *Add Event* : `add_event month/MONTH year/YEAR sdate/START DATE shour/START HOUR smin/START MIN
-edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT` +
-e.g. `add_event month/Feb year/2018 sdate/01 shour/12 smin/00 edate/01 ehour/15 emin/00 title/Enthral`
+
+===== Calendar
+* *Add All Day Event* : `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT` +
+e.g. `add_all_day_event month/Oct year/2018 date/08 title/Hall open day`
+* *Add Event* : `add_event month/MMM year/YYYY sdate/DD shour/HH smin/mm edate/DD ehour/HH emin/mm title/NAME OF EVENT` +
+e.g. `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit`
+* *Create Calendar* : `create_calendar month/MMM year/YYYY` +
+e.g. `create_calendar month/Oct year/2018`
+* *Delete Event* : `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT` +
+e.g. `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit`
+* *View Calendar* : `view_calendar month/MMM year/YYYY` +
+e.g. `view_calendar month/Oct year/2018`
+
+===== Budget and CCA
+* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
+e.g. `add_transaction soccer 500 debit James`
+* *Budget* : `budget`
 * *Create CCA Budget* : `create n/CCA bud/BUDGET` +
 e.g. `create Basketball 500`
-* *Budget* : `budget`
-* *View CCA* : `view_cca CCA` +
-e.g. `view_cca basketball`
 * *Delete CCA* : `delete_cca CCA` +
 e.g. `delete_cca basketball`
 * *Modify CCA* : `modify_cca CCA BUDGET` +
 e.g. `modify_cca basketball 500`
-* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
-e.g. `add_transaction soccer 500 debit James`
+* *View CCA* : `view_cca CCA` +
+e.g. `view_cca basketball`
+
+===== Miscellaneous
+* *Exit* : `exit`
 * *Help* : `help`
 * *History* : `history`
 e.g. `view 2`
-* *Undo* : `undo`
 * *Redo* : `redo`
-* *Exit* : `exit`
+* *Undo* : `undo`
 
 == Glossary
 * `CCA`: Co-Curricular Activity that residents can join within their respective halls.

@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Logger;
-
-import org.apache.commons.io.FileUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -30,7 +30,9 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String PERSON_PROFILE_PAGE = "profile.html";
+    public static final String PROFILE_PAGE = "/ProfileWindow.html";
+    public static final String PICTURE_LINK = "/profile_picture/";
+    public static final String JPG = ".jpg";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -118,6 +120,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadProfile(event.getPersonSelected());
     }
 
+    //@@author javenseow
     /**
      * Loads HTML page of profile.
      * @param person The person that the profile will show.
@@ -132,20 +135,28 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        File htmlTemplateFile = new File("./src/main/resources/ProfileWindow.html");
-        String htmlString = null;
+        String htmlString = "";
+        //String pictureString = "";
+        String tempString;
         try {
-            htmlString = FileUtils.readFileToString(htmlTemplateFile);
+            InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
+            while ((tempString = reader.readLine()) != null) {
+                htmlString += tempString;
+            }
+            //pictureString = MainApp.class
+            //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         htmlString = htmlString.replace("$name", person.getName().fullName);
         htmlString = htmlString.replace("$cca", person.getTags().toString());
         htmlString = htmlString.replace("$room", person.getRoom().value);
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        htmlString = htmlString.replace("$profileRoom", person.getRoom().value.toLowerCase());
+        //htmlString = htmlString.replace("$profileURL", pictureString);
 
         return htmlString;
     }

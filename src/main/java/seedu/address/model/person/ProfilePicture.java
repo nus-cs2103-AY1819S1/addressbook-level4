@@ -13,14 +13,14 @@ import java.nio.file.Paths;
 public class ProfilePicture {
 
     public static final String MESSAGE_PROFILE_PICTURE_CONSTRAINTS =
-            "Profile picture should be either a .jpg or .png file, and not empty";
+            "Profile picture should only be a .jpg file, and not empty";
 
     /*
      * The first character of the file path must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String PROFILE_PICTURE_VALIDATION_REGEX =
-            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(?:jpg|png))(?:\\?([^#]*))?(?:#(.*))?";
+            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(?:jpg))(?:\\?([^#]*))?(?:#(.*))?";
     public final Path filePath;
 
     /**
