@@ -445,7 +445,7 @@ There is no need to save manually.
 ====
 * *Adding Tasks* :
 ====
-[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
+[blue]`add n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 Example: +
 [blue]`add n/do tutorial p/1 t/cs2100 d/121019 v/home` +
 ====
