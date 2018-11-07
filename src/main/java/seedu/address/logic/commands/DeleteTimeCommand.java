@@ -28,8 +28,8 @@ public class DeleteTimeCommand extends Command {
             + PREFIX_TIME + "mon 1300 1500 ";
 
     public static final String MESSAGE_SUCCESS_DELETED = "Time slot successfully deleted";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
-    public static final String MESSAGE_TIME_NOT_FOUND = "This tuition timing is not found in the address book";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the student list";
+    public static final String MESSAGE_TIME_NOT_FOUND = "This tuition timing is not found in the student list";
 
     private String[] personToFind;
 

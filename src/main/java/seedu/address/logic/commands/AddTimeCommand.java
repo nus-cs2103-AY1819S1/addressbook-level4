@@ -29,10 +29,10 @@ public class AddTimeCommand extends Command {
             + PREFIX_TIME + "mon 1300 1500 ";
 
     public static final String MESSAGE_SUCCESS_ADDED = "Time slot successfully added";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the student list";
     public static final String MESSAGE_TIME_IS_NOT_AVAILABLE = "The time has already been taken";
     public static final String MESSAGE_INVALID_START_END_TIME = "Start time must be earlier than end time";
-    public static final String MESSAGE_TIME_CLASH = "There is a clash with other tuition timing in the address book";
+    public static final String MESSAGE_TIME_CLASH = "There is a clash with other tuition timing in the student list";
 
     private String[] personToFind;
 

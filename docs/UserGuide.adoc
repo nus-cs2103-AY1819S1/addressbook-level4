@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T13-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -23,7 +23,7 @@ TutorPal is for private tutors who *prefer to use a desktop app for managing stu
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `Tutor Pal.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -46,10 +46,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by users. +
+e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional. +
+e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times. +
+e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order. +
+e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -58,8 +62,16 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]`
+Adds a person to the student list +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL [g/GRADE]... [t/TAG]...`
+
+****
+* If the student added has exactly the same name as an existing student in the student list, new student cannot be added.
+* `EDUCATIONAL_LEVEL` must be `Primary`, `Secondary` or `JC` followed by a number. +
+e.g. `... el/Primary 3 ...` is valid; however, `... el/primary 3 ...`, `... el/University 3 ...` or other inputs like these are invalid
+* The format of `GRADE` is `exam name` + `exam score`. +
+e.g. `... g/mid-test 100 ...`
+****
 
 [TIP]
 A person can have any number of tags and grades (including 0).
@@ -69,21 +81,17 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Mid 89 t/friends t/owesMoney`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing person in the student list. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [el/EDUCATIONAL_LEVEL] [g/GRADE] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed. +
+i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 * You can see the details about grade attribute in the <<grade,grade feature>>
 ****
@@ -94,6 +102,44 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+[[grade]]
+=== Grades attribute
+
+Grade attribute consists of two parts, `exam name` and `exam score`.
+
+[NOTE]
+====
+* The name and grade should be separated by space.
+
+* Score should be between 0 and 100.
+
+* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
+====
+
+Add grade:
+
+You can add some grades record for a student, both using add command and edit command.
+
+Example
+
+`add ... g/mid-test 100 [other grades]`
+
+`edit 1 g/mid-test 100`
+
+[NOTE]
+====
+Edit grade will not delete the previous grades as tap attribute.
+====
+
+Change grade:
+
+if you need to change the score of a exam, you can use edit as well.
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in Tutor Pal. +
+Format: `list`
 
 === Locating persons by name: `find`
 
@@ -198,7 +244,7 @@ Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from the student list. +
 Format: `delete INDEX`
 
 ****
@@ -211,7 +257,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the student list.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
@@ -231,29 +277,20 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in the student list.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+=== Filter students by tuition fee: `filterByFee`
 
-
-
-
-=== Making list by limit fee command: `filterByFee`
-
-Making list of according to minimal limit fee +
+List all the students whose tuition fee is greater or equal to a given minimal limit fee. +
 Format: `filterByFee [minimal fee to be filtered]`
-
-****
-* filter result: list the person's name whose fee is not less than minimal fee.
-****
 
 Examples:
 
 * `filterByFee 24`
-returns a list of students whose tuition fee is more than
-or equals to $24/hour.
+returns a list of students whose tuition fee is greater or equals to $24/hour.
 
 [NOTE]
 ====
@@ -261,10 +298,10 @@ If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
-=== Making list by limit fee command: `filterByEducation`
+=== Filter students by educational level: `filterByEducation`
 
-Making list of students who are in the given education +
-Format: `filterByEducation [education level]`
+List all the students with given educational level +
+Format: `filterByEducation [educational level]`
 
 ****
 * filter result: list the person's name whose education level is the same as input.
@@ -276,7 +313,7 @@ If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
-=== Making list by limit fee command: `filterByGrade`
+=== Filter students by grade: `filterByGrade`
 
 Returns a list of of students whose grades fall between the minimum and maximum grade +
 Format: `filterByGrade [minimum grade] [maximum grade]`
@@ -307,6 +344,21 @@ If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
+=== Adding tuition time of a student : `addTime`
+
+Adds a tuition time slot for a student in the address book.
+
+Format: `addtime n/NAME ts/TIME`
+
+
+* The student with the name `NAME` must be already be in the address book.
+* Adds the tuition time `TIME` for the student called `NAME`.
+* `TIME` must not clash with any other tuition time in the address book.
+
+Example:
+
+* `addTime n/John Doe ts/mon 1300 1500` +
+Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
 === Edit certain class time of certain student: `EditTime`
 
@@ -322,8 +374,21 @@ Format: `EditTime [student name] [old timeslot] [new timeslot]`
 If no one is qualified then shows cannot find.
 ====
 
+=== Deleting tuition time of a student : `deleteTime`
+
+Deletes a tuition time slot for a student in the address book.
+
+Format: `deletetime n/NAME ts/TIME`
 
 
+* The student with the name `NAME` must be already be in the address book.
+* `TIME` must already exist in the student's tuition timings.
+* The student with the name `NAME` will have the tuition timing `TIME` deleted.
+
+Example:
+
+* `deleteTime n/John Doe ts/mon 1300 1500` +
+Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
 === Listing entered commands : `history`
 
@@ -333,54 +398,6 @@ Format: `history`
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-
-[[grade]]
-=== Grades attribute
-
-Grade attribute consists of two parts, exam name and exam score.
-
-[NOTE]
-====
-* The name and grade should be separated by space.
-
-* Score should be between 0 and 100.
-
-* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
-====
-
-Add grade:
-
-You can add some grades record for a student, both using add command and edit command.
-
-Example
-
-`add g/mid-test 100 [other part]`
-
-`edit 1 g/mid-test 100`
-
-[NOTE]
-====
-Edit grade will not delete the previous grades as tap attribute.
-====
-
-Change grade:
-
-if you need to change the score of a exam, you can use edit as well.
-
-=== Analyzing grades commands `[coming in v2.0]`
-
-Analyze the grades of students +
-Format: `grades ACTION [parameters]`
-
-****
-* grades sort: list the details of students sorting by grades.
-****
-
-[NOTE]
-====
-Regard the mark of the student who doesn't have a grade as 0.
 ====
 
 === Retrieving earnings
@@ -453,38 +470,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Adding tuition time of a student : `addTime`
-
-Adds a tuition time slot for a student in the address book.
-
-Format: `addtime n/NAME ts/TIME`
-
-
-* The student with the name `NAME` must be already be in the address book.
-* Adds the tuition time `TIME` for the student called `NAME`.
-* `TIME` must not clash with any other tuition time in the address book.
-
-Example:
-
-* `addTime n/John Doe ts/mon 1300 1500` +
-Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
-
-=== Deleting tuition time of a student : `deleteTime`
-
-Deletes a tuition time slot for a student in the address book.
-
-Format: `deletetime n/NAME ts/TIME`
-
-
-* The student with the name `NAME` must be already be in the address book.
-* `TIME` must already exist in the student's tuition timings.
-* The student with the name `NAME` will have the tuition timing `TIME` deleted.
-
-Example:
-
-* `deleteTime n/John Doe ts/mon 1300 1500` +
-Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -495,6 +480,20 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Analyzing grades commands `[coming in v2.0]`
+
+Analyze the grades of students +
+Format: `grades ACTION [parameters]`
+
+****
+* grades sort: list the details of students sorting by grades.
+****
+
+[NOTE]
+====
+Regard the mark of the student who doesn't have a grade as 0.
+====
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
@@ -504,7 +503,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Tutor Pal folder.
 
 == Command Summary
 
