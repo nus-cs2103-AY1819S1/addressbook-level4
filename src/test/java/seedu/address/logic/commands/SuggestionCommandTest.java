@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 import org.junit.Test;
 
 public class SuggestionCommandTest {
