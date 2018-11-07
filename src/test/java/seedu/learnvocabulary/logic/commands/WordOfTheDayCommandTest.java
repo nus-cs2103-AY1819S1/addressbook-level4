@@ -15,10 +15,10 @@ import seedu.learnvocabulary.testutil.WordBuilder;
 
 public class WordOfTheDayCommandTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullWord_throwsNullPointerException() {
@@ -27,7 +27,7 @@ public class WordOfTheDayCommandTest {
     }
 
     @Test
-    public void execute_displayWordOfTheDay_Successful() {
+    public void execute_displayWordOfTheDay_successful() {
         Model model = new ModelManager();
         Word validWord = new WordBuilder().build();
         String validOutput = WordOfTheDayCommand.MESSAGE_SUCCESS.replace("%1$s\n", validWord.toString());
@@ -37,5 +37,4 @@ public class WordOfTheDayCommandTest {
         assertNotNull(commandResult.feedbackToUser);
         assertEquals(validOutput, commandResult.feedbackToUser);
     }
-
 }
