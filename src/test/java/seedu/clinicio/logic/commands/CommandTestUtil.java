@@ -41,6 +41,11 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_NAME_ALEX = "Alex X";
+    public static final String VALID_NAME_BRYAN = "Bryan James";
+    public static final String VALID_NRIC_ALEX = "S9951423J";
+    public static final String VALID_NRIC_BRYAN = "S9106823A";
+    
     public static final String VALID_NAME_ADAM = "Adam Bell";
     public static final String VALID_NAME_BEN = "Ben Hill";
     public static final String VALID_NAME_CAT = "Cat Johnson";

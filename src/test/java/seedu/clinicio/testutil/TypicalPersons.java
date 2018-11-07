@@ -12,12 +12,16 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_FRANK;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_DAISY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -98,9 +102,9 @@ public class TypicalPersons {
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
     // Manually added (Patient)
-    public static final Patient ALEX = new PatientBuilder().withName("Alex").withNric("S9951423J")
+    public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
             .withPreferredDoctor(ADAM).build();
-    public static final Patient BRYAN = new PatientBuilder().withName("Bryan").withNric("S9106823A")
+    public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
             .withPreferredDoctor(BEN).build();
 
     //Not inside ClinicIO

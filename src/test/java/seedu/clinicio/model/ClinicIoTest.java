@@ -7,8 +7,15 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.testutil.Assert.assertThrows;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_AS_PATIENT;
@@ -33,12 +40,19 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.patient.exceptions.DuplicatePatientException;
+import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
 
+import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
 import seedu.clinicio.testutil.AppointmentBuilder;
+import seedu.clinicio.testutil.Assert;
+import seedu.clinicio.testutil.PatientBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.StaffBuilder;
 
@@ -52,8 +66,10 @@ public class ClinicIoTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), clinicIo.getPersonList());
-        //@@author jjlee050
+        assertEquals(Collections.emptyList(), clinicIo.getPatientList());
         assertEquals(Collections.emptyList(), clinicIo.getStaffList());
+        assertEquals(Collections.emptyList(), clinicIo.getAppointmentList());
+        assertEquals(Collections.emptyList(), clinicIo.getConsultationList());
     }
 
     @Test
@@ -83,7 +99,19 @@ public class ClinicIoTest {
         clinicIo.resetData(newData);
     }
 
-    //@@author jjlee050
+    @Test
+    public void resetData_withDuplicatePatients_throwsDuplicatePatientException() {
+        // Two persons with the same identity fields
+        Patient editedAlex = new PatientBuilder(ALEX).withAddress(VALID_ADDRESS_BOB)
+                .build();
+        List<Patient> newPatients = Arrays.asList(ALEX, editedAlex);
+        ClinicIoStub newData = new ClinicIoStub(new ArrayList<>(), new ArrayList<>(),
+                newPatients, new ArrayList<>());
+
+        thrown.expect(DuplicatePatientException.class);
+        clinicIo.resetData(newData);
+    }
+
     @Test
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
@@ -130,7 +158,12 @@ public class ClinicIoTest {
         clinicIo.hasPerson(null);
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_nullPatient_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        clinicIo.hasPatient(null);
+    }
+
     @Test
     public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -149,7 +182,11 @@ public class ClinicIoTest {
         assertFalse(clinicIo.hasPerson(ALICE));
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_patientNotInClinicIo_returnsFalse() {
+        assertFalse(clinicIo.hasPatient(ALEX));
+    }
+
     @Test
     public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasStaff(ADAM));
@@ -167,7 +204,12 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasPerson(ALICE));
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_PatientInClinicIo_returnsTrue() {
+        clinicIo.addPatient(ALEX);
+        assertTrue(clinicIo.hasPatient(ALEX));
+    }
+
     @Test
     public void hasStaff_staffInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
@@ -189,11 +231,19 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasPerson(editedAlice));
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_patientWithSameIdentityFieldsInClinicIo_returnsTrue() {
+        clinicIo.addPatient(ALEX);
+        Patient editedAlex = new PatientBuilder(ALEX).withNric(VALID_NRIC_BRYAN)
+                .build();
+        assertTrue(clinicIo.hasPatient(editedAlex));
+    }
+
     @Test
     public void hasStaff_staffWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
-        Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        Staff editedAdam = new StaffBuilder(ADAM).withRole(Role.RECEPTIONIST)
+                .build();
         assertTrue(clinicIo.hasStaff(editedAdam));
     }
 
@@ -221,15 +271,24 @@ public class ClinicIoTest {
 
     //@@author jjlee050
     @Test
-    public void getStaff_nullStaff_throwsNullPointerException() {
+    public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         clinicIo.checkStaffCredentials(null);
     }
 
     @Test
-    public void getStaff_validStaff_returnDoctor() {
+    public void checkStaffCredentials_staffNotInClinicIo_throwStaffNotFoundException() {
+        Staff staffToCheck = new Staff(DOCTOR, new Name(VALID_NAME_ADAM),
+                new Password(VALID_PASSWORD_ADAM, false));
+        assertThrows(StaffNotFoundException.class, () -> clinicIo.checkStaffCredentials(staffToCheck));
+    }
+
+    @Test
+    public void checkStaffCredentials_validStaff_returnTrue() {
         clinicIo.addStaff(ADAM);
-        assertNotNull(clinicIo.checkStaffCredentials(ADAM));
+        Staff staffToCheck = new Staff(DOCTOR, new Name(VALID_NAME_ADAM),
+                new Password(VALID_PASSWORD_ADAM, false));
+        assertTrue(clinicIo.checkStaffCredentials(staffToCheck));
     }
 
     @Test
@@ -238,7 +297,12 @@ public class ClinicIoTest {
         clinicIo.getPersonList().remove(0);
     }
 
-    //@@author jjlee050
+    @Test
+    public void getPatientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        clinicIo.getPatientList().remove(0);
+    }
+
     @Test
     public void getStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
