@@ -1,7 +1,7 @@
 package seedu.restaurant.commons.core;
 
 /**
- * Container for user visible messages.
+ * Container for user visible messages that is not tied to any commands in specific.
  */
 public class Messages {
 

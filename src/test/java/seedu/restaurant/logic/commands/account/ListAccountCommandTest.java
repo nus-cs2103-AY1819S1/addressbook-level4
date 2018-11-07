@@ -1,6 +1,8 @@
 package seedu.restaurant.logic.commands.account;
 
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.restaurant.logic.commands.CommandTestUtil.showAccountAtIndex;
+import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 
 import org.junit.Before;
@@ -32,5 +34,10 @@ public class ListAccountCommandTest {
         assertCommandSuccess(new ListAccountsCommand(), model, commandHistory,
                 String.format(ListAccountsCommand.MESSAGE_SUCCESS, model.getFilteredAccountList().size()),
                 expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFiltered_showsEverything() {
+        showAccountAtIndex(model, INDEX_FIRST);
     }
 }
