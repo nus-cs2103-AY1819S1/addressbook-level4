@@ -37,10 +37,10 @@ public class FirstDayCommand extends Command {
     public static final int WEEKS_IN_SEMESTER = 17;
     public static final String DEFAULT_MONDAY_DATE = "010118";
 
+    private static final Path PATH = Paths.get("rangeofweek.xml");
     private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
     private String weekDescription = "";
-    private Path path = Paths.get("rangeofweek.xml");
 
     //To allow other class to use the methods without causing any changes to the storage
     public FirstDayCommand() {}
@@ -82,6 +82,8 @@ public class FirstDayCommand extends Command {
     }
 
     /**
+     * The following code is referenced from:
+     * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
      * Retrieve the description of a particular week. If week can't be found, return empty string
      * @param rangeOfWeek
      * @return description of week
@@ -106,7 +108,7 @@ public class FirstDayCommand extends Command {
      */
     public void saveRangeOfWeeks (String[][] rangeOfWeek) throws CommandException {
         try {
-            XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
+            XmlFileStorage.saveWeekDataToFile(PATH, new XmlSerializableRangeOfWeek(rangeOfWeek));
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
         }
@@ -119,7 +121,7 @@ public class FirstDayCommand extends Command {
      */
     public String[][] retrieveRangeOfWeeks (String[][] storeRangeOfWeeks) throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
         } catch (DataConversionException e) {
             throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
@@ -130,6 +132,8 @@ public class FirstDayCommand extends Command {
     }
 
     /**
+     * The following code is referenced from:
+     * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
      * This method compute the range of weeks for one semester based on the first Monday.
      * @param firstDay
      * @return the 2d string array
@@ -218,7 +222,7 @@ public class FirstDayCommand extends Command {
      */
     public void createDefaultFileIfSizeDiff () throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (range.returnSize() != WEEKS_IN_SEMESTER) {
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
@@ -235,7 +239,7 @@ public class FirstDayCommand extends Command {
      */
     public void createDefaultFileIfInvalidDateOrRange () throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (!range.checkIfValidDateOrRangeFromStorage()) {
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
@@ -252,7 +256,7 @@ public class FirstDayCommand extends Command {
      */
     public void createDefaultFileIfNull () throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (!range.checkIfNullValueFromStorage()) {
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
