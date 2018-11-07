@@ -89,9 +89,9 @@ public class EarningsCommandSystemTest extends AddressBookSystemTest {
      * provide some students with timeslots for test
      */
     private void addTimeslotsForSomeStudents() {
-        executeCommand("addTime n/Carl Kurz ts/fri 1000 1200");
-        executeCommand("addTime n/George Best ts/wed 1800 2000");
-        executeCommand("addTime n/Elle Meyer ts/tue 0900 1100");
+        executeCommand("addTime 3 ts/fri 1000 1200");
+        executeCommand("addTime 7 ts/wed 1800 2000");
+        executeCommand("addTime 5 ts/tue 0900 1100");
     }
 
     /**

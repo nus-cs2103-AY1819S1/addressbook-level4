@@ -77,15 +77,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addTime(String target, Time timeslot) {
-        versionedAddressBook.addTime(target, timeslot);
+    public void addTime(Person target, Time time) {
+        versionedAddressBook.addTime(target, time);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteTime(String target, Time timeslot) {
-        versionedAddressBook.deleteTime(target, timeslot);
+    public void deleteTime(Person target, Time time) {
+        versionedAddressBook.deleteTime(target, time);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }

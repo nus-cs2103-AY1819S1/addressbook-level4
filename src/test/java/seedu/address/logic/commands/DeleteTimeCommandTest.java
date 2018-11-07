@@ -10,7 +10,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Time;
 
-public class AddTimeCommandTest {
+public class DeleteTimeCommandTest {
 
     @Test
     public void equals() {
@@ -19,21 +19,21 @@ public class AddTimeCommandTest {
         Time testTimeOne = new Time("mon 1300 1500");
         Time testTimeTwo = new Time("tue 1500 1700");
 
-        AddTimeCommand firstAddTimeCommand = new AddTimeCommand(indexOne, testTimeOne);
-        AddTimeCommand secondAddTimeCommand = new AddTimeCommand(indexTwo, testTimeOne);
-        AddTimeCommand thirdAddTimeCommand = new AddTimeCommand(indexOne, testTimeTwo);
+        DeleteTimeCommand firstDeleteTimeCommand = new DeleteTimeCommand(indexOne, testTimeOne);
+        DeleteTimeCommand secondDeleteTimeCommand = new DeleteTimeCommand(indexTwo, testTimeOne);
+        DeleteTimeCommand thirdDeleteTimeCommand = new DeleteTimeCommand(indexOne, testTimeTwo);
 
         //same object -> returns true
-        assertTrue(firstAddTimeCommand.equals(firstAddTimeCommand));
+        assertTrue(firstDeleteTimeCommand.equals(firstDeleteTimeCommand));
 
         // same values -> returns true
-        AddTimeCommand firstAddTimeCommandCopy = new AddTimeCommand(indexOne, testTimeOne);
-        assertTrue(firstAddTimeCommand.equals(firstAddTimeCommandCopy));
+        DeleteTimeCommand firstDeleteTimeCommandCopy = new DeleteTimeCommand(indexOne, testTimeOne);
+        assertTrue(firstDeleteTimeCommand.equals(firstDeleteTimeCommandCopy));
 
         //different person with same time slot -> returns false;
-        assertFalse(firstAddTimeCommand.equals(secondAddTimeCommand));
+        assertFalse(firstDeleteTimeCommand.equals(secondDeleteTimeCommand));
 
         //same person with different time slot -> returns false;
-        assertFalse(firstAddTimeCommand.equals(thirdAddTimeCommand));
+        assertFalse(firstDeleteTimeCommand.equals(thirdDeleteTimeCommand));
     }
 }

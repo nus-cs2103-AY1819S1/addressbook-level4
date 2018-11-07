@@ -6,24 +6,24 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FilterByEducationCommand;
+import seedu.address.logic.commands.ExchangeTimeCommand;
 
-public class FilterByEducationCommandParserTest {
-    private FilterByEducationCommandParser parser = new FilterByEducationCommandParser();
+public class ExchangeTimeCommandParserTest {
+    private ExchangeTimeCommandParser parser = new ExchangeTimeCommandParser();
 
     @Test
     public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, " ", String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
+                MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
-        FilterByEducationCommand expectedFindCommand =
-                new FilterByEducationCommand("Secondary");
-        assertParseSuccess(parser, "Secondary", expectedFindCommand);
-
+        ExchangeTimeCommand expectedFindCommand =
+                new ExchangeTimeCommand("Alice 0 Bob 0");
+        assertParseSuccess(parser, "Alice 0 Bob 0", expectedFindCommand);
 
     }
+
 }

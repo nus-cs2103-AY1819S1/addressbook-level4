@@ -67,8 +67,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL [g/GRA
 
 ****
 * If the student added has exactly the same name as an existing student in the student list, new student cannot be added.
-* `EDUCATIONAL_LEVEL` must be `Primary`, `Secondary` or `JC` followed by a number. +
-e.g. `... el/Primary 3 ...` is valid; however, `... el/primary 3 ...`, `... el/University 3 ...` or other inputs like these are invalid
+* `EDUCATIONAL_LEVEL` must be `Primary`, `Secondary` or `JC`. +
+e.g. `... el/Primary ...` is valid; however, `... el/primary ...`, `... el/University ...` or other inputs like these are invalid
 * The format of `GRADE` is `exam name` + `exam score`. +
 e.g. `... g/mid-test 100 ...`
 ****
@@ -140,6 +140,77 @@ if you need to change the score of a exam, you can use edit as well.
 
 Shows a list of all persons in Tutor Pal. +
 Format: `list`
+
+=== Adding tuition time of a student : `addTime`
+
+Adds a tuition time slot for a student in the address book.
+
+Format: `addTime n/NAME ts/TIME`
+
+****
+* The student with the name `NAME` must be already be in the address book.
+* Adds the tuition time `TIME` for the student called `NAME`.
+* `TIME` must not clash with any other tuition time in the address book.
+****
+
+Example:
+
+* `addTime n/John Doe ts/mon 1300 1500` +
+Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+
+=== Edit certain class time of certain student: `editTime`
+
+Edit certain class time of certain student +
+Format: `editTime n/NAME ts/OLD_TIME_SLOT ts/NEW_TIME_SLOT`
+
+****
+* filter result: list the person's name who takes class at given time.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
+=== Edit certain class time of certain student: `exchangeTime`
+
+Exchange class time between two students who are in the same grade of same education level +
+Format: `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDINAL_NUMBER`
+
+****
+* exchange result: exchanged the time between the given students with given time found by the ordinal number.
+****
+
+Examples:
+
+* `exchangeTime Alice 0 Bob 0`
+Exchange Alice first time slot and Bob first time slot.
+
+[NOTE]
+====
+The reason this command exists is that when two student want to swap time
+it cannot only use edit because the existing time-slot will crush.
+
+If the two students are not in the same grade of same education level
+It will be considered as invalid command.
+
+The ordinal number of the time is 0 base.
+If the the corresponding time-slot doesn't exit based on the ordinal number, then return invalid input.
+====
+
+=== Deleting tuition time of a student : `deleteTime`
+
+Deletes a tuition time slot for a student in the address book.
+Format: `deleteTime n/NAME ts/TIME`
+
+* The student with the name `NAME` must be already be in the address book.
+* `TIME` must already exist in the student's tuition timings.
+* The student with the name `NAME` will have the tuition timing `TIME` deleted.
+
+Example:
+
+* `deleteTime n/John Doe ts/mon 1300 1500` +
+Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
 === Locating persons by name: `find`
 
@@ -313,11 +384,11 @@ Format: `filterByEducation EDUCATIONAL_LEVEL`
 
 Examples:
 
- * `filterByEducation Secondary` +
- returns a list of students whose Education level is Secondary.(no matter which year he or she is in)
+* `filterByEducation Secondary` +
+returns a list of students whose Education level is Secondary.(no matter which year he or she is in)
 
- * `filterByEducation JC` +
- returns a list of students whose Education level is JC.(no matter which year he or she is in)
+* `filterByEducation JC` +
+returns a list of students whose Education level is JC.(no matter which year he or she is in)
 
 [NOTE]
 ====
@@ -328,7 +399,7 @@ The input of the education level must be "JC" "Secondary" or "Primary". Other in
 
 === Filter students by grade: `filterByGrade`
 
-Returns a list of of students whose grades fall between the minimum and maximum grade(both inclusive). +
+List all the students whose grades fall between the minimum and maximum grade(both inclusive). +
 Format: `filterByGrade MINIMUM_GRADE MAXIMUM_GRADE`
 
 ****
@@ -337,8 +408,8 @@ Format: `filterByGrade MINIMUM_GRADE MAXIMUM_GRADE`
 
 Examples:
 
- * `filterByGrade 50 100` +
- returns a list of students whose has grade within 50 and 100 (both 50 and 100 are inclusive).
+* `filterByGrade 50 100` +
+returns a list of students whose has grade within 50 and 100 (both 50 and 100 are inclusive).
 
 [NOTE]
 ====
@@ -347,13 +418,13 @@ If the input minimal grade is larger than maximal grade, then it will be regarde
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
-=== Making list by limit fee command: `filterByTime`
+=== Filter students by time slot: `filterByTime`
 
-Show the student name who taking class ar the given time +
-Format: `filterByTime [given TimeSlot]`
+List the student who has class at the given time. +
+Format: `filterByTime TIME_SLOT`
 
 ****
-* filter result: A student who has a lesson at the given timeslot
+* filter result: A student who has a lesson at the given time slot.
 ****
 
 Examples:
@@ -368,91 +439,7 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
-=== Adding tuition time of a student : `addTime`
-
-Adds a tuition time slot for a student in the address book.
-
-Format: `addtime n/NAME ts/TIME`
-
-****
-* The student with the name `NAME` must be already be in the address book.
-* Adds the tuition time `TIME` for the student called `NAME`.
-* `TIME` must not clash with any other tuition time in the address book.
-****
-
-Example:
-
-* `addTime n/John Doe ts/mon 1300 1500` +
-Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
-
-=== Edit certain class time of certain student: `EditTime`
-
-Edit certain class time of certain student +
-Format: `EditTime n/NAME ts/OLD_TIMESLOT ts/NEW_TIMESLOT`
-
-****
-* filter result: list the person's name who takes class at given time.
-****
-
-[NOTE]
-====
-If no one is qualified then shows cannot find.
-====
-
-=== Edit certain class time of certain student: `ExchangeTime`
-
-Exchange class time between two students who are in the same grade of same education level +
-Format: `Exch [studentA name] [A time-slot ordinal number within A's time-slot array] [studentB name]
-[B time-slot ordinal number within B's time-slot array]`
-
-****
-* exchange result: exchanged the time between the given students with given time found by the ordinal number.
-****
-
-Examples:
-
-* `ExchangeTime Alice 0 Bob 0`
-Exchange Alice first time-slot and Bob first time-slot.
-
-[NOTE]
-====
-The reason this command exists is that when two student want to swap time
-it cannot only use edit because the existing time-slot will crush.
-
-If the two students are not in the same grade of same education level
-It will be considered as invalid command.
-
-The ordinal number of the time is 0 base.
-If the the corresponding time-slot doenst exit based on the ordinal number, then return invalid input.
-====
-
-=== Deleting tuition time of a student : `deleteTime`
-
-Deletes a tuition time slot for a student in the address book.
-
-Format: `deletetime n/NAME ts/TIME`
-
-
-* The student with the name `NAME` must be already be in the address book.
-* `TIME` must already exist in the student's tuition timings.
-* The student with the name `NAME` will have the tuition timing `TIME` deleted.
-
-Example:
-
-* `deleteTime n/John Doe ts/mon 1300 1500` +
-Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-=== Retrieving earnings
+=== Retrieving earnings: `earnings`
 
 Retrieve the total earnings within a range of date in the current year. +
 Format: `earnings START_DATE END_DATE`
@@ -466,6 +453,36 @@ Example:
 
 * `earnings 0204 2506` +
 This command returns the total amount of tuition fees earned between 2 April 2018 to 25 June 2018 inclusive.
+
+=== Give Suggestions to students: `suggestion`
+
+Give Suggestions to students +
+Format: `suggestion NAME`
+
+****
+* result: show the suggestions.
+****
+
+Examples:
+
+* `suggestion Alice`
+Show the suggestion to Alice according to her performance.
+
+[NOTE]
+====
+If the student has not taken any exam before
+No suggestion gonna be shown.
+====
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -559,17 +576,30 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]` +
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL [g/GRADE]... [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 el/JC 1 g/FinalExam 85`
-* *AddTime* : `addtime n/NAME ts/TIME` +
-e.g. `addtime n/James Ho ts/mon 1300 1500`
+* *Add time* : `addTime INDEX ts/TIME` +
+e.g. `addTime 1 ts/mon 1300 1500`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *DeleteTime* : `deletetime n/NAME ts/TIME` +
-e.g. `deletetime n/James Ho ts/mon 1300 1500`
+* *Delete time* : `deleteTime INDEX ts/TIME` +
+e.g. `deleteTime 1 ts/mon 1300 1500`
+* *Earnings* : `earnings START_DATE END_DATE`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit time* : `editTime n/NAME ts/OLD_TIME_SLOT ts/NEW_TIME_SLOT` +
+e.g. `editTime n/Alice ts/mon 1300 1400 ts/tue 1300 1400`
+* *Exchange time* : `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDINAL_NUMBER` +
+e.g. `ExchangeTime Alice 0 Bob 0`
+* *Filter by fee* : `filterByFee FEE` +
+e.g. `filterByFee 24`
+* *Filter by educational level* : `filterByEducation EDUCATIONAL_LEVEL` +
+e.g. `filterByEducation Secondary`
+* *Filter by grade* : `filterByGrade MINIMUM_GRADE MAXIMUM_GRADE` +
+e.g. `filterByGrade 50 100`
+* *Filter by time* : `filterByFee TIME_SLOT` +
+e.g. `filterByTime mon 1300 1400`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *Find by address* : `find/a ADDRESS` +
@@ -578,12 +608,12 @@ e.g `find/a serangoon`
 e.g `find/p 12345678`
 * *Find by email* : `find/e EMAIL` +
 e.g `find/e lidavid@example.com`
-* *List* : `list`
 * *Help* : `help`
+* *History* : `history`
+* *List* : `list`
+* *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *filterByFee* : `filterByFee FEE`
-* *Earnings* : `earnings START_DATE END_DATE`
-* *History* : `history`
+* *Suggestion* : `suggestion NAME` +
+e.g.`suggestion Alice`
 * *Undo* : `undo`
-* *Redo* : `redo`
