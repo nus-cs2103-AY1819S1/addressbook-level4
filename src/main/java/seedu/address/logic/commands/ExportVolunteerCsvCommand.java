@@ -114,7 +114,7 @@ public class ExportVolunteerCsvCommand extends Command {
         sb.append(System.getProperty("line.separator"));
 
         for (Index i : index) {
-            Volunteer volunteer = list.get(i.getOneBased());
+            Volunteer volunteer = list.get(i.getZeroBased());
 
             //appending volunteer information accordingly
             sb.append(volunteer.getName().toString() + csvSplit);

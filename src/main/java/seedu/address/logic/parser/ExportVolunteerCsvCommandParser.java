@@ -29,7 +29,9 @@ public class ExportVolunteerCsvCommandParser implements Parser<ExportVolunteerCs
         try {
             String[] inputs = userInput.split(" ");
             for ( String i : inputs ) {
-                index.add(ParserUtil.parseIndex(i));
+                if ( i != null || !i.isEmpty()) {
+                    index.add(ParserUtil.parseIndex(i));
+                }
             }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
