@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
 import seedu.clinicio.commons.util.HashUtil;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.medicine.Medicine;
+import seedu.clinicio.model.medicine.MedicineDosage;
+import seedu.clinicio.model.medicine.MedicineName;
+import seedu.clinicio.model.medicine.MedicinePrice;
+import seedu.clinicio.model.medicine.MedicineQuantity;
+import seedu.clinicio.model.medicine.MedicineType;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -63,14 +69,43 @@ public class SampleDataUtil {
                         new Password(HashUtil.hashToString("reception2"), true))));
     }
 
+    //@@author aaronseahyh
+    public static Medicine[] getSampleMedicines() {
+        return new Medicine[]{
+                new Medicine(new MedicineName("Paracetamol"), new MedicineType("Tablet"),
+                        new MedicineDosage("2"), new MedicineDosage("8"),
+                        new MedicinePrice("0.05"), new MedicineQuantity("5000"),
+                        getTagSet("take one or two tablets at a time", "every six hours")),
+                new Medicine(new MedicineName("Chlorpheniramine"), new MedicineType("Liquid"),
+                        new MedicineDosage("4"), new MedicineDosage("32"),
+                        new MedicinePrice("18.90"), new MedicineQuantity("500"),
+                        getTagSet("take 4mg orally every four to six hours")),
+                new Medicine(new MedicineName("Oracort"), new MedicineType("Topical"),
+                        new MedicineDosage("5"), new MedicineDosage("30"),
+                        new MedicinePrice("8.90"), new MedicineQuantity("100"),
+                        getTagSet("apply 5mm on ulcer area", "two or three times a day")),
+                new Medicine(new MedicineName("Ventolin"), new MedicineType("Inhaler"),
+                        new MedicineDosage("2"), new MedicineDosage("10"),
+                        new MedicinePrice("13.55"), new MedicineQuantity("200"),
+                        getTagSet("take two puffs four times a day")),
+        };
+    }
+
     public static ReadOnlyClinicIo getSampleClinicIo() {
         ClinicIo sampleClinicIo = new ClinicIo();
+
         for (Person samplePerson : getSamplePersons()) {
             sampleClinicIo.addPerson(samplePerson);
         }
+
         //@@author jjlee050
         for (Staff sampleStaff : getSampleStaffs()) {
             sampleClinicIo.addStaff(sampleStaff);
+        }
+
+        //@@author aaronseahyh
+        for (Medicine sampleMedicine : getSampleMedicines()) {
+            sampleClinicIo.addMedicine(sampleMedicine);
         }
 
         return sampleClinicIo;
