@@ -94,7 +94,6 @@ public class CalendarDisplay extends UiPart<Region> {
 
     /**
      * TODO add javadoc comment
-     *
      */
     private void displayPopUp(Parent root) {
         Scene scene = new Scene(root, 300, 200);
@@ -106,6 +105,7 @@ public class CalendarDisplay extends UiPart<Region> {
 
     /**
      * Sync the list of CalendarEvents to the calendar display
+     *
      * @param calendarEventList the list of CalendarEvents to display
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {

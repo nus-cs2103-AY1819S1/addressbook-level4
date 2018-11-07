@@ -39,8 +39,8 @@ public class FindCommandParser implements Parser<FindEventCommand> {
         List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
 
         return new FindEventCommand(new TitleContainsKeywordsPredicate(Arrays.asList(nameKeywords)),
-                                    new FuzzySearchComparator(Arrays.asList(nameKeywords)),
-                                    new TagsPredicate(tagList));
+            new FuzzySearchComparator(Arrays.asList(nameKeywords)),
+            new TagsPredicate(tagList));
     }
 
 }

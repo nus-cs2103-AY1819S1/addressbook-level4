@@ -14,9 +14,9 @@ import seedu.address.testutil.ToDoListEventBuilder;
 public class ToDoListEventCardTest extends GuiUnitTest {
 
     // @Test
+
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     *
      */
     public void display() {
         ToDoListEvent toDoListEvent = new ToDoListEventBuilder().build();

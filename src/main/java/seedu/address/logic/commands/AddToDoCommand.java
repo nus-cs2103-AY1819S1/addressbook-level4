@@ -20,14 +20,14 @@ public class AddToDoCommand extends Command {
     public static final String COMMAND_WORD = "add todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the todo list. "
-            + "Parameters: "
-            + PREFIX_TITLE + "TITLE "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_PRIORITY + "PRIORITY "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "CS2103 Final Exam "
-            + PREFIX_DESCRIPTION + "Bring calculator "
-            + PREFIX_PRIORITY + "H ";
+        + "Parameters: "
+        + PREFIX_TITLE + "TITLE "
+        + PREFIX_DESCRIPTION + "DESCRIPTION "
+        + PREFIX_PRIORITY + "PRIORITY "
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_TITLE + "CS2103 Final Exam "
+        + PREFIX_DESCRIPTION + "Bring calculator "
+        + PREFIX_PRIORITY + "H ";
 
     public static final String MESSAGE_SUCCESS = "New todo event added: %1$s";
     public static final String MESSAGE_DUPLICATE_TODO_EVENT = "This todo event already exists in the todolist";
@@ -66,8 +66,8 @@ public class AddToDoCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddToDoCommand // instanceof handles nulls
-                && toAdd.equals(((AddToDoCommand) other).toAdd));
+            || (other instanceof AddToDoCommand // instanceof handles nulls
+            && toAdd.equals(((AddToDoCommand) other).toAdd));
     }
 
 }
