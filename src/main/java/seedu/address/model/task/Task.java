@@ -121,17 +121,17 @@ public class Task {
      */
     private String millisecondsToString(long timeMilliseconds) {
         //Declaring constants to be used.
-        long SECOND = 1000;
-        long MINUTE = SECOND * 60;
-        long HOUR = MINUTE * 60;
-        long DAY = HOUR * 24;
+        long secondInMs = 1000;
+        long minuteInMs = secondInMs * 60;
+        long hourInMs = minuteInMs * 60;
+        long dayInMs = hourInMs * 24;
 
         long days = TimeUnit.MILLISECONDS.toDays(timeMilliseconds);
-        timeMilliseconds -= days * DAY;
+        timeMilliseconds -= days * dayInMs;
         long hours = TimeUnit.MILLISECONDS.toHours(timeMilliseconds);
-        timeMilliseconds -= hours * HOUR;
+        timeMilliseconds -= hours * hourInMs;
         long minutes = TimeUnit.MILLISECONDS.toMinutes(timeMilliseconds);
-        timeMilliseconds -= minutes * MINUTE;
+        timeMilliseconds -= minutes * minuteInMs;
         long seconds = TimeUnit.MILLISECONDS.toSeconds(timeMilliseconds);
         return String.format("%d day(s) %d hour(s) %d minute(s) %d second(s)", days, hours, minutes, seconds);
     }
