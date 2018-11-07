@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DOUBLE_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2;
@@ -77,6 +78,11 @@ public class EditCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_doubleDate_failure() {
+        assertParseFailure(parser, "1 a/2d d/20/10/2018", MESSAGE_DOUBLE_DATE_FORMAT);
     }
 
     @Test
