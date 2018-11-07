@@ -1,5 +1,5 @@
 {
-  "ignoreGlobList": ["**.adoc", "collate**"],
+  "ignoreGlobList": ["**.adoc", "collate**", "**resources/imageMagic**"],
   "formats": ["gradle", "jade", "java", "js", "md", "scss", "yml", "xml"],
   "authors":
   [
