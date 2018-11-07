@@ -32,8 +32,8 @@ public class FindEventCommand extends Command {
         + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
         + "Optionally filters the search between the specified dates and times (using natural language parsing).\n"
         + "Also optionally filters the search by the specified tags (case-insensitive).\n"
-        + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]... [" + PREFIX_FROM + " FROM_DATE/TIME] ["
-        + PREFIX_TO + " TO_DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
+        + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]... [" + PREFIX_FROM + " DATE/TIME] ["
+        + PREFIX_TO + " DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
         + "Example: " + COMMAND_WORD + "project tutorial exam " + PREFIX_TAG + " ma3220 " + PREFIX_TAG + " cs2103";
 
     private final FuzzySearchFilterPredicate titlePredicate;
@@ -57,9 +57,7 @@ public class FindEventCommand extends Command {
         if (tagsPredicate.hasTags()) {
             model.addPredicate(tagsPredicate);
         }
-        if (datePredicate.hasDateFrom() && datePredicate.hasDateTo()) {
-            model.addPredicate(datePredicate);
-        }
+        model.addPredicate(datePredicate);
         model.sortFilteredCalendarEventList(fuzzySearchComparator);
 
         EventsCenter.getInstance().post(new RefreshCalendarPanelEvent());

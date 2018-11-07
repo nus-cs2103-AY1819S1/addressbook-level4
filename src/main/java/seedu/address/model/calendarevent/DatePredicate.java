@@ -17,7 +17,8 @@ public class DatePredicate implements Predicate<CalendarEvent> {
 
     @Override
     public boolean test(CalendarEvent calendarEvent) {
-        return (hasDateTo() && !calendarEvent.getStart().isAfter(dateTo))
+        return  (!hasDateTo() && !hasDateFrom())
+                || (hasDateTo() && !calendarEvent.getStart().isAfter(dateTo))
                 || (hasDateFrom() && !calendarEvent.getEnd().isBefore(dateFrom));
     }
 
