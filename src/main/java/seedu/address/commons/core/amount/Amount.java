@@ -25,6 +25,14 @@ public class Amount {
     }
 
     /**
+     * Private constructor that takes in a {@code Double} value.
+     * @param value a {@code Double} value.
+     */
+    private Amount(Double value) {
+        this.value = value;
+    }
+
+    /**
      * Returns true if a given string is a valid Amount.
      *
      * @param possibleAmount A possibly valid Amount as a {@code String}
@@ -39,18 +47,18 @@ public class Amount {
     public static Amount add(Amount a1, Amount a2) {
         requireNonNull(a1);
         requireNonNull(a2);
-        return new Amount(Double.toString(a1.value + a2.value));
+        return new Amount(a1.value + a2.value);
     }
 
     /**
      * Returns an absolute, non-negative Amount.
      */
     public Amount getAbsoluteAmount() {
-        return new Amount(Double.toString(Math.abs(value)));
+        return new Amount(Math.abs(value));
     }
 
     public Amount getNegatedAmount() {
-        return new Amount(Double.toString(-this.value));
+        return new Amount(-this.value);
     }
 
     @Override
