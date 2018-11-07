@@ -55,7 +55,7 @@
                          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" />
             </StackPane>
 
-            <SplitPane minHeight="120" maxHeight="120">
+            <SplitPane minHeight="200" maxHeight="200">
               <StackPane>
                 <StackPane fx:id="finderPanelPlaceholder" />
               </StackPane>
