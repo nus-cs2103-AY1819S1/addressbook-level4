@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowDefaultBrowserEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
