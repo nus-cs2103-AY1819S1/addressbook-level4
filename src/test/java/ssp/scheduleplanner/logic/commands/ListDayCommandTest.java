@@ -35,8 +35,6 @@ public class ListDayCommandTest {
         model.addTask(validToday);
         expectedModel.addTask(validToday);
         expectedModel.updateFilteredTaskList(new DateSamePredicate(validToday.getDate().value));
-        System.out.println(expectedModel.getFilteredTaskList());
-        System.out.println(model.getFilteredTaskList());
         assertCommandSuccess(new ListDayCommand(), model, commandHistory, ListDayCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
