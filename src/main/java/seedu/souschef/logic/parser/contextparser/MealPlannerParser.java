@@ -1,7 +1,6 @@
 package seedu.souschef.logic.parser.contextparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.commons.core.Messages.MESSAGE_LISTED_OVERVIEW;
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
