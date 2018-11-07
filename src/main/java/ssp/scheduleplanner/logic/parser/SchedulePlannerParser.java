@@ -9,9 +9,11 @@ import ssp.scheduleplanner.logic.commands.AddCommand;
 import ssp.scheduleplanner.logic.commands.AddRepeatCommand;
 import ssp.scheduleplanner.logic.commands.AddTagCommand;
 import ssp.scheduleplanner.logic.commands.ArchiveCommand;
+import ssp.scheduleplanner.logic.commands.ClearCategoryCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
+import ssp.scheduleplanner.logic.commands.EditCategoryCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.ExitCommand;
 import ssp.scheduleplanner.logic.commands.FilterCommand;
@@ -28,6 +30,7 @@ import ssp.scheduleplanner.logic.commands.ListWeekCommand;
 import ssp.scheduleplanner.logic.commands.ProgressTodayCommand;
 import ssp.scheduleplanner.logic.commands.ProgressWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
+import ssp.scheduleplanner.logic.commands.RemoveCategoryCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
@@ -64,6 +67,15 @@ public class SchedulePlannerParser {
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case EditCategoryCommand.COMMAND_WORD:
+            return new EditCategoryCommandParser().parse(arguments);
+
+        case RemoveCategoryCommand.COMMAND_WORD:
+            return new RemoveCategoryCommandParser().parse(arguments);
+
+        case ClearCategoryCommand.COMMAND_WORD:
+            return new ClearCategoryCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);

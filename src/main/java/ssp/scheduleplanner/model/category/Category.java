@@ -26,6 +26,12 @@ public class Category {
         this.tags = new UniqueTagList();
     }
 
+    public Category(String name, UniqueTagList tags) {
+        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
+        this.name = name;
+        this.tags = tags;
+    }
+
     /**
      * Returns true if a given string is a valid name.
      */
@@ -33,6 +39,14 @@ public class Category {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
+
+    /**
+     * Change name of this category.
+     * @param name
+     */
+    public void editName(String name) {
+        this.name = name;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

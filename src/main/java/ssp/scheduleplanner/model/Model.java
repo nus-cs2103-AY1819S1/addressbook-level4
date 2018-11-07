@@ -44,6 +44,20 @@ public interface Model {
      */
     boolean hasTagInCategory(Tag tag, Category category);
 
+    /**
+     * Change name of a category.
+     */
+    void editCategory(String original, String categoryName);
+
+    /**
+     * Remove the entire category together with tags stored under this category.
+     */
+    void removeCategory(String name);
+
+    /**
+     * Clears all existing tags of selected category.
+     */
+    void clearCategory(String name);
 
     /**
      * Deletes the given task.

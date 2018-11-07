@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import ssp.scheduleplanner.model.category.exceptions.CategoryNotFoundException;
 import ssp.scheduleplanner.model.category.exceptions.DuplicateCategoryException;
 
 /**
@@ -92,6 +93,38 @@ public class UniqueCategoryList implements Iterable<Category> {
         requireNonNull(name);
         Category category = getCategory(name);
         internalList.remove(category);
+    }
+
+    /**
+     * Change the name of an existing category.
+     */
+    public void setCategory(String originalName, String newName) {
+        requireNonNull(originalName);
+        requireNonNull(newName);
+
+        if ((!contains(originalName))) {
+            throw new CategoryNotFoundException();
+        }
+        if (newName.equals(originalName)) {
+            throw new DuplicateCategoryException();
+        }
+        Category oldCategory = getCategory(originalName);
+        Category newCategory = new Category(newName, oldCategory.getUniqueTagList());
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
+    }
+
+    /**
+     * Replace existing category with given name with given new category.
+     */
+    public void setCategory(String originalName, Category newCategory) {
+        requireNonNull(originalName);
+        requireNonNull(newCategory);
+
+        if ((!contains(originalName))) {
+            throw new CategoryNotFoundException();
+        }
+        Category oldCategory = getCategory(originalName);
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
     }
 
     /**

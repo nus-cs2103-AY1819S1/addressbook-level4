@@ -2,11 +2,24 @@
 <scheduleplanner>
     <categories>
         <name>Modules</name>
-        <tags>p</tags>
-        <tags>cs</tags>
+        <tags>CS2105</tags>
+        <tags>CS2103T</tags>
+        <tags>GEH1034</tags>
+        <tags>CS2106</tags>
+        <tags>CS2030</tags>
+        <tags>ST2334</tags>
     </categories>
     <categories>
         <name>Others</name>
+        <tags>Shopping</tags>
+    </categories>
+    <categories>
+        <name>Uni</name>
+        <tags>Lab</tags>
+        <tags>Quiz</tags>
+        <tags>Tutorial</tags>
+        <tags>Study</tags>
+        <tags>Exam</tags>
     </categories>
     <tasks>
         <name>Do GEH1034 tutorial</name>
@@ -65,7 +78,7 @@
         <date>191018</date>
         <priority>2</priority>
         <venue>Fairprice</venue>
-        <tagged>Errands</tagged>
+        <tagged>Shopping</tagged>
     </tasks>
     <tasks>
         <name>Do CS2100 lab</name>
@@ -74,14 +87,6 @@
         <venue>Home</venue>
         <tagged>CS2100</tagged>
         <tagged>Lab</tagged>
-    </tasks>
-    <tasks>
-        <name>CS2103 PE</name>
-        <date>021118</date>
-        <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>PE</tagged>
-        <tagged>CS2103</tagged>
     </tasks>
     <tasks>
         <name>Do CS2105 lab</name>
@@ -179,14 +184,14 @@
         <date>191118</date>
         <priority>2</priority>
         <venue>Fairprice</venue>
-        <tagged>Errands</tagged>
+        <tagged>Shopping</tagged>
     </tasks>
     <tasks>
         <name>Groceries</name>
         <date>201118</date>
         <priority>2</priority>
         <venue>ShengShiong</venue>
-        <tagged>Errands</tagged>
+        <tagged>Shopping</tagged>
     </tasks>
     <tasks>
         <name>GEH1034 Quiz </name>
