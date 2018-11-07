@@ -1,23 +1,26 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DOUBLE_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -32,9 +35,13 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_URL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_URL, PREFIX_TAG, PREFIX_AGE);
 
         Index index;
+
+        if (arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_AGE)) {
+            throw new ParseException(MESSAGE_DOUBLE_DATE_FORMAT);
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -49,12 +56,42 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editWishDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_URL).isPresent()) {
+            editWishDescriptor.setUrl(ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get()));
+        }
+
+        Date date;
+        if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
+            Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_AGE).get());
+            java.util.Date now = new java.util.Date();
+            LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate finalDate = localNow.plus(period);
+            date = ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
+                    finalDate.getMonth().getValue(),
+                    finalDate.getYear()));
+            editWishDescriptor.setDate(date);
+        } else if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            editWishDescriptor.setDate(date);
+        }
+
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWishDescriptor::setTags);
+
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editWishDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
+            editWishDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
+        }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editWishDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
             editWishDescriptor.setUrl(ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWishDescriptor::setTags);
 
         if (!editWishDescriptor.isAnyFieldEdited()) {
@@ -79,4 +116,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 }
