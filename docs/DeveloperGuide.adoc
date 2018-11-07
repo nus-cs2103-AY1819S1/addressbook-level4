@@ -520,6 +520,9 @@ system date is within academic calendar dates.
 
 * `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
 
+* `FirstDayCommand#createDefaultFileIfUnableConvert()` -- It creates the default 'rangeofweek.xml' if data is unable
+to convert to be used.
+
 * `FirstDayCommand#createDefaultFileIfSizeDiff()` -- It creates the default `rangeofweek.xml` if the number of
 entries differ from the expected academic number of weeks.
 
@@ -565,7 +568,8 @@ weeks, the `UI` would display the corresponding week description to the user.
 image::FirstDayCommand_UG_Bef.png[width="600"]
 
 Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
-method `FirstDayCommand#createDefaultFileIfNotExist`, `FirstDayCommand#createDefaultFileIfDiffSize`,
+method `FirstDayCommand#createDefaultFileIfNotExist`,
+`FirstDayCommand#createDefaultFileIfUnableConvert`, `FirstDayCommand#createDefaultFileIfDiffSize`,
 `FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDateOrRange`.
 
 If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
@@ -581,7 +585,7 @@ checking the current system date and the saved academic calendar weeks data. It 
 
 Step 11. `MainApp` would then retrieve the application title from `config.json` and display on the `UI`.
 
-image::FirstDayCommand_UG_Aft.png[width="400"]
+image::FirstDayCommand_UG_Aft.png[width="300"]
 
 [NOTE]
 `CommandException` will be thrown if data from `rangeofweek.xml` could not be converted or if `rangeofweek.xml` does
@@ -590,10 +594,10 @@ not exist.
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
-image::FirstDayCommand_DG_SequenceDiagram.png[width="700"]
+image::FirstDayCommand_DG_SequenceDiagram.png[width="650"]
 
 .Sequence diagram of launching MainApp
-image::LaunchMainApp_DG_SequenceDiagram.png[width="700"]
+image::LaunchMainApp_DG_SequenceDiagram.png[width="650"]
 
 
 ==== Design Considerations
