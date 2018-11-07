@@ -132,7 +132,7 @@ e.g. `Serangoon` will return the persons whose addresses contain `Serangoon`, wh
 e.g `cLeMenTi` is same as `Clementi`, and `cLeMenTi` can also be used to find person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
 * The search allows fuzzy matching on long keywords (long keyword means the keyword whose length is greater than 3). +
 e.g. `clenti` will be fuzzy matched with `Clementi`, and will find the person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
-* The search will not support fuzzy matching when the keywords are too short (<= 3) or contain numbers. +
+* The search will not support fuzzy matching when the keywords are too short (≤ 3) or contain numbers. +
 e.g. `Clementi Avo` does not match `Clementi Ave` because keyword `Avo` is short and will not be allowed to use fuzzy matching, therefore, no person will be found
 * The order of the keywords does not matter. +
 e.g. `Ave Clementi 2, 311, #02-25` will match `311, Clementi Ave 2, #02-25`, and will find the person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
