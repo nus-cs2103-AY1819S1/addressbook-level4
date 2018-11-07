@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.model.wish.Url.DEFAULT_URL;
 
@@ -40,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_AGE, PREFIX_URL,
-                        PREFIX_TAG);
+                        PREFIX_REMARK, PREFIX_TAG);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE)
                 || arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_AGE))
@@ -70,7 +71,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).orElse(DEFAULT_URL));
 
         SavedAmount savedAmount = new SavedAmount("0.0");
-        Remark remark = new Remark(""); // remark cannot be added manually by add command
+        //Remark remark = new Remark(""); // remark cannot be added manually by add command
+
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
