@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private AppointmentListPanel appointmentListPanel;
+    private QueuePanel queuePanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -69,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane appointmentListPanelPlaceholder;
 
     @FXML
+    private StackPane queuePanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -79,6 +83,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab personTab;
+
+    @FXML
+    private Tab queueTab;
 
     @FXML
     private Tab appointmentTab;
@@ -156,7 +163,14 @@ public class MainWindow extends UiPart<Stage> {
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
-        tabLists = new TabPane(personTab, appointmentTab);
+        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
+        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+
+        queueTab.setText("Queue");
+        queueTab.setContent(queuePanelPlaceholder);
+        queueTab.setClosable(false);
+
+        tabLists = new TabPane(personTab, appointmentTab, queueTab);
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();

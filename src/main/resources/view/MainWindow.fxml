@@ -66,6 +66,14 @@
                                 <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
+                        <Tab fx:id="queueTab">
+                            <VBox fx:id="patientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10" />
+                                </padding>
+                                <StackPane fx:id="queuePanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
                     </TabPane>
 
                     <StackPane fx:id="browserPlaceholder" prefWidth="340" >
