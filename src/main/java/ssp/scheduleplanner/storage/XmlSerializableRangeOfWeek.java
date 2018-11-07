@@ -58,6 +58,8 @@ public class XmlSerializableRangeOfWeek {
     }
 
     /**
+     * The following code is referenced from:
+     * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
      * This method check if the date data from storage is modified into invalid date format
      * or if the date range is invalid (startOfWeek value is after endOfWeek value or vice versa
      * @return return false if invalid date
