@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.DeleteEventCommand.MESSAGE_DELETE_CAL
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import seedu.address.commons.core.Messages;
@@ -24,6 +24,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
 
     // @Test
+
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
      * TODO remember to import org.JUnit.Test
@@ -35,7 +36,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteEventCommand.COMMAND_WORD + "      "
-                            + INDEX_FIRST_ELEMENT.getOneBased() + "       ";
+            + INDEX_FIRST_ELEMENT.getOneBased() + "       ";
         CalendarEvent deletedCalendarEvent = removePerson(expectedModel, INDEX_FIRST_ELEMENT);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, deletedCalendarEvent);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -64,7 +65,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filtered calendarevent list, delete index within bounds of address book and calendarevent list ->
         deleted */
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         Index index = INDEX_FIRST_ELEMENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         assertCommandSuccess(index);
@@ -73,7 +74,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         calendarevent list
          * -> rejected
          */
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         command = DeleteEventCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
@@ -83,11 +84,11 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: delete the selected calendarevent -> calendarevent list panel selects the calendarevent before the
         deleted calendarevent */
-        showAllPersons();
+        showAllCalendarEvents();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectCalendarEvent(selectedIndex);
         command = DeleteEventCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedCalendarEvent = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, deletedCalendarEvent);
@@ -114,7 +115,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(DeleteEventCommand.COMMAND_WORD + " 1 abc",
-                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+            MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
@@ -145,7 +146,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         assertCommandSuccess(
             DeleteEventCommand.COMMAND_WORD + " " + toDelete.getOneBased(),
-                expectedModel, expectedResultMessage);
+            expectedModel, expectedResultMessage);
     }
 
     /**

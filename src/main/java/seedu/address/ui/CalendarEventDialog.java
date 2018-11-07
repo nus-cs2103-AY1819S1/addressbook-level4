@@ -39,7 +39,6 @@ public class CalendarEventDialog extends UiPart<Region> {
 
     /**
      * TODO add javadoc comment
-     *
      */
     @FXML
     public void onOkButtonClicked(ActionEvent event) {
@@ -50,7 +49,6 @@ public class CalendarEventDialog extends UiPart<Region> {
 
     /**
      * TODO add javadoc comment
-     *
      */
     private void closeStage(javafx.event.ActionEvent event) {
         Node source = (Node) event.getSource();

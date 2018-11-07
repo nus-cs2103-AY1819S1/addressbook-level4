@@ -27,6 +27,14 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddEventCommand> {
 
     /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddEventCommand
      * and returns an AddEventCommand object for execution.
      *
@@ -35,7 +43,7 @@ public class AddCommandParser implements Parser<AddEventCommand> {
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION,
-                                        PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_TAG);
+                PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_DESCRIPTION)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -57,14 +65,6 @@ public class AddCommandParser implements Parser<AddEventCommand> {
         CalendarEvent calendarEvent = new CalendarEvent(name, description, dateTimeInfo, venue, tagList);
 
         return new AddEventCommand(calendarEvent);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
