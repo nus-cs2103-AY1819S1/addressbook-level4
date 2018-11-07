@@ -68,7 +68,7 @@ public class TriviaAnsCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
-        correct = triviaQ.getName().toString().equals(answer);
+        correct = triviaQ.getName().toString().toLowerCase().equals(answer.toLowerCase());
         model.clearTrivia();
 
         if (correct) {
