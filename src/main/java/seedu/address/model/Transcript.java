@@ -318,25 +318,25 @@ public class Transcript implements ReadOnlyTranscript {
             throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
         }
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
-        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         return calculateAndCreateNewTargetModuleGrade(
                 sortedTargetableModules,
-                totalUngradedModuleCredit, totalScoreToAchieve, unitScoreToAchieve);
+                totalUngradedModuleCredit, totalScoreToAchieve);
     }
 
     /**
      * Calculates and creates the new list of modules with target grade
      * @param sortedTargetableModules
      * @param givenTotalUngradedModuleCredit
-     * @param totalScoreToAchieve
-     * @param unitScoreToAchieve
+     * @param givenTotalScoreToAchieve
      * @return the new list of modules with target grade
      * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
-            double givenTotalUngradedModuleCredit, double totalScoreToAchieve, double unitScoreToAchieve) {
+            double givenTotalUngradedModuleCredit, double givenTotalScoreToAchieve) {
         double totalUngradedModuleCredit = givenTotalUngradedModuleCredit;
+        double totalScoreToAchieve = givenTotalScoreToAchieve;
+        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         if (totalUngradedModuleCredit <= 0) {
             throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
         }
