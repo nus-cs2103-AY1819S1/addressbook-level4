@@ -38,6 +38,10 @@ public class ListAccountCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
+        assertCommandSuccess(new ListAccountsCommand(), model, commandHistory,
+                String.format(ListAccountsCommand.MESSAGE_SUCCESS, model.getFilteredAccountList().size()),
+                expectedModel);
+
         showAccountAtIndex(model, INDEX_FIRST);
     }
 }
