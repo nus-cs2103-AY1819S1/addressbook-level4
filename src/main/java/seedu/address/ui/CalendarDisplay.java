@@ -13,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -37,6 +36,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
  */
 public class CalendarDisplay extends UiPart<Region> {
     private static final String FXML = "CalendarDisplay.fxml";
+    private static final String CSS = "view/ModifiedAgenda.css";
     private final Logger logger = LogsCenter.getLogger(CalendarDisplay.class);
 
     private ObservableList<CalendarEvent> calendarEventList;
@@ -58,7 +58,7 @@ public class CalendarDisplay extends UiPart<Region> {
         setConnections(calendarEventList);
         setControls();
 
-        agenda.getStylesheets().add("view/ModifiedAgenda.css"); // "src/main/resources/view/
+        agenda.getStylesheets().add(CSS); // "src/main/resources/view/
         setDisplayedDateTime(currentDateTime); // jump to the current time
     }
 
@@ -87,6 +87,7 @@ public class CalendarDisplay extends UiPart<Region> {
         agenda.setAppointmentChangedCallback(param -> null);
         agenda.setEditAppointmentCallback(param -> null);
         agenda.setSkin(new AgendaWeekSkin(agenda));
+        agenda.setId("agenda");
 
         calendarDisplayBox.getChildren().add(agenda);
     }
@@ -132,7 +133,6 @@ public class CalendarDisplay extends UiPart<Region> {
     /**
      * Set up the controls for interacting with the calendar display
      * The calendarDisplay must be in focus for this to work
-     * TODO: find way to set focus properly
      */
     public void setControls() {
         calendarDisplayBox.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -154,10 +154,6 @@ public class CalendarDisplay extends UiPart<Region> {
                     viewNext();
                     indicateCalendarDisplayTimeChanged();
                     break;
-                case L:
-                    // for testing
-                    // System.out.println("L pressed");
-                    break;
                 default:
                 }
             }
@@ -166,19 +162,24 @@ public class CalendarDisplay extends UiPart<Region> {
 
     @FXML
     /**
-     * Bug fix: Consumes the DOWN event, preventing strange behaviour
+     * Consumes the arrow key events, preventing focus tranferring from calendar display
+     * to other UI components
      */
     private void handleKeyPress(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.DOWN) {
+        if (keyEvent.getCode() == KeyCode.UP ||
+                keyEvent.getCode() == KeyCode.DOWN ||
+                keyEvent.getCode() == KeyCode.LEFT ||
+                keyEvent.getCode() == KeyCode.RIGHT) {
             keyEvent.consume();
         }
     }
+
 
     /**
      * Raises event to event center of change in display time
      * Depends on the current date, not on the first date displayed in the calendar
      */
-    private void indicateCalendarDisplayTimeChanged() {
+    public void indicateCalendarDisplayTimeChanged() {
         raise(new CalendarDisplayTimeChangedEvent(currentDateTime));
     }
 
