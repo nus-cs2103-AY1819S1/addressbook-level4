@@ -327,7 +327,7 @@ public class Transcript implements ReadOnlyTranscript {
     /**
      * Calculates and creates the new list of modules with target grade
      * @param sortedTargetableModules
-     * @param totalUngradedModuleCredit
+     * @param givenTotalUngradedModuleCredit
      * @param totalScoreToAchieve
      * @param unitScoreToAchieve
      * @return the new list of modules with target grade
@@ -335,7 +335,8 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
-            double totalUngradedModuleCredit, double totalScoreToAchieve, double unitScoreToAchieve) {
+            double givenTotalUngradedModuleCredit, double totalScoreToAchieve, double unitScoreToAchieve) {
+        double totalUngradedModuleCredit = givenTotalUngradedModuleCredit;
         if (totalUngradedModuleCredit <= 0) {
             throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
         }
