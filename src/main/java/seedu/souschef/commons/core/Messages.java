@@ -35,7 +35,7 @@ public class Messages {
     public static final String MESSAGE_DAY_INDEX_OUT_OF_RANGE = "The day index provided is invalid";
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
-    public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
+    public static final String MESSAGE_DUPLICATE = "This %1$s already exists and cannot be added, %1$s must be unique";
     public static final String MESSAGE_ALREADY_IN_CONTEXT = "Already in %1$s context. Please switch to another "
             + "context.";
     public static final String MESSAGE_NO_RECIPE_CONSTRUCTED = "Basic information of recipe not added. "
