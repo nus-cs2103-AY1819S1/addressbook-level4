@@ -246,7 +246,7 @@ public class Transcript implements ReadOnlyTranscript {
             return;
         }
         ObservableList<Module> targetableModules = getTargetableModulesList();
-        ObservableList<Module> newTargetModules = calculateNewTargetModuleGrade(targetableModules);
+        List<Module> newTargetModules = calculateNewTargetModuleGrade(targetableModules);
         if (newTargetModules == null) {
             makeCapGoalImpossible();
             return;
@@ -274,8 +274,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Calculates target module grade in order to achieve target goal
      * @return a list of modules with target grade if possible. null otherwise
      */
-    private ObservableList<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
-        List<Module> targetModules = new ArrayList<>();
+    private List<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
         ObservableList<Module> gradedModules = getGradedModulesList();
         ObservableList<Module> adjustedModules = getAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
@@ -290,13 +289,29 @@ public class Transcript implements ReadOnlyTranscript {
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
 
+        return calculateAndCreateNewTargetModuleGrade(
+                sortedTargetableModules,
+                totalUngradedModuleCredit, totalScoreToAchieve, unitScoreToAchieve);
+    }
+
+    /**
+     * Calculates and creates the new list of modules with target grade
+     * @param sortedTargetableModules
+     * @param totalUngradedModuleCredit
+     * @param totalScoreToAchieve
+     * @param unitScoreToAchieve
+     * @return the new list of modules with target grade
+     */
+    private List<Module> calculateAndCreateNewTargetModuleGrade(
+            ObservableList<Module> sortedTargetableModules,
+            double totalUngradedModuleCredit, double totalScoreToAchieve, double unitScoreToAchieve) {
         if (unitScoreToAchieve > 5) {
             return null;
         }
-        if (targetableModules.isEmpty()) {
-            return FXCollections.observableArrayList(targetModules);
+        if (totalUngradedModuleCredit == 0) {
+            return FXCollections.observableArrayList(new ArrayList<>());
         }
-
+        List<Module> targetModules = new ArrayList<>();
         Module newTargetModule;
         for (Module targetedModule : sortedTargetableModules) {
             if (unitScoreToAchieve <= 0.5) {
@@ -309,7 +324,7 @@ public class Transcript implements ReadOnlyTranscript {
             unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         }
 
-        return FXCollections.observableArrayList(targetModules);
+        return targetModules;
     }
 
     private ObservableList<Module> getAdjustedModulesList() {
