@@ -60,11 +60,6 @@ public class Wish {
                 new SavedAmount(wish.savedAmount), new Remark(wish.remark), wish.copyTags(), wish.id);
     }
 
-    private Set<Tag> copyTags() {
-        Set<Tag> copy = tags.stream().map(Tag::new).collect(Collectors.toSet());
-        return copy;
-    }
-
     /**
      * Every field must be present and not null.
      */
@@ -83,6 +78,15 @@ public class Wish {
         this.savedAmount = savedAmount;
 
         this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Performs a deep copy on each tag in {@code tags} and returns the copied set of tags.
+     * @return the deep copied set of tags.
+     */
+    private Set<Tag> copyTags() {
+        Set<Tag> copy = tags.stream().map(Tag::new).collect(Collectors.toSet());
+        return copy;
     }
 
     /**
