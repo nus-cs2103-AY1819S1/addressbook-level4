@@ -59,6 +59,7 @@ https://github.com/CS2103-AY1819S1-T16-3/main/issues/135[3])
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+
 include::../UserGuide.adoc[tag=features]
 
 include::../UserGuide.adoc[tag=universalCommand]
