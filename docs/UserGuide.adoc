@@ -133,8 +133,8 @@ Upper or lower case characters do not matter.
 //* Upper or lower case characters do not matter.
 //====
 
-.Filtering covered car parks that have available parking lots
-image::filter.png[width="880"]
+.Filtering surface car parks that have available parking lots and night parking.
+image::filter_screenshot.png[width="880"]
 // end::filterug[]
 
 
@@ -280,8 +280,8 @@ Calculates the cost of parking at a selected car park between a specified time p
 //`CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
 //====
 
-.Calculating the cost of parking at car park TJ39 on Sunday from 3.30am to 6.30pm
-image::calculate.png[width="880"]
+.Calculating the cost of parking at car park Y14 on Monday from 9.00am to 5.30pm
+image::calculate_screenshot.png[width="880"]
 
 // end::calculateug[]
 
