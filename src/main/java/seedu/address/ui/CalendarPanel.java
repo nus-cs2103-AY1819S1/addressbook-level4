@@ -80,7 +80,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void loadCalendar(Calendar calendar) {
         String content = calendar.toString();
         if (!isWindowsOS()) {
-            content = content.replace("\r\n", "\n");
+            content = content.replace("\r\n", System.getProperty("line.separator"));
         }
 
         VCalendar vCalendar = VCalendar.parse(content);
