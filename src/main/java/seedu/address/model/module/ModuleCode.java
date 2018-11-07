@@ -39,6 +39,11 @@ public class ModuleCode {
         fullModuleCode = code;
     }
 
+    public ModuleCode makeDeepDuplicate() {
+        ModuleCode newCode = new ModuleCode(new String(fullModuleCode));
+        return newCode;
+    }
+
     /**
      * Returns true if a given string is a valid code.
      */

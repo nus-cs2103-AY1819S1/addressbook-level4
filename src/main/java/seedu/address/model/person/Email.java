@@ -47,6 +47,11 @@ public class Email {
         value = email;
     }
 
+    public Email makeDeepDuplicate() {
+        Email newEmail = new Email(new String(value));
+        return newEmail;
+    }
+
     /**
      * Returns if a given string is a valid email.
      */

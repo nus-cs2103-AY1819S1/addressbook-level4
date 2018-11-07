@@ -42,6 +42,11 @@ public class OccasionName {
         fullOccasionName = name;
     }
 
+    public OccasionName makeDeepDuplicate() {
+        OccasionName newName = new OccasionName(new String(fullOccasionName));
+        return newName;
+    }
+
     /**
      * Check whether a given string is a valid name.
      *

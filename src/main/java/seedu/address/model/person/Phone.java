@@ -33,6 +33,11 @@ public class Phone {
         value = phone;
     }
 
+    public Phone makeDeepDuplicate() {
+        Phone newPhone = new Phone(new String(this.value));
+        return newPhone;
+    }
+
     /**
      * Returns true if a given string is a valid phone number.
      */

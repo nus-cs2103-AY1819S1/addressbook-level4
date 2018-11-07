@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +40,13 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     public boolean contains(Occasion occasionToCheck) {
         requireNonNull(occasionToCheck);
         return internalList.stream().anyMatch(occasionToCheck::isSameOccasion);
+    }
+
+    public UniqueOccasionList makeDeepDuplicate() {
+        List<Occasion> newOccasions = this.internalList
+                                            .stream().map(value -> value.makeDeepDuplicate())
+                                            .collect(Collectors.toList());
+        return new UniqueOccasionList(newOccasions);
     }
 
     /**

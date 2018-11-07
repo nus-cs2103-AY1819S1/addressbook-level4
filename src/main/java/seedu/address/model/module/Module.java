@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
@@ -83,6 +84,16 @@ public class Module {
 
     public Property moduleTitleProperty() {
         return new SimpleStringProperty(moduleTitle.fullModuleTitle);
+    }
+
+    public Module makeDeepDuplicate() {
+        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
+        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicat();
+        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
+        Semester newSem = this.semester.makeDeepDuplicate();
+        UniquePersonList newList = this.students.makeDeepDuplicate();
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
     }
 
     /**

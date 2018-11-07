@@ -40,6 +40,11 @@ public class AcademicYear {
         yearNumber = Integer.parseInt(number);
     }
 
+    public AcademicYear makeDeepDuplicate() {
+        AcademicYear newYear = new AcademicYear(new String(yearNumber.toString()));
+        return newYear;
+    }
+
     /**
      * Returns true if a given Integer is a valid AcademicYear number
      */

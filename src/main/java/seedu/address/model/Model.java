@@ -132,12 +132,12 @@ public interface Model {
     /**
      * Inserts the person into the module bidirectionally.
      */
-    void insertPerson(Person person, Module module);
+    void insertPerson(Person person, Module module, Person personToReplace, Module moduleToReplace);
 
     /**
      * Inserts the person into an occasion bidirectionally.
      */
-    void insertPerson(Person person, Occasion occasion);
+    void insertPerson(Person person, Occasion occasion, Person personToReplace, Occasion occasionToReplace);
 
     /**
      * Returns true if the model has previous address book states to restore.

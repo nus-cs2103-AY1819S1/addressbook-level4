@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
@@ -128,6 +129,19 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    public Person makeDeepDuplicate() {
+        Name newName = this.name.makeDeepDuplicate();
+        Phone newPhone = this.phone.makeDeepDuplicate();
+        Email newEmail = this.email.makeDeepDuplicate();
+        Address newAddress = this.address.makeDeepDuplicate();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        UniqueModuleList newUniqueModuleList = this.moduleList.makeDeepDuplicate();
+        return new Person(newName, newPhone, newEmail, newAddress, newTag,
+                            newUniqueOccasionList.asUnmodifiableObservableList(),
+                                newUniqueModuleList.asUnmodifiableObservableList());
     }
 
     /**

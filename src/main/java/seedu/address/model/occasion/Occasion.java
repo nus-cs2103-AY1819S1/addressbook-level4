@@ -6,8 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
@@ -44,7 +46,7 @@ public class Occasion {
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
-                    Set<Tag> tags, TypeUtil type, ArrayList<Person> attendanceList) {
+                    Set<Tag> tags, TypeUtil type, List<Person> attendanceList) {
         requireAllNonNull(occasionName, occasionDate, tags, type, attendanceList);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
@@ -85,6 +87,15 @@ public class Occasion {
 
     public Property occasionNameProperty() {
         return new SimpleStringProperty(occasionName.fullOccasionName);
+    }
+
+    public Occasion makeDeepDuplicate() {
+        OccasionName newName = this.occasionName.makeDeepDuplicate();
+        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
+        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        UniquePersonList newList = this.attendanceList.makeDeepDuplicate();
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }
 
     /**

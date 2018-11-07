@@ -38,6 +38,11 @@ public class Address {
         value = address;
     }
 
+    public Address makeDeepDuplicate() {
+        Address newAddress = new Address(new String(value));
+        return newAddress;
+    }
+
     /**
      * Returns true if a given string is a valid email.
      */

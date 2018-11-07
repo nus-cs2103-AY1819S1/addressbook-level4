@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULEINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -11,8 +14,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * A command that enables users to insert a person, bidirectionally, into either a module
@@ -34,10 +39,6 @@ public class InsertPersonCommand extends Command {
     private int moduleIndex;
     private int occasionIndex;
 
-    public InsertPersonCommand() {
-        currState = State.ERROR_STATE;
-    }
-
     public InsertPersonCommand(Index personIndex, Index moduleIndex, Module dummyModule) {
         requireAllNonNull(personIndex, moduleIndex, dummyModule);
         currState = State.MODULE_STATE;
@@ -58,58 +59,70 @@ public class InsertPersonCommand extends Command {
             List<Person> personsList = model.getFilteredPersonList();
             List<Module> moduleList = model.getFilteredModuleList();
 
-            if (personIndex > personsList.size()
-                    || moduleIndex > moduleList.size()) {
+            if (personIndex >= personsList.size()
+                    || moduleIndex >= moduleList.size()) {
                 throw new CommandException(MESSAGE_INCORRECT_INDEX);
             }
 
-            Person personToInsert = personsList.get(personIndex);
-            Module moduleToInsert = moduleList.get(moduleIndex);
+            Person personToReplace = personsList.get(personIndex);
+            Module moduleToReplace = moduleList.get(moduleIndex);
 
-            if (moduleToInsert.getStudents().contains(personToInsert)
-                    && personToInsert.getModuleList().contains(moduleToInsert)) {
+            if (moduleToReplace.getStudents().contains(personToReplace)
+                    && personToReplace.getModuleList().contains(moduleToReplace)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
-            model.insertPerson(personToInsert, moduleToInsert);
+
+            model.insertPerson(personToReplace.makeDeepDuplicate(),
+                                moduleToReplace.makeDeepDuplicate(),
+                                personToReplace, moduleToReplace);
+            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
+
         } else if (State.OCCASION_STATE == currState) {
             List<Person> personsList = model.getFilteredPersonList();
             List<Occasion> occasionList = model.getFilteredOccasionList();
 
-            if (personIndex > personsList.size()
-                    || occasionIndex > occasionList.size()) {
+            if (personIndex >= personsList.size()
+                    || occasionIndex >= occasionList.size()) {
                 throw new CommandException(MESSAGE_INCORRECT_INDEX);
             }
 
-            Person personToInsert = personsList.get(personIndex);
-            Occasion occasionToInsert = occasionList.get(occasionIndex);
+            Person personToReplace = personsList.get(personIndex);
+            Occasion occasionToReplace = occasionList.get(occasionIndex);
 
-            if (occasionToInsert.getAttendanceList().contains(personToInsert)
-                    && personToInsert.getOccasionList().contains(occasionToInsert)) {
+            if (occasionToReplace.getAttendanceList().contains(personToReplace)
+                    && personToReplace.getOccasionList().contains(occasionToReplace)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
-            model.insertPerson(personToInsert, occasionToInsert);
+
+            model.insertPerson(personToReplace.makeDeepDuplicate(),
+                                occasionToReplace.makeDeepDuplicate(),
+                                personToReplace, occasionToReplace);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
+
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
 
-    public State getCurrState() {
+    private State getCurrState() {
         return currState;
     }
 
-    public int getPersonIndex() {
+    private int getPersonIndex() {
         return personIndex;
     }
 
-    public int getModuleIndex() {
+    private int getModuleIndex() {
         return moduleIndex;
     }
 
-    public int getOccasionIndex() {
+    private int getOccasionIndex() {
         return occasionIndex;
     }
 

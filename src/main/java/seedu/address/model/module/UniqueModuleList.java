@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,6 +53,12 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(moduleToAdd);
+    }
+
+    public UniqueModuleList makeDeepDuplicate() {
+        List<Module> newList = this.internalList.stream()
+                                    .map(value -> value.makeDeepDuplicate()).collect(Collectors.toList());
+        return new UniqueModuleList(newList);
     }
 
     /**

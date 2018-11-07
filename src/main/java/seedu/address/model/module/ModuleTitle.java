@@ -46,6 +46,11 @@ public class ModuleTitle {
         return test.matches(MODULETITLE_VALIDATION_REGEX);
     }
 
+    public ModuleTitle makeDeepDuplicat() {
+        ModuleTitle newTitle = new ModuleTitle(new String(fullModuleTitle));
+        return newTitle;
+    }
+
     @Override
     public String toString() {
         return fullModuleTitle;

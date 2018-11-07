@@ -159,24 +159,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void insertPerson(Person personToInsert, Module moduleToInsert) {
-        Person addressBookPerson = versionedAddressBook.getPersonList().stream()
-                                    .filter(value -> value.equals(personToInsert)).findFirst().get();
-        Module addressBookModule = versionedAddressBook.getModuleList().stream()
-                                    .filter(value -> value.equals(moduleToInsert)).findFirst().get();
-        addressBookPerson.getModuleList().add(addressBookModule);
-        addressBookModule.getStudents().add(addressBookPerson);
+    public void insertPerson(Person personToInsert, Module moduleToInsert, Person personToReplace, Module moduleToReplace) {
+        versionedAddressBook.insertPerson(personToInsert, moduleToInsert, personToReplace, moduleToReplace);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void insertPerson(Person personToInsert, Occasion occasionToInsert) {
-        Person addressBookPerson = versionedAddressBook.getPersonList().stream()
-                .filter(value -> value.equals(personToInsert)).findFirst().get();
-        Occasion addressBookOccasion = versionedAddressBook.getOccasionList().stream()
-                .filter(value -> value.equals(occasionToInsert)).findFirst().get();
-        addressBookPerson.getOccasionList().add(addressBookOccasion);
-        addressBookOccasion.getAttendanceList().add(addressBookPerson);
+    public void insertPerson(Person personToInsert, Occasion occasionToInsert, Person personToReplace, Occasion occasionToReplace) {
+        versionedAddressBook.insertPerson(personToInsert, occasionToInsert,
+                                            personToReplace, occasionToReplace);
         indicateAddressBookChanged();
     }
 

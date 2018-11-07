@@ -48,6 +48,12 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    public UniquePersonList makeDeepDuplicate() {
+        List<Person> newList = this.internalList.stream()
+                                    .map((value) -> value.makeDeepDuplicate()).collect(Collectors.toList());
+        return new UniquePersonList(newList);
+    }
+
     /**
      * Reset the data in personList to a set of new data.
      */

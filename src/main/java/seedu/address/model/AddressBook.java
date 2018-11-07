@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,6 +190,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+    }
+
+    public void insertPerson(Person personToInsert, Module moduleToInsert,
+                             Person personToReplace, Module moduleToReplace) {
+        requireAllNonNull(personToInsert, moduleToInsert);
+        personToInsert.getModuleList().add(moduleToInsert);
+        moduleToInsert.getStudents().add(personToInsert);
+        updatePerson(personToReplace, personToInsert);
+        updateModule(moduleToReplace, moduleToInsert);
+    }
+
+    public void insertPerson(Person personToInsert, Occasion occasionToInsert,
+                             Person personToReplace, Occasion occasionToReplace) {
+        requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);
+        personToInsert.getOccasionList().add(occasionToInsert);
+        occasionToInsert.getAttendanceList().add(personToInsert);
+        updatePerson(personToReplace, personToInsert);
+        updateOccasion(occasionToReplace, occasionToInsert);
     }
 
 

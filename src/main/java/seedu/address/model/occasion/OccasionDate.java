@@ -44,6 +44,11 @@ public class OccasionDate {
         fullOccasionDate = date;
     }
 
+    public OccasionDate makeDeepDuplicate() {
+        OccasionDate newDate = new OccasionDate(new String(fullOccasionDate));
+        return newDate;
+    }
+
     /**
      * Check whether a given string is in correct format and is a valid date.
      *

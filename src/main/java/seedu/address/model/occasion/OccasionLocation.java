@@ -42,6 +42,11 @@ public class OccasionLocation {
         fullOccasionLocation = location;
     }
 
+    public OccasionLocation makeDeepDuplicate() {
+        OccasionLocation newLocation = new OccasionLocation(new String(fullOccasionLocation));
+        return newLocation;
+    }
+
     /**
      * Check whether a given string is a valid location.
      *
