@@ -14,10 +14,9 @@ public class MainWindowHandle extends StageHandle {
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    //private final BrowserPanelHandle browserPanel;
     private final PersonBrowserPanelHandle personBrowserPanel;
-    //private final OccasionBrowserPanelHandle occasionBrowserPanel;
-    //private final ModuleBrowserPanelHandle moduleBrowserPanel;
+    private OccasionBrowserPanelHandle occasionBrowserPanel;
+    private ModuleBrowserPanelHandle moduleBrowserPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -27,10 +26,7 @@ public class MainWindowHandle extends StageHandle {
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        //browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
         personBrowserPanel = new PersonBrowserPanelHandle(getChildNode(PersonBrowserPanelHandle.BROWSER_ID));
-        //occasionBrowserPanel = new OccasionBrowserPanelHandle(getChildNode(OccasionBrowserPanelHandle.BROWSER_ID));
-        //moduleBrowserPanel = new ModuleBrowserPanelHandle(getChildNode(ModuleBrowserPanelHandle.BROWSER_ID));
     }
 
     public PersonListPanelHandle getPersonListPanel() {
@@ -63,19 +59,17 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-//    public BrowserPanelHandle getBrowserPanel() {
-//        return browserPanel;
-//    }
-
     public PersonBrowserPanelHandle getPersonBrowserPanel() {
         return personBrowserPanel;
     }
 
-//    public ModuleBrowserPanelHandle getModuleBrowserPanel() {
-//        return moduleBrowserPanel;
-//    }
-//
-//    public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
-//        return occasionBrowserPanel;
-//    }
+    public ModuleBrowserPanelHandle getModuleBrowserPanel() {
+        moduleBrowserPanel = new ModuleBrowserPanelHandle(getChildNode(ModuleBrowserPanelHandle.BROWSER_ID));
+        return moduleBrowserPanel;
+    }
+
+    public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
+        occasionBrowserPanel = new OccasionBrowserPanelHandle(getChildNode(OccasionBrowserPanelHandle.BROWSER_ID));
+        return occasionBrowserPanel;
+    }
 }

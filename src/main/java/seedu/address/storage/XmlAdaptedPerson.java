@@ -73,12 +73,22 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        moduleList = source.getModuleList().asUnmodifiableObservableList()
-                        .stream().map(XmlAdaptedModule::new)
-                        .collect(Collectors.toList());
-        occasionList = source.getOccasionList().asUnmodifiableObservableList()
-                        .stream().map(XmlAdaptedOccasion::new)
-                        .collect(Collectors.toList());
+        if (source.getModuleList() != null) {
+            moduleList = source.getModuleList().asUnmodifiableObservableList()
+                    .stream().map(XmlAdaptedModule::new)
+                    .collect(Collectors.toList());
+        } else {
+            moduleList = new ArrayList<>();
+        }
+
+        if (source.getOccasionList() != null) {
+            occasionList = source.getOccasionList().asUnmodifiableObservableList()
+                    .stream().map(XmlAdaptedOccasion::new)
+                    .collect(Collectors.toList());
+        } else {
+            occasionList = new ArrayList<>();
+        }
+
     }
 
     /**

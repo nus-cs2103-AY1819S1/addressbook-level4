@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,10 +8,12 @@ import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -18,9 +21,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -245,12 +251,14 @@ public class InsertPersonCommandTest {
         }
 
         @Override
-        public void insertPerson(Person person, Module module) {
+        public void insertPerson(Person person, Module module, Person personToInsert,
+                                 Module moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void insertPerson(Person person, Occasion occasion) {
+        public void insertPerson(Person person, Occasion occasion, Person personToInsert,
+                                 Occasion moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -278,6 +286,16 @@ public class InsertPersonCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public TypeUtil getActiveType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActiveType(TypeUtil typeToSet) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -285,11 +303,11 @@ public class InsertPersonCommandTest {
      * module or occasion.
      */
     private class ModelStubInsertingPersons extends ModelStub {
-        ObservableList<Person> personList = FXCollections.observableArrayList();
-        ObservableList<Occasion> occasionList = FXCollections.observableArrayList();
-        ObservableList<Module> moduleList = FXCollections.observableArrayList();
+        UniquePersonList personList = new UniquePersonList();
+        UniqueOccasionList occasionList = new UniqueOccasionList();
+        UniqueModuleList moduleList = new UniqueModuleList();
 
-        public ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
+        ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
             requireAllNonNull(person, occasion, module);
             this.personList.add(person);
             this.occasionList.add(occasion);
@@ -297,32 +315,57 @@ public class InsertPersonCommandTest {
         }
 
         @Override
-        public void insertPerson(Person person, Occasion occasion) {
-            requireAllNonNull(person, occasion);
-            person.getOccasionList().add(occasion);
-            occasion.getAttendanceList().add(person);
+        public void insertPerson(Person personToInsert, Occasion occasionToInsert,
+                                        Person personToReplace, Occasion occasionToReplace) {
+            requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);
+            personToInsert.getOccasionList().add(occasionToInsert);
+            occasionToInsert.getAttendanceList().add(personToInsert);
         }
 
         @Override
-        public void insertPerson(Person person, Module module) {
-            requireAllNonNull(person, module);
-            person.getModuleList().add(module);
-            module.getStudents().add(person);
+        public void insertPerson(Person personToInsert, Module moduleToInsert,
+                                        Person personToReplace, Module moduleToReplace) {
+            requireAllNonNull(personToInsert, moduleToInsert, personToReplace, moduleToReplace);
+            personToInsert.getModuleList().add(moduleToInsert);
+            moduleToInsert.getStudents().add(personToInsert);
+            updatePerson(personToInsert, personToReplace);
+            updateModule(moduleToInsert, moduleToReplace);
+        }
+
+        @Override
+        public void updatePerson(Person target, Person editedPerson) {
+            requireNonNull(editedPerson);
+
+            personList.setPerson(target, editedPerson);
+        }
+
+        @Override
+        public void updateModule(Module target, Module editedModule) {
+            requireNonNull(editedModule);
+
+            moduleList.setModule(target, editedModule);
+        }
+
+        @Override
+        public void updateOccasion(Occasion target, Occasion editedOccasion) {
+            requireNonNull(editedOccasion);
+
+            occasionList.setOccasion(target, editedOccasion);
         }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
-            return this.personList;
+            return this.personList.asUnmodifiableObservableList();
         }
 
         @Override
         public ObservableList<Module> getFilteredModuleList() {
-            return this.moduleList;
+            return this.moduleList.asUnmodifiableObservableList();
         }
 
         @Override
         public ObservableList<Occasion> getFilteredOccasionList() {
-            return this.occasionList;
+            return this.occasionList.asUnmodifiableObservableList();
         }
 
         @Override

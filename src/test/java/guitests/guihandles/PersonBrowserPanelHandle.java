@@ -1,8 +1,11 @@
 package guitests.guihandles;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 public class PersonBrowserPanelHandle extends NodeHandle<Node> {
@@ -13,16 +16,17 @@ public class PersonBrowserPanelHandle extends NodeHandle<Node> {
 
     // A cached value of the last remembered person who was selected.
     private Person lastRememberedPerson;
-    private TableView tableOfModules;
-    private TableView tableOfOccasions;
+    private TableView<Module> tableOfModules;
+    private ObservableList<Module> moduleItems;
+    private TableView<Occasion> tableOfOccasions;
+    private ObservableList<Occasion> occasionItems;
 
     public PersonBrowserPanelHandle(Node personBrowserPanelNode) {
         super(personBrowserPanelNode);
-
         tableOfModules = getChildNode(TABLE_ID_MODULES);
-        // tableOfOccasions = getChildNode(TABLE_ID_OCCASIONS);
-        //tableOfOccasions = getChildNode(TABLE_ID_OCCASIONS);
-        //TableColumn test = (TableColumn) tableOfOccasions.getColumns().stream().findFirst().get();
+        moduleItems = tableOfModules.getItems();
+        tableOfOccasions = getChildNode(TABLE_ID_OCCASIONS);
+        occasionItems = tableOfOccasions.getItems();
     }
 
     /**
@@ -30,6 +34,8 @@ public class PersonBrowserPanelHandle extends NodeHandle<Node> {
      */
     public void rememberPerson(Person person) {
         this.lastRememberedPerson = person;
+        moduleItems = person.getModuleList().asUnmodifiableObservableList();
+        occasionItems = person.getOccasionList().asUnmodifiableObservableList();
     }
 
     /**
@@ -51,5 +57,13 @@ public class PersonBrowserPanelHandle extends NodeHandle<Node> {
      */
     public TableView getTableOfOccasions() {
         return tableOfOccasions;
+    }
+
+    public ObservableList<Module> getCurrentModules() {
+        return this.moduleItems;
+    }
+
+    public ObservableList<Occasion> getCurrentOccasions() {
+        return this.occasionItems;
     }
 }
