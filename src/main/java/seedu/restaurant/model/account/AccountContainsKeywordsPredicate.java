@@ -19,9 +19,9 @@ public class AccountContainsKeywordsPredicate implements Predicate<Account> {
     }
 
     @Override
-    public boolean test(Account ingredient) {
+    public boolean test(Account account) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(ingredient.getUsername().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(account.getUsername().toString(), keyword));
     }
 
     @Override
