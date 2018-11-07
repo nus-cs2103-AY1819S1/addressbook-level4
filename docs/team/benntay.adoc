@@ -30,7 +30,8 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 * *Other contributions*:
 
 ** Modularised UI component for other features to integrate more easily.
-
+** Enhancements to new features:
+*** Wrote additional tests for Meal Planner component to increase coverage.
 //** Project management:
 //*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 
