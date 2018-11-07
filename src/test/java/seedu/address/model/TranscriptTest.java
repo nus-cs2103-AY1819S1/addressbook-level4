@@ -73,17 +73,39 @@ public class TranscriptTest {
     @Test
     public void assertAdjustAdjustedModuleSuccess() {
         Transcript transcript = new Transcript();
-        Module adjustedModule_BPlus = TypicalModules.duplicateWithGradesAdjusted(
+        Module adjustedModuleBPlus = TypicalModules.duplicateWithGradesAdjusted(
                 new ModuleBuilder(INCOMPLETE_4MC_A).withGrade(TypicalModules.GRADE_B_PLUS).build());
 
         transcript.addModule(GRADE_A_4MC_A);
         transcript.addModule(GRADE_BMINUS_4MC_A);
-        transcript.addModule(adjustedModule_BPlus);
+        transcript.addModule(adjustedModuleBPlus);
         transcript.addModule(INCOMPLETE_4MC_B);
         transcript.setCapGoal(4.0);
         assertTargetGradesEquals(transcript, "B+");
-        transcript.adjustModule(adjustedModule_BPlus, new Grade(TypicalModules.GRADE_B_MINUS));
+        transcript.adjustModule(adjustedModuleBPlus, new Grade(TypicalModules.GRADE_B_MINUS));
         assertTargetGradesEquals(transcript, "A");
+    }
+
+    @Test
+    public void assertAdjustToFSuccess() {
+        Transcript transcript = new Transcript();
+        transcript.addModule(GRADE_BMINUS_4MC_A);
+        transcript.addModule(INCOMPLETE_4MC_A);
+        double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
+        transcript.setCapGoal(capGoal);
+        transcript.adjustModule(INCOMPLETE_4MC_A.updateTargetGrade(capGoal), new Grade(TypicalModules.GRADE_F));
+        assertTrue(transcript.isCapGoalImpossible());
+    }
+
+    @Test
+    public void assertAdjustToCsSuccess() {
+        Transcript transcript = new Transcript();
+        transcript.addModule(GRADE_BMINUS_4MC_A);
+        transcript.addModule(INCOMPLETE_4MC_A);
+        double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
+        transcript.setCapGoal(capGoal);
+        transcript.adjustModule(INCOMPLETE_4MC_A.updateTargetGrade(capGoal), new Grade(TypicalModules.GRADE_CS));
+        assertFalse(transcript.isCapGoalImpossible());
     }
 
     @Test
@@ -130,19 +152,19 @@ public class TranscriptTest {
     }
 
     @Test
-    public void typicalModulesCapScore() {
+    public void assertTypicalModulesCapScoreSuccess() {
         List<Module> modules = getModulesWithoutNonGradeAffectingModules();
         assertCapScoreEquals(modules, MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP);
     }
 
     @Test
-    public void calculateCapScoreWithSuModule() {
+    public void assertCapScoreWithSuModuleSuccess() {
         List<Module> modules = getModulesWithNonGradeAffectingModules();
         assertCapScoreEquals(modules, MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP);
     }
 
     @Test
-    public void calculateTargetGradesIsNotHigherThanMinimumRequirementSuccess() {
+    public void assertTargetGradesIsNotHigherThanMinimumRequirementSuccess() {
         Transcript transcript = new Transcript();
         transcript.addModule(INCOMPLETE_4MC_A);
         transcript.addModule(INCOMPLETE_4MC_B);
@@ -171,12 +193,12 @@ public class TranscriptTest {
     }
 
     @Test
-    public void adjustIncreaseTargetGradeWillReduceAnotherSuccess() {
+    public void assertAdjustIncreaseTargetGradeWillReduceAnotherSuccess() {
         assertAdjustWillAffectAnotherSuccess(TypicalModules.GRADE_A_PLUS, "B- B-");
     }
 
     @Test
-    public void adjustDecreaseTargetGradeWillIncreaseAnotherSuccess() {
+    public void assertAdjustDecreaseTargetGradeWillIncreaseAnotherSuccess() {
         assertAdjustWillAffectAnotherSuccess(TypicalModules.GRADE_B_MINUS, "B+ B+");
     }
 
@@ -222,7 +244,7 @@ public class TranscriptTest {
     }
 
     @Test
-    public void testSetImpossibleGoalSuccess() {
+    public void assertSetImpossibleGoalSuccess() {
         Transcript transcript = new Transcript();
         transcript.addModule(GRADE_BMINUS_4MC_A);
         transcript.setCapGoal(5.0);
@@ -259,19 +281,6 @@ public class TranscriptTest {
     }
 
     /**
-     * Asserts that the given modules and cap goal will result in expected target grades
-     * @param modules
-     * @param capGoal
-     * @param expectedTargetGrades
-     */
-    private void assertTargetGradesEquals(
-            List<Module> modules, Double capGoal, List<String> expectedTargetGrades) {
-        Transcript transcript = setUpTranscript(modules, capGoal);
-        String expectedTargetGradesString = String.join(DELIMITER, expectedTargetGrades);
-        assertTargetGradesEquals(transcript, expectedTargetGradesString);
-    }
-
-    /**
      * Asserts that the given transcript will result in expected target grades
      * @param transcript
      * @param expectedTargetGrades
@@ -279,19 +288,6 @@ public class TranscriptTest {
     public void assertTargetGradesEquals(Transcript transcript, String expectedTargetGrades) {
         String targetGrades = getTargetGradesStringFromTranscript(transcript);
         assertEquals(targetGrades, expectedTargetGrades);
-    }
-
-    /**
-     * Sets modules and capGoal of a new Transcript
-     * @param modules
-     * @param capGoal
-     * @return
-     */
-    private Transcript setUpTranscript(List<Module> modules, Double capGoal) {
-        Transcript transcript = new Transcript();
-        transcript.setModules(modules);
-        transcript.setCapGoal(capGoal);
-        return transcript;
     }
 
 }

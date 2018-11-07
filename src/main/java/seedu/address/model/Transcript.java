@@ -276,7 +276,7 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules) {
         ObservableList<Module> gradedModules = getGradedModulesList();
-        ObservableList<Module> adjustedModules = getAdjustedModulesList();
+        ObservableList<Module> adjustedModules = getGradedAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
                 Comparator.comparingInt(Module::getCreditsValue));
 
@@ -308,8 +308,8 @@ public class Transcript implements ReadOnlyTranscript {
      * @param totalUngradedModuleCredit
      * @param totalMc
      * @param currentTotalPoint
-     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      * @return the new list of modules with target grade
+     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> createNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
@@ -330,8 +330,8 @@ public class Transcript implements ReadOnlyTranscript {
      * @param totalUngradedModuleCredit
      * @param totalScoreToAchieve
      * @param unitScoreToAchieve
-     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      * @return the new list of modules with target grade
+     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
@@ -358,8 +358,8 @@ public class Transcript implements ReadOnlyTranscript {
         return targetModules;
     }
 
-    private ObservableList<Module> getAdjustedModulesList() {
-        return modules.getFilteredModules(Module::isAdjusted);
+    private ObservableList<Module> getGradedAdjustedModulesList() {
+        return modules.getFilteredModules(module -> module.isAdjusted() && module.isAffectCap());
     }
 
     @Override
