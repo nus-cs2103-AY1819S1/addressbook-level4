@@ -52,8 +52,6 @@ import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
-import seedu.address.logic.commands.personcommands.EditUserCommand;
-import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
@@ -61,7 +59,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UserContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.StubUserBuilder;
@@ -192,17 +189,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteUserCommand command = (DeleteUserCommand) parser.parseCommand(
-                DeleteUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteUserCommand(INDEX_FIRST), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditUserCommand command = (EditUserCommand) parser.parseCommand(EditUserCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditUserCommand(INDEX_FIRST, descriptor), command);
+                DeleteUserCommand.COMMAND_WORD);
+        assertEquals(new DeleteUserCommand(), command);
     }
 
     @Test

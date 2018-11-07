@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.TimeTableUtil;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
@@ -40,17 +39,12 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
      */
     public EditUserCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE, PREFIX_SCHEDULE_UPDATE, PREFIX_SCHEDULE);
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserCommand.MESSAGE_USAGE), pe);
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserCommand.MESSAGE_USAGE));
         }
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                    PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE, PREFIX_SCHEDULE_UPDATE, PREFIX_SCHEDULE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -86,7 +80,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
 
 
         // This one is for schedule to schedule
-        //editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(argMultimap.getValue(PREFIX_TIMETABLE).get()));
+        // editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(argMultimap.getValue(PREFIX_TIMETABLE).get()));
 
         parseInterestsForEdit(argMultimap.getAllValues(PREFIX_INTEREST)).ifPresent(editPersonDescriptor::setInterests);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
@@ -95,7 +89,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
             throw new ParseException(EditUserCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditUserCommand(index, editPersonDescriptor);
+        return new EditUserCommand(editPersonDescriptor);
     }
 
     /**

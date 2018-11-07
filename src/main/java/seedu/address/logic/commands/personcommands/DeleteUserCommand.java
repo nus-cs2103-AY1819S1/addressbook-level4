@@ -6,11 +6,11 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -28,28 +28,23 @@ public class DeleteUserCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
-
-    public DeleteUserCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-    }
+    //private final Index targetIndex;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        try {
+            requireNonNull(model);
+            List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            Person personToDelete = model.getCurrentUser();
+
+            updateFriendListsDueToDeletedPerson(model, lastShownList, personToDelete);
+            model.removeCurrentUser();
+            model.deletePerson(personToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        updateFriendListsDueToDeletedPerson(model, lastShownList, personToDelete);
-
-        model.deletePerson(personToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     /**
@@ -74,7 +69,6 @@ public class DeleteUserCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteUserCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteUserCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteUserCommand); // instanceof handles nulls
     }
 }
