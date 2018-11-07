@@ -8,6 +8,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.testutil.TypicalMedicines.PARACETAMOL;
+import static seedu.clinicio.testutil.TypicalMedicines.VENTOLIN;
+import static seedu.clinicio.testutil.TypicalMedicines.ORACORT;
+import static seedu.clinicio.testutil.TypicalMedicines.CHLORPHENIRAMINE;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
@@ -29,9 +33,12 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.logic.parser.ParserUtil;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.clinicio.model.medicine.Medicine;
+import seedu.clinicio.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
@@ -39,6 +46,7 @@ import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
 
 import seedu.clinicio.testutil.AppointmentBuilder;
+import seedu.clinicio.testutil.MedicineBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.StaffBuilder;
 
@@ -54,6 +62,8 @@ public class ClinicIoTest {
         assertEquals(Collections.emptyList(), clinicIo.getPersonList());
         //@@author jjlee050
         assertEquals(Collections.emptyList(), clinicIo.getStaffList());
+        //@@author aaronseahyh
+        assertEquals(Collections.emptyList(), clinicIo.getMedicineList());
     }
 
     @Test
@@ -75,9 +85,10 @@ public class ClinicIoTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
-                new ArrayList<>(), new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>(), newMedicines);
 
         thrown.expect(DuplicatePersonException.class);
         clinicIo.resetData(newData);
@@ -88,12 +99,12 @@ public class ClinicIoTest {
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
         List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
-                new ArrayList<>(), newStaffs);
-
+                new ArrayList<>(), newStaffs, newMedicines);
         thrown.expect(DuplicateStaffException.class);
         clinicIo.resetData(newData);
     }
@@ -104,9 +115,11 @@ public class ClinicIoTest {
         //Two appointments with the same identity fields
         Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(AMY_AS_PATIENT).build();
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT, editedAmy);
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs,
+                newMedicines);
         thrown.expect(DuplicateAppointmentException.class);
         clinicIo.resetData(newData);
     }
@@ -117,10 +130,27 @@ public class ClinicIoTest {
         Appointment clashingAppt = new AppointmentBuilder(CARL_APPT)
                 .withTime(13, 30).build();
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT, clashingAppt);
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs,
+                newMedicines);
         thrown.expect(AppointmentClashException.class);
+        clinicIo.resetData(newData);
+    }
+
+    //@@author aaronseahyh
+    @Test
+    public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
+        //Two medicines with the same identity fields
+        List<Appointment> newAppointments = Arrays.asList(AMY_APPT);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withMedicinePrice("1.00").build();
+        List<Medicine> newMedicines = Arrays.asList(editedParacetamol, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Staff> newStaffs = Arrays.asList(ADAM);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs,
+                newMedicines);
+        thrown.expect(DuplicateMedicineException.class);
         clinicIo.resetData(newData);
     }
 
@@ -144,6 +174,13 @@ public class ClinicIoTest {
         clinicIo.hasAppointment(null);
     }
 
+    //@@author aaronseahyh
+    @Test
+    public void hasMedicine_nullMedicine_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        clinicIo.hasMedicine(null);
+    }
+
     @Test
     public void hasPerson_personNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasPerson(ALICE));
@@ -159,6 +196,12 @@ public class ClinicIoTest {
     @Test
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasAppointment(AMY_APPT));
+    }
+
+    //@@author aaronseahyh
+    @Test
+    public void hasMedicine_medicineNotInClinicIo_returnsFalse() {
+        assertFalse(clinicIo.hasMedicine(ORACORT));
     }
 
     @Test
@@ -179,6 +222,13 @@ public class ClinicIoTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
         assertTrue(clinicIo.hasAppointment(AMY_APPT));
+    }
+
+    //@@author aaronseahyh
+    @Test
+    public void hasMedicine_MedicineInClinicIo_returnsTrue() {
+        clinicIo.addMedicine(PARACETAMOL);
+        assertTrue(clinicIo.hasMedicine(PARACETAMOL));
     }
 
     @Test
@@ -217,6 +267,15 @@ public class ClinicIoTest {
         clinicIo.addAppointment(AMY_APPT);
         Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
         assertTrue(clinicIo.hasAppointmentClash(newAppt));
+    }
+
+    //@@author aaronseahyh
+    @Test
+    public void hasMedicine_medicineWithSameIdentityFieldsInClinicIo_returnsTrue() {
+        clinicIo.addMedicine(PARACETAMOL);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withMedicineType("Topical")
+                .withTags("Take more everyday").build();
+        assertTrue(clinicIo.hasMedicine(editedParacetamol));
     }
 
     //@@author jjlee050
@@ -260,13 +319,15 @@ public class ClinicIoTest {
         private final ObservableList<Patient> patients = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
+        private final ObservableList<Medicine> medicines = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
-                Collection<Patient> patients, Collection<Staff> staffs) {
+                Collection<Patient> patients, Collection<Staff> staffs, Collection<Medicine> medicines) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             this.patients.setAll(patients);
             this.staffs.setAll(staffs);
+            this.medicines.setAll(medicines);
         }
 
         @Override
@@ -287,6 +348,11 @@ public class ClinicIoTest {
         @Override
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
+        }
+
+        @Override
+        public ObservableList<Medicine> getMedicineList() {
+            return medicines;
         }
 
     }
