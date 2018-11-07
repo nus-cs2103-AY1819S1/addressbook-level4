@@ -51,7 +51,7 @@ public class History {
         this.recipeBuilder = recipeBuilder;
     }
 
-    public void contributeRecipe(Instruction instruction) {
+    public void contributeToRecipe(Instruction instruction) {
         recipeBuilder.addInstruction(instruction);
     }
 

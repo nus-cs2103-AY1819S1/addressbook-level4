@@ -87,7 +87,7 @@ public class RecipeBuilderCommandParser {
                     MESSAGE_CONT_RECIPE_USAGE));
         }
 
-        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).orElse("PT0M"));
+        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).orElse("0M"));
         String unparsedtext = argMultimap.getValue(PREFIX_INSTRUCTION).orElse("");
         String instruction = ParserUtil.parseInstructionText(unparsedtext);
         Set<IngredientPortion> ingredients = ParserUtil.parseIngredients(unparsedtext);

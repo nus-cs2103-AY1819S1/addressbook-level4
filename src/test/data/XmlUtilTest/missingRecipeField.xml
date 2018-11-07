@@ -2,8 +2,8 @@
 <!-- Recipe with missing name field -->
 <recipe>
     <difficulty>5</difficulty>
-    <cooktime>PT23M</cooktime>
-    <tagged>friends</tagged>
+    <cooktime>23M</cooktime>
+    <tagged>asian</tagged>
     <instructions>
         <instruction>Preheat oven.</instruction>
     </instructions>

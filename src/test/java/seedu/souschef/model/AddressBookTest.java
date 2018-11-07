@@ -2,7 +2,7 @@ package seedu.souschef.model;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.souschef.testutil.TypicalRecipes.ALICE;
+import static seedu.souschef.testutil.TypicalRecipes.APPLE;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -55,9 +55,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(APPLE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
+        List<Recipe> newRecipes = Arrays.asList(APPLE, editedAlice);
         AppContentStub newData = new AppContentStub(newRecipes);
 
         thrown.expect(DuplicateException.class);
@@ -72,19 +72,19 @@ public class AddressBookTest {
 
     //    @Test
     //    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-    //        assertFalse(addressBook.hasRecipe(ALICE));
+    //        assertFalse(addressBook.hasRecipe(APPLE));
     //    }
 
     //    @Test
     //    public void hasrecipe_recipeInAddressBook_returnsTrue() {
-    //        addressBook.addRecipe(ALICE);
-    //        assertTrue(addressBook.hasRecipe(ALICE));
+    //        addressBook.addRecipe(APPLE);
+    //        assertTrue(addressBook.hasRecipe(APPLE));
     //    }
 
     //    @Test
     //    public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
-    //        addressBook.addRecipe(ALICE);
-    //        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    //        addressBook.addRecipe(APPLE);
+    //        Recipe editedAlice = new RecipeBuilder(APPLE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
     //                .build();
     //        assertTrue(addressBook.hasRecipe(editedAlice));
     //    }

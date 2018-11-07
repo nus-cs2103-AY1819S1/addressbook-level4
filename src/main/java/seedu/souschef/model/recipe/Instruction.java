@@ -36,13 +36,13 @@ public class Instruction {
     }
 
     public Instruction(String instruction, Set<IngredientPortion> ingredients) {
-        this(instruction, new CookTime("PT0M"), ingredients);
+        this(instruction, new CookTime("0M"), ingredients);
     }
 
     public Instruction(String instruction) {
         checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
         this.value = instruction;
-        cookTime = new CookTime("PT0M");
+        cookTime = new CookTime("0M");
     }
 
     /**
