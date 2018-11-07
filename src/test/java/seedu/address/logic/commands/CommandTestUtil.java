@@ -14,6 +14,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,6 +126,10 @@ public class CommandTestUtil {
             " " + PREFIX_END_TIME + INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT;
     public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
     public static final String INVALID_EVENT_CONTACT_INDEX = " " + PREFIX_INDEX + "-1"; // contact index negative
+
+    public static final String EVENT_FIRST_INDEX_DESC = " " + PREFIX_INDEX + INDEX_FIRST_EVENT.getOneBased();
+    public static final String EVENT_SECOND_INDEX_DESC = " " + PREFIX_INDEX + INDEX_SECOND_EVENT.getOneBased();
+    public static final String EVENT_INVALID_INDEX_DESC = " " + PREFIX_INDEX + "-1";
 
 
     public static final String NONEXISTENT_EVENT_TAG = "Class";

@@ -4,11 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_ADDRESS_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DATE_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_FIRST_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
@@ -30,6 +34,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEventCommand;
@@ -43,6 +48,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventAddress;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventTagMatchesKeywordsPredicate;
 import seedu.address.model.filereader.FileReader;
@@ -250,9 +256,17 @@ public class AddressBookParserTest {
     public void parseCommand_deleteEvent() throws Exception {
         DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
                 DeleteEventCommand.COMMAND_WORD
-                        + EVENT_DATE_DESC_DOCTORAPPT + " "
-                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_PERSON), command);
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_editEventAddress() throws Exception {
+        EditEventAddressCommand command = (EditEventAddressCommand) parser.parseCommand(
+                EditEventAddressCommand.COMMAND_WORD
+                + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT);
+        assertEquals(new EditEventAddressCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT,
+                new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)), command);
     }
 
     @Test
