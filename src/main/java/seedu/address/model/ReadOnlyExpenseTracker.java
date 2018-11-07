@@ -1,8 +1,10 @@
 package seedu.address.model;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
@@ -25,6 +27,7 @@ public interface ReadOnlyExpenseTracker {
     ObservableList<Notification> getNotificationList();
     NotificationHandler getNotificationHandler();
     Optional<Password> getPassword();
+    HashSet<CategoryBudget> getCategoryBudgets();
 
     /**
      * Checks if the input password matches the password of the current user. If the user has no password, then true

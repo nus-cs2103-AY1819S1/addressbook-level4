@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -11,12 +12,13 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.notification.Tip;
 import seedu.address.model.user.Username;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExpensesStorage, UserPrefsStorage {
+public interface Storage extends ExpensesStorage, UserPrefsStorage, TipsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -49,4 +51,7 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleExpenseTrackerChangedEvent(ExpenseTrackerChangedEvent abce);
+
+    @Override
+    Optional<List<Tip>> readTips() throws IOException;
 }

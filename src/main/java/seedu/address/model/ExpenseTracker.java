@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -283,6 +284,11 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     @Override
     public ObservableList<Notification> getNotificationList() {
         return notificationHandler.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public HashSet<CategoryBudget> getCategoryBudgets() {
+        return maximumTotalBudget.getCategoryBudgets();
     }
 
     @Override
