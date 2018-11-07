@@ -1,8 +1,10 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
@@ -113,20 +115,16 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         if (difference > 0) {
             scheme = Scheme.GAIN;
         } else if (difference == 0) {
-
             scheme = Scheme.MAINTAIN;
         } else {
             scheme = Scheme.LOSS;
-
         }
-
 
         //generating a new plan, no list (empty by default)
         HealthPlan toAdd = new HealthPlan(healthPlanName, targetWeight,
                 currentWeight, currentHeight, age, duration, scheme, new ArrayList<Day>());
         if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_ADD_HEALTHPLAN_USAGE));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, "plan name"));
         }
 
         return new AddCommand<HealthPlan>(model, toAdd);
