@@ -254,10 +254,16 @@ History will automatically be cleared upon logging out
 Creates a new user account. +
 Format: `register id/USERNAME pw/PASSWORD` or `reg id/USERNAME pw/PASSWORD`
 
+[NOTE]
+====
+This command will be improved in the future to include name and role. See <<Register-Improvement>>
+for more information
+====
+
 Examples:
 
-* `register id/azhikai pw/p@55w0rd`
-* `reg id/azhikai pw/p@55w0rd`
+* `register id/azhikai pw/1122qq`
+* `reg id/azhikai pw/1122qq`
 
 ==== Changing user password: `change-password` or `cp`
 
@@ -276,7 +282,7 @@ Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
 [NOTE]
 ====
-This command should only be able to be executed by a highly privileged user. See <<User-Role>>
+This command will only be able to be executed by a highly privileged user in the future. See <<User-Role>>
 for more information
 ====
 
@@ -983,6 +989,17 @@ Selects the 6th record in the record list.
 // end::salesmanagement[]
 
 === Upcoming Features
+[[Register-Improvement]]
+==== Improving registration `[coming in v2.0]`
+Improves the existing `register` command by including the full name of the employee and role.
+
+Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID` or `reg id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID`
+
+Examples:
+
+* `register id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+* `reg id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+
 [[User-Role]]
 ==== Creating user role `[coming in v2.0]`
 Creates a user role. User assigned with higher ranking role can execute more commands. +
