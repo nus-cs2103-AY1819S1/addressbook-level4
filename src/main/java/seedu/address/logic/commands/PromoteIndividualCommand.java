@@ -31,7 +31,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        int numberOfStudentsPromoted = lastShownList.size() - getNumberOfGraduatedStudents(lastShownList);
+        int numberOfStudentsPromoted = indexesToPromote.size();
 
         for (Index i : indexesToPromote) {
             if (i.getZeroBased() >= lastShownList.size()) {
@@ -39,6 +39,10 @@ public class PromoteIndividualCommand extends PromoteCommand {
             }
             Person personToPromote = lastShownList.get(i.getZeroBased());
             Person promotedPerson = createPromotedPerson(personToPromote);
+
+            if (personToPromote.hasGraduated()) {
+                numberOfStudentsPromoted--;
+            }
 
             model.updatePerson(personToPromote, promotedPerson);
         }
