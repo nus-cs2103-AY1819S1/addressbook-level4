@@ -296,6 +296,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredAssignmentListForPerson(Person person) {
+        requireNonNull(person);
+        updateFilteredAssignmentList(assignment
+                -> assignment.getProjectName().fullProjectName.equals(loggedInUser.getProjects()));
+    }
+
+    @Override
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);

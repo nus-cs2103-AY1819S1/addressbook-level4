@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.project.Assignment;
 
 /**
@@ -37,6 +38,7 @@ public class AddAssignmentCommand extends Command {
      */
     public AddAssignmentCommand(Assignment assignment) {
         requireNonNull(assignment);
+        requiredPermission.addPermissions(Permission.CREATE_PROJECT);
         toAdd = assignment;
     }
 

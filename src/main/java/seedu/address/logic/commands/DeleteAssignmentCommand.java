@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.project.Assignment;
 
 /**
@@ -28,7 +29,7 @@ public class DeleteAssignmentCommand extends Command {
     private final Index targetIndex;
 
     public DeleteAssignmentCommand(Index targetIndex) {
-        //requiredPermission.addPermissions(Permission.REMOVE_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.REMOVE_EMPLOYEE);
         this.targetIndex = targetIndex;
     }
 
