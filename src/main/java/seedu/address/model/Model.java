@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -134,4 +136,9 @@ public interface Model {
      * Get topological order
      */
     List<Task> getTopologicalOrder();
+
+    /**
+     * Get earliest dependent time
+     */
+    Map<Task, Date> getTimeDependency();
 }
