@@ -24,9 +24,9 @@ public class ListMonthCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         List<String> dateList = new ArrayList<String>();
-        int monthValue = LocalDate.now().getMonthValue();
+        LocalDate currentDate = LocalDate.now();
 
-        appendDateList(dateList, numDaysTillEndOfMonth(monthValue));
+        appendDateList(dateList, numDaysTillEndOfMonth(currentDate));
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
         EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(MESSAGE_SUCCESS);
@@ -54,12 +54,13 @@ public class ListMonthCommand extends Command {
     }
     /**
      * This method checks and returns the number of days left from current date till the end of the month.
-     * @param monthValue the name of today date
+     * @param currentDay the name of today date
      * @return numDays
      */
-    public int numDaysTillEndOfMonth (int monthValue) {
+    public int numDaysTillEndOfMonth (LocalDate currentDay) {
         int numDays;
-        int currentDay = LocalDate.now().getDayOfMonth();
+        int dayValue = currentDay.getDayOfMonth();
+        int monthValue = currentDay.getMonthValue();
         int yearValue = LocalDate.now().getYear();
 
         switch(monthValue) {
@@ -70,19 +71,19 @@ public class ListMonthCommand extends Command {
         case 8:
         case 10:
         case 12:
-            numDays = 31 - currentDay;
+            numDays = 31 - dayValue;
             break;
         case 4:
         case 6:
         case 9:
         case 11:
-            numDays = 30 - currentDay;
+            numDays = 30 - dayValue;
             break;
         case 2:
             if (((yearValue % 4 == 0) && !(yearValue % 100 == 0)) || (yearValue % 400 == 0)) {
-                numDays = 29 - currentDay;
+                numDays = 29 - dayValue;
             } else {
-                numDays = 28 - currentDay;
+                numDays = 28 - dayValue;
             }
             break;
         default:

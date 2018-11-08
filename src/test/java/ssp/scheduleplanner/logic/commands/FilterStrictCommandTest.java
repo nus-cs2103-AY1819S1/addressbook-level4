@@ -16,31 +16,31 @@ import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
-import ssp.scheduleplanner.model.task.TagsContainsKeywordsPredicate;
+import ssp.scheduleplanner.model.task.TagsContainsAllKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FilterStrictCommand}.
  */
-public class FilterCommandTest {
+public class FilterStrictCommandTest {
     private Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void equals() {
-        TagsContainsKeywordsPredicate firstPredicate =
-                new TagsContainsKeywordsPredicate(Collections.singletonList("first"));
-        TagsContainsKeywordsPredicate secondPredicate =
-                new TagsContainsKeywordsPredicate(Collections.singletonList("second"));
+        TagsContainsAllKeywordsPredicate firstPredicate =
+                new TagsContainsAllKeywordsPredicate(Collections.singletonList("first"));
+        TagsContainsAllKeywordsPredicate secondPredicate =
+                new TagsContainsAllKeywordsPredicate(Collections.singletonList("second"));
 
-        FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
-        FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
+        FilterStrictCommand filterFirstCommand = new FilterStrictCommand(firstPredicate);
+        FilterStrictCommand filterSecondCommand = new FilterStrictCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(filterFirstCommand.equals(filterFirstCommand));
 
         // same values -> returns true
-        FilterCommand findFirstCommandCopy = new FilterCommand(firstPredicate);
+        FilterStrictCommand findFirstCommandCopy = new FilterStrictCommand(firstPredicate);
         assertTrue(filterFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -54,29 +54,29 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noTaskFound() {
+    public void execute_zeroKeywords_allTasksFound() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
-        TagsContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FilterCommand command = new FilterCommand(predicate);
+        TagsContainsAllKeywordsPredicate predicate = preparePredicate(" ");
+        FilterStrictCommand command = new FilterStrictCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
     }
 
     @Test
-    public void execute_multipleKeywords_multipleTasksFound() {
-        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 4);
-        TagsContainsKeywordsPredicate predicate = preparePredicate("friends owesMoney enemy");
-        FilterCommand command = new FilterCommand(predicate);
+    public void execute_multipleKeywords_singleTaskFound() {
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 1);
+        TagsContainsAllKeywordsPredicate predicate = preparePredicate("friends owesMoney");
+        FilterStrictCommand command = new FilterStrictCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(expectedModel.getFilteredTaskList(), model.getFilteredTaskList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code TagsContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TagsContainsAllKeywordsPredicate}.
      */
-    private TagsContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new TagsContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private TagsContainsAllKeywordsPredicate preparePredicate(String userInput) {
+        return new TagsContainsAllKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

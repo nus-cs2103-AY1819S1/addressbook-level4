@@ -9,15 +9,15 @@ import ssp.scheduleplanner.commons.util.StringUtil;
  * Tests that a {@code Task}'s {@code Date} matches the current list of system date.
  */
 public class DateWeekSamePredicate implements Predicate<Task> {
-    private final List<String> date;
+    private final List<String> dates;
 
     public DateWeekSamePredicate(List<String> date) {
-        this.date = date;
+        this.dates = date;
     }
 
     @Override
     public boolean test(Task task) {
-        return date.stream()
+        return dates.stream()
                 .anyMatch(date -> StringUtil.containsWordIgnoreCase(task.getDate().value, date));
     }
 
@@ -25,7 +25,7 @@ public class DateWeekSamePredicate implements Predicate<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateWeekSamePredicate // instanceof handles nulls
-                && date.equals(((DateWeekSamePredicate) other).date)); // state check
+                && dates.equals(((DateWeekSamePredicate) other).dates)); // state check
     }
 
 }
