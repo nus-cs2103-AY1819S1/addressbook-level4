@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_MEETING;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
@@ -69,13 +68,13 @@ public class EditEventAddressCommandParserTest {
     public void parse_invalidAddressFollowedByValidAddress_success() {
         // no other valid addresses specified
         assertParseSuccess(parser, EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC
-        + INVALID_EVENT_ADDRESS_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + INVALID_EVENT_ADDRESS_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new EditEventAddressCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT,
                         new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)));
 
         // other valid addresses specified
         assertParseSuccess(parser, EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC
-                + EVENT_ADDRESS_DESC_MEETING + INVALID_EVENT_ADDRESS_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + EVENT_ADDRESS_DESC_MEETING + INVALID_EVENT_ADDRESS_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new EditEventAddressCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT,
                         new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)));
 

@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_APPOINTMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
