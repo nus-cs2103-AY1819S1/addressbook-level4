@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Changes the game mode.
+ */
 public class ModeCommand extends Command {
     public static final String FLAT_MODE = "flat";
     public static final String DECREASING_MODE = "decreasing";

@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
 import seedu.address.model.game.GameManager;
-import seedu.address.model.game.GameMode;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 

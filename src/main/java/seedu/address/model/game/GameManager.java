@@ -42,9 +42,7 @@ public class GameManager {
     public void setGameMode(String newGameModeName) {
         if (newGameModeName.equals("flat")) {
             this.gameMode = new FlatMode();
-        }
-
-        else {
+        } else {
             this.gameMode = new DecreasingMode();
         }
     }
