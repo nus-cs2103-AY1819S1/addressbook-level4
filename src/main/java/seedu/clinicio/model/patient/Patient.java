@@ -31,7 +31,10 @@ public class Patient extends Person {
 
     public static final String DEFAULT_NRIC = "S1234567A";
 
+    // Identity fields
     private final Nric nric;
+
+    // Data fields
     private Set<MedicalProblem> medicalProblems;
     private Set<Medication> medications;
     private Set<Allergy> allergies;
@@ -58,6 +61,22 @@ public class Patient extends Person {
         consultationHistory = new ArrayList<>();
     }
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Patient(Person person, Nric nric, Set<MedicalProblem> medicalProblems, Set<Medication> medications,
+            Set<Allergy> allergies) {
+        super(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), new HashSet<>());
+        this.nric = nric;
+        this.medicalProblems = medicalProblems;
+        this.medications = medications;
+        this.allergies = allergies;
+        this.preferredDoctor = Optional.empty();
+        appointment = Optional.empty();
+        appointmentHistory = new ArrayList<>();
+        consultationHistory = new ArrayList<>();
+    }
+    
     /**
      * Every field must be present and not null.
      */

@@ -131,7 +131,9 @@ public class PatientBuilder extends PersonBuilder {
      */
     @Override
     public Patient build() {
-        Patient patient = Patient.buildFromPerson(super.build());
+        Person person = super.build();
+        Patient patient = new Patient(person, nric, medicalProblems,
+                medications, allergies);
 
         preferredDoctor.ifPresent(doctor -> {
             patient.setPreferredDoctor(doctor);

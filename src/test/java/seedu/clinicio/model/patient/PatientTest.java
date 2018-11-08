@@ -6,9 +6,12 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.AMY;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
@@ -115,11 +118,14 @@ public class PatientTest {
         editedAliceAsPatient = (Patient) new PatientBuilder(ALICE_AS_PATIENT).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE_AS_PATIENT.equals(editedAliceAsPatient));
 
-        // different tags -> returns false
-        editedAliceAsPatient = (Patient) new PatientBuilder(ALICE_AS_PATIENT).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE_AS_PATIENT.equals(editedAliceAsPatient));
+        // different nric -> returns false
+        Patient editedAlexWithNric = new PatientBuilder(ALEX)
+                .withNric(VALID_NRIC_ALEX).build();
+        Patient editedAlexWithAnotherNric = new PatientBuilder(ALEX)
+                .withNric(VALID_NRIC_BRYAN).build();
+        assertFalse(editedAlexWithNric.equals(editedAlexWithAnotherNric));
 
-        // different preffered staff -> returns false
+        // different preferred doctor -> returns false
         Patient editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         Patient editedAliceAsPatientWithAnotherPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
