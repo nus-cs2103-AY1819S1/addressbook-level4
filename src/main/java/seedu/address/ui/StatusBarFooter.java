@@ -73,6 +73,7 @@ public class StatusBarFooter extends UiPart<Region> {
         Platform.runLater(() -> syncStatus.setText(status));
     }
 
+    //@@author jeremyyew
     @Subscribe
     public void handleTranscriptChangedEvent(TranscriptChangedEvent tce) {
         long now = clock.millis();

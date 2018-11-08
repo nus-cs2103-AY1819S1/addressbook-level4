@@ -18,7 +18,6 @@ import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.capgoal.CapGoal;
 //@@author jeremyyew
-
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
