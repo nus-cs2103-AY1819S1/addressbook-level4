@@ -21,6 +21,7 @@ public class InterestCommand extends Command {
             + "Parameters: INTEREST_SCHEME INTEREST_RATE...\n"
             + "Example: " + COMMAND_WORD + " simple 1.1%";
     public static final String MESSAGE_SUCCESS = "Interest calculated for all %d transactions!";
+    private static final String MESSAGE_NO_TRANSACTIONS = "No transactions present to calculate the interest!!" ;
     private final String scheme;
     private final String rate;
 
@@ -34,6 +35,9 @@ public class InterestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
+        if (lastShownList.isEmpty()) {
+            return new CommandResult(MESSAGE_NO_TRANSACTIONS);
+        }
         for (Transaction transactionToEdit : lastShownList) {
             Amount principalAmount = transactionToEdit.getAmount();
             long monthsDifference = transactionToEdit.getDeadline().getMonthsDifference();

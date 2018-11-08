@@ -19,15 +19,20 @@ public class ConvertCommand extends Command {
     public static final String COMMAND_WORD = "convert";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Converts given amounts from their respective foreign currencies to Singapore Dollars\n"
+            + ": Converts given amounts in all the transactions from their respective foreign currencies"
+            + " to Singapore Dollars.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Amounts converted in all transactions!!";
+    public static final String MESSAGE_NO_TRANSACTION_AMOUNTS = "No transaction amounts left to convert!!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
+        if (lastShownList.isEmpty()) {
+            return new CommandResult(MESSAGE_NO_TRANSACTION_AMOUNTS);
+        }
         try {
             for (Transaction transactionToEdit : lastShownList) {
                 Amount convertedAmount = Amount.convertCurrency(transactionToEdit.getAmount());
