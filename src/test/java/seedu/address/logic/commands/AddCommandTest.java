@@ -44,7 +44,7 @@ public class AddCommandTest {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
-    
+
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
