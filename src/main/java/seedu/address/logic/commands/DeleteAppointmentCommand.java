@@ -93,7 +93,8 @@ public class DeleteAppointmentCommand extends Command {
         }
 
         try {
-            googleCalendar.deleteAppointment(doctor.getName().toString(), appointment);
+            googleCalendar.deleteAppointment(doctor.getName().toString() + doctor.getPhone().toString(),
+                    appointment);
         } catch (GeneralSecurityException e) {
             throw new InvalidSecurityAccessException();
         } catch (IOException e) {

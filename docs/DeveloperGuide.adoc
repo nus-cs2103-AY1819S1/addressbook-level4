@@ -358,19 +358,19 @@ previous remark will be deleted.
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
 command is implemented such that it is able to add `allergies` AND/OR `conditions` to `MedicalHistory` object for a specific
-`Patient` specified by index.
+`Patient` specified by name.
 
 .Add Medical History Sequence Diagram
 image::AddMedicalHistorySequenceDiagram.png[width="600"]
 
-Step 1. The user types in `add-medical-history` in the command box followed by the parameter `INDEX al/penicillin,milk
+Step 1. The user types in `add-medical-history` in the command box followed by the parameter `n/John Doe al/penicillin,milk
 c/sub-healthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
-You must provide both prefixes of allergy and condition, but can leave at most one input blank.
+You can only omit either ALLERGY parameter or CONDITION parameter.
 
-Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get added
+Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get added
 
 [WARNING]
 Exception will be thrown if inputs for both field are blank.
@@ -384,20 +384,20 @@ Exception will be thrown if inputs for both field are blank.
 ==== Current Implementation
 The delete medical history feature is facilitated by `DeleteMedicalHistoryCommand` and
 `DeleteMedicalHistoryCommandParser`. This command is implemented such that it is able to delete `allergy` AND/OR
-`condition` from `MedicalHistory` object for a specific `Patient` specified by index.
+`condition` from `MedicalHistory` object for a specific `Patient` specified by name.
 
 .Delete Medical History Sequence Diagram
 image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
 
-Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `INDEX
+Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `n/John Doe
 al/penicillin,milk c/sub-healthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
-You must provide both prefixes of allergy and condition, but can leave at most one input blank.
+You can only omit either ALLERGY parameter or CONDITION parameter.
 
 
-Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get deleted
+Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get deleted
 
 [WARNING]
 Exception will be thrown if inputs for both field are blank.

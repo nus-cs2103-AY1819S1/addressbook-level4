@@ -67,7 +67,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name and same phone number.
+     * Returns true if both persons of the same name.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {

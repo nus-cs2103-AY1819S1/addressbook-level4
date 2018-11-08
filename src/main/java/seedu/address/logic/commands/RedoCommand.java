@@ -22,7 +22,7 @@ public class RedoCommand extends Command {
             throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoAddressBook()) { // Test
             throw new CommandException(MESSAGE_FAILURE);
         }
 

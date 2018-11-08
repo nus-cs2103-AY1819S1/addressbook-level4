@@ -39,7 +39,7 @@ public class RegisterDoctorCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New doctor registered: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "There exists a patient/doctor with this name in the HealthBook";
+            "There exists a patient/doctor with this name and number in the HealthBook";
     public static final String MESSAGE_WRONG_INPUT = "Wrong input provided. Please try again";
     public static final String MESSAGE_SECURTIY_BREACH = "Unable to create doctor due to security breach";
 
@@ -63,7 +63,8 @@ public class RegisterDoctorCommand extends Command {
         }
 
         try {
-            googleCalendar.registerDoctor(doctorToRegister.getName().toString());
+            googleCalendar.registerDoctor(
+                    doctorToRegister.getName().toString() + doctorToRegister.getPhone().toString());
         } catch (IOException e) {
             throw new CommandException(MESSAGE_WRONG_INPUT);
         } catch (GeneralSecurityException e) {

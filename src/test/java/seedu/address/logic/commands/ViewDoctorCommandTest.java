@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA_DOCTOR;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Rule;
@@ -36,7 +36,7 @@ public class ViewDoctorCommandTest {
 
     @Test
     public void execute_validDoctor_success() {
-        Doctor doctorToDelete = GEORGE;
+        Doctor doctorToDelete = GEORGE_DOCTOR;
         assertExecutionSuccess(doctorToDelete);
     }
 
@@ -47,19 +47,19 @@ public class ViewDoctorCommandTest {
                 model, commandHistory, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
 
         // not Doctor
-        assertExecutionFailure(ALICE, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
+        assertExecutionFailure(ALICE_PATIENT, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
     }
 
     @Test
     public void equals() {
-        ViewDoctorCommand viewFirstDoctorCommand = new ViewDoctorCommand(GEORGE.getName());
-        ViewDoctorCommand viewSecondDoctorCommand = new ViewDoctorCommand(FIONA.getName());
+        ViewDoctorCommand viewFirstDoctorCommand = new ViewDoctorCommand(GEORGE_DOCTOR.getName());
+        ViewDoctorCommand viewSecondDoctorCommand = new ViewDoctorCommand(FIONA_DOCTOR.getName());
 
         // same object -> returns true
         assertTrue(viewFirstDoctorCommand.equals(viewFirstDoctorCommand));
 
         // same values -> returns true
-        ViewDoctorCommand viewFirstDoctorCommandCopy = new ViewDoctorCommand(GEORGE.getName());
+        ViewDoctorCommand viewFirstDoctorCommandCopy = new ViewDoctorCommand(GEORGE_DOCTOR.getName());
         assertTrue(viewFirstDoctorCommand.equals(viewFirstDoctorCommandCopy));
 
         // different types -> returns false

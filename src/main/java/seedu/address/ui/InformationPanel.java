@@ -64,10 +64,10 @@ public class InformationPanel extends UiPart<Region> {
     }
 
     private void setConnections() {
-        allergiesLabel.setText(" ");
-        conditionsLabel.setText(" ");
         upcomingAppointmentTable.getItems().clear();
         pastAppointmentTable.getItems().clear();
+        allergiesLabel.setText(" ");
+        conditionsLabel.setText(" ");
     }
 
     private void setConnections(ObservableList<Appointment> upcomingAppointmentList) {
