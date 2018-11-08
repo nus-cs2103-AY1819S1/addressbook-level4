@@ -48,6 +48,14 @@ public class Email {
     }
 
     /**
+     * Makes an identical deep copy of this Email.
+     */
+    public Email makeDeepDuplicate() {
+        Email newEmail = new Email(new String(value));
+        return newEmail;
+    }
+
+    /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {

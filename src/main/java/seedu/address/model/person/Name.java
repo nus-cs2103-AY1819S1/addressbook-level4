@@ -45,6 +45,13 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    /**
+     * Makes an identical deep copy of this Name.
+     */
+    public Name makeDeepDuplicate() {
+        Name newName = new Name(new String(this.fullName));
+        return newName;
+    }
 
     @Override
     public String toString() {

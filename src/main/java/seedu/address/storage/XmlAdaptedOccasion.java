@@ -73,9 +73,16 @@ public class XmlAdaptedOccasion {
         occasionName = source.getOccasionName().toString();
         occasionDateTime = source.getOccasionDate().toString();
         location = source.getOccasionLocation().toString();
-        attendanceList = source.getAttendanceList().asNormalList().stream()
-                            .map(XmlAdaptedPerson::new)
-                            .collect(Collectors.toList());
+        for (Person person : source.getAttendanceList()) {
+            List<XmlAdaptedTag> tagsToInsert = person.getTags()
+                                                .stream().map(XmlAdaptedTag::new)
+                                                .collect(Collectors.toList());
+            attendanceList.add(new XmlAdaptedPerson(person.getName().toString(),
+                                    person.getPhone().toString(),
+                                    person.getEmail().toString(),
+                                    person.getAddress().toString(),
+                                    tagsToInsert));
+        }
     }
 
     /**
@@ -111,7 +118,8 @@ public class XmlAdaptedOccasion {
             }
         }
 
-        return new Occasion(occasionName, occasionDate, location, tags, TypeUtil.OCCASION);
+        return new Occasion(occasionName, occasionDate, location,
+                                tags, TypeUtil.OCCASION, new ArrayList<>(attendanceList));
     }
 
     @Override

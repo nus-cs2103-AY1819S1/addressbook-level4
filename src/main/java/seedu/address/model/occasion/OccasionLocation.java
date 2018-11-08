@@ -43,6 +43,14 @@ public class OccasionLocation {
     }
 
     /**
+     * Makes an identical deep copy of this OccasionLocation.
+     */
+    public OccasionLocation makeDeepDuplicate() {
+        OccasionLocation newLocation = new OccasionLocation(new String(fullOccasionLocation));
+        return newLocation;
+    }
+
+    /**
      * Check whether a given string is a valid location.
      *
      * @return A boolean value indicating the validation of this occasion location.

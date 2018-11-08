@@ -23,6 +23,12 @@ import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * The MainWindow parent class from which children entity windows are spawned from.
@@ -34,7 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private HelpWindow helpWindow;
 
-    private BrowserPanel browserPanel;
+    private PersonBrowserPanel personBrowserPanel;
+    private OccasionBrowserPanel occasionBrowserPanel;
+    private ModuleBrowserPanel moduleBrowserPanel;
     private PersonListPanel personListPanel;
     private ModuleListPanel moduleListPanel;
     private OccasionListPanel occasionListPanel;
@@ -146,10 +154,6 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     /**
      * Closes the application.
      */
@@ -180,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel.clearSelection();
 
         moduleListPanel.updatePanel(logic.getFilteredModuleList());
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        getBrowserPlaceholder().getChildren().add(moduleBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
     }
 
@@ -194,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel.clearSelection();
 
         personListPanel.updatePanel(logic.getFilteredPersonList());
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
     }
 
@@ -208,7 +212,7 @@ public class MainWindow extends UiPart<Stage> {
         occasionListPanel.clearSelection();
 
         occasionListPanel.updatePanel(logic.getFilteredOccasionList());
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        getBrowserPlaceholder().getChildren().add(occasionBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
     }
 
@@ -216,8 +220,31 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        if (logic.getFilteredPersonList().size() > 0) {
+            Person firstPerson = logic.getFilteredPersonList().get(0);
+            personBrowserPanel = new PersonBrowserPanel(firstPerson.getModuleList().asUnmodifiableObservableList(),
+                    firstPerson.getOccasionList().asUnmodifiableObservableList());
+        } else { // Means that there are no modules within the addressbook.
+            personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
+                                                        new UniqueOccasionList().asUnmodifiableObservableList());
+        }
+
+        if (logic.getFilteredModuleList().size() > 0) {
+            Module firstModule = logic.getFilteredModuleList().get(0);
+            moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
+        } else {
+            moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        }
+
+        if (logic.getFilteredOccasionList().size() > 0) {
+            Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
+            occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
+                    .getAttendanceList().asUnmodifiableObservableList());
+        } else {
+            occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        }
+
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());

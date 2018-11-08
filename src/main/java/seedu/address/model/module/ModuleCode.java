@@ -40,6 +40,14 @@ public class ModuleCode {
     }
 
     /**
+     * Makes an identical deep copy of this ModuleCode.
+     */
+    public ModuleCode makeDeepDuplicate() {
+        ModuleCode newCode = new ModuleCode(new String(fullModuleCode));
+        return newCode;
+    }
+
+    /**
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidCode(String test) {
