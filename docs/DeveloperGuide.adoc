@@ -341,23 +341,18 @@ prompt the user to login.
 * Alternative 2 (Alternative Choice): Doctor object will not be created if Google Login is unsuccessful, instead throw
 an exception. This will make Google Calendar mandatory for all doctors.
 
-=== Remark Command
+=== Remark Feature
 ==== Current Implementation
-Remark command allows user to input any information into Doctor/Patient object with no restrictions. This command can
-only be called after person is created.
+Remark command allows user to input any information into Patient object with no restrictions. This command can
+only be called after patient is created.
 
-.Sequence Diagram for Remark Command
-image::RemarkCommandSequenceDiagram.png[width="600"]
+.Remark Command Sequence Diagram
+image::RemarkSequenceDiagram.png[width="600"]
 
-Step 1. The user types in `remark` in the command box followed by the parameters `index r/some remark`
+Step 1. The user types in `remark` in the command box followed by the parameters `appointment_id r/some remark`
 
 Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
 previous remark will be deleted.
-
-==== Design Considerations
-===== Aspect: Easier access to remark
-* Alternative 1 (Current choice): Currently, the remark command is only accessible via index. We will change it to be
-accessible via name as this allows the receptionist to edit the remark without looking for the index beforehand.
 
 === Add Medical History Feature
 ==== Current Implementation
@@ -423,6 +418,31 @@ image::FilterPatientSequenceDiagram.png[width="600"]
 Step 1. The user types `filter-patient` or `filter-doctor` in the command box
 
 Step 2. Upon hitting enter, all persons who are tagged as "Patient" or "Doctor" would appear on the panel
+
+=== Add Prescription Feature
+==== Current Implementation
+The add prescription feature is facilitated by `AddPrescriptionCommand` and `AddPrescriptionCommandParser`.
+This command is implemented such that it is able to add a `Prescription` object for a specific `Appointment` specified by appointment id.
+
+Step 1. The user types `add-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`.
+
+Step 2. Upon hitting enter, the `Prescription` will be created and added to the `Appointment`.
+
+[WARNING]
+Exception will be thrown if a medicine of the same name already exists in appointment regardless of dosage and consumption per day. +
+Exception will be thrown if medicine that the patient is allergic to is added to the appointment.
+
+=== Delete Prescription Feature
+==== Current Implementation
+The delete prescription is facilitated by `DeletePrescriptionCommand` and `DeletePrescriptionCommandParser`.
+This command is implemented such that it is able to delete a `Prescription object for a specific `Appointment` specified by appointment id.
+
+Step 1. The user types `delete-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME`.
+
+Step 2. Upon hitting enter, the `Prescription` will be deleted from the `Appointment`.
+
+[WARNING]
+Exception will be thrown if medicine to be deleted does not exist in appointment.
 
 === Logging
 
