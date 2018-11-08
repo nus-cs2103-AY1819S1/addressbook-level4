@@ -260,7 +260,7 @@ comes back from the future.
 // tag::gamemode-usage[]
 
 
-// end::achievements-usage[]
+// end::gamemode-usage[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +

@@ -515,6 +515,7 @@ The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
 This predicate is passed as an argument to update filtered Tasks.
 
+// tag::gamemode-impl[]
 === Game Manager
 
 ==== Current Implementation
@@ -534,6 +535,8 @@ image::GameManagerSequenceDiagram.png[width="1200"]
 * **Alternative 2:** Embedding XP calculation logic within task completion logic.
 ** Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.
 ** Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.
+
+// end::gamemode-impl[]
 
 === Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.

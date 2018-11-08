@@ -23,9 +23,9 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 * *Other contributions*:
 
 ** Project management:
-*** Was one of two repository maintainers, tasked to help manage pull requests, issues, etc. 
+*** Was one of two repository maintainers, tasked to help manage pull requests, issues, etc.
 ** Enhancements to existing features:
-*** Refactored 
+*** Refactored
 
 ** Documentation:
 *** Managed non-User Guide or Developer Guide documentation; primarily About Us and README. (examples: https://github.com/CS2103-AY1819S1-F11-3/main/pull/38[#38], https://github.com/CS2103-AY1819S1-F11-3/main/pull/44[#44])
@@ -40,9 +40,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=gamemode-usage]
 
 == Contributions to the Developer Guide
 
@@ -50,6 +48,5 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=gamemode-impl]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
