@@ -139,6 +139,7 @@ Format:
 `dependency 1`
 `dependency a b`
 
+// tag::complete-usage[]
 ==== Completing a Task: `complete`
 [%hardbreaks]
 Completes task(s) in the task manager
@@ -155,7 +156,7 @@ Format: `complete INDEX` or `complete t/LABEL`
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
-
+// end::complete-usage[]
 ==== Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
@@ -281,7 +282,10 @@ comes back from the future.
 
 ** *Achievements* : `achievements TIME_SPAN`
 
+// tag::complete-2.0[]
+==== Completing a Task: `complete`
 == Features to be included by v2.0
 * `Complete` displays a organic random congratulatory message upon task completion.
 ** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
 * Completed Tasks should be automatically hidden from view.
+// end::complete-2.0[]

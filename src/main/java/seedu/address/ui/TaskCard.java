@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.model.task.Task;
+
 
 /**
  * An UI component that displays information of a {@code Task}.
@@ -31,11 +36,13 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label dueDate;
     @FXML
-    private Label address;
+    private Label remainingTime;
     @FXML
-    private Label email;
+    private Label description;
+    @FXML
+    private Label priorityValue;
     @FXML
     private Label status;
     @FXML
@@ -44,20 +51,38 @@ public class TaskCard extends UiPart<Region> {
     private Label dependency;
     @FXML
     private FlowPane tags;
-    //TODO:Cannot find local variable tag
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        phone.setText(task.getDueDate().value);
-        address.setText(task.getDescription().value);
-        email.setText(task.getPriorityValue().value);
+        dueDate.setText(task.getDueDate().value);
+        remainingTime.setText(getRemainingTime());
+        description.setText(task.getDescription().value);
+        priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
-        hash.setText("id: " + Integer.toString(task.hashCode()));
-        dependency.setText("dependencies: " + task.getDependency().toString());
+        hash.setText(getHashId());
+        dependency.setText(getDependencies());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        registerAsAnEventHandler(this);
+    }
+
+    private String getHashId() {
+        return "id: " + Integer.toString(task.hashCode());
+    }
+
+    private String getDependencies() {
+        return "dependencies: " + task.getDependency().toString();
+    }
+
+    private String getRemainingTime() {
+        return "remaining time: " + task.getTimeToDueDate();
+    }
+
+    @Subscribe
+    public void handleNewResultEvent(NewResultAvailableEvent abce) {
+        Platform.runLater(() -> remainingTime.setText(getRemainingTime()));
     }
 
     @Override

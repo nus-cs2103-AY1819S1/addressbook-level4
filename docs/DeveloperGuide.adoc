@@ -219,6 +219,8 @@ this week` commands to specify their choices.
      the achievements command needs to be implemented and handled separately from all other commands, breaks
      abstraction.
 
+// tag::complete[]
+
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
 
@@ -345,6 +347,7 @@ commit in `taskManagerStateList`.
 image::RollbackModelSequenceDiagram.png[width="1200"]
 
 _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
+// end::complete[]
 
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
@@ -371,8 +374,6 @@ as a set of hashcodes, and can only perform the tasks reference once all tasks a
 *** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
 other tasks that depends on A has to be recreated.
-
-
 
 ### 3.5 Modelling Dependency Validity
 #### 3.5.1 Current Implementation

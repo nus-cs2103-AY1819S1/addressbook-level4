@@ -38,6 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedTaskManager = new VersionedTaskManager(taskManager);
         filteredTasks = new FilteredList<>(versionedTaskManager.getTaskList());
+        //Updates status of all IN PROGRESS tasks that have due dates before current time as overdue
+        this.checkOverdue();
     }
 
     public ModelManager() {
