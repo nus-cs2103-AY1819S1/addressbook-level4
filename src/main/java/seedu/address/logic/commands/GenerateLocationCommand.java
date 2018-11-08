@@ -30,7 +30,7 @@ public class GenerateLocationCommand extends Command {
 
     public static final String MESSAGE_EVENT_DOES_NOT_EXIST = "This event does not exist!";
 
-    public static final String MESSAGE_SUCCESS = "Meeting location generated!";
+    public static final String MESSAGE_SUCCESS = "Meeting location generated for ";
 
     private final EventName meetingLocationEventName;
 
@@ -62,7 +62,8 @@ public class GenerateLocationCommand extends Command {
 
         String meetingPlaceId = EmbedGoogleMaps.getMeetingPlaceId();
         EventsCenter.getInstance().post(new RandomMeetingLocationGeneratedEvent(meetingPlaceId));
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + meetingLocationEventName +"! Use editEventLocation to"
+                + " change the location of your event if you are happy with this :)");
     }
 
     @Override
