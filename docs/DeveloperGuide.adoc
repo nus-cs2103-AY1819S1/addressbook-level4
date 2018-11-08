@@ -315,6 +315,7 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ingredientmanager[]
 === Ingredient Manager
 ==== Total management of ingredients that user currently have
 Ingredient Manager is an address book of ingredients. With the basic functions of a normal address book such as
@@ -339,7 +340,7 @@ Ingredient
  Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
  desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
  she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
-
+// end::ingredientmanager[]
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
@@ -961,16 +962,14 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC16 – Search recipes based on ingredients manager availability
+=== Use case: UC16 – Search recipes according to ingredients
 
 *MSS*
 
-1. User +++<u>list ingredients (UC11)</u>+++.
-2. System shows the list of recipes in order of most number of ingredients in IM included.
-3. User selects both mandatory and desirable ingredients for the search.
-4. System shows the list of recipes in order of most number of ingredients selected.
-5. User selects a recipe.
-6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings.
+1. User selects both mandatory and desirable ingredients for the search.
+2. System shows the filtered and sorted list of recipes.
+3. User selects a recipe.
+4. System shows recipe specifying missing ingredients and its amount, calculated according to the number of servings.
 +
 Use case ends.
 
