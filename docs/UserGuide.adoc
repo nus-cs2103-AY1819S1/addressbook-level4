@@ -49,6 +49,9 @@ times e.g. `[t/TAG]...` can be used as
 * Parameters can be in any order e.g. if the command specifies
 `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
+[TIP]
+When `INDEX` is a parameter, it refers to the index of the item shown on the task or person list
+
 === Viewing help: `help`
 
 Format: `help`
@@ -57,7 +60,7 @@ Format: `help`
 
 ==== View all contacts: `contacts list`
 
-Format: `contacts view`
+Format: `contacts list`
 
 ==== Add contact: `contacts add`
 
