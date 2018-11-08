@@ -19,8 +19,6 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn
-
 * *Major enhancement*: added the ability to *complete a task as identified by
 index*, *complete a batch of tasks as identified by a label*.
 
@@ -51,6 +49,9 @@ polymorphic behaviour of the two flavour of completion. Additionally, this helps
 keeps code organised neatly by following the Single Responsibility Principle.
 **** Implementing a rollback operation for the model, which could possibly be
 used to provide better data integrity of the application in future development.
+
+* **Code contributed**:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn[RepoSense]
 
 * *Other contributions*:
 
