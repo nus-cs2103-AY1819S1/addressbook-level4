@@ -1,4 +1,4 @@
-package seedu.jxmusic.logic.commands;
-
-public class SeekCommandTest {
-}
+//package seedu.jxmusic.logic.commands;
+//
+//public class SeekCommandTest {
+//}

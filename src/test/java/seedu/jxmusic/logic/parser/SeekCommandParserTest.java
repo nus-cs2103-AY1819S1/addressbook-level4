@@ -1,4 +1,4 @@
-package seedu.jxmusic.logic.parser;
-
-public class SeekCommandParserTest {
+//package seedu.jxmusic.logic.parser;
+//
+//public class SeekCommandParserTest {
 }
