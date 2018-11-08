@@ -79,6 +79,7 @@ public class FindEventCommand extends Command {
             || (other instanceof FindEventCommand // instanceof handles nulls
             && titlePredicate.equals(((FindEventCommand) other).titlePredicate) // state check
             && fuzzySearchComparator.equals(((FindEventCommand) other).fuzzySearchComparator)
+            && datePredicate.equals(((FindEventCommand) other).datePredicate)
             && tagsPredicate.equals(((FindEventCommand) other).tagsPredicate));
     }
 }

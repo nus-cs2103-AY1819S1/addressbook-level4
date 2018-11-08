@@ -43,6 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_START_DATETIME_LECTURE = "2018-10-16 14:00";
     public static final String VALID_END_DATETIME_LECTURE = "2018-10-16 16:00";
+    public static final String VALID_START_DATETIME_LECTURE_2 = "2018-11-15 16:00";
+    public static final String VALID_END_DATETIME_LECTURE_2 = "2018-11-15 18:00";
     public static final String VALID_START_DATETIME_TUTORIAL = "2018-10-18 10:00";
     public static final String VALID_END_DATETIME_TUTORIAL = "2018-10-18 11:00";
     public static final String VALID_PRIORITY_TUTORIAL = "L";
@@ -55,8 +57,10 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_LECTURE = " " + PREFIX_PRIORITY + VALID_PRIORITY_LECTURE;
     public static final String PRIORITY_DESC_TUTORIAL = " " + PREFIX_PRIORITY + VALID_PRIORITY_TUTORIAL;
     public static final String START_DESC_LECTURE = " " + PREFIX_START + VALID_START_DATETIME_LECTURE;
+    public static final String START_DESC_LECTURE_2 = " " + PREFIX_START + VALID_START_DATETIME_LECTURE_2;
     public static final String START_DESC_TUTORIAL = " " + PREFIX_START + VALID_START_DATETIME_TUTORIAL;
     public static final String END_DESC_LECTURE = " " + PREFIX_END + VALID_END_DATETIME_LECTURE;
+    public static final String END_DESC_LECTURE_2 = " " + PREFIX_END + VALID_END_DATETIME_LECTURE_2;
     public static final String END_DESC_TUTORIAL = " " + PREFIX_END + VALID_END_DATETIME_TUTORIAL;
     public static final String VENUE_DESC_LECTURE = " " + PREFIX_VENUE + VALID_VENUE_LECTURE;
     public static final String VENUE_DESC_TUTORIAL = " " + PREFIX_VENUE + VALID_VENUE_TUTORIAL;

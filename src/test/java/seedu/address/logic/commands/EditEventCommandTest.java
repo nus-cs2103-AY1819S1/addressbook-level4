@@ -95,10 +95,7 @@ public class EditEventCommandTest {
         assertCommandSuccess(editEventCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
-    // @Test
-    /**
-     * todo fix this test
-     */
+    @Test
     public void execute_filteredList_success() {
         showCalendarEventAtIndex(model, INDEX_FIRST_ELEMENT);
 

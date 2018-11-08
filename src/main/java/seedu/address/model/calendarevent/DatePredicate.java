@@ -40,8 +40,11 @@ public class DatePredicate implements Predicate<CalendarEvent> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DatePredicate // instanceof handles nulls
-                && ((hasDateFrom() && dateFrom.equals(((DatePredicate) other).dateFrom))
-                    || (hasDateTo() && dateTo.equals(((DatePredicate) other).dateTo)))); // state check
+                && ((!hasDateFrom() && !hasDateTo())
+                    || (hasDateFrom() && hasDateTo() && dateFrom.equals(((DatePredicate) other).dateFrom)
+                        && dateTo.equals(((DatePredicate) other).dateTo))
+                    || ((hasDateFrom() && dateFrom.equals(((DatePredicate) other).dateFrom))
+                        || (hasDateTo() && dateTo.equals(((DatePredicate) other).dateTo))))); // state check
     }
 
 }

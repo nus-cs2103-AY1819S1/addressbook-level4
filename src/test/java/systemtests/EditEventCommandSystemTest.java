@@ -6,12 +6,14 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.END_DESC_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.END_DESC_LECTURE_2;
 import static seedu.address.logic.commands.CommandTestUtil.END_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TITLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.START_DESC_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.START_DESC_LECTURE_2;
 import static seedu.address.logic.commands.CommandTestUtil.START_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
@@ -24,11 +26,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_TUTORIAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalEvents.LECTURE;
 import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+
+import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -46,12 +49,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test
-
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     * TODO remember to import org.JUnit.Test
-     */
+    @Test
     public void edit() {
         Model model = getModel();
 
@@ -120,7 +118,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filtered calendarevent list, edit index within bounds of address book and calendarevent list ->
         edited */
-        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
+        showCalendarEventsWithTitle("Choir");
         index = INDEX_FIRST_ELEMENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + TITLE_DESC_LECTURE;
@@ -132,7 +130,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         calendarevent list
          * -> rejected
          */
-        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
+        showCalendarEventsWithTitle("Choir");
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         assertCommandFailure(EditEventCommand.COMMAND_WORD + " " + invalidIndex + TITLE_DESC_TUTORIAL,
             Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
@@ -202,13 +200,14 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         index = INDEX_FIRST_ELEMENT;
         assertFalse(getModel().getFilteredCalendarEventList().get(index.getZeroBased()).equals(LECTURE));
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
-            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
+            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE_2 + END_DESC_LECTURE_2
+            + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different tags
         -> rejected */
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
-            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
+            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE_2 + END_DESC_LECTURE_2
             + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
@@ -216,7 +215,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         description
          -> rejected */
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
-            + DESCRIPTION_DESC_TUTORIAL + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
+            + DESCRIPTION_DESC_TUTORIAL + START_DESC_LECTURE_2 + END_DESC_LECTURE_2
+            + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
     }
