@@ -8,6 +8,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -262,6 +263,28 @@ public class ImageMagickUtil {
             return convertExecutablePath;
         }
         throw new NoSuchElementException("The ImageMagick binaries cannot be found!");
+    }
+
+    /**
+     * Handles a raw string and directly passes it to ImageMagick.
+     * @param path - full path to the image to work on.
+     * @param rawCommand - a string holding the raw command string to pass in.
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static BufferedImage processRawImage(Path path, String rawCommand)
+            throws IOException, InterruptedException {
+        ArrayList<String> rawArgs = new ArrayList<>(Arrays.asList(rawCommand.trim().split(" ")));
+        String modifiedFile = tmpPath + "/output.png";
+        ArrayList<String> args = new ArrayList<>();
+        args.add(ImageMagickUtil.getExecuteImageMagick());
+        args.add(path.toAbsolutePath().toString());
+        args.add("-background");
+        args.add("rgba(0,0,0,0)"); //HARDFIX!
+        args.addAll(rawArgs);
+        args.add(modifiedFile);
+        return runProcessBuilder(args, modifiedFile);
     }
     /**
      * Creates a ProcessBuilder instance to merge/flatten layers.

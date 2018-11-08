@@ -43,7 +43,7 @@ public class LayerSelectCommand extends LayerCommand {
                 throw new NumberFormatException();
             }
             index = Index.fromOneBased(i);
-            model.getCanvas().setCurrentLayer(index);
+            model.setCurrentLayer(index);
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
         }

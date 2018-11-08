@@ -52,16 +52,30 @@ public class Canvas {
         return layers;
     }
 
+    public ArrayList<String> getLayerNames() {
+        ArrayList<String> names = new ArrayList<>();
+        int i = 1;
+        for (Layer l : layers) {
+            names.add(i + ": " + l.getName());
+            i++;
+        }
+        return names;
+    }
+
     public void addLayer(PreviewImage i, String name) {
         layers.add(new Layer(i, name));
     }
 
     public void addLayer(PreviewImage i) {
-        layers.add(new Layer(i, String.format(LAYER_NAME, layers.size())));
+        layers.add(new Layer(i, String.format(LAYER_NAME, layers.size() + 1)));
     }
 
     public Layer getCurrentLayer() {
         return currentLayer;
+    }
+
+    public Index getCurrentLayerIndex() {
+        return currentLayerIndex;
     }
 
     public void setCurrentLayer(Index i) {

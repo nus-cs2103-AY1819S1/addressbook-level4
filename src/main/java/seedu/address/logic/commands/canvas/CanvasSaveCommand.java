@@ -23,7 +23,7 @@ public class CanvasSaveCommand extends CanvasCommand {
     public static final String OUTPUT_INVALID = "Invalid filename entered!";
     public static final String OUTPUT_FAILURE = "Saving failed. Please try again.";
 
-    private static final String FILE_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
+    private static final String FILE_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp|jpeg|tiff))$)";
 
     private static final Logger logger = LogsCenter.getLogger(CanvasSaveCommand.class);
 
