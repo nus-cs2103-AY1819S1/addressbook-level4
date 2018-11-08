@@ -14,6 +14,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.commons.events.ui.WishDataUpdatedEvent;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.model.WishTransaction;
@@ -81,6 +82,13 @@ public class WishDetailSavingHistory extends UiPart<Region> {
         if (this.id.equals(event.getNewData().getId().toString())) {
             loadWishDetails(event.getNewData());
         }
+    }
+
+    @Subscribe
+    private void handleWishBookChangedEvent(WishBookChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "handled by " + WishDetailSavingHistory.class.getSimpleName()));
+        this.wishTransaction = event.wishTransaction;
     }
 
     /**
