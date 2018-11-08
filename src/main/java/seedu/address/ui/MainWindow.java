@@ -161,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         listPicker = new ListPicker();
         listPickerPlaceholder.getChildren().add(listPicker.getRoot());
 
-        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList());
+        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
     }
 
     /**
@@ -179,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up the person list placeholder with the person list
      */
     void fillPersonListParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up the person list placeholder with the archive list
      */
     void fillArchiveListParts() {
-        personListPanel = new PersonListPanel(logic.getArchivedPersonList());
+        personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
@@ -362,11 +362,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == 2) {
-            personListPanel = new PersonListPanel(logic.getArchivedPersonList());
+            personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
         if (event.getNewSelection() == 1) {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
     }
