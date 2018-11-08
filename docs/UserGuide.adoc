@@ -90,7 +90,7 @@ Format:
 
 `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
-Date Format: `dd-mm-yy hhmm` or `dd-mm-yy hhmm`. A missing `hhmm` field will cause time to
+Date Format: `dd-MM-yy` or `dd-MM-yy HHmm`. A missing `HHmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
 
 On task creation, the task's `INDEX` is shown as such:
@@ -170,13 +170,13 @@ Shows a list of all tasks.
 Format:
 `list [f/FILTER]`, where FILTER must be any of the following:
 
- * `today`
+ * `today`: Lists tasks that are due before the end of the day
 
- * `week`
+ * `week`: Lists tasks that are due before the end of the week
 
- * `month`
+ * `month`: Lists tasks that are due before the end of the month
 
- * `doable`
+ * `doable`: Lists tasks that do not have any uncompleted dependencies (or no dependencies)
 
 +Example:
 `list`
