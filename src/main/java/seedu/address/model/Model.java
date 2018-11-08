@@ -181,6 +181,12 @@ public interface Model {
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code person}.
+     * @throws NullPointerException if {@code person} is null.
+     */
+    void updateFilteredAssignmentListForPerson(Person person);
+
+    /**
      * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.
      */
     void restartAddressBook();
