@@ -69,6 +69,6 @@ public class TagsContainsAllKeywordsPredicateTest {
 
         // One non-matching keyword
         predicate = new TagsContainsAllKeywordsPredicate(Arrays.asList("CS2103", "Tutorial"));
-        assertFalse(predicate.test(new TaskBuilder().withName("CS2103 Tutorial").withTags("CS2103", "Lecture").build()));
+        assertFalse(predicate.test(new TaskBuilder().withName("CS2103 Tutorial").withTags("CS2103", "Test").build()));
     }
 }
