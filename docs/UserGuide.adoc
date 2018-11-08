@@ -136,7 +136,7 @@ Example:
 Adds a group discussion to TheTracker with its associated info.
 // end::add[]
 
-
+// tag::list[]
 === Listing all entries : `list`
 
 Shows a desired list in TheTracker. +

@@ -3,34 +3,42 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TheTracker (v1.3)
+== PROJECT: TheTracker (v1.4)
 
 ---
 
 == Overview
 
-The Tracker (v1.3) is a desktop application that helps NUS students to monitor contacts, modules and events.
+This Project Portfolio details my contributions to TheTracker.
+It demonstrates my ability to contribute as a team member of a software engineering project in both technical and non-technical ways.
 
 == Summary of contributions
 
-* *Major enhancement*: *improved existing delete function to delete any type of entry*
-** What it does: allows the user to delete a person, module or occasion by index
-** Justification: This feature is necessary for a user to simultaneously maintain all three types of entries.
-** Highlights: This enhancement required the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
+* *Major enhancement*: *Improved `delete` function to properly delete any type of entry*
+** Description: Allows the user to delete a person, module or occasion by index. It also removes this entry from all other linked entries.
+** Importance: This feature makes it easy for a user to remove any unnecessary entries from TheTracker.
+It also saves users from manually removing the entry from all associated entries.
+** Highlights: This enhancement required deletion from the three lists to be handled independently, but with entries in all lists being updated.
+This was challenging to implement as it required new objects to be create and linked in order for the undo/redo operations to work.
 
-* *Minor enhancement*: updated the browser window to search NUSMods for modules and Google persons/occasions.
+* *Minor enhancement*: Improved `select` function to handle the three lists
+** Description: Allows the user to select an entry from the active list, and view additional info
+** Importance: The implementation is symmetric across all 3 lists, so that the user does not need to use different commands for different lists.
+
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=waytan[Link to Code Contributions]
 
 * *Other contributions*:
 
+** Conceptualization:
+*** Suggested context-inferring commands (e.g. `select`, `delete` instead of `selectmodule, `deletemodule`)
+*** Suggested implementing `insertperson` and `removeperson` to link persons with modules/occasions
 ** Project management:
 *** Involved in distributing roles and consolidating tasks
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W10-1/main/pull/87[#87]
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Helped in identifying bugs and offered suggestions for debugging
 ** Documentation:
-*** Wrote user stories for v1.0
+*** Wrote user stories, use cases for v1.0
 *** Updated description of user guide to match application design
 ** Miscellaneous Enhancements
 *** Set up test utils for module and occasion commands: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
@@ -42,7 +50,11 @@ The Tracker (v1.3) is a desktop application that helps NUS students to monitor c
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=GUIComponents]
 include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=select]
+include::../UserGuide.adoc[tag=clear]
 
 == Contributions to the Developer Guide
 
