@@ -50,8 +50,7 @@ public class AccountTest {
         assertNotEquals(DEMO_ADMIN, demoAccount);
 
         // different username -> returns false
-        Account editedAdminAccount =
-                new AccountBuilder(DEMO_ADMIN).withUsername(VALID_USERNAME_DEMO_ONE).build();
+        Account editedAdminAccount = new AccountBuilder(DEMO_ADMIN).withUsername(VALID_USERNAME_DEMO_ONE).build();
         assertNotEquals(DEMO_ADMIN, editedAdminAccount);
     }
 

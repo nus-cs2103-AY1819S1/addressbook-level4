@@ -89,7 +89,7 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, name);  // Returns zero (0) for NULL attributes
+        return Objects.hash(username, password, name); // Returns zero (0) for NULL attributes
     }
 
     @Override
