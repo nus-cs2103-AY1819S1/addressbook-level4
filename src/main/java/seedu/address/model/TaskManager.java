@@ -2,9 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -187,6 +191,65 @@ public class TaskManager implements ReadOnlyTaskManager {
             tasks.put(Integer.toString(task.hashCode()), task);
         }
         return hashes.stream().map((hash) -> tasks.get(hash)).collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the earliest time among all the dependencies of a task
+     * @return
+     */
+    public Map<Task, Date> getEarliestDependentTime() {
+        DependencyGraph dg = new DependencyGraph(this.getTaskList());
+
+        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedGraph());
+        HashMap<Task, Date> visited = new HashMap<Task, Date>();
+        for (Task task: graph.keySet()) {
+            if (!visited.containsKey(task)) {
+                getEarliestDependentTimeHelper(graph, visited, task);
+            }
+        }
+        return visited;
+    }
+
+    /**
+     * Helper performs a dfs on the dependancy graph to find the earliest time of a task dependant among all its
+     * dependencies
+     * @param graph
+     * @param result
+     * @param node
+     * @return
+     */
+    public Date getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, Date> result, Task node) {
+        if (result.containsKey(node))
+            return result.get(node);
+        Date earliestDate = null;
+        for (Task dependee: graph.get(node)) {
+            Date consideredDate = getEarliestDependentTimeHelper(graph, result, dependee);
+            if (earliestDate == null || consideredDate.getTime() < earliestDate.getTime()) {
+                earliestDate = consideredDate;
+            }
+        }
+
+        result.put(node, earliestDate);
+        return earliestDate;
+    }
+
+    public Map<Task, Set<Task>> getGraphOfTasksFromGraphOfHash(Map<String, Set<String>> preGraph) {
+        HashMap<String, Task> tasks = new HashMap<>();
+        for (Task task: this.getTaskList()) {
+            tasks.put(Integer.toString(task.hashCode()), task);
+        }
+        HashMap<Task, Set<Task>> result = new HashMap<>();
+        for (Map.Entry<String, Set<String>> entry: preGraph.entrySet()) {
+            String hash = entry.getKey();
+            Set<String> dependencies = entry.getValue();
+
+            Set<Task> newDependencies = new HashSet<Task>();
+            for (String dependency: dependencies) {
+                newDependencies.add(tasks.get(dependency));
+            }
+            result.put(tasks.get(hash), newDependencies);
+        }
+        return result;
     }
 
     //// util methods
