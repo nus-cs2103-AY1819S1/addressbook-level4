@@ -522,7 +522,7 @@ The dependency of a task is checked using its instance of the `Dependency` objec
 is that the tasks represented in the `Dependency` are stored as hashes, requiring the use of a `Model` to
 fetch the task associated to that hashcode, in order to check its completion status.
 
-// image::DependencyCommandSequenceDiagram.png[width="1200"]
+image::ListCommandSequenceDiagram.png[width="1200"]
 // end::list[]
 
 === Game Manager
