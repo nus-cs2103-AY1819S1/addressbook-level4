@@ -17,7 +17,6 @@ import org.junit.Test;
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Nric;
-import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.testutil.Assert;
 
 public class XmlAdaptedPatientTest {
@@ -44,7 +43,7 @@ public class XmlAdaptedPatientTest {
     private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
-    private static final Optional<Staff> VALID_PREF_DOC = Optional.of(ADAM);
+    private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
     private static final Optional<Appointment> VALID_APPT = Optional.of(AMY_APPT);
 
     @Test

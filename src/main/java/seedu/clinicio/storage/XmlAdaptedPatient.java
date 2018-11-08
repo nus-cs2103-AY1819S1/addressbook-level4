@@ -40,7 +40,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private Optional<Staff> preferredDoctor;
+    private XmlAdaptedStaff preferredDoctor;
     @XmlElement
     private Optional<Appointment> appointment;
 
@@ -52,7 +52,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            Optional<Staff> preferredDoctor, Optional<Appointment> appointment) {
+            XmlAdaptedStaff preferredDoctor, Optional<Appointment> appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -81,7 +81,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
 
         isQueuing = patient.isQueuing();
-        preferredDoctor = patient.getPreferredDoctor();
+        if (patient.getPreferredDoctor().isPresent()) {
+            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
+        }
         appointment = patient.getAppointment();
     }
 
@@ -119,10 +121,11 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
+        Staff modelPreferredDoctor = preferredDoctor.toModelType();
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies);
+                modelAllergies, modelPreferredDoctor);
 
         if (isQueuing) {
             patient.isQueuing();
@@ -132,10 +135,6 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
 
         appointment.ifPresent(appointment1 -> {
             patient.setAppointment(appointment1);
-        });
-
-        preferredDoctor.ifPresent(preferredDoctor -> {
-            patient.setPreferredDoctor(preferredDoctor);
         });
 
         return patient;
