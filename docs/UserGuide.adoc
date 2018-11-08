@@ -91,13 +91,16 @@ Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY`
 * A person can have any number of tags (including 0)
 * A person can have 1 or many phone numbers
 * A person can have no faculty using '-', else faculty names are based on NUS naming conventions
+* NUS naming conventions accepted are: `SOC`, `FOS`, `YLLSOM`, `FOD`, `BIZ`, `SDE`, `FOE`, `FOL`, `YSTCOM`, `FASS`
 * A person's tags will be converted to lowercase regardless of the input (upper or lower case)
 ====
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` or +
+`a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC` or +
+`a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`, alias `ls`
 
@@ -460,11 +463,13 @@ image::find-event-lecture-class.PNG[Finding an event]
 Import contacts from a specified csv file. +
 CSV file has to be exported from google contacts as Google CSV. +
 
+image::import-contacts-as-google-csv.PNG[Adding an event]
+
 [TIP]
 ====
-* Ensure that First Name, Email, Phone Number, Address and Company (faculty) is filled up
-* Any missing field will result in failure in importing contacts
-* Exported csv file will be named: google.csv
+* Ensure that First Name, Email, Phone Number, Address and Company (Faculty) is filled with valid input
+* Any missing field or invalid input will result in failure in importing contacts
+* Exported csv file should be named as google.csv
 ====
 
 Format: `importContacts file/ABSOLUTE_FILEPATH`
