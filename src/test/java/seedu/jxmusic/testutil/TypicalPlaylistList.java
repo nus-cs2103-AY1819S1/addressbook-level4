@@ -13,6 +13,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIK
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_SOS;
+import static seedu.jxmusic.testutil.TypicalTrackList.getTypicalTrackList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +63,9 @@ public class TypicalPlaylistList {
      */
     public static Library getTypicalLibrary() {
         Library library = new Library();
+        for (Track track : getTypicalTrackList()) {
+            library.addTrack(track);
+        }
         for (Playlist playlist : getTypicalPlaylistList()) {
             library.addPlaylist(playlist);
         }

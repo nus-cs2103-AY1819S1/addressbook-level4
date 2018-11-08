@@ -2,7 +2,10 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <Text fill="#45D634" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_playlist_captain" text="     PLAYLISTS">
+   </Text>
   <ListView fx:id="playlistListView" VBox.vgrow="ALWAYS" />
 </VBox>

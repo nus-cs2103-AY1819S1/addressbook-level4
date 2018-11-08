@@ -17,6 +17,8 @@ import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
+import seedu.jxmusic.model.TrackNameContainsKeywordsPredicate;
+
 // import seedu.jxmusic.testutil.EditPlaylistDescriptorBuilder;
 
 /**
@@ -64,19 +66,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    // Not using Edit Command so following lines not needed, todo cleanup: delete this block
-    //
-    // public static final EditCommand.EditPlaylistDescriptor DESC_AMY;
-    // public static final EditCommand.EditPlaylistDescriptor DESC_BOB;
-
-    // static {
-    //     DESC_AMY = new EditPlaylistDescriptorBuilder().withName(VALID_PLAYLIST_NAME_SFX)
-    //             .withTracks(VALID_TRACK_EXISTENCE).build();
-    //     DESC_BOB = new EditPlaylistDescriptorBuilder().withName(VALID_NAME_METAL)
-    //             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-    //             .withTRACKs(VALID_TRACK_NAME_IHOJIN, VALID_TRACK_EXISTENCE).build();
-    // }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -136,6 +125,20 @@ public class CommandTestUtil {
         model.updateFilteredPlaylistList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPlaylistList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the tracks at the given {@code targetIndex} in the
+     * {@code model}'s jxmusic book.
+     */
+    public static void showTrackAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTrackList().size());
+
+        Track track = model.getFilteredTrackList().get(targetIndex.getZeroBased());
+        final String[] splitName = track.getFileNameWithoutExtension().split("\\s+");
+        model.updateFilteredTrackList(new TrackNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredTrackList().size());
     }
 
     /**
