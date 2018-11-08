@@ -63,12 +63,20 @@ public class AddRepeatCommand extends Command {
         int interval = Integer.parseInt(repeatInterval.value);
         DateFormat schedulerFormat = new SimpleDateFormat("ddMMyy");
         Calendar baseDate = toAdd.getDate().calendar;
+        String newDate = schedulerFormat.format(baseDate.getTime());
+        Date date = new Date(newDate);
+        Task newTask = new Task(toAdd.getName(), date,
+                toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
+
+        if (!model.hasTask(newTask)) {
+            model.addTask(newTask);
+        }
 
         for (int i = 0; i < Integer.parseInt(repeat.value); i++) {
             baseDate.add(Calendar.DAY_OF_YEAR, interval);
-            String newDate = schedulerFormat.format(baseDate.getTime());
-            Date date = new Date(newDate);
-            Task newTask = new Task(toAdd.getName(), date,
+            newDate = schedulerFormat.format(baseDate.getTime());
+            date = new Date(newDate);
+            newTask = new Task(toAdd.getName(), date,
                     toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
 
             if (!model.hasTask(newTask)) {
@@ -81,11 +89,6 @@ public class AddRepeatCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddRepeatCommand // instanceof handles nulls
-                && toAdd.equals(((AddRepeatCommand) other).toAdd));
-    }
+
 }
 
