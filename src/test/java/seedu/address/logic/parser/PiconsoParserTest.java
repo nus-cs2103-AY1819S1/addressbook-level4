@@ -13,8 +13,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.CdCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.LsCommand;
+import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.PrevCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
