@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Address;
@@ -27,7 +28,7 @@ public class EventBuilder {
     public static final String DEFAULT_TAG = "friends";
     public static final String DEFAULT_POLL = "Date";
 
-    private String name;
+    private EventName name;
     private Address address;
     private Person organiser;
     private Set<Tag> tags;
@@ -38,7 +39,7 @@ public class EventBuilder {
     private LocalTime endTime;
 
     public EventBuilder() {
-        name = DEFAULT_NAME;
+        name = new EventName(DEFAULT_NAME);
         address = new Address(DEFAULT_ADDRESS);
         organiser = ALICE;
         tags = new HashSet<>();
@@ -69,7 +70,7 @@ public class EventBuilder {
      * Sets the {@code Name} of the {@code Event} that we are building.
      */
     public EventBuilder withName(String name) {
-        this.name = name;
+        this.name = new EventName(name);
         return this;
     }
 

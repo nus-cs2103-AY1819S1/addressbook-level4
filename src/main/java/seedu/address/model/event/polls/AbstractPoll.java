@@ -77,6 +77,9 @@ public class AbstractPoll {
                 frequency.get(v.size()).add(k);
             }
         });
+        if (frequency.lastEntry().getKey().equals(0)) {
+            return new LinkedList<String>();
+        }
         return frequency.lastEntry().getValue();
     }
 

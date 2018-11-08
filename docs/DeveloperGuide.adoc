@@ -431,9 +431,9 @@ The sequence diagram within the model for the `AddPollCommand` is illustrated he
 
 image::AddPollSequenceDiagram.png[width="800"]
 
-In all cases, the Poll object is returned to the calling Command object,
-so that the contents of the poll can be retrieved as a String through the `Poll#displayPoll()` method.
+In all cases, the contents of the poll is returned to the calling Command object as String through the `Poll#displayPoll()` method.
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
+This method returns an empty list if there no user has voted for any option yet.
 A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
 
 The `TimePoll` class extends from the abstract `AbstractPoll` class which is constructed by calling the `AddTimePollCommand`.
@@ -593,16 +593,16 @@ To specify the friendship relation between two users, both the indexes of the us
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address) using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
-In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is called, a Friend object will be created and added into the set.
+In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.
 
 In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
-===== Aspect: Friendships can only be added once and deleted if they are current friends
+===== Aspect: Friendships can only be added once, deleted if they are currently friends
 
-Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked to confirm that each other is already on it, hence the same person will not be added twice.
+Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.
 
 Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if `DeleteFriendCommand` is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.
 
@@ -1149,7 +1149,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
 - [x] V1.2: Users able to specify friendships with other people.
-- [x] V1.3: Users able to form groups and find mutual friends.
+- [x] V1.3: Users able to search for friends and become more connected.
 
 #### Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
@@ -1618,6 +1618,16 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Free time of 0000 from Monday to Sunday is displayed.
 .. Test case `maxSchedule sl/0800-0900`
       Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
+
+=== Add a friend
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
+.. Test case `addFriend 1,2`
+   Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.
+
+=== Delete a friend
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteFriend 1,2`
+   Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
 
 ////
 === Deleting a person
