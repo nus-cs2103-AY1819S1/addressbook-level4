@@ -16,11 +16,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.MealPlanContainsDatePredicate;
-<<<<<<< HEAD
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
-=======
-import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
->>>>>>> 52d84e0b02079c16ba1dbfa71585254c71344e9e
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 
