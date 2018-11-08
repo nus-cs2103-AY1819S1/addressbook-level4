@@ -26,7 +26,7 @@ public class DateTest {
 
     @Test
     public void copyConstructor_success() {
-        Date date = new Date("10/23/2020");
+        Date date = new Date("23/10/2020");
         Date copy = new Date(date);
         assertEquals(date, copy);
     }
