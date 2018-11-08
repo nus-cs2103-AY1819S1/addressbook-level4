@@ -81,7 +81,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
 
         isQueuing = patient.isQueuing();
-        preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
+        if (patient.getPreferredDoctor().isPresent()) {
+            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
+        }
         appointment = patient.getAppointment();
     }
 
