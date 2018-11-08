@@ -551,6 +551,8 @@ The valid arguments allowed are namely:
 A "-" response is also allowed as it is possible that the address book may indeed have contacts who are not in NUS at the
 current point in time.
 
+The command used to display the faculty visually is `showLocation`.
+
 In addition to the `Faculty` field, the showLocation command is assisted by Google Maps Embed API that allows for locations
 to be displayed visually in a separate tab, Location Display Tab. Google Maps uses unique Place IDs to identify locations
 on the map. For each faculty, these place IDs are stored in a newly created class `EmbedGoogleMaps` in the logic component of the
@@ -574,9 +576,19 @@ image::showLocation_UI_LogicManager_seqDiagram.PNG[width="800"]
 image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
 
 //tag::meetinglocation[]
-=== Meeting Location
+=== Generate a random meeting location for event
 
-TO BE UPDATED
+The generation of a random meeting location primarily builds upon the visual display of a ``Person``'s faculty. However
+there are a few key differences in the process that one needs to take note of.
+
+The command used to generate this possible meeting location is `generateLocation`.
+
+In order to generate a random location for an event, the user needs to input (in addition to the command) the event name,
+event date and event time. This is to detect the unique event (because some events may have the same name) and to ensure
+that this event is currently in the address book.
+
+Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
+these kind of commands. The GenerateLocationCommand object created will then consist of three fields:
 
 === Logging
 
@@ -1085,7 +1097,8 @@ Typical university student who
 Our enhanced Addressbook application will offer its users the following benefits:
 
 * Avoid contact duplication, so the user has a clean and well-maintained address book.
-* Provide suggested locations and timings for events or meetings based on participants’ locations and timetable. This eases for the user the process of asking people for available timings / places to meet, by automating it.
+* Provide suggested locations for events or meetings to prevent the need for the user to spend energy thinking
+about where the group can meet by providing a list of locations that can be considered.
 * Notifications to alert the user to favourited events
 * Allow the user to import contacts from an external source
 * Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
