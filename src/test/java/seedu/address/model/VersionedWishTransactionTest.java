@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
@@ -29,12 +30,12 @@ import seedu.address.model.wish.Wish;
 
 public class VersionedWishTransactionTest {
 
+    private static final String TAG_NAME = "wish1";
+
     private VersionedWishTransaction versionedWishTransaction;
     private VersionedWishTransaction populatedVersionedWishTransaction;
     private VersionedWishTransaction fromWishBook;
     private Wish wish;
-
-    private static final String TAG_NAME = "wish1";
 
     @Before
     public void init() {
