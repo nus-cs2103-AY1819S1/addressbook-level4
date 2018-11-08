@@ -34,7 +34,7 @@ public class CompleteIndexCommand extends CompleteCommand {
      * @return
      * @throws CommandException
      */
-    public String executePrimitivePrime(Model model, CommandHistory history) throws CommandException {
+    public String executePrimitivePrime(Model model) throws CommandException {
         requireNonNull(model);
 
         List<Task> lastShownList = model.getFilteredTaskList();

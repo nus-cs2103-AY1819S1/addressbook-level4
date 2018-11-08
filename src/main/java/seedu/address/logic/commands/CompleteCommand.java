@@ -49,7 +49,7 @@ public abstract class CompleteCommand extends Command {
         Level oldLevel = model.getLevel();
 
         // methods with side effects
-        String completedTasksOutput = completeTasks(model, history);
+        String completedTasksOutput = completeTasks(model);
         processModelSideEffects(model);
 
         // calculate change in xp to report to the user.
@@ -66,16 +66,15 @@ public abstract class CompleteCommand extends Command {
     /**
      *
      * @param model
-     * @param history
      * @return
      * @throws CommandException
      */
-    private String completeTasks(Model model, CommandHistory history)
+    private String completeTasks(Model model)
         throws CommandException {
 
         String completedTasksOutput;
         try {
-            completedTasksOutput = executePrimitivePrime(model, history);
+            completedTasksOutput = executePrimitivePrime(model);
         } catch (CommandException ce) {
             model.rollbackTaskManager();
             throw ce;
@@ -118,8 +117,7 @@ public abstract class CompleteCommand extends Command {
         }
     }
 
-    abstract String executePrimitivePrime(Model model, CommandHistory history)
-        throws CommandException;
+    abstract String executePrimitivePrime(Model model) throws CommandException;
 
     /**
      * Returns a {@code Task} with it's status set to {@code Status.COMPLETED}.

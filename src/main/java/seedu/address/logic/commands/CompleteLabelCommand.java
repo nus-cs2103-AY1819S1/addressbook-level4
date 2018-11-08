@@ -32,12 +32,13 @@ public class CompleteLabelCommand extends CompleteCommand {
 
     /**
      *
-     * @param model
-     * @param history
+     * Side Effects: some tasks would be updated to completed status in the model's state
+     *
+     * @param model model to be updated
      * @return
      * @throws CommandException
      */
-    public String executePrimitivePrime(Model model, CommandHistory history) throws CommandException {
+    public String executePrimitivePrime(Model model) throws CommandException {
         requireNonNull(model);
 
         return completeAllTasksReturnStringOfTasks(model);
