@@ -2,6 +2,8 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.ui.TimeIntervalChangeEvent;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.NotifyTimeTask;
 import seedu.parking.model.Model;
@@ -39,10 +41,13 @@ public class NotifyCommand extends Command {
             NotifyTimeTask task = new NotifyTimeTask(model, targetTime);
             CarparkListPanel.setTimer();
             CarparkListPanel.getTimer().scheduleAtFixedRate(task, 0, targetTime * 1000);
+            EventsCenter.getInstance().post(new TimeIntervalChangeEvent(targetTime));
 
             return new CommandResult("Loading...please wait...");
         } else {
+            EventsCenter.getInstance().post(new TimeIntervalChangeEvent(0));
             CarparkListPanel.getTimer().cancel();
+            CarparkListPanel.getTimer().purge();
             return new CommandResult("Notification turned off");
         }
     }

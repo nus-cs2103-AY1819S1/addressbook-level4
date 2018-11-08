@@ -16,6 +16,7 @@ import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.parking.commons.events.ui.JumpToListRequestEvent;
 import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
 import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
+import seedu.parking.commons.events.ui.TimeIntervalChangeEvent;
 import seedu.parking.model.carpark.Carpark;
 
 /**
@@ -26,6 +27,7 @@ public class CarparkListPanel extends UiPart<Region> {
     private static int selectIndex = -1;
     private static Carpark selectedCarpark = null;
     private static Timer timer = new Timer("Timer");
+    private static int timeInterval = 0;
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML
@@ -88,6 +90,11 @@ public class CarparkListPanel extends UiPart<Region> {
         timer.cancel();
     }
 
+    @Subscribe
+    private void handleTimeIntervalChangeEvent(TimeIntervalChangeEvent event) {
+        timeInterval = event.value;
+    }
+
     /**
      * Get the selected car park from the list view.
      * @return the index of the selected car park.
@@ -99,6 +106,10 @@ public class CarparkListPanel extends UiPart<Region> {
     public static Carpark getSelectedCarpark() {
         return selectedCarpark;
     }
+
+    public static int getTimeInterval() {
+        return timeInterval;
+    };
 
     public static Timer getTimer() {
         return timer;

@@ -5,7 +5,6 @@ import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_ERROR_CARPARK;
 import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_SUCCESS;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimerTask;
 
@@ -40,7 +39,7 @@ public class NotifyTimeTask extends TimerTask {
 
     @Override
     public void run() {
-        System.out.println("Task performed on " + new Date());
+        //System.out.println("Task performed on " + new Date());
 
         try {
             int validity = CarparkListPanel.getSelectedIndex();
@@ -66,10 +65,13 @@ public class NotifyTimeTask extends TimerTask {
                             new TotalLots(updateData.get(2))));
             EventsCenter.getInstance().post(new NotifyCarparkRequestEvent());
             model.commitCarparkFinder();
-            System.out.println("Lots Available: " + updateData.get(1) + " Total Lots: "
-                    + updateData.get(2));
-            EventsCenter.getInstance().post(new NewResultAvailableEvent(
-                    String.format(MESSAGE_SUCCESS, selectedNumber.toString(), targetTime)));
+            //System.out.println("Lots Available: " + updateData.get(1) + " Total Lots: "
+            //        + updateData.get(2));
+
+            if (CarparkListPanel.getTimeInterval() > 0) {
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                        String.format(MESSAGE_SUCCESS, selectedNumber.toString(), targetTime)));
+            }
         } catch (CommandException e) {
             cancel();
             EventsCenter.getInstance().post(new DataFetchExceptionEvent(e));
