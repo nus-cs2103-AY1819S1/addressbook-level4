@@ -18,7 +18,7 @@ import seedu.jxmusic.commons.util.CollectionUtil;
  * Represents a track in JxMusic
  * Guarantees: immutable; file is supported by javafx media as declared in {@link #isSupported(File)}
  */
-public class Track {
+public class Track implements Comparable {
     public static final String MESSAGE_FILE_NOT_EXIST =
             "Track file does not exist";
     public static final String MESSAGE_FILE_NOT_SUPPORTED =
@@ -183,16 +183,24 @@ public class Track {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Track // instanceof handles nulls
-                && fileNameWithoutExtension.equals(((Track) other).fileNameWithoutExtension)); // state check
+                && fileNameWithoutExtension.toLowerCase().equals((
+                        (Track) other).fileNameWithoutExtension.toLowerCase())); // state check
     }
 
     @Override
     public int hashCode() {
-        return fileNameWithoutExtension.hashCode();
+        return fileNameWithoutExtension.toLowerCase().hashCode();
     }
 
     @Override
     public String toString() {
         return fileNameWithoutExtension;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        String otherName = ((Track) o).getFileNameWithoutExtension().toLowerCase();
+        return this.getFileNameWithoutExtension().toLowerCase()
+                .compareTo(otherName);
     }
 }

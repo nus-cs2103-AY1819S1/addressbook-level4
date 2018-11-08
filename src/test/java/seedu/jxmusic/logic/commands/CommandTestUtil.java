@@ -16,6 +16,9 @@ import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
+import seedu.jxmusic.model.TrackNameContainsKeywordsPredicate;
+
 // import seedu.jxmusic.testutil.EditPlaylistDescriptorBuilder;
 
 /**
@@ -30,6 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_PLAYLIST_NAME_CHILL = "Chill music";
     public static final String VALID_PLAYLIST_NAME_ROCK = "Rock music";
     public static final String VALID_PLAYLIST_NAME_HIPHOP = "Hip Hop music";
+    public static final String VALID_PLAYLIST_NAME_TEST = "Test";
 
     /** for sfx playlist */
     public static final String VALID_TRACK_NAME_SOS = "SOS Morse Code";
@@ -124,11 +128,53 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the tracks at the given {@code targetIndex} in the
+     * {@code model}'s jxmusic book.
+     */
+    public static void showTrackAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTrackList().size());
+
+        Track track = model.getFilteredTrackList().get(targetIndex.getZeroBased());
+        final String[] splitName = track.getFileNameWithoutExtension().split("\\s+");
+        model.updateFilteredTrackList(new TrackNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredTrackList().size());
+    }
+
+    /**
      * Deletes the first playlist in {@code model}'s filtered list from {@code model}'s jxmusic book.
      */
     public static void deleteFirstPlaylist(Model model) {
         Playlist firstPlaylist = model.getFilteredPlaylistList().get(0);
         model.deletePlaylist(firstPlaylist);
+    }
+
+    /**
+     * Adds a track in {@code model}'s filtered playlist list from {@code model}'s jxmusic book.
+     */
+    public static void addTrack(Model model, Playlist playlist, Track track) {
+        Playlist targetPlaylist = model.getFilteredPlaylistList().stream()
+                .filter(actualPlaylist -> actualPlaylist.isSamePlaylist(playlist)).findFirst().get();
+        targetPlaylist.addTrack(track);
+    }
+
+    /**
+     * Adds tracks in {@code model}'s filtered playlist list from {@code model}'s jxmusic book.
+     */
+    public static void addTracks(Model model, Playlist playlist, List<Track> tracks) {
+        Playlist targetPlaylist = model.getFilteredPlaylistList().stream()
+                .filter(actualPlaylist -> actualPlaylist.equals(playlist)).findFirst().get();
+        tracks.forEach(track -> targetPlaylist.addTrack(model.getFilteredTrackList().stream()
+                .filter(actualTrack -> actualTrack.equals(track)).findFirst().get()));
+    }
+
+    /**
+     * Deletes a track in {@code model}'s filtered playlist list from {@code model}'s jxmusic book.
+     */
+    public static void removeTrack(Model model, Playlist playlist, Track track) {
+        Playlist targetPlaylist = model.getFilteredPlaylistList().stream()
+                .filter(actualPlaylist -> actualPlaylist.equals(playlist)).findFirst().get();
+        targetPlaylist.deleteTrack(track);
     }
 
 }

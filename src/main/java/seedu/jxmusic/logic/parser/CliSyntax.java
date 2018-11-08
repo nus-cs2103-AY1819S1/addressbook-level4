@@ -7,6 +7,7 @@ public class CliSyntax {
 
     /* Prefix definitions */
     // JxMusic prefixes
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_TRACK = new Prefix("t/");
     public static final Prefix PREFIX_PLAYLIST = new Prefix("p/");
     public static final Prefix PREFIX_TIME = new Prefix("d/");

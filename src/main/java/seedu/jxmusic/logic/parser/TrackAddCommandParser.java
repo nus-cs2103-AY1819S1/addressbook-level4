@@ -4,6 +4,7 @@ import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.jxmusic.logic.commands.TrackAddCommand;
@@ -25,15 +26,15 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_TRACK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_TRACK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_USAGE));
         }
 
         Playlist targetPlaylist = ParserUtil.parsePlaylist(argMultimap.getValue(PREFIX_PLAYLIST).get());
-        Track trackToAdd = ParserUtil.parseTrack(argMultimap.getValue(PREFIX_TRACK).get());
+        List<Track> tracksToAdd = ParserUtil.parseTracks(argMultimap.getAllValues(PREFIX_TRACK));
 
-        return new TrackAddCommand(trackToAdd, targetPlaylist);
+        return new TrackAddCommand(targetPlaylist, tracksToAdd);
     }
 
     /**
