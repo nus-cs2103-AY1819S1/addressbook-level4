@@ -82,8 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
             versionedAddressBook.addOccasion(o);
         }
-
-        indicateAddressBookChanged();
+        versionedAddressBook.commit();
     }
 
     @Override
