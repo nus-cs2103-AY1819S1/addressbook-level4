@@ -1,8 +1,8 @@
 package seedu.clinicio.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinicio.logic.commands.LogoutCommand.MESSAGE_SUCCESS;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 
@@ -27,9 +27,10 @@ public class LogoutCommandTest {
     private Analytics analytics = new Analytics();
 
     @Test
-    public void execute_logout_success() {
+    public void execute_logout_success() throws Exception {
         UserSession.createSession(ADAM);
-        assertCommandSuccess(new LogoutCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel, analytics);
+        CommandResult result = new LogoutCommand().execute(model, commandHistory);
+        assertEquals(MESSAGE_SUCCESS, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof LogoutClinicIoEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }

@@ -54,6 +54,7 @@ public class LoginCommandTest {
                 new Staff(DOCTOR, ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
+        UserSession.createSession(ADAM);
         UserSession.destorySession();
 
         command = new LoginCommand(
