@@ -164,6 +164,7 @@ condition:
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
 // end::complete-usage[]
 ==== Listing Tasks: `list`
+// tag::list-usage[]
 [%hardbreaks]
 Shows a list of all tasks.
 
@@ -188,9 +189,10 @@ Format:
 `list f/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
-2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
+2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: COMPLETED
 3. Induce Happiness DueDate: 03-10-18 Description: conditions of happiness PriorityValue: 3 Status: OVERDUE
 ```
+// end::list-usage[]
 
 ==== Search for Tasks by Keyword: `find`
 [%hardbreaks]

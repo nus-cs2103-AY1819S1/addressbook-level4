@@ -483,6 +483,7 @@ A topological sort can also be performed on the graph to order tasks by the numb
 // end::dependency[]
 // start::time[]
 
+// tag::time_implementation[]
 === Monitoring time
 ==== Current Implementation
 Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
@@ -490,7 +491,8 @@ Time is of key importance when dealing with the `TaskManager`. We implement and 
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
 
-A check on whether any of the tasks are overdue is done before the execution of every command/
+A check on whether any of the tasks are overdue is done before the execution of every command.
+// end::time_implementation[]
 
 ===== Design Considerations
 ====== Aspect: Implementing the check on whether a task is overdue
@@ -505,15 +507,23 @@ the number of commands that a person uses likely occurs at a higher rate than th
 // end::time[]
 
 
-
+// tag::list[]
 === List
+==== Current Implementation
+The `list` command accepts filters that either filter based on the due date of the tasks (relative to the
+ current date) or the dependencies of the task. This is done using predicates that are given to filter the task list.
 
-The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
-The date filters are dependent on the due date of the task, and the current date.
-
+===== Date
 The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
-This predicate is passed as an argument to update filtered Tasks.
+
+===== Dependency
+The dependency of a task is checked using its instance of the `Dependency` object. A caveat
+is that the tasks represented in the `Dependency` are stored as hashes, requiring the use of a `Model` to
+fetch the task associated to that hashcode, in order to check its completion status.
+
+image::ListCommandSequenceDiagram.png[width="1200"]
+// end::list[]
 
 === Game Manager
 
