@@ -73,7 +73,7 @@ Shows the list of available commands and how to use them.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`help`| `h` | `help`
+|`help`| `he`,`hel` | `help`
 |===
 
 [NOTE]
@@ -101,8 +101,8 @@ Filters the list of car parks returned by `FindCommand` by the following flags: 
 [cols="3,1,5"]
 |===
 |Format| Abbreviation | Example(s)
-|`filter [flag&parameter(s)] [flag&parameter(s)] ...`| `fi` | `filter f/ SUN 7.30AM 5.30PM ct/ SURFACE` +
-`fi a/ ps/ COUPON`
+|`filter [flag&parameter(s)] [flag&parameter(s)] ...`| `fil`,`filt`,`filte` | `filter f/ SUN 7.30AM 5.30PM ct/ SURFACE` +
+`fit a/ ps/ COUPON`
 |===
 
 //[NOTE]
@@ -148,8 +148,8 @@ Find a list of car parks within a certain location.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`find KEYWORD`| `f` | `find serangoon` +
-`f HG83`
+|`find KEYWORD`| `fin` | `find serangoon` +
+`fin HG83`
 |===
 
 [NOTE]
@@ -177,8 +177,8 @@ Restores the car park finder to the state before the previous undoable command w
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`undo`| `-` | `find sengkang`,`list`,`undo` +
-`find sengkang`,`filter n\`,`undo`,`undo`
+|`undo`| `u`,`un`,`und` | `find hougang`,`list`,`undo` +
+`fin hougang`,`fil n/`,`u`,`u`
 |===
 
 [NOTE]
@@ -196,7 +196,8 @@ Reverses the most recent `undo` command.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`redo`| `-` | `find sengkang`,`undo`,`redo`
+|`redo`| `r`,`re`,`red` | `find sengkang`, `undo`,`redo` +
+`fin hougang`,`r`
 |===
 
 [NOTE]
@@ -214,7 +215,8 @@ Select the car park you wish to go to.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`select INDEX`| `s` | `select 1`
+|`select INDEX`| `s`,`se`,`sel`,`sele`,`selec` | `select 1` +
+ `s 2`
 |===
 
 [NOTE]
@@ -245,7 +247,8 @@ Lists all the commands that you have entered in reverse chronological order. +
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`history`| - | `history`
+|`history`| `hi`,`his`,`hist`,`histo`,`histor` | `history` +
+`hi`
 |===
 
 [NOTE]
@@ -261,7 +264,6 @@ image::afterhistory.png[width="880"]
 
 // tag::calculateug[]
 [[Features-Calculate]]
-
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -270,8 +272,9 @@ Calculates the cost of parking at a selected car park between a specified time p
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`calculate CARPARK_NAME DAY START_TIME END_TIME`| `cal` | `calculate TJ39 SUN 3.30AM 6.30PM` +
-`cal TJ39 SUN 3.30AM 6.30PM`
+|`calculate CARPARK_NAME DAY START_TIME END_TIME`| `ca`,`cal`,`calc`,`calcu` +
+ `calcul`,`calcula`,`calculat` | `calculate TJ39 SUN 3.30AM 6.30PM` +
+`ca TJ39 SUN 3.30AM 6.30PM`
 |===
 
 `CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
@@ -294,7 +297,7 @@ Show a list of all the car parks with their details.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`list`| l | `list`
+|`list`| `l`,`li`,`lis` | `list`
 |===
 
 .Previously filtered list, before using the `list` command.
@@ -309,10 +312,12 @@ image::afterlist.png[width="880"]
 
 If you want to get the latest updates for all the car parks, just type `query` into the _Command Box_. +
 
-[cols="^2,^1", width="40%", options="header"]
+[width="95%"]
+[cols="2,1,3"]
 |===
-|Format| Abbrev
-| query | -
+|Format| Abbreviation | Example(s)
+| `query` | `q`, `qu`,`que`,`quer` | `query` +
+`q`
 |===
 
 [NOTE]
@@ -344,10 +349,12 @@ last updated.
 After selecting a car park, you can get real-time notifications by typing `notify 10`, where
 10 means updating the car park information every 10 seconds.
 
-[cols="^4,^1,^1", width="40%", options="header"]
+[width="95%"]
+[cols="2,1,3"]
 |===
-|Format| Abbrev | Example(s)
-| notify TIME_SECONDS | n | notify 60
+|Format| Abbreviation | Example(s)
+| `notify TIME_SECONDS` | `n`,`no`,`not`,`noti`, `notif` | `notify 60` +
+`n 10`
 |===
 
 [NOTE]
@@ -389,7 +396,8 @@ Clears all entries from the list.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`clear`| - | `clear`
+|`clear`| `cl`, `cle`, `clea`| `clear` +
+`cl`
 |===
 
 .All car parks are listed
@@ -407,25 +415,27 @@ Exits the application.
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`exit`| - | `exit`
+|`exit`| `e`, `ex`, `exi` | `exit` +
+`e`
 |===
 
-=== Autocomplete
+=== Auto-complete: kbd:[Tab]
 
-Display the full format of an executable command line. +
-Format: `COMMAND_WORD` followed by 'Tab' key.
-Function: press 'Tab' key again to move to the next parameter.
+Display the full format of an executable command word. +
+Format: enter `COMMAND_WORD`, followed by pressing kbd:[Tab] key. +
+Function: press kbd:[Tab].key again to move to the next parameter.
 
-Usage(s)
+Example:
 
-* key in `fi` in command box and then press 'Tab' key.
+key in `s` in command box and then press kbd:[Tab].
 
 Only available in the following commands:
 
 * <<Features-Find,*`find`*>>
 * <<Features-Select,*`select`*>>
 * <<Features-Filter,*`filter`*>>
-* <<Features-Sort,*`sort`*>> `[coming in v2.0]`
+* <<Features-Notify,*`notify`*>>
+* <<Features-Calculate,*`calculate`*>>
 
 [[Features-Add]]
 === Adding to favorites list : `add` `[coming in v2.0]`
@@ -542,11 +552,11 @@ Here are the summarize list of commands available to the user.
 
 |*Help*
 |`help`
-|`h`
+|`he`
 
 |*Clear*
 |`clear`
-|`c`
+|`cl`
 
 |*History*
 |`history`
@@ -559,6 +569,14 @@ Here are the summarize list of commands available to the user.
 |*Exit*
 |`exit`
 |`e`
+
+|*Undo*
+|`undo`
+|`u`
+
+|*Redo*
+|`redo`
+|`r`
 |===
 
 
@@ -577,11 +595,11 @@ Here are the summarize list of commands available to the user.
 
 |*Find*
 |`find KEYWORD [MORE_KEYWORDS]`
-|`f punggol`
+|`fin punggol`
 
 |*Filter*
 |`filter [flag&parameter(s)] [flag&parameter(s)] ...`
-|`fi f/ SUN 7.30AM 5.30PM ct/ SURFACE`
+|`fil f/ SUN 7.30AM 5.30PM ct/ SURFACE`
 
 |*Calculate*
 |`calculate DAY START_TIME END_TIME`
