@@ -37,7 +37,15 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_MEETING = "Listed all meetings.";
     public static final String MESSAGE_SUCCESS_ALL = "Listed all persons, groups and meetings.";
 
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Lists all groups / meetings / persons in MeetingBook. \n"
+        + "Parameters: "
+        + "[" + COMMAND_PARAM_GROUP + "|" + COMMAND_PARAM_GROUP_SHORT
+        + "|" + COMMAND_PARAM_MEETING + "|" + COMMAND_PARAM_MEETING_SHORT
+        + "|" + COMMAND_PARAM_PERSON + "|" + COMMAND_PARAM_PERSON_SHORT
+        + "|" + COMMAND_PARAM_ALL + "|" + COMMAND_PARAM_ALL_SHORT
+        + "]\n"
+        + "Example: " + COMMAND_WORD + " " + COMMAND_PARAM_GROUP;
 
     private ListCommandType listCommandType;
 
