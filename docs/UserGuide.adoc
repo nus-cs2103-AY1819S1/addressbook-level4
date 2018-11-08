@@ -128,6 +128,7 @@ Format: `history -c`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::savingsHistory[]
 === Viewing your saving history: `history -s`
 
 Shows a history of savings you have allocated, from newest to oldest. +
@@ -137,6 +138,7 @@ Format: `history -s`
 ====
 Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will no longer be tracked.)
 ====
+// end::savingsHistory[]
 
 === Locating wishes by name: `find`
 

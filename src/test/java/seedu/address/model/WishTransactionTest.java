@@ -133,8 +133,7 @@ public class WishTransactionTest {
     public void updateWishShouldBeSuccessful() {
         emptyWishTransaction.addWish(wish1);
         emptyWishTransaction.updateWish(wish1, wish2);
-        assertTrue(wishmapContainsKey(emptyWishTransaction, wish2));
-        assertTrue(wishmapContainsWish(emptyWishTransaction, wish2));
+        assertTrue(emptyWishTransaction.getWishMap().get(getKey(wish1)).peekLast().isSameWish(wish2));
     }
 
     @Test

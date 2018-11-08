@@ -16,7 +16,8 @@ public class SavedAmountTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount(null));
+        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount((SavedAmount) null));
     }
 
     @Test
@@ -38,6 +39,13 @@ public class SavedAmountTest {
 
         Assert.assertThrows(IllegalArgumentException.class,
                 SavedAmount.MESSAGE_SAVED_AMOUNT_INVALID, () -> new SavedAmount(invalidSavedAmounts[3]));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        SavedAmount savedAmount = new SavedAmount("1");
+        SavedAmount copy = new SavedAmount(savedAmount);
+        assertEquals(copy, savedAmount);
     }
 
     @Test

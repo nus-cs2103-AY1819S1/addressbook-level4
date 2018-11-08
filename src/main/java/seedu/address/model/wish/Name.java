@@ -31,6 +31,10 @@ public class Name {
         fullName = name;
     }
 
+    public Name(Name name) {
+        this(name.fullName);
+    }
+
     /**
      * Returns true if a given string is a valid name.
      */
