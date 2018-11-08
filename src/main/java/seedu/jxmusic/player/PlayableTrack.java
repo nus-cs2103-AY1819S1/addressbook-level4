@@ -16,11 +16,11 @@ public class PlayableTrack implements Playable {
     private Track track;
 
     public PlayableTrack(Track track) {
-        Media media = new Media(track.getFile().toURI().toString());
+        this.track = track;
+        mediaPlayer = track.getMediaPlayer();
         try {
-            mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setOnReady(() -> {
-                System.out.println("ready");
+            System.out.println("ready");
             });
             mediaPlayer.setOnEndOfMedia(() -> {
                 System.out.println("end of media");

@@ -30,6 +30,8 @@ public class Track {
     // fileNameWithoutExtension not appended with MP3_EXTENSION
     private final String fileNameWithoutExtension;
     private final Duration fileDuration;
+    private final Media media;
+    private final MediaPlayer mediaPlayer;
 
     /**
      * Constructs a {@code Track}.
@@ -51,13 +53,9 @@ public class Track {
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
         AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
-        Media media = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        while (mediaPlayer.getStatus() != READY) {
-        }
+        media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
         this.fileDuration = media.getDuration();
-        media = null;
-        mediaPlayer = null;
     }
 
     public Track(File file) {
@@ -68,13 +66,11 @@ public class Track {
         this.file = file;
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);
-        Media media = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
         while (mediaPlayer.getStatus() != READY) {
         }
         this.fileDuration = media.getDuration();
-        media = null;
-        mediaPlayer = null;
     }
 
     public File getFile() {
@@ -91,6 +87,14 @@ public class Track {
 
     public Duration getFileDuration() {
         return fileDuration;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public String getDisplayedFileDuration() {

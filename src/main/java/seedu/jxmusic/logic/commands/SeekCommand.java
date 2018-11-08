@@ -18,7 +18,7 @@ public class SeekCommand extends Command {
             + "TIME is in the format of  in the format of [[h ]m ]s each of which "
             + "represents a unit of time that will be summed up to get the time point.\n";
 
-    public static final String MESSAGE_SUCCESS = "seek the player to time required:";
+    public static final String MESSAGE_SUCCESS = "seek the player to time required";
 
     public static final String MESSAGE_NOT_PLAYING = "No playing track to seek";
 
