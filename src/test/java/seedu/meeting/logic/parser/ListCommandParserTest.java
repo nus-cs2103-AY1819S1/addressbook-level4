@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import seedu.meeting.logic.commands.ListCommand;
 
+// @@author jeffreyooi
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}
- * {@author jeffreyooi}
  */
 public class ListCommandParserTest {
 

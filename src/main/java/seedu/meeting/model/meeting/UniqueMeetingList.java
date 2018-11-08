@@ -11,14 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.meeting.model.meeting.exceptions.MeetingNotFoundException;
 
+// @@author jeffreyooi
 /**
  * A list of meetings that does not allow nulls and is paired with groups that holds it.
  * A meeting is considered duplicate if there exist another meeting that belongs to the same owner and both have same
  * identity fields. The identities are compared by {@code Meeting#isSameMeeting(Meeting)}.
  *
  * Supports a minimal set of list operations.
- *
- * {@author jeffreyooi}
  */
 public class UniqueMeetingList implements Iterable<Meeting> {
 

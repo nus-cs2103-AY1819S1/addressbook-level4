@@ -5,9 +5,9 @@ import static seedu.meeting.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.meeting.logic.commands.ListCommand;
 import seedu.meeting.logic.parser.exceptions.ParseException;
 
+// @@author jeffreyooi
 /**
  * Parses input arguments and creates a new ListCommand object
- * {@author jeffreyooi}
  */
 public class ListCommandParser implements Parser<ListCommand> {
 

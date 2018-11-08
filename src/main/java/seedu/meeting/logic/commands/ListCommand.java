@@ -8,12 +8,12 @@ import static seedu.meeting.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.model.Model;
 
+// @@author jeffreyooi
 /**
  * Lists all persons in the MeetingBook to the user.
  */
 public class ListCommand extends Command {
 
-    // @@author jeffreyooi
     /**
      * Available list command types
      */

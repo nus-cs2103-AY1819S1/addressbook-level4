@@ -14,9 +14,7 @@ import seedu.meeting.model.group.Group;
 import seedu.meeting.model.meeting.exceptions.MeetingNotFoundException;
 import seedu.meeting.testutil.GroupBuilder;
 
-/**
- * {@author jeffreyooi}
- */
+// @@author jeffreyooi
 public class UniqueMeetingListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
