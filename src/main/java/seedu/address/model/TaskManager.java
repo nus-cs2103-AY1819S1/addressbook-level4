@@ -90,23 +90,23 @@ public class TaskManager implements ReadOnlyTaskManager {
         Predicate<Task> isCompleteTask = Task::isStatusCompleted;
 
         // Stream of completed tasks
-        Stream<Task> allCompleted =
-            this.getTaskList().stream().filter(isCompleteTask);
+        Stream<Task> allUncompleted =
+            this.getTaskList().stream().filter(isCompleteTask.negate());
 
         // Checks if any of the uncompleted tasks are dependencies of
         // completed tasks. Returns true if yes.
         return
-            allCompleted.anyMatch(uncompletedTask -> {
-                // allUncompleted is deliberated created each time
+            allUncompleted.anyMatch(uncompletedTask -> {
+                // allCompleted is deliberated created each time
                 // as calling anyMatch on it closes the stream.
                 // As such, we cannot create and reuse one single
                 // instance of the stream.
-                Stream<Task> allUncompleted =
+                Stream<Task> allCompleted =
                     this.getTaskList()
                         .stream()
-                        .filter(isCompleteTask.negate());
+                        .filter(isCompleteTask);
                 return
-                    allUncompleted
+                    allCompleted
                         .anyMatch(completedTask ->
                             completedTask.isDependentOn(uncompletedTask));
             });
