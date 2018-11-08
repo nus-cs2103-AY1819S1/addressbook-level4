@@ -331,6 +331,9 @@ public class VersionedWishTransactionTest {
                 .get(getIndexOfReferencePtr(versionedWishTransaction));
     }
 
+    /**
+     * Checks if {@code versionedWishTransaction} object has a {@code wishStateList} of {@code size}.
+     */
     private boolean isSameSize(int size) {
         return versionedWishTransaction.getWishStateList().size() == size;
     }
