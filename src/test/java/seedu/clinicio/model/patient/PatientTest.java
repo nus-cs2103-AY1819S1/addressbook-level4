@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
-import seedu.clinicio.model.person.Person;
+
 import seedu.clinicio.testutil.PatientBuilder;
 
 public class PatientTest {
