@@ -539,6 +539,37 @@ before adding an event with that tag.
 and adding an event tag. This may violate the Single Responsibility Principle (SRP) for the `AddEventCommand` class.
 // end::events[]
 
+[[EditEventAddress]]
+//tag::editEventAddress[]
+=== Edit Event Address feature
+==== Current Implementation
+To edit an event's existing address, the system first retrieves the event from the address book. This process is similar to that for
+deleting an event. A new `Event` object is created with the same details as the old `Event` object, but with the updated `EventAddress`.
+This new `Event` replaces the old one in the address book in the `Model#updateEvent` method, i.e. the old `Event` object is removed
+from the internal list, and the new one set in its position.
+
+The overall flow between the `Logic` and `Model` component when editing an event address's tag is as follows.
+
+image::edit-event-address_logic-model.png[Interactions between Logic and Model]
+
+Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
+Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
+and the updated `EventAddress`. +
+Step 3. `EditEventAddressCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list.
+Step 4. `EditEventAddressCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
+Step 5. `EditEventAddressCommand` calls `getEventToEdit` to retrieve the event based on its index in the list from step 4.
+Step 6. A new event with all details (except `EventAddress`) duplicated from the old event is created.
+The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2.
+Step 6. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
+
+==== Considerations
+When editing an event, there are several possible values that can be updated, including the event's name, description, etc.
+However, this functionality is mainly catered to complement the `suggestLocation` functionality, whereby the user
+can first add an event without specifying any location (and address will be displayed as TBD), and
+edit the suggested location in afterwards.
+
+//end::editEventAddress[]
+
 [[EventTags]]
 // tag::eventTags[]
 === Add Event Tags feature
