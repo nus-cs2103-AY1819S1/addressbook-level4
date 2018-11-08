@@ -73,7 +73,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> trackNames} into a {@code Set<Track>}.
+     * Parses {@code Collection<String> trackNames} into a {@code List<Track>}.
      */
     public static List<Track> parseTracks(Collection<String> trackNames) throws ParseException {
         requireNonNull(trackNames);

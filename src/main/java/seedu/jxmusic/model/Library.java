@@ -3,8 +3,8 @@ package seedu.jxmusic.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,9 +30,9 @@ public class Library implements ReadOnlyLibrary {
      */
     {
         playlists = new UniquePlaylistList();
-        tracks = FXCollections.observableSet(new HashSet<>());
+        tracks = FXCollections.observableSet(new TreeSet<>());
         trackList = FXCollections.observableList(new ArrayList<>());
-
+        // tracks = FXCollections.observableSet(new TreeSet<>());
     }
 
     public Library() {}
@@ -55,7 +55,7 @@ public class Library implements ReadOnlyLibrary {
 
     @Override
     public ObservableSet<Track> getTracks() {
-        return tracks;
+        return FXCollections.unmodifiableObservableSet(tracks);
     }
 
     @Override
