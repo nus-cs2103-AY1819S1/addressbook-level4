@@ -59,6 +59,7 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times or grades), `t/friend`, 
 ** Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
 * Parameters can be in any order. +
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
 
 ====
 
