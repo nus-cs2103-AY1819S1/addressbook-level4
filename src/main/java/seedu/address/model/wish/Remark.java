@@ -21,6 +21,10 @@ public class Remark {
         this.value = remark;
     }
 
+    public Remark(Remark remark) {
+        this(remark.value);
+    }
+
     @Override
     public String toString() {
         return value;

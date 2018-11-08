@@ -77,7 +77,7 @@ public class WishDetailSavingHistory extends UiPart<Region> {
 
     @Subscribe
     private void handleWishDataUpdatedEvent(WishDataUpdatedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info("WishHistory updated: " + LogsCenter.getEventHandlingLogMessage(event));
         if (this.id.equals(event.getNewData().getId().toString())) {
             loadWishDetails(event.getNewData());
         }

@@ -374,7 +374,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::savingshistory[]
+// tag::savingsHistory[]
 === Savings History feature
 ==== Capturing the state of `WishTransaction`
 
@@ -426,7 +426,7 @@ Step 5. The user finally exits the app by clicking on the close button. The most
 
 [NOTE]
 If there was some error saving the current state of the `WishTransaction` to the specified file path in hard disk, an exception will be thrown and a warning will be shown to the user. The current state of the `WishTransaction` object will not be saved to hard disk.
-// end::savingshistory[]
+// end::savingsHistory[]
 
 // tag::wish[]
 === Add Wish feature
@@ -520,7 +520,7 @@ The resultant wish will have the following properties:
 `SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
 to be negative.
 
-Step 3. The user decides to execute `save 1 10` again. However, SaveCommand checks that `savedAmount` > `price`.
+Step 2. The user decides to execute `save 1 10` again. However, SaveCommand checks that `savedAmount` > `price`.
 SaveCommand#execute creates a new updated `Wish` with `savedAmount = wish.getPrice()`.
 
 The resultant wish will have the following properties:
@@ -536,17 +536,19 @@ The resultant wish will have the following properties:
 * Fulfilled: `true`
 * Expired: `false`
 
-Step 4. The excess amount of $5 is stored in a new `SavedAmount` variable `excess`.
+Step 3. The excess amount of $5 is stored in a new `Amount` variable `excess`.
 SaveCommand#execute then calls Model#updateUnusedFunds(excess) to update the `unusedFunds` in WishBook.
 
 In WishBook, the result would be:
 
 * unusedFunds: 5.00
 
-Step 5. The user tries to execute `save 1 10` again. However, since the value for Wish#isFulfilled is true, the amount
+Step 4. The user tries to execute `save 1 10` again. However, since the value for Wish#isFulfilled is true, the amount
 will not be saved. SaveCommand#execute will throw a CommandException, with the message "Wish has already been fulfilled!".
 
-_{TO-DO: Sequence Diagram here}_
+The following sequence diagram shows how the save operation works:
+
+image::SaveCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Data structure to support the unusedFunds feature

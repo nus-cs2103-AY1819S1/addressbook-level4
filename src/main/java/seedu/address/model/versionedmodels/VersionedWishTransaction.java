@@ -5,6 +5,8 @@ import java.util.List;
 
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishTransaction;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Wish;
 
 /**
  * This class keeps track of the saving history for each wish across each executed command.
@@ -54,12 +56,57 @@ public class VersionedWishTransaction extends WishTransaction implements Version
     }
 
     @Override
+    protected void extractData(ReadOnlyWishBook wishBook) {
+        for (Wish wish : wishBook.getWishList()) {
+            super.addWish(wish);
+        }
+    }
+
+    @Override
     public void commit() {
         if (!hasNothingToRemove()) {
             removeStatesAfterCurrentPointer();
         }
         wishStateList.add(getCopy(this));
         referencePointer++;
+    }
+
+    @Override
+    public void removeWish(Wish wish) {
+        getCurrentState();
+        super.removeWish(wish);
+    }
+
+    @Override
+    public void removeTagFromAll(Tag tag) {
+        getCurrentState();
+        super.removeTagFromAll(tag);
+    }
+
+    @Override
+    public void addWish(Wish wish) {
+        getCurrentState();
+        super.addWish(wish);
+    }
+
+    @Override
+    public void updateWish(Wish target, Wish editedWish) {
+        getCurrentState();
+        super.updateWish(target, editedWish);
+    }
+
+    @Override
+    public void resetData() {
+        getCurrentState();
+        super.resetData();
+    }
+
+    /**
+     * Commits the previous state of the {@code wishmap} and sets the current state.
+     */
+    private void getCurrentState() {
+        commit();
+        resetData(wishStateList.get(referencePointer));
     }
 
     private void removeStatesAfterCurrentPointer() {

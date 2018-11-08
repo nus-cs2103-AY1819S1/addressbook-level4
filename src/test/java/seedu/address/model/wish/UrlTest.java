@@ -1,5 +1,6 @@
 package seedu.address.model.wish;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -13,13 +14,21 @@ public class UrlTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Url(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Url((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Url((Url) null));
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidAddress = "w w";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Url(invalidAddress));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        Url url = new Url("google.com");
+        Url copy = new Url(url);
+        assertEquals(url, copy);
     }
 
     @Test
