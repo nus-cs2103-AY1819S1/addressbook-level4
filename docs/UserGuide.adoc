@@ -18,7 +18,7 @@ By: `Team T12-1`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-Expense Tracker is a desktop application that you can use to track your expenses. Expense Tracker provides you with an
+Expense Tracker is a desktop application that you can use to track your expenses. Expense Tracker provides you
 with features such as setting a budget and expense statistics, which help you stay within your budget.
 
 == About
