@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getCarparkFinder(), new UserPrefs());
         expectedModel.deleteCarpark(carparkToDelete);
         expectedModel.commitCarparkFinder();
-        showNoPerson(expectedModel);
+        showNoCarpark(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first car park deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts CarparkFinder back to previous state and filtered car park list to show all persons
+        // undo -> reverts CarparkFinder back to previous state and filtered car park list to show all carparks
         expectedModel.undoCarparkFinder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -115,14 +115,14 @@ public class DeleteCommandTest {
     }
 
     /**
-     * 1. Deletes a {@code Person} from a filtered list.
+     * 1. Deletes a {@code Carpark} from a filtered list.
      * 2. Undo the deletion.
      * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted carpark in the
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the carpark object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameCarparkDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
         Model expectedModel = new ModelManager(model.getCarparkFinder(), new UserPrefs());
 
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second car park in unfiltered car park list / first car park in filtered car park list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts CarparkFinder back to previous state and filtered car park list to show all persons
+        // undo -> reverts CarparkFinder back to previous state and filtered car park list to show all carparks
         expectedModel.undoCarparkFinder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -169,7 +169,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoCarpark(Model model) {
         model.updateFilteredCarparkList(p -> false);
 
         assertTrue(model.getFilteredCarparkList().isEmpty());
