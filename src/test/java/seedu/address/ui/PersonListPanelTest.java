@@ -28,7 +28,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON, 1);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -125,7 +125,7 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
+        PersonListPanel personListPanel = new PersonListPanel(backingList, 1);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
