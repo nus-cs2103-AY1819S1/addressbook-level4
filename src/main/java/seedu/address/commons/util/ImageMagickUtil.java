@@ -214,8 +214,7 @@ public class ImageMagickUtil {
         if (process.exitValue() != 0) {
             throw new IllegalArgumentException("Process fails");
         }
-        List<String> tmp = pb.command();
-        if (getPlatform(osName) == LINUX) {
+        if (getPlatform(osName) == 0) {
             throw new UnsupportedPlatformException();
         }
         FileInputStream is = new FileInputStream(output);

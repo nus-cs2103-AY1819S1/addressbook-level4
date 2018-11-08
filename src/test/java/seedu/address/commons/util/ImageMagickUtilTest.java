@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -14,6 +16,7 @@ import org.junit.Test;
 import com.oracle.tools.packager.UnsupportedPlatformException;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CreateConvertCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
@@ -72,6 +75,10 @@ public class ImageMagickUtilTest {
         ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
         Path path = Paths.get("src", "test", "data", "sandbox", "test.jpg");
         try {
+            ArrayList<Transformation> list = new ArrayList<>();
+            list.add(new Transformation("blur", "0x8"));
+            list.add(new Transformation("rotate", "90"));
+            new CreateConvertCommand("blurR", list);
             ImageMagickUtil.processImage(path, new Transformation("@blurR"));
         } catch (UnsupportedPlatformException e) {
             return;
