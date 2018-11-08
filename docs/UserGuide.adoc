@@ -158,6 +158,7 @@ condition:
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
 // end::complete-usage[]
 ==== Listing Tasks: `list`
+// tag::list-usage[]
 [%hardbreaks]
 Shows a list of all tasks.
 
