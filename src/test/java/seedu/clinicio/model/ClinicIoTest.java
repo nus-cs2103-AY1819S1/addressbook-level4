@@ -37,7 +37,6 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
-import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patient.exceptions.DuplicatePatientException;
 import seedu.clinicio.model.person.Name;
@@ -203,7 +202,7 @@ public class ClinicIoTest {
     }
 
     // TODO: Add consultation test case
-    
+
     @Test
     public void hasPerson_personInClinicIo_returnsTrue() {
         clinicIo.addPerson(ALICE);
