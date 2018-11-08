@@ -29,7 +29,7 @@ public class FileReader {
     private int emailIndex = -1;
     private int facultyIndex = -1;
     private ArrayList<String> contacts = new ArrayList<>();
-    private int failCounter = 0;
+    private int addCounter = 0;
 
     public FileReader(FilePath csvFilePath) {
         requireAllNonNull(csvFilePath);
@@ -70,16 +70,12 @@ public class FileReader {
         return contacts;
     }
 
-    public int getNumberOfContacts() {
-        return contacts.size();
+    public void incrementAddCounter() {
+        this.addCounter++;
     }
 
-    public int getFailCounter() {
-        return failCounter;
-    }
-
-    public void incrementFailCounter() {
-        this.failCounter++;
+    public String getAddContactStatus() {
+        return addCounter + "/" + contacts.size();
     }
 
     /**
@@ -166,5 +162,4 @@ public class FileReader {
     public String toString() {
         return csvFilePath.toString();
     }
-
 }

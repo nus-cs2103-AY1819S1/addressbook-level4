@@ -27,7 +27,7 @@ public class ImportContactsCommand extends Command {
             + "'" + FileReader.CSV_HEADER_EMAIL + "' as header for contact email and\n"
             + "'" + FileReader.CSV_HEADER_FACULTY + "' as header for contact faculty.";
 
-    public static final String MESSAGE_SUCCESS = "Contacts imported";
+    public static final String MESSAGE_SUCCESS = "%s contacts successfully imported";
     private final FileReader toImport;
 
     /**
@@ -44,7 +44,7 @@ public class ImportContactsCommand extends Command {
         model.importContacts(toImport);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toImport.getAddContactStatus()));
     }
 
     @Override

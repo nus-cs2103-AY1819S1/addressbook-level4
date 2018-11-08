@@ -205,11 +205,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
                 if (!persons.contains(person)) {
                     persons.add(person);
-                } else {
-                    fileReader.incrementFailCounter();
+                    fileReader.incrementAddCounter();
                 }
             } catch (ParseException e) {
-                fileReader.incrementFailCounter();
+
             }
         }
     }
