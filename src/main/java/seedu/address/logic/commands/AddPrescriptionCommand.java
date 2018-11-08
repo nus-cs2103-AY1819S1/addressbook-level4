@@ -91,17 +91,6 @@ public class AddPrescriptionCommand extends Command {
         ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
         allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
 
-        Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
-                appointmentToEdit.getDoctor(),
-                appointmentToEdit.getPatient(),
-                appointmentToEdit.getDateTime(),
-                appointmentToEdit.getStatus(),
-                appointmentToEdit.getComments(),
-                allPrescriptions);
-        editedAppointment.addPrescription(prescriptionToAdd);
-        model.updateAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
-
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
         Patient patientToEdit = null;
@@ -140,13 +129,23 @@ public class AddPrescriptionCommand extends Command {
                 doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
                 doctorToEdit.getUpcomingAppointments());
 
+        Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
+                appointmentToEdit.getDoctor(),
+                appointmentToEdit.getPatient(),
+                appointmentToEdit.getDateTime(),
+                appointmentToEdit.getStatus(),
+                appointmentToEdit.getComments(),
+                allPrescriptions);
+
+        editedAppointment.addPrescription(prescriptionToAdd);
         editedPatient.setAppointment(appointmentToEdit, editedAppointment);
         editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
 
+        model.updateAppointment(appointmentToEdit, editedAppointment);
         model.updatePerson(patientToEdit, editedPatient);
         model.updatePerson(doctorToEdit, editedDoctor);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
