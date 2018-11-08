@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 
@@ -26,12 +27,14 @@ public class AddCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + PREFIX_DATE + "DATE "
             + "[" + PREFIX_URL + "URL] "
+            + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "iPad 10 "
             + PREFIX_PRICE + "6080.50 "
             + PREFIX_DATE + "20/11/2021 "
             + PREFIX_URL + "https://www.amazon.com/gp/product/B07D998212 "
+            + PREFIX_REMARK + "For dad. "
             + PREFIX_TAG + "electronics "
             + PREFIX_TAG + "personal ";
 

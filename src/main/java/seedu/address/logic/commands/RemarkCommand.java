@@ -26,7 +26,7 @@ public class RemarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "random remark";
 
-    public static final String MESSAGE_REMARK_ADD_SUCCESS = "Added remark to Wish: ";
+    public static final String MESSAGE_REMARK_ADD_SUCCESS = "Added remark to Wish %1$s: %2$s.";
 
     private final Index index;
     private final Remark remark;
@@ -53,7 +53,8 @@ public class RemarkCommand extends Command {
         model.updateWish(wishToEdit, updatedRemarkWish);
         model.updateFilteredWishList(Model.PREDICATE_SHOW_ALL_WISHES);
         model.commitWishBook();
-        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkWish));
+        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, this.index.getOneBased(),
+                this.remark.toString()));
     }
 
     /**

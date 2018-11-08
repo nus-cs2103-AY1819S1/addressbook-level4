@@ -76,7 +76,7 @@ public class RemarkCommandTest {
         expectedModel.updateWish(wishToEdit, updatedRemarkWish);
         expectedModel.commitWishBook();
 
-        String expectedMessage = String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkWish);
+        String expectedMessage = String.format(MESSAGE_REMARK_ADD_SUCCESS, index.getOneBased(), remark.toString());
 
         assertCommandSuccess(remarkCommandToTest, model, commandHistory, expectedMessage, expectedModel);
     }
