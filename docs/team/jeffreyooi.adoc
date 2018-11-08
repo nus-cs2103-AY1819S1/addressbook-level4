@@ -42,7 +42,7 @@ lists to show only relevant information of the group.
 - Minor enhancement:
 * Updated list command to show all groups, meetings or persons.
 
-- Code contributed: -- To be added --
+- Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeffreyooi&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=false[RepoSense]][https://github.com/CS2103-AY1819S1-W17-3/main/pulls?q=is%3Apr+author%3Ajeffreyooi[Pull Requests]]
 
 - Other contributions:
 
