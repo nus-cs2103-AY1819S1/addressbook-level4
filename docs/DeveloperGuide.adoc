@@ -149,7 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteWord.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `LearnVocabularyChangedEvent` when LearnVocabulary's data is changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -157,7 +157,7 @@ Note how the `Model` simply raises a `LearnVocabularyChangedEvent` when LearnVoc
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteWordEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -200,7 +200,7 @@ link:{repoURL}/src/main/java/seedu/learnvocabulary/logic/Logic.java[`Logic.java`
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteWordSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -216,11 +216,6 @@ The `Model`,
 * stores the LearnVocabulary data.
 * exposes an unmodifiable `ObservableList<Word>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE - MUST CHANGE]
-As a more OOP model, we can store a `Tag` list in `LearnVocabulary`, which `Word` can reference. This would allow `LearnVocabulary` to only require one `Tag` object per unique `Tag`, instead of each `Word` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -324,12 +319,197 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::learn[]
+=== Learn feature
+==== Current Implementation
+
+The learn mechanism is facilitated by the `Dictionary` class.
+The backbone of LearnVocabulary would have to be the `Learn` command, because it allows the user to query words from the internet and parse their meanings into readable format for storage.
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+This command is requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception.
+Additionally, it implements the following operations:
+
+* `Dictionary#invoke()` -- calls the main function of Dictionary which links it to LearnVocabulary
+* `Dictionary#isConnectedToInternet()` -- checks to see if there is an Internet connection established.
+* `Dictionary#isWordInOnlineDictionary(Word)` -- checks to see if it is a valid word and if it exists in Dictionary.com
+* `Dictionary#convertWord(Word)` -- converts word into first letter is in big caps, whilst the others are in small caps.
+* `Dictionary#isValidWord(Word)` -- checks to see if it word contains any illegal characters.
+
+`Dictionary#invoke()` is exposed in the `LearnCommandParser` class as `LearnCommandParser#parse()`, while all the other operations are self-contained within the `Dictionary#invoke()` operation.
+
+Given below is an example usage scenario and how the learn mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The user types in `learn beautiful` into the CLI.
+
+
+
+
+
+
+
+
+
+
+
+There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
+
+However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
+
+It is great to also note that a fresh new copy would give the user access to a few preconfigured words at the disposal of the user.
+
+Functions added:
+
+Below is a description on how the learn function operates:
+
+Step 1: User wants to learn this new word he just heard of, eg: Happiness
+
+Step 2: User would type the word followed by the command learn, eg: learn happiness
+
+Step 3: The word will be searched online, should it be successful, the word and meaning will be displayed on screen.
+
+[NOTE]
+The newly queried word would be attached with a "toLearn" tag, which allows the user to know that he/she just queried the word and can leave it for the future to learn it.
+
+Step 4: The word is then stored within the storage file.
+
 
 _{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
+// end::learn[]
+
+**Trivia:**
+
+The trivia function is facilitated by `LearnVocabulary`.
+Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion` and stores a list of trivia questions is `triviaQuestionList`.
+Scores for a trivia game are also stored using `currentScore` and `maxScore`.
+
+Additionally, it also implements the following operations:
+
+* `setTriviaList` -- sets the trivia question list based on the current vocabulary list
+* `setTrivia` -- sets the trivia question based on `triviaQuestionList`
+* `getTrivia` -- outputs the current trivia question.
+* `updateScore` -- adds 1 to the the`currentScore`
+* `clearTrivia` -- clears the current trivia question as well as removing it from the `triviaQuestionList`
+* `isTriviaMode` -- a boolean to indicate whether the model is currently in trivia mode.
+* `toggleTriviaMode` -- toggle trivia mode
+
+These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
+
+
+Outlined below is how the trivia function operates at each step:
+
+Step 1. The user inputs trivia in the CLI.
+
+Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
+
+[NOTE]
+If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
+
+Step 3. `TriviaCommand.execute()` calls `toggleTriviaMode` to indicate that LearnVocabulary is in trivia mode.
+
+[NOTE]
+While in trivia mode, every command the user types will be parsed as `TriviaAnsCommand`. Trivia mode can be exited by either completing the trivia or typing "triviaExit"
+
+Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the trivia question within `LearnVocabulary`.
+
+Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
+
+**Answer**
+
+The answer command is indicated as `TriviaAnsCommand` in `commands`. It will take in arguments passed in by the user and checks whether it is the correct/wrong answer to the current trivia question.
+
+Outlined below is how the answer function operates:
+
+Step 1: User enters  his/her argument.
+
+[NOTE]
+Attempting to call the `answer` command without first calling `trivia` will result in an error.
+
+Step 2: `TriviaAnsCommandParser` processes the argument and parses it to `TriviaAnsCommand`.
+
+Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word as `triviaQuestion` in `LearnVocabulary`.
+
+Step 4: Outputs a correct or wrong message based on the result in step 3.
+
+**Select**
+
+The select command is indicated as `SelectCommand` in `commands`, and inherits the `Command` class. It selects a word identified by a user using its index from the review list.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “select + [index]” where `index` is the index of the word that the user wants to select.
+
+Step 2: `SelectCommand` checks passed arguments.
+
+Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
+
+**groupadd**
+
+The select command is indicated as `GroupAddCommand` in `commands`, and inherits the `Command` class. It create a new group in which the uesr can put words.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
+
+Step 2: `GroupAddCommand` checks passed arguments.
+
+Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
+
+**groupdelete**
+
+The select command is indicated as `GroupDeleteCommand` in `commands`, and inherits the `Command` class. It delete a group and all words in it.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
+
+Step 2: `GroupDeleteCommand` checks passed arguments.
+
+Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+
+**Show implementation**
+
+The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
+
+As for `find`, perhaps the team and I can find another purpose for it.
+
+As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+
+Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
+
+Below is a description on how the select function operates:
+
+Step 1: User wants to query a bunch of words and find out their meanings, tags altogether.
+
+[NOTE]
+Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
+
+Step 2: `ShowCommand` checks through the entire xml file of LearnVocabulary and filters out the ones that were keyed in.
+
+Step 3: The result is the list of filtered words, together with their definition and tags being displayed.
+
+
+
+**Word Of The Day**
+
+The Word Of The Day command is indicated as `WordOfTheDay` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
+
+Functions added:
+
+* `Dictionary#doesWordOfTheDayExist()` -- Checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
+* `Dictionary#fetchWordOfTheDay()` -- Parses the word of the day and its meaning from the Document object returned by `doesWordOfTheDayExist()` and returns itself (Dictionary object).
+
+Below is a description on how the Word Of The Day function operates:
+
+Step 1: User cannot think of a word so he/she wants to display the word of the day on Dictionary.com.
+
+Step 2: User would make sure that there is a working internet connection.
+
+Step 3: User would type "word" into the command line.
+
+Step 4: The word of the day will be fetched online. Should it be successful, the word of the day and its meaning will be displayed.
+
+
 
 === Logging
 
@@ -966,168 +1146,7 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 == Implemention (EVERYTHING BELOW THIS IS WHAT WE HAVE DONE)
-**Trivia:**
-
-The trivia function is facilitated by `LearnVocabulary`.
-Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion` and stores a list of trivia questions is `triviaQuestionList`.
-Scores for a trivia game are also stored using `currentScore` and `maxScore`.
-
-Additionally, it also implements the following operations:
-
-* `setTriviaList` -- sets the trivia question list based on the current vocabulary list
-* `setTrivia` -- sets the trivia question based on `triviaQuestionList`
-* `getTrivia` -- outputs the current trivia question.
-* `updateScore` -- adds 1 to the the`currentScore`
-* `clearTrivia` -- clears the current trivia question as well as removing it from the `triviaQuestionList`
-* `isTriviaMode` -- a boolean to indicate whether the model is currently in trivia mode.
-* `toggleTriviaMode` -- toggle trivia mode
-
-These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
-
-
-Outlined below is how the trivia function operates at each step:
-
-Step 1. The user inputs trivia in the CLI.
-
-Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
-
-[NOTE]
-If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
-
-Step 3. `TriviaCommand.execute()` calls `toggleTriviaMode` to indicate that LearnVocabulary is in trivia mode.
-
-[NOTE]
-While in trivia mode, every command the user types will be parsed as `TriviaAnsCommand`. Trivia mode can be exited by either completing the trivia or typing "triviaExit"
-
-Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the trivia question within `LearnVocabulary`.
-
-Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
-
-**Answer**
-
-The answer command is indicated as `TriviaAnsCommand` in `commands`. It will take in arguments passed in by the user and checks whether it is the correct/wrong answer to the current trivia question.
-
-Outlined below is how the answer function operates:
-
-Step 1: User enters  his/her argument.
-
-[NOTE]
-Attempting to call the `answer` command without first calling `trivia` will result in an error.
-
-Step 2: `TriviaAnsCommandParser` processes the argument and parses it to `TriviaAnsCommand`.
-
-Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word as `triviaQuestion` in `LearnVocabulary`.
-
-Step 4: Outputs a correct or wrong message based on the result in step 3.
-
-**Select**
-
-The select command is indicated as `SelectCommand` in `commands`, and inherits the `Command` class. It selects a word identified by a user using its index from the review list.
-
-Below is a description on how the select function operates:
-
-Step 1: User calls “select + [index]” where `index` is the index of the word that the user wants to select.
-
-Step 2: `SelectCommand` checks passed arguments.
-
-Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
-
-**groupadd**
-
-The select command is indicated as `GroupAddCommand` in `commands`, and inherits the `Command` class. It create a new group in which the uesr can put words.
-
-Below is a description on how the select function operates:
-
-Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
-
-Step 2: `GroupAddCommand` checks passed arguments.
-
-Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
-
-**groupdelete**
-
-The select command is indicated as `GroupDeleteCommand` in `commands`, and inherits the `Command` class. It delete a group and all words in it.
-
-Below is a description on how the select function operates:
-
-Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
-
-Step 2: `GroupDeleteCommand` checks passed arguments.
-
-Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
-
-**Show implementation**
-
-The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
-
-As for `find`, perhaps the team and I can find another purpose for it.
-
-As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
-
-Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
-
-Below is a description on how the select function operates:
-
-Step 1: User wants to query a bunch of words and find out their meanings, tags altogether.
-
-[NOTE]
-Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
-
-Step 2: `ShowCommand` checks through the entire xml file of LearnVocabulary and filters out the ones that were keyed in.
-
-Step 3: The result is the list of filtered words, together with their definition and tags being displayed.
-
-**Learn**
-
-The backbone of LearnVocabulary would have to be the `Learn` command, because it allows the user to query words from the internet and parse their meanings into readable format for storage.
-
-The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
-
-This command is delicate in the sense that it requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception.
-
-There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
-
-However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
-
-It is great to also note that a fresh new copy would give the user access to a few preconfigured words at the disposal of the user.
-
-Functions added:
-
-* `Dictionary#invoke()` -- calls the main function of Dictionary which links it to LearnVocabulary
-* `Dictionary#isConnectedToInternet()` -- checks to see if there is an Internet connection established.
-* `Dictionary#isWordInOnlineDictionary()` -- checks to see if it is a valid word and if it exists in Dictionary.com
-
-Below is a description on how the learn function operates:
-
-Step 1: User wants to learn this new word he just heard of, eg: Happiness
-
-Step 2: User would type the word followed by the command learn, eg: learn happiness
-
-Step 3: The word will be searched online, should it be successful, the word and meaning will be displayed on screen.
-
-[NOTE]
-The newly queried word would be attached with a "toLearn" tag, which allows the user to know that he/she just queried the word and can leave it for the future to learn it.
-
-Step 4: The word is then stored within the storage file.
-
-**Word Of The Day**
-
-The Word Of The Day command is indicated as `WordOfTheDay` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
-
-Functions added:
-
-* `Dictionary#doesWordOfTheDayExist()` -- Checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
-* `Dictionary#fetchWordOfTheDay()` -- Parses the word of the day and its meaning from the Document object returned by `doesWordOfTheDayExist()` and returns itself (Dictionary object).
-
-Below is a description on how the Word Of The Day function operates:
-
-Step 1: User cannot think of a word so he/she wants to display the word of the day on Dictionary.com.
-
-Step 2: User would make sure that there is a working internet connection.
-
-Step 3: User would type "word" into the command line.
-
-Step 4: The word of the day will be fetched online. Should it be successful, the word of the day and its meaning will be displayed.
+REMOVED IMPLEMENTATIONS AND ADDED ABOVE AT 3.
 
 == Target user profile
 
