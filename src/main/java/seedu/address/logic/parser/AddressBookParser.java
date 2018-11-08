@@ -111,7 +111,7 @@ public class AddressBookParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
-            
+
         case InsertPersonCommand.COMMAND_WORD:
             return new InsertPersonCommandParser().parse(arguments);
 
