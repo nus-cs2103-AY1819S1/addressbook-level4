@@ -68,7 +68,7 @@ public class XmlCarparkFinderStorageTest {
     }
 
     @Test
-    public void readCarparkFinder_invalidAndValidPersonCarparkFinder_throwDataConversionException() throws Exception {
+    public void readCarparkFinder_invalidAndValidCarparkFinder_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readCarparkFinder("invalidAndValidCarparkCarparkFinder.xml");
     }
