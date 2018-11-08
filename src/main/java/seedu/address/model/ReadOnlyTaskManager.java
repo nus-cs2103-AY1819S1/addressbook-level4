@@ -1,11 +1,10 @@
 package seedu.address.model;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Task;
 
 /**
@@ -30,8 +29,8 @@ public interface ReadOnlyTaskManager {
     List<Task> getTopologicalOrder();
 
     /**
-     * Returns the earliest time of all dependencies of a task according to the dependencies specified
+     * Returns the earliest time of among all dependencies of a task (recursively) for a given task
      */
-    Map<Task, Date> getEarliestDependentTime();
+    DueDate getEarliestDependentTimeForNode(Task node);
 
 }

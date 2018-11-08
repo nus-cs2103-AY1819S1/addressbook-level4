@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +14,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
 import seedu.address.model.game.GameManager;
+import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -197,17 +197,29 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Returns the earliest time among all the dependencies of a task
      * @return
      */
-    public Map<Task, Date> getEarliestDependentTime() {
+    public Map<Task, DueDate> getEarliestDependentTime() {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
         Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedGraph());
-        HashMap<Task, Date> visited = new HashMap<Task, Date>();
+        HashMap<Task, DueDate> visited = new HashMap<Task, DueDate>();
         for (Task task: graph.keySet()) {
             if (!visited.containsKey(task)) {
                 getEarliestDependentTimeHelper(graph, visited, task);
             }
         }
         return visited;
+    }
+    /**
+     * Returns the earliest time among all the dependencies of a task
+     * @return
+     */
+    public DueDate getEarliestDependentTimeForNode(Task node) {
+        DependencyGraph dg = new DependencyGraph(this.getTaskList());
+
+        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedGraph());
+        HashMap<Task, DueDate> visited = new HashMap<>();
+        return getEarliestDependentTimeHelper(graph, visited, node);
+
     }
 
     /**
@@ -218,14 +230,14 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @param node
      * @return
      */
-    public Date getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, Date> result, Task node) {
+    public DueDate getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, DueDate> result, Task node) {
         if (result.containsKey(node)) {
             return result.get(node);
         }
-        Date earliestDate = null;
+        DueDate earliestDate = node.getDueDate();
         for (Task dependee: graph.get(node)) {
-            Date consideredDate = getEarliestDependentTimeHelper(graph, result, dependee);
-            if (earliestDate == null || consideredDate.getTime() < earliestDate.getTime()) {
+            DueDate consideredDate = getEarliestDependentTimeHelper(graph, result, dependee);
+            if (earliestDate == null || consideredDate.compareTo(earliestDate) < 0) {
                 earliestDate = consideredDate;
             }
         }
