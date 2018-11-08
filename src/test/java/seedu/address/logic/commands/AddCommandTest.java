@@ -124,9 +124,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean containsAssignment(String newAssignment, Assignment ignore) { return false; }
-
-        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -259,6 +256,11 @@ public class AddCommandTest {
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsAssignment(String newAssignment, Assignment ignore) {
+            return false;
         }
 
         @Override
