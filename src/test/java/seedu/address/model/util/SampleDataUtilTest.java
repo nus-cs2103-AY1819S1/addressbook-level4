@@ -29,6 +29,7 @@ public class SampleDataUtilTest {
             new Answer("No time, because the wall is already built"
                     + "."));
     public static final Deck SAMPLE_DECK = new Deck(new Name("Asking Questions"));
+
     @Test
     public void getSampleAnakin_returnsSampleAnakin() {
         Anakin expectedAnakin = new Anakin();
@@ -40,8 +41,7 @@ public class SampleDataUtilTest {
         expectedAnakin.addCard(SAMPLE_CARD_4);
         expectedAnakin.addCard(SAMPLE_CARD_5);
         expectedAnakin.addCard(SAMPLE_CARD_6);
-        ReadOnlyAnakin expectedReadOnlyAnakin = expectedAnakin;
         ReadOnlyAnakin actualAnakin = getSampleAnakin();
-        assertEquals(expectedReadOnlyAnakin, actualAnakin);
+        assertEquals(expectedAnakin, actualAnakin);
     }
 }
