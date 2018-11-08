@@ -47,7 +47,6 @@ public class XmlAdaptedTotalBudget extends XmlAdaptedBudget {
         super(source);
         this.nextRecurrence = source.getNextRecurrence();
         this.numberOfSecondsToRecurAgain = source.getNumberOfSecondsToRecurAgain();
-        System.out.println(source.getCurrentExpenses());
         this.categoryBudgets =
             source.getCategoryBudgets()
                 .stream()
