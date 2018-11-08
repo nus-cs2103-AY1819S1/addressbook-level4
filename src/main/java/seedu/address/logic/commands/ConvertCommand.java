@@ -52,7 +52,7 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            model.addTransformation(transformation);
+            // model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
             model.addTransformation(transformation);

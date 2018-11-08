@@ -9,7 +9,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Handles the saving of a canvas
+ * Handles the saving of a canvas.
+ * Commands are in the format : canvas save [filename.format].
+ * Valid formats are (jpg, png, gif, bmp, jpeg, tiff).
  */
 
 public class CanvasSaveCommand extends CanvasCommand {
