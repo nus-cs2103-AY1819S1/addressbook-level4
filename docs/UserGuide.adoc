@@ -17,7 +17,7 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
+**WishBook** (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
 
 == Quick Start
 
@@ -49,6 +49,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
 * Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list command can be used as `list` to display all wishes in WishBook.
+** An exception to this is `TIME_GIVEN` and `END_DATE`, whereby only one of the two can be used in any command.
+** The `add` command requires either `TIME_GIVEN` and `END_DATE`.
+** The `edit` command can take either or none of them.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
 * The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
 ====
@@ -63,7 +66,13 @@ Format: `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [r/REMARK
 
 [TIP]
 * `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
-* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+* `[TIME_GIVEN]`: Specified in terms of years, months, weeks, and days, suffixes (coming after the value) marking such time periods are _‘y’_, _‘m’_, _‘w’_, and _‘d’_ respectively.
+
+=====
+
+The order of `[TIME_GIVEN]` must be from the biggest unit of time to the smallest unit of time, meaning that the suffix _`y`_ cannot come after any of the other three suffixes, and _'w'_ cannot come after _'d'_, but can come after _'y'_ and _'m'_.
+
+=====
 
 [NOTE]
 ====
@@ -245,7 +254,7 @@ Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 ****
 * `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
-* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
+* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from `unusedFunds` to `TO_WISH_INDEX`.
 * If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to `unusedFunds`.
 * `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested is present in `unusedFunds`.
 * If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
@@ -258,7 +267,7 @@ Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 [NOTE]
 ====
-Index 0 is specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
+Index 0 is specially allocated for `unused funds`. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
 ====
 
 Examples: +
@@ -267,7 +276,7 @@ Examples: +
 Attempt to move $10 from the wish at index 1 to the wish at index 2.
 
 * `move 0 1 10` +
-Attempt to move $10 from unusedFunds to the wish at index 1.
+Attempt to move $10 from `unusedFunds` to the wish at index 1.
 
 * `move 1 0 10` +
 Attempt to move $10 from the wish at index 1 to `unusedFunds`.
@@ -363,12 +372,6 @@ Format: `exit`
 WishBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -377,14 +380,14 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE]` +
-e.g. `add n/kfcBook_13inch p/2300 a/6m3w`
+e.g. `add n/Sega Genesis p/2300 a/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
-e.g. `edit 1 n/Macbook Pro t/Broke wishes`
+e.g. `edit 1 n/Macbook Pro t/technology`
 * *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
-e.g. `find d/22`
+e.g. `find n/Vacuum Cleaner t/family`
 * *List* : `list`
 * *List completed* : `list -c`
 * *List uncompleted* : `list -u`
