@@ -26,6 +26,9 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetArchive(ReadOnlyArchiveList newData);
 
+    /** Returns the current state of the person panel list */
+    int getState();
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
@@ -45,6 +48,12 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    /**
+     * Deletes the given person in the archive list.
+     * The person must exist in the archive list.
+     */
+    void deleteFromArchive(Person target);
 
     /**
      * Restores the given person in the archive list.
