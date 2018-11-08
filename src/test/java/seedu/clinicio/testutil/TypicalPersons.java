@@ -105,9 +105,9 @@ public class TypicalPersons {
 
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
-            .build();
+            .withPreferredDoctor(ADAM).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
-            .build();
+            .withPreferredDoctor(ADAM).build();
 
     //Not inside ClinicIO
     public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)

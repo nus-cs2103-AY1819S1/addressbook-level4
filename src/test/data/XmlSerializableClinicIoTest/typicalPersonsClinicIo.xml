@@ -53,11 +53,11 @@
         <email>alice@gmail.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <nric>S9951423J</nric>
-        <medicalProblems/>
-        <medications/>
-        <allergies/>
-        <preferredDoctor>Adam Bell</preferredDoctor>
-        <appointment/>
+        <preferredDoctor>
+            <role>DOCTOR</role>
+            <name>Adam Bell</name>
+            <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+        </preferredDoctor>
     </patients>
     <patients>
         <name>Bryan James</name>
@@ -65,12 +65,11 @@
         <email>alice@gmail.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <nric>S9106823A</nric>
-        <medicalProblems/>
-        <medications/>
-        <allergies/>
-        <isQueuing>false</isQueuing>
-        <preferredDoctor>Adam Bell</preferredDoctor>
-        <appointment/>
+        <preferredDoctor>
+            <role>DOCTOR</role>
+            <name>Adam Bell</name>
+            <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+        </preferredDoctor>
     </patients>
     <staffs>
         <role>DOCTOR</role>
