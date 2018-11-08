@@ -349,7 +349,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
     }
-  
+
     @Override
     public boolean containsAssignment(String newAssignment, Assignment ignore) {
         // If the set is empty
@@ -365,7 +365,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return true;
     }
-  
+
     @Subscribe
     private void handleShowHelpEvent(ChangeOnListPickerClickEvent event) {
         state = event.getNewSelection();
