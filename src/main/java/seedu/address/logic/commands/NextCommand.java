@@ -22,7 +22,7 @@ public class NextCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.numOfRemainingImagesInDir() <= SelectCommand.BATCH_SIZE) {
+        if (model.numOfRemainingImagesInDir() <= OpenCommand.BATCH_SIZE) {
             throw new CommandException(Messages.MESSAGE_NO_MORE_NEXT_IMAGES);
         }
 
@@ -30,7 +30,7 @@ public class NextCommand extends Command {
 
         return new CommandResult((String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
                 + (String.format(Messages.MESSAGE_CURRENT_BATCH_IN_IMAGE_LIST, model.getCurrBatchPointer() + 1,
-                model.getCurrBatchPointer() + Math.min(model.numOfRemainingImagesInDir(), SelectCommand.BATCH_SIZE))
+                model.getCurrBatchPointer() + Math.min(model.numOfRemainingImagesInDir(), OpenCommand.BATCH_SIZE))
                 + (String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH, model.getDirectoryImageList().size())))));
     }
 }

@@ -21,21 +21,21 @@ import seedu.address.model.Model;
 /**
  * Selects the image identified by the index number in the current batch.
  */
-public class SelectCommand extends Command {
+public class OpenCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "open";
     public static final int BATCH_SIZE = 10;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the image identified by the index number in the current batch.\n"
+            + ": Opens the image identified by the index number in the current batch.\n"
             + "Parameters: INDEX (1 - 10)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_IMAGE_SUCCESS = "Selected image: %1$s";
+    public static final String MESSAGE_OPEN_IMAGE_SUCCESS = "Selected image: %1$s";
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public OpenCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -52,14 +52,14 @@ public class SelectCommand extends Command {
         }
 
 
-        Path selectedImagePath = dirImageList.get(targetIndex.getZeroBased());
+        Path openedImagePath = dirImageList.get(targetIndex.getZeroBased());
 
         try {
-            String selectedImage = selectedImagePath.toString();
-            FileInputStream fis = new FileInputStream(selectedImage);
+            String openedImage = openedImagePath.toString();
+            FileInputStream fis = new FileInputStream(openedImage);
             Image img = new Image(fis);
 
-            model.updateCurrentOriginalImage(img, selectedImagePath);
+            model.updateCurrentOriginalImage(img, openedImagePath);
             EventsCenter.getInstance().post(new FilmReelSelectionChangeEvent(targetIndex.getZeroBased()));
             EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
             EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
@@ -67,15 +67,16 @@ public class SelectCommand extends Command {
             e.printStackTrace();
         }
 
-        return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased())
-                + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size()));
+        return new CommandResult(String.format(MESSAGE_OPEN_IMAGE_SUCCESS, targetIndex.getOneBased())
+                + " of " + Math.min(OpenCommand.BATCH_SIZE, model.getDirectoryImageList().size()) + "\n"
+                + "Image opened: " + openedImagePath.getFileName().toString());
 
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof OpenCommand // instanceof handles nulls
+                && targetIndex.equals(((OpenCommand) other).targetIndex)); // state check
     }
 }
