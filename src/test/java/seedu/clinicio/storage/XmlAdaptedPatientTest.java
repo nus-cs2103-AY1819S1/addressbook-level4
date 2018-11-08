@@ -43,7 +43,7 @@ public class XmlAdaptedPatientTest {
     private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
-    private static final Optional<XmlAdaptedStaff> VALID_PREF_DOC = Optional.of(new XmlAdaptedStaff(ADAM));
+    private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
     private static final Optional<Appointment> VALID_APPT = Optional.of(AMY_APPT);
 
     @Test

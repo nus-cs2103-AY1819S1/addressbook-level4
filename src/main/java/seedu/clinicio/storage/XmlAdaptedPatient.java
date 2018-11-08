@@ -19,6 +19,7 @@ import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * This class constructs a JAXB-friendly version of the Patient.
@@ -39,7 +40,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private Optional<XmlAdaptedStaff> preferredDoctor;
+    private XmlAdaptedStaff preferredDoctor;
     @XmlElement
     private Optional<Appointment> appointment;
 
@@ -51,7 +52,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            Optional<XmlAdaptedStaff> preferredDoctor, Optional<Appointment> appointment) {
+            XmlAdaptedStaff preferredDoctor, Optional<Appointment> appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -80,7 +81,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
 
         isQueuing = patient.isQueuing();
-        preferredDoctor = Optional.ofNullable(new XmlAdaptedStaff(patient.getPreferredDoctor().get()));
+        preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
         appointment = patient.getAppointment();
     }
 
@@ -118,10 +119,11 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
+        Staff modelPreferredDoctor = preferredDoctor.toModelType();
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies);
+                modelAllergies, modelPreferredDoctor);
 
         if (isQueuing) {
             patient.isQueuing();
@@ -133,13 +135,6 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setAppointment(appointment1);
         });
 
-        preferredDoctor.ifPresent(doctor -> {
-            try {
-                patient.setPreferredDoctor(doctor.toModelType());
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-            }
-        });
         return patient;
     }
 
