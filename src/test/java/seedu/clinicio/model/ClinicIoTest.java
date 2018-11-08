@@ -37,6 +37,7 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patient.exceptions.DuplicatePatientException;
 import seedu.clinicio.model.person.Name;
@@ -175,6 +176,12 @@ public class ClinicIoTest {
     }
 
     @Test
+    public void hasConsultation_nullConsultation_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        clinicIo.hasConsultation(null);
+    }
+
+    @Test
     public void hasPerson_personNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasPerson(ALICE));
     }
@@ -195,6 +202,8 @@ public class ClinicIoTest {
         assertFalse(clinicIo.hasAppointment(AMY_APPT));
     }
 
+    // TODO: Add consultation test case
+    
     @Test
     public void hasPerson_personInClinicIo_returnsTrue() {
         clinicIo.addPerson(ALICE);
@@ -219,6 +228,8 @@ public class ClinicIoTest {
         clinicIo.addAppointment(AMY_APPT);
         assertTrue(clinicIo.hasAppointment(AMY_APPT));
     }
+
+    // TODO: Add consultation test case
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInClinicIo_returnsTrue() {
@@ -265,6 +276,8 @@ public class ClinicIoTest {
         Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
         assertTrue(clinicIo.hasAppointmentClash(newAppt));
     }
+
+    // TODO: Add consultation test case
 
     //@@author jjlee050
     @Test
@@ -317,6 +330,12 @@ public class ClinicIoTest {
     public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         clinicIo.getAppointmentList().remove(0);
+    }
+
+    @Test
+    public void getConsultationList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        clinicIo.getConsultationList().remove(0);
     }
 
     /**
