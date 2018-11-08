@@ -32,7 +32,8 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         tasks = new UniqueTaskList();
         achievements = new AchievementRecord();
         gameManager = new GameManager();
@@ -81,11 +82,11 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 
     /**
-     * Check if any of the completed task has any unfulfilled dependencies.
+     * Check if any of the completed task has any invalid dependencies.
      *
-     * @return true if there are any unfulfilled dependencies.
+     * @return true if there are any invalid dependencies.
      */
-    public boolean hasUnfulfilledDependency() {
+    public boolean hasInvalidDependencies() {
 
         Predicate<Task> isCompleteTask = Task::isStatusCompleted;
 
@@ -172,7 +173,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Updates the displayOption of the achievement record of the task manager.
      *
      * @param displayOption may take the value of 1, 2 or 3,
-     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     *                      indicating all-time's, today's or this week's achievements are displayed on UI.
      */
     public void updateAchievementDisplayOption(int displayOption) {
         assert AchievementRecord.isValidDisplayOption(displayOption);

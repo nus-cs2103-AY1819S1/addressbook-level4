@@ -221,8 +221,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Check for any unfulfilled dependencies===================================================
     @Override
-    public boolean hasUnfulfilledDependency() {
-        return versionedTaskManager.hasUnfulfilledDependency();
+    public boolean hasInvalidDependencies() {
+        return versionedTaskManager.hasInvalidDependencies();
     }
 
     //=========== Topological order ======================================================================

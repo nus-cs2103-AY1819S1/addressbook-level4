@@ -131,9 +131,9 @@ public interface Model {
     void checkOverdue();
 
     /**
-     * @return true if the model has any unfulfilled dependencies
+     * @return true if the model has any invalid dependencies
      */
-    boolean hasUnfulfilledDependency();
+    boolean hasInvalidDependencies();
 
     /**
      * Get topological order
