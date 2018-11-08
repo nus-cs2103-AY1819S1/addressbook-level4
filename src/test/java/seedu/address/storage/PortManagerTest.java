@@ -69,6 +69,10 @@ public class PortManagerTest {
         portManager.importDeck(badFilePath);
     }
 
+    /**
+     * Converts a string to a full Path.
+     */
+
     private Path makeFilePath(String name) {
         Path baseFilePath = Paths.get(portManager.getBfp());
         if (name.length() > 4 && name.substring(name.length() - 4).equals(".xml")) {
