@@ -264,23 +264,14 @@ public class Anakin implements ReadOnlyAnakin {
      * Concludes the end of a deck review by setting isReviewingDeck flag to false
      */
     public void endReview() {
-        if (!isReviewingDeck()) {
-            throw new NotReviewingDeckException();
-        }
         isReviewingDeck = false;
     }
 
     public int getIndexOfCurrentCard() {
-        if (!isReviewingDeck()) {
-            throw new NotReviewingDeckException();
-        }
         return cards.getCurrentIndex();
     }
 
     public void setIndexOfCurrentCard(int newIndex) {
-        if (!isReviewingDeck()) {
-            throw new NotReviewingDeckException();
-        }
         cards.setCurrentIndex(newIndex);
     }
 
