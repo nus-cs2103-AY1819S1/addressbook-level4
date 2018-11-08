@@ -401,11 +401,11 @@ keyword: n/NAME The name of the person you want to put in this group.
 * *Add Person* `addperson n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
-* *Add Module* `mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER[t/TAG]...` +
+* *Add Module* `addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER[t/TAG]...` +
 e.g. ` addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg `
 
-* *Add Occasion* `on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...` +
-e.g. ` addoccasion addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg `
+* *Add Occasion* `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...` +
+e.g. ` addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg `
 
 * *Clear* : `clear`
 
