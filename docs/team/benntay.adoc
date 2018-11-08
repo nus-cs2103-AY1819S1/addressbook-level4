@@ -14,43 +14,36 @@ Souschef is a desktop smart cooking sidekick, offering personalised guidance eve
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
 == Summary of contributions
-
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benntay[Functional
+code]]
 * *Major enhancement*: added the _Meal Planner feature_.
 ** What it does: Allows users to add their desired recipes to a Meal Planner so that they can plan their days' meals.
 ** Justification: This feature improves the product significantly because a user can not only browse recipes, but also keep a record of the recipes they want to try on which specific days.
 ** Highlights: This enhancement was originally unsupported by the AB4 code; it is a completely new component feature.
-//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-//*To be updated*
-
-//* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: restructured and modularised UI component and implemented panel
+switching between different features.
+** Justification: This was to allow easy and efficient integration for the UI aspect
+across multiple features through the use of general classes, as well as to allow
+switching between the display panels of different features.
+** Highlights: This enables both modularised and efficient integration of features into
+UI and allowed easy switching between different feature panels through the use of
+Universal Commands.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[PR#65]
 
 * *Other contributions*:
 
-** Modularised UI component for other features to integrate more easily.
 ** Enhancements to new features:
 *** Wrote additional tests for Meal Planner component to increase coverage.
-//** Project management:
-//*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-
-//***
-//** Enhancements to existing features:
-//*** Updated
-//*** (Wrote additional tests for existing features to increase coverage)
-//** Documentation:
-//*** (Did cosmetic tweaks to existing contents of the User Guide)
-//** Community:
-//*** (PRs reviewed) (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-//*** (Contributed to forum discussions) (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-//*** (Reported bugs and suggestions for other teams in the class) (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-//** Tools:
-//*** (Integrated a third party library) (Natty) to the project (https://github.com[#42])
-//*** (Integrated a new Github plugin) (CircleCI) to the team repo
-
-//_{you can add/remove categories in the list above}_
+** Community:
+*** PRs reviewed (mostly wth regards to UI component):
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/83[#83],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/84[#84],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/56[#56]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-W13-1/main/issues/137[1],
+https://github.com/CS2103-AY1819S1-W13-1/main/issues/136[2],
+https://github.com/CS2103-AY1819S1-W13-1/main/issues/131[3])
 
 == Contributions to the User Guide
 
@@ -87,9 +80,3 @@ include::../DeveloperGuide.adoc[tag=mealplanner]
 
 include::../DeveloperGuide.adoc[tag=uimodularisation]
 
-
-//== PROJECT: PowerPointLabs
-
-//---
-
-//_{Optionally, you may include other projects in your portfolio.}_
