@@ -17,6 +17,12 @@ public class EmbedGoogleMaps {
     private static final String ystcomPlaceId = "ChIJSejKW_Ya2jER9bHfrr9sA-c";
     private static final String fassPlaceId = "ChIJadpVLvka2jERHq8cT_xdGVQ";
     private static final String yihPlaceId = "ChIJcWXf-_ca2jERnQ81RhxHf5o";
+    private static final String krPlaceId = "ChIJOdueMVIa2jERhE4TnhWtNpo";
+    private static final String icubePlaceId = "ChIJtX3gi1Ua2jERefFjXXzP-xk";
+    private static final String terracePlaceId = "ChIJAQAAsPga2jERULZADcNLT7w";
+    private static final String deckPlaceId = "ChIJVVVVJfka2jERZRl7AeJV__s";
+    private static final String humbleoriginsPlaceId = "ChIJA0UG2fka2jERCO0F5YbGzaE";
+    private static final String coffeeroastersPlaceId = "ChIJJ1vrQxMZ2jERIWEJYEK-dnM";
 
     /**
      * This method returns the faculty location's Google Place ID.
