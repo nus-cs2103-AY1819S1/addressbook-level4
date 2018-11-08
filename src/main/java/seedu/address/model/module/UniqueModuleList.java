@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,16 @@ public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
 
+    public UniqueModuleList(List<Module> moduleList) {
+        for (Module module : moduleList) {
+            internalList.add(module);
+        }
+    }
+
+    public UniqueModuleList() {
+
+    }
+
     /**
      * Returns true if the list contains an equivalent module as the given argument.
      */
@@ -42,6 +53,15 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(moduleToAdd);
+    }
+
+    /**
+     * Makes an identical deep copy of this List.
+     */
+    public UniqueModuleList makeDeepDuplicate() {
+        List<Module> newList = this.internalList.stream()
+                                    .map(value -> value.makeDeepDuplicate()).collect(Collectors.toList());
+        return new UniqueModuleList(newList);
     }
 
     /**

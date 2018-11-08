@@ -183,6 +183,18 @@ public class AddModuleCommandTest {
         }
 
         @Override
+        public void insertPerson(Person person, Module module, Person personToInsert,
+                                 Module moduleToInsert) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void insertPerson(Person person, Occasion occasion, Person personToInsert,
+                                 Occasion moduleToInsert) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -209,7 +221,7 @@ public class AddModuleCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single module.
      */
     private class ModelStubWithModule extends ModelStub {
         private final Module module;

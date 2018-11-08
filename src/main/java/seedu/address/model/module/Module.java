@@ -8,7 +8,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -73,6 +76,27 @@ public class Module {
 
     public UniquePersonList getStudents() {
         return students == null ? new UniquePersonList(new ArrayList<>()) : students;
+    }
+
+    public Property moduleCodeProperty() {
+        return new SimpleStringProperty(moduleCode.fullModuleCode);
+    }
+
+    public Property moduleTitleProperty() {
+        return new SimpleStringProperty(moduleTitle.fullModuleTitle);
+    }
+
+    /**
+     * Makes an indentical deep copy of this module.
+     */
+    public Module makeDeepDuplicate() {
+        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
+        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
+        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
+        Semester newSem = this.semester.makeDeepDuplicate();
+        UniquePersonList newList = this.students.makeDeepDuplicate();
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
     }
 
     /**

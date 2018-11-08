@@ -43,6 +43,14 @@ public class OccasionName {
     }
 
     /**
+     * Makes an identical deep copy of this OccasionName.
+     */
+    public OccasionName makeDeepDuplicate() {
+        OccasionName newName = new OccasionName(new String(fullOccasionName));
+        return newName;
+    }
+
+    /**
      * Check whether a given string is a valid name.
      *
      * @return A boolean value indicating the validation of this occasion name.

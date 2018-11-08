@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -32,7 +34,10 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
-
+    @XmlElement
+    private List<XmlAdaptedModule> moduleList = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedOccasion> occasionList = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -68,6 +73,22 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        if (source.getModuleList() != null) {
+            moduleList = source.getModuleList().asUnmodifiableObservableList()
+                    .stream().map(XmlAdaptedModule::new)
+                    .collect(Collectors.toList());
+        } else {
+            moduleList = new ArrayList<>();
+        }
+
+        if (source.getOccasionList() != null) {
+            occasionList = source.getOccasionList().asUnmodifiableObservableList()
+                    .stream().map(XmlAdaptedOccasion::new)
+                    .collect(Collectors.toList());
+        } else {
+            occasionList = new ArrayList<>();
+        }
+
     }
 
     /**
@@ -132,8 +153,29 @@ public class XmlAdaptedPerson {
         }
 
 
+        if (moduleList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                                Address.class.getSimpleName()));
+        }
+
+        List<Module> listOfModules = new ArrayList<>();
+        for (XmlAdaptedModule module : moduleList) {
+            listOfModules.add(module.toModelType());
+        }
+
+        if (occasionList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                                Address.class.getSimpleName()));
+        }
+
+        List<Occasion> listOfOccasions = new ArrayList<>();
+        for (XmlAdaptedOccasion occasion: occasionList) {
+            listOfOccasions.add(occasion.toModelType());
+        }
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+                                    listOfOccasions, listOfModules);
     }
 
     @Override

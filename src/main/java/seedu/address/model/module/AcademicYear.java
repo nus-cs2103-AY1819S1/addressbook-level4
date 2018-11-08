@@ -41,6 +41,14 @@ public class AcademicYear {
     }
 
     /**
+     * Makes an identical deep copy of this academic year.
+     */
+    public AcademicYear makeDeepDuplicate() {
+        AcademicYear newYear = new AcademicYear(new String(yearNumber.toString()));
+        return newYear;
+    }
+
+    /**
      * Returns true if a given Integer is a valid AcademicYear number
      */
     public static boolean isValidYear(String number) {

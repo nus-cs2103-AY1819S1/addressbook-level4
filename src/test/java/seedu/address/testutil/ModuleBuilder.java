@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.module.AcademicYear;
@@ -9,6 +10,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -88,6 +90,17 @@ public class ModuleBuilder {
      */
     public ModuleBuilder withStudents(UniquePersonList students) {
         this.students = students;
+        return this;
+    }
+
+    /**
+     * Sets the {@code students list} of the {@code Module} that we are building
+     * via another list.
+     */
+    public ModuleBuilder withStudents(List<Person> studentList) {
+        for (Person person : studentList) {
+            students.add(person);
+        }
         return this;
     }
 

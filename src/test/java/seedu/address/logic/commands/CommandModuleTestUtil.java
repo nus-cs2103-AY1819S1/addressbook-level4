@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULEINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,6 +36,7 @@ public class CommandModuleTestUtil {
     public static final String VALID_SEMESTER_ST2131 = "2";
     public static final String VALID_TAG_BINARY = "binary";
     public static final String VALID_TAG_CALCULUS = "calculus";
+    public static final String VALID_INDEX = "1";
 
     public static final String MODULECODE_DESC_CS2100 = " " + PREFIX_MODULECODE + VALID_MODULECODE_CS2100;
     public static final String MODULECODE_DESC_ST2131 = " " + PREFIX_MODULECODE + VALID_MODULECODE_ST2131;
@@ -46,6 +48,7 @@ public class CommandModuleTestUtil {
     public static final String SEMESTER_DESC_ST2131 = " " + PREFIX_SEMESTER + VALID_SEMESTER_ST2131;
     public static final String TAG_DESC_BINARY = " " + PREFIX_TAG + VALID_TAG_BINARY;
     public static final String TAG_DESC_CALCULUS = " " + PREFIX_TAG + VALID_TAG_CALCULUS;
+    public static final String VALID_INDEX_INSERT_MODULE = " " + PREFIX_MODULEINDEX + VALID_INDEX;
 
     public static final String INVALID_MODULECODE_DESC = " " + PREFIX_MODULECODE
             + "CS12345"; // only 4 numbers in code
@@ -55,6 +58,7 @@ public class CommandModuleTestUtil {
             + "1234"; // years not consecutive
     public static final String INVALID_SEMESTER_FIVE = " " + PREFIX_SEMESTER + "5";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ":P"; // ':' not allowed in tags
+    public static final String INVALID_INDEX_INSERT_MODULE = " " + PREFIX_MODULEINDEX + "-1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

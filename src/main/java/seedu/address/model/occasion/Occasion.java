@@ -6,10 +6,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -37,6 +42,16 @@ public class Occasion {
         this.occasionDate = occasionDate;
         this.location = location;
         this.attendanceList = new UniquePersonList(new ArrayList<>());
+        this.tags.addAll(tags);
+    }
+
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
+                    Set<Tag> tags, TypeUtil type, List<Person> attendanceList) {
+        requireAllNonNull(occasionName, occasionDate, tags, type, attendanceList);
+        this.occasionName = occasionName;
+        this.occasionDate = occasionDate;
+        this.location = location;
+        this.attendanceList = new UniquePersonList(attendanceList);
         this.tags.addAll(tags);
     }
 
@@ -68,6 +83,22 @@ public class Occasion {
 
     public OccasionLocation getOccasionLocation() {
         return location;
+    }
+
+    public Property occasionNameProperty() {
+        return new SimpleStringProperty(occasionName.fullOccasionName);
+    }
+
+    /**
+     * Make an identical deep copy of this occasion.
+     */
+    public Occasion makeDeepDuplicate() {
+        OccasionName newName = this.occasionName.makeDeepDuplicate();
+        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
+        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        UniquePersonList newList = this.attendanceList.makeDeepDuplicate();
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }
 
     /**

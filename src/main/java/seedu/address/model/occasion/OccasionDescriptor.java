@@ -2,10 +2,13 @@ package seedu.address.model.occasion;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,6 +19,7 @@ public class OccasionDescriptor {
     private OccasionName occasionName;
     private OccasionDate occasionDate;
     private OccasionLocation occasionLocation;
+    private UniquePersonList attendanceList = new UniquePersonList();
     private Set<Tag> tags;
 
     public OccasionDescriptor() {}
@@ -28,6 +32,7 @@ public class OccasionDescriptor {
         setOccasionName(toCopy.occasionName);
         setOccasionDate(toCopy.occasionDate);
         setOccasionLocation(toCopy.occasionLocation);
+        setAttendanceList(toCopy.getAttendanceList().get());
         setTags(toCopy.tags);
     }
 
@@ -60,6 +65,22 @@ public class OccasionDescriptor {
 
     public Optional<OccasionLocation> getOccasionLocation() {
         return Optional.ofNullable(occasionLocation);
+    }
+
+    public void setAttendanceList(UniquePersonList personList) {
+        for (Person person : personList.asUnmodifiableObservableList()) {
+            attendanceList.add(person);
+        }
+    }
+
+    public void setAttendanceList(List<Person> personList) {
+        for (Person person : personList) {
+            attendanceList.add(person);
+        }
+    }
+
+    public Optional<UniquePersonList> getAttendanceList() {
+        return Optional.ofNullable(attendanceList);
     }
 
     /**
