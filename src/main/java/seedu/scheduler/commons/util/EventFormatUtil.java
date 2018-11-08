@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event.Reminders;
@@ -14,6 +15,7 @@ import com.google.api.services.calendar.model.EventReminder;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.parser.ParserUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.Description;
@@ -23,11 +25,13 @@ import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.ui.UiManager;
 
 /**
  * A class for converting the format between Google Event and local Event.
  */
 public class EventFormatUtil {
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     /**
      * Returns the eventUid in Google Calendar Format.
@@ -181,7 +185,7 @@ public class EventFormatUtil {
         if (reminder.getUseDefault()) {
             reminderDurationList.add(Duration.ofMinutes(30));
         } else if (reminder.getOverrides() == null) {
-            //nothing
+            logger.info("No overrides found in Google Event.");
         } else {
             List<EventReminder> reminderOverrides = reminder.getOverrides();
             for (EventReminder eventReminder : reminderOverrides) {

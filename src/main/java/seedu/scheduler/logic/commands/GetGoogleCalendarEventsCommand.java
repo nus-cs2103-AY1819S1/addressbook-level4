@@ -141,7 +141,8 @@ public class GetGoogleCalendarEventsCommand extends Command {
             for (RepeatType value : googleiCalAndRepeatType.values()) {
                 int frequency = Collections.frequency(googleiCalAndRepeatType.values(), value);
                 if (frequency > 1) {
-                    //not supported
+                    //TODO:show not supported
+                    throw new CommandException("Event type on Google Not supported.");
                 }
             }
 
@@ -176,6 +177,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
     }
 
     private DateTime getRepeatUntilDateTime(DateTime repeatUntilDateTime, String s) {
+        DateTime newRepeatUntilDateTime = null;
         try {
             //local format:2018-10-20T17:00:00
             //UNTIL=20181108T155959Z
@@ -185,10 +187,10 @@ public class GetGoogleCalendarEventsCommand extends Command {
                     .insert(7, "-")
                     .insert(13, ":")
                     .append(":00");
-            repeatUntilDateTime = ParserUtil.parseDateTime(newRepeatUntil2.toString());
+            newRepeatUntilDateTime = ParserUtil.parseDateTime(newRepeatUntil2.toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return repeatUntilDateTime;
+        return newRepeatUntilDateTime;
     }
 }
