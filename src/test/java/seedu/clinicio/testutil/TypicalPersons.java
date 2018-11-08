@@ -105,9 +105,9 @@ public class TypicalPersons {
 
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
-            .withPreferredDoctor(ADAM).build();
+            .build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
-            .withPreferredDoctor(ADAM).build();
+            .build();
 
     //Not inside ClinicIO
     public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
@@ -148,9 +148,9 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        for (Patient patient: getTypicalPatients()) {
+        /*for (Patient patient: getTypicalPatients()) {
             clinicIo.addPatient(patient);
-        }
+        }*/
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }
