@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
      * Method returns after UI components have been updated.
      */
     protected void executeCommand(String command) {
-        rememberStates();
+        rememberModuleStates();
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
@@ -151,6 +151,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
     }
 
+    //TODO: Remove
     /**
      * Displays all persons in the address book.
      */
@@ -159,6 +160,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
+    //TODO: Remove
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
@@ -167,6 +169,7 @@ public abstract class AddressBookSystemTest {
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
+    //TODO: Remove
     /**
      * Selects the person at {@code index} of the displayed list.
      */
@@ -175,6 +178,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
+    //TODO: Remove
     /**
      * Deletes all persons in the address book.
      */
@@ -183,6 +187,16 @@ public abstract class AddressBookSystemTest {
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
+    //TODO: Wait and clarify
+    /**
+     * Deletes all modules in the transcript.
+     */
+    protected void deleteAllModules() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getTranscript().getModuleList().size());
+    }
+
+    //TODO: Remove
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
@@ -197,6 +211,20 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same module objects as {@code expectedModel}
+     * and the module list panel displays the modules in the model correctly.
+     */
+    protected void assertTranscriptApplicationDisplaysExpected(String expectedCommandInput,
+                                                               String expectedResultMessage, Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new Transcript(expectedModel.getTranscript()), testApp.readStorageTranscript());
+        //assertListMatching(getModuleListPanel(), expectedModel.getFilteredModuleList());
+    }
+
+    //TODO: Remove
+    /**
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
@@ -208,6 +236,18 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Calls {@code BrowserPanelHandle}, {@code ModuleListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
+     */
+    private void rememberModuleStates() {
+        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
+        statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberSyncStatus();
+        getModuleListPanel().rememberSelectedModuleCard();
+    }
+
+    //TODO: Remove
+    /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected person.
      *
@@ -217,6 +257,7 @@ public abstract class AddressBookSystemTest {
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
+    //TODO: Remove
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
@@ -229,6 +270,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
+    //TODO: Remove
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      *
@@ -289,10 +331,18 @@ public abstract class AddressBookSystemTest {
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
+    //TODO: Remove
     /**
      * Returns a defensive copy of the current model.
      */
     protected Model getModel() {
         return testApp.getAddressBookModel();
+    }
+
+    /**
+     * Returns a defensive copy of the current model.
+     */
+    protected Model getTranscriptModel() {
+        return testApp.getTranscriptModel();
     }
 }
