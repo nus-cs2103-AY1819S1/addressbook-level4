@@ -103,9 +103,26 @@ public class TaskCard extends UiPart<Region> {
         return "remaining time: " + task.getTimeToDueDate();
     }
 
+    private String getChildTime() {
+        try {
+            return this.taskManager.getEarliestDependentTimeForNode(this.task).value;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     @Subscribe
     public void handleNewResultEvent(NewResultAvailableEvent abce) {
-        Platform.runLater(() -> remainingTime.setText(getRemainingTime()));
+        remainingTime.setText(getRemainingTime());
+    }
+
+    @Subscribe
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        try {
+            earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.task).value);
+        } catch (Exception e) {
+            return;
+        }
     }
 
     @Override
