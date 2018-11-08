@@ -256,6 +256,11 @@ Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
 comes back from the future.
 // end::achievements-usage[]
+
+// tag::gamemode-usage[]
+
+
+// end::achievements-usage[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
