@@ -299,11 +299,11 @@ Examples:
 
 Creates a suggested location to meet up for an event.
 
-Format: `generateLocation n/EVENT_NAME
+Format: `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME`
 
 Examples:
 
-* `generateLocation n/First Meeting`
+* `generateLocation n/First Meeting d/2018-04-06 st/1600`
 
 === Adding an event: `addEvent`
 
@@ -703,10 +703,10 @@ e.g.`select 2`
 // * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
 // e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
 
-* *Show Faculty Location* : `showLocation INDEX` +
+* *Show Faculty Location visually* : `showLocation INDEX` +
 e.g. `showLocation 5`
-* *Suggest Location* : `generateLocation n/EVENT_NAME` +
-e.g. `generateLocation n/First Meeting`
+* *Suggest Location* : `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME` +
+e.g. `generateLocation n/First Meeting d/2018-01-14 st/1330`
 * *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
 * *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
