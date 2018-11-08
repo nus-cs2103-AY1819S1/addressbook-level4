@@ -1149,7 +1149,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
 - [x] V1.2: Users able to specify friendships with other people.
-- [x] V1.3: Users able to form groups and find mutual friends.
+- [x] V1.3: Users able to search for friends and become more connected.
 
 #### Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
