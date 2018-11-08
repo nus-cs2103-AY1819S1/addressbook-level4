@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
@@ -27,11 +26,11 @@ public class CompleteIndexCommand extends CompleteCommand {
     }
 
     /**
-     * UPDATES MODEL BUT DOES NOT COMMIT
+     * Completes all tasks identified by index.
+     * Side Effects: updates model but does not commit
      *
-     * @param model
-     * @param history
-     * @return
+     * @param model model to be updated
+     * @return {@code String} representing the completed tasks
      * @throws CommandException
      */
     public String executePrimitivePrime(Model model) throws CommandException {

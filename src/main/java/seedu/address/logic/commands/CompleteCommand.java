@@ -64,9 +64,14 @@ public abstract class CompleteCommand extends Command {
     }
 
     /**
+     * Execute the underlying subclass implementation of completing and updating completed
+     * tasks to a model.
+     * Additionally wraps the method in a try catch block to rollback the model should any
+     * CommandExceptions by raised.
+     * Side Effects: Updates a model, possibly rollback a model
      *
-     * @param model
-     * @return
+     * @param model model to update
+     * @return {@code String} representation of completed tasks.
      * @throws CommandException
      */
     private String completeTasks(Model model)
@@ -84,8 +89,11 @@ public abstract class CompleteCommand extends Command {
     }
 
     /**
-     *
-     * @param model
+     * Handles additional side effects to the model.
+     * Checks for the presence of invalid dependencies.
+     * If there are none, update the model's view of the filtered task list
+     * and commit changes to the model.
+     * @param model model which has uncommitted states
      * @throws CommandException
      */
     private void processModelSideEffects(Model model) throws CommandException {
@@ -93,23 +101,24 @@ public abstract class CompleteCommand extends Command {
             model.rollbackTaskManager();
             throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
         }
-        // model related operations
+
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
     }
 
 
     /**
+     * Helper function to abstract the logic in creating a command result.
      *
-     * @param hasChangeinLevel
-     * @param newLevel
-     * @param changeInXp
-     * @param completedTasksOutput
-     * @return
+     * @param hasChangeInLevel true if new level needs to be displayed/
+     * @param newLevel level tied to the updated model
+     * @param changeInXp difference in xp between old and new model
+     * @param completedTasksOutput {@code String} representation of the completed tasks
+     * @return {@code CommandResult} encapsulating user readable messages
      */
-    private CommandResult createCommandResult(boolean hasChangeinLevel, Level newLevel, int changeInXp,
+    private CommandResult createCommandResult(boolean hasChangeInLevel, Level newLevel, int changeInXp,
                                               String completedTasksOutput) {
-        if (hasChangeinLevel) {
+        if (hasChangeInLevel) {
             return new CommandResult(
                 String.format(MESSAGE_SUCCESS_WITH_LEVEL, newLevel, changeInXp, completedTasksOutput));
         } else {

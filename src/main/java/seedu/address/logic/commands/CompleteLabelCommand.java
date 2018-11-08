@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
@@ -31,11 +30,11 @@ public class CompleteLabelCommand extends CompleteCommand {
     }
 
     /**
-     *
-     * Side Effects: some tasks would be updated to completed status in the model's state
+     * Completes all tasks identified by label.
+     * Side Effects: updates model but does not commit
      *
      * @param model model to be updated
-     * @return
+     * @return {@code String} representing the completed tasks
      * @throws CommandException
      */
     public String executePrimitivePrime(Model model) throws CommandException {
@@ -97,8 +96,13 @@ public class CompleteLabelCommand extends CompleteCommand {
         return completedTask.toString();
     }
 
+
     /**
      * Generates a set of tasks that can be completed which also satisfies the supplied predicate.
+     *
+     * @param pred predicate to identify tasks to be completed
+     * @param model model to fetch completable tasks from
+     * @return a set of tasks that are completed
      */
     private Set<Task> generateSetOfCompletableTasks(Predicate<Task> pred, Model model) {
         // Preserve a shallow copy of original list of task to restore later on
