@@ -143,7 +143,8 @@ public class DeletePersonCommandTest {
     //    public void executeUndoRedo_invalidPatient_failure() {
     //        // execution failed -> address book state not added into model
     //        assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445")),
-    //                model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
+    //                model, commandHistory, String.format(
+    // DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
     //
     //        // single address book state in model -> undoCommand and redoCommand fail
     //        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -154,7 +155,8 @@ public class DeletePersonCommandTest {
     //    public void executeUndoRedo_invalidDoctor_failure() {
     //        // execution failed -> address book state not added into model
     //        assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445")),
-    //                model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
+    //                model, commandHistory, String.format(
+    // DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
     //
     //        // single address book state in model -> undoCommand and redoCommand fail
     //        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
