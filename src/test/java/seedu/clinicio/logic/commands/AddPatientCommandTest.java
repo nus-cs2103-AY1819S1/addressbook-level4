@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -69,8 +73,8 @@ public class AddPatientCommandTest {
 
     @Test
     public void equals() {
-        Patient alex = new PatientBuilder().withName("Alex").withNric("S1234567A").build();
-        Patient bryan = new PatientBuilder().withName("Bryan").withNric("S8901631D").build();
+        Patient alex = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX).build();
+        Patient bryan = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN).build();
         AddPatientCommand addAlexCommand = new AddPatientCommand(alex);
         AddPatientCommand addBryanCommand = new AddPatientCommand(bryan);
 
