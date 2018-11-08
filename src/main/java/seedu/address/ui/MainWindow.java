@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.AssignmentListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private AssignmentListPanel assignmentListPanel;
     private PersonListPanel personListPanel;
     private LeaveListPanel leaveListPanel;
     private PersonListPanel archivedListPanel;
@@ -49,7 +51,6 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private AssignmentListPanel assignmentListPanel;
     private ListPicker listPicker;
 
     // Independent UI parts for login.
@@ -195,6 +196,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up the person list placeholder with the leave application list
+     */
+    void fillAssignmentListParts() {
+        if (assignmentListPanel == null) {
+            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        }
+        personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+    }
+
+    /**
      * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
      * @param loginEvent The login information
      */
@@ -236,6 +247,17 @@ public class MainWindow extends UiPart<Stage> {
         fillLeaveParts();
     }
 
+    /**
+     * Listens for a assignment list Event from the EventBus. This will be triggered when a AssignmentListEvent
+     * is pushed to the EventBus.
+     * @param assignmentListEvent The event information
+     */
+    @Subscribe
+    void processAssignmentList(AssignmentListEvent assignmentListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillAssignmentListParts();
+    }
+
     private void removeLoginWindow() {
         commandBoxPlaceholder.getChildren().remove(loginIntroduction.getRoot());
         personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
@@ -267,6 +289,9 @@ public class MainWindow extends UiPart<Stage> {
         }
         if (leaveListPanel != null) {
             personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
+        }
+        if (assignmentListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
         }
     }
 
@@ -343,11 +368,18 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == 2) {
             personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
         }
         if (event.getNewSelection() == 1) {
             personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+        if (event.getNewSelection() == 3) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
         }
     }
 }
