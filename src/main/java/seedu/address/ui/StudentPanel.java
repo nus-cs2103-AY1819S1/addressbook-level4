@@ -91,6 +91,8 @@ public class StudentPanel extends UiPart<Region> {
         } else {
             timeLabel.setText(person.getTime().toString());
         }
+
+        handlePersonPanelSelectionChangedEvent(null);
     }
 
     @Subscribe

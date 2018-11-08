@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.HelpWindowHandle;
 import javafx.stage.Stage;
 
 public class HelpWindowTest extends GuiUnitTest {

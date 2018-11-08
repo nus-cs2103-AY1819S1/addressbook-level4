@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -71,23 +70,4 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
         assertEquals(1, guiRobot.getNumberOfWindowsShown(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
-
-    /**
-     * Asserts that the help window is open, and closes it after checking.
-     */
-    private void assertHelpWindowOpen() {
-        assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
-        guiRobot.pauseForHuman();
-
-        new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
-        getMainWindowHandle().focus();
-    }
-
-    /**
-     * Asserts that the help window isn't open.
-     */
-    private void assertHelpWindowNotOpen() {
-        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
-    }
-
 }
