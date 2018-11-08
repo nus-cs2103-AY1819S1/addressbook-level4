@@ -200,6 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void checkOverdue() {
         versionedTaskManager.updateIfOverdue();
     }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -215,7 +216,13 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedTaskManager.equals(other.versionedTaskManager)
-                && filteredTasks.equals(other.filteredTasks);
+            && filteredTasks.equals(other.filteredTasks);
+    }
+
+    //=========== Check for any unfulfilled dependencies===================================================
+    @Override
+    public boolean hasUnfulfilledDependency() {
+        return versionedTaskManager.hasUnfulfilledDependency();
     }
 
     //=========== Topological order ======================================================================
