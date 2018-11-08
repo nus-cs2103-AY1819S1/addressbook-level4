@@ -40,7 +40,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private Optional<Staff> preferredDoctor;
+    private Optional<XmlAdaptedStaff> preferredDoctor;
     @XmlElement
     private Optional<Appointment> appointment;
 
@@ -52,7 +52,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            Optional<Staff> preferredDoctor, Optional<Appointment> appointment) {
+            Optional<XmlAdaptedStaff> preferredDoctor, Optional<Appointment> appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -81,7 +81,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
 
         isQueuing = patient.isQueuing();
-        preferredDoctor = patient.getPreferredDoctor();
+        preferredDoctor = Optional.ofNullable(new XmlAdaptedStaff(patient.getPreferredDoctor().get()));
         appointment = patient.getAppointment();
     }
 
@@ -134,10 +134,13 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setAppointment(appointment1);
         });
 
-        preferredDoctor.ifPresent(preferredDoctor -> {
-            patient.setPreferredDoctor(preferredDoctor);
+        preferredDoctor.ifPresent(doctor -> {
+            try {
+                patient.setPreferredDoctor(doctor.toModelType());
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
         });
-
         return patient;
     }
 
