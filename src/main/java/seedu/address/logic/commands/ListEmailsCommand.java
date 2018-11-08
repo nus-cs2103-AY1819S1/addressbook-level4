@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ListEmailsEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -22,6 +23,7 @@ public class ListEmailsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         Set<String> existingEmails = model.getExistingEmails();
+        EventsCenter.getInstance().post(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         EventsCenter.getInstance().post(new ListEmailsEvent(existingEmails));
         return new CommandResult(MESSAGE_SUCCESS);
     }

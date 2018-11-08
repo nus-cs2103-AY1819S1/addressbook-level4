@@ -522,6 +522,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void handleEmailLoadedEvent(EmailLoadedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email loaded, saving to EmailModel."));
         saveEmail(event.data);
+        raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         raise(new EmailViewEvent(emailModel));
     }
 
