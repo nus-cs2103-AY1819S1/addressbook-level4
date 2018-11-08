@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -39,6 +42,8 @@ public abstract class CompleteCommand extends Command {
     public CommandResult executePrimitive(Model model, CommandHistory history)
         throws CommandException {
 
+
+
         // Calculation of change in xp and level is inlined
         // as the viewing of the whole process as procedures that relies
         // side effects of the methods called in between is now more easily
@@ -48,9 +53,7 @@ public abstract class CompleteCommand extends Command {
         int oldXp = model.getXpValue();
         Level oldLevel = model.getLevel();
 
-        // methods with side effects
         String completedTasksOutput = completeTasks(model);
-        processModelSideEffects(model);
 
         // calculate change in xp to report to the user.
         int newXp = model.getXpValue();
@@ -66,9 +69,9 @@ public abstract class CompleteCommand extends Command {
     /**
      * Execute the underlying subclass implementation of completing and updating completed
      * tasks to a model.
-     * Additionally wraps the method in a try catch block to rollback the model should any
-     * CommandExceptions by raised.
-     * Side Effects: Updates a model, possibly rollback a model
+     * Additionally wraps the method in a try catch block to rollback the model and it's
+     * filtered task list's view should any CommandExceptions by raised.
+     * Side Effects: Updates a model, possibly rollback a model and it's filteredTaskList's view
      *
      * @param model model to update
      * @return {@code String} representation of completed tasks.
@@ -76,14 +79,21 @@ public abstract class CompleteCommand extends Command {
      */
     private String completeTasks(Model model)
         throws CommandException {
+        List<Task> oldTaskList = new ArrayList<>(model.getFilteredTaskList());
+        Runnable restoreFilteredTaskList = () -> model
+            .updateFilteredTaskList(task -> oldTaskList.contains(task));
 
         String completedTasksOutput;
+        // methods with side effects
         try {
             completedTasksOutput = executePrimitivePrime(model);
+            processModelSideEffects(model);
         } catch (CommandException ce) {
             model.rollbackTaskManager();
+            restoreFilteredTaskList.run();
             throw ce;
         }
+
 
         return completedTasksOutput;
     }
@@ -93,12 +103,12 @@ public abstract class CompleteCommand extends Command {
      * Checks for the presence of invalid dependencies.
      * If there are none, update the model's view of the filtered task list
      * and commit changes to the model.
+     * Else, throw a command exception.
      * @param model model which has uncommitted states
      * @throws CommandException
      */
     private void processModelSideEffects(Model model) throws CommandException {
         if (model.hasInvalidDependencies()) {
-            model.rollbackTaskManager();
             throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
         }
 
