@@ -231,6 +231,8 @@ anywhere as long as they have access to UiManager.
 
 // end::uimodularisation[]
 
+// tag::logicComponent[]
+
 [[Design-Logic]]
 === Logic component
 
@@ -252,6 +254,8 @@ gram 10-23-2018")` API call.
 
 .Interactions Inside the Logic Component for the adding ingredient
 image::LogicSequenceDiagram.png[width="800"]
+
+// end::logicComponent[]
 
 // tag::modelComponent[]
 
@@ -317,7 +321,7 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::ingredientmanager[]
+// tag::ingredientManager[]
 === Ingredient Manager
 ==== Total management of ingredients that user currently have
 Ingredient Manager is an address book of ingredients. With the basic functions of a normal address book such as
@@ -342,7 +346,7 @@ Ingredient
  Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
  desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
  she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
-// end::ingredientmanager[]
+// end::ingredientManager[]
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
