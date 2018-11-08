@@ -14,9 +14,14 @@ public class CategoryBudget extends Budget {
 
     private Category belongsToCategory;
 
-
     public CategoryBudget (String category, String budget) {
         super(budget);
+        checkArgument(Category.isValidCategory(category), Category.MESSAGE_CATEGORY_CONSTRAINTS);
+        this.belongsToCategory = new Category(category);
+    }
+
+    public CategoryBudget (String category, String budget, String currentExpenses) {
+        super(budget, currentExpenses);
         checkArgument(Category.isValidCategory(category), Category.MESSAGE_CATEGORY_CONSTRAINTS);
         this.belongsToCategory = new Category(category);
     }
