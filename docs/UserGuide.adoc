@@ -82,7 +82,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Adds an employee into the system.
 
-Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t PROJECT]`
+Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t ASSIGNMENT]`
 
 * If username is not specified, it will default to being the same as NAME.
 
@@ -108,7 +108,7 @@ Displays all the permissions that an employee has been assigned.
 Format: viewpermission INDEX
 
 ****
-* To use this command, you must be logged in with "Assign permission" permission.
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permissions.
 ****
 
 Examples:
@@ -237,7 +237,7 @@ Examples:
 
 Changes the details of the currently logged in user
 
-Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t PROJECT]`
+Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t ASSIGNMENT]`
 
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -254,7 +254,7 @@ Examples:
 
 Changes the users details (such as contact information).
 
-Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]`
 
 * Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -283,9 +283,9 @@ The following is the list of Permissions available.
 |EDIT_EMPLOYEE|Allows the user to edit information of an employee
 |VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
-|CREATE_ASSIGNMENT (Currently not used)|Allows user to create a project
-|ASSIGN_ASSIGNMENT (Currently not used)|Allows user to assign employee to a project
-|VIEW_ASSIGNMENT (Currently not used)|Allows user to view all projects
+|CREATE_ASSIGNMENT (Currently not used)|Allows user to create a assignment
+|ASSIGN_ASSIGNMENT (Currently not used)|Allows user to assign employee to a assignment
+|VIEW_ASSIGNMENT (Currently not used)|Allows user to view all assignments
 |ASSIGN_PERMISSION|Allows user to assign permission to employees
 |=========================================================
 
@@ -471,7 +471,7 @@ Shows a list of all assignments in the system.
 Format: `listassignment`
 
 ****
-* To use this command, you must be logged in with "View Assignment" permissions.
+* To use this command, you must be logged in with "VIEW_ASSIGNMENT" permissions.
 ****
 
 === Removing an assignment: `deleteassignment`
@@ -481,7 +481,7 @@ Removes an assignment from the system.
 Format: `deleteassignment INDEX`
 
 ****
-* To use this command, you must be logged in with "Remove Assignment" permissions.
+* To use this command, you must be logged in with "REOMVE_ASSIGNMENT" permissions.
 ****
 
 == FAQ
@@ -524,10 +524,10 @@ Format: `deleteassignment INDEX`
 [width="100%",options="header"]
 |=========================================================
  |Command|Required Permission|Format|Example
- |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT] | add -n Joshua -s 15000 -e josh@gmail.com -n
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
  |Delete employee|REMOVE_EMPLOYEE|delete INDEX|delete 1
- |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
   | edit 1 -p 91234567 -e johndoe@example.com
  |Clear|Admin|clear|clear
  |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
