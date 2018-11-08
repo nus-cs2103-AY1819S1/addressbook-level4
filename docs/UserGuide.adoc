@@ -122,7 +122,7 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
+* To use this command, you must be logged in and have the "REMOVE_EMPLOYEE" permission.
 * All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
@@ -424,10 +424,6 @@ Displays the list of employees removed from the system. To delete an employee fr
 
 Format: `archive`
 
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
-
 === Restoring employee to active list: `restore`
 
 Restores an employee to active list from the archived list.
@@ -435,8 +431,7 @@ Restores an employee to active list from the archived list.
 Format: `restore INDEX`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
-* All resotred employee will be taken back to the active list.
+* All restored employees will be taken back to the active list.
 ****
 
 Examples:
@@ -455,12 +450,12 @@ Format: `sector`
 
 === View leave summary : `leavesummary`
 
-Views the summary of off days current employees take for the month.
+Views the summary of off days current employees have taken for the month.
 
 Format: `leavesummary`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
+* To use this command, you must be logged in with "VIEW_EMPLOYEE_LEAVE" permissions.
 ****
 
 === View income summary : `summary`
@@ -516,7 +511,7 @@ Format: `deleteassignment INDEX`
  |Change password|passwd|passwd
  |View archived employees|archive|archive
  |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
- |View leave application list|leavelist|leavelist
+ |View your own leave application list|leavelist|leavelist
  |Undo commands|undo|undo
  |Redo commands|Redo|Redo
  |Logout from the system|logout|logout
@@ -537,7 +532,8 @@ Format: `deleteassignment INDEX`
  |Clear|Admin|clear|clear
  |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
  modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
- |View all Permissions of employee| ASSIGN_PERMISSION| viewpermission INDEX|viewpermission 1
+ |View all Permissions of employee|ASSIGN_PERMISSION|viewpermission INDEX|viewpermission 1
+ |View leave application list of all employees|VIEW_EMPLOYEE_LEAVE|leavelist|leavelist
  |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
  |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
 |=========================================================
