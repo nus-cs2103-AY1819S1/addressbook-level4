@@ -78,6 +78,13 @@ public interface Model {
     void updateAchievementDisplayOption(int displayOption);
 
     /**
+     * Updates the current game mode to the new mode specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    void updateGameMode(String newGameModeName);
+
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     AchievementRecord getAchievementRecord();

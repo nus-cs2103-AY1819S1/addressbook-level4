@@ -180,6 +180,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
+     * Updates the current game mode to the new mode specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    public void updateGameMode(String newGameModeName) {
+        assert GameManager.isValidGameMode(newGameModeName);
+
+        gameManager.setGameMode(newGameModeName);
+    }
+
+    /**
      * @return the {@code int} value representing the Xp.
      */
     public int getXpValue() {
