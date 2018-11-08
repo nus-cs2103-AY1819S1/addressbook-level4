@@ -187,7 +187,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
-    //TODO: Wait and clarify
+    //TODO: Remove
     /**
      * Deletes all modules in the transcript.
      */
