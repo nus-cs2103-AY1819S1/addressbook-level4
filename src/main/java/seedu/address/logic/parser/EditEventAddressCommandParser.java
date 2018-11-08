@@ -32,7 +32,8 @@ public class EditEventAddressCommandParser implements Parser<EditEventAddressCom
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_INDEX, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventAddressCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditEventAddressCommand.MESSAGE_USAGE));
         }
 
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
