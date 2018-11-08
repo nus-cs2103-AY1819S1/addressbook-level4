@@ -83,16 +83,16 @@ public class VersionedTaskManagerTest {
     }
 
     @Test
-    public void rollback_multipleTaskManagerPointerNotAtEndOfStateList_statePointerResetToEndOfStateList() {
+    public void rollback_multipleTaskManagerPointerNotAtEndOfStateList_noChange() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
             emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         versionedTaskManager.rollback();
         assertTaskManagerListStatus(versionedTaskManager,
-            Arrays.asList(emptyTaskManager, taskManagerWithAmy),
-            taskManagerWithBob,
-            Collections.emptyList());
+            Collections.emptyList(),
+            emptyTaskManager,
+            Arrays.asList(taskManagerWithAmy, taskManagerWithBob));
     }
 
     @Test
