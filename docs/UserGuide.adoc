@@ -228,6 +228,7 @@ Format: `review INDEX_OF_DECK`
 * INDEX_OF_DECK must be a positive integer from 1 onwards and is based on the currently displayed list.
 * While in review mode, disable commands that operate on decks and cards (except: `endreview`,
 `flipcard`, ``nextcard, `prevcard`, `help`, `history`, `exit`).
+* The application's data will only be stored after execute `endreview` command.
 ****
 
 === Flip a card in a review : `flipcard`
@@ -247,7 +248,7 @@ Views the subsequent card in the deck. +
 Format: `nextcard`
 
 ****
-* When you are at the last card of the deck, executing `nextcard` will loop back to the first card.
+* Note: When you are at the last card of the deck, executing `nextcard` will loop back to the first card.
 ****
 
 === Go to the previous card in a review : `prevcard`
@@ -255,12 +256,18 @@ Views the previous card in the deck. +
 Format: `prevcard`
 
 ****
-* When you are at the first card of the deck, executing `prevcard` will loop back to the last card.
+* Note: When you are at the first card of the deck, executing `prevcard` will loop back to the last card.
 ****
 
 === Exit review mode : `endreview`
 Exits the review and returns to the editing menu +
 Format: `endreview`
+
+****
+* Note: Executing `undo` after reviewing will undo all the changes made in that review session
+(all `classify` commands).
+****
+
 // end::review[]
 
 === Card difficulty classification : `classify`
