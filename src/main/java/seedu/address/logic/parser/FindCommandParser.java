@@ -50,7 +50,4 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         return new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
     }
-
-
-
 }

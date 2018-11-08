@@ -75,12 +75,13 @@ public class MainApp extends Application {
         userPrefs = initPrefs(userPrefsStorage);
         ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getExpenseTrackerDirPath());
 
-        TipsStorage tipsStorage = new JsonTipsStorage(userPrefs.getTipsFilePath());
-        Tips tips = initTips(tipsStorage);
+        TipsStorage tipsStorage = new JsonTipsStorage();
         storage = new StorageManager(expensesStorage, userPrefsStorage, tipsStorage);
+
 
         initLogging(config);
 
+        Tips tips = initTips();
 
         model = initModelManager(storage, userPrefs, tips);
 
@@ -200,9 +201,9 @@ public class MainApp extends Application {
      * or a new {@code tips} with default configuration if errors occur when
      * reading from the file.
      */
-    protected Tips initTips(TipsStorage storage) {
-        Path prefsFilePath = storage.getTipsFilePath();
-        logger.info("Using tips file : " + prefsFilePath);
+    protected Tips initTips() {
+        Path tipsFilePath = storage.getTipsFilePath();
+        logger.info("Using tips file : " + tipsFilePath);
 
         Tips tips;
         List<Tip> tipsList;

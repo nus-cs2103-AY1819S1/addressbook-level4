@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -68,9 +70,12 @@ public interface Logic {
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 
-    /** Returns an iterator of the list of categories and their total expenses */
-    //Iterator getCategoryList();
+    /** Returns an iterator the categories and their total expenses */
+    Iterator<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException;
 
+    /**
+     * Returns an unmodifiable list of Notifications
+     */
     ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
 
 }

@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.budget.TotalBudget;
@@ -73,14 +72,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateExpense_throwsCommandException() throws Exception {
+    public void execute_duplicateExpense_addSuccessful() throws Exception {
         Expense validExpense = new ExpenseBuilder().build();
-        AddCommand addCommand = new AddCommand(validExpense);
-        ModelStub modelStub = new ModelStubWithExpense(validExpense);
+        ModelStub modelStub = new ModelStubAcceptingExpenseAdded();
+        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub, commandHistory);
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-        addCommand.execute(modelStub, commandHistory);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertFalse(modelStub.addWarningNotification());
     }
 
     @Test

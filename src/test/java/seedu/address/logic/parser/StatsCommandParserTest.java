@@ -47,10 +47,17 @@ public class StatsCommandParserTest {
 
     @Test
     public void parseInvalidValueFailure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_PARAMETERS_FORMAT);
+        String expectedMessagePeriodAmount = String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT,
+                StatsCommand.MESSAGE_PERIOD_AMOUNT_ERROR
+        );
 
         // number less than 0
-        assertParseFailure(parser, " n/0 p/m m/t", expectedMessage);
+        assertParseFailure(parser, " n/0 p/m m/t", expectedMessagePeriodAmount);
+
+        // number not an int
+        assertParseFailure(parser, " n/1.5 p/m m/t", expectedMessagePeriodAmount);
 
         // period not d or m
         assertParseFailure(parser, " n/1 p/p m/t", expectedMessage);

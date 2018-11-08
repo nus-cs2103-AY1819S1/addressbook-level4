@@ -89,14 +89,14 @@ public class CommandTestUtil {
     public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
     public static final String VALID_TIME_ONE_MINUTE = " " + PREFIX_MINUTES + VALID_TIME_ONE;
     public static final String VALID_TIME_ONE_HOUR = " " + PREFIX_HOURS + VALID_TIME_ONE;
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_GAME;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_IPHONE;
+    public static final String NAME_DESC_GAME = " " + PREFIX_NAME + VALID_NAME_GAME;
+    public static final String NAME_DESC_IPHONE = " " + PREFIX_NAME + VALID_NAME_IPHONE;
     public static final String NAME_DESC_KFC = " " + PREFIX_NAME + VALID_NAME_KFC;
-    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_GAME;
-    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_IPHONE;
+    public static final String CATEGORY_DESC_GAME = " " + PREFIX_CATEGORY + VALID_CATEGORY_GAME;
+    public static final String CATEGORY_DESC_IPHONE = " " + PREFIX_CATEGORY + VALID_CATEGORY_IPHONE;
     public static final String CATEGORY_DESC_KFC = " " + PREFIX_CATEGORY + VALID_CATEGORY_KFC;
-    public static final String COST_DESC_AMY = " " + PREFIX_COST + VALID_COST_GAME;
-    public static final String COST_DESC_BOB = " " + PREFIX_COST + VALID_COST_IPHONE;
+    public static final String COST_DESC_GAME = " " + PREFIX_COST + VALID_COST_GAME;
+    public static final String COST_DESC_IPHONE = " " + PREFIX_COST + VALID_COST_IPHONE;
     public static final String COST_DESC_KFC = " " + PREFIX_COST + VALID_COST_KFC;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
@@ -105,7 +105,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FOOD = " " + PREFIX_TAG + VALID_TAG_FOOD;
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + " "; // empty entry is not allowed
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_COST; // empty string not allowed for addresses
+    public static final String INVALID_COST_DESC = " " + PREFIX_COST; // empty string not allowed for addresses
+    public static final String INVALID_COST_DESC_NEGATIVE = " " + PREFIX_COST + "0.00";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "-01-1990"; // no day
 

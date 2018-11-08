@@ -12,13 +12,14 @@ import seedu.address.testutil.Assert;
 public class TotalBudgetTest {
     public static final String VALID_BUDGET = "2.00";
     public static final String INVALID_BUDGET = "A";
+    public static final String NEGATIVE_BUDGET = "0.00";
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new TotalBudget(null));
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidAddress_throwsIllCegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> new TotalBudget(TotalBudgetTest.INVALID_BUDGET));
     }
 
@@ -31,6 +32,7 @@ public class TotalBudgetTest {
         assertFalse(TotalBudget.isValidBudget("")); // empty string
         assertFalse(TotalBudget.isValidBudget(" ")); // spaces only
         assertFalse(TotalBudget.isValidBudget("200")); // number only
+        assertFalse(TotalBudget.isValidBudget("200000000000000000000000000000000")); //Long number
 
         // valid costs
         assertTrue(TotalBudget.isValidBudget("255.00"));

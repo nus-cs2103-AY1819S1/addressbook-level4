@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -284,4 +285,9 @@ public interface Model {
      * Clears the list in notificationHandler
      */
     void clearNotifications() throws NoUserSelectedException;
+
+    /**
+     * Returns the set of category budgets
+     */
+    HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException;
 }

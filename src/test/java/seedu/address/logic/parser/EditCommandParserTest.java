@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
@@ -61,10 +61,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_GAME, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_GAME, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -78,7 +78,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser,
                 "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS); // invalid category
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid category
@@ -88,7 +88,7 @@ public class EditCommandParserTest {
         // The test case for invalid category followed by valid category
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser,
-                "1" + CATEGORY_DESC_BOB + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS);
+                "1" + CATEGORY_DESC_IPHONE + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Expense} being edited,
         // parsing it together with a valid tag results in error
@@ -104,8 +104,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EXPENSE;
-        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB + TAG_DESC_HUSBAND
-                + COST_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_IPHONE + TAG_DESC_HUSBAND
+                + COST_DESC_GAME + NAME_DESC_GAME + TAG_DESC_FRIEND;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
                 .withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_GAME)
@@ -118,7 +118,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_EXPENSE;
-        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_IPHONE;
 
         EditExpenseDescriptor descriptor =
                 new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_IPHONE)
@@ -132,19 +132,19 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_EXPENSE;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + NAME_DESC_GAME;
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // category
-        userInput = targetIndex.getOneBased() + CATEGORY_DESC_AMY;
+        userInput = targetIndex.getOneBased() + CATEGORY_DESC_GAME;
         descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_GAME).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // cost
-        userInput = targetIndex.getOneBased() + COST_DESC_AMY;
+        userInput = targetIndex.getOneBased() + COST_DESC_GAME;
         descriptor = new EditExpenseDescriptorBuilder().withCost(VALID_COST_GAME).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -159,9 +159,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_EXPENSE;
-        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_AMY + COST_DESC_AMY
-                + TAG_DESC_FRIEND + CATEGORY_DESC_AMY + COST_DESC_AMY + TAG_DESC_FRIEND
-                + CATEGORY_DESC_BOB + COST_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + CATEGORY_DESC_GAME + COST_DESC_GAME
+                + TAG_DESC_FRIEND + CATEGORY_DESC_GAME + COST_DESC_GAME + TAG_DESC_FRIEND
+                + CATEGORY_DESC_IPHONE + COST_DESC_IPHONE + TAG_DESC_HUSBAND;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withCategory(VALID_CATEGORY_IPHONE)
@@ -176,15 +176,15 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EXPENSE;
-        String userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + CATEGORY_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + CATEGORY_DESC_IPHONE;
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withCategory(VALID_CATEGORY_IPHONE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + COST_DESC_BOB
-                + CATEGORY_DESC_BOB;
+        userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + COST_DESC_IPHONE
+                + CATEGORY_DESC_IPHONE;
         descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_IPHONE)
                 .withCost(VALID_COST_IPHONE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

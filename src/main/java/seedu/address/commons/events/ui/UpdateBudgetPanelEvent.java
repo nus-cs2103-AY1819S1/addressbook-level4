@@ -4,7 +4,6 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.budget.TotalBudget;
 
 //@@author snookerballs
-
 /**
  * An event requesting an update in totalBudget display.
  */

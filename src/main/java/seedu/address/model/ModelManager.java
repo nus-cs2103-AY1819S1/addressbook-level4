@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -159,6 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
+        requireUserSelected();
         boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateExpenseTrackerChanged();
@@ -347,6 +349,12 @@ public class ModelManager extends ComponentManager implements Model {
     public TotalBudget getMaximumBudget() throws NoUserSelectedException {
         requireUserSelected();
         return this.versionedExpenseTracker.getMaximumTotalBudget();
+    }
+
+    @Override
+    public HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+        requireUserSelected();
+        return this.versionedExpenseTracker.getCategoryBudgets();
     }
 
     //@@author jonathantjm

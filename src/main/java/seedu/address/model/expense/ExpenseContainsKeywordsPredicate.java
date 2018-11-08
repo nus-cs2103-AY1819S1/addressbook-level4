@@ -101,8 +101,6 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
         return result;
     }
 
-
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

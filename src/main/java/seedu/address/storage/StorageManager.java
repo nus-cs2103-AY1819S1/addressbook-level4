@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.notification.Tip;
 import seedu.address.model.user.Username;
 
 /**
@@ -115,5 +117,17 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+
+    @Override
+    public Optional<List<Tip>> readTips() throws IOException {
+        Optional<List<Tip>> tipsOptional = tipsStorage.readTips();
+        return tipsOptional;
+    }
+
+    @Override
+    public Path getTipsFilePath() {
+        return tipsStorage.getTipsFilePath();
+    }
+
 
 }

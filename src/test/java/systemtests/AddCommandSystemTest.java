@@ -2,23 +2,24 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalExpenses.GAMBLE;
 import static seedu.address.testutil.TypicalExpenses.GAME;
@@ -67,8 +68,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
          * -> added
          */
         Expense toAdd = GAME;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + CATEGORY_DESC_AMY + " "
-                + "   " + COST_DESC_AMY + "   " + DATE_DESC_1990 + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_GAME + "  " + CATEGORY_DESC_GAME + " "
+                + "   " + COST_DESC_GAME + "   " + DATE_DESC_1990 + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -84,7 +85,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* Case: add a expense with all fields same as another expense in the expense tracker except name -> added */
         toAdd = new ExpenseBuilder(GAME).withName(VALID_NAME_IPHONE).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990
+        command = AddCommand.COMMAND_WORD + NAME_DESC_IPHONE + CATEGORY_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -101,12 +102,32 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* Case: add a expense with tags, command with parameters in random order -> added */
         toAdd = IPHONE;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CATEGORY_DESC_BOB + COST_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CATEGORY_DESC_IPHONE + COST_DESC_IPHONE + NAME_DESC_IPHONE
                 + TAG_DESC_HUSBAND + DATE_DESC_2018;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a expense, missing tags -> added */
         assertCommandSuccess(STOCK);
+
+        /* Case: add a duplicate expense -> added */
+        command = ExpenseUtil.getAddCommand(STOCK);
+        toAdd = STOCK;
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different category -> added */
+        toAdd = new ExpenseBuilder(STOCK).withCategory(VALID_CATEGORY_IPHONE).build();
+        command = ExpenseUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different address -> added */
+        toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
+        command = ExpenseUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different tags -> added */
+        toAdd = new ExpenseBuilder(STOCK).withTags(VALID_TAG_FRIEND).build();
+        command = ExpenseUtil.getAddCommand(STOCK) + " " + PREFIX_TAG.getPrefix() + "friend";
+        assertCommandSuccess(command, toAdd);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
@@ -122,34 +143,16 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate expense -> rejected */
-        command = ExpenseUtil.getAddCommand(STOCK);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different category -> rejected */
-        toAdd = new ExpenseBuilder(STOCK).withCategory(VALID_CATEGORY_IPHONE).build();
-        command = ExpenseUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different address -> rejected */
-        toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
-        command = ExpenseUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different tags -> rejected */
-        command = ExpenseUtil.getAddCommand(STOCK) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990;
+        command = AddCommand.COMMAND_WORD + CATEGORY_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing category -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + DATE_DESC_1990;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,24 +160,24 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_2018;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + CATEGORY_DESC_GAME + COST_DESC_GAME + DATE_DESC_2018;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid category -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_CATEGORY_DESC + COST_DESC_AMY + DATE_DESC_1990;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + INVALID_CATEGORY_DESC + COST_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + INVALID_ADDRESS_DESC + DATE_DESC_1990;
+        /* Case: invalid cost -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + INVALID_COST_DESC + DATE_DESC_1990;
         assertCommandFailure(command, Cost.MESSAGE_COST_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: add a expense when no user is logged in */
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CATEGORY_DESC_BOB + COST_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CATEGORY_DESC_IPHONE + COST_DESC_IPHONE + NAME_DESC_IPHONE
                 + TAG_DESC_HUSBAND + DATE_DESC_2018;
         testApp.getActualModel().unloadUserData();
         executeCommand(command);
