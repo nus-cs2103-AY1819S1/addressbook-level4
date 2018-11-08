@@ -3,13 +3,19 @@ package seedu.scheduler.commons.util;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event.Reminders;
 import com.google.api.services.calendar.model.EventReminder;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
+import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.parser.ParserUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.Description;
@@ -19,11 +25,13 @@ import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.ui.UiManager;
 
 /**
  * A class for converting the format between Google Event and local Event.
  */
 public class EventFormatUtil {
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     /**
      * Returns the eventUid in Google Calendar Format.
@@ -59,11 +67,26 @@ public class EventFormatUtil {
      * @return A list of local Event.
      */
     public List<Event> convertGoogleListToLocalList(
-            List<com.google.api.services.calendar.model.Event> listOfGoogleEvents) {
-        List<Event> eventsToAddToLocal = new ArrayList<>();
+            List<com.google.api.services.calendar.model.Event> listOfGoogleEvents,
+            HashMap<String, RepeatType> googleiCalAndRepeatType,
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTIme) {
 
+        List<Event> eventsToAddToLocal = new ArrayList<>();
+        BiMap<String, com.google.api.services.calendar.model.Event> eventsToAddToLocalRemoveRuplicate;
+        eventsToAddToLocalRemoveRuplicate = HashBiMap.create();
+        Collections.sort(listOfGoogleEvents,
+                Comparator.comparing(a -> String.valueOf(a.getStart().getDateTime().getValue())));
+        Collections.reverse(listOfGoogleEvents); //so that the earlier event is put to the set later
         for (com.google.api.services.calendar.model.Event googleEvent : listOfGoogleEvents) {
-            Event newEvent = convertGeventToLocalEvent(googleEvent);
+            eventsToAddToLocalRemoveRuplicate.put(googleEvent.getICalUID(), googleEvent);
+        }
+
+        for (com.google.api.services.calendar.model.Event googleEvent : eventsToAddToLocalRemoveRuplicate.values()) {
+            if (!googleEvent.getStatus().equals("confirmed")) {
+                continue;
+            }
+            Event newEvent = convertGeventToLocalEvent(
+                    googleEvent, googleiCalAndRepeatType, googleiCalAndRepeatUntilTIme);
             eventsToAddToLocal.add(newEvent);
         }
         return eventsToAddToLocal;
@@ -109,7 +132,9 @@ public class EventFormatUtil {
      * @return Event   The local Event.
      */
     public Event convertGeventToLocalEvent(
-            com.google.api.services.calendar.model.Event googleEvent) {
+            com.google.api.services.calendar.model.Event googleEvent,
+            HashMap<String, RepeatType> googleiCalAndRepeatType,
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime) {
 
         DateTime start = googleEvent.getStart().getDateTime();
         if (start == null) {
@@ -137,13 +162,12 @@ public class EventFormatUtil {
         String newDescription = googleEvent.getDescription() == null ? "" : googleEvent.getDescription();
         String newVenue = googleEvent.getLocation() == null ? "" : googleEvent.getLocation();
 
-
         EventName eventName = null;
         seedu.scheduler.model.event.DateTime startDateTime = null;
         seedu.scheduler.model.event.DateTime endDateTime = null;
         Description description = null;
         Venue venue = null;
-        List<String> recurrence = new ArrayList<>();
+
         seedu.scheduler.model.event.DateTime
                 repeatUntilDateTime = null;
         ReminderDurationList reminderDurationList = new ReminderDurationList();
@@ -153,76 +177,15 @@ public class EventFormatUtil {
             endDateTime = ParserUtil.parseDateTime(newEventEndDate + " " + newEventEndTime);
             description = ParserUtil.parseDescription(newDescription);
             venue = ParserUtil.parseVenue(newVenue);
-            recurrence = googleEvent.getRecurrence();
-            repeatUntilDateTime = endDateTime;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //RRULE:FREQ=WEEKLY;BYDAY=SU
-        String[] recurrenceText = null;
-        RepeatType repeatType;
-        if (recurrence == null) {
-            repeatType = RepeatType.NONE;
-        } else {
-            switch (recurrence.size()) {
-            case 1:
-                recurrenceText = recurrence.get(0).split(";");
-                break;
-            case 3:
-                recurrenceText = recurrence.get(2).split(";");
-                break;
-            default:
-                //nothing
-            }
 
-            int rrulePosition = recurrenceText[0].indexOf("=") + 1;
-            String rRule = recurrenceText[0].substring(rrulePosition); //RRULE:FREQ=WEEKLY
-
-            switch (rRule) {
-            case "YEARLY":
-                repeatType = RepeatType.YEARLY;
-                break;
-            case "MONTHLY":
-                repeatType = RepeatType.MONTHLY;
-                break;
-            case "WEEKLY":
-                repeatType = RepeatType.WEEKLY;
-                break;
-            case "DAILY":
-                repeatType = RepeatType.DAILY;
-                break;
-            default:
-                repeatType = RepeatType.NONE;
-                break;
-            }
-            switch (recurrenceText.length) {
-            case 2:
-                //RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH
-                //ignore in local implementation
-                break;
-            case 3:
-                //RRULE:FREQ=WEEKLY;UNTIL=20181108T155959Z;BYDAY=MO,TU,WE,TH
-                try {
-                    //local format:2018-10-20T17:00:00
-                    //UNTIL=20181108T155959Z
-                    String newRepeatUntil = recurrenceText[1].substring(6, 19);
-                    StringBuilder newRepeatUntil2 = new StringBuilder(newRepeatUntil);
-                    newRepeatUntil2.insert(4, "-")
-                            .insert(7, "-")
-                            .insert(13, ":")
-                            .append(":00");
-                    repeatUntilDateTime = ParserUtil.parseDateTime(newRepeatUntil2.toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                //nothing
-            }
-        }
         Reminders reminder = googleEvent.getReminders();
         if (reminder.getUseDefault()) {
             reminderDurationList.add(Duration.ofMinutes(30));
+        } else if (reminder.getOverrides() == null) {
+            logger.info("No overrides found in Google Event.");
         } else {
             List<EventReminder> reminderOverrides = reminder.getOverrides();
             for (EventReminder eventReminder : reminderOverrides) {
@@ -230,9 +193,26 @@ public class EventFormatUtil {
             }
         }
         Set<Tag> tags = Collections.emptySet();
+
+        if (googleiCalAndRepeatUntilTime.get(googleEvent.getICalUID()) == null) {
+            repeatUntilDateTime = endDateTime;
+        } else {
+            repeatUntilDateTime = googleiCalAndRepeatUntilTime.get(googleEvent.getICalUID());
+        }
+
+        RepeatType repeatType = null;
+        if (googleiCalAndRepeatType.get(googleEvent.getICalUID()) == null) {
+            repeatType = RepeatType.NONE;
+        } else {
+            repeatType = googleiCalAndRepeatType.get(googleEvent.getICalUID());
+        }
+
         return new Event(eventName, startDateTime, endDateTime,
                 description,
-                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
+                venue,
+                repeatType,
+                repeatUntilDateTime,
+                tags, reminderDurationList);
     }
 
     /**
@@ -251,7 +231,7 @@ public class EventFormatUtil {
         }
         Collections.sort(lastShownListSorted, (
                 a, b) -> a.getStartDateTime()
-                        .compareTo(b.getStartDateTime()));
+                .compareTo(b.getStartDateTime()));
 
         for (Event event : lastShownListSorted) {
             if (event.getEventSetUid().equals(eventToDelete.getEventSetUid())) {

@@ -61,6 +61,7 @@ Format: `help` +
 Aliases: `hel` OR `he` OR `h` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
+// tag::add[]
 === Adding an event : `add`
 
 Adds an event to the scheduler. +
@@ -168,6 +169,7 @@ Examples::
 | 3 hours later       | 3 hours after command execution time
 | 6 seconds from 1030 | 6 seconds after 1030
 |===
+// end::add[]
 
 ==== Reminder time format
 ==== Reminder times
@@ -197,6 +199,7 @@ Format: `list` +
 Aliases: `lis` OR `li` OR `l` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
+// tag::edit[]
 === Editing an event : `edit`
 
 Edits existing events in the scheduler. +
@@ -247,6 +250,8 @@ Edits the repeating event's name of the 2nd event to be `Play` and clears all ex
 Clear all the upcoming event's reminder times.
 
 :sectnums:
+// end::edit[]
+
 === Locating events by event name: `find`
 
 Finds events whose event names contain any of the given keywords. +
@@ -269,6 +274,7 @@ Returns `study` and `Study Hard`
 * `find Study Hard` +
 Returns any event having event names `Study` or `Hard`
 
+// tag::delete[]
 === Deleting an event : `delete`
 
 Deletes the specified event from the scheduler. +
@@ -310,6 +316,7 @@ Deletes the 3rd event and its repeating events from the scheduler.
 * `list` +
 `delete 4 -u` +
 Deletes the 4th event and its upcoming events from the scheduler.
+// end::delete[]
 
 === Selecting an event : `select`
 
