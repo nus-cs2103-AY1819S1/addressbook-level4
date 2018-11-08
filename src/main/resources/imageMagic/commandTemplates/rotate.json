@@ -1,1 +1,1 @@
-{"name":"rotate","num":"1","args":{"arg1":"degree"},"patterns":{"pattern1":"[-]{0,1}\\d{1,3}"}}
+{"name":"rotate","num":"1","args":{"arg1":"degree(-999 - 999)"},"patterns":{"pattern1":"[-]{0,1}\\d{1,3}"}}
