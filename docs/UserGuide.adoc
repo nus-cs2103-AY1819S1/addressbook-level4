@@ -227,6 +227,7 @@ Selects the 1st task in the results of the `find` command.
 Shows a list of uncompleted tasks by their topological order. (In the CLI window).
 
 === Gamification
+// tag::achievements-usage[]
 ==== Display achievements across a time period: `achievements`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
@@ -245,7 +246,7 @@ Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all
 Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
 comes back from the future.
-
+// end :: achievements-usage[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
