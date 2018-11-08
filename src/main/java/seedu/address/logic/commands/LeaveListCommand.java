@@ -31,7 +31,7 @@ public class LeaveListCommand extends Command {
                 || loggedInUser.getPerson().getPermissionSet()
                 .getGrantedPermission().contains(Permission.VIEW_EMPLOYEE_LEAVE)
                 || loggedInUser.getPerson().getPermissionSet()
-                .getGrantedPermission().contains(Permission.APPROVE_LEAVE)){
+                .getGrantedPermission().contains(Permission.APPROVE_LEAVE)) {
             model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
         } else {
             model.updateFilteredLeaveApplicationListForPerson(loggedInUser.getPerson());
