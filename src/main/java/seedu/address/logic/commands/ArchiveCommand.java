@@ -20,9 +20,9 @@ public class ArchiveCommand extends Command {
 
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
-      requireNonNull(model);
-      model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
-      EventsCenter.getInstance().post(new ArchiveListEvent());
-      return new CommandResult(MESSAGE_SUCCESS);
+        requireNonNull(model);
+        model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        EventsCenter.getInstance().post(new ArchiveListEvent());
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

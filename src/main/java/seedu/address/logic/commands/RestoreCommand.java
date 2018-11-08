@@ -31,30 +31,30 @@ public class RestoreCommand extends Command {
     private final Index targetIndex;
 
     public RestoreCommand(Index targetIndex) {
-      requiredPermission.addPermissions(Permission.RESTORE_EMPLOYEE);
-      this.targetIndex = targetIndex;
+        requiredPermission.addPermissions(Permission.RESTORE_EMPLOYEE);
+        this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
-      requireNonNull(model);
-      List<Person> lastShownList = model.getArchivedPersonList();
+        requireNonNull(model);
+        List<Person> lastShownList = model.getArchivedPersonList();
 
-      if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-      }
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
-      Person personToRestore = lastShownList.get(targetIndex.getZeroBased());
+        Person personToRestore = lastShownList.get(targetIndex.getZeroBased());
 
-      model.restorePerson(personToRestore);
-      model.commitAddressBook();
-      return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToRestore));
-  }
+        model.restorePerson(personToRestore);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToRestore));
+    }
 
     @Override
     public boolean equals(Object other) {
-      return other == this // short circuit if same object
-                || (other instanceof RestoreCommand // instanceof handles nulls
-                && targetIndex.equals(((RestoreCommand) other).targetIndex)); // state check
+        return other == this // short circuit if same object
+                  || (other instanceof RestoreCommand // instanceof handles nulls
+                  && targetIndex.equals(((RestoreCommand) other).targetIndex)); // state check
     }
 }

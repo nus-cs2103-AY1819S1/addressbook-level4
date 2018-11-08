@@ -61,7 +61,7 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index, int listpicker) {
         Platform.runLater(() -> {
-            if(listpicker == 1 ) {
+            if (listpicker == 1) {
                 personListView.setItems(activeList);
             } else if (listpicker == 2) {
                 personListView.setItems(archiveList);
