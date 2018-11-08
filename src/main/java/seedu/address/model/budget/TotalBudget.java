@@ -99,9 +99,7 @@ public class TotalBudget extends Budget {
      */
     public void setRecurrenceFrequency(long seconds) {
         this.numberOfSecondsToRecurAgain = seconds;
-        if (this.nextRecurrence == null) {
-            this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
-        }
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
     }
 
 
@@ -206,6 +204,7 @@ public class TotalBudget extends Budget {
      * Updates the current totalBudget with the new totalBudget if it is the start of a new month. Does nothing if not
      */
     public String checkBudgetRestart() {
+        System.out.println("Check budget restart is called");
         if (this.nextRecurrence == null) {
             return NOT_SET;
         }

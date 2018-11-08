@@ -56,18 +56,26 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.maximumTotalBudget = toBeCopied.getMaximumTotalBudget();
         resetData(toBeCopied);
     }
-    //// totalBudget operations
 
+
+    //// totalBudget operations
     //@@author winsonhys
+
     /**
      * Modifies the maximum totalBudget for the current expense tracker
      * @param totalBudget a valid TotalBudget
      */
+
     public void modifyMaximumBudget(TotalBudget totalBudget) {
         double previousSpending = this.maximumTotalBudget.getCurrentExpenses();
         this.maximumTotalBudget = totalBudget;
         this.maximumTotalBudget.modifyExpenses(previousSpending);
     }
+
+    public String checkBudgetRestart() {
+        return this.maximumTotalBudget.checkBudgetRestart();
+    }
+
 
     /**
      * Adds a new category totalBudget to the expense tracker.

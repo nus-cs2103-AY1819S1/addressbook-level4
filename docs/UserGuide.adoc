@@ -359,9 +359,13 @@ Format: `list`
 
 // tag::budget[]
 === Setting a total budget: `setBudget`
-Sets `totalBudget` for Expense Tracker. +
+Sets the total budget that you should spend for Expense Tracker. +
 
-The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.
+The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set,
+as shown in the figure below.
+
+.Notification that is shown when a user adds an expense which results in the user exceeding the budget.
+image::Overbudget.JPG[width="790"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
