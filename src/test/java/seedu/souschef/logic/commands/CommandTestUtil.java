@@ -18,8 +18,8 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
 
 /**
@@ -122,7 +122,7 @@ public class CommandTestUtil {
 
         Recipe recipe = model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().fullName.split("\\s+");
-        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new RecipeContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredList().size());
     }

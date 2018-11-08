@@ -231,6 +231,8 @@ anywhere as long as they have access to UiManager.
 
 // end::uimodularisation[]
 
+// tag::logicComponent[]
+
 [[Design-Logic]]
 === Logic component
 
@@ -252,6 +254,8 @@ gram 10-23-2018")` API call.
 
 .Interactions Inside the Logic Component for the adding ingredient
 image::LogicSequenceDiagram.png[width="800"]
+
+// end::logicComponent[]
 
 // tag::modelComponent[]
 
@@ -281,6 +285,8 @@ The `Model`,
 
 // end::modelComponent[]
 
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -303,7 +309,7 @@ common calls for load and saving.
 without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
 calls the intended result will be achieved.
 
-
+// end::storage[]
 
 
 [[Design-Commons]]
@@ -315,33 +321,32 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ingredientManager[]
 === Ingredient Manager
-==== Select feature of the Ingredient Manager(to be implemented)
+==== Total management of ingredients that user currently have
+Ingredient Manager is an address book of ingredients. With the basic functions of a normal address book such as
+add, edit, delete and list, Ingredient Manager has some useful functions specific for management of ingredients. +
+First of all, converting to a common unit. Ingredients has different serving units, but most of them can be converted to
+common unit to be compared with each other and to make arithmetic calculation easier. It uses gram for mass and
+centimeter cube for volume as a common unit. Serving unit dictionary implemented with static arraylist is referred
+when the
+conversion is done. +
+Secondly, when you apply the list command, ingredients are sorted by date. Since ingredients have to be consumed in a
+ certain period, it keeps user be reminded of old ingredients.
 
-Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
-In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
-rather than person related information.
-However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
-ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
-
-In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
-If you execute select command, it conducts search based on ingredients in inventory. Then It takes
-additional ingredients in as parameters, no matter if they are currently in inventory or not.
-Based on those ingredients, it conducts second round of search.
-The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
-include in your recipe search.
-The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
-Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
-number at the top.
-Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
-ingredients sorts the recipe.
-
-The difference between normal search using ingredient and current select method lies in the fact that it conducts
-search based
- on ingredients in inventory as a default.
-Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
-of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
- inventory.
+==== View recipes according to ingredients, and check shop amount
+This command works on separate context called cross, because the result of command manipulates recipes, not
+ingredients. This commands
+filters(include) and sorts(prioritize) recipes based on ingredients given in the command. However, this command is
+closely tied to the information stored in Ingredient Manager. First of all, you can provide all ingredients in
+Ingredient
+ Manager as parameter for filtering or sorting. This might be useful when a user wants to find food that can be
+ cooked while maximizing the use of existing ingredients. Secondly, for the recipes that are on the list as a result
+ of the commands, additionally needed amount of each ingredient in a recipe is calculated. Because ingredients in
+ Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
+ desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
+ she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
+// end::ingredientManager[]
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
@@ -533,7 +538,9 @@ Pros - Search done more effectively as the system only need to display all recip
 Cons - Bi-directional association, increase difficulty in maintaining data integrity
 // end::recipeManagement[]
 
-=== Health Plan list
+
+// tag::healthplan[]
+=== Health Plan
 
 This is a feature that users can access to have health plans to manage their diet and health due to dietary
 needs of their choice. Users are able to add a health list to based on their specifications:
@@ -551,24 +558,27 @@ eat per day to hit their target.
 * Users are able to display all days of the meal planner segment concurrently with the health plan lists
 * Users are able to display the details of a health plan to see the days stored and also other information
 * Users are able to remove days of the health plan they added.
+* Users are now able to view the calories count from the meals they included into the healthplan and when the details of
+the health plan is shown the target to hit will be shown to the user, in value and also bar chart. Along with such info,
+there is also a percentage met to show how much of the target is already achieved.
 
-==== Ongoing implementation (Implementing calory count)
+==== Ongoing implementation (Implementing plan comparisons)
 
-Firstly, a library of calories for the ingredients need to set up.
-Then the new implementation of this function should extend the already established functionality by adding a calorie count
-for the ingredients within the recipes stored in the days of the health plan
-Providing the capability of being able to calculating the calorie intake of the meal by days,
-and also calculating the total of the entire plan.
+This new implementation of this feature will allow the users to select 2 plans of their choice and compare
+with a side by side comparison of the calories consumed. This information will be displayed to the user much like the show
+details command that is available with slight tweaks. There will not be a percentage met but instead the feature will
+try to cover breakdown of the calories intake by day using the set duration of the targetted plans.
+This will provided clarity of the day by day consumption of calories of the user across 2 plans.
+The information will be in calculated values and then displayed in a series of bar graphs for quick understanding of the
+information by just looking at the graphs.
 
-Furthermore the system will compute a target daily intake based on the age, current height and current weight provided.
-There will also then be a computed bar graph to compare the actual intake against the computed target to meet.
-Providing some statistics such as percentage met or exceeded and also speculated weight if the user continues with the
-current calories consumed.
 
 ==== Ongoing implementation (Expiry of health plans)
 
 The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
  against the duration set by the user.
+
+// end::healthplan[]
 
 === Logging
 
@@ -858,7 +868,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 
-=== Health Planner
+=== Health Plan
 |========================================================================
 |Priority | As a... |I want to ... | So that I can...
 
@@ -963,16 +973,14 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC16 – Search recipes based on ingredients manager availability
+=== Use case: UC16 – Search recipes according to ingredients
 
 *MSS*
 
-1. User +++<u>list ingredients (UC11)</u>+++.
-2. System shows the list of recipes in order of most number of ingredients in IM included.
-3. User selects both mandatory and desirable ingredients for the search.
-4. System shows the list of recipes in order of most number of ingredients selected.
-5. User selects a recipe.
-6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings.
+1. User selects both mandatory and desirable ingredients for the search.
+2. System shows the filtered and sorted list of recipes.
+3. User selects a recipe.
+4. System shows recipe specifying missing ingredients and its amount, calculated according to the number of servings.
 +
 Use case ends.
 
