@@ -135,7 +135,7 @@ Lists all tasks in the schedule planner. +
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE] v/[VENUE]`
+[blue]`edit INDEX n/NAME p/PRIORITYLEVEL t/[TAGS]... d/DEADLINE v/VENUE`
 ====
 Example:
 
