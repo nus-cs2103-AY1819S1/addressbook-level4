@@ -26,6 +26,14 @@ public class Tag {
     }
 
     /**
+     * Makes an identical deep copy of this Tag.
+     */
+    public Tag makeDeepDuplicate() {
+        Tag newTag = new Tag(new String(tagName));
+        return newTag;
+    }
+
+    /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {

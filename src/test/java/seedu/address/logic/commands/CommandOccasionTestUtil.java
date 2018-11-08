@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,6 +33,7 @@ public class CommandOccasionTestUtil {
     public static final String VALID_OCCASIONLOCATION_TWO = "Home";
     public static final String VALID_TAG_STUDY = "Must Prepare";
     public static final String VALID_TAG_SLEEP = "More Sleep";
+    public static final String VALID_INDEX = "1";
 
     public static final String OCCASIONNAME_DESC_ONE = " " + PREFIX_OCCASIONNAME + VALID_OCCASIONNAME_ONE;
     public static final String OCCASIONNAME_DESC_TWO = " " + PREFIX_OCCASIONNAME + VALID_OCCASIONNAME_TWO;
@@ -41,6 +43,7 @@ public class CommandOccasionTestUtil {
     public static final String OCCASIONLOCATION_DESC_TWO = " " + PREFIX_OCCASIONLOCATION + VALID_OCCASIONLOCATION_TWO;
     public static final String TAG_DESC_STUDY = " " + PREFIX_TAG + VALID_TAG_STUDY;
     public static final String TAG_DESC_SLEEP = " " + PREFIX_TAG + VALID_TAG_SLEEP;
+    public static final String VALID_INDEX_INSERT_OCCASION = " " + PREFIX_OCCASIONINDEX + VALID_INDEX;
 
     public static final String INVALID_OCCASIONNAME_DESC =
             " " + PREFIX_OCCASIONNAME + "Exam!"; // '!' not allowed in names
@@ -49,6 +52,7 @@ public class CommandOccasionTestUtil {
     // TODO: OccasionDate can not detect invalid month.
     public static final String INVALID_OCCASIONLOCATION_DESC = " " + PREFIX_OCCASIONLOCATION + "SR"; // not 3-20 chars
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "HOORAY!"; // '!' not allowed in tags
+    public static final String INVALID_INDEX_INSERT_OCCASION = " " + PREFIX_OCCASIONINDEX + "-1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

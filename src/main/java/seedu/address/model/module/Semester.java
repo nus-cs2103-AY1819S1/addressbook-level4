@@ -36,6 +36,14 @@ public class Semester {
     }
 
     /**
+     * Makes an identical deep copy of this Semester.
+     */
+    public Semester makeDeepDuplicate() {
+        Semester newSemester = new Semester(new String(semesterNumber));
+        return newSemester;
+    }
+
+    /**
      * Returns true if a given number is a valid semester.
      */
     public static boolean isValidSemester(String number) {

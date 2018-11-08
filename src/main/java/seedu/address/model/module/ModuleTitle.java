@@ -46,6 +46,14 @@ public class ModuleTitle {
         return test.matches(MODULETITLE_VALIDATION_REGEX);
     }
 
+    /**
+     * Makes an identical deep copy of this ModuleTitle.
+     */
+    public ModuleTitle makeDeepDuplicate() {
+        ModuleTitle newTitle = new ModuleTitle(new String(fullModuleTitle));
+        return newTitle;
+    }
+
     @Override
     public String toString() {
         return fullModuleTitle;

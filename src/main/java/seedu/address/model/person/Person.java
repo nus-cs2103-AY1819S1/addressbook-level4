@@ -5,9 +5,17 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +32,8 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private UniqueOccasionList occasionList;
+    private UniqueModuleList moduleList;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +45,20 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        occasionList = new UniqueOccasionList();
+        moduleList = new UniqueModuleList();
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  List<Occasion> occasionList, List<Module> moduleList) {
+        requireAllNonNull(name, phone, email, address, tags, occasionList, moduleList);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.occasionList = new UniqueOccasionList(occasionList);
+        this.moduleList = new UniqueModuleList(moduleList);
     }
 
     /**
@@ -53,6 +77,10 @@ public class Person {
 
     public Name getName() {
         return name;
+    }
+
+    public Property fullNameProperty() {
+        return new SimpleStringProperty(name.fullName);
     }
 
     public Phone getPhone() {
@@ -76,6 +104,20 @@ public class Person {
     }
 
     /**
+     * Returns the occasions this person is involved in.
+     */
+    public UniqueOccasionList getOccasionList() {
+        return occasionList;
+    }
+
+    /**
+     * Returns the modules this person is involved in.
+     */
+    public UniqueModuleList getModuleList() {
+        return moduleList;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
@@ -87,6 +129,22 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    /**
+     * Makes an identical deep copy of this person.
+     */
+    public Person makeDeepDuplicate() {
+        Name newName = this.name.makeDeepDuplicate();
+        Phone newPhone = this.phone.makeDeepDuplicate();
+        Email newEmail = this.email.makeDeepDuplicate();
+        Address newAddress = this.address.makeDeepDuplicate();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        UniqueModuleList newUniqueModuleList = this.moduleList.makeDeepDuplicate();
+        return new Person(newName, newPhone, newEmail, newAddress, newTag,
+                            newUniqueOccasionList.asUnmodifiableObservableList(),
+                                newUniqueModuleList.asUnmodifiableObservableList());
     }
 
     /**

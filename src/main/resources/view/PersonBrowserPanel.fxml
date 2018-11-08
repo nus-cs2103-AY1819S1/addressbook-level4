@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="personBrowserPanel">
+    <StackPane>
+        <TableView fx:id="moduleTableView">
+            <columns>
+                <TableColumn text="Module Code" fx:id="moduleCodeStringTableColumn" prefWidth="200"/>
+                <TableColumn text="Module Title" fx:id="moduleTitleStringTableColumn" prefWidth="180"/>
+            </columns>
+            <columnResizePolicy>
+                <!--- Fill up if need be -->
+            </columnResizePolicy>
+        </TableView>
+    </StackPane>
+    <StackPane>
+        <TableView fx:id="occasionTableView">
+            <columns>
+                <TableColumn text="Occasions" fx:id="occasionNameStringTableColumn" prefWidth="160"/>
+            </columns>
+            <columnResizePolicy>
+                <!-- Fill up if need be -->
+            </columnResizePolicy>
+        </TableView>
+    </StackPane>
+</VBox>
+

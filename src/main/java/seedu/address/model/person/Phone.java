@@ -34,6 +34,14 @@ public class Phone {
     }
 
     /**
+     * Makes an identical deep copy of this Phone.
+     */
+    public Phone makeDeepDuplicate() {
+        Phone newPhone = new Phone(new String(this.value));
+        return newPhone;
+    }
+
+    /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {

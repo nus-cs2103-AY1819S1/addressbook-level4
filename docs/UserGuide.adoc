@@ -99,6 +99,13 @@ Example:
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 // end::add[]
 
+// tag::delete[]
+=== Listing all entries : `list`
+
+Shows a list of all persons/modules/occasions in the address book. +
+Format: `list[]`
+// end::list[]
+
 // tag::edit[]
 === Editing an entry : `edit`
 
@@ -276,6 +283,11 @@ Command Syntax: +
 group_name: The name of this group of people. +
 keyword: n/NAME The name of the person you want to put in this group.
                   i/INDEX The index of the person you want to put in this group.
+=== Listing all entries of this kind: `list`
+Format: +
+* *List Person* : `listperson`
+* *List Module* : `listmodule`
+* *List Occasion* : `listoccasion`
 
 === Listing all entries of this kind: `list`
 Format: +
@@ -307,20 +319,34 @@ If the specified module in the current semester is not found, it will be importe
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+// tag::history
+=== Showing command history: `history`
+A command to allow the user to see the history of commands used within the address book.+
+Format: `history`
+// end::history
 
 === Autocomplete (coming in v 1.4)
 A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
 
-=== Import module information from external platform: `importmodule` (coming in v 2.0)
+// tag::export[]
+=== Exporting data in this application (coming in v 1.4)
+Format: `export FILEPATH`
+
+// end::export[]
+=== Importing module information from external platform: `importmodule` (coming in v 2.0)
 A command to allow the user to import information from NUSMods.+
 
-Command Syntax: `importmodule [modulecode]` +
+Format: `importmodule [modulecode]` +
 If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
 
+=== Exiting the program : `exit`
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
 == FAQ
 
