@@ -3,6 +3,7 @@ package seedu.restaurant.storage.account;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_NAME;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PASSWORD;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_USERNAME;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_NAME_DEMO_ONE;
@@ -16,6 +17,7 @@ import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_TWO;
 import org.junit.Test;
 
 import seedu.restaurant.commons.exceptions.IllegalValueException;
+import seedu.restaurant.model.account.Name;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 import seedu.restaurant.storage.elements.XmlAdaptedAccount;
@@ -58,6 +60,20 @@ public class XmlAdaptedAccountTest {
     public void toModelType_invalidPassword_throwsIllegalValueException() {
         account = new XmlAdaptedAccount(VALID_USERNAME_DEMO_ONE, INVALID_PASSWORD, VALID_NAME_DEMO_ONE);
         String expectedMessage = Password.MESSAGE_PASSWORD_CONSTRAINT;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullName_throwsIllegalValueException() {
+        account = new XmlAdaptedAccount(VALID_USERNAME_DEMO_ONE, VALID_PASSWORD_DEMO_ONE, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidName_throwsIllegalValueException() {
+        account = new XmlAdaptedAccount(VALID_USERNAME_DEMO_ONE, VALID_PASSWORD_DEMO_ONE, INVALID_NAME);
+        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
     }
 
