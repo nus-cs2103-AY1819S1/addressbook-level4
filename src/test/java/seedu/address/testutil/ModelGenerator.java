@@ -51,7 +51,7 @@ public class ModelGenerator {
      * Executes a transformation on a model's previewImage.
      */
     public static Model executeATransformation(Model model) {
-        model.updateCurrentPreviewImage(getABufferedImage(), getATransformation());
+        model.updateCurrentPreviewImage(getABufferedImage());
         return model;
     }
 
@@ -71,7 +71,8 @@ public class ModelGenerator {
      */
     public static Model getModelWithOneTransformation() {
         Model model = getDefaultModel();
-        model.updateCurrentPreviewImage(getABufferedImage(), getATransformation());
+        model.addTransformation(getATransformation());
+        model.updateCurrentPreviewImage(getABufferedImage());
         return model;
     }
 
@@ -80,7 +81,8 @@ public class ModelGenerator {
      */
     public static Model getModelWithTwoTransformations() {
         Model model = getModelWithOneTransformation();
-        model.updateCurrentPreviewImage(getABufferedImage(), getATransformation());
+        model.addTransformation(getATransformation());
+        model.updateCurrentPreviewImage(getABufferedImage());
         return model;
     }
 
@@ -89,7 +91,8 @@ public class ModelGenerator {
      */
     public static Model getModelWithThreeTransformations() {
         Model model = getModelWithTwoTransformations();
-        model.updateCurrentPreviewImage(getABufferedImage(), getATransformation());
+        model.addTransformation(getATransformation());
+        model.updateCurrentPreviewImage(getABufferedImage());
         return model;
     }
 

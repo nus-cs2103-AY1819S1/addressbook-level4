@@ -70,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane filmReelPlaceholder;
 
+    @FXML
+    private StackPane layerListPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
@@ -155,6 +158,9 @@ public class MainWindow extends UiPart<Stage> {
 
         FilmReel filmList = new FilmReel();
         filmReelPlaceholder.getChildren().add(filmList.getRoot());
+
+        LayerListPanel layerList = new LayerListPanel();
+        layerListPlaceholder.getChildren().add(layerList.getRoot());
     }
 
     void hide() {

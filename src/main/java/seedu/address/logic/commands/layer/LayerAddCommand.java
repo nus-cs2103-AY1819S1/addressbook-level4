@@ -31,7 +31,7 @@ public class LayerAddCommand extends LayerCommand {
             + "\n\tExample: " + TYPE + " 2, adds the image with index 2 to the current canvas as the top-most layer.";
 
     private static final String OUTPUT_SUCCESS = "Layer added!";
-    private static final String OUTPUT_FAILURE = "Invalid index provided!";
+    private static final String OUTPUT_FAILURE = "Invalid index provided or initial image not selected!";
     private static final int BATCH_SIZE = 10;
 
     private static final Logger logger = LogsCenter.getLogger(LayerAddCommand.class);
@@ -68,9 +68,9 @@ public class LayerAddCommand extends LayerCommand {
             String selectedImage = selectedImagePath.toString();
             FileInputStream fis = new FileInputStream(selectedImage);
             img = new Image(fis);
-            model.getCanvas().addLayer(new PreviewImage(SwingFXUtils.fromFXImage(img, null)));
+            model.addLayer(new PreviewImage(SwingFXUtils.fromFXImage(img, null)));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return new CommandResult(OUTPUT_FAILURE);
         }
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
