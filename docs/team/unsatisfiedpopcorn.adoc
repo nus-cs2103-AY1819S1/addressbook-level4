@@ -53,12 +53,14 @@ used to provide better data integrity of the application in future development.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Published releases `v1.1`, `v1.3` (2 releases) on GitHub
+TODO: Update
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+TODO: End Update
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/31[#31],
@@ -71,14 +73,14 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/78[#78],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[#144]
+TODO: Update
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+TODO: End Update
 ** Tools:
 *** Integrated Travis CI to the team repo
 *** Integrated Coveralls to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
