@@ -42,6 +42,13 @@ public class SavedAmountTest {
     }
 
     @Test
+    public void copyConstructor_success() {
+        SavedAmount savedAmount = new SavedAmount("1");
+        SavedAmount copy = new SavedAmount(savedAmount);
+        assertEquals(copy, savedAmount);
+    }
+
+    @Test
     public void isValidSavedAmount() {
         // null saved amount
         Assert.assertThrows(NullPointerException.class, () -> SavedAmount.isValidSavedAmount(null));

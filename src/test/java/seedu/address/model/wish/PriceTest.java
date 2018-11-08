@@ -1,5 +1,6 @@
 package seedu.address.model.wish;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -21,6 +22,13 @@ public class PriceTest {
     public void constructor_invalidPrice_throwsIllegalArgumentException() {
         String invalidPrice = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Price(invalidPrice));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        Price price = new Price("93028");
+        Price copy = new Price(price);
+        assertEquals(price, copy);
     }
 
     @Test

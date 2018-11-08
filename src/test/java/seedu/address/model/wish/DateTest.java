@@ -1,8 +1,8 @@
 package seedu.address.model.wish;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-
 import static org.junit.Assert.assertNotNull;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
@@ -22,6 +22,13 @@ public class DateTest {
     public void constructor_invalidDate_throwsIllegalArgumentException() {
         String invalidName = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Date(invalidName));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        Date date = new Date("23/10/2020");
+        Date copy = new Date(date);
+        assertEquals(date, copy);
     }
 
     @Test

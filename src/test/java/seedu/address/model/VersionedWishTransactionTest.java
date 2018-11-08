@@ -10,12 +10,14 @@ import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishes;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Date;
@@ -28,6 +30,8 @@ import seedu.address.model.wish.Wish;
 
 public class VersionedWishTransactionTest {
 
+    private static final String TAG_NAME = "wish1";
+
     private VersionedWishTransaction versionedWishTransaction;
     private VersionedWishTransaction populatedVersionedWishTransaction;
     private VersionedWishTransaction fromWishBook;
@@ -37,7 +41,7 @@ public class VersionedWishTransactionTest {
     public void init() {
         this.versionedWishTransaction = new VersionedWishTransaction();
         Set<Tag> tagSet = new HashSet<>();
-        tagSet.add(new Tag("wish1"));
+        tagSet.add(new Tag(TAG_NAME));
         this.wish = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
                 new Date("22/09/2023"),
@@ -60,6 +64,92 @@ public class VersionedWishTransactionTest {
 
         assertTrue(fromWishBook.getWishStateList().size() == 1);
         assertTrue(fromWishBook.getReferencePointer() == 0);
+    }
+
+    @Test
+    public void removeTagFromAll_shouldSucceed() {
+        populatedVersionedWishTransaction.addWish(wish);
+        // check if wish is present
+        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, wish));
+        WishTransaction currentState = getCurrentState(populatedVersionedWishTransaction);
+        assertTrue(wishmapContainsKey(currentState, wish));
+
+        // check if tag is present
+        assertEquals(currentState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
+        // remove tag
+        wish.getTags()
+                .stream()
+                .forEach(tag -> populatedVersionedWishTransaction.removeTagFromAll(tag));
+        // tag should be absent from newState
+        int newSize = getSizeOfWishStateList(populatedVersionedWishTransaction);
+        WishTransaction newState = getCurrentState(populatedVersionedWishTransaction);
+        assertNotEquals(newState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
+        // tag should still be present in {@code currentState}
+        assertEquals(currentState, populatedVersionedWishTransaction.getWishStateList().get(newSize - 2));
+        assertEquals(currentState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
+    }
+
+    @Test
+    public void updateWish_shouldSucceed() {
+        Wish wish = getTypicalWishes().get(0);
+        Wish updatedWish = Wish.createWishWithIncrementedSavedAmount(wish, new Amount("10"));
+        assertEquals(updatedWish.getSavedAmount(), wish.getSavedAmount().incrementSavedAmount(new Amount("10")));
+        LinkedList<Wish> prevWishes = getLastStateInWishStateList(populatedVersionedWishTransaction)
+                .wishMap.get(wish.getId());
+        assertEquals(prevWishes.peekLast(), wish);
+        assertNotEquals(prevWishes.peekLast().getSavedAmount(), updatedWish.getSavedAmount());
+        // perform update
+        populatedVersionedWishTransaction.updateWish(wish, updatedWish);
+        LinkedList<Wish> updatedWishes = getLastStateInWishStateList(populatedVersionedWishTransaction)
+                .wishMap.get(wish.getId());
+        assertEquals(updatedWishes.peekLast(), updatedWish);
+        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, updatedWish));
+    }
+
+    @Test
+    public void undoAfterUpdate_shouldSucceed() {
+        // update wish
+        Wish wish = getTypicalWishes().get(0);
+        Wish updatedWish = Wish.createWishWithIncrementedSavedAmount(wish, new Amount("10"));
+        VersionedWishTransaction beforeUndo = new VersionedWishTransaction(populatedVersionedWishTransaction);
+        populatedVersionedWishTransaction.updateWish(wish, updatedWish);
+        // undo state
+        populatedVersionedWishTransaction.undo();
+        // check wishmap
+        assertEquals(populatedVersionedWishTransaction.wishMap, fromWishBook.wishMap);
+        assertEquals(populatedVersionedWishTransaction.wishMap, beforeUndo.wishMap);
+        // check most recent state
+        WishTransaction mostRecentState = getCurrentState(populatedVersionedWishTransaction);
+        WishTransaction nextState = populatedVersionedWishTransaction
+                .getWishStateList()
+                .get(getIndexOfReferencePtr(populatedVersionedWishTransaction) + 1);
+        assertEquals(mostRecentState.wishMap, beforeUndo.wishMap);
+        assertEquals(mostRecentState.wishMap, populatedVersionedWishTransaction.wishMap);
+        assertNotEquals(mostRecentState.wishMap, nextState.wishMap);
+    }
+
+    @Test
+    public void resetData_shouldSucceed() {
+        assertNotEquals(versionedWishTransaction, populatedVersionedWishTransaction);
+        assertTrue(versionedWishTransaction.isEmpty());
+        assertFalse(populatedVersionedWishTransaction.isEmpty());
+
+        // reset data in populated
+        populatedVersionedWishTransaction.resetData();
+        // most recent state should be empty
+        assertEquals(getLastStateInWishStateList(populatedVersionedWishTransaction),
+                getCurrentState(populatedVersionedWishTransaction));
+        assertTrue(getCurrentState(populatedVersionedWishTransaction).isEmpty());
+        assertEquals(getCurrentState(populatedVersionedWishTransaction), versionedWishTransaction);
+        // undo reset
+        populatedVersionedWishTransaction.undo();
+        assertFalse(getCurrentState(populatedVersionedWishTransaction).isEmpty());
+        assertEquals(getCurrentState(populatedVersionedWishTransaction), fromWishBook);
+        // redo reset
+        populatedVersionedWishTransaction.redo();
+        assertEquals(getCurrentState(populatedVersionedWishTransaction),
+                getLastStateInWishStateList(populatedVersionedWishTransaction));
+        assertEquals(getCurrentState(populatedVersionedWishTransaction), versionedWishTransaction);
     }
 
     @Test
@@ -142,7 +232,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void undo_shouldSucceed() {
+    public void afterAdd_undo_shouldSucceed() {
         int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
         addWishWithCommit(versionedWishTransaction, wish);
 
@@ -164,7 +254,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void multipleUndos_shouldSucceed() {
+    public void afterAddRemove_multipleUndos_shouldSucceed() {
         List<Wish> wishes = getTypicalWishes();
         int limit = wishes.size() / 2;
         VersionedWishTransaction blank = new VersionedWishTransaction();
@@ -192,7 +282,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void redo_shouldSucceed() {
+    public void afterAddRemove_redo_shouldSucceed() {
         addWishWithCommit(versionedWishTransaction, wish);
         versionedWishTransaction.undo();
         assertFalse(wishmapContainsKey(versionedWishTransaction, wish));
@@ -218,11 +308,32 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void commit_shouldSucceed() {
+    public void singleAddWithCommit_shouldSucceed() {
         addWishWithCommit(versionedWishTransaction, wish);
         assertTrue(isSameSize(2));
     }
 
+    /**
+     * @return a {@code WishTransaction} object that is stored as the last index in the {@code wishStateList}.
+     */
+    private WishTransaction getLastStateInWishStateList(VersionedWishTransaction versionedWishTransaction) {
+        return versionedWishTransaction
+                .getWishStateList()
+                .get(getSizeOfWishStateList(versionedWishTransaction) - 1);
+    }
+
+    /**
+     * @return the {@code WishTransaction} object at the current state of the {@code WishBook}.
+     */
+    private WishTransaction getCurrentState(VersionedWishTransaction versionedWishTransaction) {
+        return versionedWishTransaction
+                .getWishStateList()
+                .get(getIndexOfReferencePtr(versionedWishTransaction));
+    }
+
+    /**
+     * Checks if {@code versionedWishTransaction} object has a {@code wishStateList} of {@code size}.
+     */
     private boolean isSameSize(int size) {
         return versionedWishTransaction.getWishStateList().size() == size;
     }

@@ -37,6 +37,7 @@ This feature also allows for extensions since the data collected in terms of amo
 * Highlights: This enhancement affects existing commands and commands to be added in future.
 +
 The implementation of this feature involves many different components and is intrinsically tied to the state of the `WishBook`, which changes when the user executes an action-based command such as the `Add`, `Save`, `Edit` command.
+
 <<<
 
 ====
@@ -73,18 +74,16 @@ _Fig 3: Help Window_
 ****
 
 === *Code contributed*:
-_The following links contain code snippets of code contributed_
-[https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]][https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]]
+_The following links contain code snippets of code contributed_ [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]]  [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]]
 
 === *Other contributions*:
 * Documentation:
-* User Guide:
-** Wrote the first version of the user guide containing all features in the first version of `WishBook`. (https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[]
-** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[]
-* Developer Guide:
-** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[]
-** Refactored undo, redo UML diagrams to reflect current version of WishBook.
-+
+** User Guide:
+*** Wrote the first version of the user guide containing all features in the first version of `WishBook`.[https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[link]]
+*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[link]]
+** Developer Guide:
+*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[link]]
+*** Refactored undo, redo UML diagrams to reflect current version of WishBook.
 ****
 The following images show the undo, redo UML diagrams:
 
@@ -100,7 +99,6 @@ _Fig 5.3 Undo Redo Activity Diagram_
 <<<
 
 ** Updated the Model class diagram.
-+
 ****
 The following image shows the updated Model Class Diagram.
 
@@ -108,22 +106,21 @@ image::ModelClassDiagram.png[caption="Fig 6: Model Class Diagram", align="center
 _Fig 6: Model Class Diagram_
 ****
 ** Updated the Storage class diagram.
-+
 ****
 The following image shows the updated Storage Class Diagram.
 
 image::StorageClassDiagram.png[width="790", caption="Fig 7: Storage Class Diagram", align="center"]
 _Fig 7: Storage Class Diagram_
 ****
-+
 * Community:
-** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T16-1/main/pull/54[#54], https://github.com/CS2103-AY1819S1-T16-1/main/pull/32[#32]
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/285[1], https://github.com/CS2103-AY1819S1-W10-2/main/issues/276[2], https://github.com/CS2103-AY1819S1-W10-2/main/issues/275[3])
-** Raised and resolved issues (https://github.com/CS2103-AY1819S1-T16-1/main/issues/created_by/leongshengmin[1], https://github.com/CS2103-AY1819S1-T16-1/main/issues?q=is%3Aissue+assignee%3Aleongshengmin+is%3Aclosed[2])
+** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-T16-1/main/pull/54[#54]], [https://github.com/CS2103-AY1819S1-T16-1/main/pull/32[#32]]
+** Reported bugs and suggestions for other teams in the class [https://github.com/CS2103-AY1819S1-W10-2/main/issues/285[1]], [https://github.com/CS2103-AY1819S1-W10-2/main/issues/276[2]], [https://github.com/CS2103-AY1819S1-W10-2/main/issues/275[3]]
+** Raised and resolved issues [https://github.com/CS2103-AY1819S1-T16-1/main/issues/created_by/leongshengmin[1]], [https://github.com/CS2103-AY1819S1-T16-1/main/issues?q=is%3Aissue+assignee%3Aleongshengmin+is%3Aclosed[2]]
+
 <<<
 
 * Tools:
-** Configured `RepoSense`, a Contribution Analysis Tool for the team repo (https://github.com/CS2103-AY1819S1-T16-1/main/pull/62/files[#62])
+** Configured `RepoSense`, a Contribution Analysis Tool for the team repo [https://github.com/CS2103-AY1819S1-T16-1/main/pull/62/files[#62]]
 
 == Contributions to the User Guide
 
