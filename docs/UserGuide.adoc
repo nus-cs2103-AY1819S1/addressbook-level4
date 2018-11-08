@@ -261,10 +261,8 @@ comes back from the future.
 ==== Change game mode: `mode`
 [%hardbreaks]
 Changes the game mode.
-The game mode determines the manner of xp award to the user. The default Flat mode awards a constant 50xp to users per task completed before the deadline, and a constant 25xp to users. In contrast, the alternate Decreasing mode instead awards a decreasing number of points according to how late the task was completed. The points awarded are at a maximum of 50 xp one week before the task is due, and reduce linearly over the week until 25 xp is awarded if the task is completed exactly at the due time. 
-
+The game mode determines the manner of xp award to the user. The default Flat mode awards a constant 50xp to users per task completed before the deadline, and a constant 25xp to users. In contrast, the alternate Decreasing mode instead awards a decreasing number of points according to how late the task was completed. The points awarded are at a maximum of 50 xp one week before the task is due, and reduce linearly over the week until 25 xp is awarded if the task is completed exactly at the due time.
 The game mode command is **not affected by undo/redo**, because it does not change the state of the tasks. To reverse an unintended game mode change, simply change again to the desired game mode.
-
 Format: `mode GAME_MODE`, where a valid `GAME_MODE` can be one of `flat` or `decreasing`.
 
 [%hardbreaks]
