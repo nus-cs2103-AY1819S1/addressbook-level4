@@ -192,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void rollbackTaskManager() {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     //=========== Check overdue ==========================================================================
