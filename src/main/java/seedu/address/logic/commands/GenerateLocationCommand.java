@@ -69,10 +69,13 @@ public class GenerateLocationCommand extends Command {
 
         String meetingPlaceId = EmbedGoogleMaps.getMeetingPlaceId();
         EventsCenter.getInstance().post(new RandomMeetingLocationGeneratedEvent(meetingPlaceId));
-        return new CommandResult(MESSAGE_SUCCESS + meetingLocationEventName +"! Use editEventLocation to"
+        return new CommandResult(MESSAGE_SUCCESS + meetingLocationEventName + "! Use editEventLocation to"
                 + " change the location of your event if you are happy with this :)");
     }
 
+    /**
+     * This method tests if the event for which the location is going to be generated is found in the address book.
+     */
     private boolean isEventFound(ObservableList<Event> eventList, boolean isEventFound) {
         for (Event event : eventList) {
             if (event.getEventName().equals(meetingLocationEventName)) {
