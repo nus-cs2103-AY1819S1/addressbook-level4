@@ -69,6 +69,7 @@
             <tagged>friends</tagged>
             <faculty>SOC</faculty>
         </eventContacts>
+        <eventTags>Appointment</eventTags>
 	</events>
 	<events>
 		<eventName>Meeting</eventName>
@@ -86,6 +87,7 @@
             <tagged>friends</tagged>
             <faculty>SOC</faculty>
         </eventContacts>
+        <eventTags>Meeting</eventTags>
 	</events>
     <events>
         <eventName>Dinner appointment</eventName>

@@ -1,6 +1,6 @@
 .list-view {
     -fx-background-insets: 0;
-    -fx-padding: 0;
+    -fx-padding: 8 0 0 0;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -67,6 +67,10 @@
     -fx-text-fill: black;
 }
 
+.label {
+    -fx-text-fill: white;
+}
+
 #contacts .label {
     -fx-text-fill: white;
     -fx-background-color: #1ABC9C;
@@ -74,4 +78,26 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#eventTags .label {
+    -fx-text-fill: white;
+    -fx-background-color: #13459C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 13;
+}
+
+#allEventTags .label {
+    -fx-text-fill: white;
+    -fx-background-color: #13459C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 13;
+}
+
+.event_tag_header {
+    -fx-background-color: #383838;
 }

@@ -167,9 +167,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
-        /*for (Tag eventTag : event.getEventTags()) {
+        for (Tag eventTag : event.getEventTags()) {
             assert hasEventTag(eventTag);
-        }*/
+        }
 
         events.add(event);
     }

@@ -12,6 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -37,6 +39,7 @@ public class TypicalEvents {
                     .withEventEndTime(VALID_EVENT_END_TIME_DOCTORAPPT)
                     .withEventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)
                     .withEventContacts(ALICE)
+                    .withEventTags(VALID_TAG_APPOINTMENT)
                     .build();
     public static final Event MEETING =
             new ScheduledEventBuilder()
@@ -47,6 +50,7 @@ public class TypicalEvents {
                     .withEventEndTime(VALID_EVENT_END_TIME_MEETING)
                     .withEventAddress(VALID_EVENT_ADDRESS_MEETING)
                     .withEventContacts(BENSON)
+                    .withEventTags(VALID_TAG_MEETING)
                     .build();
 
     // more events manually added

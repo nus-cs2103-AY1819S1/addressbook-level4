@@ -409,14 +409,16 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-=======
-=======
-// tag::addEvents[]
-=== Add Events feature
+[[AddDeleteEvents]]
+// tag::events[]
+=== Add/Delete Events feature
+
 ==== Current Implementation
-The adding of events is mainly carried out from `Model`. In the `Model` component, an `Event` class, as well as classes for `Event` attributes were created.
-Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` were created to represent their respective information in an `Event`,
-as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values. +
+===== Structure of an Event
+In the `Model` component, an `Event` consists of various `Event` attributes.
+Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` are used to represent respective information in an `Event`,
+as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values, and each event also contains a `Set` of `Person` and `Tag` objects,
+which are used to represent the event contacts (from the address book) and event tags (from <<EventTags, event tags>> currently existing in the address book). +
 
 By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
 On top of facilitating checking of bugs within the individual attributes,
@@ -425,19 +427,50 @@ doing so will also allow the developer to alter the definition of the different 
 
 image::Event.png[Event class]
 
-Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
+===== Adding/Deleting of an Event
+Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding and deleting of events.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
-which is `UniqueEventList`. `ModelManager` stores an unmodifiable copy of the list, and `AddressBook` the reference to the internal list.
+which is `UniqueEventList`. `AddressBook` stores a reference to this internal list, and `ModelManager` stores an unmodifiable copy of this list.
 
 An example usage scenario of the adding of events is as shown in the sequence diagram below.
+The diagram shows the interaction between the different components in the system when an event is added.
+The interaction between components is similar for the deletion of an event.
 
 image::add-event-component.png[Interactions between components]
 
-When the events are triggered from the `Model` component, they are handled by the UI, which updates the displayed information, and the
-`Storage` component, which saves the information to XML format. The event triggers are handled as follows.
+More specific interactions between `Logic` and `Model` are as shown in the diagram below.
 
-image::add-event-event-trigger.png[Handling of events triggered]
+image::add-event_logic-model.png[Interactions between Logic and Model]
 
+Step 1. User enters command to add an event +
+Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>`. The latter specifies the contact indices to add into the event. +
+Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if the event information is valid +
+Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records) +
+Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the system from the `Model` component.
+
+For deletion of event(s), the flow is similar.
+The sequence diagram for the deletion of event is shown below.
+
+image::delete-event_logic-model.png[Deleting an event]
+
+Step 1. User enters command to delete an event based on the event date and index (as displayed in the UI) +
+Step 2. `AddressBookParser` calls `DeleteEventCommandParser`, which generates an `DeleteEventCommand` with an `EventDate` and `Index`. +
+Step 3. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list.
+Step 4. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
+Step 5. `DeleteEventCommand` calls `getEventToDelete` to retrieve the event based on its index in the list from step 4.
+Step 6. The event is deleted from the system from the `Model` component.
+
+Upon adding/deletion of events in `Model`, `AddressBookChangedEvent` and `AddressBookEventChangedEvent` are triggered from the `Model` component.
+The raised events are handled by:
+
+* `UI`, which updates the displayed information, and
+* `Storage`, which saves the information to an XML data file.
+
+For instance, when an `Event` is added (or deleted), the event triggers are handled as follows.
+
+image::add-event-event-trigger.png[Handling of triggered events]
+
+===== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
 Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
 we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
@@ -447,49 +480,132 @@ we require `ModelManager` to be able to return such an `ObservableList<List<Even
 ===== Aspect: Data Structure to Support the UI Events Display
 
 * **Alternative 1 (current choice):** Store a list of type `ObservableList<List<Event>>` in the `ListView` object in the `EventPanelList`.
-This list is re-computed in `ModelManager` each time a change in the internal list of events is detected, and passed to the UI class `MainWindow`.
+This list is re-computed from `Model` each time a change in the internal list of events is detected, and the
+updated list is passed to the UI class `MainWindow`.
 This facilitates a regeneration of the `TabPanel` stored in `MainWindow`, updating the display of events to the user.
 
 +
 
-Here, we only need to maintain one list of `Event` objects.
-Since this is the case, there is no change to the `ObservableList<List<Event>>` object passed into the `UI` classes. For the UI
-to be updated with new information whenever events are added into the underlying `Event` list, we make use of a listener on the list `filteredEvents`.
+** *Pros:* We only need to maintain one internal list of `Event` objects. For the UI
+to be updated with new information whenever events are added into/deleted from the underlying `Event` list,
+we make use of a listener on the `filteredEvents` list in `Model`.
 
-** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
-** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
+*** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
+*** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
+
+image::ui-display-ad.png[Refresh of Tab Panel on Event Change]
+
+** *Cons:* There is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs.
+However, this overhead is still acceptable given the current scale of the `AddressBook`.
+
+* **Alternative 2:** Store a list of type `ObservableList<ObservableList<Event>>` in `UI` and `Model`,
+where each `ObservableList<Event>` is the list of events for a given date.
+Update this alongside the `filteredEvent` list in `Model`, by adding a listener to `filteredEvents`,
+such that each time the internal list of events changes, the corresponding update is performed on the 2D-list.
+
+** *Pros:* There is no need to regenerate the list for `UI`, since information in this list stays updated.
+This reduces overhead incurred in list regeneration.
 
 +
 
-While this means that there is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs,
-this overhead is still acceptable given the current scale of the `AddressBook`.
+** *Cons*: If more actions are carried out on the internal event list, the listener will have to be updated,
+as it will have to listen to more types of changes. This could potentially create more bugs in the code.
 
-* **Alternative 2:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
-as well as in `ModelManager`, and update this alongside the `filteredEvent` list in `ModelManager`.
-By doing so, we will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list.
+* **Alternative 3:** Store a list of type `ObservableList<ObservableList<Event>>` (similar structure as in Alternative 2) in `UI` and `Model`.
+Create another internal list `UniqueEventListByDate` for this list of lists. Update this alongside `UniqueEventList`.
 
-+
+** *Pros:*
+*** There is no need to regenerate the list for `UI`, since information in this list stays updated.
+*** No listener is required, since an event can be added to `UniqueEventList` and `UniqueEventListByDate` simultaneously.
 
-To do so, we can add a listener to `filteredEvents` such that each time the internal list of events changes, the corresponding change is done to a list of type `ObservableList<List<Event>>`.
+** *Cons:* Two lists have to be maintained, both storing the same `Event` objects.
+The task of maintaining two lists may lead to inconsistencies between the two lists and more complex code in future.
 
-+
+===== Aspect: Restrictions on Event Tags
+* **Alternative 1 (current choice):** Valid event tags to be restricted to a list which can be edited by the user.
+** *Pros:* Allows event tags to be standardized, and the user can keep track of the all the types of events he/she has just
+by referring to the `Flowpane` containing all the event tags available in the system. This also facilitates finding of events
+by event tags.
+** *Cons:* More work has to be done from the user's end, as he/she has to add an event tag in the system
+before adding an event with that tag.
 
-However, this will mean that if more actions are carried out on the internal event list, more updates will have be made to the way the listener is set up,
-as it will have to listen to more types of changes and perform more actions accordingly. Though reducing overhead incurred
-(as there is no need to regenerate the list each time a change occurs),
-this could potentially create more bugs in the code, which is not desirable in the long run.
+* **Alternative 2:** No restriction to event tags.
+** *Pros:* Less work by the user, as he/she can just add any event tag when adding an event into the system.
+** *Cons:* Less standardization of event tags, which may cause the user's data to become more disorganized in future.
 
-* **Alternative 3:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
-as well as in `Model`, and create another internal list `UniqueEventListByDate` for this list of lists. Update this alongside `UniqueEventList`.
-By doing so, we also will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list, and no such listener
-as in Alternative 2 is required.
+* **Alternative 3:** (2-in-1 approach) Event tags that are non-existing in EventsPlus+ to be added upon adding an event with that new tag.
+** *Pros:* Less work by the user, and tag gets automatically added into the system.
+** *Cons:* The `addEvent` command will be performing two different actions - adding an event
+and adding an event tag. This may violate the Single Responsibility Principle (SRP) for the `AddEventCommand` class.
+// end::events[]
 
-However, this means that we have to maintain two lists, both storing `Event` objects.
-The task of maintaining two lists may lead to inconsistencies between the two lists and more complex code in future,
-should future developers decide to include more actions to mutate the underlying list of `Event` objects.
-Hence, this is not preferred in our implementation.
+[[EventTags]]
+// tag::eventTags[]
+=== Add Event Tags feature
+==== Current Implementation
+The list of event tags in the system is stored in a `UniqueTagList` in `Model`.
+This implementation requires all event `Tag` objects to be unique (using case-insensitive comparison) +
+All event tags are always shown, hence it is sufficient to
+to keep an `ObservableList<Tag>` in `ModelManager`, rather than a `FilteredList` which is used to store list of `Person` and `Event` objects.
 
-// end::addEvents[]
+An event tag specified by the user is added in the system as depicted in the sequence diagram below.
+
+image::add-event-tag_logic-model.png[Interactions between Logic and Model]
+
+Step 1. User enters command to add an event +
+Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` objects +
+Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system +
+Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag` into `Model`.
+// end::eventTags[]
+
+[[Autocomplete]]
+// tag::autoComplete[]
+=== Command Auto-completion feature
+==== Current Implementation
+Command auto-completion uses a fixed list of all command words in EventsPlus+. Each time the user
+presses the `Tab` key, a check is run against the internal list of command words (including aliases)
+and the input is auto-completed to the nearest command word containing the current user input, if any.
+The following activity diagram outlines the typical usage of this feature.
+
+image::autocomplete-ad.png[Auto-complete command activity diagram]
+
+==== Aspect: Computing the nearest valid command word
+* **Alternative 1 (current choice):** Each time the `Tab` key is pressed,
+`String#startsWithPrefix` is used to check against the internal list for the nearest possible
+command word.
+
+** *Pros:* The implementation is neater as most of the checking is done by `String#startsWithPrefix`.
+** *Cons:* The current input has to be checked against potentially every valid command word.
+
+* **Alternative 2:** Store a `HashMap` with maps every possible prefix of every command word to the corresponding command word.
+Do a lookup in the `HashMap` using current user input as the key and return the value (command word) if any.
+
+** *Pros:* Typically constant time lookup for each prefix in the `HashMap`.
+** *Cons:* More space required to store all the possible prefixes. Furthermore,
+if no such prefix is contained in the mapping, takes linear time with respect to size of the map.
+
+* **Alternative 3** Use a Prefix Tree (Trie) implementation, where the intermediate nodes are the prefixes and
+leaf nodes are the valid command words.
+** *Pros:* Provides a balance between time and space complexity.
+** *Cons:* Potentially more complex implementation.
+// end::autoComplete[]
+
+// tag::tab[]
+=== Tab feature
+==== Current implementation
+`UI` component consists of a `TabPanel` which stores all the `Tab` objects in the `UI` as follows.
+
+image::tabPanel.png[Tab Panel basic class diagram]
+
+* **Alternative 1 (current choice):** `TabPanel` to store all `Tab` objects.
+** *Pros:* New tabs can be added easily as a class, and initialized in `TabPanel`.
+This abides by the SoC principle and each tab can be managed separately from the others.
+
+* **Alternative 2:** Store the methods for each `Tab` in the same class `TabPanel`.
+Hence, all the tabs and their methods are contained in this class.
+** *Pros:* Less code needed, especially if some tabs have similar or overlapping methods.
+** *Cons:* Does not abide by SoC and SRP principle, since this one class would have to change for many reasons.
+// end::tab[]
 
 // tag::importcontacts[]
 === Import Contacts
@@ -730,7 +846,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
+////
 [[GetStartedProgramming]]
 [appendix]
 == Suggested Programming Tasks to Get Started
@@ -1009,18 +1125,33 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 See this https://github.com/se-edu/System-level4/pull/599[PR] for the step-by-step solution.
 
+////
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Typical university student who
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+* needs to manage a significant number of contacts from various social circles in and out of school
+* is usually kept busy due to many classes from different faculties and/or other commitments
+* finds it difficult to juggle the task of contacting different members across different module projects
+* finds it difficult to determine convenient timings / locations for meetings
+* is reasonably comfortable with Command Line Interface (CLI) apps
+* prefers typing to mouse input
+* is reasonably comfortable using CLI apps
+* can type fast
+* prefers desktop apps
+
+*Value proposition*: A convenient and time-saving command-line interface event manager for university students
+
+Our enhanced Addressbook application will offer its users the following benefits:
+
+* Avoid contact duplication, so the user has a clean and well-maintained address book.
+* Provide suggested locations and timings for events or meetings based on participants’ locations and timetable. This eases for the user the process of asking people for available timings / places to meet, by automating it.
+* Notifications to alert the user to favourited events
+* Allow the user to import contacts from an external source
+* Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
 
 [appendix]
 == User Stories
@@ -1195,7 +1326,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC5: Add personal events
+=== UC5: Add events
 
 *MSS*
 
@@ -1208,6 +1339,47 @@ Use case ends.
 +
 ** 1a1. System shows a message informing the user of the clash.
 
+Use case ends.
+
+[discrete]
+=== UC7: View all events
+
+*MSS*
+
+. User requests to view all events.
+. System displays all events.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid command.
++
+** 1a1. System displays error message.
++
+Use case ends.
+
+[discrete]
+=== UC8: Delete an event
+
+Guarantees: Only the selected event will be deleted from the existing list.
+
+*MSS*
+
+.	User requests to delete an event.
+.	System removes the event from the user’s personal list of events.
+.	System displays message showing that the event is deleted.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid event identifier or invalid command.
++
+** 1a1. System displays error message.
++
 Use case ends.
 
 [discrete]
@@ -1267,53 +1439,6 @@ Use case ends.
 
 ////
 === Coming in V2.0
-
-[discrete]
-=== UC7: View all personal events
-
-*MSS*
-
-. User requests to view all events.
-. System displays all events.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid command.
-+
-** 1a1. System displays error message.
-+
-Use case ends.
-
-[discrete]
-=== UC8: Delete personal events
-
-Guarantees: Only the selected event will be deleted from the existing list.
-
-*MSS*
-
-.	User requests to delete a personal event.
-.	System removes the event from the user’s personal list of events.
-.	System displays message showing that the event is deleted.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid personal event or invalid command.
-+
-** 1a1. System displays error message.
-+
-Use case ends.
-+
-* a. At any time, user chooses to end the command.
-+
-** a1. System abandons the meeting being set up, and returns to original screen.
-+
-Use case ends.
 
 [discrete]
 === UC9: Find groups by keyword

@@ -30,6 +30,7 @@
             <tagged>friends</tagged>
             <faculty>SCI</faculty>
         </eventContacts>
+        <eventTags>Appointment</eventTags>
     </events>
 	<!-- Event with invalid start and end time field -->
 	<events>

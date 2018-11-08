@@ -66,6 +66,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_FACULTY_DESC = " " + PREFIX_FACULTY + "law";
 
     // Events
     public static final String CLASHING_EVENT_START_TIME_DOCTORAPPT = "1410";
@@ -111,6 +112,8 @@ public class CommandTestUtil {
     public static final String EVENT_ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_MEETING;
     public static final String EVENT_CONTACT_INDEX_DESC_DOCTORAPPT = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_1;
     public static final String EVENT_CONTACT_INDEX_DESC_MEETING = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_2;
+    public static final String EVENT_TAG_DESC_DOCTORAPPT = " " + PREFIX_TAG + VALID_TAG_APPOINTMENT;
+    public static final String EVENT_TAG_DESC_MEETING = " " + PREFIX_TAG + VALID_TAG_MEETING;
 
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Consultation-"; // - not allowed
     public static final String INVALID_EVENT_DESC_DESC = " " + PREFIX_EVENT_DESCRIPTION + "Important*"; // * not allowed
@@ -122,8 +125,12 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
     public static final String INVALID_EVENT_CONTACT_INDEX = " " + PREFIX_INDEX + "-1"; // contact index negative
 
+
+    public static final String NONEXISTENT_EVENT_TAG = "Class";
+
     // Import contacts
     public static final String FILE_DESC = " " + PREFIX_FILE;
+
 
     public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

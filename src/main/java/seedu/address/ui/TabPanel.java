@@ -13,8 +13,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
+import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
+import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -49,13 +53,13 @@ public class TabPanel extends UiPart<Region> {
     private Tab locationDisplayTab;
 
     public TabPanel(ObservableList<List<seedu.address.model.event.Event>> eventList,
-                    ObservableList<Person> personList) {
+                    ObservableList<Person> personList, ObservableList<Tag> eventTagList) {
         super(FXML);
 
         browserPanel = new BrowserPanel();
         webpageTab.setContent(browserPanel.getRoot());
 
-        eventListPanel = new EventListPanel(eventList, personList);
+        eventListPanel = new EventListPanel(eventList, personList, eventTagList);
         eventsTab.setContent(eventListPanel.getRoot());
 
         locationDisplayPanel = new LocationDisplayPanel();
@@ -105,6 +109,30 @@ public class TabPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         // switch active tab
+        selectionModel.select(webpageTab);
+    }
+
+    @Subscribe
+    private void handleFacultyLocationDisplayChangedEvent(FacultyLocationDisplayChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // switch active tab
         selectionModel.select(locationDisplayTab);
+    }
+
+    @Subscribe
+    private void handleRandomMeetingLocationGeneratedEvent(RandomMeetingLocationGeneratedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // switch active tab
+        selectionModel.select(locationDisplayTab);
+    }
+
+    @Subscribe
+    private void handleEventPanelDisplayChangedEvent(EventPanelDisplayChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // switch active tab
+        selectionModel.select(eventsTab);
     }
 }

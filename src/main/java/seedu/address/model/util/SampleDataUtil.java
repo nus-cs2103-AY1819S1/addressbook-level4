@@ -51,13 +51,21 @@ public class SampleDataUtil {
     public static Event[] getSampleEvents() {
         Person alex = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), new Faculty("SCI"));
+                getTagSet("friends"), new Faculty("FOS"));
+        Tag meetingTag = new Tag("Meeting");
 
         return new Event[] {
             new Event(new EventName("Meeting"), new EventDescription("test events description"),
                 new EventDate("2018-04-01"), new EventTime("1400"), new EventTime("1500"),
-                    new EventAddress("3 Kent Ridge Drive"), new HashSet<>(Arrays.asList(alex)))
+                    new EventAddress("3 Kent Ridge Drive"), new HashSet<>(Arrays.asList(alex)),
+                    new HashSet<>(Arrays.asList(meetingTag)))
         };
+    }
+
+    public static Tag[] getSampleEventTags() {
+        Tag appointmentTag = new Tag("Appointment");
+        Tag meetingTag = new Tag("Meeting");
+        return new Tag[] {appointmentTag, meetingTag};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
@@ -65,6 +73,10 @@ public class SampleDataUtil {
 
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+
+        for (Tag sampleEventTag : getSampleEventTags()) {
+            sampleAb.addEventTag(sampleEventTag);
         }
 
         for (Event sampleEvent : getSampleEvents()) {

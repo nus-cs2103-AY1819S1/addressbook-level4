@@ -18,7 +18,9 @@ By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
+EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
+using a *Command Line Interface* (CLI).
 
 == Quick Start
 
@@ -34,7 +36,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -47,6 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Command words are case-sensitive e.g. `addEvent` is a valid command word, but `addevent` is not.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times
 e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -55,6 +58,15 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 * Items in curly brackets are considered to be an entity. The rules outside the curly brackets apply to the entity as a whole.
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
+
+=== Auto-completion of commands: `TAB` key
+
+To auto-complete any command words, press the `TAB` key. +
+For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` key. +
+
+Note that only command words will be auto-completed, and the auto-completion will only be successful if there
+are any valid command words (including command aliases) containing the current input as a prefix. The
+auto-completed is the nearest word containing the current input as a prefix.
 
 === Viewing help : `help`, alias `h`
 
@@ -69,22 +81,23 @@ Format: `notification disable`
 Notifications are initially enabled
 ====
 
-=== Adding a person: `add`, `a`
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY`
 
 [TIP]
 ====
 * A person can have any number of tags (including 0)
 * A person can have 1 or many phone numbers
+* A person can have no faculty using '-', else faculty names are based on NUS naming conventions
+* A person's tags will be converted to lowercase regardless of the input (upper or lower case)
 ====
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`, alias `ls`
 
@@ -231,6 +244,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` or `r` (reapplies the `clear` command) +
 // end::undoredo[]
 
+////
 === Add contacts to an existing group : `addToGroup`
 
 Adds a specified list of contacts to a specified group, based on the user's last-viewed listing. +
@@ -271,6 +285,7 @@ Format: `createGroup group/GROUP_NAME`
 Examples:
 
 * `createGroup group/CS2103Group`
+////
 
 === Suggested Location : `generateLocation`
 
@@ -282,11 +297,12 @@ Examples:
 
 * `generateLocation event/First Meeting group/CS2103Group`
 
+// tag::addEvent[]
 === Adding an event: `addEvent`
 
 Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
 
 The user can input values for the following fields when adding an event: +
 
@@ -296,8 +312,10 @@ The user can input values for the following fields when adding an event: +
 * Event start time +
 * Event end time +
 * Address of event +
+* Contact Index / Indices +
+* Event Type(s) +
 
-Note that each of these fields are mandatory, and has to be supplied by the user
+Note that each of these fields, except for contact indices and event type, are mandatory, and has to be supplied by the user
 before the event can be successfully added into the system.
 In addition, note the following constraints for the input values.
 
@@ -307,6 +325,11 @@ In addition, note the following constraints for the input values.
 and should not have any special characters e.g. *, &, etc.
 * Event dates should be in the format YYYY-MM-DD
 * Event times (start or end time) should be in the 24-hour format HHMM
+* Start and end times for a given event can be the same. +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1030 a/123, Clementi Rd, 1234665` is a valid command
+* Contact indices should be based on the latest displayed person list.
+* Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
+in EventsPlus+, it has to be added in before creating the event with the new event tag.
 ====
 
 //A notification will be sent to the user only 24 hours before the event.
@@ -314,33 +337,142 @@ and should not have any special characters e.g. *, &, etc.
 
 Examples:
 
-* `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
-This adds a new event with the provided information.
-
-//* `list` +
-//  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
-//* `Find Betsy Tim John` +
-//  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+* Without contacts and event tags +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
+* With a single contact +
+ `list` +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1`
+* With multiple contacts +
+`Find Betsy Tim John` +
+`addEvent n/Meeting  dsc/Project meeting d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+* With contact indices and event tags +
+`addEventTag t/Meeting t/Appointment` +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment` +
 
 In EventsPlus+, the events can be found in the Events tab,
 and are displayed according to their date, in decreasing date order.
+Within each date, the events are ordered from earliest to latest.
 
 After the user executes the command, a message indicating successful execution of the command will be displayed.
 The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+// end::addEvent[]
 
-=== Import Contacts: `importContacts`
+[[addEventTag]]
+// tag::addEventTag[]
+=== Adding an event tag: `addEventTag`
 
-Import contacts from a specified csv file. Duplicate contacts will be merged together.
+Adds an event tag specified by the user into the system.
 
-Format: `importContacts file/FILEPATH`
+Format: `addEventTag t/EVENT_TAG [t/EVENT_TAG...]`
+
+[TIP]
+====
+* Event tags are case-insensitive, and will always be converted into lowercase.
+i.e. `MEETING` and `meeting` are considered the same tag,
+and only `meeting` will be shown in EventsPlus+
+Executing `addEventTag t/MEETING t/meeting` will only result in the first tag being added.
+Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
+* Event tags should only be alphanumeric (A-Z, a-z, 0-9) and hence should exclude any spaces, special characters or symbols such as '%', '*', '~'
+====
+
+Example:
+
+* `addEventTag t/Lecture t/Dinner` +
+Adds the event tags into the system, if they do not already exist in the system.
+The newly added tags are highlighted in green below.
+
+image::add-event-tag_new-event-tag.PNG[Adding an event tag]
+// end::addEventTag[]
+
+// tag::deleteEvent[]
+=== Deleting an event: `deleteEvent`
+
+Adds an event in the system with information specified by the user.
+
+Format: `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX`
+
+Each of the fields are mandatory, and has to be supplied by the user
+before the event can be successfully deleted from the system.
+
+[TIP]
+====
+* Event dates should be in the format YYYY-MM-DD
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `deleteEvent d/2018-04-01 i/1` will delete this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
+====
+
+Example:
+
+* `deleteEvent d/2018-04-01 i/1`
+
+**Before Deletion**
+
+image::delete-event-before.PNG[Deleting an event]
+
+**After Deletion**
+
+image::delete-event-after.PNG[Deleting an event]
+// end::deleteEvent[]
+
+// tag::listEvent[]
+=== List all events: `listEvent`
+
+Shows a list of all events in the address book. +
+Format: `listEvent`
+// end::listEvent[]
+
+// tag::findEvent[]
+=== Find events by event tags: `findEvent`
+
+Shows a list of all events in the address book which are tagged as the specified tags in the command.
+Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>> section. +
+i.e. `MEETING` and `meeting` are regarded as the same tag.
+
+Format: `findEvent EVENT_TAG [EVENT_TAG...]`
 
 Examples:
 
-* `importContacts file/~/Downloads/contacts1.csv` +
-  Imports all contacts from root/Downloads/contacts1.csv into application address book
+**Before `findEvent` Execution**
+
+image::find-event-before.PNG[Finding an event]
+
+**After `findEvent` Execution**
+
+* `findEvent LECTURE` +
+Shows all the events tagged as `lecture`
+
+image::find-event-lecture.PNG[Finding an event]
+
+* `findEvent Class lecture` +
+Shows all the events tagged as `lecture` or `class`
+
+image::find-event-lecture-class.PNG[Finding an event]
+// end::findEvent[]
+
+=== Import Contacts: `importContacts`
+
+Import contacts from a specified csv file. +
+CSV file has to be exported from google contacts as Google CSV. +
+
+[TIP]
+====
+* Ensure that First Name, Email, Phone Number, Address and Company (faculty) is filled up
+* Any missing field will result in failure in importing contacts
+* Exported csv file will be named: google.csv
+====
+
+Format: `importContacts file/ABSOLUTE_FILEPATH`
+
+Examples:
+
+* `importContacts file/~/Downloads/google.csv` +
+  Imports all contacts from root/Downloads/google.csv into application address book
 
 === Notifications: `notification`
 
@@ -379,16 +511,6 @@ There is no need to save manually.
 
 
 == Features coming up in V2.0
-
-=== List personal events: `listEvent`
-
-Lists all events in the system.
-
-Format: `listEvent`
-
-Examples:
-
-* `listEvent`
 
 === Add group event: `addGroupEvent`
 
@@ -561,8 +683,8 @@ Examples:
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY ` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -577,39 +699,23 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
-e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
-* *Rename Group* `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME` +
-e.g. `renameGroup group/CS2103Group n/HelloWorld`
-* *Merge Group* : `mergeGroup n/NEW_GROUP_NAME group/GROUP_NAME…​` +
-e.g. `mergeGroup n/CS2103_MERGED group/CS2103_Group1 group/CS2103_Group2 group/CS2103_Group3`
-* *Split Group* : `splitGroup group/GROUP_NAME {n/NEW_GROUP_NAME i/INDEX…​}…​` +
-e.g. `splitGroup group/CS2103_MERGE
-n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
-* *View Group* : `viewGroup/GROUP_NAME` +
-e.g. `viewGroup/CS2103Group`
-* *Common Group Contacts* : `commonGroupContacts n/CONTACT_NAME` +
-e.g. `commonGroupContacts n/James Bond`
-* *Remove Contact from Group* : remove n/CONTACT_NAME group/GROUP_NAME +
-e.g. `remove n/James Bond group/CS2103Group`
-* *Delete Group* : `deleteGroup group/GROUP_NAME` +
-e.g. `deleteGroup group/CS2103Group`
-* *Import Timetable* : `importCalendar SOURCE` +
-e.g. `importCalendar Google`
-* *Share Contact* : `share i/INDEX…​ t/INDEX` +
-e.g. `share i/2 i/3 i/4 t/1`
-* *Archive Group* : `archive group/GROUP_NAME` +
-e.g. `archive group/CS2103Group`
-* *Unarchive Group* : `unarchive group/GROUP_NAME` +
-e.g. `unarchive group/CS2103Group`
+
+// * *Create Group *: `createGroup group/GROUP_NAME` +
+// e.g. `createGroup group/CS2103Group`
+// * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
+// e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
+
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2019-10-12 st/1030 et/1200 a/123, Clementi Rd, 1234665`
-* *List Events* : `listEvent`
-* *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...` +
-e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
-* *List Group Events* : `listGroupEvent`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
+* *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
+e.g. `deleteEvent d/2018-10-18 i/1`
+* *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
+e.g. `addEventTag t/Lecture t/Dinner`
+* *List Events* : `listEvent` +
+* *Find Events by Event Tag(s)* `findEvent EVENT_TAG [EVENT_TAG...]` +
+e.g. `findEvent Class lecture`
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
 * *Disable and Enable Notification* : `notification enable/disable` +

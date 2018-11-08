@@ -14,8 +14,9 @@
 			<email>alexyeoh@example.com</email>
 			<address>Blk 30 Geylang Street 29, #06-40</address>
 			<tagged>friends</tagged>
-			<faculty>SCI</faculty>
+			<faculty>FOS</faculty>
 		</eventContacts>
+		<eventTags>Appointment</eventTags>
     </events>
 
     <!-- Event with same identity as Class -->
@@ -26,6 +27,7 @@
 		<eventStartTime>1200</eventStartTime>
 		<eventEndTime>1200</eventEndTime>
 		<eventAddress>abc road</eventAddress>
+		<eventTags>Appointment</eventTags>
     </events>
-
+    <eventTags>Appointment</eventTags>
 </addressbook>

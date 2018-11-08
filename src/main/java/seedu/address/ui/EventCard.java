@@ -13,8 +13,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * A UI component that displays information of a single {@code Event}.
@@ -49,6 +51,8 @@ public class EventCard extends UiPart<Region> {
 
     @FXML
     private FlowPane contacts;
+    @FXML
+    private FlowPane eventTags;
 
     public EventCard(Event event, int displayedIndex, List<Person> personList) {
         super(FXML);
@@ -113,6 +117,8 @@ public class EventCard extends UiPart<Region> {
         name.setText(event.getEventName().eventName);
         address.setText(event.getEventAddress().eventAddress);
         description.setText(event.getEventDescription().eventDescription);
+        event.getEventTags().forEach(eventTag -> eventTags.getChildren()
+                .add(new Label(eventTag.getLowerCaseTagName())));
     }
 
     private String getContactDisplayText(Person contact) {
@@ -156,6 +162,27 @@ public class EventCard extends UiPart<Region> {
 
             String contactDisplayText = getTooltipDisplayText(contact);
             contactLabel.getTooltip().setText(contactDisplayText);
+        }
+    }
+
+    /**
+     * Updates the event card with updated Event {@code Tag} information when the address book
+     * event tag data changes, if any. This is required to keep the event tags synced with the
+     * updated event tag list in the address book.
+     * @param addressBookEventTagChangedEvent
+     */
+    @Subscribe
+    private void handleAddressBookEventTagChangedEvent(AddressBookEventTagChangedEvent
+                                                                   addressBookEventTagChangedEvent) {
+        List<Tag> updatedEventTagList = addressBookEventTagChangedEvent.data;
+        for (Node node : eventTags.getChildren()) {
+            assert node instanceof Label;
+
+            Label eventTag = (Label) node;
+            // use Tag#isSameTag for comparison
+            if (updatedEventTagList.stream().noneMatch(tag -> tag.isSameTag(new Tag(eventTag.getText())))) {
+                eventTags.getChildren().remove(eventTag);
+            }
         }
     }
 }

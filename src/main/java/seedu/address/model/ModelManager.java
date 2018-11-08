@@ -19,6 +19,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
+import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
+import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.filereader.FileReader;
@@ -54,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         eventTags = versionedAddressBook.getEventTagList();
 
         addListenerToBaseEventList();
+        addListenerToEventTagList();
     }
 
     public ModelManager() {
@@ -95,6 +98,18 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the events list in the model has changed */
     private void indicateAddressBookEventChanged() {
         raise(new AddressBookEventChangedEvent(filteredEvents));
+    }
+
+    /** Raises an event to indicate the event tags list in the model has changes */
+    private void indicateAddressBookEventTagChanged() {
+        raise(new AddressBookEventTagChangedEvent(eventTags));
+    }
+
+    /** Raises an event to indicate an action to change the display has been made, even if there are no changes to
+     * the filtered event list. This is the slight difference between this method and indicateAddressBookEventChanged.
+     */
+    private void indicateEventPanelDisplayChanged() {
+        raise(new EventPanelDisplayChangedEvent());
     }
 
     @Override
@@ -212,6 +227,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        indicateEventPanelDisplayChanged();
     }
 
     /**
@@ -262,6 +278,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Tag> getEventTagList() {
         return FXCollections.unmodifiableObservableList(eventTags);
+    }
+
+    /**
+     * Adds a listener on the event tag list {@code eventTagList} to detect changes in the list
+     * and indicate the change to the address book.
+     */
+    public void addListenerToEventTagList() {
+        eventTags.addListener((ListChangeListener.Change<? extends Tag> change) -> {
+            if (change.next()) {
+                indicateAddressBookEventTagChanged();
+            }
+        });
     }
 
     //=========== Undo/Redo =================================================================================

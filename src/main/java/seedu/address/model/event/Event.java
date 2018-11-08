@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Event in the address book.
@@ -26,13 +27,14 @@ public class Event {
 
     // data fields
     private Set<Person> eventContacts;
+    private Set<Tag> eventTags = new HashSet<>();
 
     /**
      * Every field must be present and not null. End time must be later than start time.
      */
     public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventStartTime,
-                 EventTime eventEndTime, EventAddress eventAddress) {
-        requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
+                 EventTime eventEndTime, EventAddress eventAddress, Set<Tag> eventTags) {
+        requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress, eventTags);
 
         this.eventName = eventName;
         this.eventDescription = eventDescription;
@@ -42,6 +44,7 @@ public class Event {
         this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
         this.eventContacts = new HashSet<>();
+        this.eventTags.addAll(eventTags);
     }
 
     /**
@@ -49,7 +52,7 @@ public class Event {
      * This constructor allows for direct creation of an event with a non-empty {@code eventContacts}.
      */
     public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventStartTime,
-                 EventTime eventEndTime, EventAddress eventAddress, Set<Person> eventContacts) {
+                 EventTime eventEndTime, EventAddress eventAddress, Set<Person> eventContacts, Set<Tag> eventTags) {
         requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
         requireAllNonNull(eventContacts);
 
@@ -61,6 +64,7 @@ public class Event {
         this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
         this.eventContacts = eventContacts;
+        this.eventTags = eventTags;
     }
 
     /**
@@ -106,6 +110,14 @@ public class Event {
      */
     public Set<Person> getEventContacts() {
         return Collections.unmodifiableSet(eventContacts);
+    }
+
+    /**
+     * Returns an immutable event {@code Tag} set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getEventTags() {
+        return Collections.unmodifiableSet(eventTags);
     }
 
     /**
@@ -155,14 +167,15 @@ public class Event {
                 && otherEvent.getEventStartTime().equals(getEventStartTime())
                 && otherEvent.getEventEndTime().equals(getEventEndTime())
                 && otherEvent.getEventAddress().equals(getEventAddress())
-                && otherEvent.getEventContacts().equals(getEventContacts());
+                && otherEvent.getEventContacts().equals(getEventContacts())
+                && otherEvent.getEventTags().equals(getEventTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventEndTime,
-                eventAddress, eventContacts);
+                eventAddress, eventContacts, eventTags);
     }
 
     @Override
@@ -179,8 +192,10 @@ public class Event {
                 .append(getEventStartTime())
                 .append(" Event end time: ")
                 .append(getEventEndTime())
-                .append(" Event Address: ")
-                .append(getEventAddress());
+                .append(" Event address: ")
+                .append(getEventAddress())
+                .append(" Event tags: ")
+                .append(getEventTags());
         getEventContacts().forEach(builder::append);
         return builder.toString();
     }

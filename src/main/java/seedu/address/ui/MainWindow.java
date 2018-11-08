@@ -29,7 +29,7 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
-    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to EventsPlus+";
     public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private static final String FXML = "MainWindow.fxml";
@@ -77,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        primaryStage.setMaximized(true);
         setNotification(prefs);
 
         setAccelerators();
@@ -99,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
                 // delete event must clean up favourite as well!
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+
             }
         }
     }
@@ -145,7 +147,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate(), logic.getUnfilteredPersonList());
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(), logic.getUnfilteredPersonList(),
+                logic.getEventTagList());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -191,6 +194,12 @@ public class MainWindow extends UiPart<Stage> {
                 ModelManager.getFavouriteEvent());
     }
 
+    private void refreshTabPanel() {
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
+                logic.getUnfilteredPersonList(), logic.getEventTagList());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -233,7 +242,6 @@ public class MainWindow extends UiPart<Stage> {
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate(), logic.getUnfilteredPersonList());
-        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+        refreshTabPanel();
     }
 }

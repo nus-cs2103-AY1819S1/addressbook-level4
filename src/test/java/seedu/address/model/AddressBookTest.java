@@ -176,12 +176,14 @@ public class AddressBookTest {
 
     @Test
     public void hasEvent_eventInAddressBook_returnsTrue() {
+        DOCTORAPPT.getEventTags().forEach(addressBook::addEventTag);
         addressBook.addEvent(DOCTORAPPT);
         assertTrue(addressBook.hasEvent(DOCTORAPPT));
     }
 
     @Test
     public void hasClashingEvent_clashingEventInAddressBook_returnsTrue() {
+        DOCTORAPPT.getEventTags().forEach(addressBook::addEventTag);
         addressBook.addEvent(DOCTORAPPT);
         Event clashingEvent = new ScheduledEventBuilder(DOCTORAPPT)
                 .withEventStartTime(CLASHING_EVENT_START_TIME_DOCTORAPPT)
@@ -206,6 +208,7 @@ public class AddressBookTest {
 
     @Test
     public void hasEvent_eventWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        DOCTORAPPT.getEventTags().forEach(addressBook::addEventTag);
         addressBook.addEvent(DOCTORAPPT);
         Event duplicateEvent = new ScheduledEventBuilder(DOCTORAPPT).build();
         assertTrue(addressBook.hasEvent(duplicateEvent));

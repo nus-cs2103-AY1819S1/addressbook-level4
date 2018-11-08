@@ -15,6 +15,8 @@ import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_DOCTO
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_START_TIME_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_START_TIME_DESC_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_TAG_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_TAG_DESC_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_CONTACT_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DESC;
@@ -24,6 +26,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_END_TIM
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
@@ -33,6 +36,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.logic.parser.AddEventCommandParser.MESSAGE_INVALID_START_END_TIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -52,6 +57,7 @@ import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class AddEventCommandParserTest {
@@ -60,7 +66,9 @@ public class AddEventCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts().build();
+        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventTags(VALID_TAG_APPOINTMENT)
+                .withEventContacts().build();
         Set<Index> expectedIndices = new HashSet<>();
         expectedIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)));
 
@@ -68,14 +76,14 @@ public class AddEventCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple names - only the last name accepted
         assertParseSuccess(parser, EVENT_NAME_DESC_MEETING + EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple event descriptions - only the last description accepted
@@ -83,7 +91,7 @@ public class AddEventCommandParserTest {
                         + EVENT_DESC_DESC_MEETING + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
                         + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
                         + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple dates - last date accepted
@@ -91,7 +99,7 @@ public class AddEventCommandParserTest {
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_MEETING + EVENT_DATE_DESC_DOCTORAPPT
                         + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
                         + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple times - last start time accepted
@@ -99,7 +107,7 @@ public class AddEventCommandParserTest {
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_MEETING
                         + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
                         + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple times - last end time accepted
@@ -107,14 +115,14 @@ public class AddEventCommandParserTest {
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_MEETING + EVENT_END_TIME_DESC_DOCTORAPPT
                         + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_MEETING + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
 
         // multiple indices - all accepted
@@ -122,19 +130,50 @@ public class AddEventCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_MEETING + EVENT_ADDRESS_DESC_DOCTORAPPT
-                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_MEETING,
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_MEETING
+                        + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
+
+        // multiple tags - all accepted
+        Event expectedEventMultipleTags = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventTags(VALID_TAG_APPOINTMENT, VALID_TAG_MEETING)
+                .withEventContacts() // event is not created with any contacts in parser
+                .build();
+        assertParseSuccess(parser, EVENT_NAME_DESC_DOCTORAPPT
+                + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
+                + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_MEETING + EVENT_ADDRESS_DESC_DOCTORAPPT
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_MEETING
+                        + EVENT_TAG_DESC_DOCTORAPPT + EVENT_TAG_DESC_MEETING,
+                new AddEventCommand(expectedEventMultipleTags, expectedIndices));
 
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero indices
-        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).withEventContacts().build();
+        Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventTags(VALID_TAG_APPOINTMENT)
+                .withEventContacts()
+                .build();
         assertParseSuccess(parser, EVENT_NAME_DESC_DOCTORAPPT
                         + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
-                        + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT + EVENT_TAG_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, new HashSet<>()));
+
+        // zero event tags
+        expectedEvent = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventTags()
+                .withEventContacts()
+                .build();
+
+        Set<Index> expectedIndices = new HashSet<>();
+        expectedIndices.add(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1)));
+
+        assertParseSuccess(parser, EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
+                        + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
+                        + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                new AddEventCommand(expectedEvent, expectedIndices));
     }
 
     @Test
@@ -232,6 +271,13 @@ public class AddEventCommandParserTest {
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
                         + INVALID_EVENT_CONTACT_INDEX,
                 MESSAGE_INVALID_INDEX);
+
+        // invalid event tag
+        assertParseFailure(parser, EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_START_TIME_DESC_DOCTORAPPT
+                        + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
+                        + EVENT_CONTACT_INDEX_DESC_MEETING + INVALID_TAG_DESC + VALID_TAG_APPOINTMENT,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_EVENT_NAME_DESC + EVENT_DESC_DESC_DOCTORAPPT

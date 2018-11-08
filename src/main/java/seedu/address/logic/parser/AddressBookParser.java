@@ -17,6 +17,8 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
+import seedu.address.logic.commands.GenerateLocationCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportContactsCommand;
@@ -25,6 +27,7 @@ import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShowLocationCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -67,6 +70,10 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
+        case ShowLocationCommand.COMMAND_WORD:
+        case ShowLocationCommand.COMMAND_WORD_ALIAS:
+            return new ShowLocationCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_WORD_ALIAS:
             return new DeleteCommandParser().parse(arguments);
@@ -78,6 +85,9 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
         case FindCommand.COMMAND_WORD_ALIAS:
             return new FindCommandParser().parse(arguments);
+
+        case FindEventCommand.COMMAND_WORD:
+            return new FindEventCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_ALIAS:
@@ -125,6 +135,11 @@ public class AddressBookParser {
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommand();
+
+        case GenerateLocationCommand.COMMAND_WORD:
+        case GenerateLocationCommand.COMMAND_WORD_ALIAS:
+            return new GenerateLocationCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
