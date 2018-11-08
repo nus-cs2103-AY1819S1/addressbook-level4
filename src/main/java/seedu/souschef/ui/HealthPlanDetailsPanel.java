@@ -21,8 +21,10 @@ import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.commons.events.ui.MealPlanPanelSelectionChangedEvent;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.healthplan.Scheme;
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
-import seedu.souschef.model.planner.Meal;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.recipe.Recipe;
 
 
@@ -150,27 +152,27 @@ public class HealthPlanDetailsPanel extends GenericListPanel<HealthPlan> {
         //given a list of days,
         //iterate through the list to get
         for (int i = 0; i < days.size(); i++) {
-            if (!days.get(i).getMeal(Meal.Slot.BREAKFAST).isEmpty()) {
+            if (!days.get(i).getMeal(Breakfast.INDEX).isEmpty()) {
                 Recipe recipe =
-                        recipeMatching(days.get(i).getMeal(Meal.Slot.BREAKFAST).getRecipe().getName().fullName.trim());
+                        recipeMatching(days.get(i).getMeal(Breakfast.INDEX).getRecipe().getName().fullName.trim());
                 recipe.getIngredients().forEach((def, port)-> {
                     if (calorieLibrary.containsKey(def.getName().toString().toLowerCase().trim())) {
                         totalCalFromDays += this.calorieLibrary.get(def.getName().toString().toLowerCase().trim());
                     }
                 });
             }
-            if (!days.get(i).getMeal(Meal.Slot.LUNCH).isEmpty()) {
+            if (!days.get(i).getMeal(Lunch.INDEX).isEmpty()) {
                 Recipe recipe =
-                        recipeMatching(days.get(i).getMeal(Meal.Slot.LUNCH).getRecipe().getName().fullName.trim());
+                        recipeMatching(days.get(i).getMeal(Lunch.INDEX).getRecipe().getName().fullName.trim());
                 recipe.getIngredients().forEach((def, port)-> {
                     if (calorieLibrary.containsKey(def.getName().toString().toLowerCase().trim())) {
                         totalCalFromDays += this.calorieLibrary.get(def.getName().toString().toLowerCase().trim());
                     }
                 });
             }
-            if (!days.get(i).getMeal(Meal.Slot.DINNER).isEmpty()) {
+            if (!days.get(i).getMeal(Dinner.INDEX).isEmpty()) {
                 Recipe recipe =
-                        recipeMatching(days.get(i).getMeal(Meal.Slot.DINNER).getRecipe().getName().fullName.trim());
+                        recipeMatching(days.get(i).getMeal(Dinner.INDEX).getRecipe().getName().fullName.trim());
                 recipe.getIngredients().forEach((def, port)-> {
                     if (calorieLibrary.containsKey(def.getName().toString().toLowerCase().trim())) {
                         totalCalFromDays += this.calorieLibrary.get(def.getName().toString().toLowerCase().trim());

@@ -367,8 +367,18 @@ with 3 empty *Meal* objects in the _mealList_.
 as they have the same *LocalDate* _date_. This is to ensure no duplication of dates
 within the Meal Planner.
 
-* *Meal*: encapsulates a *Optional<Recipe>* _recipe_ and an int _slot_ indicating which
-meal slot each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner).
+* *Meal*: abstract class which encapsulates a *Optional<Recipe>* _recipe_, an *int* _index_
+indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner),
+and a *String* _slot_ containing its corresponding name.
+
+* *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
+Contains a predefined integer index and a predefined String slot name.
+
+* *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
+Contains a predefined integer index and a predefined String slot name.
+
+* *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
+Contains a predefined integer index and a predefined String slot name.
 
 ** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
 ****
@@ -416,8 +426,8 @@ Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 The select command selects a recipe of a specified meal of a specified day and displays the details
 of the recipe (ingredients, instructions, etc) in the DetailPanel. +
 *MealPlannerParser* invokes the parseMealRecipe() command of *SelectCommandParser*. The desired
-index and meal slot are parsed from the user input and used to extract the _recipe_ from the
-specified day's desired meal slot. Using this _recipe_, the _recipeModel_ is searched and the
+index and meal index are parsed from the user input and used to extract the _recipe_ from the
+specified day's desired meal index. Using this _recipe_, the _recipeModel_ is searched and the
 index of the matching recipe is returned. +
 The index and the _recipeModel_ are then passed to
 a *SelectCommand* which executes the displaying of the recipe details in the same manner as
@@ -992,8 +1002,8 @@ Use case ends.
 
 1. User requests to list available recipes.
 2. System shows list of available recipes.
-3. User selects desired recipe and adds it to the desired meal slot.
-4. System shows the recipe listed under the indicated meal slot.
+3. User selects desired recipe and adds it to the desired meal index.
+4. System shows the recipe listed under the indicated meal index.
 +
 Use case ends.
 
@@ -1005,7 +1015,7 @@ Use case ends.
 1. User requests to view current meal plan.
 2. System shows current meal plan.
 3. User requests to delete unwanted recipe.
-4. System shows specified meal slot as empty.
+4. System shows specified meal index as empty.
 +
 Use case ends.
 
@@ -1024,8 +1034,8 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view recipe for a specific meal slot.
-2. System shows the full recipe of the specified meal slot.
+1. User requests to view recipe for a specific meal index.
+2. System shows the full recipe of the specified meal index.
 +
 Use case ends.
 
