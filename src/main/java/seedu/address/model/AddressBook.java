@@ -208,7 +208,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                     fileReader.incrementAddCounter();
                 }
             } catch (ParseException e) {
-
+                // invalid values in contact entry, skip this 
             }
         }
     }
