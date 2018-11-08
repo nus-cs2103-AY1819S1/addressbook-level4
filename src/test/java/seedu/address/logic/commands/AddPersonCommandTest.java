@@ -87,11 +87,6 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void importData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
