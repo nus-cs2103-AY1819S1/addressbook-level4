@@ -129,6 +129,7 @@ Format:
 `edit 1 t/18-12-19 d/a updated detailed description of what needs to be done`
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
+
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
