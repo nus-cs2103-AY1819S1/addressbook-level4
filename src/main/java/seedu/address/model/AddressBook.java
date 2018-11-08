@@ -148,6 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         if (key.getTags().contains(new Tag("Patient"))) {
             for (Appointment patientApp : ((Patient) key).getUpcomingAppointments()) {
+                outerloop:
                 for (Person person : persons) {
                     if (person.getTags().contains(new Tag("Doctor"))) {
                         Doctor doctor = ((Doctor) person);
@@ -155,14 +156,15 @@ public class AddressBook implements ReadOnlyAddressBook {
                             if (patientApp.getAppointmentId() == doctorApp.getAppointmentId()) {
                                 doctor.deleteAppointment(patientApp);
                                 appointments.remove(patientApp);
-                                break;
+                                break outerloop;
                             }
                         }
                     }
                 }
             }
-        } else {
+        } else if (key.getTags().contains(new Tag("Doctor"))) {
             for (Appointment doctorApp : ((Doctor) key).getUpcomingAppointments()) {
+                outerloop:
                 for (Person person : persons) {
                     if (person.getTags().contains(new Tag("Patient"))) {
                         Patient patient = ((Patient) person);
@@ -170,7 +172,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                             if (patientApp.getAppointmentId() == doctorApp.getAppointmentId()) {
                                 patient.deleteAppointment(doctorApp);
                                 appointments.remove(doctorApp);
-                                break;
+                                break outerloop;
                             }
                         }
                     }
