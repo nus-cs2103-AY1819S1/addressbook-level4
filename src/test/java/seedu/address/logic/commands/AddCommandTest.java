@@ -153,6 +153,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateGameMode(String newGameModeName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
