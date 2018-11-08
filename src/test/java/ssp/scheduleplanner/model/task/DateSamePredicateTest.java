@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class DateSamePredicateTest {
     private static final String SYSTEM_DATE = "130818";
-    private static final String SYSTEM_DATE_CHECK = "130818";
+    private static final String SYSTEM_DATE_CHECK = SYSTEM_DATE;
 
     @Test
     public void dateSamePredicate_equal_success() {

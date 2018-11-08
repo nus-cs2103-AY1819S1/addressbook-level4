@@ -15,10 +15,9 @@ public class DateWeekSamePredicateTest {
     @Test
     public void dateWeekSamePredicate_equal_success() {
         List<String> dateList = new ArrayList<String>();
-        List<String> dateListEqual = new ArrayList<>();
+        List<String> dateListEqual = dateList;
         Calendar c = Calendar.getInstance();
         dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
-        dateListEqual.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
 
         assertEquals(dateList, dateListEqual);
         assertTrue(dateList.equals(dateListEqual));
