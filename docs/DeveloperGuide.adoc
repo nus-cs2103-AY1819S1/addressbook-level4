@@ -478,7 +478,7 @@ This section explains the implementation of the features associated with the Sch
 
 ==== Design considerations
 
-For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatability with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week's schedule is stored.
+For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week's schedule is stored.
 
 ===== Aspect: Storage of schedule in person
 
@@ -487,16 +487,16 @@ For EditCommand, despite the fact that schedule piggybacks off the original edit
 ** Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.
 
 * **Alternative 2:** (current implementation) Store weekly schedule
-** Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.
-** Cons: Explict details of the schedule may be lost such as an event that appears only once a year.
+** Pros: Cheap storage as only a subset of schedule needs to be stored. Possible O(1) access times.
+** Cons: Explicit details of the schedule may be lost such as an event that appears only once a year.
 
 We have chosen the second option for the ease of storage management and low access times.
 To store the schedule, a unique approach of using bit counters is used.
 Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
 1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
-This 336 bit string is then stored as a string in the xml.
+This 336 bit-string is then stored as a string in the xml.
 However, in the application, it will stored as a two-dimensional array [7][48].
-This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bit-string into an array.
 
 Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application
 
@@ -506,7 +506,7 @@ As manipulating bit strings may be complicated, getter, setter and merger method
 
 ===== Aspect: Schedule Update
 
-As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.
+As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.
 
 ===== Aspect: MaxSchedule Command
 
@@ -515,6 +515,9 @@ Similarity, as bitwise operations are allowed, two or more persons' schedule are
 Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
 It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.
 
+The sequence diagram of MaxSchedule command is illustrated below.
+
+image::MaxScheduleDiagram.png[width="800"]
 
 // end::schedule[]
 
@@ -544,21 +547,29 @@ This timetable is also not stored as it is inside the xml but immediately transl
 ** Pros: Academic events can be downloaded. Many students are already using this platform to store their academic events.
 ** Cons: Non-academic events cannot be downloaded from this source.
 
-NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manaully update those slots.
+NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manually update those slots.
 This way, we will be able to provide the most convenient way for the student to populate the schedule.
 
 ===== Aspect: Timetable Download
 
 As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/... full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.
 
-A full valid example of the nusmods link is as follows:
+The sequence diagram for the timetable download is illustrated below.
+
+image::TimeTableScheduleDiagram.png[width="800"]
+
+
+This is the valid short link of the nusmod timetable.
+```
+http://modsn.us/H4v8s
+```
+
+The above short link will be parsed into the full nusmods link as followed:
 ```
 https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&CS2103=LEC:1,TUT:01&CS2105=LEC:1,TUT:16&CS2106=LAB:09,LEC:1,TUT:09&MA1521=LEC:1,TUT:4&UCV2209=SEM:01
 ```
 
-image::TimeTableScheduleDiagram.png[width="800"]
-
-How to obtain the full timetable.
+Breakdown on how to obtain the full timetable and convert it into a schedule.
 
 Step 1. We can easily obtain the person's timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.
 
@@ -566,7 +577,11 @@ Step 2. Then, to obtain the full details of the module (including all lessons an
 
 Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.
 
-Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.
+Step 4. The filtered lessons is then converted into an arraylist of Slot.
+
+Step 5. The arraylist of Slot will be passed in a Schedule constructor to generate a new schedule.
+
+Step 6. The new schedule object is returned to the application.
 
 // end::timetable[]
 
