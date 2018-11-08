@@ -525,6 +525,7 @@ fetch the task associated to that hashcode, in order to check its completion sta
 image::ListCommandSequenceDiagram.png[width="1200"]
 // end::list[]
 
+// tag::gamemode-impl[]
 === Game Manager
 
 ==== Current Implementation
@@ -544,6 +545,8 @@ image::GameManagerSequenceDiagram.png[width="1200"]
 * **Alternative 2:** Embedding XP calculation logic within task completion logic.
 ** Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.
 ** Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.
+
+// end::gamemode-impl[]
 
 === Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
