@@ -45,8 +45,8 @@ public class DeleteEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<List<Event>> lastShownList = model.getFilteredEventListByDate();
-        List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
-        Event eventToDelete = getEventToDelete(listToRemoveFrom);
+        List<Event> targetDateList = getTargetDateList(lastShownList);
+        Event eventToDelete = getEventToDelete(targetDateList);
 
         model.deleteEvent(eventToDelete);
         model.commitAddressBook();

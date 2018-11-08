@@ -69,8 +69,8 @@ public class EditEventAddressCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<List<Event>> lastShownList = model.getFilteredEventListByDate();
-        List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
-        Event eventToEdit = getEventToDelete(listToRemoveFrom);
+        List<Event> targetDateList = getTargetDateList(lastShownList);
+        Event eventToEdit = getEventToDelete(targetDateList);
 
         Event editedEvent = createEditedEvent(eventToEdit, newAddress);
 
