@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import javax.xml.bind.UnmarshalException;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -65,13 +67,8 @@ public class PortManager implements Porter {
     @Override
     public Deck importDeck(String stringPath) throws DeckImportException {
         Path filepath = makeFilePath(stringPath);
-        try {
-            XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
-            return getImportedDeck(xmlDeck);
-        } catch (DataConversionException e) {
-            e.printStackTrace();
-            throw new DeckImportException(MESSAGE_IMPORTED_DECK_INVALID);
-        }
+        XmlExportableDeck xmlDeck = loadDeckFromFile(filepath);
+        return convertDeck(xmlDeck);
     }
 
     /**
@@ -84,11 +81,11 @@ public class PortManager implements Porter {
         try {
             xmlDeck = XmlUtil.getDataFromFile(filepath, XmlExportableDeck.class);
             return xmlDeck;
+        } catch (javax.xml.bind.JAXBException e) {
+            logger.info("Illegal values found in " + filepath + ": " + e.getMessage());
+            throw new DeckImportException(MESSAGE_IMPORTED_DECK_INVALID);
         } catch (FileNotFoundException e) {
             throw new DeckImportException(String.format(MESSAGE_FILEPATH_INVALID, filepath));
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 
@@ -98,13 +95,12 @@ public class PortManager implements Porter {
      * If contents are invalid, throw DataConversionException
      */
 
-    private Deck getImportedDeck(XmlExportableDeck targetDeck) throws DataConversionException {
+    private Deck convertDeck(XmlExportableDeck targetDeck) {
         try {
             return targetDeck.toModelType();
         } catch (IllegalValueException e) {
-            e.printStackTrace();
             logger.info("Illegal values found in " + targetDeck + ": " + e.getMessage());
-            throw new DataConversionException(e);
+            throw new DeckImportException(MESSAGE_IMPORTED_DECK_INVALID);
         }
 
     }
