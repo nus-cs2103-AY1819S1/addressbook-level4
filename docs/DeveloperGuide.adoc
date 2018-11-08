@@ -524,15 +524,25 @@ The GameManager class is responsible for the gamification aspects of WatchOver.
 
 image::GameManagerSequenceDiagram.png[width="1200"]
 
-A GameManager object is owned by a TaskManager, available to be called by its other methods. **Any calls from anywhere requiring XP evaluation must be passed through the current GameManager**.
+A GameManager object is owned by a TaskManager, available to be called by its other methods. **Any calls from anywhere
+requiring XP evaluation must be passed through the current GameManager**.
 
-The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks for XP, delegated from the GameManager.
+The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
+for XP, delegated from the GameManager.
 
-The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode can decide how much to award. The default FlatMode awards based on `Status` of the task, where `IN_PROGRESS` tasks are awarded a full amount of XP whereas `OVERDUE` tasks are awarded somewhat less.
+The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
+can decide how much to award. The default FlatMode awards based on `Status` of the task, where `IN_PROGRESS` tasks are
+awarded a full amount of XP whereas `OVERDUE` tasks are awarded somewhat less.
 
-GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For example, in the `FlatMode()` constructor, arguments can be specified for how much XP a completed task should obtain, as well as how much XP an overdue task should obtain.
+GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
+example, in the `FlatMode()` constructor, arguments can be specified for how much XP a completed task should obtain,
+as well as how much XP an overdue task should obtain.
 
-One key limitation of this implementation is that the start date of the task cannot be determined, as only the due date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it to each task by measuring how long the user took to complete the task relative to how distant the start and due dates are. This limitation might be overcome if a creation date is implemented as a field in Task. 
+One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
+date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
+to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
+are. This limitation might be overcome if a creation date is implemented as a field in Task.
 
 ==== Design Considerations
 
