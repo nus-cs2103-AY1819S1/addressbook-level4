@@ -30,6 +30,7 @@ public class LeaveApplication {
         this.dates.addAll(dates
                 .stream().collect(Collectors.toSet())
                 .stream().collect(Collectors.toList()));
+        Collections.sort(this.dates);
     }
 
     public LeaveApplication(LeaveApplicationWithEmployee leaveApplication) {
