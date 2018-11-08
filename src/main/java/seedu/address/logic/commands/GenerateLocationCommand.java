@@ -60,7 +60,7 @@ public class GenerateLocationCommand extends Command {
             throw new CommandException(MESSAGE_EVENT_DOES_NOT_EXIST);
         }
 
-        String meetingPlaceId = EmbedGoogleMaps.getYihPlaceId();
+        String meetingPlaceId = EmbedGoogleMaps.getMeetingPlaceId();
         EventsCenter.getInstance().post(new RandomMeetingLocationGeneratedEvent(meetingPlaceId));
         return new CommandResult(MESSAGE_SUCCESS);
     }
