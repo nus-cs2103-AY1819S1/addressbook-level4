@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
