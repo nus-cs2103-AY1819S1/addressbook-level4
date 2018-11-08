@@ -29,7 +29,9 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently, this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
+Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*.
+SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently,
+this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
 
 
 == Quick Start
@@ -124,7 +126,7 @@ Due to how the Date class was implemented, there is an unintended behavior. Any 
 will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
 1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
 
-=== Listing All Tasks
+=== Viewing All Tasks
 
 Lists all tasks in the schedule planner. +
 ====
@@ -164,6 +166,105 @@ If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be r
 Use [blue]`list`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
 For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
  to edit.
+
+//tag::archivetask[]
+
+=== Archiving a Task
+
+Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
+
+====
+[blue]`archive INDEX`
+====
+
+Example:
+====
+[blue]`archive 1` +
+Task with index 1 is removed from the task list.
+
+image::archiveTask.png[width="400"]
+====
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
+[TIP]
+Use the `list` command to find out the index of the task to be archived.
+View <<Viewing Archived Tasks>> for detailed guide.
+
+//end::archivetask[]
+
+// tag::listarchived[]
+=== Viewing Archived Tasks
+
+Shows a list of archived tasks. +
+====
+[blue]`listarchived`
+====
+
+Example:
+====
+We are continuing from example listed in <<Archiving a Task>>. +
+
+Step 1: [blue]`archive 1` +
+Below is the screenshot of task list that will appear on screen after step 1.
+
+image::archiveTask.png[width="400"]
+
+Step 2: [blue]`listarchived`
+
+Below is the screenshot of archived task list that will appear on screen after step 2.
+
+image::listArchive.png[width="400"]
+
+====
+// end::listarchived[]
+
+=== Viewing Overdue Tasks
+
+Shows a list all the overdue tasks. +
+====
+[blue]`listoverdue`
+====
+
+// tag::listday[]
+=== Viewing Tasks Due Today
+
+Shows a list of tasks that are due today. +
+====
+[blue]`listday`
+====
+// end::listday[]
+
+// tag::listweek[]
+=== Viewing Tasks Due This Week
+
+Shows a list of tasks that are due from current date till the closest Sunday. +
+====
+[blue]`listweek`
+====
+// end::listweek[]
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
+
+image::ListWeekCommand_UG_Before_After.png[width="700"]
+====
+
+
+=== Viewing Tasks Due This Month
+
+Shows a list of tasks that are due from current date till the end of the current Month. +
+====
+[blue]`listmonth`
+====
+
+Example:
+====
+input: [blue]`listmonth` on the date 021118 +
+output: Shows a list of tasks from 021118 to end of the month which is 301118.
+
+image::ListMonth_Before_After.png[width="400"]
+====
 
 
 === Finding Tasks by Name
@@ -231,75 +332,6 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
 Use the `list` command to find out the index of the task to be deleted.
 
-tag::archivetask[]
-=== Archiving a Task
-
-Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
-
-====
-[blue]`archive INDEX`
-====
-
-Example:
-====
-input: [blue]`archive 4` +
-output: Task with index 4 is removed from the current list and saved in the archived list.
-====
-The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
-The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
-[TIP]
-Use the `list` command to find out the index of the task to be archived.
-end::archivetask[]
-
-// tag::listarchived[]
-=== Viewing Archived Tasks
-
-Shows a list of archived tasks. +
-====
-[blue]`listarchived`
-====
-// end::listarchived[]
-// tag::listday[]
-=== Viewing Tasks Due Today
-
-Shows a list of tasks that are due today. +
-====
-[blue]`listday`
-====
-// end::listday[]
-
-// tag::listweek[]
-=== Viewing Tasks Due This Week
-
-Shows a list of tasks that are due from current date till the closest Sunday. +
-====
-[blue]`listweek`
-====
-// end::listweek[]
-Example:
-====
-input: [blue]`listweek` on the date 021118 +
-output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
-
-image::ListWeekCommand_UG_Before_After.png[width="700"]
-====
-
-
-=== Viewing Tasks Due This Month
-
-Shows a list of tasks that are due from current date till the end of the current Month. +
-====
-[blue]`listmonth`
-====
-
-Example:
-====
-input: [blue]`listmonth` on the date 021118 +
-output: Shows a list of tasks from 021118 to end of the month which is 301118.
-
-image::ListMonth_Before_After.png[width="400"]
-====
-
 // tag::firstday[]
 === Generating Weeks in the Academic Calendar
 
@@ -339,12 +371,6 @@ will be rejected as they are considered as more than one set of date.
 3. The [blue]`DDMMYY` must be a Monday.
 // end::firstday2[]
 
-=== Listing Overdue Tasks
-
-Shows a list all the overdue tasks. +
-====
-[blue]`listoverdue`
-====
 
 // tag::showtags[]
 === Displaying Used Tags
