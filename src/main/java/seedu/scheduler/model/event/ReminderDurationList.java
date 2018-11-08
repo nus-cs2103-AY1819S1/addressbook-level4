@@ -83,6 +83,15 @@ public class ReminderDurationList {
 
 
     /**
+     * add ReminderDurationList to the set
+     * @param durationList
+     */
+    public void addAll(ReminderDurationList durationList) {
+        values.addAll(durationList.get());
+    }
+
+
+    /**
      * Get string input for the event
      * @return string input
      */

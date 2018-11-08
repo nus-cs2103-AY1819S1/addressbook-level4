@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.scheduler.logic.commands.AddCommand;
+import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.Command;
 import seedu.scheduler.logic.commands.DeleteCommand;
@@ -58,6 +59,10 @@ public class SchedulerParser {
         case EditCommand.COMMAND_ALIAS_ONE:
         case EditCommand.COMMAND_ALIAS_TWO:
             return new EditCommandParser().parse(arguments);
+
+
+        case AddReminderCommand.COMMAND_WORD:
+            return new AddReminderCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS_ONE:

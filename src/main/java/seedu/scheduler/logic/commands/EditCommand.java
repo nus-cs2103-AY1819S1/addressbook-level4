@@ -63,9 +63,9 @@ public class EditCommand extends Command {
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
-    private final Index index;
-    private final EditEventDescriptor editEventDescriptor;
-    private final Flag[] flags;
+    protected final Index index;
+    protected final EditEventDescriptor editEventDescriptor;
+    protected final Flag[] flags;
 
     /**
      * @param index               of the event in the filtered event list to edit
