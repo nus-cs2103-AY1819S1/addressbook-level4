@@ -21,8 +21,8 @@ approximately 25 KLoC.
 
 It is cross-platform supported and can be used on both Windows-based and Unix-based platforms.
 
-== Summary of contributions
-
+== Summary of Contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
 * *Major enhancement*: Added the *user management* feature
 ** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system on his
  behalf.

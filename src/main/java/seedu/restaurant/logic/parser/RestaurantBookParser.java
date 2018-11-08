@@ -3,6 +3,7 @@ package seedu.restaurant.logic.parser;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -265,7 +266,7 @@ public class RestaurantBookParser {
 
         case TodaySpecialCommand.COMMAND_WORD:
         case TodaySpecialCommand.COMMAND_ALIAS:
-            return new TodaySpecialCommand();
+            return new TodaySpecialCommand(Calendar.getInstance());
 
         case DiscountItemCommand.COMMAND_WORD:
         case DiscountItemCommand.COMMAND_ALIAS:

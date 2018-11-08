@@ -36,7 +36,7 @@ public class DiscountItemCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    public void parse_invalidIndex_failure() {
         // negative index
         assertParseFailure(parser, "-5" + ITEM_PERCENT_DESC, MESSAGE_INVALID_FORMAT);
 
@@ -45,6 +45,9 @@ public class DiscountItemCommandParserTest {
 
         // smaller ending index
         assertParseFailure(parser, "3 ei/2" + ITEM_PERCENT_DESC, MESSAGE_INVALID_FORMAT);
+
+        // invalid ending index
+        assertParseFailure(parser, "3 ei/some string" + ITEM_PERCENT_DESC, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
