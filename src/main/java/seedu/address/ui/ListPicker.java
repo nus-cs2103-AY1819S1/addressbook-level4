@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ChangeOnListPickerClickEvent;
 import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 
 /**
@@ -39,6 +40,7 @@ public class ListPicker extends UiPart<Region> {
                 assignmentList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
                 assignmentList.setDisable(false);
                 raise(new ListPickerSelectionChangedEvent(2));
+                raise(new ChangeOnListPickerClickEvent(2));
             }
         });
         // Active button is selected
@@ -52,6 +54,7 @@ public class ListPicker extends UiPart<Region> {
                 assignmentList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
                 assignmentList.setDisable(false);
                 raise(new ListPickerSelectionChangedEvent(1));
+                raise(new ChangeOnListPickerClickEvent(1));
             }
         });
         // Assignment button is selected

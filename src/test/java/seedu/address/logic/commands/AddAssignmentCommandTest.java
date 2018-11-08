@@ -101,6 +101,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public int getState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean alreadyContainsUsername(String username, Person ignore) {
             throw new AssertionError("This method should not be called.");
         }
@@ -138,6 +143,11 @@ public class AddAssignmentCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFromArchive(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
