@@ -134,12 +134,17 @@ public class ArgumentTokenizerTest {
     @Test
     public void equalsMethod() {
         Prefix aaa = new Prefix("aaa");
+        Flag bbb = new Flag("bbb");
 
         assertEquals(aaa, aaa);
+        assertEquals(bbb, bbb);
         assertEquals(aaa, new Prefix("aaa"));
+        assertEquals(bbb, new Flag("bbb"));
 
         assertNotEquals(aaa, "aaa");
+        assertNotEquals(bbb, "bbb");
         assertNotEquals(aaa, new Prefix("aab"));
+        assertNotEquals(bbb, new Flag("bbc"));
     }
 
 }

@@ -20,7 +20,7 @@ import seedu.scheduler.model.util.SampleSchedulerDataUtil;
  */
 public class EventBuilder {
     public static final UUID DEFAULT_EVENTUID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a621");
-    public static final UUID DEFAULT_EVENTSETUID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632");
+    public static final UUID DEFAULT_EVENTSETUID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633");
     public static final String DEFAULT_EVENT_NAME = "CS2103 Lecture";
     public static final LocalDateTime DEFAULT_START_DATE_TIME =
             LocalDateTime.of(2018, 9, 21, 16, 0);

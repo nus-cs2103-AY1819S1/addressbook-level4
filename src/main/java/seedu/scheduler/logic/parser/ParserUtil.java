@@ -132,10 +132,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String eventName} into a {@code EventName}.
+     * Parses a {@code String unformattedDateTime} into a {@code DateTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code eventName} is invalid.
+     * @throws ParseException if the given {@code unformattedDateTime} is invalid.
      */
     public static DateTime parseDateTime(String unformattedDateTime) throws ParseException {
         requireNonNull(unformattedDateTime);
@@ -182,7 +182,7 @@ public class ParserUtil {
      */
     public static Duration parseReminderDuration(String reminderDuration) throws ParseException {
         requireNonNull(reminderDuration);
-        String parseDuration = reminderDuration;
+        String parseDuration = reminderDuration.trim();
         parseDuration.replace(" ", "");
         parseDuration = "PT".concat(parseDuration.replace("d", "D"));
         parseDuration = parseDuration.replace("h", "H");
@@ -212,6 +212,21 @@ public class ParserUtil {
             reminderDurationList.add(parseReminderDuration(reminderDuration));
         }
         return reminderDurationList;
+    }
+
+    /**
+     * Parses a {@code String unformattedDateTime} into a pretty printed string
+     * Leading and trailing whitespaces will be trimmed.
+     * Uses {@link #parseDateTime(String unformattedDateTime)}
+     *
+     * Returns a pretty printed date time string
+     */
+    public static String parseDateTimePretty(String unformattedDateTime) {
+        try {
+            return parseDateTime(unformattedDateTime).getPrettyString();
+        } catch (ParseException e) {
+            return "Invalid";
+        }
     }
 
 }

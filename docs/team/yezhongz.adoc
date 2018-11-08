@@ -1,26 +1,27 @@
-= John Doe - Project Portfolio
+= Zhang Yezhong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: iScheduler Xs Max
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+iScheduler Xs Max is a desktop event scheduling application used for personal use. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: added *the ability to sync with Google Calendar commands*
+** What it does: allows the user to create/edit/delete the events on local database as well as Google Calendar in real time.
+** Justification: This feature improves the product significantly because a user might want to push local events to Goole Calendar/ get events from Google instead of using a blank local databse.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
+* *Minor enhancement 1*: added a offline mode switch to allow user use it offline without any error.
+* *Minor enhancement 2*: added a welcome page and automatically becomes the log-in page after few seconds.
+The section below o be Updated...
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:

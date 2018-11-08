@@ -3,6 +3,7 @@ package seedu.scheduler.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_ALL;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -111,8 +112,11 @@ public class CommandTestUtil {
     // empty string not allowed in event names
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "  ";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String[] INVALID_START_END_DATETIMES = {" " + PREFIX_START_DATE_TIME + "2018-01-02",
+        " " + PREFIX_END_DATE_TIME + "2018-01-01"};
 
     public static final String VALID_FLAG_ALL = " " + FLAG_ALL;
+    public static final String VALID_FLAG_UPCOMING = " " + FLAG_UPCOMING;
 
     public static final String POSTFIX_ALL = " -a";
     public static final String POSTFIX_UPCOMING = " -u";

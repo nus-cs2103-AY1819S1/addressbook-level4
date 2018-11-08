@@ -59,7 +59,8 @@ public class RepeatEventGenerator {
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
         Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
                 targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
+                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
@@ -87,7 +88,8 @@ public class RepeatEventGenerator {
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
         Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
                 targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
+                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
@@ -115,7 +117,8 @@ public class RepeatEventGenerator {
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
         Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
                 targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
+                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
@@ -154,7 +157,8 @@ public class RepeatEventGenerator {
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
         Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
                 targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
+                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,7 +31,10 @@ public class ParserUtilTest {
     private static final String VALID_EVENT_NAME = "Study with me";
     private static final String VALID_DESCRIPTION = "";
     private static final String VALID_VENUE = "";
-    private static final String VALID_REPEAT_TYPE = "daily";
+    private static final String VALID_REPEAT_TYPE_DAILY = "daily";
+    private static final String VALID_REPEAT_TYPE_WEEKLY = "weekly";
+    private static final String VALID_REPEAT_TYPE_MONTHLY = "monthly";
+    private static final String VALID_REMINDER_DURATION = "1H30M";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -95,6 +99,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseDateTime_multipleParsedValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("April 1st and May 2nd"));
+    }
+
+    @Test
     public void parseDescription_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
     }
@@ -143,17 +152,48 @@ public class ParserUtilTest {
     @Test
     public void parseRepeatType_validValueWithoutWhitespace_returnsRepeatType() throws Exception {
         RepeatType expectedRepeatType = RepeatType.DAILY;
-        assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(VALID_REPEAT_TYPE));
+        assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(VALID_REPEAT_TYPE_DAILY));
     }
 
     @Test
     public void parseRepeatType_validValueWithWhitespace_returnsTrimmedRepeatType() throws Exception {
-        String repeatTypeWithWhitespace = WHITESPACE + VALID_REPEAT_TYPE + WHITESPACE;
-        RepeatType expectedRepeatType = RepeatType.DAILY;
-        assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(repeatTypeWithWhitespace));
+        String dailyRepeatTypeWithWhitespace = WHITESPACE + VALID_REPEAT_TYPE_DAILY + WHITESPACE;
+        RepeatType expectedDailyRepeatType = RepeatType.DAILY;
+        String weeklyRepeatTypeWithWhitespace = WHITESPACE + VALID_REPEAT_TYPE_WEEKLY + WHITESPACE;
+        RepeatType expectedWeeklyRepeatType = RepeatType.WEEKLY;
+        String monthlyRepeatTypeWithWhitespace = WHITESPACE + VALID_REPEAT_TYPE_MONTHLY + WHITESPACE;
+        RepeatType expectedMonthlyRepeatType = RepeatType.MONTHLY;
+        assertEquals(expectedDailyRepeatType, ParserUtil.parseRepeatType(dailyRepeatTypeWithWhitespace));
+        assertEquals(expectedWeeklyRepeatType, ParserUtil.parseRepeatType(weeklyRepeatTypeWithWhitespace));
+        assertEquals(expectedMonthlyRepeatType, ParserUtil.parseRepeatType(monthlyRepeatTypeWithWhitespace));
     }
 
-    // [TODO] add more test for various parsing methods
+    @Test
+    public void parseReminderDuration_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseReminderDuration(null);
+    }
+
+    @Test
+    public void parseReminderDuration_validReminderDurationWithoutWhiteSpace_returnsReminderDuration()
+            throws Exception {
+        Duration expectedReminderDuration = Duration.ofHours(1).plusMinutes(30);
+        assertEquals(expectedReminderDuration, ParserUtil.parseReminderDuration(VALID_REMINDER_DURATION));
+    }
+
+    @Test
+    public void parseReminderDuration_validReminderDurationWithWhiteSpace_returnsReminderDuration()
+            throws Exception {
+        String reminderDurationWithWhiteSpace = WHITESPACE + VALID_REMINDER_DURATION + WHITESPACE;
+        Duration expectedReminderDuration = Duration.ofHours(1).plusMinutes(30);
+        assertEquals(expectedReminderDuration, ParserUtil.parseReminderDuration(reminderDurationWithWhiteSpace));
+    }
+
+    @Test
+    public void parseReminderDuration_invalidReminderDuration_returnsReminderDuration()
+            throws Exception {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseReminderDuration("z"));
+    }
 
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {

@@ -3,7 +3,9 @@ package seedu.scheduler.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,6 +22,8 @@ import seedu.scheduler.model.PopUpManager;
 import seedu.scheduler.model.ReadOnlyScheduler;
 import seedu.scheduler.model.Scheduler;
 import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.event.EventList;
+import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.tag.Tag;
 import seedu.scheduler.storage.Storage;
 import seedu.scheduler.testutil.EventBuilder;
@@ -46,7 +50,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validEvent).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()),
+                commandResult.feedbackToUser);
         assertEquals(List.of(validEvent), modelStub.eventsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -59,6 +64,20 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EVENT);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_excessiveEvent_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubAllowAddEventsAttempt();
+        Event validEvent = new EventBuilder().withStartDateTime(LocalDateTime.now())
+                .withEndDateTime(LocalDateTime.now().plusHours(1))
+                .withRepeatType(RepeatType.DAILY)
+                .withRepeatUntilDateTime(LocalDateTime.now().plusYears(1)).build();
+        AddCommand addCommand = new AddCommand(validEvent);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_OVERFLOW_EVENT);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -191,6 +210,25 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+    }
+
+    /**
+     * An empty Model stub that allow attempts to add events to event list.
+     */
+    private class ModelStubAllowAddEventsAttempt extends ModelStub {
+        private final EventList eventList = new EventList();
+
+        @Override
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return false;
+        }
+
+        @Override
+        public void addEvents(List<Event> eventsToAdd) {
+            requireAllNonNull(eventsToAdd);
+            eventList.addEvents(eventsToAdd);
+        }
     }
 
     /**

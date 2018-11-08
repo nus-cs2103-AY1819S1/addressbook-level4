@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.scheduler.model.event.exceptions.EventNotFoundException;
+import seedu.scheduler.model.event.exceptions.EventOverflowException;
 
 /**
  * A list of events that does not allow nulls.
@@ -43,7 +44,7 @@ public class EventList implements Iterable<Event> {
     public void addEvents(List<Event> listToAdd) {
         requireNonNull(listToAdd);
         if (listToAdd.size() > 100) {
-            // doSomething...[TODO]
+            throw new EventOverflowException();
         }
         internalList.addAll(listToAdd);
     }
@@ -92,7 +93,7 @@ public class EventList implements Iterable<Event> {
      * {@code target} must exist in the list.
      */
     public void setEvents(Event target, List<Event> editedEvents, Predicate<Event> predicate) {
-        requireAllNonNull(target, editedEvents);
+        requireAllNonNull(target, editedEvents, predicate);
 
         int i = 0;
         List<Event> filteredList = internalList.stream().filter(predicate).collect(Collectors.toList());
