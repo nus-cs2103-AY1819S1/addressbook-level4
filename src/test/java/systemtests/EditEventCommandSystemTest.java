@@ -26,6 +26,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_LE
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_LECTURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_SEMINAR;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_TUTORIAL;
 
@@ -121,9 +122,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: filtered calendar event list, edit index within bounds of address book and calendar event list ->
         edited */
 
-        // TODO: possible bug with "JS1101" as search keyword
-        //showCalendarEventsWithTitle(KEYWORD_MATCHING_EXACT_TUTORIAL);
-        showCalendarEventsWithTitle("FIN3101");
+        showCalendarEventsWithTitle(VALID_TITLE_SEMINAR);
         index = INDEX_FIRST_ELEMENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + TITLE_DESC_LECTURE;
@@ -136,7 +135,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
          * -> rejected
          */
         //showCalendarEventsWithTitle(KEYWORD_MATCHING_EXACT_TUTORIAL);
-        showCalendarEventsWithTitle("FIN3101");
+        showCalendarEventsWithTitle(VALID_TITLE_SEMINAR);
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         assertCommandFailure(EditEventCommand.COMMAND_WORD + " " + invalidIndex + TITLE_DESC_TUTORIAL,
             Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
@@ -248,7 +247,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
         expectedModel.updateCalendarEvent(
                 expectedModel.getFilteredCalendarEventList().get(toEdit.getZeroBased()), editedCalendarEvent);
-        expectedModel.resetFilteredCalendarEventList();
+        // expectedModel.resetFilteredCalendarEventList();
 
         assertCommandSuccess(command, expectedModel,
             String.format(EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent),

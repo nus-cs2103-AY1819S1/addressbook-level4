@@ -34,6 +34,7 @@ public class CommandTestUtil {
 
     public static final String VALID_TITLE_LECTURE = "CS2103 Lecture";
     public static final String VALID_TITLE_TUTORIAL = "JS1011 Tutorial";
+    public static final String VALID_TITLE_SEMINAR = "FIN3101 Seminar";
     public static final String VALID_DESCRIPTION_LECTURE = "Abstraction, IntelliJ, Gradle";
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
     public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
