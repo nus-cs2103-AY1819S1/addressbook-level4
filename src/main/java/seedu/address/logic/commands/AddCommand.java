@@ -43,6 +43,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_USERNAME = "This username already exists in the address book";
     public static final String MESSAGE_ADMIN_USERNAME = "The username cannot be Admin";
+    public static final String MESSAGE_ASSIGNMENT_DO_NOT_EXIST = "The assignment do not exist";
 
     private final Person toAdd;
 
@@ -69,6 +70,10 @@ public class AddCommand extends Command {
 
         if (toAdd.getUsername().username.equals("Admin")) {
             throw new CommandException(MESSAGE_ADMIN_USERNAME);
+        }
+
+        if (model.containsAssignment(toAdd.getProjects().toString(), null)) {
+            throw new CommandException(MESSAGE_ASSIGNMENT_DO_NOT_EXIST);
         }
 
         model.addPerson(toAdd);

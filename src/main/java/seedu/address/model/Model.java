@@ -171,6 +171,15 @@ public interface Model {
      */
     void updateAssignment(Assignment target, Assignment editedAssignment);
 
+    /**
+     * Checks if the given assignment name is already in the assignmentlist, for the current version.
+     * You can choose to ignore an assignment's name when doing so (i.e. you'er planning to update that assignment)
+     * @param newAssignment the AssignmentName to check against
+     * @param ignore The person to ignore, if any. null for no one.
+     * @return False if it's already in the assignment list, true otherwise
+     */
+    boolean containsAssignment(String newAssignment, Assignment ignore);
+
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
 
