@@ -64,7 +64,6 @@ public class CarparkFinderParser {
         } else if (containsFromFirstLetter(ClearCommand.COMMAND_WORD, commandWord)) {
             return new ClearCommand();
         } else if (containsFromFirstLetter(FindCommand.COMMAND_WORD, commandWord)) {
-            System.out.println("hweeasd");
             return new FindCommandParser().parse(arguments);
         } else if (containsFromFirstLetter(ListCommand.COMMAND_WORD, commandWord)) {
             return new ListCommand();
@@ -87,7 +86,6 @@ public class CarparkFinderParser {
         } else if (containsFromFirstLetter(NotifyCommand.COMMAND_WORD, commandWord)) {
             return new NotifyCommandParser().parse(arguments);
         } else {
-            System.out.println("exception");
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
