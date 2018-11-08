@@ -51,15 +51,13 @@ https://github.com/CS2103-AY1819S1-F10-4/main/issues/228[228].
 ** Tools:
 *** Integrate Netlify to team repo.
 
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=achievements]
+include::../UserGuide.adoc[tag=achievements-usage]
 
 
 == Contributions to the Developer Guide

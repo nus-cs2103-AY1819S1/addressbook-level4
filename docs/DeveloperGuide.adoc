@@ -121,7 +121,7 @@ image::CommandComponentClassDiagram.png[width="1200"]
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::achievements-usage[]
+// tag::achievements[]
 ### 3.1. Achievement mechanism
 
 #### 3.1.1. Structural Overview
@@ -219,7 +219,7 @@ this week` commands to specify their choices.
      ** Cons: `AchievementPanel` needs to save the states of the `displayOption` to support undo/redo. Undo/redo of
      the achievements command needs to be implemented and handled separately from all other commands, breaks
      abstraction.
-// end :: achievements-usage[]
+// end::achievements[]
 
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
