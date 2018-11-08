@@ -22,6 +22,8 @@ TheTracker is for NUS students who *prefer to use a desktop app for managing con
 
 == Quick Start
 
+This section explains how to setup TheTracker on your computer, and lists a few commands that you can try.
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
@@ -39,9 +41,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `listmodules` : lists all modules
 * `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * `delete 2` : deletes the 2nd entry in the active list
+* `undo` : undoes the previous modifying action
 * `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+== GUI Components
+
+This section explains the components of the GUI, along with some ways you can interact with it.
+
+=== Layout
+
+TheTracker's GUI is divided into 5 main regions that you will interact with:
+
+
+.TheTracker's GUI
+image::GUIComponents.png[width="600"]
+
+. Menu Bar: contains simple commands to switch between windows
+. Command Box: text box (equipped with auto-suggestions) to receive input commands
+. Result Display: panel that displays the result of inputted commands
+. List Panel: panel displaying all saved persons/modules/occasions
+. Info Panel: panel displaying additional information for selected entry
+
+[TIP]
+The info panel does not refresh even after you switch between lists, just in case you want to refer to other lists
+while editing an entry. To refresh the info panel, use the `select` command.
 
 [[Features]]
 == Features
@@ -56,6 +81,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Opens this user guide in a separate window.
 Format: `help`
 
 // tag::add[]
@@ -73,7 +99,7 @@ Format: +
 Example:
 
 * `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
-
+Adds John Doe to TheTracker with his associated info.
 
 ==== Adding a module: `addmodule`
 
@@ -84,7 +110,8 @@ Format: +
 
 Example:
 
-* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/AY1718 sem/1 t/gg` +
+* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1819 sem/1 t/gg` +
+Adds CS2103 to TheTracker with its associated info.
 
 ==== Adding an occasion: `addoccasion`
 
@@ -96,7 +123,8 @@ Format: +
 
 Example:
 
-* `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
+* `addoccasion on/group discussion od/2018-01-01 loc/SoC t/project t/gg`
+Adds a group discussion to TheTracker with its associated info.
 // end::add[]
 
 // tag::delete[]

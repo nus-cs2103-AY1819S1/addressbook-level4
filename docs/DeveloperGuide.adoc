@@ -157,13 +157,12 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 // tag::explanationofpolymorphism[]
-Even though the storage unit contains three types of Entities - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
+Even though the storage unit contains three types of entries - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
 
-.Activity Diagram when user adds any entity
-image::AddActivityDiagram.png[width="800"]
-As of v1.3, the storage, commands, and parsers are distinct classes for each type of entity.
+.Activity Diagram when user deletes any entity
+image::DeleteActivityDiagram.png[width="800"]
 The diagram above shows that although these classes are separate, they serve very similar purposes.
-Polymorphism may be implemented on some commands in later versions.
+They are handled by the same parser, with the model determining the appropriate list to act upon.
 // end::explanationofpolymorphism[]
 The sections below give more details of each component.
 
