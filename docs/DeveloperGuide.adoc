@@ -2,6 +2,7 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:sectnums:
 :imagesDir: images
 :repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
 :stylesDir: stylesheets
@@ -19,16 +20,17 @@ This guide was adapted from relevant parts of the developer guide from AB4 (http
 
 == Setting up
 
-=== 1.1. Prerequisites
+=== Prerequisites
 JDK 9 or later
 
 JDK 10 on Windows will fail to run tests in headless mode due to a JavaFX bug. Windows developers are highly recommended to use JDK 9.
 IntelliJ IDE
 
+[Note]
 IntelliJ by default has Gradle and JavaFx plugins installed.
 Do not disable them. If you have disabled them, go to File > Settings > Plugins to re-enable them.
 
-=== 1.2. Setting up the project in your computer
+=== Setting up the project in your computer
 Fork this repo, and clone the fork to your computer
 
 Open IntelliJ (if you are not in the welcome screen, click File > Close Project to close the existing project dialog first)
@@ -58,13 +60,13 @@ To resolve this, place your cursor over any of the code section highlighted in r
 
 Repeat this for the test folder as well (e.g. check XmlUtilTest.java and HelpWindowTest.java for code errors, and if so, resolve it the same way)
 
-=== 1.3. Verifying the setup
+=== Verifying the setup
 Run the seedu.address.MainApp and try a few commands
 
 Run the tests to ensure they all pass.
 
-=== 1.4. Configurations to do before writing code
-==== 1.4.1. Configuring the coding style
+=== Configurations to do before writing code
+==== Configuring the coding style
 This project follows oss-generic coding standards. IntelliJ’s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 Go to File > Settings… (Windows/Linux), or IntelliJ IDEA > Preferences… (macOS)
@@ -79,7 +81,7 @@ For Import Layout: The order is import static all other imports, import java.*, 
 
 Optionally, you can follow the UsingCheckstyle.adoc document to configure Intellij to check style-compliance as you write code.
 
-==== 1.4.2. Updating documentation to match your fork
+==== Updating documentation to match your fork
 After forking the repo, the documentation will still have the SE-EDU branding and refer to the se-edu/addressbook-level4 repo.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to se-edu/addressbook-level4), you should do the following:
@@ -88,7 +90,7 @@ Configure the site-wide documentation settings in build.gradle, such as the site
 
 Replace the URL in the attribute repoURL in DeveloperGuide.adoc and UserGuide.adoc with the URL of your fork.
 
-==== 1.4.3. Setting up CI
+==== Setting up CI
 Set up Travis to perform Continuous Integration (CI) for your fork. See UsingTravis.adoc to learn how to set it up.
 
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see UsingCoveralls.adoc).
@@ -98,15 +100,15 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).
 
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== 1.4.4. Getting started with coding
+==== Getting started with coding
 When you are ready to start coding,
 
 Get some sense of the overall design by reading Section 2.1, “Architecture”.
 
 Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
-== 2. Design
-=== 2.1 Command Component
+== Design
+=== Command Component
 Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
 and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
 The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
@@ -118,12 +120,12 @@ Simplified class diagram for the command component:
 
 image::CommandComponentClassDiagram.png[width="1200"]
 
-== 3. Implementation
+== Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-=== 3.1. Achievement mechanism
+=== Achievement mechanism
 
-==== 3.1.1. Structural Overview
+==== Structural Overview
 The achievement mechanism is facilitated by `AchievementRecord`. TaskManager is now composed of a `UniqueTaskList` as
 well as an `AchievementRecord`. +
  +
@@ -145,7 +147,7 @@ Integration of AchievementRecord in Model component:
 image::AchievementModel.png[width="1200"]
 
 
-==== 3.1.2. Basic Mechanism
+==== Basic Mechanism
 An `updateTaskStatus` method is implemented in `ModelManager` and exposed in the `Model` interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
 along with that, the `AchievementRecord` is also updated with the new xp. Current xp, number of tasks completed
@@ -170,7 +172,7 @@ Activity diagram of the update of time-based achievement fields:
 image::AchievementActivity.png[width="500"]
 
 
-==== 3.1.3. Event-driven Interaction with other components
+==== Event-driven Interaction with other components
 
 The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the `UniqueTaskList` and the `AchievementRecord` of the task manager is updated
@@ -181,7 +183,7 @@ On top of the `TaskManagerChangedEvent`, an `AchievementsUpdatedEvent` is posted
 the `AchievementRecord` is update(on task completion or change of display option). This event is handled by the
 `AchievementPanel` UI component which then update the achievement information displayed.
 
-==== 3.1.4. Design Considerations
+==== Design Considerations
 
 Aspect: Associations Among `TaskManager`,`UniqueTaskList` and `AchievementRecord` +
 
@@ -221,8 +223,8 @@ this week` commands to specify their choices.
 
 // tag::complete[]
 
-=== 3.2. Batch Completion via Label feature
-==== 3.2.1. Current Implementation
+=== Batch Completion via Label feature
+==== Current Implementation
 
 The batch completion mechanism is facilitated by `CompleteLabelCommand`.
 It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
@@ -281,9 +283,9 @@ Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
 Step 2. The user sees all tasks previously displayed on the screen which matches the label change
 it's status to `COMPLETED`
 
-==== 3.2.2. Design Considerations
+==== Design Considerations
 
-===== 3.2.2.1. Aspect: Implementation of atomicity
+===== Aspect: Implementation of atomicity
 
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
@@ -296,7 +298,7 @@ commit if deemed that all tasks can be completed successfully else throw an exce
 ** Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
 batch operation.
 
-===== 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
+===== Aspect: Handling different CompleteCommand behaviour
 
 * **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
@@ -316,7 +318,7 @@ viewed that the job of figuring out what to parse the argument as is subsumed un
 `CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and it's separation may result in
 a high amount of coupling.
 
-===== 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
+===== Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
 `LabelMatchesKeywordPredicate`.
@@ -330,8 +332,8 @@ quirks as opposed to commonly recognised _Alternative 2_
  Abstract Methods.
 ** Cons: Inability to properly check for equality.
 
-=== 3.3. Model Rollback feature
-==== 3.3.1. Current Implementation
+=== Model Rollback feature
+==== Current Implementation
 
 Allows for any uncommitted changes to be discarded.
 
@@ -350,14 +352,14 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 // end::complete[]
 // tag::dependency[]
 
-=== 3.4. Dependency Feature Modelling
-==== 3.4.1. Current Implementation
+=== Dependency Feature Modelling
+==== Current Implementation
 The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.
 
 image::DependencyCommandSequenceDiagram.png[width="1200"]
 
-==== 3.4.2 Design Considerations
+==== Design Considerations
 ===== Aspect: Modelling of the embedded dependency object.
 
 * ** Alternative 1(current choice):** Add a new string of the hashcode into the hashset.
@@ -376,12 +378,12 @@ as a set of hashcodes, and can only perform the tasks reference once all tasks a
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
 other tasks that depends on A has to be recreated.
 
-=== 3.5 Modelling Dependency Validity
-==== 3.5.1 Current Implementation
+=== Modelling Dependency Validity
+==== Current Implementation
 The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic and topological sort.
 
-==== 3.5.2 Design Considerations
+==== Design Considerations
 ===== Aspect: Real-time graph or graph instantiated on function call.
 * **Alternative 1(current choice):** Graph is only instantiated when needed.
 ** Pros: Graph does not have to be updated or maintained.
@@ -401,8 +403,8 @@ A topological sort can also be performed on the graph to order tasks by the numb
 // end::dependency[]
 // start::time[]
 
-=== 3.6 Monitoring time
-==== 3.6.1 Current Implementation
+=== Monitoring time
+==== Current Implementation
 Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
 `Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
@@ -410,7 +412,7 @@ accurate to the minute.
 
 A check on whether any of the tasks are overdue is done before the execution of every command/
 
-===== 3.6.2 Design Considerations
+===== Design Considerations
 ====== Aspect: Implementing the check on whether a task is overdue
 * **Alternative 1 (current choice):** Run a check before the execution of every command
 ** Pros: From a user experience perspective, the user should not expect there to be a commit to state every time a task is overdue. i.e. An undo command
@@ -424,7 +426,7 @@ the number of commands that a person uses likely occurs at a higher rate than th
 
 
 
-=== 3.7 List
+=== List
 
 The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
 The date filters are dependent on the due date of the task, and the current date.
@@ -433,17 +435,17 @@ The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
 This predicate is passed as an argument to update filtered Tasks.
 
-=== 3.8 Game Manager
+=== Game Manager
 
-==== 3.8.1 Current Implementation
+==== Current Implementation
 
 The GameManager class is responsible for the gamification aspects of WatchOver.
 
 image::GameManagerSequenceDiagram.png[width="1200"]
 
-==== 3.8.2 Design Considerations
+==== Design Considerations
 
-===== 3.8.2.1 Aspect: Location of Implementation
+===== Aspect: Location of Implementation
 
 * **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
 ** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
@@ -453,7 +455,7 @@ image::GameManagerSequenceDiagram.png[width="1200"]
 ** Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.
 ** Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.
 
-=== 3.9. Logging
+=== Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -472,21 +474,21 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-=== 3.10. Configuration
+=== Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
-== 4. Documentation
+== Documentation
 We use asciidoc for writing documentation.
 
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== 4.1. Editing Documentation
+=== Editing Documentation
 See UsingGradle.adoc to learn how to render .adoc files locally to preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.
 
-=== 4.2. Publishing Documentation
+=== Publishing Documentation
 See UsingTravis.adoc to learn how to deploy GitHub Pages using Travis.
 
-=== 4.3. Converting Documentation to PDF format
+=== Converting Documentation to PDF format
 We use Google Chrome for converting documentation to PDF format, as Chrome’s PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
@@ -502,7 +504,7 @@ Set the destination to Save as PDF, then click Save to save a copy of the file i
 chrome save as pdf
 Figure 10. Saving documentation as PDF files in Chrome
 
-=== 4.4. Site-wide Documentation Settings
+=== Site-wide Documentation Settings
 The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.
 
 Attributes left unset in the build.gradle file will use their default value, if any.
@@ -526,16 +528,16 @@ Define this attribute if the project is an official SE-EDU project. This will re
 
 not set
 
-=== 4.5. Per-file Documentation Settings
-=== 4.6. Site Template
+=== Per-file Documentation Settings
+=== Site Template
 The files in docs/stylesheets are the CSS stylesheets of the site. You can modify them to change some properties of the site’s design.
 
 The files in docs/templates controls the rendering of .adoc files into HTML5. These template files are written in a mixture of Ruby and Slim.
 
 Modifying the template files in docs/templates requires some knowledge and experience with Ruby and Asciidoctor’s API. You should only modify them if you need greater control over the site’s layout than what stylesheets can provide. The SE-EDU team does not provide support for modified template files.
 
-== 5. Testing
-=== 5.1. Running Tests
+== Testing
+=== Running Tests
 There are three ways to run tests.
 
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
@@ -556,7 +558,7 @@ Thanks to the TestFX library we use, our GUI tests can be run in the headless mo
 
 To run tests in headless mode, open a console and run the command gradlew clean headless allTests (Mac/Linux: ./gradlew clean headless allTests)
 
-=== 5.2. Types of tests
+=== Types of tests
 We have two types of tests:
 
 ==== GUI Tests
@@ -578,27 +580,27 @@ e.g. seedu.address.storage.StorageManagerTest
 Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
 e.g. seedu.address.logic.LogicManagerTest
 
-=== 5.3. Troubleshooting Testing
+=== Troubleshooting Testing
 Problem: HelpWindowTest fails with a NullPointerException.
 
 Reason: One of its dependencies, HelpWindow.html in src/main/resources/docs is missing.
 
 Solution: Execute Gradle task processResources.
 
-== 6. Dev Ops
-=== 6.1. Build Automation
+== Dev Ops
+=== Build Automation
 See UsingGradle.adoc to learn how to use Gradle for build automation.
 
-=== 6.2. Continuous Integration
+=== Continuous Integration
 We use Travis CI and AppVeyor to perform Continuous Integration on our projects. See UsingTravis.adoc and UsingAppVeyor.adoc for more details.
 
-=== 6.3. Coverage Reporting
+=== Coverage Reporting
 We use Coveralls to track the code coverage of our projects. See UsingCoveralls.adoc for more details.
 
-=== 6.4. Documentation Previews
+=== Documentation Previews
 When a pull request has changes to asciidoc files, you can use Netlify to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See UsingNetlify.adoc for more details.
 
-=== 6.5. Making a Release
+=== Making a Release
 Here are the steps to create a new release.
 
 Update the version number in MainApp.java.
@@ -609,7 +611,7 @@ Tag the repo with the version number. e.g. v0.1
 
 Create a new release using GitHub and upload the JAR file you created.
 
-=== 6.6. Managing Dependencies
+=== Managing Dependencies
 A project often depends on third-party libraries. For example, Address Book depends on the Jackson library for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.
 a. Include those libraries in the repo (this bloats the repo size)
 b. Require developers to download those libraries manually (this creates extra work for developers)
@@ -621,7 +623,8 @@ First, add small local-impact (i.e. the impact of the change does not go beyond 
 
 Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. Section A.2, “Creating a new command: remark” explains how to go about adding such a feature.
 
-== Appendix A: Target User Profile
+[appendix]
+== Target User Profile
 
 Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.
 
@@ -629,17 +632,17 @@ The target age group is from 15 years old to 25 years old.
 
 Attributable to our target demographic are the following qualities:
 
-==== Setting up CI
-
   * Adept with technology
   * Inclined to vicariously project a virtual avatar's experience unto themselves
   * Inclined against keeping data on physical mediums
   * Perpetually experiencing the continuous bombardment of deadlines from assignments
 
+[appendix]
 == Appendix B: Value proposition
 
 By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
 
+[appendix]
 == Appendix C: User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 |===
@@ -673,7 +676,8 @@ my progress and evaluate how I am doing.
 | * | unmotivated student | see tasks creatively explosively destroy themselves | derive more enjoyment
 |===
 
-== Appendix D: Use cases
+[appendix]
+== Use cases
 Only features that require more than a few steps to implement will be shown.
 
 === Use case: Display Welcome Screen
@@ -878,7 +882,8 @@ Use case ends.
 
 Use case ends.
 
-== Appendix E: Non-functional requirements
+[appendix]
+== Non-functional requirements
 - There should be no noticable lag when typing on the command line.
 - Should work on any mainstream OS as long as it has Java 9 or higher installed.
 - Storage of application data will be in a text file.
@@ -887,7 +892,8 @@ Use case ends.
 - System should be maintainable with proper documentation.
 - Proper feedback to user when error occurs.
 
-== Appendix F: Glossary
+[appendix]
+== Glossary
 
 A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.
 
@@ -903,7 +909,7 @@ A glossary serves to ensure that all stakeholders have a common understanding of
 | Level | A larger unit of measurement to measure experience.
 |===
 
-== Appendix G: Instructions for manual testing
+[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
