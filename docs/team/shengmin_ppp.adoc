@@ -74,17 +74,15 @@ _Fig 3: Help Window_
 ****
 
 === *Code contributed*:
-_The following links contain code snippets of code contributed_
-* [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]]
-* [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]]
+_The following links contain code snippets of code contributed_ [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]]  [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]]
 
 === *Other contributions*:
 * Documentation:
 ** User Guide:
-*** Wrote the first version of the user guide containing all features in the first version of `WishBook`. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[]]
-*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[]]
+*** Wrote the first version of the user guide containing all features in the first version of `WishBook`.[https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[link]]
+*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[link]]
 ** Developer Guide:
-*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[]]
+*** Added content for `History -s` command. [https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[link]]
 *** Refactored undo, redo UML diagrams to reflect current version of WishBook.
 ****
 The following images show the undo, redo UML diagrams:
