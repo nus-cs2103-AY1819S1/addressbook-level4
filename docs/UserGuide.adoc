@@ -121,7 +121,7 @@ These have the same effect as using the commands `exit` and `help` respectively.
 * After a user is logged in, the rest of the commands will become useable.
 ====
 
-These are the features commands available to use in the Expense Tracker:
+These are the commands available to use in the Expense Tracker:
 
 === Signing up a user : `signup`
 Creates a a new user in the Expense Tracker.
@@ -574,6 +574,49 @@ Exits the program. +
 
 Format: `exit`
 
+=== Encrypting text using your password : `encrypt`
+WARNING: This command is for technologically-savvy advanced users only.
+
+Encrypts text using your account's password.
+
+Format: `encrypt TEXT`
+
+****
+*Examples:*
+
+*  `encrypt secret thing` +
+ Displays the encrypted version of the text `secret thing` to be used with your account.
+*  `encrypt secret_thing` +
+ Displays the encrypted version of the text `secret_thing` to be used with your account.
+****
+
+[NOTE]
+====
+* Any leading and trailing spaces in TEXT are ignored
+====
+
+=== Decrypting text using your password : `decrypt`
+WARNING: This command is for technologically-savvy advanced users only.
+
+Decrypts an encrypted text that has been encrypted using your account's password.
+
+Format: `decrypt TEXT`
+
+****
+*Examples:*
+
+*  `decrypt sadoasiondoofdnig` +
+ Displays the decrypted version of the string `sadoasiondoofdnig`.
+*  `encrypt dsfresf==asdas` +
+ Displays the encrypted version of the string `dsfresf==asdas`.
+****
+
+[NOTE]
+====
+* Any leading and trailing spaces are ignored
+* Only text that has been encrypted using your account's password can be decrypted by you
+====
+
 == FAQ
 
 *Q*: Do I need to manually save my data? +
@@ -591,18 +634,9 @@ If you wish to copy only one user over, create a folder named `data` in the app 
 *A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
 
 *Q*: How do I manually encrypt text to edit my user XML file as a technologically-savvy user? +
-*A*: You can carry out the following steps to do so:
-
-. Open http://murmurhash.shorelabs.com/[this website] and wait for it to load.
-. Under `MurmurHash3 (32/128 bit, x86/x64)`, enter your password in the text box labelled `An ASCII Text`.
-. Under the text box from step 2, there is a dropdown menu that has `x86` selected. Click on it and select `x64`.
-. Beside the menu from step 3, there is a dropdown menu that has `32-bit` selected. Click on it and select `128-bit`.
-. Note down the string of characters on the bottom left of the text box from step 2. This is your `encryption key`.
-. Open https://www.devglan.com/online-tools/aes-encryption-decryption[this website] and wait for it to load.
-. Use the left column on the web page and enter the text you wish to encrypt.
-. Use the `encryption` key from step 5 as the `secret key` and leave the other options as default.
-. Click on the `Encrypt` button to get the encrypted text you want.
+*A*: You can make use of the encrypt and decrypt commands that have been described in the previous section.
 //end::dataencryption[]
+
 == Command Summary
 
 This is a summary of the commands available in Expense Tracker:
