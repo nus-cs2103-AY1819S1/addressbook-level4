@@ -339,43 +339,97 @@ Additionally, it implements the following operations:
 
 Given below is an example usage scenario and how the learn mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The user types in `learn beautiful` into the CLI.
+Step 1. The user launches the application for the first time. The user types in `learn magic` into the CLI.
 
+Step 2. `learn magic` will be parsed by LearnVocabularyParser, where the `learn` command will be triggered, calling `LearnCommandParser#parse()`.
 
+Step 3. This in turn calls `Dictionary` class and all of its relevant operations, starting with `Dictionary#invoke()`.
 
+Step 4. The word `magic` will be checked against the model and the current LearnVocabulary to see if they hold the same exact word.
 
+Step 4a. The word does not exist and will be stored, together with the meaning that was queried as a result of `Dictionary#invoke()`.
 
-
-
-
-
-
-
-There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
-
-However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
-
-It is great to also note that a fresh new copy would give the user access to a few preconfigured words at the disposal of the user.
-
-Functions added:
-
-Below is a description on how the learn function operates:
-
-Step 1: User wants to learn this new word he just heard of, eg: Happiness
-
-Step 2: User would type the word followed by the command learn, eg: learn happiness
-
-Step 3: The word will be searched online, should it be successful, the word and meaning will be displayed on screen.
+Step 4b. The word already exists and the command will throw a Duplicate Word Exception.
 
 [NOTE]
 The newly queried word would be attached with a "toLearn" tag, which allows the user to know that he/she just queried the word and can leave it for the future to learn it.
 
-Step 4: The word is then stored within the storage file.
+Step 5. The word, meaning will be assigned a default tag and be displayed in the Command Box.
 
+The following sequence diagram shows how the learn command works:
 
-_{Explain here how the data encryption feature will be implemented}_
+image::LearnSequenceDiagram.png[width="820"]
+
+==== Design Considerations
+===== Aspect: How Words are queried in Dictionary
+* **Alternative 1 (current choice):** Online querying of every word being learned.
+** Pros: Easy to implement and change (in the future) to accommodate extra meanings.
+** Cons: Requires the use of Internet Connection.
+* **Alternative 2:** Offline querying of every word being learned.
+** Pros: Does not require Internet to query word.
+** Cons: Untested, but a corrupt xml file would be disastrous causing corrupt findings, memory space will be an issue as well.
+
+===== Aspect: How Words are stored in Dictionary
+* **Alternative 1** (current choice): Offline storage of every word being learned.
+** Pros: Easy to implement and does not require the use of a cloud storage.
+** Cons: Not mobile and accessible to the user
+* **Alternative 2:** Online storage of every word being learned.
+** Pros: Mobile access by the user on the go.
+** Cons: Will consume a lot of resources. Might not be necessary.
 
 // end::learn[]
+
+// tag::basic[]
+=== Basic features
+==== Current Implementation
+Improved from the previous versions, the `Add` and `Edit` commands have been refined in LearnVocabulary.
+There is also a minor feature added `Show`, which displays a filtered word list on the Ui.
+
+===== Add command improvements
+When adding a new word to LearnVocabulary, only the `Name` and `Meaning` fields must be entered as follows: `add n/fire m/something hot`.
+As can be seen from the example given, there is no `Tag` being entered at all. However, LearnVocabulary will enforce that every word would
+require at least one tag. As such, the default tag "toLearn" will be given to words without any tags at the start.
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The user types in `add n/fire m/something hot` into the CLI.
+
+Step 2. `add n/fire m/something hot` will be parsed by LearnVocabularyParser, where the `add` command will be triggered, calling `AddCommandParser#parse()`.
+
+Step 3a. Illegal characters will cause the command to throw an exception and await a new command.
+
+Step 3b. The word with all letters being parsed will be checked against LearnVocabulary to ensure no duplicate words.
+
+Step 4. The word will have a "toLearn" tag attached and be added to LearnVocabulary after ensuring that there are no duplicates.
+
+===== Edit command improvements
+When editing an existing word in LearnVocabulary, there cannot be empty tags for any words provided.
+
+Given below is an example usage scenario and how the edit mechanism behaves at each step.
+
+Step 1. The user types in `edit 1 t/` which shows the user wanting to clear all tags from existing word.
+
+Step 2. The command box outputs that it is not possible, at least one tag must be attached to the word.
+
+===== Show feature
+The `show` command is an improvement in leaps and bounds ahead of the `find` command, but it exists as a separate command on its own due to its nature.
+Simply put, when entering `show fire magic life`, it will display the 3 words on the Ui and automatically outputs
+the word, meaning and tags onto the Command Box. The first word from the list will also be automatically selected.
+
+As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+
+Given below is an example usage scenario and how the show mechanism behaves at each step.
+
+Step 1. The user types in `show fire magic life`, it will display the 3 words in the order that they had in the list.
+
+[NOTE]
+Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
+
+Step 2. On the left, we have the filtered list of words. On the right we have the automatically selected first word from the list.
+
+Step 3. The 3 words will appear in the Command Box as well.
+
+// end::basic[]
 
 **Trivia:**
 
@@ -466,29 +520,6 @@ Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name
 Step 2: `GroupDeleteCommand` checks passed arguments.
 
 Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
-
-**Show implementation**
-
-The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
-
-As for `find`, perhaps the team and I can find another purpose for it.
-
-As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
-
-Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
-
-Below is a description on how the select function operates:
-
-Step 1: User wants to query a bunch of words and find out their meanings, tags altogether.
-
-[NOTE]
-Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
-
-Step 2: `ShowCommand` checks through the entire xml file of LearnVocabulary and filters out the ones that were keyed in.
-
-Step 3: The result is the list of filtered words, together with their definition and tags being displayed.
-
-
 
 **Word Of The Day**
 

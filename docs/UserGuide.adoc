@@ -65,7 +65,6 @@ Format: `add n/WORD m/MEANING [t/TAG]...`
 [TIP]
 A word can have any number of tags provided the groups of the tags are already created. Words that are added without tags will be added to the toLearn group by default
 
-
 Examples:
 
 * `add n/levitate m/to float or fly t/Test`
@@ -98,10 +97,10 @@ Format: `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...`
 
 ****
 * Edits the word at the specified `INDEX`. The index refers to the index number shown in the displayed vocabulary list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Name and Meaning class must have their fields filled in eg: `add n/hello m/a greeting`.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the word will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* There will be at least one tag to each word, so it is enforced that no edits allow for 0 tags per word.
 ****
 
 Examples:
@@ -248,6 +247,9 @@ Typing in 'show bye hi neigh' will output the result of 1, 2 and 4 in sequence f
 
 Moreover, the first sequence number will be selected automatically. If there are no existing words that are found,
 the default display would be the last displayed placeholder page.
+
+However, user should note that showing a word not present would not result in any changes to the Ui as it is not intended, it
+will still continue to display the previous word being selected in the panel on the right.
 
 === Trivia game: `trivia`
 A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
