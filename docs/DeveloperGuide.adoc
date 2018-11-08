@@ -522,7 +522,7 @@ word, and `Ingredient` for any matching `IngredientDefinition`. All keywords mus
 
 The following code snippet shows how the predict determines each recipe: +
 
-include::../src/main/java/seedu/souschef/model/recipe/NameContainsKeywordsPredicate.java[lines=20..34]
+include::../src/main/java/seedu/souschef/model/recipe/RecipeContainsKeywordsPredicate.java[lines=20..34]
 
 The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
 
