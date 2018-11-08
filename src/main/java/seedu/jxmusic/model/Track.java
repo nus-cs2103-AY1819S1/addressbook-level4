@@ -146,8 +146,8 @@ public class Track implements Comparable {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Track // instanceof handles nulls
-                && fileNameWithoutExtension.toLowerCase().equals((
-                        (Track) other).fileNameWithoutExtension.toLowerCase())); // state check
+                && fileNameWithoutExtension.equalsIgnoreCase((
+                        (Track) other).fileNameWithoutExtension)); // state check
     }
 
     @Override
