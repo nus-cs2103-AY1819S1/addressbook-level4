@@ -120,7 +120,6 @@ rest and rehydrate. doc/Dr. Zhang De`
 === Register a new patient to the system: `register`
 Register a new patient together with necessary information into the system.
 
-
 Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 
 * If the patient is already registered, the command will not be allowed.
@@ -246,14 +245,8 @@ image::mhView.png[width=800]
 
 //end::view[]
 
-=== View all appointments for a patient: `viewappt`
-View all scheduled appointments for a patient.
-
-Format: `viewappt ic/NRIC`
-
-Example(s):
-
-* `viewappt ic/S1234567A`
+=== View all appointments for a patient: `view appt`
+See <<#view-command, entry>> on the `view` command.
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
@@ -299,6 +292,7 @@ Example(s):
 
 image::viewvisitors_screenshot.png[width=800]
 
+//tag::visitorin[]
 === Sign in patient’s visitors: `visitorin`
 Sign in a visitor for a patient.
 
@@ -309,6 +303,7 @@ Example(s):
 * `visitorin ic/S1234567A v/Amy`
 
 image::visitorin_screenshot.png[width=800]
+//end::visitorin[]
 
 === Sign out patient’s visitors: `visitorout`
 Sign out a visitor for a patient.
@@ -320,17 +315,6 @@ Example(s):
 * `visitorout ic/S1234567A v/Amy`
 
 image::visitorout_screenshot.png[width=800]
-
-=== Cancel appointment for patient: `xappt`
-Cancels a scheduled appointment for a patient.
-
-Format: `xappt INDEX`
-
-Example(s):
-
-* `viewappt S1234567A` +
-`xappt 2` +
-Deletes the second appointment belonging to patient with NRIC S1234567A.
 
 === Saving the data
 
