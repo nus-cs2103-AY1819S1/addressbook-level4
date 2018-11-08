@@ -8,7 +8,7 @@ import ssp.scheduleplanner.commons.util.StringUtil;
 import ssp.scheduleplanner.model.tag.Tag;
 
 /**
- * Tests that a {@code Task}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Task}'s {@code Tag(s)} matches any of the keywords given.
  */
 public class TagsContainsKeywordsPredicate implements Predicate<Task> {
     private final List<String> keywords;

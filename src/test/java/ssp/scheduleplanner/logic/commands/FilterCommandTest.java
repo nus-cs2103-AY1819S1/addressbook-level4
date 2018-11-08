@@ -19,7 +19,7 @@ import ssp.scheduleplanner.model.UserPrefs;
 import ssp.scheduleplanner.model.task.TagsContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
  */
 public class FilterCommandTest {
     private Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
