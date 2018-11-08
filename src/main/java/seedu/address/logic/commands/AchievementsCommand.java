@@ -19,7 +19,7 @@ public class AchievementsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Display all-time, today's or this week's achievements on achievement panel.\n"
-            + "Parameters: " + ALL_TIME_OPTION + " or " + TODAY_OPTION + " or " + THIS_WEEK_OPTION + "\n"
+            + "Parameters: \"" + ALL_TIME_OPTION + "\" or \"" + TODAY_OPTION + "\" or \"" + THIS_WEEK_OPTION + "\"\n"
             + "Example: " + COMMAND_WORD + " " + THIS_WEEK_OPTION;
 
     public static final String MESSAGE_DISPLAY_ACHIEVEMENT_SUCCESS = "%s's achievements successfully displayed!";
