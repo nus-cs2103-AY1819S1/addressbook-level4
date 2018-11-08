@@ -45,7 +45,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_START_TIME,
-                PREFIX_END_TIME)
+                PREFIX_END_TIME, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
@@ -56,8 +56,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
         EventTime eventStartTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME).get());
         EventTime eventEndTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME).get());
-        EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS)
-                .orElse("TBD"));
+        EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Index> contactIndexList = ParserUtil.parseIndices(argMultimap.getAllValues(PREFIX_INDEX));
         Set<Tag> eventTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
