@@ -302,7 +302,7 @@ Examples:
 
 Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/EVENT_ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
 
 The user can input values for the following fields when adding an event: +
 
@@ -311,11 +311,11 @@ The user can input values for the following fields when adding an event: +
 * Event date +
 * Event start time +
 * Event end time +
-* Address of event +
+* Event address +
 * Contact Index / Indices +
 * Event Type(s) +
 
-Note that each of these fields, except for contact indices and event type, are mandatory, and has to be supplied by the user
+Note that each of these fields, except for address, contact indices and event type, are mandatory, and has to be supplied by the user
 before the event can be successfully added into the system.
 In addition, note the following constraints for the input values.
 
@@ -330,6 +330,7 @@ e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/103
 * Contact indices should be based on the latest displayed person list.
 * Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
 in EventsPlus+, it has to be added in before creating the event with the new event tag.
+* If no event address is supplied by the user, "TBD" will be set in place of the address.
 ====
 
 //A notification will be sent to the user only 24 hours before the event.
@@ -353,11 +354,18 @@ In EventsPlus+, the events can be found in the Events tab,
 and are displayed according to their date, in decreasing date order.
 Within each date, the events are ordered from earliest to latest.
 
-After the user executes the command, a message indicating successful execution of the command will be displayed.
+After the user executes the command `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`,
+a message indicating successful execution of the command will be displayed.
 The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+
+If no address is supplied, "TBD" will be set in place of the address field. For instance, upon execution of the command
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200`, the newly added event is as highlighted below.
+The address field is set to "TBD".
+
+image::add-event-no-address.PNG[Adding an event without an address]
 // end::addEvent[]
 
 [[addEventTag]]
@@ -707,7 +715,7 @@ e.g.`select 2`
 
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
 * *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
 e.g. `deleteEvent d/2018-10-18 i/1`
