@@ -76,7 +76,7 @@ public class Patient extends Person {
         appointmentHistory = new ArrayList<>();
         consultationHistory = new ArrayList<>();
     }
-    
+
     /**
      * Every field must be present and not null.
      */
@@ -108,19 +108,6 @@ public class Patient extends Person {
         appointment = Optional.empty();
         appointmentHistory = new ArrayList<>();
         consultationHistory = new ArrayList<>();
-    }
-
-    /**
-     * Contructs a patient from a given person.
-     * @param person
-     */
-    public static Patient buildFromPerson(Person person) {
-        Name name = person.getName();
-        Phone phone = person.getPhone();
-        Email email = person.getEmail();
-        Address address = person.getAddress();
-        Set<Tag> tags = person.getTags();
-        return new Patient(name, phone, email, address, tags);
     }
 
     public Nric getNric() {

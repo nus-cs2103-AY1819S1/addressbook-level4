@@ -17,11 +17,13 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CANDY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_DAISY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_CANDY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -78,7 +80,7 @@ public class TypicalPersons {
             .build();
 
     // Manually added (Patient)
-    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+    /*public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
             .build();
     public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
             .build();
@@ -93,7 +95,7 @@ public class TypicalPersons {
     public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
             .build();
     public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
-            .build();
+            .build();*/
 
     // Manually added (Staff)
     public static final Staff ADAM = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
@@ -105,7 +107,11 @@ public class TypicalPersons {
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
             .withPreferredDoctor(ADAM).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
-            .withPreferredDoctor(BEN).build();
+            .withPreferredDoctor(ADAM).build();
+
+    //Not inside ClinicIO
+    public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
+            .withNric(VALID_NRIC_CANDY).build();
 
     //Not inside ClinicIO
     public static final Staff CAT = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_CAT)
@@ -123,11 +129,11 @@ public class TypicalPersons {
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withType(1).withPatient(AMY_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(13, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withType(1).withPatient(BENSON_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(17, 45).withType(1).withPatient(BRYAN).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withType(1).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(18, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

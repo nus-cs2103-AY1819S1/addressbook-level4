@@ -53,16 +53,6 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
-     * Constructs a {@link PatientBuilder} object based on a person.
-     * @param person
-     * @return a new {@link PatientBuilder} object
-     */
-    public static PatientBuilder buildFromPerson(Person person) {
-        Patient patient = Patient.buildFromPerson(person);
-        return new PatientBuilder(patient);
-    }
-
-    /**
      * Sets the {@code Name} of the {@code Patient} that we are building.
      * @return a PatientBuilder
      */

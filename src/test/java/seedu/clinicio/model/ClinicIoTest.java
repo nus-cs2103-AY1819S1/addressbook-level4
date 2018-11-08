@@ -6,16 +6,17 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+
 import static seedu.clinicio.model.staff.Role.DOCTOR;
+
 import static seedu.clinicio.testutil.Assert.assertThrows;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
-import static seedu.clinicio.testutil.TypicalPersons.AMY_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
@@ -126,7 +127,7 @@ public class ClinicIoTest {
     @Test
     public void resetData_withDuplicateAppointments_throwsDuplicateAppointmentException() {
         //Two appointments with the same identity fields
-        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(AMY_AS_PATIENT).build();
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(ALEX).build();
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT, editedAmy);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
@@ -230,7 +231,7 @@ public class ClinicIoTest {
     @Test
     public void hasPatient_patientWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addPatient(ALEX);
-        Patient editedAlex = new PatientBuilder(ALEX).withNric(VALID_NRIC_BRYAN)
+        Patient editedAlex = new PatientBuilder(ALEX).withNric(VALID_NRIC_ALEX)
                 .build();
         assertTrue(clinicIo.hasPatient(editedAlex));
     }
