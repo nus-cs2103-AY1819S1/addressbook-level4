@@ -95,6 +95,6 @@ public class AccountParserUtilTest {
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME_DEMO_ONE + WHITESPACE;
         Name expectedName = new Name(VALID_NAME_DEMO_ONE);
-        assertEquals(expectedName, AccountParserUtil.parsePassword(nameWithWhitespace));
+        assertEquals(expectedName, AccountParserUtil.parseName(nameWithWhitespace));
     }
 }
