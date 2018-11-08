@@ -107,4 +107,3 @@ public class AddTimeCommand extends Command {
                 && index.equals(((AddTimeCommand) other).index);
     }
 }
-

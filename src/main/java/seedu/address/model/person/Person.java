@@ -117,6 +117,13 @@ public class Person {
     }
 
     /**
+     * delete a grade record from the grades HashMap
+     */
+    public void deleteGrade(String examName) {
+        grades.remove(examName);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
