@@ -549,7 +549,6 @@ One key limitation of this implementation is that the start date of the task can
 * **Alternative 3:** Embedding XP calculation logic inside each individual task.
 ** Pros: This would allow users to set different modes for each individual task, rather than having a one-size-fits-all policy apply to all tasks. 
 ** Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, it has the potential to get messy.
-
 // end::gamemode-impl[]
 
 === Logging
