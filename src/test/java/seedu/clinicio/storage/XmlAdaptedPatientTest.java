@@ -47,6 +47,8 @@ public class XmlAdaptedPatientTest {
     private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
+    private static final Optional<Staff> VALID_PREF_DOC = Optional.of(ADAM);
+    private static final Optional<Appointment> VALID_APPT = Optional.of(AMY_APPT);
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
@@ -116,6 +118,17 @@ public class XmlAdaptedPatientTest {
                         null, VALID_APPT);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Staff.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullAppointment_throwsIllegalValueException() {
+        XmlAdaptedPatient patient =
+                new XmlAdaptedPatient(VALID_NAME, null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                        null, VALID_MEDS, VALID_ALLERGIES, false,
+                        VALID_PREF_DOC, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Appointment.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
 }
