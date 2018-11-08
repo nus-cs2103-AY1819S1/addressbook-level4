@@ -54,8 +54,21 @@ the morphed source code.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 ** Community:
 *** https://github.com/CS2103-AY1819S1-F10-4/main/pulls/AZhiKai[Merged] more than 40 PRs.
-*** https://github.com/CS2103-AY1819S1-F10-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3AAZhiKai[Reviewed] more
-than 70 PRs with non-trivial review comments.
+*** Reviewed more than 70 PRs with non-trivial review comments: 
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/42[#42],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/44[#44],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/50[#50],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/51[#51],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/52[#52],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/53[#53],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/83[#83],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/84[#84],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/91[#91],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/92[#92],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/136[#136]
 *** Contributed to forum discussions using GitHub's Issue Tracker:
 https://github.com/nus-cs2103-AY1819S1/forum/issues/7[#7],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/20[#20],
