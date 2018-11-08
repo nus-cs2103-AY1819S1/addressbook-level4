@@ -40,7 +40,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private XmlAdaptedStaff preferredDoctor;
+    private Optional<Staff> preferredDoctor;
     @XmlElement
     private Optional<Appointment> appointment;
 
@@ -52,7 +52,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            XmlAdaptedStaff preferredDoctor, Optional<Appointment> appointment) {
+            Optional<Staff> preferredDoctor, Optional<Appointment> appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -81,9 +81,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
 
         isQueuing = patient.isQueuing();
-        if (patient.getPreferredDoctor().isPresent()) {
-            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
-        }
+        preferredDoctor = patient.getPreferredDoctor();
         appointment = patient.getAppointment();
     }
 
@@ -121,7 +119,12 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
-        Staff modelPreferredDoctor = preferredDoctor.toModelType();
+        Staff modelPreferredDoctor;
+        if (preferredDoctor.isPresent()) {
+            modelPreferredDoctor = preferredDoctor.get();
+        } else {
+            modelPreferredDoctor = null;
+        }
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
@@ -136,6 +139,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         appointment.ifPresent(appointment1 -> {
             patient.setAppointment(appointment1);
         });
+
 
         return patient;
     }

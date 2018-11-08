@@ -47,6 +47,31 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <patients>
+        <name>Alex X</name>
+        <phone>85355255</phone>
+        <email>alice@gmail.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <nric>S9951423J</nric>
+        <medicalProblems/>
+        <medications/>
+        <allergies/>
+        <preferredDoctor>Adam Bell</preferredDoctor>
+        <appointment/>
+    </patients>
+    <patients>
+        <name>Bryan James</name>
+        <phone>85355255</phone>
+        <email>alice@gmail.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <nric>S9106823A</nric>
+        <medicalProblems/>
+        <medications/>
+        <allergies/>
+        <isQueuing>false</isQueuing>
+        <preferredDoctor>Adam Bell</preferredDoctor>
+        <appointment/>
+    </patients>
     <staffs>
         <role>DOCTOR</role>
         <name>Adam Bell</name>
