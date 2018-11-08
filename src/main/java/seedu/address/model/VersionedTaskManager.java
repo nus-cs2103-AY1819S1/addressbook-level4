@@ -31,12 +31,11 @@ public class VersionedTaskManager extends TaskManager {
 
     /**
      * Precondition: VersionedTaskManager is initialised with a non-empty taskManagerStateList
-     * Reverts current data to VersionedTaskManager's latest commit.
+     * Reverts current data to VersionedTaskManager's current commit - the commit
+     * that the {@code currentStatePointer} is pointing to.
      */
     public void rollback() {
-        int latestCommit = taskManagerStateList.size() - 1;
-        resetData(taskManagerStateList.get(latestCommit));
-        currentStatePointer = latestCommit;
+        resetData(taskManagerStateList.get(currentStatePointer));
     }
 
     private void removeStatesAfterCurrentPointer() {
