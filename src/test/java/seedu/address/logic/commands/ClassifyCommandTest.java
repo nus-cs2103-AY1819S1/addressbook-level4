@@ -30,7 +30,6 @@ public class ClassifyCommandTest {
 
         Model expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
         expectedModel.updateCard(model.getFilteredCardList().get(currentIndex), editedCard);
-        expectedModel.commitAnakin(ClassifyCommand.COMMAND_WORD);
 
         assertCommandSuccess(new ClassifyCommand(Performance.EASY), model, commandHistory, expectedMessage,
                 expectedModel);
