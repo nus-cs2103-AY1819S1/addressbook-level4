@@ -14,13 +14,11 @@ import javafx.stage.Stage;
 public class HelpWindowTest extends GuiUnitTest {
 
     private HelpWindow helpWindow;
-    private HelpWindowHandle helpWindowHandle;
 
     @Before
     public void setUp() throws Exception {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
         FxToolkit.registerStage(helpWindow::getRoot);
-        helpWindowHandle = new HelpWindowHandle(helpWindow.getRoot());
     }
 
     @Test
