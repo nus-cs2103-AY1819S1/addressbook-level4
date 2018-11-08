@@ -150,7 +150,7 @@ public class CdCommandTest {
         String expectedMessage = expectedModel.getCurrDirectory().toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, expectedModel.getTotalImagesInDir())
                 + String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
-                Math.min(expectedModel.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE));
+                Math.min(expectedModel.getDirectoryImageList().size(), OpenCommand.BATCH_SIZE));
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
