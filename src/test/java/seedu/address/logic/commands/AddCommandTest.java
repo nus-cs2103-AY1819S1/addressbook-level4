@@ -122,7 +122,7 @@ public class AddCommandTest {
         public boolean alreadyContainsUsername(String username, Person ignore) {
             return false;
         }
-        
+
         @Override
         public void resetArchive(ReadOnlyArchiveList newData) {
             throw new AssertionError("This method should not be called.");
@@ -272,7 +272,7 @@ public class AddCommandTest {
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public boolean containsAssignment(String newAssignment, Assignment ignore) {
             return false;
