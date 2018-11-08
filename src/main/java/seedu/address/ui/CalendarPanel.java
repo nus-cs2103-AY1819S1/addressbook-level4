@@ -39,8 +39,18 @@ public class CalendarPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing and dragging inside the loaded Calendar.
         getRoot().setOnKeyPressed(Event::consume);
-
+        loadDefaultCalendar();
         registerAsAnEventHandler(this);
+    }
+
+    private void loadDefaultCalendar() {
+        ICalendarAgenda iCalendarAgenda = new ICalendarAgenda();
+        borderPane.setCenter(iCalendarAgenda);
+
+        // block events on calendar
+        EventHandler<MouseEvent> handler = MouseEvent::consume;
+        borderPane.getCenter().addEventFilter(MouseEvent.ANY, handler);
+        setUpBorderPane(iCalendarAgenda);
     }
 
     private void setUpBorderPane(ICalendarAgenda agenda) {
