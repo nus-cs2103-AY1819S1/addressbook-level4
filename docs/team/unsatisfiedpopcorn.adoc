@@ -19,6 +19,8 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
+* Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn
+
 * *Major enhancement*: added the ability to *complete a task as identified by
 index*, *complete a batch of tasks as identified by a label*.
 
