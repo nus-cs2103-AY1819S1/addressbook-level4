@@ -45,8 +45,6 @@ public class EditEventAddressCommand extends Command {
             + PREFIX_ADDRESS + "NUS";
 
     public static final String MESSAGE_EDIT_EVENT_ADDRESS_SUCCESS = "Edited %1$s with new address: %2$s";
-    public static final String MESSAGE_NOT_EDITED = "The specified address is the same as the current value in the "
-            + "address book.";
 
     private final EventDate targetDate;
     private final Index targetIndex;
@@ -78,7 +76,9 @@ public class EditEventAddressCommand extends Command {
 
         /* It is ok for editedEvent to be the same event as eventToEdit, but
         * editedEvent should not be an existing event in the address book,
-        * unless it is the same event as eventToEdit
+        * unless it is the same event as eventToEdit. Date and time is not edited
+        * in this command, so there should not be any existing event with same date/time
+        * in the address book, else there is a clashing event.
         */
         assert (!(!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)));
 

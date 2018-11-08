@@ -48,7 +48,7 @@ public class DeleteEventCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidDateOrIndexIndexUnfilteredList_throwsCommandException() {
 
         // checks for both inputs to DeleteEventCommand
 
@@ -178,16 +178,16 @@ public class DeleteEventCommandTest {
         expectedModel.deleteEvent(eventToDelete);
         expectedModel.commitAddressBook();
 
-        // delete -> deletes second event in unfiltered event list / first person in filtered event list
+        // delete -> deletes second event in unfiltered event list / first event in filtered event list
         deleteEventCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered person list to show all events
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(eventToDelete, model.getFilteredEventListByDate().get(0).get(INDEX_FIRST_EVENT.getZeroBased()));
 
-        // redo -> deletes same second event in unfiltered person list
+        // redo -> deletes same second event in unfiltered event list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -196,7 +196,9 @@ public class DeleteEventCommandTest {
     public void equals() {
         DeleteEventCommand deleteFirstCommand =
                 new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT);
-        DeleteEventCommand deleteSecondCommand =
+        DeleteEventCommand deleteDifferentDateCommand =
+                new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_MEETING), INDEX_FIRST_EVENT);
+        DeleteEventCommand deleteDifferentIndexCommand =
                 new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_SECOND_EVENT);
 
         // same object -> returns true
@@ -213,8 +215,11 @@ public class DeleteEventCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        // different event date -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteDifferentDateCommand));
+
+        // different event index -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteDifferentIndexCommand));
     }
 
     /**
