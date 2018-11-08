@@ -58,7 +58,17 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getGrades().forEach((key, value) ->
                 grades.getChildren().add(new Label(key + " " + value.toString())));
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag -> {
+            Label label = new Label(tag.tagName);
+
+            if (tag.tagName.equals("Graduated")) {
+                label.getStyleClass().add("graduate");
+            } else {
+                label.getStyleClass().add("original");
+            }
+
+            tags.getChildren().add(label);
+        });
         fees.setText("$" + person.getFees().value + "/hour");
         person.getTime().forEach(time -> times.getChildren().add(new Label("[" + time.toString() + "] ")));
     }
