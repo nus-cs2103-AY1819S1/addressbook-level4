@@ -7,6 +7,7 @@ public enum Permission {
     ADD_EMPLOYEE,
     REMOVE_EMPLOYEE,
     EDIT_EMPLOYEE,
+    RESTORE_EMPLOYEE,
 
     VIEW_EMPLOYEE_LEAVE,
     APPROVE_LEAVE,
