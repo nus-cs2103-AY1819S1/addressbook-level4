@@ -38,19 +38,6 @@ public class Prescription {
     }
 
     /**
-     * Returns true if both prescription have the same medicineName
-     * This defines a weaker notion of equality between two prescriptions
-     */
-    public boolean isSamePrescription(Prescription other) {
-        if (other == this) {
-            return true;
-        }
-
-        return other != null
-                && other.getMedicineName().equals(getMedicineName());
-    }
-
-    /**
      * Returns true if both prescriptions have the same identity and data fields.
      * This defines a stronger notion of equality between two prescriptions.
      */
@@ -68,7 +55,8 @@ public class Prescription {
          * Equality of prescription only determined by name
          */
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getMedicineName().equals(getMedicineName());
+        return otherPrescription.getMedicineName().toString().toLowerCase()
+                .equals(getMedicineName().toString().toLowerCase());
     }
 
     @Override
