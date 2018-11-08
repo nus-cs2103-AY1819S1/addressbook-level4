@@ -27,7 +27,7 @@ public class MedicalProblemTest {
 
         //invalid medical problem
         assertFalse(MedicalProblem.isValidMedProb("@")); // Only non-alphanumeric characters
-        
+
         //valid medical problem
         assertTrue(MedicalProblem.isValidMedProb("Asthma")); // 1 Words
         assertTrue(MedicalProblem.isValidMedProb("High Blood Pressure")); // Multiple words
