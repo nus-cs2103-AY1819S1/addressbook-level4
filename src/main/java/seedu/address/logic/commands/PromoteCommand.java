@@ -46,10 +46,6 @@ public abstract class PromoteCommand extends Command {
         Person promotedPerson = new Person(toCopy.getName(), toCopy.getPhone(), toCopy.getEmail(),
                 toCopy.getAddress(), newEducation, toCopy.getGrades(), toCopy.getTime(), toCopy.getTags());
 
-        for (Time time : toCopy.getTime()) {
-            promotedPerson.addTime(time);
-        }
-
         if (!toCopy.hasGraduated() && toCopy.equals(promotedPerson)) {
             newGraduatedStudents.add(promotedPerson.getName().toString());
             promotedPerson.addTag(new Tag("Graduated"));

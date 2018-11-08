@@ -166,13 +166,14 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getTime().equals(getTime());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, education, grades, tags);
+        return Objects.hash(name, phone, email, address, education, grades, tags, timings);
     }
 
     @Override
