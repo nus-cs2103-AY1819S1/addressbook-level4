@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalAssignment.getTypicalAssignments;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ASSIGNMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ASSIGNMENT;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysAssignment;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
