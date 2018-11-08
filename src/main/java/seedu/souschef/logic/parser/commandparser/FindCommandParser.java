@@ -13,9 +13,9 @@ import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.MealPlanContainsDatePredicate;
-import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 

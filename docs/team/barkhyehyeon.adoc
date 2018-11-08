@@ -9,46 +9,43 @@
 
 == Overview
 
-Souschef is a desktop smart cooking sidekick, offering personalised guidance every step of the way. From ingredient
+Souschef is a desktop smart cooking sidekick, offering personalised guidance every step of the way. From recipe
 recommendations just for you, to meal planning and inventory management, SousChef has everything you need to improve
-life in the kitchen.
+life in the kitchen. +
 
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
-== Summary of contributions (To be updated...)
-* *Major enhancement*: added *the ability to view ingredients*
-** What it does: Allows the user to list ingredients via search and view the details of individual ingredient.
+== Summary of contributions
+* *Major enhancement*: added *the ability to manage ingredients*
+** What it does: Allows the user to track the stock of ingredients, view recipe according to ingredient and check
+shop amount.
 
-** Justification: This is a core feature of the application which allow user to search and view ingredients.
+** Justification: This is a practical feature which would enhance user experience of cooking preparation.
 
-** Highlights: This enhancement affects the existing data structure of the application. As the existing data
-structure only supports managing of single core data, the Model Component has to be revamp to take in different data
-for multiple features to be implement in time to come. Since there are common functions such as add, delete, edit and
- search, this requires design of classes that are generic to reduce duplication in code.
+** Highlights: Rather than mere stock tracking, this feature contains functions providing cognitive
+shortcut for users. Also, it enables proper integration between information related to ingredient and recipe.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: restructured *entire logic component*
+** Justification: This was necessary to enable integration across multiple features, while maintaining efficiency by
+distinguishing shared processes and making use of general classes.
+** Highlights: This enables both modularization and efficient integration of features.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/64[PR#64]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+** General/Team Enhancements:
+*** Implementation of universal commands (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/66[#66])
+*** Fix UI for desired view (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/151[#151])
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** PRs reviewed (mainly related to logic component):
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/72[#72],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/77[#77]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-F10-2/main/issues/240[1], https://github.com/CS2103-AY1819S1-F10-2/main/issues/225[2],
+https://github.com/CS2103-AY1819S1-F10-2/main/issues/195[3], https://github.com/CS2103-AY1819S1-F10-2/main/issues/190[4], https://github.com/CS2103-AY1819S1-F10-2/main/issues/182[5])
 
 == Contributions to the User Guide
 
