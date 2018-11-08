@@ -29,11 +29,6 @@ public class JsonTipsStorage implements TipsStorage {
         }
     }
     @Override
-    public Path getTipsFilePath() {
-        return filePath;
-    }
-
-    @Override
     public Optional<List<Tip>> readTips() throws IOException {
         return readTips(fileStream);
     }

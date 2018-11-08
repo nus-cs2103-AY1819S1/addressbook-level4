@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +15,4 @@ public interface TipsStorage {
      * Returns {@code Optional.empty} if storage is not found.
      */
     Optional<List<Tip>> readTips() throws IOException;
-
-    /**
-     * Returns the file path of the UserPrefs data file.
-     */
-    Path getTipsFilePath();
 }

@@ -204,7 +204,6 @@ public class TotalBudget extends Budget {
      * Updates the current totalBudget with the new totalBudget if it is the start of a new month. Does nothing if not
      */
     public String checkBudgetRestart() {
-        System.out.println("Check budget restart is called");
         if (this.nextRecurrence == null) {
             return NOT_SET;
         }

@@ -29,7 +29,8 @@ public class CategoryIconHandle extends NodeHandle<Node> {
     }
 
     public double getCategoryBudgetCap() {
-        return Double.parseDouble(categoryBudgetCap.getText().substring(1));
+        return Double.parseDouble(categoryBudgetCap.getText().substring(0,
+                categoryBudgetCap.getText().length() - 1));
     }
     /**
      * Returns true if the information in this object matches the information in the {@code budget} object
@@ -38,7 +39,7 @@ public class CategoryIconHandle extends NodeHandle<Node> {
      */
     public boolean equals(CategoryBudget budget) {
         return categoryName.getText().equals(budget.toString())
-                && categoryBudgetCap.getText().equals("$" + budget.getBudgetCap());
+                && categoryBudgetCap.getText().equals(budget.getBudgetPercentage() + "%");
     }
 
     /**
@@ -47,6 +48,7 @@ public class CategoryIconHandle extends NodeHandle<Node> {
      */
     public CategoryBudget toBudget() {
         return new CategoryBudget(categoryName.getText(),
-                String.format("%.2f", Double.parseDouble(categoryBudgetCap.getText().substring(1))));
+                String.format("%.2f", Double.parseDouble(categoryBudgetCap.getText().substring(0,
+                        categoryBudgetCap.getText().length() - 1))));
     }
 }
