@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.util.Pair;
@@ -163,6 +164,7 @@ public class EarningsCommand extends Command {
         return other == this
                 || ((other instanceof EarningsCommand)
                 && (startDate.equals(((EarningsCommand) other).startDate))
-                && (endDate.equals(((EarningsCommand) other).endDate)));
+                && (endDate.equals(((EarningsCommand) other).endDate))
+                && (Arrays.equals(daysOfWeek, ((EarningsCommand) other).daysOfWeek)));
     }
 }
