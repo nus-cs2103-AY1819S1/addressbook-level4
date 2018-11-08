@@ -117,6 +117,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void restorePerson(Person target) {
+        versionedArchiveList.removePerson(target);
+        versionedAddressBook.addPerson(target);
+        indicateAddressBookChanged();
+        indicateArchivedListChanged();
+    }
+
+    @Override
     public void addPerson(Person person) {
         if (alreadyContainsUsername(person.getUsername().username, null)) {
             throw new IllegalUsernameException(person.getUsername().username);
