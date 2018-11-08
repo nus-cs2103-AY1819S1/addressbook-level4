@@ -16,7 +16,7 @@ import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.testutil.Assert;
 
 //@@author jjlee050
-public class XmlAdapterStaffTest {
+public class XmlAdaptedStaffTest {
 
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PASSWORD = "";
