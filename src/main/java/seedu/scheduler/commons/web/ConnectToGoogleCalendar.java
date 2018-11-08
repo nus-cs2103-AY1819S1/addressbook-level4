@@ -119,11 +119,7 @@ public class ConnectToGoogleCalendar {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (contents.toString().trim().equals(expectedStatus)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (contents.toString().trim().equals(expectedStatus));
     }
 
 
