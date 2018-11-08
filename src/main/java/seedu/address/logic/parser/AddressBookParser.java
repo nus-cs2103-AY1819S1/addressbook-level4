@@ -139,7 +139,7 @@ public class AddressBookParser {
 
         case ToggleCommand.COMMAND_WORD:
         case ToggleCommand.COMMAND_WORD_ALIAS:
-            //return new ToggleCommandParser().parse(arguments);
+            return new ToggleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
