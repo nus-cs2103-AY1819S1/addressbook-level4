@@ -163,13 +163,13 @@ Shows a list of all tasks.
 Format:
 `list [f/FILTER]`, where FILTER must be any of the following:
 
- * `today`
+ * `today`: Lists tasks that are due before the end of the day
 
- * `week`
+ * `week`: Lists tasks that are due before the end of the week
 
- * `month`
+ * `month`: Lists tasks that are due before the end of the month
 
- * `doable`
+ * `doable`: Lists tasks that do not have any uncompleted dependencies (or no dependencies)
 
 +Example:
 `list`
