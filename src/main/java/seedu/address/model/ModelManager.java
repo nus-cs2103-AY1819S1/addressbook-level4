@@ -591,7 +591,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     protected String checkBudgetRestart() throws NoUserSelectedException {
         String response = this.versionedExpenseTracker.checkBudgetRestart();
-        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
+//        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
         indicateExpenseTrackerChanged();
         return response;
     }

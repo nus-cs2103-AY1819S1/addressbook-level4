@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.notification.Notification;
@@ -237,7 +239,16 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        this.maximumTotalBudget.removeExpense(key);
+        Date expenseDate = key.getDate();
+        Date previousResetDateObject = null;
+        if (this.maximumTotalBudget.getPreviousRecurrence() != null) {
+            String previousResetDate = this.maximumTotalBudget.getPreviousRecurrence().format(DateTimeFormatter.ofPattern(
+                "dd-MM-yyyy"));
+            previousResetDateObject = new Date(previousResetDate);
+        }
+        if (previousResetDateObject == null || Date.compare(expenseDate, previousResetDateObject) < 0) {
+            this.maximumTotalBudget.removeExpense(key);
+        }
     }
 
     public TotalBudget getMaximumTotalBudget() {

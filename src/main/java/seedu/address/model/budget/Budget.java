@@ -133,8 +133,7 @@ public class Budget {
     @Override
     public boolean equals (Object budget) {
         Budget anotherBudget = (Budget) budget;
-        return this.currentExpenses == anotherBudget.currentExpenses
-            && this.budgetCap == anotherBudget.budgetCap;
+        return this.budgetCap == anotherBudget.budgetCap;
     }
 
     @Override
@@ -142,9 +141,7 @@ public class Budget {
         return String.format("$%.2f", this.budgetCap);
     }
 
-
-    //@@Snookerballs
-    /**
+ /**
      * Calculates and returns the percentage of budget used
      * @return the percentage of budget that has been used
      */

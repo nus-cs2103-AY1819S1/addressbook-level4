@@ -23,6 +23,7 @@ public class TotalBudget extends Budget {
     public static final String DO_NOTHING = "DO_NOTHING";
     protected long numberOfSecondsToRecurAgain;
     private LocalDateTime nextRecurrence;
+    private LocalDateTime previousRecurrence;
     private HashSet<CategoryBudget> categoryBudgets;
 
 
@@ -83,14 +84,20 @@ public class TotalBudget extends Budget {
 
 
     /**
-     * Returns the current date in which the totalBudget is created
+     * Returns the next date in which the spending is reset
      *
-     * @return a LocalDate object that consists of the most recent timestamp.
+     * @return a LocalDateTime object that consists of the next reset timestamp.
      */
 
     public LocalDateTime getNextRecurrence() {
         return this.nextRecurrence;
     }
+
+    /**
+     * Returns the previous date in which the spending is reset
+     * @return a LocalDateTime object that consists of the previous reset timestamp.
+     */
+    public LocalDateTime getPreviousRecurrence() { return this.previousRecurrence; }
 
 
     /**
@@ -208,6 +215,7 @@ public class TotalBudget extends Budget {
             return NOT_SET;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+            this.previousRecurrence = LocalDateTime.now();
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
             return SPENDING_RESET;

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
@@ -13,6 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -47,6 +49,7 @@ public class DeleteCommand extends Command {
         }
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         model.deleteExpense(expenseToDelete);
 
         model.commitExpenseTracker();
