@@ -568,15 +568,26 @@ We must remember to skip this wish in methods that involve displaying the WishLi
 
 ==== Current Implementation
 
-The find mechanism is facilitated by `FindCommand` and `FindCommandParser`. It extends `Command` and implements the following operations.
-
-* `FindCommand#execute()` -- Executes the command by running a predicate `NameContainsKeywordsPredicate` and updates the current wish list.
-
 The find mechanism is supported by `FindCommandParser`. It implements `Parser` that contains the following operations.
 
-* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
+* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is
+found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
 
-The predicate `NameContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of wish's name, and returns the corresponding wish if so.
+The find mechanism is also facilitated by `FindCommand`. It extends `Command` and implements the
+following operations.
+
+* `FindCommand#execute()` -- Executes the command by updating the current `FilteredSortedWishList` with the
+`WishContainsKeywordPredicate`.
+
+The predicate `WishContainsKeywordsPredicate`, takes in a three lists for the keywords of the following attributes:
+
+1. Name
+2. Tags
+3. Remark
+
+and also the `isExactMatch` argument. The result of the predicate is determined by checking
+whether a `Wish` contains the given keywords at their corresponding attributes. The match threshold
+is dictated by the value of `isExactMatch`.
 
 _{TO-DO: Sequence Diagram here}_
 
@@ -586,31 +597,50 @@ Given below is an example usage scenario and how the Find mechanism behaves at e
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user executes `find iphone` command to get all wishses containing the word 'iphone'.
-The `find` command calls `FindCommandParser#parse()`, checking the values `iphone`.
+Step 2. The user executes `find n/iphone n/tablet` command to get all wishes whose name contains the
+keywords 'iphone' or 'tablet'.
 
+Step 3. The `FindCommandParser#parse()` is called and the `WishContainsKeywordPredicate` is constructed with
+the arguments of the find command.
+
+Step 4. `FindCommand#execute()` is then called.
 [NOTE]
-If a command fails its execution, it will not call `FindCommand#execute()`, so the state will not be saved.
+If a command fails its execution, `FindCommand#execute()` will not be called, so the state will not be saved.
 
-Step 3. The entire list of wishes is filtered by the predicate `NameContainsKeywordsPredicate`.
+Step 5. The entire list of wishes is filtered by the predicate `NameContainsKeywordsPredicate`.
 
-Step 4. The filtered list of wishes is returned to the GUI.
+Step 6. The filtered list of wishes is returned to the GUI.
 
 _{TO-DO: Flow Chart Diagram}_
 
 ==== Design Considerations
 
-===== Aspect: How predicate works
+===== Aspect: Argument format
 
-* **Alternative 1 (Current choice):** Predicate have additional filter with an ignore list.
-** Pros: Easy to implement, user friendly.
-** Cons: More complicated predicate, sub strings not easily taken care of.
+* **Alternative 1 (Current choice):** Require the user to prepend every keyword argument with the appropriate
+Wish attribute prefix.
+** Pros: Easier to implement as it easier to match keyword against a Wish if the attribute to match against is known.
+** Pros: User has more control over the results returned.
+** Cons: User is required to type slightly more.
 
-* **Alternative 2:** Filter the data when it is taken in.
-** Pros: Less complicated predicate.
-** Cons: Manipulates the data, editing it for every other case.
-
+* **Alternative 2:** No prefixes are required in the arguments. Keywords can match with any one of the
+following chosen wish attributes: `Name`, `Tags` or `Remark`.
+** Pros: Less typing required from user.
+** Cons: Command might be slightly slower as every keyword has to be checked against all chosen attributes of the
+wish.
+** Cons: User has less control over the results returned.
 // end::find[]
+
+==== Aspect: Default threshold for match without the `EXACT_MATCH` flag
+* **Alternative 1 (Current choice):** Keywords appended to different prefixes are grouped with a logical AND
+keywords appended to the same prefixes are grouped with a logical OR before being matched against a `Wish`.
+** Pros: A more intuitive way to find wishes.
+** Cons: Can be restrictive in some situations.
+
+* **Alternative 2:** Keywords appended to different prefixes are grouped with a logical OR
+keywords appended to the same prefixes are grouped with a logical OR before being matched against a `Wish`.
+** Pros: Search results will be more inclusive.
+** Cons: Very slim chance for such a use case.
 
 // tag::savingsNotifications[]
 === [Proposed] Savings Notifications
