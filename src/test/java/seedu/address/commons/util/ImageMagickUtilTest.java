@@ -8,9 +8,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
@@ -55,6 +57,8 @@ public class ImageMagickUtilTest {
 
     @Test
     public void assertParseBuildInOperationSuccessfully() throws ParseException, InterruptedException, IOException {
+        Logger logger = LogsCenter.getLogger(ImageMagickUtilTest.class);
+        logger.warning(System.getProperty("os.name").toLowerCase());
         UserPrefs userPrefs = new UserPrefs();
         ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
         Path path = Paths.get("src", "test", "data", "sandbox", "test.jpg");
