@@ -349,7 +349,23 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
     }
+  
+    @Override
+    public boolean containsAssignment(String newAssignment, Assignment ignore) {
+        // If the set is empty
+        if (newAssignment.equals("[]")) {
+            return false;
+        }
 
+        List<Assignment> currentAssignment = versionedAssignmentList.getAssignmentList();
+        for (Assignment p : currentAssignment) {
+            if (!p.isSameAssignment(ignore) && newAssignment.contains(p.getProjectName().fullProjectName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+  
     @Subscribe
     private void handleShowHelpEvent(ChangeOnListPickerClickEvent event) {
         state = event.getNewSelection();

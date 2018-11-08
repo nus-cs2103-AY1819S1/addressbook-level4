@@ -274,6 +274,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean containsAssignment(String newAssignment, Assignment ignore) {
+            return false;
+        }
+
+        @Override
         public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
