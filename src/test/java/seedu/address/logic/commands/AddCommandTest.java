@@ -18,6 +18,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelStub;
@@ -55,7 +56,7 @@ public class AddCommandTest {
         Expense validExpense = new ExpenseBuilder().build();
         CommandResult commandResult = new AddCommand(validExpense).execute(modelStub, commandHistory);
 
-        assertEquals(AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
         assertTrue(modelStub.addWarningNotification());
     }
@@ -188,6 +189,10 @@ public class AddCommandTest {
         @Override
         public void commitExpenseTracker() {
             // called by {@code AddCommand#execute()}
+        }
+        @Override
+        public void addGeneralNotification(Notification notif) {
+            // called by (@code AddCommand#execute()}
         }
         @Override
         public boolean addExpense(Expense expense) {
