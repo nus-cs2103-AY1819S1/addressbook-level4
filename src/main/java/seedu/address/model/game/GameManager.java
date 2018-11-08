@@ -38,4 +38,29 @@ public class GameManager {
 
         return gameMode.appraiseXpChange(taskFrom, taskTo);
     }
+
+    public void setGameMode(String newGameModeName) {
+        if (newGameModeName.equals("flat")) {
+            this.gameMode = new FlatMode();
+        }
+
+        else {
+            this.gameMode = new DecreasingMode();
+        }
+    }
+
+    /**
+     * Checks if the given game mode name is a valid name.
+     */
+    public static boolean isValidGameMode(String gameModeName) {
+        if (gameModeName.equals("flat")) {
+            return true;
+        }
+
+        if (gameModeName.equals("decreasing")) {
+            return true;
+        }
+
+        return false;
+    }
 }
