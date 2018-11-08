@@ -32,6 +32,7 @@ public class PermissionSet {
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
                 preset.add(Permission.ASSIGN_PERMISSION);
+                preset.add(Permission.RESTORE_EMPLOYEE);
                 return preset;
             }
         },
@@ -49,6 +50,7 @@ public class PermissionSet {
                 preset.add(Permission.CREATE_PROJECT);
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
+                preset.add(Permission.RESTORE_EMPLOYEE);
                 return preset;
             }
         },

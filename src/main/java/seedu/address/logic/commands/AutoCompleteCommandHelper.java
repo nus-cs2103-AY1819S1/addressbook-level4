@@ -6,6 +6,7 @@ package seedu.address.logic.commands;
 public class AutoCompleteCommandHelper {
     private static String[] commandWordList = {
         AddCommand.COMMAND_WORD,
+        ArchiveCommand.COMMAND_WORD,
         ClearCommand.COMMAND_WORD,
         DeleteCommand.COMMAND_WORD,
         EditCommand.COMMAND_WORD,
@@ -22,6 +23,7 @@ public class AutoCompleteCommandHelper {
         ModifyPermissionCommand.COMMAND_WORD,
         PasswordCommand.COMMAND_WORD,
         RedoCommand.COMMAND_WORD,
+        RestoreCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD,
         SelfEditCommand.COMMAND_WORD,
         UndoCommand.COMMAND_WORD,

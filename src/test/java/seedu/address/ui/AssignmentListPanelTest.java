@@ -31,7 +31,7 @@ public class AssignmentListPanelTest extends GuiUnitTest {
             FXCollections.observableList(getTypicalAssignments());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
-            new JumpToListRequestEvent(INDEX_SECOND_ASSIGNMENT);
+            new JumpToListRequestEvent(INDEX_SECOND_ASSIGNMENT, 1);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
