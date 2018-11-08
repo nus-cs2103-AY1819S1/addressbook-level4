@@ -210,17 +210,6 @@ public class ParserUtil {
         return new Description(trimmedDescription);
     }
 
-    /**
-     * Parses {@code Iterable<Person> members} into a {@code UniquePersonList}.
-     */
-    public static UniquePersonList parseMember(Iterable<Person> members) throws ParseException {
-        requireNonNull(members);
-        final UniquePersonList parseList = new UniquePersonList();
-        members.forEach(parseList::add);
-
-        return parseList;
-    }
-
     // @@author
 
     /**

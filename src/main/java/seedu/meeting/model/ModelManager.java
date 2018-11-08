@@ -96,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateMeetingBookChanged();
     }
 
+    // @@author Derek-Hardy
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -111,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedMeetingBook.updateGroup(target, editedGroup);
         indicateMeetingBookChanged();
     }
-
+    // @@author
 
     //=========== AddGroup / RemoveGroup =====================================================================
 
