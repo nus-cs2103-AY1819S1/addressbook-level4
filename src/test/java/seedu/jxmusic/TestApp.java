@@ -93,6 +93,7 @@ public class TestApp extends MainApp {
     public Model getModel() {
         Model copy = new ModelManager((model.getLibrary()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPlaylistList());
+        ModelHelper.setFilteredTrackList(copy, model.getFilteredTrackList());
         return copy;
     }
 
