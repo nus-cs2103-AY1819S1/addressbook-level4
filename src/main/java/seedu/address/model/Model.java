@@ -149,7 +149,7 @@ public interface Model {
     /**
      * Updates the favourite event.
      */
-    void updateFavourite(String favourite);
+    void updateFavourite(Event favourite);
 
     /**
      * Returns notification preference.
@@ -160,4 +160,9 @@ public interface Model {
      * Returns favourite event String.
      */
     String getFavourite();
+
+    /**
+     * Checks if the event is the favourite.
+     */
+    boolean isFavourite(Event event);
 }

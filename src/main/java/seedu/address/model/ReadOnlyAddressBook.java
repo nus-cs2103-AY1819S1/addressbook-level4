@@ -47,4 +47,9 @@ public interface ReadOnlyAddressBook {
      * Returns favourite String.
      */
     String getFavourite();
+
+    /**
+     * Checks if the event is the currently favourite event
+     */
+    boolean isFavourite(Event event);
 }

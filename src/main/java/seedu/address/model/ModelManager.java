@@ -74,8 +74,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFavourite(String newEvent) {
-        versionedAddressBook.updateFavourite(newEvent);
+    public void updateFavourite(Event favouriteEvent) {
+        versionedAddressBook.updateFavourite("Event Name: " + favouriteEvent.getEventName()
+                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
+                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
+                + "\nEvent Details: " + favouriteEvent.getEventDescription());
         indicateAddressBookChanged();
     }
 
@@ -330,5 +333,10 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredEvents.equals(other.filteredEvents);
+    }
+
+    @Override
+    public boolean isFavourite(Event event) {
+        return versionedAddressBook.isFavourite(event);
     }
 }
