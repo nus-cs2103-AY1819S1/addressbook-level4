@@ -66,15 +66,15 @@ public class ReservationParserUtilTest {
 
     @Test
     public void parsePax_validValueWithoutWhitespace_returnsPax() throws Exception {
-        Pax expectedPrice = new Pax(VALID_PAX);
-        assertEquals(expectedPrice, ReservationParserUtil.parsePax(VALID_PAX));
+        Pax expectedPax = new Pax(VALID_PAX);
+        assertEquals(expectedPax, ReservationParserUtil.parsePax(VALID_PAX));
     }
 
     @Test
     public void parsePax_validValueWithWhitespace_returnsTrimmedPax() throws Exception {
         String paxWithWhitespace = WHITESPACE + VALID_PAX + WHITESPACE;
-        Pax expectedPrice = new Pax(VALID_PAX);
-        assertEquals(expectedPrice, ReservationParserUtil.parsePax(paxWithWhitespace));
+        Pax expectedPax = new Pax(VALID_PAX);
+        assertEquals(expectedPax, ReservationParserUtil.parsePax(paxWithWhitespace));
     }
 
     @Test
@@ -89,15 +89,15 @@ public class ReservationParserUtilTest {
 
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
-        Date expectedPrice = new Date(VALID_DATE);
-        assertEquals(expectedPrice, ReservationParserUtil.parseDate(VALID_DATE));
+        Date expectedDate = new Date(VALID_DATE);
+        assertEquals(expectedDate, ReservationParserUtil.parseDate(VALID_DATE));
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String paxWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
-        Date expectedPrice = new Date(VALID_DATE);
-        assertEquals(expectedPrice, ReservationParserUtil.parseDate(paxWithWhitespace));
+        Date expectedDate = new Date(VALID_DATE);
+        assertEquals(expectedDate, ReservationParserUtil.parseDate(paxWithWhitespace));
     }
 
     @Test
@@ -112,14 +112,14 @@ public class ReservationParserUtilTest {
 
     @Test
     public void parseTime_validValueWithoutWhitespace_returnsTime() throws Exception {
-        Time expectedPrice = new Time(VALID_TIME);
-        assertEquals(expectedPrice, ReservationParserUtil.parseTime(VALID_TIME));
+        Time expectedTime = new Time(VALID_TIME);
+        assertEquals(expectedTime, ReservationParserUtil.parseTime(VALID_TIME));
     }
 
     @Test
     public void parseTime_validValueWithWhitespace_returnsTrimmedTime() throws Exception {
         String paxWithWhitespace = WHITESPACE + VALID_TIME + WHITESPACE;
-        Time expectedPrice = new Time(VALID_TIME);
-        assertEquals(expectedPrice, ReservationParserUtil.parseTime(paxWithWhitespace));
+        Time expectedTime = new Time(VALID_TIME);
+        assertEquals(expectedTime, ReservationParserUtil.parseTime(paxWithWhitespace));
     }
 }
