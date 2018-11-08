@@ -80,7 +80,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// task list related operation(s)
 
-
     /**
      * Check if any of the completed task has any invalid dependencies.
      *
@@ -90,28 +89,27 @@ public class TaskManager implements ReadOnlyTaskManager {
 
         Predicate<Task> isCompleteTask = Task::isStatusCompleted;
 
-        // this.getTaskList() is called twice deliberately to ensure
-        // usage of two different immutable lists to create streams.
-        // Although referencing the same list and creating a stream
-        // might be workable in this scenario, it is not done in this
-        // to prevent additional bugs.
-
         // Stream of completed tasks
         Stream<Task> allCompleted =
             this.getTaskList().stream().filter(isCompleteTask);
 
-        // Stream of uncompleted tasks
-        Stream<Task> allUncompleted =
-            this.getTaskList().stream().filter(isCompleteTask.negate());
-
         // Checks if any of the uncompleted tasks are dependencies of
         // completed tasks. Returns true if yes.
-        return allUncompleted
-            .anyMatch(uncompletedTask ->
-                allCompleted
-                    .anyMatch(completedTask ->
-                        completedTask
-                            .isDependentOn(uncompletedTask)));
+        return
+            allCompleted.anyMatch(uncompletedTask -> {
+                // allUncompleted is deliberated created each time
+                // as calling anyMatch on it closes the stream.
+                // As such, we cannot create and reuse one single
+                // instance of the stream.
+                Stream<Task> allUncompleted =
+                    this.getTaskList()
+                        .stream()
+                        .filter(isCompleteTask.negate());
+                return
+                    allUncompleted
+                        .anyMatch(completedTask ->
+                            completedTask.isDependentOn(uncompletedTask));
+            });
     }
 
     //// task-level operations
