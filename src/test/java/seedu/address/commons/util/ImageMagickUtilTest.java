@@ -1,6 +1,5 @@
 package seedu.address.commons.util;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import org.junit.Test;
+
+import com.oracle.tools.packager.UnsupportedPlatformException;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,15 +44,11 @@ public class ImageMagickUtilTest {
         File file1 = new File(userPrefs.getCurrDirectory() + "/ImageMagick-7.0.8-14-portable-Q16-x64");
         if (file1.exists()) {
             file1.delete();
-        } else {
-            fail();
         }
         ImageMagickUtil.copyOutside(userPrefs, "mac OS X");
         File file2 = new File(userPrefs.getCurrDirectory() + "/ImageMagick-7.0.8");
         if (file2.exists()) {
             file2.delete();
-        } else {
-            fail();
         }
     }
 
@@ -62,7 +59,11 @@ public class ImageMagickUtilTest {
         UserPrefs userPrefs = new UserPrefs();
         ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
         Path path = Paths.get("src", "test", "data", "sandbox", "test.jpg");
-        ImageMagickUtil.processImage(path, new Transformation("blur", "0x8"));
+        try {
+            ImageMagickUtil.processImage(path, new Transformation("blur", "0x8"));
+        } catch (UnsupportedPlatformException e) {
+            return;
+        }
     }
 
     @Test
@@ -70,6 +71,10 @@ public class ImageMagickUtilTest {
         UserPrefs userPrefs = new UserPrefs();
         ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
         Path path = Paths.get("src", "test", "data", "sandbox", "test.jpg");
-        ImageMagickUtil.processImage(path, new Transformation("@blurR"));
+        try {
+            ImageMagickUtil.processImage(path, new Transformation("@blurR"));
+        } catch (UnsupportedPlatformException e) {
+            return;
+        }
     }
 }

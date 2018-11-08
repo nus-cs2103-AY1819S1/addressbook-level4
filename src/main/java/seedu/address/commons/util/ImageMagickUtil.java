@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
+import com.oracle.tools.packager.UnsupportedPlatformException;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.EventsCenter;
@@ -106,7 +108,8 @@ public class ImageMagickUtil {
      * @throws InterruptedException
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
-            throws ParseException, IOException, InterruptedException, IllegalArgumentException {
+            throws ParseException, IOException, InterruptedException, IllegalArgumentException,
+            UnsupportedPlatformException {
         ArrayList<String> cmds = parseOperationArguments(transformation);
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
@@ -200,7 +203,7 @@ public class ImageMagickUtil {
      */
 
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
-            throws IOException, InterruptedException, IllegalArgumentException {
+            throws IOException, InterruptedException, IllegalArgumentException, UnsupportedPlatformException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform(osName) == MAC) {
             Map<String, String> mp = pb.environment();
@@ -212,7 +215,9 @@ public class ImageMagickUtil {
             throw new IllegalArgumentException("Process fails");
         }
         List<String> tmp = pb.command();
-        System.out.println(tmp);
+        if (getPlatform(osName) == LINUX) {
+            throw new UnsupportedPlatformException();
+        }
         FileInputStream is = new FileInputStream(output);
         Image modifiedImage = new Image(is);
         return SwingFXUtils.fromFXImage(modifiedImage, null);
@@ -276,7 +281,7 @@ public class ImageMagickUtil {
      * @throws InterruptedException
      */
     public static BufferedImage processRawImage(Path path, String rawCommand)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, UnsupportedPlatformException {
         ArrayList<String> rawArgs = new ArrayList<>(Arrays.asList(rawCommand.trim().split(" ")));
         String modifiedFile = tmpPath + "/output.png";
         ArrayList<String> args = new ArrayList<>();
@@ -293,7 +298,8 @@ public class ImageMagickUtil {
      * @param c - A canvas to be processed
      * @return a buffered image with a merged canvas.
      */
-    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
+    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException,
+            UnsupportedPlatformException {
         ArrayList<String> args = new ArrayList<>();
         String output = tmpPath + "/modified.png";
         args.add(getConvertExecutablePath());
@@ -321,7 +327,7 @@ public class ImageMagickUtil {
      * @param c - A canvas to be processed
      * */
     public static void saveCanvas(Canvas c, Path outDirectory, String fileName)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, UnsupportedPlatformException {
         ArrayList<String> args = new ArrayList<>();
         String output = outDirectory + "/" + fileName;
         args.add(getConvertExecutablePath());
@@ -360,7 +366,7 @@ public class ImageMagickUtil {
                                     ImageMagickUtil.processCanvas(c), null), target));
         } catch (IOException e) {
             logger.severe(e.getMessage());
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | UnsupportedPlatformException e) {
             logger.severe(e.getMessage());
         }
 

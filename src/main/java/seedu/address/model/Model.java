@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.oracle.tools.packager.UnsupportedPlatformException;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalOperationException;
@@ -174,6 +175,6 @@ public interface Model {
 
     Canvas getCanvas();
 
-    void saveCanvas(String fileName) throws IOException, InterruptedException;
+    void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException;
 
 }
