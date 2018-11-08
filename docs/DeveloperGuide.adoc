@@ -1591,8 +1591,33 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Delete a user
 .. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
-.. Test case `deleteUSer`
+.. Test case `deleteUser`
    Expected: user "Alex Yeoh" successfully deleted.
+
+=== Populate a user schedule via Timetable
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser tt/http://modsn.us/H4v8s`
+   Expected: Schedule of user successfully overwritten to 100000000000000011110000000011110000000000
+000000000000000000000000000000111111110000000000000000000000000000000000001100000011110000000000
+000000000000000000000000000000111100001111000000000000000000000000000000111100001111111111000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000.
+.. Test case `editUser tt/http://modsn.us/H`
+    Expected: Invalid NUSmods Link
+
+=== Edit a user schedule
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser su/monday 0000`
+   Expected: Schedule of user "Alex Yeoh" successfully changed. First bit of the schedule is now 1.
+.. Test case `editUser su/monday 0030`
+   Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the schedule is now 1.
+
+=== Find free time between two users
+.. Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
+.. Test case `maxSchedule sl/0000-0000`
+   Expected: Free time of 0000 from Monday to Sunday is displayed.
+.. Test case `maxSchedule sl/0800-0900`
+      Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
 .. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
@@ -1603,6 +1628,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
 .. Test case `deleteFriend 1,2`
    Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
+
 ////
 === Deleting a person
 
