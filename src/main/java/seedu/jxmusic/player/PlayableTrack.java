@@ -1,6 +1,5 @@
 package seedu.jxmusic.player;
 
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -20,7 +19,7 @@ public class PlayableTrack implements Playable {
         mediaPlayer = track.getMediaPlayer();
         try {
             mediaPlayer.setOnReady(() -> {
-            System.out.println("ready");
+                System.out.println("ready");
             });
             mediaPlayer.setOnEndOfMedia(() -> {
                 System.out.println("end of media");
