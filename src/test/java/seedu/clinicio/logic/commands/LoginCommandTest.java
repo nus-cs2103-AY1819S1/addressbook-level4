@@ -22,7 +22,6 @@ import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
-import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 
 import seedu.clinicio.model.Model;
