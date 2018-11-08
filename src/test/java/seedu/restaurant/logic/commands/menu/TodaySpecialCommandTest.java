@@ -80,6 +80,13 @@ public class TodaySpecialCommandTest {
         command = new TodaySpecialCommand(calendar);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+
+        //leap day
+        calendar.set(2016, Calendar.FEBRUARY, 29);
+        predicate = preparePredicate(calendar);
+        command = new TodaySpecialCommand(calendar);
+        expectedModel.updateFilteredItemList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
