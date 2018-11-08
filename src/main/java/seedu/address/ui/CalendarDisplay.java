@@ -121,15 +121,21 @@ public class CalendarDisplay extends UiPart<Region> {
                     if (c.wasRemoved()) {
                         for (CalendarEvent removedEvent : c.getRemoved()) {
                             agenda.appointments().remove(removedEvent);
+                            //System.out.println("event removed: " + removedEvent.toString());
                         }
                     }
                     if (c.wasAdded()) {
                         for (CalendarEvent addedEvent : c.getAddedSubList()) {
                             addedEvent.setAppointmentGroup(appointmentGroup);
                             agenda.appointments().add(c.getFrom(), addedEvent);
+                            //System.out.println("event added: " + addedEvent.toString() + " at index " + c.getFrom());
                         }
                     }
                 }
+//                System.out.println("sanity check: ");
+//                for(Appointment appt : agenda.appointments()) {
+//                    System.out.println(((CalendarEvent) appt).toString());
+//                }
             }
         });
     }

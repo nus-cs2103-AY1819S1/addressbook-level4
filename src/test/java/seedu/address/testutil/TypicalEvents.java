@@ -83,6 +83,7 @@ public class TypicalEvents {
             .build();
 
     public static final String KEYWORD_MATCHING_LECTURE = "Lecture"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_EXACT_TUTORIAL = "JS1011 Tutorial";
 
     private TypicalEvents() {
     } // prevents instantiation

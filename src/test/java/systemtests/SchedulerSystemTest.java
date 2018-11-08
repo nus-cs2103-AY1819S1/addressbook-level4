@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingIgnoreOrder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,9 +32,11 @@ import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.Scheduler;
+import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.testutil.GuiTestAssert;
 
 /**
  * A system test class for Scheduler, which provides access to handles of GUI components and helper methods
@@ -154,15 +157,22 @@ public abstract class SchedulerSystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same calendarevent objects as {@code expectedModel}
-     * and the calendar event list panel displays the calendar events in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same calendarevent objects as {@code expectedModel},
+     * the calendar event list panel displays the calendar events in the model correctly, and the calendar display
+     * displays the calendar events in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
+        print("assertApplicationDisplaysExpected");
+        print("expected Command Input: " + expectedCommandInput);
+        print("actual command input :" + getCommandBox().getInput());
+        print("expected result message: " + expectedResultMessage);
+        print("actual result message: " + getResultDisplay().getText());
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
         assertListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
     }
 
     /**
@@ -244,5 +254,15 @@ public abstract class SchedulerSystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    public void print(String s) {
+        System.out.println(s);
+    }
+
+    public void print(List<CalendarEvent> xs) {
+        for (CalendarEvent ce : xs) {
+            System.out.println(ce);
+        }
     }
 }
