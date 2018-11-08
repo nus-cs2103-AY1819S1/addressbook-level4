@@ -17,7 +17,12 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
+WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping
+ track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items
+  as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have
+   material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so
+    that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and
+     start saving!
 
 == Quick Start
 
@@ -47,27 +52,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
-* Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list command can be used as `list` to display all wishes in WishBook.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
-* The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which
+can be used as add iPhone.
+* Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list
+command can be used as `list` to display all wishes in WishBook.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
+(i.e. 0 times), `t/broke`, `t/needs` etc.
+* The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in
+`add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE`
+and `END_DATE` parameters.
 ====
 
 === Viewing help : `help`
 Displays a popup window showing all the commands a user can use in `WishBook`. +
 Format: `help`
 
-=== Adding a wish: `add`
-Adds a wish to the wish list +
-Format: `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [r/REMARK] [t/TAG] [MORE TAGS]`
+=== Add a new wish: `add`
+Add a new wish to the wish list. +
+Format: `add n/WISH_NAME p/PRICE [a/PERIOD_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]...`
 
-[TIP]
-* `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
-* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+****
+* `[END_DATE]`: Specified in _dd/mm/yyyy_ format.
+* `[PERIOD_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time
+periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+****
 
 [NOTE]
 ====
-If an invalid date is provided, a warning message will be displayed to prompt the user to reenter a valid date. Until all fields provided are valid, the wish will not be added to `WishBook`.
+If you enter an invalid date, a warning message will be displayed to prompt the user to reenter a valid date.
+Until all fields provided are valid, the wish will not be added to `WishBook`.
+====
+
+[NOTE]
+====
+The expiry date you enter must be after current date.
 ====
 
 Examples:
@@ -75,8 +93,9 @@ Examples:
 * `add n/smallRice p/999 a/2d`
 * `add n/kfcBook 13inch p/2300 a/6m3w r/For dad t/family t/computing`
 * `add n/prinkles p/1.95 d/24/04/2020`
+* `add n/prinkles p/1.95 d/24/04/2020 u/www.amazon.com/prinkles t/high`
 
-=== Editing a wish : `edit`
+=== Edit a wish : `edit`
 
 Edits an existing wish in the wish list. +
 Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
@@ -98,7 +117,7 @@ Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Bro
 * `edit 2 p/22 a/22w` +
 Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
-=== Listing wishes : `list`
+=== List wishes : `list`
 
 Shows a list of all the wishes you have set, sorted by date by default, based on the given filter.
 If no filter is specified, all wishes in the WishBook will be listed. +
@@ -118,52 +137,64 @@ Lists all the uncompleted wishes in the WishBook.
 * Deleted wishes will not be displayed.
 ****
 
-=== Listing history of entered commands : `history -c`
+=== List history of entered commands : `history -c`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history -c`
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
 ====
 
-// tag::savingsHistory[]
-=== Viewing your saving history: `history -s`
+=== View your saving history: `history -s`
 
 Shows a history of savings you have allocated, from newest to oldest. +
 Format: `history -s`
 
 [NOTE]
 ====
-Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will no longer be tracked.)
+Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will
+no longer be tracked.)
 ====
 // end::savingsHistory[]
 
-=== Locating wishes by name: `find`
+=== Locate your wish with speed and precision: `find`
 
-Finds wishes which satisfy the given search predicate. +
-Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
+Find wishes which match the given search keywords. +
+Format: `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]...`
 
 ****
-* The user can search using the following search predicates:
-    * `NAME`
-    * `TAG`
-* `NAME` is the default search predicate.
+* At least one keyword must be provided.
+* Searching multiple keywords of the *same prefix* will return wishes whose
+attribute corresponding to the prefix contain *any* one of the keywords.
+* Searching with keywords of *different prefixes* will return only wishes that
+match will *all* the keywords of the different prefixes.
+* Using the `-e` flag returns wishes whose corresponding attributes contain *all*
+the keywords.
 * The search is case insensitive. e.g. watch will match Watch.
-* Only full words will be matched. e.g. wat will not match watch.
-* Wishes matching at least one keyword will be returned. e.g. watch will return apple watch, pebble watch.
 ****
 
 Examples:
 
-* `find n/watch` +
-Returns any wish with name containing watch
+* `find n/wat` +
+Returns any wish whose name contains the _wat_.
 
-* `find n/watch t/broke wishes` +
-Returns any wish with name containing 'watch', with tag 'broke wishes'.
+* `find n/wat n/balloon n/appl` +
+Returns wishes whose names which contain at least any one of _wat_, _balloon_ or _appl_.
 
-=== Deleting a wish : `delete`
+* `find -e n/wat n/balloon n/appl` +
+Returns only wishes whose names that contain all of _wat_, _balloon_ and _appl_.
+
+* `find n/watch t/important` +
+Returns any wish whose name contains _watch_, and whose tags contains _broke wishes_.
+
+* `find n/wat n/balloon t/important` +
+Returns any wish whose name contains _wat_ or _balloon_, and whose tags contains
+_important_.
+
+=== Delete a wish : `delete`
 
 Deletes the specified wish from the list. +
 Format: `delete INDEX`
@@ -184,7 +215,7 @@ Deletes the 2nd wish in the list.
 `delete 1` +
 Deletes the 1st wish in the results of the find command (if any).
 
-=== Selecting a wish : `select`
+=== Select a wish : `select`
 
 Selects the wish identified by the index number used in the displayed wish list. +
 Format: `select INDEX`
@@ -211,13 +242,14 @@ Selects the 1st wish in the results of the `find` command.
 // tag::save[]
 === Save money for a particular wish: `save`
 
-Channels a specified amount of money to savings for a specified wish. +
+Channel a specified amount of money to savings for a specified wish. +
 Format: `save INDEX AMOUNT`
 
 ****
 * `INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
 * If `INDEX` is 0, `AMOUNT` will be channelled directly to `unusedFunds`.
-* If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
+* If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled
+to `unusedFunds`.
 * If `AMOUNT` is negative, money will be removed from amount saved for that wish. +
 * `AMOUNT` will not be accepted if:
 ** `AMOUNT` brings the savings value for that wish to below 0.
@@ -258,7 +290,9 @@ Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 [NOTE]
 ====
-Index 0 is specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
+Index 0 is specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically
+ allocated to `unusedFunds`.
+The user can also choose to channel funds from `unusedFunds` to a valid wish.
 ====
 
 Examples: +
@@ -274,7 +308,7 @@ Attempt to move $10 from the wish at index 1 to `unusedFunds`.
 
 // end::move[]
 
-=== Editing a remark for a wish : `remark`
+=== Edit a remark for a wish : `remark`
 
 Edits the remark for a wish specified in the index. +
 Format: `remark INDEX r/[REMARK]`
@@ -295,13 +329,14 @@ Edits the remark for the first wish to `Buying this for dad.`
 Removes the remark for the first wish (if any).
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undo previous command : `undo`
 
 Restores WishBook to the state before the previous undoable command was executed. +
 Format: `undo`
 
 ****
-* If no undoable commands exist or the state of the wishbook is already in its original state, the undo command will fail and the state of the wishbook will remain unchanged.
+* If no undoable commands exist or the state of the wishbook is already in its original state, the undo command will
+fail and the state of the wishbook will remain unchanged.
 ****
 
 [NOTE]
@@ -325,7 +360,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redo the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -372,19 +407,20 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WishBook folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous WishBook folder.
 
 == Command Summary
 
-* *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE]` +
+* *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]...` +
 e.g. `add n/kfcBook_13inch p/2300 a/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
 e.g. `edit 1 n/Macbook Pro t/Broke wishes`
-* *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
-e.g. `find d/22`
+* *Find* : `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]...` +
+e.g. `find n/wat t/important`
 * *List* : `list`
 * *List completed* : `list -c`
 * *List uncompleted* : `list -u`
