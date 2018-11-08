@@ -37,6 +37,8 @@ public class Layer {
         image.addTransformation(t);
     }
 
+    //Misc accessors.
+
     public int getX() {
         return x;
     }
