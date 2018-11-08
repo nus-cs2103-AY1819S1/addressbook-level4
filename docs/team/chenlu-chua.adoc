@@ -1,0 +1,71 @@
+= Chua Chen Lu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorPal
+
+---
+
+== Overview
+
+TutorPal is a desktop application used by private home tutors for managing student information. The useage is primarily through CLI. It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented the *earnings feature*
+** What it does: Allows tutors to calculate the amount of money earned from giving tuition between a range of dates.
+** Justification: Money is perhaps the most important motivation for becoming a tuition teacher, it is important to calculate the amount
+of money earned. This feature allows tutor to ensure that future earnings are sufficient, and subsequently assist the tutor in
+planning out future student intakes.
+
+* *Major enhancement*: implemented the *promote feature*
+** What is does: Allow tutors to raise the educational grade of the students stored in TutorPal. Tutors
+can choose to promote all students or selectively.
+** Justification: The decision to not automate the promotion of students as a year passed is deliberate.
+This provides the users with a higher level of autonomy when using TutorPal. +
+In providing such feature instead of relying on promoting the students stored in TutorPal automatically,
+undesirable outcomes like promoting all students when the system time is changed to other years are avoided.
+
+* *Minor enhancement*:
+** added an Education field to the person object in TutorPal to
+allow users to store the educational level of students.
+** implemented tuition fees of students. Tuition fees are based on student's
+educational level and grade, irrespective of the subject(s) taught to them.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chenlu-chua
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI of "Graduated" Tag to become more prominent to users.
+*** Updated the add command to allow adding of educational level and grade.
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide:
+***
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=promote]
+
+include::../UserGuide.adoc[tag=earnings]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+

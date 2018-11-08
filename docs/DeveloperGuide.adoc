@@ -392,20 +392,75 @@ image::EarningsCommandSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
-
+* To be able to calculate past earnings, taking into account that certain students may have
+changed their tuition time slots.
+* Calculate tuition earnings based on attendance, including extra lessons.
 
 ==== Design considerations
 
 ===== Aspect: The type of arguments acceptable
 
 * **Alternative 1 (current choice):** Accepts a range of date in ddmm format.
-** Pros: Gives users a less restrictive option to calculate tuition fees earned.
-** Cons: Harder to implement.
+** Pros:
+. Gives users a less restrictive option to calculate tuition fees earned.
+** Cons:
+. Harder to implement.
 * **Alternative 2:** Accept a single argument of any month.
-** Pros: Easier to implement.
-** Cons: Users are restricted to obtaining only tuition fees earned on a monthly basis.
-
+** Pros:
+. Easier to implement.
+. Allow accurate retrieval of past earnings in the event that a student's time slot changed as monthly earnings can be calculated
+and stored.
+** Cons:
+. Users are restricted to obtaining fees earned only in period of months.
 // end::earningfeature[]
+
+// tag::promotefeature[]
+=== Promote Feature
+
+==== Current Implementation
+
+The promote feature has been implemented to allow users to manually promote his/her students to the next
+educational grade. The promote command can either promote all students stored in TutorPal, or selectively based on user input.
+
+* `PromoteCommandParser` parses the arguments to determine the class of command returned.
+
+* The former is facilitated by the `PromoteAllCommand`.
+
+* The latter is facilitated by the `PromoteIndividualCommand`
+
+* Both command classes are subclasses of `PromoteCommand`.
+
+* Both subclasses inherit the `PromoteCommand#createPromotedPerson()` and `PromoteCommand#getNumberOfGraduatedStudents()`
+methods and implements their own overridden `execute()` function.
+
+* As the promote feature do not promote students across educational levels (e.g. Primary to Secondary), a "Graduated" tag
+is assigned to a student if the promote function is called on a student who is in his/her final year.
++
+image
+
+
+==== Future Implementation
+
+Implement a function to allow automated promotion of all students in TutorPal at the beginning of the year and
+allow users to configure TutorPal the promote feature to be automatic or manual.
+
+==== Design considerations
+
+===== Aspect: Promote feature to be automated by time or by manual user input
+
+* **Alternative 1 (current choice):** Manual user input
+** Pros:
+. Easier to implement.
+. Prevent undesired situations like promoting all students if system time is set to a new year unintentionally.
+. Provides tutors with higher autonomy in editing student information (e.g. if students retain).
+** Cons:
+. Some users may prefer automatic promotion.
+* **Alternative 2:** Automatic promotion
+** Pros:
+. Convenient for users (subjective).
+** Cons:
+. Undesirable side effects like unintended promotion of student if system time is changed.
+// end::promotefeature[]
 
 // tag::timefeature[]
 === Time Feature
