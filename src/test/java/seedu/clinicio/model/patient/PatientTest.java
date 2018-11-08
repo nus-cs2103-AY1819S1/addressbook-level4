@@ -19,11 +19,25 @@ import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 import static seedu.clinicio.testutil.TypicalPersons.CANDY;
 import static seedu.clinicio.testutil.TypicalPersons.DAISY;
 
+import org.junit.Rule;
 import org.junit.Test;
 
+import org.junit.rules.ExpectedException;
+import seedu.clinicio.model.person.Person;
 import seedu.clinicio.testutil.PatientBuilder;
 
 public class PatientTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        Patient patient = new PatientBuilder().build();
+        thrown.expect(UnsupportedOperationException.class);
+        patient.getMedicalProblems().remove(0);
+    }
+
     @Test
     public void isSamePatient() {
 
