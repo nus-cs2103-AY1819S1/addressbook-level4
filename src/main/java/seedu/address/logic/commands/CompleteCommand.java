@@ -39,28 +39,18 @@ public abstract class CompleteCommand extends Command {
     public CommandResult executePrimitive(Model model, CommandHistory history)
         throws CommandException {
 
+        // Calculation of change in xp and level is inlined
+        // as the viewing of the whole process as procedures that relies
+        // side effects of the methods called in between is now more easily
+        // done.
+
         // gets oldXp before updating tasks.
         int oldXp = model.getXpValue();
         Level oldLevel = model.getLevel();
 
-        String completedTasksOutput;
-
-        try {
-            completedTasksOutput = executePrimitivePrime(model, history);
-
-            // model related operations
-            // throws an exception if there are unfulfilled dependencies.
-            if (model.hasInvalidDependencies()) {
-                throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
-            }
-
-        } catch (CommandException ce) {
-            model.rollbackTaskManager();
-            throw ce;
-        }
-
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        model.commitTaskManager();
+        // methods with side effects
+        String completedTasksOutput = completeTasks(model, history);
+        processModelSideEffects(model);
 
         // calculate change in xp to report to the user.
         int newXp = model.getXpValue();
@@ -68,10 +58,47 @@ public abstract class CompleteCommand extends Command {
         Level newLevel = model.getLevel();
 
         // Comparison with != operator is valid since Level is an enum.
-        boolean hasChangeinLevel = newLevel != oldLevel;
+        boolean hasChangeInLevel = newLevel != oldLevel;
 
-        return createCommandResult(hasChangeinLevel, newLevel, changeInXp, completedTasksOutput);
+        return createCommandResult(hasChangeInLevel, newLevel, changeInXp, completedTasksOutput);
     }
+
+    /**
+     *
+     * @param model
+     * @param history
+     * @return
+     * @throws CommandException
+     */
+    private String completeTasks(Model model, CommandHistory history)
+        throws CommandException {
+
+        String completedTasksOutput;
+        try {
+            completedTasksOutput = executePrimitivePrime(model, history);
+        } catch (CommandException ce) {
+            model.rollbackTaskManager();
+            throw ce;
+        }
+
+        return completedTasksOutput;
+    }
+
+    /**
+     *
+     * @param model
+     * @throws CommandException
+     */
+    private void processModelSideEffects(Model model) throws CommandException {
+        if (model.hasInvalidDependencies()) {
+            model.rollbackTaskManager();
+            throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
+        }
+        // model related operations
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        model.commitTaskManager();
+    }
+
 
     /**
      *
