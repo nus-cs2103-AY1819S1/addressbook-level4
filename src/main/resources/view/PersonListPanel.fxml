@@ -6,10 +6,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <StackPane prefWidth="Infinity" VBox.vgrow="ALWAYS" prefHeight="NaN">
-          <Text textAlignment="CENTER" text="Student list" fill="azure" style="-fx-font-size: 25">
-          </Text>
-  </StackPane>
   <StackPane minHeight="15">
   </StackPane>
   <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />

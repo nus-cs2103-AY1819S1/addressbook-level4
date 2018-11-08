@@ -17,10 +17,24 @@
     -fx-opacity: 1;
 }
 
+.studentLabel {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.studentLabel-bright {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #f5f5f5;
+    -fx-opacity: 1;
+}
+
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-size: 25pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #e3e3e3;
     -fx-opacity: 1;
 }
 
