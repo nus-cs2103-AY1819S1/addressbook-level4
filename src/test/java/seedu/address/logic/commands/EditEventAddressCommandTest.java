@@ -63,8 +63,8 @@ public class EditEventAddressCommandTest {
         // checks for date and index inputs to EditEventAddressCommand
 
         EventDate outOfBoundDate = new EventDate("2019-12-31");
-        EditEventAddressCommand editEventAddressCommand
-                = new EditEventAddressCommand(outOfBoundDate, INDEX_FIRST_EVENT,
+        EditEventAddressCommand editEventAddressCommand =
+                new EditEventAddressCommand(outOfBoundDate, INDEX_FIRST_EVENT,
                 new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT));
 
         assertCommandFailure(editEventAddressCommand, model, commandHistory,
@@ -186,7 +186,8 @@ public class EditEventAddressCommandTest {
                 outOfBoundIndex, new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT));
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(editEventAddressCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        assertCommandFailure(editEventAddressCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
