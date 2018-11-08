@@ -16,6 +16,7 @@ preferences.json
 .DS_Store
 ./screenshot*.png
 classes/
+cache/
 /data/
 /bin/
 src/main/resources/docs/

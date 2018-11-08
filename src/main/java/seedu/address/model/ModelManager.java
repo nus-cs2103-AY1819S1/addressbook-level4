@@ -1,7 +1,10 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
+import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.google.PhotosLibraryClientFactory.BLOCKER;
+import static seedu.address.model.google.PhotosLibraryClientFactory.DATA_STORE;
+import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,6 +23,7 @@ import seedu.address.commons.events.ui.HistoryUpdateEvent;
 import seedu.address.commons.events.ui.LayerUpdateEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.commons.exceptions.IllegalOperationException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -42,9 +46,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final UserPrefs userPrefs;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Strictly for test mode. Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(UserPrefs userPrefs) {
+    public ModelManager(UserPrefs userPrefs, boolean isTest) {
         super();
         requireAllNonNull(userPrefs);
 
@@ -54,16 +58,11 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs.initImageList();
         dirImageList = this.userPrefs.getCurrImageListBatch();
 
-        try {
-            photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
-        } catch (Exception e) {
-            logger.warning("Unable to log into user account");
-        }
-
+        setUpForGoogle(isTest);
     }
 
     public ModelManager() {
-        this(new UserPrefs());
+        this(new UserPrefs(), true);
     }
 
     //=========== Directory Image List Accessors =============================================================
@@ -166,7 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //=========== GoogleClient Accessors =============================================================
-
+    // @@author chivent
     @Override
     public void setPhotoHandler(PhotoHandler instance) {
         photoLibrary = instance;
@@ -178,10 +177,10 @@ public class ModelManager extends ComponentManager implements Model {
             try {
                 photoLibrary = PhotosLibraryClientFactory.createClient();
                 if (photoLibrary == null) {
-                    throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                    throw new CommandException(MESSAGE_CONNECTION_FAILURE);
                 }
             } catch (Exception e) {
-                throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                throw new CommandException(MESSAGE_CONNECTION_FAILURE);
             }
         }
         return photoLibrary;
@@ -193,6 +192,27 @@ public class ModelManager extends ComponentManager implements Model {
             return null;
         }
         return getPhotoHandler().identifyUser();
+    }
+
+    @Override
+    public void setUpForGoogle(boolean isTest) {
+        if (isTest) {
+            FileUtil.createDirectoriesIfMissing(DATA_STORE);
+            try {
+                FileUtil.createIfMissing(TEST_FILE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            FileUtil.deleteIfAvaliable(TEST_FILE);
+            if (!BLOCKER.exists()) {
+                try {
+                    photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+                } catch (Exception e) {
+                    logger.warning("Unable to log into user account");
+                }
+            }
+        }
     }
 
     //=========== Undo/Redo =================================================================================

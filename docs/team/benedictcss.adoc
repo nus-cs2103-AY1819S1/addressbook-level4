@@ -27,7 +27,7 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 ** What it does: allows the user to select the images from the current batch of images.
 ** Justification: This feature is essential to the product because a user would have to select an image for image-editing.
 ** Highlights: This enhancement affects existing commands. It requires in depth analysis of design alternative to ensure maximum efficiency in retrieving images.
-* *Major enhancement*: added the ability to traverse through images with next/previous command.
+* *Minor enhancement*: added the ability to traverse through images with next/previous command.
 ** What it does: allows the user to move through the list of images in the current directory.
 ** Justification: This feature is essential to the product because a user would need have access to all the images in the current directory for image-editing.
 ** Highlights: This enhancement affects existing commands and implemented together with the select feature.
@@ -38,14 +38,27 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 *** Updated the icon and name of application
 *** Wrote additional test for existing features
 
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
+
+* *Other contributions*:
+** Project Management:
+*** Creating and managing milestones and issues tracker.
+*** Participating in tagging issues and merging/reviewing PRs
+** Documentation:
+*** Added detailed implementation documentation for the directories command in Developer Guide, including diagrams: https://github.com/CS2103-AY1819S1-T09-3/main/pull/57[#57] https://github.com/CS2103-AY1819S1-T09-3/main/pull/98[#98]
+*** Updated diagrams for Logic, Model and UI component. https://github.com/CS2103-AY1819S1-T09-3/main/pull/174[#174]
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/56[#56]
+
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. (Since undo/redo are simple to understand, there is not much to document here. More details are in the implementation of undo/redo in the Developer Guide)_
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=dir]
+
+include::../UserGuide.adoc[tag=cd]
 
 == Contributions to the Developer Guide
 

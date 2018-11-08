@@ -7,11 +7,9 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.transformation.Transformation;
 
@@ -30,7 +28,6 @@ public class ConvertCommand extends Command {
     //the path of the json file containing the arguments of the convert command
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
             ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
-
     private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
 
     private Transformation transformation;
@@ -40,13 +37,8 @@ public class ConvertCommand extends Command {
      * the constructor take the path of the JSON file of the detail of the convert operation
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(Transformation transformation) throws ParseException {
+    public ConvertCommand(Transformation transformation) {
         this.transformation = transformation;
-    }
-
-    private static boolean isFileExist(URL fileUrl) {
-        /*return new File(fileUrl.toString()).exists();*/
-        return true;
     }
 
     /**
@@ -60,6 +52,7 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
+            model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
             model.addTransformation(transformation);
@@ -69,5 +62,11 @@ public class ConvertCommand extends Command {
             throw new CommandException(e.toString());
         }
         return new CommandResult("process is done");
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        ConvertCommand command = (ConvertCommand) object;
+        return command == this || transformation.equals(command.transformation);
     }
 }

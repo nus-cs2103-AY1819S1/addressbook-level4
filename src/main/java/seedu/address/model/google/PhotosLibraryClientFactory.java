@@ -30,6 +30,7 @@ import com.google.photos.library.v1.PhotosLibrarySettings;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LoginStatusEvent;
+import seedu.address.commons.util.FileUtil;
 
 //@@author chivent
 
@@ -39,7 +40,12 @@ import seedu.address.commons.events.ui.LoginStatusEvent;
 public class PhotosLibraryClientFactory {
 
     public static final File DATA_STORE = Paths.get("./src/main/resources/user_credentials").toFile();
+
+    //to be created on testing. prevents tests from launching login process
     public static final File TEST_FILE = Paths.get("./src/main/resources/user_credentials/TEST_FILE.txt").toFile();
+
+    //to be created on login process start and deleted only on login process end. prevents unnecessary redirects
+    public static final File BLOCKER = Paths.get("./src/main/resources/user_credentials/BLOCKER.txt").toFile();
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPE_LIST =
@@ -61,28 +67,30 @@ public class PhotosLibraryClientFactory {
      * @throws GeneralSecurityException when there is an error with authentication
      */
     public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
-        if (!DATA_STORE.exists()) {
-            DATA_STORE.mkdirs();
-        }
+        FileUtil.createDirectoriesIfMissing(DATA_STORE);
+
+        //@@author chivent-reused
+        //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
+        //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
+        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
+
+        InputStream credentialFile = PhotosLibraryClientFactory
+                .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
+
+        // load designated client secret/id
+        GoogleClientSecrets clientSecrets =
+                GoogleClientSecrets.load(
+                        JSON_FACTORY, new InputStreamReader(credentialFile));
+
+        String clientSecret = clientSecrets.getDetails().getClientSecret();
+        String clientId = clientSecrets.getDetails().getClientId();
 
         if (!TEST_FILE.exists()) {
-
-            //@@author chivent-reused
-            //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
-            //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
-            DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
-
-            InputStream credentialFile = PhotosLibraryClientFactory
-                    .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
-
-            // load designated client secret/id
-            GoogleClientSecrets clientSecrets =
-                    GoogleClientSecrets.load(
-                            JSON_FACTORY, new InputStreamReader(credentialFile));
-
-            String clientSecret = clientSecrets.getDetails().getClientSecret();
-            String clientId = clientSecrets.getDetails().getClientId();
-
+            try {
+                FileUtil.createIfMissing(BLOCKER);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             //google standard authorization flow
             GoogleAuthorizationCodeFlow flow =
                     new GoogleAuthorizationCodeFlow.Builder(
@@ -103,6 +111,7 @@ public class PhotosLibraryClientFactory {
                     .build();
 
             credentialFile.close();
+            FileUtil.deleteIfAvaliable(BLOCKER);
             return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
         } else {
             return null;
@@ -154,12 +163,13 @@ public class PhotosLibraryClientFactory {
     /**
      * Logs user out of currently logged in account
      */
-    public static boolean logoutUserIfPossible() throws IOException, GeneralSecurityException {
+    public static boolean logoutUserIfPossible() {
         boolean userLoggedOut;
         if (userLoggedOut = checkUserLogin()) {
             File[] listFiles = DATA_STORE.listFiles();
             for (File file : listFiles) {
                 file.delete();
+
             }
         }
         return userLoggedOut;

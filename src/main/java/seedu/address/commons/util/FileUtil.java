@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -13,8 +14,14 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
-    public static boolean isFileExists(Path file) {
-        return Files.exists(file) && Files.isRegularFile(file);
+    /**
+     * Creates directories if missing
+     * @param file
+     */
+    public static void createDirectoriesIfMissing(File file) {
+        if (!file.exists()) {
+            file.mkdirs();
+        }
     }
 
     /**
@@ -35,33 +42,18 @@ public class FileUtil {
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
-    public static void createIfMissing(Path file) throws IOException {
-        if (!isFileExists(file)) {
-            createFile(file);
+    public static void createIfMissing(File file) throws IOException {
+        if (!file.exists()) {
+            file.createNewFile();
         }
     }
 
     /**
-     * Creates a file if it does not exist along with its missing parent directories.
+     * Deletes file if it exists
      */
-    public static void createFile(Path file) throws IOException {
-        if (Files.exists(file)) {
-            return;
-        }
-
-        createParentDirsOfFile(file);
-
-        Files.createFile(file);
-    }
-
-    /**
-     * Creates parent directories of file if it has a parent directory
-     */
-    public static void createParentDirsOfFile(Path file) throws IOException {
-        Path parentDir = file.getParent();
-
-        if (parentDir != null) {
-            Files.createDirectories(parentDir);
+    public static void deleteIfAvaliable(File file) {
+        if (file.exists()) {
+            file.delete();
         }
     }
 

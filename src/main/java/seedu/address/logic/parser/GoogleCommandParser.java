@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_GOOGLE_INVALID_FORMAT;
 import seedu.address.logic.commands.google.GoogleCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
+import seedu.address.logic.commands.google.GoogleRefreshCommand;
 import seedu.address.logic.commands.google.GoogleUploadCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -45,6 +46,9 @@ public class GoogleCommandParser {
                 throw new ParseException(MESSAGE_GOOGLE_INVALID_FORMAT + "\n\n" + GoogleUploadCommand.MESSAGE_USAGE);
             }
             return new GoogleUploadCommand(commandParam);
+        }
+        case "refresh": {
+            return new GoogleRefreshCommand();
         }
         default:
             throw new ParseException(ENTIRE_GOOGLE_MESSAGE);
