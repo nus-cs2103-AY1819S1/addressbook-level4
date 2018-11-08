@@ -25,10 +25,19 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    private ObservableList<Person> activeList;
+
+    private ObservableList<Person> archiveList;
+
+    public PersonListPanel(ObservableList<Person> personList, int type) {
         super(FXML);
         setConnections(personList);
         registerAsAnEventHandler(this);
+        if (type == 1) {
+            this.activeList = personList;
+        } else {
+            this.archiveList = personList;
+        }
     }
 
     private void setConnections(ObservableList<Person> personList) {
@@ -50,8 +59,13 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
-    private void scrollTo(int index) {
+    private void scrollTo(int index, int listpicker) {
         Platform.runLater(() -> {
+            if (listpicker == 1) {
+                personListView.setItems(activeList);
+            } else if (listpicker == 2) {
+                personListView.setItems(archiveList);
+            }
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
@@ -60,7 +74,7 @@ public class PersonListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
+        scrollTo(event.targetIndex, event.listPicker);
     }
 
     /**

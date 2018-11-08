@@ -119,7 +119,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardDeselected();
 
         /* Case: find person in empty address book -> 0 persons found */
         deleteAllPersons();

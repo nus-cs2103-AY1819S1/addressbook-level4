@@ -124,6 +124,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetArchive(ReadOnlyArchiveList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -154,6 +159,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void restorePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,6 +190,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateArchivedPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

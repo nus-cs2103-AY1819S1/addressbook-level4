@@ -23,6 +23,9 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
+    /** Clears existing backing model and replaces with the provided new data. */
+    void resetArchive(ReadOnlyArchiveList newData);
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
@@ -42,6 +45,12 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    /**
+     * Restores the given person in the archive list.
+     * The person must exist in the archive list.
+     */
+    void restorePerson(Person target);
 
     /**
      * Adds the given person.
@@ -88,6 +97,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the archived person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateArchivedPersonList(Predicate<Person> predicate);
 
     /** Returns an unmodifiable view of the filtered leave application list */
     ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList();
