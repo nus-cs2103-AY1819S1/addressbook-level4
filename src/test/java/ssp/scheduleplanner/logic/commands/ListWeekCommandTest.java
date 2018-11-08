@@ -106,7 +106,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void dateWeekSamePredicate_taskRemainAfterFilter_success() {
+    public void dateListSamePredicate_taskRemainAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task(s) from that date
         //till the closest sunday.
         //131018 is a saturday -> task from 131018 and 141018 will remain.
@@ -133,7 +133,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void dateWeekSamePredicate_taskGoneAfterFilter_success() {
+    public void dateListSamePredicate_taskGoneAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task(s) from that date
         //till the closest sunday and not other days.
         //131018 is a saturday -> task from 131018 and 141018 will remain
