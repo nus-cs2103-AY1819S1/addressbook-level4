@@ -6,36 +6,29 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
-import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.clinicio.commons.util.HashUtil;
 import seedu.clinicio.model.patient.exceptions.DuplicatePatientException;
 
 import seedu.clinicio.model.patient.exceptions.PatientNotFoundException;
-import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.model.staff.UniqueStaffList;
-import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
-import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
+
 import seedu.clinicio.testutil.PatientBuilder;
-import seedu.clinicio.testutil.StaffBuilder;
 
 public class UniquePatientListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private final UniquePatientList uniquePatientList = new UniquePatientList();
-    
+
     @Test
     public void contains_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -156,35 +149,41 @@ public class UniquePatientListTest {
     }
 
     @Test
-    public void setStaffs_uniqueStaffList_replacesOwnListWithProvidedUniqueStaffList() {
-        uniqueStaffList.add(ADAM);
-        UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();
-        expectedUniqueStaffList.add(BEN);
-        uniqueStaffList.setStaffs(expectedUniqueStaffList);
-        assertEquals(expectedUniqueStaffList, uniqueStaffList);
+    public void setPatients_uniquePatientList_replacesOwnListWithProvidedUniquePatientList() {
+        uniquePatientList.add(ALEX);
+        UniquePatientList expectedUniquePatientList = new UniquePatientList();
+        expectedUniquePatientList.add(BRYAN);
+        uniquePatientList.setPatients(expectedUniquePatientList);
+        assertEquals(expectedUniquePatientList, uniquePatientList);
     }
 
     @Test
-    public void setStaffs_nullList_throwsNullPointerException() {
+    public void setPatients_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueStaffList.setStaffs((List<Staff>) null);
+        uniquePatientList.setPatients((List<Patient>) null);
     }
 
     @Test
-    public void setStaffs_list_replacesOwnListWithProvidedList() {
-        uniqueStaffList.add(ADAM);
-        List<Staff> staffList = Collections.singletonList(BEN);
-        uniqueStaffList.setStaffs(staffList);
-        UniqueStaffList expectedUniqueStaffList = new UniqueStaffList();
-        expectedUniqueStaffList.add(BEN);
-        assertEquals(expectedUniqueStaffList, uniqueStaffList);
+    public void setPatients_list_replacesOwnListWithProvidedList() {
+        uniquePatientList.add(ALEX);
+        List<Patient> patientList = Collections.singletonList(BRYAN);
+        uniquePatientList.setPatients(patientList);
+        UniquePatientList expectedUniquePatientList = new UniquePatientList();
+        expectedUniquePatientList.add(BRYAN);
+        assertEquals(expectedUniquePatientList, uniquePatientList);
     }
 
     @Test
-    public void setStaffs_listWithDuplicateStaffs_throwsDuplicateStaffException() {
-        List<Staff> listWithDuplicateStaffs = Arrays.asList(ADAM, ADAM);
-        thrown.expect(DuplicateStaffException.class);
-        uniqueStaffList.setStaffs(listWithDuplicateStaffs);
+    public void setPatients_listWithDuplicatePatients_throwsDuplicatePatientException() {
+        List<Patient> listWithDuplicatePatients = Arrays.asList(ALEX, ALEX);
+        thrown.expect(DuplicatePatientException.class);
+        uniquePatientList.setPatients(listWithDuplicatePatients);
+    }
+
+    @Test
+    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        uniquePatientList.asUnmodifiableObservableList().remove(0);
     }
 
 }
