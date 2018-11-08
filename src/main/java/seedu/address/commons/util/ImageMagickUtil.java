@@ -297,8 +297,8 @@ public class ImageMagickUtil {
         args.add(getConvertExecutablePath());
         args.add("-size");
         args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
-        args.add("-background");
-        args.add(c.getBackgroundColor());
+        args.add(String.format("xc:%s", c.getBackgroundColor()));
+
         for (Layer l: c.getLayers()) {
             args.add("-page");
             args.add(String.format("+%d+%d", l.getX(), l.getY()));
