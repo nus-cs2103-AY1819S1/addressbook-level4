@@ -92,10 +92,3 @@ include::../DeveloperGuide.adoc[tag=dependency]
 
 include::../DeveloperGuide.adoc[tag=time]
 
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
