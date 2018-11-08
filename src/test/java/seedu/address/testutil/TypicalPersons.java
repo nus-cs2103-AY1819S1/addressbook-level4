@@ -61,6 +61,8 @@ public class TypicalPersons {
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_D111 = "D111"; // A keyword that matches D111
+    public static final String KEYWORD_MATCHING_
 
     private TypicalPersons() {} // prevents instantiation
 
