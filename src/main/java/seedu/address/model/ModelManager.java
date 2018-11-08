@@ -373,6 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
         refreshLayerList();
     }
 
+
     /**
      * Swaps two layers.
      * @param to - Layer 1
@@ -387,7 +388,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Simple utility function that updates the HistoryListPanel and logs the event.
      */
-    private void refreshHistoryList() {
+    public void refreshHistoryList() {
         EventsCenter.getInstance().post(
                 new HistoryUpdateEvent(
                         getCanvas().getCurrentLayer().getImage().getTransformationsAsString()));

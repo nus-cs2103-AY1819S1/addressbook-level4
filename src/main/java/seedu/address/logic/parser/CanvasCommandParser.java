@@ -9,7 +9,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
 import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
-import seedu.address.logic.commands.canvas.CanvasSaveCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -48,12 +47,6 @@ public class CanvasCommandParser {
                 throw new ParseException(CanvasBgcolorCommand.MESSAGE_USAGE);
             }
             return new CanvasBgcolorCommand(argument);
-        }
-        case "save": {
-            if (argument == null) {
-                throw new ParseException(CanvasSaveCommand.MESSAGE_USAGE);
-            }
-            return new CanvasSaveCommand(argument);
         }
         case "size": {
             return new CanvasSizeCommand(argument);

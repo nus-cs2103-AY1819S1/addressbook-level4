@@ -41,6 +41,7 @@ public class LayerSelectCommand extends LayerCommand {
             }
             index = Index.fromOneBased(i);
             model.setCurrentLayer(index);
+            model.refreshHistoryList();
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
         } catch (NullPointerException e) {

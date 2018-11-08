@@ -3,45 +3,65 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
----
+== Project: Piconso
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Piconso is a powerful general-purpose image editing tool. The user interacts with it through a flexible command-line interface and receives instant visual feedback through the Graphical User Interface (GUI) written in JavaFX. The application is mainly written in Java and span a considerable 10k Lines of Code (LoC). The codebase is well-maintained with a rigorous system of checks and tests in place to ensure that code quality is consistently high.
 
 == Summary of contributions
+As the point man of the group, I led the group through discussions spanning from idea generation to delegation of work. As a result, my team was able to morph the given codebase from a trivial application into a polished product.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+I put my considerable experience to use by being available at all times to help out with various tasks like design considerations and debugging. I believe that my contribution has improved the unlying engineering of the codebase which in turn sped up the application manyfold.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+My major contributions are as follows:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+**Designed and implemented the unlying data structures and models for the manipulation of canvases and layers.**
 
-* *Other contributions*:
+This allowed other team members to maintain a clear separation of concerns and reduce dependencies which in turn made the code base less prone to breaking changes. This is a major change that affects virtually all of the code base and future developers looking to add or improve Piconso will have to build upon my models.
+
+In fact, I have built upon my models to provide end-users with a hassle-free and easily understandable way to navigate more intricate image editing features such as layer ordering and canvas size. This improves the user experience significantly as these features are expected of any modern image editing tool. It also reduces the friction of users migrating to Piconso from other competitors.
+
+
+**Added a sub-command targeted at tech-savvy users : `raw`.**
+
+In line with our goal of being a powerful and flexible tool, I have added a feature that allows users to tap into the full power of Piconso. This is a notable departure from the other commands in the application which can be fairly restrictive but easy to learn. The raw command allows users to quickly experiment and iterate upon their image editing process without excessive hand-holding from the application.
+
+By giving advanced users the freedom to do as they please, I have brought Piconso closer in terms of feature parity as compared to commercial heavy-weights like Photoshop.
+
+Developers will also save time on manually implementing obscure functionalities that the majority of the end-users will likely never use. This results in a more streamlined code base unlike Photoshop which clocks in at over 10 million LoCs.
+
+Besides that, I have also made multiple smaller contributions which significantly improves the user experience.
+
+**Implemented the ImagePanel**
+
+The ImagePanel is at the heart of Piconso, displaying the output of Piconso to the user visually. It was carefully engineered with reuse in mind and its usage painstakingly documented for future developers.
+
+**Improved upon the HistoryListPanel**
+
+Building upon the work of other teammates, I have improved the HistoryListPanel to reflect past operations on across multiple layers. Now users can quickly see what operations they have performed on each layer.
+
+**Implemented the LayerPanel**
+
+Similar to the HistoryListPanel, the LayerPanel displays information that that users might have trouble keeping track of in a clean and easily grokkable fashion. Users can clearly see which layer they are operating on as well as the order of layers.
+
+**Executed upon the change in layout**
+
+I rearranged the layout of the user interface components from the initial code base to one that was designed by the team to be more user-friendly.
+
+Here is the code that I have written for this product: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=j-lum[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=j-lum[Dashboard]]
+
+**Other contributions**
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+I commented on critical pull requests.
+I also extensively tested and reported bugs along with a comprehensive reproduction reports: https://github.com/CS2103-AY1819S1-W14-4/main/issues/170[#170] https://github.com/CS2103-AY1819S1-W14-4/main/issues/175[#175]
+
+** Documentation:
+
+I wrote a quick start guide to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application.
+
 
 == Contributions to the User Guide
 
@@ -50,9 +70,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=canvas]
+include::../UserGuide.adoc[tag=layer]
 
 == Contributions to the Developer Guide
 
@@ -60,8 +79,5 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=canvas]
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_

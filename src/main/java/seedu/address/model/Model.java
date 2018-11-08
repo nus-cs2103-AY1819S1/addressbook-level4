@@ -176,4 +176,5 @@ public interface Model {
 
     void saveCanvas(String fileName) throws IOException, InterruptedException;
 
+    void refreshHistoryList();
 }

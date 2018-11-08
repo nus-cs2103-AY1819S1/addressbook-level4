@@ -52,7 +52,6 @@ public class LayerSwapCommand extends LayerCommand {
             }
             toIndex = Index.fromOneBased(to);
             fromIndex = Index.fromOneBased(from);
-
             model.swapLayer(toIndex, fromIndex);
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
