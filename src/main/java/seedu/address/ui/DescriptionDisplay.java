@@ -32,6 +32,7 @@ public class DescriptionDisplay extends UiPart<Region> {
         this.toDoListEvent = toDoListEvent;
         id.setText(displayedIndex + 1 + ": ");
         description.setText(toDoListEvent.getDescription().value);
+        description.setEditable(false);
     }
 
 }
