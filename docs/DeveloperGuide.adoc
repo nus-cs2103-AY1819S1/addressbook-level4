@@ -517,7 +517,7 @@ It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 h
 
 The sequence diagram of MaxSchedule command is illustrated below.
 
-image::MaxScheduleDiagram.png[width="300"]
+image::MaxScheduleDiagram.png[width="800"]
 
 // end::schedule[]
 
