@@ -34,6 +34,7 @@ public class AddRepeatCommand extends Command {
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_REPEAT + "10 "
+            + CliSyntax.PREFIX_INTERVAL + "7 "
             + CliSyntax.PREFIX_NAME + "CS2103T Tutorial "
             + CliSyntax.PREFIX_DATE + "111018 "
             + CliSyntax.PREFIX_PRIORITY + "3 "
@@ -41,8 +42,6 @@ public class AddRepeatCommand extends Command {
             + CliSyntax.PREFIX_TAG + "Tutorial";
 
     public static final String MESSAGE_SUCCESS = "New repeated task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Schedule Planner.";
-
     private final Task toAdd;
     private final Repeat repeat;
     private final Interval repeatInterval;
