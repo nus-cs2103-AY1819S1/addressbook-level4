@@ -35,8 +35,16 @@ public class ListCommandParserTest {
     }
 
     @Test
+    public void parse_validArgs_returnsListAllCommand() {
+        assertParseSuccess(parser, "", new ListCommand(ListCommand.ListCommandType.ALL));
+        assertParseSuccess(parser, "    ", new ListCommand(ListCommand.ListCommandType.ALL));
+        assertParseSuccess(parser, " a", new ListCommand(ListCommand.ListCommandType.ALL));
+        assertParseSuccess(parser, " all", new ListCommand(ListCommand.ListCommandType.ALL));
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, " a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " b", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 
     @Test
