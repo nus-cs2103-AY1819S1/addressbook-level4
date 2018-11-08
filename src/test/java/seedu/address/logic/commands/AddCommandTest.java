@@ -44,7 +44,7 @@ public class AddCommandTest {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
-
+    
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
@@ -205,6 +205,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredLeaveApplicationListForPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentListForPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
