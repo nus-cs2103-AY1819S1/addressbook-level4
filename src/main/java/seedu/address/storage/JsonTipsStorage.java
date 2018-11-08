@@ -20,15 +20,13 @@ public class JsonTipsStorage implements TipsStorage {
 
     private static InputStream fileStream = JsonTipsStorage.class.getResourceAsStream("/json/tips.json");
     private static Path filePath;
-
     static {
         try {
             filePath = Paths.get(JsonTipsStorage.class.getResource("/json/tips.json").toURI());
         } catch (URISyntaxException e) {
-            System.err.print(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
-
     @Override
     public Path getTipsFilePath() {
         return filePath;

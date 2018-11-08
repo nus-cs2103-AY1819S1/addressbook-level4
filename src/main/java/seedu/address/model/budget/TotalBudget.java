@@ -18,9 +18,13 @@ import seedu.address.model.expense.Expense;
  */
 public class TotalBudget extends Budget {
 
+    public static final String NOT_SET = "NOT_SET";
+    public static final String SPENDING_RESET = "SPENDING_RESET";
+    public static final String DO_NOTHING = "DO_NOTHING";
     protected long numberOfSecondsToRecurAgain;
     private LocalDateTime nextRecurrence;
     private HashSet<CategoryBudget> categoryBudgets;
+
 
 
     /**
@@ -201,18 +205,16 @@ public class TotalBudget extends Budget {
     /**
      * Updates the current totalBudget with the new totalBudget if it is the start of a new month. Does nothing if not
      */
-    public void checkBudgetRestart() {
+    public String checkBudgetRestart() {
         if (this.nextRecurrence == null) {
-            //TODO: Notifies user that totalBudget recurrence has not been set
-            LOGGER.info("Recurrence has not been set");
-            return;
+            return NOT_SET;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
-            //TODO: Notifies user that totalBudget has been restarted
-            LOGGER.info("TotalBudget has been restarted");
+            return SPENDING_RESET;
         }
+        return DO_NOTHING;
 
     }
 }

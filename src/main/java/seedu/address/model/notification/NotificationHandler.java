@@ -181,8 +181,6 @@ public class NotificationHandler implements Iterable<Notification> {
 
         NotificationHandler handler = (NotificationHandler) obj;
 
-        System.out.println("H: " + lastTipSentOn);
-        System.out.println("N " + handler.lastTipSentOn);
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled
                 && this.lastTipSentOn.getDayOfMonth() == handler.lastTipSentOn.getDayOfMonth()

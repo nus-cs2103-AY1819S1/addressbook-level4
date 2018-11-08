@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.budget.TotalBudget.NOT_SET;
+import static seedu.address.model.budget.TotalBudget.SPENDING_RESET;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
@@ -39,6 +41,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.GeneralNotification;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.notification.TipNotification;
@@ -221,6 +224,15 @@ public class ModelManager extends ComponentManager implements Model {
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
+    }
+
+    @Override
+    public void addGeneralNotification(Notification notif) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        this.versionedExpenseTracker.addNotificationToTop(notif);
+        indicateExpenseTrackerChanged();
     }
 
     @Override
@@ -456,7 +468,15 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
-            checkBudgetRestart();
+            String budgetStatus = checkBudgetRestart();
+            if (budgetStatus.equals(NOT_SET)) {
+                addGeneralNotification(new GeneralNotification("Recurrence",
+                    "Recurrence "
+                        + "time has not been set!"));
+            } else if (budgetStatus.equals(SPENDING_RESET)) {
+                addGeneralNotification(new GeneralNotification("Now you have money!",
+                    "Spending has been reset!"));
+            }
             addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException("NoUserSelectedException thrown after loading user data");
@@ -567,8 +587,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Checks if totalBudget is required to restart due to recurrence
      */
-    protected void checkBudgetRestart() {
-        this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
+    protected String checkBudgetRestart() {
+        return this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
     }
 
 
