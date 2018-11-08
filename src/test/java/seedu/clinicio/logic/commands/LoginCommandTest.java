@@ -53,14 +53,6 @@ public class LoginCommandTest {
         LoginCommand command = new LoginCommand(
                 new Staff(DOCTOR, ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
-        UserSession.createSession(ADAM);
-        UserSession.destorySession();
-
-        command = new LoginCommand(
-                new Staff(RECEPTIONIST, ALAN.getName(), new Password(VALID_PASSWORD_ALAN, false)));
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
     }
 
     @Test
@@ -69,10 +61,6 @@ public class LoginCommandTest {
 
         LoginCommand command = new LoginCommand(
                 new Staff(DOCTOR, BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
-        command = new LoginCommand(
-                new Staff(RECEPTIONIST, FRANK.getName(), new Password(VALID_PASSWORD_ALAN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
     }
 
