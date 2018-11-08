@@ -1,8 +1,10 @@
 package seedu.restaurant.logic.parser.account;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_NAME;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PASSWORD;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_USERNAME;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_NAME_DEMO_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_ONE;
 import static seedu.restaurant.testutil.Assert.assertThrows;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.logic.parser.exceptions.ParseException;
+import seedu.restaurant.model.account.Name;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
@@ -36,6 +39,12 @@ public class AccountParserUtilTest {
     }
 
     @Test
+    public void parseName_invalidInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        AccountParserUtil.parseUsername(INVALID_NAME);
+    }
+
+    @Test
     public void parseUsername_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> AccountParserUtil.parseUsername(null));
     }
@@ -43,6 +52,11 @@ public class AccountParserUtilTest {
     @Test
     public void parsePassword_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> AccountParserUtil.parsePassword(null));
+    }
+
+    @Test
+    public void parseName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> AccountParserUtil.parseName(null));
     }
 
     @Test
@@ -69,5 +83,18 @@ public class AccountParserUtilTest {
         String passwordWithWhitespace = WHITESPACE + VALID_PASSWORD_DEMO_ONE + WHITESPACE;
         Password expectedPassword = new Password(VALID_PASSWORD_DEMO_ONE);
         assertEquals(expectedPassword, AccountParserUtil.parsePassword(passwordWithWhitespace));
+    }
+
+    @Test
+    public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
+        Name expectedName = new Name(VALID_NAME_DEMO_ONE);
+        assertEquals(expectedName, AccountParserUtil.parseName(VALID_NAME_DEMO_ONE));
+    }
+
+    @Test
+    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_NAME_DEMO_ONE + WHITESPACE;
+        Name expectedName = new Name(VALID_NAME_DEMO_ONE);
+        assertEquals(expectedName, AccountParserUtil.parsePassword(nameWithWhitespace));
     }
 }
