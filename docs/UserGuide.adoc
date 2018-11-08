@@ -300,13 +300,10 @@ A command to allow the user to undo previous commands. +
 Command Syntax: +
 `undo`: +
 This command will undo the user’s previous command. +
-`undo [number]`: +
-The number of commands you want to undo.
-This command will undo a certain number of commands. The number should be at least 1. If the number exceeds the number of operations that has been done, the application will undo all the previous operations.
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `clear` and `insertperson`).
 ====
 
 Examples:
@@ -320,10 +317,6 @@ Examples:
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously. +
 
-* `delete 1` +
-`clear` +
-`undo 2` (reverses the `clear` command and the `delete 1` command) +
-
 === Redoing the previously undone command : `redo`
 
 A command to allow the user to redo previously undone commands. +
@@ -331,9 +324,6 @@ A command to allow the user to redo previously undone commands. +
 Command Syntax:
 `redo`:  +
 This command will redo the user’s previous undone command. +
-`redo [number]`: +
-The number of undone commands you want to redo.
-This command will redo a certain number of undone commands. The number should be at least 1. If the number exceeds the number of operations that has been undone, the application will redo all the previous operations that have been undone.
 
 Examples:
 
@@ -344,13 +334,17 @@ Examples:
 * `delete 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo 2` (reapplies the `delete 1` command and the `clear` command) +
 // end::undoredo[]
+
+// tag::clear[]
+=== Clear all lists: `clear`
+A command to allow the user to clear all 3 lists.
+Format: `clear`
+
+[TIP]
+If this was done by mistake, you can `undo` the action, and all lists will be restored.
+
+// end::clear[]
 
 // tag::history
 === Showing command history: `history`
@@ -358,37 +352,15 @@ A command to allow the user to see the history of commands used within the addre
 Format: `history`
 // end::history
 
-=== Autocomplete (coming in v 1.4)
-A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
+=== Autocomplete
+A feature that gives a drop-down list of suggested commands based on substrings that a user types.
 
-// tag::export[]
-=== Exporting data in this application (coming in v 1.4)
-Format: `export FILEPATH`
+Examples:
 
-// end::export[]
-=== Importing module information from external platform: `importmodule` (coming in v 2.0)
-A command to allow the user to import information from NUSMods.+
+"add" - `addperson`, `addmodule`, `addoccasion` are suggested.
 
-Format: `importmodule [modulecode]` +
-If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
-
-=== Exiting the program : `exit`
-Exits the program. +
-Format: `exit`
-
-=== Autocomplete (coming in v 1.4)
-A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
-
-// tag::export[]
-=== Exporting data in this application (coming in v 1.4)
-Format: `export FILEPATH`
-
-// end::export[]
-=== Importing module information from external platform: `importmodule` (coming in v 2.0)
-A command to allow the user to import information from NUSMods.+
-
-Format: `importmodule [modulecode]` +
-If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
+[TIP]
+You can use the up & down arrows to find your intended command in the drop-down list, and press kbd:[Enter] to select it.
 
 === Exiting the program : `exit`
 Exits the program. +
@@ -398,6 +370,18 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+// tag::export[]
+=== Exporting data in this application (coming in v 2.0)
+Format: `export FILEPATH`
+
+// end::export[]
+=== Importing module information from external platform: `importmodule` (coming in v 2.0)
+A command to allow the user to import information from NUSMods.+
+
+Format: `importmodule [modulecode]` +
+If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
+
 
 === Grouping content together by tag: `group` (coming in v 2.0)
 A command to allow the user to group students under a certain group tag. +
@@ -453,7 +437,5 @@ e.g. `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion l
 * *List Occasion* : `listoccasion`
 * *Help* : `help`
 * *History* : `history`
-* *Undo* : `undo [NUMBER]` +
-e.g. `undo 1`
-* *Redo* : `redo [NUMBER]` +
-e.g. `redo 1`
+* *Undo* : `undo`
+* *Redo* : `redo`
