@@ -590,6 +590,22 @@ that this event is currently in the address book.
 Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
 these kind of commands. The GenerateLocationCommand object created will then consist of three fields:
 
+* Event name
+* Event date
+* Event start time
+
+The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
+commands before the object is created. Following this, the address book is checked to determine whether this event does
+exist and if it does the ResultDisplay indicates that a meeting location has been generated, if not it indicates to the user
+that such as event does not exist.
+
+A random meeting location is generated based on 7 locations (for now) that have their Google Maps Place IDs stored in the EmbedGoogleMaps class.
+A call to the method that generates this location (more specifically, returns the Place ID of the location) is made in the execute
+method of the GenerateLocationCommand.
+
+Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
+Display Tab) and subsequently by `LocationDisplayPanel`.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
