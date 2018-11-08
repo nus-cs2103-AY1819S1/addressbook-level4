@@ -187,6 +187,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     NightParking.class.getSimpleName()));
         }
+
         if (!NightParking.isValidNightPark(nightParking)) {
             throw new IllegalValueException(NightParking.MESSAGE_NIGHT_PARK_CONSTRAINTS);
         }
