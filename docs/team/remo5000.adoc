@@ -59,8 +59,3 @@ https://github.com/CS2103-AY1819S1-T13-2/main/issues/98[98]
 
 include::../DeveloperGuide.adoc[tag=list-usage]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
