@@ -54,7 +54,7 @@ the morphed source code.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 ** Community:
 *** https://github.com/CS2103-AY1819S1-F10-4/main/pulls/AZhiKai[Merged] more than 40 PRs.
-*** Reviewed more than 70 PRs with non-trivial review comments: 
+*** Reviewed more than 70 PRs with non-trivial review comments:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],

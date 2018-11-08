@@ -120,10 +120,9 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-////
-=== Using Git with SourceTree
-We use Git for source control. See UsingGit.adoc if you find any difficulty when using Git.
-////
+=== Using Git with Sourcetree
+We use Git with Sourcetree for distributed source control. See <<UsingGit#, UsingGit.adoc>> if you find any difficulty
+when using Git with Sourcetree.
 
 ==== Getting started with coding
 
