@@ -15,6 +15,8 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Anakin has been cleared!";
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
+
 
 
     @Override
@@ -25,7 +27,7 @@ public class ClearCommand extends Command {
         }
 
         model.resetData(new Anakin());
-        model.commitAnakin();
+        model.commitAnakin(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

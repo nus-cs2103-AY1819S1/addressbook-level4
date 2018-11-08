@@ -15,6 +15,8 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS_1 = "decks are sorted in alphabetical order";
     public static final String MESSAGE_SUCCESS_2 = "cards are sorted in alphabetical order";
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -24,7 +26,7 @@ public class SortCommand extends Command {
         }
 
         model.sort();
-        model.commitAnakin();
+        model.commitAnakin(COMMAND_WORD);
         if (model.isInsideDeck()) {
             return new CommandResult(MESSAGE_SUCCESS_2);
         } else {

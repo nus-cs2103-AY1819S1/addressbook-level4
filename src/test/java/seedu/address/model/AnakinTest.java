@@ -120,12 +120,7 @@ public class AnakinTest {
         }
 
         @Override
-        public boolean justEnteredDeck() {
-            return false;
-        }
-
-        @Override
-        public Deck getCurrentDeck() {
+        public String getLastCommand() {
             return null;
         }
     }

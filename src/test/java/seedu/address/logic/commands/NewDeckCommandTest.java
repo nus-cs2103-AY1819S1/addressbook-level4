@@ -164,11 +164,6 @@ public class NewDeckCommandTest {
         }
 
         @Override
-        public boolean justEnteredDeck() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void startReview() {
             throw new AssertionError("This method should not be called.");
         }
@@ -220,17 +215,17 @@ public class NewDeckCommandTest {
         }
 
         @Override
-        public void undoAnakin() {
+        public String undoAnakin() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAnakin() {
+        public String redoAnakin() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -298,7 +293,7 @@ public class NewDeckCommandTest {
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             // called by {@code NewDeckCommand#execute()}
         }
 

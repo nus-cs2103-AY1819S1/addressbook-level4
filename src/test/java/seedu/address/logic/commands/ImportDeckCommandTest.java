@@ -141,11 +141,6 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public boolean justEnteredDeck() {
-            return false;
-        }
-
-        @Override
         public void startReview() {
             throw new AssertionError("This method should not be called.");
         }
@@ -196,17 +191,17 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public void undoAnakin() {
+        public String undoAnakin() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAnakin() {
+        public String redoAnakin() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,7 +245,7 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             // called by {@code ImportDeckCommand#execute()}
         }
 
@@ -270,7 +265,7 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             // called by {@code ImportDeckCommand#execute()}
         }
     }
@@ -289,7 +284,7 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public void commitAnakin() {
+        public void commitAnakin(String command) {
             // called by {@code ImportDeckCommand#execute()}
         }
     }

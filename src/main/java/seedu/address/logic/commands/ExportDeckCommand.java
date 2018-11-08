@@ -26,6 +26,8 @@ public class ExportDeckCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_EXPORT_DECK_SUCCESS = "Successfully Exported Deck: %1$s to %2$s";
+    public static final String DEFAULT_INDEX = "1";
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + DEFAULT_INDEX;
 
     private final Index targetIndex;
 
@@ -45,16 +47,16 @@ public class ExportDeckCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DECK_LEVEL_OPERATION);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToExport = lastShownList.get(targetIndex.getZeroBased());
+        Deck deckToExport = currentDeckList.get(targetIndex.getZeroBased());
         String exportPath = model.exportDeck(deckToExport);
         System.out.println(exportPath);
-        model.commitAnakin();
+        model.commitAnakin(COMMAND_WORD);
         return new CommandResult(String.format(MESSAGE_EXPORT_DECK_SUCCESS, deckToExport, exportPath));
     }
 

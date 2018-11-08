@@ -61,8 +61,6 @@ public interface Model {
 
     boolean isReviewingDeck();
 
-    boolean justEnteredDeck();
-
     void startReview();
 
     void endReview();
@@ -79,9 +77,9 @@ public interface Model {
 
     boolean canRedoAnakin();
 
-    void undoAnakin();
+    String undoAnakin();
 
-    void redoAnakin();
+    String redoAnakin();
 
-    void commitAnakin();
+    void commitAnakin(String command);
 }

@@ -36,6 +36,9 @@ public class EditDeckCommand extends Command {
         + "[" + PREFIX_NAME + "NAME]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_NAME + "[NAME]";
+    public static final String DEFAULT_INDEX = "1";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + DEFAULT_INDEX;
 
 
     private final Index index;
@@ -77,13 +80,13 @@ public class EditDeckCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DECK_LEVEL_OPERATION);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToEdit = lastShownList.get(index.getZeroBased());
+        Deck deckToEdit = currentDeckList.get(index.getZeroBased());
         Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
 
         if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {
@@ -92,7 +95,7 @@ public class EditDeckCommand extends Command {
 
         model.updateDeck(deckToEdit, editedDeck);
         model.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
-        model.commitAnakin();
+        model.commitAnakin(COMMAND_WORD);
         return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
     }
 
