@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -126,6 +127,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteTime(Person target, Time timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Person> getInternalList() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -54,6 +55,11 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Returns the internalList of the current versionedAddressBook.
+     */
+    List<Person> getInternalList();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

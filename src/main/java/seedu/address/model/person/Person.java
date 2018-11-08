@@ -81,18 +81,6 @@ public class Person {
     }
 
     /**
-     * Returns an array list containing days in which students
-     * have tuition lessons
-     */
-    public ArrayList<Time.Day> getDays() {
-        ArrayList<Time.Day> daysWithTuition = new ArrayList<>();
-        for (Time time : timings) {
-            daysWithTuition.add(time.getDay());
-        }
-        return daysWithTuition;
-    }
-
-    /**
      * Adds a time slot to a Person's time array list
      */
     public void addTime(Time time) {
@@ -100,10 +88,32 @@ public class Person {
     }
 
     /**
-     * Adds a time slot to a Person's time array list
+     * Removes a time slot from a Person's time array list
      */
     public void deleteTime(Time time) {
         timings.remove(time);
+    }
+
+    /**
+     * Adds a new tag to Person's tags
+     */
+    public boolean addTag(Tag tag) {
+        return tags.add(tag);
+    }
+
+    /**
+     * Returns true if Person contains a "Graduated" Tag which indicates that student
+     * has graduated from his/her educational Level.
+     */
+    public boolean hasGraduated() {
+        return tags.contains(new Tag("Graduated"));
+    }
+
+    /**
+     * Removes the "Graduated" Tag from the student.
+     */
+    public boolean removeGraduatedTag() {
+        return tags.remove(new Tag("Graduated"));
     }
 
     /**
