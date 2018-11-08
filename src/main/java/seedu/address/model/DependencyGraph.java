@@ -78,6 +78,15 @@ public class DependencyGraph {
     }
 
     /**
+     * Return the pruned graph (with their hashcodes as string)
+     * @return
+     */
+    public Map<String, Set<String>> getPrunedGraph() {
+        pruneCompletedTasks();
+        return this.adjacencyList;
+    }
+
+    /**
      * Prunes away tasks where the dependency is completed.
      * Used in topological sort as we do not want tasks that are completed to be considered in topological sort
      */
