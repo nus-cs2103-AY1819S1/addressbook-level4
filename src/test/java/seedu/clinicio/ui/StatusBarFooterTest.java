@@ -31,7 +31,6 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    
     private static final ClinicIoChangedEvent EVENT_STUB = new ClinicIoChangedEvent(new ClinicIo());
     private static final LoginSuccessEvent LOGIN_SUCCESS_EVENT = new LoginSuccessEvent(ADAM);
     private static final LogoutClinicIoEvent LOGOUT_CLINIC_IO_EVENT = new LogoutClinicIoEvent();
