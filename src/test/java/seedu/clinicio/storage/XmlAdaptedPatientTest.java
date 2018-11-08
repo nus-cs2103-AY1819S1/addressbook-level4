@@ -2,7 +2,6 @@ package seedu.clinicio.storage;
 
 import static org.junit.Assert.assertEquals;
 
-import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.storage.XmlAdaptedPatient.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
@@ -18,8 +17,6 @@ import org.junit.Test;
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Nric;
-import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.testutil.Assert;
 
@@ -108,27 +105,5 @@ public class XmlAdaptedPatientTest {
                         VALID_ADDRESS, VALID_MED_PROBS, VALID_MEDS, invalidAllergies,
                         false, VALID_PREF_DOC, VALID_APPT);
         Assert.assertThrows(IllegalValueException.class, patient::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullPreferredDoctor_throwsIllegalValueException() {
-        XmlAdaptedPatient patient =
-                new XmlAdaptedPatient(VALID_NAME, null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        null, VALID_MEDS, VALID_ALLERGIES, false,
-                        null, VALID_APPT);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Staff.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullAppointment_throwsIllegalValueException() {
-        XmlAdaptedPatient patient =
-                new XmlAdaptedPatient(VALID_NAME, null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        null, VALID_MEDS, VALID_ALLERGIES, false,
-                        VALID_PREF_DOC, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Appointment.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
 }
