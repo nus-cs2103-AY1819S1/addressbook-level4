@@ -49,6 +49,15 @@ public class Budget {
 
     }
 
+    public Budget (String budget, String currentExpenses) {
+        requireNonNull(budget);
+        checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
+        checkArgument(isValidBudget(currentExpenses), BUDGET_VALIDATION_REGEX);
+        this.budgetCap = Double.parseDouble(budget);
+        this.currentExpenses = Double.parseDouble(currentExpenses);
+
+    }
+
     /**
      * Constructs a {@code Budget} with modified current expenses
      * @param budget

@@ -202,9 +202,6 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected Tips initTips() {
-        Path tipsFilePath = storage.getTipsFilePath();
-        logger.info("Using tips file : " + tipsFilePath);
-
         Tips tips;
         List<Tip> tipsList;
         try {

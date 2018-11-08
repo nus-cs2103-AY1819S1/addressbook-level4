@@ -83,7 +83,6 @@ public class VersionedExpenseTracker extends ExpenseTracker {
         }
 
         VersionedExpenseTracker otherVersionedExpenseTracker = (VersionedExpenseTracker) other;
-        System.out.println(expenseTrackerStateList.equals(otherVersionedExpenseTracker.expenseTrackerStateList));
         // state check
         return super.equals(otherVersionedExpenseTracker)
                 && expenseTrackerStateList.equals(otherVersionedExpenseTracker.expenseTrackerStateList)

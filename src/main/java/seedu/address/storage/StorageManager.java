@@ -124,10 +124,5 @@ public class StorageManager extends ComponentManager implements Storage {
         return tipsOptional;
     }
 
-    @Override
-    public Path getTipsFilePath() {
-        return tipsStorage.getTipsFilePath();
-    }
-
 
 }

@@ -34,7 +34,6 @@ public class NotificationCommandParserTest {
 
     @Test
     public void parse_invalidNoSuffix_throwsParseException() {
-        System.out.println(INVALID_NOTIFICATION_TYPE);
         assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " "
                 + INVALID_NOTIFICATION_TYPE, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 NotificationCommand.MESSAGE_USAGE));
