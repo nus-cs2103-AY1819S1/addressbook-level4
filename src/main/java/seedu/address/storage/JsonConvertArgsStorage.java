@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,10 +10,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.commons.util.ResourceUtil;
 import seedu.address.model.transformation.Transformation;
 
@@ -32,27 +28,29 @@ public class JsonConvertArgsStorage {
      * @param cmds
      * @throws IOException
      */
-    public static void storeArgument(String name, List<Transformation> cmds) throws IOException {
+    public static void storeArgument(String name, List<Transformation> cmds, String saveFolder) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode1 = mapper.createObjectNode();
+        //create node for the json file
         objectNode1.put("name", name);
         objectNode1.put("num", cmds.size());
         ObjectNode operation = mapper.createObjectNode();
         for (int i = 1; i <= cmds.size(); i++) {
-            ObjectNode currentoperation = mapper.createObjectNode();
-            currentoperation.put("name", cmds.get(i - 1).toList().get(0));
+            ObjectNode currentOperation = mapper.createObjectNode();
+            currentOperation.put("name", cmds.get(i - 1).toList().get(0));
             int argNum = cmds.get(i - 1).toList().size() - 1;
-            currentoperation.put("num", argNum);
+            currentOperation.put("num", argNum);
             ObjectNode argument = mapper.createObjectNode();
             for (int j = 1; j <= argNum; j++) {
                 argument.put("arg" + j, cmds.get(i - 1).toList().get(j));
             }
-            currentoperation.putPOJO("args", argument);
-            operation.putPOJO("op" + i, currentoperation);
+            currentOperation.putPOJO("args", argument);
+            operation.putPOJO("op" + i, currentOperation);
         }
         objectNode1.putPOJO("operations", operation);
         byte[] content = mapper.writer().writeValueAsString(objectNode1).getBytes();
-        File command = new File(ImageMagickUtil.getCommandSaveFolder() + "/" + name + ".json");
+        File command = new File(saveFolder + "/" + name + ".json");
+        //write the json content to the file
         BufferedOutputStream bio = new BufferedOutputStream(new FileOutputStream(command));
         bio.write(content);
         bio.write("\n".getBytes());
@@ -68,8 +66,9 @@ public class JsonConvertArgsStorage {
      */
     public static List<String> retrieveCommandTemplate(URL fileUrl, String operation, String content)
             throws IOException {
-        requireNonNull(fileUrl);
-        requireNonNull(operation);
+        if (fileUrl == null || operation == null) {
+            throw new IOException("the url is invalid");
+        }
         File file = new File("commandTemplate.json");
         ResourceUtil.copyResourceFileOut(fileUrl, file);
         JsonNode jsonNode = new ObjectMapper().readTree(file);
@@ -86,10 +85,9 @@ public class JsonConvertArgsStorage {
     /**
      * .
      * @param file
-     * @param operation
      * @return
      */
-    public static List<String> retrieveCommandArguments(File file, String operation) throws IOException {
+    public static List<String> retrieveCommandArguments(File file) throws IOException {
         JsonNode jsonNode = new ObjectMapper().readTree(file);
         List<String> args = new ArrayList<>();
         int num = jsonNode.get("num").asInt();

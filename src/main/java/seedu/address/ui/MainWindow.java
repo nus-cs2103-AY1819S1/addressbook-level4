@@ -215,14 +215,6 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public ImagePanel getOrginalImagePanel() {
-        return originalImagePanel;
-    }
-
-    public ImagePanel getPreviewImagePanel() {
-        return previewImagePanel;
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

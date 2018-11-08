@@ -13,7 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-public class ExitCommandTest extends DefaultCommandTest {
+public class ExitCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 

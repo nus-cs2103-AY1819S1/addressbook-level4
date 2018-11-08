@@ -37,7 +37,8 @@ public class LogoutCommand extends Command {
         model.setPhotoHandler(null);
 
         try {
-            if (PhotosLibraryClientFactory.logoutUserIfPossible()) {
+            if (PhotosLibraryClientFactory.checkUserLogin()) {
+                PhotosLibraryClientFactory.logoutUserIfPossible();
                 EventsCenter.getInstance().post(new LogoutStatusEvent());
                 return new CommandResult(MESSAGE_LOGGED_OUT);
             } else {

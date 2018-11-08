@@ -24,7 +24,7 @@ Piconso - The Piconso is a command line image processing tool, supported by Imag
 
 * *Minor enhancement*: added a save command that allows the user to save the transformation wanted.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=lancelotwillow[All commits]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=lancelotwillow[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lancelotwillow[Project Code Dashboard]]
 
 * *Other contributions*:
 

@@ -55,7 +55,7 @@ Format: `help`: viewing list of all commands
 // tag::dir[]
 === Selecting images for editing: `select`
 
-Format: `select [INDEX]`: selects an image for image-editing
+Format: `select [INDEX 1-10]`: selects an image for image-editing
 
 Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
 
@@ -72,8 +72,11 @@ Format: `next`: Retrieves the next 10 images for editing
 
 Format: `prev`: Retrieves the previous 10 images for editing
 // end::dir[]
+// tag::convert[]
 
 === Applying a transformation to an image : `convert`
+You can use the convert command with the given format
+
 
 Format: `convert [operation] [arg1] [arg2] ...`: apply the specified processing to the selected image
 
@@ -83,35 +86,54 @@ Custom defined transformation by user (see create transformation, 3.6)
 
 Available transformations
 
-* `resize`: resize the image to the specified percentage of the original one
+* `resize`: you can resize the image to the specified percentage of the original one
 
 ** Format: `convert resize [percentage]`
+** Limit: the value for the percentage should in between [1% - 300%]
 ** Example: `convert resize 50%`
 
-* `blur`: performs gaussian blur on the currently opened image, with the argument specified with radius and sigama
+[NOTE]
+as all the images will be resize to the canvas when displaying, the resize command may reduce a "same" image
+on the canvas
+
+* `blur`: you can performs gaussian blur on the currently opened image, with the argument specified with radius and sigama
 
 ** Format: `convert blur [RadiusxSigama]`
+** Limit: the value for radius should in between [1 - 99], for sigama should in between [1 - 99]
 ** Example: `convert blur 0x8`
 
-* `colorspace`: change the color space of the current image
+* `colorspace`: you can change the color space of the current image
 
 ** Format: `convert colorspace [color space]`
-** Example: `convert colorspave GRAY`
+** Limit: only the provided color spaces is available, can be either up/low case
+** Example: `convert colorspace GRAY`
 
-* `contrast`: contrast of the image.
+[NOTE]
+for some of the color spaces, the image effect may not change after changing the color space
+
+* `contrast`: you can contrast of the image with the default setting.
 
 ** Format: `convert contrast`
 ** Example: `convert contrast`
 
-* `sigmoidal-contrast`: contrast the image with certain degree and percentage
+[NOTE]
+the default contrast just hences the effect of the image, the result may not be so obvious,
+use sigmodial-contrast if want to make the effect more impressive.
+
+* `sigmoidal-contrast`: you can contrast the image with certain degree and percentage
 
 ** Format: `convert sigmoidal-contrast [DegreexPercentage]`
+** Limit: the value for degree should between 1 - 99, for percentage should between 1% to 99%
 ** Example: `convert sigmoidal-contrast 10x10%`
 
-* `rotate`: rotates an image. DIRECTION [left, right]
+* `rotate`: you can rotate an image. DIRECTION [left, right]
 
 ** Format: `convert rotate [vlaue]`
+** Limit: the value should between -999 to 999
 ** Example: `convert rotate 90`
+
+// end::convert[]
+// tag::create[]
 
 === Customizing transformation for imageProcessing : `create`
 
@@ -120,9 +142,15 @@ transformation base on the operation specified
 
 Example:
 
-* `create blurAndRotate blur|0x8 rotate|90` +
-To use the newly created command, use: +
+* `create blurAndRotate blur|0x8 rotate|90`
+To use the newly created command, add an `@` before the command used:
 `convert @blurAndRotate`
+
+[NOTE]
+for the command created, you should add a @ before the command when running the customised command, ie convert @blurR
+
+// end::create[]
+// tag::save[]
 
 === Saving images : `save`
 
@@ -135,9 +163,12 @@ Example:
 [NOTE]
 ====
 The image will be saved in the same directory as the original image.
-====
 
+the format can also be all up cases.
+====
+// end::save[]
 // tag::undoredo[]
+
 === Undoing a transformation : `undo`
 
 Format: `undo`: Step back to the previous image state (in current layer)
@@ -192,9 +223,20 @@ Example:
 
 Format: `ls`: lists files in the current directory
 
+// tag::cd[]
 === Changing directories : `cd`
 
 Format: `cd [DIRECTORY_NAME]`: changes directory
+
+[NOTE]
+====
+For changing of drives in Windows, add '//' after the drive name.
+====
+
+Example:
+
+* `cd C://Users` - Changes the directory to Users in C:/ drive.
+// end::cd[]
 
 === Canvas operations : `canvas`
 
