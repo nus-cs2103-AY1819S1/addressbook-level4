@@ -87,7 +87,7 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t P
 * If username is not specified, it will default to being the same as NAME.
 
 ****
-* To use this command, you must be logged in with "Add employee" permissions.
+* To use this command, you must be logged in with "ADD_EMPLOYEE" permissions.
 * Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
 * The username cannot be "Admin", as that is reserved for the admin account.
 ****
@@ -147,7 +147,7 @@ Adds an assignment into the system.
 Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
 
 ****
-* To use this command, you must be logged in with "Create assignment" permissions.
+* To use this command, you must be logged in with "CREATE_ASSIGNMENT" permissions.
 ****
 Examples:
 
@@ -177,7 +177,7 @@ Displays a list leave applications that you have made.
 Format: `leavelist`
 
 ****
-* If you have the "View Employee Leave" permissions, all other employee leave applications will be shown too.
+* If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
 ****
 
 === Approve a leave application : `leaveapprove`
@@ -188,7 +188,7 @@ Format: `leaveapprove [INDEX]`
 
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "Leave Approve" permissions.
+* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been rejected can still be approved afterwards.
 ****
 
@@ -204,7 +204,7 @@ Format: `leavereject [INDEX]`
 
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "Leave Approve" permissions.
+* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been approved can still be rejected afterwards.
 ****
 
@@ -283,9 +283,9 @@ The following is the list of Permissions available.
 |EDIT_EMPLOYEE|Allows the user to edit information of an employee
 |VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
-|CREATE_PROJECT(Currently not used)|Allows user to create a project
-|ASSIGN_PROJECT(Currently not used)|Allows user to assign employee to a project
-|VIEW_PROJECT(Currently not used)|Allows user to view all projects
+|CREATE_ASSIGNMENT (Currently not used)|Allows user to create a project
+|ASSIGN_ASSIGNMENT (Currently not used)|Allows user to assign employee to a project
+|VIEW_ASSIGNMENT (Currently not used)|Allows user to view all projects
 |ASSIGN_PERMISSION|Allows user to assign permission to employees
 |=========================================================
 
