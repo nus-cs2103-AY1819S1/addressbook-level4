@@ -13,16 +13,16 @@ import seedu.address.model.Model;
  */
 public class ArchiveCommand extends Command {
 
-  public static final String COMMAND_WORD = "archive";
+    public static final String COMMAND_WORD = "archive";
 
-  public static final String MESSAGE_SUCCESS = "Listed all archived Persons";
+    public static final String MESSAGE_SUCCESS = "Listed all archived Persons";
 
 
-  @Override
-  public CommandResult runBody(Model model, CommandHistory history) {
-    requireNonNull(model);
-    model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    EventsCenter.getInstance().post(new ArchiveListEvent());
-    return new CommandResult(MESSAGE_SUCCESS);
-  }
+    @Override
+    public CommandResult runBody(Model model, CommandHistory history) {
+      requireNonNull(model);
+      model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+      EventsCenter.getInstance().post(new ArchiveListEvent());
+      return new CommandResult(MESSAGE_SUCCESS);
+    }
 }

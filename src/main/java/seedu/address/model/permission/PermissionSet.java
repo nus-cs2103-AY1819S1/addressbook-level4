@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Person;
-
 /**
  * Represents the set of permission(s) a user.
  * Null is not permitted in PermissionSet.

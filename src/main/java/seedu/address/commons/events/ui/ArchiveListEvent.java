@@ -6,11 +6,11 @@ import seedu.address.commons.events.BaseEvent;
  * Indicates that the leave list command has been run
  */
 public class ArchiveListEvent extends BaseEvent {
-  public ArchiveListEvent() {
-  }
+    public ArchiveListEvent() {
+    }
 
-  @Override
-  public String toString() {
-    return "archivelist";
-  }
+    @Override
+    public String toString() {
+      return "archivelist";
+    }
 }
