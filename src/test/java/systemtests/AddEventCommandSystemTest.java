@@ -31,6 +31,8 @@ import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalEvents.LECTURE;
 import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 
+import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddEventCommand;
@@ -48,12 +50,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class AddEventCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test
-
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     * TODO remember to import org.JUnit.Test
-     */
+    @Test
     public void add() {
         Model model = getModel();
 
@@ -103,8 +100,8 @@ public class AddEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: add a calendarevent with tags, command with parameters in random order -> added */
         toAdd = TUTORIAL;
         command =
-            AddEventCommand.COMMAND_WORD + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL
-                + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TITLE_DESC_TUTORIAL + TAG_DESC_HUSBAND;
+            AddEventCommand.COMMAND_WORD + TITLE_DESC_TUTORIAL + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL
+                + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a calendarevent, missing tags -> added */

@@ -7,8 +7,9 @@ import static seedu.address.logic.commands.DeleteEventCommand.MESSAGE_DELETE_CAL
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
+
+import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,12 +24,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
         String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
 
-    // @Test
-
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     * TODO remember to import org.JUnit.Test
-     */
+    @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
@@ -65,7 +61,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filtered calendarevent list, delete index within bounds of address book and calendarevent list ->
         deleted */
-        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
+        showCalendarEventsWithTitle("Choir");
         Index index = INDEX_FIRST_ELEMENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         assertCommandSuccess(index);
@@ -74,7 +70,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         calendarevent list
          * -> rejected
          */
-        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
+        showCalendarEventsWithTitle("Choir");
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         command = DeleteEventCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);

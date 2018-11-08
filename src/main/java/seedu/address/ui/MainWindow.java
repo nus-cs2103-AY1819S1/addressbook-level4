@@ -19,6 +19,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SwitchTabEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
@@ -178,6 +179,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Refreshes the calendar event panel
+     */
+    @FXML
+    public void refreshCalendarPanel() {
+        calendarPanelPlaceholder.getChildren().add(new CalendarPanel(logic.getFilteredCalendarEventList()).getRoot());
+    }
+
+    /**
      * Switches to the tab for the task list panel (if it is not already open)
      */
     @FXML
@@ -192,7 +201,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void showCalendarEventPanel() {
-        calendarPanelPlaceholder.getChildren().add(new CalendarPanel(logic.getFilteredCalendarEventList()).getRoot());
         if (!tabPane.getSelectionModel().isSelected(searchPanelTab)) {
             tabPane.getSelectionModel().select(searchPanelTab);
         }
@@ -233,6 +241,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleRefreshCalendarPanelEvent(RefreshCalendarPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        refreshCalendarPanel();
     }
 
     @Subscribe
