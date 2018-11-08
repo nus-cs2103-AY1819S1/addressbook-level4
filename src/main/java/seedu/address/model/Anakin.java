@@ -12,7 +12,6 @@ import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
 import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
-import seedu.address.model.deck.anakinexceptions.NotReviewingDeckException;
 import seedu.address.storage.portmanager.PortManager;
 
 /**
