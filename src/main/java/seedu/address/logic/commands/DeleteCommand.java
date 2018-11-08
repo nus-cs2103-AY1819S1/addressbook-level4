@@ -53,6 +53,9 @@ public class DeleteCommand extends Command {
         return commandResult;
     }
 
+    /**
+     * Deletes the person at the targeted index, and returns the command result.
+     */
     private CommandResult deletePersonAndGetResult(Model model) throws CommandException {
         CommandResult commandResult;
         List<Person> lastShownList = model.getFilteredPersonList();
@@ -67,6 +70,9 @@ public class DeleteCommand extends Command {
         return commandResult;
     }
 
+    /**
+     * Deletes the module at the targeted index, and returns the command result.
+     */
     private CommandResult deleteModuleAndGetResult(Model model) throws CommandException {
         CommandResult commandResult;
         List<Module> lastShownList = model.getFilteredModuleList();
@@ -81,6 +87,9 @@ public class DeleteCommand extends Command {
         return commandResult;
     }
 
+    /**
+     * Deletes the occasion at the targeted index, and returns the command result.
+     */
     private CommandResult deleteOccasionAndGetResult(Model model) throws CommandException {
         CommandResult commandResult;
         List<Occasion> lastShownList = model.getFilteredOccasionList();
