@@ -178,7 +178,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         }
         connectToGoogleCalendar.setGoogleCalendarEnabled();
         model.commitScheduler();
-        return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+        return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 
     private DateTime getRepeatUntilDateTime(DateTime repeatUntilDateTime, String s) {
