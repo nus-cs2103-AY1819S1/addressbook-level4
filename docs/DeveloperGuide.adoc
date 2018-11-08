@@ -348,6 +348,7 @@ image::RollbackModelSequenceDiagram.png[width="1200"]
 
 _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
 // end::complete[]
+// tag::dependency[]
 
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
@@ -397,6 +398,8 @@ cyclic dependency, which is when a set of tasks have a dependency to each other 
 depend on each other.
 A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
+// end::dependency[]
+// start::time[]
 
 ### 3.6 Monitoring time
 #### 3.6.1 Current Implementation
@@ -417,6 +420,7 @@ the number of commands that a person uses likely occurs at a higher rate than th
 * **Alternative 2:** Run a cron job that checks at a regular interval if the task is overdue
 ** Pros: The overdue state of the task is definitely current
 ** Cons: Potential race condition and might introduce latency to the application.
+// end::time[]
 
 
 
