@@ -372,15 +372,15 @@ indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch,
 and a *String* _slot_ containing its corresponding name.
 
 * *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
-Contains a predefined integer index and a predefined String slot name.
+Contains a predefined integer index of 0 and a predefined String slot name of "breakfast".
 
 * *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
-Contains a predefined integer index and a predefined String slot name.
+Contains a predefined integer index of 1 and a predefined String slot name of "lunch".
 
 * *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
-Contains a predefined integer index and a predefined String slot name.
+Contains a predefined integer index of 2 and a predefined String slot name of "dinner".
 
-** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
+** An empty *Meal* is defined as having no recipe, i.e. empty *Optional*.
 ****
 
 Class diagram:
