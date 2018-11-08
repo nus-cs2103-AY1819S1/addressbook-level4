@@ -62,9 +62,10 @@ public class AddRepeatCommand extends Command {
 
         int interval = Integer.parseInt(repeatInterval.value);
         DateFormat schedulerFormat = new SimpleDateFormat("ddMMyy");
+        Calendar baseDate = toAdd.getDate().calendar;
+
         for (int i = 0; i < Integer.parseInt(repeat.value); i++) {
-            Calendar baseDate = toAdd.getDate().calendar;
-            baseDate.add(Calendar.DAY_OF_YEAR, interval * i);
+            baseDate.add(Calendar.DAY_OF_YEAR, interval);
             String newDate = schedulerFormat.format(baseDate.getTime());
             Date date = new Date(newDate);
             Task newTask = new Task(toAdd.getName(), date,
