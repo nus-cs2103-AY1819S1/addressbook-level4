@@ -19,7 +19,6 @@ import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
-import seedu.clinicio.model.staff.Staff;
 
 /**
  * This class constructs a JAXB-friendly version of the Patient.
