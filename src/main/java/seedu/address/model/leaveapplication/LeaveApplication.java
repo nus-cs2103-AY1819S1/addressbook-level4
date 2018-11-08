@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents a LeaveApplication in the address book.
@@ -24,7 +25,11 @@ public class LeaveApplication {
         requireAllNonNull(description, leaveStatus, dates);
         this.description = description;
         this.leaveStatus = leaveStatus;
-        this.dates.addAll(dates);
+
+        // Remove duplicate dates
+        this.dates.addAll(dates
+                .stream().collect(Collectors.toSet())
+                .stream().collect(Collectors.toList()));
     }
 
     public LeaveApplication(LeaveApplicationWithEmployee leaveApplication) {
