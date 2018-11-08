@@ -82,12 +82,13 @@ Exits the program. +
 Format: `exit`
 
 === Task Management
+// tag::add[]
 ==== Adding a Task: `add`
 [%hardbreaks]
 Adds a task to the task manager.
 Format:
 
-`add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
+`add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
 Date Format: `dd-mm-yy hhmm` or `dd-mm-yy hhmm`. A missing `hhmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
@@ -109,6 +110,9 @@ Task <INDEX>, <TASK_NAME> was created.
 Duplicated tasks are not allowed in the task manager. Duplicated tasks are defined as tasks with the same name and
 due date or tasks with the same name and priority value.
 
+
+// end::add[]
+
 ==== Deleting a Task: `delete`
 [%hardbreaks]
 Deletes a task and task dependencies to it from the task manager
@@ -125,7 +129,7 @@ Format:
 `edit 1 t/18-12-19 d/a updated detailed description of what needs to be done`
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
-
+// tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)
@@ -138,6 +142,8 @@ Format:
 -Example:
 `dependency 1`
 `dependency a b`
+// end::dependency[]
+
 
 // tag::complete-usage[]
 ==== Completing a Task: `complete`
@@ -224,9 +230,11 @@ Selects the 2nd task in the task manager.
 `select 1` +
 Selects the 1st task in the results of the `find` command.
 
+// tag::topoorder[]
 ==== Listing Tasks by topological order: `topoorder`
 [%hardbreaks]
 Shows a list of uncompleted tasks by their topological order. (In the CLI window).
+// end::topoorder[]
 
 === Gamification
 // tag::achievements-usage[]

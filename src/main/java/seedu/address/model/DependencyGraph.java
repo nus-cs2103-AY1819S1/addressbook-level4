@@ -25,7 +25,7 @@ public class DependencyGraph {
             Set<String> edges = task.getDependency().getHashes();
             adjacencyList.put(hash, edges);
         }
-        //TODO: Remove cycle check
+        //Defensive check: Check cycles on graph instantiation
         if (checkPresenceOfCycle()) {
             throw new GraphCycleException();
         }
