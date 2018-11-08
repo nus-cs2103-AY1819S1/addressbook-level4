@@ -52,14 +52,14 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
+            model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
             model.addTransformation(transformation);
-            model.updateCurrentPreviewImage(modifiedImage, transformation);
+            model.updateCurrentPreviewImage(modifiedImage);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
-            //EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(e.toString());
         }
         return new CommandResult("process is done");
     }

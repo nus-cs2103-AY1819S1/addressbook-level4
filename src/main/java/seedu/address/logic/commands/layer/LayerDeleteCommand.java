@@ -23,7 +23,7 @@ public class LayerDeleteCommand extends LayerCommand {
             + "\n- " + TYPE + " [INDEX]: " + "Deletes the layer "
             + "\n\tExample: " + TYPE + " 2, deletes the 2nd layer in the canvas.";
 
-    public static final String OUTPUT_SUCCESS = "Layer deleted! Now working on layer %d.";
+    public static final String OUTPUT_SUCCESS = "Layer deleted! Now working on layer index: %d.";
     public static final String OUTPUT_FAILURE = "Invalid layer index provided!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerDeleteCommand.class);
@@ -48,7 +48,7 @@ public class LayerDeleteCommand extends LayerCommand {
             if (toRemove.getZeroBased() < 0 | toRemove.getZeroBased() >= model.getCanvas().getLayers().size()) {
                 throw new NumberFormatException();
             }
-            currentLayer = model.getCanvas().removeLayer(toRemove);
+            currentLayer = model.removeLayer(toRemove);
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
         } catch (IllegalOperationException e) {

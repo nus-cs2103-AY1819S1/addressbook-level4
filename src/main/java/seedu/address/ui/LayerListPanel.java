@@ -1,9 +1,7 @@
 package seedu.address.ui;
 
-//@@author chivent
+//@@author j-lum
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,64 +15,63 @@ import javafx.scene.layout.Region;
 
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.HistoryUpdateEvent;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.LayerUpdateEvent;
 
 
 /**
  * Panel containing the list of past transformations.
  */
-public class HistoryListPanel extends UiPart<Region> {
+public class LayerListPanel extends UiPart<Region> {
     public static final String SELECTED_STYLE = "-fx-background-color: #a3a3a3;  -fx-text-fill: #1f1f1f;";
 
-    private static final String FXML = "HistoryListPanel.fxml";
+    private static final String FXML = "LayerListPanel.fxml";
     private static final String DEFAULT_STYLE = "-fx-background-color: transparent;  -fx-text-fill: #6e6e6e;";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
     private ObservableList<String> items = FXCollections.observableArrayList();
 
-    /**
-     * Stores transformations that have been undone.
-     */
-    private Queue<String> redoQueue = new LinkedList<>();
+    @FXML
+    private ListView<String> layerListView;
 
     @FXML
-    private ListView<String> historyListView;
+    private Text layerTitle;
 
-    @FXML
-    private Text historyTitle;
+    private Index current = Index.fromZeroBased(0);
 
-    public HistoryListPanel() {
+    public LayerListPanel() {
         super(FXML);
-        historyTitle.setText("Transformation History");
-        historyListView.setItems(items);
-        historyListView.setCellFactory(listView -> new HistoryListPanel.HistoryListViewCell());
+        layerTitle.setText("Layers");
+        layerListView.setItems(items);
+        layerListView.setCellFactory(listView -> new LayerListPanel.LayerListViewCell());
         registerAsAnEventHandler(this);
     }
 
     @Subscribe
-    private void handleHistoryUpdateEvent(HistoryUpdateEvent event) {
+    private void handleLayerUpdateEvent(LayerUpdateEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        this.current = event.current;
         for (int size = items.size(); 0 < size; size--) {
             items.remove(items.size() - 1, items.size());
         }
-        historyListView.setItems(items);
+        layerListView.setItems(items);
         items.addAll(event.list);
-        historyListView.setItems(items);
+        layerListView.setItems(items);
     }
 
     /**
      * Custom {@code ListCell} that displays transformations.
      */
-    class HistoryListViewCell extends ListCell<String> {
+    class LayerListViewCell extends ListCell<String> {
         @Override
-        protected void updateItem(String transformation, boolean empty) {
-            super.updateItem(transformation, empty);
+        protected void updateItem(String layerName, boolean empty) {
+            super.updateItem(layerName, empty);
 
             setStyle(DEFAULT_STYLE);
             setGraphic(null);
-            setText(empty ? null : transformation);
+            setText(empty ? null : layerName);
 
-            if (!empty && getIndex() == (getListView().getItems().size() - 1)) {
+            if (!empty && getIndex() == current.getZeroBased()) {
                 setStyle(SELECTED_STYLE);
             }
         }
