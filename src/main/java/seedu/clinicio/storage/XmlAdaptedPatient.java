@@ -119,14 +119,13 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
-        System.out.println(preferredDoctor);
         Staff modelPreferredDoctor;
         if (preferredDoctor.isPresent()) {
             modelPreferredDoctor = preferredDoctor.get();
         } else {
             modelPreferredDoctor = null;
         }
-        
+
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
                 modelAllergies, modelPreferredDoctor);
@@ -136,7 +135,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         } else {
             patient.setIsNotQueuing();
         }
-        
+
         appointment.ifPresent(appointment1 -> {
             patient.setAppointment(appointment1);
         });
