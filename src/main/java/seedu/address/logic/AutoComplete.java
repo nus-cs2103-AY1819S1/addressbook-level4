@@ -9,12 +9,12 @@ import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.commands.EditOccasionCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindModuleCommand;
 import seedu.address.logic.commands.FindOccasionCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.InsertPersonCommand;
 import seedu.address.logic.commands.ListModuleCommand;
 import seedu.address.logic.commands.ListOccasionCommand;
 import seedu.address.logic.commands.ListPersonCommand;
@@ -36,8 +36,7 @@ public class AutoComplete {
         ClearCommand.COMMAND_WORD, FindPersonCommand.COMMAND_WORD, FindModuleCommand.COMMAND_WORD,
         FindOccasionCommand.COMMAND_WORD, ListPersonCommand.COMMAND_WORD, ListModuleCommand.COMMAND_WORD,
         ListOccasionCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-        HelpCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
-        InsertPersonCommand.COMMAND_WORD};
+        HelpCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD, ExportCommand.COMMAND_WORD};
 
     private String[] personList;
     private String[] moduleList;

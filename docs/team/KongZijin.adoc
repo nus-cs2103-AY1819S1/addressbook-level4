@@ -59,10 +59,10 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../UserGuide.adoc[tag=supportforocassionandmodule]
-include::../UserGuide.adoc[tag=edit]
+include::../DeveloperGuide.adoc[tag=supportforocassionandmodule]
+include::../DeveloperGuide.adoc[tag=edit]
 include::../DeveloperGuide.adoc[tag=undoredo]
-include::../UserGuide.adoc[tag=history]
+include::../DeveloperGuide.adoc[tag=history]
 
 
 

@@ -14,6 +14,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.storage.StorageManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 
@@ -28,7 +29,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Before
     public void setUp() {
         Model model = new ModelManager();
-        Logic logic = new LogicManager(model);
+        Logic logic = new LogicManager(model, new StorageManager());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
