@@ -47,7 +47,7 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632")));
-    private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a635"),
