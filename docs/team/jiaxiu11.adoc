@@ -24,7 +24,7 @@ As the achievement information is presented on the GUI rather than via the CLI o
 to toggle back the achievement panel GUI display (e.g. from all-time to today) on undo/redo command. +
 The whole mechanism requires extensive support and modification of all of the model, storage, logic and UI components of the existing software.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiaxiu11[All code]].
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiaxiu11[RepoSense]].
 
 * *Other contributions*:
 
