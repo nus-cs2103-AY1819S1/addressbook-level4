@@ -32,8 +32,6 @@ public class XmlAdaptedPatientTest {
     private static final String INVALID_MED_PROB = "#cancer";
     private static final String INVALID_MED = "#tremedol";
     private static final String INVALID_ALLERGY = "#sand";
-    private static final Staff INVALID_PREF_DOC = new Staff(
-            DOCTOR, new Name(INVALID_NAME), new Password("doctor1", false));
 
     private static final String VALID_NAME = BRYAN.getName().toString();
     private static final String VALID_PHONE = BRYAN.getPhone().toString();
@@ -49,8 +47,6 @@ public class XmlAdaptedPatientTest {
     private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
-    private static final Optional<Staff> VALID_PREF_DOC = Optional.of(ADAM);
-    private static final Optional<Appointment> VALID_APPT = Optional.of(AMY_APPT);
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
