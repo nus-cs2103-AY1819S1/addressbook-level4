@@ -15,7 +15,7 @@ life in the kitchen. +
 
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
-== Summary of contributions (To be updated...)
+== Summary of contributions
 * *Major enhancement*: added *the ability to manage ingredients*
 ** What it does: Allows the user to track the stock of ingredients, view recipe according to ingredient and check
 shop amount.
