@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ArchiveListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
@@ -178,9 +179,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up the person list placeholder with the person list
      */
     void fillPersonListParts() {
-        if (personListPanel == null) {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        }
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the archive list
+     */
+    void fillArchiveListParts() {
+        personListPanel = new PersonListPanel(logic.getArchivedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
@@ -223,6 +230,19 @@ public class MainWindow extends UiPart<Stage> {
     void processPersonList(PersonListEvent personListEvent) {
         removePersonListPanelPlaceholderElements();
         fillPersonListParts();
+        listPicker.setActiveList();
+    }
+
+    /**
+     * Listens for a archive list Event from the EventBus. This will be triggered when a ArchiveListEvent is pushed
+     * to the EventBus.
+     * @param archiveListEvent The event information
+     */
+    @Subscribe
+    void processArchiveList(ArchiveListEvent archiveListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillArchiveListParts();
+        listPicker.setArchiveList();
     }
 
     /**
@@ -342,11 +362,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == 2) {
-            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
+            personListPanel = new PersonListPanel(logic.getArchivedPersonList());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
         if (event.getNewSelection() == 1) {
-            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
     }

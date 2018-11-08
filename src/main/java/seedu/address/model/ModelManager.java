@@ -70,6 +70,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetArchive(ReadOnlyArchiveList newData) {
+        versionedArchiveList.resetData(newData);
+        indicateAddressBookChanged();
+        indicateAssignmentListChanged();
+        indicateArchivedListChanged();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
@@ -175,6 +183,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateArchivedPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        archivedPersons.setPredicate(predicate);
     }
 
     //=========== Filtered Leave Application List Accessors ============================================================

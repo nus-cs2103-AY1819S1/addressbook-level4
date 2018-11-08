@@ -43,4 +43,14 @@ public class ListPicker extends UiPart<Region> {
         });
         registerAsAnEventHandler(this);
     }
+
+    public void setArchiveList() {
+        archiveList.setStyle("-fx-background-color: #28B463; -fx-border-color: #28B463;");
+        activeList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
+    }
+
+    public void setActiveList() {
+        activeList.setStyle("-fx-border-color: #28B463; -fx-background-color: #28B463;");
+        archiveList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
+    }
 }
