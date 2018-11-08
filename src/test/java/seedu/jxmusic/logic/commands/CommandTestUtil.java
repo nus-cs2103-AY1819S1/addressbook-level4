@@ -16,6 +16,8 @@ import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
+import seedu.jxmusic.model.TrackNameContainsKeywordsPredicate;
 // import seedu.jxmusic.testutil.EditPlaylistDescriptorBuilder;
 
 /**
@@ -121,6 +123,20 @@ public class CommandTestUtil {
         model.updateFilteredPlaylistList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPlaylistList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the tracks at the given {@code targetIndex} in the
+     * {@code model}'s jxmusic book.
+     */
+    public static void showTrackAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTrackList().size());
+
+        Track track = model.getFilteredTrackList().get(targetIndex.getZeroBased());
+        final String[] splitName = track.getFileNameWithoutExtension().split("\\s+");
+        model.updateFilteredTrackList(new TrackNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredTrackList().size());
     }
 
     /**
