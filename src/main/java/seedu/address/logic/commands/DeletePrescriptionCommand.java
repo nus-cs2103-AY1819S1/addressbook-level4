@@ -73,7 +73,7 @@ public class DeletePrescriptionCommand extends Command {
         Prescription prescriptionToBeDeleted = null;
 
         for (Prescription prescription : appointmentToEdit.getPrescriptions()) {
-            if (prescription.getMedicineName().toString().toLowerCase().equals(medicineName.toString().toLowerCase())) {
+            if (prescription.getMedicineName().equals(medicineName)) {
                 prescriptionToBeDeleted = prescription;
                 break;
             }

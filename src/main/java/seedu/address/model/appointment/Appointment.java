@@ -83,7 +83,7 @@ public class Appointment implements Comparable<Appointment> {
     public void deletePrescription(String medicineName) {
         Prescription toRemove = null;
         for (Prescription p : prescriptions) {
-            if (p.getMedicineName().toString().toLowerCase().equals(medicineName.toLowerCase())) {
+            if (p.getMedicineName().equals(new MedicineName(medicineName))) {
                 toRemove = p;
             }
         }
