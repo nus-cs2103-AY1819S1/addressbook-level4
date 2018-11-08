@@ -46,13 +46,15 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Task> tasksToDelete = getTasksToDelete(model.getFilteredTaskList());
 
-        tasksToDelete.stream().forEach(taskToDelete -> model.deleteTask(taskToDelete));
+        for (Task taskToDelete : tasksToDelete) {
+            model.deleteTask(taskToDelete);
+        }
         model.commitAddressBook();
 
         String deletedTasksString =
                 tasksToDelete
                         .stream()
-                        .map(taskToDelete -> tasksToDelete.toString())
+                        .map(taskToDelete -> taskToDelete.toString())
                         .collect(Collectors.joining("\n"));
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTasksString));
@@ -80,7 +82,8 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand) // instanceof handles nulls
-                && targetIndices.equals(((DeleteCommand) other).targetIndices); // state check
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && (targetIndices == ((DeleteCommand) other).targetIndices
+                        || targetIndices.equals(((DeleteCommand) other).targetIndices))); // state check
     }
 }
