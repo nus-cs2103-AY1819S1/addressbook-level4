@@ -8,6 +8,7 @@ import org.junit.Test;
 import seedu.clinicio.testutil.Assert;
 
 public class NricTest {
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Nric(null));
