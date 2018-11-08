@@ -6,11 +6,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import seedu.address.model.tag.Label;
 
 /**
- * Represents a Task in the description book.
+ * Represents a Task in the TaskManager.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
@@ -30,7 +31,6 @@ public class Task {
      * Every field must be present and not null.
      * Status of a new task is initialized to in progress unless specified.
      */
-    //TODO: Remove the need for multiple constructors
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
@@ -79,27 +79,61 @@ public class Task {
     }
 
     public Status getStatus() {
-        return status;
+        return this.status;
     }
 
     public Dependency getDependency() {
-        return dependency;
+        return this.dependency;
     }
 
     public boolean isStatusCompleted() {
-        return status == Status.COMPLETED;
+        return this.status == Status.COMPLETED;
     }
 
     public boolean isStatusOverdue() {
-        return status == Status.OVERDUE;
+        return this.status == Status.OVERDUE;
     }
 
     public boolean isStatusInProgress() {
-        return status == Status.IN_PROGRESS;
+        return this.status == Status.IN_PROGRESS;
     }
 
     public boolean isOverdue() {
         return this.dueDate.isOverdue();
+    }
+
+    /**
+     * Returns a human-readable information about time until due date of task.
+     * If task is {@code Status.OVERDUE} or {@code Status.COMPLETED}, a dummy value will be returned.
+     */
+    public String getTimeToDueDate() {
+        if (this.status != Status.IN_PROGRESS || this.isOverdue()) {
+            return "------";
+        }
+        long timeMiliseconds = this.dueDate.millisecondsToDueDate();
+        return millisecondsToString(timeMiliseconds);
+    }
+
+    /**
+     * Converts a given milisecond duration to a human readable duration of type string
+     * @param timeMilliseconds
+     * @return
+     */
+    private String millisecondsToString(long timeMilliseconds) {
+        //Declaring constants to be used.
+        long secondInMs = 1000;
+        long minuteInMs = secondInMs * 60;
+        long hourInMs = minuteInMs * 60;
+        long dayInMs = hourInMs * 24;
+
+        long days = TimeUnit.MILLISECONDS.toDays(timeMilliseconds);
+        timeMilliseconds -= days * dayInMs;
+        long hours = TimeUnit.MILLISECONDS.toHours(timeMilliseconds);
+        timeMilliseconds -= hours * hourInMs;
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(timeMilliseconds);
+        timeMilliseconds -= minutes * minuteInMs;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(timeMilliseconds);
+        return String.format("%d day(s) %d hour(s) %d minute(s) %d second(s)", days, hours, minutes, seconds);
     }
 
     /**

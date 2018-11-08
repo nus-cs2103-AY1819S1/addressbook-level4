@@ -50,6 +50,14 @@ public class DueDate {
         return new Date().compareTo(valueDate) > 0;
     }
 
+    /**
+     * Returns time difference (in milliseconds) between now and due date
+     * @return time to the time
+     */
+    public long millisecondsToDueDate() {
+        return this.valueDate.getTime() - new Date().getTime();
+    }
+
     @Override
     public String toString() {
         return value;

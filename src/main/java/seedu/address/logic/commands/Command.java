@@ -21,6 +21,7 @@ public abstract class Command {
     public final CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.checkOverdue();
         CommandResult result = executePrimitive(model, history);
+        //Second check is a defensive check
         model.checkOverdue();
         return result;
     }

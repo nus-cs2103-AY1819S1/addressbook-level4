@@ -14,7 +14,7 @@ import seedu.address.model.task.Task;
 public class ShowTopologicalOrderCommand extends Command {
     public static final String COMMAND_WORD = "topoorder";
 
-    public static final String RESULT_HEADER = "Here are the uncompleted tasks listed in topological order:";
+    public static final String RESULT_HEADER = "Here are the uncompleted tasks listed in topological order:\n";
 
     public ShowTopologicalOrderCommand() {
     }
