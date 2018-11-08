@@ -16,8 +16,13 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.MealPlanContainsDatePredicate;
+<<<<<<< HEAD
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+=======
+import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
+>>>>>>> 52d84e0b02079c16ba1dbfa71585254c71344e9e
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -38,7 +43,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand<>(model, new RecipeContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
     /**
@@ -77,7 +82,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand<>(model, new RecipeContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
     /**
