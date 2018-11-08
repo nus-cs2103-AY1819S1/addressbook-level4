@@ -18,6 +18,10 @@ public class ListToDoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
+    public ListToDoCommand() {
+        super.isToDoCommand = true;
+    }
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
