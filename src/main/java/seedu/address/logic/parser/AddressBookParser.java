@@ -108,7 +108,7 @@ public class AddressBookParser {
 
         case ListOccasionCommand.COMMAND_WORD:
             return new ListOccasionCommand();
-            
+
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
             
