@@ -3,6 +3,7 @@ package seedu.jxmusic.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 
+import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
@@ -20,35 +21,55 @@ public class TrackDeleteCommand extends Command {
             + "Example: " + COMMAND_PHRASE + " "
             + PREFIX_PLAYLIST + "rockPlaylist "
             + "1";
-    public static final String MESSAGE_TRACK_DOES_NOT_EXIST = "This playlist does not have track: %1$s";
+    public static final String MESSAGE_INDEX_DOES_NOT_EXIST = "This playlist does not have index: %1$s";
+    public static final String MESSAGE_PLAYLIST_IS_EMPTY = "This playlist is empty";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";
 
-    private Track trackToDelete;
+    private Index indexToDelete;
     private Playlist targetPlaylist;
 
-    public TrackDeleteCommand(Track trackToDelete, Playlist targetPlaylist) {
-        requireNonNull(trackToDelete);
+    public TrackDeleteCommand(Playlist targetPlaylist, Index indexToDelete) {
+        requireNonNull(indexToDelete);
         requireNonNull(targetPlaylist);
-        this.trackToDelete = trackToDelete;
+        this.indexToDelete = indexToDelete;
         this.targetPlaylist = targetPlaylist;
     }
 
     @Override
     public CommandResult execute(Model model) {
         Playlist updatedPlaylist;
+        Playlist actualPlaylist;
+        int trackNum = indexToDelete.getOneBased();
+        int playlistSize = 0;
+        Track trackToDelete;
 
         // check if playlist exists
         if (!model.hasPlaylist(targetPlaylist)) {
             return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, targetPlaylist.getName()));
         }
-        updatedPlaylist = targetPlaylist.copy();
-        // check if track exists in existing playlist
-        if (!targetPlaylist.hasTrack(trackToDelete)) {
-            return new CommandResult(String.format(MESSAGE_TRACK_DOES_NOT_EXIST, trackToDelete));
+
+        actualPlaylist = model.getLibrary().getPlaylistList()
+                .filtered(playlist -> playlist.isSamePlaylist(targetPlaylist))
+                .get(0);
+
+        // check if playlist is empty
+        if (actualPlaylist.isEmpty()) {
+            return new CommandResult(MESSAGE_PLAYLIST_IS_EMPTY);
         }
+
+        updatedPlaylist = actualPlaylist.copy();
+        // check if track exists in existing playlist
+        playlistSize = updatedPlaylist.getSize();
+        if (trackNum > playlistSize) {
+            return new CommandResult(String.format(MESSAGE_INDEX_DOES_NOT_EXIST, trackNum));
+        }
+
+        // get track from trackNum
+        trackToDelete = actualPlaylist.get(indexToDelete.getZeroBased());
+
         if (updatedPlaylist.deleteTrack(trackToDelete)) {
-            model.updatePlaylist(targetPlaylist, updatedPlaylist);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, trackToDelete, targetPlaylist.getName()));
+            model.updatePlaylist(actualPlaylist, updatedPlaylist);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, trackToDelete, actualPlaylist.getName()));
         }
         return null;
     }

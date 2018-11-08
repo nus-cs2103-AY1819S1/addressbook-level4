@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 
@@ -16,59 +17,88 @@ import seedu.jxmusic.model.Track;
  */
 public class TrackAddCommand extends Command {
     public static final String COMMAND_PHRASE = "track add";
-    public static final String MESSAGE_SUCCESS = "Track %1$s added to playlist %2$s";
-    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track to the playlist identified "
-        + "by the name of the track and playlist. "
+    public static final String MESSAGE_SUCCESS = "Tracks added to playlist: %1$s -> %2$s";
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track(s) to the playlist identified "
+        + "by the name of the track and playlist.\n"
         + "Playlist will be modified with new track.\n"
         + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST] "
         + "[" + PREFIX_TRACK + "TRACK]...\n"
         + "Example: " + COMMAND_PHRASE + " "
-        + PREFIX_PLAYLIST + "rockPlaylist "
+        + PREFIX_PLAYLIST + "rockPlaylist" + " "
         + PREFIX_TRACK + "rockNRoll";
-    public static final String MESSAGE_DUPLICATE_TRACK = "This track already exists in the playlist: %1$s";
-    public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";
+    public static final String MESSAGE_TRACK_DOES_NOT_EXIST = "These tracks do not exist: %3$s";
+    public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "Playlist does not exist: %1$s";
 
-    private Track trackToAdd;
-    private Playlist targetPlaylist;
+    private List<Track> argTracksToAdd;
+    private Playlist argPlaylist;
 
-    public TrackAddCommand(Track trackToAdd, Playlist targetPlaylist) {
+    public TrackAddCommand(Playlist targetPlaylist, Track... trackToAdd) {
         requireNonNull(trackToAdd);
         requireNonNull(targetPlaylist);
-        this.trackToAdd = trackToAdd;
-        this.targetPlaylist = targetPlaylist;
+        this.argPlaylist = targetPlaylist;
+        this.argTracksToAdd = new ArrayList<Track>();
+        for (Track track : trackToAdd) {
+            this.argTracksToAdd.add(track);
+        }
     }
 
-    /**
-     * For immutability
-     * @param targetPlaylist
-     * Returns a copy of targetPlaylist
-     */
-    private Playlist copyPlaylist(Playlist targetPlaylist) {
-        List<Track> tracks = targetPlaylist.getTracks();
-        Name nameCopy = targetPlaylist.getName();
-        Playlist playlistCopy = new Playlist(nameCopy);
-        for (Track track : tracks) {
-            playlistCopy.addTrack(track);
-        }
-        return playlistCopy;
+    public TrackAddCommand(Playlist targetPlaylist, List<Track> tracksToAdd) {
+        requireNonNull(tracksToAdd);
+        requireNonNull(targetPlaylist);
+        this.argTracksToAdd = tracksToAdd;
+        this.argPlaylist = targetPlaylist;
     }
 
     @Override
     public CommandResult execute(Model model) {
         Playlist updatedPlaylist;
+        Playlist actualPlaylist;
+        List<Track> tracksToAdd = new ArrayList<Track>();
+        List<Track> tracksNotAdded = new ArrayList<Track>();
+        Track actualTrack = null;
 
         // check if playlist exists
-        if (!model.hasPlaylist(targetPlaylist)) {
-            return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, targetPlaylist.getName()));
+        if (!model.hasPlaylist(argPlaylist)) {
+            return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, argPlaylist.getName()));
         }
-        updatedPlaylist = copyPlaylist(targetPlaylist);
-        // check if track exists in existing playlist
-        if (targetPlaylist.hasTrack(trackToAdd)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE_TRACK, trackToAdd));
+
+        // violates law of demeter for read operation due to best access path to Playlist
+        actualPlaylist = model.getLibrary().getPlaylistList()
+                .filtered(playlist -> playlist.isSamePlaylist(argPlaylist))
+                .get(0);
+
+        updatedPlaylist = actualPlaylist.copy();
+
+        // check if tracks exist
+        // argTracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
+        for (Track trackToAdd : argTracksToAdd) {
+            Optional<Track> listOfTracks = model.getFilteredTrackList().stream()
+                    .filter(track -> track.equals(trackToAdd))
+                    .findFirst();
+            boolean trackExists = listOfTracks.isPresent();
+            if (trackExists) {
+                tracksToAdd.add(listOfTracks.get());
+            } else {
+                // to display as tracks that cannot be added
+                tracksNotAdded.add(trackToAdd);
+            }
         }
-        updatedPlaylist.addTrack(trackToAdd);
-        model.updatePlaylist(targetPlaylist, updatedPlaylist);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName()));
+
+        for (Track trackToAdd : tracksToAdd) {
+            actualTrack = model.getFilteredTrackList().stream().filter(track -> track
+                    .equals(trackToAdd)).findFirst().get();
+            updatedPlaylist.addTrack(actualTrack);
+        }
+
+        model.updatePlaylist(actualPlaylist, updatedPlaylist);
+        if (tracksNotAdded.isEmpty()) {
+            if (tracksToAdd.size() == 1) {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd.get(0), actualPlaylist.getName()));
+            }
+            return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd, actualPlaylist.getName()));
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_TRACK_DOES_NOT_EXIST,
+                tracksToAdd, actualPlaylist.getName(), tracksNotAdded));
     }
 
 }

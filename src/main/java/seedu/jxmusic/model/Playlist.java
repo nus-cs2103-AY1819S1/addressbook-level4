@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.jxmusic.commons.core.index.Index;
+
 /**
  * Represents a Playlist in the jxmusic book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -18,6 +20,7 @@ public class Playlist {
 
     // Data fields
     private final List<Track> tracks;
+    private int size;
 
     /**
      * Only name field must be present. List of tracks to be added later.
@@ -26,6 +29,7 @@ public class Playlist {
         requireAllNonNull(name);
         this.name = name;
         this.tracks = new ArrayList<>();
+        this.size = 0;
     }
 
     /**
@@ -37,6 +41,7 @@ public class Playlist {
         requireAllNonNull(name);
         this.name = name;
         this.tracks = tracks;
+        this.size = this.tracks.size();
     }
 
     public Name getName() {
@@ -51,6 +56,13 @@ public class Playlist {
     }
 
     /**
+     * Returns the track of index in the playlist
+     */
+    public Track get(int index) throws ArrayIndexOutOfBoundsException {
+        return Collections.unmodifiableList(tracks).get(index);
+    }
+
+    /**
      * Adds a track into the playlist
      * @param track to be added to the playlist, must not be null
      */
@@ -59,6 +71,7 @@ public class Playlist {
             throw new NullPointerException("Track must not be null");
         }
         tracks.add(track);
+        setSize(getSize() + 1);
     }
 
     /**
@@ -69,7 +82,11 @@ public class Playlist {
         if (track == null) {
             throw new NullPointerException("Track must not be null");
         }
-        return tracks.remove(track);
+        if (tracks.remove(track)) {
+            setSize(getSize() - 1);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -110,6 +127,35 @@ public class Playlist {
             }
         }
         return false;
+    }
+
+    public Index getTrackIndex(Track targetTrack) {
+        int index = 0;
+        for (Track track : getTracks()) {
+            if (track.equals(targetTrack)) {
+                return Index.fromZeroBased(index);
+            }
+            index++;
+        }
+        return Index.fromOneBased(0);
+    }
+
+    private void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * Returns number of tracks in this playlist
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Returns true if there are no tracks in this playlist
+     */
+    public boolean isEmpty() {
+        return (size == 0);
     }
 
     /**

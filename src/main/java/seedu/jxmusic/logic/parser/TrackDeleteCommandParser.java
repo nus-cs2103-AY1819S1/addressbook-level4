@@ -1,6 +1,7 @@
 package seedu.jxmusic.logic.parser;
 
 import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 
 import java.util.stream.Stream;
@@ -9,7 +10,6 @@ import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.TrackDeleteCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Playlist;
-import seedu.jxmusic.model.Track;
 
 /**
  * Parses input arguments and creates a new TrackDeleteCommand object
@@ -23,21 +23,21 @@ public class TrackDeleteCommandParser implements Parser<TrackDeleteCommand> {
      */
     public TrackDeleteCommand parse(String args) throws ParseException {
         try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST);
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_INDEX);
 
-            Index index = ParserUtil.parseIndex(args.split("\\s+")[3]);
-
-            if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST) || !argMultimap.getPreamble().isEmpty()) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_INDEX)
+                    || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackDeleteCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                TrackDeleteCommand.MESSAGE_USAGE));
             }
 
             Playlist targetPlaylist = ParserUtil.parsePlaylist(argMultimap.getValue(PREFIX_PLAYLIST).get());
-            Track trackToRemove = targetPlaylist.getTracks().get(index.getOneBased());
-
-            return new TrackDeleteCommand(trackToRemove, targetPlaylist);
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackDeleteCommand.MESSAGE_USAGE));
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            return new TrackDeleteCommand(targetPlaylist, index);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + " args: " + args,
+                    TrackDeleteCommand.MESSAGE_USAGE));
         }
     }
 
