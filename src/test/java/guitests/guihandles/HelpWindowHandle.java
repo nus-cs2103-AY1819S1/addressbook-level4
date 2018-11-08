@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import java.net.URL;
-
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
@@ -11,8 +9,6 @@ import javafx.stage.Stage;
 public class HelpWindowHandle extends StageHandle {
 
     public static final String HELP_WINDOW_TITLE = "Help";
-
-    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
 
     public HelpWindowHandle(Stage helpWindowStage) {
         super(helpWindowStage);
