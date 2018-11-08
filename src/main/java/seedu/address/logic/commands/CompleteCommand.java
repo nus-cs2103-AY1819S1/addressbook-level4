@@ -42,8 +42,6 @@ public abstract class CompleteCommand extends Command {
     public CommandResult executePrimitive(Model model, CommandHistory history)
         throws CommandException {
 
-
-
         // Calculation of change in xp and level is inlined
         // as the viewing of the whole process as procedures that relies
         // side effects of the methods called in between is now more easily
@@ -79,6 +77,9 @@ public abstract class CompleteCommand extends Command {
      */
     private String completeTasks(Model model)
         throws CommandException {
+        // Creates a Runnable that reverts the filteredTaskList state to the
+        // old filteredTaskList. (Runnable is created for readability)
+        // Note: new ArrayList(...) is used here to create a shallow copy.
         List<Task> oldTaskList = new ArrayList<>(model.getFilteredTaskList());
         Runnable restoreFilteredTaskList = () -> model
             .updateFilteredTaskList(task -> oldTaskList.contains(task));
