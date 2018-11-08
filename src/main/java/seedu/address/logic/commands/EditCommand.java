@@ -117,8 +117,14 @@ public class EditCommand extends Command {
         ArrayList<Time> updatedTime = getUpdatedTime(personToEdit, editPersonDescriptor.getTime().orElse(null));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail,
+        Person editedPerson = new Person(updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updatedEducation, updatedGrades, updatedTime, updatedTags);
+
+        if (editedPerson.hasGraduated()) {
+            editedPerson.removeGraduatedTag();
+        }
+
+        return editedPerson;
     }
 
     private static HashMap<String, Grades> getUpdatedGrades(
@@ -199,7 +205,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, grades, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, grades, tags, education);
         }
 
         public void setName(Name name) {

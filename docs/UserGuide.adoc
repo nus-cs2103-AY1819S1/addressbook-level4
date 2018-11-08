@@ -477,6 +477,116 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+<<<<<<< HEAD
+
+[[grade]]
+=== Grades attribute
+
+Grade attribute consists of two parts, exam name and exam score.
+
+[NOTE]
+====
+* The name and grade should be separated by space.
+
+* Score should be between 0 and 100.
+
+* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
+====
+
+Add grade:
+
+You can add some grades record for a student, both using add command and edit command.
+
+Example
+
+`add g/mid-test 100 [other part]`
+
+`edit 1 g/mid-test 100`
+
+[NOTE]
+====
+Edit grade will not delete the previous grades as tap attribute.
+====
+
+Change grade:
+
+if you need to change the score of a exam, you can use edit as well.
+
+=== Promote students stored in TutorPal : `promote`
+
+Promotes educational grade of the selected student(s) +
+Format: `promote [INDEX]...`
+
+* Promotes the educational grade of the students specified by their index.
+* There can be more than one INDEX provided.
+
+[NOTE]
+====
+Multiple indexes should be separated by a space.
+====
+
+Format: `promote all`
+
+* Promotes all students stored in TutorPal, including those who are not
+displayed on the panel.
+
+Examples
+
+* `promote 1 2 4 12` +
+Promotes the first, second, fourth and twelfth student.
+* `promote all` +
+Promotes all students in TutorPal.
+
+
+****
+* The promote function does not promote students across educational levels +
+i.e. from Primary to Secondary. For such changes, see command: edit.
+* For students advancing to Secondary 5, use command: edit.
+* For students in their final year (Primary 6, Secondary 4/5, JC 2), +
+the promote function automatically adds a tag "Graduated" to indicate that
+the student has graduated.
+* The "Graduated" tag is automatically removed when command: edit is used to +
+edit the student's educational level and/or grade.
+* Users can choose to delete graduated students or edit their educational level/grade +
+according to their needs.
+****
+
+=== Analyzing grades commands `[coming in v2.0]`
+
+Analyze the grades of students +
+Format: `grades ACTION [parameters]`
+
+****
+* grades sort: list the details of students sorting by grades.
+****
+
+[NOTE]
+====
+Regard the mark of the student who doesn't have a grade as 0.
+====
+
+=== Retrieving earnings
+
+Retrieve the total earnings within a range of date in the current year. +
+Format: `earnings START_DATE END_DATE`
+
+* DDMM is the format of date to be entered.
+* The year field is not required as TutorPal assumes current calender year by default.
+* To calculate the amount of money earned within a day, input the same `START_DATE` and `END_DATE`.
+
+[NOTE]
+====
+As there is no built-in attendance marking capability in TutorPal, the earnings function follows a
+standard one lesson per week schedule and does not account for cancelled or adhoc extra lessons.
+====
+
+Example:
+
+* `earnings 0204 2506` +
+This command returns the total amount of tuition fees earned between 2 April 2018 to 25 June 2018 inclusive.
+
+=======
+>>>>>>> upstream/master
 // tag::undoredo[]
 === Undoing previous command : `undo`
 

@@ -29,6 +29,7 @@ import seedu.address.logic.commands.FindPhoneCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.PromoteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SuggestionCommand;
@@ -137,6 +138,9 @@ public class AddressBookParser {
 
         case EditTimeCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case PromoteCommand.COMMAND_WORD:
+            return new PromoteCommandParser().parse(arguments);
 
         case ExchangeTimeCommand.COMMAND_WORD:
             return new ExchangeTimeCommandParser().parse(arguments);

@@ -26,7 +26,7 @@ public class Fees {
     /**
      * Sets the tuition fee of a student based on his educational level and grade.
      */
-    public static double setFeesPerHr(Education education) {
+    public double setFeesPerHr(Education education) {
         double baseAmount = 0.00;
 
         switch (education.getEducationalLevel()) {
