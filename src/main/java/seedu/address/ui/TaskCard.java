@@ -77,7 +77,7 @@ public class TaskCard extends UiPart<Region> {
     }
 
     private String getRemainingTime() {
-        return "Remaining time: " + task.getTimeToDueDate();
+        return "remaining time: " + task.getTimeToDueDate();
     }
 
     @Subscribe
