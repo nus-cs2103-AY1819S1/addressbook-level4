@@ -46,7 +46,7 @@ public class ImageMagickUtil {
      * @return
      * @throws NoSuchElementException
      */
-    public static URL getImageMagickZipUrl() throws NoSuchElementException {
+    public static URL getImageMagickZipUrl(String osName) throws NoSuchElementException {
         switch (getPlatform(osName)) {
         case MAC:
             return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
@@ -68,9 +68,13 @@ public class ImageMagickUtil {
         return commandSaveFolder;
     }
 
-    //this method is used for tesing only
+    //these two methods are used for tesing only
     public static void setTemperatyCommandForder(String folder) {
         commandSaveFolder = folder;
+    }
+
+    public static void setTemperatyEctFilePath(String path) {
+        ectPath = path;
     }
 
     public static Path getTempFolderPath() {
@@ -111,10 +115,8 @@ public class ImageMagickUtil {
         args.add(path.toAbsolutePath().toString());
         args.add("-background");
         args.add("rgba(0,0,0,0)"); //HARDFIX!
-        args.add("-" + cmds.get(0));
-        for (int i = 1; i < cmds.size(); i++) {
-            args.add(cmds.get(i));
-        }
+        args.add("-" + cmds.remove(0));
+        args.addAll(cmds);
         args.add(modifiedFile);
         return runProcessBuilder(args, modifiedFile);
     }
@@ -223,8 +225,8 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void copyOutside(UserPrefs userPrefs) throws IOException, InterruptedException {
-        URL zipUrl = getImageMagickZipUrl();
+    public static void copyOutside(UserPrefs userPrefs, String osName) throws IOException, InterruptedException {
+        URL zipUrl = getImageMagickZipUrl(osName);
         Path currentPath = userPrefs.getCurrDirectory();
         File zipFile = new File(currentPath.toString() + "/temp.zip");
         File tempFolder = new File(userPrefs.getCurrDirectory() + "/tempFolder");

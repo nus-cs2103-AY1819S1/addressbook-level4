@@ -49,7 +49,9 @@ public class JsonConvertArgsStorageTest {
             JsonConvertArgsStorage.storeArgument("blurR", cmds, TEST_DATA_FOLDER.toString() + "/something");
             fail();
         } catch (IOException e) {
-            //test is successful
+            if (!e.getMessage().contains("No such file or directory")) {
+                fail();
+            }
         }
     }
 
@@ -72,14 +74,16 @@ public class JsonConvertArgsStorageTest {
             JsonConvertArgsStorage.retrieveCommandArguments(file);
             fail();
         } catch (IOException e) {
-            //
+            if (!e.getMessage().contains("No such file or directory")) {
+                fail();
+            }
         }
     }
 
     @Test
     public void assertRetrieveOperationTemplateSuccessfully() throws IOException {
         URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/blur.json");
-        List<String> sampleTemplate = Arrays.asList("radius x sigma");
+        List<String> sampleTemplate = Arrays.asList("radius(0-99) x sigma(0-99)");
         List<String> template = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, "blur", "arg");
         assertEquals(template, sampleTemplate);
     }
@@ -91,7 +95,9 @@ public class JsonConvertArgsStorageTest {
             JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, "blur", "arg");
             fail();
         } catch (IOException e) {
-            //
+            if (!e.getMessage().contains("the url is invalid")) {
+                fail();
+            }
         }
     }
 }
