@@ -85,19 +85,17 @@ public class TimeTableUtil {
             }
 
             // Invalid short url handler
-            if (longUrlString.equals(("http://modsn.us"))) {
-                throw new ParseException(INVALID_URL);
-            }
+            //if (longUrlString.equals(("http://modsn.us"))) {
+            //    throw new ParseException(INVALID_URL);
+            //}
 
-            if (httpUrlConnection.getResponseCode() == 403) {
-                throw new ParseException(INVALID_URL);
-            }
+            //if (httpUrlConnection.getResponseCode() == 403) {
+            //    throw new ParseException(INVALID_URL);
+            //}
 
             return longUrlString;
 
         } catch (IOException e) {
-            throw new ParseException(API_CALL_FAILURE);
-        } catch (NullPointerException e) {
             throw new ParseException(API_CALL_FAILURE);
         }
 
@@ -186,12 +184,13 @@ public class TimeTableUtil {
         LocalDate currentDate = LocalDate.now();
         String acadYear;
 
-        // Calculate current academic year
-        if (currentDate.getMonthValue() <= 6) {
-            acadYear = (currentDate.getYear() - 1) + "-" + (currentDate.getYear());
-        } else {
-            acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
-        }
+        // Calculate current academic year (works as if 9 Nov 2018)
+        acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
+        //if (currentDate.getMonthValue() <= 6) {
+        //    acadYear = (currentDate.getYear() - 1) + "-" + (currentDate.getYear());
+        //} else {
+        //    acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
+        //}
 
         // Link format is correct as of 25/9/2018
         String link = "http://api.nusmods.com/" + acadYear + "/" + semNum + "/modules/" + moduleCode + ".json";

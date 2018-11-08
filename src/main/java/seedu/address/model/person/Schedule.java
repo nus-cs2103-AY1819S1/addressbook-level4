@@ -152,8 +152,8 @@ public class Schedule {
         return dayNum;
     }
 
-    private String getNumDay(int dayNum) throws ParseException {
-        String day;
+    private String getNumDay(int dayNum) {
+        String day = "";
         switch (dayNum) {
         case 0:
             day = "monday";
@@ -177,7 +177,8 @@ public class Schedule {
             day = "sunday";
             break;
         default:
-            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
+            day = "monday";
+            break;
         }
         return day;
     }
@@ -251,11 +252,7 @@ public class Schedule {
             for (int j = 0; j < value[i].length; j++) {
                 if (this.value[i][j] == 0) {
                     Slot slot = new Slot();
-                    try {
-                        slot.setDay(getNumDay(i));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    slot.setDay(getNumDay(i));
                     if (j / 2 > 9) {
                         slot.setTime("" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     } else {
@@ -279,14 +276,11 @@ public class Schedule {
         ArrayList<Slot> slots = getFreeSlots();
         ArrayList<Slot> filteredSlots = new ArrayList<>();
         for (Slot slot : slots) {
-            try {
-                if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
-                    filteredSlots.add(slot);
-                }
-            } catch (ParseException e) {
-                //e.printStackTrace();
+            if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
+                filteredSlots.add(slot);
             }
         }
+
         return filteredSlots;
     }
 
@@ -302,11 +296,8 @@ public class Schedule {
 
         int startTimeInt = Integer.valueOf(startTime);
         int endTimeInt = Integer.valueOf(endTime);
-        System.out.println("START" + startTimeInt);
-        System.out.println("END" + endTimeInt);
         for (Slot slot : slots) {
             int time = Integer.valueOf(slot.getTime());
-            System.out.println(time);
             if (time >= startTimeInt && time <= endTimeInt) {
                 filteredSlots.add(slot);
             }
@@ -315,6 +306,7 @@ public class Schedule {
     }
 
     /**
+     * Pretty Print free time by time to string
      * @return
      * @throws ParseException
      */
@@ -326,6 +318,7 @@ public class Schedule {
     }
 
     /**
+     * Pretty Print free time to strig
      * @return
      * @throws ParseException
      */
@@ -345,11 +338,7 @@ public class Schedule {
         sb.append("<tr>");
         sb.append("<th></th>");
         for (int i = 0; i < 7; i++) {
-            try {
-                sb.append("<th>" + getNumDay(i).substring(0, 3) + "</th>");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            sb.append("<th>" + getNumDay(i).substring(0, 3) + "</th>");
         }
         sb.append("</tr>");
         int oddatinator = 0;
@@ -383,6 +372,6 @@ public class Schedule {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Schedule // instanceof handles nulls
-            && Arrays.equals(this.value, ((Schedule) other).value)); // state check
+            && Arrays.deepEquals(this.value, ((Schedule) other).value)); // state check
     }
 }
