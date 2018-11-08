@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.oracle.tools.packager.UnsupportedPlatformException;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
