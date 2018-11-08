@@ -36,9 +36,11 @@ public class GetGoogleCalendarEventsCommand extends Command {
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
+    public static final String MESSAGE_INITIALIZE_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
     public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
+    public static final String MESSAGE_REJECT_SECOND_INITIALIZE = "Note that you are only allowed"
+            + " to initialize the app once. You have already initialized it before. Command rejected.";
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -47,7 +49,10 @@ public class GetGoogleCalendarEventsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!connectToGoogleCalendar.netIsAvailable()) {
-            return new CommandResult(MESSAGE_INTERNET_ERROR);
+            throw new CommandException(MESSAGE_INTERNET_ERROR);
+        }
+        if (connectToGoogleCalendar.isGoogleCalendarEnabled()) {
+            throw new CommandException(MESSAGE_REJECT_SECOND_INITIALIZE);
         }
 
         //Get the Google Calendar service object
@@ -173,7 +178,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         }
         connectToGoogleCalendar.setGoogleCalendarEnabled();
         model.commitScheduler();
-        return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+        return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 
     private DateTime getRepeatUntilDateTime(DateTime repeatUntilDateTime, String s) {
