@@ -50,36 +50,36 @@ public class CarparkFinderTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateCarparks_throwsDuplicateCarparkException() {
         // Two car parks with the same identity fields
         Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
-        List<Carpark> newPersons = Arrays.asList(JULIETT, editedJuliett);
-        CarparkFinderStub newData = new CarparkFinderStub(newPersons);
+        List<Carpark> newCarparks = Arrays.asList(JULIETT, editedJuliett);
+        CarparkFinderStub newData = new CarparkFinderStub(newCarparks);
 
         thrown.expect(DuplicateCarparkException.class);
         carparkFinder.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCarpark_nullCarpark_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         carparkFinder.hasCarpark(null);
     }
 
     @Test
-    public void hasPerson_personNotInCarparkFinder_returnsFalse() {
+    public void hasCarpark_carparkNotInCarparkFinder_returnsFalse() {
         assertFalse(carparkFinder.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personInCarparkFinder_returnsTrue() {
+    public void hasCarpark_carparkInCarparkFinder_returnsTrue() {
         carparkFinder.addCarpark(ALFA);
         assertTrue(carparkFinder.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInCarparkFinder_returnsTrue() {
+    public void hasCarpark_carparkWithSameIdentityFieldsInCarparkFinder_returnsTrue() {
         carparkFinder.addCarpark(JULIETT);
         Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
@@ -87,7 +87,7 @@ public class CarparkFinderTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getCarparkList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         carparkFinder.getCarparkList().remove(0);
     }

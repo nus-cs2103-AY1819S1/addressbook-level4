@@ -178,6 +178,13 @@ public class CarparkFinderParserTest {
     }
 
     @Test
+    public void parseCommand_findEmpty() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " ");
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
             SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased());

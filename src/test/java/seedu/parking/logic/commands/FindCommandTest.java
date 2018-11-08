@@ -57,7 +57,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noCarparkFound() {
         String expectedMessage = String.format(MESSAGE_CARPARKS_LISTED_OVERVIEW, 0);
         CarparkContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -67,7 +67,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleCarparksFound() {
         String expectedMessage = String.format(MESSAGE_CARPARKS_LISTED_OVERVIEW, 3);
         CarparkContainsKeywordsPredicate predicate = preparePredicate("U25 PP5 SE39");
         FindCommand command = new FindCommand(predicate);
