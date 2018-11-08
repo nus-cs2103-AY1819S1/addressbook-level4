@@ -228,6 +228,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Map<Task, Date> getTimeDependency() { return this.getTaskManager().getEarliestDependentTime(); }
+    public Map<Task, Date> getTimeDependency() {
+        return this.getTaskManager().getEarliestDependentTime();
+    }
 
 }

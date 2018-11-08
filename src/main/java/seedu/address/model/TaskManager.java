@@ -219,8 +219,9 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @return
      */
     public Date getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, Date> result, Task node) {
-        if (result.containsKey(node))
+        if (result.containsKey(node)) {
             return result.get(node);
+        }
         Date earliestDate = null;
         for (Task dependee: graph.get(node)) {
             Date consideredDate = getEarliestDependentTimeHelper(graph, result, dependee);
