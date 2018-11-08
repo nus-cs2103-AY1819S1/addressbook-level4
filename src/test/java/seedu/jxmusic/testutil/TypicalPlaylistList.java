@@ -12,6 +12,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIK
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_SOS;
+import static seedu.jxmusic.testutil.TypicalTrackList.getTypicalTrackList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +56,9 @@ public class TypicalPlaylistList {
      */
     public static Library getTypicalLibrary() {
         Library library = new Library();
+        for (Track track : getTypicalTrackList()) {
+            library.addTrack(track);
+        }
         for (Playlist playlist : getTypicalPlaylistList()) {
             library.addPlaylist(playlist);
         }
@@ -67,7 +71,10 @@ public class TypicalPlaylistList {
     public static Library getTypicalLibraryAfterTrackAdd(Track trackToAdd) {
         Library library = new Library();
         ArrayList<Playlist> newLibrary = new ArrayList<>(
-                Arrays.asList(EMPTY, SFX, TEST_ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+                Arrays.asList(TEST_ANIME, EMPTY, SFX, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        for (Track track : getTypicalTrackList()) {
+            library.addTrack(track);
+        }
         for (Playlist playlist : newLibrary) {
             library.addPlaylist(playlist);
         }
@@ -75,6 +82,6 @@ public class TypicalPlaylistList {
     }
 
     public static List<Playlist> getTypicalPlaylistList() {
-        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        return new ArrayList<>(Arrays.asList(ANIME, EMPTY, SFX, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
     }
 }
