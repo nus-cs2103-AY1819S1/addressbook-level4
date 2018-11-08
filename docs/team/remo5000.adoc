@@ -54,8 +54,18 @@ https://github.com/CS2103-AY1819S1-T13-2/main/issues/98[98]
 == Contributions to the User Guide
 
 |===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=list-usage]
+
+== Contributions to the Developer Guide
+
+|===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=list-usage]
+include::../DeveloperGuide.adoc[tag=time_implementation]
+
+include::../DeveloperGuide.adoc[tag=list]
 
