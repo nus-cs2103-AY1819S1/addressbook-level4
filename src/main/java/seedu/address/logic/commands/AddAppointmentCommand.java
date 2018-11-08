@@ -60,7 +60,7 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_DOCTOR =
             "There is multiple doctors with this name. Please enter doctor's number to identify the unique doctor";
     public static final String MESSAGE_DUPLICATE_PATIENT =
-            "There is multiple patients with this name. Please enter patients's number to identify the unique doctor";
+            "There is multiple patients with this name. Please enter patients's number to identify the unique patient";
     // TODO - add messages for various cases (e.g. conflict in schedule) here when google calendar is up
 
     private final Name patientName;

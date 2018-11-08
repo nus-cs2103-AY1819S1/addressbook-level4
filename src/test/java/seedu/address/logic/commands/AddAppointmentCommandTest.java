@@ -22,7 +22,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.DoctorBuilder;
+import seedu.address.testutil.PatientBuilder;
 
 
 /**
@@ -62,6 +66,20 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
+    public void execute_duplicatePatient_throwsCommandException() {
+        Patient similarPatientDifferentNumber = new PatientBuilder().withName(CARL_PATIENT.getName().toString())
+                .withPhone("12341234").build();
+        model.addPatient(similarPatientDifferentNumber);
+        AddAppointmentCommand addAppointmentCommand =
+                new AddAppointmentCommand(CARL_PATIENT.getName(), null,
+                        GEORGE_DOCTOR.getName(), GEORGE_DOCTOR.getPhone(),
+                        LocalDateTime.of(2018, 10, 17, 18, 0));
+
+        assertCommandFailure(addAppointmentCommand,
+                model, commandHistory, AddAppointmentCommand.MESSAGE_DUPLICATE_PATIENT);
+    }
+
+    @Test
     public void execute_invalidDoctor_throwsCommandException() {
         Name doctorName = new Name("ASFASFASF");
         AddAppointmentCommand addAppointmentCommand =
@@ -71,6 +89,20 @@ public class AddAppointmentCommandTest {
 
         assertCommandFailure(addAppointmentCommand,
                 model, commandHistory, AddAppointmentCommand.MESSAGE_INVALID_DOCTOR);
+    }
+
+    @Test
+    public void execute_duplicateDoctor_throwsCommandException() {
+        Doctor similarDoctorDifferentNumber = new DoctorBuilder().withName(GEORGE_DOCTOR.getName().toString())
+                .withPhone("12341234").build();
+        model.addDoctor(similarDoctorDifferentNumber);
+        AddAppointmentCommand addAppointmentCommand =
+                new AddAppointmentCommand(CARL_PATIENT.getName(), CARL_PATIENT.getPhone(),
+                        GEORGE_DOCTOR.getName(), null,
+                        LocalDateTime.of(2018, 10, 17, 18, 0));
+
+        assertCommandFailure(addAppointmentCommand,
+                model, commandHistory, AddAppointmentCommand.MESSAGE_DUPLICATE_DOCTOR);
     }
 
     @Test

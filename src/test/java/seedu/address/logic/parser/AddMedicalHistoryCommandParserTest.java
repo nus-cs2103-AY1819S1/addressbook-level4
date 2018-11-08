@@ -4,9 +4,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -14,6 +16,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddMedicalHistoryCommand;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 
 public class AddMedicalHistoryCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -24,23 +27,30 @@ public class AddMedicalHistoryCommandParserTest {
     @Test
     public void parse_fieldSpecified_success() {
 
-        //input is not blank for both allergy and condition
-        String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+        //input is not blank for phone, allergy and condition
+        String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_PHONE + VALID_PHONE_BOB + " "
                 + PREFIX_ALLERGY + VALID_ALLERGY + " " + PREFIX_CONDITION + VALID_CONDITION;
         AddMedicalHistoryCommand expectedCommand = new AddMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
+                new Name(VALID_NAME_ALICE), new Phone(VALID_PHONE_BOB), VALID_ALLERGY, VALID_CONDITION);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        //input is not blank for phone
+        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                + PREFIX_ALLERGY + VALID_ALLERGY + " " + PREFIX_CONDITION + VALID_CONDITION;
+        expectedCommand = new AddMedicalHistoryCommand(
+                new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, VALID_CONDITION);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for allergy is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_CONDITION + VALID_CONDITION;
-        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", VALID_CONDITION);
+        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, "", VALID_CONDITION);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for condition is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_ALLERGY
                 + VALID_ALLERGY;
-        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, "");
+        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, "");
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
