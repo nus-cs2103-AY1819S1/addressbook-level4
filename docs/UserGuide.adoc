@@ -189,6 +189,7 @@ Format: `leaveapprove [INDEX]`
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * To use this command, you must have "Leave Approve" permissions.
+* Note that leave applications that have already been rejected can still be approved afterwards.
 ****
 
 Examples:
@@ -204,6 +205,7 @@ Format: `leavereject [INDEX]`
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * To use this command, you must have "Leave Approve" permissions.
+* Note that leave applications that have already been approved can still be rejected afterwards.
 ****
 
 Examples:
