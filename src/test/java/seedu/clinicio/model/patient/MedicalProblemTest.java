@@ -21,9 +21,9 @@ public class MedicalProblemTest {
     public void isValidMedProb() {
         // null medical problem
         Assert.assertThrows(NullPointerException.class, () -> MedicalProblem.isValidMedProb(null));
-        
+
         //invalid medical problem
-        
+
         //valid medical problem
 
     }
