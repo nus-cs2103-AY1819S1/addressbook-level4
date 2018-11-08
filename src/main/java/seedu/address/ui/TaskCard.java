@@ -2,13 +2,14 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.task.Task;
 
 
@@ -28,6 +29,7 @@ public class TaskCard extends UiPart<Region> {
      */
 
     public final Task task;
+    private ReadOnlyTaskManager taskManager;
 
     @FXML
     private HBox cardPane;
@@ -51,10 +53,31 @@ public class TaskCard extends UiPart<Region> {
     private Label dependency;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label earliestTimeOfChildren;
 
+    public TaskCard(Task task, int displayedIndex, ReadOnlyTaskManager taskManager) {
+        super(FXML);
+        this.task = task;
+        this.taskManager = taskManager;
+        id.setText(displayedIndex + ". ");
+        name.setText(task.getName().fullName);
+        dueDate.setText(task.getDueDate().value);
+        remainingTime.setText(getRemainingTime());
+        earliestTimeOfChildren.setText(getChildTime());
+        description.setText(task.getDescription().value);
+        priorityValue.setText(task.getPriorityValue().value);
+        status.setText(task.getStatus().toString());
+        hash.setText(getHashId());
+        dependency.setText(getDependencies());
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        registerAsAnEventHandler(this);
+    }
+    //Used for testing TaskCard (Not testing earliest time of child)
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
+        this.taskManager = null;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
