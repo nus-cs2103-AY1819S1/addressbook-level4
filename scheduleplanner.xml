@@ -12,6 +12,8 @@
     <categories>
         <name>Others</name>
         <tags>Shopping</tags>
+        <tags>shitman</tags>
+        <tags>GEH1034</tags>
     </categories>
     <categories>
         <name>Uni</name>
@@ -22,24 +24,8 @@
         <tags>Exam</tags>
     </categories>
     <tasks>
-        <name>Do GEH1034 tutorial</name>
-        <date>111018</date>
-        <priority>2</priority>
-        <venue>Hoe</venue>
-        <tagged>Tutorial</tagged>
-        <tagged>GEH1034</tagged>
-    </tasks>
-    <tasks>
-        <name>Watch CS2103T lecture</name>
-        <date>121018</date>
-        <priority>3</priority>
-        <venue>Home</venue>
-        <tagged>Lecture</tagged>
-        <tagged>CS2103T</tagged>
-    </tasks>
-    <tasks>
         <name>Do CS2030 lab</name>
-        <date>141018</date>
+        <date>311018</date>
         <priority>2</priority>
         <venue>COM1 01-23</venue>
         <tagged>CS2030</tagged>
@@ -47,42 +33,42 @@
     </tasks>
     <tasks>
         <name>Self study</name>
-        <date>151018</date>
+        <date>011118</date>
         <priority>1</priority>
         <venue>Tech Hangout</venue>
         <tagged>Study</tagged>
     </tasks>
     <tasks>
         <name>Self study</name>
-        <date>161018</date>
+        <date>011118</date>
         <priority>1</priority>
         <venue>Home</venue>
         <tagged>Study</tagged>
     </tasks>
     <tasks>
         <name>Self study</name>
-        <date>171018</date>
+        <date>021118</date>
         <priority>1</priority>
         <venue>Utown Starbucks</venue>
         <tagged>Study</tagged>
     </tasks>
     <tasks>
         <name>Self study</name>
-        <date>181018</date>
+        <date>031118</date>
         <priority>1</priority>
         <venue>Home</venue>
         <tagged>Study</tagged>
     </tasks>
     <tasks>
         <name>Groceries</name>
-        <date>191018</date>
+        <date>041118</date>
         <priority>2</priority>
         <venue>Fairprice</venue>
         <tagged>Shopping</tagged>
     </tasks>
     <tasks>
         <name>Do CS2100 lab</name>
-        <date>011118</date>
+        <date>051118</date>
         <priority>3</priority>
         <venue>Home</venue>
         <tagged>CS2100</tagged>
@@ -249,27 +235,17 @@
     </tasks>
     <tasks>
         <name>CS2103T Tutorial</name>
-        <date>191018</date>
+        <date>191218</date>
         <priority>3</priority>
         <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <tagged>shitman</tagged>
     </tasks>
     <archivedTasks>
-        <name>test 3</name>
-        <date>031118</date>
-        <priority>1</priority>
-        <venue>d</venue>
-    </archivedTasks>
-    <archivedTasks>
-        <name>test1</name>
-        <date>041118</date>
-        <priority>3</priority>
-        <venue>1</venue>
-    </archivedTasks>
-    <archivedTasks>
-        <name>test2</name>
-        <date>041118</date>
-        <priority>3</priority>
-        <venue>1</venue>
+        <name>Do GEH1034 tutorial</name>
+        <date>311018</date>
+        <priority>2</priority>
+        <venue>Hoe</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>GEH1034</tagged>
     </archivedTasks>
 </scheduleplanner>
