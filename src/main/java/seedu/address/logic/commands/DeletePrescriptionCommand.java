@@ -73,7 +73,7 @@ public class DeletePrescriptionCommand extends Command {
         Prescription prescriptionToBeDeleted = null;
 
         for (Prescription prescription : appointmentToEdit.getPrescriptions()) {
-            if (prescription.getMedicineName().equals(medicineName)) {
+            if (prescription.getMedicineName().toString().toLowerCase().equals(medicineName.toString().toLowerCase())) {
                 prescriptionToBeDeleted = prescription;
                 break;
             }
@@ -143,7 +143,8 @@ public class DeletePrescriptionCommand extends Command {
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
-        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS, medicineName.toString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
+                prescriptionToBeDeleted.getMedicineName()));
     }
 
     @Override

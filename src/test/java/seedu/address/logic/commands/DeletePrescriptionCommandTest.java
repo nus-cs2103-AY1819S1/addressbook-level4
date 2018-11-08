@@ -89,6 +89,58 @@ public class DeletePrescriptionCommandTest {
     }
 
     @Test
+    public void execute_allFieldsSpecifiedWithoutCaseSensitivity_success() {
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Prescription firstPrescription = firstAppointment.getPrescriptions().get(0);
+        Prescription toDelete = new PrescriptionBuilder(firstPrescription)
+                .withMedicineName(firstPrescription.getMedicineName().toString().toUpperCase())
+                .build();
+
+        Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
+        editedAppointment.deletePrescription(toDelete.getMedicineName().toString());
+
+        List<Person> personList = model.getFilteredPersonList();
+        Doctor doctorToEdit = null;
+        Patient patientToEdit = null;
+
+        for (Person person : personList) {
+            if (person instanceof Doctor) {
+                if (firstAppointment.getDoctor().equals(person.getName().toString())) {
+                    doctorToEdit = (Doctor) person;
+                }
+            }
+            if (person instanceof Patient) {
+                if (firstAppointment.getPatient().equals(person.getName().toString())) {
+                    patientToEdit = (Patient) person;
+                }
+            }
+            if (doctorToEdit != null && patientToEdit != null) {
+                break;
+            }
+        }
+
+        Patient editedPatient = new PatientBuilder(patientToEdit).build();
+        editedPatient.setAppointment(firstAppointment, editedAppointment);
+
+        Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
+        editedDoctor.setAppointment(firstAppointment, editedAppointment);
+
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
+                toDelete.getMedicineName());
+
+        String expectedMessage = String.format(DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
+                firstPrescription.getMedicineName());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.updatePerson(patientToEdit, editedPatient);
+        expectedModel.updatePerson(doctorToEdit, editedDoctor);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(deletePrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+
+    @Test
     public void execute_prescriptionDoesNotExist_failure() {
         Appointment appointmentInList = model.getFilteredAppointmentList().get(0);
         Prescription toDelete = new PrescriptionBuilder()
