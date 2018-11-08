@@ -50,7 +50,7 @@ public class PortManagerTest {
     }
 
     @Test
-    public void importDeckBadFilePath_failure() throws Exception{
+    public void importDeckBadFilePath_failure() throws Exception {
         String badFile = "NAN";
         String badFilePath = makeFilePath(badFile).toAbsolutePath().toString();
         thrown.expect(DeckImportException.class);
@@ -60,7 +60,7 @@ public class PortManagerTest {
     }
 
     @Test
-    public void importDeckCorruptedFile_failure() throws Exception{
+    public void importDeckCorruptedFile_failure() throws Exception {
         String badFilePath = "InvalidDeck";
 
         thrown.expect(DeckImportException.class);
