@@ -108,11 +108,6 @@ class ScheduleTest {
     }
 
     @Test
-    void invalid() {
-
-    }
-
-    @Test
     void valid() {
         Schedule s1 = new Schedule();
         Schedule s2 = new Schedule();
