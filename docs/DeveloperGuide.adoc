@@ -167,11 +167,11 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component uses JavaFX UI 'DarkTheme' to draw different text, sizes, fonts, and colours from. The actual data displayed in the UI is called using a sample transcript which is created through the Module and Transcript classes. The values themselves are abstracted from the '.fxml' files so the UI display can be easily updated.
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -231,7 +231,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save Transcript data in json format and read it back.
+* `ReadOnlyTranscript` uses custom `JsonTranscriptDeserializer` to enable `JsonUtil.readJsonFile` to deserialize a `json` file into a `ReadOnlyTranscript`.
 
 [[Design-Commons]]
 === Common classes
@@ -241,6 +242,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== CAP & Target Grades Calculation
+
+The two calculations are triggered upon an change to the list of modules in `Transcript` _i.e. add/update/delete_.
+
+.Sequence Diagram of updating modules in Transcript
+image::SDTranscriptModulesUpdate.png[width="800"]
+
+==== CAP Calculation
+
+The CAP calculation is handled by `Transcript`.
+
+The pseudo-code for CAP is the following:
+```
+all_points <- sum(credits(m) * points(m) for all completed modules m)
+all_credits <- sum(credits(m) for all completed modules m)
+
+CAP <- all_points/all_credits
+```
+
+.Sequence Diagram of CAP calculation
+image::SDTranscriptCalculateCap.png[width="800"]
+
+CAP Calculation is triggered by:
+
+==== Target Grades Calculation
+
+The target `Grade` calculation is facilitated by `Transcript`.
+The returned list of modules with target `Grade` assures the following properties:
+
+* Reducing the `Grade` of any proposed target will result in the increase of another.
+* If `x` is the minimum `Grade` required when assigned to *all* modules to obtain the desired CAP Goal,
+none of the proposed target `Grade` will be greater than `x`
++
+i.e. if assigning `B+` to *all* module is the minimal requirement to obtain the desired CAP Goal,
+none of the proposed target `Grade` will be `A-` or above.
+
+Below is the pseudo-code for Target Grade Calculation:
+```
+CG <- CAP goal of user.
+TC <- total credit of completed and incomplete modules.
+PO <- total points achieved from completed modules.
+P <- CG * TC - PO // total points needed to achieve from incomplete modules.
+
+mc_remaining <- sum of module credit of all incomplete modules
+accumulated_points <- 0
+for every incomplete Module m:
+    avg_point_per_mc <- (P - accumulated_points) / mc_remaining
+    target(m) <- ceiling(avg_point_per_mc)
+    mc_remaining <- mc_remaining - credits(m)
+    accumulated_points <- accumulated_points + (credits(m) * target(m))
+
+```
+.Sequence Diagram of Target Grade calculation
+image::SDTranscriptTargetCalculation.png[width="800"]
 
 // tag::undoredo[]
 === Undo/Redo feature

@@ -80,6 +80,16 @@ public class ModuleTest {
                 .withSemester(DISCRETE_MATH.getSemester().value)
                 .build();
         assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(2)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withSemester(Semester.SEMESTER_TWO)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
     }
 
     @Test
@@ -137,7 +147,7 @@ public class ModuleTest {
     @Test
     public void toStringValid() {
         assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
-                + "s1 Credits: 4 Grade: F Completed: true"));
+                + "s1 Credits: 4 Grade: F Grade State: COMPLETE Completed: true"));
     }
 
     //@@author jeremiah-ang

@@ -77,8 +77,8 @@ public class Module {
     }
 
     public Module(Code code, Year year, Semester semester, Credit credit, Grade grade) {
-        //TODO require grade Non-null
-        this(code, year, semester, credit, grade, (grade == null) || grade.isComplete());
+        //TODO remove completed
+        this(code, year, semester, credit, grade, false);
     }
 
     //@@author jeremiah-ang
@@ -88,7 +88,7 @@ public class Module {
      * @param grade
      */
     public Module(Module module, Grade grade) {
-        this(module.code, module.year, module.semester, module.credits, grade, module.completed);
+        this(module.code, module.year, module.semester, module.credits, grade);
     }
 
     /**
@@ -103,7 +103,7 @@ public class Module {
      * Tells if this module will affect the calculation of CAP
      * @return true if yes false otherwise.
      */
-    public boolean affectsGrade() {
+    public boolean isAffectCap() {
         return getGrade().affectsCap();
     }
 
@@ -128,8 +128,16 @@ public class Module {
      * Tells if the Module has a Grade with state TARGET
      * @return true if yes, false otherwise
      */
-    public boolean isTargeted() {
+    public boolean isTargetted() {
         return getGrade().isTarget();
+    }
+
+    public boolean isAdjusted() {
+        return getGrade().isAdjust();
+    }
+
+    public Module adjustGrade(Grade grade) {
+        return new Module(this, grade.adjustGrade(grade.value));
     }
 
     //@@author alexkmj
@@ -189,7 +197,7 @@ public class Module {
      * @return true if module has been completed and false if module has not been taken
      */
     public boolean hasCompleted() {
-        return completed;
+        return (grade == null) || grade.isComplete();
     }
 
     //@@author alexkmj
@@ -260,6 +268,8 @@ public class Module {
                 .append(getCredits())
                 .append(" Grade: ")
                 .append(getGrade())
+                .append(" Grade State: ")
+                .append(getGrade().state)
                 .append(" Completed: ")
                 .append(hasCompleted())
                 .toString();
@@ -271,4 +281,6 @@ public class Module {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(code, year, semester, credits, grade, completed);
     }
+
+
 }

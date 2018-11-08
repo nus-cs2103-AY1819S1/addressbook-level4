@@ -33,8 +33,10 @@ public class Grade {
     /**
      * No whitespace allowed.
      */
-    public static final String GRADE_VALIDATION_REGEX =
-            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU|" + EMPTY_VALUE;
+    public static final String GRADE_VALIDATION_REGEX = "A\\+|a\\+|A\\-|a\\-"
+            + "|A|a|B\\+|b\\+|B\\-|b\\-|B|b|C\\+|c\\+|C|c|D\\+|d\\+|D|d|F|f|"
+            + "CS|cs|CU|cu|"
+            + EMPTY_VALUE;
 
     //@@author jeremiah-ang
     /**
@@ -90,7 +92,7 @@ public class Grade {
      * Creates a new {@code Grade} object with value grade and State COMPLETE
      */
     public Grade(String grade) {
-        this(grade.toUpperCase(), State.COMPLETE);
+        this(grade.toUpperCase(), (EMPTY_VALUE.equals(grade)) ? State.INCOMPLETE : State.COMPLETE);
     }
 
     /**
@@ -123,6 +125,15 @@ public class Grade {
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
         value = mapPointToValue(point);
         this.state = state;
+    }
+
+    /**
+     * Constructs an {@code Grade} from String values of value and state
+     * @param value
+     * @param state
+     */
+    public Grade(String value, String state) {
+        this(value, State.valueOf(state));
     }
 
     /**
