@@ -32,6 +32,7 @@ import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
+import seedu.clinicio.logic.commands.LogoutCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
@@ -150,6 +151,12 @@ public class ClinicIoParserTest {
 
     }
 
+    @Test
+    public void parseCommand_logout() throws Exception {
+        assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD) instanceof LogoutCommand);
+        assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD + " 3") instanceof LogoutCommand);
+    }
+    
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
