@@ -31,7 +31,7 @@ public class SelectAccountCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_ACCOUNT_SUCCESS = "Selected account: %1$s";
+    public static final String MESSAGE_SELECT_ACCOUNT_SUCCESS = "Selected account at index: %1$s";
     public static final String MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX = "The account index provided is invalid";
 
     private final Index targetIndex;
