@@ -58,6 +58,7 @@ dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
+    implementation 'com.google.guava:guava:19.0'
     implementation 'org.slf4j:slf4j-log4j12:1.7.25'
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
