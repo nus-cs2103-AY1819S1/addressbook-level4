@@ -71,7 +71,7 @@ public class ChangePasswordCommand extends Command {
 
         Password updatedPassword = editAccountDescriptor.getPassword().orElse(accountToEdit.getPassword());
 
-        return new Account(accountToEdit.getUsername(), updatedPassword);
+        return new Account(accountToEdit.getUsername(), updatedPassword, accountToEdit.getName());
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ChangePasswordCommand extends Command {
             // state check
             EditAccountDescriptor e = (EditAccountDescriptor) other;
 
-            return getPassword().equals(e.getPassword());
+            return password.equals(e.password);
         }
     }
 }

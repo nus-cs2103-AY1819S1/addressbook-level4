@@ -42,7 +42,6 @@ public class XmlSerializableRestaurantBookTest {
     private static final Path DUPLICATE_INGREDIENT_FILE = TEST_DATA_FOLDER
             .resolve("duplicateIngredientOnlyRestaurantBook"
                     + ".xml");
-    private static final Path TYPICAL_DUPLICATE_FILE = TEST_DATA_FOLDER.resolve("duplicateAccountRestaurantBook.xml");
 
     // Menu Management
     private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemsOnlyRestaurantBook.xml");
@@ -120,14 +119,6 @@ public class XmlSerializableRestaurantBookTest {
     @Test
     public void toModelType_duplicateAccounts_throwsIllegalValueException() throws Exception {
         dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_ACCOUNT_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableRestaurantBook.MESSAGE_DUPLICATE_ACCOUNT);
-        dataFromFile.toModelType();
-    }
-
-    @Test
-    public void toModelType_duplicateAccountInTypicalRestaurantBook_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_DUPLICATE_FILE, XmlSerializableRestaurantBook.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableRestaurantBook.MESSAGE_DUPLICATE_ACCOUNT);
         dataFromFile.toModelType();

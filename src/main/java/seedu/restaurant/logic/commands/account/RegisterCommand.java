@@ -55,6 +55,11 @@ public class RegisterCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return account.toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RegisterCommand // instanceof handles nulls

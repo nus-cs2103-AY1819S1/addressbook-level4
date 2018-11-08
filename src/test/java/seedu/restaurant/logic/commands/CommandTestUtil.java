@@ -106,16 +106,22 @@ public class CommandTestUtil {
     public static final String VALID_PASSWORD_DEMO_ONE = "1122qq";
     public static final String VALID_PASSWORD_DEMO_TWO = "22qqww";
     public static final String VALID_PASSWORD_DEMO_THREE = "abc!@#";
+    public static final String VALID_NAME_DEMO_ONE = "Demo One";
+    public static final String VALID_NAME_DEMO_TWO = "Demo Two";
+    public static final String VALID_NAME_DEMO_THREE = "Demo Three";
 
     public static final String INVALID_USERNAME = "demo 1";
     public static final String INVALID_PASSWORD = "11 22qq";
+    public static final String INVALID_NAME = "Demo # One";
 
     public static final String PREFIX_WITH_VALID_USERNAME = " " + PREFIX_ID + VALID_USERNAME_DEMO_ONE;
     public static final String PREFIX_WITH_VALID_PASSWORD = " " + PREFIX_PASSWORD + VALID_PASSWORD_DEMO_ONE;
+    public static final String PREFIX_WITH_VALID_NAME = " " + PREFIX_NAME + VALID_NAME_DEMO_ONE;
     public static final String PREFIX_WITH_VALID_NEW_PASSWORD = " " + PREFIX_NEW_PASSWORD + VALID_PASSWORD_DEMO_ONE;
 
     public static final String PREFIX_WITH_INVALID_USERNAME = " " + PREFIX_ID + INVALID_USERNAME;
     public static final String PREFIX_WITH_INVALID_PASSWORD = " " + PREFIX_PASSWORD + INVALID_PASSWORD;
+    public static final String PREFIX_WITH_INVALID_NAME = " " + PREFIX_NAME + INVALID_NAME;
     public static final String PREFIX_WITH_INVALID_NEW_PASSWORD = " " + PREFIX_NEW_PASSWORD + INVALID_PASSWORD;
 
     /**

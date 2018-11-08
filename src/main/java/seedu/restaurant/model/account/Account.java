@@ -5,17 +5,26 @@ import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 //@@author AZhiKai
+
 /**
  * Represents an account. Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Account {
 
+    private Name name;
     private Username username;
     private Password password;
 
     /**
      * Every field must be present and not null.
      */
+    public Account(Username username, Password password, Name name) {
+        requireAllNonNull(username, password, name);
+        this.username = username;
+        this.password = password;
+        this.name = name;
+    }
+
     public Account(Username username, Password password) {
         requireAllNonNull(username, password);
         this.username = username;
@@ -38,8 +47,13 @@ public class Account {
         return password;
     }
 
+    public Name getName() {
+        return name;
+    }
+
     /**
-     * Returns true if both account have the same username.
+     * Returns true if both account have the same username. There is no other fields that is stronger than a username
+     * which is guaranteed to be unique in the entire system.
      */
     public boolean isSameUsername(Account otherAccount) {
         if (otherAccount == this) {
@@ -64,21 +78,22 @@ public class Account {
         }
 
         Account otherAccount = (Account) other;
-        return otherAccount.getUsername().equals(getUsername())
-                && otherAccount.getPassword().equals(getPassword());
+        if (name == null || otherAccount.name == null) { // name will be null in login situation
+            return username.equals(otherAccount.username) && password.equals(otherAccount.password);
+        } else {
+            return username.equals(otherAccount.username)
+                    && password.equals(otherAccount.password)
+                    && name.equals(otherAccount.name);
+        }
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        if (password == null) {
-            return Objects.hash(username);
-        }
-        return Objects.hash(username, password);
+        return Objects.hash(username, password, name);  // Returns zero (0) for NULL attributes
     }
 
     @Override
     public String toString() {
-        return getUsername().toString();
+        return username.toString();
     }
 }

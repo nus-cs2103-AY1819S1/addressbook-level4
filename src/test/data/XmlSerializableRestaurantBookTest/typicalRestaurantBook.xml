@@ -3,14 +3,17 @@
   <accounts>
     <username>azhikai</username>
     <password>1122qq!@#</password>
+    <name>Ang Zhi Kai</name>
   </accounts>
   <accounts>
     <username>demo1</username>
     <password>1122qq</password>
+    <name>Demo One</name>
   </accounts>
   <accounts>
     <username>demo2</username>
     <password>22qqww</password>
+    <name>Demo Two</name>
   </accounts>
   <ingredients>
     <name>Mexican Avocado</name>
