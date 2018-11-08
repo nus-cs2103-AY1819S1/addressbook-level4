@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
+import seedu.address.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -23,12 +24,14 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final AutoComplete autoCompleter;
 
-    public LogicManager(Model model) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
+        this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         autoCompleter = new AutoComplete(model);
@@ -39,6 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
+            command.setStorage(storage);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

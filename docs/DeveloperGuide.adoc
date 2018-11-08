@@ -312,6 +312,15 @@ takes its size, and tells the `EventCenter` to post a new event of jumping to th
 the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
 // end::select[]
 
+// tag::edit[]
+=== Edit Feature
+The following sequence diagram shows how the `editPerson` operation works:
+`editPerson 6 p/91234567 e/johndoe@example.com`
+
+image::EditPersonSequenceDiagram.png[width="800"]
+ `editModule` and `editOccasion` works in a similar way as `editPerson`
+// end::edit[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

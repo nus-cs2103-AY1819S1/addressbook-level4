@@ -57,6 +57,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void importData(ReadOnlyAddressBook importedData) {
+        ObservableList<Person> importedPerson = importedData.getPersonList();
+        ObservableList<Module> importedModule = importedData.getModuleList();
+        ObservableList<Occasion> importedOccasion = importedData.getOccasionList();
+
+        for (Person p : importedPerson) {
+            if (this.hasPerson(p)) {
+                continue;
+            }
+            versionedAddressBook.addPerson(p);
+        }
+
+        for (Module m : importedModule) {
+            if (this.hasModule(m)) {
+                continue;
+            }
+            versionedAddressBook.addModule(m);
+        }
+
+        for (Occasion o : importedOccasion) {
+            if (this.hasOccasion(o)) {
+                continue;
+            }
+            versionedAddressBook.addOccasion(o);
+        }
+        versionedAddressBook.commit();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }

@@ -45,7 +45,7 @@ public class EditOccasionCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_OCCASIONNAME + "Barbecue "
-            + PREFIX_OCCASIONDATE + "2019-6-17 "
+            + PREFIX_OCCASIONDATE + "2019-06-17 "
             + PREFIX_OCCASIONLOCATION + "NUS";
 
     public static final String MESSAGE_EDIT_OCCASION_SUCCESS = "Edited Occasion: %1$s";
