@@ -72,7 +72,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     }
 
     public XmlAdaptedPatient(Patient patient) {
-        super(patient); 
+        super(patient);
         nric = patient.getNric().value;
         medicalProblems = patient.getMedicalProblems().stream().map(XmlAdaptedMedicalProblem::new)
                 .collect(Collectors.toList());
