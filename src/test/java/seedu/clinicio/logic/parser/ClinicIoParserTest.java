@@ -25,9 +25,11 @@ import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
 import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
 import seedu.clinicio.logic.commands.ExportPatientsCommand;
@@ -52,6 +54,7 @@ import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.testutil.AppointmentBuilder;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
 import seedu.clinicio.testutil.PatientBuilder;
 import seedu.clinicio.testutil.PatientUtil;
@@ -247,9 +250,22 @@ public class ClinicIoParserTest {
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
+    @Test
+    public void parserCommand_enqueueCommand() throws  Exception {
+        EnqueueCommand command = (EnqueueCommand) parser.parseCommand(
+                EnqueueCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new EnqueueCommand(INDEX_FIRST_PERSON), command);
+    }
 
     @Test
-    public void parseCommand_showPatientInqueueCommandWord_returnsShowPatientInQueue() throws Exception {
+    public void parserCommand_dequeueCommand() throws  Exception {
+        DequeueCommand command = (DequeueCommand) parser.parseCommand(
+                DequeueCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DequeueCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_showPatientInQueue() throws Exception {
         assertTrue(parser
                 .parseCommand(ShowPatientInQueueCommand.COMMAND_WORD) instanceof ShowPatientInQueueCommand);
         assertTrue(parser
