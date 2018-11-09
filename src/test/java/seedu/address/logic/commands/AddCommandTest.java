@@ -153,6 +153,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateGameMode(String newGameModeName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateGameMode(String newGameModeName, String newGameDifficultyName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -199,6 +209,11 @@ public class AddCommandTest {
 
         @Override
         public void checkOverdue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInvalidDependencies() {
             throw new AssertionError("This method should not be called.");
         }
 

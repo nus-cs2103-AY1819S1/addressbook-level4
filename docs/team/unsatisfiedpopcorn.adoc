@@ -50,17 +50,14 @@ keeps code organised neatly by following the Single Responsibility Principle.
 **** Implementing a rollback operation for the model, which could possibly be
 used to provide better data integrity of the application in future development.
 
+* **Code contributed**:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn[RepoSense]
+
 * *Other contributions*:
 
 ** Project management:
-*** Published releases `v1.1`, `v1.3` (2 releases) on GitHub
-TODO: Update
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-TODO: End Update
+*** Set up team's organisation.
+*** Managed releases `v1.1`, `v1.3` (2 releases) on GitHub
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/31[#31],
@@ -73,11 +70,10 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/78[#78],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[#144]
-TODO: Update
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-TODO: End Update
+*** Reported bugs and suggestions for other teams in the class (examples:
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/155[1], https://github.com/CS2103-AY1819S1-W16-4/main/issues/145[2],
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/162[3], https://github
+  .com/CS2103-AY1819S1-W16-4/main/issues/168[4])
 ** Tools:
 *** Integrated Travis CI to the team repo
 *** Integrated Coveralls to the team repo
@@ -100,9 +96,3 @@ include::../UserGuide.adoc[tag=complete-2.0]
 |===
 
 include::../DeveloperGuide.adoc[tag=complete]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
@@ -76,6 +78,40 @@ public class TaskManager implements ReadOnlyTaskManager {
         setAchievements(newData.getAchievementRecord());
     }
 
+    //// task list related operation(s)
+
+    /**
+     * Check if any of the completed task has any invalid dependencies.
+     *
+     * @return true if there are any invalid dependencies.
+     */
+    public boolean hasInvalidDependencies() {
+
+        Predicate<Task> isCompleteTask = Task::isStatusCompleted;
+
+        // Stream of completed tasks
+        Stream<Task> allUncompleted =
+            this.getTaskList().stream().filter(isCompleteTask.negate());
+
+        // Checks if any of the uncompleted tasks are dependencies of
+        // completed tasks. Returns true if yes.
+        return
+            allUncompleted.anyMatch(uncompletedTask -> {
+                // allCompleted is deliberated created each time
+                // as calling anyMatch on it closes the stream.
+                // As such, we cannot create and reuse one single
+                // instance of the stream.
+                Stream<Task> allCompleted =
+                    this.getTaskList()
+                        .stream()
+                        .filter(isCompleteTask);
+                return
+                    allCompleted
+                        .anyMatch(completedTask ->
+                            completedTask.isDependentOn(uncompletedTask));
+            });
+    }
+
     //// task-level operations
 
     /**
@@ -125,7 +161,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// achievement related operation
 
     /**
-     * @return  the user's current level to the user.
+     * @return the user's current level to the user.
      */
     public Level getLevel() {
         return achievements.getLevel();
@@ -135,12 +171,35 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Updates the displayOption of the achievement record of the task manager.
      *
      * @param displayOption may take the value of 1, 2 or 3,
-     * indicating all-time's, today's or this week's achievements are displayed on UI.
+     *                      indicating all-time's, today's or this week's achievements are displayed on UI.
      */
     public void updateAchievementDisplayOption(int displayOption) {
         assert AchievementRecord.isValidDisplayOption(displayOption);
 
         achievements.setDisplayOption(displayOption);
+    }
+
+    /**
+     * Updates the current game mode to the new mode specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    public void updateGameMode(String newGameModeName) {
+        assert GameManager.isValidGameMode(newGameModeName);
+
+        gameManager.setGameMode(newGameModeName);
+    }
+
+    /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    public void updateGameMode(String newGameModeName, String newGameDifficultyName) {
+        assert GameManager.isValidGameMode(newGameModeName);
+        assert GameManager.isValidGameDifficulty(newGameDifficultyName);
+
+        gameManager.setGameMode(newGameModeName, newGameDifficultyName);
     }
 
     /**
@@ -163,8 +222,9 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     /**
      * Calculates the amount of XP that would be gained by changing taskFrom into taskTo.
+     *
      * @param taskFrom The initial task.
-     * @param taskTo The resultant task.
+     * @param taskTo   The resultant task.
      * @return The XP gained.
      */
     public int appraiseXpChange(Task taskFrom, Task taskTo) {
@@ -183,7 +243,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public List<Task> getTasksFromHashes(List<String> hashes) {
         HashMap<String, Task> tasks = new HashMap<>();
-        for (Task task: this.getTaskList()) {
+        for (Task task : this.getTaskList()) {
             tasks.put(Integer.toString(task.hashCode()), task);
         }
         return hashes.stream().map((hash) -> tasks.get(hash)).collect(Collectors.toList());
@@ -212,9 +272,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && tasks.equals(((TaskManager) other).tasks)
-                && achievements.equals(((TaskManager) other).achievements));
+            || (other instanceof TaskManager // instanceof handles nulls
+            && tasks.equals(((TaskManager) other).tasks)
+            && achievements.equals(((TaskManager) other).achievements));
     }
 
     @Override

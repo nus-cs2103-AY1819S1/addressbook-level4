@@ -22,7 +22,7 @@ The time of the earliest due date among all children is displayed in the UI.
 
 * *Code contributed*:
 
-https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[[Project Code Dashboard]]
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pengnam[[Project Code Dashboard]]
 https://github.com/CS2103-AY1819S1-F11-3/main/commits?author=pengnam[[Github Commits]]
 
 * *Other contributions*:

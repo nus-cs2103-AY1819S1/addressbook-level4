@@ -201,6 +201,7 @@ image::CommandComponentClassDiagram.png[width="1200"]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::achievements[]
 === Achievement mechanism
 
 ==== Structural Overview
@@ -298,6 +299,7 @@ this week` commands to specify their choices.
      ** Cons: `AchievementPanel` needs to save the states of the `displayOption` to support undo/redo. Undo/redo of
      the achievements command needs to be implemented and handled separately from all other commands, breaks
      abstraction.
+// end::achievements[]
 
 // tag::complete[]
 
@@ -481,6 +483,7 @@ A topological sort can also be performed on the graph to order tasks by the numb
 // end::dependency[]
 // start::time[]
 
+// tag::time_implementation[]
 === Monitoring time
 ==== Current Implementation
 Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
@@ -488,7 +491,8 @@ Time is of key importance when dealing with the `TaskManager`. We implement and 
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
 
-A check on whether any of the tasks are overdue is done before the execution of every command/
+A check on whether any of the tasks are overdue is done before the execution of every command.
+// end::time_implementation[]
 
 ===== Design Considerations
 ====== Aspect: Implementing the check on whether a task is overdue
@@ -503,16 +507,25 @@ the number of commands that a person uses likely occurs at a higher rate than th
 // end::time[]
 
 
-
+// tag::list[]
 === List
+==== Current Implementation
+The `list` command accepts filters that either filter based on the due date of the tasks (relative to the
+ current date) or the dependencies of the task. This is done using predicates that are given to filter the task list.
 
-The functionality of the default `list` command is as expected (and documented), that is all tasks are listed.
-The date filters are dependent on the due date of the task, and the current date.
-
+===== Date
 The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the end of the day, week, or month
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
-This predicate is passed as an argument to update filtered Tasks.
 
+===== Dependency
+The dependency of a task is checked using its instance of the `Dependency` object. A caveat
+is that the tasks represented in the `Dependency` are stored as hashes, requiring the use of a `Model` to
+fetch the task associated to that hashcode, in order to check its completion status.
+
+image::ListCommandSequenceDiagram.png[width="1200"]
+// end::list[]
+
+// tag::gamemode-impl[]
 === Game Manager
 
 ==== Current Implementation
@@ -521,17 +534,44 @@ The GameManager class is responsible for the gamification aspects of WatchOver.
 
 image::GameManagerSequenceDiagram.png[width="1200"]
 
+A GameManager object is owned by a TaskManager, available to be called by its other methods. **Any calls from anywhere
+requiring XP evaluation must be passed through the current GameManager**.
+
+The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
+for XP, delegated from the GameManager.
+
+The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
+can decide how much to award. The default FlatMode awards based on `Status` of the task, where `IN_PROGRESS` tasks are
+awarded a full amount of XP whereas `OVERDUE` tasks are awarded somewhat less.
+
+GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
+example, in the `FlatMode()` constructor, arguments can be specified for how much XP a completed task should obtain,
+as well as how much XP an overdue task should obtain.
+
+One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
+date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
+to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
+are. This limitation might be overcome if a creation date is implemented as a field in Task.
+
 ==== Design Considerations
 
 ===== Aspect: Location of Implementation
 
 * **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
 ** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
-** Cons: Verbose.
+** Cons: Less flexibility, and will apply flatly across all tasks, with no window for individual variation.
 
 * **Alternative 2:** Embedding XP calculation logic within task completion logic.
 ** Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.
-** Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.
+** Cons: It is not modular, resulting in higher coupling and lower maintainability.
+
+* **Alternative 3:** Embedding XP calculation logic inside each individual task.
+** Pros: This would allow users to set different modes for each individual task, rather than having a one-size-fits-all
+policy apply to all tasks.
+** Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, it has the potential to get messy.
+
+// end::gamemode-impl[]
 
 === Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
