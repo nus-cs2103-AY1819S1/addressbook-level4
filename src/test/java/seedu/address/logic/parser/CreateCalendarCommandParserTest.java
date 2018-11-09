@@ -81,7 +81,6 @@ public class CreateCalendarCommandParserTest {
                 Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // non-empty preamble
-        // invalid year (Less than 4 characters)
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCalendarCommand.MESSAGE_USAGE));
     }

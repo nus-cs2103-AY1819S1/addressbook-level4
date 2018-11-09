@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
@@ -12,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
@@ -66,16 +68,23 @@ public class CommandTestUtil {
 
     public static final String VALID_STRING_JAN = "JAN";
     public static final String VALID_STRING_YEAR = "2018";
+    public static final String VALID_STRING_DATE = "1";
     public static final String LOWER_CASE_MONTH = " " + PREFIX_MONTH + "jan";
     public static final String MIX_CASE_MONTH = " " + PREFIX_MONTH + "jAn";
     public static final String UPPER_CASE_MONTH = " " + PREFIX_MONTH + "JAN";
     public static final String FOUR_DIGIT_YEAR = " " + PREFIX_YEAR + VALID_STRING_YEAR;
+    public static final String ONE_DIGIT_DATE = " " + PREFIX_DATE +  VALID_STRING_DATE;
+    public static final String USER_INPUT_TITLE = " " + PREFIX_TITLE + VALID_CALENDAR_TITLE_OCAMP;
 
     public static final String INVALID_MONTH_CHAR_NO = " " + PREFIX_MONTH + "January";
     public static final String INVALID_MONTH_VALUE = " " + PREFIX_MONTH + "Mov";
     public static final String INVALID_NEGATIVE_YEAR = " " + PREFIX_YEAR + "-2018";
     public static final String INVALID_YEAR_MORE_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "12345";
     public static final String INVALID_YEAR_LESS_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "1";
+    public static final String INVALID_DATE_MORE_THAN_31 = " " + PREFIX_DATE + "32";
+    public static final String INVALID_DATE_ZERO = " " + PREFIX_DATE + "0";
+    public static final String INVALID_DATE_NEGATIVE = " " + PREFIX_DATE + "-1";
+    public static final String INVALID_EMPTY_TITLE = " " + PREFIX_TITLE + " ";
     public static final int INVALID_HOUR_OUTOFBOUND = 24;
     public static final int INVALID_MIN_OUTOFBOUND = 60;
     public static final int INVALID_HOUR_NEG = -1;
