@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+import seedu.clinicio.commons.exceptions.IllegalValueException;
+import seedu.clinicio.model.patient.Nric;
+import seedu.clinicio.testutil.Assert;
 
 public class XmlAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
@@ -38,13 +41,13 @@ public class XmlAdaptedPatientTest {
     private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
     private static final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
 
-    @Test
+    /*@Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
         XmlAdaptedPatient patient = new XmlAdaptedPatient(BRYAN);
         System.out.println(patient.toModelType());
         assertEquals(BRYAN, patient.toModelType());
-    }
-    /*
+    }*/
+    
     @Test
     public void toModelType_invalidNric_throwsIllegalValueException() {
         XmlAdaptedPatient patient =
@@ -54,7 +57,7 @@ public class XmlAdaptedPatientTest {
         String expectedMessage = Nric.MESSAGE_NRIC_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
-
+    /*
     @Test
     public void toModelType_nullNric_throwsIllegalValueException() {
         XmlAdaptedPatient patient =
