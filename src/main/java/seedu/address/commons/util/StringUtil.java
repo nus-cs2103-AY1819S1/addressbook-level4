@@ -128,16 +128,18 @@ public class StringUtil {
         String preppedSentence = sentence.toLowerCase();
 
         int score = Integer.max(computePartialRatio(preppedSentence, preppedWord),
-            computeTokenSetRatio(preppedSentence, preppedWord));
+                computeTokenSetRatio(preppedSentence, preppedWord));
 
         return score;
     }
 
     /**
      * Computes the partial ratio test between 2 strings.
-     * Similar strings return a higher number
+     * Roughly speaking, this tests if 2 strings are the same sequence of characters, or if one is a substring of the
+     * other
+     * More similar strings return a higher number
      *
-     * @return int between 0 and 100
+     * @return int between 0 and 100. A higher number means a better match
      */
     public static int computePartialRatio(String string1, String string2) {
         return FuzzySearch.partialRatio(string1, string2);
@@ -145,9 +147,10 @@ public class StringUtil {
 
     /**
      * Computes the token set ratio test between 2 strings.
-     * Similar strings return a higher number
+     * Roughly speaking, this tests for presence of keywords, regardless of order
+     * More similar strings return a higher number
      *
-     * @return int between 0 and 100
+     * @return int between 0 and 100. A higher number means a better match
      */
     public static int computeTokenSetRatio(String string1, String string2) {
         return FuzzySearch.tokenSetRatio(string1, string2);
