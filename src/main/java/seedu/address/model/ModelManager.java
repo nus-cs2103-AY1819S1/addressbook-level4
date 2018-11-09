@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
+import seedu.address.commons.events.ui.ChangeOnListPickerClickEvent;
 import seedu.address.commons.exceptions.IllegalUsernameException;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
@@ -28,6 +31,8 @@ import seedu.address.model.project.Assignment;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    //1 is for active list, 2 is for archive list
+    private int state;
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedAssignmentList versionedAssignmentList;
     private final VersionedArchiveList versionedArchiveList;
@@ -55,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedArchiveList = new VersionedArchiveList(archiveList);
         filteredLeaveApplications = new FilteredList<>(versionedAddressBook.getLeaveApplicationList());
         archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
+        state = 1;
     }
 
     public ModelManager() {
@@ -75,6 +81,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
         indicateAssignmentListChanged();
         indicateArchivedListChanged();
+    }
+
+    @Override
+    public int getState() {
+        return this.state;
     }
 
     @Override
@@ -113,6 +124,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removePerson(target);
         versionedArchiveList.addPerson(target);
         indicateAddressBookChanged();
+        indicateArchivedListChanged();
+    }
+
+    @Override
+    public void deleteFromArchive(Person target) {
+        versionedArchiveList.removePerson(target);
         indicateArchivedListChanged();
     }
 
@@ -191,12 +208,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        state = 1;
     }
 
     @Override
     public void updateArchivedPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         archivedPersons.setPredicate(predicate);
+        state = 2;
     }
 
     //=========== Filtered Leave Application List Accessors ============================================================
@@ -250,6 +269,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+        versionedArchiveList.commit();
     }
 
     @Override
@@ -346,4 +366,8 @@ public class ModelManager extends ComponentManager implements Model {
         return true;
     }
 
+    @Subscribe
+    private void handleShowHelpEvent(ChangeOnListPickerClickEvent event) {
+        state = event.getNewSelection();
+    }
 }
