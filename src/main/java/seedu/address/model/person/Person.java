@@ -176,8 +176,8 @@ public class Person {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         UniqueModuleList updatedModuleList = editPersonDescriptor.getModuleList().orElse(personToEdit.getModuleList());
-        UniqueOccasionList updatedOccasionList = editPersonDescriptor.
-                getOccasionList().orElse(personToEdit.getOccasionList());
+        UniqueOccasionList updatedOccasionList = editPersonDescriptor
+                .getOccasionList().orElse(personToEdit.getOccasionList());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
