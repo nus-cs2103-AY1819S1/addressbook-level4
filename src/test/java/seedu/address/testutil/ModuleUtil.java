@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.arguments.EditArgument;
@@ -102,5 +103,24 @@ public class ModuleUtil {
         }
 
         return command;
+    }
+
+    //@@author jeremiah-ang
+
+    /**
+     * Returns an adjust command string for adjusting {@code code}
+     *
+     * @param code
+     * @param year
+     * @param sem
+     * @param grade
+     * @return an adjust command string
+     */
+    public static String getAdjustModuleCommand(Code code, Year year, Semester sem, Grade grade) {
+        return AdjustCommand.COMMAND_WORD + " "
+                + code.value + " "
+                + ((year == null) ? "" : year.value + " ")
+                + ((sem == null) ? "" : sem.value + " ")
+                + grade.value;
     }
 }
