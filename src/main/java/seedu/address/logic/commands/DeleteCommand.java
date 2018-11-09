@@ -77,24 +77,15 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        List<Module> completeModuleList = model.getFilteredModuleList();
-        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
-        while (moduleListIterator.hasNext()) {
-            Module m = moduleListIterator.next();
-            Optional<Person> possiblyPresentPerson = m.getStudents().asNormalList()
-                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            possiblyPresentPerson.ifPresent(person -> {
-                List<Person> updatedPersons = m.getStudents().makeShallowDuplicate().asNormalList();
-                updatedPersons.remove(person);
-                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-                updatedModuleDescriptor.setStudents(updatedPersonList);
-                Module updatedModule = Module.createEditedModule(m, updatedModuleDescriptor);
-                model.updateModule(m, updatedModule);
-            });
-        }
+        removePersonFromAssociatedModules(model, personToDelete);
+        removePersonFromAssociatedOccasions(model, personToDelete);
+        model.deletePerson(personToDelete);
 
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return commandResult;
+    }
+
+    private void removePersonFromAssociatedOccasions(Model model, Person personToDelete) {
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         List<Occasion> completeOccasionList = model.getFilteredOccasionList();
         ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
@@ -112,10 +103,26 @@ public class DeleteCommand extends Command {
                 model.updateOccasion(o, updatedOccasion);
             });
         }
+    }
 
-        model.deletePerson(personToDelete);
-        commandResult = new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-        return commandResult;
+    private void removePersonFromAssociatedModules(Model model, Person personToDelete) {
+        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        List<Module> completeModuleList = model.getFilteredModuleList();
+        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
+        while (moduleListIterator.hasNext()) {
+            Module m = moduleListIterator.next();
+            Optional<Person> possiblyPresentPerson = m.getStudents().asNormalList()
+                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
+            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+            possiblyPresentPerson.ifPresent(person -> {
+                List<Person> updatedPersons = m.getStudents().makeShallowDuplicate().asNormalList();
+                updatedPersons.remove(person);
+                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+                updatedModuleDescriptor.setStudents(updatedPersonList);
+                Module updatedModule = Module.createEditedModule(m, updatedModuleDescriptor);
+                model.updateModule(m, updatedModule);
+            });
+        }
     }
 
     /**
