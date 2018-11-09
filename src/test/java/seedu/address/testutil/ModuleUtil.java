@@ -4,6 +4,7 @@ import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
+import seedu.address.logic.parser.arguments.DeleteArgument;
 import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
@@ -45,13 +46,14 @@ public class ModuleUtil {
      * @return delete command string for deleting {@code target}
      */
     public static String getDeleteModuleCommand(Module target) {
+
         return DeleteModuleCommand.COMMAND_WORD
-                + " "
-                + target.getCode().value
-                + " "
-                + target.getYear().value
-                + " "
-                + target.getSemester().value;
+                + " " + DeleteArgument.TARGET_CODE.getShortName()
+                + " " + target.getCode().value
+                + " " + DeleteArgument.TARGET_YEAR.getShortName()
+                + " " + target.getYear().value
+                + " " + DeleteArgument.TARGET_SEMESTER.getShortName()
+                + " " + target.getSemester().value;
     }
 
     /**
