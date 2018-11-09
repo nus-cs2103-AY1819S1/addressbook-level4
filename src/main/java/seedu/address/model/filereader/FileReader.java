@@ -30,6 +30,7 @@ public class FileReader {
     private int facultyIndex = -1;
     private ArrayList<String> contacts = new ArrayList<>();
     private int addCounter = 0;
+    private int maxIndex = -1;
 
     public FileReader(FilePath csvFilePath) {
         requireAllNonNull(csvFilePath);
@@ -91,12 +92,18 @@ public class FileReader {
             String header = sc.nextLine();
             String[] parts = header.split(",");
             isValidFile = setIndex(parts);
-            if (isValidFile) {
-                while (sc.hasNextLine()) {
-                    String nextLine = sc.nextLine();
+            if (!isValidFile) {
+                sc.close();
+                return;
+            }
+            while (sc.hasNextLine()) {
+                String nextLine = sc.nextLine();
+                String[] contentParts = nextLine.split(",");
+                // if there is a break line in an entry, merge with next line
+                if (contentParts.length < maxIndex) {
                     nextLine += " " + sc.nextLine();
-                    contacts.add(nextLine);
                 }
+                contacts.add(nextLine);
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -108,21 +115,36 @@ public class FileReader {
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equals(CSV_HEADER_NAME)) {
                 nameIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
             if (parts[i].equals(CSV_HEADER_PHONE)) {
                 phoneIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_ADDRESS)) {
                 addressIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_EMAIL)) {
                 emailIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_FACULTY)) {
                 facultyIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
         }
         // return true if nameIndex, phoneIndex, addressIndex, emailIndex and facultyIndex is valid
