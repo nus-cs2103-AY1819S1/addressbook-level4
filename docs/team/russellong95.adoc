@@ -1,0 +1,78 @@
+= Russell Ong Ren Yih - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LearnVocabulary
+
+---
+
+== Overview
+
+LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the learn feature command
+** What it does: Searches for the given word on LearnVocabulary and extracts the definition of the word. It then attaches a default tag, which is all stored inside LearnVocabulary.
+** Justification: This feature is the backbone of LearnVocabulary because it saves the user a lot of time by querying and storing the word with its meaning. It then saves all of that into a personalized storage area for the user to review (display and show) at a later time. 
+** Highlights: This enhancement had to be properly integrated by carefully navigating around the different existing commands. 
+It required a near in-depth analysis of design alternatives. 
+The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: Added the show command, which displays the filtered word(s) unto the Ui, making the Ui appear more engaging and interactive.
+
+* *Minor enhancement*: Enhanced the add command, which adds a default tag should no tags be attached.
+
+* *Minor enhancement*: Enhanced the edit command, which prevents user from deleting all tags, must have at least one tag attached to a word.
+
+* *Code contributed*: [RepoSense collated code] (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=russellong95)
+
+* *Other contributions*:
+
+** Project management:
+*** Team-lead
+*** Testing
+*** Managed releases `v1.0` - `v1.4` (3 releases) on GitHub
+*** Refactored AB4 into LearnVocabulary (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/49[#49])
+*** Co-managed Netlify
+*** Managed RepoSense
+*** Managed Coveralls
+*** Managed Travis, always ensuring it is building
+
+** Enhancements:
+***  Updated the add and edit commands to ensure that there will always be a tag to a word (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/151[#151]
+
+** Documentation:
+*** Proper format of Developer and User Guide: https://github.com/CS2103-AY1819S1-T10-3/main/pull/157[#157] https://github.com/CS2103-AY1819S1-T10-3/main/pull/158[#158]
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T13-1/main/issues/126[1], https://github.com/CS2103-AY1819S1-T13-1/main/issues/130[2], https://github.com/CS2103-AY1819S1-T13-1/main/issues/156[3])
+*** Bug fixes in various PRs (examples:  https://github.com/CS2103-AY1819S1-T10-3/main/pull/70[1], https://github.com/CS2103-AY1819S1-T10-3/main/pull/51[2], https://github.com/CS2103-AY1819S1-T10-3/main/pull/40[3])
+*** Added documentation for features implemented.
+
+** Tools:
+*** Integrated a third party library (Jsoup) to the project (#42)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=learn]
+
+include::../UserGuide.adoc[tag=basic]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=learn]
+
+include::../DeveloperGuide.adoc[tag=basic]
+
+
