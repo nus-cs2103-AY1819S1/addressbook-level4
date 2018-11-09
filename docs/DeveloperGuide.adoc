@@ -565,7 +565,7 @@ in the address book). Following this, the appropriate person is obtained from th
 the displaying of the contact's faculty location even if the list is filtered).
 
 A event, `FacultyLocationDisplayChangedEvent`, also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
-Display Tab) and subsequently by `LocationDisplayPanel`.
+Display Tab) and subsequently by `LocationDisplayPanel`. The status message will show "Selected person: [INDEX] faculty location being displayed."
 
 If the contact has no faculty, a default location - University Hall - is displayed on the map.
 
@@ -596,7 +596,7 @@ these kind of commands. The GenerateLocationCommand object created will then con
 
 The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
 commands before the object is created. Following this, the address book is checked to determine whether this event does
-exist and if it does the ResultDisplay indicates that a meeting location has been generated, if not it indicates to the user
+exist and if it does the status message indicates that a meeting location has been generated, if not it indicates to the user
 that such as event does not exist.
 
 A random meeting location is generated based on 7 locations (for now) that have their Google Maps Place IDs stored in the EmbedGoogleMaps class.
@@ -1308,7 +1308,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: View all events
+=== UC6: View all events
 
 *MSS*
 
@@ -1327,7 +1327,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC8: Delete an event
+=== UC7: Delete an event
 
 Guarantees: Only the selected event will be deleted from the existing list.
 
@@ -1349,7 +1349,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC6: Upcoming event notification
+=== UC8: Upcoming event notification
 
 *MSS*
 
@@ -1361,23 +1361,37 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: Find common event location
+=== UC9: Show contact's faculty location visually
 
 *MSS*
 
-. User selects the event that he/she wants to find the common event location for.
-. System performs API calls with Google Maps API to generate the most central location for all members.
-. User accepts or rejects the generated location.
-. System sets event location.
+. User selects a person that he/she wants to have their faculty location displayed on Google Maps.
+. System makes Google Maps Embed API calls to display this location.
+. System switches to the location display tab automatically to show the result.
+
+Use case ends.
+
+[discrete]
+=== UC10: Generate possible event location
+
+*MSS*
+
+. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. System randomly generates a meeting location from those stored and displays it to user in location display tab using Google Maps Embed API.
+. User considers the location and deems it to be acceptable or not.
+. System indicates in status message what course of action to take from here.
 
 *Extensions*
 
-* 3a. User rejects the generated location.
-** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
-** 3a2. If user does not state location, no common event location is set and use case ends.
+* 4a. User accepts the generated location.
+** 4a1. User uses the editEventLocation command (as indicated in the status message) to edit event location with the one generated.
+** 4a2. Handling of the editing of event location is taken care of by editEventLocation command.
+** 4a3. If user does not like the generated location, user does not have to do anything and continues using the application according to what he/she wants to do.
++
+Use case ends.
 
 [discrete]
-=== UC8: Import contacts
+=== UC11: Import contacts
 
 *MSS*
 
@@ -1407,7 +1421,7 @@ Use case ends.
 === Coming in V2.0
 
 [discrete]
-=== UC9: Find groups by keyword
+=== UC12: Find groups by keyword
 
 *MSS*
 
@@ -1418,7 +1432,7 @@ Use case ends.
 User case ends.
 
 [discrete]
-=== UC10: View contacts by tag
+=== UC13: View contacts by tag
 
 *MSS*
 
@@ -1437,7 +1451,7 @@ User case ends.
 Use case ends.
 
 [discrete]
-=== UC11: Import timetable
+=== UC14: Import timetable
 
 *MSS*
 
@@ -1462,7 +1476,7 @@ User case ends.
 Use case ends.
 
 [discrete]
-=== UC12: Message multiple users
+=== UC15: Message multiple users
 
 *MSS*
 
@@ -1482,32 +1496,6 @@ User case ends.
 +
 Use case ends.
 
-[discrete]
-=== UC13: Import contacts
-
-*MSS*
-
-. User request to import contacts.
-. System records and displays how many successfully added and duplicates.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid file path (not a file or not an absolute path).
-** 1a1. System displays invalid file path.
-+
-Use case ends.
-+
-* 2a. System detects empty file.
-** 2a1. System displays empty file.
-+
-Use case ends.
-* 2b. System detects invalid csv format (cannot find compulsory header in csv).
-** 2b1. System displays invalid csv file.
-+
-Use case ends.
 
 ////
 
@@ -1559,15 +1547,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The application will launch in full screen.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to a size of your preference. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -1578,15 +1564,34 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Showing a person's faculty
+
+. Showing a person's faculty visually while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `showLocation 1` +
+   Expected: First contact's faculty location is displayed visually. Status message indicates that selected person's faculty location is being displayed.
+.. Test case: `showLocation 0` +
+   Expected: No contact's location is displayed. Status message indicates that command is incorrect and shows proper usage.
+.. Other incorrect faculty location display commands: `showLocation`, `showLocation x` (where x is larger than the list size).
+
+=== Generating a possible meeting location
+
+. Generating a possible meeting location for an event
+
+.. Prerequisites: Event must already exist inside the current list of events stored.
+.. Test case: `generateLocation n/Meeting d/2018-04-01 st/1400` +
+   Expected: A random meeting location (Kent Ridge MRT, YIH, Coffee Roasters, Humble Origins, i3, The Deck or The Terrace) is generated and displayed.
+   Status message indicates that meeting location is being generated and what to do if meeting location is acceptable.
+.. Test case: `showLocation n/Meeting` +
+   Expected: No contact's location is displayed. Status message indicates that command is incorrect and shows proper usage.
+.. Other incorrect faculty location display commands: `showLocation`, `showLocation x` (where x is larger than the list size).
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
