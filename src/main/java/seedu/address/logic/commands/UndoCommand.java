@@ -20,12 +20,19 @@ public class UndoCommand extends Command {
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndoAddressBook() && !model.canUndoArchiveList()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        if (model.canUndoAddressBook()) {
+            model.undoAddressBook();
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
+        if (model.canUndoArchiveList()) {
+            model.undoArchiveList();
+            model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

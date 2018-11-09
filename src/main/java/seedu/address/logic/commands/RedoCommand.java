@@ -20,12 +20,20 @@ public class RedoCommand extends Command {
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoAddressBook() && !model.canRedoArchiveList()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        if (model.canRedoAddressBook()) {
+            model.redoAddressBook();
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
+
+        if (model.canRedoArchiveList()) {
+            model.redoArchiveList();
+            model.updateArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
