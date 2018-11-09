@@ -993,7 +993,7 @@ Use case ends.
 *Extensions*
 
 [none]
-*2a. Word already exists in LearnVocabulary, error message will be displayed.
+* 2a. Word already exists in LearnVocabulary, error message will be displayed.
 +
 Use case ends.
 
@@ -1020,13 +1020,13 @@ Use case ends.
 +
 Use case ends.
 
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 words without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Handles at least one complete dictionary (e.g. English)
 
 _{More to be added}_
 
@@ -1070,7 +1070,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample words. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1078,61 +1078,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a word
 
-=== Deleting a person
+. Deleting a word while all words are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all words using the `list` command. Multiple words in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First word is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No word is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
-== Target user profile
-
-People who would like to learn new words they see in their daily life more efficiently and use computer a lot. These people can be for example non-native english speakers and schools who want to use the program in language courses. In the future, target users will be extended to also other languages than english.
-
-== Value propositions
-
-The application helps the user to find the meaning of words. Upon finding the meaning of words, they will be stored into a “review list”, where the user can refresh their memory of the word that they had just learnt (similar to flash cards). In specific, we currently plan to give the user the meaning of the word and ask them to type the word correctly. If they can type in the word correctly for continuous several days, then the word will be deleted from the review list automatically. Besides, the user can also manually add words in the review list and delete words from the review list. In the end, this will help the user to learn the language.
-
-== User stories
-
-As a user, I want to be able to learn new English words everyday.
-
-As a user, I want to be able to save words so that I can "collect" those words and review what I have learnt.
-
-As a user, I want to test and challenge myself to improve my English.
-
-As a user, I want to check the meaning of words.
-
-As a non-native english speaker, I would like to classify words in different groups to manage them and learn them better.
-
-As a non-native english speaker, I would like to lookup the definition of words.
-
-As a non-native English speaker, I would like to learn words to improve my English.
-
-== Use cases
-
-
-*Non functional requirements*
-
-Should work on any mainstream operating system as long as Java 9 or higher is installed.
-
-Works by command line input and possibly a minimalistic GUI output
-
-Handles at least one complete dictionary (e.g. english)
