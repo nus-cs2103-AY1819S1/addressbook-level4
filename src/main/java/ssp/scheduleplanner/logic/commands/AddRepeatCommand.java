@@ -34,6 +34,7 @@ public class AddRepeatCommand extends Command {
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_REPEAT + "10 "
+            + CliSyntax.PREFIX_INTERVAL + "7 "
             + CliSyntax.PREFIX_NAME + "CS2103T Tutorial "
             + CliSyntax.PREFIX_DATE + "111018 "
             + CliSyntax.PREFIX_PRIORITY + "3 "
@@ -41,8 +42,6 @@ public class AddRepeatCommand extends Command {
             + CliSyntax.PREFIX_TAG + "Tutorial";
 
     public static final String MESSAGE_SUCCESS = "New repeated task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Schedule Planner.";
-
     private final Task toAdd;
     private final Repeat repeat;
     private final Interval repeatInterval;
@@ -63,12 +62,21 @@ public class AddRepeatCommand extends Command {
 
         int interval = Integer.parseInt(repeatInterval.value);
         DateFormat schedulerFormat = new SimpleDateFormat("ddMMyy");
+        Calendar baseDate = toAdd.getDate().calendar;
+        String newDate = schedulerFormat.format(baseDate.getTime());
+        Date date = new Date(newDate);
+        Task newTask = new Task(toAdd.getName(), date,
+                toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
+
+        if (!model.hasTask(newTask)) {
+            model.addTask(newTask);
+        }
+
         for (int i = 0; i < Integer.parseInt(repeat.value); i++) {
-            Calendar baseDate = toAdd.getDate().calendar;
-            baseDate.add(Calendar.DAY_OF_YEAR, interval * i);
-            String newDate = schedulerFormat.format(baseDate.getTime());
-            Date date = new Date(newDate);
-            Task newTask = new Task(toAdd.getName(), date,
+            baseDate.add(Calendar.DAY_OF_YEAR, interval);
+            newDate = schedulerFormat.format(baseDate.getTime());
+            date = new Date(newDate);
+            newTask = new Task(toAdd.getName(), date,
                     toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
 
             if (!model.hasTask(newTask)) {
@@ -81,11 +89,6 @@ public class AddRepeatCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddRepeatCommand // instanceof handles nulls
-                && toAdd.equals(((AddRepeatCommand) other).toAdd));
-    }
+
 }
 

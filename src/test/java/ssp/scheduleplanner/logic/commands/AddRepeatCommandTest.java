@@ -44,7 +44,7 @@ public class AddRepeatCommandTest {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
         Task validTask = new TaskBuilder().build();
 
-        CommandResult commandResult = new AddRepeatCommand(validTask, new Repeat("2"), new Interval("1"))
+        CommandResult commandResult = new AddRepeatCommand(validTask, new Repeat("1"), new Interval("1"))
                 .execute(modelStub, commandHistory);
 
         Task anotherValidTask = (new TaskBuilder()).withDate("121155").build();

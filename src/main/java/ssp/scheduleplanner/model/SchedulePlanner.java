@@ -2,6 +2,7 @@ package ssp.scheduleplanner.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -162,6 +163,26 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      * The task must not already exist in the current task list of schedule planner.
      */
     public void addTask(Task p) {
+
+        Iterator tagIterator = p.getTags().iterator();
+
+
+        while (tagIterator.hasNext()) {
+            boolean tagExists = false;
+            Tag nextTag = (Tag) tagIterator.next();
+            Iterator catIterator = getCategoryList().iterator();
+            while (catIterator.hasNext()) {
+                Category nextCat = (Category) catIterator.next();
+                if (nextCat.hasTag(nextTag)) {
+                    tagExists = true;
+                    break;
+                }
+            }
+            if (!tagExists) {
+                addTag(nextTag, "Others");
+            }
+            continue;
+        }
 
         tasks.add(p);
     }

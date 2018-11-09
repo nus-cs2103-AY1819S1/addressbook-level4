@@ -29,7 +29,9 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently, this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
+Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*.
+SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently,
+this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
 
 
 == Quick Start
@@ -71,6 +73,7 @@ All tasks will be automatically loaded in the order of deadlines, one that due e
 due later. If two tasks have the same deadline, they will be arranged according to priority, one that has
 higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
 //end::sorting[]
+
 === Viewing Help
 
 Opens the user guide page. +
@@ -97,6 +100,10 @@ The priority level must be a number between 1 to 3, where 3 denotes highest prio
 [WARNING]
 The name, priority level and deadline fields are compulsory and required for every task. Tags are optional.
 
+[TIP]
+When you add new tasks with new tags (tags that have not been added to any existing categories),
+these tags will be automatically added to default category [blue]`Others`. For detailed guide about category and tags,
+please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
 === Adding a Recurring Task
 
@@ -117,25 +124,20 @@ The number of repeats should be an integer that is greater or equals to 1. Setti
 Use this command to schedule tasks that you carry out regularly.
 
 [WARNING]
-The maximum number fo repetitions is 15.
+The maximum number of repetitions is 15.
 
 [CAUTION]
 Due to how the Date class was implemented, there is an unintended behavior. Any task whose deadline goes beyond the year 2099
 will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
 1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
 
-=== Listing All Tasks
 
-Lists all tasks in the schedule planner. +
-====
-[blue]`list`
-====
 
 === Editing a Task
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE] v/[VENUE]`
+[blue]`edit INDEX n/NAME p/PRIORITYLEVEL t/[TAGS]... d/DEADLINE v/VENUE`
 ====
 Example:
 
@@ -164,6 +166,131 @@ If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be r
 Use [blue]`list`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
 For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
  to edit.
+
+
+=== Deleting a Task
+
+Deletes the specified task from the schedule planner forever. +
+
+====
+[blue]`delete INDEX`
+====
+
+Example:
+====
+input: [blue]`delete 3` +
+output: Task with index 3 delete from schedule planner.
+====
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
+[TIP]
+Use the `list` command to find out the index of the task to be deleted.
+
+//tag::archivetask[]
+
+=== Archiving a Task
+
+Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
+
+====
+[blue]`archive INDEX`
+====
+
+Example:
+====
+[blue]`archive 1` +
+Task with index 1 is removed from the task list.
+
+image::archiveTask.png[width="400"]
+====
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
+[TIP]
+Use the `list` command to find out the index of the task to be archived.
+View <<Viewing Archived Tasks>> for detailed guide.
+
+//end::archivetask[]
+
+// tag::listarchived[]
+=== Viewing Archived Tasks
+
+Shows a list of archived tasks. +
+====
+[blue]`listarchived`
+====
+
+Example:
+====
+We are continuing from example listed in <<Archiving a Task>>. +
+
+Step 1: [blue]`archive 1` +
+Below is the screenshot of task list that will appear on screen after step 1.
+
+image::archiveTask.png[width="400"]
+
+Step 2: [blue]`listarchived`
+
+Below is the screenshot of archived task list that will appear on screen after step 2.
+
+image::listArchive.png[width="400"]
+
+====
+// end::listarchived[]
+
+=== Viewing All Tasks
+
+Lists all tasks in the schedule planner. +
+====
+[blue]`list`
+====
+
+=== Viewing Overdue Tasks
+
+Shows a list all the overdue tasks. +
+====
+[blue]`listoverdue`
+====
+
+// tag::listday[]
+=== Viewing Tasks Due Today
+
+Shows a list of tasks that are due today. +
+====
+[blue]`listday`
+====
+// end::listday[]
+
+// tag::listweek[]
+=== Viewing Tasks Due This Week
+
+Shows a list of tasks that are due from current date till the closest Sunday. +
+====
+[blue]`listweek`
+====
+// end::listweek[]
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
+
+image::ListWeekCommand_UG_Before_After.png[width="700"]
+====
+
+
+=== Viewing Tasks Due This Month
+
+Shows a list of tasks that are due from current date till the end of the current Month. +
+====
+[blue]`listmonth`
+====
+
+Example:
+====
+input: [blue]`listmonth` on the date 021118 +
+output: Shows a list of tasks from 021118 to end of the month which is 301118.
+
+image::ListMonth_Before_After.png[width="400"]
+====
 
 
 === Finding Tasks by Name
@@ -212,94 +339,6 @@ The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
 You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial quiz project`
 will return all tasks with tag matching with at least one of the provided tags in input.
 
-
-=== Deleting a Task
-
-Deletes the specified task from the schedule planner forever. +
-
-====
-[blue]`delete INDEX`
-====
-
-Example:
-====
-input: [blue]`delete 3` +
-output: Task with index 3 delete from schedule planner.
-====
-The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
-The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
-[TIP]
-Use the `list` command to find out the index of the task to be deleted.
-
-tag::archivetask[]
-=== Archiving a Task
-
-Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
-
-====
-[blue]`archive INDEX`
-====
-
-Example:
-====
-input: [blue]`archive 4` +
-output: Task with index 4 is removed from the current list and saved in the archived list.
-====
-The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
-The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
-[TIP]
-Use the `list` command to find out the index of the task to be archived.
-end::archivetask[]
-
-// tag::listarchived[]
-=== Viewing Archived Tasks
-
-Shows a list of archived tasks. +
-====
-[blue]`listarchived`
-====
-// end::listarchived[]
-// tag::listday[]
-=== Viewing Tasks Due Today
-
-Shows a list of tasks that are due today. +
-====
-[blue]`listday`
-====
-// end::listday[]
-
-// tag::listweek[]
-=== Viewing Tasks Due This Week
-
-Shows a list of tasks that are due from current date till the closest Sunday. +
-====
-[blue]`listweek`
-====
-// end::listweek[]
-Example:
-====
-input: [blue]`listweek` on the date 021118 +
-output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
-
-image::ListWeekCommand_UG_Before_After.png[width="700"]
-====
-
-
-=== Viewing Tasks Due This Month
-
-Shows a list of tasks that are due from current date till the end of the current Month. +
-====
-[blue]`listmonth`
-====
-
-Example:
-====
-input: [blue]`listmonth` on the date 021118 +
-output: Shows a list of tasks from 021118 to end of the month which is 301118.
-
-image::ListMonth_Before_After.png[width="400"]
-====
-
 // tag::firstday[]
 === Generating Weeks in the Academic Calendar
 
@@ -339,12 +378,117 @@ will be rejected as they are considered as more than one set of date.
 3. The [blue]`DDMMYY` must be a Monday.
 // end::firstday2[]
 
-=== Listing Overdue Tasks
+//tag::addingcat[]
+=== Adding a Category
+Adds a new category to the schedule planner.
+Our application allows user to organize tags by saving tags into relevant categories. +
+====
+[blue]`addcat c/[CATEGORY]`
+====
 
-Shows a list all the overdue tasks. +
+Example:
 ====
-[blue]`listoverdue`
+[blue]`addcat c/Steam shopping list`
+
+image::addingcat.png[width="400"]
 ====
+Category name can contain space. For example, [blue]`Steam`, [blue]`Steam2`,
+[blue]`Steam shopping list` are all valid category names. +
+
+
+[blue]`Modules` and [blue]`Others` are two categories exist by default.
+
+[WARNING]
+Duplicated categories are not allowed in schedule planner. In other words, all
+categories must have different names.
+
+
+//end::addingcat[]
+
+//tag::addingtag[]
+=== Adding a Tag to a Category
+Adds a tag to selected existing category.
+====
+[blue]`addtag c/[CATEGORY] t/[TAG]`
+====
+
+Example:
+====
+[blue]`addtag c/Steam shopping list t/Overwatch`
+
+image::addtag.png[width="400"]
+====
+Duplicated tags are not allowed under same category. +
+For instance, in above example, you cannot add another tag [blue]`Overwatch`
+to category [blue]`Steam shopping list`. However you can save same tag under multiple categories.
+[TIP]
+When you add new tasks with new tags (tags that have not been added to any existing categories),
+these tags will be automatically added to default category [blue]`Others`.
+//end::addingtag[]
+
+//tag::clearcat[]
+=== Clearing a Category
+Clears all tags saved under selected category.
+====
+[blue]`clearcat c/[CATEGORY]`
+====
+
+Example:
+====
+[blue]`clearcat c/Modules`
+
+image::clearcat.png[width="400"]
+====
+When a category is cleared, tags saved in other categories are not affected.
+For instance, in above example, if you have tag [blue]`CS2105` in category [blue]`Others`
+as well, after clearing category [blue]`Modules`, tag [blue]`CS2105` will still exist in category
+[blue]`Others`. +
+On the other hand, if tag [blue]`CS2105` is only saved under category [blue]`Modules`, then after clearing
+category [blue]`Modules`, the tag [blue]`CS2105` will be removed from schedule planner.
+
+//end::clearcat[]
+
+//tag::removecat[]
+=== Deleting a Category
+Deletes an existing category from schedule planner.
+====
+[blue]`removecat c/[CATEGORY]`
+====
+
+Example:
+====
+[blue]`removecat c/Steam shopping list`
+
+image::removecat.png[width="400"]
+====
+[WARNING]
+Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available is to delete
+all tags saved under these two categories.
+For more detailed guide about clearing categories, please refer to <<Clearing a Category>>.
+//end::removecat[]
+
+//tag::editcat[]
+=== Renaming a Category
+Edits name of an existing category.
+====
+[blue]`editcat c/[ORIGINAL CATEGORY NAME] c/[NEW CATEGORY NAME]`
+====
+
+Example:
+====
+[blue]`editcat c/Steam shopping list c/Reading list`
+
+image::editcat.png[width="400"]
+====
+[WARNING]
+Default categories [blue]`Modules` and [blue]`Others` cannot be renamed.
+
+[WARNING]
+Duplicated categories are not allowed in schedule planner. Please make sure the new name for selected category
+does not overlap with other existing categories in your schedule planner.
+
+
+//end::editcat[]
 
 // tag::showtags[]
 === Displaying Used Tags
@@ -370,7 +514,7 @@ Shows the percentage of tasks that have been archived from today to the nearest 
 ====
 // end::progressbar[]
 
-=== Listing Used Commands
+===  Used Commands
 
 Shows a list of all the commands that you have entered in reverse chronological order. +
 ====

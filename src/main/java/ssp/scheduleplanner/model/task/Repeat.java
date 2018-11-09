@@ -31,7 +31,7 @@ public class Repeat {
             return false;
         }
         int intValue = Integer.parseInt(test);
-        return intValue > 1 && intValue < 16;
+        return intValue > 0 && intValue < 16;
     }
 
     @Override
