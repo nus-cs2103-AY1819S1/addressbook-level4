@@ -130,7 +130,7 @@ public class PatientBuilder extends PersonBuilder {
      * @return a PersonBuilder
      */
     public PatientBuilder withPreferredDoctor(Staff staff) {
-        preferredDoctor = Optional.of(staff);
+        preferredDoctor = Optional.ofNullable(staff);
         return this;
     }
 
@@ -139,7 +139,7 @@ public class PatientBuilder extends PersonBuilder {
      * @return a PersonBuilder
      */
     public PatientBuilder withAppointment(Appointment appointment) {
-        this.appointment = Optional.of(appointment);
+        this.appointment = Optional.ofNullable(appointment);
         return this;
     }
 
