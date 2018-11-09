@@ -465,7 +465,7 @@ Shows all the events tagged as `lecture` or `class`
 image::find-event-lecture-class.PNG[Finding an event]
 // end::findEvent[]
 
-=== Import Contacts: `importContacts`
+=== Import Contacts: `importContacts`, alias `ic`
 
 Import contacts from a specified csv file. +
 CSV file has to be exported from google contacts as Google CSV. +
