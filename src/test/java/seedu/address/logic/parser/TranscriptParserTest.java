@@ -135,7 +135,7 @@ public class TranscriptParserTest {
     //@@author jeremiah-ang
     @Test
     public void parseCommandAdjustModuleSuccess() throws ParseException {
-        Module target = TypicalModules.DATA_STRUCTURES;
+        Module target = DATA_STRUCTURES;
         AdjustCommand adjustCommand = new AdjustCommand(
                 target.getCode(), target.getYear(), target.getSemester(), target.getGrade());
         Command command = parser.parseCommand(
@@ -152,13 +152,13 @@ public class TranscriptParserTest {
     }
 
     @Test
-    public void parseCommand_help() throws Exception {
+    public void parseCommandHelp() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test
-    public void parseCommand_history() throws Exception {
+    public void parseCommandHistory() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
 
@@ -171,26 +171,26 @@ public class TranscriptParserTest {
     }
 
     @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
+    public void parseCommandRedoCommandWordReturnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoModuleCommand.COMMAND_WORD) instanceof RedoModuleCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoModuleCommand);
     }
 
     @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
+    public void parseCommandUndoCommandWordReturnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoModuleCommand.COMMAND_WORD) instanceof UndoModuleCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoModuleCommand);
     }
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
+    public void parseCommandUnrecognisedInputThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         parser.parseCommand("");
     }
 
     @Test
-    public void parseCommand_unknownCommand_throwsParseException() throws Exception {
+    public void parseCommandUnknownCommandThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
