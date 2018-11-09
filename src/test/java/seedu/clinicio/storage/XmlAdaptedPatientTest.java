@@ -70,7 +70,7 @@ public class XmlAdaptedPatientTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Nric.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
-    } 
+    }
 
     @Test
     public void toModelType_invalidMedicalProblems_throwsIllegalValueException() {
