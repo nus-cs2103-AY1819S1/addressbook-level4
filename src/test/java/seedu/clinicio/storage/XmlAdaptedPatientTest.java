@@ -44,7 +44,7 @@ public class XmlAdaptedPatientTest {
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
     private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
-    private static final Optional<Appointment> VALID_APPT = Optional.of(AMY_APPT);
+    private static final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {

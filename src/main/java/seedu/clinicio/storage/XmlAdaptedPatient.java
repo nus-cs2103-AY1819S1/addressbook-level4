@@ -42,7 +42,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private XmlAdaptedStaff preferredDoctor;
     @XmlElement
-    private Optional<Appointment> appointment;
+    private XmlAdaptedAppointment appointment;
 
     /**
      * Constructs an XmlAdaptedAppointment. This is the no-arg constructor that is required by JAXB.
@@ -52,7 +52,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            XmlAdaptedStaff preferredDoctor, Optional<Appointment> appointment) {
+            XmlAdaptedStaff preferredDoctor, XmlAdaptedAppointment appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -84,7 +84,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         if (patient.getPreferredDoctor().isPresent()) {
             preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
         }
-        appointment = patient.getAppointment();
+        if (patient.getAppointment().isPresent()) {
+            appointment = new XmlAdaptedAppointment(patient.getAppointment().get());
+        }
     }
 
     /**
@@ -133,12 +135,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setIsNotQueuing();
         }
 
-        /*if (appointment.isPresent()) {
-            appointment.ifPresent(appointment1 -> {
-                patient.setAppointment(appointment1);
-            });
-        }*/
-
+        if (appointment != null) {
+            patient.setAppointment(appointment.toModelType());
+        }
         return patient;
     }
 
