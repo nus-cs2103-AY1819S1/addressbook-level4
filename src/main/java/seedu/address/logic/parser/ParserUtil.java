@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -153,5 +155,16 @@ public class ParserUtil {
         }
 
         return Period.parse("P" + trimmedPeriod);
+    }
+
+
+    public static Date getPeriodOffsetFromNow(String periodString) throws ParseException {
+        Period period = parsePeriod(periodString);
+        java.util.Date now = new java.util.Date();
+        LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate finalDate = localNow.plus(period);
+        return ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
+                finalDate.getMonth().getValue(),
+                finalDate.getYear()));
     }
 }

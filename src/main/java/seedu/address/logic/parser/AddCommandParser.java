@@ -11,9 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.model.wish.Url.DEFAULT_URL;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -55,15 +52,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
+
         Date date;
         if (arePrefixesPresent(argMultimap, PREFIX_AGE)) {
-            Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_AGE).get());
-            java.util.Date now = new java.util.Date();
-            LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate finalDate = localNow.plus(period);
-            date = ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
-                    finalDate.getMonth().getValue(),
-                    finalDate.getYear()));
+            date = ParserUtil.getPeriodOffsetFromNow(argMultimap.getValue(PREFIX_AGE).get());
         } else {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         }
