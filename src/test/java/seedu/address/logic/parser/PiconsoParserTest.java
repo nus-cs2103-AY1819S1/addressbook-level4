@@ -109,9 +109,6 @@ public class PiconsoParserTest {
         assertTrue(parser.parseCommand("canvas bgcolor rgba(0,0,0,0.2)") instanceof CanvasCommand);
         assertThrows(ParseException.class, ()->parser.parseCommand("canvas bgcolor"));
 
-        assertTrue(parser.parseCommand("canvas save out.png") instanceof CanvasCommand);
-        assertThrows(ParseException.class, ()->parser.parseCommand("canvas save"));
-
         assertThrows(ParseException.class, ()->parser.parseCommand("canvas invalid"));
     }
 

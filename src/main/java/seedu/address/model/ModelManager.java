@@ -325,7 +325,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Canvas and layers ==========================================================================
 
-    // @@author j-lum
+    //@@author j-lum
     /**
      * Adds a layer to the canvas, a name is generated automatically.
      * @param i - PreviewImage to add.

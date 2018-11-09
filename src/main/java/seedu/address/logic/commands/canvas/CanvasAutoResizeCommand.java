@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
