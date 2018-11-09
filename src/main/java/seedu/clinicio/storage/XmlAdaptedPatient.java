@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 
-import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Allergy;
 import seedu.clinicio.model.patient.MedicalProblem;
 import seedu.clinicio.model.patient.Medication;

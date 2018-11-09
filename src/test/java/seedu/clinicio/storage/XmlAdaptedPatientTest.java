@@ -9,13 +9,11 @@ import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
-import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.testutil.Assert;
 
