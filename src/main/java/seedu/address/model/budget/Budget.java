@@ -141,10 +141,10 @@ public class Budget {
         return String.format("$%.2f", this.budgetCap);
     }
 
- /**
-     * Calculates and returns the percentage of budget used
-     * @return the percentage of budget that has been used
-     */
+    /**
+    * Calculates and returns the percentage of budget used
+    * @return the percentage of budget that has been used
+    */
     public double getBudgetPercentage() {
         LOGGER.info("current Expenses" + currentExpenses / budgetCap);
         return currentExpenses / budgetCap;

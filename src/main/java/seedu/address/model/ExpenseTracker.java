@@ -86,7 +86,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         CategoryBudget toAdd = budget;
         toAdd.modifyExpenses(this.expenses.asUnmodifiableObservableList().stream().mapToDouble(expense -> {
-            if (expense.getCategory().equals(budget.getCategory())) {
+            if (expense.getCategory().equals(budget.getCategory())
+                && (this.maximumTotalBudget.getPreviousRecurrence() == null
+                || (this.maximumTotalBudget.getPreviousRecurrence() != null
+                && this.maximumTotalBudget.getPreviousRecurrence().isBefore(expense.getDate().getFullDate())))) {
                 return expense.getCost().getCostValue();
             } else {
                 return 0;
