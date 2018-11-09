@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -22,7 +24,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
 
     public PromoteIndividualCommand(String userInput) {
         for (String index : userInput.split("\\s+")) {
-            indexesToPromote.add(Index.fromOneBased(Integer.valueOf(index)));
+            indexesToPromote.add(Index.fromOneBased(Integer.parseInt(index)));
         }
     }
 
@@ -34,7 +36,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
         int numberOfStudentsPromoted = indexesToPromote.size();
 
         for (Index i : indexesToPromote) {
-            if (i.getZeroBased() >= lastShownList.size()) {
+            if (i.getZeroBased() >= lastShownList.size() || i.getZeroBased() <= 0) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             Person personToPromote = lastShownList.get(i.getZeroBased());
@@ -55,6 +57,6 @@ public class PromoteIndividualCommand extends PromoteCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_GRADUATED_STUDENTS,
-                numberOfStudentsPromoted, graduatedStudentsList.toString()));
+                numberOfStudentsPromoted, graduatedStudentsList.toString().trim()));
     }
 }
