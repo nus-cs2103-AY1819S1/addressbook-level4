@@ -32,18 +32,30 @@ public class ModeCommandParser implements Parser<ModeCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Checks if the argument is valid for one-argument mode command.
+     *
+     * @param arg the argument to check.
+     * @return
+     */
     private boolean isValidOneArgumentModeCommand(String arg) {
         return !arg.isEmpty()
                 && GameManager.isValidGameMode(arg);
     }
 
+    /**
+     * Checks if the arguments are valid for two-argument mode command.
+     *
+     * @param args the arguments to check.
+     * @return
+     */
     private boolean isValidTwoArgumentModeCommand(String[] args) {
         if (args.length != 2) {
             return false;
         }
 
-        return GameManager.isValidGameMode(args[0]) &&
-                GameManager.isValidGameDifficulty(args[1]);
+        return GameManager.isValidGameMode(args[0])
+                && GameManager.isValidGameDifficulty(args[1]);
 
     }
 }

@@ -1,10 +1,10 @@
 package seedu.address.model.game;
 
-// @@author chikchengyao
+import java.util.Date;
 
 import seedu.address.model.task.Task;
 
-import java.util.Date;
+// @@author chikchengyao
 
 /**
  * Offers a mode where a certain amount of XP is offered in the beginning, but the amount ramps

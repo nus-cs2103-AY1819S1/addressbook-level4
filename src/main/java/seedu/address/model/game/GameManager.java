@@ -57,6 +57,8 @@ public class GameManager {
         case ModeCommand.PRIORITY_MODE:
             this.gameMode = new PriorityMode();
             break;
+        default:
+            assert false;
         }
     }
 
@@ -98,21 +100,23 @@ public class GameManager {
         }
 
         switch (newGameModeName) {
-            case ModeCommand.FLAT_MODE:
-                this.gameMode = new FlatMode(low, high);
-                break;
+        case ModeCommand.FLAT_MODE:
+            this.gameMode = new FlatMode(low, high);
+            break;
 
-            case ModeCommand.DECREASING_MODE:
-                this.gameMode = new DecreasingMode(period, low, high);
-                break;
+        case ModeCommand.DECREASING_MODE:
+            this.gameMode = new DecreasingMode(period, low, high);
+            break;
 
-            case ModeCommand.INCREASING_MODE:
-                this.gameMode = new IncreasingMode(period, low, high);
-                break;
+        case ModeCommand.INCREASING_MODE:
+            this.gameMode = new IncreasingMode(period, low, high);
+            break;
 
-            case ModeCommand.PRIORITY_MODE:
-                this.gameMode = new PriorityMode();
-                break;
+        case ModeCommand.PRIORITY_MODE:
+            this.gameMode = new PriorityMode();
+            break;
+        default:
+            assert false;
         }
     }
 
@@ -139,6 +143,11 @@ public class GameManager {
         return false;
     }
 
+    /**
+     * Checks if the supplied string describes a valid game difficulty.
+     * @param gameDifficultyName The proposed game difficulty.
+     * @return
+     */
     public static boolean isValidGameDifficulty(String gameDifficultyName) {
         if (gameDifficultyName.equals(ModeCommand.EASY_MODE)) {
             return true;
