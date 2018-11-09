@@ -446,7 +446,7 @@ Step 1. User enters command to add an event +
 Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>`. The latter specifies the contact indices to add into the event. +
 Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if the event information is valid +
 Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records) +
-Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the system from the `Model` component.
+Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the system from the `Model` component. +
 
 For deletion of event(s), the flow is similar.
 The sequence diagram for the deletion of event is shown below.
@@ -455,10 +455,10 @@ image::delete-event_logic-model.png[Deleting an event]
 
 Step 1. User enters command to delete an event based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `DeleteEventCommandParser`, which generates an `DeleteEventCommand` with an `EventDate` and `Index`. +
-Step 3. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list.
+Step 3. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
 Step 4. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
-Step 5. `DeleteEventCommand` calls `getEventToDelete` to retrieve the event based on its index in the list from step 4.
-Step 6. The event is deleted from the system from the `Model` component.
+Step 5. `DeleteEventCommand` calls `getEventToDelete` to retrieve the event based on its index in the list from step 4. +
+Step 6. The event is deleted from the system from the `Model` component. +
 
 Upon adding/deletion of events in `Model`, `AddressBookChangedEvent`, `AddressBookEventChangedEvent` and `EventPanelDisplayChangedEvent`
 are triggered from the `Model` component.
@@ -556,12 +556,12 @@ image::edit-event-address_logic-model.png[Interactions between Logic and Model]
 Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
 and the updated `EventAddress`. +
-Step 3. `EditEventAddressCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list.
+Step 3. `EditEventAddressCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
 Step 4. `EditEventAddressCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
 Step 5. `EditEventAddressCommand` calls `getEventToEdit` to retrieve the event based on its index in the list from step 4.
-Step 6. A new event with all details (except `EventAddress`) duplicated from the old event is created.
-The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2.
-Step 6. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
+Step 6. A new event with all details (except `EventAddress`) duplicated from the old event is created. +
+The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2. +
+Step 7. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
 
 ==== Considerations
 When editing an event, there are several possible values that can be updated, including the event's name, description, etc.
@@ -583,12 +583,13 @@ An event tag specified by the user is added in the system as depicted in the seq
 
 image::add-event-tag_logic-model.png[Interactions between Logic and Model]
 
-Step 1. User enters command to add an event +
-Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` objects +
-Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system +
+Step 1. User enters command to add an event tag. +
+Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` object. +
+Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system. +
 Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag` into `Model`.
 // end::eventTags[]
 
+[[filteringEvents]]
 //tag::filterEvents[]
 === Filtering of Events
 [[findEvent]]
@@ -598,6 +599,10 @@ To find events by their tags, we make use of a `Predicate`. The `EventTagMatches
 all events which have at least one tag matching at least one of the keywords provided by the user.
 
 image::find-event_logic-model.png[Interactions between Logic and Model]
+
+Step 1. User enters command to find events with certain tags. +
+Step 2. `AddressBookParser` calls `FindEventCommandParser`, which generates an `FindEventCommand` with an `EventTagMatchesKeywordsPredicate`. +
+Step 3. `FindEventCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` generated in step 2. +
 
 Similar to the other event-related commands, the list-filtering is done in `Model`, and
 the change is propagated to the `UI` component by triggering an event. The details of the event triggers are as follows.
