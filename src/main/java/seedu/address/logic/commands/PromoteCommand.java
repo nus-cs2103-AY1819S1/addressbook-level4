@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,10 +44,6 @@ public abstract class PromoteCommand extends Command {
         Education newEducation = new Education(currentEducation.getPromotedEducation());
         Person promotedPerson = new Person(toCopy.getName(), toCopy.getPhone(), toCopy.getEmail(),
                 toCopy.getAddress(), newEducation, toCopy.getGrades(), toCopy.getTime(), toCopy.getTags());
-
-        for (Time time : toCopy.getTime()) {
-            promotedPerson.addTime(time);
-        }
 
         if (!toCopy.hasGraduated() && toCopy.equals(promotedPerson)) {
             newGraduatedStudents.add(promotedPerson.getName().toString());
