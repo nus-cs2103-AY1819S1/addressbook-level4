@@ -11,6 +11,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TaskManager;
 
 public class ClearCommandSystemTest extends TaskManagerSystemTest {
 
@@ -33,7 +34,11 @@ public class ClearCommandSystemTest extends TaskManagerSystemTest {
         /* Case: redo clearing task manager -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        TaskManager clearedTaskManager = new TaskManager();
+        clearedTaskManager.setAchievements(getModel().getAchievementRecord());
+        ModelManager model = new ModelManager();
+        model.resetData(clearedTaskManager);
+        assertCommandSuccess(command, expectedResultMessage, model);
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in task list and clears task manager -> cleared and no card selected */
@@ -66,7 +71,11 @@ public class ClearCommandSystemTest extends TaskManagerSystemTest {
      * @see TaskManagerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        TaskManager clearedTaskManager = new TaskManager();
+        clearedTaskManager.setAchievements(getModel().getAchievementRecord());
+        ModelManager model = new ModelManager();
+        model.resetData(clearedTaskManager);
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, model);
     }
 
     /**

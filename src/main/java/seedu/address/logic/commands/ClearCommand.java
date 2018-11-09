@@ -18,7 +18,9 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult executePrimitive(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new TaskManager());
+        TaskManager clearedTaskManager = new TaskManager();
+        clearedTaskManager.setAchievements(model.getAchievementRecord());
+        model.resetData(clearedTaskManager);
         model.commitTaskManager();
         return new CommandResult(MESSAGE_SUCCESS);
     }

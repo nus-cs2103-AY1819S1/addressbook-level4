@@ -28,7 +28,9 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalTaskManager(), new UserPrefs());
-        expectedModel.resetData(new TaskManager());
+        TaskManager clearedTaskManager = new TaskManager();
+        clearedTaskManager.setAchievements(getTypicalTaskManager().getAchievementRecord());
+        expectedModel.resetData(clearedTaskManager);
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
