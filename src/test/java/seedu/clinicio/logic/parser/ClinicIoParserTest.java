@@ -27,6 +27,8 @@ import seedu.clinicio.logic.commands.DeleteCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.clinicio.logic.commands.ExitCommand;
+import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
@@ -66,7 +68,8 @@ public class ClinicIoParserTest {
     @Test
     public void parseCommand_addPatient() throws Exception {
         Patient patient = new PatientBuilder().build();
-        AddPatientCommand command = (AddPatientCommand) parser.parseCommand(PatientUtil.getAddPatientCommand(patient));
+        AddPatientCommand command = (AddPatientCommand) parser
+                .parseCommand(PatientUtil.getAddPatientCommand(patient));
         assertEquals(new AddPatientCommand(patient), command);
     }
 
@@ -88,7 +91,8 @@ public class ClinicIoParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil
+                .getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
@@ -104,6 +108,23 @@ public class ClinicIoParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_exportPatients() throws Exception {
+        assertTrue(parser.parseCommand(ExportPatientsCommand.COMMAND_WORD) instanceof ExportPatientsCommand);
+        assertTrue(parser.parseCommand(
+                ExportPatientsCommand.COMMAND_WORD + " 3") instanceof ExportPatientsCommand);
+    }
+
+    @Test
+    public void parseCommand_exportPatientsAppointments() throws Exception {
+        assertTrue(parser
+                .parseCommand(
+                        ExportPatientsAppointmentsCommand.COMMAND_WORD) instanceof ExportPatientsAppointmentsCommand);
+        assertTrue(parser
+                .parseCommand(ExportPatientsAppointmentsCommand.COMMAND_WORD
+                        + " 3") instanceof ExportPatientsAppointmentsCommand);
     }
 
     @Test
@@ -183,7 +204,8 @@ public class ClinicIoParserTest {
         assertTrue(parser
                 .parseCommand(ShowPatientInQueueCommand.COMMAND_WORD) instanceof ShowPatientInQueueCommand);
         assertTrue(parser
-                .parseCommand(ShowPatientInQueueCommand.COMMAND_WORD + " 3") instanceof ShowPatientInQueueCommand);
+                .parseCommand(
+                        ShowPatientInQueueCommand.COMMAND_WORD + " 3") instanceof ShowPatientInQueueCommand);
     }
 
     @Test
