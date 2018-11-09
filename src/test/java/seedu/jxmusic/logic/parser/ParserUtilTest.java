@@ -159,18 +159,18 @@ public class ParserUtilTest {
 
     @Test
     public void parseTime_invalidInputFormat_throwsParseException() throws Exception {
-        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT
-                , () -> ParserUtil.parseTime("a"));
-        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT
-                , () -> ParserUtil.parseTime("1.2"));
-        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT
-                , () -> ParserUtil.parseTime("-1"));
-        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT
-                , () -> ParserUtil.parseTime("1 2 3 4"));
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT,
+                () -> ParserUtil.parseTime("a"));
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT,
+                () -> ParserUtil.parseTime("1.2"));
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT,
+                () -> ParserUtil.parseTime("-1"));
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_TIME_FORMAT,
+                () -> ParserUtil.parseTime("1 2 3 4"));
     }
 
     @Test
-    public void parseTime_validInput_success() throws Exception{
+    public void parseTime_validInput_success() throws Exception {
         double expectedTime1 = 1000;
         double expectedTime2 = 62000;
         double expectedTime3 = 3723000;
