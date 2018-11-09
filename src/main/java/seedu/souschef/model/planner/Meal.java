@@ -66,4 +66,32 @@ public abstract class Meal {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Meal)) {
+            return false;
+        }
+
+        Meal otherMeal = (Meal) other;
+        return (otherMeal.slot.equals(slot))
+            && (otherMeal.index == index)
+            && (otherMeal.getRecipe().equals(getRecipe()));
+    }
+
+    @Override
+    public String toString() {
+        String recipeName;
+        if (recipe.isPresent()) {
+            recipeName = recipe.get().getName().fullName;
+        } else {
+            recipeName = "No recipe";
+        }
+
+        return slot + ": " + recipeName;
+    }
 }
