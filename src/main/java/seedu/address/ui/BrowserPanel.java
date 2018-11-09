@@ -42,7 +42,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        // Load the default page, because PersonPages are not implemented yet.
+        loadDefaultPage();
     }
 
     public void loadPage(String url) {
