@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T10-3/main
 
+By: `T10-3`      Since: `Oct 2018`      Licence: `MIT`
+
 == Introduction
 
 LearnVocabulary is for those who prefer to use an offline version of the dictionary for learning purposes.
@@ -42,7 +44,7 @@ E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Synonym function to mass query multiple words that have same meaning
 
 
-[Features]]
+[[Features]]
 == Features
 
 ====
@@ -68,6 +70,7 @@ A word can have any number of tags provided the groups of the tags are already c
 Examples:
 
 * `add n/levitate m/to float or fly t/Test`
+* `add n/levitate m/to float or fly` (toLearn tag will be attached to word by default)
 
 === Learning a word: `learn`
 
@@ -75,15 +78,15 @@ With the access of an internet connection, the user can enter `learn [word]` and
 
 Format: `learn happy`
 
-It will then be attached to a default tag called `toLearn`, for easier access for the user itself.
+It will then be attached to a default tag called `toLearn`, for easier reference for the user.
 
 Examples:
 
 * `learn happy`
 
-Queries the `meaning` on dictionary.com and attaches a default tag to the word.
+Queries the `meaning` on dictionary.com and attaches a default tag (toLearn) to the word.
 
-This function does not accept multiple entries.
+This function does *not* accept multiple entries.
 
 === Listing all word : `list`
 
@@ -107,6 +110,12 @@ Examples:
 
 * `edit 1 m/diabolic magic or art` +
 Edits the meaning of the first word to `diabloic magic or art`.
+
+* `edit 1 t/darkarts` +
+Edits the tag of the first word to `darkarts`, replacing every other tag.
+
+* `edit 1 t/` +
+Fails to remove all tags as there must be at least one tag attached to every word.
 
 === Locating word by name: `find`
 
@@ -250,8 +259,11 @@ the default display would be the last displayed placeholder page.
 
 However, user should note that showing a word not present would not result in any changes to the Ui as it is not intended, it
 will still continue to display the previous word being selected in the panel on the right.
+
 // tag::trivia[]
+
 === Trivia game: `trivia`
+
 A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
 `trivia` will output at most 10 questions depending on the size of the user's vocabulary list.
 
@@ -349,4 +361,33 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LearnVocabulary folder.
+
+== Command Summary
+
+* *Add* `add n/NAME m/MEANING [t/TAG]...` +
+e.g. `add n/magic m/mystical arts [t/darkarts]`
+* *Learn* `learn NAME` +
+e.g. `learn fire`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...` +
+e.g. `edit 2 m/somewhere far away`
+* *Find* : `find WORD [MORE_KEYWORDS]` +
+e.g. `find magic`
+* *Show* : `show WORD [MORE_WORDS]` +
+e.g. `show magic fire ice`
+* *List* : `list`
+* *Help* : `help`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+
 
