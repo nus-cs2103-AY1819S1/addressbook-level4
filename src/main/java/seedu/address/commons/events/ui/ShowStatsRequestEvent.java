@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author jonathantjm
 /**
- * An event requesting to view the help page.
+ * An event requesting to update the statistics panel.
  */
 public class ShowStatsRequestEvent extends BaseEvent {
 

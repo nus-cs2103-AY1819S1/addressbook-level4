@@ -29,6 +29,14 @@ public class StatisticsPanel extends UiPart<Region> {
     private StackPane chartArea;
 
 
+    /**
+     * Constructs a {@code StatisticsPanel} object with parameters.
+     *
+     * @param statsData a map with key and value pairs representing data for the charts.
+     * @param statsPeriod a {@code StatsPeriod} enum representing the statistics period
+     * @param statsMode a {@code StatsMode} enum representing the statistics mode.
+     * @param periodAmount an int representing the period amount
+     */
     public StatisticsPanel(
             LinkedHashMap<String, Double> statsData,
             StatsPeriod statsPeriod,
@@ -39,10 +47,21 @@ public class StatisticsPanel extends UiPart<Region> {
         setData(statsData, statsPeriod, statsMode, periodAmount);
     }
 
-    public void setData(LinkedHashMap<String, Double> statsData,
-                        StatsPeriod statsPeriod,
-                        StatsMode statsMode,
-                        int periodAmount
+    /**
+     * Populates {@code chartArea} according to the parameters.
+     * If {@code statsData} is empty, {@code chartArea} will be a message
+     * saying that there are no expenditures. Otherwise, helper methods will be called based on the {@code statsMode}.
+     *
+     * @param statsData a map with key and value pairs representing data for the charts.
+     * @param statsPeriod a {@code StatsPeriod} enum representing the statistics period
+     * @param statsMode a {@code StatsMode} enum representing the statistics mode.
+     * @param periodAmount an int representing the period amount
+     */
+    public void setData(
+        LinkedHashMap<String, Double> statsData,
+        StatsPeriod statsPeriod,
+        StatsMode statsMode,
+        int periodAmount
     ) {
         chartArea.getChildren().clear();
         if (statsData.size() == 0) {
@@ -68,6 +87,13 @@ public class StatisticsPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Populates {@code chartArea} according to the parameters. {@code chartArea} will be a bar chart.
+     *
+     * @param statsData a map with key and value pairs representing data for the charts.
+     * @param statsPeriod a {@code StatsPeriod} enum representing the statistics period
+     * @param periodAmount an int representing the period amount
+     */
     public void setTimeBasedData(LinkedHashMap<String, Double> statsData, StatsPeriod statsPeriod, int periodAmount) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
@@ -104,6 +130,11 @@ public class StatisticsPanel extends UiPart<Region> {
         chartArea.getChildren().add(stats);
     }
 
+    /**
+     * Populates {@code chartArea} according to the parameters. {@code chartArea} will be a pie chart.
+     *
+     * @param statsData a map with key and value pairs representing data for the charts.
+     */
     public void setCategoryBasedData(LinkedHashMap<String, Double> statsData) {
         PieChart pieChart = new PieChart();
 

@@ -371,8 +371,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jonathantjm
     //=========== Stats =================================================================================
     /**
-     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedExpenseTracker}, filtered by {@code expenseStatPredicate} and sorted by expense date.
+     * Returns an unmodifiable view of expenses, filtered by {@code expenseStatPredicate} and sorted by date.
+     *
+     * @return {@code ObservableList<Expense>} of expenses which fulfill statistics filter
+     * @throws NoUserSelectedException
      */
     @Override
     public ObservableList<Expense> getExpenseStats() throws NoUserSelectedException {
