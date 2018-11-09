@@ -788,6 +788,7 @@ There is no need to save manually.
 *Q*: Why can't I execute the `finish` command even if there is a Current Patient? +
 *A*: You are required to add notes to the Current Patient before using the `finish` command, use the <<adddocument, `adddocument`>> command to add notes.
 
+// tag::table[]
 == Command Summary
 
 === Patient
@@ -857,3 +858,4 @@ There is no need to save manually.
 |redo |`r`  |`redo` |`redo`
 |exit |-  |`exit` |`exit`
 |=======================================================================
+// end::table[]
