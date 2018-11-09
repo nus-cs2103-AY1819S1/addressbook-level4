@@ -105,7 +105,7 @@ public class TaskCard extends UiPart<Region> {
 
     private String getChildTime() {
         try {
-            return this.taskManager.getEarliestDependentTimeForNode(this.task).value;
+            return "effective time:" + this.taskManager.getEarliestDependentTimeForNode(this.task).value;
         } catch (Exception e) {
             return "";
         }
