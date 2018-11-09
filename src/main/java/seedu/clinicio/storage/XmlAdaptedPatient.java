@@ -133,9 +133,11 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setIsNotQueuing();
         }
 
-        appointment.ifPresent(appointment1 -> {
-            patient.setAppointment(appointment1);
-        });
+        /*if (appointment.isPresent()) {
+            appointment.ifPresent(appointment1 -> {
+                patient.setAppointment(appointment1);
+            });
+        }*/
 
         return patient;
     }

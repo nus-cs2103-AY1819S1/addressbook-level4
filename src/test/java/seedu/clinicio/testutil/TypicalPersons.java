@@ -39,6 +39,7 @@ import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 
 /**
@@ -105,9 +106,9 @@ public class TypicalPersons {
 
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
-            .withPreferredDoctor(ADAM).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
-            .withPreferredDoctor(ADAM).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
 
     //Not inside ClinicIO
     public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
@@ -148,9 +149,9 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        /*for (Patient patient: getTypicalPatients()) {
+        for (Patient patient: getTypicalPatients()) {
             clinicIo.addPatient(patient);
-        }*/
+        }
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }

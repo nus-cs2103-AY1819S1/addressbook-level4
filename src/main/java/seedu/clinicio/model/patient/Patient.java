@@ -244,8 +244,7 @@ public class Patient extends Person {
                 && other.getName().equals(getName())
                 && other.getNric().equals(getNric())
                 && (other.getPhone().equals(getPhone()) || other.getEmail().equals(getEmail()))
-                && other.getPreferredDoctor().equals(getPreferredDoctor())
-                && other.getAppointment().equals(getAppointment());
+                && other.getPreferredDoctor().equals(getPreferredDoctor());
 
         return isSame;
     }
@@ -278,9 +277,10 @@ public class Patient extends Person {
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getEmail().equals(getEmail())
                 && otherPatient.getAddress().equals(getAddress())
-                && otherPatient.getTags().equals(getTags())
-                && otherPatient.getPreferredDoctor().equals(getPreferredDoctor())
-                && otherPatient.getAppointment().equals(getAppointment());
+                && otherPatient.getMedicalProblems().equals(getMedicalProblems())
+                && otherPatient.getMedications().equals(getMedications())
+                && otherPatient.getAllergies().equals(getAllergies())
+                && otherPatient.getPreferredDoctor().equals(getPreferredDoctor());
     }
 
     @Override
