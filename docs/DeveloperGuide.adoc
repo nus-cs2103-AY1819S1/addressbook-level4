@@ -391,6 +391,25 @@ The groupadd command is indicated as `groupadd` in `commands`, and inherits the 
 
 Given below is an example usage scenario and how the groupadd functionality behaves at each step.
 
+Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
+
+Step 2: `GroupAddCommand` checks passed arguments.
+
+Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
+
+===== groupdelete functionality implementation
+Similar to the other existed functionalities, the groupdelete functionality mainly consists of a groupdeleteCommandParser and a groupdeleteCommand.
+The groupdelete parser is indicated as `groupdeleteCommand` in `parsers`, and inherits the `Parser` class. It enables the application to handle the input given by the the user.
+The groupdelete command is indicated as `groupdelete` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to "delete" a word group and all the words inside.
+
+Given below is an example usage scenario and how the groupadd functionality behaves at each step.
+
+Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
+
+Step 2: `GroupDeleteCommand` checks passed arguments.
+
+Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+
 
 // end::group[]
 
@@ -512,29 +531,6 @@ Step 2: `SelectCommand` checks passed arguments.
 
 Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
 
-**groupadd**
-
-The select command is indicated as `GroupAddCommand` in `commands`, and inherits the `Command` class. It create a new group in which the uesr can put words.
-
-Below is a description on how the select function operates:
-
-Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
-
-Step 2: `GroupAddCommand` checks passed arguments.
-
-Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
-
-**groupdelete**
-
-The select command is indicated as `GroupDeleteCommand` in `commands`, and inherits the `Command` class. It delete a group and all words in it.
-
-Below is a description on how the select function operates:
-
-Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
-
-Step 2: `GroupDeleteCommand` checks passed arguments.
-
-Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
 
 **Word Of The Day**
 
