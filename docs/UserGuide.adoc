@@ -273,20 +273,20 @@ Note: The game mode command is **not affected by undo/redo**, because it does no
 ====== Flat
 
 The Flat mode awards a constant amount of xp for a task completed on time, and a constant but lower amount of xp for
-a task completed after the deadline (with status OVERDUE). This is the most basic mode, and is enabled by default. 
+a task completed after the deadline (with status OVERDUE). This is the most basic mode, and is enabled by default.
 Higher difficulties award a greater reward for tasks completed on time, but also give less reward for overdue tasks.
 
 ====== Decreasing
 
 The Decreasing mode awards a maximum amount of xp for a task completed before the deadline, with the amount awarded
-decreasing over time to a minimum at or past the deadline. This mode is recommended for procrastinators who want 
+decreasing over time to a minimum at or past the deadline. This mode is recommended for procrastinators who want
 WatchOver to reward early completion of deadlines. Setting a higher difficulty level lowers the minimum, making
 procrastination more costly.
 
 ====== Increasing
 The Increasing mode awards a base amount of xp for tasks, which increases as the deadline nears and peaks when the
 deadline is reached. This mode can be considered the opposite of the Decreasing mode. It is recommended for motivated
-users who want the xp awards to reflect the urgency of the task; the reasoning being that if the current amount of 
+users who want the xp awards to reflect the urgency of the task; the reasoning being that if the current amount of
 xp has not yet been able to make the task 'worth it' to complete, then the amount should increase. Higher difficulties
 increase the magnitude and duration over which the xp increases.
 
@@ -295,9 +295,9 @@ The Priority mode leaves the xp decision up to the user. It awards a flat rate o
 value of the task. **This mode ignores difficulty.**
 
 
-Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where: 
+Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 	`GAME_MODE` can be `flat` (default), `decreasing`, `increasing`, `priority`;
-	`GAME_DIFFICULTY` can be `easy`, `medium` (default), `hard`, `extreme`. 
+	`GAME_DIFFICULTY` can be `easy`, `medium` (default), `hard`, `extreme`.
 
 [%hardbreaks]
 +Example: `mode flat`
