@@ -46,6 +46,9 @@ public class OccasionLocation {
      * Makes an identical deep copy of this OccasionLocation.
      */
     public OccasionLocation makeDeepDuplicate() {
+        if (this.fullOccasionLocation.equals("")) {
+            return new OccasionLocation();
+        }
         OccasionLocation newLocation = new OccasionLocation(new String(fullOccasionLocation));
         return newLocation;
     }
