@@ -55,9 +55,9 @@ public class LogicManager extends ComponentManager implements Logic {
      * Verifies if a {@code Command} is a guest command which can be executed without being authenticated.
      */
     private boolean isGuestCommand(Command command) {
-        return command instanceof LoginCommand || command instanceof HelpCommand || command instanceof ExitCommand
-                || command instanceof SelectItemCommand || command instanceof FindItemCommand
-                || command instanceof FilterMenuCommand
+        return command instanceof LoginCommand || command instanceof HelpCommand
+                || command instanceof ExitCommand || command instanceof SelectItemCommand
+                || command instanceof FindItemCommand || command instanceof FilterMenuCommand
                 || command instanceof ListItemsCommand || command instanceof SortMenuCommand
                 || command instanceof TodaySpecialCommand;
     }
