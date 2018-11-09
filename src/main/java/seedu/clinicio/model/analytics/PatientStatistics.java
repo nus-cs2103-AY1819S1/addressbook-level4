@@ -24,7 +24,7 @@ import seedu.clinicio.model.patient.Patient;
  */
 public class PatientStatistics extends Statistics {
 
-    private static final String SUMMARY_TITLE = "Number of consultations";
+    private static final String SUMMARY_TITLE = "Number of patients";
 
     private List<Patient> patients;
     private List<Consultation> consultations;
@@ -63,12 +63,7 @@ public class PatientStatistics extends Statistics {
             .collect(Collectors.toList());
 
         List<DayOfWeek> days = DateUtil.getDaysOfWeek();
-        List<String> xLabels = days.stream()
-            .map(dayOfWeek -> dayOfWeek.name())
-            .collect(Collectors.toList());
-
         List<Tuple<String, Integer>> daysCounts = new ArrayList<>();
-
         // calculate the number of consultations for each day.
         for (DayOfWeek dayOfWeek : days) {
             long dayCount = consultationDates.stream()
@@ -79,9 +74,9 @@ public class PatientStatistics extends Statistics {
             daysCounts.add(new Tuple<String, Integer>(dayOfWeek.name(), toIntExact(dayCount)));
         }
 
-        statData.addVisualizationLabels("patientsDayOfWeek", ChartType.VERTICAL_BAR, "Number of patients " +
-            "for each day of the week", "Day of Week", "Number of Patients", xLabels, Arrays.asList(daysCounts),
-            Arrays.asList(""));
+        statData.addVisualization("patientsDayOfWeek", ChartType.VERTICAL_BAR, false,
+            "Number of patients for each day of the week", "Day of Week", "Number of Patients",
+            Arrays.asList(daysCounts), Arrays.asList(""));
     }
 
     /**
@@ -96,7 +91,6 @@ public class PatientStatistics extends Statistics {
             .collect(Collectors.toList());
 
         List<Tuple<Tuple<Time, Time>, Integer>> timeGroupsCount = TimeUtil.getTimeGroupsCount(consultationTimes);
-
         List<Tuple<String, Integer>> timeGroupsCountToDisplay = timeGroupsCount.stream()
             .map(timeGroupCount -> new Tuple<String, Integer>(
                     timeGroupCount.getKey().getKey().toStringNoLabel() + " - " + timeGroupCount.getKey().getValue()
@@ -105,14 +99,9 @@ public class PatientStatistics extends Statistics {
                 )
             ).collect(Collectors.toList());
 
-
-        List<String> xLabels = timeGroupsCountToDisplay.stream()
-            .map(timeGroupCount -> timeGroupCount.getKey())
-            .collect(Collectors.toList());
-
-        statData.addVisualizationLabels("patientsTimeOfDay", ChartType.VERTICAL_BAR, "Number of " +
+        statData.addVisualization("patientsTimeOfDay", ChartType.VERTICAL_BAR, false, "Number of " +
             "patients for various time periods in a day.", "Time Period", "Number of Patients",
-            xLabels, Arrays.asList(timeGroupsCountToDisplay), Arrays.asList(""));
+            Arrays.asList(timeGroupsCountToDisplay), Arrays.asList(""));
     }
 
     @Override

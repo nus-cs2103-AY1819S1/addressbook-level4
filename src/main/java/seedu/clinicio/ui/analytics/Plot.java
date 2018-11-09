@@ -13,6 +13,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
+import seedu.clinicio.model.analytics.ChartType;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -24,7 +25,6 @@ import seedu.clinicio.model.analytics.data.VisualizationData;
  */
 public class Plot {
     private static final int NUM_SUMMARY_ELEMENTS = 4;
-    private static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
     /**
      * Edits ui labels to show summary texts and corresponding values.
@@ -42,80 +42,28 @@ public class Plot {
             summaryLabels.get(i).getKey().setText(summaryElementI.getKey().toString());
             // set text for summary value label
             summaryLabels.get(i).getValue().setText(summaryElementI.getValue().toString());
-            i++;
         }
     }
 
     /**
-     * Decides which chart type to plot.
-     * @param data The data to plot.
-     * @param chartPane The pane to be plotted on.
+     * Plots a chart using {@code data} onto a pane by forming the various components.
+     * Components that make up a plot: axes, chart, series
      */
     public static void plotChart(VisualizationData data, Pane chartPane) {
-        switch (data.getChartType()) {
-        case VERTICAL_BAR:
-            plotVerticalBar((VisualizationData<String>) data, chartPane);
-            break;
-        case HORIZONTAL_BAR:
-            plotHorizontalBar((VisualizationData<String>) data, chartPane);
-            break;
-        case STACKED_BAR:
-            plotStackedBar((VisualizationData<String>) data, chartPane);
-            break;
-        case LINE:
-            plotLine(data, chartPane);
-            break;
-        case AREA:
-            break;
-        default:
-            break;
+        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), data.isContinuous());
+
+        XYChart chart = getChart(data.getChartType(), axes);
+        chart.setId(data.getId());
+        chart.setTitle(data.getChartTitle());
+
+        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels(), data
+            .getChartType().equals(ChartType.HORIZONTAL_BAR));
+        chart.getData().addAll(allSeries);
+
+        if (chart != null) {
+            chart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
+            chartPane.getChildren().add(chart);
         }
-    }
-
-    /**
-     * Plots a stacked bar chart.
-     * Assumes a minimum of two groups of data.
-     */
-    public static void plotStackedBar(VisualizationData data, Pane chartPane) {
-        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
-        StackedBarChart<String, Number> stackedBarChart = getStackedBarChart(axes, data.getId(), data.getChartTitle());
-        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
-
-        for (XYChart.Series series : allSeries) {
-            stackedBarChart.getData().add(series);
-        }
-        stackedBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-        chartPane.getChildren().add(stackedBarChart);
-    }
-
-    /**
-     * Plots a vertical bar chart for categorical data.
-     */
-    public static void plotVerticalBar(VisualizationData data, Pane chartPane) {
-        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
-        BarChart<String, Number> verticalBarChart = getVerticalBarChart(axes, data.getId(), data.getChartTitle());
-        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
-
-        for (XYChart.Series series : allSeries) {
-            verticalBarChart.getData().add(series);
-        }
-        verticalBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-        chartPane.getChildren().add(verticalBarChart);
-    }
-
-    /**
-     * Plots a horizontal bar chart for categorical data.
-     */
-    public static void plotHorizontalBar(VisualizationData data, Pane chartPane) {
-        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
-        BarChart<Number, String> horizontalBarChart = getHorizontalBarChart(axes, data.getId(), data.getChartTitle());
-        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
-
-        for (XYChart.Series series : allSeries) {
-            horizontalBarChart.getData().add(series);
-        }
-        horizontalBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-        chartPane.getChildren().add(horizontalBarChart);
     }
 
     /**
@@ -125,108 +73,59 @@ public class Plot {
         Axis xAxis;
         if (isContinuous) {
             xAxis = new NumberAxis();
-            xAxis.setLabel(xTitle);
         } else {
             xAxis = new CategoryAxis();
-            xAxis.setLabel(xTitle);
         }
+        xAxis.setLabel(xTitle);
 
-        NumberAxis yAxis = new NumberAxis(0, 25, 5);
+        NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yTitle);
+
         return new Tuple<>(xAxis, yAxis);
     }
 
     /**
-     * @return A stacked bar chart with the appropriate axes, id and title.
+     * Decides which chart type to plot.
+     * @param axes The two axes of the chart..
      */
-    public static StackedBarChart<String, Number> getStackedBarChart(Tuple<Axis, Axis> axes, String id, String title) {
-        StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(axes.getKey(), axes.getValue());
-        stackedBarChart.setTitle(title);
-        stackedBarChart.setId(id);
-        return stackedBarChart;
+    public static XYChart getChart(ChartType type, Tuple<Axis, Axis> axes) {
+        switch (type) {
+        case VERTICAL_BAR:
+            return new BarChart<String, Number>(axes.getKey(), axes.getValue());
+        case HORIZONTAL_BAR:
+            return new BarChart<>(axes.getValue(), axes.getKey());
+        case STACKED_BAR:
+            return new StackedBarChart<String, Number>(axes.getKey(), axes.getValue());
+        case LINE:
+            return new LineChart<>(axes.getKey(), axes.getValue());
+        default:
+            return null;
+        }
     }
 
     /**
-     * @return a vertical bar chart with the appropriate axes, id and title.
+     * @return one or more series of data to be plotted on a chart.
      */
-    public static BarChart<String, Number> getVerticalBarChart(Tuple<Axis, Axis> axes, String id, String title) {
-        BarChart<String, Number> verticalBarChart = new BarChart<>(axes.getKey(), axes.getValue());
-        verticalBarChart.setTitle(title);
-        verticalBarChart.setId(id);
-        return verticalBarChart;
-    }
-
-    /**
-     * @return a horizontal bar chart with the appropriate axes, id and title.
-     */
-    public static BarChart<Number, String> getHorizontalBarChart(Tuple<Axis, Axis> axes, String id, String title) {
-        BarChart<Number, String> horizontalBarChart = new BarChart<>(axes.getValue(), axes.getKey());
-        horizontalBarChart.setTitle(title);
-        horizontalBarChart.setId(id);
-        return horizontalBarChart;
-    }
-
-    /**
-     * @return one or more series of dat to be plotted on a chart.
-     */
-    public static List<XYChart.Series> getSeries(List<List<Tuple<?, Integer>>> dataGroups, List<String> dataGroupLabels) {
+    public static List<XYChart.Series> getSeries(List<List<Tuple>> dataGroups, List<String> dataGroupLabels, boolean
+        isHorizontal) {
         List<XYChart.Series> allSeries = new ArrayList<>();
-
         for (int i = 0; i < dataGroups.size(); i++) {
-            List<Tuple<?, Integer>> seriesData = dataGroups.get(i);
-
-            XYChart.Series series = new XYChart.Series();
+            XYChart.Series series = new XYChart.Series<>();
             series.setName(dataGroupLabels.get(i));
+
+            List<Tuple> seriesData = dataGroups.get(i);
             for (Tuple dataPoint : seriesData) {
-                series.getData().add(new XYChart.Data(dataPoint.getKey(), dataPoint.getValue()));
+                if (isHorizontal) {
+                    series.getData().add(new XYChart.Data<>(dataPoint.getValue(), dataPoint.getKey()));
+                } else {
+                    series.getData().add(new XYChart.Data<>(dataPoint.getKey(), dataPoint.getValue()));
+                }
             }
 
             allSeries.add(series);
         }
 
         return allSeries;
-    }
-
-    /**
-     * Plots a line chart for continuous data.
-     * May have String or Integer labels on x axis.
-     * For String labels, data points must consist of String, Integer pairs. The String components of all the pairs that
-     * match the supplied labels will be shown as the  x axis tick labels while those that don't match will be removed.
-     */
-    public static void plotLine(VisualizationData data, Pane chartPane) {
-        // check x axis is to have String labels.
-        if (data.getXLabels() != null) {
-            data = (VisualizationData<String>) data;
-
-            final CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel(data.getXTitle());
-
-            final NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel(data.getYTitle());
-
-            final LineChart<String, Number> lineChart = new LineChart<String, Number>(xAxis, yAxis);
-            lineChart.setTitle(data.getChartTitle());
-
-            for (int i = 0; i < data.getDataGroups().size(); i++) {
-                XYChart.Series<String, Number> series = new XYChart.Series<>();
-                series.setName((String) data.getDataGroupsLabels().get(i));
-
-                List<Tuple<String, Integer>> seriesData = (List<Tuple<String, Integer>>) data.getDataGroups().get(i);
-                for (Tuple<String, Integer> dataPoint : seriesData) {
-                    String xAxisTick = dataPoint.getKey();
-                    // remove data point if the list of labels does not contain the data point's x value.
-                    if (!data.getXLabels().contains(xAxisTick)) {
-                       continue;
-                    }
-                    series.getData().add(new XYChart.Data<String, Number>(xAxisTick, dataPoint.getValue()));
-                }
-
-                lineChart.getData().add(series);
-            }
-
-            lineChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-            chartPane.getChildren().add(lineChart);
-        }
     }
 }
 

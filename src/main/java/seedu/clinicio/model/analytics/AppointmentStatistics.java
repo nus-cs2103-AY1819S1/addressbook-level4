@@ -125,34 +125,24 @@ public class AppointmentStatistics extends Statistics {
             .map(dayOfWeek -> dayOfWeek.name())
             .collect(Collectors.toList());
 
-        statData.addVisualizationLabels("apptSupplyDemand", ChartType.STACKED_BAR,
-            "Appointments next week", "Day of week", "Number of appointments", nextWeekDays,
+        statData.addVisualization("apptSupplyDemand", ChartType.STACKED_BAR, false,
+            "Appointments next week", "Day of week", "Number of appointments",
             appointmentDataGroups, appointmentLabelGroups);
     }
 
     /**
-     * Computes data to plot the number of appointments over the course of the current year.
+     * Computes data to plot the number of appointments for each month of the current year.
      */
     public void plotAppointmentsOverYear() {
-        List<Date> currentYearDates = DateUtil.getCurrentYearDates();
-
-        List<Tuple<String, Integer>> dateCounts = new ArrayList<>();
-        for (Date currentYearDate : currentYearDates) {
-            long numberOfAppointments = appointments.stream()
-                .map(appt -> appt.getAppointmentDate())
-                .filter(date -> date.equals(currentYearDate))
-                .count();
-
-            dateCounts.add(new Tuple<String, Integer>(currentYearDate.toStringNoLabel(), toIntExact
-                (numberOfAppointments)));
-        }
-
-        List<String> xLabels = DateUtil.getFirstDatesOfCurrentYear().stream()
-            .map(date -> date.toStringNoLabel())
+        List<Date> appointmentDates = appointments.stream()
+            .map(appt -> appt.getAppointmentDate())
             .collect(Collectors.toList());
 
-        statData.addVisualizationLabels("apptsYear", ChartType.LINE, "Number of Appointments This Year", "Date",
-            "Number of Appointments", xLabels, Arrays.asList(dateCounts), Arrays.asList(""));
+        // get data points
+        List<Tuple<String, Integer>> monthCounts = DateUtil.eachMonthOfCurrentYear(appointmentDates);
+        statData.addVisualization("apptsYear", ChartType.LINE, false,
+            "Number of Appointments This Year", "Date", "Number of Appointments",
+            Arrays.asList(monthCounts), Arrays.asList(""));
     }
 
     /**

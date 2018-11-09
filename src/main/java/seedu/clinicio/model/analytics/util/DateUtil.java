@@ -4,8 +4,10 @@ import static java.lang.Math.toIntExact;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
+import java.awt.event.MouseEvent;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
 
 //@@author arsalanc-v2
@@ -115,17 +119,21 @@ public class DateUtil {
     }
 
     /**
-     * @return A Map of the number of dates that occur for each month of the current year.
+     * @return A Tuple of the number of dates that occur for each month of the current year, in order.
      * Useful for categorical plots over the months of a year.
      */
-    public static Map<String, Integer> eachMonthOfCurrentYear(List<Date> dates) {
-        LocalDate todayDate = LocalDate.now();
+    public static List<Tuple<String, Integer>> eachMonthOfCurrentYear(List<Date> dates) {
+        List<Tuple<String, Integer>> monthCounts = new ArrayList<>();
+        for (Month month : getMonthsOfYear()) {
+            long count = dates.stream()
+                .map(date -> getLocalDate(date))
+                .filter(localDate -> localDate.getMonth().equals(month))
+                .count();
 
-        return dates.stream()
-            .map(date -> getLocalDate(date))
-            .filter(localDate -> localDate.getYear() == todayDate.getYear())
-            .map(localDate -> localDate.getMonth().toString())
-            .collect(groupingBy(Function.identity(), summingInt(date -> 1)));
+            monthCounts.add(new Tuple<String, Integer>(month.name(), toIntExact(count)));
+        }
+
+        return monthCounts;
     }
 
     /**
@@ -252,10 +260,17 @@ public class DateUtil {
     }
 
     /**
-     * @return a list of each {@code DayOfWeek}
+     * @return a list of each {@code DayOfWeek}.
      */
     public static List<DayOfWeek> getDaysOfWeek() {
         return Arrays.asList(DayOfWeek.values());
+    }
+
+    /**
+     * @return a list of each month.
+     */
+    public static List<Month> getMonthsOfYear() {
+        return Arrays.asList(Month.values());
     }
 
     /**

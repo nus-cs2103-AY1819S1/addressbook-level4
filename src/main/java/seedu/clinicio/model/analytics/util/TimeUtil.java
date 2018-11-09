@@ -27,7 +27,6 @@ public class TimeUtil {
         new Tuple<Time, Time>(new Time(18, 0), new Time(20, 59))
     );
 
-
     /**
      * @return the number of occurrences for each time period.
      */

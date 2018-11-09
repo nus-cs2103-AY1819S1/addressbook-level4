@@ -11,11 +11,7 @@ import seedu.clinicio.model.analytics.ChartType;
  * A convenient wrapper for summary and visualization data for a particular class of statistics.
  * There can only be one set of summary data.
  * There can be multiple visualizations.
-<<<<<<< HEAD
  * Lists of tuples are used to represent ordering.
-=======
- * Lists of tuples are used to indicate ordering and avoid mutating {@code HashMap} keys
->>>>>>> 9ad5b42fa9d38917b120d3d9166a9717fb8d4556
  */
 public class StatData {
 
@@ -55,7 +51,7 @@ public class StatData {
 
         List<Tuple<String, Integer>> newSummaryElements = new ArrayList<>();
         for (int i = 0; i < NUM_SUMMARY_ELEMENTS; i++) {
-            // create a pair of text and value, and add it to the list
+            // create a tuple of text and value, and add it to the list
             newSummaryElements.add(new Tuple<String, Integer>(summaryTexts.get(i), summaryValues.get(i)));
         }
 
@@ -76,30 +72,12 @@ public class StatData {
      * @param chartTitle
      * @param xTitle
      * @param yTitle
-     * @param xLabels
      * @param dataGroups
      */
-    public void addVisualizationLabels(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
-        List<String> xLabels, List<List<Tuple<String, Integer>>> dataGroups, List<String> dataGroupsLabels) {
+    public void addVisualization(String id, ChartType type, boolean isContinuous, String chartTitle, String xTitle,
+        String yTitle, List<List<Tuple<String, Integer>>> dataGroups, List<String> dataGroupsLabels) {
         assert dataGroups.size() == dataGroupsLabels.size() : "Each data group should have one label";
-
-        allVisualizationData.add(new VisualizationData<String>(id, type, chartTitle, xTitle,
-            yTitle, xLabels, dataGroups, dataGroupsLabels));
-    }
-
-    /**
-     * Creates a continuous visualization.
-     * Requires the minimum amount of information from statistics classes to represent data to be visualized.
-     * @param type
-     * @param chartTitle
-     * @param xTitle
-     * @param yTitle
-     * @param dataGroups
-     */
-    public void addContinuousVisualization(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
-        List<List<Tuple<Integer, Integer>>> dataGroups, List<String> dataGroupsLabels) {
-
-        allVisualizationData.add(new VisualizationData<Integer>(id, type, chartTitle, xTitle,
+        allVisualizationData.add(new VisualizationData<String>(id, type, isContinuous, chartTitle, xTitle,
             yTitle, dataGroups, dataGroupsLabels));
     }
 

@@ -90,9 +90,9 @@ public class AnalyticsDisplay extends UiPart<Region> {
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
         allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
+        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         CircularList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
         Plot.plotChart(allVisualizationData.getNext(), chartPane);
-        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
     }
 
     public void setVisible(boolean isVisible) {

@@ -13,52 +13,31 @@ import seedu.clinicio.model.analytics.ChartType;
  */
 public class VisualizationData<T> {
 
-    public static final int NUM_VISUALIZATION_ELEMENTS = 6;
-
-    // fields for a chart
+    // fields for a plot
+    private boolean isContinuous;
     private String id;
     private ChartType type;
     private String chartTitle;
     private String xTitle;
     private String yTitle;
-    private List<String> xLabels;
     private List<List<Tuple<T, Integer>>> dataGroups;
     private List<String> dataGroupsLabels;
 
     /**
-     * Visualizations with the labels for one axis specified.
-     * May be categorical or continuous.
-     * @param type
-     * @param chartTitle
-     * @param xTitle
-     * @param yTitle
-     * @param xLabels
-     * @param dataGroups
-     */
-    public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle, List<String>
-        xLabels, List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
-        this.id = id;
-        this.type = type;
-        this.chartTitle = chartTitle;
-        this.xTitle = xTitle;
-        this.yTitle = yTitle;
-        this.xLabels = xLabels;
-        this.dataGroups = dataGroups;
-        this.dataGroupsLabels = dataGroupsLabels;
-    }
-
-    /**
-     * Continuous visualizations for data points composed only of an Integer, Integer pairing.
+     * Categorical or continuous visualizations.
+     * Continuous visualizations are composed only of an Integer, Integer pairing.
      * @param type
      * @param chartTitle
      * @param xTitle
      * @param yTitle
      * @param dataGroups
      */
-    public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
+    public VisualizationData(String id, ChartType type, boolean isContinuous, String chartTitle, String xTitle, String
+        yTitle,
         List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
         this.id = id;
         this.type = type;
+        this.isContinuous = isContinuous;
         this.chartTitle = chartTitle;
         this.xTitle = xTitle;
         this.yTitle = yTitle;
@@ -86,8 +65,8 @@ public class VisualizationData<T> {
         return yTitle;
     }
 
-    public List<?> getXLabels() {
-        return xLabels;
+    public boolean isContinuous() {
+        return isContinuous;
     }
 
     /**
