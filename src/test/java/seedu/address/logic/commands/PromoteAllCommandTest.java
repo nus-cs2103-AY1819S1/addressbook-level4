@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.PromoteCommand.MESSAGE_GRADUATED_STUDENTS;
 import static seedu.address.logic.commands.PromoteCommand.MESSAGE_SUCCESS;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
