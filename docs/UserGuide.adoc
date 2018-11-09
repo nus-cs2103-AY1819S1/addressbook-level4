@@ -722,7 +722,7 @@ Examples:
 
 == Command Summary
 
-[width="80%",cols="14%,<25%,<25%",options="header",]
+[width="70%",cols="14%,<25%,<25%",options="header",]
 |=======================================================================
 |Command |Format |Example
 | *Add Person* | `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
