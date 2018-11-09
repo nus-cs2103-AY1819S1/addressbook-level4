@@ -37,10 +37,6 @@ public class AppContentParser {
                                 Storage storage) throws ParseException {
         Context context = history.getContext();
 
-        if (storage == null) {
-            storage = new StorageManager();
-        }
-
         if (userInput.charAt(0) == '-') {
 
             return new UniversalParser().parseCommand(history, userInput);

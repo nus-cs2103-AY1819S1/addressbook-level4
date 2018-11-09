@@ -308,6 +308,7 @@ public class MainWindow extends UiPart<Stage> {
 
         default:
             switchToRecipeListPanel();
+            break;
         }
     }
 
