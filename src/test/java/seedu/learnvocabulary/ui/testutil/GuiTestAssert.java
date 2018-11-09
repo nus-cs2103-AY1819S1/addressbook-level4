@@ -46,27 +46,8 @@ public class GuiTestAssert {
      */
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
-        //case "toLearn":
-        //case "justAdded":
-        //    return "teal";
-        //case "birds":
-        //case "animals":
-        //case "floating":
-        //    return "green";
-        //case "ability":
-        //    return "red";
-        //case "complicated":
-        //case "difficult":
-        //    return "orange";
-        //
-        //case "easy":
-        //    return "brown";
-        //
-        //case "usable":
-        //    return "grey";
         default:
             return "green";
-            //throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 

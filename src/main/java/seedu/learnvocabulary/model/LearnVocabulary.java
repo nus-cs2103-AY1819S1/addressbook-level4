@@ -38,7 +38,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     }
     //@@author Harryqu123
     private final Set<Tag> addedTag = new HashSet<>() {{
-            add(new Tag("toLearn"));
+            add(new Tag(Tag.DEFAULT_TAG));
         }};
     //@@author
     public LearnVocabulary() {}
@@ -69,7 +69,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         setWords(newData.getWordList());
         //@@author Harryqu123
         addedTag.clear();
-        addedTag.add(new Tag("toLearn"));
+        addedTag.add(new Tag(Tag.DEFAULT_TAG));
         //@@author
     }
 
