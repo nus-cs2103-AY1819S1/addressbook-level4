@@ -520,7 +520,7 @@ Format: `logout`
 |*View* |`view`
 |*View status* |`viewstatus <name>`
 
-2+|*Find the relevant list of rides*|
+2+|*Find the relevant list of rides*
 |*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
 |*Find* |`find <[name] [[tag][keyword]…​]>`
 |=======================================================================

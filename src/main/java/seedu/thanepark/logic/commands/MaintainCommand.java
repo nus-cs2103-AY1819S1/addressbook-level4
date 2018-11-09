@@ -75,7 +75,8 @@ public class MaintainCommand extends Command {
      * Creates and returns a {@code Ride} with the details of {@code rideToMaintain}
      * edited with {@code maintainRideDescriptor}.
      */
-    private static Ride createUpdatedRide(Ride rideToMaintain, MaintainCommand.UpdateRideDescriptor openRideDescriptor) {
+    private static Ride createUpdatedRide(Ride rideToMaintain,
+                                          MaintainCommand.UpdateRideDescriptor openRideDescriptor) {
         assert rideToMaintain != null;
 
         Name updatedName = openRideDescriptor.getName().orElse(rideToMaintain.getName());

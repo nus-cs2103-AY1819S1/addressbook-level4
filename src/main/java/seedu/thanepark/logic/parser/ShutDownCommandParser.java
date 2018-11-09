@@ -17,7 +17,6 @@ public class ShutDownCommandParser implements Parser<ShutDownCommand> {
      * and returns an ShutDownCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-
     @Override
     public ShutDownCommand parse(String args) throws ParseException {
         requireNonNull(args);
