@@ -61,7 +61,7 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times or grades), `t/friend`, 
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-====
+
 
 === Viewing help : `help`
 
@@ -433,21 +433,6 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
-=== Retrieving earnings: `earnings`
-
-Retrieve the total earnings within a range of date in the current year. +
-Format: `earnings START_DATE END_DATE`
-
-[NOTE]
-====
-DDMM is the format of date to be entered. The year will be current year by default.
-====
-
-Example:
-
-* `earnings 0204 2506` +
-This command returns the total amount of tuition fees earned between 2 April 2018 to 25 June 2018 inclusive.
-
 === Give Suggestions to students: `suggestion`
 
 Give Suggestions to students +
@@ -477,8 +462,6 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
-
-<<<<<<< HEAD
 
 [[grade]]
 === Grades attribute
@@ -513,6 +496,7 @@ Change grade:
 
 if you need to change the score of a exam, you can use edit as well.
 
+// tag::promote[]
 === Promote students stored in TutorPal : `promote`
 
 Promotes educational grade of the selected student(s) +
@@ -551,7 +535,7 @@ edit the student's educational level and/or grade.
 * Users can choose to delete graduated students or edit their educational level/grade +
 according to their needs.
 ****
-
+// end::promote[]
 === Analyzing grades commands `[coming in v2.0]`
 
 Analyze the grades of students +
@@ -566,28 +550,28 @@ Format: `grades ACTION [parameters]`
 Regard the mark of the student who doesn't have a grade as 0.
 ====
 
+// tag::earnings[]
 === Retrieving earnings
 
-Retrieve the total earnings within a range of date in the current year. +
+Retrieve the total earnings from tuition fees from all students between a range of date in the current year. +
 Format: `earnings START_DATE END_DATE`
 
-* DDMM is the format of date to be entered.
+* `START_DATE` and `END_DATE` should be given in the format of DDMM.
 * The year field is not required as TutorPal assumes current calender year by default.
 * To calculate the amount of money earned within a day, input the same `START_DATE` and `END_DATE`.
-
-[NOTE]
-====
-As there is no built-in attendance marking capability in TutorPal, the earnings function follows a
-standard one lesson per week schedule and does not account for cancelled or adhoc extra lessons.
-====
+* Students without tuition time slot(s) are ignored by the earnings function.
+* Due to the lack of built-in attendance taking capability in TutorPal, the earnings function: +
+. Follows a standard one lesson per week schedule and does not account for cancelled or ad-hoc lessons.
+. Does not account for students whose time slots have been changed when calculating earnings from a period
+before his/her time slot has been changed.
+. Should only be used to calculate tuition fees that will be earned in the future.
 
 Example:
 
 * `earnings 0204 2506` +
 This command returns the total amount of tuition fees earned between 2 April 2018 to 25 June 2018 inclusive.
+// end::earnings[]
 
-=======
->>>>>>> upstream/master
 // tag::undoredo[]
 === Undoing previous command : `undo`
 

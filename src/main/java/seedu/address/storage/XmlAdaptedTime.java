@@ -64,7 +64,21 @@ public class XmlAdaptedTime {
             break;
         }
 
-        return new Time(dayString + " " + splittedTime[1] + " " + splittedTime[2]);
+        String startTime = correctedTimeFormat(splittedTime[1]);
+        String endTime = correctedTimeFormat(splittedTime[2]);
+
+        return new Time(dayString + " " + startTime + " " + endTime);
+    }
+
+    /**
+     * Checks if the given Time String follows the required format.
+     * Prepends a "0" to the a Time string to ensure that the String follows a 4-digit format required.
+     */
+    public String correctedTimeFormat(String time) {
+        if (time.length() == 3) {
+            time = "0" + time;
+        }
+        return time;
     }
 
     @Override
