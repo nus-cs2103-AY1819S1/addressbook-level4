@@ -348,9 +348,8 @@ public class Event {
                 && otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getOrganiser().equals(getOrganiser())
-                && otherEvent.getDate().equals(getDate())
-                && otherEvent.getStartTime().equals(getStartTime())
-                && otherEvent.getEndTime().equals(getEndTime());
+                && (otherEvent.getDate() == null
+                || otherEvent.getDate().equals(getDate()));
     }
 
     /**

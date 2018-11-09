@@ -39,7 +39,7 @@ public class AddUserCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TIMETABLE + "http://modsn.us/H4v8s "
-            + PREFIX_PASSWORD + "password"
+            + PREFIX_PASSWORD + "password "
             + PREFIX_INTEREST + "study "
             + PREFIX_INTEREST + "play "
             + PREFIX_TAG + "friends "

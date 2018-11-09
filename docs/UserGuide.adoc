@@ -269,12 +269,19 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 
 ==== Create a new event : `addEvent`
 Adds a new event to the Event Organiser. +
-Format: `addEvent n/NAME a/LOCATION t/TAGS`
+Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
+
+****
+* Adds a new event with the given name, location and any number of tags.
+* Tags must be a single word not separated by spaces.
+* The newly created event will display the logged in user as the event organiser.
+* The newly created event will automatically be selected for further editing.
+****
 
 Examples:
 
 * `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
-* `addEvent n/CS1101S Meet-up a/UTown t/By invite`
+* `addEvent n/CS1101S Meet-up a/UTown t/ByInvite`
 
 ==== Delete an event : `deleteEvent`
 Deletes the specified event from the Event Organiser. +
@@ -284,7 +291,8 @@ Format: `deleteEvent INDEX`
 * Deletes the event at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Event can only be deleted by the Event Organiser
+* Event can only be deleted by the event organiser.
+* While it is recommended that the event organiser closes the event after it is over, this is not required, in case the details of the event is needed to record-keeping purposes.
 ****
 
 Examples:
@@ -306,7 +314,6 @@ Format: `selectEvent index`
 image::EventSelectedDisplay.png[width="800"]
 
 ==== Edit an event : `editEvent`
-
 Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command. +
 Format: `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...`
 
@@ -337,6 +344,7 @@ Format: `setDate d/DAY-MONTH-YEAR`
 * Day and month must be written as two digits, e.g. January must be specified as `01` and not `1`.
 * Year must be written out in full.
 * An event must first be selected.
+* You are allowed to set a date before the current day, should you wish to do so for record-keeping purposes.
 ****
 
 Examples:
@@ -361,12 +369,13 @@ Examples:
 
 ==== Create a new poll for an event : `addPoll n/NAME`
 Sets up a new poll for the event with the specified name. +
-Format: `addPoll n/Poll name`
+Format: `addPoll n/POLL_NAME`
 
 * `addPoll n/Date` +
 The screenshot shows the outcome of this command.
 Upon adding a new poll, only the index and name of the poll is displayed, as shown.
 The event organiser can then proceed to add options to the poll.
+Selecting the event again using the `selectEvent` command displays the list of all polls in the event.
 
 image::AddPollDisplay.png[width="800"]
 
@@ -387,10 +396,10 @@ Examples:
 
 ==== Setup poll for location : `addOption`
 Add new poll option in the specified poll. +
-Format: `addOption i/POLL_ID o/OPTION_NAME`
+Format: `addOption i/POLL_INDEX o/POLL_OPTION`
 
 ****
-* The poll index specifies the index of the poll in the selected event.
+* The poll index specifies the index of the poll in the selected event, which can be viewed by selecting the event using `selectEvent`.
 * An event must first be selected.
 * An option can be any string.
 * Time polls do not support adding of options.
@@ -416,6 +425,7 @@ Format: `displayPoll i/POLL_INDEX`
 
 ****
 * The index is the index of the poll in the pre-selected event.
+* An event must be selected before hand.
 * This index can be viewed by selecting the event using the `selectEvent` command.
 * This command displays the most popular options as well as the names of the users who voted for each option.
 ****
@@ -423,7 +433,7 @@ Format: `displayPoll i/POLL_INDEX`
 Examples:
 
 * `displayPoll i/1` +
-Displays the poll with index 1 associated with the selected event.
+Displays the poll with index 1 associated with the already selected event, if it exists in the event.
 
 ==== List all events : `listEvent`
 
@@ -464,7 +474,7 @@ Examples:
 
 ==== Vote for date : `voteOption`
 Vote for a option specified in a specified poll, if there is one.
-Format: `voteDate i/POLL_ID o/OPTION_ID`
+Format: `voteDate i/POLL_INDEX o/POLL_OPTION`
 
 ****
 * The index is the index of the poll in the pre-selected event.

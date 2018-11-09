@@ -178,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //@@theJrLinguist
+    //@@author theJrLinguist
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -210,7 +210,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteEvent(Event target) throws NotEventOrganiserException {
+    public void deleteEvent(Event target) throws NoUserLoggedInException, NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
         if (target.equals(currentEvent)) {
             currentEvent = null;
         }
@@ -254,6 +257,11 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return versionedAddressBook.hasEvent(event);
+    }
+
+    @Override
+    public int getNumEvents() {
+        return filteredEvents.size();
     }
 
     public Event getEvent(Index targetIndex) {
@@ -405,7 +413,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
-
 
     //=========== Undo/Redo =================================================================================
 
