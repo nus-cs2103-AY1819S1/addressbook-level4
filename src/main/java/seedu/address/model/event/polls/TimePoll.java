@@ -67,7 +67,7 @@ public class TimePoll extends AbstractPoll {
         String dateString = date.format(dateFormat);
         List<String> times = sharedSchedule.getFreeSlotsByDay(dayOfWeek)
                 .stream()
-                .map(slot -> slot.getTime())
+                .map(slot -> slot.getTime().getStringRepresentation())
                 .collect(Collectors.toList());
         ArrayList<String> options = new ArrayList<>();
         for (String time : times) {

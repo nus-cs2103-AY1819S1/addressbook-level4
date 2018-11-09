@@ -18,6 +18,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Time;
 
 
 public class MaxScheduleCommandTest {
@@ -80,9 +81,11 @@ public class MaxScheduleCommandTest {
 
         Schedule newSchedule = personToFind1.getSchedule().maxSchedule(personToFind2.getSchedule());
 
+        Time time1 = new Time("0800");
+        Time time2 = new Time("0900");
         String expectedMessage =
             String.format(MaxScheduleCommand.MESSAGE_SUCCESS, newSchedule
-                .freeTimeToStringByTime("0800", "0900"));
+                .freeTimeToStringByTime(time1, time2));
 
         // no change in model
         assertCommandSuccess(maxScheduleCommand, model, commandHistory, expectedMessage, model);

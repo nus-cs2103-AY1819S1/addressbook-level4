@@ -63,124 +63,29 @@ public class Schedule {
     }
 
     /**
-     * Accesses the internal schedule and check if specified day and time is free
+     * Accesses the internal schedule and check if specified day and time is occupied
      *
-     * @param day
-     * @param time
-     * @return
+     * @param slot
+     * @return isoccupied
      */
-    public boolean getTimeDay(String day, String time) throws ParseException {
-
+    public boolean getTimeDay(Slot slot) {
         // day Monday
         // time 0800
-
-        int dayNum = -1;
-        dayNum = getDayNum(day);
-
-
-        int hourNum = Integer.parseInt(time.substring(0, 2));
-
-        int minNum = Integer.parseInt(time.substring(2, 4));
-
-        int timeNum = hourNum * 2;
-
-        if (minNum >= 30) {
-            return value[dayNum][timeNum + 1] == 1 ? true : false;
-        } else {
-            return value[dayNum][timeNum] == 1 ? true : false;
-        }
-
-
+        return value[slot.getDay().getNumberRepresentation()]
+            [slot.getTime().getNumberRepresentation()] == 1 ? true : false;
     }
 
     /**
      * Check the internal schedule and set the vacancy of a specific day and time
      *
-     * @param day
-     * @param time
-     * @param occupied
+     * @param slot
+     * @param isoccupied
      */
-    public void setTimeDay(String day, String time, boolean occupied) throws ParseException {
-
+    public void setTimeDay(Slot slot, boolean isoccupied) throws ParseException {
         // day Monday
         // time 0800
-
-        int dayNum = -1;
-        dayNum = getDayNum(day);
-
-        int timeNum = -1;
-
-        timeNum = Integer.parseInt(time.substring(0, 2)) * 2;
-
-        int minNum = Integer.parseInt(time.substring(2, 4));
-
-        if (minNum >= 30) {
-            value[dayNum][timeNum + 1] = occupied ? 1 : 0;
-        } else {
-            value[dayNum][timeNum] = occupied ? 1 : 0;
-        }
-
-    }
-
-    private int getDayNum(String day) throws ParseException {
-        int dayNum = -1;
-        switch (day.toLowerCase()) {
-        case "monday":
-            dayNum = 0;
-            break;
-        case "tuesday":
-            dayNum = 1;
-            break;
-        case "wednesday":
-            dayNum = 2;
-            break;
-        case "thursday":
-            dayNum = 3;
-            break;
-        case "friday":
-            dayNum = 4;
-            break;
-        case "saturday":
-            dayNum = 5;
-            break;
-        case "sunday":
-            dayNum = 6;
-            break;
-        default:
-            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
-        }
-        return dayNum;
-    }
-
-    private String getNumDay(int dayNum) {
-        String day = "";
-        switch (dayNum) {
-        case 0:
-            day = "monday";
-            break;
-        case 1:
-            day = "tuesday";
-            break;
-        case 2:
-            day = "wednesday";
-            break;
-        case 3:
-            day = "thursday";
-            break;
-        case 4:
-            day = "friday";
-            break;
-        case 5:
-            day = "saturday";
-            break;
-        case 6:
-            day = "sunday";
-            break;
-        default:
-            day = "monday";
-            break;
-        }
-        return day;
+        value[slot.getDay().getNumberRepresentation()]
+            [slot.getTime().getNumberRepresentation()] = isoccupied ? 1 : 0;
     }
 
     /**
@@ -199,28 +104,11 @@ public class Schedule {
     }
 
     /**
-     * Maxs all possible schedules supplied as parameter
-     *
-     * @param schedules
-     * @return
-     */
-    public static Schedule maxSchedule(Schedule... schedules) {
-        Schedule newSchedule = new Schedule();
-
-        // using for each loop to display contents of a
-        for (Schedule s : schedules) {
-            newSchedule.union(s);
-        }
-
-        return newSchedule;
-    }
-
-    /**
      * ORs the Schedules
      *
      * @param schedule
      */
-    private void union(Schedule schedule) {
+    public void union(Schedule schedule) {
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
                 this.value[i][j] = (this.value[i][j] | schedule.value[i][j]);
@@ -240,6 +128,30 @@ public class Schedule {
     }
 
     /**
+     * Maxs all possible schedules supplied as parameter
+     *
+     * @param schedules
+     * @return
+     */
+    public static Schedule maxSchedule(Schedule... schedules) {
+        Schedule newSchedule = new Schedule();
+
+        // using for each loop to display contents of a
+        for (Schedule s : schedules) {
+            newSchedule.union(s);
+        }
+
+        return newSchedule;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Schedule // instanceof handles nulls
+            && Arrays.deepEquals(this.value, ((Schedule) other).value)); // state check
+    }
+
+    /**
      * For poll methods. Return an arraylist of slots of free time
      *
      * @return
@@ -251,13 +163,7 @@ public class Schedule {
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
                 if (this.value[i][j] == 0) {
-                    Slot slot = new Slot();
-                    slot.setDay(getNumDay(i));
-                    if (j / 2 > 9) {
-                        slot.setTime("" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
-                    } else {
-                        slot.setTime("0" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
-                    }
+                    Slot slot = new Slot(i, j);
                     slots.add(slot);
                 }
             }
@@ -276,7 +182,8 @@ public class Schedule {
         ArrayList<Slot> slots = getFreeSlots();
         ArrayList<Slot> filteredSlots = new ArrayList<>();
         for (Slot slot : slots) {
-            if (slot.getDay().equalsIgnoreCase(getNumDay(day - 1))) {
+            if (slot.getDay().getStringRepresentation()
+                .equalsIgnoreCase(Day.VALIDDAYS[(day - 1)])) {
                 filteredSlots.add(slot);
             }
         }
@@ -290,15 +197,14 @@ public class Schedule {
      * @return
      * @throws ParseException
      */
-    public ArrayList<Slot> getFreeSlotsByTime(String startTime, String endTime) {
+    public ArrayList<Slot> getFreeSlotsByTime(Time startTime, Time endTime) {
         ArrayList<Slot> slots = getFreeSlots();
         ArrayList<Slot> filteredSlots = new ArrayList<>();
 
-        int startTimeInt = Integer.valueOf(startTime);
-        int endTimeInt = Integer.valueOf(endTime);
         for (Slot slot : slots) {
-            int time = Integer.valueOf(slot.getTime());
-            if (time >= startTimeInt && time <= endTimeInt) {
+            int time = slot.getTime().getComparsionRepresentation();
+            if (time >= startTime.getComparsionRepresentation()
+                && time <= endTime.getComparsionRepresentation()) {
                 filteredSlots.add(slot);
             }
         }
@@ -307,24 +213,30 @@ public class Schedule {
 
     /**
      * Pretty Print free time by time to string
+     *
      * @return
      * @throws ParseException
      */
-    public String freeTimeToStringByTime(String startTime, String endTime) {
+    public String freeTimeToStringByTime(Time startTime, Time endTime) {
         StringBuilder sb = new StringBuilder();
         getFreeSlotsByTime(startTime, endTime)
-            .forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + "; "));
+            .forEach((slot) -> sb.append(slot.getDay()
+                .getStringRepresentation() + "," + slot.getTime()
+                .getStringRepresentation() + "; "));
         return sb.toString().trim();
     }
 
     /**
      * Pretty Print free time to strig
+     *
      * @return
      * @throws ParseException
      */
     public String freeTimeToString() {
         StringBuilder sb = new StringBuilder();
-        getFreeSlots().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + "; "));
+        getFreeSlots().forEach((slot) -> sb.append(slot.getDay()
+            .getStringRepresentation() + "," + slot.getTime()
+            .getStringRepresentation() + "; "));
         return sb.toString().trim();
     }
 
@@ -338,7 +250,7 @@ public class Schedule {
         sb.append("<tr>");
         sb.append("<th></th>");
         for (int i = 0; i < 7; i++) {
-            sb.append("<th>" + getNumDay(i).substring(0, 3) + "</th>");
+            sb.append("<th>" + Day.VALIDDAYS[i].substring(0, 3) + "</th>");
         }
         sb.append("</tr>");
         int oddatinator = 0;
@@ -366,12 +278,5 @@ public class Schedule {
             sb.append("</tr>");
         }
         return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof Schedule // instanceof handles nulls
-            && Arrays.deepEquals(this.value, ((Schedule) other).value)); // state check
     }
 }
