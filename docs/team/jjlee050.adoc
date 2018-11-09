@@ -56,8 +56,6 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ui-walkthrough]
-
 include::../UserGuide.adoc[tag=authenticationcommands]
 
 include::../UserGuide.adoc[tag=patientcommands]
@@ -69,3 +67,5 @@ include::../UserGuide.adoc[tag=patientcommands]
 |===
 
 include::../DeveloperGuide.adoc[tag=login]
+
+include::../DeveloperGuide.adoc[tag=patientManagement]
