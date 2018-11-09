@@ -144,8 +144,9 @@ public class ClinicIoTest {
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         //Two medicines with the same identity fields
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT);
-        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withMedicinePrice("1.00").build();
-        List<Medicine> newMedicines = Arrays.asList(editedParacetamol, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
+        Medicine editedMedicine = new MedicineBuilder(PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
+                .build();
+        List<Medicine> newMedicines = Arrays.asList(editedMedicine, PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs,
