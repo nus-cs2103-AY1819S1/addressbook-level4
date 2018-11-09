@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class DeleteEventCommandTest {
     public void execute_notEventOrganiser_throwsCommandException() {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
-
+        model.setCurrentUser(BOB);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
