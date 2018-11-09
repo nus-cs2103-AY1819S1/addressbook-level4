@@ -173,8 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedScheduler.equals(other.versionedScheduler)
-            && filteredCalendarEvents.equals(other.filteredCalendarEvents);
+        return versionedScheduler.equals(other.versionedScheduler);
     }
 
 }

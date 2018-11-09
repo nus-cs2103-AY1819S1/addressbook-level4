@@ -112,7 +112,6 @@ public class EditEventCommand extends Command {
         }
 
         model.updateCalendarEvent(calendarEventToEdit, editedCalendarEvent);
-        model.resetFilteredCalendarEventList();
         model.commitScheduler();
         return new CommandResult(String.format(MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent));
     }

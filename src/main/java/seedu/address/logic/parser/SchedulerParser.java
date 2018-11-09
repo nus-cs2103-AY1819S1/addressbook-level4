@@ -18,6 +18,7 @@ import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListEventCommand;
+import seedu.address.logic.commands.ListToDoCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ShowDescriptionCommand;
@@ -83,6 +84,9 @@ public class SchedulerParser {
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommand();
+
+        case ListToDoCommand.COMMAND_WORD:
+            return new ListToDoCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

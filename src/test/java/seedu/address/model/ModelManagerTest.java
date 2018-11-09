@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
+import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.testutil.SchedulerBuilder;
 
 public class ModelManagerTest {
@@ -69,10 +69,10 @@ public class ModelManagerTest {
         // different scheduler -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentScheduler, userPrefs)));
 
-        // different filteredList -> returns false
+        // different filteredList -> returns true
         String[] keywords = LECTURE.getTitle().value.split("\\s+");
-        modelManager.updateFilteredCalendarEventList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
+        modelManager.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(keywords)));
+        assertTrue(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.resetFilteredCalendarEventList();
