@@ -98,14 +98,6 @@ public class TabPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-
-        // switch active tab
-        selectionModel.select(eventsTab);
-    }
-
-    @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 

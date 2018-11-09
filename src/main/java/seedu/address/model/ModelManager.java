@@ -235,6 +235,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        // indicate a change in display, even though displayed data does not change
         indicateEventPanelDisplayChanged();
     }
 
@@ -246,6 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.addListener((ListChangeListener.Change<? extends Event> change) -> {
             if (change.next()) {
                 indicateAddressBookEventChanged();
+                indicateEventPanelDisplayChanged();
             }
         });
     }
