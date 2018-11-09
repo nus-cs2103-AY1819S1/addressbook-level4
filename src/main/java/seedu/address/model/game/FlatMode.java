@@ -13,7 +13,7 @@ public class FlatMode extends GameMode {
     private int completedXp;
 
     FlatMode() {
-        this(25, 50);
+        this(30, 60);
     }
 
     /**
