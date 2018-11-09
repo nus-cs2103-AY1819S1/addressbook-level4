@@ -9,7 +9,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import seedu.address.commons.core.Messages;
@@ -26,6 +25,7 @@ import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Deletes an entry identified using its displayed index in the active list.
@@ -131,9 +131,12 @@ public class DeleteCommand extends Command {
 
         while (occasionListIterator.hasNext()) {
             Occasion occasion = occasionListIterator.next();
-            Optional<Person> possiblyPresentPerson = occasion.getAttendanceList().asNormalList()
-                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
-            possiblyPresentPerson.ifPresent(removePersonFromOccasion(model, occasion));
+            occasion.getAttendanceList()
+                    .asNormalList()
+                    .stream()
+                    .filter(person -> person.isSamePerson(personToDelete))
+                    .findFirst()
+                    .ifPresent(removePersonFromOccasion(model, occasion));
         }
     }
 
@@ -146,10 +149,12 @@ public class DeleteCommand extends Command {
         ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
         while (moduleListIterator.hasNext()) {
             Module module = moduleListIterator.next();
-            Optional<Person> possiblyPresentPerson = module.getStudents().asNormalList()
-                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
-
-            possiblyPresentPerson.ifPresent(removePersonFromModule(model, module));
+            module.getStudents()
+                    .asNormalList()
+                    .stream()
+                    .filter(person -> person.isSamePerson(personToDelete))
+                    .findFirst()
+                    .ifPresent(removePersonFromModule(model, module));
         }
     }
 
@@ -162,10 +167,12 @@ public class DeleteCommand extends Command {
         ListIterator<Person> personListIterator = completePersonList.listIterator();
         while (personListIterator.hasNext()) {
             Person person = personListIterator.next();
-            Optional<Module> possiblyPresentModule = person.getModuleList().asNormalList()
-                    .stream().filter(module -> module.isSameModule(moduleToDelete)).findFirst();
-
-            possiblyPresentModule.ifPresent(removeModuleFromPerson(model, person));
+            person.getModuleList()
+                    .asNormalList()
+                    .stream()
+                    .filter(module -> module.isSameModule(moduleToDelete))
+                    .findFirst()
+                    .ifPresent(removeModuleFromPerson(model, person));
         }
     }
 
@@ -179,10 +186,12 @@ public class DeleteCommand extends Command {
 
         while (personListIterator.hasNext()) {
             Person person = personListIterator.next();
-            Optional<Occasion> possiblyPresentOccasion = person.getOccasionList().asNormalList()
-                    .stream().filter(occasion -> occasion.isSameOccasion(occasionToDelete)).findFirst();
-
-            possiblyPresentOccasion.ifPresent(removeOccasionFromPerson(model, person));
+            person.getOccasionList()
+                    .asNormalList()
+                    .stream()
+                    .filter(occasion -> occasion.isSameOccasion(occasionToDelete))
+                    .findFirst()
+                    .ifPresent(removeOccasionFromPerson(model, person));
         }
     }
 
