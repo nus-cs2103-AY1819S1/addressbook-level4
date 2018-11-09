@@ -66,4 +66,25 @@ public class MaxScheduleCommandTest {
         // no change in model
         assertCommandFailure(maxScheduleCommand, model, commandHistory, expectedMessage);
     }
+
+    @Test
+    public void executeWithLimits() throws ParseException {
+
+        Person personToFind1 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        Person personToFind2 = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+
+        Index[] index = {
+            INDEX_FIRST, INDEX_SECOND
+        };
+        MaxScheduleCommand maxScheduleCommand = new MaxScheduleCommand(index, "0800-0900");
+
+        Schedule newSchedule = personToFind1.getSchedule().maxSchedule(personToFind2.getSchedule());
+
+        String expectedMessage =
+            String.format(MaxScheduleCommand.MESSAGE_SUCCESS, newSchedule
+                .freeTimeToStringByTime("0800", "0900"));
+
+        // no change in model
+        assertCommandSuccess(maxScheduleCommand, model, commandHistory, expectedMessage, model);
+    }
 }

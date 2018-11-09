@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHEDULE;
@@ -107,15 +108,11 @@ class ScheduleTest {
     }
 
     @Test
-    void getFreeSlots() {
-    }
-
-    @Test
-    void getFreeSlotsByDay() {
-    }
-
-    @Test
-    void prettyPrint() {
+    void valid() {
+        Schedule s1 = new Schedule();
+        Schedule s2 = new Schedule();
+        assertEquals(s1.getFreeSlotsByDay(1).size(), 48);
+        assertTrue(s1.equals(s2));
     }
 
 

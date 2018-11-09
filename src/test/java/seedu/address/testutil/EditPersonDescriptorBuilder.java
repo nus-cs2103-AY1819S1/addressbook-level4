@@ -106,7 +106,7 @@ public class EditPersonDescriptorBuilder {
      * @param schedule
      * @return
      */
-    public EditPersonDescriptorBuilder withSchedule(String schedule) throws ParseException {
+    public EditPersonDescriptorBuilder withSchedule(String schedule) {
         descriptor.setSchedule(new Schedule(schedule));
         return this;
     }
@@ -117,8 +117,8 @@ public class EditPersonDescriptorBuilder {
      * @param validScheduleUpdateDay validScheduleUpdateTime
      * @return
      */
-    public EditPersonDescriptorBuilder withUpdateSchedule(String validScheduleUpdateDay, String validScheduleUpdateTime)
-        throws ParseException {
+    public EditPersonDescriptorBuilder withUpdateSchedule(String validScheduleUpdateDay,
+                                                          String validScheduleUpdateTime) throws ParseException {
         Schedule updateSchedule = new Schedule();
         updateSchedule.setTimeDay(validScheduleUpdateDay, validScheduleUpdateTime, true);
         descriptor.setUpdateSchedule(updateSchedule);
