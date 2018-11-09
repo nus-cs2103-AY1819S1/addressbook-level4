@@ -58,7 +58,7 @@ public class PictureCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getTags());
+                personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getMeeting());
         editedPerson.setPicture(picture);
 
         model.updatePerson(personToEdit, editedPerson);
