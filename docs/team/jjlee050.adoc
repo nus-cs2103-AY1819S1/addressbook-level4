@@ -19,7 +19,7 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 
 == 2. Summary of contributions
 
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050 [My Codes]
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050[My Codes]
 
 * *Major enhancement*:
 ** Added *the ability to login/logout commands*
