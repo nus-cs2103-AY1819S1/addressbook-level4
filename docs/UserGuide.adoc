@@ -59,6 +59,8 @@ E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::basic[]
+
 === Adding a word: `add`
 
 Adds a word to the vocabulary list +
@@ -71,6 +73,10 @@ Examples:
 
 * `add n/levitate m/to float or fly t/Test`
 * `add n/levitate m/to float or fly` (toLearn tag will be attached to word by default)
+
+// end::basic[]
+
+//tag::learn[]
 
 === Learning a word: `learn`
 
@@ -88,11 +94,14 @@ Queries the `meaning` on dictionary.com and attaches a default tag (toLearn) to 
 
 This function does *not* accept multiple entries.
 
+// end::learn[]
+
 === Listing all word : `list`
 
 Shows a list of all words in the address book. +
 Format: `list`
 
+// tag::basic[]
 === Editing a word : `edit`
 
 Edits an existing word in the vocabulary list. +
@@ -116,6 +125,8 @@ Edits the tag of the first word to `darkarts`, replacing every other tag.
 
 * `edit 1 t/` +
 Fails to remove all tags as there must be at least one tag attached to every word.
+
+// end::basic[]
 
 === Locating word by name: `find`
 
@@ -227,6 +238,7 @@ Selects the 2nd word in the vocabulary list.
 `select 1` +
 Selects the 1st word in the results of the `find` command.
 
+// tag::basic[]
 === Showing a word : `show`
 Shows the word identified by the word itself.
 
@@ -259,6 +271,8 @@ the default display would be the last displayed placeholder page.
 
 However, user should note that showing a word not present would not result in any changes to the Ui as it is not intended, it
 will still continue to display the previous word being selected in the panel on the right.
+
+// end::basic[]
 
 // tag::trivia[]
 
