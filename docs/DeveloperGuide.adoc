@@ -460,15 +460,16 @@ Step 4. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from
 Step 5. `DeleteEventCommand` calls `getEventToDelete` to retrieve the event based on its index in the list from step 4.
 Step 6. The event is deleted from the system from the `Model` component.
 
-Upon adding/deletion of events in `Model`, `AddressBookChangedEvent` and `AddressBookEventChangedEvent` are triggered from the `Model` component.
+Upon adding/deletion of events in `Model`, `AddressBookChangedEvent`, `AddressBookEventChangedEvent` and `EventPanelDisplayChangedEvent`
+are triggered from the `Model` component.
 The raised events are handled by:
 
-* `UI`, which updates the displayed information, and
+* `UI`, which updates the displayed information and updates the active tab to the Events tab, and
 * `Storage`, which saves the information to an XML data file.
 
 For instance, when an `Event` is added (or deleted), the event triggers are handled as follows.
 
-image::add-event-event-trigger.png[Handling of triggered events]
+image::add-event_event-trigger.png[Handling of triggered events]
 
 ===== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
@@ -567,7 +568,6 @@ When editing an event, there are several possible values that can be updated, in
 However, this functionality is mainly catered to complement the `suggestLocation` functionality, whereby the user
 can first add an event without specifying any location (and address will be displayed as TBD), and
 edit the suggested location in afterwards.
-
 //end::editEventAddress[]
 
 [[EventTags]]
@@ -588,6 +588,35 @@ Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an
 Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system +
 Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag` into `Model`.
 // end::eventTags[]
+
+//tag::filterEvents[]
+=== Filtering of Events
+[[findEvent]]
+==== Find Event (by tag) feature
+===== Current Implementation
+To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
+all events which have at least one tag matching at least one of the keywords provided by the user.
+
+image::find-event_logic-model.png[Interactions between Logic and Model]
+
+Similar to the other event-related commands, the list-filtering is done in `Model`, and
+the change is propagated to the `UI` component by triggering an event. The details of the event triggers are as follows.
+
+image::find-event_event-triggers.png[Handling of triggered events]
+
+[[listEvent]]
+==== Listing of all events
+===== Current Implementation
+To list all events, we make use of a `Predicate` which is always true (the `PREDICATE_LIST_ALL_EVENTS` constant).
+
+image::list-event_logic-model.png[Interactions between Logic and Model]
+
+The `UI` components are updated using a similar flow (by event triggers) to the <<findEvent, find event>> feature. +
+*Note:* The inclusion of the `EventDisplayPanelChangedEvent` is required in `Model#updateFilteredEventList`
+so that `TabPanel` can switch to the event tab automatically whenever any of these commands are executed,
+even if there is no change to data in the filtered list
+(for example, when `listEvent` is executed even though all events are already currently listed).
+//end::filterEvents[]
 
 [[Autocomplete]]
 // tag::autoComplete[]
