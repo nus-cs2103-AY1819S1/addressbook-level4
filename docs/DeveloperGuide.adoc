@@ -725,7 +725,7 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 `equals()` method difficult to implement.
 // end::deleteingredient[]
 
-// tag::menu[]
+// tag::menuPart1[]
 === Menu Management feature
 Menu management feature extends `MeNuS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
@@ -746,6 +746,7 @@ The menu management feature implements the following operations:
 * `today-special` command -- Finds items whose tags contain the `DAY_OF_THE_WEEK`.
 
 Each `Item` object consists of `Name` and `Price`.
+// end::menuPart1[]
 
 ==== `add-item` Command
 The `add-item` command is facilitated by `AddItemCommand` and `AddItemCommandParser`. The command takes in
@@ -759,6 +760,7 @@ If the input is not valid, it will throw a `ParseException`.
 The `AddItemCommand` will indirectly call the `UniqueItemList#add(Item toAdd)` and the adds the item.
 After adding the item, it will save the current state for undo/redo.
 
+// tag::menuPart2[]
 ==== `sort-menu` Command
 The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
 user input for the sorting method.
@@ -780,6 +782,7 @@ image::SortMenuActivityDiagram.png[width="650"]
 The following sequence diagram shows how the `sort-menu` command works:
 
 image::SortMenuSequenceDiagram.png[width="1000"]
+// end::menuPart2[]
 
 ==== `filter-menu` Command
 The `filter-menu` command is facilitated by `FilterMenuCommand` and `FilterMenuCommandParser`. The command takes in
@@ -793,6 +796,7 @@ If the input is not valid, it will throw a `ParseException`.
 The `FilterMenuCommand` will directly call the `ModelManager#updateFilteredItemList(Predicate<Item> predicate)` and
 set the predicate for `ModelManger#filteredItems`.
 
+// tag::menuPart3[]
 ==== Design Considerations
 
 ===== Aspect: How `Price` is parsed
@@ -804,7 +808,7 @@ set the predicate for `ModelManger#filteredItems`.
 ** Pros: Able to display the different currencies.
 ** Cons: Harder to parse as currencies have different decimal places. Additional checks need to be implemented
 to check if the currency symbol and price entered are valid.
-// end::menu[]
+// end::menuPart3[]
 
 //tag::reservations[]
 === Reservations feature
@@ -1509,7 +1513,7 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until item name that does not exist in the menu is entered.
 +
 Use case resumes at step 2.
-
+// end::ucmenu[]
 [discrete]
 === Use case: UC302 - Delete item from menu
 
@@ -1643,7 +1647,7 @@ Use case ends.
 Steps 1a1-1a2 are repeated until invalid file path is entered.
 +
 Use case resumes at step 2.
-// end::ucmenu[]
+
 
 [discrete]
 === Use case: UC401 - Add reservation
