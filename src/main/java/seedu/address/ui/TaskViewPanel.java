@@ -8,6 +8,9 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
@@ -16,57 +19,85 @@ import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.Task;
 
 /**
- * The Browser Panel of the App.
+ * An UI component that displays all information of a {@code Task}.
  */
 public class TaskViewPanel extends UiPart<Region> {
 
-    public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
-
     private static final String FXML = "TaskViewPanel.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    public final Task task;
 
     @FXML
-    private WebView browser;
+    private HBox cardPane;
+    @FXML
+    private Label name;
+    @FXML
+    private Label id;
+    @FXML
+    private Label dueDate;
+    @FXML
+    private Label remainingTime;
+    @FXML
+    private Label description;
+    @FXML
+    private Label priorityValue;
+    @FXML
+    private Label status;
+    @FXML
+    private Label hash;
+    @FXML
+    private Label dependency;
+    @FXML
+    private FlowPane tags;
 
-    public TaskViewPanel() {
+    public TaskViewPanel(Task task, int displayedIndex) {
         super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
-
-        loadDefaultPage();
+        this.task = task;
+        id.setText(displayedIndex + ". ");
+        name.setText(task.getName().fullName);
+        dueDate.setText(task.getDueDate().value);
+        remainingTime.setText(getRemainingTime());
+        description.setText(task.getDescription().value);
+        priorityValue.setText(task.getPriorityValue().value);
+        status.setText(task.getStatus().toString());
+        hash.setText(getHashId());
+        dependency.setText(getDependencies());
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
         registerAsAnEventHandler(this);
     }
 
-    private void loadTaskPage(Task task) {
-        loadPage(SEARCH_PAGE_URL + task.getName().fullName);
+    private String getHashId() {
+        return "Dependency id: " + Integer.toString(task.hashCode());
     }
 
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+    private String getDependencies() {
+        return "dependencies: " + task.getDependency().toString();
     }
 
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+    private String getRemainingTime() {
+        return "remaining time: " + task.getTimeToDueDate();
     }
 
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TaskViewPanel)) {
+            return false;
+        }
+
+        // state check
+        TaskViewPanel panel = (TaskViewPanel) other;
+        return id.getText().equals(panel.id.getText())
+                && task.equals(panel.task);
     }
 
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadTaskPage(event.getNewSelection());
+//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 }
