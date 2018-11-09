@@ -29,6 +29,7 @@ import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.clinicio.logic.commands.ExitCommand;
 import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
 import seedu.clinicio.logic.commands.ExportPatientsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
@@ -125,6 +126,17 @@ public class ClinicIoParserTest {
         assertTrue(parser
                 .parseCommand(ExportPatientsAppointmentsCommand.COMMAND_WORD
                         + " 3") instanceof ExportPatientsAppointmentsCommand);
+    }
+
+    @Test
+    public void parseCommand_exportPatientsConsultations() throws Exception {
+        assertTrue(parser
+                .parseCommand(
+                        ExportPatientsConsultationsCommand
+                                .COMMAND_WORD) instanceof ExportPatientsConsultationsCommand);
+        assertTrue(parser
+                .parseCommand(ExportPatientsConsultationsCommand.COMMAND_WORD
+                        + " 3") instanceof ExportPatientsConsultationsCommand);
     }
 
     @Test
