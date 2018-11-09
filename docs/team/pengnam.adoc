@@ -13,13 +13,11 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement 1*: added functionality to edit, track dependencies in the task manager.
+* *Major enhancement*: Dependency, Time
 ** What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order. Users can order tasks by their dependencies.
-** Justification: This feature improves the product significantly because a user can better priorities
+The time of the earliest due date among all children is displayed in the UI.
+** Justification: This feature improves the product significantly because a user can better prioritise which task to
 ** Highlights: There were significant design choices that needed to be made to specify dependencies (elaborated in Developer Guide).
-
-* *Major enhancement 2*: added time based features in task manager
-** What it does: Users can track in real-time what features are completed and what are not completed based on the
 
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
