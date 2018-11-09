@@ -11,7 +11,6 @@ import static seedu.address.ui.StatusBarFooter.TOTAL_NUMBER_STATUS;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
