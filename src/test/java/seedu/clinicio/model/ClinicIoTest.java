@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_ORACORT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_PARACETAMOL;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
@@ -274,7 +275,7 @@ public class ClinicIoTest {
     @Test
     public void hasMedicine_medicineWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addMedicine(PARACETAMOL);
-        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withMedicinePrice(VALID_PRICE_ORACORT)
                 .build();
         assertTrue(clinicIo.hasMedicine(editedParacetamol));
     }
@@ -310,6 +311,13 @@ public class ClinicIoTest {
     public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         clinicIo.getAppointmentList().remove(0);
+    }
+
+    //@@author aaronseahyh
+    @Test
+    public void getMedicineList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        clinicIo.getMedicineList().remove(0);
     }
 
     /**

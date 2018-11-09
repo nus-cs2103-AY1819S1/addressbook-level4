@@ -1,6 +1,7 @@
 package seedu.clinicio.testutil;
 
 import seedu.clinicio.model.ClinicIo;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
@@ -45,6 +46,16 @@ public class ClinicIoBuilder {
         clinicIo.addStaff(staff);
         return this;
     }
+
+    //@@author aaronseahyh
+    /**
+     * Adds a new {@code Medicine} to the {@code ClinicIo} that we are building.
+     */
+    public ClinicIoBuilder withMedicine(Medicine medicine) {
+        clinicIo.addMedicine(medicine);
+        return this;
+    }
+
 
     public ClinicIo build() {
         return clinicIo;

@@ -85,9 +85,9 @@ public class CommandTestUtil {
     public static final String VALID_MEDICINETYPE_ORACORT = "Topical";
     public static final String VALID_MEDICINETYPE_CHLORPHENIRAMINE = "Liquid";
     public static final String VALID_EFFECTIVEDOSAGE_PARACETAMOL = "2";
-    public static final String VALID_EFFECTIVEDOSAGE_VENTOLIN = "2";
+    public static final String VALID_EFFECTIVEDOSAGE_VENTOLIN = "3";
     public static final String VALID_EFFECTIVEDOSAGE_ORACORT = "4";
-    public static final String VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE = "2";
+    public static final String VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE = "5";
     public static final String VALID_LETHALDOSAGE_PARACETAMOL = "8";
     public static final String VALID_LETHALDOSAGE_VENTOLIN = "10";
     public static final String VALID_LETHALDOSAGE_ORACORT = "30";
@@ -99,7 +99,7 @@ public class CommandTestUtil {
     public static final String VALID_QUANTITY_PARACETAMOL = "1000";
     public static final String VALID_QUANTITY_VENTOLIN = "500";
     public static final String VALID_QUANTITY_ORACORT = "200";
-    public static final String VALID_QUANTITY_CHLORPHENIRAMINE = "500";
+    public static final String VALID_QUANTITY_CHLORPHENIRAMINE = "700";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
