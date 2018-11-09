@@ -4,6 +4,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.clinicio.logic.commands.AppointmentStatisticsCommand.MESSAGE_SUCCESS;
 
 import org.junit.Test;
+
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;

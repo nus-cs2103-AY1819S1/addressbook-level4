@@ -31,6 +31,7 @@ public class MedicalProblemTest {
         //valid medical problem
         assertTrue(MedicalProblem.isValidMedProb("Asthma")); // 1 Words
         assertTrue(MedicalProblem.isValidMedProb("High Blood Pressure")); // Multiple words
+        assertTrue(MedicalProblem.isValidMedProb("H1N1")); // Alphabets and Numbers
 
     }
 }
