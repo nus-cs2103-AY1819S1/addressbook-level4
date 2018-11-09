@@ -13,10 +13,11 @@ import java.util.EnumMap;
 
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.junit.rules.ExpectedException;
+
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.AdjustCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
@@ -137,11 +138,12 @@ public class TranscriptParserTest {
         Module target = TypicalModules.DATA_STRUCTURES;
         AdjustCommand adjustCommand = new AdjustCommand(
                 target.getCode(), target.getYear(), target.getSemester(), target.getGrade());
-        AdjustCommand command = (AdjustCommand) parser.parseCommand(
+        Command command = parser.parseCommand(
                 ModuleUtil.getAdjustModuleCommand(
                         target.getCode(), target.getYear(), target.getSemester(), target.getGrade()));
-        assertTrue(command instanceof  AdjustCommand);
-        assertEquals(adjustCommand, command);
+        assertTrue(command instanceof AdjustCommand);
+        AdjustCommand parsedAdjustCommand = (AdjustCommand) command;
+        assertEquals(adjustCommand, parsedAdjustCommand);
     }
 
     @Test
