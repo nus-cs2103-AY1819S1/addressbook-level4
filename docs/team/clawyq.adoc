@@ -48,7 +48,7 @@ abstractions(placeholders) that help to 'finalise' the information to be used fo
 ** Integrated `MedicalCertificate` with the `DocumentAddContentCommand`.
 ** Designed the `HTML` template which all the classes that extend `Document` use to format their information.
 
-* *Code contributed*: https://github.com/CS2103-AY1819S1-W16-4/main/tree/master/src/main/java/seedu/address/model/document[Implementation of Document and its relevant classes], and their https://github.com/CS2103-AY1819S1-W16-4/main/tree/master/src/test/java/seedu/address/logic[associated test codes.]
+* *Code contributed*: View my code for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=clawyq&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[here]!
 
 * *Other contributions*:
 
