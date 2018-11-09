@@ -212,6 +212,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    @Override
     public void updateArchivedPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         archivedPersons.setPredicate(predicate);
@@ -345,7 +350,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
-
         versionedAssignmentList.updateAssignment(target, editedAssignment);
         indicateAssignmentListChanged();
     }

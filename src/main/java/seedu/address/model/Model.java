@@ -29,6 +29,10 @@ public interface Model {
     /** Returns the current state of the person panel list */
     int getState();
 
+    /** Sets the current state of the person panel list */
+    void setState(int state);
+
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
