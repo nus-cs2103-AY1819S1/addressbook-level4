@@ -208,7 +208,7 @@ public class CalendarDisplay extends UiPart<Region> {
      */
     private void handleCalendarPanelSelectionChangedEvent(CalendarPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setDisplayedDateTime(event.getNewSelection().getStartLocalDateTime());
+        setDisplayedDateTime(event.newSelection.getStartLocalDateTime());
     }
 
     /**
