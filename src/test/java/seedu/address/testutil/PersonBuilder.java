@@ -13,6 +13,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -170,7 +171,8 @@ public class PersonBuilder {
      */
     public PersonBuilder withUpdateSchedule(String updateDay, String updateTime) throws ParseException {
         Schedule updateSchedule = new Schedule();
-        updateSchedule.setTimeDay(updateDay, updateTime, true);
+        Slot slot = new Slot(updateDay, updateTime);
+        updateSchedule.setTimeDay(slot, true);
         this.schedule.xor(updateSchedule);
         return this;
     }

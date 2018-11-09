@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE_UPDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -52,6 +53,7 @@ public class EditUserCommand extends Command {
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_PASSWORD + "PASSWORD] "
         + "[" + PREFIX_TIMETABLE + "TIMETABLE] "
+        + "[" + PREFIX_SCHEDULE_UPDATE + "SCHEDULEUPDATE] "
         + "[" + PREFIX_INTEREST + "INTEREST] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "

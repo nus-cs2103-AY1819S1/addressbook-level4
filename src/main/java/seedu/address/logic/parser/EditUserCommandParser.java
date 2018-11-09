@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE_UPDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
@@ -23,6 +22,7 @@ import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDes
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Slot;
 import seedu.address.model.person.TimeTable;
 import seedu.address.model.tag.Tag;
 
@@ -44,7 +44,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
         }
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                    PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE, PREFIX_SCHEDULE_UPDATE, PREFIX_SCHEDULE);
+                    PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE, PREFIX_SCHEDULE_UPDATE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -65,16 +65,18 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
             editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(tt.convertToSchedule().valueToString()));
         }
 
-        if (argMultimap.getValue(PREFIX_SCHEDULE).isPresent()) {
-            String scheduleString = argMultimap.getValue(PREFIX_SCHEDULE).get();
-            editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
-        }
+        // Meant for debugging only
+        //if (argMultimap.getValue(PREFIX_SCHEDULE).isPresent()) {
+        //    String scheduleString = argMultimap.getValue(PREFIX_SCHEDULE).get();
+        //    editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
+        //}
 
         if (argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).get();
             Schedule s = new Schedule();
             String[] parms = link.split(" ");
-            s.setTimeDay(parms[0].trim(), parms[1].trim(), true);
+            Slot slot = new Slot(parms[0].trim(), parms[1].trim());
+            s.setTimeDay(slot, true);
             editPersonDescriptor.setUpdateSchedule(s);
         }
 
