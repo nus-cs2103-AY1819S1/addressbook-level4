@@ -36,6 +36,7 @@ public class EmbedGoogleMaps {
 
     public static String getPlaceId(String faculty) {
         String placeId = null;
+
         if (faculty.equals("SOC")) {
             placeId = socPlaceId;
         } else if (faculty.equals("FOS")) {
