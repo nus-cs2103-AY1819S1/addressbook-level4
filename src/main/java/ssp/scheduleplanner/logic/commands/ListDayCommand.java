@@ -10,7 +10,7 @@ import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.DateSamePredicate;
 
 /**
- * List all tasks with the current date.
+ * List all tasks of the current date.
  */
 public class ListDayCommand extends Command {
     public static final String COMMAND_WORD = "listday";
