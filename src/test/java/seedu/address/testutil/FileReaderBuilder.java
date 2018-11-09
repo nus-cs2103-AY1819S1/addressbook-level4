@@ -15,7 +15,6 @@ public class FileReaderBuilder {
             .resolve("ImportContacts.csv")
             .toFile()
             .getAbsolutePath();
-
     public static final String EMPTY_CSV_FILE_PATH = Paths
             .get("src", "test", "data", "ImportContactsTest")
             .resolve("EmptyImportContacts.csv")
