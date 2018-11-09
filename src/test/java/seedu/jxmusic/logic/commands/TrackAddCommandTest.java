@@ -14,6 +14,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.CommandHistory;
 
 import seedu.jxmusic.model.Model;
@@ -31,6 +32,7 @@ public class TrackAddCommandTest {
     private List<Track> tracksToAdd = new ArrayList<Track>();
     private Track trackToAdd;
     private Playlist targetPlaylist;
+    private List<Index> indexesToAdd = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -67,7 +69,21 @@ public class TrackAddCommandTest {
     // No need to test if trackToAdd exists: Non-existent track handled by Track class
 
     @Test
-    public void executeAddTrackToPlaylist() {
+    public void executeAddTrackIndexToPlaylist() {
+        int trackIndex = 3;
+        trackToAdd = model.getFilteredTrackList().get(trackIndex);
+        Playlist oneTrack = addTracksToExpectedModel(model.getFilteredTrackList().get(trackIndex));
+        indexesToAdd.add(Index.fromZeroBased(trackIndex));
+        System.out.println(model.getFilteredTrackList());
+        expectedModel = new ModelManager(getTestPlaylistLibrary(oneTrack), new UserPrefs());
+        String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName());
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
+        assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
+    }
+
+    @Test
+    @SuppressWarnings("Duplicates")
+    public void executeAddTrackNameToPlaylist() {
         Playlist oneTrack = addTracksToExpectedModel(trackToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(oneTrack), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName());
@@ -76,7 +92,8 @@ public class TrackAddCommandTest {
     }
 
     @Test
-    public void executeAddTracksToPlaylist() {
+    @SuppressWarnings("Duplicates")
+    public void executeAddTrackNamesToPlaylist() {
         Playlist multipleTracks = addTracksToExpectedModel(tracksToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(multipleTracks), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName());
