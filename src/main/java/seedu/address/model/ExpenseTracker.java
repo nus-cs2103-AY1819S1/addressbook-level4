@@ -240,7 +240,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         LocalDateTime expenseDate = key.getDate().getFullDate();
         LocalDateTime previousResetDateObject = this.maximumTotalBudget.getPreviousRecurrence();
 
-        if (expenseDate.isAfter(previousResetDateObject)) {
+        if (previousResetDateObject == null || expenseDate.isAfter(previousResetDateObject)) {
             this.maximumTotalBudget.removeExpense(key);
         }
     }

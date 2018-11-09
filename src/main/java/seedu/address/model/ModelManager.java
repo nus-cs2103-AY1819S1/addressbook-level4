@@ -589,7 +589,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     protected String checkBudgetRestart() throws NoUserSelectedException {
         String response = this.versionedExpenseTracker.checkBudgetRestart();
-//        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
+        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
         indicateExpenseTrackerChanged();
         return response;
     }
@@ -597,6 +597,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
+
         ModelManager copy = new ModelManager(expenseTrackers, userPrefs, tips);
         copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
         copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());
