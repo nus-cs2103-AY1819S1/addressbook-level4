@@ -176,7 +176,7 @@ public class Patient extends Person {
     public void setPreferredDoctor(Staff staff) {
         requireNonNull(staff);
 
-        preferredDoctor = Optional.of(staff);
+        preferredDoctor = Optional.ofNullable(staff);
     }
 
     /**
@@ -186,7 +186,7 @@ public class Patient extends Person {
     public void setAppointment(Appointment appointment) {
         requireNonNull(appointment);
         appointmentHistory.add(appointment);
-        this.appointment = Optional.of(appointment);
+        this.appointment = Optional.ofNullable(appointment);
     }
 
     /**
