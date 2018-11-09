@@ -41,6 +41,7 @@ public class XmlAdaptedPatientTest {
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
         XmlAdaptedPatient patient = new XmlAdaptedPatient(BRYAN);
+        System.out.println(patient.toModelType());
         assertEquals(BRYAN, patient.toModelType());
     }
     /*
