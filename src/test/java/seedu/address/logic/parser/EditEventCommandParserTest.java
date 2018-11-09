@@ -90,9 +90,9 @@ public class EditEventCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
             Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_START_DESC,
-            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid start
+            DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS); // invalid start
         assertParseFailure(parser, "1" + INVALID_END_DESC,
-            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid end
+            DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS); // invalid end
         assertParseFailure(parser, "1" + INVALID_VENUE_DESC, Venue.MESSAGE_CONSTRAINTS); // invalid venue
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 

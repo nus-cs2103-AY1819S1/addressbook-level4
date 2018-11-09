@@ -173,12 +173,12 @@ public class AddEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: invalid start -> rejected */
         command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
             + INVALID_START_DESC + END_DESC_LECTURE;
-        assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
+        assertCommandFailure(command, DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS);
 
         /* Case: invalid end -> rejected */
         command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
             + START_DESC_LECTURE + INVALID_END_DESC;
-        assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
+        assertCommandFailure(command, DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS);
 
         /* Case: invalid venue -> rejected */
         command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + INVALID_VENUE_DESC

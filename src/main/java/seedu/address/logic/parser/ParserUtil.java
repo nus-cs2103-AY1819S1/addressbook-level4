@@ -106,7 +106,7 @@ public class ParserUtil {
 
         // If 0 groups found, date is invalid
         if (groups.size() == 0) {
-            throw new ParseException(DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
+            throw new ParseException(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS);
             // TODO: Change the message to something less specific
             // TODO: Stronger condition to detect invalid date
         } else {
