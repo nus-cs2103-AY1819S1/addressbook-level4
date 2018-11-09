@@ -184,6 +184,9 @@ public class ClinicIoParserTest {
     }
 
     @Test
+    public void parseCommand_showPatientInqueue
+    
+    @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
