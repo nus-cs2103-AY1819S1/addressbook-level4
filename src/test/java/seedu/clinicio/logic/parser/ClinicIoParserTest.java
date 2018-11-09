@@ -35,6 +35,7 @@ import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
+import seedu.clinicio.logic.commands.ShowPatientInQueueCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.patient.Patient;
@@ -176,6 +177,15 @@ public class ClinicIoParserTest {
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
+
+    @Test
+    public void parseCommand_showPatientInqueueCommandWord_returnsShowPatientInQueue() throws Exception {
+        assertTrue(parser
+                .parseCommand(ShowPatientInQueueCommand.COMMAND_WORD) instanceof ShowPatientInQueueCommand);
+        assertTrue(parser
+                .parseCommand(ShowPatientInQueueCommand.COMMAND_WORD + " 3") instanceof ShowPatientInQueueCommand);
+    }
+
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
@@ -183,9 +193,6 @@ public class ClinicIoParserTest {
         parser.parseCommand("");
     }
 
-    @Test
-    public void parseCommand_showPatientInqueue
-    
     @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
