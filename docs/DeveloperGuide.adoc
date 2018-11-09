@@ -393,9 +393,13 @@ Given below is an example usage scenario and how the groupadd functionality beha
 
 Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
 
-Step 2: `GroupAddCommand` checks passed arguments.
+Step 2: `GroupAddCommandParser` checks the validity of the groupname, trim the given groupname and create the GroupaddCommand.
 
-Step 3: If the user set a group name that has already existed, the system do nothing(no dublicate). Otherwise it creates a new group.
+Step 3a: If the user set a group name that has already existed, the system throws an exception to the user to indicate that the group name has existed. 
+
+Step 3b: Otherwise it lets the model component to add the group with given groupname.
+
+image::groupaddSequentialDiagram.jpg[width="820"]
 
 ===== groupdelete functionality implementation
 Similar to the other existed functionalities, the groupdelete functionality mainly consists of a GroupDeleteCommandParser and a GroupdeleteCommand.
@@ -406,22 +410,47 @@ Given below is an example usage scenario and how the groupdelete functionality b
 
 Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
 
-Step 2: `GroupDeleteCommand` checks passed arguments.
+Step 2: `GroupDeleteCommandParser` checks the validity of the groupname, trim the given groupname and create the GroupdeleteCommand.
 
-Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+Step 3: `GroupDeleteCommand` checks passed arguments.
+
+Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired deleted group does not exist. 
+
+step 4b: Otherwise it lets the model component to delete the group with given groupname. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+
+image::groupdeleteSequentialDiagram.jpg[width="820"]
 
 ===== showgroup functionality implementation
 Similar to the other existed functionalities, the showgroup functionality mainly consists of a ShowGroupCommandParser and a ShowGroupCommand.
 The showgroup parser is indicated as `ShowGroupCommand` in `parser`, and inherits the `Parser` class. It enables the application to handle the input given by the the user.
 The showgroup command is indicated as `ShowGroup` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to either see all the existing groups or open a selected word group and see all the words inside.
 
-Given below is an example usage scenario and how the showgroup functionality behaves at each step.
+Given below are two example usage scenarios and how the showgroup functionality behaves at each step.
 
-Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
+====== Example a
 
-Step 2: `GroupDeleteCommand` checks passed arguments.
+Step 1: User calls “showgroup + [groupname]” where `groupname` is the name of the desired checked group.
 
-Step 3: If the user set a group name that does not exist, the system throw an exception. Otherwise it deletes the assigned group. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+Step 2: `ShowGroupCommandParser` checks the validity of the groupname, trims the given groupname and create the ShowGroupCommand.
+
+Step 3: `ShowgroupCommand` checks passed arguments.
+
+Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired checked group does not exist.
+
+Step 4b: Otherwise it lets the model component to update the groupname as the predicate in the filterList.
+
+image::showgroupSequentialDiagram1.jpg[width="820"]
+
+====== Example b
+
+Step 1: User calls “showgroup”.
+
+Step 2: `ShowGroupCommandParser` creates the ShowGroupCommand.
+
+Step 3: `ShowGroupCommand` gets all the existing groupname from the model by calling getTags() and show these groupnames to the user.
+
+image::showgroupSequentialDiagram2.jpg[width="820"]
+
 // end::group[]
 
 // tag::basic[]
