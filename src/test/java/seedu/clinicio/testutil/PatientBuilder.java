@@ -153,13 +153,8 @@ public class PatientBuilder extends PersonBuilder {
         Patient patient = new Patient(person, nric, medicalProblems,
                 medications, allergies);
 
-        preferredDoctor.ifPresent(doctor -> {
-            patient.setPreferredDoctor(doctor);
-        });
-
-        appointment.ifPresent(appointment -> {
-            patient.setAppointment(appointment);
-        });
+        preferredDoctor.ifPresent(patient::setPreferredDoctor);
+        appointment.ifPresent(patient::setAppointment);
 
         return patient;
     }
