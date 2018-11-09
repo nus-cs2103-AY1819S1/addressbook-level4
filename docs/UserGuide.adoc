@@ -82,107 +82,6 @@ List of currently working commands as of v1.3
 
 Format: `help`
 
-=== Listing all playlists : `playlist list`
-
-Shows a list of all playlists in the library. +
-Format: `playlist list`
-
-=== Searching for a playlist : `playlist search`
-
-Searches for playlists by names. +
-Format: `playlist search QUERY`
-
-****
-* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
-****
-
-Examples:
-
-* `playlist search Fav` +
-Searches for playlists that has Fav in their names.
-
-=== Creating a playlist : `playlist new`
-
-Creates a new playlist with specific tracks and saves it into the library. +
-Format: `playlist new p/PLAYLIST [t/TRACK]...`
-
-****
-* `PLAYLIST` refers to the playlist’s name.
-* `TRACK` refers to the track’s name.
-****
-
-Examples:
-
-* `playlist new p/Favourites t/Some Song t/Some Song 2` +
-Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
-
-=== Deleting a playlist : `playlist del`
-
-Removes an existing playlist from the library. If the playlist is currently playing, it will stop and the playlist will be removed. +
-Format: `playlist del INDEX`
-
-****
-* `INDEX` refers to the playlist’s index in the playlist panel.
-****
-
-Examples:
-
-* `playlist del 1` +
-Deletes the first playlist in the panel if it exists.
-
-=== Listing all tracks : `track list`
-
-Shows a list of all tracks in the library. +
-Format: `track list`
-
-=== Searching for a track : `track search`
-
-Searches for tracks by names. +
-Format: `track search QUERY`
-
-****
-* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
-****
-
-Examples:
-
-* `track search aliez` +
-Searches for tracks that has aliez in their names.
-
-=== Adding a track into a playlist : `track add`
-
-Adds a track into a playlist. Track can be chosen by using its name or its index in the track list panel. +
-Format: `track add p/PLAYLIST [t/TRACK]...`
-Format: `track add p/PLAYLIST [i/INDEX]...`
-
-****
-* `PLAYLIST` refers to an existing playlist’s name.
-* `TRACK` refers to the name of an existing track in the library folder.
-* `INDEX` refers to the index of a track in the track list panel.
-****
-
-Examples:
-
-* `track add p/Favourites t/Some Song t/Some Song2` +
-Adds the track named "Some Song" and "Some Song2" to the "Favourites" playlist.
-
-* `track add p/Favourites i/1 i/2` +
-Adds the first and second track in the track list panel to the "Favourites" playlist.
-
-=== Deleting a track from a playlist : `track del`
-
-Removes a track from a playlist. Track can is chosen by using its index in the track list panel. +
-Format: `track del p/PLAYLIST i/INDEX`
-
-[TIP]
-* `PLAYLIST` refers to an existing playlist’s name.
-* `INDEX` refers to the index of the track in the `PLAYLIST`.
-
-Examples:
-
-* `track del p/Favourites i/3` +
-Deletes the 3rd track in "Favourites" playlist.
-
 === Playing a track : `play t/`
 
 Plays a track. If there is a playlist or track playing, it will be stopped and the track will be played. +
@@ -255,7 +154,7 @@ The playlist stops playing and replays from the first track.
 === Seeking time point : `seek`
 
 Steps to the specified time point of the current track. +
-Format: `seek t/TIME`
+Format: `seek d/TIME`
 
 ****
 * `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the time point.
@@ -270,11 +169,119 @@ Format: `seek t/TIME`
 Examples:
 
 * `play t/Some Song` +
-`seek t/100` +
+`seek d/1 10` +
+The track seeks to the 1 min 10 sec point and starts from there.
+* `play t/Some Song` +
+`seek d/100` +
 The track seeks to the 1 min 40 sec point and starts from there.
 * `play t/Some Song` +
-`seek t/200000` +
+`seek d/200000` +
 If `TIME` is longer than the song duration, the seek command fails.
+
+=== Listing all playlists : `playlist list`
+
+Shows a list of all playlists in the library. +
+Format: `playlist list`
+
+=== Searching for a playlist : `playlist search`
+
+Searches for playlists by names. +
+Format: `playlist search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `playlist search Fav` +
+Searches for playlists that has Fav in their names.
+
+=== Creating a playlist : `playlist new`
+
+Creates a new playlist with specific tracks and saves it into the library. +
+Format: `playlist new p/PLAYLIST [t/TRACK]...`
+
+****
+* `PLAYLIST` refers to the playlist’s name.
+* `TRACK` refers to the track’s name.
+****
+
+Examples:
+
+* `playlist new p/Favourites t/Some Song t/Some Song 2` +
+Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
+
+=== Deleting a playlist : `playlist del`
+
+Removes an existing playlist from the library. +
+Format: `playlist del INDEX`
+
+****
+* `INDEX` refers to the playlist’s index in the playlist panel.
+****
+
+Examples:
+
+* `playlist del 1` +
+Deletes the first playlist in the panel if it exists.
+
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
+
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
+
+=== Adding a track into a playlist : `track add`
+
+Adds a track into a playlist. Track can be chosen by using its name or its index in the track list panel. +
+Format: `track add p/PLAYLIST [t/TRACK]...`
+Format: `track add p/PLAYLIST [i/INDEX]...`
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `TRACK` refers to the name of an existing track in the library folder.
+* `INDEX` refers to the index of a track in the track list panel.
+****
+
+Examples:
+
+* `track add p/Favourites t/Some Song t/Some Song2` +
+Adds the track named "Some Song" and "Some Song2" to the "Favourites" playlist.
+
+* `track add p/Favourites i/1 i/2` +
+Adds the first and second track in the track list panel to the "Favourites" playlist.
+
+=== Deleting a track from a playlist : `track del`
+
+Removes a track from a playlist. Track can is chosen by using its index in the track list panel. +
+Format: `track del p/PLAYLIST i/INDEX`
+
+[TIP]
+Track is selected by its index **not** its name.
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `INDEX` refers to the index of the track in the `PLAYLIST`.
+****
+
+Examples:
+
+* `track del p/Favourites i/3` +
+Deletes the 3rd track in "Favourites" playlist.
 
 === Stepping a track : `step` [coming in v2.0]
 
@@ -489,7 +496,7 @@ Format: `exit`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
 * *Seek time point* : `seek t/TIME` +
-eg. `seek t/01:10`
+eg. `seek d/1 10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
