@@ -119,10 +119,22 @@ public class Module {
     }
 
     /**
+     * Makes an identical copy of this module with an empty person list.
+     */
+    public Module makeShallowDuplicate() {
+        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
+        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
+        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
+        Semester newSem = this.semester.makeDeepDuplicate();
+        UniquePersonList newList = new UniquePersonList();
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    // TODO change all places where getTags is used.
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }

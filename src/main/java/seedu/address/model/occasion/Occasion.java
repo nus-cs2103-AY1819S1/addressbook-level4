@@ -36,12 +36,12 @@ public class Occasion {
      * Every field must be present and not null.
      */
     public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
-                    Set<Tag> tags, TypeUtil type) {
+                    Set<Tag> tags, TypeUtil type, UniquePersonList personList) {
         requireAllNonNull(occasionName, occasionDate, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
-        this.attendanceList = new UniquePersonList(new ArrayList<>());
+        this.attendanceList = personList;
         this.tags.addAll(tags);
     }
 
@@ -66,7 +66,7 @@ public class Occasion {
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
                     Set<Tag> tags) {
-        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION);
+        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION, new UniquePersonList());
     }
 
     /**
@@ -82,10 +82,12 @@ public class Occasion {
                 editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
         OccasionLocation updatedOccasionLocation =
                 editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
+        UniquePersonList updatedPersonList =
+                editOccasionDescriptor.getAttendanceList().orElse(occasionToEdit.getAttendanceList());
         Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
 
         return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
-                updatedTags, TypeUtil.OCCASION);
+                updatedTags, TypeUtil.OCCASION, updatedPersonList);
     }
 
     public OccasionName getOccasionName() {
@@ -97,7 +99,7 @@ public class Occasion {
     }
 
     public UniquePersonList getAttendanceList() {
-        return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
+        return attendanceList == null ? new UniquePersonList() : attendanceList;
     }
 
     public OccasionLocation getOccasionLocation() {
@@ -116,6 +118,18 @@ public class Occasion {
         OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
         OccasionLocation newLocation = this.location.makeDeepDuplicate();
         UniquePersonList newList = this.attendanceList.makeDeepDuplicate();
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
+    }
+
+    /**
+     * Make an identical copy of this occasion with an empty person list.
+     */
+    public Occasion makeShallowDuplicate() {
+        OccasionName newName = this.occasionName.makeDeepDuplicate();
+        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
+        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        UniquePersonList newList = new UniquePersonList();
         Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
         return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }

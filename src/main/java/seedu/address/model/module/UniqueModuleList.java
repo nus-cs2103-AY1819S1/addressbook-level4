@@ -65,6 +65,15 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Makes an copy of this UniqueModuleList with shallow copies of the modules inside.
+     */
+    public UniqueModuleList makeShallowDuplicate() {
+        List<Module> newList = this.internalList.stream()
+                .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+        return new UniqueModuleList(newList);
+    }
+
+    /**
      * Replaces the module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
      * The module identity of {@code editedModule} must not be the same as another existing module in the list.
@@ -115,6 +124,13 @@ public class UniqueModuleList implements Iterable<Module> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
+    /**
+     * Returns the backing list as a normal modifiable list {@code List}.
+     */
+    public List<Module> asNormalList() {
+        return internalList.stream().collect(Collectors.toList());
+    }
+    
     @Override
     public Iterator<Module> iterator() {
         return internalList.iterator();

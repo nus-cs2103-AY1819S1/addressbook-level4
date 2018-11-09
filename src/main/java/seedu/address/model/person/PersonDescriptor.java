@@ -35,8 +35,8 @@ public class PersonDescriptor {
         setEmail(toCopy.email);
         setAddress(toCopy.address);
         setTags(toCopy.tags);
-        setUniqueModuleList(toCopy.getUniqueModuleList().orElse(new UniqueModuleList()));
-        setUniqueOccasionList(toCopy.getUniqueOccasionList().orElse(new UniqueOccasionList()));
+        setUniqueModuleList(toCopy.getModuleList().orElse(new UniqueModuleList()));
+        setUniqueOccasionList(toCopy.getOccasionList().orElse(new UniqueOccasionList()));
     }
 
     /**
@@ -95,7 +95,7 @@ public class PersonDescriptor {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
     }
 
-    public Optional<UniqueModuleList> getUniqueModuleList() {
+    public Optional<UniqueModuleList> getModuleList() {
         return (moduleList != null) ? Optional.ofNullable(moduleList) : Optional.empty();
     }
 
@@ -103,7 +103,7 @@ public class PersonDescriptor {
         this.moduleList = moduleList;
     }
 
-    public Optional<UniqueOccasionList> getUniqueOccasionList() {
+    public Optional<UniqueOccasionList> getOccasionList() {
         return (occasionList != null) ? Optional.ofNullable(occasionList) : Optional.empty();
     }
 
