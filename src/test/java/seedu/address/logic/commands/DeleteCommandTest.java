@@ -454,7 +454,8 @@ public class DeleteCommandTest {
                 INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
         insertPersonIntoOccasionCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
-        assertEquals(expectedModel.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList(),
+        assertEquals(expectedModel.getFilteredOccasionList()
+                        .get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList(),
                 model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList());
     }
 
