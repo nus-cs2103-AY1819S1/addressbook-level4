@@ -47,7 +47,7 @@ public class TrackAddCommandTest {
 
     /**
      * @param tracksToAdd each tested track that is required to be added into model
-     * @return
+     * @return playlistToAdd: a copy of targetPlaylist with added tracks
      */
     private Playlist addTracksToExpectedModel(List<Track> tracksToAdd) {
         Playlist playlistToAdd = targetPlaylist.copy();
@@ -71,7 +71,7 @@ public class TrackAddCommandTest {
         Playlist oneTrack = addTracksToExpectedModel(trackToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(oneTrack), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName());
-        TrackAddCommand command = new TrackAddCommand(targetPlaylist, trackToAdd);
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.TRACK, trackToAdd);
         assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
     }
 

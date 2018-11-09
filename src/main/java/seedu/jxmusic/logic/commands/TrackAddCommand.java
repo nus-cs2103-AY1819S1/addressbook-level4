@@ -49,18 +49,17 @@ public class TrackAddCommand extends Command {
 
     private List<Track> argTracksToAdd;
     private Playlist argPlaylist;
-    private Playlist updatedPlaylist;
-    private Playlist actualPlaylist;
-    private Track actualTrack = null;
     private List<Index> argIndexesToAdd;
     private List<Track> tracksToAdd = new ArrayList<Track>();
     private List<Track> tracksNotAdded = new ArrayList<Track>();
     private ArrayList<String> indexesNotAdded = new ArrayList<>();
+    private InputType type;
 
-    public TrackAddCommand(Playlist targetPlaylist, Track... trackToAdd) {
+    public TrackAddCommand(Playlist targetPlaylist, InputType type, Track... trackToAdd) {
         requireNonNull(trackToAdd);
         requireNonNull(targetPlaylist);
         this.argPlaylist = targetPlaylist;
+        this.type = type;
         this.argTracksToAdd = new ArrayList<Track>();
         for (Track track : trackToAdd) {
             this.argTracksToAdd.add(track);
@@ -71,6 +70,7 @@ public class TrackAddCommand extends Command {
         requireNonNull(tracksToAdd);
         requireNonNull(targetPlaylist);
         this.argPlaylist = targetPlaylist;
+        this.type = type;
         if (type == InputType.TRACK) {
             this.argTracksToAdd = tracksToAdd;
         }
@@ -107,33 +107,16 @@ public class TrackAddCommand extends Command {
         return invalidIndexes;
     }
 
-    private boolean isExistingPlaylist(Model model, Playlist existingPlaylist) {
+    private boolean isExistingPlaylistIn(Model model, Playlist argPlaylist) {
         return !model.hasPlaylist(argPlaylist);
     }
 
-    @Override
-    public CommandResult execute(Model model) {
-        int viewedTracksSize = model.getFilteredTrackList().size();
-        ObservableSet<Track> libraryTracks = model.getLibrary().getTracks();
-        ObservableList<Playlist> libraryPlaylists = model.getLibrary().getPlaylistList();
-
-        // check if playlist exists
-        if (isExistingPlaylist(model, argPlaylist)) {
-            return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, argPlaylist.getName()));
-        }
-
-        actualPlaylist = libraryPlaylists.filtered(playlist
-            -> playlist.isSamePlaylist(argPlaylist))
-            .get(0);
-        updatedPlaylist = actualPlaylist.copy();
-
-        // checks if index is being used instead of track
-        if (argTracksToAdd == null) {
-            ArrayList<Index> indexesToAdd = new ArrayList<Index>(argIndexesToAdd);
-            argTracksToAdd = getTracksFromIndexes(model, indexesToAdd);
-            indexesNotAdded = getInvalidIndexes(viewedTracksSize, indexesToAdd);
-        }
-
+    /**
+     * Takes in a set of tracks in library, and populates the given playlist
+     * @param libraryTracks {@code ObservableSet<Track>} libraryTracks to fetch tracks from library
+     * @param populatedPlaylist The {@code Playlist} to be populated
+     */
+    private void populatePlaylistWith(ObservableSet<Track> libraryTracks, Playlist populatedPlaylist) {
         // check if tracks exist and add tracks to playlist
         for (Track trackToAdd : argTracksToAdd) {
             Optional<Track> listOfTracks = libraryTracks.stream()
@@ -148,22 +131,64 @@ public class TrackAddCommand extends Command {
             }
         }
         for (Track trackToAdd : tracksToAdd) {
-            actualTrack = libraryTracks.stream()
+            Track actualTrack = libraryTracks.stream()
                     .filter(track -> track.equals(trackToAdd))
                     .findFirst()
                     .get();
-            updatedPlaylist.addTrack(actualTrack);
+            populatedPlaylist.addTrack(actualTrack);
         }
+    }
+
+    private Playlist findPlaylistFrom(ObservableList<Playlist> libraryPlaylists) {
+        return libraryPlaylists.filtered(playlist
+            -> playlist.isSamePlaylist(argPlaylist))
+            .get(0);
+    }
+
+    @Override
+    public CommandResult execute(Model model) {
+        int viewedTracksSize = model.getFilteredTrackList().size();
+        ObservableSet<Track> libraryTracks = model.getLibrary().getTracks();
+        ObservableList<Playlist> libraryPlaylists = model.getLibrary().getPlaylistList();
+        Playlist updatedPlaylist;
+        Playlist actualPlaylist;
+
+        if (isExistingPlaylistIn(model, argPlaylist)) {
+            return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, argPlaylist.getName()));
+        }
+
+        actualPlaylist = findPlaylistFrom(libraryPlaylists);
+        updatedPlaylist = actualPlaylist.copy();
+
+        // checks if index is being used instead of track
+        if (type == InputType.INDEX) {
+            ArrayList<Index> indexesToAdd = new ArrayList<Index>(argIndexesToAdd);
+            argTracksToAdd = getTracksFromIndexes(model, indexesToAdd);
+            indexesNotAdded = getInvalidIndexes(viewedTracksSize, indexesToAdd);
+        }
+        populatePlaylistWith(libraryTracks, updatedPlaylist);
         model.updatePlaylist(actualPlaylist, updatedPlaylist);
 
+        return displayMessage(actualPlaylist);
+    }
+
+    /**
+     *
+     * @param actualPlaylist actualPlaylist from library
+     * @return CommandResult with message to be displayed
+     */
+    private CommandResult displayMessage(Playlist actualPlaylist) {
         // check if indexes do not exist
         if (indexesNotAdded.isEmpty() && tracksNotAdded.isEmpty()) {
+            // for testing sake
+            // TODO: change implementation so that single tracks do not appear with [array bracket] in msg
             if (tracksToAdd.size() == 1) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd.get(0), actualPlaylist.getName()));
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd, actualPlaylist.getName()));
         }
 
+        // check for indexes and tracks added to be displayed
         if (!indexesNotAdded.isEmpty() && !tracksToAdd.isEmpty()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_INDEX_DOES_NOT_EXIST,
                     tracksToAdd, actualPlaylist.getName(), indexesNotAdded));
