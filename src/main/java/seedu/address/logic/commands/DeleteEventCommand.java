@@ -49,6 +49,10 @@ public class DeleteEventCommand extends Command {
         List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
         Event eventToDelete = getEventToDelete(listToRemoveFrom);
 
+        // reset favourite to null if deleted event is the favourite
+        if (model.isFavourite(eventToDelete))
+            model.updateFavourite((String)null);
+
         model.deleteEvent(eventToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
@@ -87,22 +91,8 @@ public class DeleteEventCommand extends Command {
 
         // lastShownList should only have one list matching a given specific EventDate
         assert(targetDateList.size() == 1);
-      
-        List<Event> listToRemoveFrom = targetDateList.get(0);
 
-        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-
-        Event eventToDelete = listToRemoveFrom.get(targetIndex.getZeroBased());
-
-        // reset favourite to null if deleted event is the favourite
-        if (model.isFavourite(eventToDelete))
-            model.updateFavourite((String)null);
-
-        model.deleteEvent(eventToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
+        return targetDateList.get(0);
     }
 
     @Override
