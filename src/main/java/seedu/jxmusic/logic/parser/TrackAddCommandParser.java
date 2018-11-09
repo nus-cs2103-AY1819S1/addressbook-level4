@@ -1,12 +1,15 @@
 package seedu.jxmusic.logic.parser;
 
 import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.TrackAddCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Playlist;
@@ -24,17 +27,50 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
      */
     public TrackAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_TRACK);
+                ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_TRACK, PREFIX_INDEX);
+        List<Track> tracksToAdd;
+        ArrayList<Index> indexesToAdd;
+        boolean isUsingIndex = false;
+        boolean isUsingTrackName = false;
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_TRACK)
+        if (arePrefixesPresent(argMultimap, PREFIX_TRACK)) {
+            isUsingTrackName = true;
+        }
+
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
+            isUsingIndex = true;
+        }
+
+        if (isUsingTrackName && isUsingIndex) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_TOO_MANY_PREFIX));
+        }
+
+
+        if (!(arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_TRACK)
+                && arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_INDEX))
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_USAGE));
+            if (isUsingTrackName && !arePrefixesPresent(argMultimap, PREFIX_TRACK)) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_USAGE_TRACK));
+            }
+            if (isUsingIndex && !arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_USAGE_INDEX));
+            }
         }
 
         Playlist targetPlaylist = ParserUtil.parsePlaylist(argMultimap.getValue(PREFIX_PLAYLIST).get());
-        List<Track> tracksToAdd = ParserUtil.parseTracks(argMultimap.getAllValues(PREFIX_TRACK));
 
-        return new TrackAddCommand(targetPlaylist, tracksToAdd);
+        if (isUsingTrackName) {
+            tracksToAdd = ParserUtil.parseTracks(argMultimap.getAllValues(PREFIX_TRACK));
+            return new TrackAddCommand(targetPlaylist, tracksToAdd);
+        }
+        if (isUsingIndex) {
+            indexesToAdd = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
+            return new TrackAddCommand(targetPlaylist, indexesToAdd);
+        }
+        return null;
     }
 
     /**

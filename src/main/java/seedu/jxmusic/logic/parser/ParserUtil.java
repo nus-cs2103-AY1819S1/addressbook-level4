@@ -35,6 +35,23 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static ArrayList<Index> parseIndexes(Collection<String> oneBasedIndexes) throws ParseException {
+        final ArrayList<Index> indexList = new ArrayList<Index>();
+        for (String oneBasedIndex : oneBasedIndexes) {
+            String trimmedIndex = oneBasedIndex.trim();
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            indexList.add(Index.fromOneBased(Integer.parseInt(trimmedIndex)));
+        }
+        return indexList;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
