@@ -17,7 +17,6 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
-import seedu.souschef.ui.Ui;
 
 /**
  * Parses user input.
@@ -35,7 +34,7 @@ public class AppContentParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(ModelSet modelSet, String userInput, History history,
-                                Storage storage, Ui ui) throws ParseException {
+                                Storage storage) throws ParseException {
         Context context = history.getContext();
 
         if (storage == null) {
@@ -44,7 +43,7 @@ public class AppContentParser {
 
         if (userInput.charAt(0) == '-') {
 
-            return new UniversalParser().parseCommand(history, userInput, ui);
+            return new UniversalParser().parseCommand(history, userInput);
         }
 
         switch (context) {
