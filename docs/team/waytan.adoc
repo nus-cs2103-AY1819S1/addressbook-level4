@@ -34,14 +34,16 @@ This was challenging to implement as it required new objects to be create and li
 *** Suggested implementing `insertperson` and `removeperson` to link persons with modules/occasions
 ** Project management:
 *** Involved in distributing roles and consolidating tasks
+*** Manage Issue Tracker for v1.3, v1.4
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W10-1/main/pull/87[#87]
 *** Helped in identifying bugs and offered suggestions for debugging
 ** Documentation:
 *** Wrote user stories, use cases for v1.0
 *** Updated description of user guide to match application design
-** Miscellaneous Enhancements
-*** Set up test utils for module and occasion commands: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
+** Key Code Components
+*** Set up module class, various components and their unit tests.
+*** Set up test utils for modules and occasions: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
 
 == Contributions to the User Guide
 

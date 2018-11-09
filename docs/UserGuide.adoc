@@ -38,7 +38,7 @@ image::UI_v1.3_Occasions.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* `listmodules` : lists all modules
+* `listmodule` : lists all modules
 * `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * `delete 2` : deletes the 2nd entry in the active list
 * `undo` : undoes the previous modifying action
@@ -81,7 +81,7 @@ Selecting an entry can also be done by using the `select` command in the Command
 == Features
 
 ====
-*Command Format*
+*Command Format*`
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
