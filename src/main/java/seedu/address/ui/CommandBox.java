@@ -22,6 +22,7 @@ import seedu.address.logic.commands.AddEventTagCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -49,7 +50,8 @@ public class CommandBox extends UiPart<Region> {
     public static final List<String> ALL_COMMAND_WORDS = new ArrayList<>(Arrays.asList(AddCommand.COMMAND_WORD,
             AddCommand.COMMAND_WORD_ALIAS, AddEventCommand.COMMAND_WORD, AddEventTagCommand.COMMAND_WORD,
             ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD_ALIAS, DeleteCommand.COMMAND_WORD,
-            DeleteCommand.COMMAND_WORD_ALIAS, EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD_ALIAS,
+            DeleteCommand.COMMAND_WORD_ALIAS, DeleteEventCommand.COMMAND_WORD,
+            EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD_ALIAS,
             ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD_ALIAS, FavouriteCommand.COMMAND_WORD,
             FavouriteCommand.COMMAND_WORD_ALIAS, FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD_ALIAS,
             GenerateLocationCommand.COMMAND_WORD, GenerateLocationCommand.COMMAND_WORD_ALIAS,

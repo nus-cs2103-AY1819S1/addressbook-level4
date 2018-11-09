@@ -41,7 +41,7 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private TabPane tabPane;
 
-    private SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private Tab webpageTab;
@@ -66,6 +66,7 @@ public class TabPanel extends UiPart<Region> {
         locationDisplayTab.setContent(locationDisplayPanel.getRoot());
 
         // set default tab
+        selectionModel = tabPane.getSelectionModel();
         selectionModel.select(eventsTab);
 
         registerAsAnEventHandler(this);
