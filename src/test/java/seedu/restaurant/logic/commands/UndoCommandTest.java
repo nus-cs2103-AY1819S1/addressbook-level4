@@ -2,7 +2,7 @@ package seedu.restaurant.logic.commands;
 
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.restaurant.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.restaurant.logic.commands.CommandTestUtil.deleteFirstItem;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 
 import org.junit.Before;
@@ -22,11 +22,11 @@ public class UndoCommandTest {
     @Before
     public void setUp() {
         // set up of models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstItem(model);
+        deleteFirstItem(model);
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstItem(expectedModel);
+        deleteFirstItem(expectedModel);
     }
 
     @Test

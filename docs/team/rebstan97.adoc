@@ -15,7 +15,7 @@
  created with JavaFX. It is written with approximately 30 kLOC.
 
 == Summary of contributions
-
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=rebstan97[RepoSense]
 * *Major enhancement*: Added *commands to manage a restaurant's ingredients*
 ** *What it does*: Allows the user to maintain a list of ingredients, as well as monitor and update their stock
 counts.

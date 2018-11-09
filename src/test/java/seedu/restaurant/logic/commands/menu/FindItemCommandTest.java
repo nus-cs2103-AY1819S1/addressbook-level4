@@ -22,6 +22,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.NameContainsKeywordsPredicate;
 
+//@@author yican95
 /**
  * Contains integration tests (interaction with the Model) for {@code FindItemCommand}.
  */
@@ -53,7 +54,7 @@ public class FindItemCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

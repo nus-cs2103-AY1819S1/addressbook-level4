@@ -12,7 +12,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_QUANTITY_SOL
 import org.junit.Test;
 
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
 public class EditRecordDescriptorTest {
 

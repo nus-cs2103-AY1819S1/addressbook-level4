@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.guihandles.accounts.UsernameDisplayHandle;
+import guitests.guihandles.menu.ItemListPanelHandle;
 import javafx.stage.Stage;
 
 /**
@@ -8,7 +9,7 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final ItemListPanelHandle itemListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -19,7 +20,7 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        itemListPanel = new ItemListPanelHandle(getChildNode(ItemListPanelHandle.ITEM_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
@@ -28,8 +29,8 @@ public class MainWindowHandle extends StageHandle {
         usernameDisplay = new UsernameDisplayHandle(getChildNode(UsernameDisplayHandle.USERNAME_DISPLAY_ID));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public ItemListPanelHandle getItemListPanel() {
+        return itemListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {

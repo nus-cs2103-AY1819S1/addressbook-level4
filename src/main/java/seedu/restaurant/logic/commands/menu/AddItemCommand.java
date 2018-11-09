@@ -6,7 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -14,6 +14,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.Item;
 
+//@@author yican95
 /**
  * Adds an item to the menu.
  */

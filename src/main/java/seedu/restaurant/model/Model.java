@@ -10,11 +10,11 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -25,7 +25,6 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Account> PREDICATE_SHOW_ALL_ACCOUNTS = unused -> true;
     Predicate<Ingredient> PREDICATE_SHOW_ALL_INGREDIENTS = unused -> true;
     Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
@@ -46,53 +45,6 @@ public interface Model {
      * Resets the version of the RestaurantBook
      */
     void resetRestaurantBookVersion();
-
-    //=========== API for Persons =============================================================
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person. The person must exist in the restaurant book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person. {@code person} must not already exist in the restaurant book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the restaurant
-     * book. The person identity of {@code editedPerson} must not be the same as another existing person in the
-     * restaurant book.
-     *
-     * @param target person to be updated.
-     * @param editedPerson updated person.
-     */
-    void updatePerson(Person target, Person editedPerson);
-
-    /**
-     * Removes the given {@code tag} from all {@code Person}
-     *
-     * @param tag to be removed.
-     */
-    void removeTag(Tag tag);
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of {@code
-     * versionedRestaurantBook}
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     //=========== API for Sales =============================================================
 
@@ -123,6 +75,22 @@ public interface Model {
     SalesReport getSalesReport(Date date);
 
     /**
+     * Ranks the existing records' dates according to revenue in descending order.
+     */
+    Map<Date, Double> rankDateBasedOnRevenue();
+
+    /**
+     * Ranks the existing records' items according to revenue accumulated from past sales records in descending order.
+     */
+    Map<ItemName, Double> rankItemBasedOnRevenue();
+
+    /**
+     * Returns all dates, each associated with its total revenue for the day, in chronological order.
+     */
+    Map<Date, Double> getChronologicalSalesData();
+
+
+    /**
      * Returns an unmodifiable view of the filtered record list
      */
     ObservableList<SalesRecord> getFilteredRecordList();
@@ -136,6 +104,7 @@ public interface Model {
 
     // =========== API for Reservations =============================================================
 
+    //@@author m4dkip
     /**
      * Returns true if a reservation with the same identity as {@code reservation} exists in the restaurant book.
      */
@@ -152,7 +121,7 @@ public interface Model {
     void addReservation(Reservation reservation);
 
     /**
-     * Replaces the given reservation {@code target} with {@code editedPerson}. {@code target} must exist in the
+     * Replaces the given reservation {@code target} with {@code editedReservation}. {@code target} must exist in the
      * restaurant book. The reservation identity of {@code editedReservation} must not be the same as another existing
      * reservation in the restaurant book.
      */
@@ -184,6 +153,7 @@ public interface Model {
 
     //=========== API for Accounts =============================================================
 
+    //@@author AZhiKai
     /**
      * Adds the given account. {@code account} must not already exist in the account storage.
      *
@@ -199,20 +169,20 @@ public interface Model {
     Account getAccount(Account account);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
+     * Returns true if an account with the same identity as {@code Account} exists in the restaurant book.
      */
     boolean hasAccount(Account account);
 
     /**
-     * Deletes the given account. The person must exist in the restaurant book.
+     * Deletes the given account. The account must exist in the restaurant book.
      *
      * @param account to be removed.
      */
     void removeAccount(Account account);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the restaurant
-     * book. The person identity of {@code editedPerson} must not be the same as another existing person in the
+     * Replaces the given account {@code target} with {@code editedAccount}. {@code target} must exist in the restaurant
+     * book. The account identity of {@code editedAccount} must not be the same as another existing account in the
      * restaurant book.
      *
      * @param target account to be updated.
@@ -279,7 +249,7 @@ public interface Model {
     void updateFilteredIngredientList(Predicate<Ingredient> predicate);
 
     //=============== API for Menu ===============
-
+    //@@author yican95
     /**
      * Returns true if an item with the same identity as {@code item} exists in the restaurant book.
      */
@@ -339,7 +309,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredItemList(Predicate<Item> predicate);
-
+    //@@author
     //=========== API for Redo/Undo =============================================================
 
     /**

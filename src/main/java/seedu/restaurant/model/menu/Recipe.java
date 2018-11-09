@@ -2,6 +2,7 @@ package seedu.restaurant.model.menu;
 
 import static java.util.Objects.requireNonNull;
 
+//@@author yican95
 /**
  * Represents an Item's recipe in the menu.
  * Guarantees: immutable; Always valid

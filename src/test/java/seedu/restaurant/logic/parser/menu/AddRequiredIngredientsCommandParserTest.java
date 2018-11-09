@@ -22,6 +22,7 @@ import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author yican95
 public class AddRequiredIngredientsCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRequiredIngredientsCommand.MESSAGE_USAGE);

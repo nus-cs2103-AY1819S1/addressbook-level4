@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Item with missing name field -->
+<items>
+  <price>2</price>
+  <originalPrice>2</originalPrice>
+  <percent>20</percent>
+  <recipe>Deep fry potato and add cheese.</recipe>
+  <requiredIngredients />
+  <tagged>cheese</tagged>
+</items>

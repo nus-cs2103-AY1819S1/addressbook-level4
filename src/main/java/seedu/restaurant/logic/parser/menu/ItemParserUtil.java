@@ -6,6 +6,7 @@ import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.Price;
 
+//@@author yican95
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */

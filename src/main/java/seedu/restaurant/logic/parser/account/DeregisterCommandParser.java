@@ -12,8 +12,9 @@ import seedu.restaurant.logic.parser.util.ArgumentTokenizer;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * Parses input arguments and creates a new RegisterCommand object
+ * Parses input arguments and creates a new {@code DeregisterCommand} object.
  */
 public class DeregisterCommandParser implements Parser<DeregisterCommand> {
 
@@ -32,7 +33,7 @@ public class DeregisterCommandParser implements Parser<DeregisterCommand> {
 
         Username username = AccountParserUtil.parseUsername(argMultimap.getValue(PREFIX_ID).get());
 
-        // Password not required since it does not involve a password to deregister the account
+        // Password and name not required since it does not involve a password to deregister the account
         return new DeregisterCommand(new Account(username));
     }
 }

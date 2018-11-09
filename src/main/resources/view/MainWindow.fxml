@@ -35,8 +35,10 @@
               <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
             </Menu>
           </MenuBar>
+          <!-- @@author AZhiKai -->
           <Pane fx:id="usernameDisplayPlaceholder" maxWidth="350.0" minWidth="200.0" prefWidth="200.0">
           </Pane>
+          <!-- @@author -->
         </SplitPane>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -52,15 +54,9 @@
           </padding>
         </StackPane>
 
+        <!-- @@author AZhiKai -->
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.5" VBox.vgrow="ALWAYS">
           <VBox fx:id="sideButtonBar" alignment="CENTER" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
-            <ImageView fx:id="switchToAccountButton" fitHeight="50.0" fitWidth="50.0"
-                       onMouseClicked="#handleSwitchToAccount" pickOnBounds="true">
-              <VBox.margin>
-                <Insets bottom="10.0" />
-              </VBox.margin>
-              <Image url="@../images/account.png" />
-            </ImageView>
             <ImageView fx:id="switchToMenuButton" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0"
                        onMouseClicked="#handleSwitchToMenu" pickOnBounds="true">
               <VBox.margin>
@@ -68,33 +64,42 @@
               </VBox.margin>
               <Image url="@../images/menu.png" />
             </ImageView>
+            <ImageView fx:id="switchToAccountButton" fitHeight="50.0" fitWidth="50.0"
+                       onMouseClicked="#handleSwitchToAccount" pickOnBounds="true" opacity="0.15" disable="true">
+              <VBox.margin>
+                <Insets bottom="10.0" />
+              </VBox.margin>
+              <Image url="@../images/account.png" />
+            </ImageView>
             <ImageView fx:id="switchToSalesButton" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0"
-                       onMouseClicked="#handleSwitchToSales" pickOnBounds="true">
+                       onMouseClicked="#handleSwitchToSales" pickOnBounds="true" opacity="0.15" disable="true">
               <VBox.margin>
                 <Insets bottom="10.0" />
               </VBox.margin>
               <Image url="@../images/sales.png" />
             </ImageView>
             <ImageView fx:id="switchToIngredientButton" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0"
-                       onMouseClicked="#handleSwitchToIngredient" pickOnBounds="true">
+                       onMouseClicked="#handleSwitchToIngredient" pickOnBounds="true" opacity="0.15" disable="true">
               <VBox.margin>
                 <Insets bottom="10.0" />
               </VBox.margin>
               <Image url="@../images/ingredient.png" />
             </ImageView>
             <ImageView fx:id="switchToReservationButton" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0"
-                       onMouseClicked="#handleSwitchToReservation" pickOnBounds="true">
+                       onMouseClicked="#handleSwitchToReservation" pickOnBounds="true" opacity="0.15" disable="true">
               <Image url="@../images/reservation.png" />
             </ImageView>
           </VBox>
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+
+          <!-- @@author -->
+          <VBox fx:id="dataList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="dataListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340">
+          <StackPane fx:id="detailedDataPanelPlaceholder" prefWidth="340">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>

@@ -11,8 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.ItemPanelSelectionChangedEvent;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.ItemPanelSelectionChangedEvent;
+import seedu.restaurant.commons.events.ui.menu.JumpToItemListRequestEvent;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.ui.UiPart;
 
@@ -33,20 +33,16 @@ public class ItemListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    @FXML
+    private void handleMouseClick() {
+        Item item = itemListView.getSelectionModel().getSelectedItem();
+        logger.fine("Selection in item list panel changed to : '" + item + "'");
+        raise(new ItemPanelSelectionChangedEvent(item));
+    }
+
     private void setConnections(ObservableList<Item> itemList) {
         itemListView.setItems(itemList);
         itemListView.setCellFactory(listView -> new ItemListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        itemListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in item list panel changed to : '" + newValue + "'");
-                        raise(new ItemPanelSelectionChangedEvent(newValue));
-                    }
-                });
     }
 
     /**
@@ -56,11 +52,12 @@ public class ItemListPanel extends UiPart<Region> {
         Platform.runLater(() -> {
             itemListView.scrollTo(index);
             itemListView.getSelectionModel().clearAndSelect(index);
+            raise(new ItemPanelSelectionChangedEvent(itemListView.getItems().get(index)));
         });
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToItemListRequestEvent(JumpToItemListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }

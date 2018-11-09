@@ -28,8 +28,8 @@ link:{repoURL}[MeNUS] is here to help you and it is the only restaurant manageme
 
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
-Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage aspects of your restaurants -- staff accounts,
-menus, ingredient, sales and reservations management -- all from a single location !
+Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage core aspects of your restaurants --
+employees, menus, inventory, sales and reservations management -- all from a single location!
 
 === Legends
 The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
@@ -44,6 +44,12 @@ Perhaps something can be done using another approach, but it is up to you to dec
 [WARNING]
 Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
 read whatever is in this block.
+
+=== A Quick Look at MeNUS
+
+*MeNUS*’s user interface is split into a few sections. These sections are highlighted in the image below.
+
+image::UserInterfaceHighlight.png[width="790"]
 
 Let's get started!
 // end::intro[]
@@ -89,8 +95,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can keep track of the ingredient availability in your restaurant.
 
 === Sales
-* You can keep track of daily sales volume. You can also generate the sales report for a specific day, and rank dates
- and dishes based on revenue.
+* The built-in Sales Management System (SMS) in MeNUS provides you with the tools you will need to keep track of
+  financial records conveniently and efficiently. Several analytical features were also incorporated to assist you in
+  financial decision-making and devising marketing strategies.
 
 === Reservations
 * You can keep track of customer reservations on the system.
@@ -130,6 +137,13 @@ Do read our short explanation about Command Format below so that the subsequent 
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+As this is a management system, all but the following commands cannot be executed without first being authenticated.
+====
+. `help`
+. `login`
+. `exit`
 ====
 
 === General
@@ -214,14 +228,13 @@ Format: `exit` or `ex`
 ==== Logging in: `login`
 
 Logs into an existing account. +
-Format: `login id/USERNAME pw/PASSWORD` or `li id/USERNAME pw/PASSWORD` +
+Format: `login id/USERNAME pw/PASSWORD`
 
 Examples:
 
-* `login id/azhikai pw/p@55w0rd`
-* `li id/azhikai pw/p@55w0rd`
+* `login id/root pw/1122qq`
 
-[INFO]
+[TIP]
 ====
 To testers: You may access the application using the default `root` account: `login id/root pw/1122qq`
 ====
@@ -229,17 +242,28 @@ To testers: You may access the application using the default `root` account: `lo
 ==== Logging out: `logout`
 
 Logs out of the account. +
-Format: `logout` or `lo`
+Format: `logout`
+
+[NOTE]
+====
+History will automatically be cleared upon logging out
+====
 
 ==== Creating user account: `register` or `reg`
 
 Creates a new user account. +
 Format: `register id/USERNAME pw/PASSWORD` or `reg id/USERNAME pw/PASSWORD`
 
+[NOTE]
+====
+This command will be improved in the future to include name and role. See <<Register-Improvement>>
+for more information
+====
+
 Examples:
 
-* `register id/azhikai pw/p@55w0rd`
-* `reg id/azhikai pw/p@55w0rd`
+* `register id/azhikai pw/1122qq`
+* `reg id/azhikai pw/1122qq`
 
 ==== Changing user password: `change-password` or `cp`
 
@@ -256,10 +280,57 @@ Examples:
 Deletes an existing user account. +
 Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
+[NOTE]
+====
+This command will only be able to be executed by a highly privileged user in the future. See <<User-Role>>
+for more information
+====
+
 Examples:
 
 * `deregister id/azhikai`
 * `dereg id/azhikai`
+
+==== Select user account: `select-account` or `sa`
+Selects the account identified by the index number. +
+Format: `select-account INDEX` or `sa INDEX`
+
+[NOTE]
+====
+Selecting the account does not render any data on the detailed panel due to the simplicity of the data itself
+====
+
+****
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list-accounts` +
+`select-account 2` +
+Selects the 2nd account in the list.
+* `fa azhikai` +
+`sa 1` +
+Selects the 1st account in the results of the `find-account` command.
+
+==== Locating account by username: `find-account` or `fa`
+
+Finds account whose username contain any of the given keywords. +
+Format: `find-account KEYWORD` or `fa KEYWORD`
+
+****
+* The search is case insensitive. e.g `root` will match `Root`
+* Only the username is searched.
+* Only full words will be matched e.g. `roo` will not match `root`
+****
+
+Examples:
+
+* `find-account root` +
+Returns `root`
+* `fa root azhikai rebstan97` +
+Returns any account having username `root`, `azhikai`, or `rebstan97`
 
 ==== List user accounts: `list-accounts` or `la`
 
@@ -268,17 +339,17 @@ Format: `list-accounts` or `la`
 
 [WARNING]
 ====
-Password is masked by default and should never be shown
+Password is masked by default and should never be shown on display
 ====
 // end::accountmanagement[]
 
 // tag::ingredientmanagement[]
 === Ingredients Management
-[[Add-ingredient]]
+[[add-ingredient]]
 ==== Adding an ingredient: `add-ingredient` or `add-ing`
 
 Adds a new ingredient to the ingredient list. +
-Format: `add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM`
+Format: `add-ingredient n/INGREDIENT_NAME u/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM`
 
 [NOTE]
 ====
@@ -287,7 +358,7 @@ Format: `add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM
 
 Examples:
 
-* `add-ingredient n/cod fish t/kilogram p/20 m/1`
+* `add-ingredient n/cod fish u/kilogram p/20 m/1`
 
 ==== Listing all ingredients : `list-ingredients` or `list-ing`
 
@@ -351,11 +422,11 @@ Edits the unit type and price per unit of the 4th ingredient to be `1.5ml bottle
 * `edit-ingredient ketchup n/tomato ketchup`  +
 Edits the name of `ketchup` to be `tomato ketchup`.
 
-[[Stockup]]
+[[stockup]]
 ==== Stocking up an ingredient: `stockup`
 
 Increases the number of units of an ingredient or multiple ingredients. +
-Format: `stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
+Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
 
 ****
 * NUMBER_OF_UNITS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
@@ -363,12 +434,12 @@ Format: `stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
 
 Examples:
 
-* `stockup n/cod fish u/5`
-* `stockup n/chicken thigh u/10 n/fries u/20 n/tomato ketchup u/50`
+* `stockup n/cod fish nu/5`
+* `stockup n/chicken thigh nu/10 n/fries nu/20 n/tomato ketchup nu/50`
 
 // tag::menu[]
 === Menu Management
-[[Add-item]]
+[[add-item]]
 ==== Adding an item to the menu: `add-item` or `ai`
 
 Adds an item to the menu +
@@ -377,6 +448,7 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 ****
 * ITEM_NAME and ITEM_PRICE must be provided.
 * An item can have any number of tags (including 0)
+* ITEM_PRICE should only contain numbers, at most 2 decimal place and smaller than or equals to 2,147,483,647.
 ****
 
 Examples:
@@ -384,7 +456,7 @@ Examples:
 * `add-item n/Burger p/2`
 * `ai n/Burger Set p/4.5 t/Set`
 
-==== Listing all items in the menu : `list-items` or 'li'
+==== Listing all items in the menu : `list-items` or `li`
 
 Shows a list of all items in the menu. +
 Format: `list-items`
@@ -392,8 +464,7 @@ Format: `list-items`
 ==== Editing an item in the menu : `edit-item` or `ei`
 
 Edits an existing item in the menu. +
-Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` or `edit-item NAME [n/ITEM_NAME] [p/ITEM_PRICE]
-[t/TAG]...`
+Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...`
 
 ****
 * Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The
@@ -402,7 +473,6 @@ index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
 * You can remove all the item's tags by typing `t/` without specifying any tags after it.
-* Alternatively, edits the item with the specified `NAME`.
 ****
 
 Examples:
@@ -412,26 +482,47 @@ Edits the name and price of the 1st item to be `burger` and `3` respectively.
 * `ei 2 p/4 t/` +
 Edits the price of the 2nd item to be `4` and clears all existing tags.
 
-==== Deleting an item : `delete-item` or `di`
+==== Deleting an item by index: `delete-item-index` or `dii`
 
 Deletes the specified item from the menu. +
-Format: `delete-item INDEX` or `delete-item NAME`
+Format: `delete-item-index INDEX [ei/INDEX]`
 
 ****
 * Deletes the item at the specified `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Alternatively, deletes the item with the specified `NAME`.
+* You can delete a range of items by adding the ending index `ei\INDEX`.
 ****
 
 Examples:
 
 * `list-items` +
-`delete-item 2` +
+`delete-item-index 2` +
 Deletes the 2nd item in the menu.
 * `fi Cheese` +
-`di 1` +
-Deletes the 1st item in the results of the `find` command.
+`dii 1 ei/3` +
+Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
+
+==== Deleting an item by name: `delete-item-name` or `din`
+
+Deletes the specified item from the menu. +
+Format: `delete-item-name NAME`
+
+****
+* Deletes the item by the specified `NAME`.
+* The name of the item *must be in the displayed item list*.
+* The index *must be a positive integer* 1, 2, 3, ...
+* You can delete a range of items by adding the ending index `ei\INDEX`.
+****
+
+Examples:
+
+* `list-items` +
+`delete-item-name Apple Juice` +
+Deletes the `Apple Juice` item in the menu.
+* `fi Cheese` +
+`din Cheese Fries` +
+Deletes `Cheese Fries` item in the results of the `find` command.
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -508,7 +599,7 @@ Format: `sort-menu [NAME] [PRICE]`
 Examples:
 
 * `sort-menu NAME` +
-Sorts the menu by item name in alphabetical order.
+Sorts the menu by item name in lexicographical order.
 * `sm PRICE` +
 Sorts the menu by item price in ascending order(lowest to highest).
 
@@ -530,6 +621,7 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * You can remove discount by typing `0` for the percentage.
 * You can give a discount to the whole menu by typing `ALL` instead of a specified `INDEX`.
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`.
+* The ending index can not be smaller than index.
 ****
 
 Examples:
@@ -555,13 +647,13 @@ Examples:
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
 
-==== Add recipe to item : `recipe-item` or `ri`
+==== Add/Update recipe to item : `recipe-item` or `ri`
 
-Adds recipe to the item identified by the index number used in the menu. +
+Adds/Updates recipe to the item identified by the index number used in the menu. +
 Format: `recipe-item INDEX r/RECIPE`
 
 ****
-* Adds a recipe to the item at the specified `INDEX`.
+* Adds/Updates a recipe to the item at the specified `INDEX`.
 * If the item has a recipe already, it will update the recipe.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -579,11 +671,11 @@ Add/Update the recipe of the 1st item in the results of the `find` command to be
 [[add-required-ingredient]]
 ==== Add required ingredients: `add-required-ingredients` or `ari`
 
-Adds required ingredients to the item identified by the index number used in the menu. +
+Adds/Updates required ingredients to the item identified by the index number used in the menu. +
 Format: `add-required-ingredients INDEX n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 
 ****
-* Adds required ingredients to the item at the specified `INDEX`.
+* Adds/Updates required ingredients to the item at the specified `INDEX`.
 * If the item has required ingredients already, it will update the required ingredients.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -597,7 +689,6 @@ Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
 Add/Update the recipe of the 1st item in the results of the `find` command.
-
 // end::menu[]
 
 //tag::reservations[]
@@ -605,16 +696,28 @@ Add/Update the recipe of the 1st item in the results of the `find` command.
 ==== Adding a reservation: `add-reservation` or `ar`
 
 Adds a new reservation to the reservations list. +
-Format: `add-reservation n/NAME px/PAX dt/DATETIME` or `ar n/NAME px/PAX dt/DATETIME`
+Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DATE ti/TIME`
 
-****
-* DateTime is entered in yyyy-mm-dd**T**hh:mm:ss format.
-****
+[NOTE]
+====
+* We use natural language processing to parse the date and time values.
+* For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
+====
+
+[WARNING]
+====
+* Try to avoid ambiguous language as it might be interpreted incorrectly.
+* For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
+* If you want to be sure, we recommend using these formats:
+** `DATE`: `DD-MM-YYYY`
+** `TIME`: `HH:MM`
+====
 
 Examples:
 
-* `add-reservation n/TAN px/4 dt/2018-07-21T10:00:00`
-* `ar n/ONG px/2 dt/2018-08-30T12:00:00`
+* `add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+* `ar n/ONG px/2 d/21st July ti/10am`
+* `ar n/LEE px/8 d/next tuesday ti/8 p.m.`
 
 ==== Listing all reservations : `list-reservations` or `lr`
 
@@ -624,7 +727,7 @@ Format: `list-reservations` or `lr`
 ==== Editing a reservation: `edit-reservation` or `er`
 
 Edits an reservation in the reservation list. +
-Format: `edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` or `er INDEX [n/NAME] [px/PAX] [dt/DATETIME]`
+Format: `edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` or `er INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]`
 
 ****
 * Edits the reservation at the specified `INDEX`. The index refers to the index number shown in the
@@ -635,8 +738,8 @@ displayed reservations list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `edit-reservation 2 dt/2018-12-31T18:00:00` +
-Edits the time of the 2nd reservation in the list to `31st Dec 2018, 1800` hrs.
+* `edit-reservation 2 d/31-12-2019 ti/18:00` +
+Edits the time of the 2nd reservation in the list to `31st Dec 2019, 1800` hrs.
 
 * `er 6 n/ONG px/4`  +
 Edits the name and pax of the 6th reservation to `ONG` and `4` respectively.
@@ -694,28 +797,40 @@ Selects the 7th reservation in the reservations list.
 
 // tag::salesmanagement[]
 === Sales Management
+
+The following are Sales-related commands to help you with financial tracking and analysis.
+
 ==== Recording sales volume of an item: `record-sales` or `rs`
 
-Records the sales volume of an item within a specific day into the sales list. +
+Records the sales volume of an item within a specific day into the record list. +
 Format: `record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` or `rs d/DATE n/ITEM_NAME q/QUANTITY_SOLD
 p/ITEM_PRICE` +
 
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
-* Both DATE and ITEM_NAME cannot be same as another record in the sales list.
+* Both DATE and ITEM_NAME cannot be same as another record in the record list.
 ****
+
+[NOTE]
+====
+A *sales record* is created whenever you record the sales volume of an item. +
+The *record list* holds all sales records you have recorded.
+====
+
 
 [[auto-ingredient-update]]
 ===== Auto-ingredient update mechanism:
 `record-sales` also determines all the ingredients you used and automatically deducts them from the ingredient
 list, subjected to the following conditions: +
-1) The item exists in the menu. Refer to <<Add-item>> for more information. +
-2) The required ingredients to make one unit of `ITEM_NAME` is specified. Refer to <<add-required-ingredient>> for more
-information. +
-3) All required ingredients exist in the ingredient list. Refer to <<Add-ingredient>> for more information. +
-4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. Refer to <<Stockup>> for more
-information.
+1) The item exists in the menu. +
+Refer to <<add-item>> for more information. +
+2) The required ingredients to make one unit of `ITEM_NAME` is specified. +
+Refer to <<add-required-ingredient>> for more information. +
+3) All required ingredients exist in the ingredient list. +
+Refer to <<add-ingredient>> for more information. +
+4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. +
+Refer to <<stockup>> for more information.
 
 [NOTE]
 ====
@@ -742,13 +857,18 @@ Format: `display-sales DATE` or `dis DATE`
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
+* There must be at least one sales volume record associated with the specified DATE.
 ****
 
 Examples:
 
-* `display-sales 25-09-2018`
-* `dis 25-09-2018` +
-Displays the sales report dated 25-09-2018.
+* `display-sales 30-09-2018`
+* `dis 30-09-2018` +
+Displays the sales report dated 30-09-2018.
+
+The following is an example of what you will see if the sales report is generated and displayed correctly:
+
+image::display-sales-pic.png[width="465"]
 
 
 ==== Deleting a sales record: `delete-sales` or `des`
@@ -758,7 +878,7 @@ Format: `delete-sales ITEM_INDEX` or `des ITEM_INDEX`
 
 ****
 * Deletes the record at the specified `ITEM_INDEX`.
-* The item index refers to the index number shown in the sales list.
+* The item index refers to the index number shown in the record list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -772,7 +892,7 @@ Examples:
 
 * `delete-sales 2`
 * `des 2` +
-Deletes the 2nd record from the sales list.
+Deletes the 2nd record from the record list.
 
 ==== Editing a sales record: `edit-sales` or `es`
 
@@ -781,7 +901,7 @@ Format: `edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_
 [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]`
 
 ****
-* Edits the record at the specified `INDEX`. The index refers to the index number shown in the sales list.
+* Edits the record at the specified `INDEX`. The index refers to the index number shown in the record list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -807,11 +927,87 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
 
+==== Display sales chart of date and revenue: `chart-sales` or `cs`
+
+Generates and displays the sales chart of revenue against date. +
+Format: `chart-sales` or `cs`
+
+****
+* Record list must not be empty.
+* Only existing dates in the record list are tabulated and shown.
+****
+
+The following is an example of what you will see if the sales chart is generated and displayed correctly:
+
+image::chart-sales-pic.png[width="550"]
+
+==== Ranking dates according to total revenue: `rank-date` or `rad`
+
+Ranks and displays all existing records' dates based on the total revenue. +
+Format: `rank-date` or `rad`
+
+****
+* Record list must not be empty.
+****
+
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-date-pic.png[width="325"]
+
+==== Ranking items according to total revenue: `rank-item` or `rai`
+
+Ranks and displays the items based on their total revenue accumulated in past sales records. +
+Format: `rank-item` or `rai`
+
+****
+* Record list must not be empty.
+****
+
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-item-pic.png[width="325"]
+
+==== Selecting a sales record : `select-sales` or `ss`
+
+Selects the sales record identified by the index number used in the record list. +
+Format: `select-sales INDEX` or `ss INDEX`
+
+****
+* Loads the record list and selects the record at the specified `INDEX`.
+* The index refers to the index number shown in the displayed record list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+`select-sales 2` +
+Selects the 2nd record in the record list.
+
+`ss 6` +
+Selects the 6th record in the record list.
+
 // end::salesmanagement[]
 
 === Upcoming Features
+[[Register-Improvement]]
+==== Improving registration `[coming in v2.0]`
+Improves the existing `register` command by including the full name of the employee and role.
+
+Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID` or `reg id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID`
+
+Examples:
+
+* `register id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+* `reg id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+
+[[User-Role]]
 ==== Creating user role `[coming in v2.0]`
 Creates a user role. User assigned with higher ranking role can execute more commands. +
+[TIP]
+====
+When the application is in its default state, this command can only be executed by the `root` account
+which has the default role of `Administrator`
+====
 Format: `create-role r/RANK n/ROLE_NAME` or `cr r/RANK n/ROLE_NAME`
 
 Examples:
@@ -840,21 +1036,6 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
-==== Ranking items according to total revenue `[coming in v1.4]`
-
-Ranks the items based on their total revenue accumulated in past sales records. +
-Format: `rank-item` or `ri`
-
-==== Ranking dates according to total revenue `[coming in v1.4]`
-
-Ranks the dates based on their total revenue for that day. +
-Format: `rank-date` or `rd`
-
-==== Displaying sales graph `[coming in v2.0]`
-Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis
-representing the dates. +
-Format: `display-sales-graph` or `dsg`
-
 ==== Checking item sales history `[coming in v2.0]`
 Generates the item sales report that consists of all records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
@@ -866,8 +1047,12 @@ Examples:
 
 ==== Exporting sales report `[coming in v2.0]`
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
-detailed than that displayed in app.
+detailed than that displayed in app. +
 Format: `export-sales DATE` or `es DATE`
+
+==== Exporting sales chart `[coming in v2.0]`
+Exports the sales chart into a pdf file. +
+Format: `export-chart` or `ec`
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
@@ -929,11 +1114,12 @@ contains the data of your previous *MeNUS* folder.
 |*History* |`history` |`history`
 |*Undo* |`undo` |`undo`
 |*Redo* |`redo` |`redo`
-|*Login* |`login id/USERNAME pw/PASSWORD` |`login id/azhikai pw/1122qq`
+|*Login* |`login id/USERNAME pw/PASSWORD` |`login id/root pw/1122qq`
 |*Logout* |`logout` |`logout`
-|*Create account* |`register/reg id/USERNAME pw/PASSWORD` |`register id/azhikai pw/1122qq`
-|*Edit account* |`edit-acc id/USERNAME [nid/NEW_USERNAME] [pw/NEW_PASSWORD]` |`edit-acc id/azhikai nid/angzhikai`
+|*Create account* |`register/reg id/USERNAME pw/PASSWORD` |`register/reg id/azhikai pw/p@55w0rd`
+|*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
+|*List accounts* |`list-accounts/la` |`list-accounts/la`
 |*Add ingredient* |`add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod fish t/kilogram p/20 m/1`
 |*List ingredient* |`list-ingredients` |`list-ingredients`
 |*List ingredient with low stock count* |`low-stock` |`low-stock`
@@ -943,7 +1129,7 @@ contains the data of your previous *MeNUS* folder.
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item* |`delete-item INDEX` |`delete-item 3`
-|*Select item* |`select-items INDEX` |`select-items 3`
+|*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
 |*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
@@ -952,18 +1138,20 @@ contains the data of your previous *MeNUS* folder.
 |*Today's special* |`today-special` |`today-special`
 |*Export menu* |`export-menu fp/FILE_PATH fn/FILE_NAME` |`export-menu fp/backup/ fn/menu.txt`
 |*Import menu* |`import-menu fp/FILE_PATH fn/FILE_NAME` |`import-menu fp/backup/ fn/menu.txt`
-|*Add reservation* |`add-reservation n/NAME px/PAX dt/DATETIME` |`add-reservation n/TAN px/4 dt/2018-07-21:10:00:00`
-|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` |`edit-reservation 2 px/2`
+|*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`
-|*Select reservation* |`select-reservations` |`select-reservation 1`
+|*Select reservation* |`select-reservation INDEX` |`select-reservation 1`
 |*List reservation* |`list-reservations` |`list-reservations`
 |*Sort reservation* |`sort-reservations` |`sort-reservations`
 |*Record sales volume* |`record-sales d/DATE n/ITEM_NAME q/QUANTITY SOLD p/ITEM_PRICE` |`record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
 |*Display sales report* |`display-sales DATE` |`display-sales 25-09-2018`
 |*Edit sales record* |`edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]` |`edit-sales 3 n/Fried Omelet p/7.99`
 |*Delete sales record* |`delete-sales ITEM_INDEX` |`delete-sales 2`
+|*Display sales chart* |`chart-sales` |`chart-sales`
 |*Rank items by total revenue* |`rank-item` |`rank-item`
 |*Rank dates by total revenue* |`rank-date` | `rank-date`
+|*Select sales record* |`select-sales INDEX` |`select-sales 3`
 |=======================================================================
 
 [appendix]

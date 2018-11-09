@@ -16,17 +16,20 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.JumpToItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author yican95
+
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectItemCommand}.
  */
 public class SelectItemCommandTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -88,12 +91,12 @@ public class SelectItemCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToItemListRequestEvent}
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
@@ -102,13 +105,14 @@ public class SelectItemCommandTest {
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        JumpToItemListRequestEvent lastEvent =
+                (JumpToItemListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
-     * is thrown with the {@code expectedMessage}.
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException} is
+     * thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectItemCommand selectCommand = new SelectItemCommand(index);

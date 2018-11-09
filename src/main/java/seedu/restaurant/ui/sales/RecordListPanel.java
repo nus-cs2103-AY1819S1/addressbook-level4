@@ -2,6 +2,8 @@ package seedu.restaurant.ui.sales;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,8 +11,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.RecordPanelSelectionChangedEvent;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.commons.events.ui.sales.JumpToRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
 /**
@@ -54,6 +57,12 @@ public class RecordListPanel extends UiPart<Region> {
             recordListView.scrollTo(index);
             recordListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+
+    @Subscribe
+    private void handleJumpToRecordListRequestEvent(JumpToRecordListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
     }
 
     /**

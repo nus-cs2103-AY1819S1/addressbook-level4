@@ -10,7 +10,7 @@ import java.util.List;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -19,6 +19,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Price;
 
+//@@author yican95
 /**
  * Gives an existing item in the menu a discount.
  */
@@ -32,7 +33,7 @@ public class DiscountItemCommand extends Command {
             + "by the index number used in the displayed item list a discount based on the percent. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer, starting index) "
-            + "[" + PREFIX_ENDING_INDEX + "INDEX](must be larger than the starting index) "
+            + "[" + PREFIX_ENDING_INDEX + "INDEX](cannot be smaller than the starting index) "
             + PREFIX_PERCENT + "PERCENT "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PERCENT + "20";

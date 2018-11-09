@@ -10,8 +10,9 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 
+//@@author AZhiKai
 /**
- * Lists all items in the menu to the user.
+ * List all {@code Account}.
  */
 public class ListAccountsCommand extends Command {
 
@@ -19,7 +20,7 @@ public class ListAccountsCommand extends Command {
 
     public static final String COMMAND_ALIAS = "la";
 
-    public static final String MESSAGE_SUCCESS = "Listed all accounts";
+    public static final String MESSAGE_SUCCESS = "Listed all %d accounts";
 
 
     @Override
@@ -27,6 +28,6 @@ public class ListAccountsCommand extends Command {
         requireNonNull(model);
         model.updateFilteredAccountList(PREDICATE_SHOW_ALL_ACCOUNTS);
         EventsCenter.getInstance().post(new DisplayAccountListRequestEvent());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredAccountList().size()));
     }
 }

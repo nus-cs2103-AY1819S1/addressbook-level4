@@ -6,7 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.session.UserSession;
-import seedu.restaurant.commons.events.ui.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -15,8 +15,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 
+//@@author AZhiKai
 /**
- * Logs the user into an existing {@link Account}, and create a {@link UserSession}.
+ * Logs the user into an existing {@code Account}, and create a {@code UserSession}.
  */
 public class LoginCommand extends Command {
 

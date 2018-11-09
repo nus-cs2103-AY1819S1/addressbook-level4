@@ -8,7 +8,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditIngredientDescriptor objects.
  */
 public class EditIngredientDescriptorBuilder {
 

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplayIngredientListRequestEvent;
+import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;

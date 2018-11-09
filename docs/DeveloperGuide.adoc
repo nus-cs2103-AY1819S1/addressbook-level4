@@ -120,10 +120,9 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-////
-=== Using Git with SourceTree
-We use Git for source control. See UsingGit.adoc if you find any difficulty when using Git.
-////
+=== Using Git with Sourcetree
+We use Git with Sourcetree for distributed source control. See <<UsingGit#, UsingGit.adoc>> if you find any difficulty
+when using Git with Sourcetree.
 
 ==== Getting started with coding
 
@@ -137,8 +136,8 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+_Figure 3.1.1: Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -169,16 +168,17 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.1.2: Class Diagram of the Logic Component_
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteItem.png[width="800"]
+_Figure 3.1.3: Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
 Note how the `Model` simply raises a `RestaurantBookChangedEvent` when the Restaurant Book data are changed, instead of
@@ -186,8 +186,8 @@ asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteItemEventHandling.png[width="800"]
+_Figure 3.1.4: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -197,8 +197,8 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1: Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/restaurant/ui/Ui.java[`Ui.java`]
 
@@ -216,8 +216,8 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1: Structure of the Logic Component_
 
 *API* :
 link:{repoURL}/src/main/java/seedu/restaurant/logic/Logic.java[`Logic.java`]
@@ -230,14 +230,14 @@ link:{repoURL}/src/main/java/seedu/restaurant/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("register
 id/azhikai pw/1122qq")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
 image::RegisterAccountSdForLogic.png[width="800"]
+_Figure 3.3.2: Interactions Inside the Logic Component for the `delete 1` Command_
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
 image::ModelClassBetterOopDiagram.png[width="800"]
+_Figure 3.4.1: Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/restaurant/model/Model.java[`Model.java`]
 
@@ -252,8 +252,8 @@ list so that the UI automatically updates when the data in the list change.
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1: Structure of the Storage Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/restaurant/storage/Storage.java[`Storage.java`]
 
@@ -319,8 +319,8 @@ case. If so, it will return an error to the user rather than attempting to perfo
 
 The following sequence diagram shows how the undo operation works:
 
-.Structure of the Storage Component
 image::UndoRedoSequenceDiagram.png[width="800"]
+_Figure 4.1.1.1: Structure of the Storage Component_
 
 The `redo` command does the opposite -- it calls `Model#redoRestaurantBook()`, which shifts the `currentStatePointer`
 once to the right, pointing to the previously undone state, and restores the restaurant book to that state.
@@ -399,8 +399,8 @@ The following sequence diagram shows how the `register` command works:
 The `deregister` command works the same way by checking if the account exists before calling `Model#removeAccount
 (Account)`.
 
-.Sequence diagram to illustrate component interactions for the `register` command
 image::RegisterSequenceDiagram.png[width="800"]
+_Figure 4.2.1.1: Sequence diagram to illustrate component interactions for the `register` command_
 
 [NOTE]
 We assume the user is already logged in
@@ -424,8 +424,8 @@ Step 5: The new account is added into the storage. Then, a `CommandResult` is ge
 
 The following sequence diagram shows how the `login` command works:
 
-.Sequence diagram to illustrate component interactions for the `login` command
 image::LoginSequenceDiagram.png[width="800"]
+_Figure 4.2.1.2: Sequence diagram to illustrate component interactions for the `login` command_
 
 [NOTE]
 We assume the user will enter the correct password. Otherwise, warning message will be shown to the user to re-enter
@@ -439,10 +439,25 @@ as arguments.
 Step 3. When the command is parsed, the `Command#LoginCommand` will be created which is returned to the
 `LogicManager`.
 
-Step 4. `LogicManager` invokes the `execute()` method of the `Command#LoginCommand`, `lc` which is instantiated in Step 3.
+Step 4. `LogicManager` invokes the `execute()` method of the `Command#LoginCommand` which is instantiated in Step 3.
 The `Model` component will be involved as the `Command#LoginCommand` invokes a request to retrieve an account based
 on the username. If it exists, the account will be retrieved and the password hash will be compared. If it matches,
 then the credential is valid and the user is authenticated.
+
+==== Design Considerations
+===== Aspect: How account password is salted and hashed
+
+* **Alternative 1 (current choice):** Use username to generate cryptographic salt.
+** Rationale: If we allow the `bcrypt` library to generate the salt, test cases will be limited as the salt is
+generated based on system time. This means that despite testing the same account with the same raw password, its
+equality will never match. Hence, a workaround is to generate the salt based on its username which is unique to each
+account.
+** Pros: Easy to implement; simplified test cases
+** Cons: If an attacker knows how the salt is generated, it could pose a security risk.
+* **Alternative 2:** Use salt generated by the `bcrypt` library with high cost factor
+** Pros: Higher cost factor makes hashing of the password harder. Ideally, the cost factor should as high as the
+system can tolerate, given the other tasks the system must otherwise fulfill.
+** Cons: More processing resources used and will affect testing ability.
 
 === User session feature
 ==== Current Implementation
@@ -466,6 +481,7 @@ Given below is an example usage scenario and how the user session mechanism beha
 The following activity diagram summarizes what happens when a user logs in or out:
 
 image::UserSessionActivityDiagram.png[width="650"]
+_Figure 4.2.1.3: Activity diagram to illustrate the user session_
 
 The following code snippet demonstrates how these static methods are implemented:
 
@@ -476,18 +492,29 @@ The following code snippet demonstrates how these static methods are implemented
  *
  * @param account logged in for this session.
  */
-public static void login(Account account) {
-    isAuthenticated = true;
-    username = account.getUsername();
+public static void create(Account acc) {
+    if (!isAuthenticated) {
+        isAuthenticated = true;
+        account = acc;
+    }
 }
 
 /**
  * Logs out of this account which releases this session.
  */
-public static void logout() {
-    if (isAuthenticated) {
+public static void destroy() {
         isAuthenticated = false;
-        username = null;
+        account = null;
+}
+
+/**
+ * Updates the session with the new account info, such as updating of account password.
+ *
+ * @param acc that has been updated.
+ */
+public static void update(Account acc) {
+    if (isAuthenticated) {
+        account = acc;
     }
 }
 ----
@@ -498,9 +525,12 @@ public static void logout() {
 * **Alternative 1 (current choice):** Use static flags and methods.
 ** Pros: Easy to implement.
 ** Cons: Can only support one user at any time. If another user wants to login, the current logged in user must log out.
+In addition, since it is a global class object, test cases may be affected when testing both guest and privileged
+commands which requires user to be logged out and logged in respectively.
 * **Alternative 2:** Store a list of user sessions to allow multiple login.
-** Pros: More user can login and manage the systems concurrently.
-** Cons: More memory usage to track each user session.
+** Pros: More user can login and manage the systems concurrently. Potentially able to resolve the global dependency
+of the current solution which might affect the test ability.
+** Cons: More memory usage to track each user session as the application scales with more users.
 // end::useraccount[]
 
 // tag::auto-ingredient-update[]
@@ -557,6 +587,10 @@ method given in `Sales` component of `Model`.
 An exception will be thrown in step 2, 3 or 5 should the conditions be violated. When this happens,
 `RecordSalesCommand` will proceed with step 6 instantly and omit the remaining steps.
 
+The following activity diagram summarizes what happens when a user executes `record-sales` command:
+
+image::RecordSalesActivityDiagram.png[width="1000"]
+
 ==== Design Considerations
 ===== Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales?
 
@@ -610,9 +644,14 @@ The sales report is internally generated by `generateSalesReport(Date)` in `Uniq
 propagates up the Model call hierarchy to `getSalesReport(Date)` in `ModelManager`, which is exposed in the `Model`
 interface.
 
-The following sequence diagram illustrates how the display sales report operation works when the user enters `display-sales 25-12-2017`
+The following sequence diagram illustrates how the display sales report operation works when the user enters
+`display-sales 25-12-2017`:
 
 image::DisplaySalesSequenceDiagram.png[width="1300"]
+
+The sequence diagram for the "Parse Command" reference frame above is shown below:
+
+image::DisplaySalesSequenceDiagramRef.png[width="580"]
 
 Given below is an example usage scenario and how the display sales report operation behaves at each step.
 
@@ -622,6 +661,10 @@ Step 1. The user executes `display-sales 25-12-2017` command to request for the 
 
 [NOTE]
 `display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid.
+
+[NOTE]
+If no sales record associated with the given `Date` is found, an empty SalesReport will be
+returned. In such cases, the command will terminate with a message notifying the user about the absence of such record.
 
 Step 2. The `display-sales` command then raises the `DisplaySalesReportEvent` event, which also encapsulates the
 generated `SalesReport` in step 1.
@@ -872,8 +915,8 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.3.1.: Saving documentation as PDF files in Chrome_
 
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
@@ -1081,6 +1124,8 @@ application
 |`* * *` |restaurant owner |keep track of daily sales |meet revenue goals, improve the menu and track inventory
 
 |`* * *` |restaurant owner |modify past sales records  |update any mistakes / refunds / cancelled booking
+
+|`* * *` |analytical restaurant owner |see the sales chart of revenue against date |have an overview of my restaurant financial performance and oversee its growth in the long run
 
 |`* * *` |profit-driven restaurant owner |know the items that are bringing in the greatest revenue  |employ marketing strategies to maximise profit
 
@@ -1692,13 +1737,13 @@ Use case resumes at step 3.
 
 *Guarantees*:
 
-* A new sales record of an item will be appended to the sales list.
+* A new sales record of an item will be appended to the record list.
 
 *MSS*
 
 1. User requests to record sales volume of an item for a specified day.
 2. App computes the ingredients used and updates the ingredient list automatically.
-3. App appends the record at the end of sales list.
+3. App appends the record at the end of record list.
 4. App returns a success message confirming that the recording is successful.
 +
 Use case ends.
@@ -1727,7 +1772,7 @@ Steps 1b1-1b2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1c. Sales record of the same date and item name already exists in the sales list.
+* 1c. Sales record of the same date and item name already exists in the record list.
 [none]
 ** 1c1. App returns a message telling user that the item's record already exists.
 ** 1c2. User requests to record sales volume again.
@@ -1756,7 +1801,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to edit a sales record in the sales list.
+1. User requests to edit a sales record in the record list.
 2. App updates the sales record to that given by the user.
 3. App returns a success message confirming that the modification is successful.
 +
@@ -1776,10 +1821,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to edit sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1809,7 +1854,7 @@ Steps 1d1-1d2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1e. Sales record of the same date and item name as the new record already exists in the sales list.
+* 1e. Sales record of the same date and item name as the new record already exists in the record list.
 [none]
 ** 1e1. App returns a message telling user that the item's record already exists.
 ** 1e2. User requests to edit sales record again.
@@ -1824,7 +1869,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to delete a sales record in the sales list.
+1. User requests to delete a sales record in the record list.
 2. App deletes the sales record.
 3. App returns a success message confirming that the deletion is successful.
 +
@@ -1844,10 +1889,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to delete sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1888,12 +1933,23 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until a valid date is entered.
 +
 Use case resumes at step 2.
++
+
+* 2a. The generated sales report is empty. No record associated with the given date is found.
++
+[none]
+** 2a1. App returns a message telling user no such record is found.
+** 2a2. User requests to display sales report again with a new date.
++
+Steps 2a1-2a2 are repeated until a record with the given date is found. (i.e. Sales report generated is not empty.)
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC505 - Ranking items according to total revenue
 
 [NOTE]
-The use case for ranking dates according to total revenue is the same.
+The use cases for 1) ranking dates according to total revenue and 2) displaying sales chart are the same.
 
 *MSS*
 
@@ -1906,14 +1962,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command format entered by the user.
+* 2a. Record list is empty. No record has ever been added.
 [none]
-** 1a1. App returns a message telling user that the command format is invalid.
-** 1a2. User requests to display sales report again.
+** 2a1. App returns a message telling user that the record list is empty.
 +
-Steps 1a1-1a2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 2.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1930,6 +1983,7 @@ Use case resumes at step 2.
 .  Any user who has the basic proficiency of the English language should be able to use the application with the help
  of the link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`].
 .  System should not require any internet access except for updating.
+.  Only the English language will be used.
 
 [appendix]
 == Glossary
@@ -1954,7 +2008,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the `jar` file and copy into an empty folder.
 .. Double-click the `jar` file. +
-   *Expected*: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   *Expected*: Shows the GUI with a set of sample data. The window size may not be optimum.
 
 . Saving window preferences
 

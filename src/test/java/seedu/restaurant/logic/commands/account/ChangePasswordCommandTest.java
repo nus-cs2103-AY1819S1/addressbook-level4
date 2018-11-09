@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
 import seedu.restaurant.model.Model;
@@ -20,9 +20,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 
-/**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
- */
+//@@author AZhiKai
 public class ChangePasswordCommandTest {
 
     private Model model = new ModelManager(getTypicalRestaurantBook(), new UserPrefs());

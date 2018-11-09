@@ -7,11 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.accounts.UsernameDisplayHandle;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author AZhiKai
 public class UsernameDisplayTest extends GuiUnitTest {
 
     private static final LoginEvent LOGIN_EVENT_STUB = new LoginEvent(new AccountBuilder().build());

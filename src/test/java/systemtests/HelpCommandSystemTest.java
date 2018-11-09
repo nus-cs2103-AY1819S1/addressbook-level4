@@ -4,16 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.restaurant.testutil.EventsUtil.postNow;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.ui.testutil.GuiTestAssert.assertListMatching;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.restaurant.logic.commands.DeleteCommand;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.commands.HelpCommand;
-import seedu.restaurant.logic.commands.SelectCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.SelectItemCommand;
+import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.ui.BrowserPanel;
 import seedu.restaurant.ui.StatusBarFooter;
 
@@ -21,12 +27,23 @@ import seedu.restaurant.ui.StatusBarFooter;
  * A system test class for the help window, which contains interaction with other UI components.
  */
 public class HelpCommandSystemTest extends RestaurantBookSystemTest {
+
     private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "
             + "non-headless mode as FxRobot#clickOn(Node, MouseButton...) clicks on the wrong location. We suspect "
             + "that this is a bug with TestFX library that we are using. If this test fails, you have to run your "
             + "tests on headless mode. See UsingGradle.adoc on how to do so.";
 
     private final GuiRobot guiRobot = new GuiRobot();
+
+    @BeforeClass
+    public static void login() {
+        postNow(new LoginEvent(new AccountBuilder().build()));
+    }
+
+    @AfterClass
+    public static void logout() {
+        postNow(new LogoutEvent());
+    }
 
     @Test
     public void openHelpWindow() {
@@ -39,13 +56,14 @@ public class HelpCommandSystemTest extends RestaurantBookSystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getPersonListPanel().click();
+        getItemListPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
+        // We're not making use of BrowserPanel
+        /*getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowNotOpen();*/
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -60,16 +78,16 @@ public class HelpCommandSystemTest extends RestaurantBookSystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
         assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getItemListPanel(), getModel().getFilteredItemList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(DeleteItemByIndexCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

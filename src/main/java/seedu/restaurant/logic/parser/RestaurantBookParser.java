@@ -3,22 +3,16 @@ package seedu.restaurant.logic.parser;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.restaurant.logic.commands.AddCommand;
 import seedu.restaurant.logic.commands.ClearCommand;
 import seedu.restaurant.logic.commands.Command;
-import seedu.restaurant.logic.commands.DeleteCommand;
-import seedu.restaurant.logic.commands.EditCommand;
 import seedu.restaurant.logic.commands.ExitCommand;
-import seedu.restaurant.logic.commands.FindCommand;
 import seedu.restaurant.logic.commands.HelpCommand;
 import seedu.restaurant.logic.commands.HistoryCommand;
-import seedu.restaurant.logic.commands.ListCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
-import seedu.restaurant.logic.commands.RemarkCommand;
-import seedu.restaurant.logic.commands.SelectCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand;
 import seedu.restaurant.logic.commands.account.DeregisterCommand;
@@ -26,16 +20,19 @@ import seedu.restaurant.logic.commands.account.ListAccountsCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
 import seedu.restaurant.logic.commands.account.LogoutCommand;
 import seedu.restaurant.logic.commands.account.RegisterCommand;
+import seedu.restaurant.logic.commands.account.SelectAccountCommand;
 import seedu.restaurant.logic.commands.ingredient.AddIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
+import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand;
 import seedu.restaurant.logic.commands.menu.FilterMenuCommand;
@@ -51,22 +48,29 @@ import seedu.restaurant.logic.commands.reservation.EditReservationCommand;
 import seedu.restaurant.logic.commands.reservation.ListReservationsCommand;
 import seedu.restaurant.logic.commands.reservation.SelectReservationCommand;
 import seedu.restaurant.logic.commands.reservation.SortReservationsCommand;
+import seedu.restaurant.logic.commands.sales.ChartSalesCommand;
 import seedu.restaurant.logic.commands.sales.DeleteSalesCommand;
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
+import seedu.restaurant.logic.commands.sales.RankDateCommand;
+import seedu.restaurant.logic.commands.sales.RankItemCommand;
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
+import seedu.restaurant.logic.commands.sales.SelectSalesCommand;
 import seedu.restaurant.logic.parser.account.ChangePasswordCommandParser;
 import seedu.restaurant.logic.parser.account.DeregisterCommandParser;
 import seedu.restaurant.logic.parser.account.LoginCommandParser;
 import seedu.restaurant.logic.parser.account.RegisterCommandParser;
+import seedu.restaurant.logic.parser.account.SelectAccountCommandParser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.ingredient.AddIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.DeleteIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.EditIngredientCommandParser;
+import seedu.restaurant.logic.parser.ingredient.SelectIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.StockUpCommandParser;
 import seedu.restaurant.logic.parser.menu.AddItemCommandParser;
 import seedu.restaurant.logic.parser.menu.AddRequiredIngredientsCommandParser;
-import seedu.restaurant.logic.parser.menu.DeleteItemCommandParser;
+import seedu.restaurant.logic.parser.menu.DeleteItemByIndexCommandParser;
+import seedu.restaurant.logic.parser.menu.DeleteItemByNameCommandParser;
 import seedu.restaurant.logic.parser.menu.DiscountItemCommandParser;
 import seedu.restaurant.logic.parser.menu.EditItemCommandParser;
 import seedu.restaurant.logic.parser.menu.FilterMenuCommandParser;
@@ -82,6 +86,7 @@ import seedu.restaurant.logic.parser.sales.DeleteSalesCommandParser;
 import seedu.restaurant.logic.parser.sales.DisplaySalesCommandParser;
 import seedu.restaurant.logic.parser.sales.EditSalesCommandParser;
 import seedu.restaurant.logic.parser.sales.RecordSalesCommandParser;
+import seedu.restaurant.logic.parser.sales.SelectSalesCommandParser;
 
 /**
  * Parses user input.
@@ -110,33 +115,9 @@ public class RestaurantBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_ALIAS:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
@@ -158,9 +139,6 @@ public class RestaurantBookParser {
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
-        case RemarkCommand.COMMAND_WORD:
-            return new RemarkCommandParser().parse(arguments);
-
         case RecordSalesCommand.COMMAND_WORD:
         case RecordSalesCommand.COMMAND_ALIAS:
             return new RecordSalesCommandParser().parse(arguments);
@@ -176,6 +154,22 @@ public class RestaurantBookParser {
         case EditSalesCommand.COMMAND_WORD:
         case EditSalesCommand.COMMAND_ALIAS:
             return new EditSalesCommandParser().parse(arguments);
+
+        case RankDateCommand.COMMAND_WORD:
+        case RankDateCommand.COMMAND_ALIAS:
+            return new RankDateCommand();
+
+        case RankItemCommand.COMMAND_WORD:
+        case RankItemCommand.COMMAND_ALIAS:
+            return new RankItemCommand();
+
+        case SelectSalesCommand.COMMAND_WORD:
+        case SelectSalesCommand.COMMAND_ALIAS:
+            return new SelectSalesCommandParser().parse(arguments);
+
+        case ChartSalesCommand.COMMAND_WORD:
+        case ChartSalesCommand.COMMAND_ALIAS:
+            return new ChartSalesCommand();
 
         case RegisterCommand.COMMAND_WORD:
         case RegisterCommand.COMMAND_ALIAS:
@@ -194,6 +188,10 @@ public class RestaurantBookParser {
 
         case LogoutCommand.COMMAND_WORD:
             return new LogoutCommand();
+
+        case SelectAccountCommand.COMMAND_WORD:
+        case SelectAccountCommand.COMMAND_ALIAS:
+            return new SelectAccountCommandParser().parse(arguments);
 
         case ListAccountsCommand.COMMAND_WORD:
         case ListAccountsCommand.COMMAND_ALIAS:
@@ -222,13 +220,21 @@ public class RestaurantBookParser {
         case StockUpCommand.COMMAND_WORD:
             return new StockUpCommandParser().parse(arguments);
 
+        case SelectIngredientCommand.COMMAND_WORD:
+        case SelectIngredientCommand.COMMAND_ALIAS:
+            return new SelectIngredientCommandParser().parse(arguments);
+
         case AddItemCommand.COMMAND_WORD:
         case AddItemCommand.COMMAND_ALIAS:
             return new AddItemCommandParser().parse(arguments);
 
-        case DeleteItemCommand.COMMAND_WORD:
-        case DeleteItemCommand.COMMAND_ALIAS:
-            return new DeleteItemCommandParser().parse(arguments);
+        case DeleteItemByIndexCommand.COMMAND_WORD:
+        case DeleteItemByIndexCommand.COMMAND_ALIAS:
+            return new DeleteItemByIndexCommandParser().parse(arguments);
+
+        case DeleteItemByNameCommand.COMMAND_WORD:
+        case DeleteItemByNameCommand.COMMAND_ALIAS:
+            return new DeleteItemByNameCommandParser().parse(arguments);
 
         case EditItemCommand.COMMAND_WORD:
         case EditItemCommand.COMMAND_ALIAS:
@@ -260,7 +266,7 @@ public class RestaurantBookParser {
 
         case TodaySpecialCommand.COMMAND_WORD:
         case TodaySpecialCommand.COMMAND_ALIAS:
-            return new TodaySpecialCommand();
+            return new TodaySpecialCommand(Calendar.getInstance());
 
         case DiscountItemCommand.COMMAND_WORD:
         case DiscountItemCommand.COMMAND_ALIAS:

@@ -3,11 +3,13 @@ package seedu.restaurant.logic.parser.account;
 import static java.util.Objects.requireNonNull;
 
 import seedu.restaurant.logic.parser.exceptions.ParseException;
+import seedu.restaurant.model.account.Name;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * Contains utility methods used for parsing strings account-related classes.
+ * Contains utility methods used for parsing strings {@code Account}-related classes.
  */
 public class AccountParserUtil {
 
@@ -42,5 +44,20 @@ public class AccountParserUtil {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINT);
         }
         return new Password(trimmedPassword);
+    }
+
+
+    /**
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
     }
 }

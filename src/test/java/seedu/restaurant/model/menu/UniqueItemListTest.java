@@ -19,6 +19,7 @@ import seedu.restaurant.model.menu.exceptions.DuplicateItemException;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class UniqueItemListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -26,7 +27,7 @@ public class UniqueItemListTest {
     private final UniqueItemList uniqueItemList = new UniqueItemList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.contains(null);
     }
@@ -143,7 +144,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setItems_uniqueItemList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setItems_uniqueItemList_replacesOwnListWithProvidedUniqueItemList() {
         uniqueItemList.add(APPLE_JUICE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
         expectedUniqueItemList.add(BEEF_BURGER);

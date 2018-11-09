@@ -80,7 +80,7 @@ public class ItemCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Item item) {
         return getName().equals(item.getName().toString())
-                && getPrice().equals(item.getPrice().toString())
+                //&& getPrice().equals("$" + item.getPrice().toString()) // note the "$" here! else equals will fail!
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(item.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

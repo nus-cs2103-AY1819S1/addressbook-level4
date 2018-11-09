@@ -11,11 +11,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.reservation.JumpToReservationListRequestEvent;
 import seedu.restaurant.commons.events.ui.reservation.ReservationPanelSelectionChangedEvent;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.ui.UiPart;
 
+//@@author m4dkip
 /**
  * Panel containing the list of reservations.
  */
@@ -33,20 +34,16 @@ public class ReservationListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    @FXML
+    private void handleMouseClick() {
+        Reservation reservation = reservationListView.getSelectionModel().getSelectedItem();
+        logger.fine("Selection in item list panel changed to : '" + reservation + "'");
+        raise(new ReservationPanelSelectionChangedEvent(reservation));
+    }
+
     private void setConnections(ObservableList<Reservation> reservationList) {
         reservationListView.setItems(reservationList);
         reservationListView.setCellFactory(listView -> new ReservationListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        reservationListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in reservation list panel changed to : '" + newValue + "'");
-                        raise(new ReservationPanelSelectionChangedEvent(newValue));
-                    }
-                });
     }
 
     /**
@@ -56,11 +53,12 @@ public class ReservationListPanel extends UiPart<Region> {
         Platform.runLater(() -> {
             reservationListView.scrollTo(index);
             reservationListView.getSelectionModel().clearAndSelect(index);
+            raise(new ReservationPanelSelectionChangedEvent(reservationListView.getItems().get(index)));
         });
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToReservationListRequestEvent(JumpToReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }

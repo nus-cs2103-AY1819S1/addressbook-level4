@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Item with an invalid price field, which causes originalPrice to be invalid as well since it's a copy -->
+<items>
+  <name>Cheese Fries</name>
+  <price>9.000</price>
+  <originalPrice>9.000</originalPrice>
+  <percent>20</percent>
+  <recipe>Deep fry potato and add cheese.</recipe>
+  <requiredIngredients />
+  <tagged>cheese</tagged>
+</items>
