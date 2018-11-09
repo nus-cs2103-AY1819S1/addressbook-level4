@@ -66,7 +66,7 @@ public class WordBuilder {
      */
     public Word build() {
         if (tags.isEmpty()) {
-            tags.add(new Tag("toLearn"));
+            tags.add(new Tag(Tag.DEFAULT_TAG));
         }
         return new Word(name, meaning, tags);
     }
