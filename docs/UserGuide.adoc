@@ -23,7 +23,7 @@ with features such as setting a budget and expense statistics, which help you st
 
 == About
 The *Expense Tracker User Guide* contains all the essential information for you to make full use of Expense Tracker.
-Jump to <<Quick Start>> to get started or go to <<Features>> for a list of all the commands available.
+Jump to <<Quick Start, Quick Start>> to get started or go to <<Features, Features>> for a list of all the commands available.
 
 == Quick Start
 
@@ -42,7 +42,7 @@ image::userguide/uiOnLaunch.png[width="790"]
 .  Type the command `login u/USERNAME` in the command box and press kbd:[Enter] to execute it, where USERNAME is the username you signed up with in the previous step. e.g. `login u/username123` +
 You are now able to use all the commands of the app. +
 .  Type commands in the command box, as highlighted in the figure below, and press kbd:[Enter] to execute it.
-Refer to <<Features>> for details on all the available commands. +
+Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == User Interface
@@ -58,7 +58,7 @@ There are five main components to Expense Tracker, each highlighted by the colou
 This is the portion highlighted by the red box. There are two modes to this panel, Expense List mode and Statistics Panel mode.
 You are able to change to the Expense List mode by using the `list` command and Statistics Mode
 by using the `stats` command. +
-See <<ListCommand>> and <<StatsCommand>> for more details on these commands.
+See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
 
 ==== Expense List mode
 In Expense List mode, the Left Panel shows the list of expenses which looks similar to the figure below.
@@ -68,13 +68,13 @@ image::userguide/expenseList.png[width="790"]
 
 When commands which alter the Expense List such as `find` and `list` are used, they change which expenses will be shown.
 
-See <<FindCommand>> and <<ListCommand>> for more details.
+See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
 
 [NOTE]
 ====
 Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
 
-See <<DeleteCommand>> and <<EditCommand>> for more details.
+See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
 ====
 
 ==== Statistics Panel mode
@@ -84,10 +84,10 @@ In Statistics Panel mode, the Left Panel shows statistics about expenses which l
 image::userguide/statisticsPanel.png[width="790"]
 
 In the top half, statistics about your expenses are shown. These can be changed by the `stats` command.
-See <<StatsCommand>> for more details.
+See <<StatsCommand, `stats`>> command for more details.
 
 In the bottom half, all the category budgets you set using the `setCategoryBudget` command can be seen.
-See <<SetCategoryBudgetCommand>> for more details.
+See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
 === Budget Tracker
 
@@ -95,7 +95,7 @@ This is the portion highlighted by the blue box.
 
 The Budget Tracker shows information about your total expenditure and
 the budget which you set using the `setBudget` command.
-See <<SetBudgetCommand>> for more details.
+See <<SetBudgetCommand, `setBudget`>> command for more details.
 
 === Notifications Panel
 
@@ -533,10 +533,17 @@ Changes the Expense List to show the Statistics Panel if the Expense List is cur
 displays a graph of your expenditure over a specified time period, in a given `MODE`. +
 
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
-Choosing Time mode will show a Bar Chart in the statistics panel, where amounts for each day or month will displayed,
+Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
 depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
-Choosing Category mode will show a Pie Chart in the statistics panel, where amounts for each category will displayed for
+
+.Statistics Panel showing a bar chart in Time mode
+image::userguide/barChart.png[width="790"]
+
+Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
 expenses in the specified `PERIOD_AMOUNT` and `PERIOD`.
+
+.Statistics Panel showing a pie chart in Category mode
+image::userguide/pieChart.png[width="790"]
 
 The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
 and `MODE` is `d`, the statistics will include data from the past 7 days.
@@ -612,6 +619,7 @@ Format: `exit`
 WARNING: This command is for advanced users only and should be used with caution.
 
 Encrypts text using your account's password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.
 
 Format: `encrypt TEXT`
 
@@ -633,6 +641,7 @@ Format: `encrypt TEXT`
 WARNING: This command is for advanced users only and should be used with caution.
 
 Decrypts an encrypted text that has been encrypted using your account's password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.
 
 Format: `decrypt TEXT`
 

@@ -8,7 +8,6 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_K
 import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -439,9 +438,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private Predicate <Expense> defaultExpensePredicate() {
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.DAY_OF_MONTH, 7 * -1);
-        return e -> e.getDate().fullDate.after(now);
+        LocalDateTime now = LocalDateTime.now().minusDays(7);
+        return e -> e.getDate().getFullDate().isAfter(now);
     }
 
     //@@author JasonChong96
