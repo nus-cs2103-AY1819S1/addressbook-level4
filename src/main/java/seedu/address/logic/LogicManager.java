@@ -6,16 +6,26 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.QueueUpdatedEvent;
+import seedu.address.commons.events.ui.ShowDefaultBrowserEvent;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddMedicineCommand;
+import seedu.address.logic.commands.CheckStockCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DisplayQueueCommand;
 import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.FindMedicineCommand;
 import seedu.address.logic.commands.FinishCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InsertCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListStockCommand;
 import seedu.address.logic.commands.QueueCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.RemoveCommand;
+import seedu.address.logic.commands.RestockCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -63,6 +73,17 @@ public class LogicManager extends ComponentManager implements Logic {
             return command.execute(model, history);
         } finally {
             history.add(commandText);
+            if (command instanceof AddCommand
+                    || command instanceof AddMedicineCommand
+                    || command instanceof CheckStockCommand
+                    || command instanceof FindMedicineCommand
+                    || command instanceof HelpCommand
+                    || command instanceof HistoryCommand
+                    || command instanceof ListCommand
+                    || command instanceof ListStockCommand
+                    || command instanceof RestockCommand) {
+                raise(new ShowDefaultBrowserEvent());
+            }
             if (command instanceof QueueCommand) {
                 raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
             }
