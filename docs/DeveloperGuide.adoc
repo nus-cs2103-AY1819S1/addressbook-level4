@@ -439,7 +439,7 @@ Step 4a: If the user set a group name that does not exist, the system throw an e
 
 Step 4b: Otherwise it lets the model component to update the groupname as the predicate in the filterList.
 
-image::showgroupSequentialDiagram1.jpg[width="820"]
+image::showgroupSequentialDiagram2.jpg[width="820"]
 
 ====== Example b
 
@@ -449,7 +449,7 @@ Step 2: `ShowGroupCommandParser` creates the ShowGroupCommand.
 
 Step 3: `ShowGroupCommand` gets all the existing groupname from the model by calling getTags() and show these groupnames to the user.
 
-image::showgroupSequentialDiagram2.jpg[width="820"]
+image::showgroupSequentialDiagram1.jpg[width="820"]
 
 // end::group[]
 
