@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTIFICATION_PARAMETER;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DISABLE_NOTIFICATION_PARAMETER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -18,12 +21,12 @@ public class NotificationCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsNotificationCommand() {
-        assertParseSuccess(parser, "enable", new NotificationCommand(true));
+        assertParseSuccess(parser, " " + VALID_DISABLE_NOTIFICATION_PARAMETER, new NotificationCommand(false));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser,"set", String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotificationCommand.MESSAGE_USAGE));
+        assertParseFailure(parser,PREAMBLE_WHITESPACE + INVALID_NOTIFICATION_PARAMETER, String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotificationCommand.MESSAGE_USAGE));
     }
 
 }

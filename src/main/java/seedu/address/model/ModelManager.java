@@ -73,6 +73,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getFavourite();
     }
 
+    @Override
+    public void updateFavourite(String favourite) {
+        versionedAddressBook.updateFavourite(favourite);
+    }
+
     /**
      * Formats event details into a String to be saved as "favourite" in versionedAddressBook.
      */

@@ -294,6 +294,18 @@ public class AddressBookTest {
         public void updateFavourite(String favourite) {
             this.favourite = favourite;
         }
+
+        @Override
+        public boolean isFavourite(Event event) {
+            if (favourite.equals("Event Name: " + event.getEventName()
+                    + "\nEvent Date: " + event.getEventDate() + ", " + event.getEventDay()
+                    + "\nEvent Time: " + event.getEventStartTime() + " - " + event.getEventEndTime()
+                    + "\nEvent Details: " + event.getEventDescription())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 }

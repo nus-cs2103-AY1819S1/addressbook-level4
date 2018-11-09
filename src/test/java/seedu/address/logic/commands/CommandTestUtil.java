@@ -127,6 +127,9 @@ public class CommandTestUtil {
 
     public static final String NONEXISTENT_EVENT_TAG = "Class";
 
+    public static final String INVALID_NOTIFICATION_PARAMETER = "set";
+    public static final String VALID_DISABLE_NOTIFICATION_PARAMETER = "disable";
+
     // Import contacts
     public static final String FILE_DESC = " " + PREFIX_FILE;
 

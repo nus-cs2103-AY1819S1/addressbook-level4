@@ -71,7 +71,7 @@ public class DeleteEventCommand extends Command {
 
         // reset favourite to null if deleted event is the favourite
         if (model.isFavourite(eventToDelete))
-            model.updateFavourite(null);
+            model.updateFavourite((String)null);
 
         model.deleteEvent(eventToDelete);
         model.commitAddressBook();

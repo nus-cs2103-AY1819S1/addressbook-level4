@@ -149,6 +149,8 @@ public interface Model {
     /**
      * Updates the favourite event.
      */
+    void updateFavourite(String favourite);
+
     void updateFavourite(Event favourite);
 
     /**

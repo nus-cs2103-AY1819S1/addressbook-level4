@@ -44,4 +44,24 @@ public class NotificationCommandTest {
 
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void executeUndoRedo_success() {
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updateNotificationPref(true);
+        expectedModel.commitAddressBook();
+
+        model.updateNotificationPref(true);
+        model.commitAddressBook();
+
+        // undo -> reverts addressbook back to previous state
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same boolean value set as notificationPref
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+    }
 }

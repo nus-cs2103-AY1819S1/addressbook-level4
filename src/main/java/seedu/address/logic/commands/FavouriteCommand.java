@@ -81,4 +81,12 @@ public class FavouriteCommand extends Command {
                 + favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FavouriteCommand // instanceof handles nulls
+                && targetDate.equals(((FavouriteCommand) other).targetDate)
+                && targetIndex.equals(((FavouriteCommand) other).targetIndex)); // state check
+    }
+
 }

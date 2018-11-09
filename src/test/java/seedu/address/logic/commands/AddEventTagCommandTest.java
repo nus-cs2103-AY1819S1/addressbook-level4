@@ -253,6 +253,16 @@ public class AddEventTagCommandTest {
         public String getFavourite() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateFavourite(Event favourite)  {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFavourite(Event event)   {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

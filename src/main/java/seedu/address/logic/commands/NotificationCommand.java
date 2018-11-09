@@ -38,9 +38,13 @@ public class NotificationCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_NOTIFICATION_DISABLED_SUCCESS));
         }
+    }
 
-
-
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || ((other instanceof NotificationCommand)
+                && (this.set == ((NotificationCommand)other).set));
 
     }
 }

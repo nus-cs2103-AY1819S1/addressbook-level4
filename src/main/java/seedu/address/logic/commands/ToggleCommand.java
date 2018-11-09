@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import javafx.scene.control.Tab;
+import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,6 +26,7 @@ public class ToggleCommand extends Command {
     public static final String MESSAGE_TOGGLE_SUCCESS = "Toggled";
 
     public ToggleCommand () {
+        new TabPanelSelectionChangedEvent();
     }
 
     @Override

@@ -37,10 +37,7 @@ public class FavouriteCommandTest {
 
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.updateFavourite("Event Name: " + favouriteEvent.getEventName()
-                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
-                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
-                + "\nEvent Details: " + favouriteEvent.getEventDescription());
+        expectedModel.updateFavourite(favouriteEvent);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(favouriteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -62,5 +59,25 @@ public class FavouriteCommandTest {
         FavouriteCommand favouriteCommand = new FavouriteCommand(outOfBoundDate, INDEX_FIRST_EVENT);
 
         assertCommandFailure(favouriteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_DATE);
+    }
+
+    @Test
+    public void executeUndoRedo_success() {
+        Event favouriteEvent = model.getFilteredEventListByDate().get(0).get(INDEX_FIRST_EVENT.getZeroBased());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updateFavourite(favouriteEvent);
+        expectedModel.commitAddressBook();
+
+        model.updateFavourite(favouriteEvent);
+        model.commitAddressBook();
+
+        // undo -> reverts addressbook back to previous state
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same boolean value set as notificationPref
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

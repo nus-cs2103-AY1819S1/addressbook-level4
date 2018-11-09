@@ -301,7 +301,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     @Override
     public boolean isFavourite(Event event) {
-        if (favourite.equals("Event Name: " + event.getEventName()
+        if (favourite != null && favourite.equals("Event Name: " + event.getEventName()
                 + "\nEvent Date: " + event.getEventDate() + ", " + event.getEventDay()
                 + "\nEvent Time: " + event.getEventStartTime() + " - " + event.getEventEndTime()
                 + "\nEvent Details: " + event.getEventDescription())) {
