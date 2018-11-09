@@ -78,12 +78,31 @@ public class DependencyGraph {
     }
 
     /**
-     * Return the pruned graph (with their hashcodes as string)
+     * Return the inverted pruned graph (with their hashcodes as string)
      * @return
      */
     public Map<String, Set<String>> getPrunedGraph() {
         pruneCompletedTasks();
+        invertGraph();
         return this.adjacencyList;
+    }
+
+    /**
+     * Invert the edges in a graph
+     */
+    public void invertGraph() {
+        Map<String, Set<String>> newAgencyList = new HashMap<>();
+        for (String node: adjacencyList.keySet()) {
+            newAgencyList.put(node, new HashSet<>());
+        }
+        for (Map.Entry<String, Set<String>> entry: adjacencyList.entrySet()) {
+            String node = entry.getKey();
+            Set<String> edges = entry.getValue();
+            for (String otherNode: edges) {
+                newAgencyList.get(otherNode).add(node);
+            }
+        }
+        adjacencyList = newAgencyList;
     }
 
     /**
