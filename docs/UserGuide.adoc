@@ -553,9 +553,10 @@ Regard the mark of the student who doesn't have a grade as 0.
 // tag::earnings[]
 === Retrieving earnings
 
-Retrieve the total earnings from tuition fees within a range of date in the current year. +
+Retrieve the total earnings from tuition fees from all students between a range of date in the current year. +
 Format: `earnings START_DATE END_DATE`
 
+* `START_DATE` and `END_DATE` should be given in the format of DDMM.
 * The year field is not required as TutorPal assumes current calender year by default.
 * To calculate the amount of money earned within a day, input the same `START_DATE` and `END_DATE`.
 * Students without tuition time slot(s) are ignored by the earnings function.

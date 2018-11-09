@@ -369,13 +369,11 @@ phone number and address.
 The earnings feature has been implemented to retrieve the sum of tuition fees earned from all students
 between a period of time. A `Fee` class has been added to the list of attributes of Person class.
 
-* The earnings command accepts two arguments, one being the beginning date and the
-other the ending date. The total tuition fees earned between the range of dates will be displayed.
+* The earnings command accepts two arguments, the first being the beginning date followed by
+ the ending date. The total tuition fees earned between the range of dates will be displayed.
 
-* Each student's tuition fee per hour is also displayed on the PersonCard GUI. The tuition
+* Each student's educational level and tuition fee per hour are also displayed on the PersonCard GUI. The tuition
 fee of an individual student is determined by his or her educational level and grade.
-+
-image::PersonCardExample.png[width="250"]
 
 * The earnings command word and two arguments which contains a start and end date are taken as an
 input into the `AddressBookParser` class. An `EarningsCommand` object is returned,
@@ -392,6 +390,8 @@ image::EarningsCommandSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
+* Implement an option to allow tutors to assign tuition fees to students rather than fixing it based on the
+market rate of student's educational level and grade.
 * To be able to calculate past earnings, taking into account that certain students may have
 changed their tuition time slots.
 * Calculate tuition earnings based on attendance, including extra lessons.
@@ -420,9 +420,9 @@ and stored.
 ==== Current Implementation
 
 The promote feature has been implemented to allow users to manually promote his/her students to the next
-educational grade. The promote command can either promote all students stored in TutorPal, or selectively based on user input.
+educational grade. The promote command can either promote all students stored in TutorPal, or selectively through the index of students.
 
-* `PromoteCommandParser` parses the arguments to determine the class of command returned.
+* `PromoteCommandParser` parses the arguments to determine which command to be returned.
 
 * The former is facilitated by the `PromoteAllCommand`.
 
@@ -435,8 +435,6 @@ methods and implements their own overridden `execute()` function.
 
 * As the promote feature do not promote students across educational levels (e.g. Primary to Secondary), a "Graduated" tag
 is assigned to a student if the promote function is called on a student who is in his/her final year.
-+
-image
 
 
 ==== Future Implementation
