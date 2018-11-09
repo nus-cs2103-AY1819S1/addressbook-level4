@@ -85,6 +85,13 @@ public interface Model {
     void updateGameMode(String newGameModeName);
 
     /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    void updateGameMode(String newGameModeName, String newGameDifficultyName);
+
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     AchievementRecord getAchievementRecord();

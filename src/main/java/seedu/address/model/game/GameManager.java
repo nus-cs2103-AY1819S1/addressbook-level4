@@ -1,5 +1,6 @@
 package seedu.address.model.game;
 
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.model.task.Task;
 
 // @@author chikchengyao
@@ -47,18 +48,83 @@ public class GameManager {
         }
     }
 
+    public void setGameMode(String newGameModeName, String newGameDifficultyName) {
+        int period;
+        int low;
+        int high;
+
+        switch(newGameDifficultyName) {
+        case ModeCommand.EASY_MODE:
+            period = 1;
+            low = 40;
+            high = 50;
+            break;
+
+        case ModeCommand.MEDIUM_MODE:
+            period = 3;
+            low = 30;
+            high = 60;
+            break;
+
+        case ModeCommand.HARD_MODE:
+            period = 7;
+            low = 20;
+            high = 70;
+            break;
+
+        case ModeCommand.EXTREME_MODE:
+            period = 10;
+            low = 10;
+            high = 80;
+            break;
+
+        default:
+            assert false;
+            period = 7;
+            low = 25;
+            high = 50;
+        }
+
+        if (newGameModeName.equals(ModeCommand.FLAT_MODE)) {
+            this.gameMode = new FlatMode(low, high);
+        } else if (newGameModeName.equals(ModeCommand.DECREASING_MODE)){
+            this.gameMode = new DecreasingMode(period, low, high);
+        }
+    }
+
     /**
      * Checks if the given game mode name is a valid name.
      */
     public static boolean isValidGameMode(String gameModeName) {
-        if (gameModeName.equals("flat")) {
+        if (gameModeName.equals(ModeCommand.FLAT_MODE)) {
             return true;
         }
 
-        if (gameModeName.equals("decreasing")) {
+        if (gameModeName.equals(ModeCommand.DECREASING_MODE)) {
             return true;
         }
 
         return false;
     }
+
+    public static boolean isValidGameDifficulty(String gameDifficultyName) {
+        if (gameDifficultyName.equals(ModeCommand.EASY_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.MEDIUM_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.HARD_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.EXTREME_MODE)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

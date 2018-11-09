@@ -19,16 +19,31 @@ public class ModeCommandParser implements Parser<ModeCommand> {
      */
     public ModeCommand parse(String args) throws ParseException {
         String trimmedArg = args.trim();
-        if (!isValidModeCommandArg(trimmedArg)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
+        if (isValidOneArgumentModeCommand(trimmedArg)) {
+            return new ModeCommand(trimmedArg);
         }
 
-        return new ModeCommand(trimmedArg);
+        String[] splitArgs = trimmedArg.split("\\s+");
+        if (isValidTwoArgumentModeCommand(splitArgs)) {
+            return new ModeCommand(splitArgs[0], splitArgs[1]);
+        }
+
+        throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
     }
 
-    private boolean isValidModeCommandArg(String arg) {
+    private boolean isValidOneArgumentModeCommand(String arg) {
         return !arg.isEmpty()
                 && GameManager.isValidGameMode(arg);
+    }
+
+    private boolean isValidTwoArgumentModeCommand(String[] args) {
+        if (args.length != 2) {
+            return false;
+        }
+
+        return GameManager.isValidGameMode(args[0]) &&
+                GameManager.isValidGameDifficulty(args[1]);
+
     }
 }
