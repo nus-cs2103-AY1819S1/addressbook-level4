@@ -267,15 +267,15 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
-// end::listweek[]
+
 Example:
 ====
-input: [blue]`listweek` on the date 021118 +
-output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
+The following diagram illustrates that when you used `listweek` command on the date `021118`, you will only see tasks
+until `041118` which is the closest Sunday.
 
-image::ListWeekCommand_UG_Before_After.png[width="700"]
+image::ListWeekCommand_UG_Before_After.png[width="500"]
 ====
-
+// end::listweek[]
 
 === Viewing Tasks Due This Month
 
@@ -340,7 +340,7 @@ You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial 
 will return all tasks with tag matching with at least one of the provided tags in input.
 
 // tag::firstday[]
-=== Generating Weeks in the Academic Calendar
+=== Generating Academic Calendar
 
 Generates the entire academic calendar with description, based on the first academic day and stores it in storage.
 
@@ -348,35 +348,35 @@ Currently, the generated academic calendar is based on the academic calender of 
 (NUS). It may not be compatible with academic calendars from other institutions.
 
 Whenever the application is launched within the academic calendar's dates, the application title will append that
-particular week's description to the title of the app. +
+particular week's description to the title of the application. +
 
 ====
 [blue]`firstday DDMMYY`
 ====
-// end::firstday[]
+
 Example:
 ====
-input: [blue]`firstday 130818` +
-output: When the user launches the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
-semester 1), the application title will append "Week 10" to the title of the app.
+The following diagram illustrates when you used `firstday` command with the date `130818`
+and launch the application within `221018` to `281018` (Week 10 for
+NUS academic year 18/19 semester 1), the application title will be appended with "Week 10".
 
-image::FirstDayCommand_UG_Before_After.png[width="600"]
+image::FirstDayCommand_UG_Before_After.png[width="500"]
 ====
-// tag::firstday2[]
+
 [NOTE]
 There would not be any visible changes upon using the command. The reflection would only occur after relaunching the
 application.
 
-The [blue]`DDMMYY` refers to the date format of day, month and year. It must complies the following three rules in
+[blue]`DDMMYY` refers to the date format of day, month and year. It must complies the following three rules in
 order:
 
-1. The [blue]`DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+1. [blue]`DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
 will be rejected as they are considered as more than one set of date.
 
-2. The [blue]`DDMMYY` must be a valid date within 21st century.
+2. [blue]`DDMMYY` must be a valid date within 21st century.
 
-3. The [blue]`DDMMYY` must be a Monday.
-// end::firstday2[]
+3. [blue]`DDMMYY` must be a Monday.
+// end::firstday[]
 
 //tag::addingcat[]
 === Adding a Category
