@@ -238,13 +238,10 @@ public class CommandBox extends UiPart<Region> {
      */
     private void selectNextField(int[] argumentsArray) {
         for (int i: argumentsArray) {
-            System.out.println(String.format("%d \n", i));
+            System.out.println(String.format("[%d]", i));
         }
         boolean updatedSelection = false;
         for (int i = 0; i < argumentsArray.length - 1; i++) {
-            if (argumentsArray[i] == -1) {
-                continue;
-            }
             //check if the current position is in between arg[i] and arg[i + 1], if so, change selection
             //to the placeholder of arg[i + 1]
             System.out.println("caret at: " + caretPosition + " current at: " + argumentsArray[i]);
