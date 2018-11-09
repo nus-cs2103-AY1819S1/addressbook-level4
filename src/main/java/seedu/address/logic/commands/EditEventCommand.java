@@ -84,7 +84,7 @@ public class EditEventCommand extends Command {
         DateTime updatedStart = editCalendarEventDescriptor.getStart().orElse(calendarEventToEdit.getStart());
         DateTime updatedEnd = editCalendarEventDescriptor.getEnd().orElse(calendarEventToEdit.getEnd());
         if (!DateTimeInfo.isValidStartAndEnd(updatedStart, updatedEnd)) {
-            throw new CommandException(DateTimeInfo.MESSAGE_STARTEND_CONSTRAINTS);
+            throw new CommandException(DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
 
         Venue updatedVenue = editCalendarEventDescriptor.getVenue().orElse(calendarEventToEdit.getVenue());

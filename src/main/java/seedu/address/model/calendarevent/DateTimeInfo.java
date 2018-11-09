@@ -5,7 +5,7 @@ package seedu.address.model.calendarevent;
  * Guarantees: immutable; is valid as declared in {@link #isValidStartAndEnd(DateTime, DateTime)}
  */
 public class DateTimeInfo {
-    public static final String MESSAGE_STARTEND_CONSTRAINTS = "Start date & time must be before end date & time";
+    public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Start date & time must be before end date & time";
     public final DateTime start;
     public final DateTime end;
 

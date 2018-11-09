@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(int, int, int, int, int)}
  */
 public class DateTime implements Comparable<DateTime> {
-    public static final String MESSAGE_DATETIMEINPUT_CONSTRAINTS =
+    public static final String MESSAGE_DATETIME_INPUT_CONSTRAINTS =
         "Format for date and time input should be YYYY-MM-DD HH:MM";
-    public static final String DATETIMEINPUT_VALIDATION_REGEX = "(\\d{4})-(\\d{1,2})-(\\d{1,2}) (\\d{2}):(\\d{2})";
+    public static final String DATETIME_INPUT_VALIDATION_REGEX = "(\\d{4})-(\\d{1,2})-(\\d{1,2}) (\\d{2}):(\\d{2})";
     public static final String MESSAGE_DATETIME_CONSTRAINTS =
         "Ensure that the input year, month, day, hour and minute correspond to a valid date and time";
 
@@ -70,7 +70,7 @@ public class DateTime implements Comparable<DateTime> {
      * Returns true if a given string is a valid date time input string.
      */
     public static boolean isValidDateTimeInput(String test) {
-        return test.matches(DATETIMEINPUT_VALIDATION_REGEX);
+        return test.matches(DATETIME_INPUT_VALIDATION_REGEX);
     }
 
     /**
@@ -97,11 +97,6 @@ public class DateTime implements Comparable<DateTime> {
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
-    @Override
-    public String toString() {
-        return localDateTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy hh:mm a"));
-    }
-
     public boolean isBefore(DateTime other) {
         return this.localDateTime.isBefore(other.localDateTime);
     }
@@ -111,9 +106,14 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     @Override
+    public String toString() {
+        return localDateTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy hh:mm a"));
+    }
+
+    @Override
     public int compareTo(DateTime other) {
-        assert (other instanceof DateTime);
-        return localDateTime.compareTo(((DateTime) other).localDateTime);
+        // assert (other != null);
+        return localDateTime.compareTo((other).localDateTime);
     }
 
     @Override
