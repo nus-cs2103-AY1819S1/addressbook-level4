@@ -34,12 +34,12 @@ public class CanvasAutoResizeCommand extends CanvasCommand {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        if (args.toLowerCase().equals("on")) {
+        if (args.equalsIgnoreCase("on")) {
             model.getCanvas().setCanvasAuto(true);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args.toLowerCase()));
         }
-        if (args.toLowerCase().equals("off")) {
+        if (args.equalsIgnoreCase("off")) {
             model.getCanvas().setCanvasAuto(false);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args.toLowerCase()));
