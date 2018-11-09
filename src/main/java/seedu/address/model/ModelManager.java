@@ -273,7 +273,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrentPreviewImage(BufferedImage image) {
         try {
-            getCanvas().getCurrentLayer().getImage().commit(image);
+            canvas.getCurrentLayer().getImage().commit(image);
             refreshHistoryList();
         } catch (Exception e) {
             logger.severe(e.getMessage());
@@ -315,6 +315,47 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Canvas and layers ==========================================================================
 
     //@@author j-lum
+
+    /**
+     * Sets the background color of the canvas to the provided color.
+     * @param color - valid color string in either hex, rgb/hsl(a) or none.
+     */
+    public void setBackgroundColor(String color) {
+        canvas.setBackgroundColor(color);
+    }
+
+    /**
+     * Sets the canvas size to the new size provided.
+     * @param height - a integer larger than 0.
+     * @param width - a integer larger than 0.
+     */
+    public void setCanvasSize(int height, int width) {
+        canvas.setHeight(height);
+        canvas.setWidth(width);
+    }
+
+    /**
+     * Turns auto-resizing of the canvas on/off.
+     * @param auto - if true, the canvas auto-resizes.
+     */
+    public void setCanvasAuto(boolean auto) {
+        canvas.setCanvasAuto(auto);
+    }
+
+    /**
+     * @return the height of the canvas.
+     */
+    public int getCanvasHeight() {
+        return canvas.getHeight();
+    }
+
+    /**
+     * @return the width of the canvas.
+     */
+    public int getCanvasWidth() {
+        return canvas.getWidth();
+    }
+
     /**
      * Adds a layer to the canvas, a name is generated automatically.
      * @param i - PreviewImage to add.
@@ -336,28 +377,26 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Removes the layer at the given index.
-     * @param i - Index of the layer to remove
-     * @return the new index of the current layer
+     * @param i - Index of the layer to remove.
+     * @return the new index of the current layer.
      * @throws IllegalOperationException - thrown if the current layer is being removed
      * or the only layer is being removed.
      */
 
     public Index removeLayer(Index i) throws IllegalOperationException {
         Index tmp = canvas.removeLayer(i);
-        logger.info("refreshing after deleting layers");
         refreshLayerList();
         return tmp;
     }
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
     public void setCurrentLayer(Index i) {
-        getCanvas().setCurrentLayer(i);
+        canvas.setCurrentLayer(i);
         refreshLayerList();
     }
 
+    public void setCurrentLayerPosition(int x, int y) {
+        canvas.setCurrentLayerPosition(x, y);
+    }
 
     /**
      * Swaps two layers.
@@ -366,17 +405,20 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws IllegalOperationException - thrown when the two layers are the same.
      */
     public void swapLayer(Index to, Index from) throws IllegalOperationException {
-        getCanvas().swapLayer(to, from);
+        canvas.swapLayer(to, from);
         refreshLayerList();
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
     /**
      * Simple utility function that updates the HistoryListPanel and logs the event.
      */
     public void refreshHistoryList() {
         EventsCenter.getInstance().post(
                 new HistoryUpdateEvent(
-                        getCanvas().getCurrentLayer().getImage().getTransformationsAsString()));
+                        canvas.getCurrentLayer().getImage().getTransformationsAsString()));
     }
 
     /**
@@ -386,6 +428,6 @@ public class ModelManager extends ComponentManager implements Model {
     private void refreshLayerList() {
         EventsCenter.getInstance().post(
                 new LayerUpdateEvent(
-                        getCanvas().getLayerNames(), getCanvas().getCurrentLayerIndex()));
+                        canvas.getLayerNames(), canvas.getCurrentLayerIndex()));
     }
 }

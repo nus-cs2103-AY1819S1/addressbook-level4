@@ -39,7 +39,7 @@ public class CanvasSizeCommand extends CanvasCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args == null) {
             return new CommandResult(String.format(OUTPUT_SUCCESS,
-                    model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+                    model.getCanvasWidth(), model.getCanvasHeight()));
         }
         String[] argumentArray = args.trim().split("x", 2);
 
@@ -56,12 +56,11 @@ public class CanvasSizeCommand extends CanvasCommand {
                     + "\n\n"
                     + MESSAGE_USAGE);
         }
-        model.getCanvas().setHeight(newHeight);
-        model.getCanvas().setWidth(newWidth);
+        model.setCanvasSize(newHeight, newWidth);
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
         return new CommandResult(String.format(OUTPUT_SUCCESS,
-                model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+                model.getCanvasWidth(), model.getCanvasHeight()));
     }
 }

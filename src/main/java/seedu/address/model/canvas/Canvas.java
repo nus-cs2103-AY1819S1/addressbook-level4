@@ -76,6 +76,10 @@ public class Canvas {
         return currentLayer;
     }
 
+    public void setCurrentLayerPosition(int x, int y) {
+        currentLayer.setPosition(x, y);
+    }
+
     public Index getCurrentLayerIndex() {
         return currentLayerIndex;
     }

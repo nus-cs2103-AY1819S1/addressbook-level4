@@ -30,7 +30,7 @@ public class ModelGenerator {
     /**
      * Returns a dummy image read from resources (original.png).
      */
-    private static BufferedImage getABufferedImage() {
+    public static BufferedImage getABufferedImage() {
         BufferedImage originalImage = null;
         try {
             ClassLoader classLoader = ModelGenerator.class.getClassLoader();

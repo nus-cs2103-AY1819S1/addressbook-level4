@@ -50,8 +50,7 @@ public class LayerPositionCommand extends LayerCommand {
         } catch (NumberFormatException e) {
             throw new CommandException(OUTPUT_FAILURE);
         }
-        model.getCanvas().getCurrentLayer().setX(newX);
-        model.getCanvas().getCurrentLayer().setY(newY);
+        model.setCurrentLayerPosition(newX, newY);
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 

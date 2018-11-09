@@ -166,7 +166,19 @@ public interface Model {
 
     void swapLayer(Index to, Index from) throws IllegalOperationException;
 
+    void setCanvasSize(int height, int width);
+
+    void setBackgroundColor(String color);
+
+    void setCanvasAuto(boolean auto);
+
+    int getCanvasHeight();
+
+    int getCanvasWidth();
+
     Canvas getCanvas();
 
     void refreshHistoryList();
+
+    void setCurrentLayerPosition(int newX, int newY);
 }

@@ -39,7 +39,7 @@ public class CanvasBgcolorCommand extends CanvasCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args.matches(HEX_REGEX) || args.matches(VERBOSE_REGEX) || args.matches(NONE_REGEX)) {
-            model.getCanvas().setBackgroundColor(args);
+            model.setBackgroundColor(args);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args));
         }
