@@ -69,8 +69,6 @@ public class TrackAddCommand extends Command {
 
         updatedPlaylist = actualPlaylist.copy();
 
-        // check if tracks exist
-        // argTracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
         for (Track trackToAdd : argTracksToAdd) {
             Optional<Track> listOfTracks = model.getFilteredTrackList().stream()
                     .filter(track -> track.equals(trackToAdd))

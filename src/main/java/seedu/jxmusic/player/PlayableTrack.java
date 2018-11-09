@@ -37,7 +37,6 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void play(boolean unpause) {
-        System.out.println("playabletrack play");
         if (!unpause) {
             mediaPlayer.setStartTime(new Duration(0));
         }
@@ -46,13 +45,11 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void stop() {
-        System.out.println("playabletrack stop");
         mediaPlayer.stop();
     }
 
     @Override
     public void pause() {
-        System.out.println("playabletrack pause");
         mediaPlayer.pause();
     }
 
