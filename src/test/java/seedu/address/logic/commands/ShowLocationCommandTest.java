@@ -32,7 +32,7 @@ class ShowLocationCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfiltered_success() {
+    public void execute_validIndexDisplayed_success() {
         int personListLength = model.getFilteredPersonList().size();
 
         for (int i = 0; i < personListLength; i++) {
@@ -43,7 +43,7 @@ class ShowLocationCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfiltered_success() {
+    public void execute_invalidIndexNotDisplayed_success() {
         Index invalidPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
 
         assertFacultyLocationDisplayFailure(invalidPersonIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
