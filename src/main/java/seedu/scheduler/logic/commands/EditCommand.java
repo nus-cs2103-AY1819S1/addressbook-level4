@@ -60,6 +60,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_INTERNET_ERROR = "Only local changes,"
+            + "no effects on your Google Calender.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
@@ -98,6 +100,7 @@ public class EditCommand extends Command {
         //Calculate parameters for updating events in Google Calender
         logger.info("Calculating parameters for Google calender edit commands.");
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
+        boolean operationOnGoogleCalIsSuccessful;
 
         try {
             //Update by cases
@@ -106,7 +109,8 @@ public class EditCommand extends Command {
             if (flags.length == 0) {
                 logger.info("Single event will be edited.");
                 Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
-                connectToGoogleCalendar.updateSingleGoogleEvent(eventToEdit, editedEvent, instanceIndex);
+                operationOnGoogleCalIsSuccessful = connectToGoogleCalendar.updateSingleGoogleEvent(
+                        eventToEdit, editedEvent, instanceIndex);
                 model.updateEvent(eventToEdit, editedEvent);
             } else {
                 //edit upcoming or all events in a EventSet
@@ -117,8 +121,9 @@ public class EditCommand extends Command {
                     //Case2: edit upcoming events
                     editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
                     effectRangeStartingIndex = instanceIndex;
-                    connectToGoogleCalendar.updateRangeGoogleEvent(
-                            eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
+                    operationOnGoogleCalIsSuccessful =
+                            connectToGoogleCalendar.updateRangeGoogleEvent(
+                                    eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                     model.updateUpcomingEvents(eventToEdit, editedEvents);
                 } else {
                     //Case3: edit all events
@@ -128,7 +133,7 @@ public class EditCommand extends Command {
                     Event firstEventToEdit = model.getFirstInstanceOfEvent(firstInstancePredicate);
                     editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
                     effectRangeStartingIndex = 0;
-                    connectToGoogleCalendar.updateRangeGoogleEvent(
+                    operationOnGoogleCalIsSuccessful = connectToGoogleCalendar.updateRangeGoogleEvent(
                             eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                     model.updateRepeatingEvents(eventToEdit, editedEvents);
                 }
@@ -136,11 +141,16 @@ public class EditCommand extends Command {
         } catch (ParseException e) {
             throw new CommandException(e.getMessage());
         }
-
-        logger.info("Update Done. Commit to Scheduler.");
+        logger.info("Local update Done. Commit to Scheduler.");
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()));
+
+        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+            return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()));
+        } else {
+            return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName())
+                    + "\n" + MESSAGE_INTERNET_ERROR);
+        }
     }
 
     /**
@@ -165,7 +175,11 @@ public class EditCommand extends Command {
                 editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
 
         if (!Event.isValidEventDateTime(updatedStartDateTime, updatedEndDateTime)) {
-            throw new ParseException(Event.MESSAGE_DATETIME_CONSTRAINTS);
+            throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
+        }
+
+        if (!Event.isValidEventDateTime(updatedEndDateTime, updatedRepeatUntilDateTime)) {
+            throw new ParseException(Event.MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS);
         }
 
         return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
@@ -204,7 +218,11 @@ public class EditCommand extends Command {
                 updatedReminderDurationList);
 
         if (!Event.isValidEventDateTime(updatedStartDateTime, updatedEndDateTime)) {
-            throw new ParseException(Event.MESSAGE_DATETIME_CONSTRAINTS);
+            throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
+        }
+
+        if (!Event.isValidEventDateTime(updatedEndDateTime, updatedRepeatUntilDateTime)) {
+            throw new ParseException(Event.MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS);
         }
 
         return RepeatEventGenerator.getInstance().generateAllRepeatedEvents(updatedEvent);

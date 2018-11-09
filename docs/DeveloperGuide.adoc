@@ -1156,41 +1156,85 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Scheduler` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete event
+=== Use case: Add event
 
 *MSS*
 
-1.  User requests to list events
-2.  Scheduler shows a list of events
-3.  User requests to delete a specific event in the list
-4.  Scheduler deletes the event
+1. User requests to add a new event
+2. iScheduler Xs Max adds the new event(s) into the scheduler
+3. iScheduler Xs Max show a list of latest events
 +
 Use case ends.
 
 *Extensions*
 
+* 1a. The event to be added is repeated event
++
 [none]
-* 2a. The list is empty.
+** 1a1. Scheduler generates repeating events
+
+[discrete]
+=== Use case: Edit Event
+
+*MSS*
+
+1. User requests to list events
+2. iScheduler Xs Max shows a list of events
+3. User requests to edit an event in the list
+4. iScheduler Xs Max edit(s) the targeted event(s)
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Scheduler shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+* 1a. The user does not input any specific options
++
+** 1a1.iScheduler Xs Max targets only the targeted event
++
+* 1b. The user inputs a select all option
++
+** 1b1. iScheduler Xs Max target all associated events of the targeted event
++
+* 1c. The user inputs a select upcoming option
++
+** 1c1. iScheduler Xs Max target all upcoming and associated event of the targeted event
+
+[discrete]
+=== Use case: Delete Event
+
+*MSS*
+
+1. User requests to list events
+2. iScheduler Xs Max shows a list of events
+3. User requests to delete an event in the list
+4. iScheduler Xs Max delete(s) the targeted event(s)
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user does not input any specific options
++
+** 1a1.iScheduler Xs Max targets only the targeted event
++
+* 1b. The user inputs a select all option
++
+** 1b1. iScheduler Xs Max target all associated events of the targeted event
++
+* 1c. The user inputs a select upcoming option
++
+** 1c1. iScheduler Xs Max target all upcoming and associated event of the targeted event
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should be able to add events that repeat up to 100 times without any problem.
 .  Should be able to hold up to 1000 events without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should work on both 32-bit and 64-bit environments.
+.  Should work without any dependence of other software.
 
 [appendix]
 == Glossary

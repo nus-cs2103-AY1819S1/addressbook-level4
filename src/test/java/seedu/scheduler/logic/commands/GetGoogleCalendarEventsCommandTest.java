@@ -22,7 +22,7 @@ public class GetGoogleCalendarEventsCommandTest {
         //TODO:Implement the test logic
         GetGoogleCalendarEventsCommand getGoogleCalendarEventsCommand = new GetGoogleCalendarEventsCommand();
 
-        String expectedMessage = String.format(GetGoogleCalendarEventsCommand.MESSAGE_GGEVENTS_SUCCESS);
+        String expectedMessage = String.format(GetGoogleCalendarEventsCommand.MESSAGE_INITIALIZE_SUCCESS);
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
 
