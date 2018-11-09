@@ -73,6 +73,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.getFavourite();
     }
 
+    /**
+     * Formats event details into a String to be saved as "favourite" in versionedAddressBook.
+     */
     @Override
     public void updateFavourite(Event favouriteEvent) {
         versionedAddressBook.updateFavourite("Event Name: " + favouriteEvent.getEventName()

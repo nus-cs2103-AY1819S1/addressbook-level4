@@ -78,8 +78,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Replaces the contents of the event tag list with {@code eventTags}.
      * {@code eventTags} must not contain duplicate event tags.
      */
@@ -95,7 +93,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
->>>>>>> f86c648336158f70e5a50e9ba57f4361d09d7778
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -298,6 +295,10 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && eventTags.equals(((AddressBook) other).eventTags);
     }
 
+    /**
+     * Returns true if the current event is the favourite event.
+     * Formats event details into a String to be checked against "favourite" in versionedAddressBook.
+     */
     @Override
     public boolean isFavourite(Event event) {
         if (favourite.equals("Event Name: " + event.getEventName()
