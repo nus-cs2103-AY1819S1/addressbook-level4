@@ -40,7 +40,8 @@ e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * **`c_add`**`CS2103 2 1 4 A+` : Adds a module `CS2103` worth `4` MCs taken in Semester `1` as a
 Year `2` student.
-* **`c_delete`**`CS2103` : Deletes `CS2103` from CAPTracker.
+* `c_delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
+`1` from CAPTracker.
 * *`exit`* : Exits the app
 
 .  Refer to <<Features>> for details of each command.
