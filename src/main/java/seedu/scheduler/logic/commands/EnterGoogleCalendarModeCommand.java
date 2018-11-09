@@ -29,7 +29,7 @@ import seedu.scheduler.model.event.RepeatType;
 /**
  * Get events from google calendar.
  */
-public class GoogleCalendarInitializationCommand extends Command {
+public class EnterGoogleCalendarModeCommand extends Command {
     public static final String COMMAND_WORD = "EnterGoogleCalendarMode";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get google calendar events.\n"
             + "download the events from primary google calendar.\n"

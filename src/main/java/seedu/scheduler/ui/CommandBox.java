@@ -19,9 +19,9 @@ import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.EditCommand;
+import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
-import seedu.scheduler.logic.commands.GoogleCalendarInitializationCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
@@ -61,7 +61,7 @@ public class CommandBox extends UiPart<Region> {
                 ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_ALIAS_ONE, ExitCommand.COMMAND_ALIAS_TWO,
                 ExitCommand.COMMAND_ALIAS_TWO, ExitCommand.COMMAND_ALIAS_THREE, FindCommand.COMMAND_WORD,
                 FindCommand.COMMAND_ALIAS_ONE, FindCommand.COMMAND_ALIAS_TWO, FindCommand.COMMAND_ALIAS_THREE,
-                GoogleCalendarInitializationCommand.COMMAND_WORD,
+                EnterGoogleCalendarModeCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_ALIAS_ONE,
                 HelpCommand.COMMAND_ALIAS_TWO, HelpCommand.COMMAND_ALIAS_THREE, HistoryCommand.COMMAND_WORD,
                 HistoryCommand.COMMAND_ALIAS_ONE, HistoryCommand.COMMAND_ALIAS_TWO, HistoryCommand.COMMAND_ALIAS_THREE,
