@@ -395,7 +395,7 @@ Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of
 
 Step 2: `GroupAddCommandParser` checks the validity of the groupname, trim the given groupname and create the GroupaddCommand.
 
-Step 3a: If the user set a group name that has already existed, the system throws an exception to the user to indicate that the group name has existed. 
+Step 3a: If the user set a group name that has already existed, the system throws an exception to the user to indicate that the group name has existed.
 
 Step 3b: Otherwise it lets the model component to add the group with given groupname.
 
@@ -414,7 +414,7 @@ Step 2: `GroupDeleteCommandParser` checks the validity of the groupname, trim th
 
 Step 3: `GroupDeleteCommand` checks passed arguments.
 
-Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired deleted group does not exist. 
+Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired deleted group does not exist.
 
 step 4b: Otherwise it lets the model component to delete the group with given groupname. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
 
