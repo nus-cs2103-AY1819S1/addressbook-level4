@@ -216,14 +216,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
-     */
-    protected void assertSelectedCardUnchanged() {
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
-    }
-
-    /**
      * Asserts that the command box's shows the default style.
      */
     protected void assertCommandBoxShowsDefaultStyle() {
@@ -244,14 +236,6 @@ public abstract class AddressBookSystemTest {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
         assertFalse(handle.isSyncStatusChanged());
-    }
-
-    /**
-     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected person.
-     */
-    protected void assertSelectedCardDeselected() {
-        assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
     /**
