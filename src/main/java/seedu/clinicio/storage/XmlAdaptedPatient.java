@@ -62,7 +62,6 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         if (allergies != null) {
             this.allergies = new ArrayList<>(allergies);
         }
-
         this.isQueuing = isQueuing;
         this.preferredDoctor = preferredDoctor;
         this.appointment = appointment;
@@ -77,7 +76,6 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
         allergies = patient.getAllergies().stream().map(XmlAdaptedAllergy::new)
                 .collect(Collectors.toList());
-
         isQueuing = patient.isQueuing();
         if (patient.getPreferredDoctor().isPresent()) {
             preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
