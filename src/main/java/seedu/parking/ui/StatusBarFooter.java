@@ -55,6 +55,13 @@ public class StatusBarFooter extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    public StatusBarFooter(Path saveLocation) {
+        super(FXML);
+        setSyncStatus(SYNC_STATUS_INITIAL);
+        setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
+        registerAsAnEventHandler(this);
+    }
+
     /**
      * Sets the clock used to determine the current time.
      */

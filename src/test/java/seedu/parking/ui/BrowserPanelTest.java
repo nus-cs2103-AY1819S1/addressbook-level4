@@ -46,10 +46,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         postNow(selectionChangedEventStub);
         JsonArray arr = new JsonArray();
         arr.add(ALFA.getCarparkNumber().value);
-        URL expectedPersonUrl = new URL(SEARCH_PAGE_URL + "jsonArr="
+        URL expectedCarparkUrl = new URL(SEARCH_PAGE_URL + "jsonArr="
                 + URLEncoder.encode(arr.toString(), "UTF-8").replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedCarparkUrl, browserPanelHandle.getLoadedUrl());
     }
 }

@@ -180,7 +180,7 @@ public abstract class CarparkFinderSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same car park objects as {@code expectedModel}
-     * and the car park list panel displays the persons in the model correctly.
+     * and the car park list panel displays the carparks in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {

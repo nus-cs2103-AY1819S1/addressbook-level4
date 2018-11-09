@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends CarparkFinderSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_CARPARK);
 
         /* Case: select the last card in the car park list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index carparkCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + carparkCount.getOneBased();
+        assertCommandSuccess(command, carparkCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
