@@ -52,7 +52,7 @@ public class TrackAddCommand extends Command {
     private List<Index> argIndexesToAdd;
     private List<Track> tracksToAdd = new ArrayList<Track>();
     private List<Track> tracksNotAdded = new ArrayList<Track>();
-    private ArrayList<String> indexesNotAdded = new ArrayList<>();
+    private ArrayList<Index> indexesNotAdded = new ArrayList<>();
     private InputType type;
 
     public TrackAddCommand(Playlist targetPlaylist, InputType type, Track... trackToAdd) {
@@ -97,11 +97,11 @@ public class TrackAddCommand extends Command {
         return trackList;
     }
 
-    private ArrayList<String> getInvalidIndexes(int trackListSize, ArrayList<Index> indexes) {
-        ArrayList<String> invalidIndexes = new ArrayList<>();
+    private ArrayList<Index> getInvalidIndexes(int trackListSize, ArrayList<Index> indexes) {
+        ArrayList<Index> invalidIndexes = new ArrayList<>();
         for (Index i : indexes) {
             if (!isExistingIndex(i, trackListSize)) {
-                invalidIndexes.add("" + i.getOneBased());
+                invalidIndexes.add(i);
             }
         }
         return invalidIndexes;

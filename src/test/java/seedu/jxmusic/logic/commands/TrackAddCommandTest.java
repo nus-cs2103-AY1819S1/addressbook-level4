@@ -1,6 +1,7 @@
 package seedu.jxmusic.logic.commands;
 
 // imports
+import static junit.framework.TestCase.assertTrue;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -70,13 +71,46 @@ public class TrackAddCommandTest {
 
     @Test
     public void executeAddTrackIndexToPlaylist() {
+        assertTrue(model.getFilteredTrackList().size() >= 1);
         int trackIndex = 3;
         trackToAdd = model.getFilteredTrackList().get(trackIndex);
         Playlist oneTrack = addTracksToExpectedModel(model.getFilteredTrackList().get(trackIndex));
         indexesToAdd.add(Index.fromZeroBased(trackIndex));
-        System.out.println(model.getFilteredTrackList());
         expectedModel = new ModelManager(getTestPlaylistLibrary(oneTrack), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName());
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
+        assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
+    }
+
+    @Test
+    public void executeAddTrackIndexesToPlaylist() {
+        assertTrue(model.getFilteredTrackList().size() >= 2);
+        int trackIndex = 3;
+        trackToAdd = model.getFilteredTrackList().get(trackIndex);
+        tracksToAdd = new ArrayList<Track>();
+        tracksToAdd.add(trackToAdd);
+        trackToAdd = model.getFilteredTrackList().get(trackIndex + 1);
+        tracksToAdd.add(trackToAdd);
+
+        Playlist multipleTracks = addTracksToExpectedModel(
+                model.getFilteredTrackList().get(trackIndex),
+                model.getFilteredTrackList().get(trackIndex + 1));
+        indexesToAdd.add(Index.fromZeroBased(trackIndex));
+        trackIndex++;
+        indexesToAdd.add(Index.fromZeroBased(trackIndex));
+        expectedModel = new ModelManager(getTestPlaylistLibrary(multipleTracks), new UserPrefs());
+        String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName());
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
+        assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
+    }
+
+    @Test
+    public void executeAddNonExistentTrackIndexToPlaylist() {
+        assertTrue(model.getFilteredTrackList().size() < 999);
+        int trackIndex = 1000;
+        indexesToAdd.add(Index.fromZeroBased(trackIndex));
+        expectedModel = new ModelManager(getTypicalLibrary(), new UserPrefs());
+        String successMessage = String.format(TrackAddCommand.MESSAGE_INDEX_DOES_NOT_EXIST, "", "", indexesToAdd);
         TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
         assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
     }
