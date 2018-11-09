@@ -1113,6 +1113,8 @@ Typical university student who
 Our enhanced Addressbook application will offer its users the following benefits:
 
 * Avoid contact duplication, so the user has a clean and well-maintained address book.
+* Show location of a person's faculty visually, so that it is easier for user to see the location
+(and can even use the embedded Google Maps to show walking directions).
 * Provide suggested locations for events or meetings to prevent the need for the user to spend energy thinking
 about where the group can meet by providing a list of locations that can be considered.
 * Notifications to alert the user to favourited events
@@ -1487,6 +1489,26 @@ Use case ends.
 +
 
 User case ends.
+
+=== UC16: Generate possible event location based on people tagged to event
+
+_Note: this builds on the existing functionality of Use Case 8._
+
+*MSS*
+
+. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. System generates a meeting location based on the people tagged to it (i.e. it finds a convenient meeting location for all).
+. System displays this location to the user in location display tab using Google Maps Embed API.
+. User considers the location and deems it to be acceptable or not.
+. System indicates in status message what course of action to take from here.
+
+*Extensions*
+
+* 5a. User accepts the generated location.
+** 5a1. User uses the editEventLocation command (as indicated in the status message) to edit event location with the one generated.
+** 5a2. Handling of the editing of event location is taken care of by editEventLocation command.
+** 5a3. If user does not like the generated location, user does not have to do anything and continues using the application according to what he/she wants to do.
++
 
 *Extensions*
 
