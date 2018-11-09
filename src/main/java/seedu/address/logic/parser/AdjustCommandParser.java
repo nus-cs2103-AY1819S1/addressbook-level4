@@ -10,6 +10,8 @@ import seedu.address.model.module.Grade;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
 
+import java.util.Set;
+
 //@@author jeremiah-ang
 /**
  * Parses input arguments and creates a new AdjustCommand object
@@ -22,7 +24,7 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        argsWithBounds(tokenizedArgs, 2, 4);
+        argsWithBounds(tokenizedArgs, Set.of(2,4));
 
         int index = 0;
 
@@ -30,20 +32,12 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
         Semester sem = null;
         Code code;
         Grade grade;
+        code = ParserUtil.parseCode(tokenizedArgs[index++]);
         if (tokenizedArgs.length == 4) {
-            code = ParserUtil.parseCode(tokenizedArgs[index++]);
             year = ParserUtil.parseYear(tokenizedArgs[index++]);
             sem = ParserUtil.parseSemester(tokenizedArgs[index++]);
-            grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
-        } else if (tokenizedArgs.length == 2) {
-            code = ParserUtil.parseCode(tokenizedArgs[index++]);
-            grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AdjustCommand.MESSAGE_USAGE));
         }
-
-        Grade adjustGrade = grade.adjustGrade(grade.value);
-
-        return new AdjustCommand(code, year, sem, adjustGrade);
+        grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
+        return new AdjustCommand(code, year, sem, grade);
     }
 }
