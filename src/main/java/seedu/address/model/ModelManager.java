@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.FSList;
 
 /**
  * Represents the in-memory model of the scheduler data.
@@ -23,7 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedScheduler versionedScheduler;
-    private FilteredList<CalendarEvent> filteredCalendarEvents;
+    // private FilteredList<CalendarEvent> filteredCalendarEvents;
+    private FSList fsList;
 
     /**
      * Initializes a ModelManager with the given scheduler and userPrefs.
@@ -35,7 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with scheduler: " + scheduler + " and user prefs " + userPrefs);
 
         versionedScheduler = new VersionedScheduler(scheduler);
-        filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
+        // filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
+        fsList = new FSList(versionedScheduler.getCalendarEventList());
     }
 
     public ModelManager() {
@@ -104,30 +107,35 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<CalendarEvent> getFilteredCalendarEventList() {
-        return FXCollections.unmodifiableObservableList(filteredCalendarEvents);
+        // return FXCollections.unmodifiableObservableList(filteredCalendarEvents);
+        return FXCollections.unmodifiableObservableList(fsList.getFSList());
     }
 
     @Override
     public void updateFilteredCalendarEventList(Predicate<CalendarEvent> predicate) {
         requireNonNull(predicate);
-        filteredCalendarEvents.setPredicate(predicate);
+        // filteredCalendarEvents.setPredicate(predicate);
+        fsList.setPredicate(predicate);
     }
 
     @Override
     public void addPredicate(Predicate<CalendarEvent> predicate) {
         requireNonNull(predicate);
-        filteredCalendarEvents = new FilteredList<>(filteredCalendarEvents, predicate);
+        // filteredCalendarEvents = new FilteredList<>(filteredCalendarEvents, predicate);
+        fsList.addPredicate(predicate);
     }
 
     @Override
     public void sortFilteredCalendarEventList(Comparator<CalendarEvent> comparator) {
         requireNonNull(comparator);
-        filteredCalendarEvents = new FilteredList<>(new SortedList<>(filteredCalendarEvents, comparator));
+        // filteredCalendarEvents = new FilteredList<>(new SortedList<>(filteredCalendarEvents, comparator));
+        fsList.setComparator(comparator);
     }
 
     @Override
     public void resetFilteredCalendarEventList() {
-        filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
+        // filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
+        fsList = new FSList(versionedScheduler.getCalendarEventList());
     }
 
     //=========== Undo/Redo =================================================================================
