@@ -77,7 +77,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         allergies = patient.getAllergies().stream().map(XmlAdaptedAllergy::new)
                 .collect(Collectors.toList());
         isQueuing = patient.isQueuing();
-        
+
         //Wad is the error
         if (patient.getPreferredDoctor().isPresent()) {
             preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
