@@ -741,14 +741,14 @@ ClinicIO provides a centralised patient management system to allow you to manage
 
 ==== Current Implementation
 
-The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand` 
+The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand`
 which is the equivalent of Create, Read, Update and Delete (CRUD).
 
 ===== `AddPatientCommand`
 
 The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
 in order to add patient.
-  
+
 [source,java]
 ----
 if (!UserSession.isLogin()) { // <1>
@@ -1529,11 +1529,11 @@ Use case ends.
 [appendix]
 == Glossary
 
-This section is designed to provide you with definitions for 
-terms that are used in this document below. 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
 
 [[CRUD]] CRUD (Create, Read, Update and Delete)::
-These are the basic functions of a persistent database.  
+These are the basic functions of a persistent database. 
 
 [[doctor]] Doctor::
 A person who is qualified to treat people who are ill.
