@@ -36,7 +36,7 @@ Anakin's codebase draws from https://se-edu.github.io/[SE-EDU]'s AddressBook Lev
 
 * *Minor enhancement*: added a list command for decks that clears the current filters and displays all decks in Anakin.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-2/main/pulls?q=is%3Apr+is%3Aclosed+author%3ALessthanfree[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lessthanfree&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional code tracked by Reposense]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
