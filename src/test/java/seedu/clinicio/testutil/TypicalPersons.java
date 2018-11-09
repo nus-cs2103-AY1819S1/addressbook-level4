@@ -108,7 +108,6 @@ public class TypicalPersons {
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
             .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
-            .withMedicalProblems("Asthma").withMedications("Catherol").withAllergies("Sand")
             .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
 
     //Not inside ClinicIO

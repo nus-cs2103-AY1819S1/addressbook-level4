@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,6 +17,7 @@ import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * This class constructs a JAXB-friendly version of the Patient.
@@ -38,9 +38,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private Optional<XmlAdaptedStaff> preferredDoctor;
+    private XmlAdaptedStaff preferredDoctor;
     @XmlElement
-    private Optional<XmlAdaptedAppointment> appointment;
+    private XmlAdaptedAppointment appointment;
 
     /**
      * Constructs an XmlAdaptedAppointment. This is the no-arg constructor that is required by JAXB.
@@ -50,7 +50,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            Optional<XmlAdaptedStaff> preferredDoctor, Optional<XmlAdaptedAppointment> appointment) {
+            XmlAdaptedStaff preferredDoctor, XmlAdaptedAppointment appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -79,14 +79,10 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         isQueuing = patient.isQueuing();
 
         if (patient.getPreferredDoctor().isPresent()) {
-            preferredDoctor = Optional.ofNullable(new XmlAdaptedStaff(patient.getPreferredDoctor().get()));
-        } else {
-            preferredDoctor = Optional.empty();
+            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
         }
         if (patient.getAppointment().isPresent()) {
-            appointment = Optional.ofNullable(new XmlAdaptedAppointment(patient.getAppointment().get()));
-        } else {
-            appointment = Optional.empty();
+            appointment = new XmlAdaptedAppointment(patient.getAppointment().get());
         }
     }
 
@@ -124,36 +120,25 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
+        Staff modelPreferredDoc = null;
+        if (preferredDoctor != null) {
+            modelPreferredDoc = preferredDoctor.toModelType();
+        }
+
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies);
+                modelAllergies, modelPreferredDoc);
 
         if (isQueuing) {
             patient.isQueuing();
         } else {
             patient.setIsNotQueuing();
         }
-        appointment.ifPresent(appointment1 -> {
-            try {
-                patient.setAppointment(appointment1.toModelType());
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-            }
-        });
-        preferredDoctor.ifPresent(preferredDoctor -> {
-            try {
-                patient.setPreferredDoctor(preferredDoctor.toModelType());
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-            }
-        });
 
-        /*if (preferredDoctor.isPresent()) {
-            patient.setPreferredDoctor(preferredDoctor.get().toModelType());
+        if (appointment != null) {
+            patient.setAppointment(appointment.toModelType());
         }
-        if (appointment.isPresent()) {
-            patient.setAppointment(appointment.get().toModelType());
-        }*/
+
         return patient;
     }
 

@@ -10,6 +10,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 
 import seedu.clinicio.logic.commands.exceptions.CommandException;
@@ -57,6 +59,8 @@ public class AddPatientCommandTest {
         ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
 
+        UserSession.createSession(ALAN);
+
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddPatientCommand.MESSAGE_SUCCESS, validPatient), commandResult.feedbackToUser);
@@ -66,6 +70,8 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() throws Exception {
+        UserSession.createSession(ALAN);
+
         Patient validPatient = new PatientBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
         ModelStub modelStub = new ModelStubWithPatient(validPatient);
