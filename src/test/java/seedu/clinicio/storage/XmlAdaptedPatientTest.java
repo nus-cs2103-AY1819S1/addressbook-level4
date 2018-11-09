@@ -15,7 +15,7 @@ import seedu.clinicio.testutil.Assert;
 
 public class XmlAdaptedPatientTest {
     private final String INVALID_NRIC = "S123456";
-    
+
     private final String VALID_NAME = BRYAN.getName().toString();
     private final String VALID_PHONE = BRYAN.getPhone().toString();
     private final String VALID_EMAIL = BRYAN.getEmail().toString();
