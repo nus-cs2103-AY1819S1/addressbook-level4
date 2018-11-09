@@ -152,6 +152,7 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     private void updateCurrentCap() {
+        logger.info("Updating Current CAP");
         currentCap = calculateCap();
     }
 
