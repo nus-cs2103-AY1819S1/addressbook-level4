@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 
 import seedu.clinicio.model.Model;
@@ -44,6 +45,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_validCredentials_returnTrue() {
+        UserSession.destorySession();
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         LoginCommand command = new LoginCommand(
@@ -53,6 +55,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_invalidCredentials_returnFalse() {
+        UserSession.destorySession();
         String expectedMessage = LoginCommand.MESSAGE_FAILURE;
 
         LoginCommand command = new LoginCommand(
