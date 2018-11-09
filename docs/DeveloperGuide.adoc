@@ -35,11 +35,17 @@ If you are new to development, you can try working step-by-step tutorial from Or
 If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start
 set up ClinicIO project.
 
-== Setting up
+== Introduction
+
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
+
+Go to the <<#Installation Guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
+
+== Installation Guide
 
 === Prerequisites
 
-Before you start setting up the project, these are the list of prerequisites that you need to install: +
+Before you start setting up the project, here are the list of things that you need to install: +
 
 . *JDK `9`* or later
 +
