@@ -36,6 +36,8 @@ public class MeetingTest {
 
         // invalid Dates
         assertFalse(Meeting.isValidMeeting("1234567890")); // not a real date
+        assertFalse(Meeting.isValidMeeting("3102181230")); // not a real date
+        assertFalse(Meeting.isValidMeeting("2902181230")); // not a valid date on a non-leap year
 
         // invalid Time
         assertFalse(Meeting.isValidMeeting("1202182500"));
@@ -51,5 +53,6 @@ public class MeetingTest {
         assertTrue(Meeting.isValidMeeting("12-12-121212")); // hyphens in date
         assertTrue(Meeting.isValidMeeting("1212121212.")); // time ends with a period
         assertTrue(Meeting.isValidMeeting("1111111111")); // minimal
+        assertTrue(Meeting.isValidMeeting("29/02/16 1430")); // leap year
     }
 }

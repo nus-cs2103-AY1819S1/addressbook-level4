@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 //@@author AyushChatto
 /**
@@ -58,7 +59,8 @@ public class Meeting {
         String formattedTest = formatMeeting(test);
         if (formattedTest.matches(MEETING_VALIDATION_REGEX)) {
             try {
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy");
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMuu")
+                        .withResolverStyle(ResolverStyle.STRICT);
                 LocalDate.parse(formattedTest.substring(0, 6), dateFormatter);
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
                 LocalTime.parse(formattedTest.substring(6, 10), timeFormatter);
