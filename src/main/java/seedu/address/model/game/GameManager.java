@@ -1,5 +1,6 @@
 package seedu.address.model.game;
 
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.model.task.Task;
 
 // @@author chikchengyao
@@ -40,10 +41,82 @@ public class GameManager {
     }
 
     public void setGameMode(String newGameModeName) {
-        if (newGameModeName.equals("flat")) {
+        switch (newGameModeName) {
+        case ModeCommand.FLAT_MODE:
             this.gameMode = new FlatMode();
-        } else {
+            break;
+
+        case ModeCommand.DECREASING_MODE:
             this.gameMode = new DecreasingMode();
+            break;
+
+        case ModeCommand.INCREASING_MODE:
+            this.gameMode = new IncreasingMode();
+            break;
+
+        case ModeCommand.PRIORITY_MODE:
+            this.gameMode = new PriorityMode();
+            break;
+        default:
+            assert false;
+        }
+    }
+
+    public void setGameMode(String newGameModeName, String newGameDifficultyName) {
+        int period;
+        int low;
+        int high;
+
+        switch(newGameDifficultyName) {
+        case ModeCommand.EASY_MODE:
+            period = 1;
+            low = 40;
+            high = 50;
+            break;
+
+        case ModeCommand.MEDIUM_MODE:
+            period = 3;
+            low = 30;
+            high = 60;
+            break;
+
+        case ModeCommand.HARD_MODE:
+            period = 7;
+            low = 20;
+            high = 70;
+            break;
+
+        case ModeCommand.EXTREME_MODE:
+            period = 10;
+            low = 10;
+            high = 80;
+            break;
+
+        default:
+            assert false;
+            period = 7;
+            low = 25;
+            high = 50;
+        }
+
+        switch (newGameModeName) {
+        case ModeCommand.FLAT_MODE:
+            this.gameMode = new FlatMode(low, high);
+            break;
+
+        case ModeCommand.DECREASING_MODE:
+            this.gameMode = new DecreasingMode(period, low, high);
+            break;
+
+        case ModeCommand.INCREASING_MODE:
+            this.gameMode = new IncreasingMode(period, low, high);
+            break;
+
+        case ModeCommand.PRIORITY_MODE:
+            this.gameMode = new PriorityMode();
+            break;
+        default:
+            assert false;
         }
     }
 
@@ -51,14 +124,48 @@ public class GameManager {
      * Checks if the given game mode name is a valid name.
      */
     public static boolean isValidGameMode(String gameModeName) {
-        if (gameModeName.equals("flat")) {
+        if (gameModeName.equals(ModeCommand.FLAT_MODE)) {
             return true;
         }
 
-        if (gameModeName.equals("decreasing")) {
+        if (gameModeName.equals(ModeCommand.DECREASING_MODE)) {
+            return true;
+        }
+
+        if (gameModeName.equals(ModeCommand.INCREASING_MODE)) {
+            return true;
+        }
+
+        if (gameModeName.equals(ModeCommand.PRIORITY_MODE)) {
             return true;
         }
 
         return false;
     }
+
+    /**
+     * Checks if the supplied string describes a valid game difficulty.
+     * @param gameDifficultyName The proposed game difficulty.
+     * @return
+     */
+    public static boolean isValidGameDifficulty(String gameDifficultyName) {
+        if (gameDifficultyName.equals(ModeCommand.EASY_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.MEDIUM_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.HARD_MODE)) {
+            return true;
+        }
+
+        if (gameDifficultyName.equals(ModeCommand.EXTREME_MODE)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

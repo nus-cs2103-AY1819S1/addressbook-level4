@@ -191,6 +191,18 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    public void updateGameMode(String newGameModeName, String newGameDifficultyName) {
+        assert GameManager.isValidGameMode(newGameModeName);
+        assert GameManager.isValidGameDifficulty(newGameDifficultyName);
+
+        gameManager.setGameMode(newGameModeName, newGameDifficultyName);
+    }
+
+    /**
      * @return the {@code int} value representing the Xp.
      */
     public int getXpValue() {

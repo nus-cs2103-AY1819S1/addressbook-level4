@@ -145,6 +145,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    @Override
+    public void updateGameMode(String newGameModeName, String newGameDifficultyName) {
+        versionedTaskManager.updateGameMode(newGameModeName, newGameDifficultyName);
+
+        indicateTaskManagerChanged();
+    }
+
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     @Override
