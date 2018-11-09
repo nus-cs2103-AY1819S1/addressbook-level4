@@ -14,31 +14,24 @@ import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.testutil.Assert;
 
 public class XmlAdaptedPatientTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_NRIC = "S123456";
-    private static final String INVALID_MED_PROB = "#cancer";
-    private static final String INVALID_MED = "#tremedol";
-    private static final String INVALID_ALLERGY = "#sand";
-
-    private static final String VALID_NAME = BRYAN.getName().toString();
-    private static final String VALID_PHONE = BRYAN.getPhone().toString();
-    private static final String VALID_EMAIL = BRYAN.getEmail().toString();
-    private static final String VALID_ADDRESS = BRYAN.getAddress().toString();
-    private static final String VALID_NRIC = BRYAN.getNric().toString();
-    private static final List<XmlAdaptedMedicalProblem> VALID_MED_PROBS = BRYAN.getMedicalProblems().stream()
+    private final String INVALID_NRIC = "S123456";
+    
+    private final String VALID_NAME = BRYAN.getName().toString();
+    private final String VALID_PHONE = BRYAN.getPhone().toString();
+    private final String VALID_EMAIL = BRYAN.getEmail().toString();
+    private final String VALID_ADDRESS = BRYAN.getAddress().toString();
+    private final String VALID_NRIC = BRYAN.getNric().toString();
+    private final List<XmlAdaptedMedicalProblem> VALID_MED_PROBS = BRYAN.getMedicalProblems().stream()
             .map(XmlAdaptedMedicalProblem::new)
             .collect(Collectors.toList());
-    private static final List<XmlAdaptedMedication> VALID_MEDS = BRYAN.getMedications().stream()
+    private final List<XmlAdaptedMedication> VALID_MEDS = BRYAN.getMedications().stream()
             .map(XmlAdaptedMedication::new)
             .collect(Collectors.toList());
-    private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
+    private final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
-    private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
-    private static final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
+    private final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
+    private final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
 
     /*@Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
