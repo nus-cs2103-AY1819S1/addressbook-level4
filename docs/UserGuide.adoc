@@ -139,6 +139,14 @@ Examples:
 Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
 
+=== Filtering doctors from list : `filter-doctor`
+Shows a list of all doctors in the Healthbook. +
+Format: `filter-doctor`
+
+=== Filtering patients from list : `filter-patient`
+Shows a list of all patients in the Healthbook. +
+Format: `filter-patient`
+
 === Booking an appointment: `add-appointment`
 Book a doctor's appointment for the patient. An ID of this appointment will be generated. +
 Format: `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/DOCTOR_PHONE] d/DATE_TIME`
@@ -343,6 +351,9 @@ e.g. `delete-doctor n/Mary Jane`
 e.g. `view-patient n/John Doe p/84729292`
 * *View doctor* : `view-doctor n/NAME [p/PHONE]` +
 e.g. `view-doctor n/Mary Jane`
+* *List* : `list`
+* *Filter doctors* : `filter-doctor`
+* *Filter patients* : `filter-patient`
 * *Book appointment* : `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/PATIENT_PHONE] d/DATE_TIME` +
 e.g. `add-appointment np/John Doe nd/Mary Jane pd/93736272 d/2018-10-17 15:00`
 * *Delete appointment* : `delete-appointment APPOINTMENT_ID` +
@@ -357,6 +368,8 @@ e.g. `delete-prescription 10001 pn/Paracetamol`
 e.g. `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
 * *Delete allergies or conditions* : `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 e.g. `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* *Remark* : `remark n/NAME [p/PHONE] r/REMARK` +
+e.g `remark n/John Doe p/84729292 r/Has chronic heart disease`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

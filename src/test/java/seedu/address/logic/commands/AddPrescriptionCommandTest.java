@@ -89,6 +89,54 @@ public class AddPrescriptionCommandTest {
     }
 
     @Test
+    public void execute_allFieldsSpecifiedWithoutCaseSensitivity_success() {
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Prescription toAdd = new PrescriptionBuilder()
+                .withAppointmentId(firstAppointment.getAppointmentId())
+                .withMedicineName(VALID_MEDICINE_NAME_VICODIN.toUpperCase()).build();
+
+        Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
+        editedAppointment.getPrescriptions().add(toAdd);
+
+        List<Person> personList = model.getFilteredPersonList();
+        Doctor doctorToEdit = null;
+        Patient patientToEdit = null;
+
+        for (Person person : personList) {
+            if (person instanceof Doctor) {
+                if (firstAppointment.getDoctor().equals(person.getName().toString())) {
+                    doctorToEdit = (Doctor) person;
+                }
+            }
+            if (person instanceof Patient) {
+                if (firstAppointment.getPatient().equals(person.getName().toString())) {
+                    patientToEdit = (Patient) person;
+                }
+            }
+            if (doctorToEdit != null && patientToEdit != null) {
+                break;
+            }
+        }
+
+        Patient editedPatient = new PatientBuilder(patientToEdit).build();
+        editedPatient.setAppointment(firstAppointment, editedAppointment);
+
+        Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
+        editedDoctor.setAppointment(firstAppointment, editedAppointment);
+
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
+
+        String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.updatePerson(patientToEdit, editedPatient);
+        expectedModel.updatePerson(doctorToEdit, editedDoctor);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(addPrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_duplicatePrescriptionUnfilteredList_failure() {
         Appointment appointmentInList = model.getAddressBook().getAppointmentList().get(0);
         Prescription toAdd = new PrescriptionBuilder()

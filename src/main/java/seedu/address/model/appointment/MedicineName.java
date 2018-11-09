@@ -54,7 +54,7 @@ public class MedicineName {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MedicineName // instanceof handles nulls
-                && fullMedicineName.equals(((MedicineName) other).fullMedicineName)); // state check
+                && fullMedicineName.toLowerCase().equals(((MedicineName) other).fullMedicineName.toLowerCase()));
     }
 
     @Override

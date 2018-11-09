@@ -143,7 +143,8 @@ public class DeletePrescriptionCommand extends Command {
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
-        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS, medicineName.toString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
+                prescriptionToBeDeleted.getMedicineName()));
     }
 
     @Override

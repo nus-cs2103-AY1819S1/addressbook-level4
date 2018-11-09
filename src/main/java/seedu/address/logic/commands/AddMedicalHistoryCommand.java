@@ -31,7 +31,7 @@ public class AddMedicalHistoryCommand extends Command {
     public static final String COMMAND_WORD = "add-medical-history";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds medical history for a person to the address book.\n"
+            + ": Adds medical history of a patient to the HealthBook.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -39,16 +39,16 @@ public class AddMedicalHistoryCommand extends Command {
             + "[" + PREFIX_CONDITION + "CONDITIONS (separated by comma)] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_ALLERGY + "penicillin,milk "
-            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
+            + PREFIX_ALLERGY + "Penicillin,Milk "
+            + PREFIX_CONDITION + "sub-healthy,Hyperglycemia ";
 
-    public static final String MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS = "Medical history added for: %1$s";
+    public static final String MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS = "New Medical History added for %1$s";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY = "This command is only for patients";
-    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE = ": already existed";
-    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
+    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE = " already exists in Medical History";
+    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO = "Please provide valid information";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME = " does not exist in the healthbook";
     public static final String MESSAGE_DUPLICATE_PATIENT =
-            "There is multiple patients with this name. Please enter patients's number to identify the unique patient";
+            "There are multiple patients with this name. Please enter patients's number to identify the unique patient";
 
     private final Name name;
     private final Phone phone;

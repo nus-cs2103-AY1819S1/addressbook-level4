@@ -87,7 +87,6 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
         }
 
-        // adding prescription
         ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
         allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
 
@@ -114,9 +113,11 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
         }
 
-        if (patientToEdit.getMedicalHistory().getAllergies().contains(prescriptionToAdd.getMedicineName().toString())) {
-            throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE,
-                    prescriptionToAdd.getMedicineName()));
+        // check if patient is allergic to medicine
+        for (String allergy: patientToEdit.getMedicalHistory().getAllergies()) {
+            if (allergy.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase())) {
+                throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
+            }
         }
 
         //TODO update google calendar
