@@ -25,8 +25,10 @@ Some of its main features are:
 
 == 2. Summary of contributions
 
+This section highlights some of the contributions that I have made to Expense Tracker.
+
 * *Major enhancement*: added *the ability to have a budget on expenses.*
-** Function: It informs the user if the their expenses exceed a set budget
+** Function: It informs the user if the their spendings exceed a set budget
 ** Justification: This is a core feature as it allows the user to know when they are spending too much money, the
 main purpose of an expense tracker.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
@@ -35,7 +37,8 @@ main purpose of an expense tracker.
 
 * *Minor enhancements*:
 
-. Added a `setRecurrenceFrequency` command that allows the user to reset their expenses at a frequency of their choice.
+. Added a `setRecurrenceFrequency` command that allows the user to reset their available spending at a frequency of
+their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
