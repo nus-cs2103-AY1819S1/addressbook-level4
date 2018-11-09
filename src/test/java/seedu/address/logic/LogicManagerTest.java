@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -9,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandUtil;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,6 +16,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.Module;
+import seedu.address.testutil.ModuleUtil;
+import seedu.address.testutil.TypicalModules;
 
 
 public class LogicManagerTest {
@@ -34,9 +37,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete LALALALA";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_MODULE);
-        assertHistoryCorrect(deleteCommand);
+        Module module = TypicalModules.DATA_STRUCTURES;
+        String updateCommand = ModuleUtil.getEditModuleCommand(
+                module, module.getCode(), module.getYear(),
+                module.getSemester(), module.getCredits(), module.getGrade());
+        assertCommandException(updateCommand, CommandUtil.MESSAGE_NO_SUCH_MODULE);
+        assertHistoryCorrect(updateCommand);
     }
 
     @Test

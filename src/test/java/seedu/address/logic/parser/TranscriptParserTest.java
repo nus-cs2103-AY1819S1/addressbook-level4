@@ -31,7 +31,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Module;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.ModuleUtil;
-import seedu.address.testutil.TypicalModules;
 
 //@@author alexkmj
 /**

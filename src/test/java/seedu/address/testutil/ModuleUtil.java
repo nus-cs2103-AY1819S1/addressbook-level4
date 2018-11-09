@@ -80,27 +80,27 @@ public class ModuleUtil {
         command += " ";
 
         if (code != null) {
-            command += EditArgument.NEW_CODE.getShortName()
+            command += " " + EditArgument.NEW_CODE.getShortName()
                     + " " + code.value;
         }
 
         if (year != null) {
-            command += EditArgument.NEW_YEAR.getShortName()
+            command += " " + EditArgument.NEW_YEAR.getShortName()
                     + " " + year.value;
         }
 
         if (semester != null) {
-            command += EditArgument.NEW_SEMESTER.getShortName()
+            command += " " + EditArgument.NEW_SEMESTER.getShortName()
                     + " " + semester.value;
         }
 
         if (credit != null) {
-            command += EditArgument.NEW_CREDIT.getShortName()
+            command += " " + EditArgument.NEW_CREDIT.getShortName()
                     + " " + credit.value;
         }
 
         if (grade != null) {
-            command += EditArgument.NEW_GRADE.getShortName()
+            command += " " + EditArgument.NEW_GRADE.getShortName()
                     + " " + grade.value;
         }
 
