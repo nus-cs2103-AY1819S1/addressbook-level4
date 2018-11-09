@@ -130,7 +130,7 @@ public class DeleteCommand extends Command {
         }
 
         Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
-        
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
         ListIterator<Person> personListIterator = completePersonList.listIterator();
@@ -185,7 +185,7 @@ public class DeleteCommand extends Command {
                 model.updatePerson(p, updatedPerson);
             });
         }
-        
+
         model.deleteOccasion(occasionToDelete);
         commandResult = new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
         return commandResult;

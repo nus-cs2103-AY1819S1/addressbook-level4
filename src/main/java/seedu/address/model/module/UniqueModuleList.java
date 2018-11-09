@@ -130,7 +130,7 @@ public class UniqueModuleList implements Iterable<Module> {
     public List<Module> asNormalList() {
         return internalList.stream().collect(Collectors.toList());
     }
-    
+
     @Override
     public Iterator<Module> iterator() {
         return internalList.iterator();
