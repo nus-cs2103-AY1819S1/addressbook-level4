@@ -47,14 +47,11 @@ import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.ShowPatientInQueueCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
-import seedu.clinicio.model.analytics.PatientStatistics;
-import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.testutil.AppointmentBuilder;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
 import seedu.clinicio.testutil.PatientBuilder;
 import seedu.clinicio.testutil.PatientUtil;
@@ -186,7 +183,8 @@ public class ClinicIoParserTest {
         assertTrue(parser
                 .parseCommand(AppointmentStatisticsCommand.COMMAND_WORD) instanceof AppointmentStatisticsCommand);
         assertTrue(parser
-                .parseCommand(AppointmentStatisticsCommand.COMMAND_WORD + " 3") instanceof AppointmentStatisticsCommand);
+                .parseCommand(AppointmentStatisticsCommand
+                        .COMMAND_WORD + " 3")instanceof AppointmentStatisticsCommand);
     }
 
     @Test
@@ -251,14 +249,14 @@ public class ClinicIoParserTest {
     }
 
     @Test
-    public void parserCommand_enqueueCommand() throws  Exception {
+    public void parserCommand_enqueueCommand() throws Exception {
         EnqueueCommand command = (EnqueueCommand) parser.parseCommand(
                 EnqueueCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new EnqueueCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
-    public void parserCommand_dequeueCommand() throws  Exception {
+    public void parserCommand_dequeueCommand() throws Exception {
         DequeueCommand command = (DequeueCommand) parser.parseCommand(
                 DequeueCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DequeueCommand(INDEX_FIRST_PERSON), command);
