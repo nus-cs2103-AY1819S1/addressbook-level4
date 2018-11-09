@@ -37,7 +37,7 @@ import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of the logged-in person in the address book.
  */
 public class EditUserCommand extends Command {
 
@@ -85,9 +85,6 @@ public class EditUserCommand extends Command {
 
             Person personToEdit = model.getCurrentUser();
 
-            if (!model.authorisationCanBeGivenTo(personToEdit)) {
-                throw new CommandException(Messages.MESSAGE_USER_DOES_NOT_HAVE_AUTHORITY);
-            }
             model.removeCurrentUser();
 
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);

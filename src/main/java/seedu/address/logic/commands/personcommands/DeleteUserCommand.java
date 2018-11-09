@@ -15,20 +15,18 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes the current user.
  */
 public class DeleteUserCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteUser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the current logged-in person from the displayed person list.\n"
+            + "No other parameter should be specified.\n"
+            + "Example: " + COMMAND_WORD ;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-
-    //private final Index targetIndex;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

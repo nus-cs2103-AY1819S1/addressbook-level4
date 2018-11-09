@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a {@code Person} specified by the index as a friend in the current user's friend list
+ * Deletes a {@code Person} specified by the index as a friend from the current user's friend list
  *
  * @author agendazhang
  */
