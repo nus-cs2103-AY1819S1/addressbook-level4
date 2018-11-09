@@ -190,9 +190,9 @@ public class ClinicIoParserTest {
     @Test
     public void parseCommand_doctorStatistics() throws Exception {
         assertTrue(parser
-                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD) instanceof AppointmentStatisticsCommand);
+                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD) instanceof DoctorStatisticsCommand);
         assertTrue(parser
-                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD + " 3") instanceof AppointmentStatisticsCommand);
+                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD + " 3") instanceof DoctorStatisticsCommand);
     }
 
     @Test
