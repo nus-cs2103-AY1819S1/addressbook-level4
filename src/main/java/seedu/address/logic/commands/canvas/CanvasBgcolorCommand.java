@@ -3,14 +3,11 @@ package seedu.address.logic.commands.canvas;
 //@@author j-lum
 import java.util.logging.Logger;
 
-import javafx.embed.swing.SwingFXUtils;
-
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -40,20 +37,13 @@ public class CanvasBgcolorCommand extends CanvasCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args.matches(HEX_REGEX) || args.matches(VERBOSE_REGEX) || args.matches(NONE_REGEX)) {
             model.getCanvas().setBackgroundColor(args);
-            try {
-                EventsCenter.getInstance().post(
-                        new ChangeImageEvent(
-                                SwingFXUtils.toFXImage(
-                                        ImageMagickUtil.processCanvas(model.getCanvas()), null), "preview"));
-            } catch (Exception e) {
-                logger.severe(e.getMessage());
-            }
+            ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args));
         }
-        return new CommandResult(String.format(OUTPUT_FAILURE, args)
+        throw new CommandException(String.format(OUTPUT_FAILURE, args)
                 + "\n\n"
                 + MESSAGE_USAGE);
     }

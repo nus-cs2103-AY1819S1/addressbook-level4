@@ -4,6 +4,7 @@ package seedu.address.logic.commands.layer;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -20,7 +21,7 @@ public class LayerSelectCommand extends LayerCommand {
 
     public static final String OUTPUT_SUCCESS = "Now working on layer %d.";
     public static final String OUTPUT_FAILURE = "Invalid layer index provided!";
-    public static final String OUTPUT_MISSING_CANVAS = "You must open an image file for editing before proceeding!";
+    static final String OUTPUT_MISSING_CANVAS = "You must open an image file for editing before proceeding!";
 
     public LayerSelectCommand(String args) {
         super(args);
@@ -28,24 +29,21 @@ public class LayerSelectCommand extends LayerCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args == null) {
-            return new CommandResult(String.format(OUTPUT_FAILURE));
+            throw new CommandException(OUTPUT_FAILURE);
         }
         int i;
         Index index;
         try {
             i = Integer.parseInt(args);
-            if (i < 0 | i > model.getCanvas().getLayers().size()) {
-                throw new NumberFormatException();
-            }
             index = Index.fromOneBased(i);
             model.setCurrentLayer(index);
             model.refreshHistoryList();
-        } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
         } catch (NullPointerException e) {
-            return new CommandResult(OUTPUT_MISSING_CANVAS);
+            throw new CommandException(OUTPUT_MISSING_CANVAS);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new CommandException(OUTPUT_FAILURE);
         }
 
         return new CommandResult(String.format(OUTPUT_SUCCESS, index.getOneBased()));

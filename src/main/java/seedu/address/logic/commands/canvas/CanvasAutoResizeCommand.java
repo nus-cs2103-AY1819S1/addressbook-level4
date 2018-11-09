@@ -7,6 +7,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 
@@ -33,7 +34,7 @@ public class CanvasAutoResizeCommand extends CanvasCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args.equalsIgnoreCase("on")) {
             model.getCanvas().setCanvasAuto(true);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
@@ -44,7 +45,7 @@ public class CanvasAutoResizeCommand extends CanvasCommand {
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args.toLowerCase()));
         }
-        return new CommandResult(String.format(OUTPUT_FAILURE, args.toLowerCase())
+        throw new CommandException(String.format(OUTPUT_FAILURE, args.toLowerCase())
                 + "\n\n"
                 + MESSAGE_USAGE
         );

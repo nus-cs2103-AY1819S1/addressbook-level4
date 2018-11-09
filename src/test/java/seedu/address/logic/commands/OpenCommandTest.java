@@ -2,8 +2,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -62,20 +61,20 @@ public class OpenCommandTest {
         OpenCommand openSecondCommand = new OpenCommand(INDEX_SECOND_IMAGE);
 
         // same object -> returns true
-        assertTrue(openFirstCommand.equals(openFirstCommand));
+        assertEquals(openFirstCommand, openFirstCommand);
 
         // same values -> returns true
         OpenCommand selectFirstCommandCopy = new OpenCommand(INDEX_FIRST_IMAGE);
-        assertTrue(openFirstCommand.equals(selectFirstCommandCopy));
+        assertEquals(openFirstCommand, selectFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(openFirstCommand.equals(1));
+        assertNotEquals(1, openFirstCommand);
 
         // null -> returns false
-        assertFalse(openFirstCommand.equals(null));
+        assertNotEquals(null, openFirstCommand);
 
-        // different person -> returns false
-        assertFalse(openFirstCommand.equals(openSecondCommand));
+        // different command -> returns false
+        assertNotEquals(openFirstCommand, openSecondCommand);
     }
 
     /**

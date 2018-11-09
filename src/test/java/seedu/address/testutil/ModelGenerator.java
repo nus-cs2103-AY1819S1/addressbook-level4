@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -29,11 +30,11 @@ public class ModelGenerator {
     /**
      * Returns a dummy image read from resources (original.png).
      */
-    public static BufferedImage getABufferedImage() {
+    private static BufferedImage getABufferedImage() {
         BufferedImage originalImage = null;
         try {
             ClassLoader classLoader = ModelGenerator.class.getClassLoader();
-            originalImage = ImageIO.read(classLoader.getResource("testimgs/original.png"));
+            originalImage = ImageIO.read(Objects.requireNonNull(classLoader.getResource("testimgs/original.png")));
         } catch (IOException e) {
             logger.warning("Error getting default model" + e);
         }
@@ -43,7 +44,7 @@ public class ModelGenerator {
     /**
      * Returns a dummy transformation (blur).
      */
-    public static Transformation getATransformation() {
+    private static Transformation getATransformation() {
         return new Transformation("blur", "0x8");
     }
 
@@ -135,4 +136,21 @@ public class ModelGenerator {
         model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[3]), "Layer 3");
         return model;
     }
+
+    /**
+     * @return Returns a model with 3 layers and a directory of test images.
+     */
+    public static Model getModelWithPopulatedCanvasAndImgDirectory() {
+        Model model = getModelWithPopulatedCanvas();
+        model.updateCurrDirectory(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
+        return model;
+    }
+
+    /**
+     * @return Returns a model without a canvas.
+     */
+    public static Model getModelWithoutCanvas() {
+        return new ModelManager(new UserPrefs(), true);
+    }
+
 }
