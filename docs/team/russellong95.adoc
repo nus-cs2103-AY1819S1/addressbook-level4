@@ -15,9 +15,9 @@ LearnVocuabulary is a desktop application for people who prefer to use an offlin
 
 * *Major enhancement*: Added the learn feature command
 ** What it does: Searches for the given word on LearnVocabulary and extracts the definition of the word. It then attaches a default tag, which is all stored inside LearnVocabulary.
-** Justification: This feature is the backbone of LearnVocabulary because it saves the user a lot of time by querying and storing the word with its meaning. It then saves all of that into a personalized storage area for the user to review (display and show) at a later time. 
-** Highlights: This enhancement had to be properly integrated by carefully navigating around the different existing commands. 
-It required a near in-depth analysis of design alternatives. 
+** Justification: This feature is the backbone of LearnVocabulary because it saves the user a lot of time by querying and storing the word with its meaning. It then saves all of that into a personalized storage area for the user to review (display and show) at a later time.
+** Highlights: This enhancement had to be properly integrated by carefully navigating around the different existing commands.
+It required a near in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands.
 
 * *Minor enhancement*: Added the show command, which displays the filtered word(s) unto the Ui, making the Ui appear more engaging and interactive.
