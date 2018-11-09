@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,9 +38,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private XmlAdaptedStaff preferredDoctor;
+    private Optional<XmlAdaptedStaff> preferredDoctor;
     @XmlElement
-    private XmlAdaptedAppointment appointment;
+    private Optional<XmlAdaptedAppointment> appointment;
 
     /**
      * Constructs an XmlAdaptedAppointment. This is the no-arg constructor that is required by JAXB.
@@ -49,7 +50,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            XmlAdaptedStaff preferredDoctor, XmlAdaptedAppointment appointment) {
+            Optional<XmlAdaptedStaff> preferredDoctor, Optional<XmlAdaptedAppointment> appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -62,13 +63,8 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             this.allergies = new ArrayList<>(allergies);
         }
         this.isQueuing = isQueuing;
-
-        if (preferredDoctor != null) {
-            this.preferredDoctor = preferredDoctor;
-        }
-        if (appointment != null) {
-            this.appointment = appointment;
-        }
+        this.preferredDoctor = preferredDoctor;
+        this.appointment = appointment;
     }
 
     public XmlAdaptedPatient(Patient patient) {
@@ -82,12 +78,15 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
         isQueuing = patient.isQueuing();
 
-        //Wad is the error
         if (patient.getPreferredDoctor().isPresent()) {
-            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
+            preferredDoctor = Optional.ofNullable(new XmlAdaptedStaff(patient.getPreferredDoctor().get()));
+        } else {
+            preferredDoctor = Optional.empty();
         }
         if (patient.getAppointment().isPresent()) {
-            appointment = new XmlAdaptedAppointment(patient.getAppointment().get());
+            appointment = Optional.ofNullable(new XmlAdaptedAppointment(patient.getAppointment().get()));
+        } else {
+            appointment = Optional.empty();
         }
     }
 
@@ -134,12 +133,18 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         } else {
             patient.setIsNotQueuing();
         }
-
-        if (preferredDoctor != null) {
+        /*appointment.ifPresent(appointment1 -> {
+            patient.setAppointment(appointment1.toModelType());
+        });
+        preferredDoctor.ifPresent(preferredDoctor -> {
             patient.setPreferredDoctor(preferredDoctor.toModelType());
+        });*/
+
+        if (preferredDoctor.isPresent()) {
+            patient.setPreferredDoctor(preferredDoctor.get().toModelType());
         }
-        if (appointment != null) {
-            patient.setAppointment(appointment.toModelType());
+        if (appointment.isPresent()) {
+            patient.setAppointment(appointment.get().toModelType());
         }
         return patient;
     }

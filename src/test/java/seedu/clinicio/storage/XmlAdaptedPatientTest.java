@@ -9,6 +9,7 @@ import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -41,8 +42,8 @@ public class XmlAdaptedPatientTest {
     private static final List<XmlAdaptedAllergy> VALID_ALLERGIES = BRYAN.getAllergies().stream()
             .map(XmlAdaptedAllergy::new)
             .collect(Collectors.toList());
-    private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
-    private static final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
+    private static final Optional<XmlAdaptedStaff> VALID_PREF_DOC = Optional.of(new XmlAdaptedStaff(ADAM));
+    private static final Optional<XmlAdaptedAppointment> VALID_APPT = Optional.of(new XmlAdaptedAppointment(AMY_APPT));
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
