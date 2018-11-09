@@ -24,7 +24,8 @@ public class Date extends ExpenseField {
      *
      */
     public Date() {
-        this(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        super("");
+        this.fullDate = LocalDateTime.now();
     }
 
     /**
