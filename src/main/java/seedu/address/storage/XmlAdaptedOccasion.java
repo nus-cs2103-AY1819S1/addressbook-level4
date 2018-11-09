@@ -95,10 +95,10 @@ public class XmlAdaptedOccasion {
         OccasionName occasionName = new OccasionName(this.occasionName);
         OccasionDate occasionDate;
         OccasionLocation location;
-        if (!this.occasionDateTime.equals("")) {
-            occasionDate = new OccasionDate(this.occasionDateTime);
-        } else {
+        if (this.occasionDateTime.equals("")) {
             occasionDate = new OccasionDate();
+        } else {
+            occasionDate = new OccasionDate(this.occasionDateTime);
         }
         List<Person> attendanceList = new ArrayList<>();
         for (XmlAdaptedPerson person : this.attendanceList) {

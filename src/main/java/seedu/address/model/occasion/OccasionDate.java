@@ -3,10 +3,6 @@ package seedu.address.model.occasion;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-
-
 /**
  * Represents an Occasions date in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidDate(String)}
@@ -15,8 +11,7 @@ import java.text.SimpleDateFormat;
 public class OccasionDate {
 
     public static final String MESSAGE_OCCASIONDATE_CONSTRAINTS = "Occasion "
-        + "dates should be in the format YYYY-MM-DD, and should not be in the "
-        + "blank.";
+        + "dates should be in the format YYYY-MM-DD, and should exist.";
 
     /*
      * The date should be in the format YYYY-MM-DD. The date value should be
@@ -53,27 +48,57 @@ public class OccasionDate {
     }
 
     /**
-     * Check whether a given string is in correct format and is a valid date.
+     * Checks whether a given string is in correct format and is a valid date.
      *
      * @return A boolean value indicating the validation of this date.
      */
-    // @@author KongZijin-reused
-    // Reused from
-    // https://stackoverflow.com/questions/2149680/regex-date-format-validation-on-java
-    // with minor modifications.
+
     public static boolean isValidDate(String test) {
         if (!test.matches(OCCASIONDATE_VALIDATION_REGEX)) {
             return false;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-        dateFormat.setLenient(false);
-
-        dateFormat.parse(test, new ParsePosition(1));
-        return true;
-
+        return isExistingDate(test);
     }
-    //@@author
+
+    /**
+     * Checks whether the date is an existing date.
+     * @param test
+     * @return
+     */
+    public static boolean isExistingDate(String test) {
+        Integer year = Integer.parseInt(test.substring(0, 4));
+        Integer month = Integer.parseInt(test.substring(5, 7));
+        Integer date = Integer.parseInt(test.substring(8, 10));
+
+        if (year < 1000 || year > 9999) {
+            return false;
+        }
+        if (month < 1 || month > 12) {
+            return false;
+        }
+        if (date < 1 || date > 31) {
+            return false;
+        }
+
+        if (month == 2) {
+            if (isLeapYear(year)) {
+                return (date <= 29);
+            } else {
+                return (date <= 28);
+            }
+        }
+
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            return (date <= 30);
+        }
+
+        return true;
+    }
+
+    public static boolean isLeapYear (int year) {
+        return (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
+    }
 
     @Override
     public String toString() {
