@@ -123,6 +123,7 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case ImportContactsCommand.COMMAND_WORD:
+        case ImportContactsCommand.COMMAND_WORD_ALIAS:
             return new ImportContactsCommandParser().parse(arguments);
 
         case NotificationCommand.COMMAND_WORD:

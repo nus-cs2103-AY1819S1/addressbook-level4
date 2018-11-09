@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Guarantees: file path is present and not null, validated, immutable.
  */
 public class FileReader {
-    public static final String CSV_HEADER_NAME = "Name";
+    public static final String CSV_HEADER_NAME = "Given Name";
     public static final String CSV_HEADER_PHONE = "Phone 1 - Value";
     public static final String CSV_HEADER_ADDRESS = "Address 1 - Street";
     public static final String CSV_HEADER_EMAIL = "E-mail 1 - Value";
@@ -29,7 +29,8 @@ public class FileReader {
     private int emailIndex = -1;
     private int facultyIndex = -1;
     private ArrayList<String> contacts = new ArrayList<>();
-    private int failCounter = 0;
+    private int addCounter = 0;
+    private int maxIndex = -1;
 
     public FileReader(FilePath csvFilePath) {
         requireAllNonNull(csvFilePath);
@@ -70,16 +71,12 @@ public class FileReader {
         return contacts;
     }
 
-    public int getNumberOfContacts() {
-        return contacts.size();
+    public void incrementAddCounter() {
+        this.addCounter++;
     }
 
-    public int getFailCounter() {
-        return failCounter;
-    }
-
-    public void incrementFailCounter() {
-        this.failCounter++;
+    public String getAddContactStatus() {
+        return addCounter + "/" + contacts.size();
     }
 
     /**
@@ -95,12 +92,18 @@ public class FileReader {
             String header = sc.nextLine();
             String[] parts = header.split(",");
             isValidFile = setIndex(parts);
-            if (isValidFile) {
-                while (sc.hasNextLine()) {
-                    String nextLine = sc.nextLine();
+            if (!isValidFile) {
+                sc.close();
+                return;
+            }
+            while (sc.hasNextLine()) {
+                String nextLine = sc.nextLine();
+                String[] contentParts = nextLine.split(",");
+                // if there is a break line in an entry, merge with next line
+                if (contentParts.length < maxIndex) {
                     nextLine += " " + sc.nextLine();
-                    contacts.add(nextLine);
                 }
+                contacts.add(nextLine);
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -112,24 +115,39 @@ public class FileReader {
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equals(CSV_HEADER_NAME)) {
                 nameIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
             if (parts[i].equals(CSV_HEADER_PHONE)) {
                 phoneIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_ADDRESS)) {
                 addressIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_EMAIL)) {
                 emailIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
 
             if (parts[i].equals(CSV_HEADER_FACULTY)) {
                 facultyIndex = i;
+                if (i > maxIndex) {
+                    maxIndex = i;
+                }
             }
         }
-        // return true if nameIndex and phoneIndex is valid
+        // return true if nameIndex, phoneIndex, addressIndex, emailIndex and facultyIndex is valid
         return nameIndex != -1 && phoneIndex != -1 && addressIndex != -1 && emailIndex != -1 && facultyIndex != -1;
     }
 
@@ -166,5 +184,4 @@ public class FileReader {
     public String toString() {
         return csvFilePath.toString();
     }
-
 }
