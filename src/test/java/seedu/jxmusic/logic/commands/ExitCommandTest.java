@@ -13,16 +13,16 @@ import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.ui.testutil.EventsCollectorRule;
 
 public class ExitCommandTest {
-   @Rule
-   public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-   private Model model = new ModelManager();
+    private Model model = new ModelManager();
 
-   @Test
-   public void execute_exit_success() {
-       CommandResult result = new ExitCommand().execute(model);
-       assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
-       assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
-       assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
-   }
+    @Test
+    public void execute_exit_success() {
+        CommandResult result = new ExitCommand().execute(model);
+        assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+    }
 }
