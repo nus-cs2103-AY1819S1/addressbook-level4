@@ -80,7 +80,7 @@ public class TrackAddCommandTest {
         Playlist multipleTracks = addTracksToExpectedModel(tracksToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(multipleTracks), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName());
-        TrackAddCommand command = new TrackAddCommand(targetPlaylist, tracksToAdd);
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.TRACK, tracksToAdd);
         assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
     }
 
@@ -88,7 +88,7 @@ public class TrackAddCommandTest {
     public void executeAddTrackToNonExistentPlaylist() {
         expectedModel = new ModelManager(getTypicalLibrary(), new UserPrefs());
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
-        TrackAddCommand command = new TrackAddCommand(targetPlaylist, tracksToAdd);
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.TRACK, tracksToAdd);
         assertCommandSuccess(command, model, commandHistory,
                 String.format(TrackAddCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST,
                         targetPlaylist.getName()), expectedModel);

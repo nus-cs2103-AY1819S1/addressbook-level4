@@ -64,11 +64,11 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
 
         if (isUsingTrackName) {
             tracksToAdd = ParserUtil.parseTracks(argMultimap.getAllValues(PREFIX_TRACK));
-            return new TrackAddCommand(targetPlaylist, tracksToAdd);
+            return new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.TRACK, tracksToAdd);
         }
         if (isUsingIndex) {
             indexesToAdd = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
-            return new TrackAddCommand(targetPlaylist, indexesToAdd);
+            return new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
         }
         return null;
     }
