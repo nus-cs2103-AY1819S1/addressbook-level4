@@ -72,7 +72,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_ADMIN_USERNAME);
         }
 
-        if (model.containsAssignment(toAdd.getProjects().toString(), null)) {
+        if (model.containsAssignment(toAdd.getProjects(), null)) {
             throw new CommandException(MESSAGE_ASSIGNMENT_DO_NOT_EXIST);
         }
 
