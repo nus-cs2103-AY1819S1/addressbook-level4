@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandModuleTestUtil.ACADEMICYEAR_DESC_CS2100;
@@ -24,6 +25,7 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_BINAR
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCULUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static seedu.address.testutil.ModuleUtil.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MA1101R;
@@ -44,6 +46,7 @@ import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ModuleBuilder;
+import seedu.address.testutil.ModuleUtil;
 
 public class EditModuleCommandSystemTest extends AddressBookSystemTest {
 
@@ -126,21 +129,6 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + invalidIndex + MODULECODE_DESC_ST2131,
                 Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a module card is selected --------------------- */
-
-        /* Case: selects first card in the module list, edit a module -> edited, card selection
-         * remains unchanged but browser url changes
-         */
-        // TODO: -> uncomment test back when select works.
-        // showAllModules();
-        // index = INDEX_FIRST_MODULE;
-        // selectModule(index);
-        // command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100
-        //        + MODULETITLE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100 + TAG_DESC_BINARY;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new module's name
-        // assertCommandSuccess(command, index, CS2100, index);
-
         /* --------------------------------- Performing invalid edit operation -------------------------- */
 
         /* Case: invalid index (0) -> rejected */
@@ -183,24 +171,6 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
-
-        // TODO: -> uncomment test back when select works.
-        /* Case: edit a module with new values same as another module's values -> rejected */
-        //executeCommand(ModuleUtil.getAddCommand(ST2131));
-        //assertTrue(getModel().getAddressBook().getModuleList().contains(ST2131));
-        //index = INDEX_FIRST_MODULE;
-        //assertFalse(getModel().getFilteredModuleList().get(index.getZeroBased()).equals(ST2131));
-        //command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
-        //        + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY
-        //        + TAG_DESC_CALCULUS;
-        //assertCommandFailure(command, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
-
-        // TODO: -> create new module other than ST2131 because not enough different modules used.
-        /* Case: edit a module with new values same as another module's values but with different tags -> rejected */
-        //command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
-        //        + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY;
-        //assertCommandFailure(command, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
-
     }
 
     /**
