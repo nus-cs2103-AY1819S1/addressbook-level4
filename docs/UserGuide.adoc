@@ -140,24 +140,39 @@ case, CS2103 was retaken and cap tracker has multiple entries of it.
 
 === Deleting a module : `c_delete`
 
-Deletes a module from the cap tracker. +
-Format:
-
-* Only one module entry with the module code exist: `c_delete MODULE_CODE`
-* Multiple module entries with the same module code exist: `c_delete MODULE_CODE YEAR SEMESTER`
+Deletes a `*particular*` module entry in the CAPTracker. +
+*Case 1:* +
+`*Only one*` module entry have the specified target module code. +
+_Format:_ +
+----
+c_delete -t TARGET_CODE
+----
+*Case 2:* +
+`*More than one*` module entry in CAPTracker has the specified target module code. (E.g. Retook
+the module) +
+_Format:_ +
+----
+c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
+----
 
 ****
-* Targeted module entry have to exist in the CAPTracker before deleting it.
-* `Year` and `Semester` of the targeted entry must be specified if there exist multiple entries with
-  the same module `Code`.
+* Arguments must be in name-value pair format (E.g. `-name value`).
+* Illegal name or value is not allowed.
+* `TARGET_CODE` has to be specified.
+* `TARGET_YEAR` can be null if and only if `TARGET_SEMESTER` is null.
+* The targeted module entry should exist in the CAPTracker.
+* `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
+if there exist multiple entries with the same module `TARGET_CODE`.
 ****
 
 Examples:
 
-* `c_delete CS2103` +
-Delete CS2103 from the cap tracker.
-* `c_delete CS2103 1 2` +
-Delete CS2103 taken during the second semester of the first year.
+* `c_delete -t CS2103` +
+Deletes the only CS2103 module.
+* `c_delete -t CS2103 -e 3 -z 2` +
+Deletes CS2103 taken in year 3 semester 2. In this specific case, CS2103 was
+retaken and cap tracker has multiple entries of it.
+
 
 === Setting Cap Goal : `c_goal`
 
