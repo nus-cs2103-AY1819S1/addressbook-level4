@@ -11,6 +11,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
+import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
@@ -54,12 +55,14 @@ public class PatientTest {
         assertFalse(editedAlexWithPreferredDoctor.isSamePatient(editedAlexWithoutPreferredDoctor));
 
         // same name, same preferred staff, different attributes -> returns true
-        Patient editedAlexWithPreferredDoctorAndBobAddress = (Patient) new PatientBuilder(ALEX)
+        Patient editedAlexWithPreferredDoctorAndBobAddress = new PatientBuilder(ALEX)
                 .withPreferredDoctor(ADAM)
                 .withAddress(VALID_ADDRESS_BOB)
                 .build();
         Patient editedAlexWithPreferredDoctorAndAliceAddress = new PatientBuilder(ALEX)
-                .withPreferredDoctor(ADAM).build();
+                .withPreferredDoctor(ADAM)
+                .withAddress(ALICE.getAddress().toString())
+                .build();
         assertTrue(editedAlexWithPreferredDoctorAndBobAddress
                 .isSamePatient(editedAlexWithPreferredDoctorAndAliceAddress));
 
@@ -127,6 +130,27 @@ public class PatientTest {
                 .withNric(VALID_NRIC_BRYAN).build();
         assertFalse(editedAlexWithNric.equals(editedAlexWithAnotherNric));
 
+        // different medical problems -> returns false
+        Patient editedAlexWithMedProbs = new PatientBuilder(ALEX)
+                .withMedicalProblems("Diabetes").build();
+        Patient editedAlexWithAnotherMedProbs = new PatientBuilder(ALEX)
+                .withMedicalProblems("Stroke", "Gout").build();
+        assertFalse(editedAlexWithMedProbs.equals(editedAlexWithAnotherMedProbs));
+
+        // different medications -> returns false
+        Patient editedAlexWithMeds = new PatientBuilder(ALEX)
+                .withMedications("Cough Syrup").build();
+        Patient editedAlexWithAnotherMeds = new PatientBuilder(ALEX)
+                .withMedications("Pantanomine", "Ibuprofen").build();
+        assertFalse(editedAlexWithMeds.equals(editedAlexWithAnotherMeds));
+
+        // different medications -> returns false
+        Patient editedAlexWithAllergies = new PatientBuilder(ALEX)
+                .withAllergies("Vegetables").build();
+        Patient editedAlexWithAnotherAllergies = new PatientBuilder(ALEX)
+                .withAllergies("Diary Products", "bee stings").build();
+        assertFalse(editedAlexWithAllergies.equals(editedAlexWithAnotherAllergies));
+        
         // different preferred doctor -> returns false
         Patient editedAlexWithPreferredDoctor = new PatientBuilder(ALEX)
                 .withPreferredDoctor(ADAM).build();
