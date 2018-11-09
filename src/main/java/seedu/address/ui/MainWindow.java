@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane taskViewPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         taskViewPanel = new TaskViewPanel();
-        browserPlaceholder.getChildren().add(taskViewPanel.getRoot());
+        taskViewPlaceholder.getChildren().add(taskViewPanel.getRoot());
 
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
