@@ -237,7 +237,7 @@ public class EventFormatUtil {
             if (event.getEventSetUid().equals(eventToDelete.getEventSetUid())) {
                 counter++;
             }
-            if (event.getEventUid() == eventToDelete.getEventUid()) {
+            if (event.getEventUid().equals(eventToDelete.getEventUid())) {
                 break;
             }
         }
