@@ -7,7 +7,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.geometry.Pos;
@@ -17,7 +16,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import javafx.stage.Stage;
@@ -33,7 +31,6 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
@@ -61,9 +58,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane browserPlaceholder;
-
-    @FXML
-    private StackPane analyticsDisplayPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;

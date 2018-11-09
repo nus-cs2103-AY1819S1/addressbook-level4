@@ -64,11 +64,7 @@ public class TimeUtil {
         } else if (time1.getHour() > time2.getHour()) {
             return true;
         } else {
-            if (time1.getMinute() < time2.getMinute()) {
-                return false;
-            } else {
-                return true;
-            }
+            return time1.getMinute() >= time2.getMinute();
         }
     }
 

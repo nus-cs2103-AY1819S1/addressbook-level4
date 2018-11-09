@@ -120,11 +120,6 @@ public class AppointmentStatistics extends Statistics {
             (scheduledSlotsDates, availableSlotsDates));
         List<String> appointmentLabelGroups = Arrays.asList("scheduled", "available");
 
-        // get a list of all days next week
-        List<String> nextWeekDays = DateUtil.getDaysOfWeek().stream()
-            .map(dayOfWeek -> dayOfWeek.name())
-            .collect(Collectors.toList());
-
         statData.addVisualization("apptSupplyDemand", ChartType.STACKED_BAR, false,
             "Appointments next week", "Day of week", "Number of appointments",
             appointmentDataGroups, appointmentLabelGroups);

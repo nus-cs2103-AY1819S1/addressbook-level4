@@ -88,7 +88,7 @@ public class DoctorStatistics extends Statistics {
                .collect(Collectors.toList());
 
             // update store of calculated values
-            statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, consultaionTotalValues);
+            statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, consultationAverageValues);
         }
     }
 

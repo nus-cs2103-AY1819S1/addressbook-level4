@@ -1,10 +1,7 @@
 package seedu.clinicio.model.analytics.util;
 
 import static java.lang.Math.toIntExact;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
 
-import java.awt.event.MouseEvent;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -14,8 +11,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
