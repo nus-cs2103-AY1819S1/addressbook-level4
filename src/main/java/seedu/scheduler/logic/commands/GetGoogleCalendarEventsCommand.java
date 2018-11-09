@@ -166,6 +166,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         //Extract the listOfGoogleEvents from the events object
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents = events.getItems();
         if (listOfGoogleEvents.isEmpty()) {
+            connectToGoogleCalendar.setGoogleCalendarEnabled();
             return new CommandResult(MESSAGE_NO_EVENTS);
         } else {
             //Upcoming events

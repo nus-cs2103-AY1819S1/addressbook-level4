@@ -86,6 +86,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
         List<Event> lastShownList = model.getFilteredEventList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -110,7 +111,7 @@ public class EditCommand extends Command {
                 logger.info("Single event will be edited.");
                 Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
                 operationOnGoogleCalIsSuccessful = connectToGoogleCalendar.updateSingleGoogleEvent(
-                        eventToEdit, editedEvent, instanceIndex);
+                        googleCalendarIsEnabled, eventToEdit, editedEvent, instanceIndex);
                 model.updateEvent(eventToEdit, editedEvent);
             } else {
                 //edit upcoming or all events in a EventSet
@@ -122,7 +123,7 @@ public class EditCommand extends Command {
                     editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
                     effectRangeStartingIndex = instanceIndex;
                     operationOnGoogleCalIsSuccessful =
-                            connectToGoogleCalendar.updateRangeGoogleEvent(
+                            connectToGoogleCalendar.updateRangeGoogleEvent(googleCalendarIsEnabled,
                                     eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                     model.updateUpcomingEvents(eventToEdit, editedEvents);
                 } else {
@@ -134,7 +135,8 @@ public class EditCommand extends Command {
                     editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
                     effectRangeStartingIndex = 0;
                     operationOnGoogleCalIsSuccessful = connectToGoogleCalendar.updateRangeGoogleEvent(
-                            eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
+                            googleCalendarIsEnabled, eventToEdit, editedEvents,
+                            instanceIndex, effectRangeStartingIndex);
                     model.updateRepeatingEvents(eventToEdit, editedEvents);
                 }
             }

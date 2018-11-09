@@ -2,6 +2,7 @@ package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.Scheduler;
@@ -17,9 +18,12 @@ public class ClearCommand extends Command {
     public static final String COMMAND_ALIAS_THREE = "cl";
     public static final String COMMAND_ALIAS_FOUR = "c";
     public static final String MESSAGE_SUCCESS = "Scheduler has been cleared!";
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
         requireNonNull(model);
         model.resetData(new Scheduler());
         model.commitScheduler();

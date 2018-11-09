@@ -76,6 +76,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
@@ -86,11 +87,11 @@ public class AddCommand extends Command {
         } catch (EventOverflowException e) {
             throw new CommandException(MESSAGE_OVERFLOW_EVENT);
         }
-        model.commitScheduler();
+
 
         boolean operationOnGoogleCalIsSuccessful =
-                connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
-
+                connectToGoogleCalendar.pushToGoogleCal(googleCalendarIsEnabled, Collections.singletonList(toAdd));
+        model.commitScheduler();
         if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName()));
         } else {
