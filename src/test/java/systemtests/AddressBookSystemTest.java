@@ -7,8 +7,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -220,6 +218,22 @@ public abstract class AddressBookSystemTest {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
         assertFalse(handle.isSyncStatusChanged());
+    }
+
+    /**
+     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
+     * of the previously selected person.
+     */
+    protected void assertSelectedCardDeselected() {
+        assertFalse(getPersonListPanel().isAnyCardSelected());
+    }
+
+    /**
+     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardUnchanged() {
+        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
     /**
