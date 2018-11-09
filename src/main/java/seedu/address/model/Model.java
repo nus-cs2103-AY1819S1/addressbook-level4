@@ -153,4 +153,5 @@ public interface Model {
      * Get topological order
      */
     List<Task> getTopologicalOrder();
+
 }

@@ -256,5 +256,4 @@ public class ModelManager extends ComponentManager implements Model {
     public List<Task> getTopologicalOrder() {
         return this.getTaskManager().getTopologicalOrder();
     }
-
 }

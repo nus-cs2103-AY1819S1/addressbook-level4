@@ -99,7 +99,6 @@ public class MainWindow extends UiPart<Stage> {
         menuItem.setAccelerator(keyCombination);
 
         /*
-         * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
          * is fixed in later version of SDK.
          *
@@ -131,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
 
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList(), logic.getTaskManager());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
