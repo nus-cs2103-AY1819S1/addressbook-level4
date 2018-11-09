@@ -41,7 +41,7 @@ This project portforlio serves to document my contributions to this project, whi
 *** Edited the language, style and tone of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
 *** Added a Command Summary Table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
 ** Community:
-*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115 [#115]
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115[#115]
 ** Enhancements to existing features:
 *** Attempted to implement a discount feature for patients under health assistance schemes, but this shall be pushed to v2.0 https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 
