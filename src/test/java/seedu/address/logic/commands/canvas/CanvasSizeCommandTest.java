@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -45,39 +46,34 @@ class CanvasSizeCommandTest {
     }
 
     @Test
-    void execute_invalidSize_success() {
+    void execute_invalidSize_failure() {
         String args = "-100x100";
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-        expectedModel.getCanvas().setBackgroundColor(args);
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+        assertCommandFailure(
                 new CanvasSizeCommand(args),
                 model,
                 ch,
-                String.format(CanvasSizeCommand.OUTPUT_FAILURE)
+                CanvasSizeCommand.OUTPUT_FAILURE
                         + "\n\n"
-                        + CanvasSizeCommand.MESSAGE_USAGE,
-                expectedModel);
+                        + CanvasSizeCommand.MESSAGE_USAGE
+        );
     }
 
     @Test
-    void execute_changeInvalid_success() {
+    void execute_changeInvalid_failure() {
         int newHeight = -123;
         int newWidth = 456;
         String args = String.format("%dx%d", newWidth, newHeight);
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-        expectedModel.getCanvas().setHeight(newHeight);
-        expectedModel.getCanvas().setWidth(newWidth);
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+        assertCommandFailure(
                 new CanvasSizeCommand(args),
                 model,
                 ch,
-                String.format(CanvasSizeCommand.OUTPUT_FAILURE, newWidth, newHeight)
+                CanvasSizeCommand.OUTPUT_FAILURE
                         + "\n\n"
-                        + CanvasSizeCommand.MESSAGE_USAGE,
-                expectedModel);
+                        + CanvasSizeCommand.MESSAGE_USAGE
+        );
     }
 }

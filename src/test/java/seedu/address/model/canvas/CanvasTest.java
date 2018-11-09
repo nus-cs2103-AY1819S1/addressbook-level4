@@ -1,11 +1,12 @@
 package seedu.address.model.canvas;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
@@ -27,28 +28,28 @@ class CanvasTest {
     @Test
     void getLayers() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        assertTrue(canvas.getLayers() instanceof ArrayList);
-        assertTrue(canvas.getLayers().size() == 1);
+        assertNotNull(canvas.getLayers());
+        assertEquals(canvas.getLayers().size(), 1);
     }
 
     @Test
     void addLayer() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         canvas.addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.IMAGE_LIST[1]));
-        assertTrue(canvas.getLayers().size() == 2);
+        assertEquals(canvas.getLayers().size(), 2);
     }
 
     @Test
     void getCurrentLayer() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        assertTrue(canvas.getCurrentLayer() instanceof Layer);
+        assertNotNull(canvas.getCurrentLayer());
     }
 
     @Test
     void setCurrentLayer() {
         Canvas canvas = CanvasGenerator.getCanvasWithTwoLayers();
         canvas.setCurrentLayer(Index.fromOneBased(2));
-        assertTrue(canvas.getCurrentLayer().getName().equals("Layer 2"));
+        assertEquals(canvas.getCurrentLayer().getName(), "Layer 2");
     }
 
     @Test
@@ -60,7 +61,7 @@ class CanvasTest {
             logger.severe("This should not happen!");
             assertNull(e);
         }
-        assertTrue(canvas.getLayers().size() == 1);
+        assertEquals(canvas.getLayers().size(), 1);
     }
 
     @Test
@@ -74,14 +75,14 @@ class CanvasTest {
             assertNull(e);
         }
         canvas.setCurrentLayer(to);
-        assertTrue(canvas.getCurrentLayer().getName().equals("Layer 2"));
+        assertEquals(canvas.getCurrentLayer().getName(), "Layer 2");
         assertThrows(IllegalOperationException.class, ()->canvas.swapLayer(to, to));
     }
 
     @Test
     void getHeight() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        assertTrue(canvas.getCurrentLayer().getHeight() == canvas.getHeight());
+        assertEquals(canvas.getCurrentLayer().getHeight(), canvas.getHeight());
     }
 
     @Test
@@ -89,21 +90,21 @@ class CanvasTest {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         int newHeight = 100;
         canvas.setHeight(newHeight);
-        assertTrue(canvas.getHeight() == newHeight);
+        assertEquals(canvas.getHeight(), newHeight);
     }
 
     @Test
     void getWidth() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        assertTrue(canvas.getCurrentLayer().getWidth() == canvas.getWidth());
+        assertEquals(canvas.getCurrentLayer().getWidth(), canvas.getWidth());
     }
 
     @Test
     void setWidth() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        int newWidth = 100;
-        canvas.setHeight(newWidth);
-        assertTrue(canvas.getHeight() == newWidth);
+        int newHeight = 100;
+        canvas.setHeight(newHeight);
+        assertEquals(canvas.getHeight(), newHeight);
     }
 
     @Test
@@ -122,7 +123,7 @@ class CanvasTest {
     @Test
     void getBackgroundColor() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
-        assertTrue(canvas.getBackgroundColor().equals("none"));
+        assertEquals(canvas.getBackgroundColor(), "none");
     }
 
     @Test
@@ -130,6 +131,6 @@ class CanvasTest {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         String newColor = "rgba(0,0,0,0.0)";
         canvas.setBackgroundColor(newColor);
-        assertTrue(canvas.getBackgroundColor().equals(newColor));
+        assertEquals(canvas.getBackgroundColor(), newColor);
     }
 }

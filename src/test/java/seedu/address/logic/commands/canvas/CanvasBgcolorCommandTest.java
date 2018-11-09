@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -56,19 +57,17 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void execute_changeInvalid_success() {
+    void execute_changeInvalid_failure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-        expectedModel.getCanvas().setBackgroundColor(args);
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+        assertCommandFailure(
                 new CanvasBgcolorCommand(args),
                 model,
                 ch,
                 String.format(CanvasBgcolorCommand.OUTPUT_FAILURE, args.toLowerCase())
                         + "\n\n"
-                        + CanvasBgcolorCommand.MESSAGE_USAGE,
-                expectedModel);
+                        + CanvasBgcolorCommand.MESSAGE_USAGE
+        );
     }
 }

@@ -7,6 +7,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 
@@ -35,10 +36,10 @@ public class CanvasSizeCommand extends CanvasCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args == null) {
             return new CommandResult(String.format(OUTPUT_SUCCESS,
-                    model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+                    model.getCanvasWidth(), model.getCanvasHeight()));
         }
         String[] argumentArray = args.trim().split("x", 2);
 
@@ -46,21 +47,20 @@ public class CanvasSizeCommand extends CanvasCommand {
         int newHeight;
         try {
             newWidth = Integer.parseInt(argumentArray[0]);
-            newHeight = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : null);
+            newHeight = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : "");
             if (newWidth <= 0 | newHeight <= 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE
+            throw new CommandException(OUTPUT_FAILURE
                     + "\n\n"
                     + MESSAGE_USAGE);
         }
-        model.getCanvas().setHeight(newHeight);
-        model.getCanvas().setWidth(newWidth);
+        model.setCanvasSize(newHeight, newWidth);
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
         return new CommandResult(String.format(OUTPUT_SUCCESS,
-                model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+                model.getCanvasWidth(), model.getCanvasHeight()));
     }
 }

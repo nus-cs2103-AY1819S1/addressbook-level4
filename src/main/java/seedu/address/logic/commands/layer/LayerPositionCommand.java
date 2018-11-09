@@ -7,6 +7,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -34,9 +35,9 @@ public class LayerPositionCommand extends LayerCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args == null) {
-            return new CommandResult(String.format(OUTPUT_FAILURE));
+            throw new CommandException(OUTPUT_FAILURE);
         }
 
         String[] argumentArray = args.trim().split("x", 2);
@@ -45,12 +46,11 @@ public class LayerPositionCommand extends LayerCommand {
 
         try {
             newX = Integer.parseInt(argumentArray[0]);
-            newY = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : null);
+            newY = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : "");
         } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+            throw new CommandException(OUTPUT_FAILURE);
         }
-        model.getCanvas().getCurrentLayer().setX(newX);
-        model.getCanvas().getCurrentLayer().setY(newY);
+        model.setCurrentLayerPosition(newX, newY);
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 

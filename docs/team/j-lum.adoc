@@ -7,10 +7,16 @@
 
 == Overview
 
-Piconso is a powerful general-purpose image editing tool. The user interacts with it through a flexible command-line interface and receives instant visual feedback through the Graphical User Interface (GUI) written in JavaFX. The application is mainly written in Java and span a considerable 10k Lines of Code (LoC). The codebase is well-maintained with a rigorous system of checks and tests in place to ensure that code quality is consistently high.
+Piconso is a powerful general-purpose image editing tool.
+The user interacts with it through a flexible command-line interface and receives instant visual feedback through the Graphical User Interface (GUI) written in JavaFX.
+The application is mainly written in Java and spans a considerable 10k Lines of Code (LoC).
+The codebase is well-maintained with a rigorous system of checks and tests in place to ensure that code quality is consistently high.
+A comprehensive set of guides are also provided to ensure a smooth on-boarding process for both users and contributors alike.
 
 == Summary of contributions
-As the point man of the group, I led the group through discussions spanning from idea generation to delegation of work. As a result, my team was able to morph the given codebase from a trivial application into a polished product.
+As the point man of the group, I led the group through discussions from idea generation to delegation of work.
+I placed extra emphasis on engineering optimal solutions to real pain points.
+As a result, my team was able to morph the given codebase from a trivial application into a polished product.
 
 I put my considerable experience to use by being available at all times to help out with various tasks like design considerations and debugging. I believe that my contribution has improved the unlying engineering of the codebase which in turn sped up the application manyfold.
 
@@ -20,7 +26,7 @@ My major contributions are as follows:
 
 This allowed other team members to maintain a clear separation of concerns and reduce dependencies which in turn made the code base less prone to breaking changes. This is a major change that affects virtually all of the code base and future developers looking to add or improve Piconso will have to build upon my models.
 
-In fact, I have built upon my models to provide end-users with a hassle-free and easily understandable way to navigate more intricate image editing features such as layer ordering and canvas size. This improves the user experience significantly as these features are expected of any modern image editing tool. It also reduces the friction of users migrating to Piconso from other competitors.
+In fact, I have already extended my models to provide end-users with a hassle-free and easily understandable way to navigate more intricate image editing features such as layer ordering and canvas size. This improves the user experience significantly as these features are expected of any modern image editing tool. It also reduces the friction of users migrating to Piconso from other competitors.
 
 
 **Added a sub-command targeted at tech-savvy users : `raw`.**
@@ -62,12 +68,15 @@ I also extensively tested and reported bugs along with a comprehensive reproduct
 
 I wrote a quick start guide to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application.
 
+I also contributed multiple new illustrations to the developer's guide to help future contributors visualise what each command does.
+The illustrations are included in my contributions below.
+
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
 |===
 
 include::../UserGuide.adoc[tag=canvas]
