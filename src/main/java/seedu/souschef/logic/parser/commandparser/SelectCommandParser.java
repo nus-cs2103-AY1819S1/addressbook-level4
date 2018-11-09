@@ -37,8 +37,8 @@ public class SelectCommandParser {
      * for the Meal Planner and returns a SelectCommand object for execution.
      * @throws ParseException
      */
-    public SelectCommand parseMealRecipe(Model mealPlannerModel,
-        Model recipeModel, String args) throws ParseException {
+    public SelectCommand parseMealPlan(Model mealPlannerModel,
+                                       Model recipeModel, String args) throws ParseException {
 
         String[] arguments = args.split("\\s+");
 
