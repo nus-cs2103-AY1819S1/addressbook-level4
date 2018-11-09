@@ -722,44 +722,36 @@ Examples:
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY ` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+[width="88%",cols="14%,<30%,<30%",options="header",]
+|=======================================================================
+|Command |Format |Example
+| *Add Person* | `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
+| *Clear Address Book* | `clear` |
+| *Delete Person* | `delete INDEX` | `delete 3`
+| *Edit Person* | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` | `edit 2 n/James Lee e/jameslee@example.com`
+| *Find Persons* | `find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
+| *List Persons* | `list` |
+| *Select Person* | `select INDEX` | `select 2`
 
 // * *Create Group *: `createGroup group/GROUP_NAME` +
 // e.g. `createGroup group/CS2103Group`
 // * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
 // e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
 
-* *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
-e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
-* *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
-e.g. `deleteEvent d/2018-10-18 i/1`
-* *Edit Event Address* : `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS` +
-e.g. `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
-* *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
-e.g. `addEventTag t/Lecture t/Dinner`
-* *List Events* : `listEvent` +
-* *Find Events by Event Tag(s)* `findEvent EVENT_TAG [EVENT_TAG...]` +
-e.g. `findEvent Class lecture`
-* *Import Contacts* : `importContacts file/FILEPATH` +
-e.g. `importContacts file/~/Downloads/contacts1.csv`
-* *Disable and Enable Notification* : `notification enable/disable` +
-e.g. `notification disable`
-* *Favourite Event* : `favourite d/EVENT_DATE i/EVENT_INDEX` +
-e.g. `favourite d/2018-04-01 i/1`
+| *Suggest Location* | `generateLocation event/EVENT_NAME group/GROUP_NAME` | `generateLocation event/First Meeting group/CS2103Group`
+| *Add Event* | `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
+| `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
+| *Delete Event* | `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `deleteEvent d/2018-10-18 i/1`
+| *Edit Event Address* | `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS` +
+| `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
+| *Add Event Tag* | `addEventTag [t/EVENT_TAG...]` | `addEventTag t/Lecture t/Dinner`
+| *List Events* | `listEvent` |
+| *Find Events by Event Tag(s)* | `findEvent EVENT_TAG [EVENT_TAG...]` | `findEvent Class lecture`
+| *Import Contacts* | `importContacts file/FILEPATH` | `importContacts file/~/Downloads/contacts1.csv`
+| *Disable and Enable Notification* | `notification enable/disable` | `notification disable`
+| *Favourite Event* | `favourite d/EVENT_DATE i/EVENT_INDEX` | `favourite d/2018-04-01 i/1`
+| *Help* | `help` |
+| *History* | `history` |
+| *Undo* | `undo` |
+| *Redo* | `redo` |
+|=======================================================================
