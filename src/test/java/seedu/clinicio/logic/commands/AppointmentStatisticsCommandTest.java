@@ -1,7 +1,7 @@
 package seedu.clinicio.logic.commands;
 
-import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinicio.logic.commands.AppointmentStatisticsCommand.MESSAGE_SUCCESS;
+import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.Test;
 
