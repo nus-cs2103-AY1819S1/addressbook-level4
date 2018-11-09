@@ -9,22 +9,16 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
 import static seedu.address.model.occasion.Occasion.createEditedOccasion;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.occasion.OccasionDescriptor;
-import seedu.address.model.occasion.OccasionLocation;
-import seedu.address.model.occasion.OccasionName;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing occasion in the address book.

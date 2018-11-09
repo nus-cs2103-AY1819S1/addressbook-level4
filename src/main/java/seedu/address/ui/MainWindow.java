@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 //import java.net.URL;
+
 import static seedu.address.commons.util.TypeUtil.MODULE;
 import static seedu.address.commons.util.TypeUtil.OCCASION;
 import static seedu.address.commons.util.TypeUtil.PERSON;
@@ -25,7 +26,6 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowModuleRequestEvent;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;

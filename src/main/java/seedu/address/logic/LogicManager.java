@@ -66,10 +66,14 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public TypeUtil getActiveType() { return model.getActiveType();}
+    public TypeUtil getActiveType() {
+        return model.getActiveType();
+    }
 
     @Override
-    public void setActiveType(TypeUtil newActiveType) { model.setActiveType(newActiveType);}
+    public void setActiveType(TypeUtil newActiveType) {
+        model.setActiveType(newActiveType);
+    }
 
     @Override
     public ListElementPointer getHistorySnapshot() {
