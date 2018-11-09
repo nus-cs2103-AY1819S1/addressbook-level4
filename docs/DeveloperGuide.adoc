@@ -440,7 +440,7 @@ The medicine records system is used to manage the medicine inventory in the clin
 creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
 `receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
 
-Given below is are examples of how the medicine class is used:
+Given below is an example of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 

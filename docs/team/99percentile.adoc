@@ -41,7 +41,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 ** Rephrased output messages to make it more user friendly.
 
 * *Code contributed*:
-Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=99percentile[here] to see what I wrote!
+** Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=99percentile[here] to see what I wrote!
 
 * *Other contributions*:
 ** Wrote the utilities for test cases for other team members to build their tests.
