@@ -9,7 +9,7 @@
 
 == Overview
 
-Hello, I am Syahiran. I am currently in my third year in the National University of Singapore (NUS), where I am majoring in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to modify and improve the given address book application into a database management system called CLInic.
+Hello, I am Syahiran. At the time of writing, I was in my third year at the National University of Singapore (NUS), where I majored in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to modify and improve the given https://github.com/nus-cs2103-AY1819S1/addressbook-level4[address book application] into a database management system called CLInic.
 
 CLInic is a desktop application, designed specifically for clinics. It helps to automate daily administrative tasks like:
 
@@ -23,26 +23,27 @@ This project portforlio serves to document my contributions to this project, whi
 
 == Summary of contributions
 
-* *Major enhancement*: supported the implementation of the `*Document*` class, along with its accompanying
+* *Major enhancement*: I supported the implementation of the `*Document*` class, along with its accompanying
                        extending classes `MedicalCertificate` and `ReferralLetter`.
-** What it does: takes in information like the duration of medical leave and referral notes by the doctor to generate the medical certificate and referral letter document respectively.
-** Justification: this feature makes it easier to generate documents that need to be frequently generated in a clinic, reducing administrative duties for clinic staff and hopefully shortening wait times for patients.
-** Highlights: this feature allows for a seamless transfer of information between doctors and clinic staff, as well as a fast retrieval of information from the application's database of `Patient` and `Medicine` information.
+** What it does: This feature allows for the doctor to input information like the duration of medical leave and referral location to easily generate medical certificate and referral letter documents in the form of `HTML` files.
+** Justification: This feature makes it easier to generate documents that need to be frequently generated in a clinic, *reducing administrative duties* for clinic staff and hopefully *shortening wait times* for patients.
+** Highlights: This feature allows for a *seamless transfer of information* between doctors and clinic staff, as well as a fast retrieval of information from the application's database of `Patient` and `Medicine` information.
 
 
-* *Minor enhancement*: added *shorthand codes or aliases* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
-** Justification: Some commands like `dispenseMedicine` and `MedicalCertificate` are really long, so it can be troublesome for the user to type the whole command in order to execute the command.
+* *Minor enhancement*: I added *shorthand codes or aliases* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
+** Justification: Some commands like `dispenseMedicine` and `MedicalCertificate` are really long, so it can be troublesome for the user to type the whole command in order to execute the command. Instead, users can type `dm` and `mc` to execute the same respective commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: View my code for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[here]!
 
 * *Other contributions*:
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-*** Edited the language, style and tone of the User Guide: https://github.com[#14]
+*** Edited the language, style and tone of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
+*** Added a Command Summary Table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
+** Community:
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115 [#115]
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Attempted to implement a discount feature for patients under health assistance schemes, but this shall be pushed to v2.0 https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 
 == Contributions to the User Guide
 
@@ -50,7 +51,9 @@ This project portforlio serves to document my contributions to this project, whi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=mc]
+include::../UserGuide.adoc[tag=refer]
+include::../UserGuide.adoc[tag=table]
 
 == Contributions to the Developer Guide
 
@@ -58,12 +61,5 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-. Implementation of the `MedicalCertificate` class
-
 include::../DeveloperGuide.adoc[tag=mc]
-
-[start = 2]
-. Implementation of the `ReferralLetter` class
-
 include::../DeveloperGuide.adoc[tag=referralletter]
-
