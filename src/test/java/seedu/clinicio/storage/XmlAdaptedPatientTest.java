@@ -7,7 +7,6 @@ import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,34 +72,4 @@ public class XmlAdaptedPatientTest {
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
 
-    @Test
-    public void toModelType_invalidMedicalProblems_throwsIllegalValueException() {
-        List<XmlAdaptedMedicalProblem> invalidMedProbs = new ArrayList<>(VALID_MED_PROBS);
-        invalidMedProbs.add(new XmlAdaptedMedicalProblem(INVALID_MED_PROB));
-        XmlAdaptedPatient patient =
-                new XmlAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, invalidMedProbs, VALID_MEDS, VALID_ALLERGIES,
-                        false, VALID_PREF_DOC, VALID_APPT);
-        Assert.assertThrows(IllegalValueException.class, patient::toModelType);
-    }
-    @Test
-    public void toModelType_invalidMedications_throwsIllegalValueException() {
-        List<XmlAdaptedMedication> invalidMeds = new ArrayList<>(VALID_MEDS);
-        invalidMeds.add(new XmlAdaptedMedication(INVALID_MED));
-        XmlAdaptedPatient patient =
-                new XmlAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_MED_PROBS, invalidMeds, VALID_ALLERGIES,
-                        false, VALID_PREF_DOC, VALID_APPT);
-        Assert.assertThrows(IllegalValueException.class, patient::toModelType);
-    }
-    @Test
-    public void toModelType_invalidAllergies_throwsIllegalValueException() {
-        List<XmlAdaptedAllergy> invalidAllergies = new ArrayList<>(VALID_ALLERGIES);
-        invalidAllergies.add(new XmlAdaptedAllergy(INVALID_MED));
-        XmlAdaptedPatient patient =
-                new XmlAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_MED_PROBS, VALID_MEDS, invalidAllergies,
-                        false, VALID_PREF_DOC, VALID_APPT);
-        Assert.assertThrows(IllegalValueException.class, patient::toModelType);
-    }
 }
