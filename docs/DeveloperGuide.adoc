@@ -476,6 +476,7 @@ Step 3. The 3 words will appear in the Command Box as well.
 
 // end::basic[]
 
+// tag::trivia[]
 === Trivia feature
 
 The trivia function is facilitated by `LearnVocabulary`.
@@ -513,6 +514,8 @@ Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the t
 
 Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
 
+Below shows a sequence diagram of how the trivia feature works.
+
 image::TriviaSequenceDiagram.png[width="820"]
 
 **Answer**
@@ -535,6 +538,12 @@ Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word
 
 Step 4: Outputs a correct or wrong message based on the result in step 3.
 
+Below shows a sequence diagram of how the answer feature works.
+
+image::TriviaAnsSequenceDiagram.png[width="820"]
+
+// end::trivia[]
+
 **Select**
 
 The select command is indicated as `SelectCommand` in `commands`, and inherits the `Command` class. It selects a word identified by a user using its index from the review list.
@@ -547,7 +556,7 @@ Step 2: `SelectCommand` checks passed arguments.
 
 Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
 
-image::TriviaAnsSequenceDiagram.png[width="820"]
+
 
 **Word Of The Day**
 
