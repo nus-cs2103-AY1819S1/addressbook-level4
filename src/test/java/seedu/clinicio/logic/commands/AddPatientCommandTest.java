@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_DUPLICATE_PATIENT;
+import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_NOT_LOGIN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
@@ -59,6 +61,7 @@ public class AddPatientCommandTest {
         ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
 
+        UserSession.destorySession();
         UserSession.createSession(ALAN);
 
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
@@ -70,6 +73,7 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() throws Exception {
+        UserSession.destorySession();
         UserSession.createSession(ALAN);
 
         Patient validPatient = new PatientBuilder().build();
@@ -78,6 +82,19 @@ public class AddPatientCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_DUPLICATE_PATIENT);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_staffNotLogin_throwsCommandException() throws Exception {
+        UserSession.destorySession();
+
+        Patient validPatient = new PatientBuilder().build();
+        AddPatientCommand addCommand = new AddPatientCommand(validPatient);
+        ModelStub modelStub = new ModelStubWithPatient(validPatient);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NOT_LOGIN);
         addCommand.execute(modelStub, commandHistory);
     }
 
