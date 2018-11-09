@@ -41,10 +41,22 @@ public class GameManager {
     }
 
     public void setGameMode(String newGameModeName) {
-        if (newGameModeName.equals("flat")) {
+        switch (newGameModeName) {
+        case ModeCommand.FLAT_MODE:
             this.gameMode = new FlatMode();
-        } else {
+            break;
+
+        case ModeCommand.DECREASING_MODE:
             this.gameMode = new DecreasingMode();
+            break;
+
+        case ModeCommand.INCREASING_MODE:
+            this.gameMode = new IncreasingMode();
+            break;
+
+        case ModeCommand.PRIORITY_MODE:
+            this.gameMode = new PriorityMode();
+            break;
         }
     }
 
@@ -85,10 +97,22 @@ public class GameManager {
             high = 50;
         }
 
-        if (newGameModeName.equals(ModeCommand.FLAT_MODE)) {
-            this.gameMode = new FlatMode(low, high);
-        } else if (newGameModeName.equals(ModeCommand.DECREASING_MODE)){
-            this.gameMode = new DecreasingMode(period, low, high);
+        switch (newGameModeName) {
+            case ModeCommand.FLAT_MODE:
+                this.gameMode = new FlatMode(low, high);
+                break;
+
+            case ModeCommand.DECREASING_MODE:
+                this.gameMode = new DecreasingMode(period, low, high);
+                break;
+
+            case ModeCommand.INCREASING_MODE:
+                this.gameMode = new IncreasingMode(period, low, high);
+                break;
+
+            case ModeCommand.PRIORITY_MODE:
+                this.gameMode = new PriorityMode();
+                break;
         }
     }
 
@@ -101,6 +125,14 @@ public class GameManager {
         }
 
         if (gameModeName.equals(ModeCommand.DECREASING_MODE)) {
+            return true;
+        }
+
+        if (gameModeName.equals(ModeCommand.INCREASING_MODE)) {
+            return true;
+        }
+
+        if (gameModeName.equals(ModeCommand.PRIORITY_MODE)) {
             return true;
         }
 

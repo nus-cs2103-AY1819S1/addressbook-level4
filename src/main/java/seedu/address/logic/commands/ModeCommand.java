@@ -11,6 +11,8 @@ import seedu.address.model.Model;
 public class ModeCommand extends Command {
     public static final String FLAT_MODE = "flat";
     public static final String DECREASING_MODE = "decreasing";
+    public static final String INCREASING_MODE = "increasing";
+    public static final String PRIORITY_MODE = "priority";
 
     public static final String EASY_MODE = "easy";
     public static final String MEDIUM_MODE = "medium";
@@ -21,8 +23,10 @@ public class ModeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change the game mode.\n"
-            + "Parameters: \"" + FLAT_MODE + "\" or \"" + DECREASING_MODE + "\"\n"
-            + "Example: " + COMMAND_WORD + " " + FLAT_MODE;
+            + "Usage: mode [GAME_MODE] [Optional: GAME_DIFFICULTY]\n"
+            + "GAME_MODE: 'flat', 'decreasing', 'increasing', or 'priority'.\n"
+            + "GAME_DIFFICULTY: 'easy', 'medium', 'hard' or 'extreme'.\n"
+            + "Example: " + COMMAND_WORD + " " + DECREASING_MODE + " " + EXTREME_MODE;
 
     public static final String MESSAGE_MODE_CHANGE_SUCCESS = "Game mode successfully changed!";
 
