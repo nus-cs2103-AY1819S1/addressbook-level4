@@ -42,7 +42,7 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 *** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
