@@ -32,18 +32,20 @@ If you are new to development, you can try working step-by-step tutorial from Or
 - https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
 - https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
 
-If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start
+If you are new to contributing to ClinicIO, head over to <<Setting Up, Setting Up>> to start
 set up ClinicIO project.
 
 == Introduction
 
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
-Go to the <<#Installation Guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
+Go to the <<Installation Guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
 
 == Installation Guide
 
-=== Prerequisites
+This section is designed to help you to setup ClinicIO development environment.
+
+**Prerequisites** +
 
 Before you start setting up the project, here are the list of things that you need to install: +
 
@@ -59,7 +61,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-=== Setting up the project in your computer
+=== Instructions to setup the project in your computer
+
+Follow these steps to setup ClinicIO development environment in your local computer:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -75,10 +79,15 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
+Please ensure that you verify that the project environment is able to run as expected before developing. You can verify by doing the following:
+
 . Run the `seedu.clinicio.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+Well done. You are done setting up the project environment. Before you start developing,
+here are the list of configurations that you need to make:
 
 ==== Configuring the coding style
 
@@ -117,14 +126,14 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
+You are now ready to start coding. You can do the following to get started:  
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section is designed to help you to understand the overall design of ClinicIO.
 
 [[Design-Architecture]]
 === Architecture
