@@ -1,11 +1,13 @@
 package seedu.clinicio.storage;
 
+import static org.junit.Assert.assertEquals;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.junit.Test;
 
 public class XmlAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
@@ -34,12 +36,12 @@ public class XmlAdaptedPatientTest {
     private static final XmlAdaptedStaff VALID_PREF_DOC = new XmlAdaptedStaff(ADAM);
     private static final XmlAdaptedAppointment VALID_APPT = new XmlAdaptedAppointment(AMY_APPT);
 
-    /* @Test
+    @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
         XmlAdaptedPatient patient = new XmlAdaptedPatient(BRYAN);
         assertEquals(BRYAN, patient.toModelType());
     }
-
+    /*
     @Test
     public void toModelType_invalidNric_throwsIllegalValueException() {
         XmlAdaptedPatient patient =

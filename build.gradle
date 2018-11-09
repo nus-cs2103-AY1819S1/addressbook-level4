@@ -3,6 +3,7 @@
 // user guide available at http://gradle.org/docs/4.8.1/userguide/tutorial_java_projects.html
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     id 'java'
@@ -142,7 +143,10 @@ test {
         if (System.env.'CI') {
             events << TestLogEvent.STARTED
         }
-        exceptionFormat "full"
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
     }
 
     jacoco {
