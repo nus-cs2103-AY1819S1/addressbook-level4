@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -63,6 +64,12 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Occasion> getFilteredOccasionList() {
         return model.getFilteredOccasionList();
     }
+
+    @Override
+    public TypeUtil getActiveType() { return model.getActiveType();}
+
+    @Override
+    public void setActiveType(TypeUtil newActiveType) { model.setActiveType(newActiveType);}
 
     @Override
     public ListElementPointer getHistorySnapshot() {
