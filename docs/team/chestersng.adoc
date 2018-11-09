@@ -28,7 +28,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 ** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
 ** Integration of `Patient` and `Medicine` class through `DispenseMedicineCommand`
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chestersng&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional code & Test Code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chestersng[Functional code & Test Code]]
 
 * *Other contributions*:
 
