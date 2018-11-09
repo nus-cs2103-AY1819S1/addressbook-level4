@@ -133,19 +133,27 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         } else {
             patient.setIsNotQueuing();
         }
-        /*appointment.ifPresent(appointment1 -> {
-            patient.setAppointment(appointment1.toModelType());
+        appointment.ifPresent(appointment1 -> {
+            try {
+                patient.setAppointment(appointment1.toModelType());
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
         });
         preferredDoctor.ifPresent(preferredDoctor -> {
-            patient.setPreferredDoctor(preferredDoctor.toModelType());
-        });*/
+            try {
+                patient.setPreferredDoctor(preferredDoctor.toModelType());
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        });
 
-        if (preferredDoctor.isPresent()) {
+        /*if (preferredDoctor.isPresent()) {
             patient.setPreferredDoctor(preferredDoctor.get().toModelType());
         }
         if (appointment.isPresent()) {
             patient.setAppointment(appointment.get().toModelType());
-        }
+        }*/
         return patient;
     }
 
