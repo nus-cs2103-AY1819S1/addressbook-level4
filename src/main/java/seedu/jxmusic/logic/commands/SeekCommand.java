@@ -35,7 +35,7 @@ public class SeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (player.getStatus() == Playable.Status.PLAYING) {
+        if (player.getStatus() == Playable.Status.PLAYING || player.getStatus() == Playable.Status.PAUSED) {
             player.seek(time);
         } else {
             throw new CommandException(MESSAGE_NOT_PLAYING);
