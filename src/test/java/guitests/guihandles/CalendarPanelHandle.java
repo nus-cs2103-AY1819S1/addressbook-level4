@@ -26,7 +26,7 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
      * Returns the {@code VCalendar} of the currently loaded calendar.
      */
     public VCalendar getLoadedCalendar() {
-        return ((ICalendarAgenda)borderPane.getCenter()).getVCalendar();
+        return ((ICalendarAgenda) borderPane.getCenter()).getVCalendar();
     }
 
     /**

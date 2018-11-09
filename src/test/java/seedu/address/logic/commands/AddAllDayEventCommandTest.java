@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.AddAllDayEventCommand.MESSAGE_NOT_VAL
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CALENDAR_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_DATE_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_TITLE_Hack;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_TITLE_Ocamp;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_TITLE_HACK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_TITLE_OCAMP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_FEB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_2017;
@@ -64,13 +64,13 @@ public class AddAllDayEventCommandTest {
     @Test
     public void constructor_nullMonth_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAllDayEventCommand(null, VALID_YEAR_2018, VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_Ocamp);
+        new AddAllDayEventCommand(null, VALID_YEAR_2018, VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP);
     }
 
     @Test
     public void constructor_nullYear_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAllDayEventCommand(VALID_MONTH_JAN, null, VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_Ocamp);
+        new AddAllDayEventCommand(VALID_MONTH_JAN, null, VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP);
     }
 
     @Test
@@ -86,11 +86,11 @@ public class AddAllDayEventCommandTest {
         loadCalendarInModel(calendar, DEFAULT_CALENDAR_NAME);
         AddAllDayEventCommand addAllDayEventCommand =
                 new AddAllDayEventCommand(DEFAULT_MONTH, DEFAULT_YEAR, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
 
         // Expected result
         String expectedMessage = String.format(AddAllDayEventCommand.MESSAGE_SUCCESS, VALID_CALENDAR_DATE_1 + "/"
-                + DEFAULT_MONTH + "/" + DEFAULT_YEAR + " - " + VALID_CALENDAR_TITLE_Ocamp);
+                + DEFAULT_MONTH + "/" + DEFAULT_YEAR + " - " + VALID_CALENDAR_TITLE_OCAMP);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
                 model.getExistingEmails());
         // Update expected model's existing calendars
@@ -123,7 +123,7 @@ public class AddAllDayEventCommandTest {
     @Test
     public void execute_notExistingCalendar_throwsCommandException() throws Exception {
         AddAllDayEventCommand addAllDayEventCommand = new AddAllDayEventCommand(VALID_MONTH_FEB, VALID_YEAR_2018,
-                VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_Ocamp);
+                VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP);
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_NOT_EXISTING_CALENDAR);
         addAllDayEventCommand.execute(model, commandHistory);
@@ -135,7 +135,7 @@ public class AddAllDayEventCommandTest {
         updateExistingCalendarsInModel(DEFAULT_YEAR, DEFAULT_MONTH);
         loadCalendarInModel(calendar, DEFAULT_CALENDAR_NAME);
         AddAllDayEventCommand addAllDayEventCommand = new AddAllDayEventCommand(DEFAULT_MONTH, DEFAULT_YEAR,
-                INVALID_CALENDAR_DATE, VALID_CALENDAR_TITLE_Ocamp);
+                INVALID_CALENDAR_DATE, VALID_CALENDAR_TITLE_OCAMP);
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(MESSAGE_NOT_VALID_DATE, DEFAULT_MONTH + " - " + DEFAULT_YEAR));
         addAllDayEventCommand.execute(model, commandHistory);
@@ -145,19 +145,19 @@ public class AddAllDayEventCommandTest {
     public void equals() {
         AddAllDayEventCommand add1stJan2018OcampAllDayEventCommand =
                 new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add2ndJan2018OcampAllDayEventCommand =
                 new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_2,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stFeb2018OcampAllDayEventCommand =
                 new AddAllDayEventCommand(VALID_MONTH_FEB, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stJan2017OcampAllDayEventCommand =
                 new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2017, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stJan2018HackathonAllDayEventCommand =
                 new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Hack);
+                        VALID_CALENDAR_TITLE_HACK);
 
         // same object -> returns true
         assertTrue(add1stJan2018OcampAllDayEventCommand.equals(add1stJan2018OcampAllDayEventCommand));
@@ -165,7 +165,7 @@ public class AddAllDayEventCommandTest {
         // same values -> returns true
         AddAllDayEventCommand add1stJan2018OcampAllDayEventCopy =
                 new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_Ocamp);
+                        VALID_CALENDAR_TITLE_OCAMP);
         assertTrue(add1stJan2018OcampAllDayEventCommand.equals(add1stJan2018OcampAllDayEventCopy));
 
         // different types -> returns false

@@ -57,8 +57,8 @@ public class CommandTestUtil {
     public static final int VALID_CALENDAR_DATE_1 = 1;
     public static final int VALID_CALENDAR_DATE_2 = 2;
     public static final int INVALID_CALENDAR_DATE = 32;
-    public static final String VALID_CALENDAR_TITLE_Ocamp = "Orientation Camp";
-    public static final String VALID_CALENDAR_TITLE_Hack = "Hackathon";
+    public static final String VALID_CALENDAR_TITLE_OCAMP = "Orientation Camp";
+    public static final String VALID_CALENDAR_TITLE_HACK = "Hackathon";
 
     public static final String VALID_STRING_JAN = "JAN";
     public static final String VALID_STRING_YEAR = "2018";
