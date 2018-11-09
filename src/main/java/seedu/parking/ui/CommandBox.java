@@ -1,11 +1,21 @@
 package seedu.parking.ui;
 
+import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND;
+import static seedu.parking.logic.commands.CalculateCommand.FIRST_ARG;
+import static seedu.parking.logic.commands.FilterCommand.CARPARKTYPE_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_FIRST_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_SECOND_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_THIRD_ARG;
+import static seedu.parking.logic.commands.FilterCommand.SYSTEMTYPE_ARG;
 import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_AVAILABLE_PARKING;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_NIGHT_PARKING;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_PARKING_TIME;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SYSTEM_TYPE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +50,6 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int INDEX_OF_FILTER_FIRST_ARG = 10;
-    private static final int END_OF_FILTER_FIRST_ARG = 13;
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
@@ -82,7 +90,6 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
@@ -111,17 +118,19 @@ public class CommandBox extends UiPart<Region> {
      */
     private void autoComplete() throws ParseException {
 
-        String input = commandTextField.getText().trim().toLowerCase();
+        String input = commandTextField.getText().trim();
 
         if (input.equals("f") || input.equals("fi")) {
 
-            throw new ParseException(MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND);
+            throw new ParseException(String.format("%s\n%s",
+                MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE, MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND));
 
         } else if (input.equals("c")) {
 
-            throw new ParseException(MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND);
+            throw new ParseException(String.format("%s\n%s",
+                MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE, MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND));
 
-        } else if (containedInAutoCompleteCommands(input)) { //auto-complete the formats
+        } else if (!input.equals("") && containedInAutoCompleteCommands(input)) {
 
             displayFormat(input);
 
@@ -139,28 +148,37 @@ public class CommandBox extends UiPart<Region> {
             } else if (!input.equals("f") && !input.equals("fi")
                 && containsFromFirstLetter(FilterCommand.COMMAND_WORD, input)) {
 
+                int indexOfFirstArg = FilterCommand.FORMAT.indexOf(FREEPARKING_FIRST_ARG);
                 commandTextField.selectRange(
-                    INDEX_OF_FILTER_FIRST_ARG, END_OF_FILTER_FIRST_ARG);
+                    indexOfFirstArg, indexOfFirstArg + FREEPARKING_FIRST_ARG.length());
                 caretPosition = commandTextField.getCaretPosition();
 
             } else if (containsFromFirstLetter(CalculateCommand.COMMAND_WORD, input)) {
 
+                int indexOfFirstArg = CalculateCommand.FORMAT.indexOf(FIRST_ARG);
                 commandTextField.selectRange(
-                    INDEX_OF_FILTER_FIRST_ARG, END_OF_FILTER_FIRST_ARG);
+                    indexOfFirstArg, indexOfFirstArg + FIRST_ARG.length());
                 caretPosition = commandTextField.getCaretPosition();
 
             }
 
         } else if (isFilterCommandFormat(input)) {
-            int positionOfWeekDay = input.indexOf(PREFIX_PARKING_TIME.toString()) + 3;
-            int positionOfStartTime = input.indexOf(PREFIX_PARKING_TIME.toString()) + 7;
-            int positionOfEndTime = input.indexOf(PREFIX_PARKING_TIME.toString()) + 18;
+            int positionOfWeekDay = input.indexOf(FREEPARKING_FIRST_ARG);
+            int positionOfStartTime = input.indexOf(FREEPARKING_SECOND_ARG);
+            int positionOfEndTime = input.indexOf(FREEPARKING_THIRD_ARG);
+            int positionOfCarparkType = input.indexOf(CARPARKTYPE_ARG);
+            int positionOfSystemType = input.indexOf(SYSTEMTYPE_ARG);
+            int positionOfAvailableParking = input.indexOf(PREFIX_AVAILABLE_PARKING.toString());
             int positionOfNightParking = input.indexOf(PREFIX_NIGHT_PARKING.toString());
-            int positionOfCarParkType = input.indexOf(PREFIX_CAR_TYPE.toString()) + 4;
+            int positionOfShortTermParking = input.indexOf(PREFIX_SHORT_TERM.toString());
             int[] argumentsArray = {positionOfWeekDay, positionOfStartTime,
-                positionOfEndTime, positionOfNightParking, positionOfCarParkType};
+                positionOfEndTime, positionOfCarparkType, positionOfSystemType,
+                positionOfAvailableParking, positionOfNightParking,
+                positionOfShortTermParking};
 
             selectNextField(argumentsArray);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE);
         }
     }
 
@@ -172,14 +190,15 @@ public class CommandBox extends UiPart<Region> {
      * and false otherwise.
      */
     private boolean containedInAutoCompleteCommands(String actualCommand) {
-        boolean flag = false;
+        boolean isAutoCompleteCommand = false;
         for (Map.Entry<String, String> entry : autoCompleteCommands.entrySet()) {
             String command = entry.getKey();
-            if (command.indexOf(actualCommand) == 0 && command.contains(actualCommand)) {
-                flag = true;
+            if (containsFromFirstLetter(command, actualCommand)) {
+                isAutoCompleteCommand = true;
+                break;
             }
         }
-        return flag;
+        return isAutoCompleteCommand;
     }
 
     /**
@@ -188,7 +207,12 @@ public class CommandBox extends UiPart<Region> {
      * @param actualCommand input by the user
      */
     private void displayFormat(String actualCommand) {
-        replaceText(autoCompleteCommands.get(actualCommand));
+        for (Map.Entry<String, String> entry : autoCompleteCommands.entrySet()) {
+            String command = entry.getKey();
+            if (containsFromFirstLetter(command, actualCommand)) {
+                replaceText(entry.getValue());
+            }
+        }
     }
 
     /**
@@ -198,26 +222,37 @@ public class CommandBox extends UiPart<Region> {
      * @return true if it is of filter command format and false otherwise
      */
     private boolean isFilterCommandFormat(String input) {
-        return input.startsWith("filter") && (input.contains("f/")
-            || input.contains("n/") || input.contains("ct/"));
+        return input.startsWith("filter") && (input.contains(PREFIX_PARKING_TIME.toString())
+            || input.contains(PREFIX_NIGHT_PARKING.toString())
+            || input.contains(PREFIX_CAR_TYPE.toString())
+            || input.contains(PREFIX_AVAILABLE_PARKING.toString())
+            || input.contains(PREFIX_SYSTEM_TYPE.toString())
+            || input.contains(PREFIX_SHORT_TERM.toString()));
     }
 
     /**
      * Checks the current position is in between which two fields
      * And navigates to the next field
      * @param argumentsArray array of field positions in the order of left to right
-     *                            last element is the end position of text input
+     * last element is the end position of text input
      */
     private void selectNextField(int[] argumentsArray) {
+        for (int i: argumentsArray) {
+            System.out.println(String.format("%d \n", i));
+        }
         boolean updatedSelection = false;
         for (int i = 0; i < argumentsArray.length - 1; i++) {
-            //check if the current position is in between ard[i] and ard[i + 1], if so, change selection
-            //to the placeholder of ard[i + 1]
+            if (argumentsArray[i] == -1) {
+                continue;
+            }
+            //check if the current position is in between arg[i] and arg[i + 1], if so, change selection
+            //to the placeholder of arg[i + 1]
             System.out.println("caret at: " + caretPosition + " current at: " + argumentsArray[i]);
             if (caretPosition > argumentsArray[i] && caretPosition < argumentsArray[i + 1]) {
                 commandTextField.positionCaret(argumentsArray[i + 1]);
                 changeSelectionToNextField();
                 updatedSelection = true;
+                break;
             }
         }
         if (!updatedSelection) {
