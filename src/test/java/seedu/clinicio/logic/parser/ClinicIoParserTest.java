@@ -22,8 +22,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
+import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.clinicio.logic.commands.ExitCommand;
@@ -36,11 +38,15 @@ import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
+import seedu.clinicio.logic.commands.MedicineStatisticsCommand;
+import seedu.clinicio.logic.commands.PatientStatisticsCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.ShowPatientInQueueCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.analytics.PatientStatistics;
+import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
@@ -164,7 +170,38 @@ public class ClinicIoParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
-    //@@author jjlee050
+    @Test
+    public void parseCommand_patientStatistics() throws Exception {
+        assertTrue(parser
+                .parseCommand(PatientStatisticsCommand.COMMAND_WORD) instanceof PatientStatisticsCommand);
+        assertTrue(parser
+                .parseCommand(PatientStatisticsCommand.COMMAND_WORD + " 3") instanceof PatientStatisticsCommand);
+    }
+
+    @Test
+    public void parseCommand_appointmentStatistics() throws Exception {
+        assertTrue(parser
+                .parseCommand(AppointmentStatisticsCommand.COMMAND_WORD) instanceof AppointmentStatisticsCommand);
+        assertTrue(parser
+                .parseCommand(AppointmentStatisticsCommand.COMMAND_WORD + " 3") instanceof AppointmentStatisticsCommand);
+    }
+
+    @Test
+    public void parseCommand_doctorStatistics() throws Exception {
+        assertTrue(parser
+                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD) instanceof AppointmentStatisticsCommand);
+        assertTrue(parser
+                .parseCommand(DoctorStatisticsCommand.COMMAND_WORD + " 3") instanceof AppointmentStatisticsCommand);
+    }
+
+    @Test
+    public void parseCommand_medicineStatistics() throws Exception {
+        assertTrue(parser
+                .parseCommand(MedicineStatisticsCommand.COMMAND_WORD) instanceof MedicineStatisticsCommand);
+        assertTrue(parser
+                .parseCommand(MedicineStatisticsCommand.COMMAND_WORD + " 3") instanceof MedicineStatisticsCommand);
+    }
+
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
