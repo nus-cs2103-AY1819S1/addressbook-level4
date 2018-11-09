@@ -40,7 +40,7 @@ import seedu.parking.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 1, true);
+    public static final Version VERSION = new Version(1, 3, 2, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -88,10 +88,11 @@ public class MainApp extends Application {
             carparkFinderOptional = storage.readCarparkFinder();
             if (!carparkFinderOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Car Park Finder");
+                initialData = new CarparkFinder();
             } else {
                 logger.info("Data file found. Loading from saved data");
+                initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
             }
-            initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Car Park Finder");
             initialData = new CarparkFinder();

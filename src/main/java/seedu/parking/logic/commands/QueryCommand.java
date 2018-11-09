@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
 import seedu.parking.commons.events.ui.ListCarparkRequestEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
@@ -29,6 +31,7 @@ import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.ui.CarparkListPanel;
 
 /**
  * Queries when to get the car park information from the API.
@@ -42,6 +45,8 @@ public class QueryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%1$d Car parks updated";
     private static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
+
+    private final Logger logger = LogsCenter.getLogger(QueryCommand.class);
 
     /**
      * Calls the API and load all the car parks information
@@ -70,14 +75,21 @@ public class QueryCommand extends Command {
             try {
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
                 model.updateFilteredCarparkList(unused -> false);
+                logger.info("thi is a test1" );
                 List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
                 List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
+                logger.info("thi is a test11" );
                 model.loadCarpark(allCarparks);
+                logger.info("thi is a test111" );
                 model.commitCarparkFinder();
+                logger.info("thi is a test2" );
                 int updated = model.compareCarparkFinder();
+                logger.info("thi is a test3" );
                 EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
+                logger.info("thi is a test4" );
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
             } catch (Exception e) {
+                logger.info("thi is a test" );
                 e.printStackTrace();
                 model.updateFilteredCarparkList(unused -> true);
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
