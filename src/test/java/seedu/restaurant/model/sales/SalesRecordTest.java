@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class SalesRecordTest {
 
     @Rule

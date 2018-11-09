@@ -8,6 +8,7 @@ import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class RecordPanelSelectionChangedEventTest {
 
     private final SalesRecord salesRecord = new RecordBuilder().withName("Fried Rice").withDate("25-09-2018")

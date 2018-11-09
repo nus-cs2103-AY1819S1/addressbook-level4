@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.testutil.sales.ReportBuilder;
 
+//@@author HyperionNKJ
 public class SalesReportTest {
 
     @Rule

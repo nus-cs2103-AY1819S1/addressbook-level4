@@ -34,6 +34,7 @@ import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * EditSalesCommand.

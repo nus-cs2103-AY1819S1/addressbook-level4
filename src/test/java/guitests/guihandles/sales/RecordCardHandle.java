@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Provides a handle to an item card in the item list panel.
  */

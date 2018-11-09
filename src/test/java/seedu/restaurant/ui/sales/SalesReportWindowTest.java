@@ -11,6 +11,7 @@ import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.testutil.sales.ReportBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author HyperionNKJ
 public class SalesReportWindowTest extends GuiUnitTest {
 
     private SalesReportWindow salesReportWindow;

@@ -176,6 +176,7 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS + " 3") instanceof UndoCommand);
     }
 
+    //@@author HyperionNKJ
     @Test
     public void parseCommand_recordSales() throws Exception {
         SalesRecord record = new RecordBuilder().build();
@@ -260,6 +261,7 @@ public class RestaurantBookParserTest {
                 SelectSalesCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
         assertEquals(new SelectSalesCommand(INDEX_FIRST), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
@@ -370,17 +372,6 @@ public class RestaurantBookParserTest {
         assertNotEquals(commandOne, commandTwo);
     }
 
-    @Test
-    public void parseCommand_addIngredient() throws Exception {
-        Ingredient ingredient = new IngredientBuilder().build();
-        AddIngredientCommand command =
-                (AddIngredientCommand) parser.parseCommand(IngredientUtil.getAddIngredientCommand(ingredient));
-        assertEquals(new AddIngredientCommand(ingredient), command);
-        command = (AddIngredientCommand) parser.parseCommand(AddIngredientCommand.COMMAND_ALIAS
-                + " " + IngredientUtil.getIngredientDetails(ingredient));
-        assertEquals(new AddIngredientCommand(ingredient), command);
-    }
-
     //@@author rebstan97
     @Test
     public void parseCommand_listIngredients() throws Exception {
@@ -390,6 +381,17 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_ALIAS) instanceof ListIngredientsCommand);
         assertTrue(parser
                 .parseCommand(ListIngredientsCommand.COMMAND_ALIAS + " 3") instanceof ListIngredientsCommand);
+    }
+
+    @Test
+    public void parseCommand_addIngredient() throws Exception {
+        Ingredient ingredient = new IngredientBuilder().build();
+        AddIngredientCommand command =
+                (AddIngredientCommand) parser.parseCommand(IngredientUtil.getAddIngredientCommand(ingredient));
+        assertEquals(new AddIngredientCommand(ingredient), command);
+        command = (AddIngredientCommand) parser.parseCommand(AddIngredientCommand.COMMAND_ALIAS
+                + " " + IngredientUtil.getIngredientDetails(ingredient));
+        assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
     @Test

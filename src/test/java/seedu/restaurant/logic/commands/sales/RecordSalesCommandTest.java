@@ -42,6 +42,7 @@ import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class RecordSalesCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

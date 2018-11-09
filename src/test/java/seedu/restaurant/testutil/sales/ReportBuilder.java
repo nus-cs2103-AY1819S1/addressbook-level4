@@ -9,6 +9,7 @@ import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
 
+//@@author HyperionNKJ
 /**
  * A utility class to help with building SalesReport objects.
  */

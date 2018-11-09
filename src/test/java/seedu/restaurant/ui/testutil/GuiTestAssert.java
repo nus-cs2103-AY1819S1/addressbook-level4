@@ -1,6 +1,7 @@
 package seedu.restaurant.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.ui.sales.RecordStackPanel.MESSAGE_REQUIRED_INGREDIENTS_NOT_FOUND;
 
 import java.text.NumberFormat;
@@ -20,6 +21,7 @@ import guitests.guihandles.menu.ItemStackPanelHandle;
 import guitests.guihandles.reservation.ReservationCardHandle;
 import guitests.guihandles.sales.RecordCardHandle;
 import guitests.guihandles.sales.RecordStackPanelHandle;
+import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
@@ -75,6 +77,7 @@ public class GuiTestAssert {
 
     }
 
+    //@@author HyperionNKJ
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -121,7 +124,7 @@ public class GuiTestAssert {
      */
     private static String ingredientUsedToString(Map<IngredientName, Integer> ingredientUsed) {
         StringBuilder stringBuilder = new StringBuilder();
-        int index = 1;
+        int index = INDEX_FIRST.getOneBased();
         for (Map.Entry<IngredientName, Integer> entry : ingredientUsed.entrySet()) {
             stringBuilder.append(index).append(") ").append(entry.getKey().toString())
                     .append(" - ").append(entry.getValue().toString()).append(" units").append("\n");
@@ -129,6 +132,7 @@ public class GuiTestAssert {
         }
         return stringBuilder.toString();
     }
+    //@@author
 
     //TODO: To extract out to common folder since used in multiple place
     /**

@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
 import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
+//@@author HyperionNKJ
 public class EditRecordDescriptorTest {
 
     @Test

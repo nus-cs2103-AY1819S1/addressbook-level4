@@ -77,6 +77,8 @@ public class RestaurantBookTest {
         assertEquals(newData, restaurantBook);
     }
 
+
+    //@@author HyperionNKJ
     @Test
     public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
         // Two records with the same date and name

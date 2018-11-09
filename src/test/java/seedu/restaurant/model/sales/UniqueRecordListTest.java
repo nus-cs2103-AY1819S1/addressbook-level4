@@ -28,6 +28,7 @@ import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.testutil.sales.ReportBuilder;
 
+//@@author HyperionNKJ
 public class UniqueRecordListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

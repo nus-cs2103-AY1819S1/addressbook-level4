@@ -12,6 +12,7 @@ import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author HyperionNKJ
 public class RecordCardTest extends GuiUnitTest {
 
     @Test

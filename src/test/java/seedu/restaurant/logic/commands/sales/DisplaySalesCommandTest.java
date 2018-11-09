@@ -22,6 +22,7 @@ import seedu.restaurant.testutil.Assert;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author HyperionNKJ
 public class DisplaySalesCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();

@@ -22,6 +22,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
  * DeleteSalesCommand}.

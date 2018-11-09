@@ -13,6 +13,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.testutil.Assert;
 
+//@@author HyperionNKJ
 public class SalesParserUtilTest {
 
     private static final String INVALID_DATE_ONE = "31-02-2018";
