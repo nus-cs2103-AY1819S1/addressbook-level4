@@ -14,6 +14,7 @@ import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Controller for a sales ranking window. There are two types of ranking. 1) Rank Date by revenue. 2) Rank Item by
  * revenue.

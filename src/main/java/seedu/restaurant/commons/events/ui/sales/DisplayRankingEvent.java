@@ -4,6 +4,7 @@ import java.util.Map;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author HyperionNKJ
 /**
  * An event requesting to display the ranking given in the Map
  */

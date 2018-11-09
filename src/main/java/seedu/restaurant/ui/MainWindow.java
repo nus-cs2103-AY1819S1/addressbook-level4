@@ -407,6 +407,8 @@ public class MainWindow extends UiPart<Stage> {
         //setPanel(browserPanel.getRoot());
     }
 
+
+    //@@author HyperionNKJ
     @Subscribe
     private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -439,6 +441,7 @@ public class MainWindow extends UiPart<Stage> {
         handleSwitchToIngredient();
     }
 
+    //@@author HyperionNKJ
     @Subscribe
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.restaurant.commons.util.StringUtil;
 
+//@@author HyperionNKJ
 /**
  * Tests that a {@code SalesRecord}'s {@code ItemName} matches any of the keywords given.
  */

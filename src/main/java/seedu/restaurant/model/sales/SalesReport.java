@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+//@@author HyperionNKJ
 /**
  * Represents a sales report of a specific date in the sales book.
  * Guarantees: details are present and not null, field values are validated, immutable.

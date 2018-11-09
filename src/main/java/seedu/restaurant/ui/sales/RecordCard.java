@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * An UI component that displays information of a {@code SalesRecord}.
  */

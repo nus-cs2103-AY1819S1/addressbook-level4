@@ -3,6 +3,7 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author HyperionNKJ
 /**
  * Represents a Record's name in the restaurant book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 
+//@@author HyperionNKJ
 /**
  * A list of records that enforces uniqueness between its elements and does not allow nulls.
  * A record is considered unique by comparing using {@code SalesRecord#isSameRecord(SalesRecord)}. As such, adding and

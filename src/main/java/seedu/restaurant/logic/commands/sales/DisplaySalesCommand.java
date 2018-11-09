@@ -12,6 +12,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.SalesReport;
 
+//@@author HyperionNKJ
 /**
  * Display sales report of a specific date
  */

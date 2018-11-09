@@ -88,6 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Sales =================================================================================
 
+    //@@author HyperionNKJ
     @Override
     public boolean hasRecord(SalesRecord record) {
         requireNonNull(record);

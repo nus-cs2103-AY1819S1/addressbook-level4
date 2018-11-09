@@ -26,6 +26,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Edits the details of an existing sales record in the restaurant book.
  */

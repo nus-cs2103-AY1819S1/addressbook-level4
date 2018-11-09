@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author HyperionNKJ
 /**
  * Represents a sales record in the sales book.
  * Guarantees: details are present and not null, field values are validated, immutable.

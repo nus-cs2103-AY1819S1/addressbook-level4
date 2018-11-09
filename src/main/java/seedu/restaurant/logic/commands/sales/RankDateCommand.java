@@ -14,6 +14,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 /**
  * Ranks the existing records' dates according to revenue in descending order
  */

@@ -14,6 +14,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.ItemName;
 
+//@@author HyperionNKJ
 /**
  * Ranks the existing records' items according to revenue accumulated in past sales record in descending order
  */

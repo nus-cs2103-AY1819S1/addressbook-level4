@@ -8,6 +8,7 @@ import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 
+//@@author HyperionNKJ
 /**
  * Contains utility methods used for parsing strings sales-related classes.
  */
