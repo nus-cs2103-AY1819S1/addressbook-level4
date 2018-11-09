@@ -8,16 +8,16 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
-import static seedu.clinicio.testutil.TypicalPersons.VENTOLIN;
-import static seedu.clinicio.testutil.TypicalPersons.ORACORT;
-import static seedu.clinicio.testutil.TypicalPersons.CHLORPHENIRAMINE;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.CHLORPHENIRAMINE;
+import static seedu.clinicio.testutil.TypicalPersons.ORACORT;
+import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
+import static seedu.clinicio.testutil.TypicalPersons.VENTOLIN;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
 import java.util.ArrayList;
@@ -33,7 +33,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.logic.parser.ParserUtil;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
@@ -226,7 +225,7 @@ public class ClinicIoTest {
 
     //@@author aaronseahyh
     @Test
-    public void hasMedicine_MedicineInClinicIo_returnsTrue() {
+    public void hasMedicine_medicineInClinicIo_returnsTrue() {
         clinicIo.addMedicine(PARACETAMOL);
         assertTrue(clinicIo.hasMedicine(PARACETAMOL));
     }
