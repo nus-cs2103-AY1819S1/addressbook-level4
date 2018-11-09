@@ -10,6 +10,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -64,11 +65,11 @@ public class DeleteCommand extends Command {
         return commandResult;
     }
 
+
     /**
      * Deletes the person at the targeted index, and returns the command result.
      */
     private CommandResult deletePersonAndGetResult(Model model) throws CommandException {
-        CommandResult commandResult;
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -81,55 +82,13 @@ public class DeleteCommand extends Command {
         removePersonFromAssociatedOccasions(model, personToDelete);
         model.deletePerson(personToDelete);
 
-        commandResult = new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-        return commandResult;
-    }
-
-    private void removePersonFromAssociatedOccasions(Model model, Person personToDelete) {
-        model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
-        List<Occasion> completeOccasionList = model.getFilteredOccasionList();
-        ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
-        while (occasionListIterator.hasNext()) {
-            Occasion o = occasionListIterator.next();
-            Optional<Person> possiblyPresentPerson = o.getAttendanceList().asNormalList()
-                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
-            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
-            possiblyPresentPerson.ifPresent(person -> {
-                List<Person> updatedPersons = o.getAttendanceList().makeShallowDuplicate().asNormalList();
-                updatedPersons.remove(person);
-                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-                updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
-                Occasion updatedOccasion = Occasion.createEditedOccasion(o, updatedOccasionDescriptor);
-                model.updateOccasion(o, updatedOccasion);
-            });
-        }
-    }
-
-    private void removePersonFromAssociatedModules(Model model, Person personToDelete) {
-        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        List<Module> completeModuleList = model.getFilteredModuleList();
-        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
-        while (moduleListIterator.hasNext()) {
-            Module m = moduleListIterator.next();
-            Optional<Person> possiblyPresentPerson = m.getStudents().asNormalList()
-                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            possiblyPresentPerson.ifPresent(person -> {
-                List<Person> updatedPersons = m.getStudents().makeShallowDuplicate().asNormalList();
-                updatedPersons.remove(person);
-                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-                updatedModuleDescriptor.setStudents(updatedPersonList);
-                Module updatedModule = Module.createEditedModule(m, updatedModuleDescriptor);
-                model.updateModule(m, updatedModule);
-            });
-        }
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     /**
      * Deletes the module at the targeted index, and returns the command result.
      */
     private CommandResult deleteModuleAndGetResult(Model model) throws CommandException {
-        CommandResult commandResult;
         List<Module> lastShownList = model.getFilteredModuleList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -138,34 +97,16 @@ public class DeleteCommand extends Command {
 
         Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> completePersonList = model.getFilteredPersonList();
-        ListIterator<Person> personListIterator = completePersonList.listIterator();
-        while (personListIterator.hasNext()) {
-            Person p = personListIterator.next();
-            Optional<Module> possiblyPresentModule = p.getModuleList().asNormalList()
-                    .stream().filter(module -> module.isSameModule(moduleToDelete)).findFirst();
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            possiblyPresentModule.ifPresent(module -> {
-                List<Module> updatedModules = p.getModuleList().makeShallowDuplicate().asNormalList();
-                updatedModules.remove(module);
-                UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
-                updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
-                Person updatedPerson = Person.createEditedPerson(p, updatedPersonDescriptor);
-                model.updatePerson(p, updatedPerson);
-            });
-        }
-
+        removeModuleFromAssociatedPersons(model, moduleToDelete);
         model.deleteModule(moduleToDelete);
-        commandResult = new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
-        return commandResult;
+
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
     /**
      * Deletes the occasion at the targeted index, and returns the command result.
      */
     private CommandResult deleteOccasionAndGetResult(Model model) throws CommandException {
-        CommandResult commandResult;
         List<Occasion> lastShownList = model.getFilteredOccasionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -174,28 +115,135 @@ public class DeleteCommand extends Command {
 
         Occasion occasionToDelete = lastShownList.get(targetIndex.getZeroBased());
 
+        removeOccasionFromAssociatedPersons(model, occasionToDelete);
+
+        model.deleteOccasion(occasionToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
+    }
+
+    /**
+     * Removes a person from the attendanceList of all associated Occasions.
+     */
+    private void removePersonFromAssociatedOccasions(Model model, Person personToDelete) {
+        model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
+        List<Occasion> completeOccasionList = model.getFilteredOccasionList();
+        ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
+
+        while (occasionListIterator.hasNext()) {
+            Occasion occasion = occasionListIterator.next();
+            Optional<Person> possiblyPresentPerson = occasion.getAttendanceList().asNormalList()
+                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
+            possiblyPresentPerson.ifPresent(removePersonFromOccasion(model, occasion));
+        }
+    }
+
+    /**
+     * Removes a person from the studentList of all associated Modules.
+     */
+    private void removePersonFromAssociatedModules(Model model, Person personToDelete) {
+        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        List<Module> completeModuleList = model.getFilteredModuleList();
+        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
+        while (moduleListIterator.hasNext()) {
+            Module module = moduleListIterator.next();
+            Optional<Person> possiblyPresentPerson = module.getStudents().asNormalList()
+                    .stream().filter(person -> person.isSamePerson(personToDelete)).findFirst();
+
+            possiblyPresentPerson.ifPresent(removePersonFromModule(model, module));
+        }
+    }
+
+    /**
+     * Removes a module from the moduleList of all associated Persons.
+     */
+    private void removeModuleFromAssociatedPersons(Model model, Module moduleToDelete) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            Optional<Module> possiblyPresentModule = person.getModuleList().asNormalList()
+                    .stream().filter(module -> module.isSameModule(moduleToDelete)).findFirst();
+
+            possiblyPresentModule.ifPresent(removeModuleFromPerson(model, person));
+        }
+    }
+
+    /**
+     * Removes an Occasion from the occasionList of all associated Persons.
+     */
+    private void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToDelete) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
         ListIterator<Person> personListIterator = completePersonList.listIterator();
 
         while (personListIterator.hasNext()) {
-            Person p = personListIterator.next();
-            Optional<Occasion> possiblyPresentOccasion = p.getOccasionList().asNormalList()
+            Person person = personListIterator.next();
+            Optional<Occasion> possiblyPresentOccasion = person.getOccasionList().asNormalList()
                     .stream().filter(occasion -> occasion.isSameOccasion(occasionToDelete)).findFirst();
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            possiblyPresentOccasion.ifPresent(occasion -> {
-                List<Occasion> updatedOccasions = p.getOccasionList().makeShallowDuplicate().asNormalList();
-                updatedOccasions.remove(occasion);
-                UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
-                updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
-                Person updatedPerson = Person.createEditedPerson(p, updatedPersonDescriptor);
-                model.updatePerson(p, updatedPerson);
-            });
-        }
 
-        model.deleteOccasion(occasionToDelete);
-        commandResult = new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
-        return commandResult;
+            possiblyPresentOccasion.ifPresent(removeOccasionFromPerson(model, person));
+        }
+    }
+
+    /**
+     * Returns a consumer that takes in a Person and removes it from the specified Occasion in the Model.
+     */
+    private Consumer<Person> removePersonFromOccasion(Model model, Occasion occasion) {
+        return person -> {
+            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
+            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
+            updatedPersons.remove(person);
+            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+            updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
+            Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+            model.updateOccasion(occasion, updatedOccasion);
+        };
+    }
+
+    /**
+     * Returns a consumer that takes in a Person and removes it from the specified module in the model.
+     */
+    private Consumer<Person> removePersonFromModule(Model model, Module module) {
+        return person -> {
+            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+            updatedPersons.remove(person);
+            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+            updatedModuleDescriptor.setStudents(updatedPersonList);
+            Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+            model.updateModule(module, updatedModule);
+        };
+    }
+
+    /**
+     * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
+     */
+    private Consumer<Module> removeModuleFromPerson(Model model, Person person) {
+        return module -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
+            updatedModules.remove(module);
+            UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
+            updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            model.updatePerson(person, updatedPerson);
+        };
+    }
+
+    /**
+     * Returns a consumer that takes in an Occasion and removes it from the specified Person in the Model.
+     */
+    private Consumer<Occasion> removeOccasionFromPerson(Model model, Person person) {
+        return occasion -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
+            updatedOccasions.remove(occasion);
+            UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
+            updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
+            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            model.updatePerson(person, updatedPerson);
+        };
     }
 
     @Override

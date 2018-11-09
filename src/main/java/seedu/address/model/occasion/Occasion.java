@@ -89,7 +89,6 @@ public class Occasion {
         return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
                 updatedTags, TypeUtil.OCCASION, updatedPersonList);
     }
-
     public OccasionName getOccasionName() {
         return occasionName;
     }
