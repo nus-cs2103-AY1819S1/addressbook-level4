@@ -102,8 +102,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
-        Person a = getPerson(index);
-        Set<Node> b = getAllCardNodes();
         return getAllCardNodes().stream()
                 .map(PersonCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
