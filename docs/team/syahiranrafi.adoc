@@ -9,9 +9,15 @@
 
 == Overview
 
-Hello, I am Syahiran. I am currently in my third year in the National University of Singapore (NUS), where I am majoring in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to develop a database management system called CLInic.
+Hello, I am Syahiran. I am currently in my third year in the National University of Singapore (NUS), where I am majoring in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to modify and improve the given address book application into a database management system called CLInic.
 
-CLInic is a desktop application created to automate daily administrative tasks like updating medical records, checking medicine inventory and generating receipts for small clinics. The CLI in CLInic is an acronym for "Command Line Interface" (an interface for typing commands directly into the application) which is the main feature of the application.
+CLInic is a desktop application, designed specifically for clinics. It helps to automate daily administrative tasks like:
+
+* Easily maintaining and updating a database of patients and their medical records
+* Checking and updating medicine inventory
+* Generating receipts, medical certificates and referral letters
+
+CLI is an acronym for "Command Line Interface", as CLInic works by typing commands directly into the application through the CLI. Together with CLInic's clean Graphical User Interface (GUI), the finished product allows for an easy and intuitive experience for both technical and non-technical users alike.
 
 This project portforlio serves to document my contributions to this project, which you can find in the sections below.
 
