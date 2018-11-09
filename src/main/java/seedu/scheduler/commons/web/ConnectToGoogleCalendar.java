@@ -329,6 +329,7 @@ public class ConnectToGoogleCalendar {
         if (eventToDelete.getRepeatType() == RepeatType.NONE) {
             try {
                 service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
+                return true;
             } catch (IOException e) {
                 logger.info(MESSAGE_IO_ERROR);
                 return false;
