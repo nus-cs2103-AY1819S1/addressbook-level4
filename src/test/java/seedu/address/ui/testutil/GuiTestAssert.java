@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.StudentPanelHandle;
 import seedu.address.model.person.Person;
 
 /**
@@ -36,6 +37,43 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualPanel} displays the details of {@code expectedPerson}.
+     */
+    public static void assertPanelDisplaysPerson(Person expectedPerson, StudentPanelHandle actualPanel) {
+        assertEquals(expectedPerson.getName().fullName, actualPanel.getName());
+        if (expectedPerson.getPhone() == null) {
+            assertEquals("NA", actualPanel.getPhone());
+        } else {
+            assertEquals(expectedPerson.getPhone().value, actualPanel.getPhone());
+        }
+        if (expectedPerson.getEmail() == null) {
+            assertEquals("NA", actualPanel.getEmail());
+        } else {
+            assertEquals(expectedPerson.getEmail().value, actualPanel.getEmail());
+        }
+        if (expectedPerson.getAddress() == null) {
+            assertEquals("NA", actualPanel.getAddress());
+        } else {
+            assertEquals(expectedPerson.getAddress().value, actualPanel.getAddress());
+        }
+        String[] arr = expectedPerson.getGrades().keySet().toArray(new String[expectedPerson.getGrades().size()]);
+        String result = "";
+        String grade = "";
+        for (int i = 0; i < arr.length; i++) {
+            grade = expectedPerson.getGrades().get(arr[i]).value;
+            result += arr[i] + " " + grade + "\n";
+        }
+        String education = expectedPerson.getEducation().toString();
+        String fee = expectedPerson.getFees().value;
+        grade = result;
+        String time = expectedPerson.getTime().toString();
+        assertEquals(education, actualPanel.getEducation());
+        assertEquals(fee, actualPanel.getFee());
+        assertEquals(grade, actualPanel.getGrades());
+        assertEquals(time, actualPanel.getTime());
     }
 
     /**
