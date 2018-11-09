@@ -13,20 +13,21 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_ELEVEN_IMAGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_IMAGE;
 
+import java.nio.file.Path;
+
 import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-//import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code OpenCommand}.
  */
-public class SelectCommandTest {
+public class OpenCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -57,49 +58,46 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_IMAGE);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_IMAGE);
+        OpenCommand openFirstCommand = new OpenCommand(INDEX_FIRST_IMAGE);
+        OpenCommand openSecondCommand = new OpenCommand(INDEX_SECOND_IMAGE);
 
         // same object -> returns true
-        assertTrue(selectFirstCommand.equals(selectFirstCommand));
+        assertTrue(openFirstCommand.equals(openFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_IMAGE);
-        assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
+        OpenCommand selectFirstCommandCopy = new OpenCommand(INDEX_FIRST_IMAGE);
+        assertTrue(openFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(selectFirstCommand.equals(1));
+        assertFalse(openFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(selectFirstCommand.equals(null));
+        assertFalse(openFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(selectFirstCommand.equals(selectSecondCommand));
+        assertFalse(openFirstCommand.equals(openSecondCommand));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code OpenCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_IMAGE_SUCCESS, index.getOneBased())
-                + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size());
+        Path expectedImagePath = expectedModel.getDirectoryImageList().get(index.getZeroBased());
+        OpenCommand openCommand = new OpenCommand(index);
+        String expectedMessage = String.format(OpenCommand.MESSAGE_OPEN_IMAGE_SUCCESS, index.getOneBased())
+                + " of " + Math.min(OpenCommand.BATCH_SIZE, model.getDirectoryImageList().size()) + "\n"
+                + "Image opened: " + expectedImagePath.getFileName().toString();
 
-        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
-
-
-        /*FilmReelSelectionChangeEvent lastEvent =
-                (FilmReelSelectionChangeEvent) eventsCollectorRule.eventsCollector.getMostRecent();
-        assertEquals(index, Index.fromZeroBased(lastEvent.index));*/
+        assertCommandSuccess(openCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code OpenCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+        OpenCommand openCommand = new OpenCommand(index);
+        assertCommandFailure(openCommand, model, commandHistory, expectedMessage);
     }
 }

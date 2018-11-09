@@ -64,7 +64,7 @@ public class CdCommand extends Command {
         return new CommandResult(newCurrDirectory.toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
                 + String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
-                Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)));
+                Math.min(model.getDirectoryImageList().size(), OpenCommand.BATCH_SIZE)));
     }
 
     public Path getPath() {

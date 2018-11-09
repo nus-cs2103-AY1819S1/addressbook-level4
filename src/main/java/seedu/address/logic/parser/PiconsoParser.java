@@ -16,11 +16,11 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
+import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.PrevCommand;
 import seedu.address.logic.commands.RedoAllCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoAllCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
@@ -66,8 +66,8 @@ public class PiconsoParser {
         case LsCommand.COMMAND_WORD:
             return new LsCommand();
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
 
         case ConvertCommand.COMMAND_WORD:
             return new ConvertCommandParser().parse(arguments);

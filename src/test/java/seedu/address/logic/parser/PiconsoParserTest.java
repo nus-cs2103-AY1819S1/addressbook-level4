@@ -20,9 +20,9 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
+import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.PrevCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
@@ -52,9 +52,9 @@ public class PiconsoParserTest {
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_IMAGE.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_IMAGE), command);
+        OpenCommand command = (OpenCommand) parser.parseCommand(
+                OpenCommand.COMMAND_WORD + " " + INDEX_FIRST_IMAGE.getOneBased());
+        assertEquals(new OpenCommand(INDEX_FIRST_IMAGE), command);
     }
 
     //@@author benedictcss
