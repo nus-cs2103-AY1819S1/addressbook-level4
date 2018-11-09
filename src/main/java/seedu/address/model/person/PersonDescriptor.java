@@ -19,8 +19,8 @@ public class PersonDescriptor {
     private Phone phone;
     private Email email;
     private Address address;
-    private UniqueOccasionList occasionList = new UniqueOccasionList();
-    private UniqueModuleList moduleList = new UniqueModuleList();
+    private UniqueOccasionList occasionList;
+    private UniqueModuleList moduleList;
     private Set<Tag> tags;
 
     public PersonDescriptor() {}
@@ -35,8 +35,8 @@ public class PersonDescriptor {
         setEmail(toCopy.email);
         setAddress(toCopy.address);
         setTags(toCopy.tags);
-        setUniqueModuleList(toCopy.getUniqueModuleList().get());
-        setUniqueOccasionList(toCopy.getUniqueOccasionList().get());
+        setUniqueModuleList(toCopy.getUniqueModuleList().orElse(new UniqueModuleList()));
+        setUniqueOccasionList(toCopy.getUniqueOccasionList().orElse(new UniqueOccasionList()));
     }
 
     /**

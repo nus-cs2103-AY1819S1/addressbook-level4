@@ -11,17 +11,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class OccasionLocation {
 
-    public static final String MESSAGE_OCCASIONLOCATION_CONSTRAINTS = "Occasion "
-        + "locations should only contain alphanumeric characters and spaces, and it"
-        + " should not be blank.";
+    public static final String MESSAGE_OCCASIONLOCATION_CONSTRAINTS =
+            "Locations should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The location of an occasion should consist of any number of alphanumeric
+     * The name of an occasion should consist of any number of alphanumeric
      * characters and spaces.
-     * The location should not start or end with spaces.
-     * Length of the location should be restricted between 3 - 30.
      */
-    public static final String OCCASIONLOCATION_VALIDATION_REGEX = "(?! )(?!.*? $)[a-zA-Z0-9 ]{3,30}";
+    public static final String OCCASIONLOCATION_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String fullOccasionLocation;
 
