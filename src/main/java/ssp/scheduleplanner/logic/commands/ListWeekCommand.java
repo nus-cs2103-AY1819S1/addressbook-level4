@@ -13,7 +13,7 @@ import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
 
 /**
- * List all tasks till Sunday.
+ * List all tasks from the current date till closest Sunday.
  */
 public class ListWeekCommand extends Command {
     public static final String COMMAND_WORD = "listweek";

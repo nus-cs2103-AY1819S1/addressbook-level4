@@ -18,7 +18,8 @@ import ssp.scheduleplanner.storage.XmlFileStorage;
 import ssp.scheduleplanner.storage.XmlSerializableRangeOfWeek;
 
 /**
- * Mark the first day of the semester to be able to compute the range of date of all semester weeks and save the range.
+ * Generate academic calendar based on given date input. It also have methods to save and retrieve the
+ * generated data in storage.
  */
 public class FirstDayCommand extends Command {
 

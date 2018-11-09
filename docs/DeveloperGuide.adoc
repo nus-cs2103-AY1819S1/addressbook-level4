@@ -421,44 +421,53 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::viewarangeoftasks[]
 === View Day/Week
 
-In order to enable users to better manage their tasks in the schedule planner, we added two more variations of
- the `list` command.
+In order to enable users to better monitor their tasks in the schedule planner, Two more variations of
+ `list` command were added.
 
-The `listday` command supports viewing tasks due the current date whereas `listweek` command supports viewing tasks
+`listday` command supports viewing tasks due on the current date whereas `listweek` command supports viewing tasks
 from the current date till the closest Sunday.
 
 ==== Current Implementation
 
-`listday`/`listweek` mechanism utilises the same implementation used by the
+`listday`/`listweek` mechanism utilises the same implementation used by
 `list` command:
 
 * `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
 according to the predicate.
 
-`listday`/`listweek` uses `DateSamePredicate`/`DateWeekSamePredicate` as the predicate respectively for
-`Model#updateFilteredTaskList()`.
+`listday` further implements the following operation:
 
-When `listday` is executed, `DateSamePredicate` will reference the current
-system date to filter the list. `model#updateFilteredTaskList()` uses the predicate `DateSamePredicate`
-to return an updated list of tasks with deadlines that match the system date.
+* `DateSamePredicate` -- takes in a `systemDate` parameter.  `systemDate` is a
+`String` value after converting current system date into `DDMMYY` format.
 
-When `listweek` is executed, `DateWeekSamePredicate` will obtain several dates, from the current system date
-until the closest Sunday, to use as the 'filter'. `model#updateFilteredTaskList()` uses `DateWeekSamePredicate`
-to update the list to include tasks with deadline that matches any of those dates.
+`listweek` further implements the following operations:
+
+* numDaysTillSunday(dateName) -- It compute the number of days from current date until closest Sunday (exclusive of
+Sunday) using `dateName`. `dateName` is the name of the current day.
+
+* appendDateList(dateList, numDaysTillSunday(dateName)) -- It generates sequential `DDMMYY` values
+based on the result of `numDaysTillSunday(dateName)` and insert into `dateList` . `dateList` is a `List<String>` object.
+
+* `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
+the list of dates from current date to closest Sunday date in `DDMMYY` format.
 
 As both `listday`/`listweek` commands are similar, we will only illustrate how `listweek` works.
-Given below is an example usage scenario and how `listweek` mechanism behaves at each step:
+Given below is an example usage scenario and how `listweek` mechanism behaves at each steps:
 
 Step 1. The user entered the command `listweek`.
 
-Step 2. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will generate the `dateList`, which
-is a `list` of dates in `ddmmyy` format after retrieving the result from `numDaysTillSunday()` method.
-`numDaysTillSunday()` method itself will compute the number of days from current date till Sunday based on `dateName`.
+Step 2. The command word `listweek` invoke `LogicManger` to invoke `SchedulePlannerParser` to return a
+`ListWeekCommand` object. `LogicManager` then invoke `ListWeekCommand#execute()`.
 
-Step 3. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
-as the parameter. `DateWeekSamePredicate` itself would take `dateList` in Step 2 as the paramter.
+Step 3. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will be activated. It helps to generates
+values for `dateList` and the values are sequential dates in `DDMMYY` format after using the result from
+`numDaysTillSunday()` method. `numDaysTillSunday()` will compute the number of days from current date till Sunday based on `dateName`,
+the name of the current day.
 
-Step 4. The updated task list would be reflected on the UI to be displayed to the user.
+Step 4. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
+as the parameter. `DateWeekSamePredicate` itself would take `dateList` in Step 3 as the parameter.
+
+Step 5. The updated task list would be reflected on `UI` to be displayed to the user.
 
 The following sequence diagram illustrates how the mechanism works:
 
@@ -485,9 +494,9 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 === Generate Academic Calendar Weeks
 
 In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
-academic week, we added `firstday` command.
+academic week, `firstday` command was added.
 
-The `firstday` command will generate the weeks referencing to NUS academic calendar, and will append the week
+`firstday` command will generate the weeks referencing to NUS academic calendar, and will append the week
 description to the application title if the user launches the application within the academic calendar dates.
 This allows the user to know the current academic week.
 
@@ -496,27 +505,14 @@ The number of weeks referencing NUS academic calendar is fixated at 17 weeks.
 
 ==== Current Implementation
 
-`firstday` mechanism is faciliated by `FirstDayCommand` and implements the following operations:
+`firstday` mechanism is facilitated by `FirstDayCommand` and implements the following operations:
 
-* `FirstDayCommand#isWithinDateRange(firstDayOfSem, lastDayOfSem)` -- Check if current system date is within the
-`firstDayOfSem` and `lastDayOfSem` and return true or false.
-
-* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- It return the description of a particular week
-
-* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- It save the academic calendar weeks data into `rangeofweek.xml`
-
-* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- It retrieves the saved academic calendar weeks data from
-`rangeofweek.xml`
-
-* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- It generate the academic calendar weeks data based on the `firstDay`
+* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- It generate the academic calendar weeks data based on `firstDay`
  parameter.
 
-* `FirstDayCommand#addDescription` -- It appends description for each academic calendar weeks.
+* `FirstDayCommand#addDescriptionForWeeks` -- It appends description for each academic calendar weeks.
 
-* `FirstDayCommand#isMonday(inputDate)` -- It checks if inputDate is Monday and return true or false.
-
-* `FirstDayCommand#computeAppTitle()` -- It computes the corresponding application title after checking if current
-system date is within academic calendar dates.
+* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- It save the academic calendar weeks data into `rangeofweek.xml`
 
 * `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
 
@@ -531,59 +527,83 @@ entries differ from the expected academic number of weeks.
 * `FirstDayCommand#createDefaultFileIfInvalidDateOrRange()` -- It creates the default `rangeofweek.xml` if date data in
 modified to be an invalid date or date range format.
 
-Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
+* `FirstDayCommand#computeAppTitle()` -- It computes the corresponding application title after checking if current
+system date is within academic calendar dates.
+
+* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- It retrieves the saved academic calendar weeks data from
+`rangeofweek.xml`
+
+* `FirstDayCommand#isWithinDateRange(firstDayOfSem, lastDayOfSem)` -- Check if current system date is within
+`firstDayOfSem` and `lastDayOfSem` and return true or false.
+
+* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- It return the description of a particular week
+
+* `FirstDayCommand#isMonday(inputDate)` -- It checks if `inputDate` is Monday and return true or false.
+
+
+Given below is an example usage scenario and how `firstday` mechanism behaves at each steps:
 
 Step 1. The user enter the command `firstday 130818`
 
-Step 2. `FirstDayCommandParser` will be activated as the command word `firstday` is used. It will then trimmed the
-remaining argument into `trimmedArgs`.
+Step 2. The command word `firstday` invoke `LogicManager` to invoke `SchedulePlannerParser`. `SchedulePlannerParser`
+then invoke `FirstDayCommandParser#parse(130818)` which will then trim the argument `130818` into `trimmedArgs`.
 
-Step 3. Methods `onlyOneSetArgument(trimmedArgs)`, `Date.isValidDate(trimmedArgs)` and `isMonday(trimmedArgs)` are used
- in sequence to check if
-`trimmedArgs` is valid.
+Step 3. Methods `onlyOneSetArgument(trimmedArgs)`, `Date#isValidDate(trimmedArgs)` and `isMonday(trimmedArgs)` are used
+ in sequential order to check if `trimmedArgs` is valid.
 
 [NOTE]
 If either method in Step 3 failed, `ParseException` with respective message will be thrown to inform user what had
 gone wrong. `FirstDayCommand` would then not be called.
 
-Step 4. `FirstDayCommand` will be called with the validated `trimmedArgs` as its parameter.
+Step 4. `FirstDayCommandParser` return a `FirstDayCommand` with the validated `trimmedArgs` as its
+parameter.
 
-Step 5. `FirstDayCommand#execute` will be activated by the `LogicManager`.
+Step 5. `LogicManager` then invoke `FirstDayCommand#execute()`.
 
 Step 6. `FirstDayCommand#computeRangeOfWeeks(trimmedArgs)` will be activated and generate the academic calendar weeks
 . This method will further call `FirstDayCommand#addDescriptionForWeeks` to add description for each of the academic
 calendar weeks. The academic calendar weeks will be stored in a `2D String array` named `rangeOfWeek`.
 
 Step 7. `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` will be activated. It will create a
-`XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow the `rangeOfWeek` data to be
+`XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow `rangeOfWeek` data to be
 converted into `Xml` format to be easily saved. Next, this method would call `XmlFileStorage#saveWeekDataToFile` to
-save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeofweek.xml`
+save `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeofweek.xml`
 
 [NOTE]
 `CommandException` will be thrown if `rangeofweek.xml` does not exist.
 
 Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
-weeks, the `UI` would display the corresponding week description to the user.
+weeks, `UI` would display the corresponding week description to the user.
 
-image::FirstDayCommand_UG_Bef.png[width="600"]
+image::FirstDayCommand_UG_Bef.png[width="500"]
 
 Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
-method `FirstDayCommand#createDefaultFileIfNotExist`,
-`FirstDayCommand#createDefaultFileIfUnableConvert`, `FirstDayCommand#createDefaultFileIfDiffSize`,
-`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDateOrRange`.
+methods `fdc#createDefaultFileIfNotExist`, `fdc#createDefaultFileIfUnableConvert`, `fdc#createDefaultFileIfDiffSize`,
+`fdc#createDefaultFileIfNull` and `fdc#createDefaultFileIfInvalidDateOrRange`.
 
-If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
+If it is the first time the user launch the application or if user deleted `rangeofweek.xml` or modified the file
 content until some content are invalid, the application will create a default `rangeofweek.xml`.
-// end::generateacademiccalendar[]
-// tag::generateacademiccalendar2[]
-Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method `updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would generate the corresponding application title by
-checking the current system date and the saved academic calendar weeks data. It would then return the result into
-`updateConfig.setAppTitle()` to update the application title.
 
-`MainApp` then calls `ConfigUtil#saveConfig(updateConfig, configFilePathUsed)` to save the updated configuration into
- the path where `config.json` is.
+The following code snippet shows that with the extra layer of data verification and rectification, the user do not need
+ to worry when they accidentally invalidated the storage file.
 
-Step 11. `MainApp` would then retrieve the application title from `config.json` and display on the `UI`.
+image::FirstDayCommand_DG_MainAppLaunchSnippet.png[width="300"]
+
+Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method
+`updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would create a `2D String Array` called
+`retrieveData` for storing academic semester dates to operate `FirstDayCommand#retrieveRangeOfWeeks(retrieveData)` to
+ retrieve saved data.
+
+It then check if system date is within the `retrieveData` by using `FirstDayCommand#isWithinDateRange(x,y)` where `x`
+and `y` stands for the first academic and last academic day respectively. If it is within, it then generate the
+corresponding application title by using `FirstDayCommand#retrieveWeekDescription(retrieveData)`. Else it uses the
+default application title. It would then return the result into `updateConfig.setAppTitle()` to update the
+application title.
+
+Step 11. `MainApp` then calls `ConfigUtil#saveConfig(updateConfig, configFilePathUsed)` to save the updated
+configuration into the path `configFilePathUsed` where `config.json` is.
+
+Step 12. `MainApp` would then retrieve the application title from `config.json` and display on `UI`.
 
 image::FirstDayCommand_UG_Aft.png[width="300"]
 
@@ -591,7 +611,7 @@ image::FirstDayCommand_UG_Aft.png[width="300"]
 `CommandException` will be thrown if data from `rangeofweek.xml` could not be converted or if `rangeofweek.xml` does
 not exist.
 
-The following sequence diagram illustrates how the mechanism works:
+The following sequence diagrams illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
 image::FirstDayCommand_DG_SequenceDiagram.png[width="650"]
@@ -602,9 +622,9 @@ image::LaunchMainApp_DG_SequenceDiagram.png[width="650"]
 
 ==== Design Considerations
 
-===== Aspect: How firstday functions
+===== Aspect: How firstday command functions
 
-* **Alternative 1 (current choice):** Generate entire academic calendar weeks by input the first academic monday date.
+* **Alternative 1 (current choice):** Generate entire academic calendar weeks by input the first academic Monday date.
 ** Pros: It would only need one set of date.
 ** Cons: It would require many methods to validate, generate the data.
 * **Alternative 2:** Allow user to create their own academic calendar such as having customised number of weeks and
@@ -612,16 +632,16 @@ description for each weeks.
 ** Pros: It would allow customisation.
 ** Cons: It would be time and effort consuming for the user and also to validate the data.
 
-===== Aspect: Data structure to support the firstday method
+===== Aspect: Data structure to support storing of academic calendar weeks data
 
 * **Alternative 1 (current choice):** `2D String array` is used.
-** Pros: It would allow easy data retrieval.
+** Pros: It would allow easy data retrieval for specific `index`.
 ** Cons: It could cause confusion especially if magic numbers were used instead of constant.
-* **Alternative 2:** `Arraylist` is used.
+* **Alternative 2:** `ArrayList` is used.
 ** Pros: It would not require sequential memory for storage.
-** Cons: It would not allow data retrieval at any specific index which requires traversing the `arraylist`.
+** Cons: It would not allow data retrieval at any specific `index` which requires traversing.
 
-// end::generateacademiccalendar2[]
+// end::generateacademiccalendar[]
 
 // tag::filtertags[]
 === Filter Tags
