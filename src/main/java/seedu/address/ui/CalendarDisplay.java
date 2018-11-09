@@ -132,10 +132,6 @@ public class CalendarDisplay extends UiPart<Region> {
                         }
                     }
                 }
-//                System.out.println("sanity check: ");
-//                for(Appointment appt : agenda.appointments()) {
-//                    System.out.println(((CalendarEvent) appt).toString());
-//                }
             }
         });
     }
@@ -170,16 +166,16 @@ public class CalendarDisplay extends UiPart<Region> {
         });
     }
 
-    @FXML
     /**
-     * Consumes the arrow key events, preventing focus tranferring from calendar display
+     * Consumes the arrow key events, preventing focus tranfering from calendar display
      * to other UI components
      */
+    @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.UP ||
-                keyEvent.getCode() == KeyCode.DOWN ||
-                keyEvent.getCode() == KeyCode.LEFT ||
-                keyEvent.getCode() == KeyCode.RIGHT) {
+        if (keyEvent.getCode() == KeyCode.UP
+            || keyEvent.getCode() == KeyCode.DOWN
+            || keyEvent.getCode() == KeyCode.LEFT
+            || keyEvent.getCode() == KeyCode.RIGHT) {
             keyEvent.consume();
         }
     }

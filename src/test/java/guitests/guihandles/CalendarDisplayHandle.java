@@ -1,19 +1,16 @@
 package guitests.guihandles;
 
-import javafx.collections.ObservableList;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.model.calendarevent.CalendarEvent;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A handle to the {@code CommandBox} in the GUI.
@@ -47,18 +44,10 @@ public class CalendarDisplayHandle extends NodeHandle<Node> {
      */
     public List<CalendarEvent> getDisplayedCalendarEvents() {
         ArrayList<CalendarEvent> events = new ArrayList<>();
-        for(Agenda.Appointment appt : agenda.appointments()) {
+        for (Agenda.Appointment appt : agenda.appointments()) {
             events.add((CalendarEvent) appt);
         }
         return events;
-    }
-
-    public void setViewToWeeklyView() {
-        agenda.setSkin(new AgendaWeekSkin(agenda));
-    }
-
-    public void setViewToDailyView() {
-        agenda.setSkin(new AgendaWeekSkin(agenda));
     }
 
     public boolean isDailyView() {

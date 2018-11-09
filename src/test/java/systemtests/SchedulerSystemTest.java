@@ -12,17 +12,18 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import guitests.guihandles.CalendarDisplayHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
@@ -32,11 +33,10 @@ import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.Scheduler;
-import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
-import seedu.address.ui.testutil.GuiTestAssert;
+
 
 /**
  * A system test class for Scheduler, which provides access to handles of GUI components and helper methods
@@ -163,11 +163,13 @@ public abstract class SchedulerSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
+        /*
         print("assertApplicationDisplaysExpected");
         print("expected Command Input: " + expectedCommandInput);
         print("actual command input :" + getCommandBox().getInput());
         print("expected result message: " + expectedResultMessage);
         print("actual result message: " + getResultDisplay().getText());
+        */
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
@@ -256,6 +258,8 @@ public abstract class SchedulerSystemTest {
         return testApp.getModel();
     }
 
+    // TODO: remove when finish testing
+    /*
     public void print(String s) {
         System.out.println(s);
     }
@@ -264,5 +268,5 @@ public abstract class SchedulerSystemTest {
         for (CalendarEvent ce : xs) {
             System.out.println(ce);
         }
-    }
+    }*/
 }

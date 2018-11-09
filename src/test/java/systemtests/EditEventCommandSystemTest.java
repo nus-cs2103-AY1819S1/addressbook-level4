@@ -3,7 +3,6 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TUTORIAL;
@@ -35,6 +34,8 @@ import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
+import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditEventCommand;
@@ -48,7 +49,6 @@ import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.PersonUtil;
-
 
 public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
@@ -140,7 +140,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         assertCommandFailure(EditEventCommand.COMMAND_WORD + " " + invalidIndex + TITLE_DESC_TUTORIAL,
             Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a calendar event card is selected ------------------- */
+        /* --------------------- Performing edit operation while a calendar event card is selected ----------------- */
 
         /* Case: selects first card in the calendar event list, edit a calendar event -> edited, card selection remains
          unchanged */

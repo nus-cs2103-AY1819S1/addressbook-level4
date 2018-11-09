@@ -5,14 +5,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalEvents.getTypicalCalendarEvents;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import guitests.guihandles.CalendarDisplayHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.Before;
-import org.junit.Test;
-
 import javafx.scene.input.KeyCode;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -85,24 +84,4 @@ public class CalendarDisplayTest extends GuiUnitTest {
         guiRobot.push(KeyCode.T);
         assertTrue(calendarDisplayHandle.isWeeklyView());
     }
-
-//    @Test
-//    /**
-//     * TODO: decide what to do with this test
-//     * Does not work, i think its agenda threading problem?
-//     * But CalendarPanelTest does not do this test, shift to system test instead?
-//     */
-//    public void calendarDisplay_updateWhenAddAndDeleteEvent() {
-//        // delete
-//        CalendarEvent last = TYPICAL_CALENDAR_EVENTS.remove(TYPICAL_CALENDAR_EVENTS.size() - 1);
-//        List<CalendarEvent> displayedEvents = calendarDisplayHandle.getDisplayedCalendarEvents();
-//        assertEquals(TYPICAL_CALENDAR_EVENTS, displayedEvents);
-//        // add
-//        TYPICAL_CALENDAR_EVENTS.add(last);
-//        displayedEvents = calendarDisplayHandle.getDisplayedCalendarEvents();
-//        guiRobot.pauseForHuman();
-//        assertEquals(TYPICAL_CALENDAR_EVENTS, displayedEvents);
-//        // no update of events, because updating event is done by remove and add back
-//    }
-
 }

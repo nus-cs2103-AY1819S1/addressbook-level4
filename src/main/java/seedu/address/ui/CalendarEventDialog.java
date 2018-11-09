@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -41,6 +40,9 @@ public class CalendarEventDialog extends UiPart<Region> {
         fillLabels();
     }
 
+    /**
+     * Fills up the {@code CalendarEventDialog}'s Labels
+     */
     public void fillLabels() {
         titleLabel.setText(calendarEvent.getTitle().value);
         descriptionLabel.setText(calendarEvent.getDescriptionObject().value);

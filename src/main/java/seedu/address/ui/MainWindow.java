@@ -21,9 +21,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.SwitchToToDoTabEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
+import seedu.address.commons.events.ui.SwitchToToDoTabEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 

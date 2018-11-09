@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarPanelHandle;
@@ -90,6 +89,7 @@ public class GuiTestAssert {
      */
     public static void assertListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
                                                      List<CalendarEvent> calendarEvents) {
+        /*
         System.out.println("agenda calendar events:");
         for(CalendarEvent c : calendarDisplayHandle.getDisplayedCalendarEvents()) {
             System.out.println(c);
@@ -97,8 +97,7 @@ public class GuiTestAssert {
         System.out.println("model calendar events:");
         for(CalendarEvent c : calendarEvents) {
             System.out.println(c);
-        }
-
+        }*/
         assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), calendarEvents.size());
         assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(calendarEvents));
     }
