@@ -45,7 +45,34 @@ public class DeleteEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<List<Event>> lastShownList = model.getFilteredEventListByDate();
+        List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
+        Event eventToDelete = getEventToDelete(listToRemoveFrom);
 
+        model.deleteEvent(eventToDelete);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
+    }
+
+    /**
+     * Returns the {@code Event} object from {@code listToRemoveFrom} to be deleted, based on
+     * {@code targetIndex}, if it exists
+     * @throws CommandException if such an event based on {@code targetIndex} does not exist in
+     * {@code listToRemoveFrom}
+     */
+    private Event getEventToDelete(List<Event> listToRemoveFrom) throws CommandException {
+        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        return listToRemoveFrom.get(targetIndex.getZeroBased());
+    }
+
+    /**
+     * Returns the event list for the required date based on {@code targetDate}, if such a list exists for
+     * the given {@code targetDate}
+     * @throws CommandException if no such list exists for {@code targetDate}
+     */
+    private List<Event> getTargetDateList(List<List<Event>> lastShownList) throws CommandException {
         // check if date exists in events in lastShownList
         if (lastShownList.isEmpty() || lastShownList.stream()
                 .noneMatch(list -> list.get(0).getEventDate().equals(targetDate))) {
@@ -60,16 +87,7 @@ public class DeleteEventCommand extends Command {
         // lastShownList should only have one list matching a given specific EventDate
         assert(targetDateList.size() == 1);
 
-        List<Event> listToRemoveFrom = targetDateList.get(0);
-
-        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-
-        Event eventToDelete = listToRemoveFrom.get(targetIndex.getZeroBased());
-        model.deleteEvent(eventToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
+        return targetDateList.get(0);
     }
 
     @Override

@@ -37,7 +37,9 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_FACULTY + "SOC";
+            + PREFIX_FACULTY + "SOC \n"
+            + "Note that valid faculties are stated in the following format: "
+            + "SOC, FOS, YLLSOM, FOD, BIZ, SDE, FOE, FOL, YSTCOM, FASS.";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
