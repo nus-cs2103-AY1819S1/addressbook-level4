@@ -21,12 +21,12 @@ public class ListFriendsCommandParserTest {
     private ListFriendsCommandParser parser = new ListFriendsCommandParser();
 
     @Test
-    public void parse_validArgs_returnsListFriendsCommand() {
+    public void parseValidArgsReturnsListFriendsCommand() {
         assertParseSuccess(parser, "1", new ListFriendsCommand(INDEX_FIRST));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parseInvalidArgsThrowsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ListFriendsCommand.MESSAGE_USAGE));
     }

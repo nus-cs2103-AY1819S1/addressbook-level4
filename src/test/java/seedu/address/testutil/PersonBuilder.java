@@ -61,7 +61,6 @@ public class PersonBuilder {
         password = new Password(DEFAULT_PASSWORD);
         address = new Address(DEFAULT_ADDRESS);
         interests = new HashSet<>();
-        interests.add(new Interest(DEFAULT_INTERESTS));
         tags = new HashSet<>();
         schedule = new Schedule(DEFAULT_SCHEDULE);
         friends = new HashSet<>();
