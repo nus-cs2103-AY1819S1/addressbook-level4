@@ -64,7 +64,6 @@ public class HelpCommandSystemTest extends TaskManagerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(TaskViewPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getPersonListPanel(), getModel().getFilteredTaskList());
 
         // assert that the status bar too is updated correctly while the help window is open
