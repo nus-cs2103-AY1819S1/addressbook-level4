@@ -44,7 +44,7 @@ public class SampleDataTest extends LibrarySystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
+    public void library_dataFileDoesNotExist_loadSampleData() {
         Playlist[] expectedList = SampleDataUtil.getSamplePlaylists();
         assertListMatching(getPlaylistListPanel(), expectedList);
     }

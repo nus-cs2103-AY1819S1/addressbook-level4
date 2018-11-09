@@ -13,33 +13,4 @@ public class PlayerManagerTest {
         PlayerManager playerManager2 = PlayerManager.getInstance();
         assertEquals(playerManager, playerManager2);
     }
-
-    @Test
-    public void play() {
-    }
-
-    @Test
-    public void play1() {
-    }
-
-    @Test
-    public void play2() {
-    }
-
-    @Test
-    public void stop() {
-    }
-
-    @Test
-    public void pause() {
-    }
-
-    @Test
-    public void seek() {
-    }
-
-    @Test
-    public void getStatus() {
-        assertEquals(Playable.Status.UNINITIALIZED, playerManager.getStatus());
-    }
 }
