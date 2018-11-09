@@ -13,11 +13,17 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement*: Dependency, Time
-** What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order. Users can order tasks by their dependencies.
-The time of the earliest due date among all children is displayed in the UI.
-** Justification: This feature improves the product significantly because a user can better prioritise which task to
-** Highlights: There were significant design choices that needed to be made to specify dependencies (elaborated in Developer Guide).
+* *Major enhancement*: Dependency and Time
+** What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order.
+The UI will display the earliest DueDate among all tasks that a task is dependent on (includes task dependees of task dependees).
+The time of the earliest due date among all its children and grand children is displayed in the UI.
+** Justification:
+A useful information to look at when deciding how to prioritise tasks is looking at not just the due date of a task, but
+the earliest due date among all tasks that it depends on.
+** Highlights:
+There were significant design choices that needed to be made to specify dependencies.
+Modelling Time and checks associated with time involved design pattern choices.
+Both are elaborated in the Developer guide.
 
 
 * *Code contributed*:
@@ -25,7 +31,14 @@ The time of the earliest due date among all children is displayed in the UI.
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pengnam[[Project Code Dashboard]]
 https://github.com/CS2103-AY1819S1-F11-3/main/commits?author=pengnam[[Github Commits]]
 
+* *List of major PRs*:
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/75[Dependency feature]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[Flag overdue]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/48[DueDate modelling]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[Dependency validity]
+
 * *Other contributions*:
+
 
 ** Project management:
 *** Coordinated releases `v1.1` - `v1.4` (4 releases) on GitHub
@@ -47,10 +60,20 @@ https://github.com/CS2103-AY1819S1-F11-3/main/projects/3[2.0]
 
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Did a significant anount of initial refactoring for team:
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/41[#41],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/47[#47],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/48[#48],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/50[#50],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/51[#51],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/54[#54],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/66[#66],
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com[#14]
+*** Actively maintained the Developer Guide:
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/171[#171]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/216[#216]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
@@ -58,6 +81,8 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/76[#76 (Batch complete comman
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/95[#95 (list filter)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/154[#154 (list filter)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/67[#67 (Complete command)]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/213[#213 (Tests for achievements)]
+
 *** Reported bug on module website
 (examples:  https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3[#3],
 https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
