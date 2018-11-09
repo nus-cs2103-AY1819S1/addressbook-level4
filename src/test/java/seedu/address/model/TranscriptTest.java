@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAff
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
