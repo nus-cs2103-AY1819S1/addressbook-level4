@@ -275,9 +275,11 @@ A command to allow the user to redo previously undone commands. +
 Command Syntax:
 `redo`:  +
 This command will redo the user’s previous undone command. +
-`redo [number]`: +
-The number of undone commands you want to redo.
-This command will redo a certain number of undone commands. The number should be at least 1. If the number exceeds the number of operations that has been undone, the application will redo all the previous operations that have been undone.
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
 
 Examples:
 
@@ -311,34 +313,71 @@ Format: `history`
 A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
 
 // tag::export[]
-=== Exporting data from this application (coming in v 1.4)
-Format: `export FILEPATH`
+=== Exporting user data to xml/txt: `export`
+A command to allow the user to export data from TheTracker to a specified location.
 
+==== Exporting data to xml file
+Format: +
+`export --xml [FILEPATH]`
+
+This command:
+****
+* Export data to xml file.
+* The xml file will be stored in [FILEPATH] if the export succeeds.
+****
+
+****
+*Command Format*
+
+* Use a single whitespace to divide `--xml` and `[FILEPATH]`.
+* `[FILEPATH]` should be a valid file path.
+* `[FILEPATH]` should not contain any whitespace.
+****
+
+Examples: +
+
+* For MacOS and Linux users: `export --xml /Users/Anna/Desktop/exported.xml`
+* For Windows users: `export --xml C:\Users\Anna\desktop\exported.xml`
+
+==== Exporting data to txt file
+Format: +
+`export --txt [FILEPATH]`
+
+This command:
+****
+* Export data to txt file with predefined style and layout.
+* The txt file will be stored in [FILEPATH] if the export succeeds.
+****
+
+****
+*Command Format*
+
+* Use a single whitespace to divide `--txt` and `[FILEPATH]`.
+* `[FILEPATH]` should be a valid file path.
+* `[FILEPATH]` should not contain any whitespace.
+****
+
+Examples: +
+
+* For MacOS and Linux users: `export --txt /Users/Anna/Desktop/exported.txt`
+* For Windows users: `export --txt C:\Users\Anna\desktop\exported.txt`
 // end::export[]
-=== Importing module information from external platform: `importmodule` (coming in v 2.0)
-A command to allow the user to import information from NUSMods.+
 
-Format: `importmodule [modulecode]` +
-If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
+// tag::import[]
+=== Importing data into TheTracker: `import` (coming in v 2.0)
+A command to allow the user to import information from external sources.
 
-=== Exiting the program : `exit`
-Exits the program. +
-Format: `exit`
+==== Importing xml file
+Format: +
+`import --xml [FILEPATH]`
 
-// tag::history
-=== Showing command history: `history`
-A command to allow the user to see the history of commands used within the address book.+
-Format: `history`
-// end::history
+Examples: +
 
-=== Autocomplete (coming in v 1.4)
-A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
+* For MacOS and Linux users: `import --xml /Users/Anna/Desktop/imported.xml`
+* For Windows users: `import --xml C:\Users\Anna\desktop\imported.xml`
 
-// tag::export[]
-=== Exporting data in this application (coming in v 1.4)
-Format: `export FILEPATH`
+// end::import[]
 
-// end::export[]
 === Importing module information from external platform: `importmodule` (coming in v 2.0)
 A command to allow the user to import information from NUSMods.+
 
@@ -404,3 +443,10 @@ e.g. `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion l
 e.g. `undo 1`
 * *Redo* : `redo [NUMBER]` +
 e.g. `redo 1`
+
+* *Export data to xml file* : `export --xml [FILEPATH]` +
+e.g. (MacOS, Linux) `export --xml /Users/Anna/Desktop/exported.xml`
+e.g. (Windows) `export --xml C:\Users\Anna\desktop\exported.xml`
+* *Export data to txt file* : `export --txt [FILEPATH]` +
+e.g. (MacOS, Linux) `export --txt /Users/Anna/Desktop/exported.txt`
+e.g. (Windows) `export --txt C:\Users\Anna\desktop\exported.txt`

@@ -248,15 +248,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::supportforocassionandmodule[]
-=== Features supporting Person, Module and Occasion
-Our application is an extension of address book application. Besides
+TheTracker is an extension of address book application. Besides
 supporting basic address book features for `Person`, we also intended to
-make those features be available for `Module` and `Occasion`. This makes this
-application(TheTracker) to be able to track the modules a person takes, as
-well as the Occasions they participate in.
-
-==== Current Design plan
-We are storing persons, modules and occasions individually. And command are also entity-specific.
+make those features be available for `Module` and `Occasion`. This makes
+TheTracker to be able to track the modules a person takes, as
+well as the occasions he participates in.
 // end::supportforocassionandmodule[]
 
 // tag::find[]
@@ -313,12 +309,46 @@ the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
 // end::select[]
 
 // tag::edit[]
-=== Edit Feature
-The following sequence diagram shows how the `editPerson` operation works:
-`editPerson 6 p/91234567 e/johndoe@example.com`
+=== Edit Person/Module/Occasion Feature
+`edit` is a basic feature for `TheTracker`. +
+It supports editing of `Person`, `Module` and `Occasion` by command `editperson`,
+`editmodule` and `editoccasion` respectively.
+
+==== Current Implementation
+The following section will use `EditPersonCommand` as an example to explain the implementation.
+`EditModuleCommand` and `EditOccasionCommand` use the same mechanism. +
+
+`EditPersonCommand` extends the `Command` class and uses inheritance to facilitate implementation.
+It's mechanism is facilitated by `VersionAddressBook`. In addition, it implements the following operations:
+
+* `VersionedAddressBook#commit()`: Saves the current book state in the command history
+* `VersionedAddressBook#updatePerson(target, editedPerson)`: Update the targetedPerson with edited fields
+* `ModelManager#updateFilteredPersonList(Predicate<Person> predicate)`:
+Returns an unmodifiable view of the list of Person backed by the internal list of VersionedAddressBook
+
+These operations are exposed in the Model interface as
+Model#commitAddressBook(), Model#updatePerson(target, editedPerson) and Model#updateFilteredPersonList(Predicate<Person> predicate) respectively.
+
+Provided below is a usage scenario instance. It illustrates how the edit mechanism behaves at each step.
+
+Step 1: The user launches TheTracker for the first time. The
+`VersionedAddressBook` will be initialised with the initial address book
+state, which the `currentStatePointer` is currently pointing to.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2: The user executes `editperson 6 p/91234567 e/johndoe@example.com` command to edit the person who is of index 7 in the list and
+changes his phone number to 91234567 and email address to johndoe@example.com. The `editperson` command calls `Model#commitAddressBook()`, causing the modified
+state of addressBook after the `editperson 6 p/91234567 e/johndoe@example.com` command executes to be saved in the `addressBookStateList`, and the
+`currentStatePointer` is shifted to the newly inserted address book state.
+
+image::EditPersonCommand1StateListDiagram.png[width="800"]
+
+The following sequence diagram shows how the `editperson` operation works:
+`editperson 6 p/91234567 e/johndoe@example.com`
 
 image::EditPersonSequenceDiagram.png[width="800"]
- `editModule` and `editOccasion` works in a similar way as `editPerson`
+ `editmodule` and `editoccasion` works in a similar way as `editperson`
 // end::edit[]
 
 // tag::undoredo[]
@@ -340,7 +370,7 @@ undone state.
 These operations are exposed in the Model interface as
 Model#commitAddressBook(), Model#undoAddressBook() and Model#redoAddressBook() respectively.
 
-Provided below is an usage scenario instance. It illustrates how the
+Provided below is a usage scenario instance. It illustrates how the
 undo/redo mechanism behaves at each step.
 
 Step 1: The user launches TheTracker for the first time. The
@@ -350,7 +380,7 @@ state, which the `currentStatePointer` is currently pointing to.
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2: The user executes `add n/David...` command to add a person called
-David in his TheTracker. The `find` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `find David...` command
+David in his TheTracker. The `add` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `add David...` command
 executes to be saved in the `addressBookStateList`, and the
 `currentStatePointer` is shifted to the newly inserted address book state.
 
