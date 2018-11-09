@@ -56,7 +56,7 @@
           </VBox>
 
           <VBox minWidth="400">
-          <StackPane fx:id="browserPlaceholder">
+          <StackPane fx:id="taskViewPlaceholder">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

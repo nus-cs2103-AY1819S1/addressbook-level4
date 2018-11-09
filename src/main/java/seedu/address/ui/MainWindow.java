@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private BrowserPanel taskViewPanel;
     private AchievementPanel achievementPanel;
     private TaskListPanel taskListPanel;
     private Config config;
@@ -125,8 +125,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        taskViewPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(taskViewPanel.getRoot());
 
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
@@ -201,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        taskViewPanel.freeResources();
     }
 
     @Subscribe
