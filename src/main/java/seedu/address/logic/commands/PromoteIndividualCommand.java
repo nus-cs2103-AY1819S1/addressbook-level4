@@ -22,7 +22,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
 
     public PromoteIndividualCommand(String userInput) {
         for (String index : userInput.split("\\s+")) {
-            indexesToPromote.add(Index.fromOneBased(Integer.valueOf(index)));
+            indexesToPromote.add(Index.fromOneBased(Integer.parseInt(index)));
         }
     }
 
@@ -55,6 +55,6 @@ public class PromoteIndividualCommand extends PromoteCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_GRADUATED_STUDENTS,
-                numberOfStudentsPromoted, graduatedStudentsList.toString()));
+                numberOfStudentsPromoted, graduatedStudentsList.toString().trim()));
     }
 }

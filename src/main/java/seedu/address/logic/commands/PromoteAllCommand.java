@@ -36,6 +36,6 @@ public class PromoteAllCommand extends PromoteCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_GRADUATED_STUDENTS,
-                numberOfStudentsPromoted, graduatedStudentsList));
+                numberOfStudentsPromoted, graduatedStudentsList.toString().trim()));
     }
 }
