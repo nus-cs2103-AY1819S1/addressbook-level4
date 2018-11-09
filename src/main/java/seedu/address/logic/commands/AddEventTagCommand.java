@@ -19,8 +19,9 @@ public class AddEventTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addEventTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event tag to the address book."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event tag to the address book. "
             + "Parameters: "
+            + PREFIX_TAG + "EVENT TAG "
             + "[" + PREFIX_TAG + "EVENT TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "Meeting";
@@ -51,6 +52,7 @@ public class AddEventTagCommand extends Command {
             model.addEventTag(eventTag);
         }
         model.commitAddressBook();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

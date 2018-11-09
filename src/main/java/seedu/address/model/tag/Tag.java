@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric (A-Z, a-z, 0-9), and "
+            + "should exclude any spaces, symbols or special characters, such as '%', '*', '~'";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
@@ -30,6 +31,10 @@ public class Tag {
      */
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
+    }
+
+    public String getLowerCaseTagName() {
+        return tagName.toLowerCase();
     }
 
     /**

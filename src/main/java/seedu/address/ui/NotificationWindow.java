@@ -39,6 +39,7 @@ public class NotificationWindow {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.show();
+        window.setAlwaysOnTop(true);
 
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> window.close());
