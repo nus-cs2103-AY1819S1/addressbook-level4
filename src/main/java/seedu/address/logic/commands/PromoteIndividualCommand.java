@@ -36,7 +36,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
         int numberOfStudentsPromoted = indexesToPromote.size();
 
         for (Index i : indexesToPromote) {
-            if (i.getZeroBased() >= lastShownList.size() || i.getZeroBased() <= 0) {
+            if (i.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             Person personToPromote = lastShownList.get(i.getZeroBased());
