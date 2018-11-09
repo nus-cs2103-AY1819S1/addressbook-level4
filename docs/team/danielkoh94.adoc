@@ -1,0 +1,55 @@
+= Daniel Koh Chong Xiang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LearnVocabulary
+
+---
+
+== Overview
+
+LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
+
+== Summary of contributions
+
+* *Major enhancement*: added the trivia and trivia answer commands
+** What it does: Allows the user to start a trivia of 10 questions based on his/her vocabulary list. Finishing the 10 questions will show the user how well he/she has done in the trivia.
+** Justification: This feature allows the user to practice what they have learnt using LearnVocabulary and engages in active learning for the user. It also helps the user in remembering new words as well as provides the user an indication of how well they are doing.
+
+* *Minor enhancement*: Added the meaning class and updated the word class to accept the meaning attribute.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.0` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+***  Updated the GUI browser display to display the word selected in the word list panel and its meaning. (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/94[#94])
+***  Updated the add and edit commands to reject inputs with multiple arguments of the same prefix (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/105[#105]
+** Documentation:
+*** Did skeleton for the User Guide: https://github.com/CS2103-AY1819S1-T10-3/main/pull/128[#128]
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-1/main/issues/167[1], https://github.com/CS2103-AY1819S1-F10-1/main/issues/161[2], https://github.com/CS2103-AY1819S1-F10-1/main/issues/166[3])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=trivia]
+
+include::../UserGuide.adoc[tag=triviaother]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=trivia]
+
+

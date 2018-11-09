@@ -250,7 +250,7 @@ the default display would be the last displayed placeholder page.
 
 However, user should note that showing a word not present would not result in any changes to the Ui as it is not intended, it
 will still continue to display the previous word being selected in the panel on the right.
-
+// tag::trivia[]
 === Trivia game: `trivia`
 A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
 `trivia` will output at most 10 questions depending on the size of the user's vocabulary list.
@@ -260,7 +260,9 @@ Format `trivia`
 To answer the trivia question, simply input the answer in the command box.
 
 Format `WORD`
+// end::trivia[]
 
+// tag::triviaother[]
 ==== Other commands in `trivia`
 Show the current trivia question.
 
@@ -271,6 +273,7 @@ Exits trivia game.
 Format `triviaExit`
 
 [NOTE] The above commands can only be used when in `trivia`
+// end::triviaother[]
 
 === Listing entered commands : `history`
 
