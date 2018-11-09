@@ -18,17 +18,17 @@ import seedu.learnvocabulary.model.word.Word;
 public class SampleDataUtil {
     public static Word[] getSampleWords() {
         return new Word[] {
-            new Word(new Name("rainstorm"), new Meaning("A storm with heavy rain."), getTagSet("toLearn")),
+            new Word(new Name("rainstorm"), new Meaning("A storm with heavy rain."), getTagSet(Tag.DEFAULT_TAG)),
             new Word(new Name("hurricane"), new Meaning("A storm with a violent wind, in particular a tropical"
-                    + " cyclone in the Caribbean."), getTagSet("weather", "toLearn")),
+                    + " cyclone in the Caribbean."), getTagSet("weather", Tag.DEFAULT_TAG)),
             new Word(new Name("tsunami"), new Meaning("A long, high sea wave caused"
                     + "by an earthquake or other disturbance."), getTagSet("disasters")),
             new Word(new Name("malpractice"), new Meaning("Improper, illegal, or "
-                    + "negligent professional behaviour."), getTagSet("toLearn")),
+                    + "negligent professional behaviour."), getTagSet(Tag.DEFAULT_TAG)),
             new Word(new Name("sovereignty"), new Meaning("Supreme power or authority."),
-                    getTagSet("toLearn")),
+                    getTagSet(Tag.DEFAULT_TAG)),
             new Word(new Name("funny"), new Meaning("Causing laughter or amusement; humorous."),
-                    getTagSet("toLearn"))
+                    getTagSet(Tag.DEFAULT_TAG))
         };
     }
 

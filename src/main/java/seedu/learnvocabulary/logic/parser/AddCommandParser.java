@@ -42,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (tagList.isEmpty()) {
             tagList.add(new Tag(
-                    "toLearn"));
+                    Tag.DEFAULT_TAG));
         }
 
         Word word = new Word(name, meaning, tagList);
