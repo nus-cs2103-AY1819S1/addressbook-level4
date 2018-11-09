@@ -52,7 +52,9 @@ This project portforlio serves to document my contributions to this project, whi
 |===
 
 include::../UserGuide.adoc[tag=mc]
+
 include::../UserGuide.adoc[tag=refer]
+
 include::../UserGuide.adoc[tag=table]
 
 == Contributions to the Developer Guide
@@ -62,4 +64,5 @@ include::../UserGuide.adoc[tag=table]
 |===
 
 include::../DeveloperGuide.adoc[tag=mc]
+
 include::../DeveloperGuide.adoc[tag=referralletter]
