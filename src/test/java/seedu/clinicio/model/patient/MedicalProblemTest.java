@@ -27,9 +27,11 @@ public class MedicalProblemTest {
 
         //invalid medical problem
         assertFalse(MedicalProblem.isValidMedProb("@")); // Only non-alphanumeric characters
+        assertFalse(MedicalProblem.isValidMedProb("Asthma*")); // contains non-alphanumeric characters
 
         //valid medical problem
-        assertTrue(MedicalProblem.isValidMedProb("Asthma")); // 1 Words
+        assertTrue(MedicalProblem.isValidMedProb("Asthma")); // 1 Word
+        assertTrue(MedicalProblem.isValidMedProb("high blood pressure")); // Multiple words without captial
         assertTrue(MedicalProblem.isValidMedProb("High Blood Pressure")); // Multiple words
         assertTrue(MedicalProblem.isValidMedProb("H1N1")); // Alphabets and Numbers
 
