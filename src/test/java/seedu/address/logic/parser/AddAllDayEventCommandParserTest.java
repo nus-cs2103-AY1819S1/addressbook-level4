@@ -27,12 +27,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STRING_YEAR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_2018;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_DATE_CONSTRAINTS;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddAllDayEventCommand;
-import seedu.address.logic.commands.CreateCalendarCommand;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
@@ -48,15 +46,18 @@ public class AddAllDayEventCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+                + USER_INPUT_TITLE,
+                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
 
         // lower-case month
         assertParseSuccess(parser, LOWER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+                + USER_INPUT_TITLE,
+                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
 
         // mix-case month
         assertParseSuccess(parser, MIX_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+                + USER_INPUT_TITLE,
+                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
     }
 
     @Test

@@ -73,7 +73,7 @@ public class CommandTestUtil {
     public static final String MIX_CASE_MONTH = " " + PREFIX_MONTH + "jAn";
     public static final String UPPER_CASE_MONTH = " " + PREFIX_MONTH + "JAN";
     public static final String FOUR_DIGIT_YEAR = " " + PREFIX_YEAR + VALID_STRING_YEAR;
-    public static final String ONE_DIGIT_DATE = " " + PREFIX_DATE +  VALID_STRING_DATE;
+    public static final String ONE_DIGIT_DATE = " " + PREFIX_DATE + VALID_STRING_DATE;
     public static final String USER_INPUT_TITLE = " " + PREFIX_TITLE + VALID_CALENDAR_TITLE_OCAMP;
 
     public static final String INVALID_MONTH_CHAR_NO = " " + PREFIX_MONTH + "January";
