@@ -16,7 +16,7 @@ public class PlayableTrack implements Playable {
 
     public PlayableTrack(Track track) {
         this.track = track;
-        mediaPlayer = track.getMediaPlayer();
+        mediaPlayer = new MediaPlayer(track.getMedia());
         try {
             mediaPlayer.setOnReady(() -> {
                 System.out.println("ready");

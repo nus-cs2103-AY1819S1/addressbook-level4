@@ -60,7 +60,7 @@ public class PlayablePlaylist implements Playable {
     }
 
     @Override
-    public void seek(Duration time) {
+    public void seek(Duration time) throws CommandException {
         current.seek(time);
     }
 

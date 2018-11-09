@@ -31,7 +31,6 @@ public class Track implements Comparable {
     private final String fileNameWithoutExtension;
     private final Duration fileDuration;
     private final Media media;
-    private final MediaPlayer mediaPlayer;
 
     /**
      * Constructs a {@code Track}.
@@ -54,8 +53,9 @@ public class Track implements Comparable {
         AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
         media = new Media(file.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         this.fileDuration = media.getDuration();
+        mediaPlayer = null;
     }
 
     public Track(File file) {
@@ -66,7 +66,7 @@ public class Track implements Comparable {
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);
         media = new Media(file.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         while (mediaPlayer.getStatus() != READY) {
             try {
                 Thread.sleep(5);
@@ -75,6 +75,7 @@ public class Track implements Comparable {
             }
         }
         this.fileDuration = media.getDuration();
+        mediaPlayer = null;
     }
 
     public File getFile() {
@@ -95,10 +96,6 @@ public class Track implements Comparable {
 
     public Media getMedia() {
         return media;
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
     }
 
     public String getDisplayedFileDuration() {
