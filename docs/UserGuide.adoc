@@ -382,9 +382,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 *Examples:*
 
 * `setBudget 2.00` +
- Sets a `totalBudget` of $2.00.
+ Sets a total budget of $2.00.
 * `setBudget 20.00` +
- Sets a `totalBudget` of $20.00.
+ Sets a total budget of $20.00.
 ****
 
 [NOTE]
@@ -441,7 +441,7 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 *Example:*
 
 * `setCategoryBudget c/School b/10.00` +
-    Sets a budget of $10 to the `School` category.
+    Sets a budget of $10 for the `School` category.
 
 ****
 
@@ -450,8 +450,7 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 * The `setCategoryBudget` command is case sensitive
 * `CATEOGRY` can only consist of one keyword and `BUDGET` must be a positive number with two decimal places.
 * The sum of all Category budgets cannot exceed the total budget of
-  Expense Tracker. This is because Category budgets are used to segment your total budget. Thus, it would not make
-  sense to have a Category budget higher than your total budget.
+  Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.
 ====
 
 // end::budget[]
