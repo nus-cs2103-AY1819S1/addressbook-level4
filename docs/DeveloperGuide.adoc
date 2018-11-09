@@ -435,19 +435,50 @@ If there was some error saving the current state of the `WishTransaction` to the
 
 The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
 is facilitated mainly by the `ModelManager` which implements `Model`.
-It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their respective data structures.
-After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the latest WishBook.
+It also affects `versionedWishBook` and `versionedWishTransaction` by adding the
+resultant wish to both of their respective data structures.
+After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the
+latest version of WishBook.
 The UI is also prompted to refresh through a `WishBookChangedEvent`.
+
+`AddCommandParser` parses the user's input for parameters using prefixes,
+and checks them against their respective regular expressions (regex), specified
+in their respective classes.
+
+====
+
+The following prefix/parameter pairs are **compulsory**, where a user's input will be
+rejected if they are not provided:
+
+* `n/`: Name
+* `p/`: Price
+* One of the following Date parameters:
+** `d/`: Exact expiry date
+** `a/`: duration (or lifetime) from time when command is entered
+
+The following prefix/parameter pairs are **optional**, where a user's input will
+be successful even if they are not provided:
+
+* `t/`: tags (more than one allowed)
+* `u/`: product's URL (product page)
+
+====
 
 Given below is an example usage scenario and how an AddCommand is carried out.
 
-Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200d`, and the current date is 2nd October 2017 (2/10/2017).
+Step 1. The user types in a valid `AddCommand`, for example,
+`add n/1 TB Toshiba SSD p/158 d/200d`, and the current date is 2nd October 2017 (2/10/2017).
 
 [NOTE]
-* The Date format should be `dd/mm/yyyy` where the specified date should be a valid date in the future.
+====
+
+* The Date should be in the format of `dd/mm/yyyy`, `dd` being days,
+`mm` being months, `yyyy` being the year,
+and the specified date should also be a valid date in the future.
 * If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
 * If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.
 
+====
 The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
 `Date` attribute which follows `d/` in the command will be discussed below.
 
@@ -464,7 +495,6 @@ The resultant wish will have the following properties:
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
 
 Step 2. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
 which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
