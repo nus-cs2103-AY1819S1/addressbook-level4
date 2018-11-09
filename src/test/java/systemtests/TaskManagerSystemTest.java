@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.TaskViewPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -111,7 +111,7 @@ public abstract class TaskManagerSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
+    public TaskViewPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
     }
 
@@ -184,7 +184,7 @@ public abstract class TaskManagerSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code TaskListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code TaskViewPanelHandle}, {@code TaskListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -199,7 +199,7 @@ public abstract class TaskManagerSystemTest {
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected task.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see TaskViewPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
@@ -210,27 +210,27 @@ public abstract class TaskManagerSystemTest {
      * Asserts that the browser's url is changed to display the details of the task in the task list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see TaskViewPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(TaskViewPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-
+//        URL expectedUrl;
+//        try {
+//            expectedUrl = new URL(TaskViewPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+//        } catch (MalformedURLException mue) {
+//            throw new AssertionError("URL expected to be valid.", mue);
+//        }
+//        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+//
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the task list panel remain unchanged.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see TaskViewPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
