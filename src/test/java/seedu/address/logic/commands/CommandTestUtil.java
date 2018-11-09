@@ -54,7 +54,11 @@ public class CommandTestUtil {
     public static final Year LEAP_YEAR = new Year("2016");
     public static final Year VALID_YEAR_2018 = new Year("2018");
     public static final Year VALID_YEAR_2017 = new Year("2017");
-    public static final int VALID_CALENDAR_DATE = 1;
+    public static final int VALID_CALENDAR_DATE_1 = 1;
+    public static final int VALID_CALENDAR_DATE_2 = 2;
+    public static final int INVALID_CALENDAR_DATE = 32;
+    public static final String VALID_CALENDAR_TITLE_Ocamp = "Orientation Camp";
+    public static final String VALID_CALENDAR_TITLE_Hack = "Hackathon";
 
     public static final String VALID_STRING_JAN = "JAN";
     public static final String VALID_STRING_YEAR = "2018";

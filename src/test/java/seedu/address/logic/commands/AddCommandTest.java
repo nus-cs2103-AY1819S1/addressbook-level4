@@ -23,6 +23,7 @@ import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CalendarModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
@@ -123,6 +124,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyBudgetBook getBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CalendarModel getCalendarModel() {
             throw new AssertionError("This method should not be called.");
         }
 

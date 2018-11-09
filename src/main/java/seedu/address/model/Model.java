@@ -47,6 +47,11 @@ public interface Model {
     ReadOnlyBudgetBook getBudgetBook();
 
     /**
+     * Returns the CalendarModel
+     */
+    CalendarModel getCalendarModel();
+
+    /**
      * Returns a set of existing emails
      */
     Set<String> getExistingEmails();

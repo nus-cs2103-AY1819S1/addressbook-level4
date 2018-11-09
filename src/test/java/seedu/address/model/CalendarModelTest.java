@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.LEAP_YEAR;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_FEB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JUN;
@@ -89,14 +89,14 @@ public class CalendarModelTest {
     @Test
     public void isValidDate_nullYear_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isValidDate(null, VALID_MONTH_JAN, VALID_CALENDAR_DATE);
+        calendarModel.isValidDate(null, VALID_MONTH_JAN, VALID_CALENDAR_DATE_1);
 
     }
 
     @Test
     public void isValidDate_nullMonth_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isValidDate(VALID_YEAR_2018, null, VALID_CALENDAR_DATE);
+        calendarModel.isValidDate(VALID_YEAR_2018, null, VALID_CALENDAR_DATE_1);
 
     }
 

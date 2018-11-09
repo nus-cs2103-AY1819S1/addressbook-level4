@@ -109,6 +109,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public CalendarModel getCalendarModel() {
+        return calendarModel;
+    }
+
+    @Override
     public Set<String> getExistingEmails() {
         return emailModel.getExistingEmails();
     }
