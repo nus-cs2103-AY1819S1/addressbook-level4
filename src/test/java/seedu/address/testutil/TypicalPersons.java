@@ -102,6 +102,9 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an {@code ArchiveList} with all the typical persons.
+     */
     public static ArchiveList getTypicalArchiveList() {
         ArchiveList al = new ArchiveList();
         for (Person person: getTypicalArchivedPersons()) {
