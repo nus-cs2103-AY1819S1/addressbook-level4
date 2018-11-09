@@ -26,7 +26,7 @@ This project portfolio summarizes the contributions that I have done to the Even
 ** Highlights: The implementation  was challenging as it required reading of documentation and analysing how nusmods handles external api requests (valid and invalid)
 ** Credits: JSON Reference from [https://github.com/nusmodifications/nusmods-api[NusMods API]]
 
-* *Minor enhancement*: added a schedule comparsion command that allows the user to compare multiple schedule to get the possible free slots.
+* *Minor enhancement*: added a schedule comparison command that allows the user to compare multiple schedules to get the possible free slots.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Functional code]]
 

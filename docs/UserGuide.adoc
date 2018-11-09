@@ -244,7 +244,7 @@ Suggests friends for the 1st user in the Event Organiser that have at least one 
 // tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`
 
-Compares the schedule of multiple users and return a string of common free time. LIMIT is a XXXX-XXX specified timing to limit the time range displayed. +
+Compares the schedule of multiple users and return a string of common free time slots. LIMIT is a XXXX-XXX specified timing to limit the time range displayed. +
 Format: `maxSchedule INDEX INDEX [sl/ LIMIT]...`
 
 Example:
