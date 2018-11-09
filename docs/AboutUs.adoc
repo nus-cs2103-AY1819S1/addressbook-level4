@@ -15,6 +15,7 @@ image::harryqu123.png[width="150", align="left"]
 {empty}[https://github.com/Harryqu123[github]]
 
 In charge of: Deliverables and deadlines
+Responsibilities: Ensure things are not done at last minute.
 '''
 
 === Alexander Ehrs
@@ -22,18 +23,21 @@ image::alexehrs.png[width="150", align="left"]
 {empty}[http://github.com/alexehrs[github]]
 
 In charge of: Documentation
+Responsibilities: Ensures documentation done properly.
 '''
 
 === Russell Ong
 image::russellong95.png[width="150", align="left"]
-{empty}[https://github.com/russellong95[github]]
+{empty}[https://github.com/russellong95[github]][<<russellong95#, portfolio>>]
 
-In charge of: Team Lead and Testing
+In charge of: Team Lead, Testing and Integration
+Responsibilities: Responsible for overall project coordination, ensure testing quality.
 '''
 
 === Daniel Koh
 image::danielkoh94.png[width="160", align="left"]
-{empty}[https://github.com/danielkoh94[github]]
+{empty}[https://github.com/danielkoh94[github]][<<danielkoh94#, portfolio>>]
 
 In charge of: Coding Quality
+Responsibilities: Ensures code is of quality.
 '''
