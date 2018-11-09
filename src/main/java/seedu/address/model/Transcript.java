@@ -302,11 +302,7 @@ public class Transcript implements ReadOnlyTranscript {
                 + calculateTotalModulePoint(adjustedModules);
 
         if (totalUngradedModuleCredit == 0) {
-            if (totalMc == 0) {
-                throw new CapGoalIsImpossibleException();
-            }
-            double adjustedCap = currentTotalPoint / totalMc;
-            if (capGoal.getValue() > adjustedCap) {
+            if (totalMc == 0 || capGoal.getValue() > currentTotalPoint / totalMc) {
                 throw new CapGoalIsImpossibleException();
             }
             throw new NoTargetableModulesException();
@@ -373,13 +369,15 @@ public class Transcript implements ReadOnlyTranscript {
     private double getUnitScoreToAchieve(double totalUngradedModuleCredit, double totalScoreToAchieve)
             throws CapGoalIsImpossibleException {
         if (totalUngradedModuleCredit <= 0) {
-            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
+            logger.warning("Total Amount of ungraded Module Credit is 0 or lesser.");
+            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative.");
         }
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         if (unitScoreToAchieve > 5) {
             throw new CapGoalIsImpossibleException();
         }
         if (unitScoreToAchieve <= 0.5) {
+            logger.info("Unit score to achieve is the minimum");
             return 0.1;
         }
         return unitScoreToAchieve;
@@ -411,6 +409,9 @@ public class Transcript implements ReadOnlyTranscript {
         removeTargetFromTargetedModules();
     }
 
+    /**
+     * Removes the given target grades to incomplete modules
+     */
     private void removeTargetFromTargetedModules() {
         List<Module> targetedModules = getTargetedModulesList();
         List<Module> targetRemovedModules = new ArrayList<>();
