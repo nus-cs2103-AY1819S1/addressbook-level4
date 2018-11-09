@@ -14,6 +14,7 @@ import seedu.address.model.filereader.FileReader;
 public class ImportContactsCommand extends Command {
 
     public static final String COMMAND_WORD = "importContacts";
+    public static final String COMMAND_WORD_ALIAS = "ic";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports all contacts from a contact list to "
             + "the address book. "
             + "Parameters: "
