@@ -745,10 +745,7 @@ public class ConnectToGoogleCalendar {
      * @return true if it is disabled
      */
     private boolean statusIsDisabled(boolean enabled) {
-        if (!enabled | isGoogleCalendarDisabled()) {
-            return true;
-        }
-        return false;
+        return !enabled | isGoogleCalendarDisabled();
     }
 
     private String getRecurringEventId(Event eventToEdit, Calendar service) {
