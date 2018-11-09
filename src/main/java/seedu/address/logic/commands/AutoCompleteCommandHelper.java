@@ -32,7 +32,9 @@ public class AutoCompleteCommandHelper {
         ListAssignmentCommand.COMMAND_WORD,
         EditAssignmentCommand.COMMAND_WORD,
         DeleteAssignmentCommand.COMMAND_WORD,
-        ViewPermissionCommand.COMMAND_WORD
+        ViewPermissionCommand.COMMAND_WORD,
+        ActiveCommand.COMMAND_WORD,
+        AssignmentCommand.COMMAND_WORD
     };
 
     /**

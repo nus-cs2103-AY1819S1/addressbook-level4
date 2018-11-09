@@ -6,9 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ActiveCommand;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.AssignmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
@@ -35,6 +37,7 @@ import seedu.address.logic.commands.SelfEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.project.Assignment;
 
 /**
  * Parses user input.
@@ -68,6 +71,9 @@ public class AddressBookParser {
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommand();
+
+        case ActiveCommand.COMMAND_WORD:
+            return new ActiveCommand();
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -143,6 +149,9 @@ public class AddressBookParser {
 
         case SelfEditCommand.COMMAND_WORD:
             return new SelfEditCommandParser().parse(arguments);
+
+        case AssignmentCommand.COMMAND_WORD:
+            return new AssignmentCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
