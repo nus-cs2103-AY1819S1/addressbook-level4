@@ -125,7 +125,7 @@ public class FileReader {
                 facultyIndex = i;
             }
         }
-        // return true if nameIndex and phoneIndex is valid
+        // return true if nameIndex, phoneIndex, addressIndex, emailIndex and facultyIndex is valid
         return nameIndex != -1 && phoneIndex != -1 && addressIndex != -1 && emailIndex != -1 && facultyIndex != -1;
     }
 
