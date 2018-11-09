@@ -16,8 +16,10 @@ import seedu.scheduler.model.tag.Tag;
  */
 public class Event {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "Event's start date and time should be before event's end date and time";
+    public static final String MESSAGE_START_END_DATETIME_CONSTRAINTS =
+            "Event's start date and time should be equal or before event's end date and time";
+    public static final String MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS =
+            "Event's end date and time should be equal or before event's repeat until date and time";
 
     // Identity fields
     private final UUID eventUid; //distinct for recurring events
