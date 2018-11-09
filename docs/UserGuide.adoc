@@ -87,7 +87,7 @@ Each of them contains a compulsory field, optional fields, optional tags and rel
 All three types of entries contain the following fields:
 
 ****
-* Tags - One or more alphanumeric strings (A-Z, 0-9), with no limit on length. +
+* *Tags* - One or more alphanumeric strings (A-Z, 0-9), with no limit on length. +
 Note: An entry can have 0 or any positive number of tags. +
 Valid: Friend, CS2103, Must RSVP +
 Invalid: Buddy!, CS2103:(, 25/12/2018
@@ -98,21 +98,21 @@ Invalid: Buddy!, CS2103:(, 25/12/2018
 A *Person* has the following fields:
 
 ****
-* Name (compuslory) - One or more alphanumeric strings, with no limit on length. +
+* *Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
 Valid: Ashwin Raj, Damith Rajapakse, Bob12345 +
 Invalid: Ashwin Raj S/O Yadav, Damith C. Rajapakse, Bob12345!!!
 
-* Phone Number - 3 or more digits (0-9), with no limit on length. +
+* *Phone Number* - 3 or more digits (0-9), with no limit on length. +
 Valid: 999, 1800123456, 659192939495 +
 Invalid: 9, 1800 123456, +659192939495
 
-* Email - A single string with an @ character in between the username and domain name. +
+* *Email* - A single string with an @ character in between the username and domain name. +
 Username can contain the following special characters: !#$%&'*+/=?`{|}~^.- +
 Domain name should be at least 3 letters long. +
 Valid: alex@abc, bob123@xyz.com, example!123@nus.edu.sg +
 Invalid: alex, bob@co, example@123@nus.edu.sg
 
-* Address - Any non-blank input, with no limit on length. +
+* *Address* - Any non-blank input, with no limit on length. +
 Valid: NIL, Singapore, 123 Clementi Ave 999 S(654123)
 ****
 A person will also have a *module list* and *occasion list*. These are comprised of modules and occasions that *are currently* in the address book. +
@@ -126,21 +126,21 @@ Use with caution, as they may be difficult to distinguish (e.g. in a module's re
 A *Module* has the following fields:
 
 ****
-* Module Code (compulsory) - 2 or 3 letters, followed by 4 digits and an optional letter behind. +
+* *Module Code* (compulsory) - 2 or 3 letters, followed by 4 digits and an optional letter behind. +
 Note: Does not check whether the module is an actual NUS module. +
 Valid: CS2103, CS2103T, GER1001 +
 Invalid: CS210, CS2103AB, GER10000
 
-* Module Title - One or more alphanumeric strings, with no limit on length. +
+* *Module Title* - One or more alphanumeric strings, with no limit on length. +
 Note: Does not check whether the module title matches the module code. +
 Valid: Software Engineering, Programming Methodology, A very annoying module +
 Invalid: Software Engineering!, Object-Oriented Design, ARGH:o
 
-* Academic Year - 4 digit number, with the first and last 2 numbers representing consecutive years. +
+* *Academic Year* - 4 digit number, with the first and last 2 numbers representing consecutive years. +
 Valid: 1819, 9900, 0001, 0304 +
 Invalid: 123, AY1819, 18/19, 2018
 
-* Semester - 1 digit number between 1 and 4. +
+* *Semester* - 1 digit number between 1 and 4. +
 Remark: Semesters 3 and 4 are used to refer to Special Term I and II. +
 Valid: 1, 2, 3, 4 +
 Invalid: Sem 1, 01, 1819/1
@@ -157,16 +157,16 @@ Use with caution, as they may be difficult to distinguish (e.g. in a person's mo
 An *Occasion* has the following features:
 
 ****
-* Occasion Name (compuslory) - One or more alphanumeric strings, with no limit on length. +
+* *Occasion Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
 Valid: Project Discussion, CS2103 Exam, Recess Week +
 Invalid: Ad-hoc Work, Meeting**, Friend's Birthday
 
-* Occasion Date - Date in YYYY-MM-DD format. +
-Remark: Checks whether date is valid.
+* *Occasion Date* - Date in YYYY-MM-DD format. +
+Remark: Checks whether date is valid. +
 Valid: 2018-11-13, 2000-02-29, 2010-10-31 +
 Invalid: 2018/11/13, 2001-02-29, 2010-09-31
 
-* Occasion Location - One or more alphanumeric strings, with no limit on length. +
+* *Occasion Location* - One or more alphanumeric strings, with no limit on length. +
 Valid: Home, NUS COM1, 123 Clementi Rd +
 Invalid: John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)
 ****
