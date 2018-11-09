@@ -16,6 +16,7 @@ class TimeTest {
         Assert.assertThrows(ParseException.class, () -> new Time("faketime"));
         Assert.assertThrows(ParseException.class, () -> new Time("2500"));
         Assert.assertThrows(ParseException.class, () -> new Time("2400"));
+        Assert.assertThrows(ParseException.class, () -> new Time("xxx0"));
     }
 
 
