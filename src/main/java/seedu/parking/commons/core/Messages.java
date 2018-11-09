@@ -5,6 +5,7 @@ package seedu.parking.commons.core;
  */
 public class Messages {
 
+    // CarparkFinderParser
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND =
@@ -32,4 +33,8 @@ public class Messages {
             + "tipulated timing.";
     // Todo: add FORMAT to those with %1$
     public static final String MESSAGE_COST_OF_PARKING = "Cost of parking is $%1$.2f.";
+
+    // auto-complete
+    public static final String MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE =
+        "Auto completion failed with this command word.";
 }
