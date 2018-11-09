@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandModuleTestUtil.ACADEMICYEAR_DESC_CS2100;
@@ -25,7 +24,6 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_BINAR
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCULUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
-import static seedu.address.testutil.ModuleUtil.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MA1101R;
@@ -46,7 +44,6 @@ import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ModuleBuilder;
-import seedu.address.testutil.ModuleUtil;
 
 public class EditModuleCommandSystemTest extends AddressBookSystemTest {
 
