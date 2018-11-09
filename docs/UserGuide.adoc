@@ -90,14 +90,14 @@ Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY`
 ====
 * A person can have any number of tags (including 0)
 * A person can have 1 or many phone numbers
-* A person can have no faculty using '-', else faculty names are based on NUS naming conventions
 * A person's tags will be converted to lowercase regardless of the input (upper or lower case)
+* A person can have no faculty using '-', else faculty names are based on NUS naming conventions (i.e. SOC, FOC, YSTCOM, YLLSOM, FOE, BIZ, SDE, FOD, FOL)
 ====
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/-`
+* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC`
 
 === Listing all persons : `list`, alias `ls`
 
@@ -287,15 +287,25 @@ Examples:
 * `createGroup group/CS2103Group`
 ////
 
-=== Suggested Location : `generateLocation`
+=== Show Faculty Location : `showLocation`
 
-Creates a suggested location to meet up based on each team member’s faculty.
+Shows the location of the person's (identified by index number) faculty in the the location display panel.
 
-Format: `generateLocation event/EVENT_NAME group/GROUP_NAME`
+Format: `showLocation INDEX`
 
 Examples:
 
-* `generateLocation event/First Meeting group/CS2103Group`
+* `showLocation 5`
+
+=== Suggested Location : `generateLocation`
+
+Creates a suggested location to meet up for an event.
+
+Format: `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME`
+
+Examples:
+
+* `generateLocation n/First Meeting d/2018-04-06 st/1600`
 
 // tag::addEvent[]
 === Adding an event: `addEvent`
@@ -499,11 +509,13 @@ image::find-event-lecture-class.PNG[Finding an event]
 Import contacts from a specified csv file. +
 CSV file has to be exported from google contacts as Google CSV. +
 
+image::import-contacts-as-google-csv.PNG[Adding an event]
+
 [TIP]
 ====
-* Ensure that First Name, Email, Phone Number, Address and Company (faculty) is filled up
-* Any missing field will result in failure in importing contacts
-* Exported csv file will be named: google.csv
+* Ensure that First Name, Email, Phone Number, Address and Company (Faculty) is filled with valid input
+* Any missing field or invalid input will result in failure in importing contacts
+* Exported csv file should be named as google.csv
 ====
 
 Format: `importContacts file/ABSOLUTE_FILEPATH`
@@ -732,19 +744,18 @@ Examples:
 | *Find Persons* | `find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
 | *List Persons* | `list` |
 | *Select Person* | `select INDEX` | `select 2`
-
 // * *Create Group *: `createGroup group/GROUP_NAME` +
 // e.g. `createGroup group/CS2103Group`
 // * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
 // e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
-
-| *Suggest Location* | `generateLocation event/EVENT_NAME group/GROUP_NAME` | `generateLocation event/First Meeting group/CS2103Group`
+| *Show Faculty Location visually* | `showLocation INDEX` | `showLocation 5`
+| *Suggest Location* | `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME` | `generateLocation n/First Meeting d/2018-01-14 st/1330`
 | *Add Event* | `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 | `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
 | *Delete Event* | `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `deleteEvent d/2018-10-18 i/1`
 | *Edit Event Address* | `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS` +
 | `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
-| *Add Event Tag* | `addEventTag [t/EVENT_TAG...]` | `addEventTag t/Lecture t/Dinner`
+| *Add Event Tag* | `addEventTag EVENT_TAG [t/EVENT_TAG...]` | `addEventTag t/Lecture t/Dinner`
 | *List Events* | `listEvent` |
 | *Find Events by Event Tag(s)* | `findEvent EVENT_TAG [EVENT_TAG...]` | `findEvent Class lecture`
 | *Import Contacts* | `importContacts file/FILEPATH` | `importContacts file/~/Downloads/contacts1.csv`

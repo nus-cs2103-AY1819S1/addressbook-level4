@@ -267,7 +267,7 @@ The favourite command will update favouriteEvent regardless of whether the new f
 
 ==== Aspect: How favourite is updated
 
-* **Alternative 1 (current choice):** Re-assign Model's favouriteEvet regardless of previous preference
+* **Alternative 1 (current choice):** Re-assign Model's favouriteEvent regardless of previous preference
 ** Pros: Easy to implement.
 ** Cons: Wasteful in the case of same favorite event.
 * **Alternative 2:** Check current favouriteEvent and only assign new value if it is different from the previous value.
@@ -691,20 +691,91 @@ For each of the following lines until end of file, `Person` is created using ind
 Returned `Person` objects are then inserted into `UniquePersonsList` with validation. +
 The number of successful inserts and duplicated will be returned to display after reading EOF. +
 
-The following sequence diagram shows how the readImportContactsFile operatoin works:
+The following sequence diagram shows how the readImportContactsFile operation works:
 
 image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
+=== Show Person's faculty location visually
+==== Current Implementation
+
+The displaying of the a ``Person``'s faculty is facilitated by the newly added `Faculty` field in the `Person` class. This
+`Faculty` field is defined as a separate class (akin to other classes constituting the `Person` class such as `Email` and `Address`).
+
+During the adding of ``Person``'s to the EventsPlus+ address book, the `Faculty` class will ensure that the argument passed in is that of
+a valid NUS faculty. It does this via an inner enum class called `Faculties` which stores as constants the only accepted `Faculty`
+argument values. The `isInEnum` method is used to check that the argument passed already exists as one of the constants.
+
+The valid arguments allowed are namely:
+
+* SOC (School of Computing)
+* FOS (Faculty of Science)
+* YLLSOM (Yong Loo Lin School of Medicine)
+* FOD (Faculty of Dentistry)
+* BIZ (NUS Business School)
+* SDE (School of Design and Environment)
+* FOE (Faculty of Engineering)
+* FOL (Faculty of Law)
+* YSTCOM (Yong Siew Toh Conservatory of Music)
+* FASS (Faculty of Arts and Social Sciences)
+
+A "-" response is also allowed as it is possible that the address book may indeed have contacts who are not in NUS at the
+current point in time.
+
+The command used to display the faculty visually is `showLocation`.
+
+In addition to the `Faculty` field, the showLocation command is assisted by Google Maps Embed API that allows for locations
+to be displayed visually in a separate tab, Location Display Tab. Google Maps uses unique Place IDs to identify locations
+on the map. For each faculty, these place IDs are stored in a newly created class `EmbedGoogleMaps` in the logic component of the
+application. Together with the Google Maps API key, the place ID allows for the generation of the exact spot of the person's
+faculty to be displayed in the Location Display Tab.
+
+When the (correct) showLocation command is input together with the index of the individual whose faculty location is to be displayed,
+the index is first checked to determine if it is correct (more than 0 and not larger than the size of the list of contacts
+in the address book). Following this, the appropriate person is obtained from the `FilteredPersonList` (note: this is so as to allow
+the displaying of the contact's faculty location even if the list is filtered).
+
+A event, `FacultyLocationDisplayChangedEvent`, also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
+Display Tab) and subsequently by `LocationDisplayPanel`. The status message will show "Selected person: [INDEX] faculty location being displayed."
+
+If the contact has no faculty, a default location - University Hall - is displayed on the map.
+
+The above-mentioned information can be represented in the following sequence diagram:
+
+image::showLocation_UI_LogicManager_seqDiagram.PNG[width="800"]
+
+image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
+
 //tag::meetinglocation[]
-=== Meeting Location
+=== Generate a random meeting location for event
 
-The meeting location mechanism is facilitated by the presence of a Faculty field in the Person class.
+The generation of a random meeting location primarily builds upon the visual display of a ``Person``'s faculty. However
+there are a few key differences in the process that one needs to take note of.
 
-The Faculty field stores the information about the person's location using conventional NUS naming (e.g. SDE, COM).
+The command used to generate this possible meeting location is `generateLocation`.
 
-The information from this field will be used to perform Google Maps URL API calls so as to display a common meeting location for two people.
-// end::meetinglocation[]
+In order to generate a random location for an event, the user needs to input (in addition to the command) the event name,
+event date and event time. This is to detect the unique event (because some events may have the same name) and to ensure
+that this event is currently in the address book.
+
+Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
+these kind of commands. The GenerateLocationCommand object created will then consist of three fields:
+
+* Event name
+* Event date
+* Event start time
+
+The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
+commands before the object is created. Following this, the address book is checked to determine whether this event does
+exist and if it does the status message indicates that a meeting location has been generated, if not it indicates to the user
+that such as event does not exist.
+
+A random meeting location is generated based on 7 locations (for now) that have their Google Maps Place IDs stored in the EmbedGoogleMaps class.
+A call to the method that generates this location (more specifically, returns the Place ID of the location) is made in the execute
+method of the GenerateLocationCommand.
+
+Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
+Display Tab) and subsequently by `LocationDisplayPanel`.
 
 === Logging
 
@@ -1213,7 +1284,10 @@ Typical university student who
 Our enhanced Addressbook application will offer its users the following benefits:
 
 * Avoid contact duplication, so the user has a clean and well-maintained address book.
-* Provide suggested locations and timings for events or meetings based on participants’ locations and timetable. This eases for the user the process of asking people for available timings / places to meet, by automating it.
+* Show location of a person's faculty visually, so that it is easier for user to see the location
+(and can even use the embedded Google Maps to show walking directions).
+* Provide suggested locations for events or meetings to prevent the need for the user to spend energy thinking
+about where the group can meet by providing a list of locations that can be considered.
 * Notifications to alert the user to favourited events
 * Allow the user to import contacts from an external source
 * Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
@@ -1355,43 +1429,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== UC3: Create new group
-
-*MSS*
-
-. User requests to add new group of persons
-. System creates a new group with that name and displays the newly created group
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The input information is invalid.
-+
-** 1a1. System shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== UC4: View contacts for a group
-
-*MSS*
-
-. User requests to view contacts for a particular group
-. System displays all contacts in that group
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The group name is invalid.
-+
-** 1a1. System shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== UC5: Add events
+=== UC3: Add events
 
 *MSS*
 
@@ -1407,7 +1445,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: View all events
+=== UC4: View all events
 
 *MSS*
 
@@ -1426,7 +1464,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC8: Delete an event
+=== UC5: Delete an event
 
 Guarantees: Only the selected event will be deleted from the existing list.
 
@@ -1460,23 +1498,37 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: Find common event location
+=== UC7: Show contact's faculty location visually
 
 *MSS*
 
-. User selects the event that he/she wants to find the common event location for.
-. System performs API calls with Google Maps API to generate the most central location for all members.
-. User accepts or rejects the generated location.
-. System sets event location.
+. User selects a person that he/she wants to have their faculty location displayed on Google Maps.
+. System makes Google Maps Embed API calls to display this location.
+. System switches to the location display tab automatically to show the result.
+
+Use case ends.
+
+[discrete]
+=== UC8: Generate possible event location
+
+*MSS*
+
+. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. System randomly generates a meeting location from those stored and displays it to user in location display tab using Google Maps Embed API.
+. User considers the location and deems it to be acceptable or not.
+. System indicates in status message what course of action to take from here.
 
 *Extensions*
 
-* 3a. User rejects the generated location.
-** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
-** 3a2. If user does not state location, no common event location is set and use case ends.
+* 4a. User accepts the generated location.
+** 4a1. User uses the editEventLocation command (as indicated in the status message) to edit event location with the one generated.
+** 4a2. Handling of the editing of event location is taken care of by editEventLocation command.
+** 4a3. If user does not like the generated location, user does not have to do anything and continues using the application according to what he/she wants to do.
++
+Use case ends.
 
 [discrete]
-=== UC8: Import contacts
+=== UC9: Import contacts
 
 *MSS*
 
@@ -1506,7 +1558,43 @@ Use case ends.
 === Coming in V2.0
 
 [discrete]
-=== UC9: Find groups by keyword
+=== UC10: Create new group
+
+*MSS*
+
+. User requests to add new group of persons
+. System creates a new group with that name and displays the newly created group
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The input information is invalid.
++
+** 1a1. System shows an error message.
++
+Use case ends.
+
+[discrete]
+=== UC11: View contacts for a group
+
+*MSS*
+
+. User requests to view contacts for a particular group
+. System displays all contacts in that group
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The group name is invalid.
++
+** 1a1. System shows an error message.
++
+Use case ends.
+
+[discrete]
+=== UC12: Find groups by keyword
 
 *MSS*
 
@@ -1517,7 +1605,7 @@ Use case ends.
 User case ends.
 
 [discrete]
-=== UC10: View contacts by tag
+=== UC13: View contacts by tag
 
 *MSS*
 
@@ -1536,7 +1624,7 @@ User case ends.
 Use case ends.
 
 [discrete]
-=== UC11: Import timetable
+=== UC14: Import timetable
 
 *MSS*
 
@@ -1561,7 +1649,7 @@ User case ends.
 Use case ends.
 
 [discrete]
-=== UC12: Message multiple users
+=== UC15: Message multiple users
 
 *MSS*
 
@@ -1573,6 +1661,26 @@ Use case ends.
 
 User case ends.
 
+=== UC16: Generate possible event location based on people tagged to event
+
+_Note: this builds on the existing functionality of Use Case 8._
+
+*MSS*
+
+. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. System generates a meeting location based on the people tagged to it (i.e. it finds a convenient meeting location for all).
+. System displays this location to the user in location display tab using Google Maps Embed API.
+. User considers the location and deems it to be acceptable or not.
+. System indicates in status message what course of action to take from here.
+
+*Extensions*
+
+* 5a. User accepts the generated location.
+** 5a1. User uses the editEventLocation command (as indicated in the status message) to edit event location with the one generated.
+** 5a2. Handling of the editing of event location is taken care of by editEventLocation command.
+** 5a3. If user does not like the generated location, user does not have to do anything and continues using the application according to what he/she wants to do.
++
+
 *Extensions*
 
 * 3a. User exits email screen without sending email.
@@ -1581,32 +1689,6 @@ User case ends.
 +
 Use case ends.
 
-[discrete]
-=== UC13: Import contacts
-
-*MSS*
-
-. User request to import contacts.
-. System records and displays how many successfully added and duplicates.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid file path (not a file or not an absolute path).
-** 1a1. System displays invalid file path.
-+
-Use case ends.
-+
-* 2a. System detects empty file.
-** 2a1. System displays empty file.
-+
-Use case ends.
-* 2b. System detects invalid csv format (cannot find compulsory header in csv).
-** 2b1. System displays invalid csv file.
-+
-Use case ends.
 
 ////
 
@@ -1658,15 +1740,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The application will launch in full screen.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to a size of your preference. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -1677,15 +1757,34 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Showing a person's faculty
+
+. Showing a person's faculty visually while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `showLocation 1` +
+   Expected: First contact's faculty location is displayed visually. Status message indicates that selected person's faculty location is being displayed.
+.. Test case: `showLocation 0` +
+   Expected: No contact's location is displayed. Status message indicates that command is incorrect and shows proper usage.
+.. Other incorrect faculty location display commands: `showLocation`, `showLocation x` (where x is larger than the list size).
+
+=== Generating a possible meeting location
+
+. Generating a possible meeting location for an event
+
+.. Prerequisites: Event must already exist inside the current list of events stored.
+.. Test case: `generateLocation n/Meeting d/2018-04-01 st/1400` +
+   Expected: A random meeting location (Kent Ridge MRT, YIH, Coffee Roasters, Humble Origins, i3, The Deck or The Terrace) is generated and displayed.
+   Status message indicates that meeting location is being generated and what to do if meeting location is acceptable.
+.. Test case: `generateLocation n/Meeting` +
+   Expected: No possible meeting location is displayed. Status message indicates that command is incorrect and shows proper usage.
+.. Other incorrect faculty location display commands: `generateLocation`, `generateLocation st/1400`, `generateLocation d/2018-04-01`
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
