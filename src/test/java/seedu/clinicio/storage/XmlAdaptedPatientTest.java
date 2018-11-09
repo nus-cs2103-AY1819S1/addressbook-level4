@@ -1,12 +1,14 @@
 package seedu.clinicio.storage;
 
 import static org.junit.Assert.assertEquals;
+
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
 
 public class XmlAdaptedPatientTest {
