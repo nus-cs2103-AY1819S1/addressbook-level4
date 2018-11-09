@@ -32,7 +32,6 @@ public class LibraryParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Playlist playlist = new PlaylistBuilder().build();
-        System.out.println(PlaylistUtil.getPlaylistNewCommand(playlist));
         PlaylistNewCommand command = (PlaylistNewCommand) parser.parseCommand(
                 PlaylistUtil.getPlaylistNewCommand(playlist));
         assertEquals(new PlaylistNewCommand(playlist), command);
@@ -60,7 +59,6 @@ public class LibraryParserTest {
     // @Test
     // public void parseCommand_find() throws Exception {
     //     List<String> keywords = Arrays.asList("foo", "bar", "baz");
-    //     System.out.println(PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect
     // (Collectors.joining(" ")));
     //     PlaylistSearchCommand command = (PlaylistSearchCommand) parser.parseCommand(
     //             PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect(Collectors.joining(" ")));

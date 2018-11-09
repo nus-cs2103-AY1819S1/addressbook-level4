@@ -54,7 +54,6 @@ public class Main {
 
             // Format to JSON
             final String json = gson.toJson(library);
-            System.out.println(json);
             try (PrintWriter out = new PrintWriter(s + "library.json")) {
                 out.println(json);
             }

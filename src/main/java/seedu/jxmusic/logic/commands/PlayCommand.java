@@ -36,7 +36,6 @@ public class PlayCommand extends Command {
     }
 
     public PlayCommand(Playlist playlist) {
-        System.out.println("playing playlist");
         argPlaylist = playlist;
         if (argPlaylist == null) {
             mode = PlayMode.DEFAULT_PLAYLIST;
@@ -46,7 +45,6 @@ public class PlayCommand extends Command {
     }
 
     public PlayCommand(Track track) {
-        System.out.println("playing track");
         argTrack = track;
         if (argTrack == null) {
             mode = PlayMode.DEFAULT_TRACK;
@@ -59,14 +57,12 @@ public class PlayCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         switch (mode) {
         case CONTINUE_FROM_PAUSE:
-            System.out.println("playing from pause");
             if (player.getStatus() == Playable.Status.UNINITIALIZED) {
                 throw new CommandException(MESSAGE_NOT_PAUSED);
             }
             player.play();
             break;
         case DEFAULT_PLAYLIST:
-            System.out.println("playing default playlist");
             if (player.getStatus() != Playable.Status.UNINITIALIZED) {
                 player.stop();
             }
@@ -80,7 +76,6 @@ public class PlayCommand extends Command {
             player.play(firstPlaylist);
             break;
         case SPECIFIC_PLAYLIST:
-            System.out.println("playing specific playlist");
             if (player.getStatus() != Playable.Status.UNINITIALIZED) {
                 player.stop();
             }
@@ -99,7 +94,6 @@ public class PlayCommand extends Command {
             player.play(specifiedPlaylist);
             break;
         case DEFAULT_TRACK:
-            System.out.println("playing default track");
             if (player.getStatus() != Playable.Status.UNINITIALIZED) {
                 player.stop();
             }
@@ -112,7 +106,6 @@ public class PlayCommand extends Command {
             player.play(firstTrack);
             break;
         case SPECIFIC_TRACK:
-            System.out.println("playing specific track");
             if (player.getStatus() != Playable.Status.UNINITIALIZED) {
                 player.stop();
             }
@@ -129,7 +122,6 @@ public class PlayCommand extends Command {
             player.play(specifiedTrack);
             break;
         default:
-            System.out.println("unexpected default case");
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
