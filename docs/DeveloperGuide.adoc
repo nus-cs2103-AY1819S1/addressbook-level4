@@ -927,7 +927,7 @@ Use case resumes at step 2.
 
 1.  User enters a word to add to the review list.
 2.  System checks if word exists in the LearnVocabulary
-3.  Status will appear saying word has been successfully added. 
+3.  Status will appear saying word has been successfully added.
 4.  It also displays the meaning of the word.
 +
 Use case ends
