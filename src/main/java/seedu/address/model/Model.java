@@ -241,5 +241,10 @@ public interface Model {
      * Checks if currentUser has been set.
      */
     boolean hasSetCurrentUser();
-}
 
+    /**
+     * Checks if a person is the current user.
+     * @param person the Person to be checked.
+     */
+    boolean authorisationCanBeGivenTo(Person person);
+}
