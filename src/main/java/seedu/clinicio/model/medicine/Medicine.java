@@ -67,10 +67,20 @@ public class Medicine {
     }
 
     /**
-     * Returns true if both medicines are the same.
+     * Returns true if both medicines have the same name, type, ed, and ld.
+     * This defines a weaker notion of equality between two medicines.
      */
     public boolean isSameMedicine(Medicine other) {
-        return this.equals(other);
+        if (other == this) {
+            return true;
+        }
+
+        boolean isSame = other != null
+                && other.getMedicineName().equals(getMedicineName())
+                && other.getMedicineType().equals(getMedicineType())
+                && other.getEffectiveDosage().equals(getEffectiveDosage())
+                && other.getLethalDosage().equals(getLethalDosage());
+        return isSame;
     }
 
     /**

@@ -13,13 +13,13 @@ public class MedicineType {
 
     public static final String MESSAGE_MEDICINE_TYPE_CONSTRAINTS =
             "Medicine types should be one of the following common types: "
-            + "Tablet, Capsule, Liquid, Topical, Inhaler";
+            + "Tablet, Liquid, Topical, Inhaler";
 
     /*
      * The first character of the medicine name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String MEDICINE_TYPE_VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String MEDICINE_TYPE_VALIDATION_REGEX = "^[a-zA-Z]+$*";
 
     public final String medicineType;
 
@@ -39,8 +39,8 @@ public class MedicineType {
      */
     public static boolean isValidType(String test) {
         String toTest = test.toLowerCase();
-        if ("tablet".equals(toTest) || "capsule".equals(toTest) || "liquid".equals(toTest)
-                || "topical".equals(toTest) || "inhaler".equals(toTest)) {
+        if ("tablet".equals(toTest) || "liquid".equals(toTest) || "topical".equals(toTest)
+                || "inhaler".equals(toTest)) {
             return test.matches(MEDICINE_TYPE_VALIDATION_REGEX);
         } else {
             return false;

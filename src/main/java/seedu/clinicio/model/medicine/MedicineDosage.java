@@ -12,8 +12,8 @@ import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 public class MedicineDosage {
 
     public static final String MESSAGE_MEDICINE_DOSAGE_CONSTRAINTS =
-            "Medicine dosages should only contain numbers, and it should be at most 4 digits long";
-    public static final String MEDICINE_DOSAGE_VALIDATION_REGEX = "\\d{0,4}";
+            "Medicine dosages should only contain numbers, and it should be between 1 to 4 digits long";
+    public static final String MEDICINE_DOSAGE_VALIDATION_REGEX = "\\d{1,4}";
     public final String medicineDosage;
 
     /**
