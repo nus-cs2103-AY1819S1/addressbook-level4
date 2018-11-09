@@ -836,6 +836,7 @@ There is no need to save manually.
 |finish |- |`finish` |`finish`
 |payment |`pay`  |`payment INDEX` |`payment 6`
 |=======================================================================
+// end::table[]
 
 === Document Generation
 
@@ -858,4 +859,3 @@ There is no need to save manually.
 |redo |`r`  |`redo` |`redo`
 |exit |-  |`exit` |`exit`
 |=======================================================================
-// end::table[]
