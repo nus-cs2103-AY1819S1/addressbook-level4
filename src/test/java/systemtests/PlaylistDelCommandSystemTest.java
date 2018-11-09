@@ -62,21 +62,6 @@ public class PlaylistDelCommandSystemTest extends LibrarySystemTest {
         command = PlaylistDelCommand.COMMAND_PHRASE + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a playlist card is selected ----------------------
- -- */
-
-        /* Case: delete the selected playlist -> playlist list panel selects the playlist before the deleted
- playlist */
-        showAllPlaylists();
-        expectedModel = getModel();
-        Index selectedIndex = getLastIndex(expectedModel);
-        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPlaylist(selectedIndex);
-        command = PlaylistDelCommand.COMMAND_PHRASE + " " + selectedIndex.getOneBased();
-        deletedPlaylist = removePlaylist(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PLAYLIST_SUCCESS, deletedPlaylist);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
-
         /* --------------------------------- Performing invalid delete operation ------------------------------------
  */
 

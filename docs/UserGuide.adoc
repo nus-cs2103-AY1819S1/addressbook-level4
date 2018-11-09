@@ -40,7 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try with build-in tracks and playlists:
 
 * *`playlist list`* : lists all playlists
-* **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles.mp3` to the JxMusic Player.
+* **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles` to the JxMusic Player.
 * **`playlist play`**`p/playlist1` : plays the `playlist1`
 * *`exit`* : exits the app
 
@@ -82,103 +82,6 @@ List of currently working commands as of v1.3
 
 Format: `help`
 
-=== Listing all playlists : `playlist list`
-
-Shows a list of all playlists in the library. +
-Format: `playlist list`
-
-=== Listing all tracks : `track list`
-
-Shows a list of all tracks in the library. +
-Format: `track list`
-
-=== Searching for a playlist : `playlist search`
-
-Searches for playlists by names. +
-Format: `playlist search QUERY`
-
-****
-* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
-****
-
-Examples:
-
-* `playlist search Fav` +
-Searches for playlists that has Fav in their names.
-
-=== Searching for a track : `track search`
-
-Searches for tracks by names. +
-Format: `track search QUERY`
-
-****
-* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
-****
-
-Examples:
-
-* `track search aliez` +
-Searches for tracks that has aliez in their names.
-
-=== Creating a playlist : `playlist new`
-
-Creates a new playlist with specific tracks and saves it into the library. +
-Format: `playlist new p/PLAYLIST [t/TRACK]...`
-
-****
-* `PLAYLIST` refers to the playlist’s name.
-* `TRACK` refers to the track’s name.
-****
-
-Examples:
-
-* `playlist new p/Favourites t/Some Song t/Some Song 2` +
-Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
-
-=== Deleting a playlist : `playlist del`
-
-Removes an existing playlist from the library. If the playlist is currently playing, it will stop and the playlist will be removed. +
-Format: `playlist del INDEX`
-
-****
-* `INDEX` refers to the playlist’s index in the playlist panel.
-****
-
-Examples:
-
-* `playlist del 1` +
-Deletes the first playlist in the panel if it exists.
-
-=== Adding a track into a playlist : `track add`
-
-Adds a track into a playlist. The command will update the PLAYLIST even if it is currently playing. So the added track will be played after its previous track finishes playing. +
-Format: `track add p/PLAYLIST t/TRACK`
-
-****
-* `PLAYLIST` refers to an existing playlist’s name.
-* `TRACK` refers to the name of an existing track in the library folder.
-****
-
-Examples:
-
-* `track add p/Favourites t/Some Song.mp3` +
-Adds the track named "Some Song.mp3" to the "Favourites" playlist.
-
-=== Deleting a track from a playlist : `track del`
-
-Removes a track from a playlist. The command will update the PLAYLIST even if it is currently playing. So the deleted track will not be played after its previous track finishes playing. +
-Format: `track del p/PLAYLIST INDEX`
-
-****
-* `PLAYLIST` refers to an existing playlist’s name.
-* `INDEX` refers to the index of the track in the `PLAYLIST`.
-****
-
-Examples:
-
-* `track del p/Favourites 3` +
-Deletes the 3rd track in "Favourites" playlist.
-
 === Playing a track : `play t/`
 
 Plays a track. If there is a playlist or track playing, it will be stopped and the track will be played. +
@@ -193,8 +96,8 @@ Examples:
 
 * `play t/` +
 Plays the first track in the library folder sorted by file name if there is any.
-* `play t/Some Song.mp3` +
-Plays the track named "Some Song.mp3" if it exists in the library folder.
+* `play t/Some Song` +
+Plays the track named "Some Song" if it exists in the library folder.
 
 === Playing a playlist : `play p/`
 
@@ -220,7 +123,7 @@ Format: `pause`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `pause` +
 The track is paused.
 
@@ -231,7 +134,7 @@ Format: `play`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `pause` +
 `play` +
 "Some Song" will continue playing from where it is paused.
@@ -243,7 +146,7 @@ Format: `stop`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `stop` +
 `play` +
 The playlist stops playing and replays from the first track.
@@ -251,7 +154,7 @@ The playlist stops playing and replays from the first track.
 === Seeking time point : `seek`
 
 Steps to the specified time point of the current track. +
-Format: `seek t/TIME`
+Format: `seek d/TIME`
 
 ****
 * `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the time point.
@@ -265,14 +168,122 @@ Format: `seek t/TIME`
 
 Examples:
 
-* `play t/Some Song.mp3` +
-`seek t/100` +
+* `play t/Some Song` +
+`seek d/1 10` +
+The track seeks to the 1 min 10 sec point and starts from there.
+* `play t/Some Song` +
+`seek d/100` +
 The track seeks to the 1 min 40 sec point and starts from there.
-* `play t/Some Song.mp3` +
-`seek t/200000` +
+* `play t/Some Song` +
+`seek d/200000` +
 If `TIME` is longer than the song duration, the seek command fails.
 
-=== Stepping a track : `step`
+=== Listing all playlists : `playlist list`
+
+Shows a list of all playlists in the library. +
+Format: `playlist list`
+
+=== Searching for a playlist : `playlist search`
+
+Searches for playlists by names. +
+Format: `playlist search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `playlist search Fav` +
+Searches for playlists that has Fav in their names.
+
+=== Creating a playlist : `playlist new`
+
+Creates a new playlist with specific tracks and saves it into the library. +
+Format: `playlist new p/PLAYLIST [t/TRACK]...`
+
+****
+* `PLAYLIST` refers to the playlist’s name.
+* `TRACK` refers to the track’s name.
+****
+
+Examples:
+
+* `playlist new p/Favourites t/Some Song t/Some Song 2` +
+Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
+
+=== Deleting a playlist : `playlist del`
+
+Removes an existing playlist from the library. +
+Format: `playlist del INDEX`
+
+****
+* `INDEX` refers to the playlist’s index in the playlist panel.
+****
+
+Examples:
+
+* `playlist del 1` +
+Deletes the first playlist in the panel if it exists.
+
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
+
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
+
+=== Adding a track into a playlist : `track add`
+
+Adds a track into a playlist. Track can be chosen by using its name or its index in the track list panel. +
+Format: `track add p/PLAYLIST [t/TRACK]...`
+Format: `track add p/PLAYLIST [i/INDEX]...`
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `TRACK` refers to the name of an existing track in the library folder.
+* `INDEX` refers to the index of a track in the track list panel.
+****
+
+Examples:
+
+* `track add p/Favourites t/Some Song t/Some Song2` +
+Adds the track named "Some Song" and "Some Song2" to the "Favourites" playlist.
+
+* `track add p/Favourites i/1 i/2` +
+Adds the first and second track in the track list panel to the "Favourites" playlist.
+
+=== Deleting a track from a playlist : `track del`
+
+Removes a track from a playlist. Track can is chosen by using its index in the track list panel. +
+Format: `track del p/PLAYLIST i/INDEX`
+
+[TIP]
+Track is selected by its index **not** its name.
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `INDEX` refers to the index of the track in the `PLAYLIST`.
+****
+
+Examples:
+
+* `track del p/Favourites i/3` +
+Deletes the 3rd track in "Favourites" playlist.
+
+=== Stepping a track : `step` [coming in v2.0]
 
 Steps forward by default 10 seconds or specified time in seconds. +
 Format: `step [s/SECONDS]`
@@ -284,17 +295,17 @@ Format: `step [s/SECONDS]`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `step` +
 The track moves forward to 10 seconds later of the track and keeps playing.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `step s/100` +
 Stepping forward 100 seconds.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `stop s/-100` +
 Using negative value for `SECONDS` will apply the same behaviour as `stepback`. The track steps backward 100 seconds.
 
-=== Stepping back : `stepback`
+=== Stepping back : `stepback` [coming in v2.0]
 
 Steps back by default 10 seconds or specified time in seconds. +
 Format: `stepback [s/SECONDS]`
@@ -306,29 +317,29 @@ Format: `stepback [s/SECONDS]`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `stepback` +
 The track moves backward 10 seconds earlier of the track and keeps playing. If the track has just played for less than 10 seconds, the track replays.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `stepback s/100` +
 Stepping back 100 seconds.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `stepback s/-100` +
 Using negative value for `SECONDS` will apply the same behaviour as `step`. The track steps forward 100 seconds.
 
-=== Replay a track : `replay`
+=== Replay a track : `replay` [coming in v2.0]
 
 Replays a track before the track ends to start from the beginning. +
 Format: `replay`
 
 Examples:
 
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `seek t/100` +
 `replay` +
 The track plays from the beginning.
 
-=== Skipping to the next track : `next`
+=== Skipping to the next track : `next` [coming in v2.0]
 
 Plays the next track. +
 Format: `next`
@@ -338,10 +349,10 @@ Examples:
 * `play p/Favourites` +
 `next` +
 If the last track is being played, the playlist ends and stops.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `repeat track` +
 `next` +
-“Some Song.mp3” will replay.
+“Some Song” will replay.
 * `play p/Favourites` +
 `repeat playlist` +
 `next` +
@@ -352,7 +363,7 @@ Go to the next track. Since `repeat playlist` is on, if it is the last track of 
 `next` +
 Go to the next track. Since `shuffle` and `repeat playlist` are on, if it is the last track playing, the next shuffled repeat will play.
 
-=== Skipping to the previous track : `prev`
+=== Skipping to the previous track : `prev` [coming in v2.0]
 
 Plays the previous track. +
 Format: `prev`
@@ -362,10 +373,10 @@ Examples:
 * `play p/Favourites` +
 `prev` +
 Plays the previous track. If the current track is first track in playlist, replays the same track since there is no previous track.
-* `play t/Some Song.mp3` +
+* `play t/Some Song` +
 `repeat track` +
 `prev` +
-“Some Song.mp3” will replay.
+“Some Song” will replay.
 * `play p/Favourites` +
 `repeat playlist` +
 `prev` +
@@ -376,7 +387,7 @@ Go to the previous track. Since `repeat playlist` is on, if it is the first trac
 `prev` +
 Go to the previous track. Since `shuffle` and `repeat playlist` are on, if it is the first track playing and there was no previous track, the same track repeats.
 
-=== Repeatedly playing a track : `repeat track`
+=== Repeatedly playing a track : `repeat track` [coming in v2.0]
 
 Switches the repeat mode to repeatedly play a single track. The command works even without any track playing. Upon running this command, any subsequent track will be played on repeat. +
 Format: `repeat track`
@@ -388,13 +399,13 @@ Examples:
 `repeat track` +
 Switches to repeat track mode. The currently playing track will be on repeat.
 * `repeat track` +
-`play t/Some Song.mp3` +
-“Some Song.mp3” will play on repeat.
+`play t/Some Song` +
+“Some Song” will play on repeat.
 * `repeat track` +
 `play p/Favourites` +
 The first track of the “Favourites” playlist will play on repeat.
 
-=== Repeatedly playing a playlist : `repeat playlist`
+=== Repeatedly playing a playlist : `repeat playlist` [coming in v2.0]
 
 Switches the repeat mode to repeatedly play a single playlist. The command works even without any playlist playing. Upon running this command, any subsequent playlist will be played on repeat. +
 Format: `repeat playlist`
@@ -409,10 +420,10 @@ Switches to repeat playlist mode. “Favourites” will play on repeat.
 `play p/Favourites` +
 “Favourites” will play on repeat.
 * `repeat playlist` +
-`play t/Some Song.mp3` +
+`play t/Some Song` +
 “Some Song” will play on repeat.
 
-=== Turning off repeat mode : `repeat off`
+=== Turning off repeat mode : `repeat off` [coming in v2.0]
 
 Turns off the repeat mode +
 Format: `repeat off`
@@ -424,7 +435,7 @@ Examples:
 `repeat off` +
 Switches off repeating mode.
 
-=== Shuffling a playlist : `shuffle`
+=== Shuffling a playlist : `shuffle` [coming in v2.0]
 
 Switches on shuffle mode to play tracks in random order. +
 Format: `shuffle`
@@ -448,7 +459,7 @@ Subsequent tracks will be played in random order. When all the tracks in the pla
 `shuffle` +
 The track being repeated will continue to play until `repeat off` only then subsequent tracks will play in random order from the remaining unplayed tracks in the playlist.
 
-=== Turning off shuffle mode : `shuffle off`
+=== Turning off shuffle mode : `shuffle off` [coming in v2.0]
 
 Turns off the shuffle mode +
 Format: `shuffle off`
@@ -485,7 +496,7 @@ Format: `exit`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
 * *Seek time point* : `seek t/TIME` +
-eg. `seek t/01:10`
+eg. `seek d/1 10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
@@ -512,9 +523,9 @@ eg. `playlist del INDEX`
 
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
-eg. `track add p/Favourites t/Some Song.mp3`
-* *Delete track from playlist* : `track del p/PLAYLIST INDEX` +
-eg. `track del p/Favourites 1`
+eg. `track add p/Favourites t/Some Song`
+* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
+eg. `track del p/PLAYLIST i/1`
 * *List all tracks* : `track list`
 * *Search for tracks* : `track search QUERY` +
 eg. `track search Fav`

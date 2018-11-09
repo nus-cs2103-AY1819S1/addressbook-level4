@@ -90,12 +90,12 @@ public class TypicalPlaylistList {
     }
 
     public static List<Playlist> getTypicalPlaylistList() {
-        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP, TEST));
+        return new ArrayList<>(Arrays.asList(ANIME, EMPTY, SFX, INSTRUMENTAL, CHILL, ROCK, HIPHOP, TEST));
     }
 
     public static List<Playlist> getTestPlaylistList(Playlist testPlaylist) {
         ArrayList<Playlist> result = new ArrayList<>(
-                Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+                Arrays.asList(ANIME, EMPTY, SFX, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
         result.add(testPlaylist);
         return result;
     }

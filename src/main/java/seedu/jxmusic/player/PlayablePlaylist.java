@@ -30,7 +30,6 @@ public class PlayablePlaylist implements Playable {
     }
     @Override
     public void play(boolean unpause) {
-        System.out.println("playableplaylist play");
         if (current == null) {
             currentIndex = 0;
             current = playableTrackList.get(currentIndex);
@@ -40,7 +39,6 @@ public class PlayablePlaylist implements Playable {
 
     @Override
     public void pause() {
-        System.out.println("playableplaylist pause");
         if (current == null) {
             currentIndex = 0;
             current = playableTrackList.get(currentIndex);
@@ -50,7 +48,6 @@ public class PlayablePlaylist implements Playable {
 
     @Override
     public void stop() {
-        System.out.println("playableplaylist stop");
         current.stop();
         currentIndex = 0;
         current = playableTrackList.get(currentIndex);
@@ -63,7 +60,6 @@ public class PlayablePlaylist implements Playable {
 
     @Override
     public void seek(Duration time) {
-        System.out.println("playableplaylist seek to " + time.toSeconds() + " second(s)");
         current.seek(time);
     }
 

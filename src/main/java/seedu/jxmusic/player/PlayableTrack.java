@@ -16,12 +16,6 @@ public class PlayableTrack implements Playable {
     public PlayableTrack(Track track) {
         Media media = new Media(track.getFile().toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnReady(() -> {
-            System.out.println("ready");
-        });
-        mediaPlayer.setOnEndOfMedia(() -> {
-            System.out.println("end of media");
-        });
     }
 
     public String getTrackName() {
@@ -30,7 +24,6 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void play(boolean unpause) {
-        System.out.println("playabletrack play");
         if (!unpause) {
             mediaPlayer.setStartTime(new Duration(0));
         }
@@ -39,13 +32,11 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void stop() {
-        System.out.println("playabletrack stop");
         mediaPlayer.stop();
     }
 
     @Override
     public void pause() {
-        System.out.println("playabletrack pause");
         mediaPlayer.pause();
     }
 
@@ -61,7 +52,6 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void seek(Duration time) {
-        System.out.println("playabletrack seek to " + time.toSeconds() + " second(s)");
         mediaPlayer.seek(time);
     }
 
