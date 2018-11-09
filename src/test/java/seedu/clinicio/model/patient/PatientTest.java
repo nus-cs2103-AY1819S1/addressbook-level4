@@ -150,7 +150,7 @@ public class PatientTest {
         Patient editedAlexWithAnotherAllergies = new PatientBuilder(ALEX)
                 .withAllergies("Diary Products", "bee stings").build();
         assertFalse(editedAlexWithAllergies.equals(editedAlexWithAnotherAllergies));
-        
+
         // different preferred doctor -> returns false
         Patient editedAlexWithPreferredDoctor = new PatientBuilder(ALEX)
                 .withPreferredDoctor(ADAM).build();
