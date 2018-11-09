@@ -75,8 +75,18 @@ public class SampleDataUtil {
         return new Assignment[] {
             new Assignment(new ProjectName("OASIS"), new Name("Amy Bee"),
                     new Description("Project Management System.")),
-            new Assignment(new ProjectName("Falcon"), new Name("Bob Choo"),
-                    new Description("Home Security System."))
+            new Assignment(new ProjectName("FALCON"), new Name("Bob Choo"),
+                    new Description("Home Security System.")),
+            new Assignment(new ProjectName("SCRUB DADDY"), new Name("Billy Bo"),
+                    new Description("World's most friendly scrubber.")),
+            new Assignment(new ProjectName("BEARY"), new Name("John Ale"),
+                    new Description("Creating innovative teddy bear that is not just a bear")),
+            new Assignment(new ProjectName("SHARK TANK"), new Name("Marcus Ban"),
+                    new Description("Development for world's largest aquarium.")),
+            new Assignment(new ProjectName("ANLGENE"), new Name("Terry Cook"),
+                    new Description("Creating the best water bottle that is bullet proof and featherlight")),
+            new Assignment(new ProjectName("COLE HAAN"), new Name("Han Ming"),
+                    new Description("The leading company in trendy wallet."))
         };
     }
 
