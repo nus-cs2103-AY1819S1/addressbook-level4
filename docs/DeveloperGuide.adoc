@@ -472,126 +472,91 @@ The Patient Queue Management System (PQMS) consists of three main classes: `Pati
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
 he is done with seeing the doctor, he will become a `ServedPatient` and put into the  `ServedPatientQueue` to await payment and document processing.
 
-The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispenseMedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
-The following code snippet shows part of how the `ServedPatient` is implemented:
+.Class Diagram of PQMS
+image::PQMSClassDiagram.png[width="850"]
+
+`ServedPatient` acts as a wrapper for `Patient`, storing intermediate information that are likely to change during the patient's visit to the clinic.
+`CurrentPatient` acts as a wrapper for `ServedPatient`, updating the intermediate information that it contains. These intermediate information are
+`McContent`, `ReferralContent`, `NoteContent` and `Medicine` allocated.
+
+The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispensemedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
+
+These commands inherit from `QueueCommand` because it will require more arguments in its execute command. The PQMS is not inside `Model` as it is only required during runtime;
+it does not need to be loaded into storage. A new `QueueCommand` abstract class is created that inherits from `Command`, however, it defines another method signature of `execute`.
+
+The following code snippet shows how the `QueueCommand` is implemented:
 
 ```Java
 /**
- * Represents a patient that has already consulted the doctor in the address book.
- * It has all the necessary data needed to generate any object that inherits from document.
+ * Represents a command with hidden internal logic and the ability to be executed.
  */
-public class ServedPatient {
-
-    private Patient patient;
-    private String noteContent;
-    private String referralContent;
-    private String mcContent;
-    private Map<Medicine, QuantityToDispense> medicineAllocated;
+public abstract class QueueCommand extends Command {
 
     /**
-     * Constructs a servedPatient object from a patient object to extract all the information
-     * necessary for printing a document.
+     * Executes the command and returns the result message.
      *
-     * @param patient A valid patient.
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
-    public ServedPatient(Patient patient) {
-        requireNonNull(patient);
-        medicineAllocated = new HashMap<>();
-        this.patient = patient;
-        this.noteContent = "";
-        this.referralContent = "";
-        this.mcContent = "";
-    }
-
-    public Name getName() {
-        return patient.getName();
-    }
-
-    public IcNumber getIcNumber() {
-        return patient.getIcNumber();
-    }
-
-    public String getNoteContent() {
-        return this.noteContent;
-    }
-
-    public String getMcContent() {
-        return this.mcContent;
-    }
-
-    public String getReferralContent() {
-        return this.referralContent;
-    }
-
-    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
-        return medicineAllocated;
-    }
-
-    public String addNoteContent(String content) {
-        return noteContent = content;
-    }
-
-    public String addReferralContent(String content) {
-        return referralContent = content;
-    }
-
-    public String addMcContent(String content) {
-        return mcContent = content;
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        throw new CommandException("Queue Command should not call this version of execute");
     }
 
     /**
-     * Add specified quantity of medicine to patient.
-     * @param medicine to be added.
-     * @param quantity of medicine to be added.
-     * @return string representation of medicine added.
+     * Executes the command and returns the result message.
+     * This version of execute is used because there are more arguments needed for the queue commands.
+     *
+     * @param model {@code Model} which the command should opreate on.
+     * @param patientQueue {@code patientQueue} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution
      */
-    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
-        medicineAllocated.put(medicine, quantity);
-        return medicine.toString();
-    }
+    public abstract CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
+                            ServedPatientList servedPatientList, CommandHistory history) throws CommandException;
 
-    /**
-     * Checks whether current is a specified patient.
-     * @return true if queue contains patient.
-     */
-    public boolean isPatient(Patient patient) {
-        return (this.patient).isSamePerson(patient);
-    }
-
-    /**
-     * Update the patient if any information changes.
-     */
-    public void updatePatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    /**
-     * @return a console-friendly representation of the patient.
-     */
-    public String toNameAndIc() {
-        return patient.toNameAndIc();
-    }
-
-    public Patient getPatient() {
-        return this.patient;
-    }
 }
 ```
 
-The `ServedPatient` class composes of a `Patient`.  `ServedPatient` acts as a wrapper to the `Patient` class,
-holding intermediate information that  are likely to change during the `Patient's` stay in the PQMS. When the `finish` command is called, the `Note` of
-the `Patient` will be updated. `Document` content such as `McContent` and `ReferralContent` can be accessed by the `Document` class to process the
-Medical Certificate and Referral Letter if necessary.
+One of the `QueueCommands` is the `RegisterCommand`, the follow code snippet shows how the `RegisterCommand` makes use of both the `Model` and `PatientQueue`
+of the PQMS.
 
-The following sequence diagram shows how the `register` command works:
+```Java
+@Override
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
+                                 ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
+        requireNonNull(patientQueue);
+
+        List<Patient> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
+
+        if (patientQueue.contains(patientToRegister) || currentPatient.isPatient(patientToRegister)
+                || servedPatientList.containsPatient(patientToRegister)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+
+        int position = patientQueue.enqueue(patientToRegister);
+        return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
+                + " with Queue Number: " + position + "\n" + patientQueue.displayQueue());
+    }
+```
+
+For better illustration, the following sequence diagram shows how the `register` commands works:
 
 .Sequence Diagram for RegisterCommand.
 image::RegisterSequenceDiagram.png[width="900"]
 
 The other PQMS commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
-Given below is an example usage scenario and how the PQMS is used in each step.
+Given below is an example usage scenario of the PQMS.
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
@@ -613,7 +578,7 @@ the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the nex
 .Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
 
-Step 5. The user executes various commands to generate necessary documents for the served patient.
+Step 5. The user executes various `Document` commands to generate necessary documents for the served patient.
 
 Step 6. The user finally executes `payment` command to end the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
