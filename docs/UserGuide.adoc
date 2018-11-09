@@ -1071,7 +1071,7 @@ Examples:
 * `vh stockup consumption`
 
 // tag::menuv2[]
-==== Exporting menu `[coming in v1.4]`
+==== Exporting menu `[coming in v2.0]`
 
 Exports the menu to a particular file path. +
 Format: `export-menu fp/FILEPATH fn/FILENAME`
@@ -1081,7 +1081,7 @@ Examples:
 * `export-menu f/test/ n/menu.txt` +
 Export the menu to test folder with the file name `menu.txt`
 
-==== Importing menu `[coming in v1.4]`
+==== Importing menu `[coming in v2.0]`
 
 Imports an existing menu from specified file path to replace current menu. +
 Format: `import-menu fp/FILEPATH fn/FILENAME`
