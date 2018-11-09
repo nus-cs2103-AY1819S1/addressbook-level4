@@ -28,7 +28,10 @@ import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
@@ -43,7 +46,7 @@ import seedu.souschef.model.tag.Tag;
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
-            new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("PT40M"),
+            new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
                                     getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
@@ -51,9 +54,9 @@ public class SampleDataUtil {
                                     getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
                                     getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("PT20M"), getIngredientPortionSet())
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
                     ), getTagSet("Asian", "Singapore", "Poultry")),
-            new Recipe(new Name("Black pepper Chicken"), new Difficulty("2"), new CookTime("PT20M"),
+            new Recipe(new Name("Black pepper Chicken"), new Difficulty("2"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
                                     getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
@@ -62,10 +65,10 @@ public class SampleDataUtil {
                             new Instruction("Add oyster sauce 3 tablespoon, black pepper 20 g and water 50 ml.",
                                     getIngredientPortionSet(new IngredientPortion("oyster sauce", "tablespoon",
                                             3.0))),
-                            new Instruction("Stir-fry for 10 mins.", new CookTime("PT10M"), getIngredientPortionSet())
+                            new Instruction("Stir-fry for 10 mins.", new CookTime("10M"), getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Spicy", "Poultry")),
-            new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("PT20M"),
+            new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice vegetables 70 gram of any kind.",
                                     getIngredientPortionSet(new IngredientPortion("vegetables", "gram", 70.0))),
@@ -74,10 +77,10 @@ public class SampleDataUtil {
                                             new IngredientPortion("noodles", "gram", 300.0))),
                             new Instruction("Remove the water and put soy sauce 50 ml.",
                                     getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 50.0))),
-                            new Instruction("Fry for 7 mins.", new CookTime("PT7M"), getIngredientPortionSet())
+                            new Instruction("Fry for 7 mins.", new CookTime("7M"), getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Staple", "Vegetarian")),
-            new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("PT50M"),
+            new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("50M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
                                     getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
@@ -85,17 +88,17 @@ public class SampleDataUtil {
                                     getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
                                     getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("PT20M"), getIngredientPortionSet())
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
                     ),
                     getTagSet("Staple", "Poultry")),
-            new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("PT40M"),
+            new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
                             new Instruction("Sift flour, add salt and water to make dough.",
                                     getIngredientPortionSet(new IngredientPortion("flour", "g", 300.0),
                                             new IngredientPortion("ghee", "cup", 0.5),
                                             new IngredientPortion("water", "cup", 0.5))),
                             new Instruction("Knead thoroughly for 5 minutes.",
-                                    new CookTime("PT5M"), getIngredientPortionSet()),
+                                    new CookTime("5M"), getIngredientPortionSet()),
                             new Instruction("Heat one teaspoon of ghee or butter on a metal "
                                     + "griddle or heavy iron pan."),
                             new Instruction("Fry each prata dough until brown on both sides.")
@@ -107,17 +110,20 @@ public class SampleDataUtil {
     public static Ingredient[] getSampleIngredient() {
 
         Ingredient [] ingredients = new Ingredient[]{};
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("MM-dd-yyyy");
+        sdf.setLenient(false);
         try {
             ingredients = new Ingredient[]{
                 new Ingredient(new IngredientName("Carrot"), new IngredientAmount(300.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-25-2018"))),
+                        new IngredientDate(sdf.parse("12-25-2018"))),
                 new Ingredient(new IngredientName("Tomato"), new IngredientAmount(200.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-26-2018"))),
+                        new IngredientDate(sdf.parse("12-26-2018"))),
                 new Ingredient(new IngredientName("Potato"), new IngredientAmount(100.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-24-2018")))
+                        new IngredientDate(sdf.parse("12-24-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();
@@ -138,19 +144,19 @@ public class SampleDataUtil {
 
     public static Day[] getDay() {
 
-        LocalDate modelDate = LocalDate.parse("2018-10-22");
-        LocalDate modelDate2 = LocalDate.parse("2018-10-23");
+        LocalDate modelDate = LocalDate.parse("2018-11-28");
+        LocalDate modelDate2 = LocalDate.parse("2018-11-29");
 
         ArrayList<Meal> list = new ArrayList<>();
         ArrayList<Meal> list2 = new ArrayList<>();
 
-        list.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[0]));
-        list.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[1]));
-        list.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+        list.add(new Breakfast(getSampleRecipes()[0]));
+        list.add(new Lunch(getSampleRecipes()[1]));
+        list.add(new Dinner(getSampleRecipes()[2]));
 
-        list2.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[2]));
-        list2.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[3]));
-        list2.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+        list2.add(new Breakfast(getSampleRecipes()[2]));
+        list2.add(new Lunch(getSampleRecipes()[3]));
+        list2.add(new Dinner(getSampleRecipes()[2]));
 
         return new Day[] {
             new Day (modelDate, list),

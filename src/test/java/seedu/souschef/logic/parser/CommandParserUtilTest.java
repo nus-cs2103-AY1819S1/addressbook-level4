@@ -29,7 +29,7 @@ public class CommandParserUtilTest {
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DIFFICULTY = "5";
-    private static final String VALID_COOKTIME = "PT23M";
+    private static final String VALID_COOKTIME = "23M";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 

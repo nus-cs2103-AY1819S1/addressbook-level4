@@ -25,9 +25,9 @@ public class Day extends UniqueType {
     public Day(LocalDate date) {
         this.date = date;
         this.meals = FXCollections.observableArrayList();
-        this.meals.add(Meal.Slot.BREAKFAST.ordinal(), new Meal(Meal.Slot.BREAKFAST));
-        this.meals.add(Meal.Slot.LUNCH.ordinal(), new Meal(Meal.Slot.LUNCH));
-        this.meals.add(Meal.Slot.DINNER.ordinal(), new Meal(Meal.Slot.DINNER));
+        this.meals.add(Breakfast.INDEX, new Breakfast());
+        this.meals.add(Lunch.INDEX, new Lunch());
+        this.meals.add(Dinner.INDEX, new Dinner());
     }
 
     public Day(LocalDate date, ArrayList<Meal> meals) {
@@ -41,15 +41,15 @@ public class Day extends UniqueType {
 
     public Meal getMeal(String slot) {
         int targetSlot = Meal.stringToIntSlot(slot);
-        return this.meals.get(targetSlot);
+        return meals.get(targetSlot);
     }
 
-    public Meal getMeal(Meal.Slot slot) {
-        return this.meals.get(slot.ordinal());
+    public Meal getMeal(int index) {
+        return meals.get(index);
     }
 
     public ObservableList<Meal> getMeals() {
-        return this.meals;
+        return meals;
     }
 
     /**
@@ -68,7 +68,7 @@ public class Day extends UniqueType {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.date, this.meals);
+        return Objects.hash(date, meals);
     }
 
     @Override
@@ -90,4 +90,8 @@ public class Day extends UniqueType {
         return otherDay.getDate().equals(getDate());
     }
 
+    @Override
+    public String toString() {
+        return date.toString();
+    }
 }

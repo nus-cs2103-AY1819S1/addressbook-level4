@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -230,6 +231,11 @@ public class ParserUtil {
         if (!TargetWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new TargetWeight(trimmedWeight);
     }
 
@@ -243,9 +249,13 @@ public class ParserUtil {
         if (!CurrentWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new CurrentWeight(trimmedWeight);
     }
-
 
     /**
      * parse current height for commands
@@ -300,6 +310,52 @@ public class ParserUtil {
 
         }
         return Scheme.valueOf(trimmedScheme);
+    }
+
+    /**
+     *  parser for plan index of day commands in healthplan
+     * @param index
+     * @return
+     * @throws ParseException
+     */
+    public static String parsePlanIndex(String index) throws ParseException {
+        String regex = "^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+        return trimmedIndex;
+    }
+
+    /**
+     *  parse the day index for the day commands of healthplan
+     * @param index
+     * @return
+     * @throws ParseException
+     */
+    public static String parseDayIndex(String index) throws ParseException {
+        String regex = "^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
+
+        }
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
+        }
+        return trimmedIndex;
     }
 
 }

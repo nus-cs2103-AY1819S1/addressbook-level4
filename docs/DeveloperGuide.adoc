@@ -231,6 +231,8 @@ anywhere as long as they have access to UiManager.
 
 // end::uimodularisation[]
 
+// tag::logicComponent[]
+
 [[Design-Logic]]
 === Logic component
 
@@ -252,6 +254,10 @@ gram 10-23-2018")` API call.
 
 .Interactions Inside the Logic Component for the adding ingredient
 image::LogicSequenceDiagram.png[width="800"]
+
+// end::logicComponent[]
+
+// tag::modelComponent[]
 
 [[Design-Model]]
 === Model component
@@ -277,6 +283,10 @@ The `Model`,
 * is reusable as model is now generic.
 * exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
+// end::modelComponent[]
+
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -299,7 +309,7 @@ common calls for load and saving.
 without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
 calls the intended result will be achieved.
 
-
+// end::storage[]
 
 
 [[Design-Commons]]
@@ -311,33 +321,32 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ingredientManager[]
 === Ingredient Manager
-==== Select feature of the Ingredient Manager(to be implemented)
+==== Total management of ingredients that user currently have
+Ingredient Manager is an address book of ingredients. With the basic functions of a normal address book such as
+add, edit, delete and list, Ingredient Manager has some useful functions specific for management of ingredients. +
+First of all, converting to a common unit. Ingredients has different serving units, but most of them can be converted to
+common unit to be compared with each other and to make arithmetic calculation easier. It uses gram for mass and
+centimeter cube for volume as a common unit. Serving unit dictionary implemented with static arraylist is referred
+when the
+conversion is done. +
+Secondly, when you apply the list command, ingredients are sorted by date. Since ingredients have to be consumed in a
+ certain period, it keeps user be reminded of old ingredients.
 
-Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
-In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
-rather than person related information.
-However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
-ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
-
-In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
-If you execute select command, it conducts search based on ingredients in inventory. Then It takes
-additional ingredients in as parameters, no matter if they are currently in inventory or not.
-Based on those ingredients, it conducts second round of search.
-The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
-include in your recipe search.
-The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
-Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
-number at the top.
-Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
-ingredients sorts the recipe.
-
-The difference between normal search using ingredient and current select method lies in the fact that it conducts
-search based
- on ingredients in inventory as a default.
-Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
-of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
- inventory.
+==== View recipes according to ingredients, and check shop amount
+This command works on separate context called cross, because the result of command manipulates recipes, not
+ingredients. This commands
+filters(include) and sorts(prioritize) recipes based on ingredients given in the command. However, this command is
+closely tied to the information stored in Ingredient Manager. First of all, you can provide all ingredients in
+Ingredient
+ Manager as parameter for filtering or sorting. This might be useful when a user wants to find food that can be
+ cooked while maximizing the use of existing ingredients. Secondly, for the recipes that are on the list as a result
+ of the commands, additionally needed amount of each ingredient in a recipe is calculated. Because ingredients in
+ Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
+ desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
+ she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
+// end::ingredientManager[]
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
@@ -358,10 +367,20 @@ with 3 empty *Meal* objects in the _mealList_.
 as they have the same *LocalDate* _date_. This is to ensure no duplication of dates
 within the Meal Planner.
 
-* *Meal*: encapsulates a *Optional<Recipe>* _recipe_ and an int _slot_ indicating which
-meal slot each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner).
+* *Meal*: abstract class which encapsulates a *Optional<Recipe>* _recipe_, an *int* _index_
+indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner),
+and a *String* _slot_ containing its corresponding name.
 
-** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
+* *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
+Contains a predefined integer index of 0 and a predefined String slot name of "breakfast".
+
+* *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
+Contains a predefined integer index of 1 and a predefined String slot name of "lunch".
+
+* *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
+Contains a predefined integer index of 2 and a predefined String slot name of "dinner".
+
+** An empty *Meal* is defined as having no recipe, i.e. empty *Optional*.
 ****
 
 Class diagram:
@@ -407,8 +426,8 @@ Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 The select command selects a recipe of a specified meal of a specified day and displays the details
 of the recipe (ingredients, instructions, etc) in the DetailPanel. +
 *MealPlannerParser* invokes the parseMealRecipe() command of *SelectCommandParser*. The desired
-index and meal slot are parsed from the user input and used to extract the _recipe_ from the
-specified day's desired meal slot. Using this _recipe_, the _recipeModel_ is searched and the
+index and meal index are parsed from the user input and used to extract the _recipe_ from the
+specified day's desired meal index. Using this _recipe_, the _recipeModel_ is searched and the
 index of the matching recipe is returned. +
 The index and the _recipeModel_ are then passed to
 a *SelectCommand* which executes the displaying of the recipe details in the same manner as
@@ -441,23 +460,83 @@ execute the `favourite INDEX` command. The recipe selected would be copied from 
 list in the favourites model.
 // end::favouritesimplementation[]
 
-// tag::recipemanagement[]
+// tag::recipeManagement[]
 === Recipe Management
-==== All-field search
-The all-field search matches keywords with details of `Recipe`.
-Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
+==== Multi-line Recipe Adding
+===== Current Implementation
+As the adding of recipes deal with lengthy input parameters from the basic details such as name to a list of
+instructions, single-line add command proves to be inefficient and often providing an inconvenient user experience.
+To allow flexibility, adding of recipes have been implemented as a multi-line command fitting into this CLI application.
+
+Multi-line add function consists of 3 main commands: `add` `cont` `end`. The `add` command requires user input of the
+recipe basic information such as `Name`, `Difficulty`, `CookTime` and the optional `Tag`. The `cont` command requires
+ user input of the recipe `Instruction`. Each `cont` command allows only 1 `Instruction`. Again this is to
+ break down the lengthy input parameter of `Instruction`.  Lastly, with the `end` command the `Recipe` is being
+ recognised and is added to the `Model`. +
+
+The following is the sequence diagram of the `add` command:
+
+image::recipe_add_add.png[width="1000"]
+Once user's input is being parsed, a `RecipeBuilder` is created instead of a `Recipe` instance. This `RecipeBuilder`
+will be stored in `History` when the command is being executed.
+[NOTE]
+====
+Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved.
+====
+
+The following is the sequence diagram of the `cont` command:
+
+image::recipe_add_cont.png[width="1000"]
+Upon parsing the user's input that contains `Instruction`, a `Instruction` instance will be created. This
+`Instruction` is to be passed to the command for execution. The execution process once again make use of the `History`
+to append the `Instruction` into `RecipeBuilder`.
+
+The following is the sequence diagram of the `end` command:
+
+image::recipe_add_end.png[width="1000"]
+Upon receiving the `end` command, `Recipe` will be built from the `RecipeBuilder`. The parsing process checks to
+ensure that the `Recipe` built contains at least a single `Instruction` to prevent adding of `Recipe` without
+`Instruction`. With a valid `Recipe`, a `AddCommand` will be created and the `RecipeBuilder` in `History` will be
+cleared (i.e. set to null). This `AddCommand` when executed will add the `Recipe` into `Model`.
+
+===== Why it is implemented that way:
+Due to the nature of a multi-line add command where the `Recipe` is incomplete together with the inability to execute
+ the add
+ function immediately, 2 mechanisms namely, a builder and a historical storage, have to be put
+  in place. The builder works effectively in managing the data of a partial `Recipe` while allowing continuous
+  modification. The historical storage, `History` in this context, ensures that lossless partial
+  `Recipe` data. Moreover, since `History` interaction with commands has already been well establish in Logic
+  component and a partial `Recipe` is indeed a representation the historical commands, storing in `History`
+  becomes a dominant choice.
+
+===== Alternatives:
+Adding of incomplete recipe to the model and edit that recipe with the subsequent commands.
+Pros - Make use of existing add and edit command without the need of additional implementation.
+Cons - Model contains incomplete recipe that violates the validity of recipe data. This might be exploited and in the
+ process the application can be filled with incomplete recipes.
+
+==== All-field Recipe Search
+The all-field recipe search matches keywords with details of `Recipe`.
+Each keyword goes through the matching process against the `Name`, `Tag`, `Difficulty`, `CookTime` and even
+`Ingredient` from each `Instruction` of every recipe.
+Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
 
 ===== Current Implementation
-To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in a predicate to
 filter away recipes that does not meet the requirement.
 
-The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
- in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
- one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
-  in
- the `FilteredList`.
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream`. Each keyword is checked
+against a recipe `Name` for any matching word, `Difficult` for exact matching value, `Tag` for any matching
+word, and `Ingredient` for any matching `IngredientDefinition`. All keywords must return true (i.e. matching at least
+ one attribute of the recipe) before the recipe is deemed fit to be kept in the `FilteredList`.
 
-image::recipe_search_seq.png[width="800"]
+The following code snippet shows how the predict determines each recipe: +
+
+include::../src/main/java/seedu/souschef/model/recipe/NameContainsKeywordsPredicate.java[lines=20..34]
+
+The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
+
+image::recipe_search_seq.png[width="1000"]
 
 ===== Why it is implemented that way:
 Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
@@ -467,19 +546,11 @@ to use its getter and perform matching with its keywords. Hence, a filter via pr
 Tag saving recipes that uses it. +
 Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
 Cons - Bi-directional association, increase difficulty in maintaining data integrity
+// end::recipeManagement[]
 
-==== Cook-mode
-The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be triggered by choosing a `Recipe` listed.
 
-===== Current Implementation
-Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
-switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
-navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
-`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
-instructions.
-// end::recipemanagement[]
-
-=== Health Plan list
+// tag::healthplan[]
+=== Health Plan
 
 This is a feature that users can access to have health plans to manage their diet and health due to dietary
 needs of their choice. Users are able to add a health list to based on their specifications:
@@ -497,24 +568,27 @@ eat per day to hit their target.
 * Users are able to display all days of the meal planner segment concurrently with the health plan lists
 * Users are able to display the details of a health plan to see the days stored and also other information
 * Users are able to remove days of the health plan they added.
+* Users are now able to view the calories count from the meals they included into the healthplan and when the details of
+the health plan is shown the target to hit will be shown to the user, in value and also bar chart. Along with such info,
+there is also a percentage met to show how much of the target is already achieved.
 
-==== Ongoing implementation (Implementing calory count)
+==== Ongoing implementation (Implementing plan comparisons)
 
-Firstly, a library of calories for the ingredients need to set up.
-Then the new implementation of this function should extend the already established functionality by adding a calorie count
-for the ingredients within the recipes stored in the days of the health plan
-Providing the capability of being able to calculating the calorie intake of the meal by days,
-and also calculating the total of the entire plan.
+This new implementation of this feature will allow the users to select 2 plans of their choice and compare
+with a side by side comparison of the calories consumed. This information will be displayed to the user much like the show
+details command that is available with slight tweaks. There will not be a percentage met but instead the feature will
+try to cover breakdown of the calories intake by day using the set duration of the targetted plans.
+This will provided clarity of the day by day consumption of calories of the user across 2 plans.
+The information will be in calculated values and then displayed in a series of bar graphs for quick understanding of the
+information by just looking at the graphs.
 
-Furthermore the system will compute a target daily intake based on the age, current height and current weight provided.
-There will also then be a computed bar graph to compare the actual intake against the computed target to meet.
-Providing some statistics such as percentage met or exceeded and also speculated weight if the user continues with the
-current calories consumed.
 
 ==== Ongoing implementation (Expiry of health plans)
 
 The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
  against the duration set by the user.
+
+// end::healthplan[]
 
 === Logging
 
@@ -804,7 +878,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 
-=== Health Planner
+=== Health Plan
 |========================================================================
 |Priority | As a... |I want to ... | So that I can...
 
@@ -909,16 +983,14 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC16 – Search recipes based on ingredients manager availability
+=== Use case: UC16 – Search recipes according to ingredients
 
 *MSS*
 
-1. User +++<u>list ingredients (UC11)</u>+++.
-2. System shows the list of recipes in order of most number of ingredients in IM included.
-3. User selects both mandatory and desirable ingredients for the search.
-4. System shows the list of recipes in order of most number of ingredients selected.
-5. User selects a recipe.
-6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings.
+1. User selects both mandatory and desirable ingredients for the search.
+2. System shows the filtered and sorted list of recipes.
+3. User selects a recipe.
+4. System shows recipe specifying missing ingredients and its amount, calculated according to the number of servings.
 +
 Use case ends.
 
@@ -930,8 +1002,8 @@ Use case ends.
 
 1. User requests to list available recipes.
 2. System shows list of available recipes.
-3. User selects desired recipe and adds it to the desired meal slot.
-4. System shows the recipe listed under the indicated meal slot.
+3. User selects desired recipe and adds it to the desired meal index.
+4. System shows the recipe listed under the indicated meal index.
 +
 Use case ends.
 
@@ -943,7 +1015,7 @@ Use case ends.
 1. User requests to view current meal plan.
 2. System shows current meal plan.
 3. User requests to delete unwanted recipe.
-4. System shows specified meal slot as empty.
+4. System shows specified meal index as empty.
 +
 Use case ends.
 
@@ -962,8 +1034,8 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view recipe for a specific meal slot.
-2. System shows the full recipe of the specified meal slot.
+1. User requests to view recipe for a specific meal index.
+2. System shows the full recipe of the specified meal index.
 +
 Use case ends.
 
@@ -1252,16 +1324,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding of recipe
+. Adding of a non-duplicate recipe
+.. Prerequisites: Switched to `-recipe` context and recipe to be added is not in SousChef.
+.. Test case: `add n/Chicken Rice d/3 c/20M` `cont i/Remove skin from #chicken 500 gram.` `cont i/Boil chicken in
+#water 700 ml for 20m c/20M` `end` +
+Expected: Recipe added to the end of recipes list. Details of the added recipe shown in the status message. Timestamp
+ in the status bar is updated.
+ .. Test case: `add n/Tuna Roll d/3 c/10M` `end` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+ . Adding of a duplicate recipe
+ .. Prerequisites: Switched to `-recipe` context.
+ .. Test case: `add n/Egg Roll d/2 c/10M` `cont i/Spread #rice 100 gram on the mat.` `cont i/Put #egg 1 piece on top
+ of the rice.` `cont i/Roll the rice.` `end` `add n/Egg Roll d/2 c/10M` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+
+=== Editing a recipe
+. Editing a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
+... Test case: `edit 1 n/Chicken Burger` +
+Expected: First recipe is updated with a new name. Details of the edited recipe shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit 1` +
+Expected: No recipe is edited. Error details shown in the status message. Status bar remains the same.
+
 === Deleting a recipe
 
 . Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
 .. Test case: `delete 1` +
    Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message.
    Timestamp
    in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Finding a recipe
+. Finding a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+lsit.
+.. Test case: `find vegetarian noodles 1 20M` +
+Expected: Recipes meeting all the keywords is listed. Number of listed recipes shown in the status message. Status bar remains the same.
+.. Test case: `find` +
+Expected: No recipe listed. Error details shown in the status message. Status bar remains the same.

@@ -1,26 +1,21 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
-import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_RECIPE_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.souschef.logic.commands.AddCommand;
@@ -44,46 +39,11 @@ import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.planner.Day;
-import seedu.souschef.model.recipe.CookTime;
-import seedu.souschef.model.recipe.Difficulty;
-import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements CommandParser<AddCommand> {
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AddCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
-        requireNonNull(model);
-
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_ADD_RECIPE_USAGE));
-        }
-
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Recipe toAdd = new Recipe(name, difficulty, cookTime, new ArrayList<>(), tagList);
-        if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
-        }
-
-        return new AddCommand<>(model, toAdd);
-    }
-
     @Override
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
@@ -104,9 +64,12 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         double amount;
         Date date;
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("MM-dd-yyyy");
+        sdf.setLenient(false);
         try {
             amount = Double.parseDouble(tokens[1]);
-            date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[3]);
+            date = sdf.parse(tokens[3]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         } catch (java.text.ParseException pe) {
@@ -132,9 +95,9 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
-                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION, PREFIX_SCHEME);
+                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_SCHEME, PREFIX_AGE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_AGE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
@@ -144,14 +107,24 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         CurrentHeight currentHeight = ParserUtil.parseCHeight(argMultimap.getValue(PREFIX_CHEIGHT).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
-        Scheme scheme = ParserUtil.parseScheme(argMultimap.getValue(PREFIX_SCHEME).get());
+
+        //determine the scheme base on current and target weight
+        double difference = Double.parseDouble(targetWeight.value) - Double.parseDouble(currentWeight.value);
+        Scheme scheme;
+        //gain
+        if (difference > 0) {
+            scheme = Scheme.GAIN;
+        } else if (difference == 0) {
+            scheme = Scheme.MAINTAIN;
+        } else {
+            scheme = Scheme.LOSS;
+        }
 
         //generating a new plan, no list (empty by default)
         HealthPlan toAdd = new HealthPlan(healthPlanName, targetWeight,
                 currentWeight, currentHeight, age, duration, scheme, new ArrayList<Day>());
         if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_ADD_HEALTHPLAN_USAGE));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, "plan name"));
         }
 
         return new AddCommand<HealthPlan>(model, toAdd);
