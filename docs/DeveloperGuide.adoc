@@ -746,6 +746,23 @@ which is the equivalent of Create, Read, Update and Delete (CRUD).
 
 ===== `AddPatientCommand`
 
+The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
+in order to add patient.
+  
+[source,java]
+----
+if (!UserSession.isLogin()) { // <1>
+    throw new CommandException("");
+} else if (model.hasPatient(toAdd)) { // <2>
+    throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+}
+
+model.addPatient(toAdd); // <3>
+----
+<1> Check if user is login as receptionist
+<2> Check if there is an existing patient record in ClinicIO
+<3> Add patient to ClinicIO
+
 ===== `ListPatientCommand`
 
 ===== `EditPatientCommand`
