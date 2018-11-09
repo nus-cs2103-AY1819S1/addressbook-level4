@@ -18,7 +18,7 @@ public class DoctorStatisticsCommandTest {
     private Analytics analytics = new Analytics();
 
     @Test
-    public void execute_doctorStatisticCommand_success() {
+    public void execute_doctorStatisticsCommand_success() {
         assertCommandSuccess(new DoctorStatisticsCommand(), model, commandHistory,
                 String.format(MESSAGE_SUCCESS, StatisticType.DOCTOR), expectedModel, analytics);
     }
