@@ -3,6 +3,9 @@ package seedu.clinicio.ui.analytics;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -13,9 +16,6 @@ import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
 import seedu.clinicio.ui.UiPart;
-
-import javafx.fxml.FXML;
-import com.google.common.eventbus.Subscribe;
 
 //@@author arsalanc-v2
 

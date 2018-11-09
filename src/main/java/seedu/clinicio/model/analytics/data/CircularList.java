@@ -52,7 +52,7 @@ public class CircularList<T> {
         if (index < 0) {
             index = getSize() - 1;
         }
-       return lst.get(index);
+        return lst.get(index);
     }
 
     public int getSize() {

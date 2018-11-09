@@ -6,9 +6,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Objects;
 
 /**

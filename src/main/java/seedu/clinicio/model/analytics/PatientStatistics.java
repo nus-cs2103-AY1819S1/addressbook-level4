@@ -99,9 +99,9 @@ public class PatientStatistics extends Statistics {
                 )
             ).collect(Collectors.toList());
 
-        statData.addVisualization("patientsTimeOfDay", ChartType.VERTICAL_BAR, false, "Number of " +
-            "patients for various time periods in a day", "Time Period", "Number of Patients",
-            Arrays.asList(timeGroupsCountToDisplay), Arrays.asList(""));
+        statData.addVisualization("patientsTimeOfDay", ChartType.VERTICAL_BAR, false,
+            "Number of patients for various time periods in a day", "Time Period",
+            "Number of Patients", Arrays.asList(timeGroupsCountToDisplay), Arrays.asList(""));
     }
 
     @Override

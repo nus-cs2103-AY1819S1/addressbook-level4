@@ -83,7 +83,7 @@ public class DoctorStatistics extends Statistics {
 
         int numberOfDoctors = doctors.size();
         if (numberOfDoctors > 0) {
-           List<Integer> consultationAverageValues = consultaionTotalValues.stream()
+            List<Integer> consultationAverageValues = consultaionTotalValues.stream()
                .map(value -> value / numberOfDoctors)
                .collect(Collectors.toList());
 
