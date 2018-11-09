@@ -81,7 +81,7 @@ public class DependencyGraph {
      * Return the inverted pruned graph (with their hashcodes as string)
      * @return
      */
-    public Map<String, Set<String>> getPrunedGraph() {
+    public Map<String, Set<String>> getPrunedInvertedGraph() {
         pruneCompletedTasks();
         invertGraph();
         return this.adjacencyList;

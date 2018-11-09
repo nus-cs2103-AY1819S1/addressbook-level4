@@ -260,7 +260,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public Map<Task, DueDate> getEarliestDependentTime() {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
-        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedGraph());
+        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
         HashMap<Task, DueDate> visited = new HashMap<Task, DueDate>();
         for (Task task: graph.keySet()) {
             if (!visited.containsKey(task)) {
@@ -276,7 +276,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public DueDate getEarliestDependentTimeForNode(Task node) {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
-        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedGraph());
+        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
         HashMap<Task, DueDate> visited = new HashMap<>();
         return getEarliestDependentTimeHelper(graph, visited, node);
 
