@@ -49,8 +49,11 @@ public class LogicManager extends ComponentManager implements Logic {
         restaurantBookParser = new RestaurantBookParser();
     }
 
-    //@@author AZhiKai
-    //TODO: To be removed once role is implemented in v2.0 which will update all commands with a privilege rank
+    //@@author AZhiKai2
+
+    /**
+     * Verifies if a {@code Command} is a guest command which can be executed without being authenticated.
+     */
     private boolean isGuestCommand(Command command) {
         return command instanceof LoginCommand || command instanceof HelpCommand || command instanceof ExitCommand
                 || command instanceof SelectItemCommand || command instanceof FindItemCommand
