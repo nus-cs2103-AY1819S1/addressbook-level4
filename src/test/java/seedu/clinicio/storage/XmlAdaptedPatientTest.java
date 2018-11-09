@@ -45,7 +45,7 @@ public class XmlAdaptedPatientTest {
         System.out.println(patient.toModelType());
         assertEquals(BRYAN, patient.toModelType());
     }*/
-    
+
     @Test
     public void toModelType_invalidNric_throwsIllegalValueException() {
         XmlAdaptedPatient patient =
