@@ -21,6 +21,8 @@ import seedu.jxmusic.model.Track;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_TIME_FORMAT =
+            "Wrong time format, at most 3 unsigned integers are allowed in input.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -121,6 +123,7 @@ public class ParserUtil {
         int countSoFar = 0;
         Scanner s = new Scanner(trimmedTimeString);
 
+
         try {
             while (s.hasNext() && countSoFar < 3) {
                 String currentToken = s.next();
@@ -130,11 +133,11 @@ public class ParserUtil {
                 countSoFar++;
             }
             if (s.hasNextInt()) {
-                throw new ParseException("wrong time format, at most 3 unsigned integers are allowed in input.");
+                throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
             }
             return timeInSeconds * 1000;
         } catch (Exception e) {
-            throw new ParseException("wrong time format, at most 3 unsigned integers are allowed in input.");
+            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
         }
 
     }

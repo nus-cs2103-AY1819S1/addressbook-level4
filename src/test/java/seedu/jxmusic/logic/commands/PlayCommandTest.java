@@ -51,7 +51,6 @@ public class PlayCommandTest {
      */
     @BeforeClass
     public static void initToolkit() {
-
         try {
             Platform.startup(() -> {});
             new PlayableTrack(BELL);
@@ -63,7 +62,6 @@ public class PlayCommandTest {
             // for some reason travis throws "IllegalStateException: Toolkit already initialized"
         } catch (MediaException ex) {
             Assume.assumeNoException(ex);
-
         }
     }
 
