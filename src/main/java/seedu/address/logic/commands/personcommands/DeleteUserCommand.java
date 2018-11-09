@@ -41,6 +41,7 @@ public class DeleteUserCommand extends Command {
             updateFriendListsDueToDeletedPerson(model, lastShownList, personToDelete);
             model.removeCurrentUser();
             model.deletePerson(personToDelete);
+            model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);

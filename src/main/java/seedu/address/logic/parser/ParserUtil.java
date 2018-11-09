@@ -46,10 +46,6 @@ public class ParserUtil {
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        if (trimmedIndex.contains(StringUtil.COMMA)) {
-            ArrayList<Integer> indexes = StringUtil.splitIntegersWithComma(trimmedIndex);
-            return Index.fromOneBased(indexes.get(0), indexes.get(1));
-        }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
