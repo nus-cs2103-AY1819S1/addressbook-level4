@@ -158,6 +158,12 @@ public class ParserUtil {
     }
 
 
+    /**
+     * Returns the {@code Date}, offset by an input {@code Period} from now.
+     * @param periodString
+     * @return
+     * @throws ParseException
+     */
     public static Date getPeriodOffsetFromNow(String periodString) throws ParseException {
         Period period = parsePeriod(periodString);
         java.util.Date now = new java.util.Date();
