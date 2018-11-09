@@ -7,7 +7,6 @@ import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
