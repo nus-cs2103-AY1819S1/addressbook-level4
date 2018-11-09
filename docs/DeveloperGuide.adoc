@@ -734,6 +734,20 @@ to ClinicIO.
 
 // end::login[]
 
+// tag::patientManagement[]
+=== Patient Management
+
+ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+
+==== Current Implementation
+
+The Patient Management comprises of `AddPatientCommand`, `EditPatientCommand`, `DeletePatientCommand`, `ListPatientCommand`. +
+This is the equivalent of Create, Read, Update and Delete (CRUD).
+
+==== Design Considerations
+
+// end::patientManagement[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1490,11 +1504,17 @@ Use case ends.
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for 
+terms that are used in this document below. 
+
+[[CRUD]] CRUD (Create, Read, Update and Delete)::
+These are the basic functions of a persistent database.  
+
+[[doctor]] Doctor::
+A person who is qualified to treat people who are ill.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [[medical-clinic]] Medical Clinic::
 A clinic that deal with medical issues only.
@@ -1502,8 +1522,8 @@ A clinic that deal with medical issues only.
 [[medical-clinic-receptionist]] Medical Clinic Receptionist::
 A person that is in charge of the front desk receptionist in a medical clinic.
 
-[[doctor]] Doctor::
-A person who is qualified to treat people who are ill.
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
 
 [appendix]
 == Instructions for Manual Testing
