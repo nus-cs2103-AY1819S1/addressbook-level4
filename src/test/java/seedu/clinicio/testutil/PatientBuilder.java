@@ -14,6 +14,7 @@ import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.util.SampleDataUtil;
 
 /**
  * A utility class to build {@link Patient} objects.
@@ -94,6 +95,33 @@ public class PatientBuilder extends PersonBuilder {
      */
     public PatientBuilder withNric(String nric) {
         this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
+     * Parses the {@code medicalProblems} into a {@code Set<MedicalProblem>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedicalProblems(String ... medicalProblems) {
+        this.medicalProblems = SampleDataUtil.getMedicalProblemSet(medicalProblems);
+        return this;
+    }
+
+    /**
+     * Parses the {@code medications} into a {@code Set<Medication>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedications(String ... medications) {
+        this.medications = SampleDataUtil.getMedicationSet(medications);
+        return this;
+    }
+
+    /**
+     * Parses the {@code allergies} into a {@code Set<Allergy>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withAllergies(String ... allergies) {
+        this.allergies = SampleDataUtil.getAllergySet(allergies);
         return this;
     }
 
