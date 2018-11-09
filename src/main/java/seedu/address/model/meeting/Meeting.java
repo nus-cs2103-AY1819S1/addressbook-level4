@@ -62,7 +62,8 @@ public class Meeting {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMuu")
                         .withResolverStyle(ResolverStyle.STRICT);
                 LocalDate.parse(formattedTest.substring(0, 6), dateFormatter);
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm")
+                        .withResolverStyle(ResolverStyle.STRICT);
                 LocalTime.parse(formattedTest.substring(6, 10), timeFormatter);
                 return true;
             } catch (DateTimeException e) {
