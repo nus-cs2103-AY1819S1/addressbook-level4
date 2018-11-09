@@ -6,6 +6,7 @@ import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -67,7 +68,8 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
             return new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.TRACK, tracksToAdd);
         }
         if (isUsingIndex) {
-            indexesToAdd = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
+            List<String> indexes = Arrays.asList(argMultimap.getValue(PREFIX_INDEX).get().split("\\s+"));
+            indexesToAdd = ParserUtil.parseIndexes(indexes);
             return new TrackAddCommand(targetPlaylist, TrackAddCommand.InputType.INDEX, indexesToAdd);
         }
         return null;
