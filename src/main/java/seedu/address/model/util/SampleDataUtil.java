@@ -64,206 +64,253 @@ public class SampleDataUtil {
         new Phone("92621217"), new Email("chickinr@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
         getInterestSet("play"), getTagSet("Business"));
-    private static final Person HUNGRYH = new Person(new Name("Hungry Heron"),
-        new Phone("97759115"), new Email("hungryh@example.com"),
+    private static final Person NAKESHAS = new Person(new Name("Nakesha Sovie"),
+        new Phone("91664359"), new Email("nakeshas@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("Taonurus"), getTagSet("SDE"));
-    private static final Person EXCITEDE = new Person(new Name("Excited Eland"),
-        new Phone("99155710"), new Email("excitede@example.com"),
+        getInterestSet("tuberculomania"), getTagSet("SDE"));
+    private static final Person ELFRIEDAT = new Person(new Name("Elfrieda Topping"),
+        new Phone("97916051"), new Email("elfriedat@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("Jewry"), getTagSet("FOS"));
-    private static final Person EBONYM = new Person(new Name("Ebony Mind"),
-        new Phone("94153191"), new Email("ebonym@example.com"),
+        getInterestSet("peel"), getTagSet("SOC"));
+    private static final Person YERL = new Person(new Name("Yer Landfried"),
+        new Phone("90578590"), new Email("yerl@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("lairdie"), getTagSet("Business"));
-    private static final Person ELEGANTE = new Person(new Name("Elegant Eland"),
-        new Phone("97305592"), new Email("elegante@example.com"),
+        getInterestSet("anisogenous"), getTagSet("SDE"));
+    private static final Person ESTHERG = new Person(new Name("Esther Galasso"),
+        new Phone("99408147"), new Email("estherg@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("venter"), getTagSet("FOS"));
-    private static final Person WORLDO = new Person(new Name("World of"),
-        new Phone("92332658"), new Email("worldo@example.com"),
+        getInterestSet("outbelch"), getTagSet("FOS"));
+    private static final Person BLAIRP = new Person(new Name("Blair Paniagua"),
+        new Phone("93397502"), new Email("blairp@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("unrestingness"), getTagSet("FASS"));
-    private static final Person TERRIBLES = new Person(new Name("Terrible Stunt"),
-        new Phone("95604504"), new Email("terribles@example.com"),
+        getInterestSet("similiter"), getTagSet("SDE"));
+    private static final Person NORBERTP = new Person(new Name("Norbert Pitcak"),
+        new Phone("98431734"), new Email("norbertp@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("overhomely"), getTagSet("SDE"));
-    private static final Person PERFECTP = new Person(new Name("Perfect Porcupine"),
-        new Phone("94964297"), new Email("perfectp@example.com"),
+        getInterestSet("dialectic"), getTagSet("NUH"));
+    private static final Person LIGIAP = new Person(new Name("Ligia Prust"),
+        new Phone("98348005"), new Email("ligiap@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("Silas"), getTagSet("SDE"));
-    private static final Person UNINTERESTEDU = new Person(new Name("Uninterested Unicorn"),
-        new Phone("90735738"), new Email("uninterestedu@example.com"),
+        getInterestSet("unbody"), getTagSet("SOC"));
+    private static final Person GAYLEP = new Person(new Name("Gayle Pang"),
+        new Phone("94360507"), new Email("gaylep@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("unnutritive"), getTagSet("SOC"));
-    private static final Person JOLLYJ = new Person(new Name("Jolly Jackal"),
-        new Phone("96565866"), new Email("jollyj@example.com"),
+        getInterestSet("premegalithic"), getTagSet("SOC"));
+    private static final Person ROSALINEH = new Person(new Name("Rosaline Hannah"),
+        new Phone("90248451"), new Email("rosalineh@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("chuckleheaded"), getTagSet("FOS"));
-    private static final Person NBAA = new Person(new Name("NBA Aerobics"),
-        new Phone("99399347"), new Email("nbaa@example.com"),
+        getInterestSet("sicula"), getTagSet("SDE"));
+    private static final Person SHAKITAH = new Person(new Name("Shakita Highers"),
+        new Phone("97960704"), new Email("shakitah@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("overlargely"), getTagSet("FASS"));
-    private static final Person LOVELYL = new Person(new Name("Lovely Locust"),
-        new Phone("98981324"), new Email("lovelyl@example.com"),
+        getInterestSet("pancratic"), getTagSet("SDE"));
+    private static final Person LEONARDAV = new Person(new Name("Leonarda Venzon"),
+        new Phone("90800518"), new Email("leonardav@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("technica"), getTagSet("Business"));
-    private static final Person MYSTICALH = new Person(new Name("Mystical Hardware"),
-        new Phone("97176155"), new Email("mysticalh@example.com"),
+        getInterestSet("uphillward"), getTagSet("SOC"));
+    private static final Person BRONWYNK = new Person(new Name("Bronwyn Kirker"),
+        new Phone("97591438"), new Email("bronwynk@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("medianimic"), getTagSet("FASS"));
-    private static final Person PARANOIDC = new Person(new Name("Paranoid Cyborg"),
-        new Phone("99868306"), new Email("paranoidc@example.com"),
+        getInterestSet("ripgut"), getTagSet("FOS"));
+    private static final Person MOISESO = new Person(new Name("Moises Oberbeck"),
+        new Phone("93154709"), new Email("moiseso@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("nontopographical"), getTagSet("FOS"));
-    private static final Person INBREDF = new Person(new Name("Inbred Fantasy"),
-        new Phone("95246258"), new Email("inbredf@example.com"),
+        getInterestSet("pantheistical"), getTagSet("Business"));
+    private static final Person LOUIEK = new Person(new Name("Louie Kalinoski"),
+        new Phone("91096845"), new Email("louiek@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("stormer"), getTagSet("SOC"));
-    private static final Person NUCLEARL = new Person(new Name("Nuclear Lizard"),
-        new Phone("93401992"), new Email("nuclearl@example.com"),
+        getInterestSet("Transylvanian"), getTagSet("SOC"));
+    private static final Person GAYEH = new Person(new Name("Gaye Havercroft"),
+        new Phone("92538289"), new Email("gayeh@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("antixerophthalmic"), getTagSet("SOC"));
-    private static final Person LAIRO = new Person(new Name("Lair of"),
-        new Phone("97399722"), new Email("lairo@example.com"),
+        getInterestSet("router"), getTagSet("Business"));
+    private static final Person KELLYP = new Person(new Name("Kelly Phariss"),
+        new Phone("90854117"), new Email("kellyp@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("snarler"), getTagSet("Business"));
-    private static final Person LIVELYL = new Person(new Name("Lively Lark"),
-        new Phone("91390643"), new Email("livelyl@example.com"),
+        getInterestSet("apse"), getTagSet("SOC"));
+    private static final Person BRITANYM = new Person(new Name("Britany Meleo"),
+        new Phone("97485962"), new Email("britanym@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("peastone"), getTagSet("Business"));
-    private static final Person MYSTERIOUSM = new Person(new Name("Mysterious Meerkat"),
-        new Phone("97256694"), new Email("mysteriousm@example.com"),
+        getInterestSet("decomposer"), getTagSet("FOS"));
+    private static final Person STEPHENF = new Person(new Name("Stephen Fanno"),
+        new Phone("95159836"), new Email("stephenf@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("requit"), getTagSet("NUH"));
-    private static final Person THOUGHTFULT = new Person(new Name("Thoughtful Tortoise"),
-        new Phone("92765760"), new Email("thoughtfult@example.com"),
+        getInterestSet("rickshaw"), getTagSet("SOC"));
+    private static final Person TANJAL = new Person(new Name("Tanja Luciano"),
+        new Phone("94639027"), new Email("tanjal@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("fairy"), getTagSet("SDE"));
-    private static final Person SMOGGYS = new Person(new Name("Smoggy Sardine"),
-        new Phone("91396582"), new Email("smoggys@example.com"),
+        getInterestSet("incrossing"), getTagSet("FOS"));
+    private static final Person ALEJANDROE = new Person(new Name("Alejandro Ehly"),
+        new Phone("95941078"), new Email("alejandroe@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("cotyliform"), getTagSet("NUH"));
-    private static final Person NUDISTT = new Person(new Name("Nudist Thunder"),
-        new Phone("96085418"), new Email("nudistt@example.com"),
+        getInterestSet("peptonemia"), getTagSet("FOS"));
+    private static final Person KENNYA = new Person(new Name("Kenny Antonucci"),
+        new Phone("95209422"), new Email("kennya@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("leucocism"), getTagSet("FASS"));
-    private static final Person EMBARRASSEDE = new Person(new Name("Embarrassed Earthworm"),
-        new Phone("99711359"), new Email("embarrassede@example.com"),
+        getInterestSet("posthumousness"), getTagSet("Business"));
+    private static final Person KENDRAN = new Person(new Name("Kendra Nicole"),
+        new Phone("93536771"), new Email("kendran@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("dermatography"), getTagSet("SOC"));
-    private static final Person ANXIOUSA = new Person(new Name("Anxious Angelfish"),
-        new Phone("99956526"), new Email("anxiousa@example.com"),
+        getInterestSet("uninvalidated"), getTagSet("Business"));
+    private static final Person SUSANNAB = new Person(new Name("Susanna Bey"),
+        new Phone("90619422"), new Email("susannab@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("foiler"), getTagSet("FASS"));
-    private static final Person EASYE = new Person(new Name("Easy Elephant"),
-        new Phone("98423760"), new Email("easye@example.com"),
+        getInterestSet("acrobatics"), getTagSet("SOC"));
+    private static final Person LORIS = new Person(new Name("Lori Santanna"),
+        new Phone("99358977"), new Email("loris@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("relatively"), getTagSet("NUH"));
-    private static final Person DETERMINEDD = new Person(new Name("Determined Dolphin"),
-        new Phone("91294071"), new Email("determinedd@example.com"),
+        getInterestSet("cardiectasis"), getTagSet("SDE"));
+    private static final Person ROSELEEB = new Person(new Name("Roselee Bouten"),
+        new Phone("91554176"), new Email("roseleeb@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("sclerodactyly"), getTagSet("NUH"));
-    private static final Person DARKD = new Person(new Name("Dark Dove"),
-        new Phone("99668976"), new Email("darkd@example.com"),
+        getInterestSet("oratorian"), getTagSet("FOS"));
+    private static final Person CATHERINAK = new Person(new Name("Catherina Kirtner"),
+        new Phone("98058531"), new Email("catherinak@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("ornithorhynchous"), getTagSet("Business"));
-    private static final Person THEC = new Person(new Name("The Castle"),
-        new Phone("96856037"), new Email("thec@example.com"),
+        getInterestSet("ateeter"), getTagSet("Business"));
+    private static final Person LORYR = new Person(new Name("Lory Rossini"),
+        new Phone("95835623"), new Email("loryr@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("Laserpitium"), getTagSet("Business"));
-    private static final Person TENDERT = new Person(new Name("Tender Tapir"),
-        new Phone("98929822"), new Email("tendert@example.com"),
+        getInterestSet("downtrodden"), getTagSet("NUH"));
+    private static final Person MICHEALW = new Person(new Name("Micheal Whinnery"),
+        new Phone("91068931"), new Email("michealw@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("tocusso"), getTagSet("FOS"));
-    private static final Person SEARCHF = new Person(new Name("Search for"),
-        new Phone("96364527"), new Email("searchf@example.com"),
+        getInterestSet("varietism"), getTagSet("SOC"));
+    private static final Person ZELLAS = new Person(new Name("Zella Stefanick"),
+        new Phone("90886406"), new Email("zellas@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("cuproiodargyrite"), getTagSet("SOC"));
-    private static final Person ADVENTUROUSA = new Person(new Name("Adventurous Antelope"),
-        new Phone("99686963"), new Email("adventurousa@example.com"),
+        getInterestSet("bettong"), getTagSet("FASS"));
+    private static final Person NENITAD = new Person(new Name("Nenita Dhar"),
+        new Phone("91731094"), new Email("nenitad@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("asepticize"), getTagSet("FOS"));
-    private static final Person PAGANS = new Person(new Name("Pagan Speed"),
-        new Phone("94397841"), new Email("pagans@example.com"),
+        getInterestSet("azoparaffin"), getTagSet("FOS"));
+    private static final Person CARMELOS = new Person(new Name("Carmelo Shearing"),
+        new Phone("95829633"), new Email("carmelos@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("flench"), getTagSet("SDE"));
-    private static final Person FIERCEF = new Person(new Name("Fierce Flatworm"),
-        new Phone("92113758"), new Email("fiercef@example.com"),
+        getInterestSet("prefigure"), getTagSet("SDE"));
+    private static final Person BRYANTS = new Person(new Name("Bryant Slater"),
+        new Phone("93485686"), new Email("bryants@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("bureaucratism"), getTagSet("FASS"));
-    private static final Person NEOB = new Person(new Name("Neo Bimbo"),
-        new Phone("96570620"), new Email("neob@example.com"),
+        getInterestSet("obmutescence"), getTagSet("FASS"));
+    private static final Person TANISHAM = new Person(new Name("Tanisha Marchetta"),
+        new Phone("90827372"), new Email("tanisham@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("chlorosis"), getTagSet("NUH"));
-    private static final Person MISTYM = new Person(new Name("Misty Markhor"),
-        new Phone("92773911"), new Email("mistym@example.com"),
+        getInterestSet("janissary"), getTagSet("FASS"));
+    private static final Person NOEL = new Person(new Name("Noe Lenigan"),
+        new Phone("91546477"), new Email("noel@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("sweetfish"), getTagSet("FASS"));
-    private static final Person THOUGHTLESST = new Person(new Name("Thoughtless Termite"),
-        new Phone("92549884"), new Email("thoughtlesst@example.com"),
+        getInterestSet("demijohn"), getTagSet("SDE"));
+    private static final Person JIMMYS = new Person(new Name("Jimmy Stopa"),
+        new Phone("98095338"), new Email("jimmys@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("siphonorhine"), getTagSet("Business"));
-    private static final Person CALMC = new Person(new Name("Calm Crocodile"),
-        new Phone("94510354"), new Email("calmc@example.com"),
+        getInterestSet("prevalent"), getTagSet("SDE"));
+    private static final Person BERTRAMG = new Person(new Name("Bertram Garon"),
+        new Phone("98870388"), new Email("bertramg@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("Illano"), getTagSet("NUH"));
-    private static final Person ROCK = new Person(new Name("Rock n"),
-        new Phone("99158587"), new Email("rock'@example.com"),
+        getInterestSet("gallet"), getTagSet("SDE"));
+    private static final Person JANAET = new Person(new Name("Janae Tarran"),
+        new Phone("99992880"), new Email("janaet@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("coccygalgia"), getTagSet("FASS"));
-    private static final Person GOTHICS = new Person(new Name("Gothic Sailor"),
-        new Phone("99405998"), new Email("gothics@example.com"),
+        getInterestSet("rudimentary"), getTagSet("SOC"));
+    private static final Person RONNAL = new Person(new Name("Ronna Luetkemeyer"),
+        new Phone("95598290"), new Email("ronnal@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("cowman"), getTagSet("FASS"));
-    private static final Person DULLD = new Person(new Name("Dull Dormouse"),
-        new Phone("96832734"), new Email("dulld@example.com"),
+        getInterestSet("questioner"), getTagSet("SDE"));
+    private static final Person SHELBAH = new Person(new Name("Shelba Handkins"),
+        new Phone("97715824"), new Email("shelbah@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
-        getInterestSet("concausal"), getTagSet("NUH"));
+        getInterestSet("vatic"), getTagSet("Business"));
+    private static final Person ELDRIDGES = new Person(new Name("Eldridge Shrier"),
+        new Phone("98617272"), new Email("eldridges@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("bereavement"), getTagSet("FOS"));
+    private static final Person SHANS = new Person(new Name("Shan Safrit"),
+        new Phone("96870860"), new Email("shans@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("inspiritment"), getTagSet("NUH"));
+    private static final Person SEAND = new Person(new Name("Sean Deeley"),
+        new Phone("98031353"), new Email("seand@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("Placaean"), getTagSet("NUH"));
+    private static final Person LINETTEB = new Person(new Name("Linette Bomilla"),
+        new Phone("94022216"), new Email("linetteb@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("caciquism"), getTagSet("NUH"));
+    private static final Person CAMERONT = new Person(new Name("Cameron Taplin"),
+        new Phone("94647642"), new Email("cameront@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("hemozoon"), getTagSet("FOS"));
+    private static final Person JULENEG = new Person(new Name("Julene Grande"),
+        new Phone("90291309"), new Email("juleneg@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("unchance"), getTagSet("Business"));
+    private static final Person DANNS = new Person(new Name("Dann Signore"),
+        new Phone("94339094"), new Email("danns@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("tyloma"), getTagSet("NUH"));
+    private static final Person DEREKG = new Person(new Name("Derek Gideon"),
+        new Phone("90076767"), new Email("derekg@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("overpunishment"), getTagSet("FASS"));
+    private static final Person KEVIND = new Person(new Name("Kevin Dencklau"),
+        new Phone("92579252"), new Email("kevind@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("haglin"), getTagSet("NUH"));
+    private static final Person SUZANNEH = new Person(new Name("Suzanne Hayashida"),
+        new Phone("96476068"), new Email("suzanneh@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("plagiograph"), getTagSet("Business"));
+    private static final Person ROYH = new Person(new Name("Roy Helgert"),
+        new Phone("99708498"), new Email("royh@example.com"),
+        new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
+        getInterestSet("polestar"), getTagSet("NUH"));
 
     public static Person[] getSamplePersons() {
-        return new Person[] {ALEX, BERNICE, CHARLOTTE, DAVID, IRFAN, ROY, Amony, RICHARD, ROYCE, CHICKIN,
-            HUNGRYH, EXCITEDE, EBONYM, ELEGANTE, WORLDO, TERRIBLES, PERFECTP, UNINTERESTEDU, JOLLYJ, NBAA,
-            LOVELYL, MYSTICALH, PARANOIDC, INBREDF, NUCLEARL, LAIRO, LIVELYL, MYSTERIOUSM, THOUGHTFULT,
-            SMOGGYS, NUDISTT, EMBARRASSEDE, ANXIOUSA, EASYE, DETERMINEDD, DARKD, THEC, TENDERT, SEARCHF,
-            ADVENTUROUSA, PAGANS, FIERCEF, NEOB, MISTYM, THOUGHTLESST, CALMC, ROCK, GOTHICS, DULLD};
+        return new Person[] {ALEX, BERNICE, CHARLOTTE, DAVID, IRFAN, ROY, Amony, RICHARD, ROYCE,
+            CHICKIN, NAKESHAS, ELFRIEDAT, YERL, ESTHERG, BLAIRP, NORBERTP, LIGIAP, GAYLEP, ROSALINEH,
+            SHAKITAH, LEONARDAV, BRONWYNK, MOISESO, LOUIEK, GAYEH, KELLYP, BRITANYM, STEPHENF, TANJAL,
+            ALEJANDROE, KENNYA, KENDRAN, SUSANNAB, LORIS, ROSELEEB, CATHERINAK, LORYR, MICHEALW, ZELLAS,
+            NENITAD, CARMELOS, BRYANTS, TANISHAM, NOEL, JIMMYS, BERTRAMG, JANAET, RONNAL, SHELBAH,
+            ELDRIDGES, SHANS, SEAND, LINETTEB, CAMERONT, JULENEG, DANNS, DEREKG, KEVIND, SUZANNEH,
+            ROYH
+        };
     }
 
     public static Event[] getSampleEvents() {
         return new Event[] {
             new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet("Urgent"),
-                    LocalDate.of(2018, 12, 12), LocalTime.of(12, 30),
-                    LocalTime.of(13, 00), ALEX),
+                LocalDate.of(2018, 12, 12), LocalTime.of(12, 30),
+                LocalTime.of(13, 00), ALEX),
             new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet(),
-                    LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
-                    LocalTime.of(13, 00), ALEX),
+                LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
+                LocalTime.of(13, 00), ALEX),
             new Event(new EventName("CS2100 discussion"), new Address("NUS Deck"), getTagSet(),
-                    LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
-                    LocalTime.of(18, 30), DAVID),
+                LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
+                LocalTime.of(18, 30), DAVID),
             new Event(new EventName("Week 12 karaoke session"), new Address("Clementi MRT"), getTagSet("Public"),
-                    LocalDate.of(2018, 11, 8), LocalTime.of(20, 30),
-                    LocalTime.of(22, 30), ROY),
+                LocalDate.of(2018, 11, 8), LocalTime.of(20, 30),
+                LocalTime.of(22, 30), ROY),
             new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
-                    LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
-                    LocalTime.of(18, 30), CHARLOTTE),
+                LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
+                LocalTime.of(18, 30), CHARLOTTE),
             new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
-                    LocalDate.of(2018, 11, 19), LocalTime.of(17, 30),
-                    LocalTime.of(18, 30), CHARLOTTE),
+                LocalDate.of(2018, 11, 19), LocalTime.of(17, 30),
+                LocalTime.of(18, 30), CHARLOTTE),
             new Event(new EventName("Bernice's BD party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 1), LocalTime.of(22, 00),
-                    LocalTime.of(23, 30), DAVID),
+                LocalDate.of(2018, 12, 1), LocalTime.of(22, 00),
+                LocalTime.of(23, 30), DAVID),
             new Event(new EventName("11th floor party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 11, 15), LocalTime.of(22, 00),
-                    LocalTime.of(23, 00), IRFAN),
+                LocalDate.of(2018, 11, 15), LocalTime.of(22, 00),
+                LocalTime.of(23, 00), IRFAN),
             new Event(new EventName("Hackathon"), new Address("SoC LT19"), getTagSet(),
-                    LocalDate.of(2018, 11, 27), LocalTime.of(10, 00),
-                    LocalTime.of(22, 30), BERNICE),
+                LocalDate.of(2018, 11, 27), LocalTime.of(10, 00),
+                LocalTime.of(22, 30), BERNICE),
             new Event(new EventName("Lunch"), new Address("NUS Techno"), getTagSet(),
-                    LocalDate.of(2018, 12, 1), LocalTime.of(12, 30),
-                    LocalTime.of(13, 00), IRFAN),
+                LocalDate.of(2018, 12, 1), LocalTime.of(12, 30),
+                LocalTime.of(13, 00), IRFAN),
             new Event(new EventName("EOY Christmas Party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 22), LocalTime.of(19, 30),
-                    LocalTime.of(22, 00), IRFAN)
+                LocalDate.of(2018, 12, 22), LocalTime.of(19, 30),
+                LocalTime.of(22, 00), IRFAN)
         };
     }
 
