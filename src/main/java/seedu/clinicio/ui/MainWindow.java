@@ -147,20 +147,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
-        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
-
-        personTab.setText("Persons");
-        personTab.setContent(personListPanelPlaceholder);
-        personTab.setClosable(false);
-
-        appointmentTab.setText("Appointments");
-        appointmentTab.setContent(appointmentListPanelPlaceholder);
-        appointmentTab.setClosable(false);
-
-        tabLists = new TabPane(personTab, appointmentTab);
-
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         analyticsDisplay.setVisible(false);

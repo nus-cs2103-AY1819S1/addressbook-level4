@@ -18,13 +18,17 @@ public class TimeUtil {
 
     /**
      * stores periods of time in a list, each as a tuple with start and end time
-     * the periods make up the hours in a working clinic day: 9AM - 9PM
+     * the 3 hour periods make up the hours in a working clinic day: 9AM - 9PM
+     * 9.00AM - 11.59pm
+     * 12.00PM - 2.59PM
+     * 3.00PM - 5.59PM
+     * 6.00PM - 9PM
      */
     private static final List<Tuple<Time, Time>> timePeriods = Arrays.asList(
         new Tuple<Time, Time>(new Time(9, 0), new Time(11, 59)),
         new Tuple<Time, Time>(new Time(12, 0), new Time(14, 59)),
         new Tuple<Time, Time>(new Time(15, 0), new Time(17, 59)),
-        new Tuple<Time, Time>(new Time(18, 0), new Time(20, 59))
+        new Tuple<Time, Time>(new Time(18, 0), new Time(21, 0))
     );
 
     /**
@@ -82,11 +86,7 @@ public class TimeUtil {
         } else if (time1.getHour() < time2.getHour()) {
             return true;
         } else {
-            if (time1.getMinute() > time2.getMinute()) {
-                return false;
-            } else {
-                return true;
-            }
+            return time1.getMinute() <= time2.getMinute();
         }
     }
 }
