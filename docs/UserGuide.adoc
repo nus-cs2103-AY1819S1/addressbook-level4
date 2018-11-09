@@ -147,6 +147,11 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
+==== Closing attraction for maintenance: `maintain`
+
+Closes the ride for maintenance. Display statistics for the ride on that day. +
+Format: `maintain <index>`
+
 ==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
