@@ -365,8 +365,16 @@ Format: `list`
 // tag::budget[]
 [[SetBudgetCommand]]
 === Setting a total budget: `setBudget`
-Sets `totalBudget` for Expense Tracker. You can use this feature to let Expense Tracker warn you when your total
-expenditure exceeds, or is close to exceeding, the budget that you set.
+Sets the total budget that you should spend for Expense Tracker. +
+
+Available spending is defined as the total amount of expenses you can add before you exceed your budget.
+
+The Expense Tracker will warn you when adding an expense results in your available spending exceeding the total
+budget that is set,
+as shown in the figure below.
+
+.Notification that is shown when a user adds an expense which results in the user exceeding the budget.
+image::Overbudget.JPG[width="790"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -374,9 +382,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 *Examples:*
 
 * `setBudget 2.00` +
- Sets a `totalBudget` of $2.00.
+ Sets a total budget of $2.00.
 * `setBudget 20.00` +
- Sets a `totalBudget` of $20.00.
+ Sets a total budget of $20.00.
 ****
 
 [NOTE]
@@ -385,12 +393,20 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Setting a recurring frequency for totalBudget: `setRecurrenceFrequency`
-Sets the recurrence frequency for the `totalBudget` of Expense Tracker. You can use this feature to refresh your
-expenditure when tracking your budget usage.
+=== Setting a recurrence frequency for total budget: `setRecurrenceFrequency`
+Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.
 
-For example, if you specify the frequency to be 24 hours, any expenditure that you make within the 24 hours will be
-reset to $0.00 after 24 hours has passed.
+Expense Tracker will reset your available spending after every user defined frequency.
+A detailed use case is given below:
+
+. User types in the command `setRecurrenceFrequency hrs/1` as he wants his available spending to reset every hour.
+. User closes his application.
+. User reopens his application after one hour and thirty minutes to record another expense.
+. His available spending will now be reset as it is past the set frequency of one hour. A notification will be shown
+to inform you that this is done. This is shown in the figure below.
+
+.Notification that is shown when the expense tracker resets the available spending.
+image::reset_notif.PNG[width="790"]
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -399,24 +415,25 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 *Examples:*
 
 * `setRecurrenceFrequency hrs/1` +
-    Sets the expenses of `totalBudget` to reset every 1 hour
+    Sets the available spending of your total budget to reset every 1 hour
 * `setRecurrenceFrequency hrs/1 min/30` +
-    Sets the expenses of `totalBudget` to reset every 1 hour and 30 minutes
+    Sets the available spending of your total budget to reset every 1 hour and 30 minutes
 ****
 
 [NOTE]
 ====
 * The `setRecurrenceFrequency` command is case sensitive.
 * HOURS/MINUTES/SECONDS must be a positive number.
+* This feature does not reset all of your expenses. It just resets your available spending. Thus,
+it is possible that you have 10 expenses of $200.00 with a budget of $10, and yet you are not over your budget.
 ====
 
 [[SetCategoryBudgetCommand]]
 === Setting a Category Budget: `setCategoryBudget`
 Sets a Budget to limit expenses on a certain category.
 
-If expenses exceeds Category budget, a warning similar to 5.11 will be shown.
-
-The Sum of all category budgets cannot exceed total budget set in 5.11
+If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
+figure 3 will be displayed
 
 Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
@@ -424,15 +441,16 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 *Example:*
 
 * `setCategoryBudget c/School b/10.00` +
-    Sets a budget of $10 to the `School` category.
+    Sets a budget of $10 for the `School` category.
 
 ****
 
 [NOTE]
 ====
 * The `setCategoryBudget` command is case sensitive
-* CATEOGRY can only consist of one keyword
-* BUDGET must be a positive number with two decimal places.
+* `CATEOGRY` can only consist of one keyword and `BUDGET` must be a positive number with two decimal places.
+* The sum of all Category budgets cannot exceed the total budget of
+  Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.
 ====
 
 // end::budget[]
