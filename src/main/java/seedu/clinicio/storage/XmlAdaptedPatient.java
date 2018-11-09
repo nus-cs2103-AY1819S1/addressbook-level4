@@ -63,8 +63,13 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             this.allergies = new ArrayList<>(allergies);
         }
         this.isQueuing = isQueuing;
-        this.preferredDoctor = preferredDoctor;
-        this.appointment = appointment;
+
+        if (preferredDoctor != null) {
+            this.preferredDoctor = preferredDoctor;
+        }
+        if (appointment != null) {
+            this.appointment = appointment;
+        }
     }
 
     public XmlAdaptedPatient(Patient patient) {
@@ -121,11 +126,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
-        Staff modelPreferredDoctor = preferredDoctor.toModelType();
-
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies, modelPreferredDoctor);
+                modelAllergies);
 
         if (isQueuing) {
             patient.isQueuing();
@@ -133,6 +136,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setIsNotQueuing();
         }
 
+        if (preferredDoctor != null) {
+            patient.setPreferredDoctor(preferredDoctor.toModelType());
+        }
         if (appointment != null) {
             patient.setAppointment(appointment.toModelType());
         }
