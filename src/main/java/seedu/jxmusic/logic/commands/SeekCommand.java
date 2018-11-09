@@ -29,6 +29,10 @@ public class SeekCommand extends Command {
         this.time = seekTime;
     }
 
+    public Duration getTime() {
+        return time;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (player.getStatus() == Playable.Status.PLAYING) {
