@@ -225,6 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author ericyjw
     @Override
     public void addCca(Cca cca) {
         versionedBudgetBook.addCca(cca);

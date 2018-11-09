@@ -284,28 +284,22 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-===== Command: undo
-
-1) The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-2) The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-3) The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`,
-causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-4) The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo`
-command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -316,29 +310,22 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-===== Command: redo
-
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-*Things to Note*
-
-* Not all commands can undo or redo. Some commands, such as `list`, do not modify the address book and
-will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-* Some commands such as `clear`, will calls `Model#commitAddressBook()`. In this case, the `currentStatePointer` is
-not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
-
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -583,17 +570,23 @@ These operations are exposed in the `Model` interface as `Model#addCca(Cca cca)`
 
 Given below is an example usage scenario and how the create cca mechanism behaves at each step.
 
-. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
+Step 1. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
 
-. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+Step 2. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
 name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
 
-. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
+
+Step 3. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
 `BudgetBookChangedEvent`, which is handled by `EventsCenter`.
 
-. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+Step 4. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
 event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
 `ccabook.xml` file with the new CCA.
+
+The following sequence diagram shows how the create operation works:
+
+.Sequence diagram for create CCA command
+image::CreateCcaCommandSequenceDiagram.png[width="1500"]
 
 ==== Design Considerations
 
@@ -609,6 +602,212 @@ storing information.
 ** Cons: Limited in terms of what objects can be modeled.
 
 // end::createcca[]
+
+// tag::budget[]
+=== Budget feature
+==== Current Implementation
+
+The budget feature in Hallper is implemented with reference to `AddressBook`. It stores `Cca` instead of `Person`, and
+each `Cca` contains the a `Budget` and a set of transaction `Entries`. The budget feature is facilitated by
+`BudgetBook` and `BudgetBookStorage`, and can also read and write onto the `ccabook.xml`, just like the  AddressBook.
+ The purpose of this budget feature is to keep track of each `Cca` transaction.
+
+It implements the following commands:
+
+ * `create_cca` -- Creates a CCA with a given budget.
+ * `delete_cca` -- Deletes a specified CCA.
+ * `update` -- Updates the details of the CCA.
+ * `add_trans` -- Adds a transaction entry to a specified CCA.
+ * `delete_trans`  -- Deletes a transaction entry to a specified CCA.
+ * `budget` -- Shows the transaction information of each CCA
+
+However, only the implementation of `create_cca`, `update`, `add_trans` and `budget` will be discussed.
+
+===== Create Command
+The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
+directory. It implements the following command:
+
+* `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#addCca(Cca cca)`
+* `Model#hasCca(CcaName name)`
+* `Model#hasCca(Cca cca)`
+* `Model#commitBudgetBook()`
+
+Given below is an example usage scenario and how the create cca mechanism behaves at each step.
+
+Step 1. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
+
+Step 2. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
+
+
+Step 3. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
+`BudgetBookChangedEvent`, which is handled by `EventsCenter`.
+
+Step 4. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
+`ccabook.xml` file with the new CCA.
+
+The following sequence diagram shows how the create operation works:
+
+.Sequence diagram for create CCA command
+image::CreateCcaCommandSequenceDiagram.png[width="1500"]
+
+The following activity diagram summarizes what happens when a user executes a create command:
+
+image::CreateCcaActivityDiagram.png[width="650"]
+
+===== Update Command
+The `update` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is getting updated, it looks up the `BudgetBook` in the `BudgetBookStorage` of the `Model` for the CCA to
+update. It then update the `Cca` stored inside the `ccabook.xml` file in the local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)` -- Creates an updated version
+of the target CCA.
+* `TransactionMath#updateDetails(Cca cca)` -- Update the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+* `Model#hasPerson(Name person)`
+
+Given below is an example usage scenario and how the update cca mechanism behaves at each step:
+
+Step 1. The user specified the CCA to be updated by including the CCA name and the fields to update.
+
+Step 2. The user can update the head's name, vice-head's name, budget allocated, and the details of a transaction entry
+such as its date, amount involved and remarks for the transaction. These information is stored in the
+`UpdateCommand#EditCcaDescriptor`. Any fields that are not valid will display error message.
+
+Step 3. `update` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the cca name
+ does not exists, an error message will appear. Otherwise, the updated CCA will be created from the
+ `UpdateCommand#EditCcaDescriptor` using
+ `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)`.
+
+Step 4. `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replace the existing CCA with the updated CCA and
+then invoke `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+Step 5. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its information.
+
+The following sequence diagram shows how the update operation works:
+
+.Sequence diagram for update command
+image::UpdateCommandSequenceDiagram.png[width="1500"]
+
+The following activity diagram summarizes what happens when a user executes an update command:
+
+image::UpdateCcaActivityDiagram.png[width="650"]
+
+===== Add_Transaction Command
+
+The `add_trans` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a transaction entry is to be added, it looks up the `BudgetBook` in the `BudgetBookStorage` of
+the `Model` for the CCA and add the specified entry to the CCA. It then update the `Cca` stored inside the `ccabook.xml` file in the
+local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `TransactionMath#updateDetails(Cca cca)` -- Update the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+
+Given below is an example usage scenario and how the add transaction mechanism behaves at each step:
+
+Step 1. The user specified the CCA to add transaction to by including the CCA name and the transaction fields.
+
+Step 2. The user must include the `Date`, `Amount` and `Remarks` for the transaction entry. Any fields that are not
+valid will display error message.
+
+Step 3. `add_trans` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the
+cca name does not exists, an error message will appear. Otherwise, the an `Entry` is created and is added to the
+target `Cca` using `Cca#AddNewTransaction(Entry entry)`.
+
+Step 4. The `Spent` and `Outstanding` is then updated using `TransactionMath#updateDetails(Cca cca)`.
+
+Step 5. `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replace the existing CCA with the updated CCA and
+then invoke `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+Step 6. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its transaction entry.
+
+The following sequence diagram shows how the add_trans operation works:
+
+.Sequence diagram for update command
+image::AddTransCommandSequenceDiagram.png[width="1500"]
+
+The following activity diagram summarizes what happens when a user executes an update command:
+
+image::AddTransActivityDiagram.png[width="650"]
+
+===== Budget Command
+The `budget` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+It opens ups a separate window to display the CCA information and its transaction history of the . It implements the
+following command:
+
+* `EventsCenter#getInstance() -- Get the instance of the EventsCenter.
+* `EventsCenter#post(E event) -- Post an event to the event bus.
+
+Given below is an example usage scenario and how the budget mechanism behaves at each step.
+
+Step 1. The user enters the budget command with or without a specified CCA.
+
+Step 2. When a CCA is specified, `BudgetCommand(CcaName ccaName)` is called. Otherwise, `BudgetCommand()` is called
+and the `CcaName` is null.
+
+Step 3. If the CCA is specified, the `budget` command checks whether the CCA specified exist.
+
+Step 4. `budget` command then raise a `ShowBudgetViewEvent`, which is handled by `EventsCenter`.
+
+Step 5. `ShowBudgetViewEvent` is handled by `MainWindow#handleShowBudgetEvent(ShowBudgetViewEvent event)` and invokes
+ `MainWindow#handleBudget(CcaName ccaName)`. This opens the budget window through `BudgetWindow#show(CcaName ccaName)`.
+
+Step 6. It then checks whether the CCA name is present in `BudgetWindow#fillInnerParts(CcaName ccaName)`. If CCA name
+ is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
+ `BudgetBrowserPanel()` is called, showing a blank page.
+
+The following sequence diagram shows how the budget operation works:
+
+.Sequence diagram for budget command
+image::BudgetCommandSequenceDiagram.png[width="1500"]
+
+The following activity diagram summarizes what happens when a user executes a budget command:
+
+image::BudgetActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: Choice of local storage format
+
+* **Alternative 1 (current choice):** Saves in `.xml` format.
+** Pros: Easy to create, understand, move and translate into other environments. International data standard for
+storing information.
+** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
+ of parsing large XML files.
+* **Alternative 2:** Save in `.json` format.
+** Pros: Faster in parsing information.
+** Cons: Limited in terms of what objects can be modeled.
+
+// end::budget[]
 
 // tag::import[]
 === Import feature

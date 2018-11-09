@@ -27,8 +27,8 @@ import org.xml.sax.SAXException;
 public class XmlToHtml {
 
     private static final String ccaBook = "./data/ccabook.xml";
-    private static final String ccaBookXsl = "./src/main/resources/docs/ccabook.xsl";
-    private static final String outputHtml = "./data/ccabook.html";
+    private static final String ccaBookXsl = "/docs/ccabook.xsl";
+    private static final String outputHtml = "/data/ccabook.html";
 
     /**
      * Convert ccabook.xml into ccabook.hmtl to view on the Webview of FXML
