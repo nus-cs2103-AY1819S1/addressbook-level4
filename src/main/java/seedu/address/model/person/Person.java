@@ -148,6 +148,22 @@ public class Person {
     }
 
     /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    public static Person createEditedPerson(Person personToEdit, PersonDescriptor editPersonDescriptor) {
+        assert personToEdit != null;
+
+        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */

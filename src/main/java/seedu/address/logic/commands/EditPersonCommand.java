@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.person.Person.createEditedPerson;
 
 import java.util.List;
 import java.util.Set;
@@ -83,22 +84,6 @@ public class EditPersonCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createEditedPerson(Person personToEdit, PersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override

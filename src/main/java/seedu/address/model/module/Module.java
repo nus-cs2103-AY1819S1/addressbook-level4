@@ -58,6 +58,25 @@ public class Module {
         this.tags.addAll(moduleDescriptor.getTags().orElse(new HashSet<Tag>()));
     }
 
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editModuleDescriptor}.
+     */
+    public static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        ModuleTitle updatedModuleTitle = editModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
+        AcademicYear updatedAcademicYear =
+                editModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
+        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        UniquePersonList updatedStudents = editModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
+        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
+                updatedStudents, updatedTags);
+    }
+
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
@@ -141,8 +160,7 @@ public class Module {
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getModuleTitle().equals(getModuleTitle())
                 && otherModule.getAcademicYear().equals(getAcademicYear())
-                && otherModule.getSemester().equals(getSemester())
-                && otherModule.getStudents().equals(getStudents());
+                && otherModule.getSemester().equals(getSemester());
     }
 
     @Override

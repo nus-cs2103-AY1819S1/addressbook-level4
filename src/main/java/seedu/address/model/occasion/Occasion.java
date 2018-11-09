@@ -69,6 +69,25 @@ public class Occasion {
         this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION);
     }
 
+    /**
+     * Creates and returns a {@code Occasion} with the details of {@code occasionToEdit}
+     * edited with {@code editOccasionDescriptor}.
+     */
+    public static Occasion createEditedOccasion(Occasion occasionToEdit, OccasionDescriptor editOccasionDescriptor) {
+        assert occasionToEdit != null;
+
+        OccasionName updatedOccasionName =
+                editOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
+        OccasionDate updatedOccasionDate =
+                editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
+        OccasionLocation updatedOccasionLocation =
+                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
+        Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
+
+        return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
+                updatedTags, TypeUtil.OCCASION);
+    }
+
     public OccasionName getOccasionName() {
         return occasionName;
     }
@@ -147,7 +166,6 @@ public class Occasion {
         return otherOccasion.getOccasionName().equals(this.getOccasionName())
                 && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
                 && otherOccasion.getOccasionLocation().equals(this.getOccasionLocation())
-                && otherOccasion.getAttendanceList().equals(this.getAttendanceList())
                 && otherOccasion.getTags().equals(this.getTags());
     }
 

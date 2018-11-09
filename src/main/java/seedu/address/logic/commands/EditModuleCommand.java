@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static seedu.address.model.module.Module.createEditedModule;
 
 import java.util.List;
 import java.util.Set;
@@ -89,25 +90,6 @@ public class EditModuleCommand extends Command {
         model.commitAddressBook();
         EventsCenter.getInstance().post(new ShowModuleRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
-    }
-
-    /**
-     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleDescriptor}.
-     */
-    private static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
-        ModuleTitle updatedModuleTitle = editModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
-        AcademicYear updatedAcademicYear =
-                editModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        UniquePersonList updatedStudents = editModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
-
-        return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
-                updatedStudents, updatedTags);
     }
 
     @Override

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
+import static seedu.address.model.occasion.Occasion.createEditedOccasion;
 
 import java.util.List;
 import java.util.Set;
@@ -88,25 +89,6 @@ public class EditOccasionCommand extends Command {
         model.commitAddressBook();
         EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion));
-    }
-
-    /**
-     * Creates and returns a {@code Occasion} with the details of {@code occasionToEdit}
-     * edited with {@code editOccasionDescriptor}.
-     */
-    private static Occasion createEditedOccasion(Occasion occasionToEdit, OccasionDescriptor editOccasionDescriptor) {
-        assert occasionToEdit != null;
-
-        OccasionName updatedOccasionName =
-                editOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
-        OccasionDate updatedOccasionDate =
-                editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
-        OccasionLocation updatedOccasionLocation =
-                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
-        Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
-
-        return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
-                updatedTags, TypeUtil.OCCASION);
     }
 
     @Override
