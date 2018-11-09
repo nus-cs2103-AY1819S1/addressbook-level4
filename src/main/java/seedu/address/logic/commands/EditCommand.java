@@ -47,7 +47,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
         + "[" + PREFIX_LABEL + "LABEL]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_DUE_DATE + "2018-09-14 1320 "
+        + PREFIX_DUE_DATE + "14-01-2019 1320 "
         + PREFIX_PRIORITY_VALUE + "8";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";

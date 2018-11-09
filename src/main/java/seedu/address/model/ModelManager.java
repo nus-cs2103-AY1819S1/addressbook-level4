@@ -133,6 +133,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
+     * Updates the current game mode to the new mode specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    @Override
+    public void updateGameMode(String newGameModeName) {
+        versionedTaskManager.updateGameMode(newGameModeName);
+
+        indicateTaskManagerChanged();
+    }
+
+    /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    @Override
+    public void updateGameMode(String newGameModeName, String newGameDifficultyName) {
+        versionedTaskManager.updateGameMode(newGameModeName, newGameDifficultyName);
+
+        indicateTaskManagerChanged();
+    }
+
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     @Override
@@ -192,6 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void rollbackTaskManager() {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
+        indicateAchievementsUpdated();
     }
 
     //=========== Check overdue ==========================================================================
@@ -200,6 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void checkOverdue() {
         versionedTaskManager.updateIfOverdue();
     }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -215,7 +241,13 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedTaskManager.equals(other.versionedTaskManager)
-                && filteredTasks.equals(other.filteredTasks);
+            && filteredTasks.equals(other.filteredTasks);
+    }
+
+    //=========== Check for any unfulfilled dependencies===================================================
+    @Override
+    public boolean hasInvalidDependencies() {
+        return versionedTaskManager.hasInvalidDependencies();
     }
 
     //=========== Topological order ======================================================================

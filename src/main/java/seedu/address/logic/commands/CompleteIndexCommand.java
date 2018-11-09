@@ -1,16 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.achievement.Level;
 import seedu.address.model.task.Task;
 
 /**
@@ -28,38 +25,20 @@ public class CompleteIndexCommand extends CompleteCommand {
         this.targetIndex = targetIndex;
     }
 
-    @Override
-    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
+    /**
+     * Completes all tasks identified by index.
+     * Side Effects: updates model but does not commit
+     *
+     * @param model model to be updated
+     * @return {@code String} representing the completed tasks
+     * @throws CommandException
+     */
+    public String executePrimitivePrime(Model model) throws CommandException {
         requireNonNull(model);
 
-        String completedTasksOutput;
-
-        // gets oldXp before updating tasks.
-        int oldXp = model.getXpValue();
-        Level oldLevel = model.getLevel();
-
         List<Task> lastShownList = model.getFilteredTaskList();
-        completedTasksOutput = completeOneTaskReturnStringOfTask(
-                targetIndex, lastShownList, model);
+        return completeOneTaskReturnStringOfTask(targetIndex, lastShownList, model);
 
-        // calculate change in xp to report to the user.
-        int newXp = model.getXpValue();
-        int changeInXp = newXp - oldXp;
-        Level newLevel = model.getLevel();
-
-        // Comparison with != operator is valid since Level is an enum.
-        boolean levelHasChanged = newLevel != oldLevel;
-
-        // model related operations
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        model.commitTaskManager();
-
-        if (levelHasChanged) {
-            return new CommandResult(
-                    String.format(MESSAGE_SUCCESS_WITH_LEVEL, newLevel, changeInXp, completedTasksOutput));
-        } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, changeInXp, completedTasksOutput));
-        }
     }
 
     /**
@@ -73,7 +52,7 @@ public class CompleteIndexCommand extends CompleteCommand {
     private String completeOneTaskReturnStringOfTask(Index targetIndex,
                                                      List<Task> lastShownList,
                                                      Model modelToUpdate)
-            throws CommandException {
+        throws CommandException {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

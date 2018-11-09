@@ -44,7 +44,7 @@ public class Task {
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
                 Status status, Dependency dependency) {
-        requireAllNonNull(name, dueDate, priorityValue, description, labels);
+        requireAllNonNull(name, dueDate, priorityValue, description, labels, status, dependency);
         this.name = name;
         this.dueDate = dueDate;
         this.priorityValue = priorityValue;
@@ -169,13 +169,13 @@ public class Task {
             return false;
         }
 
-        Task othertask = (Task) other;
-        return othertask.getName().equals(getName())
-                && othertask.getDueDate().equals(getDueDate())
-                && othertask.getPriorityValue().equals(getPriorityValue())
-                && othertask.getDescription().equals(getDescription())
-                && othertask.getLabels().equals(getLabels())
-                && othertask.getStatus().equals(getStatus());
+        Task otherTask = (Task) other;
+        return otherTask.getName().equals(getName())
+                && otherTask.getDueDate().equals(getDueDate())
+                && otherTask.getPriorityValue().equals(getPriorityValue())
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask.getLabels().equals(getLabels())
+                && otherTask.getStatus().equals(getStatus());
     }
 
     @Override

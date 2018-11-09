@@ -92,7 +92,7 @@ public class TaskCard extends UiPart<Region> {
     }
 
     private String getHashId() {
-        return "id: " + Integer.toString(task.hashCode());
+        return "Dependency id: " + Integer.toString(task.hashCode());
     }
 
     private String getDependencies() {

@@ -78,6 +78,20 @@ public interface Model {
     void updateAchievementDisplayOption(int displayOption);
 
     /**
+     * Updates the current game mode to the new mode specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    void updateGameMode(String newGameModeName);
+
+    /**
+     * Updates the current game mode to the new mode and difficulty specified.
+     *
+     * @param newGameModeName May take the value of any game mode.
+     */
+    void updateGameMode(String newGameModeName, String newGameDifficultyName);
+
+    /**
      * Returns a copy of the {@code AchievementRecord} of the task manager.
      */
     AchievementRecord getAchievementRecord();
@@ -129,6 +143,11 @@ public interface Model {
      * Checks for overdue tasks and updates them
      */
     void checkOverdue();
+
+    /**
+     * @return true if the model has any invalid dependencies
+     */
+    boolean hasInvalidDependencies();
 
     /**
      * Get topological order

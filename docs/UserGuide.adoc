@@ -82,14 +82,15 @@ Exits the program. +
 Format: `exit`
 
 === Task Management
+// tag::add[]
 ==== Adding a Task: `add`
 [%hardbreaks]
 Adds a task to the task manager.
 Format:
 
-`add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
+`add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
-Date Format: `dd-mm-yy hhmm` or `dd-mm-yy hhmm`. A missing `hhmm` field will cause time to
+Date Format: `dd-MM-yy` or `dd-MM-yy HHmm`. A missing `HHmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
 
 On task creation, the task's `INDEX` is shown as such:
@@ -109,6 +110,9 @@ Task <INDEX>, <TASK_NAME> was created.
 Duplicated tasks are not allowed in the task manager. Duplicated tasks are defined as tasks with the same name and
 due date or tasks with the same name and priority value.
 
+
+// end::add[]
+
 ==== Deleting a Task: `delete`
 [%hardbreaks]
 Deletes a task and task dependencies to it from the task manager
@@ -126,6 +130,7 @@ Format:
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
+// tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)
@@ -138,7 +143,10 @@ Format:
 -Example:
 `dependency 1`
 `dependency a b`
+// end::dependency[]
 
+
+// tag::complete-usage[]
 ==== Completing a Task: `complete`
 [%hardbreaks]
 Completes task(s) in the task manager
@@ -155,21 +163,22 @@ Format: `complete INDEX` or `complete t/LABEL`
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
-
+// end::complete-usage[]
 ==== Listing Tasks: `list`
+// tag::list-usage[]
 [%hardbreaks]
 Shows a list of all tasks.
 
 Format:
 `list [f/FILTER]`, where FILTER must be any of the following:
 
- * `today`
+ * `today`: Lists tasks that are due before the end of the day
 
- * `week`
+ * `week`: Lists tasks that are due before the end of the week
 
- * `month`
+ * `month`: Lists tasks that are due before the end of the month
 
- * `doable`
+ * `doable`: Lists tasks that do not have any uncompleted dependencies (or no dependencies)
 
 +Example:
 `list`
@@ -181,9 +190,10 @@ Format:
 `list f/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
-2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
+2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: COMPLETED
 3. Induce Happiness DueDate: 03-10-18 Description: conditions of happiness PriorityValue: 3 Status: OVERDUE
 ```
+// end::list-usage[]
 
 ==== Search for Tasks by Keyword: `find`
 [%hardbreaks]
@@ -222,11 +232,14 @@ Selects the 2nd task in the task manager.
 `select 1` +
 Selects the 1st task in the results of the `find` command.
 
+// tag::topoorder[]
 ==== Listing Tasks by topological order: `topoorder`
 [%hardbreaks]
 Shows a list of uncompleted tasks by their topological order. (In the CLI window).
+// end::topoorder[]
 
 === Gamification
+// tag::achievements-usage[]
 ==== Display achievements across a time period: `achievements`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
@@ -245,6 +258,53 @@ Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all
 Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
 comes back from the future.
+// end::achievements-usage[]
+
+// tag::gamemode-usage[]
+==== Change game mode: `mode`
+[%hardbreaks]
+Changes the game mode and game difficulty.
+The game mode determines the method of calculating XP, whereas the difficulty scales the amounts awarded.
+
+Note: The game mode command is **not affected by undo/redo**, because it does not change the state of the tasks. To reverse an unintended game mode change, simply change again to the desired game mode.
+
+===== Game modes available
+
+====== Flat
+
+The Flat mode awards a constant amount of xp for a task completed on time, and a constant but lower amount of xp for
+a task completed after the deadline (with status OVERDUE). This is the most basic mode, and is enabled by default.
+Higher difficulties award a greater reward for tasks completed on time, but also give less reward for overdue tasks.
+
+====== Decreasing
+
+The Decreasing mode awards a maximum amount of xp for a task completed before the deadline, with the amount awarded
+decreasing over time to a minimum at or past the deadline. This mode is recommended for procrastinators who want
+WatchOver to reward early completion of deadlines. Setting a higher difficulty level lowers the minimum, making
+procrastination more costly.
+
+====== Increasing
+The Increasing mode awards a base amount of xp for tasks, which increases as the deadline nears and peaks when the
+deadline is reached. This mode can be considered the opposite of the Decreasing mode. It is recommended for motivated
+users who want the xp awards to reflect the urgency of the task; the reasoning being that if the current amount of
+xp has not yet been able to make the task 'worth it' to complete, then the amount should increase. Higher difficulties
+increase the magnitude and duration over which the xp increases.
+
+====== Priority
+The Priority mode leaves the xp decision up to the user. It awards a flat rate of xp, equal to 10 times the priority
+value of the task. **This mode ignores difficulty.**
+
+
+Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
+	`GAME_MODE` can be `flat` (default), `decreasing`, `increasing`, `priority`;
+	`GAME_DIFFICULTY` can be `easy`, `medium` (default), `hard`, `extreme`.
+
+[%hardbreaks]
++Example: `mode flat`
++Example: `mode decreasing hard`
+-Example: `mode edna`
+
+// end::gamemode-usage[]
 
 == FAQ
 
@@ -281,7 +341,10 @@ comes back from the future.
 
 ** *Achievements* : `achievements TIME_SPAN`
 
+// tag::complete-2.0[]
+==== Completing a Task: `complete`
 == Features to be included by v2.0
 * `Complete` displays a organic random congratulatory message upon task completion.
 ** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
 * Completed Tasks should be automatically hidden from view.
+// end::complete-2.0[]
