@@ -13,7 +13,7 @@ import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
-import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
+import seedu.scheduler.logic.commands.GoogleCalendarInitializationCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
@@ -88,8 +88,8 @@ public class SchedulerParser {
         case FindCommand.COMMAND_ALIAS_THREE:
             return new FindCommandParser().parse(arguments);
 
-        case GetGoogleCalendarEventsCommand.COMMAND_WORD:
-            return new GetGoogleCalendarEventsCommand();
+        case GoogleCalendarInitializationCommand.COMMAND_WORD:
+            return new GoogleCalendarInitializationCommand();
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS_ONE:
