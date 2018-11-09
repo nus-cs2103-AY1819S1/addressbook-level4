@@ -8,13 +8,13 @@ import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Adds a recipe to a specified meal slot of a specified day of the meal planner.
+ * Adds a recipe to a specified meal index of a specified day of the meal planner.
  */
 public class PlanMealCommand extends Command {
     public static final String COMMAND_WORD = "plan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Adds the recipe identified by the index number used in the "
-        + "displayed recipe list to the specified date and meal slot in the Meal Planner.\n"
+        + "displayed recipe list to the specified date and meal index in the Meal Planner.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "            DATE (must be ranging from the present to future)\n"
         + "            MEAL (must be either breakfast, lunch or dinner)\n"
@@ -22,7 +22,7 @@ public class PlanMealCommand extends Command {
 
     public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Meal Plan successfully added.\n"
                                                            + "Recipe: %1$s\n"
-                                                           + "Date/Meal: %2$s, %3$s";
+                                                           + "Date/Meal: %2$s/%3$s";
 
     private final Model<Day> model;
     private final Recipe toAdd;
@@ -49,6 +49,6 @@ public class PlanMealCommand extends Command {
         model.sort(new DayComparator());
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS,
-            toAdd.getName(), toPlan.getDate(), meal.getSlot()));
+            toAdd.getName(), toPlan.getDate(), meal.slot));
     }
 }
