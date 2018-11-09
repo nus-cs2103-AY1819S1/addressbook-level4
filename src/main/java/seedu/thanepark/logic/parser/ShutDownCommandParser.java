@@ -13,10 +13,10 @@ import seedu.thanepark.logic.parser.exceptions.ParseException;
 
 public class ShutDownCommandParser implements Parser<ShutDownCommand> {
      /**
-     * Parses the given {@code String} of arguments in the context of the ShutDownCommand
-     * and returns an ShutDownCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
+      * Parses the given {@code String} of arguments in the context of the ShutDownCommand
+      * and returns an ShutDownCommand object for execution.
+      * @throws ParseException if the user input does not conform the expected format
+      */
     @Override
     public ShutDownCommand parse(String args) throws ParseException {
         requireNonNull(args);
