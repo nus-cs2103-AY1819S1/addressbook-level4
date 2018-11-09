@@ -181,8 +181,7 @@ public class PhotosLibraryClientFactory {
      * @return true if user has storedCredentials, else null
      */
     public static boolean checkUserLogin() {
-        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
-        return credentialExists;
+        return new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
     }
 }
 

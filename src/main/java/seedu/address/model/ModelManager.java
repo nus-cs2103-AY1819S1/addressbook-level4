@@ -7,7 +7,6 @@ import static seedu.address.model.google.PhotosLibraryClientFactory.DATA_STORE;
 import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,9 +23,7 @@ import seedu.address.commons.events.ui.LayerUpdateEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
@@ -256,9 +253,6 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Adds a transformation to current layer
      * @param transformation transformation to add
-     * @throws ParseException
-     * @throws InterruptedException
-     * @throws IOException
      */
     public void addTransformation(Transformation transformation) {
         canvas.getCurrentLayer().addTransformation(transformation);
@@ -268,11 +262,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public PreviewImage getCurrentPreviewImage() {
         return canvas.getCurrentLayer().getImage();
-    }
-
-    @Override
-    public void setCurrentPreviewImage(PreviewImage previewImage) {
-        setCurrentPreviewImage(previewImage);
     }
 
     @Override
@@ -362,10 +351,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     public Canvas getCanvas() {
         return canvas;
-    }
-
-    public void saveCanvas(String fileName) throws IOException, InterruptedException {
-        ImageMagickUtil.saveCanvas(canvas, userPrefs.getCurrDirectory(), fileName);
     }
 
     public void setCurrentLayer(Index i) {

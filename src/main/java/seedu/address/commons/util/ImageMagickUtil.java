@@ -256,7 +256,6 @@ public class ImageMagickUtil {
         }
         zipFile.delete();
     }
-    //@@author j-lum
 
     public static String getConvertExecutablePath() {
         if (convertExecutablePath != null) {
@@ -265,6 +264,7 @@ public class ImageMagickUtil {
         throw new NoSuchElementException("The ImageMagick binaries cannot be found!");
     }
 
+    //@@author j-lum
     /**
      * Handles a raw string and directly passes it to ImageMagick.
      * @param path - full path to the image to work on.
@@ -317,7 +317,7 @@ public class ImageMagickUtil {
     /**
      * Saves the canvas to an output file
      * @param c - A canvas to be processed
-     * */
+     * *//*
     public static void saveCanvas(Canvas c, Path outDirectory, String fileName)
             throws IOException, InterruptedException {
         ArrayList<String> args = new ArrayList<>();
@@ -342,7 +342,7 @@ public class ImageMagickUtil {
         System.out.println(output);
         runProcessBuilder(args, output);
     }
-
+*/
 
     /**
      * Given any canvas, renders it to the target panel.
