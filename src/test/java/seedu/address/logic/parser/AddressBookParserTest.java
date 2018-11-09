@@ -171,19 +171,15 @@ public class AddressBookParserTest {
     @Test
     public void parseCommandAddFriend() throws Exception {
         AddFriendCommand command = (AddFriendCommand) parser.parseCommand(
-                AddFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
-                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
-        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
-                INDEX_SECOND.getOneBased())), command);
+                AddFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
     public void parseCommandDeleteFriend() throws Exception {
         DeleteFriendCommand command = (DeleteFriendCommand) parser.parseCommand(
-                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
-                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
-        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
-                INDEX_SECOND.getOneBased())), command);
+                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test

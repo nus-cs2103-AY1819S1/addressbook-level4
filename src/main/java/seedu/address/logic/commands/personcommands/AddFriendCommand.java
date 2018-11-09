@@ -23,10 +23,9 @@ public class AddFriendCommand extends Command {
     public static final String COMMAND_WORD = "addFriend";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": For two persons identified by the index number used in the displayed person list, "
-            + "add friend for each other.\n"
-            + "Parameters: INDEX,INDEX (both must be a positive integer and different from each other)\n"
-            + "Example: " + COMMAND_WORD + " 1,2";
+            + ": To add a person as friend identified by the index number used in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer and different from the logged-in user)\n"
+            + "Example: " + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_ADD_FRIEND_SUCCESS = "%1$s is added to %2$s friend list";
 
@@ -45,9 +44,6 @@ public class AddFriendCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
         Person personToEdit = model.getCurrentUser();
-        if (!model.authorisationCanBeGivenTo(personToEdit)) {
-            throw new CommandException(Messages.MESSAGE_USER_DOES_NOT_HAVE_AUTHORITY);
-        }
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
