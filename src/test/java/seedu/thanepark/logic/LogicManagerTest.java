@@ -2,6 +2,7 @@ package seedu.thanepark.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -41,9 +42,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ViewAllCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ViewAllCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
+        String viewAllCommand = ViewAllCommand.COMMAND_WORD;
+        String message = String.format(MESSAGE_RIDES_LISTED_OVERVIEW,
+                model.getFilteredRideList().size());
+        assertCommandSuccess(viewAllCommand, message, model);
+        assertHistoryCorrect(viewAllCommand);
     }
 
     @Test

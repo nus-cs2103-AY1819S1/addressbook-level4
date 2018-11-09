@@ -1,5 +1,6 @@
 package seedu.thanepark.logic.commands;
 
+import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -30,14 +31,18 @@ public class ViewAllCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
+        String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW,
+                expectedModel.getFilteredRideList().size());
         assertCommandSuccess(new ViewAllCommand(), model, commandHistory,
-                ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
+                expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
+        String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW,
+                expectedModel.getFilteredRideList().size());
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ViewAllCommand(), model, commandHistory,
-                ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
+                expectedMessage, expectedModel);
     }
 }
