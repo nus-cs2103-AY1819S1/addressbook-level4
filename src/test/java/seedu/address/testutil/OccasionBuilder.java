@@ -111,6 +111,7 @@ public class OccasionBuilder {
     }
 
     public Occasion build() {
-        return new Occasion(occasionName, occasionDate, occasionLocation, tags, TypeUtil.OCCASION, new UniquePersonList());
+        return new Occasion(occasionName, occasionDate, occasionLocation, tags,
+                TypeUtil.OCCASION, new UniquePersonList());
     }
 }

@@ -8,12 +8,10 @@ import static seedu.address.commons.util.TypeUtil.MODULE;
 import static seedu.address.commons.util.TypeUtil.OCCASION;
 import static seedu.address.commons.util.TypeUtil.PERSON;
 import static seedu.address.logic.commands.CommandModuleTestUtil.showModuleAtIndex;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.showOccasionAtIndex;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandPersonTestUtil.showPersonAtIndex;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
@@ -21,7 +19,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalModules.CS2100;
 import static seedu.address.testutil.TypicalModules.ST2131;
 import static seedu.address.testutil.TypicalOccasions.OCCASION_ONE;
 
@@ -421,6 +418,12 @@ public class DeleteCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    /**
+     * Tests whether persons are properly removed from their associated modules.
+     * 1. Inserts a {@code Person} into a {@code Module}
+     * 2. Deletes the person.
+     * 3. The module should have the same list (i.e. empty) as the original.
+     */
     @Test
     public void executeInsertPerson_validIndexFilteredList_personRemovedFromModule() throws Exception {
         model.setActiveType(PERSON);
@@ -435,6 +438,12 @@ public class DeleteCommandTest {
                 model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getOneBased()).getStudents());
     }
 
+    /**
+     * Tests whether persons are properly removed from their associated occasions.
+     * 1. Inserts a {@code Person} into a {@code Occasion}
+     * 2. Deletes the person.
+     * 3. The occasion should have the same list (i.e. empty) as the original.
+     */
     @Test
     public void executeInsertPerson_validIndexFilteredList_personRemovedFromOccasion() throws Exception {
         model.setActiveType(PERSON);
@@ -449,6 +458,12 @@ public class DeleteCommandTest {
                 model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList());
     }
 
+    /**
+     * Tests whether modules are properly removed from their associated persons.
+     * 1. Inserts a {@code Person} into a {@code Module}
+     * 2. Deletes the module.
+     * 3. The person should have the same list (i.e. empty) as the original.
+     */
     @Test
     public void executeInsertPerson_validIndexFilteredList_moduleRemovedFromPerson() throws Exception {
         model.setActiveType(MODULE);
@@ -463,6 +478,12 @@ public class DeleteCommandTest {
                 model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList());
     }
 
+    /**
+     * Tests whether occasions are properly removed from their associated persons.
+     * 1. Inserts a {@code Person} into a {@code Occasion}
+     * 2. Deletes the occasion.
+     * 3. The person should have the same list (i.e. empty) as the original.
+     */
     @Test
     public void executeInsertPerson_validIndexFilteredList_occasionRemovedFromPerson() throws Exception {
         model.setActiveType(OCCASION);
