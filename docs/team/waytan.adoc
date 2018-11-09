@@ -53,10 +53,9 @@ This was challenging to implement as it required new objects to be create and li
 |===
 
 include::../UserGuide.adoc[tag=GUIComponents]
+include::../UserGuide.adoc[tag=types]
 include::../UserGuide.adoc[tag=delete]
-include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=select]
-include::../UserGuide.adoc[tag=clear]
 
 == Contributions to the Developer Guide
 
