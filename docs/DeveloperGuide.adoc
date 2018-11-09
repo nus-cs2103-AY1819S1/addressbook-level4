@@ -377,6 +377,23 @@ image::LearnSequenceDiagram.png[width="820"]
 ** Pros: Mobile access by the user on the go.
 ** Cons: Will consume a lot of resources. Might not be necessary.
 
+==== Rejected/Put off implementations
+===== Idea: Multiple words to be learned at the same time
+* `learn fire ice` will simultaneously pull data of 2 words `fire` and `ice` into LearnVocabulary
+* This was put off in terms of implementations because:
+** Firstly, loading speed will be slow, affecting performance
+** Secondly, it causes the command box to freeze
+
+A simple fix was thought of, which was to run threads in LearnVocabulary to pull data simultaneously to reduce time and improve overall performance. That will be explored in later versions.
+
+===== Idea: Synonyms of the same word to be learned at the same time
+* `learn hot 10` will simultaneously pull data of hot and 10 of its synonyms. Effectively querying and storing 11 words in total.
+* This was rejected terms of implementations because:
+** Firstly, it does not serve the intended target audience well. Words can be fetched at random without bearing resemblance to the original queried word.
+** Secondly, Speed and performance issue as mentioned in the first idea.
+
+A simple fix for the speed and performance issue was mentioned above.
+
 // end::learn[]
 
 // tag::group[]
