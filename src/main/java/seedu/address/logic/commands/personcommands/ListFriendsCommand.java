@@ -11,30 +11,27 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.InterestSimilarPredicate;
+import seedu.address.model.person.IsFriendPredicate;
 import seedu.address.model.person.Person;
 
 /**
- * Shows a list of {@code Person} with at least one similar {@code Interest} with the target user,
- * Persons who are already friends with the target user will not be shown.
+ * Shows a list of {@code Person} who are friends with the target user,
  */
-public class SuggestFriendsByInterestsCommand extends Command {
+public class ListFriendsCommand extends Command {
 
-    public static final String COMMAND_WORD = "suggestFriendsByInterests";
+    public static final String COMMAND_WORD = "listFriends";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows a list of persons with at least one similar interest"
-            + " with respect to the target user identified by the index"
-            + " and are not yet friends with the target user.\n"
+            + ": Shows a list of persons who are friends with"
+            + " the target user identified by the index.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS = "Listed all suggested friends"
-            + " by interests for user: %1$s";
+    public static final String MESSAGE_LIST_FRIENDS_SUCCESS = "Listed all friends of %1$s";
 
     private final Index targetIndex;
 
-    public SuggestFriendsByInterestsCommand(Index targetIndex) {
+    public ListFriendsCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -49,17 +46,17 @@ public class SuggestFriendsByInterestsCommand extends Command {
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
 
-        InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);
+        IsFriendPredicate predicate = new IsFriendPredicate(targetPerson);
 
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(String.format(MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS,
+        return new CommandResult(String.format(MESSAGE_LIST_FRIENDS_SUCCESS,
                 targetPerson.getName()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SuggestFriendsByInterestsCommand // instanceof handles nulls
-                && targetIndex.equals(((SuggestFriendsByInterestsCommand) other).targetIndex)); // state check
+                || (other instanceof ListFriendsCommand // instanceof handles nulls
+                && targetIndex.equals(((ListFriendsCommand) other).targetIndex)); // state check
     }
 }

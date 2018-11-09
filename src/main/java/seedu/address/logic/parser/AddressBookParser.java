@@ -35,6 +35,7 @@ import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
@@ -157,6 +158,9 @@ public class AddressBookParser {
 
         case SuggestFriendsByInterestsCommand.COMMAND_WORD:
             return new SuggestFriendsByInterestsCommandParser().parse(arguments);
+
+        case ListFriendsCommand.COMMAND_WORD:
+            return new ListFriendsCommandParser().parse(arguments);
 
         case ListUserCommand.COMMAND_WORD:
             return new ListUserCommand();

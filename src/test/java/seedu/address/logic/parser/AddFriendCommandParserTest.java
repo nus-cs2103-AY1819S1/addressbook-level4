@@ -11,7 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.personcommands.AddFriendCommand;
 
 /**
- * Parses input arguments and creates a new AddFriendCommand object
+ * Test cases for parsing input arguments and creating a new AddFriendCommand object
  */
 public class AddFriendCommandParserTest {
 

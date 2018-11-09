@@ -52,8 +52,10 @@ import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
+import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.Person;
@@ -229,6 +231,20 @@ public class AddressBookParserTest {
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
+    }
+
+    @Test
+    public void parseCommandSuggestFriendsByInterests() throws Exception {
+        SuggestFriendsByInterestsCommand command = (SuggestFriendsByInterestsCommand) parser.parseCommand(
+                SuggestFriendsByInterestsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new SuggestFriendsByInterestsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
+    public void parseCommandListFriends() throws Exception {
+        ListFriendsCommand command = (ListFriendsCommand) parser.parseCommand(
+                ListFriendsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new ListFriendsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
