@@ -639,6 +639,7 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::document[]
 === Document Generation
 
+// tag::mc[]
 ==== Generating medical certificate: `mc`
 
 Generates a medical certificate for the Served Patient. +
@@ -655,6 +656,7 @@ Examples:
 
 * `mc 1` +
 Generates a medical certificate for the 1st patient in the Served Patient Queue.
+// end::mc[]
 
 ==== Generating receipt: `receipt`
 
@@ -671,6 +673,7 @@ Examples:
 * `receipt 5` +
 Generates a receipt for the 5th patient in the Served Patient Queue.
 
+// tag::refer[]
 ==== Generating referral letter: `refer`
 
 Generates a referral letter for the Served Patient. +
@@ -689,6 +692,7 @@ Examples:
 
 * `refer 7` +
 Generates a referral letter for the 7th patient in the Served Patient Queue.
+// end::refer[]
 // end::document[]
 
 // tag::misc[]
