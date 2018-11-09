@@ -87,7 +87,7 @@ public class Module {
     }
 
     /**
-     * Makes an indentical deep copy of this module.
+     * Makes an identical deep copy of this module.
      */
     public Module makeDeepDuplicate() {
         ModuleCode newCode = this.moduleCode.makeDeepDuplicate();

@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Deletes an entry identified using its displayed index in the active list.
+ * @author waytan
  */
 public class DeleteCommand extends Command {
 
@@ -42,38 +43,64 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         CommandResult commandResult;
         if (model.getActiveType().equals(PERSON)) {
-            List<Person> lastShownList = model.getFilteredPersonList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deletePerson(personToDelete);
-            commandResult = new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+            commandResult = deletePersonAndGetResult(model);
         } else if (model.getActiveType().equals(MODULE)) {
-            List<Module> lastShownList = model.getFilteredModuleList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-            }
-
-            Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteModule(moduleToDelete);
-            commandResult = new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+            commandResult = deleteModuleAndGetResult(model);
         } else {
-            List<Occasion> lastShownList = model.getFilteredOccasionList();
+            commandResult = deleteOccasionAndGetResult(model);
+        }
+        model.commitAddressBook();
+        return commandResult;
+    }
 
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
-            }
+    /**
+     * Deletes the person at the targeted index, and returns the command result.
+     */
+    private CommandResult deletePersonAndGetResult(Model model) throws CommandException {
+        CommandResult commandResult;
+        List<Person> lastShownList = model.getFilteredPersonList();
 
-            Occasion occasionToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteOccasion(occasionToDelete);
-            commandResult = new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.commitAddressBook();
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(personToDelete);
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return commandResult;
+    }
+
+    /**
+     * Deletes the module at the targeted index, and returns the command result.
+     */
+    private CommandResult deleteModuleAndGetResult(Model model) throws CommandException {
+        CommandResult commandResult;
+        List<Module> lastShownList = model.getFilteredModuleList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        }
+
+        Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteModule(moduleToDelete);
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        return commandResult;
+    }
+
+    /**
+     * Deletes the occasion at the targeted index, and returns the command result.
+     */
+    private CommandResult deleteOccasionAndGetResult(Model model) throws CommandException {
+        CommandResult commandResult;
+        List<Occasion> lastShownList = model.getFilteredOccasionList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
+        }
+
+        Occasion occasionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteOccasion(occasionToDelete);
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
         return commandResult;
     }
 

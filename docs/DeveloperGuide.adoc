@@ -16,10 +16,28 @@ endif::[]
 
 By: `Team W10-01`      Since: `Aug2018`      Licence: `MIT`
 
+//tag::introduction
+== Introduction
+
+TheTracker is a Java application that serves as an organiser for NUS students.
+It allows them to keep track of their contacts, modules and events in a single app.
+A basic set of operations is supplied for users to update and modify entries from these three lists.
+Additionally, users can add contacts to modules and occasions (and vice versa).
+
+TheTracker is optimised for NUS students who are comfortable using a Command Line Interface (CLI).
+Nevertheless, basic Graphical User Interface (GUI) functionalities are also available.
+
+This Developer Guide contains a broad overview of TheTracker. The implementation key features will be discussed, as well as the general
+software architecture. By reading through this guide, you should be able to modify the codebase yourself.
+//end::introduction
+
 == Setting up
+
+This section explains how to set-up TheTracker's codebase on your computer.
 
 === Prerequisites
 
+Before proceeding, ensure that the following are correctly installed on your computer:
 . *JDK `9`* or later
 +
 [WARNING]
@@ -35,6 +53,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
+To setup and configure TheTracker on your computer, do the following steps in order:
+
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
@@ -48,6 +68,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 This will generate all resources required by the application and tests.
 
 === Verifying the setup
+
+To verify that you have TheTracker correctly setup:
 
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
@@ -69,9 +91,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, links in the documentation will still refer to the `CS2103-AY1819S1-W10-1/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-W10-1/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -157,13 +179,12 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 // tag::explanationofpolymorphism[]
-Even though the storage unit contains three types of Entities - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
+Even though the storage unit contains three types of entries - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
 
-.Activity Diagram when user adds any entity
-image::AddActivityDiagram.png[width="800"]
-As of v1.3, the storage, commands, and parsers are distinct classes for each type of entity.
+.Activity Diagram when user deletes any entity
+image::DeleteActivityDiagram.png[width="800"]
 The diagram above shows that although these classes are separate, they serve very similar purposes.
-Polymorphism may be implemented on some commands in later versions.
+They are handled by the same parser, with the model determining the appropriate list to act upon.
 // end::explanationofpolymorphism[]
 The sections below give more details of each component.
 
