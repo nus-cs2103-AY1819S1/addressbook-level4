@@ -69,6 +69,11 @@ public class Track implements Comparable {
         media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         while (mediaPlayer.getStatus() != READY) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         this.fileDuration = media.getDuration();
     }
