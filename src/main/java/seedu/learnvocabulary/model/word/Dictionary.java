@@ -60,7 +60,6 @@ public class Dictionary {
         wordOfTheDay = wordOfTheDay.replace(" | Dictionary.com", "");
         args = wordOfTheDay;
         this.invoke();
-        System.out.println(wordOfTheDay);
         return this;
     }
 
@@ -89,6 +88,14 @@ public class Dictionary {
             throw new ParseException(WORD_NOT_EXIST);
         }
         //Get description from document object.
+        definition = parseDefinition(doc);
+        return this;
+    }
+
+    /**
+     * Removes all of the redundant and unrelated items and only extract definition.
+     */
+    private String parseDefinition(Document doc) {
         definition = doc.select("meta[name=description]").get(0)
                 .attr("content");
         definition = definition.substring(definition.indexOf(" ") + 1);
@@ -96,8 +103,7 @@ public class Dictionary {
         definition = definition.replace("(", "");
         definition = definition.replace(")", "");
         definition = definition.replace(" See more.", "");
-        System.out.println(definition);
-        return this;
+        return definition;
     }
 
     /**
@@ -147,7 +153,7 @@ public class Dictionary {
     }
 
     /**
-     * Pulls the wordoftheday page into a document if availabe.
+     * Pulls the wordoftheday page into a document if available.
      */
     public static Document doesWordOfTheDayExist() {
         try {
