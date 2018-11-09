@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_EFFECTIVE_DOSAGE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_LETHAL_DOSAGE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
@@ -70,6 +76,31 @@ public class CommandTestUtil {
     public static final String VALID_TIME_AMY = "13 00";
     public static final String VALID_TIME_BENSON = "15 00";
 
+    public static final String VALID_MEDICINENAME_PARACETAMOL = "Paracetamol";
+    public static final String VALID_MEDICINENAME_VENTOLIN = "Ventolin";
+    public static final String VALID_MEDICINENAME_ORACORT = "Oracort";
+    public static final String VALID_MEDICINENAME_CHLORPHENIRAMINE = "Chlorpheniramine";
+    public static final String VALID_MEDICINETYPE_PARACETAMOL = "Tablet";
+    public static final String VALID_MEDICINETYPE_VENTOLIN = "Inhaler";
+    public static final String VALID_MEDICINETYPE_ORACORT = "Topical";
+    public static final String VALID_MEDICINETYPE_CHLORPHENIRAMINE = "Liquid";
+    public static final String VALID_EFFECTIVEDOSAGE_PARACETAMOL = "2";
+    public static final String VALID_EFFECTIVEDOSAGE_VENTOLIN = "2";
+    public static final String VALID_EFFECTIVEDOSAGE_ORACORT = "4";
+    public static final String VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE = "2";
+    public static final String VALID_LETHALDOSAGE_PARACETAMOL = "8";
+    public static final String VALID_LETHALDOSAGE_VENTOLIN = "10";
+    public static final String VALID_LETHALDOSAGE_ORACORT = "30";
+    public static final String VALID_LETHALDOSAGE_CHLORPHENIRAMINE = "32";
+    public static final String VALID_PRICE_PARACETAMOL = "0.05";
+    public static final String VALID_PRICE_VENTOLIN = "13.55";
+    public static final String VALID_PRICE_ORACORT = "8.90";
+    public static final String VALID_PRICE_CHLORPHENIRAMINE = "18.90";
+    public static final String VALID_QUANTITY_PARACETAMOL = "1000";
+    public static final String VALID_QUANTITY_VENTOLIN = "500";
+    public static final String VALID_QUANTITY_ORACORT = "200";
+    public static final String VALID_QUANTITY_CHLORPHENIRAMINE = "500";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -86,6 +117,55 @@ public class CommandTestUtil {
     public static final String TIME_DESC_AMY = " " + PREFIX_TIME + VALID_TIME_AMY;
     public static final String TIME_DESC_BENSON = " " + PREFIX_TIME + VALID_DATE_BENSON;
 
+    public static final String MEDICINENAME_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINENAME_PARACETAMOL;
+    public static final String MEDICINENAME_DESC_VENTOLIN = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINENAME_VENTOLIN;
+    public static final String MEDICINENAME_DESC_ORACORT = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINENAME_ORACORT;
+    public static final String MEDICINENAME_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_NAME
+            + VALID_MEDICINENAME_CHLORPHENIRAMINE;
+    public static final String MEDICINETYPE_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_TYPE
+            + VALID_MEDICINETYPE_PARACETAMOL;
+    public static final String MEDICINETYPE_DESC_VENTOLIN = " " + PREFIX_MEDICINE_TYPE
+            + VALID_MEDICINETYPE_VENTOLIN;
+    public static final String MEDICINETYPE_DESC_ORACORT = " " + PREFIX_MEDICINE_TYPE
+            + VALID_MEDICINETYPE_ORACORT;
+    public static final String MEDICINETYPE_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_TYPE
+            + VALID_MEDICINETYPE_CHLORPHENIRAMINE;
+    public static final String EFFECTIVEDOSAGE_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_EFFECTIVE_DOSAGE
+            + VALID_EFFECTIVEDOSAGE_PARACETAMOL;
+    public static final String EFFECTIVEDOSAGE_DESC_VENTOLIN = " " + PREFIX_MEDICINE_EFFECTIVE_DOSAGE
+            + VALID_EFFECTIVEDOSAGE_VENTOLIN;
+    public static final String EFFECTIVEDOSAGE_DESC_ORACORT = " " + PREFIX_MEDICINE_EFFECTIVE_DOSAGE
+            + VALID_EFFECTIVEDOSAGE_ORACORT;
+    public static final String EFFECTIVEDOSAGE_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_EFFECTIVE_DOSAGE
+            + VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE;
+    public static final String LETHALDOSAGE_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_LETHAL_DOSAGE
+            + VALID_LETHALDOSAGE_PARACETAMOL;
+    public static final String LETHALDOSAGE_DESC_VENTOLIN = " " + PREFIX_MEDICINE_LETHAL_DOSAGE
+            + VALID_LETHALDOSAGE_VENTOLIN;
+    public static final String LETHALDOSAGE_DESC_ORACORT = " " + PREFIX_MEDICINE_LETHAL_DOSAGE
+            + VALID_LETHALDOSAGE_ORACORT;
+    public static final String LETHALDOSAGE_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_LETHAL_DOSAGE
+            + VALID_LETHALDOSAGE_CHLORPHENIRAMINE;
+    public static final String PRICE_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_PRICE
+            + VALID_PRICE_PARACETAMOL;
+    public static final String PRICE_DESC_VENTOLIN = " " + PREFIX_MEDICINE_PRICE
+            + VALID_PRICE_VENTOLIN;
+    public static final String PRICE_DESC_ORACORT = " " + PREFIX_MEDICINE_PRICE
+            + VALID_PRICE_ORACORT;
+    public static final String PRICE_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_PRICE
+            + VALID_PRICE_CHLORPHENIRAMINE;
+    public static final String QUANTITY_DESC_PARACETAMOL = " " + PREFIX_MEDICINE_QUANTITY
+            + VALID_QUANTITY_PARACETAMOL;
+    public static final String QUANTITY_DESC_VENTOLIN = " " + PREFIX_MEDICINE_QUANTITY
+            + VALID_QUANTITY_VENTOLIN;
+    public static final String QUANTITY_DESC_ORACORT = " " + PREFIX_MEDICINE_QUANTITY
+            + VALID_QUANTITY_ORACORT;
+    public static final String QUANTITY_DESC_CHLORPHENIRAMINE = " " + PREFIX_MEDICINE_QUANTITY
+            + VALID_QUANTITY_CHLORPHENIRAMINE;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -95,6 +175,13 @@ public class CommandTestUtil {
 
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "*2 8u 2000";
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "j0 39";
+
+    public static final String INVALID_MEDICINENAME_DESC = " " + PREFIX_MEDICINE_NAME + "Cheese&";
+    public static final String INVALID_MEDICINETYPE_DESC = " " + PREFIX_MEDICINE_TYPE + "Cheese1";
+    public static final String INVALID_EFFECTIVEDOSAGE_DESC = " " + PREFIX_MEDICINE_TYPE + "Cheese2";
+    public static final String INVALID_LETHALDOSAGE_DESC = " " + PREFIX_MEDICINE_TYPE + "Cheese3";
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_MEDICINE_TYPE + "Cheese4";
+    public static final String INVALID_QUANTITY_DESC = " " + PREFIX_MEDICINE_TYPE + "Cheese5";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

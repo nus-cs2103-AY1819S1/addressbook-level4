@@ -4,12 +4,7 @@ package seedu.clinicio.model.medicine;
 
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.clinicio.model.tag.Tag;
 
 /**
  * Represents a Medicine in the ClinicIO
@@ -26,7 +21,6 @@ public class Medicine {
     private final MedicineDosage effectiveDosage;
     private final MedicineDosage lethalDosage;
     private final MedicinePrice price;
-    private final Set<Tag> tags = new HashSet<>();
 
     private MedicineQuantity quantity;
 
@@ -34,7 +28,7 @@ public class Medicine {
      * Every field must be present and not null.
      */
     public Medicine(MedicineName name, MedicineType type, MedicineDosage effectiveDosage,
-                    MedicineDosage lethalDosage, MedicinePrice price, MedicineQuantity quantity, Set<Tag> tags) {
+                    MedicineDosage lethalDosage, MedicinePrice price, MedicineQuantity quantity) {
         requireAllNonNull(name, type, effectiveDosage, lethalDosage, quantity);
         this.name = name;
         this.type = type;
@@ -42,7 +36,6 @@ public class Medicine {
         this.lethalDosage = lethalDosage;
         this.price = price;
         this.quantity = quantity;
-        this.tags.addAll(tags);
     }
 
     public MedicineName getMedicineName() {
@@ -69,16 +62,8 @@ public class Medicine {
         return quantity;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public void setQuantity(MedicineQuantity latestQuantity) {
-        this.quantity = latestQuantity;
+    public void setQuantity(MedicineQuantity newQuantity) {
+        this.quantity = newQuantity;
     }
 
     /**
@@ -106,14 +91,13 @@ public class Medicine {
                 && otherMedicine.getEffectiveDosage().equals(getEffectiveDosage())
                 && otherMedicine.getLethalDosage().equals(getLethalDosage())
                 && otherMedicine.getPrice().equals(getPrice())
-                && otherMedicine.getQuantity().equals(getQuantity())
-                && otherMedicine.getTags().equals(getTags());
+                && otherMedicine.getQuantity().equals(getQuantity());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, type, effectiveDosage, lethalDosage, price, quantity, tags);
+        return Objects.hash(name, type, effectiveDosage, lethalDosage, price, quantity);
     }
 
     @Override
@@ -129,9 +113,7 @@ public class Medicine {
                 .append(" Price: ")
                 .append(getPrice())
                 .append(" Quantity: ")
-                .append(getQuantity())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getQuantity());
         return builder.toString();
     }
 

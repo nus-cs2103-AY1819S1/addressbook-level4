@@ -2,17 +2,12 @@ package seedu.clinicio.testutil;
 
 //@@author aaronseahyh
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.medicine.MedicineDosage;
 import seedu.clinicio.model.medicine.MedicineName;
 import seedu.clinicio.model.medicine.MedicinePrice;
 import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.medicine.MedicineType;
-import seedu.clinicio.model.tag.Tag;
-import seedu.clinicio.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Medicine objects.
@@ -32,7 +27,6 @@ public class MedicineBuilder {
     private MedicineDosage lethalDosage;
     private MedicinePrice price;
     private MedicineQuantity quantity;
-    private Set<Tag> tags;
 
     public MedicineBuilder() {
         medicineName = new MedicineName(DEFAULT_MEDICINE_NAME);
@@ -41,7 +35,6 @@ public class MedicineBuilder {
         lethalDosage = new MedicineDosage(DEFAULT_LETHAL_DOSAGE);
         price = new MedicinePrice(DEFAULT_PRICE);
         quantity = new MedicineQuantity(DEFAULT_QUANTITY);
-        tags = new HashSet<>();
     }
 
     /**
@@ -54,7 +47,6 @@ public class MedicineBuilder {
         lethalDosage = medicineToCopy.getLethalDosage();
         price = medicineToCopy.getPrice();
         quantity = medicineToCopy.getQuantity();
-        tags = new HashSet<>(medicineToCopy.getTags());
     }
 
     /**
@@ -62,14 +54,6 @@ public class MedicineBuilder {
      */
     public MedicineBuilder withMedicineName(String medicineName) {
         this.medicineName = new MedicineName(medicineName);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Medicine} that we are building.
-     */
-    public MedicineBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -118,7 +102,7 @@ public class MedicineBuilder {
      * @return a medicine.
      */
     public Medicine build() {
-        Medicine medicine = new Medicine(medicineName, type, effectiveDosage, lethalDosage, price, quantity, tags);
+        Medicine medicine = new Medicine(medicineName, type, effectiveDosage, lethalDosage, price, quantity);
         return medicine;
     }
 }

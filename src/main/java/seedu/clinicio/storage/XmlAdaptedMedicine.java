@@ -2,12 +2,7 @@ package seedu.clinicio.storage;
 
 //@@author aaronseahyh
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -18,7 +13,6 @@ import seedu.clinicio.model.medicine.MedicineName;
 import seedu.clinicio.model.medicine.MedicinePrice;
 import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.medicine.MedicineType;
-import seedu.clinicio.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Medicine.
@@ -40,9 +34,6 @@ public class XmlAdaptedMedicine {
     @XmlElement(required = true)
     private String quantity;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
     /**
      * Constructs an XmlAdaptedMedicine.
      * This is the no-arg constructor that is required by JAXB.
@@ -53,16 +44,13 @@ public class XmlAdaptedMedicine {
      * Constructs an {@code XmlAdaptedMedicine} with the given medicine details.
      */
     public XmlAdaptedMedicine(String medicineName, String medicineType, String effectiveDosage, String lethalDosage,
-                              String price, String quantity, List<XmlAdaptedTag> tagged) {
+                              String price, String quantity) {
         this.medicineName = medicineName;
         this.medicineType = medicineType;
         this.effectiveDosage = effectiveDosage;
         this.lethalDosage = lethalDosage;
         this.price = price;
         this.quantity = quantity;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
     }
 
     /**
@@ -77,9 +65,6 @@ public class XmlAdaptedMedicine {
         lethalDosage = source.getLethalDosage().medicineDosage;
         price = source.getPrice().medicinePrice;
         quantity = source.getQuantity().medicineQuantity;
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
     }
 
     /**
@@ -88,11 +73,6 @@ public class XmlAdaptedMedicine {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medicine
      */
     public Medicine toModelType() throws IllegalValueException {
-        final List<Tag> medicineTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            medicineTags.add(tag.toModelType());
-        }
-
         if (medicineName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     MedicineName.class.getSimpleName()));
@@ -140,9 +120,8 @@ public class XmlAdaptedMedicine {
         }
         final MedicineQuantity modelQuantity = new MedicineQuantity(quantity);
 
-        final Set<Tag> modelTags = new HashSet<>(medicineTags);
         return new Medicine(modelName, modelType, modelEffectiveDosage, modelLethalDosage, modelPrice,
-                modelQuantity, modelTags);
+                modelQuantity);
     }
 
     @Override
@@ -161,8 +140,7 @@ public class XmlAdaptedMedicine {
                 && Objects.equals(effectiveDosage, otherMedicine.effectiveDosage)
                 && Objects.equals(lethalDosage, otherMedicine.lethalDosage)
                 && Objects.equals(price, otherMedicine.price)
-                && Objects.equals(quantity, otherMedicine.quantity)
-                && tagged.equals(otherMedicine.tagged);
+                && Objects.equals(quantity, otherMedicine.quantity);
     }
 
 }

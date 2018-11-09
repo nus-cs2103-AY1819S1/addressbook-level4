@@ -14,7 +14,7 @@ public class MedicineQuantity {
     public static final String MESSAGE_MEDICINE_QUANTITY_CONSTRAINTS =
             "Medicine quantities should only contain numbers, and it should be at most 4 digits long";
     public static final String MEDICINE_QUANTITY_VALIDATION_REGEX = "\\d{0,4}";
-    public final String medicineQuantity;
+    public String medicineQuantity;
 
     /**
      * Constructs a {@code MedicineQuantity}.
@@ -25,6 +25,15 @@ public class MedicineQuantity {
         requireNonNull(quantity);
         checkArgument(isValidMedicineQuantity(quantity), MESSAGE_MEDICINE_QUANTITY_CONSTRAINTS);
         medicineQuantity = quantity;
+    }
+
+    /**
+     * Sets the {@code MedicineQuantity}.
+     *
+     * @param medicineQuantity A valid medicine quantity.
+     */
+    public void setMedicineQuantity(String medicineQuantity) {
+        this.medicineQuantity = medicineQuantity;
     }
 
     /**

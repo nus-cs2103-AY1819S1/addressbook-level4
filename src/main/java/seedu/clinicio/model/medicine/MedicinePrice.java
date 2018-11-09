@@ -13,7 +13,7 @@ public class MedicinePrice {
 
     public static final String MESSAGE_MEDICINE_PRICE_CONSTRAINTS =
             "Medicine prices should only contain numbers, with a decimal place separating dollars and cents.";
-    public static final String MEDICINE_PRICE_VALIDATION_REGEX = "[\\d]" + "." + "[\\d]";
+    public static final String MEDICINE_PRICE_VALIDATION_REGEX = "[\\d]+\\.[\\d]+";
     public final String medicinePrice;
 
     /**
