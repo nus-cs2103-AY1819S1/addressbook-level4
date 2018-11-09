@@ -83,7 +83,7 @@ public class DependencyGraph {
      */
     public Map<String, Set<String>> getPrunedInvertedGraph() {
         pruneCompletedTasks();
-        invertGraph();
+        //invertGraph();
         return this.adjacencyList;
     }
 
