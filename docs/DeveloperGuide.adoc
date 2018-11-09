@@ -528,6 +528,9 @@ Attempting to call the `answer` command without first calling `trivia` will resu
 
 Step 2: `TriviaAnsCommandParser` processes the argument and parses it to `TriviaAnsCommand`.
 
+[NOTE]
+If the user inputs `triviaExit` or `triviaShow`, the inputs will be processed as commands instead.
+
 Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word as `triviaQuestion` in `LearnVocabulary`.
 
 Step 4: Outputs a correct or wrong message based on the result in step 3.
