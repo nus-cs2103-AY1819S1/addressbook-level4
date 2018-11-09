@@ -1256,43 +1256,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== UC3: Create new group
-
-*MSS*
-
-. User requests to add new group of persons
-. System creates a new group with that name and displays the newly created group
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The input information is invalid.
-+
-** 1a1. System shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== UC4: View contacts for a group
-
-*MSS*
-
-. User requests to view contacts for a particular group
-. System displays all contacts in that group
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The group name is invalid.
-+
-** 1a1. System shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== UC5: Add events
+=== UC3: Add events
 
 *MSS*
 
@@ -1308,7 +1272,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC6: View all events
+=== UC4: View all events
 
 *MSS*
 
@@ -1327,7 +1291,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: Delete an event
+=== UC5: Delete an event
 
 Guarantees: Only the selected event will be deleted from the existing list.
 
@@ -1349,7 +1313,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC8: Upcoming event notification
+=== UC6: Upcoming event notification
 
 *MSS*
 
@@ -1361,7 +1325,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC9: Show contact's faculty location visually
+=== UC7: Show contact's faculty location visually
 
 *MSS*
 
@@ -1372,7 +1336,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC10: Generate possible event location
+=== UC8: Generate possible event location
 
 *MSS*
 
@@ -1391,7 +1355,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC11: Import contacts
+=== UC9: Import contacts
 
 *MSS*
 
@@ -1419,6 +1383,42 @@ Use case ends.
 
 ////
 === Coming in V2.0
+
+[discrete]
+=== UC10: Create new group
+
+*MSS*
+
+. User requests to add new group of persons
+. System creates a new group with that name and displays the newly created group
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The input information is invalid.
++
+** 1a1. System shows an error message.
++
+Use case ends.
+
+[discrete]
+=== UC11: View contacts for a group
+
+*MSS*
+
+. User requests to view contacts for a particular group
+. System displays all contacts in that group
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The group name is invalid.
++
+** 1a1. System shows an error message.
++
+Use case ends.
 
 [discrete]
 === UC12: Find groups by keyword
@@ -1586,9 +1586,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `generateLocation n/Meeting d/2018-04-01 st/1400` +
    Expected: A random meeting location (Kent Ridge MRT, YIH, Coffee Roasters, Humble Origins, i3, The Deck or The Terrace) is generated and displayed.
    Status message indicates that meeting location is being generated and what to do if meeting location is acceptable.
-.. Test case: `showLocation n/Meeting` +
-   Expected: No contact's location is displayed. Status message indicates that command is incorrect and shows proper usage.
-.. Other incorrect faculty location display commands: `showLocation`, `showLocation x` (where x is larger than the list size).
+.. Test case: `generateLocation n/Meeting` +
+   Expected: No possible meeting location is displayed. Status message indicates that command is incorrect and shows proper usage.
+.. Other incorrect faculty location display commands: `generateLocation`, `generateLocation st/1400`, `generateLocation d/2018-04-01`
 
 === Saving data
 
