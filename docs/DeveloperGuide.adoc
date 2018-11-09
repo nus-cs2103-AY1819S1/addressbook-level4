@@ -379,6 +379,21 @@ image::LearnSequenceDiagram.png[width="820"]
 
 // end::learn[]
 
+// tag::group[]
+=== Group features
+==== Current Implementation
+The group feature is mainly for user to manage their word lists inside our LearnVocabulary application and it now supports three functionalitys, which are groupadd, groupdelete, and showgroup.
+
+===== groupadd functionality implementation
+Similar to the other existed functionalities, the groupadd functionality mainly consists of a groupaddCommandParser and a groupaddCommand.
+The groupadd parser is indicated as `groupaddCommand` in `parsers`, and inherits the `Parser` class. It enables the application to handle the input given by the the user, check its validity and delete whitespaces.
+The groupadd command is indicated as `groupadd` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to "add" a empty word group to the application.
+
+Given below is an example usage scenario and how the groupadd functionality behaves at each step.
+
+
+// end::group[]
+
 // tag::basic[]
 === Basic features
 ==== Current Implementation
