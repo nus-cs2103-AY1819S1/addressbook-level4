@@ -40,7 +40,7 @@ public class ExportTxtCommand extends ExportCommand {
             return new CommandResult(String.format(MESSAGE_FAIL_XML_TXT_CONVERSION));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exportedFilePath));
     }
 
     public void setStorage(Storage storage) {

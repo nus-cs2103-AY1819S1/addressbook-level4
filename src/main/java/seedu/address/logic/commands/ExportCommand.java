@@ -10,20 +10,21 @@ import seedu.address.storage.Storage;
 public abstract class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " --[EXTENSION]: Export user data from Tracker "
-            + "and store into a specified location with specified file format. \n "
-            + "Parameters: FILE_PATH "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " --[FILE_EXTENSION]: Export user data from TheTracker "
+            + "and store it into a specified location with specified file type. \n"
+            + "Parameters: [--[FILE_EXTENSION]] [FILE_PATH] \n"
             + "Example: " + COMMAND_WORD + " --xml "
             + "/Users/Anna/Desktop/backup.xml (macOS, Linux) \n"
-            + COMMAND_WORD + " --txt C:\\Users\\Anna\\desktop\\info.xml (Windows)";
+            + COMMAND_WORD + " --txt C:\\Users\\Anna\\desktop\\info.txt (Windows)";
 
-    public static final String MESSAGE_SUCCESS = "Export successfully.";
+    public static final String MESSAGE_SUCCESS = "Export successfully to file path: %1$s";
     public static final String MESSAGE_FAIL_READ_FILE = "Failed to read file path. Please recheck the validity "
-            + "of the path format.";
-    public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH = "This file type is currently not "
-            + "supported; Or the file type you want to convert is not consistent with the extension of the file";
-    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export as a txt file. Please recheck the "
-            + "validation of file path.";
+            + "of the file path: %1$s.";
+    public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH = "Failed to export user data. Please recheck: \n"
+            + "1. The validity of the file extension. \n"
+            + "2. The consistency of parameter [--[EXTENSION]] and the file extension.";
+    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. Please recheck the "
+            + "validation of file path: %1$s.";
 
     protected Path exportedFilePath;
 

@@ -30,9 +30,9 @@ public class ExportXmlCommand extends ExportCommand {
         try {
             storage.saveAddressBook(model.getAddressBook(), exportedFilePath);
         } catch (IOException e) {
-            throw new CommandException(String.format(MESSAGE_FAIL_READ_FILE));
+            throw new CommandException(String.format(MESSAGE_FAIL_READ_FILE, exportedFilePath));
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exportedFilePath));
     }
 
     public void setStorage(Storage storage) {
