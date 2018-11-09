@@ -166,19 +166,20 @@ public class Person {
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editedPersonDescriptor}.
      */
-    public static Person createEditedPerson(Person personToEdit, PersonDescriptor editPersonDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, PersonDescriptor editedPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        UniqueModuleList updatedModuleList = editPersonDescriptor.getModuleList().orElse(personToEdit.getModuleList());
-        UniqueOccasionList updatedOccasionList = editPersonDescriptor
+        Name updatedName = editedPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editedPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editedPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editedPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        UniqueModuleList updatedModuleList = editedPersonDescriptor
+                .getModuleList().orElse(personToEdit.getModuleList());
+        UniqueOccasionList updatedOccasionList = editedPersonDescriptor
                 .getOccasionList().orElse(personToEdit.getOccasionList());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Tag> updatedTags = editedPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                 updatedModuleList, updatedOccasionList);

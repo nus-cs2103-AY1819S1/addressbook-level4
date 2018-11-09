@@ -60,18 +60,18 @@ public class Module {
 
     /**
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleDescriptor}.
+     * edited with {@code editedModuleDescriptor}.
      */
-    public static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editModuleDescriptor) {
+    public static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editedModuleDescriptor) {
         assert moduleToEdit != null;
 
-        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
-        ModuleTitle updatedModuleTitle = editModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
+        ModuleCode updatedModuleCode = editedModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        ModuleTitle updatedModuleTitle = editedModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
         AcademicYear updatedAcademicYear =
-                editModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        UniquePersonList updatedStudents = editModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+                editedModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
+        Semester updatedSemester = editedModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        UniquePersonList updatedStudents = editedModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
+        Set<Tag> updatedTags = editedModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
         return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
                 updatedStudents, updatedTags);

@@ -71,20 +71,20 @@ public class Occasion {
 
     /**
      * Creates and returns a {@code Occasion} with the details of {@code occasionToEdit}
-     * edited with {@code editOccasionDescriptor}.
+     * edited with {@code editedOccasionDescriptor}.
      */
-    public static Occasion createEditedOccasion(Occasion occasionToEdit, OccasionDescriptor editOccasionDescriptor) {
+    public static Occasion createEditedOccasion(Occasion occasionToEdit, OccasionDescriptor editedOccasionDescriptor) {
         assert occasionToEdit != null;
 
         OccasionName updatedOccasionName =
-                editOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
+                editedOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
         OccasionDate updatedOccasionDate =
-                editOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
+                editedOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
         OccasionLocation updatedOccasionLocation =
-                editOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
+                editedOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
         UniquePersonList updatedPersonList =
-                editOccasionDescriptor.getAttendanceList().orElse(occasionToEdit.getAttendanceList());
-        Set<Tag> updatedTags = editOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
+                editedOccasionDescriptor.getAttendanceList().orElse(occasionToEdit.getAttendanceList());
+        Set<Tag> updatedTags = editedOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
 
         return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
                 updatedTags, TypeUtil.OCCASION, updatedPersonList);

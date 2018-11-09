@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,10 +8,12 @@ import static seedu.address.commons.util.TypeUtil.MODULE;
 import static seedu.address.commons.util.TypeUtil.OCCASION;
 import static seedu.address.commons.util.TypeUtil.PERSON;
 import static seedu.address.logic.commands.CommandModuleTestUtil.showModuleAtIndex;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.showOccasionAtIndex;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandPersonTestUtil.showPersonAtIndex;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
@@ -18,6 +21,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalModules.CS2100;
+import static seedu.address.testutil.TypicalModules.ST2131;
+import static seedu.address.testutil.TypicalOccasions.OCCASION_ONE;
 
 import org.junit.Test;
 
@@ -32,8 +38,8 @@ import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, InsertPerson, UndoCommand and RedoCommand)
+ * and unit tests for {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
@@ -413,6 +419,62 @@ public class DeleteCommandTest {
         // redo -> deletes same second occasion in unfiltered occasion list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_personRemovedFromModule() throws Exception {
+        model.setActiveType(PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_MODULE, ST2131); //dummy module used as indicator of insert 'type'
+        insertPersonIntoModuleCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredModuleList().get(INDEX_FIRST_MODULE.getOneBased()).getStudents(),
+                model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getOneBased()).getStudents());
+    }
+
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_personRemovedFromOccasion() throws Exception {
+        model.setActiveType(PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_SECOND_PERSON,
+                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+        insertPersonIntoOccasionCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList(),
+                model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList());
+    }
+
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_moduleRemovedFromPerson() throws Exception {
+        model.setActiveType(MODULE);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_MODULE, ST2131); //dummy module used as indicator of insert 'type'
+        insertPersonIntoModuleCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList(),
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList());
+    }
+
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_occasionRemovedFromPerson() throws Exception {
+        model.setActiveType(OCCASION);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OCCASION);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+        insertPersonIntoOccasionCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getOccasionList(),
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getOccasionList());
     }
 
     @Test

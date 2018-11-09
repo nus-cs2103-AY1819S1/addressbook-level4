@@ -25,7 +25,6 @@ import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Deletes an entry identified using its displayed index in the active list.
