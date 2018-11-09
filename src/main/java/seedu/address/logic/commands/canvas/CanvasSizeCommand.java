@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -12,7 +12,9 @@ import seedu.address.model.Model;
 
 
 /**
- * Handles the changing and echo-ing of Canvas size.
+ * Handles the changing and echoing of Canvas size.
+ * Commands are in the format - canvas size (height x width).
+ * If the optional (height x width) is omitted, the current height and width is displayed instead.
  */
 
 public class CanvasSizeCommand extends CanvasCommand {

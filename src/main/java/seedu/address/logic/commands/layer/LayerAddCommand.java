@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -21,6 +21,8 @@ import seedu.address.model.PreviewImage;
 
 /**
  * Handles the repositioning of Layers.
+ * Commands are in the format - layer add [index].
+ * Refer to the select command.
  */
 
 public class LayerAddCommand extends LayerCommand {

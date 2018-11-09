@@ -674,6 +674,8 @@ As such, parsing will be done twice. Once by GoogleCommandParser, and another wi
 
 {to be updated}
 // end::google[]
+
+// tag::canvas[]
 == Canvas and Layer features
 
 === General overview
@@ -727,9 +729,11 @@ Step 5) `Canvas#addLayer` pushes the new layer to the end of the list of `Layer`
 Keep in mind that rendering is a First-In-Last-Out operation which means that the new `Layer`
 is rendered at the very top.
 
-Step 6) The user finally saves the output with the `canvas save` command.
+Step 6) The user finally saves the output with the `save` command.
 
-Step 7) `Canvas#save` then saves the output to disk.
+Step 7) `save` then saves the output to disk.
+
+// end::canvas[]
 
 == Documentation
 

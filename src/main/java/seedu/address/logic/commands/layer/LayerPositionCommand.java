@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -9,10 +9,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
-
-
 /**
  * Handles the repositioning of Layers.
+ * Commands are in the form - layer position [x_position x y_position]
+ * Invalid arguments are handled.
  */
 
 public class LayerPositionCommand extends LayerCommand {

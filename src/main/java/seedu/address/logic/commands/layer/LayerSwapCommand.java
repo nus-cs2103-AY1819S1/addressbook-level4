@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -11,10 +11,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
-
-
 /**
- * Handles the repositioning of Layers.
+ * Handles the changing of layer order.
+ * Commands are in the format - layer swap [index index].
+ * Invalid indexes and invalid operations are handled.
  */
 
 public class LayerSwapCommand extends LayerCommand {
@@ -52,7 +52,6 @@ public class LayerSwapCommand extends LayerCommand {
             }
             toIndex = Index.fromOneBased(to);
             fromIndex = Index.fromOneBased(from);
-
             model.swapLayer(toIndex, fromIndex);
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);

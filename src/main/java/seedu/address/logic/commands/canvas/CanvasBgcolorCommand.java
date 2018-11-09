@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -14,17 +14,18 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Handles the toggling of auto-resize.
+ * Handles the changing of background color.
+ * Commands are in the format : canvas bgcolor [`none` | hex color code | rgba/hsla color code].
  */
 
 public class CanvasBgcolorCommand extends CanvasCommand {
     public static final String TYPE = COMMAND_WORD + " bgcolor";
     public static final String MESSAGE_USAGE = "Usage of canvas bgcolor: "
-            + "\n- " + TYPE + " [color]: " + "Changes the background color to the colour specified."
-            + "\n\tExample: " + TYPE + " rgba(0,255,0,0.7) - Changes the background colour to"
+            + "\n- " + TYPE + " [color]: " + "Changes the background color to the color specified."
+            + "\n\tExample: " + TYPE + " rgba(0,255,0,0.7) - Changes the background color to"
             + " lime-green with 70% opacity.";
 
-    public static final String OUTPUT_SUCCESS = "Background colour is now: %s.";
+    public static final String OUTPUT_SUCCESS = "Background color is now: %s.";
     public static final String OUTPUT_FAILURE = "Invalid colour %s!";
 
     private static final String HEX_REGEX = "^#(?:[0-9a-f]{3}){1,2}$";

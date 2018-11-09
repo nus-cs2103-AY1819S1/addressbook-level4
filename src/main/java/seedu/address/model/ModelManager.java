@@ -325,6 +325,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Canvas and layers ==========================================================================
 
+    //@@author j-lum
     /**
      * Adds a layer to the canvas, a name is generated automatically.
      * @param i - PreviewImage to add.
@@ -336,8 +337,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Overloads the addLayer function to handle an optional name.
-     * @param i
-     * @param name
+     * @param i - PreviewImage to add
+     * @param name - Name of the new layer.
      */
     public void addLayer(PreviewImage i, String name) {
         canvas.addLayer(i, name);
@@ -347,7 +348,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Removes the layer at the given index.
      * @param i - Index of the layer to remove
-     * @return
+     * @return the new index of the current layer
      * @throws IllegalOperationException - thrown if the current layer is being removed
      * or the only layer is being removed.
      */
@@ -372,6 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
         refreshLayerList();
     }
 
+
     /**
      * Swaps two layers.
      * @param to - Layer 1
@@ -383,11 +385,18 @@ public class ModelManager extends ComponentManager implements Model {
         refreshLayerList();
     }
 
-    private void refreshHistoryList() {
+    /**
+     * Simple utility function that updates the HistoryListPanel and logs the event.
+     */
+    public void refreshHistoryList() {
         EventsCenter.getInstance().post(
                 new HistoryUpdateEvent(
                         getCanvas().getCurrentLayer().getImage().getTransformationsAsString()));
     }
+
+    /**
+     * Simple utility function that updates the LayerListPanel and logs the event.
+     */
 
     private void refreshLayerList() {
         EventsCenter.getInstance().post(

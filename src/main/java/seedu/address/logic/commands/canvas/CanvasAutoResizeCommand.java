@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -12,7 +12,8 @@ import seedu.address.model.Model;
 
 
 /**
- * Handles the toggling of auto-resize.
+ * Handles the toggling of canvas auto-resize.
+ * Commands are in the format : canvas auto-resize [ON/OFF] (case-insensitive).
  */
 
 public class CanvasAutoResizeCommand extends CanvasCommand {

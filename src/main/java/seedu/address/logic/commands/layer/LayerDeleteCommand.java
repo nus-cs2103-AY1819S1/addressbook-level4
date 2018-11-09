@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -11,10 +11,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
-
-
 /**
- * Handles the repositioning of Layers.
+ * Handles the deleting of layers.
+ * Commands are in the format - layer delete [index].
+ * Invalid indexes, locked layers are handled.
  */
 
 public class LayerDeleteCommand extends LayerCommand {

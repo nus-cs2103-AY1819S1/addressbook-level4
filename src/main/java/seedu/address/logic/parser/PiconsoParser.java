@@ -18,7 +18,6 @@ import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.PrevCommand;
-import seedu.address.logic.commands.RawCommand;
 import seedu.address.logic.commands.RedoAllCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
@@ -105,9 +104,6 @@ public class PiconsoParser {
 
         case CanvasCommand.COMMAND_WORD:
             return new CanvasCommandParser().parse(arguments);
-
-        case RawCommand.COMMAND_WORD:
-            return new RawCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
