@@ -47,6 +47,7 @@ public class RepeatEventGenerator {
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)
                 && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
+                    targetEvent.getEventUid(),
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
