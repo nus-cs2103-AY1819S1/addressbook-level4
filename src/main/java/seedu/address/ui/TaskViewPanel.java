@@ -18,20 +18,20 @@ import seedu.address.model.task.Task;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class TaskViewPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "TaskViewPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
 
-    public BrowserPanel() {
+    public TaskViewPanel() {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.

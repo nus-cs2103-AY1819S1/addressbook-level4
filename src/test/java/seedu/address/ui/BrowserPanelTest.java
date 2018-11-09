@@ -4,7 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.TaskViewPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
@@ -19,17 +19,17 @@ import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 public class BrowserPanelTest extends GuiUnitTest {
     private TaskPanelSelectionChangedEvent selectionChangedEventStub;
 
-    private BrowserPanel browserPanel;
+    private TaskViewPanel taskViewPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
         selectionChangedEventStub = new TaskPanelSelectionChangedEvent(A_TASK);
 
-        guiRobot.interact(() -> browserPanel = new BrowserPanel());
-        uiPartRule.setUiPart(browserPanel);
+        guiRobot.interact(() -> taskViewPanel = new TaskViewPanel());
+        uiPartRule.setUiPart(taskViewPanel);
 
-        browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
+        browserPanelHandle = new BrowserPanelHandle(taskViewPanel.getRoot());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a task
         postNow(selectionChangedEventStub);
-        URL expectedTaskUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + A_TASK.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedTaskUrl = new URL(TaskViewPanel.SEARCH_PAGE_URL + A_TASK.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedTaskUrl, browserPanelHandle.getLoadedUrl());
