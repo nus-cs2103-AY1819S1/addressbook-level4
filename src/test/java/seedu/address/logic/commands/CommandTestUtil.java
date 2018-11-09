@@ -57,6 +57,10 @@ public class CommandTestUtil {
     public static final int VALID_CALENDAR_DATE_1 = 1;
     public static final int VALID_CALENDAR_DATE_2 = 2;
     public static final int INVALID_CALENDAR_DATE = 32;
+    public static final int VALID_SHOUR = 8;
+    public static final int VALID_SMIN = 0;
+    public static final int VALID_EHOUR = 17;
+    public static final int VALID_EMIN = 30;
     public static final String VALID_CALENDAR_TITLE_OCAMP = "Orientation Camp";
     public static final String VALID_CALENDAR_TITLE_HACK = "Hackathon";
 
@@ -72,6 +76,10 @@ public class CommandTestUtil {
     public static final String INVALID_NEGATIVE_YEAR = " " + PREFIX_YEAR + "-2018";
     public static final String INVALID_YEAR_MORE_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "12345";
     public static final String INVALID_YEAR_LESS_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "1";
+    public static final int INVALID_HOUR_OUTOFBOUND = 24;
+    public static final int INVALID_MIN_OUTOFBOUND = 60;
+    public static final int INVALID_HOUR_NEG = -1;
+    public static final int INVALID_MIN_NEG = -1;
 
     public static final String VALID_EMAIL_EXCURSION = "excursion@example.com";
     public static final String VALID_EMAIL_CAMP = "camp@example.com";

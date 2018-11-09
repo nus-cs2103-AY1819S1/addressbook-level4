@@ -65,6 +65,9 @@ public class AddEventCommand extends Command {
 
     public AddEventCommand(Month month, Year year, int startDate, int startHour, int startMin,
                            int endDate, int endHour, int endMin, String title) {
+        requireNonNull(month);
+        requireNonNull(year);
+        requireNonNull(title);
         this.month = month;
         this.year = year;
         this.startDate = startDate;
@@ -131,11 +134,7 @@ public class AddEventCommand extends Command {
                 && month.equals(((AddEventCommand) other).month)
                 && year.equals(((AddEventCommand) other).year)
                 && startDate == (((AddEventCommand) other).startDate)
-                && startHour == (((AddEventCommand) other).startHour)
-                && startMin == (((AddEventCommand) other).startMin)
                 && endDate == (((AddEventCommand) other).endDate)
-                && endHour == (((AddEventCommand) other).endHour)
-                && endMin == (((AddEventCommand) other).endMin)
                 && title.equals(((AddEventCommand) other).title));
     }
 }

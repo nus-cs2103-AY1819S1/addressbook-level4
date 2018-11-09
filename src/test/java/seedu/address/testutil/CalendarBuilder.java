@@ -25,7 +25,11 @@ public class CalendarBuilder {
     public static final Year DEFAULT_YEAR = new Year("2018");
     public static final Month DEFAULT_MONTH = new Month("JAN");
     public static final int DEFAULT_START_DAY = 1;
+    public static final int DEFAULT_START_HOUR = 0;
+    public static final int DEFAULT_START_MIN = 0;
     public static final int DEFAULT_END_DAY = 2;
+    public static final int DEFAULT_END_HOUR = 23;
+    public static final int DEFAULT_END_MIN = 59;
     public static final String DEFAULT_TITLE = "New Year";
     public static final String DEFAULT_CATEGORY = "group13";
     public static final Uid DEFAULT_UID = new Uid("1");
@@ -90,8 +94,8 @@ public class CalendarBuilder {
         sDate.set(java.util.Calendar.YEAR, Integer.parseInt(DEFAULT_YEAR.toString()));
         sDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(DEFAULT_MONTH));
         sDate.set(java.util.Calendar.DAY_OF_MONTH, DEFAULT_START_DAY);
-        sDate.set(java.util.Calendar.HOUR_OF_DAY, 0);
-        sDate.set(java.util.Calendar.MINUTE, 0);
+        sDate.set(java.util.Calendar.HOUR_OF_DAY, DEFAULT_START_HOUR);
+        sDate.set(java.util.Calendar.MINUTE, DEFAULT_START_HOUR);
         sDate.set(java.util.Calendar.SECOND, 0);
 
         // End Date
@@ -99,8 +103,8 @@ public class CalendarBuilder {
         eDate.set(java.util.Calendar.YEAR, Integer.parseInt(DEFAULT_YEAR.toString()));
         eDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(DEFAULT_MONTH));
         eDate.set(java.util.Calendar.DAY_OF_MONTH, DEFAULT_END_DAY);
-        eDate.set(java.util.Calendar.HOUR_OF_DAY, 23);
-        eDate.set(java.util.Calendar.MINUTE, 59);
+        eDate.set(java.util.Calendar.HOUR_OF_DAY, DEFAULT_END_HOUR);
+        eDate.set(java.util.Calendar.MINUTE, DEFAULT_END_MIN);
         eDate.set(java.util.Calendar.SECOND, 59);
 
         // Create the event
