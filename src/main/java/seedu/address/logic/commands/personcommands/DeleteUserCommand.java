@@ -24,7 +24,7 @@ public class DeleteUserCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the current logged-in person from the displayed person list.\n"
             + "No other parameter should be specified.\n"
-            + "Example: " + COMMAND_WORD ;
+            + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
