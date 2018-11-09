@@ -583,23 +583,23 @@ there are a few key differences in the process that one needs to take note of.
 
 The command used to generate this possible meeting location is `generateLocation`.
 
-In order to generate a random location for an event, the user needs to input (in addition to the command) the event name,
-event date and event time. This is to detect the unique event (because some events may have the same name) and to ensure
+In order to generate a random location for an event, the user needs to input (in addition to the command) the
+event date and event index. This is to detect the unique event (because some events may have the same name) and to ensure
 that this event is currently in the address book.
 
 Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
 these kind of commands. The GenerateLocationCommand object created will then consist of three fields:
 
-* Event name
 * Event date
-* Event start time
+* Event index
 
 The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
 commands before the object is created. Following this, the address book is checked to determine whether this event does
-exist and if it does the status message indicates that a meeting location has been generated, if not it indicates to the user
+exist. If it does exist, the event name is retrieved and stored in the GenerateCommandLocation object.
+The status message indicates that a meeting location (it will show the meeting name too) has been generated, if not it indicates to the user
 that such as event does not exist.
 
-A random meeting location is generated based on 7 locations (for now) that have their Google Maps Place IDs stored in the EmbedGoogleMaps class.
+A random meeting location is generated based on 7 locations (more will be added in future iterations) that have their Google Maps Place IDs stored in the `EmbedGoogleMaps` class.
 A call to the method that generates this location (more specifically, returns the Place ID of the location) is made in the execute
 method of the GenerateLocationCommand.
 
@@ -1342,7 +1342,7 @@ Use case ends.
 
 *MSS*
 
-. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. User selects the event (using date and index) that he/she wants to find an event location for.
 . System randomly generates a meeting location from those stored and displays it to user in location display tab using Google Maps Embed API.
 . User considers the location and deems it to be acceptable or not.
 . System indicates in status message what course of action to take from here.
@@ -1496,7 +1496,7 @@ _Note: this builds on the existing functionality of Use Case 8._
 
 *MSS*
 
-. User selects the event (using name, date and start time) that he/she wants to find an event location for.
+. User selects the event (using date and event index) that he/she wants to find an event location for.
 . System generates a meeting location based on the people tagged to it (i.e. it finds a convenient meeting location for all).
 . System displays this location to the user in location display tab using Google Maps Embed API.
 . User considers the location and deems it to be acceptable or not.
@@ -1605,12 +1605,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Generating a possible meeting location for an event
 
 .. Prerequisites: Event must already exist inside the current list of events stored.
-.. Test case: `generateLocation n/Meeting d/2018-04-01 st/1400` +
+.. Test case: `generateLocation d/2018-04-01 i/1` +
    Expected: A random meeting location (Kent Ridge MRT, YIH, Coffee Roasters, Humble Origins, i3, The Deck or The Terrace) is generated and displayed.
    Status message indicates that meeting location is being generated and what to do if meeting location is acceptable.
-.. Test case: `generateLocation n/Meeting` +
+.. Test case: `generateLocation d/2018-04-01` +
    Expected: No possible meeting location is displayed. Status message indicates that command is incorrect and shows proper usage.
-.. Other incorrect faculty location display commands: `generateLocation`, `generateLocation st/1400`, `generateLocation d/2018-04-01`
+.. Test case: `generateLocation i/0` +
+   Expected: No possible meeting location is displayed. Status message indicates that index is not a valid one and shows what are acceptable.
+.. Other incorrect faculty location display commands: `generateLocation`, `generateLocation i/1`
 
 === Saving data
 
