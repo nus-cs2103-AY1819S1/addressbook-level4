@@ -150,9 +150,9 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        /*for (Patient patient: getTypicalPatients()) {
+        for (Patient patient: getTypicalPatients()) {
             clinicIo.addPatient(patient);
-        }*/
+        }
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }
