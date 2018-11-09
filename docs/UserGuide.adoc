@@ -28,8 +28,8 @@ link:{repoURL}[MeNUS] is here to help you and it is the only restaurant manageme
 
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
-Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage aspects of your restaurants -- staff accounts,
-menus, ingredient, sales and reservations management -- all from a single location !
+Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage core aspects of your restaurants --
+employees, menus, inventory, sales and reservations management -- all from a single location!
 
 === Legends
 The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
@@ -44,6 +44,12 @@ Perhaps something can be done using another approach, but it is up to you to dec
 [WARNING]
 Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
 read whatever is in this block.
+
+=== A Quick Look at MeNUS
+
+*MeNUS*’s user interface is split into a few sections. These sections are highlighted in the image below.
+
+image::UserInterfaceHighlight.png[width="790"]
 
 Let's get started!
 // end::intro[]
@@ -131,6 +137,13 @@ Do read our short explanation about Command Format below so that the subsequent 
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+As this is a management system, all but the following commands cannot be executed without first being authenticated.
+====
+. `help`
+. `login`
+. `exit`
 ====
 
 === General
@@ -231,15 +244,26 @@ To testers: You may access the application using the default `root` account: `lo
 Logs out of the account. +
 Format: `logout`
 
+[NOTE]
+====
+History will automatically be cleared upon logging out
+====
+
 ==== Creating user account: `register` or `reg`
 
 Creates a new user account. +
 Format: `register id/USERNAME pw/PASSWORD` or `reg id/USERNAME pw/PASSWORD`
 
+[NOTE]
+====
+This command will be improved in the future to include name and role. See <<Register-Improvement>>
+for more information
+====
+
 Examples:
 
-* `register id/azhikai pw/p@55w0rd`
-* `reg id/azhikai pw/p@55w0rd`
+* `register id/azhikai pw/1122qq`
+* `reg id/azhikai pw/1122qq`
 
 ==== Changing user password: `change-password` or `cp`
 
@@ -254,17 +278,59 @@ Examples:
 ==== Deleting user account: `deregister` or `dereg`
 
 Deletes an existing user account. +
+Format: `deregister id/USERNAME` or `dereg id/USERNAME`
+
 [NOTE]
 ====
-This command should only be able to be executed by a highly privileged user. See <<User-Role>>
+This command will only be able to be executed by a highly privileged user in the future. See <<User-Role>>
 for more information
 ====
-Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
 Examples:
 
 * `deregister id/azhikai`
 * `dereg id/azhikai`
+
+==== Select user account: `select-account` or `sa`
+Selects the account identified by the index number. +
+Format: `select-account INDEX` or `sa INDEX`
+
+[NOTE]
+====
+Selecting the account does not render any data on the detailed panel due to the simplicity of the data itself
+====
+
+****
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list-accounts` +
+`select-account 2` +
+Selects the 2nd account in the list.
+* `fa azhikai` +
+`sa 1` +
+Selects the 1st account in the results of the `find-account` command.
+
+==== Locating account by username: `find-account` or `fa`
+
+Finds account whose username contain any of the given keywords. +
+Format: `find-account KEYWORD` or `fa KEYWORD`
+
+****
+* The search is case insensitive. e.g `root` will match `Root`
+* Only the username is searched.
+* Only full words will be matched e.g. `roo` will not match `root`
+****
+
+Examples:
+
+* `find-account root` +
+Returns `root`
+* `fa root azhikai rebstan97` +
+Returns any account having username `root`, `azhikai`, or `rebstan97`
 
 ==== List user accounts: `list-accounts` or `la`
 
@@ -923,6 +989,17 @@ Selects the 6th record in the record list.
 // end::salesmanagement[]
 
 === Upcoming Features
+[[Register-Improvement]]
+==== Improving registration `[coming in v2.0]`
+Improves the existing `register` command by including the full name of the employee and role.
+
+Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID` or `reg id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID`
+
+Examples:
+
+* `register id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+* `reg id/azhikai pw/1122qq n/Ang Zhi Kai r/999`
+
 [[User-Role]]
 ==== Creating user role `[coming in v2.0]`
 Creates a user role. User assigned with higher ranking role can execute more commands. +

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 
 import org.junit.Before;
@@ -54,7 +55,8 @@ public class LogicManagerTest {
         EventsCenter.getInstance().post(new LogoutEvent()); // logout before executing
         assertCommandException(RegisterCommand.COMMAND_WORD + " "
                         + PREFIX_ID + account.getUsername().toString() + " "
-                        + PREFIX_PASSWORD + account.getPassword().toString(),
+                        + PREFIX_PASSWORD + account.getPassword().toString() + " "
+                        + PREFIX_NAME + account.getName().toString(),
                 Messages.MESSAGE_COMMAND_FORBIDDEN);
     }
 

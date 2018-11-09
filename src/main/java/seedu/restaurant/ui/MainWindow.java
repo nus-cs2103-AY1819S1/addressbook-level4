@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
@@ -24,6 +25,8 @@ import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.ExitAppRequestEvent;
 import seedu.restaurant.commons.events.ui.ShowHelpRequestEvent;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
@@ -57,6 +60,8 @@ import seedu.restaurant.ui.sales.SalesReportWindow;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double FULL_OPACITY = 1.0;
+    private static final double DISABLED_OPACITY = 0.15;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -82,9 +87,6 @@ public class MainWindow extends UiPart<Stage> {
     private SplitPane splitPane;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -95,6 +97,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane dataListPanelPlaceholder;
+
+    @FXML
+    private StackPane detailedDataPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -180,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailedDataPanelPlaceholder.getChildren().add(browserPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -212,10 +217,11 @@ public class MainWindow extends UiPart<Stage> {
         dataListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
-        ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), detailedDataPanelPlaceholder);
     }
 
     //@@author yican95
+
     /**
      * Create the fade transition for the StackPane and set value from 0 to 1.
      */
@@ -223,7 +229,6 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(duration, placeholder);
         ft.setFromValue(0);
         ft.setToValue(1);
-
         return ft;
     }
 
@@ -257,22 +262,57 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     //@@author AZhiKai
+
+    /**
+     * Toggle the navigation button's opacity and disability based on whether {@code isLoggedIn} which is toggled by the
+     * {@code LoginEvent} and {@code LogoutEvent}.
+     *
+     * @param isLoggedIn determines if the button can be clicked and with a full opacity of value 1.0.
+     */
+    private void toggleNavigationBar(boolean isLoggedIn) {
+        setButtonDisableProperty(isLoggedIn);
+        setButtonOpacityProperty(isLoggedIn);
+    }
+
+    /**
+     * Sets the disable property of the {@code ImageButton}.
+     */
+    private void setButtonDisableProperty(boolean isLoggedIn) {
+        switchToAccountButton.setDisable(!isLoggedIn);
+        switchToIngredientButton.setDisable(!isLoggedIn);
+        switchToSalesButton.setDisable(!isLoggedIn);
+        switchToReservationButton.setDisable(!isLoggedIn);
+    }
+
+    /**
+     * Sets the opacity property of the {@code ImageButton}.
+     */
+    private void setButtonOpacityProperty(boolean isLoggedIn) {
+        switchToAccountButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToIngredientButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToSalesButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToReservationButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+    }
+
     /**
      * Switch the list panel to the given region
      */
     private void switchList(Region region) {
-        browserPlaceholder.getChildren().clear();
+        detailedDataPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().add(region);
         ftListPanel.play();
     }
 
     /**
-     * Switch to the account view.
+     * Set the panel with the given {@code Node}.
+     *
+     * @param node to set to the panel.
      */
-    @FXML
-    private void handleSwitchToAccount() {
-        switchList(accountListPanel.getRoot());
+    private void setPanel(Node node) {
+        detailedDataPanelPlaceholder.getChildren().clear();
+        detailedDataPanelPlaceholder.getChildren().add(node);
+        ftStackPanel.play();
     }
 
     /**
@@ -281,6 +321,16 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToMenu() {
         switchList(itemListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
+    }
+
+    /**
+     * Switch to the account view.
+     */
+    @FXML
+    private void handleSwitchToAccount() {
+        switchList(accountListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -289,6 +339,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToSales() {
         switchList(recordListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -297,6 +348,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToIngredient() {
         switchList(ingredientListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -305,6 +357,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToReservation() {
         switchList(reservationListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -345,34 +398,26 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new ItemStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new ItemStackPanel(event.getNewSelection()).getRoot());
     }
 
     @Subscribe
     private void handleReservationPanelSelectionChangedEvent(ReservationPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        ftStackPanel.play();
+        //setPanel(browserPanel.getRoot());
     }
 
     @Subscribe
     private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new RecordStackPanel(event.getNewSelection()).getRoot());
     }
 
     //@@author rebstan97
     @Subscribe
     private void handleIngredientPanelSelectionChangedEvent(IngredientPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new IngredientStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new IngredientStackPanel(event.getNewSelection()).getRoot());
     }
 
     //@@author AZhiKai
@@ -416,7 +461,6 @@ public class MainWindow extends UiPart<Stage> {
         salesReportWindow.show();
     }
 
-    //@@author AZhiKai
     @Subscribe
     private void handleDisplaySalesChartEvent(DisplaySalesChartEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -425,8 +469,23 @@ public class MainWindow extends UiPart<Stage> {
         salesChartWindow.show();
     }
 
+    @Subscribe
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToReservation();
+    }
+
+    //@@author AZhiKai
+    @Subscribe
+    private void handleLoginEvent(LoginEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleNavigationBar(true);
+    }
+
+    @Subscribe
+    private void handleLogoutEvent(LogoutEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleNavigationBar(false);
+        handleSwitchToMenu();
     }
 }

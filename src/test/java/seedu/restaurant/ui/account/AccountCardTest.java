@@ -61,7 +61,7 @@ public class AccountCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", accountCardHandle.getId());
 
-        // verify item details are displayed correctly
+        // verify account details are displayed correctly
         assertCardDisplaysAccount(expectedAccount, accountCardHandle);
     }
 }

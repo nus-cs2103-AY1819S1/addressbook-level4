@@ -10,8 +10,11 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.ITEM_PERCENT_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_PERCENT;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_ONE;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_ONE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NUM;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_REMARK;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
@@ -40,6 +43,7 @@ import seedu.restaurant.logic.commands.account.ListAccountsCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
 import seedu.restaurant.logic.commands.account.LogoutCommand;
 import seedu.restaurant.logic.commands.account.RegisterCommand;
+import seedu.restaurant.logic.commands.account.SelectAccountCommand;
 import seedu.restaurant.logic.commands.ingredient.AddIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientByIndexCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientByNameCommand;
@@ -84,6 +88,8 @@ import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
 import seedu.restaurant.logic.commands.sales.SelectSalesCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.account.Account;
+import seedu.restaurant.model.account.Password;
+import seedu.restaurant.model.account.Username;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
@@ -274,11 +280,13 @@ public class RestaurantBookParserTest {
         Account account = new AccountBuilder().build();
         RegisterCommand command = (RegisterCommand) parser.parseCommand(RegisterCommand.COMMAND_WORD + " "
                 + PREFIX_ID + account.getUsername().toString() + " "
-                + PREFIX_PASSWORD + account.getPassword().toString());
+                + PREFIX_PASSWORD + account.getPassword().toString() + " "
+                + PREFIX_NAME + account.getName().toString());
         assertEquals(new RegisterCommand(account), command);
         RegisterCommand commandAlias = (RegisterCommand) parser.parseCommand(RegisterCommand.COMMAND_ALIAS
                 + " " + PREFIX_ID + account.getUsername().toString() + " "
-                + PREFIX_PASSWORD + account.getPassword().toString());
+                + PREFIX_PASSWORD + account.getPassword().toString() + " "
+                + PREFIX_NAME + account.getName().toString());
         assertEquals(new RegisterCommand(account), commandAlias);
     }
 
@@ -295,7 +303,7 @@ public class RestaurantBookParserTest {
 
     @Test
     public void parseCommand_login() throws ParseException {
-        Account account = new AccountBuilder().build();
+        Account account = new Account(new Username(VALID_USERNAME_DEMO_ONE), new Password(VALID_PASSWORD_DEMO_ONE));
         LoginCommand command = (LoginCommand) parser.parseCommand(LoginCommand.COMMAND_WORD + " "
                 + PREFIX_ID + account.getUsername().toString() + " "
                 + PREFIX_PASSWORD + account.getPassword().toString());
@@ -305,6 +313,16 @@ public class RestaurantBookParserTest {
     @Test
     public void parseCommand_logout() throws ParseException {
         assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD) instanceof LogoutCommand);
+    }
+
+    @Test
+    public void parseCommand_selectAccount() throws Exception {
+        SelectAccountCommand command = (SelectAccountCommand) parser.parseCommand(
+                SelectAccountCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectAccountCommand(INDEX_FIRST), command);
+        command = (SelectAccountCommand) parser.parseCommand(
+                SelectAccountCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectAccountCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -343,10 +361,12 @@ public class RestaurantBookParserTest {
         Account accountTwoCommand = new AccountBuilder().withUsername("demo1").withPassword("1122qq").build();
         RegisterCommand commandOne = (RegisterCommand) parser.parseCommand(RegisterCommand.COMMAND_WORD + " "
                 + PREFIX_ID + accountOneCommand.getUsername().toString() + " "
-                + PREFIX_PASSWORD + accountOneCommand.getPassword().toString());
+                + PREFIX_PASSWORD + accountOneCommand.getPassword().toString() + " "
+                + PREFIX_NAME + accountOneCommand.getName().toString());
         RegisterCommand commandTwo = (RegisterCommand) parser.parseCommand(RegisterCommand.COMMAND_WORD + " "
                 + PREFIX_ID + accountTwoCommand.getUsername().toString() + " "
-                + PREFIX_PASSWORD + accountTwoCommand.getPassword().toString());
+                + PREFIX_PASSWORD + accountTwoCommand.getPassword().toString() + " "
+                + PREFIX_NAME + accountTwoCommand.getName().toString());
         assertNotEquals(commandOne, commandTwo);
     }
 

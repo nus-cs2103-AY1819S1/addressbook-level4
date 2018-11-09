@@ -33,7 +33,7 @@ public class DeregisterCommandParser implements Parser<DeregisterCommand> {
 
         Username username = AccountParserUtil.parseUsername(argMultimap.getValue(PREFIX_ID).get());
 
-        // Password not required since it does not involve a password to deregister the account
+        // Password and name not required since it does not involve a password to deregister the account
         return new DeregisterCommand(new Account(username));
     }
 }

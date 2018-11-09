@@ -14,8 +14,6 @@ import seedu.restaurant.model.reservation.Time;
  */
 public class ReservationParserUtil {
 
-    //================ Reservation Commands Parser Util ===================================================
-
     /**
      * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be trimmed.
      *

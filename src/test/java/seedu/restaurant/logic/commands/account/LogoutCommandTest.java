@@ -12,7 +12,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.session.UserSession;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
@@ -35,11 +37,8 @@ public class LogoutCommandTest {
     private Account account = new AccountBuilder().build();
 
     @Before
-    public void setUp() throws CommandException {
-        // Logs in before every test case, if not logged in yet
-        if (!UserSession.isAuthenticated()) {
-            new LoginCommand(account).execute(model, commandHistory);
-        }
+    public void setUp() {
+        EventsCenter.getInstance().post(new LoginEvent(account));
     }
 
     @Test
@@ -79,7 +78,7 @@ public class LogoutCommandTest {
         Assert.assertFalse(model.canRedoRestaurantBook());
 
         new LogoutCommand().execute(model, commandHistory); // this triggers version pointer to reset to 0
-        new LoginCommand(account).execute(model, commandHistory);
+        EventsCenter.getInstance().post(new LoginEvent(account));
         assertFalse(model.canUndoRestaurantBook());
         assertFalse(model.canRedoRestaurantBook());
     }

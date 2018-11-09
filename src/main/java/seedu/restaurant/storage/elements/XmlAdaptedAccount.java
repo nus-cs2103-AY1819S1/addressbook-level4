@@ -6,10 +6,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.restaurant.commons.exceptions.IllegalValueException;
 import seedu.restaurant.model.account.Account;
+import seedu.restaurant.model.account.Name;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
 //@@author AZhiKai
+
 /**
  * JAXB-friendly version of the {@code Account}.
  */
@@ -21,6 +23,8 @@ public class XmlAdaptedAccount {
     private String username;
     @XmlElement(required = true)
     private String password;
+    @XmlElement(required = true)
+    private String name;
 
     /**
      * Constructs an XmlAdaptedAccount. This is the no-arg constructor that is required by JAXB.
@@ -30,9 +34,10 @@ public class XmlAdaptedAccount {
     /**
      * Constructs an {@code XmlAdaptedAccount} with the given account details.
      */
-    public XmlAdaptedAccount(String username, String password) {
+    public XmlAdaptedAccount(String username, String password, String name) {
         this.username = username;
         this.password = password;
+        this.name = name;
     }
 
     /**
@@ -43,10 +48,11 @@ public class XmlAdaptedAccount {
     public XmlAdaptedAccount(Account source) {
         username = source.getUsername().toString();
         password = source.getPassword().toString();
+        name = source.getName().toString();
     }
 
     /**
-     * Verifies if the {@code username} is valid.
+     * Verifies if the {@code Username} is valid.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted account.
      */
@@ -61,7 +67,7 @@ public class XmlAdaptedAccount {
     }
 
     /**
-     * Verifies if the {@code password} is valid.
+     * Verifies if the {@code Password} is valid.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted account.
      */
@@ -72,6 +78,21 @@ public class XmlAdaptedAccount {
         }
         if (!Password.isValidPassword(password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINT);
+        }
+    }
+
+    /**
+     * Verifies if the {@code Name} is valid.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted account.
+     */
+    private void verifyName() throws IllegalValueException {
+        if (name == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
     }
 
@@ -88,7 +109,10 @@ public class XmlAdaptedAccount {
         verifyPassword();
         final Password modelPassword = new Password(password);
 
-        return new Account(modelUsername, modelPassword);
+        verifyName();
+        final Name modelName = new Name(name);
+
+        return new Account(modelUsername, modelPassword, modelName);
     }
 
     @Override
@@ -103,7 +127,7 @@ public class XmlAdaptedAccount {
 
         XmlAdaptedAccount otherAccount = (XmlAdaptedAccount) other;
         return Objects.equals(username, otherAccount.username)
-                && Objects.equals(password, otherAccount.password);
+                && Objects.equals(password, otherAccount.password)
+                && Objects.equals(name, otherAccount.name);
     }
-
 }
