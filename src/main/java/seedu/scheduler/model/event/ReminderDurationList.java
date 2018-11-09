@@ -90,6 +90,23 @@ public class ReminderDurationList {
         values.addAll(durationList.get());
     }
 
+    /**
+     * remove input duration object from the set
+     * @param duration
+     * @return true if duration is not inside the set
+     */
+    public Boolean remove(Duration duration) {
+        return values.remove(duration);
+    }
+
+
+    /**
+     * remove ReminderDurationList from the set
+     * @param durationList
+     * @return true if reminderDurationList removed is a subset
+     */
+    public Boolean removeAll(ReminderDurationList durationList) {
+        return values.removeAll(durationList.get()); }
 
     /**
      * Get string input for the event
