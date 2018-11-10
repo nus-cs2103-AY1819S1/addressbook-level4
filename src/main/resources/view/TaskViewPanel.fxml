@@ -19,12 +19,16 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+      <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label styleClass="cell_big_label">Name: </Label>
+        <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
       </HBox>
-      <FlowPane fx:id="tags" />
+      <HBox alignment="CENTER_LEFT" spacing="10">
+          <Label styleClass="cell_big_label">Tags: </Label>
+          <FlowPane fx:id="tags" />
+      </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label styleClass="cell_big_label">Due Date:</Label>
+            <Label styleClass="cell_big_label">Due Date: </Label>
             <Label fx:id="dueDate" styleClass="cell_big_label" text="\$dueDate" />
         </HBox>
 
