@@ -17,7 +17,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
- * The main LogicManager of the app.
+ * The main {@code LogicManager} of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -25,17 +25,19 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final TranscriptParser transcriptParser;
+
+    //TODO: REMOVE LEGACY CODE
     private final AddressBookParser addressBookParser;
 
-    //@@author alexkmj
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         transcriptParser = new TranscriptParser();
+
+        //TODO: REMOVE LEGACY CODE
         addressBookParser = new AddressBookParser();
     }
 
-    //@@author alexkmj
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -45,6 +47,7 @@ public class LogicManager extends ComponentManager implements Logic {
                 return command.execute(model, history);
             }
 
+            //TODO: REMOVE LEGACY CODE
             Command command = addressBookParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
@@ -52,15 +55,9 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
-    //@@author alexkmj
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
@@ -83,5 +80,9 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getIncompleteModuleList();
     }
 
-
+    //TODO: REMOVE LEGACY CODE
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
+    }
 }

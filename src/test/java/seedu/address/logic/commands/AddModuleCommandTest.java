@@ -23,6 +23,8 @@ import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.ModuleBuilder;
 
@@ -109,17 +111,7 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public boolean hasMultipleInstances(Code code) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteModule(Module target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteModule(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -239,12 +231,7 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public Module findModule(Module moduleToFind) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Module findModule(Code moduleCodeToFind) {
+        public Module getOnlyOneModule(Code targetCode, Year targetYear, Semester targetSemester) {
             throw new AssertionError("This method should not be called.");
         }
 

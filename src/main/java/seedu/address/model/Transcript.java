@@ -14,8 +14,12 @@ import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.module.Year;
 import seedu.address.model.module.exceptions.ModuleCompletedException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.exceptions.MultipleModuleEntryFoundException;
 
 //@@author alexkmj
 /**
@@ -23,19 +27,18 @@ import seedu.address.model.module.exceptions.ModuleCompletedException;
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class Transcript implements ReadOnlyTranscript {
-
     private final UniqueModuleList modules;
     private CapGoal capGoal;
     private double currentCap;
 
     /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     * The 'unusual' code block below is an non-static initialization block,
+     * sometimes used to avoid duplication between constructors.
+     * See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * Note that non-static init blocks are not recommended to use. There are
+     * other ways to avoid duplication among constructors.
      */
-
     {
         modules = new UniqueModuleList();
     }
@@ -77,19 +80,12 @@ public class Transcript implements ReadOnlyTranscript {
     //// module-level operations
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the transcript.
+     * Returns true if a module with the same identity as {@code module} exists
+     * in the transcript.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
-    }
-
-    /**
-     * Returns true if a module with the same identity as {@code module} exists in the transcript.
-     */
-    public boolean hasMultipleInstances(Code code) {
-        requireNonNull(code);
-        return modules.hasMultipleInstances(code);
     }
 
     /**
@@ -102,9 +98,10 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the transcript.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the transcript.
+     * Replaces the given module {@code target} in the list with
+     * {@code editedModule}. {@code target} must exist in the transcript.
+     * The module identity of {@code editedModule} must not be the same as
+     * another existing module in the transcript.
      */
     public void updateModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -118,14 +115,6 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void removeModule(Module key) {
         modules.remove(key);
-        modulesUpdated();
-    }
-
-    /**
-     * Removes {@code key} from this {@code Transcript}.
-     */
-    public void removeModule(Predicate<Module> predicate) {
-        modules.remove(predicate);
         modulesUpdated();
     }
 
@@ -401,21 +390,25 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Finds module that matches module to find with isSameModule
-     * @param moduleToFind
-     * @return the Module that matches; null if not matched
+     * Returns the matching module entry.
+     * <p>
+     * Finds the module with {@code targetCode}, {@code targetYear} if
+     * {@code targetYear} is not null, and {@code targetSemester} if
+     * {@code targetSemester} is not null.
+     *
+     * @param targetCode code to match
+     * @param targetYear year to match if not null
+     * @param targetSemester semester to match if not null
+     * @return the matching module
+     * @throws ModuleNotFoundException thrown when no entries match the
+     * parameters.
+     * @throws MultipleModuleEntryFoundException thrown when multiple entries
+     * match the parameters.
      */
-    public Module findModule(Module moduleToFind) {
-        return modules.find(moduleToFind);
-    }
-
-    /**
-     * Finds the first instance of the module that has the same moduleCodeToFind
-     * @param moduleCodeToFind
-     * @return module that return true; null if not matched
-     */
-    public Module findModule(Code moduleCodeToFind) {
-        return modules.find(moduleCodeToFind);
+    public Module getOnlyOneModule(Code targetCode, Year targetYear,
+            Semester targetSemester)
+            throws ModuleNotFoundException, MultipleModuleEntryFoundException {
+        return modules.getOnlyOneModule(targetCode, targetYear, targetSemester);
     }
 
     /**

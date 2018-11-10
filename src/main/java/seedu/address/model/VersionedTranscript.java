@@ -21,7 +21,9 @@ public class VersionedTranscript extends Transcript {
     }
 
     /**
-     * Saves a copy of the current {@code Transcript} state at the end of the state list.
+     * Saves a copy of the current {@code Transcript} state at the end of the
+     * state list.
+     * <p>
      * Undone states are removed from the state list.
      */
     public void commit() {
@@ -31,7 +33,9 @@ public class VersionedTranscript extends Transcript {
     }
 
     private void removeStatesAfterCurrentPointer() {
-        transcriptStateList.subList(currentStatePointer + 1, transcriptStateList.size()).clear();
+        int fromIndex = currentStatePointer + 1;
+        int toIndex = transcriptStateList.size();
+        transcriptStateList.subList(fromIndex, toIndex).clear();
     }
 
     /**
@@ -70,6 +74,24 @@ public class VersionedTranscript extends Transcript {
         return currentStatePointer < transcriptStateList.size() - 1;
     }
 
+    /**
+     * Thrown when trying to {@code undo()} but can't.
+     */
+    public static class NoUndoableStateException extends RuntimeException {
+        private NoUndoableStateException() {
+            super("Current state pointer at start of transcriptState list, unable to undo.");
+        }
+    }
+
+    /**
+     * Thrown when trying to {@code redo()} but can't.
+     */
+    public static class NoRedoableStateException extends RuntimeException {
+        private NoRedoableStateException() {
+            super("Current state pointer at end of transcriptState list, unable to redo.");
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -88,23 +110,5 @@ public class VersionedTranscript extends Transcript {
         return super.equals(otherVersionedTranscript)
                 && transcriptStateList.equals(otherVersionedTranscript.transcriptStateList)
                 && currentStatePointer == otherVersionedTranscript.currentStatePointer;
-    }
-
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of transcriptState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of transcriptState list, unable to redo.");
-        }
     }
 }

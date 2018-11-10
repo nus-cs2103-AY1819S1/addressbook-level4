@@ -12,7 +12,7 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
 import seedu.address.model.module.exceptions.ModuleCompletedException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
-import seedu.address.model.util.ModuleBuilder;
+import seedu.address.model.module.exceptions.MultipleModuleEntryFoundException;
 
 /**
  * Adjusts target grade of a Module
@@ -50,28 +50,18 @@ public class AdjustCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)
+            throws CommandException {
         requireNonNull(model);
 
-        boolean hasMultipleInstance = model.hasMultipleInstances(code);
         Module targetModule;
-        if (hasMultipleInstance && year == null && sem == null) {
+
+        try {
+            targetModule = model.getOnlyOneModule(code, year, sem);
+        } catch (ModuleNotFoundException mnfe) {
+            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        } catch (MultipleModuleEntryFoundException mmefe) {
             throw new CommandException(MESSAGE_MULTIPLE_INSTANCE);
-        } else {
-            try {
-                if (hasMultipleInstance) {
-                    Module moduleToFind = new ModuleBuilder()
-                            .withSemester(sem.value)
-                            .withCode(code.value)
-                            .withYear(year.value)
-                            .build();
-                    targetModule = model.findModule(moduleToFind);
-                } else {
-                    targetModule = model.findModule(code);
-                }
-            } catch (ModuleNotFoundException mnfe) {
-                throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
-            }
         }
 
         try {
@@ -80,7 +70,6 @@ public class AdjustCommand extends Command {
         } catch (ModuleCompletedException mce) {
             throw new CommandException(MESSAGE_MODULE_COMPLETED);
         }
-
     }
 
     @Override
