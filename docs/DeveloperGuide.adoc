@@ -739,7 +739,7 @@ Other possible design considerations are shown below.
 
 A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
 
-image::LeaveApplicationSequenceDiagramHighLevel.png[width="800"]
+image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
 
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
 
