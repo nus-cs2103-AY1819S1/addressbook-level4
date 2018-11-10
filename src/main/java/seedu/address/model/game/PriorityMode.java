@@ -10,8 +10,8 @@ import seedu.address.model.task.Task;
  */
 public class PriorityMode extends GameMode {
 
-    int overdueMultiplier;
-    int completedMultiplier;
+    private int overdueMultiplier;
+    private int completedMultiplier;
 
     PriorityMode() {
         this(3, 6);
