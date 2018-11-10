@@ -12,6 +12,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.model.ingredient.NumUnits;
 
+//@@author rebstan97
 /**
  * JAXB-friendly version of the Ingredient.
  */

@@ -21,6 +21,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.model.ingredient.NumUnits;
 
+//@@author rebstan97
 /**
  * Edits the details of an existing ingredient in the restaurant book.
  */

@@ -5,6 +5,7 @@ import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
+//@@author rebstan97
 /**
  * Represents the minimum threshold in terms of number of available units for an Ingredient in the restaurant
  * management app to be considered "low in stock count".

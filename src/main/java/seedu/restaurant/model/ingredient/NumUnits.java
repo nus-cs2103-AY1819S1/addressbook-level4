@@ -3,6 +3,7 @@ package seedu.restaurant.model.ingredient;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author rebstan97
 /**
  * Represents the number of available units of an Ingredient.
  * Guarantees: immutable; is valid as declared in {@link #isValidNumUnits(String) and  {@link #isValidNumUnits(int)}}
