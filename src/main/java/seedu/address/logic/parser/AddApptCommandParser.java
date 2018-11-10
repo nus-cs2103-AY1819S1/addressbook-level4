@@ -28,7 +28,6 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
      *             if the user input does not conform the expected format
      */
 
-
     public static final String MESSAGE_INVALID_DATE_TIME = "Input date and time is invalid or in incorrect format.";
 
     @Override

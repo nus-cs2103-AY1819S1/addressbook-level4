@@ -40,7 +40,7 @@ public class AddApptCommandTest {
     private String procedure;
     private String dateTime;
     private String dateTimeBeforeCurrent;
-    private String invalidDateTime;
+
     private String doctor;
     private Appointment appt;
     private Person patient;
@@ -55,7 +55,6 @@ public class AddApptCommandTest {
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 10:30";
         dateTimeBeforeCurrent = "12-12-1018 23:20";
-        invalidDateTime = "12-13-2025 23:30";
         doctor = "Dr. Pepper";
         appt = new Appointment(type, procedure, dateTime, doctor);
     }
