@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -19,12 +21,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -32,12 +32,7 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-
-/**
- * The unit tests for the Insert Person Command.
- */
-public class InsertPersonCommandTest {
-
+public class RemovePersonCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -48,111 +43,115 @@ public class InsertPersonCommandTest {
     @Test
     public void constructor_nullPersonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(null, null, new Occasion(new OccasionDescriptor()));
+        new RemovePersonCommand(null, null, TypeUtil.OCCASION);
     }
 
     @Test
     public void constructor_nullPersonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(null, null, new Module(new ModuleDescriptor()));
+        new RemovePersonCommand(null, null, TypeUtil.MODULE);
     }
 
     @Test
     public void constructor_nullPersonNonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(null, Index.fromZeroBased(1), new Occasion(new OccasionDescriptor()));
+        new RemovePersonCommand(null, Index.fromZeroBased(1), TypeUtil.OCCASION);
     }
 
     @Test
     public void constructor_nullPersonNonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(null, Index.fromZeroBased(1), new Module(new ModuleDescriptor()));
+        new RemovePersonCommand(null, Index.fromZeroBased(1), TypeUtil.MODULE);
     }
 
     @Test
     public void constructor_nonNullPersonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(null, Index.fromZeroBased(1), new Occasion(new OccasionDescriptor()));
+        new RemovePersonCommand(null, Index.fromZeroBased(1), TypeUtil.OCCASION);
     }
 
     @Test
     public void constructor_nonNullPersonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new InsertPersonCommand(Index.fromZeroBased(1), null, new Module(new ModuleDescriptor()));
+        new RemovePersonCommand(Index.fromZeroBased(1), null, TypeUtil.MODULE);
     }
 
     @Test
-    public void execute_personInsertedIntoModule_success() throws Exception {
+    public void execute_personRemovedFromModule_success() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Module validModule = new ModuleBuilder().build();
         Occasion validOccasion = new OccasionBuilder().build();
 
         ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
 
-        CommandResult commandResult = new InsertPersonCommand(Index.fromZeroBased(0),
-                                            Index.fromZeroBased(0),
-                                            new Module(new ModuleDescriptor())).execute(stub, commandHistory);
-        ModuleCode insertedModuleCode = stub.getFilteredPersonList()
-                                            .get(0).getModuleList().asUnmodifiableObservableList()
-                                            .get(0).getModuleCode();
-        assertEquals(InsertPersonCommand.MESSAGE_SUCCESS_INSERT_INTO_MODULE, commandResult.feedbackToUser);
-        assertEquals(validModule.getModuleCode(), insertedModuleCode);
+        new InsertPersonCommand(Index.fromZeroBased(0), Index.fromZeroBased(0),
+                new Module(new ModuleDescriptor())).execute(stub, commandHistory);
+
+        CommandResult commandResult = new RemovePersonCommand(Index.fromZeroBased(0),
+                Index.fromZeroBased(0),
+                TypeUtil.MODULE).execute(stub, commandHistory);
+
+        assertEquals(RemovePersonCommand.MESSAGE_SUCCESS_REMOVE_FROM_MODULE, commandResult.feedbackToUser);
+        List<Module> moduleList = stub.getFilteredPersonList()
+                                      .get(0).getModuleList().asNormalList();
+        // A shallow equals to check if the names of the occasions match.
+        assertTrue(moduleList.isEmpty());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_personInsertedIntoOccasion_success() throws Exception {
+    public void execute_personRemovedFromOccasion_success() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Module validModule = new ModuleBuilder().build();
         Occasion validOccasion = new OccasionBuilder().build();
 
         ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
 
-        CommandResult commandResult = new InsertPersonCommand(Index.fromZeroBased(0),
-                Index.fromZeroBased(0),
+        new InsertPersonCommand(Index.fromZeroBased(0), Index.fromZeroBased(0),
                 new Occasion(new OccasionDescriptor())).execute(stub, commandHistory);
 
-        assertEquals(InsertPersonCommand.MESSAGE_SUCCESS_INSERT_INTO_OCCASION, commandResult.feedbackToUser);
-        OccasionName insertedOccasionName = stub.getFilteredPersonList()
-                                                .get(0).getOccasionList().asUnmodifiableObservableList()
-                                                .get(0).getOccasionName();
+        CommandResult commandResult = new RemovePersonCommand(Index.fromZeroBased(0),
+                Index.fromZeroBased(0),
+                TypeUtil.OCCASION).execute(stub, commandHistory);
+
+        assertEquals(RemovePersonCommand.MESSAGE_SUCCESS_REMOVE_FROM_OCCASION, commandResult.feedbackToUser);
+        List<Occasion> occasionList = stub.getFilteredPersonList()
+                                          .get(0).getOccasionList().asNormalList();
         // A shallow equals to check if the names of the occasions match.
-        assertEquals(validOccasion.getOccasionName(), insertedOccasionName);
+        assertTrue(occasionList.isEmpty());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePersonInsertionIntoModule() throws Exception {
+    public void execute_removingPersonNotInModule() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Module validModule = new ModuleBuilder().build();
         Occasion validOccasion = new OccasionBuilder().build();
-        InsertPersonCommand insertPerson = new InsertPersonCommand(Index.fromZeroBased(0),
-                                                                    Index.fromZeroBased(0),
-                                                                    new Module(new ModuleDescriptor()));
+        RemovePersonCommand removePerson = new RemovePersonCommand(Index.fromZeroBased(0),
+                Index.fromZeroBased(0),
+                TypeUtil.MODULE);
+
         ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
-        stub.getFilteredPersonList().get(0).getModuleList().add(validModule);
-        stub.getFilteredModuleList().get(0).getStudents().add(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
-        insertPerson.execute(stub, commandHistory);
+        thrown.expectMessage(RemovePersonCommand.MESSAGE_FAILURE);
+        removePerson.execute(stub, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePersonInsertionIntoOccasion() throws Exception {
+    public void execute_removingPersonNotInOccasion() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Module validModule = new ModuleBuilder().build();
         Occasion validOccasion = new OccasionBuilder().build();
-        InsertPersonCommand insertPerson = new InsertPersonCommand(Index.fromZeroBased(0),
+        RemovePersonCommand removePerson = new RemovePersonCommand(Index.fromZeroBased(0),
                 Index.fromZeroBased(0),
-                new Occasion(new OccasionDescriptor()));
+                TypeUtil.OCCASION);
+
         ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
-        stub.getFilteredPersonList().get(0).getOccasionList().add(validOccasion);
-        stub.getFilteredOccasionList().get(0).getAttendanceList().add(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
-        insertPerson.execute(stub, commandHistory);
+        thrown.expectMessage(RemovePersonCommand.MESSAGE_FAILURE);
+        removePerson.execute(stub, commandHistory);
     }
 
     /**
