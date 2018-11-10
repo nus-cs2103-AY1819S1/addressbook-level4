@@ -68,6 +68,7 @@ public class AddApptCommand extends Command {
         }
         model.addAppointment(toAdd);
         model.commitClinicIo();
+        model.switchTab(1);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
