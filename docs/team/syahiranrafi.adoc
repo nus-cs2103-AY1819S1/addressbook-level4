@@ -9,19 +9,22 @@
 
 == Overview
 
-Hello, I am Syahiran. At the time of writing, I was in my third year at the National University of Singapore (NUS), where I majored in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to modify and improve the given https://github.com/nus-cs2103-AY1819S1/addressbook-level4[address book application] into a database management system called CLInic.
+Hello, I am Syahiran. As part of my undergraduate study of Computer Science (CS) at the National University of Singapore (NUS), I undertook a Software Engineering module (CS2103T) in my third year.
+Together with four other students from CS, we modified and improved the given https://github.com/nus-cs2103-AY1819S1/addressbook-level4[address book application] into a database management system called CLInic. This project portfolio serves to document my contributions to this project.
 
-CLInic is a desktop application, designed specifically for clinics. It helps to automate daily administrative tasks like:
+CLInic is a desktop application, which means it can run on a computer’s operating system without the need for a web browser. It is designed specifically for clinics, and helps to reduce the manual labour of daily administrative tasks like:
 
-* Easily maintaining and updating a database of patients and their medical records
+* Maintaining a database of patients and their medical records
 * Checking and updating medicine inventory
-* Generating receipts, medical certificates and referral letters
+* Generating receipts, medical certificates and referral letters for patients
 
-CLI is an acronym for "Command Line Interface", as CLInic works by typing commands directly into the application through the CLI. Together with CLInic's clean Graphical User Interface (GUI), the finished product allows for an easy and intuitive experience for both technical and non-technical users alike.
+CLI is an acronym for "Command Line Interface", as CLInic works by typing commands directly into the application through the CLI. Together with CLInic’s clean Graphical User Interface (GUI), the application allows for an easy and intuitive experience for both technical and non-technical users alike.
 
-This project portforlio serves to document my contributions to this project, which you can find in the sections below.
+== Summary of Contributions
 
-== Summary of contributions
+|===
+|_This section summarises my contributions to the project, and provides links to my code and pull requests._
+|===
 
 * *Major enhancement*: I supported the implementation of the `*Document*` class, along with its accompanying
                        extending classes `MedicalCertificate` and `ReferralLetter`.
@@ -39,7 +42,7 @@ This project portforlio serves to document my contributions to this project, whi
 
 ** Documentation:
 *** Edited the language, style and tone of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
-*** Added a Command Summary Table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
+*** Added a Command Summary table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
 ** Community:
 *** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115[#115]
 ** Enhancements to existing features:
@@ -48,7 +51,7 @@ This project portforlio serves to document my contributions to this project, whi
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Provided below are excerpts of my contributions to the User Guide. This section showcases my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=mc]
@@ -60,7 +63,7 @@ include::../UserGuide.adoc[tag=table]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Provided below are excerpts of my contributions to the Developer Guide. This section showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=mc]
