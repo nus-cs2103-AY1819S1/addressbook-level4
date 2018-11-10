@@ -57,12 +57,21 @@ https://github.com/CS2103-AY1819S1-F10-2/main/issues/195[3], https://github.com/
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=ingredient]
+
+include::../UserGuide.adoc[tag=cross]
+
+
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=logicComponent]
+
+include::../DeveloperGuide.adoc[tag=ingredientManagement]
 
 
 == PROJECT: PowerPointLabs
