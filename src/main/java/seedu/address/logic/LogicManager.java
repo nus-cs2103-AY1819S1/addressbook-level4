@@ -67,8 +67,10 @@ public class LogicManager extends ComponentManager implements Logic {
     //@@author jonathantjm
 
     /**
-     * Returns a LinkedHashMap containing data for the bar chart, where the key is the x-axis and the value is the
-     * y-axis.
+     * Returns a map of expenses with key and value pair representing data for the statistics chart.
+     * The method will get the expense stats from {@code Model} then, depending on {@code statsMode},
+     * the method will call helper functions which will return the relevant map data.
+     *
      * @return LinkedHashMap of String key and Double value
      * @throws NoUserSelectedException
      */
@@ -83,9 +85,19 @@ public class LogicManager extends ComponentManager implements Logic {
         return getCategoryBasedStats(expenseList);
     }
 
+    /**
+     * Returns a map of expenses with key and value pair representing data for the statistics chart.
+     * If {@code statsPeriod} is set to month, the key will be the different months in the period. Otherwise,
+     * the key will be the different days in the period.
+     * The value represents the cumulative cost for that day or month.
+     *
+     * @param expenseList a list of expenses
+     * @param statsPeriod a {@code StatsPeriod} enum representing the period
+     * @return the map of data used for the statistics
+     */
     private LinkedHashMap<String, Double> getTimeBasedStats(
-            ObservableList<Expense> expenseList,
-            StatsPeriod statsPeriod
+        ObservableList<Expense> expenseList,
+        StatsPeriod statsPeriod
     ) {
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
         for (Expense e : expenseList) {
@@ -108,6 +120,14 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
+    /**
+     * Returns a map of expenses with key and value pair representing data for the statistics chart.
+     * The key represents the different categories.
+     * The value represents the cumulative cost for that day or month.
+     *
+     * @param expenseList a list of expenses
+     * @return the map of data used for the statistics
+     */
     private LinkedHashMap<String, Double> getCategoryBasedStats(ObservableList<Expense> expenseList) {
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
         for (Expense e : expenseList) {
@@ -134,16 +154,17 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getStatsMode();
     }
 
+    public int getPeriodAmount() {
+        return model.getPeriodAmount();
+    }
+
     /*public Iterator getCategoryList() {
         return model.getCategoryList();
     }*/
 
+    //@@author
     public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
         return model.getNotificationList();
-    }
-
-    public int getPeriodAmount() {
-        return model.getPeriodAmount();
     }
 
     public ListElementPointer getHistorySnapshot() {

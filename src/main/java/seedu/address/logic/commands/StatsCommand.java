@@ -19,14 +19,19 @@ import seedu.address.model.expense.Expense;
 
 //@@author jonathantjm
 /**
- * Opens up the stats window for the user.
+ * This class consists of methods and properties related to the handling of the 'stats' command
  */
 public class StatsCommand extends Command {
 
+    /**
+     * This is the command word and alias which a user needs to type to activate the statistics command
+     */
     public static final String COMMAND_WORD = "stats";
     public static final String COMMAND_ALIAS = "st";
 
-
+    /**
+     * These are messages displayed to the user depending on whether their input is successful or not
+     */
     public static final String MESSAGE_SUCCESS = "updated the stats panel";
     public static final String MESSAGE_PERIOD_AMOUNT_ERROR = "PERIOD_AMOUNT needs to be a positive integer";
 
@@ -64,15 +69,28 @@ public class StatsCommand extends Command {
         TIME, CATEGORY
     }
 
+    /**
+     * These are the parameters which the user can set based on what they want to see
+     * in the chart
+     */
     private int periodAmount;
     private StatsPeriod period;
     private StatsMode mode;
 
+    /**
+     * Constructs a {@code StatsCommand} object with parameters after checking whether parameters are valid.
+     * The method checks whether {@code periodAmount} is a positive integer, {@code period} is either "m" or "d"
+     * and whether {@code mode} is either "c" or "t"
+     *
+     * @param periodAmount an int for period amount
+     * @param period a string for period
+     * @param mode a string for mode
+     */
     public StatsCommand(int periodAmount, String period, String mode) {
         requireNonNull(periodAmount, mode);
         checkArgument(isValidMode(mode), MESSAGE_PARAMETERS_FORMAT);
         checkArgument(isValidPeriod(period), MESSAGE_PARAMETERS_FORMAT);
-        checkArgument(isValidNumber(periodAmount), MESSAGE_PERIOD_AMOUNT_ERROR);
+        checkArgument(isValidPeriodAmount(periodAmount), MESSAGE_PERIOD_AMOUNT_ERROR);
         this.periodAmount = periodAmount;
         if ("d".equals(period)) {
             this.period = StatsPeriod.DAY;
@@ -87,10 +105,24 @@ public class StatsCommand extends Command {
         }
     }
 
+    /**
+     * Constructs a {@code StatsCommand} object with the set of default parameters.
+     */
     public StatsCommand() {
         this(7, "d", "t");
     }
 
+    /**
+     * Executes the relevant steps to display statistics, which can be broken down into two steps.
+     * The first step is to call the {@code Model} API to update properties related to statistics like
+     * the mode, period and periodAmount.
+     * The second step is to post the events in order to show statistics.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return {@code CommandResult} with the success message
+     * @throws NoUserSelectedException
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
@@ -104,8 +136,8 @@ public class StatsCommand extends Command {
     }
 
     /**
-     * Returns Predicate used for FilteredList based on the current statsMode
-     * @return Predicate
+     * Returns Predicate used for FilteredList based on the current {@code period} and {@code periodAmount}
+     * @return Predicate with correct predicate properties
      */
     private Predicate<Expense> getStatsPredicate() {
         LocalDateTime date;
@@ -125,12 +157,14 @@ public class StatsCommand extends Command {
         return "d".equals(period) || "m".equals(period);
     }
 
-    private boolean isValidNumber(int num) {
-        return num > 0;
+    private boolean isValidPeriodAmount(int periodAmount) {
+        return periodAmount > 0;
     }
 
     /**
-     * Checks equality of current object to another object
+     * Checks equality of current {@code StatsCommand} object to another object based on their {@code periodAmount},
+     * {@code period} and {@code mode}.
+     *
      * @param other Object to compare
      * @return true if equal
      */
