@@ -197,7 +197,11 @@ Register a new patient together with necessary information into the system.
 
 Format: `register ic/NRIC n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS da/DRUG_ALLERGIES`
 
-* If the patient is already registered, the command will not be allowed.
+[NOTE]
+If the patient is already registered, the command will not be allowed.
+
+[WARNING]
+The prefix `da/` must be separated from the last character of the previous input by a whitespace
 
 Example(s):
 
