@@ -39,6 +39,12 @@ public class MedicineTest {
                 .withLethalDosage(VALID_LETHALDOSAGE_PARACETAMOL).build();
         assertFalse(ORACORT.isSameMedicine(editedOracort));
 
+        // same name, different type, ed, ld -> returns false
+        editedOracort = new MedicineBuilder(ORACORT).withMedicineType(VALID_MEDICINETYPE_PARACETAMOL)
+                .withEffectiveDosage(VALID_EFFECTIVEDOSAGE_PARACETAMOL).withLethalDosage(VALID_LETHALDOSAGE_PARACETAMOL)
+                .build();
+        assertFalse(ORACORT.isSameMedicine(editedOracort));
+
         // different medicine name -> returns false
         editedOracort = new MedicineBuilder(ORACORT).withMedicineName(VALID_MEDICINENAME_PARACETAMOL).build();
         assertFalse(ORACORT.isSameMedicine(editedOracort));

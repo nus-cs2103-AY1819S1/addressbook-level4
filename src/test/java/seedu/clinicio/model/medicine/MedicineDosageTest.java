@@ -33,10 +33,12 @@ public class MedicineDosageTest {
         assertFalse(MedicineDosage.isValidMedicineDosage("12345")); // more than 4 numbers
         assertFalse(MedicineDosage.isValidMedicineDosage("cheese")); // non-numeric
         assertFalse(MedicineDosage.isValidMedicineDosage("9011p041")); // alphabets within digits
+        assertFalse(MedicineDosage.isValidMedicineDosage("90^11.041")); // symbols within digits
         assertFalse(MedicineDosage.isValidMedicineDosage("11 23")); // spaces within digits
 
         // valid dosages
         assertTrue(MedicineDosage.isValidMedicineDosage("1")); // exactly 1 number
+        assertTrue(MedicineDosage.isValidMedicineDosage("123")); // exactly 3 numbers
         assertTrue(MedicineDosage.isValidMedicineDosage("9999")); // exactly 4 numbers
     }
 

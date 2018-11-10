@@ -34,6 +34,8 @@ public class MedicinePriceTest {
         assertFalse(MedicinePrice.isValidMedicinePrice("cheese")); // non-numeric
         assertFalse(MedicinePrice.isValidMedicinePrice("9011p.041")); // alphabets within digits
         assertFalse(MedicinePrice.isValidMedicinePrice("1.1 23")); // spaces within digits
+        assertFalse(MedicinePrice.isValidMedicinePrice(".10")); // no digits before decimal
+        assertFalse(MedicinePrice.isValidMedicinePrice("10.")); // no digits after decimal
 
         // valid prices
         assertTrue(MedicinePrice.isValidMedicinePrice("0.01"));
