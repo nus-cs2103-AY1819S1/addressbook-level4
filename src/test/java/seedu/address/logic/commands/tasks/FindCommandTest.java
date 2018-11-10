@@ -37,14 +37,17 @@ public class FindCommandTest {
     @Test
     public void equals() {
 
-        FindCommand findBrushCommand = new FindCommand(FIND_BRUSH_BY_END_DATE.getCombinedPredicate());
+        FindCommand findBrushCommand = new FindCommand(FIND_BRUSH_BY_END_DATE);
         FindCommand findSlaughterCompoundCommand =
-                new FindCommand(FIND_SLAUGHTER_BY_START_DATE.getCombinedPredicate());
+                new FindCommand(FIND_SLAUGHTER_BY_START_DATE);
         FindCommand findSlaughterCommand =
-                new FindCommand(FIND_SLAUGHTER_BY_NAME_AND_START_DATE.getCombinedPredicate());
+                new FindCommand(FIND_SLAUGHTER_BY_NAME_AND_START_DATE);
 
         // same object -> returns true
         assertTrue(findBrushCommand.equals(findBrushCommand));
+
+        // same value -> returns true
+        assertTrue(findBrushCommand.equals(new FindCommand(FIND_BRUSH_BY_END_DATE)));
 
         // different types -> returns false
         assertFalse(findBrushCommand.equals(1));
@@ -64,7 +67,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setNamePredicate(prepareNamePredicate(" "));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -75,7 +78,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setStartDatePredicate(new MatchesStartDatePredicate("20181231"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -86,7 +89,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setEndDatePredicate(new MatchesEndDatePredicate("20181111"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -97,7 +100,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setNamePredicate(prepareNamePredicate("Brush"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(BRUSH), model.getFilteredTaskList());
@@ -108,7 +111,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setStartDatePredicate(new MatchesStartDatePredicate("20180228"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(SLAUGHTER), model.getFilteredTaskList());
@@ -119,7 +122,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setEndDatePredicate(new MatchesEndDatePredicate("20181231"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(BRUSH), model.getFilteredTaskList());
@@ -131,7 +134,7 @@ public class FindCommandTest {
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setNamePredicate(prepareNamePredicate("Slaughter"));
         predicateBuilder.setStartDatePredicate(new MatchesStartDatePredicate("20180228"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(SLAUGHTER), model.getFilteredTaskList());
@@ -142,7 +145,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 2);
         TaskPredicateAssembler predicateBuilder = new TaskPredicateAssembler();
         predicateBuilder.setNamePredicate(prepareNamePredicate("cows"));
-        FindCommand command = new FindCommand(predicateBuilder.getCombinedPredicate());
+        FindCommand command = new FindCommand(predicateBuilder);
         expectedModel.updateFilteredTaskList(predicateBuilder.getCombinedPredicate());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BRUSH, SLAUGHTER), model.getFilteredTaskList());
