@@ -148,6 +148,11 @@ public class CreateCcaCommandTest {
         }
 
         @Override
+        public void initialiseBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCca(CcaName ccaName) {
             return false;
         }

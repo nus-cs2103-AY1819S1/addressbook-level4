@@ -40,20 +40,6 @@ public class BudgetBrowserPanelTest extends GuiUnitTest {
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, budgetBrowserPanelHandle.getLoadedUrl());
-
-//        // associated web page of a cca
-//        postNow(selectionChangedEventStub);
-
-
-//        String budgetPageUrl = MainApp.class.getResource(BudgetBrowserPanel.BUDGET_PAGE).toString();
-//        URL expectedCcaUrl = new URL(budgetPageUrl);
-
-
-//        URL expectedCcaUrl = new URL("file:/" + BudgetBrowserPanel.BUDGET_PAGE.replaceFirst(".", "Users/ericyjw"
-//            + "/Hallper"));
-
-        // waitUntilBrowserLoaded(budgetBrowserPanelHandle);
-        // assertEquals(expectedCcaUrl, budgetBrowserPanelHandle.getLoadedUrl());
     }
 
     @Test
