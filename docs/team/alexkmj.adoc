@@ -9,42 +9,60 @@
 
 == Overview
 
-CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_CapTracker_ is a desktop application. The user interacts with it using a CLI,
+and it has a GUI created with JavaFX. It is written in Java, and has about 10
+kLoC.
 
-== Summary of contributions
+== Summary of Contributions
 
-//* *Major enhancement*: TBC.
-//** What it does: TBC.
-//** Justification: TBC.
-//** Highlights: TBC.
-//** Credits: TBC.
-//
-//* *Minor enhancement*: TBC.
-//
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-//
-//* *Other contributions*:
-//
-//** Project management:
-//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-//** Enhancements to existing features:
-//** Documentation:
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): TBC.
-//*** Contributed to forum discussions (examples:  TBC.)
-//*** Reported bugs and suggestions for other teams in the class (examples:  TBC.)
-//** Tools:
+* *Major Enhancements*: added *the ability to add, edit, and delete modules*
+** What it does: Lorem Ipsum
+** Justification: Lorem Ipsum
+** Highlights: Lorem Ipsum
+
+* *Minor enhancement*: Lorem Ipsum
+
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alexkmj[Project Code Dashboard - alexkmj]
+
+* *Other contributions*:
+
+** *Main contributor of `Logic`, `Model` components*:
+*** Morphed the `Logic` component including its unit test.
+*** Morphed the `Model` component including its unit test.
+*** Make improvements to the APIs:
+**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/logic/commands/CommandUtil.java[CommandUtil]
+**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/logic/parser/ParserUtil.java[ParserUtil]: `tokenize`, `argsWithBounds`, `argsAreNameValuePair`, and more.
+**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/model/module/UniqueModuleList.java[UniqueModuelList]: `getOnlyOneModule`
+
+** *Organization setup*:
+*** Created the https://github.com/CS2103-AY1819S1-T13-4[GitHub team organisation] according to the project requirements.
+*** Setup the developers team and added all the team members to it.
+
+** *Repository setup:*
+*** Setup https://github.com/CS2103-AY1819S1-T13-4/main[organisation repository] as per project requirements.
+*** Enable https://ci.appveyor.com/project/alexkmj/main/branch/master[AppVeyor], https://app.codacy.com/project/CS2103-T13-4/main/dashboard[Codacy], https://coveralls.io/github/CS2103-AY1819S1-T13-4/main?branch=master[Coveralls], https://travis-ci.org/CS2103-AY1819S1-T13-4/main[Travis CI], and https://cs2103-ay1819s1-t13-4.github.io/main/[GitHub Pages Automatic Deployment].
+*** Create team https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/173[PR].
+*** Update documentation to remove parts not unrelated to _CAPTracker_.
+*** Update badges for AppVeyor, Codacy, Coveralls, Travis CI in https://github.com/CS2103-AY1819S1-T13-4/main#captracker[README.adoc] page.
+
+** *Manage releases*
+*** Manage release for milestone https://github.com/CS2103-AY1819S1-T13-4/main/releases/tag/v1.2[v1.2]
+*** Manage release for milestone https://github.com/CS2103-AY1819S1-T13-4/main/releases/tag/v1.3[v1.3]
+
+** *Community*
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T13-4/main/pull/23[#23], https://github.com/CS2103-AY1819S1-T13-4/main/pull/62[#62], https://github.com/CS2103-AY1819S1-T13-4/main/pull/71[#71], https://github.com/CS2103-AY1819S1-T13-4/main/pull/76[#76], https://github.com/CS2103-AY1819S1-T13-4/main/pull/106[#106]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=delete]
 
 == Contributions to the Developer Guide
 
@@ -52,6 +70,4 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-//
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+//include::../DeveloperGuide.adoc[tag=]
