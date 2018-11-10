@@ -125,19 +125,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Remove image from {@code dirImageList} at the given {@code idx}
-     */
-    @Override
-    public void removeImageFromList(int idx) {
-        this.dirImageList.remove(idx);
-    }
-
-    @Override
-    public Path getCurrentOriginalImage() {
-        return this.currentOriginalImage;
-    }
-
-    /**
      * Update the current displayed original image and
      * reinitialize the previewImageManager with the new image
      */

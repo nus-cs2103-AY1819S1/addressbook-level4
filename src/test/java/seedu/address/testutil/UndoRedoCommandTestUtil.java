@@ -84,14 +84,11 @@ public class UndoRedoCommandTestUtil {
      * Clears cache in storage folder.
      */
     public static void clearCache() {
-        String cachePath = MainApp.MAIN_PATH + "/cache";
-        File cache = new File(cachePath);
+        File cache = new File("cache");
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                if (!file.getName().equals("dummy.txt")) {
                     file.delete();
-                }
             }
         }
     }

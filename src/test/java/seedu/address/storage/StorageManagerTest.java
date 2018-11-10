@@ -1,18 +1,32 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.PreviewImageGenerator;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
+
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -43,6 +57,31 @@ public class StorageManagerTest {
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
+    }
+
+    @Test
+    public void clearCacheTest() {
+        File cache = new File("cache");
+        cache.mkdir();
+        String cachePath = cache.getPath();
+        BufferedImage image = PreviewImageGenerator.getABufferedImage();
+        try {
+            File out = new File(cachePath + "/test.png");
+            ImageIO.write(image, "png", out);
+        } catch (IOException e) {
+            logger.warning("Error in clear cache test :" + e.getMessage());
+        }
+
+        storageManager.clearCache();
+
+        Assert.assertEquals(0, cache.list().length);
+
+    }
+
+    @Test
+    public void getUserPrefsFilePathTest() {
+        Path path = storageManager.getUserPrefsFilePath();
+        assertNotNull(path);
     }
 
 }
