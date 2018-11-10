@@ -6,6 +6,7 @@
 == PROJECT: MeNUS
 
 ---
+https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
 
 == Overview
 
@@ -17,8 +18,8 @@ This portfolio showcases my contributions to this project.
 
 == Summary of contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=m4dkip[RepoSense]
-* *Major enhancement*: added the *Reservation Management* feature
-** *What it does*: allows the user to manage a Reservations List using various commands
+* *Major enhancement*: Added the *Reservation Management* feature
+** *What it does*: Allows the user to manage a Reservations List using various commands
 ** *Justification*: It can be messy to manually manage restaurant reservations using pen and paper.
 This feature enables a systematic way to manage reservations.
 ** *Highlights*: This project required me to communicate with my teammates to synchronize our different
@@ -39,12 +40,12 @@ https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114]
 ** Tools:
-*** TBU
+*** Integrated a third party library (Natty) to the project https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250]
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide.
+|_Given below are sections I contributed to the User Guide in relation to the `Reservations Management` feature.
 They showcase my ability to write documentation targeting end-users._
 |===
 
@@ -53,7 +54,7 @@ include::../UserGuide.adoc[tag=reservations]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide.
+|_Given below are sections I contributed to the Developer Guide in relation to the `Reservations Management` feature.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
