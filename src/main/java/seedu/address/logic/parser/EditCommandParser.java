@@ -10,9 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -68,13 +65,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Date date;
         if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
-            Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_AGE).get());
-            java.util.Date now = new java.util.Date();
-            LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate finalDate = localNow.plus(period);
-            date = ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
-                    finalDate.getMonth().getValue(),
-                    finalDate.getYear()));
+            date = ParserUtil.getPeriodOffsetFromNow(argMultimap.getValue(PREFIX_AGE).get());
             editWishDescriptor.setDate(date);
         } else if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
