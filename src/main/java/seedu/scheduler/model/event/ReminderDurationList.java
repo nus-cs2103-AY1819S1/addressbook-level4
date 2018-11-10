@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
+
 /**
  * Represents a list of duration object for reminder times
  */
@@ -71,7 +73,12 @@ public class ReminderDurationList {
         return values.size();
     }
 
-
+    /**
+     * @return true if the list contains only 1 single duration, used for postpone function now
+     */
+    public boolean isSingleValue() {
+        return (values.size() == 1);
+    }
 
     /**
      * add input duration object to the set
@@ -80,7 +87,6 @@ public class ReminderDurationList {
     public void add(Duration duration) {
         values.add(duration);
     }
-
 
     /**
      * add ReminderDurationList to the set
@@ -99,6 +105,22 @@ public class ReminderDurationList {
         return values.remove(duration);
     }
 
+    /**
+     * postpone all reminders by durationToMinus
+     * If the reminder becomes negative duration, set to 0
+     * @param durationToMinus
+     */
+    public void postpone(Duration durationToMinus) {
+        Set<Duration> newValues = new HashSet<>();
+        for (Duration reminder: values) {
+            Duration newReminder = reminder.minus(durationToMinus);
+            if (newReminder.isNegative()) {
+                newReminder = Duration.ZERO;
+            }
+            newValues.add(newReminder);
+        }
+        values = newValues;
+    }
 
     /**
      * remove ReminderDurationList from the set

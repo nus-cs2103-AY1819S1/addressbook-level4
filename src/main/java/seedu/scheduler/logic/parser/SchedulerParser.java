@@ -19,6 +19,7 @@ import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
+import seedu.scheduler.logic.commands.PostponeReminderCommand;
 import seedu.scheduler.logic.commands.RedoCommand;
 import seedu.scheduler.logic.commands.SelectCommand;
 import seedu.scheduler.logic.commands.UndoCommand;
@@ -67,6 +68,9 @@ public class SchedulerParser {
 
         case DeleteReminderCommand.COMMAND_WORD:
             return new DeleteReminderCommandParser().parse(arguments);
+
+        case PostponeReminderCommand.COMMAND_WORD:
+                return new PostponeReminderCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS_ONE:

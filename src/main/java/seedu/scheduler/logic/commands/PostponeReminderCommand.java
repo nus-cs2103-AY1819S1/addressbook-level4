@@ -1,11 +1,10 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
+import java.time.Duration;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.scheduler.commons.core.LogsCenter;
@@ -18,31 +17,29 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
 
-/**
- * Add reminders to an event identified using it's displayed index from the scheduler.
- */
-public class DeleteReminderCommand extends EditCommand {
-
-    public static final String COMMAND_WORD = "deleteReminder";
+public class PostponeReminderCommand extends EditCommand {
+    public static final String COMMAND_WORD = "postponeReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Delete Reminders of the event identified by the index number used in the displayed event list.\n"
+            + ": Postpone all reminders of the event identified by the index number by the duration entered\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
+            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
             + "Optional Flags (Only one at a time):\n"
             + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
-            + PREFIX_EVENT_REMINDER_DURATION + "30m " + "-a";
+            + "Example: " + COMMAND_WORD + " 1 "  + PREFIX_EVENT_REMINDER_DURATION + "1h ";
 
-    public static final String MESSAGE_REMOVE_REMINDER_SUCCESS = "Remove reminders to Event: %1$s";
-    private static final Logger logger = LogsCenter.getLogger(DeleteReminderCommand.class);
+    public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone reminders of Event: %1$s";
+    public static final String MESSAGE_MULTIPLE_POSTPONE_DURATION = "Please enter only 1 duration to postpone.";
 
-    private final ReminderDurationList durationsToDelete;
+    private static final Logger logger = LogsCenter.getLogger(PostponeReminderCommand.class);
+
+    private final Duration durationToPostpone;
 
 
-    public DeleteReminderCommand(Index index, ReminderDurationList durationsToDelete, Flag... flags) {
+    public PostponeReminderCommand(Index index, Duration durationToPostpone, Flag... flags) {
         super(index, new EditCommand.EditEventDescriptor(), flags);
-        this.durationsToDelete = durationsToDelete;
+        this.durationToPostpone = durationToPostpone;
+
     }
 
     @Override
@@ -60,12 +57,11 @@ public class DeleteReminderCommand extends EditCommand {
         Event eventToEdit;
         eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
-        reminderDurationListToEdit.removeAll(durationsToDelete);
+        reminderDurationListToEdit.postpone(durationToPostpone);
         editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
         super.execute(model, history);
 
-        return new CommandResult(String.format(MESSAGE_REMOVE_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        return new CommandResult(String.format(MESSAGE_POSTPONE_REMINDER_SUCCESS, eventToEdit.getEventName()));
 
     }
 }
-

@@ -29,7 +29,7 @@ public class AddReminderCommand extends EditCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add Reminders  the event identified by the index number used in the displayed event list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
+            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
             + "Optional Flags (Only one at a time):\n"
             + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
             + "Example: " + COMMAND_WORD + " 1 "  + PREFIX_EVENT_REMINDER_DURATION + "1h "

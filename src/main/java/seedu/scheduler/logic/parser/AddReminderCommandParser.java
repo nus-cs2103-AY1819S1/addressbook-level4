@@ -5,9 +5,7 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.util.Set;
-
 import com.google.common.collect.Iterables;
-
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
@@ -27,16 +25,16 @@ public class AddReminderCommandParser implements Parser<AddReminderCommand> {
             Index index;
 
             try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+                index = ParserUtil.parseIndex(argMultimap.getPreamble());
             } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddReminderCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddReminderCommand.MESSAGE_USAGE), pe);
             }
 
             Set<Flag> flags = ParserUtil.parseFlags(argMultimap.getFlags());
             if (flags.size() > 1) {
-            throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
+                throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
             }
 
 
