@@ -6,10 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.clinicio.storage.XmlAdaptedMedicine.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
