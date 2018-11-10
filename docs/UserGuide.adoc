@@ -52,7 +52,7 @@ Refer to <<Features>> for the details of each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [da/DRUG ALLERGY]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -71,7 +71,7 @@ Example(s):
 
 [NOTE]
 The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
-*Other inputs will not be allowed.*
+*Other inputs are not allowed.*
 
 [WARNING]
 The HealthBase System assumes that there are `31` days for all months. For the inputs of the dates `31` and `29` (for February), it is the onus of the user to ensure that
@@ -140,13 +140,13 @@ To use the full capabilities of the `view` command, click <<#view-command, here>
 === Register a new patient to the system: `register`
 Register a new patient together with necessary information into the system.
 
-Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS da/DRUG_ALLERGIES`
 
 * If the patient is already registered, the command will not be allowed.
 
 Example(s):
 
-* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 da/insulin da/aspirin`
 //end::register[]
 
 === Check-out a patient: `checkout`
