@@ -234,8 +234,8 @@ public class AddressBookParserTest {
                 new EditAssignmentDescriptorBuilder(assignment).build();
         EditAssignmentCommand command =
                 (EditAssignmentCommand) parser.parseCommand(EditAssignmentCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ASSIGNMENT.getOneBased() + " " +
-                        AssignmentUtil.getEditAssignmentDescriptorDetails(descriptor));
+                + INDEX_FIRST_ASSIGNMENT.getOneBased() + " "
+                        + AssignmentUtil.getEditAssignmentDescriptorDetails(descriptor));
         assertEquals(new EditAssignmentCommand(INDEX_FIRST_ASSIGNMENT, descriptor), command);
     }
 
