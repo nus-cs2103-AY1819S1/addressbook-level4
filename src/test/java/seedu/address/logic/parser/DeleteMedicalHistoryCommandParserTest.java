@@ -1,9 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_TO_DELETE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -14,9 +12,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.DeleteMedicalHistoryCommand;
+import seedu.address.model.patient.Allergy;
+import seedu.address.model.patient.Condition;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
@@ -24,35 +26,41 @@ public class DeleteMedicalHistoryCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMedicalHistoryCommand.MESSAGE_USAGE);
     private DeleteMedicalHistoryCommandParser parser = new DeleteMedicalHistoryCommandParser();
-
+    ArrayList<Allergy> emptyAllergy = new ArrayList<>();
+    ArrayList<Condition> emptyCondition = new ArrayList<>();
     @Test
     public void parse_fieldSpecified_success() {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        allergies.add(new Allergy(VALID_ALLERGY_TO_DELETE));
+        conditions.add(new Condition(VALID_CONDITION_TO_DELETE));
+
         //input is not blank for phone, allergy and condition
         String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_PHONE + VALID_PHONE_BOB + " "
-                + PREFIX_ALLERGY + VALID_ALLERGY + " " + PREFIX_CONDITION + VALID_CONDITION;
+                + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE;
         DeleteMedicalHistoryCommand expectedCommand = new DeleteMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), new Phone(VALID_PHONE_BOB), VALID_ALLERGY, VALID_CONDITION);
+                new Name(VALID_NAME_ALICE), new Phone(VALID_PHONE_BOB), allergies, conditions);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input is not blank for both allergy and condition
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE;
         expectedCommand = new DeleteMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), null, VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
+                new Name(VALID_NAME_ALICE), null, allergies, conditions);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for allergy is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE;
         expectedCommand = new DeleteMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), null, "", VALID_CONDITION_TO_DELETE);
+                new Name(VALID_NAME_ALICE), null, emptyAllergy, conditions);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for condition is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE;
         expectedCommand = new DeleteMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), null, VALID_ALLERGY_TO_DELETE, "");
+                new Name(VALID_NAME_ALICE), null, allergies, emptyCondition);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

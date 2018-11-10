@@ -47,10 +47,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_PATIENT = "Patient";
     public static final String VALID_REMARK_AMY = "Likes coffee";
     public static final String VALID_REMARK_BOB = "Likes tea";
-    public static final String VALID_ALLERGY = "milk";
-    public static final String VALID_CONDITION = "healthy";
+    public static final String VALID_ALLERGY_1 = "milk";
+    public static final String VALID_ALLERGY_2 = "bean";
+    public static final String VALID_CONDITION_1 = "cough";
+    public static final String VALID_CONDITION_2 = "having fever";
     public static final String VALID_ALLERGY_TO_DELETE = "egg";
-    public static final String VALID_CONDITION_TO_DELETE = "sub-health";
+    public static final String VALID_CONDITION_TO_DELETE = "subhealth";
     public static final String VALID_NAME_ALICE = "Alice Pauline";
     public static final String VALID_NAME_BENSON = "Benson Meier";
 
@@ -111,8 +113,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final String NON_EXIST_ALLERGY = "non_exist_allergy";
-    public static final String NON_EXIST_CONDITION = "non_exist_condition";
+    public static final String NON_EXIST_ALLERGY = "nonExistAllergy";
+    public static final String NON_EXIST_CONDITION = "nonExistCondition";
     public static final String NON_EXIST_NAME = "non exist name";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;

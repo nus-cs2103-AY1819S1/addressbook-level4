@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.patient.Allergy.toAllergyArray;
+import static seedu.address.model.patient.Condition.toConditionArray;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Allergy;
+import seedu.address.model.patient.Condition;
 import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
@@ -54,8 +59,7 @@ public class PatientBuilder {
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
         telegramId = DEFAULT_TELEGRAM_ID;
-        medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(VALID_ALLERGY)),
-                new ArrayList<String>(Arrays.asList(VALID_CONDITION)));
+        medicalHistory = new MedicalHistory();
         upcomingAppointments = new ArrayList<>();
         pastAppointments = new ArrayList<>();
     }
@@ -126,20 +130,26 @@ public class PatientBuilder {
     /**
      * Sets the {@code MedicalHistory} of the {@code Patient} that we are building.
      */
-    public PatientBuilder withMedicalHistory(String allergy, String condition) {
-        if (allergy.equals("") && condition.equals("")) {
-            this.medicalHistory = new MedicalHistory();
-        } else if (!(allergy.equals("")) && condition.equals("")) {
-            this.medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(allergy)), new ArrayList<>());
-        } else if ((allergy.equals("")) && !(condition.equals(""))) {
-            this.medicalHistory = new MedicalHistory(new ArrayList<>(),
-                    new ArrayList<String>(Arrays.asList(condition)));
-        } else {
-            this.medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(allergy)),
-                    new ArrayList<String>(Arrays.asList(condition)));
-        }
 
+    public PatientBuilder withMedicalHistory(String allergy_string, String condition_string) {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        if (allergy_string.equals("") && condition_string.equals("")) {
+            this.medicalHistory = new MedicalHistory();
+        } else if (!(allergy_string.equals("")) && condition_string.equals("")) {
+            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergy_string.split(","))));
+            this.medicalHistory.setAllergies(allergies);
+        } else if ((allergy_string.equals("")) && !(condition_string.equals(""))) {
+            conditions = toConditionArray(new ArrayList<>(Arrays.asList(condition_string.split(","))));
+            this.medicalHistory.setConditions(conditions);
+        } else {
+            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergy_string.split(","))));
+            conditions = toConditionArray(new ArrayList<>(Arrays.asList(condition_string.split(","))));
+            this.medicalHistory.setAllergies(allergies);
+            this.medicalHistory.setConditions(conditions);
+        }
         return this;
+
     }
 
     /**
