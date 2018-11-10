@@ -272,6 +272,18 @@ public class StorageManager extends ComponentManager implements Storage {
         return calendarStorage.getCalendarPath();
     }
 
+    @Override
+    public void setCalendarPath(Path newDirPath) {
+        calendarStorage.setCalendarPath(newDirPath);
+    }
+
+    /**
+     * Returns the CalendarStorage.
+     */
+    public CalendarStorage getCalendarStorage() {
+        return this.calendarStorage;
+    }
+
     /**
      * Raises an event to indicate that a calendar has been loaded.
      */

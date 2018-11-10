@@ -88,10 +88,10 @@ public class CalendarModelTest {
     }
 
     @Test
-    public void removeExistingCalendar_calendarInCalendarModel_returnsTrue() {
+    public void removeExistingCalendar_calendarInCalendarModel_returnsFalse() {
         calendarModel.updateExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB);
         calendarModel.removeExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB);
-        assertTrue(!calendarModel.isExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB));
+        assertFalse(calendarModel.isExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB));
     }
 
     @Test

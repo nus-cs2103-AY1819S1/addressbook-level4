@@ -18,6 +18,11 @@ public interface CalendarStorage {
     Path getCalendarPath();
 
     /**
+     * Sets the file path of the Calendar directory.
+     */
+    void setCalendarPath(Path newDirPath);
+
+    /**
      * Creates the given Calendar to the storage.
      * @param calendar cannot be null.
      * @param calendarName the name of the calendar to be created.

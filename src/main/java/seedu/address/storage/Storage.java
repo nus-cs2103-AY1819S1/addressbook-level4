@@ -121,6 +121,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     Path getCalendarPath();
 
     @Override
+    void setCalendarPath(Path newDirPath);
+
+    @Override
     void createCalendar(Calendar calendar, String calendarName) throws IOException;
 
     @Override
