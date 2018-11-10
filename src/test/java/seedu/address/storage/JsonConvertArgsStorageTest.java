@@ -49,7 +49,7 @@ public class JsonConvertArgsStorageTest {
             JsonConvertArgsStorage.storeArgument("blurR", cmds, TEST_DATA_FOLDER.toString() + "/something");
             fail();
         } catch (IOException e) {
-            if (!(e.getMessage().length() > 0)) {
+            if (e.getMessage().equals("")) {
                 fail();
             }
         }

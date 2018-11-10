@@ -40,11 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private String user;
 
     // Independent Ui parts residing in this Ui container
-    private Config config;
+    //private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private ImagePanel originalImagePanel;
-    private ImagePanel previewImagePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -80,7 +78,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.config = config;
+        //this.config = config;
         this.prefs = prefs;
         this.user = user;
 
@@ -136,12 +134,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    protected void fillInnerParts() {
 
-        originalImagePanel = new ImagePanel("original");
+        ImagePanel originalImagePanel = new ImagePanel("original");
         originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
 
-        previewImagePanel = new ImagePanel("preview");
+        ImagePanel previewImagePanel = new ImagePanel("preview");
         previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -163,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         layerListPlaceholder.getChildren().add(layerList.getRoot());
     }
 
-    void hide() {
+    protected void hide() {
         primaryStage.hide();
     }
 
@@ -186,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Returns the current size and the position of the main Window.
      */
-    GuiSettings getCurrentGuiSetting() {
+    protected GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
@@ -203,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    protected void show() {
         primaryStage.show();
     }
 

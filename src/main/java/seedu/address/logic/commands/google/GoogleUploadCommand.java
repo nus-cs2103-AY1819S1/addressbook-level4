@@ -50,12 +50,9 @@ public class GoogleUploadCommand extends GoogleCommand {
                 message = model.getPhotoHandler().uploadImage(parameter, model.getCurrDirectory().toString());
                 return returnUploadMessage(message);
             }
+        } catch (ApiException ex) {
+            throw new CommandException(ex.getMessage());
         } catch (Exception ex) {
-
-            if (ex instanceof ApiException) {
-                throw new CommandException(ex.getMessage());
-            }
-
             if (parameter.isEmpty()) {
                 parameter = org;
             }

@@ -22,7 +22,7 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
      */
     public ConvertCommand parse(String args) throws ParseException {
         String[] all = Stream.of(args.split(" "))
-                .filter(x -> !x.equals(""))
+                .filter(x -> !"".equals(x))
                 .toArray(String[]::new);
         if (all.length < 1) {
             throw new ParseException(

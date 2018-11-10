@@ -73,10 +73,7 @@ public class UndoRedoCommandTestUtil {
         if (actualIndex != expectedIndex) {
             return false;
         }
-        if (actualSize != expectedSize) {
-            return false;
-        }
-        return true;
+        return actualSize == expectedSize;
     }
 
     /**
