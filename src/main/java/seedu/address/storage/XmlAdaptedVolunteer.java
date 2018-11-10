@@ -55,8 +55,8 @@ public class XmlAdaptedVolunteer {
     /**
      * Constructs an {@code XmlAdaptedVolunteer} with the given volunteer details.
      */
-    public XmlAdaptedVolunteer(String name, String volunteerId, String gender, String birthday, String phone, String email,
-                            String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedVolunteer(String name, String volunteerId, String gender, String birthday,
+                               String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.volunteerId = volunteerId;
         this.gender = gender;

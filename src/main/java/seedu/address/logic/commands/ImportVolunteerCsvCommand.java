@@ -109,7 +109,8 @@ public class ImportVolunteerCsvCommand extends Command {
                         argMultimap.getValue(PREFIX_ADDRESS).get());
                 Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-                Volunteer volunteer = new Volunteer(name, volunteerId, gender, birthday, phone, email, address, tagList);
+                Volunteer volunteer = new Volunteer(name, volunteerId, gender, birthday, phone, email,
+                        address, tagList);
 
                 if (!model.hasVolunteer(volunteer)) {
                     model.addVolunteer(volunteer);
