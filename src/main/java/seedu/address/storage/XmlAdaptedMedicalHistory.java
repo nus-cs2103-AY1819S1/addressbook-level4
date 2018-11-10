@@ -27,16 +27,18 @@ public class XmlAdaptedMedicalHistory {
     public ArrayList<XmlAdaptedCondition> getXmlAdaptedConditions() {
         return conditions;
     }
-    
-    public XmlAdaptedMedicalHistory(){}
+
     /**
      * Constructs an XmlAdaptedMedicalHistory.
      * This is the no-arg constructor that is required by JAXB.
      */
+    public XmlAdaptedMedicalHistory(){}
+    
     public XmlAdaptedMedicalHistory(ArrayList<XmlAdaptedAllergy> allergies, ArrayList<XmlAdaptedCondition> conditions) {
         this.allergies = allergies;
         this.conditions = conditions;
     }
+
     public XmlAdaptedMedicalHistory(MedicalHistory source) {
         for (int i = 0; i < source.getAllergies().size(); i++) {
             this.allergies.add(new XmlAdaptedAllergy(source.getAllergies().get(i)));
