@@ -83,6 +83,16 @@ public class AddAppointmentCommand extends Command {
         this.doctorPhoneNumber = doctorPhoneNumber;
     }
 
+    public AddAppointmentCommand(Appointment appointmentToCopy) {
+        requireNonNull(appointmentToCopy);
+        this.patientName = new Name(appointmentToCopy.getPatient());
+        this.doctorName = new Name(appointmentToCopy.getDoctor());
+        this.dateTime = appointmentToCopy.getDateTime();
+        this.patientPhoneNumber = null;
+        this.doctorPhoneNumber = null;
+
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
             throws CommandException {
