@@ -51,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [al/ALLERGIES] [c/CONDITION]` can be used as `n/John Doe al/milk c/healthy` or as `n/John Doe al/milk`.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER` `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
