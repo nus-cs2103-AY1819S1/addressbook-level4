@@ -172,14 +172,14 @@ public class AddressBookParserTest {
     public void parseCommand_viewPatientCommandWord_returnsViewPatientCommand() throws Exception {
         ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
                 ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE_PATIENT.getName().fullName);
-        assertEquals(new ViewPatientCommand(ALICE_PATIENT.getName()), command);
+        assertEquals(new ViewPatientCommand(ALICE_PATIENT.getName(), null), command);
     }
 
     @Test
     public void parseCommand_viewDoctorCommandWord_returnsViewDoctorCommand() throws Exception {
         ViewDoctorCommand command = (ViewDoctorCommand) parser.parseCommand(
                 ViewDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE_DOCTOR.getName().fullName);
-        assertEquals(new ViewDoctorCommand(GEORGE_DOCTOR.getName()), command);
+        assertEquals(new ViewDoctorCommand(GEORGE_DOCTOR.getName(), null), command);
     }
 
     @Test

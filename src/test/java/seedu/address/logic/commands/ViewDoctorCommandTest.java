@@ -21,6 +21,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.DoctorBuilder;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
@@ -43,7 +44,7 @@ public class ViewDoctorCommandTest {
     @Test
     public void execute_invalidDoctor_failure() {
         // invalid name
-        assertCommandFailure(new ViewDoctorCommand(new Name("JACKIE")),
+        assertCommandFailure(new ViewDoctorCommand(new Name("JACKIE"), null),
                 model, commandHistory, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
 
         // not Doctor
@@ -51,15 +52,23 @@ public class ViewDoctorCommandTest {
     }
 
     @Test
+    public void execute_duplicateDoctor_failure() {
+        // invalid name
+        model.addDoctor(new DoctorBuilder().withName(GEORGE_DOCTOR.getName().toString()).withPhone("12345111").build());
+        assertCommandFailure(new ViewDoctorCommand(GEORGE_DOCTOR.getName(), null),
+                model, commandHistory, ViewDoctorCommand.MESSAGE_DUPLICATE_VIEW_DOCTOR);
+    }
+
+    @Test
     public void equals() {
-        ViewDoctorCommand viewFirstDoctorCommand = new ViewDoctorCommand(GEORGE_DOCTOR.getName());
-        ViewDoctorCommand viewSecondDoctorCommand = new ViewDoctorCommand(FIONA_DOCTOR.getName());
+        ViewDoctorCommand viewFirstDoctorCommand = new ViewDoctorCommand(GEORGE_DOCTOR.getName(), null);
+        ViewDoctorCommand viewSecondDoctorCommand = new ViewDoctorCommand(FIONA_DOCTOR.getName(), null);
 
         // same object -> returns true
         assertTrue(viewFirstDoctorCommand.equals(viewFirstDoctorCommand));
 
         // same values -> returns true
-        ViewDoctorCommand viewFirstDoctorCommandCopy = new ViewDoctorCommand(GEORGE_DOCTOR.getName());
+        ViewDoctorCommand viewFirstDoctorCommandCopy = new ViewDoctorCommand(GEORGE_DOCTOR.getName(), null);
         assertTrue(viewFirstDoctorCommand.equals(viewFirstDoctorCommandCopy));
 
         // different types -> returns false
@@ -77,7 +86,7 @@ public class ViewDoctorCommandTest {
      * that {@code PersonPanelSelectionChangedEvent} is raised with the correct name.
      */
     private void assertExecutionSuccess(Doctor doctor) {
-        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(doctor.getName());
+        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(doctor.getName(), null);
         String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, doctor.getName());
 
         assertCommandSuccess(viewDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -92,7 +101,7 @@ public class ViewDoctorCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Person person, String expectedMessage) {
-        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(person.getName());
+        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(person.getName(), null);
         assertCommandFailure(viewDoctorCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
