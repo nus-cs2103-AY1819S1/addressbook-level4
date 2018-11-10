@@ -281,7 +281,7 @@ Format: +
 * Serving units are pre-defined in the serving unit dictionary. Those undefined in the dictionary are not available.
 * Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
 teaspoon and cup.
-* Amounts are converted with common serving unit(e.g. gram and cm3).
+* Amounts are converted with common serving unit(e.g. gram).
 * Format for date should be MM-dd-yyyy
 * Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
 expire date.
