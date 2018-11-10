@@ -76,6 +76,7 @@ public class AdjustCommand extends Command {
 
         try {
             Module adjustedModule = model.adjustModule(targetModule, grade);
+            model.commitTranscript();
             return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
         } catch (ModuleCompletedException mce) {
             throw new CommandException(MESSAGE_MODULE_COMPLETED);
