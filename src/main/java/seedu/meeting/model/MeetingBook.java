@@ -159,14 +159,9 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the MeetingBook.
      *
-=======
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
->>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
     public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
