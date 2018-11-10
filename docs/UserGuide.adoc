@@ -226,8 +226,8 @@ Example:
 * http://modsn.us/H4v8s
 
 ****
-* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL". 
-* Note that the timetable download may take a while regardless if the link is valid or not. 
+* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
+* Note that the timetable download may take a while regardless if the link is valid or not.
 * Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
 * In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
 * If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
