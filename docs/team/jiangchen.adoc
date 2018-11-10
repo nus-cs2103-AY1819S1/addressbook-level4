@@ -27,7 +27,7 @@ these expenses.
 It required an in-depth analysis of design alternatives. The implementation too was challenging
 as it required changes to existing commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jcjxwy&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true}_
 
 * *Other contributions*:
 

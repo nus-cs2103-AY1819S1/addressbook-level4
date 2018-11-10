@@ -28,6 +28,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
 
     @Override
     public boolean test(Expense expense) {
+
         String nameKeywords = keywords.getValue(PREFIX_NAME).orElse("");
         String categoryKeywords = keywords.getValue(PREFIX_CATEGORY).orElse("");
         List<String> tagKeywords = keywords.getAllValues(PREFIX_TAG);
