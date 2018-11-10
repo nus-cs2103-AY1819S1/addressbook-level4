@@ -21,24 +21,24 @@ import seedu.address.model.util.AttendanceListUtil;
  * or an occasion.
  * @author alistair
  */
-public class TakeOutPersonCommand extends Command {
+public class RemovePersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "takeoutperson";
+    public static final String COMMAND_WORD = "removeperson";
     public static final String MESSAGE_SUCCESS_REMOVE_FROM_MODULE = "Successfully removed person from module.";
     public static final String MESSAGE_SUCCESS_REMOVE_FROM_OCCASION = "Successfully removed person from occasion";
     public static final String MESSAGE_FAILURE = "Failed to remove person as person is not linked "
             + "with said module or occasion.";
     public static final String MESSAGE_INCORRECT_INDEX = "Please enter a valid index.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a module/occasion "
-                                                            + "bidirectionally.\n" + "Example " + COMMAND_WORD + " "
-                                                            + PREFIX_PERSONINDEX + "1 "
-                                                            + PREFIX_MODULEINDEX + "2";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Removes a person from a module/occasion "
+            + "bidirectionally.\n" + "Example " + COMMAND_WORD + " "
+            + PREFIX_PERSONINDEX + "1 " + PREFIX_MODULEINDEX + "2";
     private TypeUtil currType;
     private int personIndex;
     private int moduleIndex;
     private int occasionIndex;
 
-    public TakeOutPersonCommand(Index personIndex, Index eventIndex, TypeUtil currType) {
+    public RemovePersonCommand(Index personIndex, Index eventIndex, TypeUtil currType) {
         requireAllNonNull(personIndex, moduleIndex);
         this.currType = currType;
         this.personIndex = personIndex.getZeroBased();
@@ -113,10 +113,10 @@ public class TakeOutPersonCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || other instanceof TakeOutPersonCommand
-                && currType.equals(((TakeOutPersonCommand) other).getCurrType())
-                && personIndex == ((TakeOutPersonCommand) other).getPersonIndex()
-                && moduleIndex == ((TakeOutPersonCommand) other).getModuleIndex()
-                && occasionIndex == ((TakeOutPersonCommand) other).getOccasionIndex();
+                || other instanceof RemovePersonCommand
+                && currType.equals(((RemovePersonCommand) other).getCurrType())
+                && personIndex == ((RemovePersonCommand) other).getPersonIndex()
+                && moduleIndex == ((RemovePersonCommand) other).getModuleIndex()
+                && occasionIndex == ((RemovePersonCommand) other).getOccasionIndex();
     }
 }
