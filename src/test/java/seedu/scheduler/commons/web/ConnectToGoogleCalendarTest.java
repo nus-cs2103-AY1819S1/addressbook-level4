@@ -109,7 +109,7 @@ public class ConnectToGoogleCalendarTest {
         assertTrue(ConnectToGoogleCalendar.isGoogleCalendarDisabled());
     }
 
-    @Test
+    @Test(expected = CommandException.class)
     public void checkStatus() throws CommandException {
         //Prepare the test file where the status indicates Enabled
         enable();
@@ -127,19 +127,13 @@ public class ConnectToGoogleCalendarTest {
         String path = "./tokens/mode.txt";
         final File file = new File(path);
         //Pre-condition: the file was writable before
-        assertTrue(file.canWrite());
+        assertTrue(file.canRead());
         file.setReadable(false);
-        try {
-            //We force an exception
-            ConnectToGoogleCalendar.checkStatus("Enabled");
-        } catch (CommandException e) {
-            //This will be captured by Junit test
-            //This catch is not needed actually, put here for completeness
-            throw new CommandException(MESSAGE_READ_WRITE_ERROR);
-        } finally {
-            //set back the file to writable
-            file.setReadable(true);
-        }
+        //We force an exception
+        boolean result = ConnectToGoogleCalendar.checkStatus("Enabled");
+        assertFalse(result);
+        //set back the file to writable
+        file.setReadable(true);
     }
 
     @Test
@@ -379,7 +373,6 @@ public class ConnectToGoogleCalendarTest {
         enable();
         Event validEvent = new EventBuilder(CHRISTMAS).build();
         validEvent.getEventUid();
-
 
 
         //close the google-enabled environment
