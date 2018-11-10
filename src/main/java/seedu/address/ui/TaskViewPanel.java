@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,6 +20,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.logic.Logic;
 import seedu.address.model.task.Task;
 
 /**
@@ -26,6 +30,8 @@ public class TaskViewPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TaskViewPanel.class);
 
     private static final String FXML = "TaskViewPanel.fxml";
+
+    private Logic logic;
 
     @FXML
     private HBox cardPane;
@@ -48,9 +54,11 @@ public class TaskViewPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public TaskViewPanel(Task task) {
+    public TaskViewPanel(Logic logic) {
         super(FXML);
-        displayTask(task);
+        this.logic = logic;
+        if (logic.getFilteredTaskList().size() > 0)
+          displayTask(logic.getFilteredTaskList().get(0));
         registerAsAnEventHandler(this);
     }
 
