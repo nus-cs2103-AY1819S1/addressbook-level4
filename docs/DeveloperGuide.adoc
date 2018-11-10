@@ -774,7 +774,7 @@ The following code snippet shows how `AddPatientCommand` is executed:
 
 ===== `ListPatientCommand`
 
-{Add implementation}
+The `ListPatientCommand` retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
 ===== `EditPatientCommand`
 
