@@ -233,6 +233,25 @@ The following figure shows the expected panel before and after entering the `swi
 .Panel display changing from volunteers to events
 image::command_switch.png[switch, 600]
 
+[[command-overview]]
+==== Viewing overview: `overview`
+
+Display box displays statistical overview of volunteers and events, such as number of events and volunteer distribution. +
+
+Format: `overview`
+
+[NOTE]
+This command only works when managing volunteers or events. The command does not work when manging volunteering records.
+
+Example(s):
+
+* `overview` +
+Display box displays statistics of number of types of events and volunteer distribution. +
+The following figure shows the expected display after executing the `overview` command.
+
+.Overview of events and volunteers
+image::command_overview.png[overview, 600]
+
 === Volunteer Management
 
 [[command-volunteer-add]]
@@ -537,13 +556,11 @@ image::command_record_manage_eventIndex.png[switch execution, 200]
 .Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The last figure shows the screen you will see after executing the `manage` command successfully.
-
 The following changes are observed:
 
-1. Panel displays the list of volunteers that you can assign to an event.
-2. Name of event being managed and total number of volunteers assigned to it.
-3. List of volunteers currently assigned to the event. It will be empty if no volunteers are assigned.
+. Panel displays the list of volunteers that you can assign to an event.
+. Name of event being managed and total number of volunteers assigned to it.
+. List of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
 
 [[command-record-add]]
 ==== Adding volunteer to event: `add`
@@ -600,7 +617,7 @@ Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
 This display can be seen after executing the `manage` command.
 
-.The VOLUNTEER_INDEX
+.Display after excuting `manage`
 image::command_record_edit_volunteerIndex.png[volunteer index, 600]
 
 
@@ -643,7 +660,7 @@ Deletes the volunteer record at index 1. +
 The figures below show the display box before and after deleting a record.
 
 .Before deleting the volunteer record
-image::command_record_edit_after.png[delete command, 600]
+image::command_record_edit.png[delete command, 600]
 
 .Output of `delete 1`
 image::command_record_delete.png[delete command, 600]
@@ -674,6 +691,7 @@ This section contains a summary of the commands available.
 | *Clear* | `clear` | `clear` | <<command-clear>>
 | *Help* | `help` | `help` | <<command-help>>
 | *History* | `history` | `history` | <<command-history>>
+| *Overview* | `overview` | `overview` | <<command-overview>>
 | *Redo* | `redo` | `redo` | <<command-redo>>
 | *Switch* | `switch -[CONTEXT_ID]` | `switch -e` | <<command-switch>>
 | *Undo* | `undo` | `undo` | <<command-undo>>
