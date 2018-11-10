@@ -430,7 +430,7 @@ In addition, four other possible exceptions might be thrown by the VoteCommand:
 The other commands `AddPollCommand` and `AddPollOptionCommand` follow a very similar structure.
 The sequence diagram within the model for the `AddPollCommand` is illustrated here:
 
-image::AddPollSequenceDiagram.png[width="800"]
+image::AddPollSequenceDiagram.png[width="600"]
 
 In all cases, the contents of the poll is returned to the calling Command object as String through the `Poll#displayPoll()` method.
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.

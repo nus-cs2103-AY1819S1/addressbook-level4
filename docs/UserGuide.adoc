@@ -449,13 +449,15 @@ Format: `addPoll n/POLL_NAME`
 ****
 
 * `addPoll n/Date` +
-The screenshot shows the outcome of this command.
 Upon adding a new poll, only the index and name of the poll is displayed, as shown.
 The event organiser can then proceed to add options to the poll.
 Selecting the event again using the `selectEvent` command displays the list of all polls in the event.
+// end::KengJi(2)[]
 
+The following screenshot shows the outcome of this command.
 image::AddPollDisplay.png[width="800"]
 
+// tag::KengJi(3)[]
 ==== Create a new time-based poll for an event : `addTimePoll`
 Sets up a new time-based poll for the event with the specified name after all users have joined. +
 Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR``
@@ -471,7 +473,7 @@ Examples:
 
 * `addTimePoll d1/08-09-2018 d2/10-09-2018`
 
-==== Setup poll for location : `addOption`
+==== Add options to poll : `addOption`
 Add new poll option in the specified poll. +
 Format: `addOption i/POLL_INDEX o/POLL_OPTION`
 
@@ -494,9 +496,10 @@ This option would be relevant in the context of a poll for an appropriate activi
 `addOption i/3 o/13 November` +
 In the following example, the options `12 November` and `13 November` have been added to the poll.
 Since there are no voters yet, the most popular options list is empty.
+// end::KengJi(3)[]
 
 image::AddOptionDisplay.png[width="800"]
-// end::KengJi(2)[]
+
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
