@@ -24,8 +24,6 @@ public class ProgressTodayCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        FilteredList<Task> taskList = (FilteredList<Task>) model.getFilteredTaskList();
-        taskList.setPredicate(new DateSamePredicate(systemDate));
         model.updateFilteredTaskList(new DateSamePredicate(systemDate));
         model.updateFilteredArchivedTaskList(new DateSamePredicate(systemDate));
         int uncompleted = model.getFilteredTaskList().size();
