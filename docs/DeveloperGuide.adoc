@@ -502,7 +502,7 @@ public abstract class QueueCommand extends Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException("Queue Command should not call this version of execute");
+        throw new CommandException(Messages.MESSAGE_WRONG_EXECUTE_COMMAND);
     }
 
     /**
