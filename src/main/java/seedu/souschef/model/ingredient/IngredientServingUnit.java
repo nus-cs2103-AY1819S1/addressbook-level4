@@ -31,19 +31,17 @@ public class IngredientServingUnit {
                 100.0));
         DICTIONARY.put("clove", new IngredientServingUnitDefinition("clove", "gram",
                 10.0));
-
-        DICTIONARY.put("cm3", new IngredientServingUnitDefinition("cm3", "cm3",
+        DICTIONARY.put("cm3", new IngredientServingUnitDefinition("cm3", "gram",
                 1.0));
-        DICTIONARY.put("ml", new IngredientServingUnitDefinition("ml", "cm3",
+        DICTIONARY.put("ml", new IngredientServingUnitDefinition("ml", "gram",
                 1.0));
-        DICTIONARY.put("l", new IngredientServingUnitDefinition("l", "cm3",
+        DICTIONARY.put("l", new IngredientServingUnitDefinition("l", "gram",
                 1000.0));
-
-        DICTIONARY.put("tablespoon", new IngredientServingUnitDefinition("tablespoon", "cm3",
+        DICTIONARY.put("tablespoon", new IngredientServingUnitDefinition("tablespoon", "gram",
                 14.8));
-        DICTIONARY.put("teaspoon", new IngredientServingUnitDefinition("teaspoon", "cm3",
+        DICTIONARY.put("teaspoon", new IngredientServingUnitDefinition("teaspoon", "gram",
                 4.9));
-        DICTIONARY.put("cup", new IngredientServingUnitDefinition("cup", "cm3",
+        DICTIONARY.put("cup", new IngredientServingUnitDefinition("cup", "gram",
                 240.0));
     }
 

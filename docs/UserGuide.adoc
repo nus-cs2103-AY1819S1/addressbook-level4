@@ -282,7 +282,7 @@ Format: +
 * Serving units are pre-defined in the serving unit dictionary. Those undefined in the dictionary are not available.
 * Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
 teaspoon and cup.
-* Amounts are converted with common serving unit(e.g. gram and cm3).
+* Amounts are converted with common serving unit(e.g. gram).
 * Format for date should be MM-dd-yyyy
 * Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
 expire date.
@@ -340,7 +340,8 @@ serving units and ingredients stored in ingredient manager, so
 that
 user can take a look by applying select command later. +
 Format: +
-`view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]... prioritize [inventory] KEYWORD [MORE_KEYWORDS]...` +
+`view NUMBER_OF_SERVINGS [include [inventory] KEYWORD [MORE_KEYWORDS]...] [prioritize [inventory] KEYWORD
+[MORE_KEYWORDS]...]` +
 ****
 * Number of servings can be a floating point value.
 * Names of ingredients are used as keywords. If the keyword is a compound word, '_' is used to separate between the
@@ -351,6 +352,9 @@ spring_onion)
 * "prioritize" keyword sorts the recipes based on number of the following ingredients contained. Recipes containing
  the
 most number of following ingredients would be placed high in order. +
+* "include" part and "prioritize" part is optional. It is possible that only one of either part is provided. (For
+example, "view 1 prioritize onion"). If both are not provided, recipe list remains the same and only the number of
+servings are considered for calculation of needed amounts ingredients later.
 * "inventory" keyword provides all the ingreident in Ingredient
 Manager
 as parameter to the keyword it follows. +
