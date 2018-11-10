@@ -1,4 +1,4 @@
-= Russell Ong Ren Yih - Project Portfolio
+= Ehrs Alexander Anders - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -49,9 +49,7 @@ Fields were used extensively throughout the application in and required careful 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=learn]
-
-include::../UserGuide.adoc[tag=basic]
+include::../UserGuide.adoc[tag=wod]
 
 == Contributions to the Developer Guide
 
@@ -59,6 +57,4 @@ include::../UserGuide.adoc[tag=basic]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=learn]
-
-include::../DeveloperGuide.adoc[tag=basic]
+include::../DeveloperGuide.adoc[tag=wod]
