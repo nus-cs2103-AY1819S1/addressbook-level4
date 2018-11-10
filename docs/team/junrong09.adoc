@@ -19,19 +19,32 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 code]]
 
 * *Major enhancement*: added *the ability to manage and manipulate recipes*
-** What it does: Allows the user to list recipes via search and view the details of individual recipe.
+** Multi-line Add Recipe Functionality
+*** What it does: Allow users to add a recipe in progression using multi-line command .
 
-** Justification: This is a core feature of the application which allow user to search and view recipes.
+*** Justification: The multi-line add recipe command improves the product by providing a intuitive yet convenient way
+ to create a recipe entry as opposite to forcing users to input a lengthy recipe entry containing a number of instructions into a single command.
 
-** Highlights: This enhancement affects the existing data structure of the application. As the existing data
-structure only supports managing of single core data, the Model Component has to be revamp to take in different data
-for multiple features to be implement in time to come. Since there are common functions such as add, delete, edit and
- search, this requires design of classes that are generic to reduce duplication in code.
+*** Highlights: This enhancement requires the handling of a incomplete recipe data when the add is being executed in
+progression by the user. The challenges faced include morphing address book into a nested recipe data structure that
+stores instructions which stores ingredients. Secondly, the analysis and design to create a in-progress recipe
+instance that allows the appending of more recipe details when the user contributes to the incomplete recipe. Thirdly,
+the retention and accessing of this incomplete recipe in order to appending the details and ultimately create an
+actual recipe instance to be stored in the model.
 
-* *Other contributions*:
+*** Other Associated Functionality implemented: Edit Recipe
+
+** All-field Recipe Search
+*** What it does: Retrieve recipes with name, difficulty, cooktime or ingredients that matches the keywords by the user.
+
+*** Justification: This feature improves the application because users can now narrow down their wanted recipes based other parameters such as difficulty, cooktime and ingredients rather than restricting their search to just the name of
+ the recipe.
+
+*** Highlights: Ingredients are being stored in each instructions of a recipe, as such to support the search of
+ingredients, the design of a recipe data to provide ease of access to all ingredients is required.
 
 ** Project management:
-*** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy.
+*** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Maintaining of Github issue tracker (allocate assignee, labels) and milestones
 ** General/Team Enhancements:
