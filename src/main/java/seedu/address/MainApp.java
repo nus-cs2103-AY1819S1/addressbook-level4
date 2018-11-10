@@ -15,6 +15,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
@@ -84,6 +85,9 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+        if (storage.hasSampleBudgetBook()) {
+            model.initialiseBudgetBook();
+        }
 
         logic = new LogicManager(model);
 
@@ -121,6 +125,7 @@ public class MainApp extends Application {
         try {
             budgetBookOptional = storage.readBudgetBook();
             if (!budgetBookOptional.isPresent()) {
+                storage.isSampleBudgetBook();
                 logger.info("Data file not found. Will be starting with a sample BudgetBook");
             }
             initialBudgetData = budgetBookOptional.orElseGet(SampleDataUtil::getSampleBudgetBook);
@@ -132,6 +137,9 @@ public class MainApp extends Application {
             initialBudgetData = new BudgetBook();
         }
 
+        System.out.println("REading xsl");
+        storage.readXslFile(userPrefs.getCcaXslFilePath());
+        System.out.println("Read xsl!");
         Set<String> emailNamesSet = storage.readEmailFiles();
 
         return new ModelManager(initialAddressData, initialBudgetData, userPrefs, emailNamesSet);

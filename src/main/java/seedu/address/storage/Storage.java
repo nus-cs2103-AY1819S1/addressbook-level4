@@ -37,6 +37,8 @@ import seedu.address.model.person.Room;
 public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
     EmailStorage, ProfilePictureStorage {
 
+    boolean hasSampleBudgetBook();
+
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
@@ -80,12 +82,11 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 
+    //@@author ericyjw
     /**
      * Saves the current version of the Budget Book to the hard disk.
      * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     *
-     * @author ericyjw
      */
     void handleBudgetBookChangedEvent(BudgetBookChangedEvent bbce);
 
@@ -151,4 +152,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      * to the hard disk into a file within the project.
      */
     void handleNewImageEvent(NewImageEvent abce);
+
+
+    void readXslFile(Path ccaXslFilePath);
+
+    void isSampleBudgetBook();
 }

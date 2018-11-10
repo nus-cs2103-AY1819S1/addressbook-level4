@@ -142,10 +142,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    //@@author ericyjw
     /**
      * Raises an event to indicate the model has changed
-     *
-     * @author ericyjw
      */
     private void indicateBudgetBookChanged() {
         raise(new BudgetBookChangedEvent(versionedBudgetBook));
@@ -162,6 +161,12 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
+
+    @Override
+    public void initialiseBudgetBook() {
+        raise(new BudgetBookChangedEvent(versionedBudgetBook));
+    }
+
 
     @Override
     public boolean hasCca(Person person) {

@@ -1,19 +1,33 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.simplejavamail.email.Email;
 
 import com.google.common.eventbus.Subscribe;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
+import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
@@ -57,6 +71,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private CalendarStorage calendarStorage;
     private EmailStorage emailStorage;
     private ProfilePictureStorage profilePictureStorage;
+    private boolean hasSampleBudgetBook = false;
 
     public StorageManager(AddressBookStorage addressBookStorage, BudgetBookStorage budgetBookStorage,
                           UserPrefsStorage userPrefsStorage,
@@ -69,6 +84,16 @@ public class StorageManager extends ComponentManager implements Storage {
         this.calendarStorage = calendarStorage;
         this.emailStorage = emailStorage;
         this.profilePictureStorage = profilePictureStorage;
+    }
+
+    @Override
+    public void isSampleBudgetBook() {
+        this.hasSampleBudgetBook = true;
+    }
+
+    @Override
+    public boolean hasSampleBudgetBook() {
+        return this.hasSampleBudgetBook;
     }
 
     // ================ UserPrefs methods ==============================
@@ -377,6 +402,118 @@ public class StorageManager extends ComponentManager implements Storage {
             } catch (IOException e) {
                 EventsCenter.getInstance().post(new DataSavingExceptionEvent(e));
             }
+        }
+    }
+
+    //@@author ericyjw
+    @Override
+    public void readXslFile(Path ccaXslFilePath) {
+        requireNonNull(ccaXslFilePath);
+
+        if (!Files.exists(ccaXslFilePath)) {
+            logger.info("CcaBook xsl file " + ccaXslFilePath + " not found");
+            logger.info("CCA Book xsl does not exist");
+            logger.info("Extracting from resource");
+
+//            String xslPath = MainApp.class.getResource("/docs/ccabook.xsl").getPath();
+//            System.out.println("xslPath: " + xslPath);
+//            File file = new File(xslPath);
+//
+//            System.out.println("new Directory: " + "data");
+//            File destDir = new File("data");
+//            System.out.println("Directory exist?: " + destDir.exists());
+//
+//            try {
+//                System.out.println("copying...");
+//                FileUtils.copyFileToDirectory(file, destDir);
+//                System.out.println("copied");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+//            InputStream source = getClass().getResourceAsStream("/docs/ccabook.xsl");
+//            if (source == null) {
+//                logger.info("source is null");
+//            }
+//            //String destination = getBasePathForClass(MainApp.class);
+//            String destination = FileSystems.getDefault().getPath(".").toString() + "/data/ccabook.xsl" ;
+//            logger.info("Copying ->" + source + "\n\tto ->" + destination);
+//
+//            try {
+//                Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+//            } catch (IOException ex) {
+//                logger.info("error!");
+//            }
+
+//
+//            InputStream stream = null;
+//            OutputStream resStreamOut = null;
+//            try {
+//                stream = getClass().getResourceAsStream("/docs/ccabook.xsl");
+//                if (stream == null) {
+//                    throw new Exception("Cannot get resource \"" + "/docs/ccabook.xsl" + "\" from Jar file.");
+//                }
+//
+//                int readBytes;
+//                byte[] buffer = new byte[4096];
+//               // String jarFolder =
+//                 //   new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
+//                // .getParentFile().getPath().replace('\\', '/');
+//                String dest = FileSystems.getDefault().getPath(".").toString() + "/data/ccabook.xsl";
+//                resStreamOut = new FileOutputStream(dest);
+//                if (resStreamOut == null) {
+//                    logger.info("output is null");
+//                }
+//                logger.info("reading...");
+//                while ((readBytes = stream.read(buffer)) > 0) {
+//                    resStreamOut.write(buffer, 0, readBytes);
+//                }
+//                logger.info("Read...");
+//            } catch (Exception ex) {
+//                logger.info("ERROR!!!!");
+//            }
+//            } finally {
+//                try {
+//                    stream.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    resStreamOut.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+            try {
+                System.out.println(MainApp.class);
+                ClassLoader l = MainApp.class.getClassLoader();
+                System.out.println(l);
+                URL i = l.getResource("ccabook.xsl");
+                System.out.println(i);
+                URL b = MainApp.class.getResource("/docs/ccabook.xsl");
+                System.out.println(b);
+                System.out.println("1 - " + getClass().getClassLoader().getResource("ccabook.xsl"));
+                System.out.println("2 - " + getClass().getResource("/docs/ccabook.xsl"));
+                InputStream a = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+                System.out.println(a);
+                logger.info(MainApp.class.getResourceAsStream("/docs/ccabook.xsl").toString());
+                logger.info("Number of bytes - " + String.valueOf(a.available()));
+                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+                logger.info(is.toString());
+
+                File dir = new File("data");
+                boolean isCreated = dir.mkdirs();
+                System.out.println("is created: " + isCreated);
+//                logger.info(Paths.get("./data/ccabook.xsl").toString());
+                logger.info("New: " + Paths.get("data", "ccabook.xsl").toString());
+                Files.copy(is, Paths.get("data", "ccabook.xsl"));
+            } catch (IOException e) {
+                // An error occurred copying the resource
+                logger.info("ERROR!!!!");
+            }
+
+
         }
     }
 }

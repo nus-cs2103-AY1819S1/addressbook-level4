@@ -554,55 +554,6 @@ https://github.com/ical4j/ical4j[iCal4j] contains various methods that make crea
 The library is widely used and easy to understand so any new develeper can easily extend the current features.
 // end::calendar[]
 
-// tag::createcca[]
-=== Create CCA feature
-==== Current Implementation
-
-The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
-When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
-directory. It implements the following command:
-
-* `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
-* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
-
-These operations are exposed in the `Model` interface as `Model#addCca(Cca cca)`, `Model#hasCca(CcaName name)`,
-`Model#hasCca(Cca cca)` and `Model#commitBudgetBook()`.
-
-Given below is an example usage scenario and how the create cca mechanism behaves at each step.
-
-Step 1. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
-
-Step 2. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
-name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
-
-
-Step 3. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
-`BudgetBookChangedEvent`, which is handled by `EventsCenter`.
-
-Step 4. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
-event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
-`ccabook.xml` file with the new CCA.
-
-The following sequence diagram shows how the create operation works:
-
-.Sequence diagram for create CCA command
-image::CreateCcaCommandSequenceDiagram.png[width="1500"]
-
-==== Design Considerations
-
-===== Aspect: Choice of local storage format
-
-* **Alternative 1 (current choice):** Saves in `.xml` format.
-** Pros: Easy to create, understand, move and translate into other environments. International data standard for
-storing information.
-** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
- of parsing large XML files.
-* **Alternative 2:** Save in `.json` format.
-** Pros: Faster in parsing information.
-** Cons: Limited in terms of what objects can be modeled.
-
-// end::createcca[]
-
 // tag::budget[]
 === Budget feature
 ==== Current Implementation
@@ -658,10 +609,6 @@ The following sequence diagram shows how the create operation works:
 .Sequence diagram for create CCA command
 image::CreateCcaCommandSequenceDiagram.png[width="1500"]
 
-The following activity diagram summarizes what happens when a user executes a create command:
-
-image::CreateCcaActivityDiagram.png[width="650"]
-
 ===== Update Command
 The `update` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 When a CCA is getting updated, it looks up the `BudgetBook` in the `BudgetBookStorage` of the `Model` for the CCA to
@@ -707,9 +654,6 @@ The following sequence diagram shows how the update operation works:
 .Sequence diagram for update command
 image::UpdateCommandSequenceDiagram.png[width="1500"]
 
-The following activity diagram summarizes what happens when a user executes an update command:
-
-image::UpdateCcaActivityDiagram.png[width="650"]
 
 ===== Add_Transaction Command
 
@@ -755,10 +699,6 @@ The following sequence diagram shows how the add_trans operation works:
 .Sequence diagram for update command
 image::AddTransCommandSequenceDiagram.png[width="1500"]
 
-The following activity diagram summarizes what happens when a user executes an update command:
-
-image::AddTransActivityDiagram.png[width="650"]
-
 ===== Budget Command
 The `budget` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 It opens ups a separate window to display the CCA information and its transaction history of the . It implements the
@@ -785,14 +725,9 @@ Step 6. It then checks whether the CCA name is present in `BudgetWindow#fillInne
  is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
  `BudgetBrowserPanel()` is called, showing a blank page.
 
-The following sequence diagram shows how the budget operation works:
-
-.Sequence diagram for budget command
-image::BudgetCommandSequenceDiagram.png[width="1500"]
-
 The following activity diagram summarizes what happens when a user executes a budget command:
 
-image::BudgetActivityDiagram.png[width="650"]
+image::BudgetCommandActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 

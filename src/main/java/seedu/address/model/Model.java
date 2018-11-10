@@ -73,6 +73,11 @@ public interface Model {
     boolean hasCca(Cca cca);
 
     /**
+     * Initialise the budget book.
+     */
+    void initialiseBudgetBook();
+
+    /**
      * Returns true if a person's CCA tag has the same name as the {@code cca} that exists in the budget book.
      */
     boolean hasCca(Person toAdd);
