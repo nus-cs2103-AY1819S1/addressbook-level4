@@ -12,47 +12,41 @@ PROJECT: Student Schedule Planner
 
 This project portfolio showcases a collection of software engineering projects I have worked on during my time studying in NUS.
 
-Student Schedule Planner is a desktop schedule planner application created by my team T12-3 for the CS2103T module.
+The first project in this portfolio is Student Schedule Planner, a desktop schedule planner application created by my team T12-3 for the CS2103T module.
 This application is targeted at university students for keeping track of their tasks.
 We were tasked to morph it from an existing product called AddressBook, which had around 10,000 lines of existing code.
 We also had to work under multiple constraints such as the primary mode of user input must be through command line.
 
-My key contributions in this project were mainly improving the UI part - what is shown to the users.
+My key contributions in this project were mainly improvements to the UI. The display is updated accordingly whenever a user makes changes to the schedule planner.
 
 == Summary of Contributions
 
-* *Major enhancement*: added *progress bar*
-** What it does: It shows users the percentage of completed tasks for the current day.
-** Justification: This feature improves user experience because the user will be able to tell how much work he/she has completed for that day.
-** Highlights: The implementation was challenging as it required changes to the UI.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Major redesign of GUI
+** What it does: The app displays progress bars, categories, and tags.
+** Justification: This feature improves user experience because the user will be able to tell how much work he/she has completed and what categories and tags he/she has used.
+** Highlights: The implementation was challenging as it required learning how to code for JavaFX.
 
 * *Minor enhancements*:
-** added a list archived command that displays all of the archived tasks
-** added a side bar panel that displays tags that the user has used
+** Added `listarchived` command that displays all of the archived tasks
+** Added `progresstoday` and `progressweek` commands to display the exact percentage of user's progress.
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
-** Project management:
-***
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Updated the GUI color scheme (Pull request https://github.com/CS2103-AY1819S1-T12-3/main/pull/89[#89])
+*** Added Date class and method that checks if the entered date is valid (Pull request https://github.com/CS2103-AY1819S1-T12-3/main/pull/47[#47])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Updated User Guide and Developer Guide:
+*** Updated User Guide and Developer Guide
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Tools:
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation that is easy for end-users to understand._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation in terms that are not too technical so that end-users without technical knowledge can understand._
 |===
 
 include::../UserGuide.adoc[tag=listarchived]
@@ -64,26 +58,13 @@ include::../UserGuide.adoc[tag=progressbar]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. It also shows my ability to explain how my implementations work so that future coders that work with my code will be able to improve my code easily._
 |===
 
 include::../DeveloperGuide.adoc[tag=listarchivedtasks]
 
 include::../DeveloperGuide.adoc[tag=displaytagsinsidebar]
 
+include::../DeveloperGuide.adoc[tag=progressbar]
 
----
-
-PROJECT: Zen Coloring
-
-== Overview
-
-Zen Coloring was a web application I co-created with Lin Xu for Orbital 2018. The web application allows users to color black and white images using a built in drawing tool.
-Users can choose to upload their own images or use images uploaded by other users.
-
-https://zen-coloring.herokuapp.com/[Link to website]
-
-https://github.com/hotarumin/zen/[Github link]
-
----
 
