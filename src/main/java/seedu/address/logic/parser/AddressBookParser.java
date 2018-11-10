@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ExportEventXmlCommand;
 import seedu.address.logic.commands.ExportVolunteerCsvCommand;
 import seedu.address.logic.commands.ExportVolunteerXmlCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportVolunteerCsvCommand;
@@ -124,6 +125,9 @@ public class AddressBookParser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case FindEventCommand.COMMAND_WORD:
+            return new FindEventCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommand();
