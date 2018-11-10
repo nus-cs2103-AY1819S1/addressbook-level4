@@ -516,7 +516,7 @@ Only 17 weeks are referenced from NUS academic calendar. More details at glossar
 
 * `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
 
-* `FirstDayCommand#createDefaultFileIfUnableConvert()` -- It creates the default 'rangeofweek.xml' if data is unable
+* `FirstDayCommand#createDefaultFileIfUnableConvert()` -- It creates the default `rangeofweek.xml` if data is unable
 to convert to be used.
 
 * `FirstDayCommand#createDefaultFileIfSizeDiff()` -- It creates the default `rangeofweek.xml` if the number of
