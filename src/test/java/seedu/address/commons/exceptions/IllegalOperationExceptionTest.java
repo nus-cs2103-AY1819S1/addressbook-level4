@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 class IllegalOperationExceptionTest {
 
     @Test
-    void test_expectedMessage() {
+    public void test_expectedMessage() {
         String message = "Expected";
         IllegalOperationException e = new IllegalOperationException(message);
         assertEquals(e.getMessage(), message);
     }
 
     @Test
-    void test_expectedThrowable() {
+    public void test_expectedThrowable() {
         Throwable t = new Throwable();
         String message = "Expected";
         IllegalOperationException e = new IllegalOperationException(message, t);

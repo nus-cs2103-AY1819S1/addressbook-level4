@@ -26,7 +26,7 @@ public class LayerSwapCommand extends LayerCommand {
 
     public static final String OUTPUT_SUCCESS = "Layers %d and %d are now swapped.";
     public static final String OUTPUT_FAILURE = "Invalid index(es) provided!";
-    static final String OUTPUT_ILLEGAL = "Unable to swap layers!";
+    public static final String OUTPUT_ILLEGAL = "Unable to swap layers!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerSwapCommand.class);
 
