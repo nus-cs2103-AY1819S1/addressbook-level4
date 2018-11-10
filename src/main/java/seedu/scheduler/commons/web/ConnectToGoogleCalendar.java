@@ -329,6 +329,9 @@ public class ConnectToGoogleCalendar {
                 return false;
             }
         }
+        if (!eventToDelete.isRepeatEvent()) {
+            return true;
+        }
         //Case2: delete repeated events
         //Find the ICalUid
         if (eventToDelete.isRepeatEvent()) {
@@ -351,7 +354,7 @@ public class ConnectToGoogleCalendar {
         }
 
         //No such event online
-        if (!repeatedEventsFound) {
+        if (eventToDelete.isRepeatEvent() && !repeatedEventsFound) {
             logger.info(MESSAGE_IO_ERROR);
             return false;
         } else { //EventSet Found
