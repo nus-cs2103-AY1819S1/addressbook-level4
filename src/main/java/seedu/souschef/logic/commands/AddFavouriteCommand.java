@@ -34,7 +34,7 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
     @Override
     public CommandResult execute(History history) {
         requireNonNull(model);
-        Recipe recipe = model.getAppContent().getObservableRecipeList().get(Integer.parseInt(argument.trim()));
+        Recipe recipe = model.getAppContent().getObservableRecipeList().get(Integer.parseInt(argument.trim()) - 1);
         logger.info(recipe.getName().fullName);
         Favourites favourite = new Favourites(recipe.getName(),
                 recipe.getDifficulty(), recipe.getCookTime(), recipe.getTags());
