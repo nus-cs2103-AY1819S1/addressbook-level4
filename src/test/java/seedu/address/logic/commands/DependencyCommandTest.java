@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtTwoIndexes;
@@ -27,6 +28,18 @@ public class DependencyCommandTest {
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
 
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Test
+    public void constructor_called_noException() {
+        new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+    }
+
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DependencyCommand(null, INDEX_SECOND_TASK));
+        assertThrows(NullPointerException.class, () -> new DependencyCommand(INDEX_FIRST_TASK, null));
+    }
+
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
