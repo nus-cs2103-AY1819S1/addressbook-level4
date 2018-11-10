@@ -318,6 +318,17 @@ public class MeetingBook implements ReadOnlyMeetingBook {
             Iterator<Group> groupItr = importedBook.groups.iterator();
             while (groupItr.hasNext()) {
                 Group importGroup = groupItr.next();
+                List<Person> importGroupPersons = importGroup.getMembersView();
+                for (Person p: importGroupPersons) {
+                    for (Person p1 : persons.asUnmodifiableObservableList())
+                    if (!p1.equals(p)) {
+                        importGroup.removeMemberNoGroups(p);
+                        break;
+                    }
+                    if (importGroupPersons.isEmpty()) {
+                        break;
+                    }
+                }
                 if (!hasGroup(importGroup)) {
                     addGroup(importGroup);
                 } else {
