@@ -185,5 +185,5 @@
 }
 
 .tab:selected, .tab:hover{
-    -fx-background-color: #21777B 
+    -fx-background-color: #21777B;
 }
