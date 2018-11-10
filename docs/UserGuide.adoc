@@ -497,20 +497,48 @@ Shows all tags categorised under the specified category. It expands the tab in t
 ====
 [blue]`tags c/CATEGORY`
 ====
+
+Example:
+====
+[blue]`tags c/Modules`
+
+image::Before-after-showtags.png[width="400]
+====
 // end::showtags[]
 // tag::progressbar[]
 === Displaying Today's Progress
 
-Shows the percentage of tasks that have been archived for the day in the command result box. It also lists the uncompleted tasks for today. The progress bar is also displayed at the bottom left of the window. +
+Shows the percentage of tasks that have been archived for the day in the command result box and lists the uncompleted tasks for today. The progress bar is also displayed at the bottom left of the window. +
 ====
 [blue]`progresstoday`
 ====
 
+Example:
+====
+[blue]`listday` +
+[blue]`archive 1` +
+[blue]`progresstoday` +
+
+The diagram below contains the screenshots of what you will see after each of the commands entered above.
+
+image::before-after-progresstoday.png[width="400"]
+====
+
 === Displaying This Week's Progress
 
-Shows the percentage of tasks that have been archived from today to the nearest Sunday in the command result box. It also lists the uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the window. +
+Shows the percentage of tasks that have been archived from today to the nearest Sunday in the command result box and lists the uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the window. +
 ====
 [blue]`progressweek`
+====
+Example:
+====
+[blue]`listday` +
+[blue]`archive 1` +
+[blue]`progressweek` +
+
+The diagram below contains the screenshots of what you will see after each of the commands entered above.
+
+image::before-after-progressweek.png[width="400"]
 ====
 // end::progressbar[]
 
