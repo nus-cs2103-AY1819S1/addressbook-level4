@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.contacts.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.contacts.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.contacts.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.contacts.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.tasks.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.tasks.CliSyntax.PREFIX_START_DATE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,6 +107,11 @@ public class CommandTestUtil {
     public static final FindCommand.TaskPredicateAssembler FIND_SLAUGHTER_BY_START_DATE;
     public static final FindCommand.TaskPredicateAssembler FIND_SLAUGHTER_BY_NAME_AND_START_DATE;
 
+    public static final String BRUSH_NAME_SEARCH = " " + PREFIX_NAME + "Brush";
+    public static final String SLAUGHTER_NAME_SEARCH = " " + PREFIX_NAME + "Slaughter";
+    public static final String SLAUGHTER_BRUSH_NAME_SEARCH = " " + PREFIX_NAME + "cows";
+    public static final String SLAUGHTER_START_DATE_SEARCH = " " + PREFIX_START_DATE + VALID_START_DATE_SLAUGHTER;
+    public static final String BRUSH_END_DATE_SEARCH = " " + PREFIX_END_DATE + VALID_END_DATE_BRUSH;
     public static final seedu.address.model.task.NameContainsKeywordsPredicate BRUSH_NAME_PREDICATE =
             new seedu.address.model.task.NameContainsKeywordsPredicate(Arrays.asList("Brush"));
     public static final seedu.address.model.task.NameContainsKeywordsPredicate SLAUGHTER_NAME_PREDICATE =
