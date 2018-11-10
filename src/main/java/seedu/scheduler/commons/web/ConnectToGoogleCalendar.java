@@ -467,6 +467,7 @@ public class ConnectToGoogleCalendar {
                         service.events()
                                 .update(CALENDAR_NAME, instance.getId(), instance).execute();
                     }
+                    break;
                 }
             } catch (IOException e) {
                 logger.info(MESSAGE_IO_ERROR);

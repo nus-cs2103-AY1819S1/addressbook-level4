@@ -72,13 +72,13 @@ public class DeleteCommand extends Command {
                 operationOnGoogleCalIsSuccessful =
                         connectToGoogleCalendar.deleteRangeOnGoogleCal(
                                 googleCalendarIsEnabled, eventToDelete,
-                                instanceIndex);
+                                effectRangeStartingIndex);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
                 effectRangeStartingIndex = 0;
                 operationOnGoogleCalIsSuccessful =
                         connectToGoogleCalendar.deleteRangeOnGoogleCal(
-                                googleCalendarIsEnabled, eventToDelete, instanceIndex);
+                                googleCalendarIsEnabled, eventToDelete, effectRangeStartingIndex);
                 model.deleteRepeatingEvents(eventToDelete);
             }
         }
