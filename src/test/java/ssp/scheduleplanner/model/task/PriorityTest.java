@@ -82,6 +82,10 @@ public class PriorityTest {
         assertFalse(Priority.isValidPriority("a@")); // mix of alphabet and special character
         assertFalse(Priority.isValidPriority("1@")); // mix of numerical and special character
         assertFalse(Priority.isValidPriority("a1@")); // mix of alphanumerical and special character
+        assertFalse(Priority.isValidPriority("0")); // zero is invalid
+        assertFalse(Priority.isValidPriority("-1")); //valid numerical value in negative form is invalid
+        assertFalse(Priority.isValidPriority("-2")); //valid numerical value in negative form is invalid
+        assertFalse(Priority.isValidPriority("-3")); //valid numerical value in negative form is invalid
 
         // valid priority
         assertTrue(Priority.isValidPriority("1"));
