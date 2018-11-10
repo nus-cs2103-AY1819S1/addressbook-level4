@@ -80,7 +80,7 @@ public abstract class Meal {
         Meal otherMeal = (Meal) other;
         return (otherMeal.slot.equals(slot))
             && (otherMeal.index == index)
-            && (otherMeal.getRecipe().equals(getRecipe()));
+            && (otherMeal.recipe.equals(recipe));
     }
 
     @Override
