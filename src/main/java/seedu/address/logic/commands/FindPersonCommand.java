@@ -24,10 +24,11 @@ public class FindPersonCommand extends Command {
             + "contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " n/alice bob charles"
-            + "Example: " + COMMAND_WORD + " p/123 2333 6666"
-            + "Example: " + COMMAND_WORD + " e/abc@de.fg"
-            + "Example: " + COMMAND_WORD + " a/qwer 123";
+            + "Example: " + COMMAND_WORD + " n/alice bob charles \n"
+            + "Example: " + COMMAND_WORD + " p/123 2333 6666 \n"
+            + "Example: " + COMMAND_WORD + " e/abc@de.fg \n"
+            + "Example: " + COMMAND_WORD + " a/qwer 123 \n"
+            + "Example: " + COMMAND_WORD + " amc/CS2103 \n";
 
     private final Predicate<Person> predicate;
 
