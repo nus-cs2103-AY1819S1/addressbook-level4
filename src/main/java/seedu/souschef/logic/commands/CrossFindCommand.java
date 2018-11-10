@@ -10,7 +10,6 @@ import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.CrossFilterPredicate;
 import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.History;
-import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
@@ -36,22 +35,21 @@ public class CrossFindCommand extends Command {
     private final Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap;
     private final double numberOfServings;
 
-    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
-                            CrossSortComparator comparator,
+    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel,
+                            Model<Ingredient> ingredientModel,
                             CrossFilterPredicate predicate,
                             Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap, double numberOfServings) {
         requireNonNull(crossRecipeModel);
         this.crossRecipeModel = crossRecipeModel;
         this.ingredientModel = ingredientModel;
+        this.comparator = new CrossSortComparator(matchedCrossRecipeMap);
         this.predicate = predicate;
-        this.comparator = comparator;
         this.matchedCrossRecipeMap = matchedCrossRecipeMap;
         this.numberOfServings = numberOfServings;
     }
 
     @Override
-    public CommandResult execute(History history) throws CommandException {
-
+    public CommandResult execute(History history) {
         crossRecipeModel.sort(comparator);
         crossRecipeModel.updateFilteredList(predicate);
 
