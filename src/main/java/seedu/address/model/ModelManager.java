@@ -124,14 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
-    /**
-     * Remove image from {@code dirImageList} at the given {@code idx}
-     */
-    @Override
-    public void removeImageFromList(int idx) {
-        this.dirImageList.remove(idx);
-    }
-
     @Override
     public Path getCurrentOriginalImage() {
         return this.currentOriginalImage;

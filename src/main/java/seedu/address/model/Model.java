@@ -112,11 +112,6 @@ public interface Model {
     void updateImageListPrevBatch();
 
     /**
-     * Removes the image of the given index in the list.
-     */
-    void removeImageFromList(int idx);
-
-    /**
      * Retrieves the current displayed original image.
      */
     Path getCurrentOriginalImage();
