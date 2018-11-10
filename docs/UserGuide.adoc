@@ -95,6 +95,7 @@ Example: if the command specifies n/name p/zone, p/zone n/name is also acceptabl
 
 This section contains all commands related to managing attractions.
 
+// tag::manage[]
 ==== Adding attractions: `add`
 
 Add an attraction by name with the information. +
@@ -113,13 +114,11 @@ Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
 
 ====
-
 * Deletes the ride at the specified index.
 
 * The index refers to the index number shown in the list of displayed rides.
 
 * The index must be a positive integer 1, 2, 3, …​
-
 ====
 
 Examples:
@@ -147,6 +146,7 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
+// end::manage[]
 ==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
