@@ -14,7 +14,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.AddCommand;
@@ -22,8 +21,8 @@ import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
 import seedu.souschef.logic.commands.CreateRecipeBuildCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
 import seedu.souschef.logic.parser.ArgumentTokenizer;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.ParserUtil;
-import seedu.souschef.logic.parser.Prefix;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.IngredientPortion;
@@ -65,7 +64,7 @@ public class RecipeBuilderCommandParser {
 
         Recipe toAdd = new Recipe(name, difficulty, cookTime, new ArrayList<>(), tagList);
         if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE, "recipe"));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, Context.RECIPE.command));
         }
 
         RecipeBuilder recipeBuilder = new RecipeBuilder(name, difficulty, cookTime, tagList);
@@ -90,7 +89,8 @@ public class RecipeBuilderCommandParser {
                     MESSAGE_CONT_RECIPE_USAGE));
         }
 
-        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).orElse("0M"));
+        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME)
+                .orElse(CookTime.ZERO_COOKTIME));
         String unparsedtext = argMultimap.getValue(PREFIX_INSTRUCTION).orElse("");
         String instruction = ParserUtil.parseInstructionText(unparsedtext);
         Set<IngredientPortion> ingredients = ParserUtil.parseIngredients(unparsedtext);

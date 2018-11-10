@@ -107,7 +107,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                     argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
 
-        CookTime cookTime = new CookTime("0M");
+        CookTime cookTime = new CookTime(CookTime.ZERO_COOKTIME);
         if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
             cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
             editRecipeDescriptor.setCooktime(cookTime);
@@ -125,7 +125,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
-        // Parse for edit type: details or instruction
+        // Parse for edit type for either edit recipe general details or instruction
         if (argMultimap.getValue(PREFIX_STEP).isPresent() && !argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
