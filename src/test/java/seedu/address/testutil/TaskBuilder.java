@@ -29,7 +29,7 @@ public class TaskBuilder {
     private Description description;
     private Set<Label> labels;
     private Status status;
-    private Dependencies dependency;
+    private Dependencies dependencies;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -38,7 +38,7 @@ public class TaskBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
         status = Status.IN_PROGRESS;
-        dependency = new Dependencies();
+        dependencies = new Dependencies();
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         labels = new HashSet<>(taskToCopy.getLabels());
         status = taskToCopy.getStatus();
-        dependency = new Dependencies(taskToCopy.getDependency().getHashes());
+        dependencies = new Dependencies(taskToCopy.getDependency().getHashes());
     }
 
     /**
@@ -106,12 +106,12 @@ public class TaskBuilder {
      * Sets the {@code Dependecy} of the {@code Task} that we are building.
      */
     public TaskBuilder withDependency(Task task) {
-        this.dependency = this.dependency.addDependency(task);
+        this.dependencies = this.dependencies.addDependency(task);
         return this;
     }
 
     public Task build() {
-        return new Task(name, dueDate, priorityValue, description, labels, status, dependency);
+        return new Task(name, dueDate, priorityValue, description, labels, status, dependencies);
     }
 
 }

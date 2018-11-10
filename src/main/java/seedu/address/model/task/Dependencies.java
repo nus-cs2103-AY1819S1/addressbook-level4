@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +79,8 @@ public class Dependencies {
      * @return set of all hashes
      */
     public Dependencies updateHash(String oldHash, String newHash) {
+        requireNonNull(oldHash);
+        requireNonNull(newHash);
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(oldHash);
         newValue.add(newHash);

@@ -16,23 +16,26 @@ import seedu.address.testutil.TaskBuilder;
 
 
 public class DependenciesTest {
-    private Dependencies sampleDependency;
+    private Dependencies sampleDependencies;
     private Set<String> sampleSet;
     private Task sampleTaskInDependency;
     private Task sampleTaskOutsideDependency;
-
+    private String sampleHash1;
+    private String sampleHash2;
     @Before
     public void setUp() {
+        sampleHash1 = "12345";
+        sampleHash2 = "67890";
+
+        sampleTaskInDependency = new TaskBuilder().build();
+
         HashSet<String> hashes = new HashSet<String>();
-        hashes.add("12345");
-        hashes.add("67890");
-        sampleTaskInDependency = new TaskBuilder().withName("Test").build();
+        hashes.add(sampleHash1);
         hashes.add(Integer.toString(sampleTaskInDependency.hashCode()));
 
-        sampleTaskOutsideDependency = new TaskBuilder().build();
-        sampleDependency = new Dependencies(hashes);
+        sampleTaskOutsideDependency = new TaskBuilder().withName("Outside Dependency").build();
+        sampleDependencies = new Dependencies(hashes);
         sampleSet = hashes;
-
     }
 
     @Test
@@ -51,9 +54,16 @@ public class DependenciesTest {
     }
 
     @Test
+    public void updateHash_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Dependencies().updateHash(null, sampleHash1));
+        assertThrows(NullPointerException.class, () -> new Dependencies().updateHash(sampleHash1, null));
+
+    }
+
+    @Test
     public void containsDependency() {
-        assertFalse(sampleDependency.containsDependency(sampleTaskOutsideDependency));
-        assertTrue(sampleDependency.containsDependency(sampleTaskInDependency));
+        assertFalse(sampleDependencies.containsDependency(sampleTaskOutsideDependency));
+        assertTrue(sampleDependencies.containsDependency(sampleTaskInDependency));
     }
 
     @Test
@@ -62,7 +72,7 @@ public class DependenciesTest {
         sampleSet.add(Integer.toString(sampleTaskOutsideDependency.hashCode()));
         Dependencies expectedDependency = new Dependencies(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, sampleDependency.addDependency(sampleTaskOutsideDependency));
+        assertEquals(expectedDependency, sampleDependencies.addDependency(sampleTaskOutsideDependency));
     }
 
     @Test
@@ -71,31 +81,29 @@ public class DependenciesTest {
         sampleSet.remove(Integer.toString(sampleTaskInDependency.hashCode()));
         Dependencies expectedDependency = new Dependencies(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, sampleDependency.removeDependency(sampleTaskInDependency));
+        assertEquals(expectedDependency, sampleDependencies.removeDependency(sampleTaskInDependency));
     }
 
     @Test
     public void updateHash() {
         String oldHash = Integer.toString(sampleTaskInDependency.hashCode());
-        String newHash = "99999";
+        String newHash = sampleHash2;
         sampleSet.remove(oldHash);
         sampleSet.add(newHash);
         Dependencies expectedDependency = new Dependencies(sampleSet);
-        assertEquals(expectedDependency, sampleDependency.updateHash(oldHash, newHash));
+        assertEquals(expectedDependency, sampleDependencies.updateHash(oldHash, newHash));
     }
 
     @Test
     public void equals() {
-        assertNotEquals(sampleDependency, new Dependencies());
+        assertNotEquals(sampleDependencies, new Dependencies());
 
         HashSet<String> hashes = new HashSet<String>();
-        hashes.add("12345");
-        hashes.add("67890");
-        sampleTaskInDependency = new TaskBuilder().withName("Test").build();
+        hashes.add(sampleHash1);
         hashes.add(Integer.toString(sampleTaskInDependency.hashCode()));
 
         Dependencies newSample = new Dependencies(hashes);
-        assertEquals(newSample, sampleDependency);
+        assertEquals(newSample, sampleDependencies);
     }
 
 }
