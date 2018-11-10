@@ -54,12 +54,13 @@ public class RideCard extends UiPart<Region> {
         statusString.setText(ride.getStatus().name());
         if (ride.getStatus().equals(Status.OPEN)) {
             statusString.setStyle("-fx-background-color: #27D858");
-        } else if (ride.getStatus().equals(Status.SHUTDOWN)
-            || ride.getStatus().equals(Status.MAINTENANCE)) {
+        } else if (ride.getStatus().equals(Status.SHUTDOWN)) {
             statusString.setStyle("-fx-background-color: #CC3045");
-        //error
+        } else if (ride.getStatus().equals(Status.MAINTENANCE)) {
+            statusString.setStyle("-fx-background-color: #CC6A26");
         } else {
-            throw new AccessibilityException(String.format("Ride status is unknown: %1s", ride.getName().fullName));
+            //error
+            throw new AccessibilityException(String.format("Status of %1s is unknown.", ride.getName().fullName));
         }
     }
 

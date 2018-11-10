@@ -81,7 +81,7 @@ public class ShutDownCommand extends Command {
         Name updatedName = openRideDescriptor.getName().orElse(rideToOpen.getName());
         Maintenance updatedMaintenance =
                 openRideDescriptor.getMaintenance().orElse(rideToOpen.getDaysSinceMaintenance());
-        WaitTime updatedWaitTime = openRideDescriptor.getWaitTime().orElse(rideToOpen.getWaitingTime());
+        WaitTime updatedWaitTime = new WaitTime(0);
         Zone updatedZone = openRideDescriptor.getZone().orElse(rideToOpen.getZone());
         Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToOpen.getTags());
         Status updatedStatus = Status.SHUTDOWN;
