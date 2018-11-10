@@ -21,7 +21,6 @@ import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ArgumentMultimap;
 import seedu.restaurant.logic.parser.util.ArgumentTokenizer;
-import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 
 /**
@@ -65,22 +64,12 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
         } else {
             String originalName = argMultimap.getValue(PREFIX_INGREDIENT_ORIGINAL_NAME).orElse("");
             if (originalName.isEmpty()) {
-                throw new ParseException(MESSAGE_NOT_INDEX_OR_NAME + "\n" +
-                        EditIngredientCommand.MESSAGE_USAGE);
+                throw new ParseException(MESSAGE_NOT_INDEX_OR_NAME + "\n" + EditIngredientCommand.MESSAGE_USAGE);
             }
             IngredientName name = parseIngredientName(originalName.trim());
             editCommand = new EditIngredientByNameCommand(name, editIngredientDescriptor);
 
         }
-//
-//        if (indexOrName instanceof Index) {
-//            index = (Index) indexOrName;
-//            editCommand = new EditIngredientByIndexCommand(index, editIngredientDescriptor);
-//        }
-//        if (indexOrName instanceof IngredientName) {
-//            name = (IngredientName) indexOrName;
-//            editCommand = new EditIngredientByNameCommand(name, editIngredientDescriptor);
-//        }
 
         return editCommand;
     }
