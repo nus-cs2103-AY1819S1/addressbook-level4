@@ -147,7 +147,7 @@ public class EditCommand extends Command {
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
 
-        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+        if (operationOnGoogleCalIsSuccessful | !connectToGoogleCalendar.isGoogleCalendarEnabled()) {
             return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()));
         } else {
             return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName())
