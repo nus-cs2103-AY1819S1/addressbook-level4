@@ -68,11 +68,6 @@ public class TaskCard extends UiPart<Region> {
         return "remaining time: " + task.getTimeToDueDate();
     }
 
-//    @Subscribe
-//    public void handleNewResultEvent(NewResultAvailableEvent abce) {
-//        Platform.runLater(() -> remainingTime.setText(getRemainingTime()));
-//    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

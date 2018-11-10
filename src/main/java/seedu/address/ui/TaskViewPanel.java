@@ -27,11 +27,15 @@ import seedu.address.model.task.Task;
  * An UI component that displays all information of a {@code Task}.
  */
 public class TaskViewPanel extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(TaskViewPanel.class);
-
     private static final String FXML = "TaskViewPanel.fxml";
 
+    private final Logger logger = LogsCenter.getLogger(TaskViewPanel.class);
+
     private Logic logic;
+
+    // Used for keeping track of "remaining time", that uses a
+    // NewResultAvailableEvent (with no Task attached to it)
+    private Task latestTask;
 
     @FXML
     private HBox cardPane;
@@ -57,11 +61,18 @@ public class TaskViewPanel extends UiPart<Region> {
     public TaskViewPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
-        if (logic.getFilteredTaskList().size() > 0)
-          displayTask(logic.getFilteredTaskList().get(0));
+        if (logic.getFilteredTaskList().size() > 0) {
+            displayTask(logic.getFilteredTaskList().get(0));
+        }
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Updates the display to show the information regarding the given task.
+     * As a side effect, it updates {@code latestTask}
+     *
+     * @param task the task whose information the view should display
+     */
     private void displayTask(Task task) {
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
@@ -71,7 +82,12 @@ public class TaskViewPanel extends UiPart<Region> {
         status.setText(task.getStatus().toString());
         hash.setText(getHashId(task));
         dependency.setText(getDependencies(task));
-        tags.getChildren().setAll(task.getLabels().stream().map(t -> new Label(t.labelName)).collect(Collectors.toList()));
+        tags.getChildren().setAll(task
+                .getLabels()
+                .stream()
+                .map(t -> new Label(t.labelName))
+                .collect(Collectors.toList()));
+        latestTask = task;
     }
 
     private String getHashId(Task task) {
@@ -117,5 +133,10 @@ public class TaskViewPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         Task task = event.getNewSelection();
         displayTask(task);
+    }
+
+    @Subscribe
+    public void handleNewResultEvent(NewResultAvailableEvent abce) {
+        Platform.runLater(() -> remainingTime.setText(getRemainingTime(latestTask)));
     }
 }
