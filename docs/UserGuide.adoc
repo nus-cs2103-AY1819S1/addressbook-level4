@@ -480,6 +480,7 @@ Displays view of calendar with current week as default page with the events load
 
 image::calendar_view_diagram.png[width="790"]
 
+// tag::budget[]
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
 
@@ -621,6 +622,8 @@ Examples:
 Opens up the Budget Window.
 * `budget c/Softball` +
 Opens up the Budget Window, showing the transaction history of `Softball`.
+
+// end::budget[]
 
 === Miscellaneous
 This section lists miscellaneous commands for navigating Hallper.

@@ -9,7 +9,7 @@
 
 == Overview
 
-The purpose of this portfolio is to document the contribution I have done to the project and provide an overview of
+The purpose of this portfolio is to document the contributions I have done to the project and provide an overview of
 what the project is about.
 
 This project is undertaken by myself and four other Computer Science students as part of our Software Engineering
@@ -39,7 +39,7 @@ the source code as it adds and deletes CCAs and transactions, similar to adding 
 book.
 
 * *Major enhancement 2*: added *the budget window*
-** What it does: It is another window that displays the list of CCAs available and their transaction history.
+** What it does: It opens up another window that displays the list of CCAs available and their transaction history.
 ** Justification: This feature improves the user experience as the user can obtain the financial information of each
 CCA easily. The separate window allows the user to go back to the main Hallper window easily when he wants to look up
  for a person in the address book. The separate windows allow the user to tend to financial matters while searching
@@ -50,12 +50,13 @@ together. It is challenging as it requires interaction with the main window.
 * *Minor enhancement*: added a F2 button to allow the user to switch between the budget window and the main Hallper
 window.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+[ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/main/java/seedu/address[Functional code] ]
+[ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/test/java[Test code] ]
+[ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ericyjw&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense] ]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Documentation:
 *** Updated the About Us: (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/1[#1],
  https://github.com/CS2103-AY1819S1-W16-1/main/pull/8[#8],
@@ -63,6 +64,8 @@ window.
   https://github.com/CS2103-AY1819S1-W16-1/main/pull/16[#16])
 *** Arrange the command in alphabetical order:
  https://github.com/CS2103-AY1819S1-W16-1/main/pull/113/commits/59679dc3edf8c607b42ed6fd02889aa79d8f7152[#113]
+** Enhancement:
+*** Increase the code coverage from 51% to 62%: (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/162[#162])
 
 
 == Contributions to the User Guide
@@ -72,11 +75,6 @@ window.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=add_cca]
-include::../UserGuide.adoc[tag=delete_cca]
-include::../UserGuide.adoc[tag=add_trans]
-include::../UserGuide.adoc[tag=delete_trans]
-include::../UserGuide.adoc[tag=update_cca]
 include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
@@ -86,5 +84,4 @@ include::../UserGuide.adoc[tag=budget]
 |===
 
 include::../DeveloperGuide.adoc[tag=budget]
-include::../DeveloperGuide.adoc[tag=createcca]
 
