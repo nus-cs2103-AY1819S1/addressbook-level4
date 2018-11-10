@@ -392,7 +392,7 @@ The command execution then ends.
 The following sequence diagram shows the execution of the `addappt` command:
 
 .Execution sequence of the `addappt` command
-image::AddApptSequenceDiagram.png[width="800"]
+image::AddapptSequenceDiagram.png[width="800"]
 
 ==== Design considerations
 
