@@ -200,7 +200,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
         //assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs20/");
         //assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs30/");
-        //assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
+        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
     }
     //@@author
 
