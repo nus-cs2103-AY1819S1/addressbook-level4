@@ -6,10 +6,8 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.text.Text?>
 <HBox id="cardPane" styleClass="task-view-panel" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="taskViewGridPane" HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -19,14 +17,17 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
+
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label styleClass="cell_big_label">Name: </Label>
                 <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
             </HBox>
+
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label styleClass="cell_big_label">Tags: </Label>
                 <FlowPane fx:id="tags" />
             </HBox>
+
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label styleClass="cell_big_label">Due Date: </Label>
                 <Label fx:id="dueDate" styleClass="cell_big_label" text="\$dueDate" />
