@@ -18,19 +18,22 @@ By: `T13-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-CAPTracker is for students who wants to use a desktop app for calculating and managing their CAP
-(Cumulative Average Point). More importantly CAPTracker is *optimized for those who prefer to work
-with a CLI (Command Line Interface)* while still having the benefits of a Graphical User Interface
-(GUI). If you can type fast, CAPTracker is the ideal application for calculating your current CAP,
-and predicting grades needed to achieve your ideal CAP in modules that hasn't been taken.
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CAPTracker is for students who wants to use a desktop app for calculating and
+managing their CAP (Cumulative Average Point). More importantly CAPTracker is
+*optimized for those who prefer to work with a CLI (Command Line Interface)*
+while still having the benefits of a Graphical User Interface (GUI). If you can
+type fast, CAPTracker is the ideal application for calculating your current CAP,
+and predicting grades needed to achieve your ideal CAP in modules that hasn't
+been taken. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `10` or later installed in your Computer.
 .  Download the latest `captracker.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you would want to use as the home folder for your CAP Tracker.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you would want to use as the home folder for
+your CAP Tracker.
+.  Double-click the file to start the app. The GUI should appear in a few
+seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -38,9 +41,9 @@ image::Ui.png[width="790"]
 e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some commands you can try:
 
-* **`c_add`**`CS2103 2 1 4 A+` : Adds a module `CS2103` worth `4` MCs taken in Semester `1` as a
-Year `2` student.
-* **`c_delete`**`CS2103` : Deletes `CS2103` from CAPTracker.
+* **`c_add`**`-m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
+`4` MCs taken in Semester `1` as a Year `2` student.
+* **`c_delete`**`-t CS2103` : Deletes `CS2103` from CAPTracker.
 * *`exit`* : Exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -51,7 +54,8 @@ Year `2` student.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be replaced and supplied by the user. +
+* Words in `UPPER_CASE` are the parameters to be replaced and supplied by the
+user. +
 e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
 `c_add CS2103 2 1 4 A+`.
 * Items in square brackets are optional. +
@@ -116,8 +120,8 @@ c_edit -t TARGET_CODE
     [-g NEW_GRADE]
 ----
 *Case 2:* +
-`*More than one*` module entry in CAPTracker has the specified target module code. (E.g. Retook
-the module) +
+`*More than one*` module entry in CAPTracker has the specified target module
+code. (E.g. Retook the module) +
 _Pretty Print Format:_ +
 ----
 c_edit -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
@@ -159,12 +163,13 @@ Deletes a module from the cap tracker. +
 Format:
 
 * Only one module entry with the module code exist: `c_delete MODULE_CODE`
-* Multiple module entries with the same module code exist: `c_delete MODULE_CODE YEAR SEMESTER`
+* Multiple module entries with the same module code exist:
+`c_delete MODULE_CODE YEAR SEMESTER`
 
 ****
 * Targeted module entry have to exist in the CAPTracker before deleting it.
-* `Year` and `Semester` of the targeted entry must be specified if there exist multiple entries with
-  the same module `Code`.
+* `Year` and `Semester` of the targeted entry must be specified if there exist
+multiple entries with the same module `Code`.
 ****
 
 Examples:
@@ -228,33 +233,32 @@ Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 
 === Saving the data
 
-CAPTracker data are saved in the hard disk automatically whenever there is a command that leads to
-change in the data. +
+CAPTracker data are saved in the hard disk automatically whenever there is a
+command that leads to change in the data. +
 There is no need to save manually.
 
 == FAQ
 
 *Q*: I entered the wrong grade into my module. How do I change it? +
 *A*: Use the `c_edit` command to input the correct information for the module +
-`c_edit MODULE_CODE -grade ACTUAL_GRADE`
+`c_edit -t MODULE_CODE -g ACTUAL_GRADE`
 
 == Command Summary
 
 * *Add* +
-`c_add MODULE_CODE YEAR SEMESTER [GRADE]` +
-e.g. `c_add CS2103 2 1 4 A+`
+`c_add -m MODULE_CODE -y YEAR -s SEMESTER -c CREDIT [-g GRADE]` +
+e.g. `c_add -m CS2103 -y 2 -s 1 -c 4 -g A+`
 * *Edit* : +
-`c_edit [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]` +
-e.g. `c_edit CS2103 -grade A+`
-or +
-`c_edit YEAR SEMESTER [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]`+
-e.g. `c_edit CS2103 2 1 -grade A+`
+`c_edit -t TARGET_MODULE_CODE [-e TARGET_YEAR -z TARGET_SEMESTER]
+[-m MODULE_CODE]
+[-y YEAR]
+[-s SEMESTER]
+[-c CREDIT]
+[-g GRADE]` +
+e.g. `c_edit -t CS2103 -grade A+`
 * *Delete* : +
-`c_delete MODULE_CODE` +
-e.g. `c_delete CS2103` +
-or +
-`c_delete MODULE_CODE [YEAR SEMESTER]` +
-e.g. `c_delete CS2103 1 2` +
+`c_delete -t MODULE_CODE [-e TARGET_YEAR -z TARGET_SEMESTER]` +
+e.g. `c_delete CS2103`
 * *Goal* : `c_goal CAP_GOAL` +
 e.g. `c_goal 4.5`
 * *Adjust* : `c_adjust MODULE_CODE GRADE` +
