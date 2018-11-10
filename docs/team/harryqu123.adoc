@@ -1,1 +1,55 @@
+= Harry Qu Haoxuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LearnVocabulary
+
+---
+
+== Overview
+
+LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the group feature to the application
+** What it does: This feature is used to manage the word group inside the application. For now, it bascally support four functionalities including add a empty word group, delete a word group and all the words inside, show all created wordgroups, and show words particularly in some word group.
+** Justification: This feature allows users to better manage and classify words that they want to learn into different groups. For example, in real life, words may need to be grouped for different purpose, different difficulty level and so on.
+
+* *Minor enhancement*: Enhanced the add command, which prevents user from adding word into group which has not been created.
+
+* *Minor enhancement*: Enhanced the edit command, which prevents user from editing word into group which has not been created.
+
+* *Code contributed*: [RepoSense collated code] (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=harryqu123)
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.0` - `v1.4` (3 releases) on GitHub
+
+** Enhancements:
+***  Updated the add and edit commands to ensure that word can not be added or edited to group which does not exist (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/108[#108], https://github.com/CS2103-AY1819S1-T10-3/main/pull/19[#19])
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W16-2/main/issues/202[1], https://github.com/CS2103-AY1819S1-W16-2/main/issues/207[2], https://github.com/CS2103-AY1819S1-W16-2/main/issues/215[3])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=group]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=group]
+
+
 
