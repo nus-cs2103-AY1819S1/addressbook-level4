@@ -51,6 +51,8 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_UPDATE_RIDE_SUCCESS = "Updated Ride: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
     public static final String MESSAGE_DUPLICATE_RIDE = "This ride already exists in the thanepark book.";
+    public static final String MESSAGE_CLOSED_RIDE = "Maintenance and Waiting Time can only be updated "
+            + "if the ride is opened.\n";
 
     private final Index index;
     private final UpdateRideDescriptor updateRideDescriptor;
@@ -93,16 +95,22 @@ public class UpdateCommand extends Command {
      * Creates and returns a {@code Ride} with the details of {@code rideToEdit}
      * edited with {@code updateRideDescriptor}.
      */
-    private static Ride createUpdatedRide(Ride rideToEdit, UpdateRideDescriptor updateRideDescriptor) {
+    private static Ride createUpdatedRide(Ride rideToEdit,
+                                          UpdateRideDescriptor updateRideDescriptor) throws CommandException {
         assert rideToEdit != null;
 
+        if (rideToEdit.getStatus() != Status.OPEN) {
+            if (updateRideDescriptor.getMaintenance().isPresent() || updateRideDescriptor.getWaitTime().isPresent()) {
+                throw new CommandException(MESSAGE_CLOSED_RIDE);
+            }
+        }
         Name updatedName = updateRideDescriptor.getName().orElse(rideToEdit.getName());
         Maintenance updatedMaintenance =
                 updateRideDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
         WaitTime updatedWaitTime = updateRideDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
         Zone updatedZone = updateRideDescriptor.getZone().orElse(rideToEdit.getZone());
         Set<Tag> updatedTags = updateRideDescriptor.getTags().orElse(rideToEdit.getTags());
-        Status updatedStatus = updateRideDescriptor.getStatus().orElse(rideToEdit.getStatus());
+        Status updatedStatus = rideToEdit.getStatus();
 
         return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags, updatedStatus);
     }
@@ -134,7 +142,6 @@ public class UpdateCommand extends Command {
         private Maintenance maintenance;
         private WaitTime waitTime;
         private Zone zone;
-        private Status status;
         private Set<Tag> tags;
 
         public UpdateRideDescriptor() {}
@@ -148,7 +155,6 @@ public class UpdateCommand extends Command {
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
             setZone(toCopy.zone);
-            setStatus(toCopy.status);
             setTags(toCopy.tags);
         }
 
@@ -181,14 +187,6 @@ public class UpdateCommand extends Command {
 
         public Optional<WaitTime> getWaitTime() {
             return Optional.ofNullable(waitTime);
-        }
-
-        public void setStatus(Status status) {
-            this.status = status;
-        }
-
-        public Optional<Status> getStatus() {
-            return Optional.ofNullable(status);
         }
 
         public void setZone(Zone zone) {
@@ -235,7 +233,6 @@ public class UpdateCommand extends Command {
                     && getMaintenance().equals(e.getMaintenance())
                     && getWaitTime().equals(e.getWaitTime())
                     && getZone().equals(e.getZone())
-                    && getStatus().equals(e.getStatus())
                     && getTags().equals(e.getTags());
         }
     }
