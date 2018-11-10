@@ -61,7 +61,7 @@ public class DateFormatUtil {
     }
 
     /**
-     * Returns true if a given string is a valid date format of template.
+     * Returns true if a given string is a valid date format of its SimpleDateFormat and regex format.
      *
      * @param test string to be tested against the format
      * @param format format to test string with
@@ -71,6 +71,13 @@ public class DateFormatUtil {
         return isValidDateFormatFromDateFormat(test, format) && isValidDateFormatFromRegex(test, regex);
     }
 
+    /**
+     * Returns true if a given string is a valid date format of format
+     *
+     * @param test string to be tested against the format
+     * @param format format to test string with
+     * @return true if is the correct format. False otherwise
+     */
     private static boolean isValidDateFormatFromDateFormat(String test, SimpleDateFormat format) {
         try {
             format.parse(test);
@@ -79,6 +86,14 @@ public class DateFormatUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if a given string is a valid date format of regex
+     *
+     * @param test string to be tested against the format
+     * @param regex regex to test string with
+     * @return true if is the correct format. False otherwise
+     */
     private static boolean isValidDateFormatFromRegex(String test, String regex) {
         return test.matches(regex);
     }
