@@ -11,7 +11,6 @@ import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
@@ -96,7 +95,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        Appointment appt = new Appointment(date, time, ALEX, 0);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -104,7 +103,7 @@ public class ModelManagerTest {
     public void hasAppointmentClash_appointmentClash_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        Appointment appt = new Appointment(date, time, ALEX, 0);
         assertFalse(modelManager.hasAppointmentClash(appt));
     }
 
@@ -137,7 +136,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        Appointment appt = new Appointment(date, time, ALEX, 0);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
     }
@@ -146,7 +145,7 @@ public class ModelManagerTest {
     public void hasAppointmentClash_appointmentNoClashInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        Appointment appt = new Appointment(date, time, ALEX, 0);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointmentClash(appt));
     }
@@ -198,6 +197,11 @@ public class ModelManagerTest {
         modelManager.getFilteredMedicineList().remove(0);
     }
 
+    @Test
+    public void getFilteredConsultationsList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredConsultationList().remove(0);
+    }
 
     //========================================================================================================
 

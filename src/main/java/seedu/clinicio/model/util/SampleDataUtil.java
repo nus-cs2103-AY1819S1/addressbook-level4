@@ -18,6 +18,9 @@ import seedu.clinicio.model.medicine.MedicineName;
 import seedu.clinicio.model.medicine.MedicinePrice;
 import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.medicine.MedicineType;
+import seedu.clinicio.model.patient.Allergy;
+import seedu.clinicio.model.patient.MedicalProblem;
+import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -116,4 +119,30 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a medical problem set containing the list of strings given.
+     */
+    public static Set<MedicalProblem> getMedicalProblemSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(MedicalProblem::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a medication set containing the list of strings given.
+     */
+    public static Set<Medication> getMedicationSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Medication::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a allergy set containing the list of strings given.
+     */
+    public static Set<Allergy> getAllergySet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Allergy::new)
+                .collect(Collectors.toSet());
+    }
 }

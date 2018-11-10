@@ -1,13 +1,17 @@
 package seedu.clinicio.testutil;
 
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_ORACORT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_PARACETAMOL;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_VENTOLIN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
@@ -28,14 +32,22 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_P
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_VENTOLIN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CANDY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_DAISY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_CANDY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_CHLORPHENIRAMINE;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_ORACORT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_PARACETAMOL;
@@ -58,6 +70,7 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 
 /**
@@ -99,7 +112,7 @@ public class TypicalPersons {
             .build();
 
     // Manually added (Patient)
-    public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
+    /*public static final Patient ALICE_AS_PATIENT = PatientBuilder.buildFromPerson(ALICE)
             .build();
     public static final Patient BENSON_AS_PATIENT = PatientBuilder.buildFromPerson(BENSON)
             .build();
@@ -114,7 +127,7 @@ public class TypicalPersons {
     public static final Patient GEORGE_AS_PATIENT = PatientBuilder.buildFromPerson(GEORGE)
             .build();
     public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
-            .build();
+            .build();*/
 
     // Manually added (Staff)
     public static final Staff ADAM = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
@@ -122,11 +135,23 @@ public class TypicalPersons {
     public static final Staff BEN = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
+    // Manually added (Staff without hash password)
+    public static final Staff ADAM_1 = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
+            .withPassword("123456", false).build();
+    public static final Staff BEN_1 = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
+            .withPassword("123456", false).build();
+
     // Manually added (Patient)
-    public static final Patient ALEX = new PatientBuilder().withName("Alex").withNric("S9951423J")
-            .withPreferredDoctor(ADAM).build();
-    public static final Patient BRYAN = new PatientBuilder().withName("Bryan").withNric("S9106823A")
-            .withPreferredDoctor(BEN).build();
+    public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
+            .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+    public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
+            .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+
+    //Not inside ClinicIO
+    public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
+            .withNric(VALID_NRIC_CANDY).build();
 
     //Not inside ClinicIO
     public static final Staff CAT = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_CAT)
@@ -144,11 +169,11 @@ public class TypicalPersons {
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withType(1).withPatient(AMY_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(13, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withType(1).withPatient(BENSON_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(17, 45).withType(1).withPatient(BRYAN).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withType(1).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(18, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
 
     // Medicines
     public static final Medicine PARACETAMOL = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_PARACETAMOL)
