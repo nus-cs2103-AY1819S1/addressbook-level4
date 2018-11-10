@@ -24,7 +24,7 @@ public class DeletePatientCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         String userInput = " " + PREFIX_NAME + ALICE_PATIENT.getName();
-        assertParseSuccess(parser, userInput, new DeletePatientCommand(ALICE_PATIENT.getName()));
+        assertParseSuccess(parser, userInput, new DeletePatientCommand(ALICE_PATIENT.getName(), null));
     }
 
     @Test
