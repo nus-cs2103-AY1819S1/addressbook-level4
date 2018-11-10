@@ -28,6 +28,7 @@ import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.GenerateLocationCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -54,6 +55,7 @@ public class CommandBox extends UiPart<Region> {
             EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD_ALIAS,
             ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD_ALIAS, FavouriteCommand.COMMAND_WORD,
             FavouriteCommand.COMMAND_WORD_ALIAS, FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD_ALIAS,
+            FindEventCommand.COMMAND_WORD,
             GenerateLocationCommand.COMMAND_WORD, GenerateLocationCommand.COMMAND_WORD_ALIAS,
             HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD_ALIAS, HistoryCommand.COMMAND_WORD,
             HistoryCommand.COMMAND_WORD_ALIAS, ImportContactsCommand.COMMAND_WORD,
