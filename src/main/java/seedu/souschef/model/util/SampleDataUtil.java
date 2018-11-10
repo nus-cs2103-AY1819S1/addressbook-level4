@@ -38,7 +38,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Contains utility methods for populating {@code AppContent} with sample data.

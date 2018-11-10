@@ -12,7 +12,7 @@ import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Stores the details to edit the recipe with. Each non-empty field value will replace the

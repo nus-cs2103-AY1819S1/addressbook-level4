@@ -14,7 +14,7 @@ import seedu.souschef.model.planner.DayComparator;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 
 /**

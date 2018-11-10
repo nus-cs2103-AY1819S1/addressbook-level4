@@ -32,7 +32,7 @@ import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.RecipeBuilder;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
