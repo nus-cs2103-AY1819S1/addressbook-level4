@@ -81,19 +81,11 @@ To view previous commands entered. +
 Format: +
 `-history`
 
-<<<<<<< HEAD
-==== Display new recipe: `-surprise`
-Display a random recipe for the user who wants to try something bold
-and new but has no idea what they want. +
-Format: +
-`-surprise`
-=======
 ==== Switch to recipe context: `-recipe`
 Switch to recipe context and display recipes. +
 See <<Recipes Commands (Only applicable in recipe context)>> to view commands for recipe context. +
 Format: +
 `-recipe`
->>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 
 ==== Switch to ingredient manager context: `-ingredient`
 Switch to ingredient manager context and display ingredient manager, which helps stock
@@ -256,17 +248,7 @@ Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
 
-<<<<<<< HEAD
-==== Display recipe suggestion: `-suggest` [coming in V1.4]
-Display system suggestions based on user's past navigation history
-and favorites. +
-Format: +
-`-suggest`
-
-==== Add to meal plan: `plan INDEX DATE MEAL`
-=======
 ==== Add to meal plan: `plan`
->>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 Add a specified recipe to meal plan. +
 ****
 * INDEX should be the index number of the recipe displayed
@@ -285,44 +267,8 @@ Add comment and rating to current recipe. +
 Format: +
 `review [COMMENT] RATING`
 
-<<<<<<< HEAD
-=== Favourites Commands
-
-==== List all ingredients: `list`
-
-Shows a list of user’s favourite recipes. +
-Format: +
-`list`
-
-==== Find ingredient: `find`
-
-Find favourite recipe whose name contains any of the given keywords.
-Format: +
-`find KEYWORD…`
-
-****
-* Keywords are case insensitive
-* Only the name is searched
-* Match only full words
-****
-
-==== Delete ingredient: `delete`
-
-Delete favourite recipe added by user according to its index in last shown list.
-Format: +
-`delete INDEX`
-
-==== Clear ingredients: `clear`
-
-Clears all favourite recipes.
-
-Format: `clear`
-
-=== Ingredient Manager Commands
-=======
 // tag::ingredient[]
 === Ingredient Manager Commands (Only applicable in ingredient context)
->>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 
 ==== Add an ingredient: `add`
 
