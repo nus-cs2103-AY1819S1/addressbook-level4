@@ -122,8 +122,8 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in and have the "REMOVE_EMPLOYEE" permission.
-* All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
+* To use this command, you must be logged in and have the "DELETE_EMPLOYEE" permission.
+* All deleted employees will be stored in the archive, when employee in archive is deleted again it will be taken out of archive.
 ****
 
 Examples:
@@ -147,7 +147,7 @@ Adds an assignment into the system.
 Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
 
 ****
-* To use this command, you must be logged in with "CREATE_ASSIGNMENT" permissions.
+* To use this command, you must be logged in with "ADD_ASSIGNMENT" permissions.
 ****
 Examples:
 
@@ -260,6 +260,9 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
+****
+* To use this command, you must be logged in with "EDIT_EMPLOYEE" permission.
+****
 Examples:
 
 * `edit 1 -p 91234567 -e johndoe@example.com`
@@ -279,13 +282,13 @@ The following is the list of Permissions available.
 |=========================================================
 |Permission|What it does
 |ADD_EMPLOYEE|Allows the user to add employee
-|REMOVE_EMPLOYEE|Allows the user to delete employee
+|DELETE_EMPLOYEE|Allows the user to delete employee
 |EDIT_EMPLOYEE|Allows the user to edit information of an employee
 |VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
-|CREATE_ASSIGNMENT (Currently not used)|Allows user to create a assignment
-|ASSIGN_ASSIGNMENT (Currently not used)|Allows user to assign employee to a assignment
-|VIEW_ASSIGNMENT (Currently not used)|Allows user to view all assignments
+|ADD_ASSIGNMENT|Allows user to add assignments into OASIS
+|DELETE_ASSIGNMENT|Allows user to delete assignments 
+|EDIT_ASSIGNMENT|Allows user to edit assignments
 |ASSIGN_PERMISSION|Allows user to assign permission to employees
 |=========================================================
 
@@ -298,7 +301,7 @@ The following is the list of Permissions available.
 Examples:
 
 * modifypermission 1 -a ADD_EMPLOYEE
-* modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
+* modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
 
 === Change password : `passwd`
 
@@ -470,10 +473,6 @@ Shows a list of all assignments in the system.
 
 Format: `listassignment`
 
-****
-* To use this command, you must be logged in with "VIEW_ASSIGNMENT" permissions.
-****
-
 === Removing an assignment: `deleteassignment`
 
 Removes an assignment from the system.
@@ -481,7 +480,7 @@ Removes an assignment from the system.
 Format: `deleteassignment INDEX`
 
 ****
-* To use this command, you must be logged in with "REOMVE_ASSIGNMENT" permissions.
+* To use this command, you must be logged in with "DELETE_ASSIGNMENT" permissions.
 ****
 
 == FAQ
@@ -526,15 +525,18 @@ Format: `deleteassignment INDEX`
  |Command|Required Permission|Format|Example
  |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
- |Delete employee|REMOVE_EMPLOYEE|delete INDEX|delete 1
+ |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
  |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
   | edit 1 -p 91234567 -e johndoe@example.com
  |Clear|Admin|clear|clear
  |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
- modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
+ modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
  |View all Permissions of employee|ASSIGN_PERMISSION|viewpermission INDEX|viewpermission 1
  |View leave application list of all employees|VIEW_EMPLOYEE_LEAVE|leavelist|leavelist
  |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
  |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
+ |Add an assignment|ADD_ASSIGNMENT|addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION| addassignment -an KRYPTONE -au Jhonny English -d Data encription application.
+ |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
+ |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 
