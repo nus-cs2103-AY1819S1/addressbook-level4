@@ -121,6 +121,7 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/95[#95 (list filter)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/154[#154 (list filter)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/67[#67 (Complete command)]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/213[#213 (Tests for achievements)]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/241[#241 (Task UI)]
 
 
 ** Tools:
