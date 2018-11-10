@@ -159,7 +159,6 @@ public class Date {
         return builder.toString();
     }
 
-
     /**
      * @return the date without labels.
      */

@@ -12,14 +12,14 @@ import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Time;
 
 /**
- * Contains utility methods for computing ocurrences and retrieving time values.
+ * Contains utility methods for computing occurrences and retrieving time values.
  */
 public class TimeUtil {
 
     /**
      * stores periods of time in a list, each as a tuple with start and end time
      * the 3 hour periods make up the hours in a working clinic day: 9AM - 9PM
-     * 9.00AM - 11.59pm
+     * 9.00AM - 11.59am
      * 12.00PM - 2.59PM
      * 3.00PM - 5.59PM
      * 6.00PM - 9PM
