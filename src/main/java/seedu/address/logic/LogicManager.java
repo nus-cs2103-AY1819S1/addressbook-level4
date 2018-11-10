@@ -8,7 +8,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.TranscriptParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -26,29 +25,19 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final TranscriptParser transcriptParser;
 
-    //TODO: REMOVE LEGACY CODE
-    private final AddressBookParser addressBookParser;
-
+    //@@author alexkmj
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         transcriptParser = new TranscriptParser();
-
-        //TODO: REMOVE LEGACY CODE
-        addressBookParser = new AddressBookParser();
     }
 
+    //@@author alexkmj
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            if (commandText.trim().startsWith("c_")) {
-                Command command = transcriptParser.parseCommand(commandText);
-                return command.execute(model, history);
-            }
-
-            //TODO: REMOVE LEGACY CODE
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = transcriptParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

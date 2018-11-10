@@ -7,10 +7,14 @@ import java.util.Comparator;
 import java.util.List;
 
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.exceptions.CapGoalIsImpossibleException;
+import seedu.address.model.exceptions.NoTargetableModulesException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
@@ -27,6 +31,8 @@ import seedu.address.model.module.exceptions.MultipleModuleEntryFoundException;
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class Transcript implements ReadOnlyTranscript {
+    private static final Logger logger = LogsCenter.getLogger(Transcript.class);
+
     private final UniqueModuleList modules;
     private CapGoal capGoal;
     private double currentCap;
@@ -135,6 +141,7 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     private void updateCurrentCap() {
+        logger.info("Updating Current CAP");
         currentCap = calculateCap();
     }
 
@@ -222,6 +229,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Calls relevant methods when the modules list is updated
      */
     private void modulesUpdated() {
+        logger.info("Modules Updated... Updating Target Grades and Current CAP");
         updateTargetModuleGrades();
         updateCurrentCap();
     }
@@ -230,18 +238,25 @@ public class Transcript implements ReadOnlyTranscript {
      * Replaces targetable module with an updated target grade
      */
     private void updateTargetModuleGrades() {
+        logger.info("Updating Target Grades...");
         boolean shouldSkip = !capGoal.isSet();
         if (shouldSkip) {
+            logger.info("No CAP Goal set, stopping target grades calculation.");
             return;
         }
         ObservableList<Module> targetableModules = getTargetableModulesList();
-        List<Module> newTargetModules = getNewTargetModuleGrade(targetableModules);
-        if (newTargetModules == null) {
+
+        try {
+            List<Module> newTargetModules = getNewTargetModuleGrade(targetableModules);
+            makeCapGoalPossible();
+            replaceTargetModules(targetableModules, newTargetModules);
+        } catch (CapGoalIsImpossibleException cgiie) {
+            logger.info("CAP Goal is impossible to achieve.");
             makeCapGoalImpossible();
-            return;
+        } catch (NoTargetableModulesException ntme) {
+            logger.info("No targetable modules.");
+            makeCapGoalPossible();
         }
-        makeCapGoalPossible();
-        replaceTargetModules(targetableModules, newTargetModules);
     }
 
     /**
@@ -263,7 +278,8 @@ public class Transcript implements ReadOnlyTranscript {
      * Calculates target module grade in order to achieve target goal
      * @return a list of modules with target grade if possible. null otherwise
      */
-    private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules) {
+    private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules)
+            throws CapGoalIsImpossibleException, NoTargetableModulesException {
         ObservableList<Module> gradedModules = getGradedModulesList();
         ObservableList<Module> adjustedModules = getGradedAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
@@ -276,14 +292,10 @@ public class Transcript implements ReadOnlyTranscript {
                 + calculateTotalModulePoint(adjustedModules);
 
         if (totalUngradedModuleCredit == 0) {
-            if (totalMc == 0) {
-                return null;
+            if (totalMc == 0 || capGoal.getValue() > currentTotalPoint / totalMc) {
+                throw new CapGoalIsImpossibleException();
             }
-            double adjustedCap = currentTotalPoint / totalMc;
-            if (capGoal.getValue() > adjustedCap) {
-                return null;
-            }
-            return new ArrayList<>();
+            throw new NoTargetableModulesException();
         }
 
         return createNewTargetModuleGrade(
@@ -302,7 +314,9 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private List<Module> createNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
-            double totalUngradedModuleCredit, double totalMc, double currentTotalPoint) {
+            double totalUngradedModuleCredit, double totalMc, double currentTotalPoint)
+            throws CapGoalIsImpossibleException {
+
         if (totalUngradedModuleCredit <= 0) {
             throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
         }
@@ -322,30 +336,41 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
-            double givenTotalUngradedModuleCredit, double givenTotalScoreToAchieve) {
+            double givenTotalUngradedModuleCredit, double givenTotalScoreToAchieve)
+            throws CapGoalIsImpossibleException {
+
         double totalUngradedModuleCredit = givenTotalUngradedModuleCredit;
         double totalScoreToAchieve = givenTotalScoreToAchieve;
-        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
-        if (totalUngradedModuleCredit <= 0) {
-            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
-        }
-        if (unitScoreToAchieve > 5) {
-            return null;
-        }
+        double unitScoreToAchieve;
+
         List<Module> targetModules = new ArrayList<>();
         Module newTargetModule;
         for (Module targetedModule : sortedTargetableModules) {
-            if (unitScoreToAchieve <= 0.5) {
-                unitScoreToAchieve = 1.0;
-            }
+            unitScoreToAchieve = getUnitScoreToAchieve(totalUngradedModuleCredit, totalScoreToAchieve);
             newTargetModule = targetedModule.updateTargetGrade(unitScoreToAchieve);
             targetModules.add(newTargetModule);
             totalScoreToAchieve -= newTargetModule.getCreditsValue() * unitScoreToAchieve;
             totalUngradedModuleCredit -= newTargetModule.getCreditsValue();
-            unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         }
 
         return targetModules;
+    }
+
+    private double getUnitScoreToAchieve(double totalUngradedModuleCredit, double totalScoreToAchieve)
+            throws CapGoalIsImpossibleException {
+        if (totalUngradedModuleCredit <= 0) {
+            logger.warning("Total Amount of ungraded Module Credit is 0 or lesser.");
+            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative.");
+        }
+        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        if (unitScoreToAchieve > 5) {
+            throw new CapGoalIsImpossibleException();
+        }
+        if (unitScoreToAchieve <= 0.5) {
+            logger.info("Unit score to achieve is the minimum");
+            return 0.1;
+        }
+        return unitScoreToAchieve;
     }
 
     private ObservableList<Module> getGradedAdjustedModulesList() {
@@ -371,6 +396,20 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private void makeCapGoalImpossible() {
         capGoal = capGoal.makeIsImpossible();
+        removeTargetFromTargetedModules();
+    }
+
+    /**
+     * Removes the given target grades to incomplete modules
+     */
+    private void removeTargetFromTargetedModules() {
+        List<Module> targetedModules = getTargetedModulesList();
+        List<Module> targetRemovedModules = new ArrayList<>();
+        for (Module targetedModule : targetedModules) {
+            targetRemovedModules.add(new Module(targetedModule, new Grade()));
+        }
+        modules.removeAll(targetedModules);
+        modules.addAll(targetRemovedModules);
     }
 
     /**

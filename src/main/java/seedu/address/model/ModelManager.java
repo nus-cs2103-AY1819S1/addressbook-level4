@@ -302,6 +302,13 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Module> getIncompleteModuleList() {
         return versionedTranscript.getIncompleteModuleList();
     }
+  
+    @Override
+    public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        Module adjustedModule = versionedTranscript.adjustModule(targetModule, adjustGrade);
+        indicateTranscriptChanged();
+        return adjustedModule;
+    }
     //@@author
 
     //@@author alexkmj
