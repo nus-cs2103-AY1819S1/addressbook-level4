@@ -5,17 +5,16 @@ package seedu.address.model.permission;
  */
 public enum Permission {
     ADD_EMPLOYEE,
-    REMOVE_EMPLOYEE,
+    DELETE_EMPLOYEE,
     EDIT_EMPLOYEE,
     RESTORE_EMPLOYEE,
 
     VIEW_EMPLOYEE_LEAVE,
     APPROVE_LEAVE,
 
-    CREATE_PROJECT,
-    ASSIGN_PROJECT,
-    VIEW_PROJECT,
-
+    ADD_ASSIGNMENT,
+    DELETE_ASSIGNMENT,
+    EDIT_ASSIGNMENT,
 
     ASSIGN_PERMISSION; //Might need a superadmin permission to control this permission.
 

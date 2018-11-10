@@ -28,7 +28,7 @@ class ModifyPermissionCommandParserTest {
     private String invalidAddPermissionArg = " " + PREFIX_ADD_PERMISSION + "INVALID_PERMISSION ";
     private String invalidRemovePermissionArg = " " + PREFIX_REMOVE_PERMISSION + "INVALID_PERMISSION ";
     private String validAddPermissionArg = " " + PREFIX_ADD_PERMISSION + Permission.ADD_EMPLOYEE.name();
-    private String validRemovePermissionArg = " " + PREFIX_REMOVE_PERMISSION + Permission.REMOVE_EMPLOYEE.name();
+    private String validRemovePermissionArg = " " + PREFIX_REMOVE_PERMISSION + Permission.DELETE_EMPLOYEE.name();
 
     @Test
     void parse_missingParts_failure() {
@@ -86,7 +86,7 @@ class ModifyPermissionCommandParserTest {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + validRemovePermissionArg;
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
-        toRemove.add(Permission.REMOVE_EMPLOYEE);
+        toRemove.add(Permission.DELETE_EMPLOYEE);
 
         ModifyPermissionCommand expectedCommand = new ModifyPermissionCommand(targetIndex, toAdd, toRemove);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -99,7 +99,7 @@ class ModifyPermissionCommandParserTest {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
-        toRemove.add(Permission.REMOVE_EMPLOYEE);
+        toRemove.add(Permission.DELETE_EMPLOYEE);
 
 
         ModifyPermissionCommand expectedCommand = new ModifyPermissionCommand(targetIndex, toAdd, toRemove);
