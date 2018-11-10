@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= U-Schedule - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T10-1/main/tree/master/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T10-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -47,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedCalendarEvent.java[`XmlAdaptedCalendarEvent.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -149,7 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete event 1`.
 
 .Component interactions for `delete event 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteCalendarEvent.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `SchedulerChangedEvent` when the calendar data is changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -157,7 +157,7 @@ Note how the `Model` simply raises a `SchedulerChangedEvent` when the calendar d
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete event 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteCalendarEventEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -207,7 +207,7 @@ link:{repoURL}/src/main/java/seedu/venue/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete event 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete event 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteCalendarEventSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
