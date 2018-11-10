@@ -177,12 +177,12 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 [NOTE]
 ====
-* You must specify at least 1 `DATE`. 
+You must specify at least 1 `DATE`. 
 ====
 
 [WARNING]
 ====
-* If the `DATE` is of an illegal format, the command will be rejected.
+If the `DATE` is of an illegal format, the command will be rejected.
 ====
 
 Examples:
@@ -197,7 +197,7 @@ Format: `leavelist`
 
 [NOTE]
 ====
-* If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
+If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
 ====
 
 === Approve a leave application : `leaveapprove`
@@ -213,7 +213,7 @@ Format: `leaveapprove [INDEX]`
 
 [NOTE]
 ====
-* To use this command, you must have "APPROVE_LEAVE" permissions.
+To use this command, you must have "APPROVE_LEAVE" permissions.
 ====
 
 Examples:
@@ -233,7 +233,7 @@ Format: `leavereject [INDEX]`
 
 [NOTE]
 ====
-* To use this command, you must have "APPROVE_LEAVE" permissions.
+To use this command, you must have "APPROVE_LEAVE" permissions.
 ====
 
 Examples:
