@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" styleClass="task-view-panel" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane fx:id="taskViewGridPane" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox spacing="20" alignment="CENTER_LEFT" minHeight="500" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">NAME: </Label>
+                <Label fx:id="name" styleClass="cell_big_label"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">TAGS: </Label>
+                <FlowPane fx:id="tags" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">DUE DATE: </Label>
+                <Label fx:id="dueDate" styleClass="cell_big_label"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">REMAINING TIME: </Label>
+                <Label fx:id="remainingTime" styleClass="cell_big_label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">DESCRIPTION: </Label>
+                <Label fx:id="description" styleClass="cell_big_label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">PRIORITY VALUE: </Label>
+                <Label fx:id="priorityValue" styleClass="cell_big_label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">STATUS: </Label>
+                <Label fx:id="status" styleClass="cell_big_label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">DEPENDENCIES: </Label>
+                <Label fx:id="dependencies" styleClass="cell_big_label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">EFFECTIVE DUE DATE: </Label>
+                <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" />
+            </HBox>
+
+        </VBox>
+    </GridPane>
+</HBox>
+
