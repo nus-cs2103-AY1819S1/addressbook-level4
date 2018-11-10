@@ -14,13 +14,15 @@ import java.io.Writer;
 import org.junit.jupiter.api.Test;
 
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
 
 class ConnectToGoogleCalendarTest {
     private static final String CALENDAR_NAME = "primary";
     private static final String TEMP_EVENT_NAME = "tempEventName";
 
-    private void enable( ) {
+    /**
+     * Enables the test environment
+     */
+    private void enable() {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             String contents = "Enabled";
@@ -30,7 +32,10 @@ class ConnectToGoogleCalendarTest {
         }
     }
 
-    private void disable( ) {
+    /**
+     * Disables the test environment
+     */
+    private void disable() {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             String contents = "Disabled";
@@ -80,11 +85,10 @@ class ConnectToGoogleCalendarTest {
 
         //create an event in Google Calender
         try {
-            Event createdEvent =
-                    service.events()
-                            .quickAdd(CALENDAR_NAME,TEMP_EVENT_NAME)
-                            .setText(TEMP_EVENT_NAME)
-                            .execute();
+            service.events()
+                    .quickAdd(CALENDAR_NAME, TEMP_EVENT_NAME)
+                    .setText(TEMP_EVENT_NAME)
+                    .execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
