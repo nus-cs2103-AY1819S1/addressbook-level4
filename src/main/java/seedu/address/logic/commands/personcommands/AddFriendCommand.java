@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Given two persons, add friends for each other using two displayed indexes from the address book.
+ * Given two persons, add friends for each other using two displayed indexes from the event organiser.
  * Friendships must be bilateral, for example person A and B must be friends with each other.
  *
  * @author agendazhang

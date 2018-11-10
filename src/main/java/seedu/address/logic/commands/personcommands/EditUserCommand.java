@@ -38,7 +38,7 @@ import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the event organiser.
  */
 public class EditUserCommand extends Command {
 

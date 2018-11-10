@@ -281,7 +281,7 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 
 // end::maxschedule[]
 
-// tag::KengJi[]
+// tag::KengJi(1)[]
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
@@ -330,6 +330,7 @@ Format: `selectEvent index`
 * Selecting an event displays the event participants as well as the polls associated with the event.
 * Each poll in the event is given a unique poll index.
 ****
+// end::KengJi(1)[]
 
 image::EventSelectedDisplay.png[width="800"]
 
@@ -387,6 +388,7 @@ Examples:
 * `setTime t1/23:00 t2/23:30`
 * `setTime t1/13:30 t2/14:00`
 
+// tag::KengJi(2)[]
 ==== Create a new poll for an event : `addPoll n/NAME`
 Sets up a new poll for the event with the specified name. +
 Format: `addPoll n/POLL_NAME`
@@ -444,6 +446,7 @@ In the following example, the options `12 November` and `13 November` have been 
 Since there are no voters yet, the most popular options list is empty.
 
 image::AddOptionDisplay.png[width="800"]
+// end::KengJi(2)[]
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -526,8 +529,6 @@ In the following example, `Alex Yeoh` has voted for `13 November`.
 Since it is the most popular option, `13 November` appears in the most popular options list.
 
 image::VoteOptionDisplay.png[width="800"]
-
-// end::KengJi[]
 
 === Listing entered commands : `history`
 
