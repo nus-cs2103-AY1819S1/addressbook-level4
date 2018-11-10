@@ -3,13 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.ENTIRE_CANVAS_MESSAGE;
 
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
 import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
-import seedu.address.logic.commands.canvas.CanvasSaveCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -19,12 +15,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates the corresponding Google type command object
  */
 public class CanvasCommandParser {
-
-    private static final Logger logger = LogsCenter.getLogger(CanvasCommandParser.class);
-
-    private String subcommand;
-    private String argument;
-
     /**
      * Parses the sub-command and arguments for the Canvas command
      *
@@ -33,8 +23,8 @@ public class CanvasCommandParser {
     public CanvasCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String[] argumentArray = args.trim().split(" ", 2);
-        subcommand = argumentArray[0];
-        argument = (argumentArray.length > 1) ? argumentArray[1] : null;
+        String subcommand = argumentArray[0];
+        String argument = (argumentArray.length > 1) ? argumentArray[1] : null;
 
         switch (subcommand) {
         case "auto-resize": {
@@ -48,12 +38,6 @@ public class CanvasCommandParser {
                 throw new ParseException(CanvasBgcolorCommand.MESSAGE_USAGE);
             }
             return new CanvasBgcolorCommand(argument);
-        }
-        case "save": {
-            if (argument == null) {
-                throw new ParseException(CanvasSaveCommand.MESSAGE_USAGE);
-            }
-            return new CanvasSaveCommand(argument);
         }
         case "size": {
             return new CanvasSizeCommand(argument);

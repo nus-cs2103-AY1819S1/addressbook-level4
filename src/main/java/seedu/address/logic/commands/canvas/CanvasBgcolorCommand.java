@@ -1,30 +1,28 @@
 package seedu.address.logic.commands.canvas;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
-import javafx.embed.swing.SwingFXUtils;
-
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Handles the toggling of auto-resize.
+ * Handles the changing of background color.
+ * Commands are in the format : canvas bgcolor [`none` | hex color code | rgba/hsla color code].
  */
 
 public class CanvasBgcolorCommand extends CanvasCommand {
     public static final String TYPE = COMMAND_WORD + " bgcolor";
     public static final String MESSAGE_USAGE = "Usage of canvas bgcolor: "
-            + "\n- " + TYPE + " [color]: " + "Changes the background color to the colour specified."
-            + "\n\tExample: " + TYPE + " rgba(0,255,0,0.7) - Changes the background colour to"
+            + "\n- " + TYPE + " [color]: " + "Changes the background color to the color specified."
+            + "\n\tExample: " + TYPE + " rgba(0,255,0,0.7) - Changes the background color to"
             + " lime-green with 70% opacity.";
 
-    public static final String OUTPUT_SUCCESS = "Background colour is now: %s.";
+    public static final String OUTPUT_SUCCESS = "Background color is now: %s.";
     public static final String OUTPUT_FAILURE = "Invalid colour %s!";
 
     private static final String HEX_REGEX = "^#(?:[0-9a-f]{3}){1,2}$";
@@ -39,20 +37,13 @@ public class CanvasBgcolorCommand extends CanvasCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args.matches(HEX_REGEX) || args.matches(VERBOSE_REGEX) || args.matches(NONE_REGEX)) {
-            model.getCanvas().setBackgroundColor(args);
-            try {
-                EventsCenter.getInstance().post(
-                        new ChangeImageEvent(
-                                SwingFXUtils.toFXImage(
-                                        ImageMagickUtil.processCanvas(model.getCanvas()), null), "preview"));
-            } catch (Exception e) {
-                logger.severe(e.getMessage());
-            }
+            model.setBackgroundColor(args);
+            ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             return new CommandResult(String.format(OUTPUT_SUCCESS, args));
         }
-        return new CommandResult(String.format(OUTPUT_FAILURE, args)
+        throw new CommandException(String.format(OUTPUT_FAILURE, args)
                 + "\n\n"
                 + MESSAGE_USAGE);
     }

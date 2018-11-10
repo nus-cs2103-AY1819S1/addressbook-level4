@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -9,12 +9,13 @@ import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-
-
 /**
- * Handles the repositioning of Layers.
+ * Handles the changing of layer order.
+ * Commands are in the format - layer swap [index index].
+ * Invalid indexes and invalid operations are handled.
  */
 
 public class LayerSwapCommand extends LayerCommand {
@@ -25,6 +26,7 @@ public class LayerSwapCommand extends LayerCommand {
 
     public static final String OUTPUT_SUCCESS = "Layers %d and %d are now swapped.";
     public static final String OUTPUT_FAILURE = "Invalid index(es) provided!";
+    static final String OUTPUT_ILLEGAL = "Unable to swap layers!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerSwapCommand.class);
 
@@ -35,7 +37,7 @@ public class LayerSwapCommand extends LayerCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         String[] argumentArray = args.trim().split(" ", 2);
 
         int to;
@@ -45,19 +47,14 @@ public class LayerSwapCommand extends LayerCommand {
 
         try {
             to = Integer.parseInt(argumentArray[0]);
-            from = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : null);
-            if (to <= 0 || to > model.getCanvas().getLayers().size()
-                    || from <= 0 || from > model.getCanvas().getLayers().size() || to == from) {
-                throw new NumberFormatException(OUTPUT_FAILURE);
-            }
+            from = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : "");
             toIndex = Index.fromOneBased(to);
             fromIndex = Index.fromOneBased(from);
-
             model.swapLayer(toIndex, fromIndex);
-        } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new CommandException(OUTPUT_FAILURE);
         } catch (IllegalOperationException e) {
-            return new CommandResult("Unable to swap layers!");
+            throw new CommandException(OUTPUT_ILLEGAL);
         }
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");

@@ -37,6 +37,8 @@ public class Layer {
         image.addTransformation(t);
     }
 
+    //Misc accessors.
+
     public int getX() {
         return x;
     }
@@ -51,6 +53,16 @@ public class Layer {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    /**
+     * Sets the position of the layer to the provided co-ordinates
+     * @param x - the new X position of the layer
+     * @param y - the new Y position of the layer
+     */
+    public void setPosition(int x, int y) {
+        setX(x);
+        setY(y);
     }
 
     public int getHeight() {

@@ -28,14 +28,11 @@ public class Canvas {
     private int height;
     private int width;
 
-    public Canvas() {
-        isCanvasAuto = true;
-    }
-
     /**
      * Constructor for a canvas that has the size of the initial image.
      * Auto-resizing of the canvas defaults to false.
-     * * @param initial
+     * @param initial - The image which the first layer will be created with. The canvas will take the height and width
+     *                of this image.
      */
     public Canvas(PreviewImage initial) {
         height = initial.getImage().getHeight();
@@ -51,6 +48,11 @@ public class Canvas {
     public ArrayList<Layer> getLayers() {
         return layers;
     }
+
+    /**
+     * Returns the list of layer names as an {@code ArrayList<String>} for the LayerPanel.
+     * * @return a {@code ArrayList<String>} of all the layers in the canvas in order.
+     */
 
     public ArrayList<String> getLayerNames() {
         ArrayList<String> names = new ArrayList<>();
@@ -74,9 +76,19 @@ public class Canvas {
         return currentLayer;
     }
 
+    public void setCurrentLayerPosition(int x, int y) {
+        currentLayer.setPosition(x, y);
+    }
+
     public Index getCurrentLayerIndex() {
         return currentLayerIndex;
     }
+
+    /**
+     * Removes a layer from the canvas. If the only layer left is being removed,
+     * throws an {@code IllegalOperationException}.
+     * @param i - Index of the layer to remove.
+     */
 
     public void setCurrentLayer(Index i) {
         currentLayerIndex = i;
@@ -119,6 +131,7 @@ public class Canvas {
     }
 
     // Canvas operations
+    // Misc accessors
 
     public int getHeight() {
         return height;

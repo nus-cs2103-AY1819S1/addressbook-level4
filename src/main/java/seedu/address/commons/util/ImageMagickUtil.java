@@ -8,7 +8,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -59,13 +58,6 @@ public class ImageMagickUtil {
         }
     }
 
-    public static String getExecuteImageMagick() throws NoSuchElementException {
-        if (ectPath != null && !ectPath.equals("")) {
-            return ectPath;
-        }
-        throw new NoSuchElementException("cannot find ImageMagick package");
-    }
-
     public static String getCommandSaveFolder() {
         return commandSaveFolder;
     }
@@ -73,10 +65,6 @@ public class ImageMagickUtil {
     //these two methods are used for tesing only
     public static void setTemperatyCommandForder(String folder) {
         commandSaveFolder = folder;
-    }
-
-    public static void setTemperatyEctFilePath(String path) {
-        ectPath = path;
     }
 
     public static Path getTempFolderPath() {
@@ -113,7 +101,7 @@ public class ImageMagickUtil {
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
-        args.add(ImageMagickUtil.getExecuteImageMagick());
+        args.add(ImageMagickUtil.getConvertExecutablePath());
         args.add(path.toAbsolutePath().toString());
         args.add("-background");
         args.add("rgba(0,0,0,0)"); //HARDFIX!
@@ -268,7 +256,6 @@ public class ImageMagickUtil {
         }
         zipFile.delete();
     }
-    //@@author j-lum
 
     public static String getConvertExecutablePath() {
         if (convertExecutablePath != null) {
@@ -277,6 +264,7 @@ public class ImageMagickUtil {
         throw new NoSuchElementException("The ImageMagick binaries cannot be found!");
     }
 
+    //@@author j-lum
     /**
      * Creates a ProcessBuilder instance to merge/flatten layers.
      * @param c - A canvas to be processed
@@ -289,8 +277,8 @@ public class ImageMagickUtil {
         args.add(getConvertExecutablePath());
         args.add("-size");
         args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
-        args.add("-background");
-        args.add(c.getBackgroundColor());
+        args.add(String.format("xc:%s", c.getBackgroundColor()));
+
         for (Layer l: c.getLayers()) {
             args.add("-page");
             args.add(String.format("+%d+%d", l.getX(), l.getY()));
@@ -309,7 +297,7 @@ public class ImageMagickUtil {
     /**
      * Saves the canvas to an output file
      * @param c - A canvas to be processed
-     * */
+     * *//*
     public static void saveCanvas(Canvas c, Path outDirectory, String fileName)
             throws IOException, InterruptedException, UnsupportedPlatformException {
         ArrayList<String> args = new ArrayList<>();
@@ -334,7 +322,7 @@ public class ImageMagickUtil {
         System.out.println(output);
         runProcessBuilder(args, output);
     }
-
+*/
 
     /**
      * Given any canvas, renders it to the target panel.

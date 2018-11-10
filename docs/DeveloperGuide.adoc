@@ -674,6 +674,8 @@ As such, parsing will be done twice. Once by GoogleCommandParser, and another wi
 
 {to be updated}
 // end::google[]
+
+// tag::canvas[]
 == Canvas and Layer features
 
 === General overview
@@ -681,7 +683,6 @@ The `Canvas` and `Layer` classes serve as a layer of encapsulation for handling 
 This is in line with good defensive coding practices and separation of concerns.
 
 === Canvas (canvas) command
-==== Current implementation
 Similar to the `google` set of commands, there are a set of overloaded command types inheriting from `CanvasCommand`
 , namely:
 
@@ -689,47 +690,145 @@ Similar to the `google` set of commands, there are a set of overloaded command t
 * `size` - Sets the height and the width of the canvas.
 * `auto-resize` - Toggles the auto-resize property of the canvas.
 
+==== Current implementation
+Canvas manages various properties made accessible through the `ModelManager` class.
+Layer order is preserved as it important for image composition.
+
+Canvas implements the following accessors and utility functions:
+
+* `getLayers` - returns an ordered list of layers which is guaranteed to be neither `null` or empty.
+* `getLayerNames` - returns a list of layer names in order.
+* `addLayer` - adds a given `PreviewImage` into the canvas on its own layer.
+* `getCurrentLayer` - returns the current instance of the layer that is being operated on.
+* `getCurrentLayerIndex` - returns the index of the current instance of the layer that is being operated on.
+* `setCurrentLayer` - sets the layer to be operated on.
+* `removeLayer` - removes a layer at a given index. The current layer and the last remaining layer in a canvas cannot be removed.
+
+All of these functions are exposed through the `Model` interface.
+Implementations in `ModelManager` usually include a call to the corresponding accessor along with utility functions to manage the state of the UI.
+
 Beneath the hood `Canvas` manipulation is powered by ImageMagick.
-All of the operation are accessors for various properties of the `Canvas` class
-and the heavy lifting is done by the `processCanvas` function.
+All of the properties represented in `Canvas` are transformed into their respective flags or arguments in ImageMagick.
+For example, the `isCanvasAuto` property is transformed into the flag `-flatten` if false and `-layers merge` if true.
 
-The `processCanvas` is a factory method that returns an instance of a `ProcessBuilder`
-which is then handled by the utility method `ImageMagickUtils#runProcessBuilder`.
+The `processCanvas` is a factory method that handles this transformation, returning an instance of a `ProcessBuilder`.
+The `ProcessBuilder` is then passed to `ImageMagickUtils#runProcessBuilder` which executes the process and stores the output in a BufferedImage.
 
-The rendered `Canvas` object is then shown to the user.
+.Sequence Diagram for Canvas Command
+image::CanvasSequenceDiagram.png[width="2000"]
+
+The above diagram illustrates the process of parsing and executing of `canvas` commands.
+
+. The user executes any command beginning with `canvas`.
+
+. The command is first parsed by `PiconsoParser` which picks up the `canvas` keyword and passes any remaining arguments to `CanvasCommandParser`.
+
+. `CanvasCommandParser` determines the appropriate sub-command being executed and performs the requested operation on the canvas.
+
+==== Design considerations
+
+**Manipulation of the `ProcessBuilder`**
+
+[.underline]#Alternatives#
+
+Storing arguments directly in a `List<T>` where T is a custom type that implements `Comparable<T>` to ensure that arguments are in the correct order. A helper function will then map the `T` to a `String` and the resultant `List<String>` will be used to construct the necessary `ProcessBuilder`.
+
+[.underline]#Evaluation#
+
+While insertion of new layers and properties will be extremely easy, modifying or removal of existing properties will involve searching through the entire list. As a result, this method is extremely hard to grok and performs poorly upon update or deletion of existing properties.
 
 === Layer (layer) commands
-==== Current implementation
+
 The `layer` command follows a similar pattern as the `canvas` command.
 The following sub-commands inherit from `LayerCommand`:
 
-* `swap` - Swaps the order of two distinct layers.
-* `lock` - Toggles the lock on a layer. A locked layer is protected from all operations.
-* `delete` - Removes a layer from the `Canvas`
-* `add` - Adds a layer from the `Canvas`.
+* `add` - Adds a layer from the `Canvas` and generates a layer name.
+* `delete` - Removes a layer from the `Canvas`. The current layer and the last remaining layer cannot be removed.
 * `select` - Selects a layer to work on.
+* `swap` - Swaps the order of two distinct layers.
+
+==== Current implementation
+
+`Layer` implements a few key accessors and utility functions. Some of them include:
+
+* `addTranformation` - Adds a given transformation into its `PreviewImage`++'s++ `TransformationSet`.
+* `getName` - Gets the name of the layer.
+* `setHeight` - Sets the height of the layer.
+* `setWidth` - Sets the width of the layer.
+* `setPosition` - Sets the x and y coordinates of the layer.
+
+The following image illustrates the coordinate system adopted in Piconso.
+
+image::coords.png[width="2000"]
+
+The default anchor point is the top-left corner, this means that a `layer position -10x-10` command will set that layer's top left corner at `(-10, -10)`.
+It is possible to have negative co-ordinates although clipping will occur unless the canvas is set to auto-resize.
 
 
+.Sequence Diagram for Layer Command
+image::LayerSequenceDiagram.png[width="2000"]
 
-As the `canvas` and `layer` commands works best in tandem, a use case that spans both commands is as follows:
+The above diagram illustrates the process of parsing and executing of `canvas` commands.
 
-Step 1) The user executes a valid `select` command. A `Canvas` is constructed holding exactly one `Layer`
+.  The user executes any command beginning with `layer`.
+
+.  The command is first parsed by `PiconsoParser` which picks up the `layer` keyword and passes any remaining arguments to `LayerCommandParser`.
+
+.  `LayerCommandParser` determines the appropriate sub-command being executed and performs the requested operation on the canvas and current layer.
+
+==== Design Considerations
+
+**Further manipulation of the `ProcessBuilder`**
+
+[.underline]#Alternatives#
+
+It is actually possible to nest `ImageMagick` commands which means that it was possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
+The resultant ImageMagick command will take the form :
+
+ magick [overall canvas flags] {[canvas flag] (individual layer flags)}
+
+Where blocks enclosed by `{ }` need to be repeated per layer.
+
+[.underline]#Evaluation#
+
+This solution is the most straight-forward and results in no intermediate files which is usually desirable. However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
+
+This results in a poor user experience and hence we have decided against it.
+
+=== Canvas and Layers in action
+
+As the `canvas` and `layer` commands compliment each other, let's walk through a typical user's session in Piconso from start to finish.
+
+. The user executes a valid `open` command:
+A `Canvas` is constructed holding exactly one `Layer`
 with the default height and width being that of the image selected.
 
-Step 2) The user executes a valid `convert` command.
+. The user adds a new layer to the canvas:
+`Canvas#addLayer` is executed and the helper functions in `ModelManager` refreshes the UI.
 
-Step 3) `Canvas#getCurrentLayer` returns the current working layer
-and a transformation is pushed onto its `TransformationSet`.
+. The user swaps the order of the two layers to such that the original image is back on top:
+`Canvas#swapLayer` makes the magic happen by swapping the two entries in the list of layers.
 
-Step 4) The user then executes a `layer add` command.
+. While still on the original layer, the user moves it to the top left: `Layer#setPosition` moves the first layer out of the way.
 
-Step 5) `Canvas#addLayer` pushes the new layer to the end of the list of `Layer` objects.
-Keep in mind that rendering is a First-In-Last-Out operation which means that the new `Layer`
-is rendered at the very top.
+. The user changes decides to work on the second layer and enters `layer select 2`:
+`Canvas#setCurrentLayer` changes the current layer to the given index and internally keeps track of the index as well.
 
-Step 6) The user finally saves the output with the `canvas save` command.
+. A transformation is applied by the user to the current layer: `Canvas#addTransformation` appends the new Transformation to the current Layer's.
+Note that no image processing occurs until a new render is requested. The `Canvas` class provides mutators and accessors.
 
-Step 7) `Canvas#save` then saves the output to disk.
+. After a `canvas size 80x60`command: The new `Canvas#setSize` is applied upon the next render and it crops the image to a fraction of what it used to be.
+Remember that resizing and scaling is accomplished with the `apply resize` command!
+
+. Quickly realising his mistake, the user sets the canvas to fit his all of his layers: `Canvas#setCanvasAuto` toggles a boolean.
+
+. The user finishes his piece by filling in the default transparent background with a `canvas bgcolor ++#++707070` : a hex color code is accepted by `Canvas#setBackgroundColor`.
+
+.Results of various commands. The black bounding rectangle indicate the canvas size.
+image::CanvasLayersDemo.png[width="2000"]
+
+
+// end::canvas[]
 
 == Documentation
 

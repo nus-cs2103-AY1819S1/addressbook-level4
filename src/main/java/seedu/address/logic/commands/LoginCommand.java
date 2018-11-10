@@ -54,7 +54,7 @@ public class LoginCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_LOGGED_IN, model.getUserLoggedIn()));
             }
         } catch (Exception ex) {
-            return new CommandResult(String.format(MESSAGE_CONNECTION_FAILURE));
+            return new CommandResult(MESSAGE_CONNECTION_FAILURE);
         }
     }
 

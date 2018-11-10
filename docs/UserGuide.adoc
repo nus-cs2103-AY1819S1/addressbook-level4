@@ -238,6 +238,7 @@ Example:
 * `cd C://Users` - Changes the directory to Users in C:/ drive.
 // end::cd[]
 
+// tag::canvas[]
 === Canvas operations : `canvas`
 
 ==== Changing the size of the canvas: `canvas size`
@@ -284,14 +285,9 @@ Examples:
 * `canvas auto-resize on`: Allows the canvas to expand and prevent cropping.
 * `canvas auto-resize off`: The height and width of the output canvas will remain as is.
 
-==== Saving the output: `canvas save`
-Format: `canvas size [FILE_NAME]`
+// end::canvas[]
 
-Examples:
-
-* `canvas save out.png` - Saves the current canvas as an image in the `PNG` format.
-* `canvas save out.jpg` - Saves the current canvas as an image in the `JPG` format.
-
+// tag::layer[]
 === Layer operations : `layer`
 
 ==== Adding a new layer: `layer add [INDEX] (LAYER_NAME)`
@@ -311,44 +307,28 @@ Examples:
 ====
 This operation is not reversible! Be careful when removing layers!
 ====
-[NOTE]
-====
-The last layer of a canvas is protected from removal.
-====
+
 Permanently removes a layer from canvas.
 
 ==== Selecting a layer to work on: `layer select [INDEX]`
 Selects a layer to that all `convert` operations will work on.
 
-==== Selecting a layer to work on: `layer swap [TO_INDEX] [FROM_INDEX]`
+==== Swapping the order of two layers: `layer swap [TO_INDEX] [FROM_INDEX]`
 Changes the order of any two distinct layers.
 
 Examples:
 
 * `layer swap 1 2` : Changes the order of layer 1 and layer 2.
 
-==== Locking a layer to prevent accidental edits: `layer lock [INDEX]`
-Locks a layer. Locked layers are protected from all `convert`, `swap` and `delete` operations.
-
-Examples:
-
-* `layer lock 2` : Locks layer 2
-
-==== Unlocking a layer: `layer unlock [INDEX]`
-Unlocks a layer.
-
-Examples:
-
-* `layer unlock 3` : Unlocks layer 3.
-
-==== Unlocking a layer: `layer position [POSITION]`
+==== Positioning a layer: `layer position [POSITION]`
 Sets the x and y co-ordinates of the current layer.
 (0,0) is defined to be the top left of the screen.
 
 Examples:
 
-* `layer position 50x100` : Sets the layer's top right corner to be at position (50, 100).
+* `layer position 50x100` : Sets the layer's top left corner to be at position (50, 100).
 
+// end::layer[]
 
 // tag::google[]
 === Logging in to Google Photos: `login`

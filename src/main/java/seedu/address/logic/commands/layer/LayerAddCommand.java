@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.layer;
 
-//@author j-lum
+//@@author j-lum
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -15,23 +15,26 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PreviewImage;
 
 
 /**
  * Handles the repositioning of Layers.
+ * Commands are in the format - layer add [index].
+ * Refer to the select command.
  */
 
 public class LayerAddCommand extends LayerCommand {
-    private static final String TYPE = COMMAND_WORD + " add";
+    public static final String TYPE = COMMAND_WORD + " add";
     public static final String MESSAGE_USAGE = "Usage of layer add: "
             + "\n- " + TYPE + " [INDEX]: "
             + "Adds the image identified by the index number in the current batch to a new layer."
             + "\n\tExample: " + TYPE + " 2, adds the image with index 2 to the current canvas as the top-most layer.";
 
-    private static final String OUTPUT_SUCCESS = "Layer added!";
-    private static final String OUTPUT_FAILURE = "Invalid index provided or initial image not selected!";
+    public static final String OUTPUT_SUCCESS = "Layer added!";
+    public static final String OUTPUT_FAILURE = "Invalid index provided or initial image not selected!";
     private static final int BATCH_SIZE = 10;
 
     private static final Logger logger = LogsCenter.getLogger(LayerAddCommand.class);
@@ -43,11 +46,11 @@ public class LayerAddCommand extends LayerCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         int i;
         Index index;
         List<Path> dirImageList = model.getDirectoryImageList();
-        Image img = new Image("https://via.placeholder.com/1x1");
+        Image img;
 
         try {
             i = Integer.parseInt(args);
@@ -59,7 +62,7 @@ public class LayerAddCommand extends LayerCommand {
             }
             index = Index.fromOneBased(i);
         } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+            throw new CommandException(OUTPUT_FAILURE);
         }
 
         Path selectedImagePath = dirImageList.get(index.getZeroBased());
@@ -70,11 +73,11 @@ public class LayerAddCommand extends LayerCommand {
             img = new Image(fis);
             model.addLayer(new PreviewImage(SwingFXUtils.fromFXImage(img, null)));
         } catch (FileNotFoundException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+            throw new CommandException(OUTPUT_FAILURE);
         }
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
-        return new CommandResult(String.format(OUTPUT_SUCCESS));
+        return new CommandResult(OUTPUT_SUCCESS);
     }
 }
