@@ -31,7 +31,7 @@ public class Dependencies {
     /**
      * Constructs an empty dependencies object
      */
-    public Dependencies(){
+    public Dependencies() {
         this.hashes = new HashSet<>();
     }
 

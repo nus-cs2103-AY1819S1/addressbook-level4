@@ -62,7 +62,7 @@ public class DependencyCommand extends Command {
             updatedTask = handleDependencyRemoval(taskDependant, taskDependee);
             message = MESSAGE_REMOVE_SUCCESS;
         } else {
-            updatedTask = handleDependencyAddition(taskDependant, taskDependee);
+            updatedTask = handleDependencyAddition(taskDependant, taskDependee, model);
             message = MESSAGE_ADD_SUCCESS;
         }
         //Passes all checks
@@ -78,12 +78,19 @@ public class DependencyCommand extends Command {
                 || dependeeIndex.getZeroBased() >= lastShownList.size();
     }
 
+    /**
+     * Handles dependency removal
+     */
     private Task handleDependencyRemoval(Task taskDependant, Task taskDependee) {
         //If taskDependant is already dependant on dependee, remove dependency
         return createUndependantTask(taskDependant, taskDependee);
     }
 
-    private Task handleDependencyAddition(Task taskDependant, Task taskDependee) throws CommandException {
+    /**
+     * Handles dependency addition
+     * @throws CommandException
+     */
+    private Task handleDependencyAddition(Task taskDependant, Task taskDependee, Model model) throws CommandException {
         //If taskDependant is not dependent on dependee, add dependency
         Task updatedTask = createDependantTask(taskDependant, taskDependee);
         DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());

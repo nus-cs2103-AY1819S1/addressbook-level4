@@ -36,7 +36,7 @@ public class DependencyCommandTest {
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
         String expectedMessageAdd = String.format(DependencyCommand.MESSAGE_ADD_SUCCESS, newTask.getName(),
-                dependeeTask.getName());
+                dependeeTask.getName(), INDEX_FIRST_TASK.getOneBased(), INDEX_SECOND_TASK.getOneBased());
         ModelManager expectedModelAdd = new ModelManager(model.getTaskManager(), new UserPrefs());
         expectedModelAdd.updateTask(dependantTask, newTask);
         expectedModelAdd.commitTaskManager();
@@ -46,7 +46,7 @@ public class DependencyCommandTest {
         expectedModelRemove.updateTask(newTask, dependantTask);
         expectedModelRemove.commitTaskManager();
         String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask.getName(),
-                dependeeTask.getName());
+                dependeeTask.getName(), INDEX_FIRST_TASK.getOneBased(), INDEX_SECOND_TASK.getOneBased());
         assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
     }
 
@@ -81,7 +81,7 @@ public class DependencyCommandTest {
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
         String expectedMessage = String.format(DependencyCommand.MESSAGE_ADD_SUCCESS, newTask.getName(),
-                dependeeTask.getName());
+                dependeeTask.getName(), INDEX_FIRST_TASK.getOneBased(), INDEX_SECOND_TASK.getOneBased());
         ModelManager expectedModelAdd = new ModelManager(model.getTaskManager(), new UserPrefs());
         expectedModelAdd.updateTask(dependantTask, newTask);
         expectedModelAdd.commitTaskManager();
@@ -93,7 +93,7 @@ public class DependencyCommandTest {
         expectedModelRemove.updateTask(newTask, dependantTask);
         expectedModelRemove.commitTaskManager();
         String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask.getName(),
-                dependeeTask.getName());
+                dependeeTask.getName(), INDEX_FIRST_TASK.getOneBased(), INDEX_SECOND_TASK.getOneBased());
         assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
     }
 
@@ -132,7 +132,7 @@ public class DependencyCommandTest {
         expectedModelRemove.updateTask(newTask, dependantTask);
         expectedModelRemove.commitTaskManager();
         String expectedMessageRemove = String.format(DependencyCommand.MESSAGE_REMOVE_SUCCESS, newTask.getName(),
-                dependeeTask.getName());
+                dependeeTask.getName(), INDEX_FIRST_TASK.getOneBased(), INDEX_SECOND_TASK.getOneBased());
         assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessageRemove, expectedModelRemove);
 
         // undo -> reverts task manager back to previous state and filtered task list to show all
