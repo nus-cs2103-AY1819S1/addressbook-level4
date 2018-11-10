@@ -56,9 +56,9 @@ public class MealPlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case PlanMealCommand.COMMAND_WORD:
-            return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
+            return new PlanMealCommandParser().parseMealPlan(mealPlannerModel, recipeModel, arguments);
         case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parseMealRecipe(mealPlannerModel, recipeModel, arguments);
+            return new SelectCommandParser().parseMealPlan(mealPlannerModel, recipeModel, arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case ListCommand.COMMAND_WORD:

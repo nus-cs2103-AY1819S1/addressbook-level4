@@ -78,10 +78,6 @@ public class MainApp extends Application {
         //ui
         ui = new UiManager(logic, config, userPrefs);
 
-
-        logic.setUi(ui);
-
-
         initEventsCenter();
     }
 

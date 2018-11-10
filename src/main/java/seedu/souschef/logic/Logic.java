@@ -11,7 +11,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.ui.Ui;
 
 /**
  * API of the Logic component
@@ -52,7 +51,4 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
-
-    /** Sets the Ui attribute of logic */
-    void setUi(Ui ui);
 }

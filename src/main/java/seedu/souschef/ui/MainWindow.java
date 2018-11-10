@@ -17,6 +17,7 @@ import seedu.souschef.commons.core.GuiSettings;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
 import seedu.souschef.commons.events.ui.ExitAppRequestEvent;
+import seedu.souschef.commons.events.ui.ListPanelSwitchEvent;
 import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.model.UniqueType;
@@ -148,25 +149,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      *  ui call to switch to recipe panel
      */
-    protected void switchToRecipeListPanel() {
+    private void switchToRecipeListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
         detailPanel.loadDefaultRecipePage();
     }
 
-
     /**
      *  ui call to switch to ingredient panel
      */
-    protected void switchToIngredientListPanel() {
+    private void switchToIngredientListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
         detailPanel.loadBlankPage();
     }
 
-    protected void switchToCrossRecipeListPanel() {
+    private void switchToCrossRecipeListPanel() {
         generalListPanel = new CrossRecipeListPanel(logic.getFilteredCrossRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
         detailPanel.loadDefaultICrossPage();
@@ -175,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      *  method to switch to healthplan list for the healthplan context
      */
-    protected void switchToHealthPlanListPanel() {
+    private void switchToHealthPlanListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new HealthPlanListPanel(logic.getFilteredHealthPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -196,7 +196,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * function call to show meal list on the browser panel end
      */
-    protected void showMealPlanListPanel() {
+    private void showMealPlanListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         browserPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -205,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      *  ui call to hide browser side panel
      */
-    protected void hideBrowserSidePanel() {
+    private void hideBrowserSidePanel() {
         browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
 
     }
@@ -213,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      *  ui call to switch to meal list panel
      */
-    protected void switchToMealPlanListPanel() {
+    private void switchToMealPlanListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -222,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      *  method to switch to favourite list for the favourite context
      */
-    protected void switchToFavouritesListPanel() {
+    private void switchToFavouritesListPanel() {
         hideBrowserSidePanel();
         generalListPanel = new FavouritesPanel(logic.getFilteredFavouritesList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -273,14 +273,43 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public GenericListPanel<? extends UniqueType> getGeneralListPanel() {
-        return generalListPanel;
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    protected void handleListPanelSwitchEvent(ListPanelSwitchEvent event) {
+        switch (event.context) {
+        case RECIPE:
+            switchToRecipeListPanel();
+            break;
+
+        case MEAL_PLAN:
+            switchToMealPlanListPanel();
+            break;
+
+        case CROSS:
+            switchToCrossRecipeListPanel();
+            break;
+
+        case INGREDIENT:
+            switchToIngredientListPanel();
+            break;
+
+        case HEALTH_PLAN:
+            switchToHealthPlanListPanel();
+            break;
+
+        case FAVOURITES:
+            switchToFavouritesListPanel();
+            break;
+
+        default:
+            switchToRecipeListPanel();
+            break;
+        }
     }
 
     @Subscribe
