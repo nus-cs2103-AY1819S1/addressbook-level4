@@ -21,7 +21,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 
 /**
- * edits remark of index of person in addressbook
+ * Edits remark of person in HealthBook
  */
 public class RemarkCommand extends Command {
 
@@ -127,9 +127,9 @@ public class RemarkCommand extends Command {
             return false;
         } else {
             RemarkCommand r = (RemarkCommand) o;
-            boolean optionalPhone_equals = (phone != null) ? phone.equals(r.phone) : true;
+            boolean optionalPhoneEquals = (phone != null) ? phone.equals(r.phone) : true;
             return name.equals(r.name)
-                    && optionalPhone_equals
+                    && optionalPhoneEquals
                     && remark.equals(r.remark);
         }
 
