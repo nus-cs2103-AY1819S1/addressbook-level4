@@ -13,56 +13,13 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 
 == Summary of contributions
 
-//* v1.1
-//** Added User Stories to Developer Guide
-//** Created initial Mock up of UI
-//
-//* v1.2
-//
-//** Model
-//*** Calculation of `CAP` based on given set of `Modules`
-//*** Calculation of `Target Grades` based on given set of `Complete/Incomplete modules`
-//*** Implement different `States` of a `Grade`
-//
-//** Logic
-//*** Implement the classes to handle command to set `CAP Goal`
-//** Documentation
-//*** Updated User Guide on `CAP Goal` command
-//
-//* v1.3
-//** Model
-//*** Implement triggers to calculate `Target Grades` and `Current CAP`
-//*** Implement `adjusting` of target grades of incomplete modules
-//
-//** Logic
-//*** Provided interface from Logic to UI for getting
-//    1. Current CAP
-//    2. CAP Goal
-//    3. Completed Modules
-//    4. Incomplete Modules
-//*** Implement the classes to handle `adjust` command
-//
-//** UI
-//*** Provide the two `ModuleListPanel` with the correct ObservableList
-//
-//** Storage
-//*** Update Transcript/Grade/Module's Serialiser and Deserialiser to match the correct fields.
-//
-//** Documentation
-//*** Updated Use Cases to follow Proper format
-//*** Updated User Guide on `CAP Goal` command
-//*** Added Sequence Diagrams for Target Grade and CAP Calculations
-//*** Update Model Component of Developer Guide
+* *Major enhancement*: Implemented the *CAP & Target Grade Calculation* feature.
 
+** What it does: Shows user their current CAP and what grades they needs to achieve
+for those incomplete modules so as to achieve their CAP goal.
 
-* *Major enhancement*: Added the *Target Grade Calculation* feature.
-
-** What it does: Shows user what grades he/she needs to achieve
-for those incomplete modules so as to achieve his/her CAP goal.
-
-** Justification: This is one of the main Use Case of the application,
-to allow users to quickly verify if attaining their CAP goal is still feasible or
-whether withdrawing from NUS would be a wiser choice.
+** Justification: This is one of the *must-have* User Story of the application,
+to allow users to verify if they are able to graduate with their desired CAP Goal
 
 ** Highlights:
 *** Correctness/Limitations of the algorithm are carefully thought of.
