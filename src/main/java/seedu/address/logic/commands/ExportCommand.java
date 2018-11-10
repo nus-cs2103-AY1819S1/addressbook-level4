@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.nio.file.Path;
-
 import seedu.address.storage.Storage;
 
 /**
@@ -28,9 +26,9 @@ public abstract class ExportCommand extends Command {
             "File name can only contain alphanumeric and underscore. Please recheck.";
     public static final String MESSAGE_FILE_PERMISSION_DENIED = "Permission to write to file is denied.";
     public static final String WIN_FILE_PATH_REGEX =
-            "^(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\.]+\\\\[\\w.$]+)\\\\(?:[\\w]+\\\\)*\\w([\\w.])+$";
+            "^(?:[a-zA-Z]\\:|\\\\[\\w\\.]+\\\\[\\w.$]+)*\\\\(?:[\\w]+\\\\)*\\w([\\w.])+$";
     public static final String MACOS_LINUX_FILE_PATH_REGEX =
-            "^(\\/[\\w\\.]+\\/[\\w.$]+)\\/(?:[\\w]+\\/)*\\w([\\w.])+$";
+            "^(\\/)*([\\w\\.]+\\/[\\w.$]+\\/)*(?:[\\w]+\\/)*\\w([\\w.])+$";
 
     protected String exportedFilePath;
 

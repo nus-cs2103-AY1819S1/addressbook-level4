@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -37,9 +36,12 @@ public class ExportTxtCommand extends ExportCommand {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH));
         }
 
+        /*
         if (!Files.isWritable(Paths.get(exportedFilePath))) {
+            System.out.println(Files.isWritable(Paths.get(exportedFilePath)));
             throw new CommandException(String.format(MESSAGE_FILE_PERMISSION_DENIED));
         }
+        */
 
         try {
             Path tempPath = Paths.get("temp.xml");

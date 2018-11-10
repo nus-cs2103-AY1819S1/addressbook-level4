@@ -67,7 +67,7 @@ public class ExportXmlCommandTest {
     @Test
     public void execute_invalidFilePath_throwsCommandException() {
         // filePath contains invalid character "-"
-        String filePath = "/desktop/fakefolder/invalid-Export.xml";
+        String filePath = dirPath + "/desktop/fakefolder/invalid-Export.xml";
         ExportXmlCommand exportXmlCommand =
                 new ExportXmlCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.XML);
         exportXmlCommand.setStorage(storage);

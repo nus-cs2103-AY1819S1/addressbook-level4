@@ -54,6 +54,7 @@ public class ExportTxtCommandTest {
         ExportTxtCommand exportTxtCommand =
                 new ExportTxtCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.TXT);
         exportTxtCommand.setStorage(storage);
+
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, filePath);
 
         assertCommandSuccess(exportTxtCommand, model, commandHistory, expectedMessage);
@@ -102,6 +103,7 @@ public class ExportTxtCommandTest {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
+            System.out.println(filePath);
             assertEquals(expectedMessage, e.getMessage());
             assertFalse((new File(filePath)).exists());
         }
