@@ -11,18 +11,15 @@ import seedu.clinicio.model.patient.Patient;
 public class PatientCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String NRIC_FIELD_ID = "#nric";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label nricLabel;
 
     public PatientCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        nricLabel = getChildNode(NRIC_FIELD_ID);
     }
 
     public String getId() {
@@ -33,15 +30,10 @@ public class PatientCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getNric() {
-        return nricLabel.getText();
-    }
-
     /**
      * Returns true if this handle contains {@code patient}.
      */
     public boolean equals(Patient patient) {
-        return getName().equals(patient.getName().fullName)
-                && getNric().equals(patient.getNric().value);
+        return getName().equals(patient.getName().fullName);
     }
 }

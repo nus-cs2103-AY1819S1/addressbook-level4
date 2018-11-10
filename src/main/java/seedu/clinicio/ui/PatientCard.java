@@ -29,15 +29,12 @@ public class PatientCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label nric;
 
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
         this.patient = patient;
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
-        nric.setText(patient.getNric().value);
     }
 
     @Override
