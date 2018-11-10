@@ -10,6 +10,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,6 +43,7 @@ import com.google.api.services.calendar.model.Calendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
+import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
@@ -151,22 +154,14 @@ public class ConnectToGoogleCalendarTest {
 
         //Retrieve the number of events (should be at least 1)
         int size = -1;
-        try {
-            size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
         //check initial condition: not cleared
         assertNotEquals(0, size);
         //execute the clear command
         ClearCommand command = new ClearCommand();
         command.execute(model, commandHistory);
         //Retrieve the number of events after command
-        try {
-            size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
         //No event any more -> ok
         assertEquals(0, size);
         //clean up
@@ -366,9 +361,6 @@ public class ConnectToGoogleCalendarTest {
         //set up the google-enabled environment
         enable();
         Event validEvent = new EventBuilder(CHRISTMAS).build();
-        validEvent.getEventUid();
-
-
         //close the google-enabled environment
         disable();
     }

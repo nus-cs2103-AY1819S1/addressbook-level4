@@ -1,6 +1,5 @@
 package seedu.scheduler.logic.commands;
 
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,12 +7,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
@@ -25,6 +27,7 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.RepeatType;
+import seedu.scheduler.ui.UiManager;
 
 /**
  * Get events from google calendar.
@@ -41,7 +44,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
     public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
     public static final String MESSAGE_REJECT_SECOND_INITIALIZE = "Note that you are only allowed"
             + " to initialize the app once. You have already initialized it before. Command rejected.";
-
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
     private final EventFormatUtil eventFormatUtil = new EventFormatUtil();
@@ -64,105 +67,102 @@ public class EnterGoogleCalendarModeCommand extends Command {
         DateTime repeatUntilDateTime = null;
         HashMap<String, RepeatType> googleiCalAndRepeatType = new HashMap<>();
         HashMap<String, DateTime> googleiCalAndRepeatUntilTime = new HashMap<>();
+
         try {
             events = connectToGoogleCalendar.getEvents(service);
-            List<com.google.api.services.calendar.model.Event> listOfGoogleEvents =
-                    events.getItems();
+            if (events != null) {
 
+                List<com.google.api.services.calendar.model.Event> listOfGoogleEvents =
+                        events.getItems();
 
-            for (com.google.api.services.calendar.model.Event googleEvent : listOfGoogleEvents) {
-                //RRULE:FREQ=WEEKLY;BYDAY=SU
-                String[] recurrenceText = null;
-                RepeatType repeatType;
-                List<String> recurrence = new ArrayList<>();
-                recurrence = googleEvent.getRecurrence();
+                for (com.google.api.services.calendar.model.Event googleEvent : listOfGoogleEvents) {
+                    //RRULE:FREQ=WEEKLY;BYDAY=SU
+                    String[] recurrenceText = null;
+                    RepeatType repeatType;
+                    List<String> recurrence = new ArrayList<>();
+                    recurrence = googleEvent.getRecurrence();
 
-                if (recurrence != null) {
-                    switch (recurrence.size()) {
-                    case 1:
-                        recurrenceText = recurrence.get(0).split(";");
-                        break;
-                    case 3:
-                        recurrenceText = recurrence.get(2).split(";");
-                        break;
-                    default:
-                        //nothing
-                    }
+                    if (recurrence != null) {
+                        switch (recurrence.size()) {
+                        case 1:
+                            recurrenceText = recurrence.get(0).split(";");
+                            break;
+                        case 3:
+                            recurrenceText = recurrence.get(2).split(";");
+                            break;
+                        default:
+                            //nothing
+                        }
 
+                        int rrulePosition = Objects.requireNonNull(recurrenceText)[0].indexOf("=") + 1;
+                        String rRule = recurrenceText[0].substring(rrulePosition); //RRULE:FREQ=WEEKLY
 
-                    int rrulePosition = recurrenceText[0].indexOf("=") + 1;
-                    String rRule = recurrenceText[0].substring(rrulePosition); //RRULE:FREQ=WEEKLY
+                        switch (rRule) {
+                        case "YEARLY":
+                            repeatType = RepeatType.YEARLY;
+                            break;
+                        case "MONTHLY":
+                            repeatType = RepeatType.MONTHLY;
+                            break;
+                        case "WEEKLY":
+                            repeatType = RepeatType.WEEKLY;
+                            break;
+                        case "DAILY":
+                            repeatType = RepeatType.DAILY;
+                            break;
+                        default:
+                            repeatType = RepeatType.NONE;
+                            break;
+                        }
 
-                    switch (rRule) {
-                    case "YEARLY":
-                        repeatType = RepeatType.YEARLY;
-                        break;
-                    case "MONTHLY":
-                        repeatType = RepeatType.MONTHLY;
-                        break;
-                    case "WEEKLY":
-                        repeatType = RepeatType.WEEKLY;
-                        break;
-                    case "DAILY":
-                        repeatType = RepeatType.DAILY;
-                        break;
-                    default:
-                        repeatType = RepeatType.NONE;
-                        break;
-                    }
+                        googleiCalAndRepeatType.put(googleEvent.getICalUID(), repeatType);
 
-                    googleiCalAndRepeatType.put(googleEvent.getICalUID(), repeatType);
+                        switch (recurrenceText.length) {
+                        case 2:
+                            //RRULE:FREQ=WEEKLY;BYDAY=MO
+                            //ignore in local implementation
+                            repeatUntilDateTime = getRepeatUntilDateTime(
+                                    repeatUntilDateTime, recurrenceText[1]);
+                            googleiCalAndRepeatUntilTime.put(googleEvent.getICalUID(), repeatUntilDateTime);
+                            break;
+                        case 3:
+                            //RRULE:FREQ=WEEKLY;UNTIL=20181108T155959Z;BYDAY=MO,TU,WE,TH
+                            repeatUntilDateTime = getRepeatUntilDateTime(
+                                    repeatUntilDateTime, recurrenceText[1]);
+                            Parser parser = new Parser();
+                            List<DateGroup> groups = parser.parse(
+                                    repeatUntilDateTime.getPrettyString() + "+0");
+                            String temp = groups.get(0).getDates().get(0).toString();
 
-                    switch (recurrenceText.length) {
-                    case 2:
-                        //RRULE:FREQ=WEEKLY;BYDAY=MO
-                        //ignore in local implementation
-                        repeatUntilDateTime = getRepeatUntilDateTime(
-                                repeatUntilDateTime, recurrenceText[1]);
-                        googleiCalAndRepeatUntilTime.put(googleEvent.getICalUID(), repeatUntilDateTime);
-                        break;
-                    case 3:
-                        //RRULE:FREQ=WEEKLY;UNTIL=20181108T155959Z;BYDAY=MO,TU,WE,TH
-                        repeatUntilDateTime = getRepeatUntilDateTime(
-                                repeatUntilDateTime, recurrenceText[1]);
-                        Parser parser = new Parser();
-                        List<DateGroup> groups = parser.parse(
-                                repeatUntilDateTime.getPrettyString() + "+0");
-                        String temp = groups.get(0).getDates().get(0).toString();
+                            //Sun Nov 11 23:59:00 SRET 2018
+                            //EEE MMM dd HH:mm:ss Z yyyy
+                            DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+                            repeatUntilDateTime = ParserUtil.parseDateTime(format.parse(temp).toString());
 
-                        //Sun Nov 11 23:59:00 SRET 2018
-                        //EEE MMM dd HH:mm:ss Z yyyy
-                        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
-                        repeatUntilDateTime = ParserUtil.parseDateTime(format.parse(temp).toString());
+                            googleiCalAndRepeatUntilTime.put(googleEvent.getICalUID(), repeatUntilDateTime);
+                            break;
+                        default:
+                            //TODO://Event not supported
 
-                        googleiCalAndRepeatUntilTime.put(googleEvent.getICalUID(), repeatUntilDateTime);
-                        break;
-                    default:
-                        //TODO://Event not supported
-
+                        }
                     }
                 }
-            }
-            for (RepeatType value : googleiCalAndRepeatType.values()) {
-                int frequency = Collections.frequency(googleiCalAndRepeatType.values(), value);
-                if (frequency > 1) {
-                    //TODO:show not supported
-                    throw new CommandException("Event type on Google Not supported.");
+                for (RepeatType value : googleiCalAndRepeatType.values()) {
+                    int frequency = Collections.frequency(googleiCalAndRepeatType.values(), value);
+                    if (frequency > 1) {
+                        //TODO:show not supported
+                        throw new CommandException("Event type on Google Not supported.");
+                    }
                 }
+
             }
-
-
-        } catch (NullPointerException | UnknownHostException e) {
+        } catch (NullPointerException e) {
             return new CommandResult(MESSAGE_INTERNET_ERROR);
         } catch (java.text.ParseException | ParseException e) {
             e.printStackTrace();
         }
 
-        try {
-            events = connectToGoogleCalendar.getSingleEvents(service);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        events = connectToGoogleCalendar.getSingleEvents(service);
         //Extract the listOfGoogleEvents from the events object
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents = events.getItems();
         if (listOfGoogleEvents.isEmpty()) {

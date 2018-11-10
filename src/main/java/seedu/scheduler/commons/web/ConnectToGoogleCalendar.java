@@ -44,7 +44,6 @@ import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.util.EventFormatUtil;
-import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.event.Event;
@@ -128,7 +127,6 @@ public class ConnectToGoogleCalendar {
 
         // Build Google calender service object.
         Calendar service = null;
-
         try {
             service = new Calendar.Builder(httpTransport, JSON_FACTORY,
                     getCredentials(httpTransport))
@@ -138,7 +136,6 @@ public class ConnectToGoogleCalendar {
             logger.info(MESSAGE_IO_ERROR);
             throw new CommandException(MESSAGE_IO_ERROR);
         }
-
         return service;
     }
 
@@ -297,96 +294,14 @@ public class ConnectToGoogleCalendar {
     }
 
     /**
-     * Deletes an existing event in the Google Calendar.
-     *
-     * @param eventToDelete a local Event.
-     * @param instanceIndex the instance index for recurring event.
-     */
-    public boolean deleteOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) throws CommandException {
-        if (statusIsDisabled(enabled)) {
-            return false;
-        }
-
-        Calendar service = getCalendar();
-        List<String> eventIds = new ArrayList<>();
-        String recurringEventId = null;
-        boolean repeatedEventsFound = false;
-        Events allEventsOnGoogle = null;
-
-        boolean isRepeatEvent;
-        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
-            isRepeatEvent = false;
-        } else {
-            isRepeatEvent = true;
-        }
-
-        //For single event
-        if (!isRepeatEvent) {
-            eventIds.add(eventToDelete.getEventUid()
-                    .toString()
-                    .replaceAll("-", ""));
-        }
-
-        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
-            try {
-                service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
-                return true;
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-        }
-
-        //For repeated events
-        if (isRepeatEvent) {
-            String eventSetUid =
-                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
-            try {
-                allEventsOnGoogle = getSingleEvents(service);
-            } catch (UnknownHostException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-
-            assert allEventsOnGoogle != null;
-            for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventSetUid)) {
-                    eventIds.add(event.getId());
-                    repeatedEventsFound = true;
-                    recurringEventId = event.getRecurringEventId();
-                }
-            }
-        }
-
-        //Case: delete single instance
-        //No such event online
-        if (!repeatedEventsFound) {
-            logger.info(MESSAGE_IO_ERROR);
-            return false;
-        } else {
-            try {
-                assert recurringEventId != null;
-                Events instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
-                com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
-                instance.setStatus("cancelled");
-                service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
-
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Deletes a range of repeat event instances in the Google Calendar.
      *
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
+     * @param deleteSingle
      */
-    public boolean deleteRangeOnGoogleCal(
-            boolean enabled, Event eventToDelete, int instanceIndex)
+    public boolean deleteEventOnGoogleCal(
+            boolean enabled, Event eventToDelete, int instanceIndex, boolean deleteSingle)
             throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
@@ -398,21 +313,15 @@ public class ConnectToGoogleCalendar {
         boolean repeatedEventsFound = false;
         Events allEventsOnGoogle = null;
 
-        boolean isRepeatEvent;
-        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
-            isRepeatEvent = false;
-        } else {
-            isRepeatEvent = true;
-        }
-
-        //For single event
-        if (!isRepeatEvent) {
+        //Case1: delete non-repeat event
+        //find EventId
+        if (!eventToDelete.isRepeatEvent()) {
             eventIds.add(eventToDelete.getEventUid()
                     .toString()
                     .replaceAll("-", ""));
         }
-
-        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
+        //delete on Google
+        if (!eventToDelete.isRepeatEvent()) {
             try {
                 service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
             } catch (IOException e) {
@@ -420,9 +329,9 @@ public class ConnectToGoogleCalendar {
                 return false;
             }
         }
-
-        //For repeated events
-        if (isRepeatEvent) {
+        //Case2: delete repeated events
+        //Find the ICalUid
+        if (eventToDelete.isRepeatEvent()) {
             String eventSetUid =
                     EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
             try {
@@ -435,7 +344,7 @@ public class ConnectToGoogleCalendar {
                         break;
                     }
                 }
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 logger.info(MESSAGE_IO_ERROR);
                 return false;
             }
@@ -445,22 +354,32 @@ public class ConnectToGoogleCalendar {
         if (!repeatedEventsFound) {
             logger.info(MESSAGE_IO_ERROR);
             return false;
-        } else {
+        } else { //EventSet Found
             try {
                 assert recurringEventId != null;
+                //Case 2.1delete single instance
+                if (deleteSingle) {
+                    Events instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
+                    com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
+                    instance.setStatus("cancelled");
+                    service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+                }
+
+                //delete multiple instances
                 switch (instanceIndex) {
                 case 0:
-                    //Case: Delete All
+                    //Case2.2: Delete All
                     for (String eventId : eventIds) {
                         service.events().delete(CALENDAR_NAME, eventId).execute();
                     }
                     break;
                 default:
+                    //Case2.3:delete upcoming
                     Events instances = null;
                     instances = service.events()
                             .instances(CALENDAR_NAME, recurringEventId).execute();
                     assert instances != null;
-                    for (int i = instanceIndex; i <= instances.size(); i++) {
+                    for (int i = instanceIndex; i < instances.getItems().size(); i++) {
                         com.google.api.services.calendar.model.Event instance =
                                 instances.getItems().get(i);
                         instance.setStatus("cancelled");
@@ -535,7 +454,7 @@ public class ConnectToGoogleCalendar {
      * @param service       the Google service object
      */
     private boolean updateSingleRepeatInstance(Event eventToEdit, Event editedEvent,
-                                               int instanceIndex, Calendar service) {
+                                               int instanceIndex, Calendar service) throws CommandException {
         String recurringEventId = getRecurringEventId(eventToEdit, service);
         if (recurringEventId == null) {
             logger.info(MESSAGE_NOT_FOUND);
@@ -582,17 +501,16 @@ public class ConnectToGoogleCalendar {
         gEventId = EventFormatUtil.getEventUidInGoogleFormatFromLocalEvent(eventToEdit);
         //retrieve event using event Uid
         boolean found = false;
-        try {
-            Events events = getSingleEvents(service);
-            for (com.google.api.services.calendar.model.Event tempGEvent : events.getItems()) {
-                if (Objects.equals(tempGEvent.getId(), gEventId)) {
-                    found = true;
-                    break;
-                }
-            }
-        } catch (UnknownHostException e) {
-            logger.info(MESSAGE_IO_ERROR);
+        Events events = getSingleEvents(service);
+        if (events == null) {
+            logger.warning(MESSAGE_IO_ERROR);
             return false;
+        }
+        for (com.google.api.services.calendar.model.Event tempGEvent : events.getItems()) {
+            if (Objects.equals(tempGEvent.getId(), gEventId)) {
+                found = true;
+                break;
+            }
         }
 
         //Next action:Edit if found, return error if not found
@@ -708,15 +626,13 @@ public class ConnectToGoogleCalendar {
         Events allEventsOnGoogle = null;
         String eventSetUid =
                 EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToEdit);
-        try {
-            logger.info("Trying to download Google Events from Calendar Service.");
-            allEventsOnGoogle = getSingleEvents(service);
-        } catch (UnknownHostException e) {
-            logger.info(MESSAGE_IO_ERROR);
-        }
+        logger.info("Trying to download Google Events from Calendar Service.");
+        allEventsOnGoogle = getSingleEvents(service);
 
         logger.info("Trying to retrieve GoogleEvents from Events.");
-        assert allEventsOnGoogle != null;
+        if (allEventsOnGoogle == null) {
+            return null;
+        }
         for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
             if (Objects.equals(event.getICalUID(), eventSetUid)) {
                 recurringEventId = event.getRecurringEventId();
@@ -731,7 +647,7 @@ public class ConnectToGoogleCalendar {
         return recurringEventId;
     }
 
-    public Events getEvents(Calendar service) throws UnknownHostException, CommandException {
+    public Events getEvents(Calendar service) {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
@@ -746,16 +662,17 @@ public class ConnectToGoogleCalendar {
                     .setTimeMin(now)//set the starting time
                     .execute();
         } catch (UnknownHostException e) {
-            throw e;
+            logger.info(MESSAGE_IO_ERROR);
+            return null;
         } catch (IOException e3) {
             e3.printStackTrace();
             logger.info(MESSAGE_IO_ERROR);
-            throw new CommandException(MESSAGE_IO_ERROR);
+            return null;
         }
         return events;
     }
 
-    public Events getSingleEvents(Calendar service) throws UnknownHostException {
+    public Events getSingleEvents(Calendar service) {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
@@ -771,12 +688,10 @@ public class ConnectToGoogleCalendar {
                     //.setOrderBy("startTime")//if not specified, stable order
                     .setSingleEvents(true)//not the repeated ones
                     .execute();
-        } catch (UnknownHostException e) {
-            throw e;
-        } catch (IOException e3) {
+        } catch (IOException e) {
+            e.printStackTrace();
             logger.warning(MESSAGE_IO_ERROR);
-            new CommandResult(MESSAGE_IO_ERROR);
-            e3.printStackTrace();
+            return null;
         }
         return events;
     }
