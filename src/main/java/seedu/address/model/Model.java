@@ -122,6 +122,11 @@ public interface Model {
     Path getCurrentOriginalImage();
 
     /**
+     * Set the current displayed original image.
+     */
+    void setCurrentOriginalImage(Path path);
+
+    /**
      * Retrieves the current displayed preview image.
      */
     PreviewImage getCurrentPreviewImage();
@@ -177,6 +182,8 @@ public interface Model {
     int getCanvasWidth();
 
     Canvas getCanvas();
+
+    //void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException;
 
     void refreshHistoryList();
 

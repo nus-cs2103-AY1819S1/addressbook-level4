@@ -50,7 +50,7 @@ public class TestApp extends MainApp {
         config = initConfig(appParameters.getConfigPath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        ImageMagickUtil.copyOutside(userPrefs);
+        ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
         storage = new StorageManager(userPrefsStorage);
 
         super.initLogging(config);

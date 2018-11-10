@@ -125,7 +125,7 @@ public class CdCommandTest {
 
         if (os.contains("mac")) {
             // cd commands to change drive on mac
-            Path absMacPath = Paths.get("/Volume");
+            Path absMacPath = Paths.get("/Volumes");
             expectedModel.updateCurrDirectory(absMacPath);
 
             CdCommand command = new CdCommand(absMacPath);

@@ -137,6 +137,11 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentOriginalImage;
     }
 
+    @Override
+    public void setCurrentOriginalImage(Path path) {
+        this.currentOriginalImage = path;
+    }
+
     /**
      * Update the current displayed original image and
      * reinitialize the previewImageManager with the new image
@@ -389,6 +394,16 @@ public class ModelManager extends ComponentManager implements Model {
         return tmp;
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    /*
+    public void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException {
+        ImageMagickUtil.saveCanvas(canvas, userPrefs.getCurrDirectory(), fileName);
+    }
+    */
+
     public void setCurrentLayer(Index i) {
         canvas.setCurrentLayer(i);
         refreshLayerList();
@@ -409,9 +424,6 @@ public class ModelManager extends ComponentManager implements Model {
         refreshLayerList();
     }
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
     /**
      * Simple utility function that updates the HistoryListPanel and logs the event.
      */

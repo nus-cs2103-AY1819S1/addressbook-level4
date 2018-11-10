@@ -1,1 +1,1 @@
-{"name":"sigmoidal-contrast","num":"1","args":{"arg1":"15x30%"},"patterns":{"pattern1":"\\d{1,2}x\\d{1,2}%"}}
+{"name":"sigmoidal-contrast","num":"1","args":{"arg1":"sigama(0-99) x percentage(0% - 99%)"},"patterns":{"pattern1":"\\d{1,2}x\\d{1,2}%"}}
