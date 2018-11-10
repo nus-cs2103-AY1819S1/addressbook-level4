@@ -213,8 +213,9 @@ Examples:
 * `add-medical-history n/John Doe c/sub-healthy`
 
 ****
-* Either condition or allergy must be provided.
+* Either allergy or condition must be provided.
 * Duplicated allergy or condition is not allowed.
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
 
 === Deleting medical condition or allergy to patient: `delete-medical-history`
@@ -230,6 +231,7 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Input allergy or condition must exist in the healthbook.
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
 === Adding remark to patient : `remark`
 Adds a remark to the patient/doctor's information. Input will override current remark. If input is empty, previous remark will be deleted. +

@@ -376,9 +376,10 @@ Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHisto
 Exception will be thrown if inputs for both field are blank.
 
 ==== Design Consideration
-===== Aspect: Support different types of input
-* Alternative 1 (Current choice): `AddMedicalHistoryCommand` allow user to fill in one or more allergies and conditions
-(separated by comma). It is also supported to leave EITHER field blank.
+===== Aspect: The way to model MedicalHistory
+* Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
+`AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
+* Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
 === Delete Medical History Feature
 ==== Current Implementation
@@ -403,10 +404,10 @@ Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHisto
 Exception will be thrown if inputs for both field are blank.
 Exception will be thrown if given input is not in the original medical history.
 
-==== Design Consideration
-===== Aspect: Support different types of input
-* Alternative 1 (Current choice): `DeleteMedicalHistoryCommand` allow user to fill in one or more allergies and
-conditions (separated by comma). It is also supported to leave EITHER field blank.
+===== Aspect: The way to model MedicalHistory
+* Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
+`AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
+* Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
 === Filter Patient and Filter Doctor Feature
 ===== Current Implementation
