@@ -56,6 +56,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
 
+=== Note on command execution
+[TODO] Add if check status is still done at this stage.
+
 === System Commands
 ==== Viewing help: `help`
 
