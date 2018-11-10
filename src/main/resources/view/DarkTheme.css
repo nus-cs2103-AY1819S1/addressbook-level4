@@ -180,7 +180,7 @@
 }
 
 .achievement-grid .label {
-    -fx-text-fill: white; important!
+    -fx-text-fill: white;
 }
 
 .grid-pane .stack-pane {
