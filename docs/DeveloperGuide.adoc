@@ -1548,7 +1548,7 @@ Use case ends.
 
 This section describe other requirements that is not stated in the link:UserGuide.adoc[user guide].
 
-These are the list of non-functional requirements:  
+These are the list of non-functional requirements:
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 concurrent users without a noticeable sluggishness in performance for typical usage.
