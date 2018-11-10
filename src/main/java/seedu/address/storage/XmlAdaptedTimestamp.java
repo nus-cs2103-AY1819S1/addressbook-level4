@@ -18,7 +18,7 @@ public class XmlAdaptedTimestamp {
     private String timestampAsString;
 
     /**
-     * Empty constructor as required by JAXB.
+     * An empty constructor that is required by JAXB.
      */
     public XmlAdaptedTimestamp(){}
 
@@ -27,17 +27,27 @@ public class XmlAdaptedTimestamp {
      * that follows {@code Timestamp.DATE_TIME_FORMATTER_PATTERN}
      */
     public XmlAdaptedTimestamp(String timestampAsString) throws IllegalValueException {
-        try {
-            LocalDateTime.parse(timestampAsString, Timestamp.DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException(Timestamp.DATE_TIME_FORMATTER_PATTERN, e);
+        if (!isValidFormat(timestampAsString)) {
+            throw new IllegalValueException(Timestamp.DATE_TIME_FORMATTER_PATTERN);
         }
-
         this.timestampAsString = timestampAsString;
     }
 
     public XmlAdaptedTimestamp(Timestamp source) {
         this.timestampAsString = source.toString();
+    }
+
+    /**
+     * Returns true if valid date time format as defined by {@code Timestamp.DATE_TIME_FORMATTER_PATTERN}
+     */
+    public static boolean isValidFormat(String timestampString) throws DateTimeParseException {
+        try {
+            LocalDateTime ldt = LocalDateTime.parse(timestampString, Timestamp.DATE_TIME_FORMATTER);
+            String result = ldt.format(Timestamp.DATE_TIME_FORMATTER);
+            return result.equals(timestampString);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**
