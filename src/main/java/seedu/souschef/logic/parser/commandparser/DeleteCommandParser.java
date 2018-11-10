@@ -49,6 +49,12 @@ public class DeleteCommandParser {
         }
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public DeleteCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
