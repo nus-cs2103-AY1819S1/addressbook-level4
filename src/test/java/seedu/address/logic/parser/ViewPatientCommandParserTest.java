@@ -25,7 +25,7 @@ public class ViewPatientCommandParserTest {
         // no leading and trailing whitespaces
         String userInput = " " + PREFIX_NAME + ALICE_PATIENT.getName();
         ViewPatientCommand expectedViewPatientCommand =
-                new ViewPatientCommand(ALICE_PATIENT.getName());
+                new ViewPatientCommand(ALICE_PATIENT.getName(), null);
         assertParseSuccess(parser, userInput, expectedViewPatientCommand);
     }
 
