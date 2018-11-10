@@ -3,6 +3,8 @@ package seedu.souschef.model.mealplanner;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -19,17 +21,14 @@ import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 import seedu.souschef.testutil.Assert;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 public class MealTest {
-    Recipe testRecipe1 = new Recipe(new Name("Chicken Burger"),
+    private Recipe testRecipe1 = new Recipe(new Name("Chicken Burger"),
         new Difficulty(1), new CookTime("30M"), new ArrayList<Instruction>(), new HashSet<Tag>());
-    Recipe testRecipe2 = new Recipe(new Name("Roti Prata"),
+    private Recipe testRecipe2 = new Recipe(new Name("Roti Prata"),
         new Difficulty(2), new CookTime("30M"), new ArrayList<Instruction>(), new HashSet<Tag>());
-    Breakfast testBreakfast1 = new Breakfast();
-    Breakfast testBreakfast2 = new Breakfast();
-    Lunch testLunch1 = new Lunch();
+    private Breakfast testBreakfast1 = new Breakfast();
+    private Breakfast testBreakfast2 = new Breakfast();
+    private Lunch testLunch1 = new Lunch();
 
     @Test
     public void getRecipe_empty_throwsMealRecipeNotFoundException() {

@@ -3,6 +3,9 @@ package seedu.souschef.model.mealplanner;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -19,17 +22,14 @@ import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 import seedu.souschef.testutil.Assert;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 
 public class DayTest {
-    Day testDay1 = new Day(LocalDate.parse("2020-01-01"));
-    Day testDay2 = new Day(LocalDate.parse("2021-02-02"));
-    Day testDay3 = new Day(LocalDate.parse("2020-01-01"));
-    Recipe testRecipe1 = new Recipe(new Name("Chicken Burger"),
+    private Day testDay1 = new Day(LocalDate.parse("2020-01-01"));
+    private Day testDay2 = new Day(LocalDate.parse("2021-02-02"));
+    private Day testDay3 = new Day(LocalDate.parse("2020-01-01"));
+    private Recipe testRecipe1 = new Recipe(new Name("Chicken Burger"),
         new Difficulty(1), new CookTime("30M"), new ArrayList<Instruction>(), new HashSet<Tag>());
-    Recipe testRecipe2 = new Recipe(new Name("Roti Prata"),
+    private Recipe testRecipe2 = new Recipe(new Name("Roti Prata"),
         new Difficulty(2), new CookTime("30M"), new ArrayList<Instruction>(), new HashSet<Tag>());
 
 
@@ -40,14 +40,14 @@ public class DayTest {
     }
 
     @Test
-    public void getMeal_Slot_empty_throwsMealRecipeNotFoundException() {
+    public void getMeal_empty_throwsMealRecipeNotFoundException() {
         Assert.assertThrows(MealRecipeNotFoundException.class, () -> testDay1.getMeal(Breakfast.INDEX).getRecipe());
         Assert.assertThrows(MealRecipeNotFoundException.class, () -> testDay1.getMeal(Lunch.INDEX).getRecipe());
         Assert.assertThrows(MealRecipeNotFoundException.class, () -> testDay1.getMeal(Dinner.INDEX).getRecipe());
     }
 
     @Test
-    public void getMeal_String_invalid_throwsIllegalArgumentException() {
+    public void getMeal_invalid_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> testDay1.getMeal("brkfast"));
         Assert.assertThrows(IllegalArgumentException.class, () -> testDay1.getMeal("lnch"));
         Assert.assertThrows(IllegalArgumentException.class, () -> testDay1.getMeal("dnner"));
