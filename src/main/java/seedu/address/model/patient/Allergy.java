@@ -3,6 +3,8 @@ package seedu.address.model.patient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+
 /**
  * Represents an Allergy in Patient's Medical History
  */
@@ -18,7 +20,7 @@ public class Allergy {
      */
     public static final String ALLERGY_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String allergy;
+    public final String allergy;
 
     /**
      * Constructs a {@code Allergy}.
@@ -40,6 +42,18 @@ public class Allergy {
      */
     public static boolean isValidAllergy(String test) {
         return test.matches(ALLERGY_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns array of allergy given array of string
+     */
+    public static ArrayList<Allergy> toAllergyArray (ArrayList<String> string_allergies) {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        for (int i = 0; i < string_allergies.size(); i++){
+            Allergy allergy = new Allergy(string_allergies.get(i).trim());
+            allergies.add(allergy);
+        }
+        return allergies;
     }
 
     @Override

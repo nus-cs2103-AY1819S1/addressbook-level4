@@ -84,14 +84,14 @@ public class Patient extends Person {
      * Adds allergy into the medical history of patient
      */
     public void addAllergy(String allergy) {
-        medicalHistory.addAllergy(allergy);
+        medicalHistory.addAllergy(new Allergy(allergy));
     }
 
     /**
      * Adds condition into the medical history of patient
      */
     public void addCondition(String condition) {
-        medicalHistory.addCondition(condition);
+        medicalHistory.addCondition(new Condition(condition));
     }
 
     /**

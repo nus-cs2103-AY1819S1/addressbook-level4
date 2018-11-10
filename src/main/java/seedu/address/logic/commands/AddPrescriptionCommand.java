@@ -21,6 +21,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.Prescription;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Allergy;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
@@ -114,8 +115,9 @@ public class AddPrescriptionCommand extends Command {
         }
 
         // check if patient is allergic to medicine
-        for (String allergy: patientToEdit.getMedicalHistory().getAllergies()) {
-            if (allergy.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase())) {
+        for (Allergy allergy: patientToEdit.getMedicalHistory().getAllergies()) {
+            String allergy_string = allergy.toString();
+            if ((allergy_string.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase()))) {
                 throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
             }
         }
