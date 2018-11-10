@@ -72,7 +72,7 @@ public class ArchiveList implements ReadOnlyArchiveList {
 
         // Populate with new elements
         persons.forEach(person -> person.getLeaveApplications().forEach(leaveApplication
-                -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
+            -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
     }
 
     //// person-level operations
