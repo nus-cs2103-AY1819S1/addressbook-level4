@@ -15,7 +15,6 @@ import seedu.address.model.budget.CategoryBudget;
 //@author Snookerballs
 public class CategoriesPanelTest extends GuiUnitTest {
     private static final HashSet<CategoryBudget> CATEGORY_BUDGETS = new HashSet<>();
-    private static final double DELTA = 1e-15;
     private CategoriesPanelHandle categoriesPanelHandle;
 
     @Before
