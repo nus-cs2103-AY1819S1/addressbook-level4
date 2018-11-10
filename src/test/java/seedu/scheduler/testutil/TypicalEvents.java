@@ -82,6 +82,16 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 2, 15, 0))
             .withTags("Interview", "Work")
             .withReminderDurationList(getReminderDurationList(1)).build();
+    public static final Event CHRISTMAS = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("Christmas")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 25, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 25, 23, 0))
+            .withDescription("Celebration").withVenue("Home")
+            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 25, 23, 30))
+            .build();
+
 
     // daily event
     public static final Event STUDY_WITH_JANE_DAY_ONE = new EventBuilder()
