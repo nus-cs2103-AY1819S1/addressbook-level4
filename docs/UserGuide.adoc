@@ -136,6 +136,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+// tag::deleteByName[]
 === Deleting a person : `delete`
 
 Deletes the specified person from InsuRen by the displayed list's index or by an existing name. +
@@ -163,7 +164,7 @@ Deletes the 2nd person in InsuRen.
 Deletes the 1st person in the results of the `find` command.
 * `delete John` +
 Deletes John if John uniquely identifies a single person in InsuRen.
-
+// end::deleteByName[]
 
 === Selecting a person : `select`
 

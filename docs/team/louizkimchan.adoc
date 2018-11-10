@@ -13,28 +13,32 @@
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to edit client contact information by name*.
-** What it does: Instead of having to edit contact info by using an index, you can edit contacts directly using their name, provided their name is distinguishable from all other names.
+* *Major enhancement*: added the ability to *edit client contact information and delete client contacts by name*.
+** What it does: Instead of having to edit or delete contact info by using an index, you can edit and delete contacts directly using their name, provided their name is distinguishable from all other names present in InsuRen.
 ** Justification: This feature improves the product significantly because normally, editing requires scrolling or using `find` to filter the list first. Since we don't want the user to have to use the mouse, and we want to speed up processes, editing by name will help achieve the product's goals.
-** Highlights: This enhancement extends the `edit` command and makes use of a new `Predicate` in a method to find a `Person` provided a unique identifier.
+** Highlights: This enhancement extends the `edit` and `delete` commands and makes use of a new `Predicate` and `PersonFinderUtil` to find a `Person` when provided a unique identifier.
 ** Credits: Nil.
 
-* *Minor enhancement*: Make the address, email and phone number fields `Optional`.
+* *Minor enhancement*: Make the address, email and phone number fields `Optional` (Pull requests https://github.com[#16], https://github.com[#33]).
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
+Misc: 29, 112
+
 ** Project management:
-*** [To be done]
+*** Managed release `v1.3.1` on GitHub
 ** Enhancements to existing features:
-*** [To be done]
+*** Add a display for the number of people in InsuRen on the status bar (Pull request https://github.com[#8])
+*** Change aesthetics and add text wrapping to Person Cards (Pull request https://github.com[#4])
 ** Documentation:
-*** [To be done]
+*** Update the About Us page to reflect our team (Pull requests https://github.com[#14], https://github.com[#15])
+*** Update the images shown on the project page (Pull requests https://github.com[#2], https://github.com[#15], https://github.com[#28], https://github.com[#56]))
 ** Community:
-*** [To be done]
+*** PRs reviewed (with non-trivial review comments): https://github.com[#22], https://github.com[#23], https://github.com[#40], https://github.com[#57], https://github.com[#58], https://github.com[#60], https://github.com[#71]
 ** Tools:
-*** [To be done]
+*** Get CI tools to print stack traces on failed tests (Pull request https://github.com[#77])
 
 == Contributions to the User Guide
 
@@ -44,6 +48,8 @@
 
 include::../UserGuide.adoc[tag=editByName]
 
+include::../UserGuide.adoc[tag=deleteByName]
+
 include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
@@ -52,4 +58,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=editByName]
+include::../DeveloperGuide.adoc[tag=byNameCommands]
