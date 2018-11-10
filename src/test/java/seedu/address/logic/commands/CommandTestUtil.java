@@ -74,12 +74,13 @@ public class CommandTestUtil {
 
     public static final String VALID_STRING_JAN = "JAN";
     public static final String VALID_STRING_YEAR = "2018";
-    public static final String VALID_STRING_DATE = "1";
+    public static final String VALID_STRING_DATE_1 = "1";
+    public static final String VALID_STRING_DATE_2 = "2";
     public static final String LOWER_CASE_MONTH = " " + PREFIX_MONTH + "jan";
     public static final String MIX_CASE_MONTH = " " + PREFIX_MONTH + "jAn";
     public static final String UPPER_CASE_MONTH = " " + PREFIX_MONTH + "JAN";
     public static final String FOUR_DIGIT_YEAR = " " + PREFIX_YEAR + VALID_STRING_YEAR;
-    public static final String ONE_DIGIT_DATE = " " + PREFIX_DATE + VALID_STRING_DATE;
+    public static final String ONE_DIGIT_DATE = " " + PREFIX_DATE + VALID_STRING_DATE_1;
     public static final String ONE_DIGIT_SDATE = " " + PREFIX_START_DATE + VALID_CALENDAR_DATE_1;
     public static final String ONE_DIGIT_EDATE = " " + PREFIX_END_DATE + VALID_CALENDAR_DATE_2;
     public static final String EIGHT_START_HOUR = " " + PREFIX_START_HOUR + VALID_SHOUR;

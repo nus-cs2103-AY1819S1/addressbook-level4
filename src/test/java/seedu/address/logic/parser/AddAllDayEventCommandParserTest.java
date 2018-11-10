@@ -21,7 +21,7 @@ import static seedu.address.logic.commands.CommandTestUtil.USER_INPUT_TITLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALENDAR_TITLE_OCAMP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JAN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STRING_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STRING_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STRING_JAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STRING_YEAR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_2018;
@@ -74,7 +74,7 @@ public class AddAllDayEventCommandParserTest {
                 + USER_INPUT_TITLE, expectedMessage);
 
         // missing date prefix
-        assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + " " + VALID_STRING_DATE
+        assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + " " + VALID_STRING_DATE_1
                 + USER_INPUT_TITLE, expectedMessage);
 
         // missing title prefix
@@ -82,7 +82,7 @@ public class AddAllDayEventCommandParserTest {
                 + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_STRING_JAN + " " + VALID_STRING_YEAR + " " + VALID_STRING_DATE
+        assertParseFailure(parser, VALID_STRING_JAN + " " + VALID_STRING_YEAR + " " + VALID_STRING_DATE_1
                 + " " + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
     }
 
