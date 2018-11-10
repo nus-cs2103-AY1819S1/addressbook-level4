@@ -1,6 +1,7 @@
 package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -13,10 +14,10 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 
 import java.util.Optional;
+
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
-
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.staff.Staff;
@@ -28,7 +29,7 @@ import seedu.clinicio.model.staff.Staff;
 public class AddPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "addpatient";
-    
+
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the ClinicIO";
     public static final String MESSAGE_NOT_LOGIN_AS_RECEPTIONIST = "You are not logged in as a receptionist";
     public static final String MESSAGE_NO_DOCTOR_FOUND = "The preferred doctor is not found.";
@@ -70,7 +71,7 @@ public class AddPatientCommand extends Command {
         } else if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
         } else if ((toAdd.getPreferredDoctor().isPresent())
-                && (!isPreferredDoctor(model, toAdd.getPreferredDoctor()))) {
+                && (!isPreferredDoctor(model, toAdd.getPreferredDoctor().get()))) {
             throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
         }
 
@@ -85,13 +86,13 @@ public class AddPatientCommand extends Command {
      * @param preferredDoctor Patient's preferred doctor
      * @return True if the staff is a doctor found in ClinicIO.
      */
-    public boolean isPreferredDoctor(Model model, Optional<Staff> preferredDoctor) {
+    public boolean isPreferredDoctor(Model model, Staff preferredDoctor) {
         requireNonNull(preferredDoctor);
-        boolean hasStaff = model.hasStaff(preferredDoctor.get());
-        boolean isDoctor = preferredDoctor.get().getRole().equals(DOCTOR);
+        boolean hasStaff = model.hasStaff(preferredDoctor);
+        boolean isDoctor = preferredDoctor.getRole().equals(DOCTOR);
         return hasStaff && isDoctor;
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
