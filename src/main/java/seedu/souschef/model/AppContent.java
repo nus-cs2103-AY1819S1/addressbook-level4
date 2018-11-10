@@ -206,7 +206,6 @@ public class AppContent implements ReadOnlyAppContent {
                 && mealPlanner.equals(((AppContent) other).mealPlanner)
                 && ingredients.equals(((AppContent) other).ingredients)
                 && favourites.equals(((AppContent) other).ingredients));
-
     }
 
     @Override
