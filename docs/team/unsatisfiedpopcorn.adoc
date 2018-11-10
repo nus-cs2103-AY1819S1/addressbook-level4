@@ -1,9 +1,3 @@
-== Note
-
-This is a template for a portfolio, copied from the original AB4 fork.
-
----
-
 = Jeffery Kwoh Ji Hui - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
@@ -71,9 +65,10 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[#144]
 *** Reported bugs and suggestions for other teams in the class (examples:
-  https://github.com/CS2103-AY1819S1-W16-4/main/issues/155[1], https://github.com/CS2103-AY1819S1-W16-4/main/issues/145[2],
-  https://github.com/CS2103-AY1819S1-W16-4/main/issues/162[3], https://github
-  .com/CS2103-AY1819S1-W16-4/main/issues/168[4])
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/155[1],
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/145[2],
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/162[3],
+  https://github.com/CS2103-AY1819S1-W16-4/main/issues/168[4])
 ** Tools:
 *** Integrated Travis CI to the team repo
 *** Integrated Coveralls to the team repo
