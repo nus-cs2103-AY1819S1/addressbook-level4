@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,9 +40,9 @@ public class ExportTxtCommandTest {
     public void setUp() {
         dirPath = testFolder.getRoot().getPath() + File.separator;;
         AddressBookStorage addressBookStorage =
-                new XmlAddressBookStorage(ParserUtil.parseFilePath(dirPath + "addressbook.xml"));
+                new XmlAddressBookStorage(Paths.get(dirPath + "addressbook.xml"));
         UserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(ParserUtil.parseFilePath(dirPath + "preference.json"));
+                new JsonUserPrefsStorage(Paths.get(dirPath + "preference.json"));
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
         model = new ModelManager(TypicalPersons.getTypicalPersonsAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
@@ -50,7 +51,8 @@ public class ExportTxtCommandTest {
     @Test
     public void execute_validFilePath_success() {
         String filePath = dirPath + "validExport.txt";
-        ExportTxtCommand exportTxtCommand = new ExportTxtCommand(ParserUtil.parseFilePath(filePath));
+        ExportTxtCommand exportTxtCommand =
+                new ExportTxtCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.TXT);
         exportTxtCommand.setStorage(storage);
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, filePath);
 
@@ -59,13 +61,16 @@ public class ExportTxtCommandTest {
 
     @Test
     public void execute_invalidFilePath_throwsCommandException() {
-        String filePath = "/desktop/fakefolder/invalidExport.txt\0";
-        ExportXmlCommand exportXmlCommand = new ExportXmlCommand(ParserUtil.parseFilePath(filePath));
-        exportXmlCommand.setStorage(storage);
-        String expectedMessage = String.format(ExportCommand.MESSAGE_FAIL_READ_FILE);
+        // filePath contains invalid character "&"
+        String filePath = "/desktop/fakefolder/invalid&Export.txt";
+        ExportTxtCommand exportTxtCommand =
+                new ExportTxtCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.TXT);
+        exportTxtCommand.setStorage(storage);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_INVALID_FILE_PATH);
 
-        assertCommandFailure(exportXmlCommand, model, commandHistory, expectedMessage, filePath);
+        assertCommandFailure(exportTxtCommand, model, commandHistory, expectedMessage, filePath);
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -76,9 +81,13 @@ public class ExportTxtCommandTest {
     public void assertCommandSuccess(ExportTxtCommand command, Model actualModel, CommandHistory actualCommandHistory,
                                      String expectedMessage) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
-        CommandResult result = command.execute(actualModel, actualCommandHistory);
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedCommandHistory, actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
     }
 
     /**
@@ -87,7 +96,7 @@ public class ExportTxtCommandTest {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - user data is not saved at {@code filePath}
      */
-    public void assertCommandFailure(ExportXmlCommand command, Model actualModel, CommandHistory actualCommandHistory,
+    public void assertCommandFailure(ExportTxtCommand command, Model actualModel, CommandHistory actualCommandHistory,
                                      String expectedMessage, String filePath) {
         try {
             command.execute(actualModel, actualCommandHistory);
