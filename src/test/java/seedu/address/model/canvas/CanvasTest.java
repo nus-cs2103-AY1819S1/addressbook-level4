@@ -26,34 +26,34 @@ class CanvasTest {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     @Test
-    void getLayers() {
+    public void getLayers() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertNotNull(canvas.getLayers());
         assertEquals(canvas.getLayers().size(), 1);
     }
 
     @Test
-    void addLayer() {
+    public void addLayer() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         canvas.addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.IMAGE_LIST[1]));
         assertEquals(canvas.getLayers().size(), 2);
     }
 
     @Test
-    void getCurrentLayer() {
+    public void getCurrentLayer() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertNotNull(canvas.getCurrentLayer());
     }
 
     @Test
-    void setCurrentLayer() {
+    public void setCurrentLayer() {
         Canvas canvas = CanvasGenerator.getCanvasWithTwoLayers();
         canvas.setCurrentLayer(Index.fromOneBased(2));
         assertEquals(canvas.getCurrentLayer().getName(), "Layer 2");
     }
 
     @Test
-    void removeLayer() {
+    public void removeLayer() {
         Canvas canvas = CanvasGenerator.getCanvasWithTwoLayers();
         try {
             canvas.removeLayer(Index.fromOneBased(2));
@@ -65,7 +65,7 @@ class CanvasTest {
     }
 
     @Test
-    void swapLayer() {
+    public void swapLayer() {
         Canvas canvas = CanvasGenerator.getCanvasWithTwoLayers();
         Index to = Index.fromOneBased(1);
         Index from = Index.fromOneBased(2);
@@ -80,13 +80,13 @@ class CanvasTest {
     }
 
     @Test
-    void getHeight() {
+    public void getHeight() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertEquals(canvas.getCurrentLayer().getHeight(), canvas.getHeight());
     }
 
     @Test
-    void setHeight() {
+    public void setHeight() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         int newHeight = 100;
         canvas.setHeight(newHeight);
@@ -94,13 +94,13 @@ class CanvasTest {
     }
 
     @Test
-    void getWidth() {
+    public void getWidth() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertEquals(canvas.getCurrentLayer().getWidth(), canvas.getWidth());
     }
 
     @Test
-    void setWidth() {
+    public void setWidth() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         int newHeight = 100;
         canvas.setHeight(newHeight);
@@ -108,26 +108,26 @@ class CanvasTest {
     }
 
     @Test
-    void isCanvasAuto() {
+    public void isCanvasAuto() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertFalse(canvas.isCanvasAuto());
     }
 
     @Test
-    void setCanvasAuto() {
+    public void setCanvasAuto() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         canvas.setCanvasAuto(true);
         assertTrue(canvas.isCanvasAuto());
     }
 
     @Test
-    void getBackgroundColor() {
+    public void getBackgroundColor() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         assertEquals(canvas.getBackgroundColor(), "none");
     }
 
     @Test
-    void setBackgroundColor() {
+    public void setBackgroundColor() {
         Canvas canvas = CanvasGenerator.getInitialCanvas();
         String newColor = "rgba(0,0,0,0.0)";
         canvas.setBackgroundColor(newColor);

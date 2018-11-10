@@ -14,7 +14,7 @@ import seedu.address.testutil.PreviewImageGenerator;
 class LayerTest {
 
     @Test
-    void addTransformation() {
+    public void addTransformation() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         Transformation t = PreviewImageGenerator.getATransformation();
         layer.addTransformation(t);
@@ -22,13 +22,13 @@ class LayerTest {
     }
 
     @Test
-    void getX() {
+    public void getX() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         assertEquals(layer.getX(), 0);
     }
 
     @Test
-    void setX() {
+    public void setX() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         int newX = 100;
         layer.setX(newX);
@@ -36,13 +36,13 @@ class LayerTest {
     }
 
     @Test
-    void getY() {
+    public void getY() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         assertEquals(layer.getY(), 0);
     }
 
     @Test
-    void setY() {
+    public void setY() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         int newY = 100;
         layer.setY(newY);
@@ -50,13 +50,13 @@ class LayerTest {
     }
 
     @Test
-    void getHeight() {
+    public void getHeight() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         assertEquals(layer.getHeight(), layer.getImage().getHeight());
     }
 
     @Test
-    void setHeight() {
+    public void setHeight() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         int newHeight = 100;
         layer.setHeight(newHeight);
@@ -64,13 +64,13 @@ class LayerTest {
     }
 
     @Test
-    void getWidth() {
+    public void getWidth() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         assertEquals(layer.getWidth(), layer.getImage().getWidth());
     }
 
     @Test
-    void setWidth() {
+    public void setWidth() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         int newWidth = 100;
         layer.setWidth(newWidth);
@@ -78,13 +78,13 @@ class LayerTest {
     }
 
     @Test
-    void getImage() {
+    public void getImage() {
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         assertNotNull(layer.getImage());
     }
 
     @Test
-    void setName() {
+    public void setName() {
         String newName = "New name";
         Layer layer = new Layer(PreviewImageGenerator.getDefaultPreviewImage(), "Layer 1");
         layer.setName(newName);
