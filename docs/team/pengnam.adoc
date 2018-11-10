@@ -9,21 +9,29 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: Dependency and Time
-** What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order.
-The UI will display the earliest DueDate among all tasks that a task is dependent on (includes task dependees of task dependees).
-The time of the earliest due date among all its children and grand children is displayed in the UI.
+* *Major enhancement*: Time and completion dependency
+** What it does:
+Users can add dependencies between tasks:
+1) to ensure that the right tasks are completed in order 2)
+the earliest due date among all tasks that are dependent on a given task is displayed for that given task (an effective due date)
+
 ** Justification:
-A useful information to look at when deciding how to prioritise tasks is looking at not just the due date of a task, but
-the earliest due date among all tasks that it depends on.
+Some tasks are have complicated dependencies with other subtasks, and the user might want to ensure that they complete the
+tasks in the right order.
+A useful information to have when deciding how to prioritise tasks is not just to look at the due date of a task but
+also the earliest due date among all tasks that depend on the task.
+
 ** Highlights:
-There were significant design choices that needed to be made to specify dependencies.
-Modelling Time and checks associated with time involved design pattern choices.
-Both are elaborated in the Developer guide.
+*** There were significant design choices that needed to be made to specify dependencies given that tasks are immutable. (i.e.
+Assume that there are two tasks, task A and task B, where task A is dependent on task B. If I was to edit task B, taskA
+has to be recreated as the dependencies on task A has to reflect the dependency on the new task B object).
+*** Modelling the notion of time and how it is related and associated with time involved design pattern choices.
+*** Both are elaborated in the Developer guide.
 
 
 * *Code contributed*:
@@ -33,14 +41,40 @@ https://github.com/CS2103-AY1819S1-F11-3/main/commits?author=pengnam[[Github Com
 
 * *List of major PRs*:
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/75[Dependency feature]
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/130[Dependency toggle]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[Flag overdue]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/48[DueDate modelling]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[Dependency validity]
 
 * *Other contributions*:
+** *Minor Enhancements:*
+**** Minor Enhancement 1: Time-based status update
+***** What it does:
+The Task Manager needs to update the status field accordingly when a task is completed or deleted.
+***** Justification:
+The status needs to be accordingly responsive. i.e. If I was to update a task that is IN-PROGRESS to a new due date that
+is before current time, the status of the task needs to be flagged as OVERDUE. If I decide to update an overdue task with
+a new due date that is after current time, the status of the task needs to be adjusted to IN-PROGRESS.
+***** Highlights:
+****** Appropriate dependencies objects have to be adjusted accordingly after edits/task completion because Tasks are designed
+to be immutable.
+****** This check has to be triggered at every command hence a significant design pattern had to be adopted for an elegant
+and clean solution.
 
+**** Minor Enhancement 2: Topological sort (`topoorder` command)
+***** What it does:
+User can display a list of tasks in order of their topology
+***** Justification:
+Aids the user in prioritising which task to complete.
+***** Highlights:
+https://github.com/CS2103-AY1819S1-F11-3/main/blob/master/src/main/java/seedu/address/model/DependencyGraph.java[Topological sort implementation]
 
-** Project management:
+** *Bugs found in other team's code:*
+Bugs not due to inaccurate documentation are listed here. Some are relatively major and difficult to find.
+*** https://github.com/CS2103-AY1819S1-W17-4/main/issues/195[Non-unique tasks]
+*** https://github.com/CS2103-AY1819S1-W17-4/main/issues/241#issuecomment-437561699[Files with changed names]
+
+** *Project Management:*
 *** Coordinated releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Product Manager Role
 ***** Coordinated and facilitated meetings one to two times a week to ensure group is on track
@@ -59,8 +93,10 @@ https://github.com/CS2103-AY1819S1-F11-3/main/projects/3[2.0]
 
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Did a significant anount of initial refactoring for team:
+*** Enhanced the GUI by allowing it to display time until completion
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/219[#219]
+
+*** Did a significant amount of initial refactoring for the team:
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/41[#41],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/47[#47],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/48[#48],
@@ -70,12 +106,15 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/54[#54],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/66[#66],
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the Developer Guide:
 *** Actively maintained the Developer Guide:
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/171[#171]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/216[#216]
 
 ** Community:
+*** Reported bug on module website
+(examples:  https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3[#3],
+https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/76[#76 (Batch complete command)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/95[#95 (list filter)],
@@ -83,9 +122,6 @@ https://github.com/CS2103-AY1819S1-F11-3/main/pull/154[#154 (list filter)],
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/67[#67 (Complete command)]
 https://github.com/CS2103-AY1819S1-F11-3/main/pull/213[#213 (Tests for achievements)]
 
-*** Reported bug on module website
-(examples:  https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3[#3],
-https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
 
 ** Tools:
 *** Maintained a Github plugin (TravisCI) in team repo https://github.com/CS2103-AY1819S1-F11-3/main/pull/60[#60]
