@@ -205,11 +205,8 @@ public class AddApptCommandTest {
         public void updatePerson(Person personToUpdate, Person updatedPerson) {
             requireAllNonNull(personToUpdate, updatedPerson);
             if (!personToUpdate.isSamePerson(updatedPerson)) {
-                // TODO: what should be an appropriate response?
-                assertTrue(false);
                 return;
             }
-
             patient = updatedPerson;
         }
     }
