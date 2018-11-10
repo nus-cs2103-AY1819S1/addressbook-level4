@@ -1,12 +1,12 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_MEALPLANNER_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
 import java.util.List;
 
@@ -31,14 +31,14 @@ public class DeleteCommandParser {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
+    public DeleteCommand<Recipe> parseRecipe(Model<Recipe> model, String args) throws ParseException {
         try {
             Index targetIndex = ParserUtil.parseIndex(args);
             requireNonNull(model);
             List<Recipe> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
 
@@ -89,31 +89,6 @@ public class DeleteCommandParser {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_HEALTHPLAN_USAGE), pe);
-        }
-    }
-
-    /**
-     *
-     * @param model
-     * @param args
-     * @return
-     * @throws ParseException
-     */
-    public DeleteCommand<Recipe> parseFavourites(Model model, String args) throws ParseException {
-        try {
-            Index targetIndex = ParserUtil.parseIndex(args);
-            requireNonNull(model);
-            List<Recipe> lastShownList = model.getFilteredList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE));
-            }
-            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
-
-            return new DeleteCommand<>(model, toDelete);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE), pe);
         }
     }
 

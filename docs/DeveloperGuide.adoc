@@ -337,9 +337,7 @@ between ingredients when the amounts are shown with common units. Secondly, when
 ingredients are sorted by date. Since ingredients have to be consumed in a certain period, it keeps user be reminded of old ingredients.
 
 ===== Current implementation for serving units dictionary
-Ingredient Manager uses gram for
-mass and
-centimeter cube for volume as common units. Serving unit dictionary is implemented with `static HashMap` in
+Ingredient Manager uses gram for common units. Serving unit dictionary is implemented with `static HashMap` in
 `IngredientServingUnit` class, which
 contains
  names of a serving units as a key and IngredientServingUnitDefinition objects as a value.

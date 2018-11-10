@@ -38,13 +38,13 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Contains utility methods for populating {@code AppContent} with sample data.
  */
 public class SampleDataUtil {
-    public static Recipe[] getSampleRecipes() {
+    public static Recipe[] getRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
@@ -156,7 +156,53 @@ public class SampleDataUtil {
                             new IngredientPortion("salt", "tablespoon", 0.5),
                             new IngredientPortion("black pepper", "tablespoon", 0.5)))
                 ),
-                getTagSet("Asian", "Staple"))
+                getTagSet("Asian", "Staple")),
+            new Recipe(new Name("Kimchi Jun"), new Difficulty("2"), new CookTime("10M"),
+                        getInstructionList(
+                                new Instruction("Stir together the kimchi, kimchi juice,"
+                                        + " flour, eggs, and green onion in a bowl.",
+                                        getIngredientPortionSet(new IngredientPortion("kimchi", "g", 150.0),
+                                                new IngredientPortion("flour", "g", 300.0),
+                                                new IngredientPortion("egg", "g", 100.0),
+                                                new IngredientPortion("green onion", "g", 100.0))),
+                                new Instruction("Using about 1/4 cup of batter for each pancake,"
+                                        + " pour into skillet, spreading"
+                                        + " as thin as possible. Cook pancakes until set and lightly browned, turning"
+                                        + " once, 3 to 5 minutes per side.",
+                                        new CookTime("5M"),
+                                        getIngredientPortionSet())),
+                        getTagSet("Snack", "Korean")),
+            new Recipe(new Name("Kimchi Soup"), new Difficulty("2"), new CookTime("30M"),
+                        getInstructionList(
+                                new Instruction("Stir water, kimchi, pork shoulder, hot pepper paste,"
+                                        + " sugar, and salt together in a pot.",
+                                        getIngredientPortionSet(new IngredientPortion("kimchi", "g", 50.0),
+                                                new IngredientPortion("pork shoulder", "g", 50.0),
+                                                new IngredientPortion("hot pepper paste", "tablespoon", 2.0))),
+                                new Instruction("bring to a boil, reduce heat to medium,"
+                                        + " and simmer until meat is tender, about 20 minutes.",
+                                        new CookTime("20M"),
+                                        getIngredientPortionSet()),
+                                new Instruction("Remove from heat and stir in green onions.",
+                                        getIngredientPortionSet(new IngredientPortion("green onion", "g", 20.0)))),
+                        getTagSet("Staple", "Korean")),
+            new Recipe(new Name("Vegan Korean Kimchi Fried Rice"), new Difficulty("3"), new CookTime("20M"),
+                        getInstructionList(
+                                new Instruction("Add red onion, garlic, and ginger. Cook, stirring occasionally,"
+                                        + "until onion softens, about 3 minutes.",
+                                        new CookTime("3M"),
+                                        getIngredientPortionSet(new IngredientPortion("red onion", "g", 20.0),
+                                                new IngredientPortion("garlic", "g", 10.0),
+                                                new IngredientPortion("ginger", "g", 10.0))),
+                                new Instruction("Stir in cooked rice, soy sauce, sugar, kimchi,"
+                                        + " Cook and stir until heated through, about 5 minutes",
+                                        new CookTime("5M"),
+                                        getIngredientPortionSet(new IngredientPortion("soy sauce", "tablespoon", 1.0),
+                                                new IngredientPortion("sugar", "tablespoon", 1.0),
+                                                new IngredientPortion("kimchi", "g", 20.0))),
+                                new Instruction("scrape the bottom of the skillet to prevent sticking.",
+                                        getIngredientPortionSet())),
+                        getTagSet("Staple", "Vegan", "Korean"))
         };
     }
 
@@ -168,15 +214,33 @@ public class SampleDataUtil {
         sdf.setLenient(false);
         try {
             ingredients = new Ingredient[]{
-                new Ingredient(new IngredientName("Carrot"), new IngredientAmount(300.0),
+                new Ingredient(new IngredientName("carrot"), new IngredientAmount(300.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-25-2018"))),
-                new Ingredient(new IngredientName("Tomato"), new IngredientAmount(200.0),
+                        new IngredientDate(sdf.parse("10-10-2018"))),
+                new Ingredient(new IngredientName("tomato"), new IngredientAmount(200.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-26-2018"))),
-                new Ingredient(new IngredientName("Potato"), new IngredientAmount(100.0),
+                        new IngredientDate(sdf.parse("10-11-2018"))),
+                new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-24-2018")))
+                        new IngredientDate(sdf.parse("10-12-2018"))),
+                new Ingredient(new IngredientName("flour"), new IngredientAmount(300.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-16-2018"))),
+                new Ingredient(new IngredientName("chicken"), new IngredientAmount(540.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-21-2018"))),
+                new Ingredient(new IngredientName("beef"), new IngredientAmount(300.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-25-2018"))),
+                new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-30-2018"))),
+                new Ingredient(new IngredientName("apple"), new IngredientAmount(120.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-30-2018"))),
+                new Ingredient(new IngredientName("kimchi"), new IngredientAmount(200.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("11-17-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();
@@ -203,13 +267,13 @@ public class SampleDataUtil {
         ArrayList<Meal> list = new ArrayList<>();
         ArrayList<Meal> list2 = new ArrayList<>();
 
-        list.add(new Breakfast(getSampleRecipes()[0]));
-        list.add(new Lunch(getSampleRecipes()[1]));
-        list.add(new Dinner(getSampleRecipes()[2]));
+        list.add(new Breakfast(getRecipes()[0]));
+        list.add(new Lunch(getRecipes()[1]));
+        list.add(new Dinner(getRecipes()[2]));
 
-        list2.add(new Breakfast(getSampleRecipes()[2]));
-        list2.add(new Lunch(getSampleRecipes()[3]));
-        list2.add(new Dinner(getSampleRecipes()[2]));
+        list2.add(new Breakfast(getRecipes()[2]));
+        list2.add(new Lunch(getRecipes()[3]));
+        list2.add(new Dinner(getRecipes()[2]));
 
         return new Day[] {
             new Day (modelDate, list),
@@ -218,13 +282,9 @@ public class SampleDataUtil {
         };
     }
 
-
-
-
-
-    public static ReadOnlyAppContent getSampleAddressBook() {
+    public static ReadOnlyAppContent getSampleRecipes() {
         AppContent sampleAb = new AppContent();
-        for (Recipe sampleRecipe : getSampleRecipes()) {
+        for (Recipe sampleRecipe : getRecipes()) {
             sampleAb.getRecipes().add(sampleRecipe);
         }
         return sampleAb;

@@ -14,7 +14,6 @@ import java.util.Set;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.ingredient.IngredientPortion;
-import seedu.souschef.model.tag.Tag;
 
 /**
  * Represents a Recipe in the application content.

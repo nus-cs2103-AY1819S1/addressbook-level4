@@ -10,7 +10,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
 import seedu.souschef.commons.core.Config;
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
@@ -82,9 +81,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s SousChef and {@code userPrefs}. <br>
+     * The data from the sample SousChef will be used instead if {@code storage}'s SousChef is not found,
+     * or an empty SousChef will be used instead if errors occur when reading {@code storage}'s SousChef.
      */
     private ModelSet initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAppContent> readOnlyAppContentOptional;
@@ -96,7 +95,7 @@ public class MainApp extends Application {
             if (!readOnlyAppContentOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
-            initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleRecipes);
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");

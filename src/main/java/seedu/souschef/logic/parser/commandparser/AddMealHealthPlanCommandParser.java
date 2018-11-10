@@ -6,7 +6,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PLAN;
 
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.core.Messages;
@@ -14,7 +13,6 @@ import seedu.souschef.logic.commands.AddMealHealthPlanCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
 import seedu.souschef.logic.parser.ArgumentTokenizer;
 import seedu.souschef.logic.parser.ParserUtil;
-import seedu.souschef.logic.parser.Prefix;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.healthplan.HealthPlan;
@@ -44,7 +42,7 @@ public class AddMealHealthPlanCommandParser {
 
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN, PREFIX_DURATION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_PLAN, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddMealHealthPlanCommand.MESSAGE_USAGE));
@@ -83,10 +81,6 @@ public class AddMealHealthPlanCommandParser {
 
 
         return new AddMealHealthPlanCommand(healthPlanModel, planToAddTo, dayToAdd, dayIndex, planIndex);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

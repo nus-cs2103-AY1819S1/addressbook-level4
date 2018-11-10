@@ -8,7 +8,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Finds and lists all recipes in address book whose name contains any of the argument keywords.
+ * Finds and lists all recipes in SousChef whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand<T extends UniqueType> extends Command {
@@ -18,7 +18,7 @@ public class FindCommand<T extends UniqueType> extends Command {
     private final Model<T> model;
     private final Predicate predicate;
 
-    public FindCommand(Model model, Predicate predicate) {
+    public FindCommand(Model<T> model, Predicate predicate) {
         this.model = model;
         this.predicate = predicate;
     }
@@ -28,7 +28,7 @@ public class FindCommand<T extends UniqueType> extends Command {
         model.updateFilteredList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, model.getFilteredList().size(),
-                        history.getKeyword()));
+                        history.getContextString()));
     }
 
     @Override

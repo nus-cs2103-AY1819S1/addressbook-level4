@@ -59,7 +59,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -71,7 +71,7 @@ public class EditCommandParser {
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
+    public EditCommand<Recipe> parseRecipe(Model<Recipe> model, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME,
@@ -107,7 +107,7 @@ public class EditCommandParser {
                     argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
 
-        CookTime cookTime = new CookTime("0M");
+        CookTime cookTime = new CookTime(CookTime.ZERO_COOKTIME);
         if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
             cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
             editRecipeDescriptor.setCooktime(cookTime);
@@ -125,7 +125,7 @@ public class EditCommandParser {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
-        // Parse for edit type: details or instruction
+        // Parse for edit type for either edit recipe general details or instruction
         if (argMultimap.getValue(PREFIX_STEP).isPresent() && !argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }

@@ -31,7 +31,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand<Recipe>(model), model, history,
+        assertCommandSuccess(new ListCommand(model), model, history,
                 String.format(ListCommand.MESSAGE_SUCCESS, "recipe"),
                 expectedModel);
     }
@@ -39,7 +39,7 @@ public class ListCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
-        assertCommandSuccess(new ListCommand<Recipe>(model), model, history,
+        assertCommandSuccess(new ListCommand(model), model, history,
                 String.format(ListCommand.MESSAGE_SUCCESS, "recipe"),
                 expectedModel);
     }
