@@ -811,25 +811,28 @@ to check if the currency symbol and price entered are valid.
 The Reservations feature allows users to store customer reservations, view them, and to cancel them.
 
 ==== Current Implementation
-The Reservations feature currently contains 3 commands to modify the `UniqueReservationsList` stored in `ModelManager`.
+The Reservations feature currently contains 6 commands to modify the `UniqueReservationsList` stored in `ModelManager`.
 
 * `add-reservation` command - Adds reservations to the reservations list.
 * `edit-reservation` command - Edits existing reservations in the reservations list.
 * `delete-reservation` command - Deletes existing reservations in the reservations list.
+* `list-reservation` command - Lists reservations in the reservations list.
+* `select-reservation` command - Select existing reservations in the reservations list.
+* `sort-reservation` command - Sorts existing reservations in the reservations list.
 
-Each `Reservation` object contains `Name`, `Pax`, and `LocalDateTime`.
+Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
 
 ==== `add-reservation` Command
-The `add-reservation` command follows similar implementation of the current `add` command.
-
 The command takes in 3 parameters, `Name`, `Pax`, and `DateTime` to create a `Reservation` object.
 
-After the `Reservation` Object is created, RestaurantBook#addReservation(Reservation reservation) is called to add the
+After the `Reservation` Object is created, `RestaurantBook#addReservation(Reservation reservation)` is called to add the
 `Reservation` Object to the `UniqueReservationsList`.
 
-==== `edit-reservation` Command
-The `edit-reservation` command follows similar implementation of the current `edit` command.
+The following activity diagram summarizes what happens when a user executes `add-reservation` command:
 
+image::AddReservationActivityDiagram.png[width="650"]
+
+==== `edit-reservation` Command
 The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
  `Name`, `Pax`, `DateTime`.
 
@@ -837,35 +840,32 @@ The `Reservation` associated with the given `Index` is then identified within th
 then has its values updated to the new values specified by the `Name`, `Pax`, and `DateTime` parameters.
 
 ==== `delete-reservation` Command
-The `delete-reservation` command follows similar implementation of the current `delete` command.
-
 The command takes in 1 parameter, `Index`.
 
 The `Reservation` associated with the given `Index` is then identified, then deleted from the internal
 `UniqueReservationsList`.
 
+==== `list-reservations` Command
+The command does not require any additional parameters.
+
+A `DisplayReservationListRequestEvent` is posted to the `EventsCenter`, which will call the
+`handleDisplayReservationListRequestEvent` method of the `MainWindow`. The Reservations List will then be shown on
+the UI.
+
+The following sequence diagram shows how the `list-reservations` command works:
+
+image::ListReservationsSequenceDiagram.png[width="1000"]
+
 ==== Design Considerations
-*Aspect: How DateTime is stored*
+*Aspect: How `Date` and `Time` are parsed*
 
-* **Alternative 1 (current choice):** `Reservation` stores the Date and Time by wrapping it in a `LocalDateTime` object.
-** Pros: Easy to implement.
-** Cons: Unable to easily change attributes like how the Date and Time are displayed, and unable to store Message
-Constraints as it is not its own dedicated class.
+* **Alternative 1 (current choice):** `Date` and `Time` are parsed using Natty.
+** Pros: Easy to implement as it only requires importing the Natty library with minimal configuration.
+** Cons: Natty will sometimes try to "guess" unexpected `Date` values.
 
-* **Alternative 2:** Create dedicated `DateTime` class.
-** Pros: This will solve the aforementioned issues of not having a dedicated class to store the Date and Time.
-
-*Aspect: How DateTime is parsed*
-
-* **Alternative 1 (current choice):** `DateTime` is parsed in the format ``yyyy-mm-ddThh:mm:ss``
-** Pros: Easy to implement as the `LocalDateTime` object can directly parse this format without any additional input
-manipulation.
-** Cons: Unintuitive and troublesome to enter the fields. Additionally, it is unnecessary to keep track of the
-`Seconds` field in the context of restaurant reservations.
-
-* **Alternative 2:** Use `Natty` library for `DateTime` parsing
-** Pros: Natty uses natural language parsing, so the user can enter the `Date` and `Time` fields in their preferred
-format.
+* **Alternative 2:** Configure the Natty library to avoid unexpected parse results.
+** Pros: The parser will be able to provide more accurate `Date` and `Time` values.
+** Cons: Difficult to implement as it requires deep understanding of how the Natty library works.
 //end::reservations[]
 
 === Logging
