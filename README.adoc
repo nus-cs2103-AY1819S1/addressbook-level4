@@ -14,31 +14,35 @@ ifndef::env-github[]
 image::images/title.png[width="700", align="left"]
 endif::[]
 == About
-Souschef is your smart cooking sidekick, offering personalised guidance every step of the way.
+SousChef is your smart cooking sidekick, offering personalised guidance every step of the way.
 From recipe recommendations just for you, to meal planning and inventory management,
 Sous Chef has everything you need to improve life in the kitchen.
 Experience what many are enjoying.
 
-=== Recipes from our renowned chef
+=== Recipes galore
 An endless supply of recipes to fuel your next cooking adventure.
 
 === Discover recipe recommendations
-Setup your taste and inventory limitations and we will only serve up recipes that match.
+Setup your preferences and inventory and SousChef will serve you recipes that match your requirements.
+Your own personalised culinary experience!
 
-=== Step-by-step guided recipes
-Let Sous Chef do the thinking for you with our step-by-step cooking mode.
-Cooking at home can never be easier.
+=== Scheduling meal plans
+SousChef lets you plan and schedule your desired recipes at the dates and meal slots that you want with its
+MealPlanner. Let SousChef remember your meal plans for you!
 
-=== Scheduling recipes
-Schedule a recipe at exactly the time you want and we will plan the cook time for
-you. Sous Chef keeps the worries at the back of your mind.
-
-=== Shortfall ingredient suggestions
-Include the ingredients you have at home and we will reduce wastage for you
-by providing delicious recipes that make use of them. Save the headache, time and even money.
+=== Inventory management
+SousChef lets you keep track of the ingredients you have currently and which can be used in the available recipes.
+Record the ingredients you have at home with SousChef and it will help you reduce wastage
+by providing delicious recipes that make use of them. Save yourself time and money!
 
 === Dietary Advisor
-Seeking for a ideal body build? Have a health goal in mind? Set your dietary goal and our advisor will be advising your daily meals. It is difficulty not to be healthy following our regimen.
+Seeking your ideal body build? Have a health goal in mind? Set your dietary goal and our advisor will be advising your daily meals.
+Using the meals you have planned in the MealPlanner, SousChef calculates your calorie intake and
+advises you on your distance from your required calorie goal. It is almost difficulty to be unhealthy following our regimen.
+
+=== Step-by-step guided recipes [Coming in v2.0]
+Let SousChef do the thinking for you with our step-by-step cooking mode.
+Cooking at home has never been easier!
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="700", align="left"]

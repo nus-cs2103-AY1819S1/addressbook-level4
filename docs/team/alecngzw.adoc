@@ -34,8 +34,8 @@ their food choices.
 
 
 
-* *Bug fix* : solved bug issue when system will function when xml files are not found
-** This change allows the system to bootup normally when any of the xml files are not found. Uses sampleData to start up.
+* *Major bug fix* : solved bug issue when system will function when xml files are not found
+** This change allows the system to boot up normally when any of the xml files are not found. Uses sampleData to start up.
 ** Justification: This improves the user experience
 ** Highlights: Without this change, the user experience would be drastically different as the system will not function properly.
 ** https://github.com/CS2103-AY1819S1-W10-4/main/pull/135[PR#135]
@@ -52,10 +52,11 @@ https://github.com/CS2103-AY1819S1-W10-4/main/pull/151[#151]
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=healthplan]
 
 
 == Contributions to the Developer Guide
