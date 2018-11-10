@@ -680,12 +680,16 @@ Step 5: To indicate successful completion of verification, the `login` command r
 
 Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
 
-The following sequence diagram shows how the login works:
+The following sequence diagrams shows how the login works:
 
+**Logic**
+
+.Sequence Diagram for the `LoginCommand` for the logic component.
 image::LoginSequenceDiagram.png[width="1080"]
 
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
+.Activity Diagram for the `LoginCommand`
 image::LoginActivityDiagram.png[width="1080"]
 
 ===== `LogoutCommand`
