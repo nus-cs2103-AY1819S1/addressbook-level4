@@ -69,7 +69,7 @@ e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
 
 Format: `help`
 
-//tag::add]
+//tag::add[]
 === Adding a module: `c_add`
 
 Adds a `*particular*` module entry in the CAPTracker. +
