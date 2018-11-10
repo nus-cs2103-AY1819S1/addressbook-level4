@@ -1,29 +1,31 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_JESSIE;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -83,18 +85,19 @@ public class UpdateCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
+
         // invalid maintenance
         assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
         // invalid email
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_WAIT_TIME_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
         // invalid thanepark
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Zone.MESSAGE_ZONE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_ZONE_DESC, Zone.MESSAGE_ZONE_CONSTRAINTS);
         // invalid tag
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // invalid maintenance followed by valid email
-        assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC + EMAIL_DESC_AMY,
+        assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
         // valid maintenance followed by invalid maintenance. The test case for invalid maintenance followed by
@@ -112,19 +115,19 @@ public class UpdateCommandParserTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY
+        assertParseFailure(parser, "1" + VALID_NAME_SYMBOLS + INVALID_WAIT_TIME_DESC + INVALID_ZONE_DESC
                         + VALID_MAINTENANCE_AMY,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+                WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RIDE;
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withZone(VALID_ADDRESS_AMY)
+                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withZone(VALID_ZONE_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
@@ -134,7 +137,7 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_AMY;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_AMY).build();
@@ -152,6 +155,13 @@ public class UpdateCommandParserTest {
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // name with symbols
+        targetIndex = INDEX_FIRST_PERSON;
+        userInput = targetIndex.getOneBased() + VALID_NAME_SYMBOLS;
+        descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_JESSIE).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // maintenance
         userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_AMY;
         descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_AMY).build();
@@ -159,14 +169,15 @@ public class UpdateCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
+        userInput = targetIndex.getOneBased() + WAIT_TIME_DESC_AMY;
         descriptor = new UpdateRideDescriptorBuilder().withWaitTime(VALID_WAIT_TIME_AMY).build();
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // thanepark
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new UpdateRideDescriptorBuilder().withZone(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + ZONE_DESC_AMY;
+        descriptor = new UpdateRideDescriptorBuilder().withZone(VALID_ZONE_AMY).build();
+
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -180,13 +191,13 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + MAINTENANCE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + MAINTENANCE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY + WAIT_TIME_DESC_AMY
+                + TAG_DESC_FRIEND + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY + WAIT_TIME_DESC_AMY + TAG_DESC_FRIEND
+                + MAINTENANCE_DESC_BOB + ZONE_DESC_BOB + WAIT_TIME_DESC_BOB + TAG_DESC_HUSBAND;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
-                .withZone(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withZone(VALID_ZONE_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
@@ -204,11 +215,12 @@ public class UpdateCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_MAINTENANCE_DESC + ADDRESS_DESC_BOB
+        userInput = targetIndex.getOneBased() + WAIT_TIME_DESC_BOB + INVALID_MAINTENANCE_DESC + ZONE_DESC_BOB
                 + MAINTENANCE_DESC_BOB;
         descriptor = new UpdateRideDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB)
-                .withZone(VALID_ADDRESS_BOB).build();
+                .withZone(VALID_ZONE_BOB).build();
+
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
