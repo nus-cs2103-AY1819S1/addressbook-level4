@@ -1797,6 +1797,100 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No possible meeting location is displayed. Status message indicates that command is incorrect and shows proper usage.
 .. Other incorrect faculty location display commands: `generateLocation`, `generateLocation st/1400`, `generateLocation d/2018-04-01`
 
+=== Adding an Event
+
+. Adding an event
+
+.. Successful test cases
+... Prerequisites: Events to be added must not be a duplicate event and must not clash with any existing events in EventsPlus+.
+List all persons using the `list` command. Multiple persons in the list.
+Add the event tag `meeting` using the `addEventTag` command.
+... Test case: `addEvent n/Meeting d/2018-05-01 st/1400 et/1600 a/NUS SOC` +
+    Expected: A new event with the specified details is created and displayed in EventsPlus+.
+    Status message indicates that the event has been added into EventsPlus+ successfully.
+    Timestamp in the status bar is updated.
+... Test case: `addEvent n/Meeting d/2018-05-01 st/1600 et/1800 a/NUS SOC t/meeting` +
+    Expected: A new event with the specified details, tagged as `meeting` is added and displayed in EventsPlus+.
+    Status message indicates that the event has been added into EventsPlus+ successfully.
+    Timestamp in the status bar is updated.
+... Test case: `addEvent n/Meeting d/2018-05-01 st/1800 et/1900 a/NUS SOC t/meeting i/1` +
+    Expected: A new event with the specified details, tagged as `meeting`, with the first contact is added and displayed in EventsPlus+.
+    Status message indicates that the event has been added into EventsPlus+ successfully.
+    Timestamp in the status bar is updated.
+
+.. Failing test cases
+... Prerequisites: `addEvent n/Meeting d/2018-05-01 st/1400 et/1600 a/NUS SOC` has been successfully executed,
+and the event tag `presentation` does not exist in EventsPlus+
+... Test case: `addEvent n/Meeting d/2018-05-01 st/1430 et/1500 a/NUS SOC t/meeting` +
+   Expected: Error details indicating an event clash with an existing event in the system.
+   Event is not added into EventsPlus+.
+   Status bar remains the same.
+... Test case: `addEvent n/Meeting d/2018-05-01 st/1600 et/1800 a/NUS SOC t/presentation` +
+   Expected: Error details showing that the event tag does not exist in the system.
+   Event is not added into EventsPlus+.
+   Status bar remains the same.
+
+=== Deleting an Event
+
+. Deleting an event
+.. Prerequisites: List all events using the `list` command. Multiple events in the list for 2018-04-01.
+.. Test case: `deleteEvent d/2018-04-01 i/1` +
+Expected: First event on 2018-04-01 is deleted from the event list.
+Details of the deleted event shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteEvent d/2018-04-01 i/0` +
+Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect deleteEvent commands to try: `deleteEvent`, `delete d/invalid_date i/x`
+(where date input and x do not refer to any events in the system) +
+Expected: Similar to previous.
+
+=== Listing all events
+
+. Listing all events
+.. Prerequisites: Multiple events existing in EventsPlus+
+.. Test case: `listEvent` +
+Expected: All events in EventsPlus+ shown. Status bar remains the same.
+
+=== Finding all events with specific tags
+
+. Finding all events with specific tags
+.. Prerequisites: List all events using the `list` command.
+Multiple events in the list tagged with `meeting` and `appointment`.
+No events tagged with `class`.
+.. Test case: `findEvent meeting`
+Expected: All events tagged with `meeting` shown. Status bar remains the same.
+.. Test case: `findEvent meeting appointment`
+Expected: All events tagged with `meeting` and `appointment` shown. Status bar remains the same.
+.. Test case: `findEvent class`
+Expected: No events shown. Status bar remains the same.
+
+=== Adding an event tag
+
+. Adding an event tag
+.. Prerequisites: Event tag `meeting` exists in EventsPlus+ but not `class` and `lecture`.
+.. Test case: `addEventTag t/class t/lecture`
+Expected: Event tags `class` and `lecture` added into the system.
+Timestamp in the status bar is updated.
+.. Test case: `addEventTag t/meeting`
+Expected: Error details indicating that event tag already exists is shown in the status message.
+Event tags `class` and `lecture` not added into the system.
+Status bar remains the same.
+
+=== Editing an event's address
+
+. Editing an event's address
+.. Prerequisites: Event to be edited (with address `NUS i3`) exists in EventsPlus+.
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/updated address`
+Expected: Specified event's address is updated to `updated address`.
+Status message indicates that the event's address has been updated to the new value.
+Timestamp in the status bar is updated.
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/NUS`
+Expected: Specified event's address stays as `NUS i3`.
+Status message indicates that the event's address has been updated to the new value (which is the same as the old value).
+Timestamp in the status bar is updated.
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/`
+Expected: Error details indicating invalid input for address field.
+Status bar remains the same.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
