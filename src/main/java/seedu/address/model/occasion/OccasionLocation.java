@@ -15,7 +15,7 @@ public class OccasionLocation {
             "Locations should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The name of an occasion should consist of any number of alphanumeric
+     * The location of an occasion should consist of any number of alphanumeric
      * characters and spaces.
      */
     public static final String OCCASIONLOCATION_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";

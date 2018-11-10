@@ -53,6 +53,16 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     }
 
     /**
+     * Makes an copy of this UniqueOccasionList with shallow copies of the occasions inside.
+     */
+    public UniqueOccasionList makeShallowDuplicate() {
+        List<Occasion> newOccasions = this.internalList
+                .stream().map(value -> value.makeShallowDuplicate())
+                .collect(Collectors.toList());
+        return new UniqueOccasionList(newOccasions);
+    }
+
+    /**
      * Adds the specified occasion to the list iff it is not originally contained
      * within it.
      */
@@ -113,6 +123,13 @@ public class UniqueOccasionList implements Iterable<Occasion> {
      */
     public ObservableList<Occasion> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    /**
+     * Returns the backing list as a normal modifiable list {@code List}.
+     */
+    public List<Occasion> asNormalList() {
+        return internalList.stream().collect(Collectors.toList());
     }
 
     @Override

@@ -36,12 +36,12 @@ public class Occasion {
      * Every field must be present and not null.
      */
     public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
-                    Set<Tag> tags, TypeUtil type) {
+                    Set<Tag> tags, TypeUtil type, UniquePersonList personList) {
         requireAllNonNull(occasionName, occasionDate, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.location = location;
-        this.attendanceList = new UniquePersonList(new ArrayList<>());
+        this.attendanceList = personList;
         this.tags.addAll(tags);
     }
 
@@ -66,9 +66,29 @@ public class Occasion {
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
                     Set<Tag> tags) {
-        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION);
+        this(occasionName, occasionDate, null, tags, TypeUtil.OCCASION, new UniquePersonList());
     }
 
+    /**
+     * Creates and returns a {@code Occasion} with the details of {@code occasionToEdit}
+     * edited with {@code editedOccasionDescriptor}.
+     */
+    public static Occasion createEditedOccasion(Occasion occasionToEdit, OccasionDescriptor editedOccasionDescriptor) {
+        assert occasionToEdit != null;
+
+        OccasionName updatedOccasionName =
+                editedOccasionDescriptor.getOccasionName().orElse(occasionToEdit.getOccasionName());
+        OccasionDate updatedOccasionDate =
+                editedOccasionDescriptor.getOccasionDate().orElse(occasionToEdit.getOccasionDate());
+        OccasionLocation updatedOccasionLocation =
+                editedOccasionDescriptor.getOccasionLocation().orElse(occasionToEdit.getOccasionLocation());
+        UniquePersonList updatedPersonList =
+                editedOccasionDescriptor.getAttendanceList().orElse(occasionToEdit.getAttendanceList());
+        Set<Tag> updatedTags = editedOccasionDescriptor.getTags().orElse(occasionToEdit.getTags());
+
+        return new Occasion(updatedOccasionName, updatedOccasionDate, updatedOccasionLocation,
+                updatedTags, TypeUtil.OCCASION, updatedPersonList);
+    }
     public OccasionName getOccasionName() {
         return occasionName;
     }
@@ -78,7 +98,7 @@ public class Occasion {
     }
 
     public UniquePersonList getAttendanceList() {
-        return attendanceList == null ? new UniquePersonList(new ArrayList<>()) : attendanceList;
+        return attendanceList == null ? new UniquePersonList() : attendanceList;
     }
 
     public OccasionLocation getOccasionLocation() {
@@ -97,6 +117,18 @@ public class Occasion {
         OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
         OccasionLocation newLocation = this.location.makeDeepDuplicate();
         UniquePersonList newList = this.attendanceList.makeDeepDuplicate();
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
+    }
+
+    /**
+     * Make an identical copy of this occasion with an empty person list.
+     */
+    public Occasion makeShallowDuplicate() {
+        OccasionName newName = this.occasionName.makeDeepDuplicate();
+        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
+        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        UniquePersonList newList = new UniquePersonList();
         Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
         return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }
@@ -147,7 +179,6 @@ public class Occasion {
         return otherOccasion.getOccasionName().equals(this.getOccasionName())
                 && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
                 && otherOccasion.getOccasionLocation().equals(this.getOccasionLocation())
-                && otherOccasion.getAttendanceList().equals(this.getAttendanceList())
                 && otherOccasion.getTags().equals(this.getTags());
     }
 
