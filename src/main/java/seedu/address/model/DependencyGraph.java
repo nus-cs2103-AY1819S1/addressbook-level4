@@ -79,7 +79,6 @@ public class DependencyGraph {
 
     /**
      * Return the inverted pruned graph (with their hashcodes as string)
-     * @return
      */
     public Map<String, Set<String>> getPrunedInvertedGraph() {
         pruneCompletedTasks();
@@ -88,7 +87,7 @@ public class DependencyGraph {
     }
 
     /**
-     * Invert the edges in a graph
+     * Invert the edges in the graph
      */
     public void invertGraph() {
         Map<String, Set<String>> newAgencyList = new HashMap<>();
