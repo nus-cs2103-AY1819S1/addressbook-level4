@@ -25,7 +25,8 @@ import seedu.clinicio.model.appointment.Date;
  */
 public abstract class Statistics {
 
-    public static final int NUM_SUMMARY = 1;
+    public static final int NUM_SUMMARY_ELEMENTS = 4;
+    public static final int DEFAULT_SUMMARY_VALUE = 0;
 
     // summary fields
     private static final String SUMMARY_TODAY = "Today";
@@ -37,7 +38,6 @@ public abstract class Statistics {
     protected final List<String> defaultSummaryTexts = Arrays.asList(SUMMARY_TODAY, SUMMARY_WEEK, SUMMARY_MONTH,
         SUMMARY_YEAR);
     protected final List<Integer> defaultSummaryValues = Arrays.asList(0, 0, 0, 0);
-
     protected StatData statData;
 
     /**
@@ -58,10 +58,10 @@ public abstract class Statistics {
      * @return A list of the number of occurrences of dates for each summary field.
      */
     public List<Integer> computeSummaryTotals(List<Date> dates) {
-        int todayCount = DateUtil.today(dates);
-        int weekCount = DateUtil.currentWeek(dates);
-        int monthCount = DateUtil.currentMonth(dates);
-        int yearCount = DateUtil.currentYear(dates);
+        int todayCount = DateUtil.todayCount(dates);
+        int weekCount = DateUtil.currentWeekCount(dates);
+        int monthCount = DateUtil.currentMonthCount(dates);
+        int yearCount = DateUtil.currentYearCount(dates);
 
         return Arrays.asList(todayCount, weekCount, monthCount, yearCount);
     }
@@ -108,7 +108,7 @@ public abstract class Statistics {
 
     /**
      * Transforms a map to a list of tuples for continuous data.
-     * Considers categorical data to mean having an Integer, Integer pairing.
+     * Considers continuous data to mean having an Integer, Integer pairing.
      */
     public List<Tuple<Integer, Integer>> getTupleDataContinuous(Map<Integer, Integer> map) {
         return map.entrySet().stream()
@@ -118,55 +118,23 @@ public abstract class Statistics {
 
     /**
      * Constructs data for a categorical plot for the days of next week.
+     * For each group of dates provided, calculates the count of the dates provided for each day next week.
      * Returns counts in the order they were provided as inputs.
      * Assumes at least one group of dates is supplied.
+     * @return a list of list of tuples with the day as key and its count as value. Each sub-list is for a single group
+     * of data.
      */
-    public List<List<Tuple<String, Integer>>> overNextWeek(List<List<Date>>
-        datesGroups) {
+    public List<List<Tuple<String, Integer>>> overNextWeekDays(List<List<Date>> datesGroups) {
         assert datesGroups.size() >= 1 : "Invalid number of groups of dates supplied.";
 
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
-
         for (List<Date> datesGroup : datesGroups) {
-            Map<Date, Integer> nextWeekDateCounts = DateUtil.eachDateOfNextWeekCount(datesGroup);
+            // get counts for dates of next week
+            List<Tuple<Date, Integer>> nextWeekDateCounts = DateUtil.eachDateOfNextWeekCount(datesGroup);
 
-            List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
-                .map(entry -> new Tuple<DayOfWeek, Integer>(DateUtil.getDayFromDate(entry.getKey()), entry
-                    .getValue()))
-                .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
-                .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))
-                .collect(Collectors.toList());
-
-            dataGroups.add(dataGroup);
-        }
-
-        return dataGroups;
-    }
-
-    /**
-     * Constructs data for a continuous plot for the months of the year.
-     * Returns counts in the order they were provided as inputs.
-     * Assumes at least one group of dates is supplied.
-     */
-    public List<List<Tuple<String, Integer>>> overCurrentYear(List<List<Date>>
-                                                                   datesGroups) {
-
-        // plot for all dates in year
-        // hide axis to only show 1st of each month
-
-        // on plot side, line charts -> check if xlabels supplied ? hide : don't
-
-        assert datesGroups.size() >= 1 : "Invalid number of groups of dates supplied.";
-
-        List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
-
-        for (List<Date> datesGroup : datesGroups) {
-            Map<Date, Integer> nextWeekDateCounts = DateUtil.eachDateOfNextWeekCount(datesGroup);
-
-            List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
-                .map(entry -> new Tuple<DayOfWeek, Integer>(DateUtil.getDayFromDate(entry.getKey()), entry
-                    .getValue()))
-                .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
+            // convert count to using days instead of dates as keys
+            List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.stream()
+                .map(entry -> new Tuple<DayOfWeek, Integer>(DateUtil.getDayFromDate(entry.getKey()), entry.getValue()))
                 .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))
                 .collect(Collectors.toList());
 

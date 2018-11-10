@@ -75,10 +75,7 @@ public class DoctorStatistics extends Statistics {
      */
     @Override
     public void computeSummaryData() {
-        List<Date> consultationDates = consultations.stream()
-            .map(consultation -> consultation.getConsultationDate())
-            .collect(Collectors.toList());
-
+        List<Date> consultationDates = getConsultationDates();
         List<Integer> consultaionTotalValues = computeSummaryTotals(consultationDates);
 
         int numberOfDoctors = doctors.size();
@@ -95,31 +92,16 @@ public class DoctorStatistics extends Statistics {
     @Override
     public void computeVisualizationData() {
         plotPreferencesPerDoctorCount();
+        plotConsultationsPerDoctorCount();
     }
 
     /**
-     * Computes the number of consultations per doctor.
+     * @return a list of all consultation dates.
      */
-    public Map<String, Integer> consultationsPerDoctor() {
-        Map<String, Integer> consultationCounts = consultations.stream()
-            .map(consultation -> consultation.getDoctor())
-            // remove non doctor staff
-            .filter(staffOptional -> staffOptional
-                .map(staff -> staff.getRole().equals(Role.DOCTOR))
-                .orElse(false))
-            // count the number of consultations for each doctor
-            .collect(groupingBy(Function.identity(), summingInt(doctor -> 1)))
-            .entrySet()
-            .stream()
-            .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey()
-                // convert the {@code Staff} object to its name
-                .map(doctor -> doctor.getName().toString()).orElse("otherstaff"), entry
-                .getValue()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        // remove non doctor staff
-        consultationCounts.remove("otherstaff");
-        return consultationCounts;
+    public List<Date> getConsultationDates() {
+        return consultations.stream()
+            .map(consultation -> consultation.getConsultationDate())
+            .collect(Collectors.toList());
     }
 
     /**
@@ -131,6 +113,15 @@ public class DoctorStatistics extends Statistics {
         statData.addVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR, false,
             "Number of patient preferences for each doctor", "Number of patients", "Doctor",
             Arrays.asList(preferencesDataPoints), Arrays.asList(""));
+    }
+
+    /**
+     * Add each doctor's number of consultations to be visualized.
+     */
+    public void plotConsultationsPerDoctorCount() {
+        statData.addVisualization("doctorConsultations", ChartType.HORIZONTAL_BAR, false,
+            "Number of consultations for each doctor", "Number of consultations", "Doctor", Arrays.asList
+            (getConsultationsPerDoctorCount()), Arrays.asList(""));
     }
 
     /**
@@ -151,6 +142,31 @@ public class DoctorStatistics extends Statistics {
         }
 
         return prefCounts;
+    }
+
+    /**
+     * Computes the number of consultations per doctor.
+     */
+    public List<Tuple<String, Integer>> getConsultationsPerDoctorCount() {
+        Map<String, Integer> consultationCounts = consultations.stream()
+            .map(consultation -> consultation.getDoctor())
+            // remove non doctor staff
+            .filter(staffOptional -> staffOptional
+                .map(staff -> staff.getRole().equals(Role.DOCTOR))
+                .orElse(false))
+            // count the number of consultations for each doctor
+            .collect(groupingBy(Function.identity(), summingInt(doctor -> 1)))
+            .entrySet()
+            .stream()
+            .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey()
+                // convert the {@code Staff} object to its name
+                .map(doctor -> doctor.getName().toString()).orElse("otherstaff"), entry
+                .getValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        // remove non doctor staff
+        consultationCounts.remove("otherstaff");
+        return getTupleDataCategorical(consultationCounts);
     }
 
     /**

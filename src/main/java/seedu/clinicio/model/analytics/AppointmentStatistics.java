@@ -41,6 +41,24 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
+     * Updates {@code statData} with the latest summary values.
+     */
+    @Override
+    public void computeSummaryData() {
+        List<Date> appointmentDates = getAppointmentDates();
+        List<Integer> appointmentSummaryValues = computeSummaryTotals(appointmentDates);
+
+        // update data with calculated values
+        statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, appointmentSummaryValues);
+    }
+
+    @Override
+    public void computeVisualizationData() {
+        plotAppointmentSupplyDemand();
+        plotAppointmentsOverYear();
+    }
+
+    /**
      * @return the total number of appointments.
     */
     private int getNumberOfAppointments() {
@@ -78,16 +96,11 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     * Retrieves the number of appointments for each day of the present week.
+     * @return the dates of all appointments.
      */
-    private List<Tuple<String, Integer>> getNumberOfCurrentWeekAppointments() {
-        List<Date> datesOfAppointments = appointments.stream()
-                .map(appt -> appt.getAppointmentDate())
-                .collect(Collectors.toList());
-
-        return DateUtil.eachDateOfCurrentWeekCount(datesOfAppointments).entrySet().stream()
-            .map(entry -> new Tuple<String, Integer>(DateUtil.getDayFromDate(entry.getKey()).name(),
-                entry.getValue()))
+    public List<Date> getAppointmentDates() {
+        return appointments.stream()
+            .map(appt -> appt.getAppointmentDate())
             .collect(Collectors.toList());
     }
 
@@ -95,15 +108,58 @@ public class AppointmentStatistics extends Statistics {
      * Computes data to plot the supply of appointments against their demand for the following week.
      */
     public void plotAppointmentSupplyDemand() {
+        // get a list of the dates for next week
+        List<Date> nextWeekDates = DateUtil.getNextWeekDates();
+        // get list of scheduled dates for next week
+        List<Date> scheduledSlotsDates = getNextWeekScheduledDates();
+        // get list available dates for next week
+        List<Date> availableSlotsDates = getNextWeekAvailableDates(nextWeekDates, scheduledSlotsDates);
+
+        List<List<Tuple<String, Integer>>> appointmentDataGroups = overNextWeekDays(Arrays.asList
+            (scheduledSlotsDates, availableSlotsDates));
+        List<String> appointmentLabelGroups = Arrays.asList("scheduled", "available");
+
+        // add to statData
+        statData.addVisualization("apptSupplyDemand", ChartType.STACKED_BAR, false,
+            "Appointments next week", "Day of week", "Number of appointments",
+            appointmentDataGroups, appointmentLabelGroups);
+    }
+
+    /**
+     * Computes data to plot the number of appointments for each month of the current year.
+     */
+    public void plotAppointmentsOverYear() {
+        // get data points
+        List<Tuple<String, Integer>> monthCounts = DateUtil.eachMonthOfCurrentYearCount(getAppointmentDates());
+        statData.addVisualization("apptsYear", ChartType.LINE, false,
+            "Number of Appointments This Year", "Date", "Number of Appointments",
+            Arrays.asList(monthCounts), Arrays.asList(""));
+    }
+
+    /**
+     * Retrieves the number of appointments for each day of the present week.
+     */
+    private List<Tuple<String, Integer>> getNumberOfCurrentWeekAppointments() {
+        return DateUtil.eachDateOfCurrentWeekCount(getAppointmentDates()).stream()
+            .map(entry -> new Tuple<String, Integer>(DateUtil.getDayFromDate(entry.getKey()).name(), entry.getValue()))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * @return the dates of all scheduled appointment slots for next week.
+     */
+    public List<Date> getNextWeekScheduledDates() {
         // get the subset of appointments that are scheduled for next week.
-        List<Date> scheduledSlotsDates = appointments.stream()
+        return appointments.stream()
             .map(appt -> appt.getAppointmentDate())
             .filter(date -> DateUtil.isNextWeek(date))
             .collect(Collectors.toList());
+    }
 
-        // get a list of the dates for next week
-        List<Date> nextWeekDates = DateUtil.getNextWeekDates();
-
+    /**
+     * @return the dates of all available appointment slots for next week.
+     */
+    public List<Date> getNextWeekAvailableDates(List<Date> nextWeekDates, List<Date> scheduledSlotsDates) {
         List<Date> availableSlotsDates = new ArrayList<>();
         // for each day of next week, find the number of slots scheduled
         for (Date nextWeekDate : nextWeekDates) {
@@ -116,48 +172,7 @@ public class AppointmentStatistics extends Statistics {
             availableSlotsDates.addAll(Collections.nCopies(availableSlots, nextWeekDate));
         }
 
-        List<List<Tuple<String, Integer>>> appointmentDataGroups = overNextWeek(Arrays.asList
-            (scheduledSlotsDates, availableSlotsDates));
-        List<String> appointmentLabelGroups = Arrays.asList("scheduled", "available");
-
-        statData.addVisualization("apptSupplyDemand", ChartType.STACKED_BAR, false,
-            "Appointments next week", "Day of week", "Number of appointments",
-            appointmentDataGroups, appointmentLabelGroups);
+        return availableSlotsDates;
     }
 
-    /**
-     * Computes data to plot the number of appointments for each month of the current year.
-     */
-    public void plotAppointmentsOverYear() {
-        List<Date> appointmentDates = appointments.stream()
-            .map(appt -> appt.getAppointmentDate())
-            .collect(Collectors.toList());
-
-        // get data points
-        List<Tuple<String, Integer>> monthCounts = DateUtil.eachMonthOfCurrentYear(appointmentDates);
-        statData.addVisualization("apptsYear", ChartType.LINE, false,
-            "Number of Appointments This Year", "Date", "Number of Appointments",
-            Arrays.asList(monthCounts), Arrays.asList(""));
-    }
-
-    /**
-     * Updates {@code statData} with the latest summary values.
-     */
-    @Override
-    public void computeSummaryData() {
-        List<Date> appointmentDates = appointments.stream()
-            .map(appt -> appt.getAppointmentDate())
-            .collect(Collectors.toList());
-
-        List<Integer> appointmentSummaryValues = computeSummaryTotals(appointmentDates);
-
-        // update data with calculated values
-        statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, appointmentSummaryValues);
-    }
-
-    @Override
-    public void computeVisualizationData() {
-        plotAppointmentSupplyDemand();
-        plotAppointmentsOverYear();
-    }
 }

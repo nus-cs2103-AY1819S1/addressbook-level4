@@ -1,5 +1,8 @@
 package seedu.clinicio.model.analytics.data;
 
+import static seedu.clinicio.model.analytics.Statistics.DEFAULT_SUMMARY_VALUE;
+import static seedu.clinicio.model.analytics.Statistics.NUM_SUMMARY_ELEMENTS;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +17,6 @@ import seedu.clinicio.model.analytics.ChartType;
  * Lists of tuples are used to represent ordering.
  */
 public class StatData {
-
-    public static final int NUM_SUMMARY_ELEMENTS = 4;
-    public static final int DEFAULT_SUMMARY_VALUE = 0;
 
     private SummaryData summaryData;
     private CircularList<VisualizationData> allVisualizationData;

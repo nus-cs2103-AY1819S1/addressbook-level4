@@ -2,9 +2,6 @@ package seedu.clinicio.model.analytics;
 
 //@@author arsalanc-v2
 
-import static java.lang.Math.toIntExact;
-
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +29,7 @@ public class PatientStatistics extends Statistics {
     public PatientStatistics() {
         this.patients = new ArrayList<>();
         this.consultations = new ArrayList<>();
+        initializeSummaryValues(SUMMARY_TITLE, defaultSummaryTexts);
     }
 
     public void setPatients(ObservableList<Patient> patients) {
@@ -46,37 +44,49 @@ public class PatientStatistics extends Statistics {
      */
     @Override
     public void computeSummaryData() {
-        List<Date> consultationDates = consultations.stream()
-            .map(consultation -> consultation.getConsultationDate())
-            .collect(Collectors.toList());
+        List<Date> consultationDates = getConsultationDates();
 
         List<Integer> consultationSummaryValues = computeSummaryTotals(consultationDates);
         statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, consultationSummaryValues);
+    }
+
+
+    @Override
+    public void computeVisualizationData() {
+        plotPatientsOverDayOfWeek();
+        plotPatientsOverTimeOfDay();
+    }
+
+    /**
+     * @return a list of all consultation dates.
+     */
+    public List<Date> getConsultationDates() {
+        return consultations.stream()
+            .map(consultation -> consultation.getConsultationDate())
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * @return a list of all consultation times.
+     */
+    public List<Time> getConsultationTimes() {
+        return consultations.stream()
+            .map(consultation -> consultation.getConsultationTime())
+            .filter(timeOptional -> timeOptional.map(time -> true).orElse(false))
+            .map(timeOptional -> timeOptional.get())
+            .collect(Collectors.toList());
     }
 
     /**
      * Calculate data to plot the total number of non-unique patients (consultations) for each day of the week.
      */
     public void plotPatientsOverDayOfWeek() {
-        List<Date> consultationDates = consultations.stream()
-            .map(consultation -> consultation.getConsultationDate())
-            .collect(Collectors.toList());
-
-        List<DayOfWeek> days = DateUtil.getDaysOfWeek();
-        List<Tuple<String, Integer>> daysCounts = new ArrayList<>();
-        // calculate the number of consultations for each day.
-        for (DayOfWeek dayOfWeek : days) {
-            long dayCount = consultationDates.stream()
-                .map(date -> DateUtil.getDayFromDate(date))
-                .filter(day -> day.equals(dayOfWeek))
-                .count();
-
-            daysCounts.add(new Tuple<String, Integer>(dayOfWeek.name(), toIntExact(dayCount)));
-        }
-
+        List<Date> consultationDates = getConsultationDates();
+        List<Tuple<String, Integer>> dataPoints = DateUtil.eachDayCount(consultationDates);
+;
         statData.addVisualization("patientsDayOfWeek", ChartType.VERTICAL_BAR, false,
             "Number of patients for each day of the week", "Day of Week", "Number of Patients",
-            Arrays.asList(daysCounts), Arrays.asList(""));
+            Arrays.asList(dataPoints), Arrays.asList(""));
     }
 
     /**
@@ -84,12 +94,7 @@ public class PatientStatistics extends Statistics {
      * working day.
      */
     public void plotPatientsOverTimeOfDay() {
-        List<Time> consultationTimes = consultations.stream()
-            .map(consultation -> consultation.getConsultationTime())
-            .filter(timeOptional -> timeOptional.map(time -> true).orElse(false))
-            .map(timeOptional -> timeOptional.get())
-            .collect(Collectors.toList());
-
+        List<Time> consultationTimes = getConsultationTimes();
         List<Tuple<Tuple<Time, Time>, Integer>> timeGroupsCount = TimeUtil.getTimeGroupsCount(consultationTimes);
         List<Tuple<String, Integer>> timeGroupsCountToDisplay = timeGroupsCount.stream()
             .map(timeGroupCount -> new Tuple<String, Integer>(
@@ -102,11 +107,5 @@ public class PatientStatistics extends Statistics {
         statData.addVisualization("patientsTimeOfDay", ChartType.VERTICAL_BAR, false,
             "Number of patients for various time periods in a day", "Time Period",
             "Number of Patients", Arrays.asList(timeGroupsCountToDisplay), Arrays.asList(""));
-    }
-
-    @Override
-    public void computeVisualizationData() {
-        plotPatientsOverDayOfWeek();
-        plotPatientsOverTimeOfDay();
     }
 }

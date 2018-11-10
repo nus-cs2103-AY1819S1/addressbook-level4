@@ -8,9 +8,7 @@ import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
@@ -19,6 +17,7 @@ import seedu.clinicio.model.appointment.Date;
 
 /**
  * Contains utility methods for computing occurrences and retrieving date values.
+ * Lists of tuples are used instead of maps to preserve ordering.
  */
 public class DateUtil {
 
@@ -26,13 +25,13 @@ public class DateUtil {
      * @return a list of the number of dates that occur in various time periods.
      */
     public static List<Integer> todayWeekMonthYear(List<Date> dates) {
-        return Arrays.asList(today(dates), currentWeek(dates), currentMonth(dates), currentYear(dates));
+        return Arrays.asList(todayCount(dates), currentWeekCount(dates), currentMonthCount(dates), currentYearCount(dates));
     }
 
     /**
-     * @return the number of dates that match today's real life date.
+     * @return the number of dates that match todayCount's real life date.
      */
-    public static int today(List<Date> dates) {
+    public static int todayCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).isEqual(todayDate))
@@ -44,7 +43,7 @@ public class DateUtil {
     /**
      * @return the number of dates occurring in the current real life week.
      */
-    public static int currentWeek(List<Date> dates) {
+    public static int currentWeekCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> isCurrentWeek(date))
@@ -56,7 +55,7 @@ public class DateUtil {
     /**
      * @return the number of dates occurring in the current real life month.
      */
-    public static int currentMonth(List<Date> dates) {
+    public static int currentMonthCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).getMonth().equals(todayDate.getMonth()))
@@ -68,7 +67,7 @@ public class DateUtil {
     /**
      * @return the number of dates occurring in the current real life year.
      */
-    public static int currentYear(List<Date> dates) {
+    public static int currentYearCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).getYear() == todayDate.getYear())
@@ -78,46 +77,68 @@ public class DateUtil {
     }
 
     /**
+     * @return the number of dates that match each of the 7 days, in totality.
+     */
+    public static List<Tuple<String, Integer>> eachDayCount(List<Date> dates) {
+        List<Tuple<String, Integer>> daysCount = new ArrayList<>();
+        for (DayOfWeek dayOfWeek : getDaysOfWeek()) {
+             long count = dates.stream()
+                .map(date -> getDayFromDate(date))
+                .filter(day-> dayOfWeek.equals(day))
+                .count();
+
+             Tuple<String, Integer> tuple = new Tuple<>(dayOfWeek.name(), toIntExact(count));
+        }
+        return daysCount;
+    }
+
+    /**
      * @return the number of dates that match each date in the current week.
      * Returns {@code Date} for flexibility as the day of the week can be derived from it.
      */
-    public static Map<Date, Integer> eachDateOfCurrentWeekCount(List<Date> dates) {
-        Map<Date, Integer> currentWeekCount = new HashMap<>();
+    public static List<Tuple<Date, Integer>> eachDateOfCurrentWeekCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> currentWeekCount = new ArrayList<>();
         for (Date currentWeekDate : getCurrentWeekDates()) {
-            currentWeekCount.put(currentWeekDate, 0);
+            int dateCount = 0;
             for (Date date : dates) {
                 if (currentWeekDate.equals(date)) {
-                    currentWeekCount.replace(currentWeekDate, currentWeekCount.get(currentWeekDate) + 1);
+                    dateCount++;
                 }
             }
+            Tuple<Date, Integer> tuple = new Tuple<>(currentWeekDate, dateCount);
+            currentWeekCount.add(tuple);
         }
 
         return currentWeekCount;
     }
 
     /**
-     * @return the number of dates that match each date in the next week.
+     * @return the number of dates that match each date in the next week, in order.
      * Returns {@code Date} for flexibility as the day of the week can be derived from it.
+     * Useful for categorical plots.
      */
-    public static Map<Date, Integer> eachDateOfNextWeekCount(List<Date> dates) {
-        Map<Date, Integer> nextWeekCount = new HashMap<>();
+    public static List<Tuple<Date, Integer>> eachDateOfNextWeekCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> nextWeekCount = new ArrayList<>();
         for (Date nextWeekDate : getNextWeekDates()) {
-            nextWeekCount.put(nextWeekDate, 0);
+            int dateCount = 0;
             for (Date date : dates) {
                 if (nextWeekDate.equals(date)) {
-                    nextWeekCount.replace(nextWeekDate, nextWeekCount.get(nextWeekDate) + 1);
+                   dateCount++;
                 }
             }
+            Tuple<Date, Integer> tuple = new Tuple<>(nextWeekDate, dateCount);
+            nextWeekCount.add(tuple);
         }
 
         return nextWeekCount;
     }
 
     /**
-     * @return A Tuple of the number of dates that occur for each month of the current year, in order.
+     * @return A Tuple of the number of dates that occur for each month of the current year, in order of
+     * earliest to latest date.
      * Useful for categorical plots over the months of a year.
      */
-    public static List<Tuple<String, Integer>> eachMonthOfCurrentYear(List<Date> dates) {
+    public static List<Tuple<String, Integer>> eachMonthOfCurrentYearCount(List<Date> dates) {
         List<Tuple<String, Integer>> monthCounts = new ArrayList<>();
         for (Month month : getMonthsOfYear()) {
             long count = dates.stream()
@@ -135,18 +156,20 @@ public class DateUtil {
      * @return the number of dates that match each date in the current year.
      * Useful for continuous plots over the course of a year.
      */
-    public static Map<Date, Integer> eachDateOfCurrentYear(List<Date> dates) {
-        Map<Date, Integer> dateCount = new HashMap<>();
+    public static List<Tuple<Date, Integer>> eachDateOfCurrentYearCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> yearDateCounts = new ArrayList<>();
         for (Date date : getCurrentYearDates()) {
-            dateCount.put(date, 0);
+            int dateCount = 0;
             for (Date providedDate : dates) {
                 if (date.equals(providedDate)) {
-                    dateCount.replace(date, dateCount.get(date) + 1);
+                    dateCount++;
                 }
             }
+            Tuple<Date, Integer> tuple = new Tuple<>(date, dateCount);
+            yearDateCounts.add(tuple);
         }
 
-        return dateCount;
+        return yearDateCounts;
     }
 
     /**
@@ -241,7 +264,7 @@ public class DateUtil {
 
 
     /**
-     * @return A list of each date in the next week.
+     * @return A list of each date in the next week in order of earliest to latest date.
      */
     public static List<Date> getNextWeekDates() {
         List<Date> nextWeekDates = new ArrayList<>();
