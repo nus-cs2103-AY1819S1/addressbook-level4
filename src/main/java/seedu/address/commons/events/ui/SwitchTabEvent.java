@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * An event requesting to switch to the To Do List tab
  */
-public class SwitchToToDoTabEvent extends BaseEvent {
+public class SwitchTabEvent extends BaseEvent {
 
     @Override
     public String toString() {

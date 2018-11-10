@@ -23,7 +23,7 @@ import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
-import seedu.address.commons.events.ui.SwitchToToDoTabEvent;
+import seedu.address.commons.events.ui.SwitchTabEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -86,7 +86,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(prefs);
 
         // TODO refactor switchtab to belong to the calendar panel
-        setAccelerator(() -> handleSwitchTab(new SwitchToToDoTabEvent()), new KeyCodeCombination(KeyCode.TAB,
+        setAccelerator(() -> handleSwitchTab(new SwitchTabEvent()), new KeyCodeCombination(KeyCode.TAB,
             KeyCombination.SHIFT_ANY, KeyCombination.CONTROL_DOWN));
         registerAsAnEventHandler(this);
 
@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleSwitchTab(SwitchToToDoTabEvent event) {
+    private void handleSwitchTab(SwitchTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchPanel();
     }
