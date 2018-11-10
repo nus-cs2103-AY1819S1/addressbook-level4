@@ -45,9 +45,9 @@ public class FilmReelTest extends GuiUnitTest {
 
     @Before
     public void setUpResources() {
-        paths = setUpPaths(IMAGE_LIST);
-        secondPaths = setUpPaths(SECOND_IMAGE_LIST);
-        fullPaths = setUpPaths(FULL_LIST);
+        paths = setUpPaths();
+        secondPaths = setUpPaths();
+        fullPaths = setUpPaths();
     }
 
     @Test
@@ -135,7 +135,7 @@ public class FilmReelTest extends GuiUnitTest {
         }
     }
 
-    private List<Path> setUpPaths(String[] imagePaths) {
+    private List<Path> setUpPaths() {
         List<Path> temp = new ArrayList<>();
         for (String s: IMAGE_LIST) {
             try {
