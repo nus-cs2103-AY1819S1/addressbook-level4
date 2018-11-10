@@ -87,7 +87,6 @@ class ConnectToGoogleCalendarTest {
     void clear() {
         //set up test environment
         enable();
-        boolean enabled = true;
         final ConnectToGoogleCalendar connectToGoogleCalendar =
                 new ConnectToGoogleCalendar();
         Calendar service = connectToGoogleCalendar.getCalendar();
