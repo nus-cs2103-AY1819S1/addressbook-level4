@@ -14,7 +14,7 @@ public class Timestamp {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
             .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-            .withLocale(Locale.getDefault());
+            .withLocale(new Locale("en", "SG"));
     /**
      * Format pattern of {@code DATE_TIME_FORMATTER}, follows pattern specified by java.time.format.DateTimeFormatter.
      */
