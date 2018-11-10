@@ -52,12 +52,8 @@ public class CancelApptCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-        if (other instanceof CancelApptCommand) {
-            return false;
-        }
-        return targetIndex.equals(((CancelApptCommand) other).targetIndex);
+        return other == this // short circuit if same object
+                || (other instanceof CancelApptCommand // instanceof handles nulls
+                && targetIndex.equals(((CancelApptCommand) other).targetIndex)); // state check
     }
 }

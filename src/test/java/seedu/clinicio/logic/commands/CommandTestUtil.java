@@ -3,10 +3,15 @@ package seedu.clinicio.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICAL_PROBLEM;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATION;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 
@@ -40,6 +45,25 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    public static final String VALID_NAME_ALEX = "Alex X";
+    public static final String VALID_NAME_BRYAN = "Bryan James";
+    public static final String VALID_NAME_CANDY = "Candy";
+    public static final String VALID_NRIC_ALEX = "S9951423J";
+    public static final String VALID_NRIC_BRYAN = "S9106823A";
+    public static final String VALID_NRIC_CANDY = "T0190128B";
+    public static final String VALID_PHONE_ALEX = "91023456";
+    public static final String VALID_PHONE_BRYAN = "89087654";
+    public static final String VALID_EMAIL_ALEX = "alex@example.com";
+    public static final String VALID_EMAIL_BRYAN = "bryan@example.com";
+    public static final String VALID_ADDRESS_ALEX = "Block 312, Alex Street 2";
+    public static final String VALID_ADDRESS_BRYAN = "Block 113, Bryan Street 4";
+    public static final String VALID_MED_PROB_STROKE = "stroke";
+    public static final String VALID_MED_PROB_PNEUMONIA = "pneumonia";
+    public static final String VALID_MED_INHALER = "inhaler";
+    public static final String VALID_MED_PANADOL = "panadol";
+    public static final String VALID_ALLERGIES_DUST = "dust";
+    public static final String VALID_ALLERGIES_HEAT = "heat";
 
     public static final String VALID_NAME_ADAM = "Adam Bell";
     public static final String VALID_NAME_BEN = "Ben Hill";
@@ -81,6 +105,25 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String NAME_DESC_ALEX = " " + PREFIX_NAME + VALID_NAME_ALEX;
+    public static final String NAME_DESC_BRYAN = " " + PREFIX_NAME + VALID_NAME_BRYAN;
+    public static final String NRIC_DESC_ALEX = " " + PREFIX_IC + VALID_NRIC_ALEX;
+    public static final String NRIC_DESC_BRYAN = " " + PREFIX_IC + VALID_NRIC_BRYAN;
+    public static final String PHONE_DESC_ALEX = " " + PREFIX_PHONE + VALID_PHONE_ALEX;
+    public static final String PHONE_DESC_BRYAN = " " + PREFIX_PHONE + VALID_PHONE_BRYAN;
+    public static final String EMAIL_DESC_ALEX = " " + PREFIX_EMAIL + VALID_EMAIL_ALEX;
+    public static final String EMAIL_DESC_BRYAN = " " + PREFIX_EMAIL + VALID_EMAIL_BRYAN;
+    public static final String ADDRESS_DESC_ALEX = " " + PREFIX_ADDRESS + VALID_ADDRESS_ALEX;
+    public static final String ADDRESS_DESC_BRYAN = " " + PREFIX_ADDRESS + VALID_ADDRESS_BRYAN;
+    public static final String MED_PROB_DESC_STROKE = " " + PREFIX_MEDICAL_PROBLEM + VALID_MED_PROB_STROKE;
+    public static final String MED_PROB_DESC_PNEUMONIA = " " + PREFIX_MEDICAL_PROBLEM + VALID_MED_PROB_PNEUMONIA;
+    public static final String MED_DESC_INHALER = " " + PREFIX_MEDICATION + VALID_MED_INHALER;
+    public static final String MED_DESC_PANADOL = " " + PREFIX_MEDICATION + VALID_MED_PANADOL;
+    public static final String ALLERGIES_DESC_DUST = " " + PREFIX_ALLERGY + VALID_ALLERGIES_DUST;
+    public static final String ALLERGIES_DESC_HEAT = " " + PREFIX_ALLERGY + VALID_ALLERGIES_HEAT;
+    public static final String PREFERRED_DOC_DESC_ADAM = " " + PREFIX_PREFERRED_DOCTOR + VALID_NAME_ADAM;
+    public static final String PREFERRED_DOC_DESC_BEN = " " + PREFIX_PREFERRED_DOCTOR + VALID_NAME_BEN;
+
     public static final String DATE_DESC_AMY = " " + PREFIX_DATE + VALID_DATE_AMY;
     public static final String DATE_DESC_BENSON = " " + PREFIX_DATE + VALID_DATE_BENSON;
     public static final String TIME_DESC_AMY = " " + PREFIX_TIME + VALID_TIME_AMY;
@@ -92,6 +135,12 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC =
             " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_NRIC_DESC = " " + PREFIX_IC + "A12345%"; // '%' not allowed in nrics
+    public static final String INVALID_MED_PROB_DESC = " " + PREFIX_MEDICAL_PROBLEM
+            + "Dia*"; // '*' not allowed in medical problems
+    public static final String INVALID_MED_DESC = " " + PREFIX_MEDICATION + "Ibupr*"; // '*' not allowed in medications
+    public static final String INVALID_ALLERGY_DESC = " " + PREFIX_ALLERGY + "Sa*"; // '*' not allowed in allergies
 
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "*2 8u 2000";
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "j0 39";

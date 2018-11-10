@@ -178,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
-        versionedClinicIo.addPerson(Patient.buildFromPerson(person));
+        versionedClinicIo.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateClinicIoChanged();
     }

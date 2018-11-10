@@ -14,6 +14,7 @@ import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.util.SampleDataUtil;
 
 /**
  * A utility class to build {@link Patient} objects.
@@ -50,16 +51,6 @@ public class PatientBuilder extends PersonBuilder {
         allergies = new HashSet<>(patientToCopy.getAllergies());
         preferredDoctor = patientToCopy.getPreferredDoctor();
         appointment = patientToCopy.getAppointment();
-    }
-
-    /**
-     * Constructs a {@link PatientBuilder} object based on a person.
-     * @param person
-     * @return a new {@link PatientBuilder} object
-     */
-    public static PatientBuilder buildFromPerson(Person person) {
-        Patient patient = Patient.buildFromPerson(person);
-        return new PatientBuilder(patient);
     }
 
     /**
@@ -108,11 +99,38 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
+     * Parses the {@code medicalProblems} into a {@code Set<MedicalProblem>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedicalProblems(String ... medicalProblems) {
+        this.medicalProblems = SampleDataUtil.getMedicalProblemSet(medicalProblems);
+        return this;
+    }
+
+    /**
+     * Parses the {@code medications} into a {@code Set<Medication>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedications(String ... medications) {
+        this.medications = SampleDataUtil.getMedicationSet(medications);
+        return this;
+    }
+
+    /**
+     * Parses the {@code allergies} into a {@code Set<Allergy>} and
+     * set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withAllergies(String ... allergies) {
+        this.allergies = SampleDataUtil.getAllergySet(allergies);
+        return this;
+    }
+
+    /**
      * Sets the staff as preferred by the patient.
      * @return a PersonBuilder
      */
     public PatientBuilder withPreferredDoctor(Staff staff) {
-        preferredDoctor = Optional.of(staff);
+        preferredDoctor = Optional.ofNullable(staff);
         return this;
     }
 
@@ -121,7 +139,7 @@ public class PatientBuilder extends PersonBuilder {
      * @return a PersonBuilder
      */
     public PatientBuilder withAppointment(Appointment appointment) {
-        this.appointment = Optional.of(appointment);
+        this.appointment = Optional.ofNullable(appointment);
         return this;
     }
 
@@ -131,15 +149,12 @@ public class PatientBuilder extends PersonBuilder {
      */
     @Override
     public Patient build() {
-        Patient patient = Patient.buildFromPerson(super.build());
+        Person person = super.build();
+        Patient patient = new Patient(person, nric, medicalProblems,
+                medications, allergies);
 
-        preferredDoctor.ifPresent(doctor -> {
-            patient.setPreferredDoctor(doctor);
-        });
-
-        appointment.ifPresent(appointment -> {
-            patient.setAppointment(appointment);
-        });
+        preferredDoctor.ifPresent(patient::setPreferredDoctor);
+        appointment.ifPresent(patient::setAppointment);
 
         return patient;
     }
