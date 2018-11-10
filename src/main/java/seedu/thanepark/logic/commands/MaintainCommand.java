@@ -33,7 +33,7 @@ public class MaintainCommand extends Command {
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_SHUTDOWN_RIDE_SUCCESS = "Ride is closed for maintenance: %1$s";
+    public static final String MESSAGE_MAINTAIN_RIDE_SUCCESS = "Ride is closed for maintenance: %1$s";
     public static final String MESSAGE_DUPLICATE_RIDE = "This ride is already closed for maintenance.";
 
     private final Index index;
@@ -68,7 +68,7 @@ public class MaintainCommand extends Command {
         model.updateRide(rideToMaintain, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         model.commitThanePark();
-        return new CommandResult(String.format(MESSAGE_SHUTDOWN_RIDE_SUCCESS, editedRide));
+        return new CommandResult(String.format(MESSAGE_MAINTAIN_RIDE_SUCCESS, editedRide));
     }
 
     /**

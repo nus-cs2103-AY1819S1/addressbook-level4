@@ -68,7 +68,9 @@ public class Ride implements HtmlFormattable {
         return daysSinceMaintenance;
     }
 
-    public Maintenance resetMaintenance() { return new Maintenance("0"); }
+    public Maintenance resetMaintenance() {
+        return new Maintenance("0");
+    }
 
     public Status getStatus() {
         return status;
