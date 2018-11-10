@@ -327,15 +327,6 @@ Example(s):
 
 * `view mh ic/S1234567A`
 
-=== View patient queue: `viewqueue`
-View the current patient queue.
-
-Format: `viewqueue`
-
-Example(s):
-
-* `viewqueue`
-
 === View patient’s visitors: `viewvisitors`
 View a patient’s visitors.
 
@@ -448,16 +439,6 @@ Each command below will be summarised in the following format:
 * `view VIEW_NAME`
 * `view default`
 
-*viewappt*
-
-* `viewappt ic/NRIC`
-* `viewappt ic/S1234567A`
-
-*viewqueue*
-
-* `viewqueue`
-* `viewqueue`
-
 *viewvisitors*
 
 * `viewvisitors ic/PATIENT_NRIC`
@@ -473,8 +454,3 @@ Each command below will be summarised in the following format:
 * `visitorout ic/PATIENT_NRIC v/VISITOR_NAME`
 * `visitorout ic/S1234567A v/Sara Ann Nicholas`
 
-*xappt*
-
-* `xappt INDEX`
-* `viewappt S1234567A` +
-`xappt 2`
