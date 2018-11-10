@@ -1159,23 +1159,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |photographer |edit an image |enhance an image
 
-|`* * *` |photographer |mass edit images |avoid repeating similar tasks
-
-|`* * *` |photographer |see detailed information about a photo |immidiately know what post-processing tools to apply
-
 |`* * *` |photographer |define my own set of transformations |avoid repetitive typing of commands
 
 |`* * *` |photographer |see the preview of the transformations before committing to disk |explore the effects of transformations
 
 |`* *` |photographer |be able to upload my photos to the cloud (Google Photos) |safely store and share my photos across devices
 
-|`* *` |web developer |generate static image assets |convert, compress and resize images to be ready for web deployment from raw images
-
 |`*` |web developer or photographer |add captions or watermarks to images |to protect my intellectual property
+
+|`*` |web developer |quickly recolor icons |easily use them in re-skinning my application
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1217,7 +1212,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User edits an image (from use case Editing an image)
-2.  Piconso displays transformations done on the right side pane
+2.  Piconso displays transformations done on the left side pane
 3.  User enters command to save the set of transformations
 4.  Piconso requests for a name for the set
 5.  User enters a name
@@ -1236,49 +1231,63 @@ Use case ends.
 Use case resumes at step 4.
 
 [discrete]
-=== Use case: Mass edit images
-
-*MSS*
-
-1.  User selects a range of images
-2.  User defines an optional alternate directory to save output
-3.  User applies a known set of transformations to the set of images
-4.  Output from step 3 is saved in directory defined in step 2 and user is notified
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Selected range is an empty set.
-+
-[none]
-** 1a1. Piconso shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
 === Use case: Add caption or watermark to image
 
 *MSS*
 
 1.  User opens an image
 2.  Piconso displays the image in the preview pane
-3.  User inputs caption or watermark text into input
-4.  Piconso displays the caption/watermark in the preview pane
+3.  User adds caption or watermark image through input
+4.  Piconso displays the caption/watermark in the preview pane atop the first layer.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Upload to Google Photos
 
-_{More to be added}_
+*MSS*
+
+1.  User request to login to Google Photos
+2.  Piconso redirects the user to a login browser page
+3.  User logs in through browser page
+4.  Piconso shows feedback message for success
+5.  User uploads a photo
+6.  Piconso contacts Google Photos and uploads the photo
+7.  Piconso shows feedback for successful upload
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User does not login through browser window.
++
+[none]
+** 3a1. User can resume on any use case not involving Google interaction.
+
+[none]
+* 3b. Piconso loses internet connection.
++
+[none]
+** 3b1. Piconso informs user of disconnection and suggests for them to try again.
++
+Use case resumes at step 1.
+
+[none]
+* 5a. An error occurs while uploading.
++
+[none]
+** 5a1. Piconso informs user of upload failure and suggests for them to try again.
++
+Use case resumes at step 5.
 
 [appendix]
-== Non Functional Requirements
 
-.  Export images in different formats and sizes.
-.  Have quick access to various filter options.
-.  View detailed information about images.
-.  Navigate directories efficiently.
+== Non Functional Requirements
+.  Should work on any mainstream OS as long as it has Java 9 or higher installed.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should have easy to understand and remember user commands.
+.  Allows users to navigate directories efficiently.
 
 [appendix]
 == Glossary
@@ -1290,6 +1299,3 @@ Images that are currently being viewed. For example, if there are 16 images in t
 Action that is performed on an image
 
 [appendix]
-== Instructions for Manual Testing
-
-_{To be updated}_
