@@ -151,19 +151,63 @@ Format:
 [%hardbreaks]
 Completes task(s) in the task manager
 Format: `complete INDEX` or `complete t/LABEL`
-+Example:
++Examples:
 `complete 1`
 `complete l/urgent`
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
 * Completion via label is case-insensitive
+* You are unable to complete tasks if they have unfulfilled dependencies.
 * You can complete multiple tasks at once through the use of the format complete `l/LABEL`
 * Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
+
+===== Extended Examples
+
+_WatchOver utilises a sophisticated dependency checking feature to reduce the
+amount of accidental completion of tasks. For example, you need to `finish your tutorial` before
+you can `submit tutorial`. In order to better understand this feature, below are some
+extended examples to showcase dependency checking with `Complete`._
+
+Premise, there are 5 tasks, where `Task X` is dependent on `Task Y`, `Task Y`
+is dependent of `Task Z`, and `Task A` is dependent on `Task X`.
+`Task Z` is already completed.
+
+        add n/Task X t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task Y t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task Z t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task A t/02-12-18 1330 p/5 d/X l/setTwo
+        add n/Task B t/02-12-18 1330 p/5 d/X l/setTwo
+        dependency 1 2
+        dependency 2 3
+        complete 3
+        dependency 4 1
+
+_Task X is referred to via index 1,
+Task Y is referred to via index 2,
+Task Z is referred to via index 3,
+Task A is referred to via index 4,
+Task B is referred to via index 5_
+
+[%hardbreaks]
++Example:
+`complete 2`
+Explanation: The completion of `Task Y` is valid as all its dependencies are completed.
++Example:
+`complete l/setOne`
+Explanation: Order of tasks completed in a batch completion does not matter as long as there are no unfulfilled dependencies after all tasks are completed.
+
+-Example:
+`complete 1`
+Explanation: `Task X` is dependent on `Task Y` which is not completed yet.
+-Example:
+`complete l/setTwo`
+Explanation: `Task A` is dependent on `Task X` which will not be completed after the batch completion.
 // end::complete-usage[]
+
 ==== Listing Tasks: `list`
 // tag::list-usage[]
 [%hardbreaks]
@@ -342,9 +386,9 @@ Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 ** *Achievements* : `achievements TIME_SPAN`
 
 // tag::complete-2.0[]
-==== Completing a Task: `complete`
 == Features to be included by v2.0
-* `Complete` displays a organic random congratulatory message upon task completion.
+
+=== `Complete` displays a organic random congratulatory message upon task completion.
 ** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
 * Completed Tasks should be automatically hidden from view.
 // end::complete-2.0[]
