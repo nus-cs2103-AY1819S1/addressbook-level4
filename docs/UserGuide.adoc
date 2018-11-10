@@ -403,6 +403,8 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
+
+// tag::healthplan[]
 === Health Plan Commands (Only applicable in health plan context)
 
 ==== Add plan: `add`
@@ -501,6 +503,8 @@ After being shown list of health plans +
 User enters command to compare against set health plan. +
 Format: +
 `compareIntake PLAN_ID`
+
+// end::healthplan[]
 
 === Cook-Mode Commands [coming in V2.0]
 ==== Next Instruction
