@@ -1,7 +1,6 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
@@ -16,13 +15,11 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Stream;
 
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
 import seedu.souschef.logic.parser.ArgumentTokenizer;
 import seedu.souschef.logic.parser.ParserUtil;
-import seedu.souschef.logic.parser.Prefix;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.healthplan.Age;
@@ -97,7 +94,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
                         PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_AGE)
+        if (!argMultimap.arePrefixesPresent(PREFIX_HPNAME, PREFIX_AGE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
@@ -128,16 +125,6 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         }
 
         return new AddCommand<HealthPlan>(model, toAdd);
-    }
-
-
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

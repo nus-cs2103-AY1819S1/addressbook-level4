@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
 import seedu.souschef.logic.commands.CreateRecipeBuildCommand;
@@ -50,7 +51,7 @@ public class RecipeBuilderCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME)
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME)
                 || argMultimap.hasNestedPrefix()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -82,7 +83,7 @@ public class RecipeBuilderCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INSTRUCTION, PREFIX_COOKTIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INSTRUCTION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_INSTRUCTION)
                 || argMultimap.hasNestedPrefix()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -98,23 +99,17 @@ public class RecipeBuilderCommandParser {
     }
 
     /**
-     * Parses the given {@code Recipe} to check if instructions are included
+     * Parses the given {@code History} to create Recipe so as to check if instructions are included
      * and returns an AddCommand object for execution.
      * @throws ParseException if there is no instruction in the recipe
      */
-    public AddCommand parseCompleteRecipe(Model recipeModel, Recipe recipe) throws ParseException {
+    public AddCommand parseCompleteRecipe(Model recipeModel, History history) throws ParseException {
+        Recipe recipe = history.buildRecipe();
         if (recipe.getInstructions().size() < 1) {
             throw new ParseException(MESSAGE_NO_RECIPE_INSTRUCTION);
         }
+        history.clearRecipe();
         return new AddCommand<>(recipeModel, recipe);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

@@ -44,7 +44,7 @@ public class AddMealHealthPlanCommandParser {
 
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN, PREFIX_DURATION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_PLAN, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddMealHealthPlanCommand.MESSAGE_USAGE));
@@ -83,10 +83,6 @@ public class AddMealHealthPlanCommandParser {
 
 
         return new AddMealHealthPlanCommand(healthPlanModel, planToAddTo, dayToAdd, dayIndex, planIndex);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
