@@ -60,7 +60,7 @@ public class PatientListPanel extends UiPart<Region> {
             raise(new NewResultAvailableEvent("Please login as a receptionist to view more details", false));
         }
     }
-    
+
     /**
      * Scrolls to the {@code PatientCard} at the {@code index} and selects it.
      */
