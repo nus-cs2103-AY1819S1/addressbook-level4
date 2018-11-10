@@ -10,6 +10,10 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.RegisterDoctorCommand;
+import seedu.address.logic.commands.RegisterPatientCommand;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -23,6 +27,20 @@ public class PersonUtil {
      */
     public static String getAddCommand(Person person) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    }
+
+    /**
+     * Returns an register-patient command string for adding the {@code patient}.
+     */
+    public static String getRegisterPatientCommand(Patient patient) {
+        return RegisterPatientCommand.COMMAND_WORD + " " + getPersonDetails(patient);
+    }
+
+    /**
+     * Returns an register-doctor command string for adding the {@code doctor}.
+     */
+    public static String getRegisterDoctorCommand(Doctor doctor) {
+        return RegisterDoctorCommand.COMMAND_WORD + " " + getPersonDetails(doctor);
     }
 
     /**
