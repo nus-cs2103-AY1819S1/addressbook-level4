@@ -39,13 +39,6 @@ public class EditRecipeDescriptor {
     }
 
     /**
-     * Returns true if at least one field is edited.
-     */
-    public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags, instruction);
-    }
-
-    /**
      * Edit command should either change general attribute(s) of a recipe or one of its instruction.
      */
     public boolean isFieldEditedSpecific() {
@@ -99,7 +92,7 @@ public class EditRecipeDescriptor {
     }
 
     public void setInstruction(Index index, Instruction instruction) {
-        this.instruction = (instruction != null && index.getOneBased() > 0) ? new Pair<>(index, instruction) : null;
+        this.instruction = (instruction != null) ? new Pair<>(index, instruction) : null;
     }
 
     public Optional<Pair<Index, Instruction>> getInstruction() {
