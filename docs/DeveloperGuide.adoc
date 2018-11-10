@@ -419,7 +419,7 @@ The following are logging levels used:
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::viewarangeoftasks[]
-=== View Day/Week
+=== View tasks due today/this week
 
 In order to enable users to better monitor their tasks in the schedule planner, Two more variations of
  `list` command were added.
@@ -501,7 +501,7 @@ description to the application title if the user launches the application within
 This allows the user to know the current academic week.
 
 [NOTE]
-The number of weeks referencing NUS academic calendar is fixated at 17 weeks.
+Only 17 weeks are referenced from NUS academic calendar. More details at glossary.
 
 ==== Current Implementation
 
@@ -1354,6 +1354,11 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[NUS-academic-calendar]] NUS academic calendar::
+Refers to the academic calendar used by National University of Singapore. This product references only 17 weeks of
+the calendar (Week 1 to Examination Week). +
+Referenced from: http://www.nus.edu.sg/registrar/info/calendar/AY2018-2019.pdf
+
 [appendix]
 == Instructions for Manual Testing
 
@@ -1376,7 +1381,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a task
+
+. Adding a task to the task list
+
+.. Test case: add n/cs2100 d/161118 p/3 v/home +
+   Expected: A new task is added and reflected in the panel on the bottom right of `UI`. Status bar is updated.
+.. Test case: add n/cs2100 d/161118 p/4 v/home +
+   Expected: No task is added. Error details shown in status message. Status bar remains the same.
+.. Test case: add n/cs2100 d/999999 p/3 v/home +
+   Expected: No task is added. Error details shown for date field.
+
+=== Editing a task
+
+. Editing a task from the task list
+
+.. Test case: edit 1 v/library +
+   Expected: First task is edited. The new venue is library.
+.. Test case: edit 1 t/ +
+   Expected: First task is edited. Any existing tags would be removed.
+.. Test case: edit 1 d/999999 +
+   Expected: First task is not edited. Error details shown in status message. Status bar remains the same.
 
 === Deleting a task
 
@@ -1384,18 +1409,36 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First task is deleted from the list. Details of the deleted contact shown in the status message. Timestamp
+   in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Task Monitoring System
 
-=== Saving data
+1. Generating academic calendar weeks data
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: Only dates from 21st century in DDMMYY format is considered valid date
+.. Test case: `firstday 161118 12` +
+   Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the same.
+.. Test case: `firstday 999999` +
+   Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the
+   same.
+.. Test case: `firstday 161118` +
+   Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the same.
+.. Test case: `firstday 130818` +
+   Expected: Academic calendar data is generated and saved. Details shown in status message to inform user. After
+   relaunch the application, the application title will be appended with current week's description.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+2. View tasks due today/this week
+
+.. Test case: `listday` +
+   Expected: All task(s) that matches the current system date will be reflected in the panel on the bottom right of
+   `UI`.
+.. Test case: `listweek` +
+   Expected: All task(s) that matches the date from the current system date until the closest Sunday will be
+   reflected in the panel on the bottom right of `UI`.
 
 _{ more test cases ... }_
