@@ -782,10 +782,10 @@ The above diagram illustrates the process of parsing and executing of `canvas` c
 
 [.underline]#Alternatives#
 
-It is actually possible to nest `ImageMagick` commands which means that it was possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
+It is actually possible to nest `ImageMagick` commands which means that it is possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
 The resultant ImageMagick command will take the form :
 
- magick [overall canvas flags] {[canvas flag] (individual layer flags)}
+ magick [overall canvas flags] {[canvas flag] (individual layer flags)} [overall canvas flags]
 
 Where blocks enclosed by `{ }` need to be repeated per layer.
 

@@ -14,7 +14,7 @@ import seedu.address.testutil.ModelGenerator;
 class LayerSwapCommandTest {
 
     @Test
-    void execute_validSwap_success() {
+    public void execute_validSwap_success() {
         Index to = Index.fromOneBased(2);
         Index from = Index.fromOneBased(3);
         String args = String.format("%d %d", to.getOneBased(), from.getOneBased());
@@ -36,7 +36,7 @@ class LayerSwapCommandTest {
     }
 
     @Test
-    void execute_invalidSwap_failure() {
+    public void execute_invalidSwap_failure() {
         Index to = Index.fromOneBased(1);
         Index from = Index.fromOneBased(5);
         String args = String.format("%d %d", to.getOneBased(), from.getOneBased());
@@ -52,7 +52,7 @@ class LayerSwapCommandTest {
     }
 
     @Test
-    void execute_invalidSameIndex_failure() {
+    public void execute_invalidSameIndex_failure() {
         Index index = Index.fromOneBased(2);
         String args = String.format("%d %d", index.getOneBased(), index.getOneBased());
         Model model = ModelGenerator.getModelWithPopulatedCanvas();

@@ -12,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class LayerPositionCommandTest {
 
     @Test
-    void execute_validPosition_success() {
+    public void execute_validPosition_success() {
         int newX = 123;
         int newY = 456;
         String args = String.format("%dx%d", newX, newY);
@@ -28,7 +28,7 @@ class LayerPositionCommandTest {
     }
 
     @Test
-    void execute_nullBothPosition_failure() {
+    public void execute_nullBothPosition_failure() {
         String args = null;
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
@@ -42,7 +42,7 @@ class LayerPositionCommandTest {
     }
 
     @Test
-    void execute_nullSinglePosition_failure() {
+    public void execute_nullSinglePosition_failure() {
         String args = "3 ";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();

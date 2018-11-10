@@ -21,7 +21,7 @@ public class LayerSelectCommand extends LayerCommand {
 
     public static final String OUTPUT_SUCCESS = "Now working on layer %d.";
     public static final String OUTPUT_FAILURE = "Invalid layer index provided!";
-    static final String OUTPUT_MISSING_CANVAS = "You must open an image file for editing before proceeding!";
+    public static final String OUTPUT_MISSING_CANVAS = "You must open an image file for editing before proceeding!";
 
     public LayerSelectCommand(String args) {
         super(args);
