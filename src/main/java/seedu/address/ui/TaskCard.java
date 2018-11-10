@@ -34,8 +34,6 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label dueDate;
     @FXML
-    private Label priorityValue;
-    @FXML
     private Label status;
     @FXML
     private FlowPane tags;
@@ -46,7 +44,6 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
-        priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
         registerAsAnEventHandler(this);
