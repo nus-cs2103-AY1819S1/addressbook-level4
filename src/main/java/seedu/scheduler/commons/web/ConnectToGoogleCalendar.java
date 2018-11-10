@@ -10,8 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
@@ -130,26 +128,17 @@ public class ConnectToGoogleCalendar {
 
         // Build Google calender service object.
         Calendar service = null;
-        try {
-            //re-direct the stdout
-            //One of the Google APIs outputs to stdout which causes warning
-            System.setOut(new PrintStream(new OutputStream() {
-                @Override
-                public void write(int b) {
-                    //no code needed here
-                }
-            }));
 
+        try {
             service = new Calendar.Builder(httpTransport, JSON_FACTORY,
                     getCredentials(httpTransport))
                     .setApplicationName("iScheduler Xs Max")
                     .build();
-            //re-direct back to the stdout
-            System.setOut(System.out);
         } catch (IOException e) {
             logger.info(MESSAGE_IO_ERROR);
             throw new CommandException(MESSAGE_IO_ERROR);
         }
+
         return service;
     }
 
@@ -159,7 +148,7 @@ public class ConnectToGoogleCalendar {
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
+            logger.info(MESSAGE_IO_ERROR);
             throw new CommandException(MESSAGE_IO_ERROR);
         }
         return httpTransport;
@@ -196,12 +185,12 @@ public class ConnectToGoogleCalendar {
 
     /**
      * To check whether internet is available.
-     *
+     * @param address the URL provided
      * @return true if available, false otherwise.
      */
-    public static boolean netIsAvailable() {
+    public static boolean netIsAvailable(String address) {
         try {
-            final URL url = new URL("http://www.google.com");
+            final URL url = new URL(address);
             final URLConnection conn = url.openConnection();
             conn.connect();
             conn.getInputStream().close();
@@ -520,17 +509,16 @@ public class ConnectToGoogleCalendar {
                     EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
-            } catch (UnknownHostException e) {
+                for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
+                    if (Objects.equals(event.getICalUID(), eventSetUid)) {
+                        eventIds.add(event.getId());
+                        repeatedEventsFound = true;
+                        recurringEventId = event.getRecurringEventId();
+                    }
+                }
+            } catch (IOException | NullPointerException e) {
                 logger.info(MESSAGE_IO_ERROR);
                 return false;
-            }
-
-            for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventSetUid)) {
-                    eventIds.add(event.getId());
-                    repeatedEventsFound = true;
-                    recurringEventId = event.getRecurringEventId();
-                }
             }
         }
 
@@ -581,7 +569,8 @@ public class ConnectToGoogleCalendar {
      * @param editedEvent an edited local Event.
      */
     public boolean updateSingleGoogleEvent(boolean enabled,
-            Event eventToEdit, Event editedEvent, int instanceIndex) throws CommandException {
+                                           Event eventToEdit, Event editedEvent, int instanceIndex)
+            throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -700,7 +689,8 @@ public class ConnectToGoogleCalendar {
      * @param rangeStartIndex the effect of update will start from this index
      */
     public boolean updateRangeGoogleEvent(boolean enabled,
-            Event eventToEdit, List<Event> editedEvents, int instanceIndex, int rangeStartIndex)
+                                          Event eventToEdit, List<Event> editedEvents, int instanceIndex,
+                                          int rangeStartIndex)
             throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;

@@ -48,7 +48,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!ConnectToGoogleCalendar.netIsAvailable()) {
+        if (!ConnectToGoogleCalendar.netIsAvailable("http://www.google.com")) {
             throw new CommandException(MESSAGE_INTERNET_ERROR);
         }
         if (ConnectToGoogleCalendar.isGoogleCalendarEnabled()) {

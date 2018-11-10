@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedReader;
@@ -36,11 +38,14 @@ import com.google.api.client.testing.http.MockLowLevelHttpResponse;
 import com.google.api.services.calendar.model.Calendar;
 
 import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
 import seedu.scheduler.model.UserPrefs;
+import seedu.scheduler.model.event.Event;
+import seedu.scheduler.testutil.EventBuilder;
 
 /**
  * Contains tests for ConnectToGoogleCalendar.
@@ -49,6 +54,8 @@ public class ConnectToGoogleCalendarTest {
     private static final String CALENDAR_NAME = "primary";
     private static final String MESSAGE_READ_WRITE_ERROR =
             "Unable to write/read the status to the local status indicator file";
+    private static final String MESSAGE_IO_ERROR = "Unable to retrieve event from Google Calendar."
+            + "Please check your network and check its existence on Google Calendar.";
     private static final String SAMPLE = "123\u05D9\u05e0\u05D9\u05D1";
     private static final String TEMP_EVENT_NAME = "tempEventName";
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -114,6 +121,24 @@ public class ConnectToGoogleCalendarTest {
         //Test whether returns Disabled
         assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
         assertTrue(ConnectToGoogleCalendar.checkStatus("Disabled"));
+
+        //Try to read a non-readable file
+        String path = "./tokens/mode.txt";
+        final File file = new File(path);
+        //Pre-condition: the file was writable before
+        assertTrue(file.canWrite());
+        file.setReadable(false);
+        try {
+            //We force an exception
+            ConnectToGoogleCalendar.checkStatus("Enabled");
+        } catch (CommandException e) {
+            //This will be captured by Junit test
+            //This catch is not needed actually, put here for completeness
+            throw new CommandException(MESSAGE_READ_WRITE_ERROR);
+        } finally {
+            //set back the file to writable
+            file.setReadable(true);
+        }
     }
 
     @Test
@@ -221,7 +246,7 @@ public class ConnectToGoogleCalendarTest {
      *
      * @return String in the status file
      */
-    private String getModeContent() {
+    private String getModeContent() throws CommandException {
         //Get the file
         File file = new File("./tokens/mode.txt");
         //Read the content
@@ -234,6 +259,7 @@ public class ConnectToGoogleCalendarTest {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CommandException(MESSAGE_READ_WRITE_ERROR);
         }
         //convert to string and return
         return contents.toString();
@@ -251,27 +277,18 @@ public class ConnectToGoogleCalendarTest {
         Calendar expectedCalendar = new Calendar();
         expectedCalendar.setSummary("testCalendar");
         Calendar createdCalendar = null;
-        try {
-            createdCalendar = service.calendars().insert(expectedCalendar).execute();
-        } catch (IOException e) {
-            //TODO:
-            e.printStackTrace();
-        }
-        //try to get the test calender from Google
         Calendar getFromGoogleCalendar =
                 null;
         try {
+            createdCalendar = service.calendars().insert(expectedCalendar).execute();
+            //try to get the test calender from Google
             getFromGoogleCalendar = service.calendars().get(createdCalendar.getId()).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //check whether this is the test calender
-        assertEquals(createdCalendar.getId(), getFromGoogleCalendar.getId());
-        //remove the test calender from Google Calender
-        try {
+            //check whether this is the test calender
+            assertEquals(createdCalendar.getId(), getFromGoogleCalendar.getId());
+            //remove the test calender from Google Calender
             service.calendars().delete(createdCalendar.getId()).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException(MESSAGE_IO_ERROR);
         }
         //create an expected exception
         //Try to retrieve the deleted exception
@@ -292,10 +309,10 @@ public class ConnectToGoogleCalendarTest {
         //Test Download
         HttpTransport transport = new MockHttpTransport() {
             @Override
-            public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+            public LowLevelHttpRequest buildRequest(String method, String url) {
                 return new MockLowLevelHttpRequest() {
                     @Override
-                    public LowLevelHttpResponse execute() throws IOException {
+                    public LowLevelHttpResponse execute() {
                         MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
                         result.setContentType(Json.MEDIA_TYPE);
                         result.setContent(SAMPLE);
@@ -335,5 +352,51 @@ public class ConnectToGoogleCalendarTest {
         credential.setRefreshToken(refreshToken);
         assertTrue(credential.refreshToken());
         assertEquals(accessToken, credential.getAccessToken());
+    }
+
+    @Test
+    public void netIsAvailable() {
+        //assumption: Google is always online -> true
+        assertTrue(ConnectToGoogleCalendar.netIsAvailable("http://www.google.com"));
+        //Invalid URL -> false
+        assertFalse(ConnectToGoogleCalendar.netIsAvailable("NoUrlWillFail"));
+    }
+
+    @Test
+    public void pushToGoogleCal() {
+        enable();
+        /* Case: add a repeated event -> added */
+        Event validEvent = new EventBuilder(CS2103_LECTURE).build();
+        assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()));
+        disable();
+    }
+
+    @Test
+    public void deleteOnGoogleCal() {
+    }
+
+    @Test
+    public void deleteUpcomingOnGoogleCal() {
+    }
+
+    @Test
+    public void deleteAllOnGoogleCal() {
+    }
+
+    @Test
+    public void updateSingleGoogleEvent() {
+    }
+
+    @Test
+    public void updateRangeGoogleEvent() {
+    }
+
+    @Test
+    public void getEvents() {
+    }
+
+    @Test
+    public void getSingleEvents() {
     }
 }
