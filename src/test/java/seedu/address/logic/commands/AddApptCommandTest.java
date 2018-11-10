@@ -37,6 +37,7 @@ public class AddApptCommandTest {
 
     private String validNric;
     private String type;
+    private String invalidType;
     private String procedure;
     private String dateTime;
     private String dateTimeBeforeCurrent;
@@ -52,6 +53,7 @@ public class AddApptCommandTest {
         patient = new Person(new Nric(validNric), new Name("AddAppt Test"), new Phone("91234567"),
                 new Email("addappttest@gmail.com"), new Address("12 Addappt Ave, #01-01"), new HashSet<Tag>());
         type = "SRG";
+        invalidType = "SRGy";
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 10:30";
         dateTimeBeforeCurrent = "12-12-1018 23:20";
@@ -89,6 +91,16 @@ public class AddApptCommandTest {
         CommandTestUtil.ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddApptCommand.MESSAGE_INVALID_DATE_TIME_BEFORE_CURRENT);
+        addApptCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_addapptWithInvalidType_throwsCommandException() throws Exception {
+        appt = new Appointment(type, procedure, invalidType, doctor);
+        AddApptCommand addApptCommand = new AddApptCommand(patient.getNric(), appt);
+        CommandTestUtil.ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddApptCommand.MESSAGE_INVALID_TYPE);
         addApptCommand.execute(modelStub, commandHistory);
     }
 
