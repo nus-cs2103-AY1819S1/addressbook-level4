@@ -127,7 +127,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagramUpdated.png[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -173,7 +173,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagramUpdated.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -209,7 +209,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagramUpdated.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -1452,8 +1452,8 @@ Guarantees: Only the selected event will be deleted from the existing list.
 *MSS*
 
 .	User requests to delete an event.
-.	System removes the event from the user’s personal list of events.
-.	System displays message showing that the event is deleted.
+.	System removes the event from the user’s personal list of events
+and displays message showing that the event is deleted.
 +
 
 Use case ends.
@@ -1467,7 +1467,35 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC6: Upcoming event notification
+=== UC6: Find an event by event tag
+
+Precondition: Event tag exists in the system.
+Guarantees: Events with the specified tags will be shown.
+
+*MSS*
+
+.	User requests to get all events tagged with a specific event tag.
+.	System shows all events with the specified tags.
++
+
+Use case ends.
+
+[discrete]
+=== UC7: Edit an event address
+
+Precondition: Event to edit exists in the system and address is valid.
+Guarantees: Event will be edited with the given address.
+
+*MSS*
+
+.	User requests to edit the address of a specific event in the address book.
+.	System updates the address of the specified event and displays a message to the user informing them of the update.
++
+
+Use case ends.
+
+[discrete]
+=== UC8: Upcoming event notification
 
 *MSS*
 
@@ -1479,7 +1507,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC7: Show contact's faculty location visually
+=== UC9: Show contact's faculty location visually
 
 *MSS*
 
@@ -1490,7 +1518,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC8: Generate possible event location
+=== UC10: Generate possible event location
 
 *MSS*
 
@@ -1509,7 +1537,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC9: Import contacts
+=== UC11: Import contacts
 
 *MSS*
 
@@ -1694,6 +1722,9 @@ Use case ends.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[contact]] Contact::
+A person in the address book.
+
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
@@ -1701,7 +1732,9 @@ A contact detail that is not meant to be shared with others
 A collection of contacts who come together for ad-hoc, short-term events such as projects.
 
 [[tag]] Tag::
-The item used to organize contacts based on personal or work relationships in the address book. For example, tags can exist for family, friends, work colleagues, etc.
+The item used to organize contacts based on personal or work relationships, or events of a specific type in the address book.
+For example, for contacts, tags can exist for family, friends, work colleagues, etc.
+For events, tags can exist for meetings, appointments, etc.
 
 [[faculty]] Faculty::
 The faculty of study that the student belongs to.
