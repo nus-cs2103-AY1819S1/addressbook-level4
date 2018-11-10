@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Resgister a new patient into HealthBase
+ * Register a new patient into HealthBase
  */
 public class RegisterCommand extends Command {
 
