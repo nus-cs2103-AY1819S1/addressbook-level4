@@ -763,7 +763,7 @@ Format: `delete-reservation INDEX` or `dr INDEX`
 Examples:
 
 * `list-reservations` +
-`delete-reservations 2` +
+`delete-reservation 2` +
 `list-reservations` +
 Deletes the 2nd reservation in the reservations list.
 
