@@ -81,7 +81,7 @@ public class MaintainCommand extends Command {
 
         Name updatedName = openRideDescriptor.getName().orElse(rideToMaintain.getName());
         Maintenance updatedMaintenance = rideToMaintain.resetMaintenance();
-        WaitTime updatedWaitTime = openRideDescriptor.getWaitTime().orElse(rideToMaintain.getWaitingTime());
+        WaitTime updatedWaitTime = new WaitTime(0);
         Zone updatedZone = openRideDescriptor.getZone().orElse(rideToMaintain.getZone());
         Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToMaintain.getTags());
         Status updatedStatus = Status.MAINTENANCE;
