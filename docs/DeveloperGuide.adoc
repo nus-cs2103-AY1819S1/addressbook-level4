@@ -479,6 +479,7 @@ This section explains the implementation of the features associated with the Sch
 
 For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week's schedule is stored.
 
+
 ===== Aspect: Storage of schedule in person
 
 * **Alternative 1** Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
