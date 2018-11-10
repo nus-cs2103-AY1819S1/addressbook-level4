@@ -108,9 +108,13 @@ Get some sense of the overall design by reading Section 2.1, “Architecture”.
 Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
 == Design
+// tag::command[]
 ===== Command Component
-Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
-and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
+Command is refactored to be implemented using a https://en.wikipedia.org/wiki/Template_method_pattern[template method pattern].
+ The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
+ method to update the status of tasks to overdue if their due date is past current time.
+
+
 The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
 Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
 The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
@@ -119,9 +123,11 @@ abstract method in command.
 Simplified class diagram for the command component:
 
 image::CommandComponentClassDiagram.png[width="1200"]
+// end::command[]
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -433,8 +439,10 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+The dependency mechanism is facilitated by an embedded `Dependencies` object. This object internally represents dependencies with
 a hashset that contains the hashcode of the object that the task is dependent upon.
+
+Sequence Diagram of the dependencies command
 
 image::DependencyCommandSequenceDiagram.png[width="1200"]
 
@@ -444,7 +452,7 @@ image::DependencyCommandSequenceDiagram.png[width="1200"]
 * ** Alternative 1(current choice):** Add a new string of the hashcode into the hashset.
 ** Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
 Easy to reform the dependency graph.
-** Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
 finding details of the dependee task given its hashcode.
 
 * ** Alternative 2: **Add (a reference to) the dependant Task object into the hashset.
