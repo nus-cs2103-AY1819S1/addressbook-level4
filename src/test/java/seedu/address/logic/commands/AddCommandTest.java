@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -27,6 +28,7 @@ import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.Project;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -309,7 +311,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean containsAssignment(String newAssignment, Assignment ignore) {
+        public boolean containsAssignment(Set<Project> newAssignment, Assignment ignore) {
             return false;
         }
 

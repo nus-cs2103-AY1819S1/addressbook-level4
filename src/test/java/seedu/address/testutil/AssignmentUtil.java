@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
+import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.model.project.Assignment;
 
 /**
@@ -32,21 +33,13 @@ public class AssignmentUtil {
     /**
      * Returns the part of command string for the given {@code EditAssignmentDescriptor}'s details.
      */
-    /*public static String getEditAssignmentDescriptorDetails(EditCommand.EditPersonDescriptor descriptor) {
+    public static String getEditAssignmentDescriptorDetails(EditAssignmentCommand.EditAssignmentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        descriptor.getSalary().ifPresent(address -> sb.append(PREFIX_SALARY).append(address.value).append(" "));
-        if (descriptor.getProjects().isPresent()) {
-            Set<Project> projects = descriptor.getProjects().get();
-            if (projects.isEmpty()) {
-                sb.append(PREFIX_PROJECT);
-            } else {
-                projects.forEach(s -> sb.append(PREFIX_PROJECT).append(s.getProjectName()).append(" "));
-            }
-        }
+        descriptor.getAssignmentName().ifPresent(assignmentName -> sb.append(PREFIX_ASSIGNMENT_NAME)
+                .append(assignmentName.fullProjectName).append(" "));
+        descriptor.getAuthor().ifPresent(name -> sb.append(PREFIX_AUTHOR).append(name.fullName).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_ASSIGNMENT_DESCRIPTION)
+                .append(description.value).append(" "));
         return sb.toString();
-    }*/
+    }
 }

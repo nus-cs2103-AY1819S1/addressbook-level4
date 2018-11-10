@@ -32,7 +32,7 @@ public class TypicalPersons {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000").withEmail("alice@example.com")
             .withPhone("94351253").withUsername("Alice Pauline").withPassword("Ap12345678", SaltList.ALICE_SALT)
-            .withPermissionSet(new PermissionSet(Permission.REMOVE_EMPLOYEE))
+            .withPermissionSet(new PermissionSet(Permission.DELETE_EMPLOYEE))
             .build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")

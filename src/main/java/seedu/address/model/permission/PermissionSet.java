@@ -24,13 +24,13 @@ public class PermissionSet {
             public Set<Permission> getPreset() {
                 Set<Permission> preset = new HashSet<>();
                 preset.add(Permission.ADD_EMPLOYEE);
-                preset.add(Permission.REMOVE_EMPLOYEE);
+                preset.add(Permission.DELETE_EMPLOYEE);
                 preset.add(Permission.EDIT_EMPLOYEE);
                 preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
                 preset.add(Permission.APPROVE_LEAVE);
-                preset.add(Permission.CREATE_PROJECT);
-                preset.add(Permission.VIEW_PROJECT);
-                preset.add(Permission.ASSIGN_PROJECT);
+                preset.add(Permission.ADD_ASSIGNMENT);
+                preset.add(Permission.DELETE_ASSIGNMENT);
+                preset.add(Permission.EDIT_ASSIGNMENT);
                 preset.add(Permission.ASSIGN_PERMISSION);
                 preset.add(Permission.RESTORE_EMPLOYEE);
                 return preset;
@@ -43,13 +43,13 @@ public class PermissionSet {
             public Set<Permission> getPreset() {
                 Set<Permission> preset = new HashSet<>();
                 preset.add(Permission.ADD_EMPLOYEE);
-                preset.add(Permission.REMOVE_EMPLOYEE);
+                preset.add(Permission.DELETE_EMPLOYEE);
                 preset.add(Permission.EDIT_EMPLOYEE);
                 preset.add(Permission.VIEW_EMPLOYEE_LEAVE);
                 preset.add(Permission.APPROVE_LEAVE);
-                preset.add(Permission.CREATE_PROJECT);
-                preset.add(Permission.VIEW_PROJECT);
-                preset.add(Permission.ASSIGN_PROJECT);
+                preset.add(Permission.ADD_ASSIGNMENT);
+                preset.add(Permission.DELETE_ASSIGNMENT);
+                preset.add(Permission.EDIT_ASSIGNMENT);
                 preset.add(Permission.RESTORE_EMPLOYEE);
                 return preset;
             }
@@ -60,7 +60,7 @@ public class PermissionSet {
              */
             public Set<Permission> getPreset() {
                 Set<Permission> preset = new HashSet<>();
-                preset.add(Permission.VIEW_PROJECT);
+                //Employee have no permission
                 return preset;
             }
         };

@@ -36,7 +36,7 @@ public class EditAssignmentCommand extends Command {
             + "[" + PREFIX_AUTHOR + " AUTHOR] "
             + "[" + PREFIX_ASSIGNMENT_DESCRIPTION + " DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ASSIGNMENT_NAME + " OASIS v2.0 "
+            + PREFIX_ASSIGNMENT_NAME + " OASIS v2 "
             + PREFIX_AUTHOR + " MARY GOSLOW";
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
@@ -54,7 +54,7 @@ public class EditAssignmentCommand extends Command {
         requireNonNull(index);
         requireNonNull(editAssignmentDescriptor);
 
-        requiredPermission.addPermissions(Permission.EDIT_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.EDIT_ASSIGNMENT);
         this.index = index;
         this.editAssignmentDescriptor = new EditAssignmentCommand.EditAssignmentDescriptor(editAssignmentDescriptor);
     }

@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Helper class to auto complete commands typed into command box
  */
@@ -32,7 +36,9 @@ public class AutoCompleteCommandHelper {
         ListAssignmentCommand.COMMAND_WORD,
         EditAssignmentCommand.COMMAND_WORD,
         DeleteAssignmentCommand.COMMAND_WORD,
-        ViewPermissionCommand.COMMAND_WORD
+        ViewPermissionCommand.COMMAND_WORD,
+        ActiveCommand.COMMAND_WORD,
+        AssignmentCommand.COMMAND_WORD
     };
 
     /**
@@ -41,12 +47,25 @@ public class AutoCompleteCommandHelper {
      * @param partialWord The current characters available in command box.
      * @return The predicted command.
      */
-    public static String autoCompleteWord(String partialWord) {
+    public static Set<String> autoCompleteWord(String partialWord) {
+        if (partialWord == null || partialWord.equals("")) {
+            return new TreeSet<>();
+        }
+
+        if (partialWord.equals(" ")) {
+            return getAllCommands();
+        }
+
+        Set<String> suggestions = new TreeSet<>();
         for (String s : commandWordList) {
             if (s.startsWith(partialWord)) {
-                return s;
+                suggestions.add(s);
             }
         }
-        return null;
+        return suggestions;
+    }
+
+    public static Set<String> getAllCommands() {
+        return new TreeSet<>(Arrays.asList(commandWordList));
     }
 }

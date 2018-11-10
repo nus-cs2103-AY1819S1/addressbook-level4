@@ -17,7 +17,19 @@ endif::[]
 
 By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+=== What is OASIS?
+
+Office Assistance Specialized Integration System (OASIS) is an all-in-one office management software. It has the common of management system and additional features that would make managing efficient, quick and fun. Unlike any other management software, OASIS adopts Command Line Interface.
+
+=== Architectural Overview
+
+This document describes the design, implemented features and possible features that could be implemented in OASIS. These could serve as guidelines for future developers. Happy Programming!!
+
 == Setting up
+
+It is time to start, follow the instructions below to get your developing environment ready.
 
 === Prerequisites
 
@@ -351,7 +363,19 @@ Permission have to be stored in the addressbook where the information for `Perso
 image::permissionStorage.png[width="350]
 
 ===== Aspect: Logic
-Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command.
+Commands will be required to populate a `requiredPermission:PermissionSet` object with all `Permission` the command requires user to have to execute the command.
+
+The following is an example on how to assign permission to a Command.
+
+.AddCommand.java
+[source,java]
+----
+public AddCommand(Person person) {
+    requireNonNull(person);
+    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE);
+    toAdd = person;
+}
+----
 
 Given below is an example scenario of how commands will be executed.
 
@@ -377,7 +401,7 @@ image::permissionCommandActivityDiagram.png[width="450"]
 
 ** Pros: Easy to control the commands a user can access.
 
-** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users.
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
 * Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
@@ -385,85 +409,125 @@ The commands executable by the user will depend on their class.
 ** Pros: Easy to implement. Only require small modification in existing classes.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+
+=== Supporting features for Permission System
+
+The following are features that have been implemented to support the Permission System.
+
+==== Modify Permissions of employee
+
+This feature allows the user to change the Permission that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+===== Current Implementation
+
+This feature allows the user to indicate what permission to add and remove based on the prefix.
+
+* `-a PERMISSION_TO_ADD` to add permission
+* `-r PERMISSION_TO_REMOVE` to remove permission
+
+To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which can be used to retrieve the `index` of the targeted employee.
+
+The list of keywords is then used to create `permissionToAdd:Set<Permission>` and `permissionToRemove:Set<Permission>`, depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
+
+ Might want to insert code snippet here
+
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
+
+The following is a sequence diagram that visualizes how this operation works.
+
+image::modifyPermissionSequenceDiagram.png[width="350]
+
+
+==== View Permissions of employee
+
+This feature allows the user to view the permissions that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+
 // end::permission
 
 // tag::project
-=== Project Management
-Project management is an important feature in company mangement system. As such there are four critical features of project management. These feature are `addproject`, `listproject`, `deleteproject` and `assignproject`.
+=== Assignment Management
+Assignment management is an important feature in company management system. As such there are four critical features of assignment management. These features are `addassignment`, `listassignment`, `deleteassignment` and `assignassignment`.
 
-These commands could only be executed by user with the "Department manager" permission.
+These commands could only be executed by user with the appropriate permission.
 
 ==== Proposed Implementation
 
 ===== Aspect: Model
-Model of the project has been created. `Project` will store information such as the `projectName`, `projectAuthor` and `projectDescription`.
+Model of the assignment has been created. `Assignment` will store information such as the `assignmentName`, `assignmentAuthor` and `assignmentDescription`.
 
-The following diagram shows the class added to reflect the model `Project`:
+The following diagram shows the class added to reflect the model `Assignment`:
 
 image::ProjectModel.PNG[width="450"]
 
 ===== Aspect: Storage
-Add `XmlSerializableProjectList` and `XmlAdaptProject` class to Storage component. `XmlAdaptProject` will then have the element for project name, project author and project description.
+Add `XmlSerializableAssignmentList` and `XmlAdaptAssignment` class to Storage component. `XmlAdaptAssignment` will then have the element for assignment name, assignment author and assignment description.
 
-The following diagram shows the class `XmlSerializableProjectList` added to reflect the changes in storage component:
+The following diagram shows the class `XmlSerializableAssignmentList` added to reflect the changes in storage component:
 
 image::XmlSerializableProjectList.PNG[width="450"]
 
 ==== Aspect: Logic
-When user enter the commands related to project, the commands will be parser to correct execution. Below are the examples scenarios:
+When user enter the commands related to assignment, the commands will be parser to correct execution. Below are the examples scenarios:
 
 ===== Add Project
-Step 1. The user enters a command `addproject` into the CLI.
+Step 1. The user enters a command `addassignment` into the CLI.
 
-Step 2. The system parse the command to execute `AddProjectCommand`.
+Step 2. The system parses the command to execute `AddAssignmentCommand`.
 
-Step 3. The system parse the project information to the respective fields.
+Step 3. The system parses the assignment information to the respective fields.
 
-Step 4. The System checks if there exist the same project.
-* Two differnt cases:
-** If no existing project, stores the project.
-** If there is existing project, inform the user and do not store the project.
+Step 4. The System checks if there exist the same assignment.
+* Two different cases:
+** If no existing assignment, stores the assignment.
+** If there is existing assignment, inform the user and do not store the assignment.
 
 Step 5. The system shows the result of the command.
 
-===== Delete Project
-Step 1. The user enters a command `deleteproject 1` into the CLI.
+===== Delete Assignment
+Step 1. The user enters a command `deleteAssignment 1` into the CLI.
 
-Step 2. The system parse the command to execute `DeleteProjectCommand`.
+Step 2. The system parses the command to execute `DeleteAssignmentCommand`.
 
-Step 3. The system locate the index and delete the project and its information.
+Step 3. The system locates the index and delete the assignment and its information.
 
-===== Assign Project
-Step 1. The user enters a command `assigproject 1 -n Alex` into the CLI.
+===== Assign Assignment
+Step 1. The user enters a command `assignassignment 1 -n Alex` into the CLI.
 
-Step 2. The system parse the command to execute `AssignProjectCommand`.
+Step 2. The system parses the command to execute `AssignAssignmentCommand`.
 
-Step 3. The system parse the information.
+Step 3. The system parses the information.
 
 Step 4. Check if selected name is available.
 
-Step 4. The system assign the selected project into the `Project` attribute of user.
+Step 4. The system assigns the selected assignment into the `Assignment` attribute of user.
 
-===== List Project
-Step 1. The user enters a command `listproject` into the CLI.
+===== List Assignment
+Step 1. The user enters a command `listassignment` into the CLI.
 
-Step 2. The system parse the command to execute `ListProjectCommand`.
+Step 2. The system parses the command to execute `ListAssignmentCommand`.
 
-Step 3. The system retrieves all projects.
+Step 3. The system retrieves all assignments.
 
-Step 4. The system list the projects.
+Step 4. The system lists the assignments.
 
 ==== Design Consideration
 ===== Aspect: Storage
-* Alternative 1 (Current Choice): store project information in Xml file.
+* Alternative 1 (Current Choice): store assignment information in Xml file.
 
-** Pros: Xml file has extensibility, as it has no fixed set of tags. Allowing future developers to enhance the information of the project.
-** Cons: Inefficient retrival of information of the project when the storage size gets too big.
+** Pros: Xml file has extensibility, as it has no fixed set of tags. Allowing future developers to enhance the information of the assignment.
+** Cons: Inefficient retrieval of information of the assignment when the storage size gets too big.
 
-* Alternative 2: store the project information using database system.
+* Alternative 2: store the assignment information using database system.
 
-** Pros: Fast and efficient retrival of information, even when the amount of data is massive.
-** Cons: Saparated system needs to be set up to store infomation. Additional cost.
+** Pros: Fast and efficient retrieval of information, even when the amount of data is massive.
+** Cons: Separated system needs to be set up to store information. Additional cost.
 
 // end::project
 

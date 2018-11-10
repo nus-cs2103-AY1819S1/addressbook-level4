@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.Project;
 
 /**
  * The API of the Model component.
@@ -211,7 +213,7 @@ public interface Model {
      * @param ignore The person to ignore, if any. null for no one.
      * @return False if it's already in the assignment list, true otherwise
      */
-    boolean containsAssignment(String newAssignment, Assignment ignore);
+    boolean containsAssignment(Set<Project> newAssignment, Assignment ignore);
 
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();

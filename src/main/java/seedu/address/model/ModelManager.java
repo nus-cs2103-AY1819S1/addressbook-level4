@@ -3,7 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,6 +25,7 @@ import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.Project;
 
 
 /**
@@ -377,17 +380,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean containsAssignment(String newAssignment, Assignment ignore) {
-        // If the set is empty
+    public boolean containsAssignment(Set<Project> newAssignment, Assignment ignore) {
         if (newAssignment.equals("[]")) {
             return false;
         }
 
         List<Assignment> currentAssignment = versionedAssignmentList.getAssignmentList();
-        for (Assignment p : currentAssignment) {
-            if (!p.isSameAssignment(ignore) && newAssignment.contains(p.getProjectName().fullProjectName)) {
-                return false;
-            }
+        List<String> currAssignmentName = new ArrayList<>();
+        List<String> newAssignmentName = new ArrayList<>();
+
+        for (Assignment a : currentAssignment) {
+            currAssignmentName.add(a.getProjectName().fullProjectName);
+        }
+
+        for (Project p : newAssignment) {
+            newAssignmentName.add(p.getProjectName());
+        }
+
+        if (currAssignmentName.containsAll(newAssignmentName)) {
+            return false;
         }
         return true;
     }
