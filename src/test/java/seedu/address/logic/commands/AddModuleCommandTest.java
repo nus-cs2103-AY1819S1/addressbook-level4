@@ -178,14 +178,16 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public void insertPerson(Person person, Module module, Person personToInsert,
-                                 Module moduleToInsert) {
+        public void insertPerson(Person personDeep, Module moduleDeep,
+                                 Person personShallow, Module moduleShallow,
+                                 Person personToInsert, Module moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void insertPerson(Person person, Occasion occasion, Person personToInsert,
-                                 Occasion moduleToInsert) {
+        public void insertPerson(Person personDeep, Occasion occasionDeep,
+                                 Person personShallow, Occasion occasionShallow,
+                                 Person personToInsert, Occasion moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
