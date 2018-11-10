@@ -634,7 +634,7 @@ Step 6: The Word Of The Day will be fetched online from Dictionary.com and displ
 [NOTE]
 The Word Of The Day is displayed together with a "WordOfTheDay" tag. The word and the tag are not stored in any group somewhere, but is only displayed for the user. If the user wants to learn the word, he or she shall use the LearnCommand.
 
-The following sequence diagram shows how the learn command works:
+The following sequence diagram shows how the Word Of The Day command works:
 
 image::WordOfTheDaySequentialDiagram.jpg[width="820"]
 
