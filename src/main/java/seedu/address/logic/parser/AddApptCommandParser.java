@@ -28,6 +28,7 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
      *             if the user input does not conform the expected format
      */
 
+
     public static final String MESSAGE_INVALID_DATE_TIME = "Input date and time is invalid or in incorrect format.";
 
     @Override
@@ -46,6 +47,11 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         String type = argMultimap.getValue(PREFIX_TYPE).get();
         String procedure = argMultimap.getValue(PREFIX_PROCEDURE).get();
         String dateTime = argMultimap.getValue(PREFIX_DATE_TIME).get();
+
+
+        if (!Nric.isValidNric(patientNric)) {
+            throw new ParseException(Nric.MESSAGE_NAME_CONSTRAINTS);
+        }
 
         try {
             LocalDateTime.parse(dateTime, Appointment.DATE_TIME_FORMAT);
