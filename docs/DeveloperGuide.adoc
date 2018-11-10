@@ -1856,21 +1856,21 @@ Expected: All events in EventsPlus+ shown. Status bar remains the same.
 .. Prerequisites: List all events using the `list` command.
 Multiple events in the list tagged with `meeting` and `appointment`.
 No events tagged with `class`.
-.. Test case: `findEvent meeting`
+.. Test case: `findEvent meeting` +
 Expected: All events tagged with `meeting` shown. Status bar remains the same.
-.. Test case: `findEvent meeting appointment`
+.. Test case: `findEvent meeting appointment` +
 Expected: All events tagged with `meeting` and `appointment` shown. Status bar remains the same.
-.. Test case: `findEvent class`
+.. Test case: `findEvent class` +
 Expected: No events shown. Status bar remains the same.
 
 === Adding an event tag
 
 . Adding an event tag
 .. Prerequisites: Event tag `meeting` exists in EventsPlus+ but not `class` and `lecture`.
-.. Test case: `addEventTag t/class t/lecture`
+.. Test case: `addEventTag t/class t/lecture` +
 Expected: Event tags `class` and `lecture` added into the system.
 Timestamp in the status bar is updated.
-.. Test case: `addEventTag t/meeting`
+.. Test case: `addEventTag t/meeting` +
 Expected: Error details indicating that event tag already exists is shown in the status message.
 Event tags `class` and `lecture` not added into the system.
 Status bar remains the same.
@@ -1879,15 +1879,15 @@ Status bar remains the same.
 
 . Editing an event's address
 .. Prerequisites: Event to be edited (with address `NUS i3`) exists in EventsPlus+.
-.. Test case: `editEventAddress d/2018-04-01 i/1 a/updated address`
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/updated address` +
 Expected: Specified event's address is updated to `updated address`.
 Status message indicates that the event's address has been updated to the new value.
 Timestamp in the status bar is updated.
-.. Test case: `editEventAddress d/2018-04-01 i/1 a/NUS`
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/NUS` +
 Expected: Specified event's address stays as `NUS i3`.
 Status message indicates that the event's address has been updated to the new value (which is the same as the old value).
 Timestamp in the status bar is updated.
-.. Test case: `editEventAddress d/2018-04-01 i/1 a/`
+.. Test case: `editEventAddress d/2018-04-01 i/1 a/` +
 Expected: Error details indicating invalid input for address field.
 Status bar remains the same.
 
@@ -1895,4 +1895,8 @@ Status bar remains the same.
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Non-existent event tags
+If there is at least one event tag that is included in the events, which are not found in the list of event tags
+in the XML file, the data file will not be successfully loaded into EventsPlus+, and a clean address book is
+shown upon application startup instead. +
+To resolve the issue, manually add the missing event tags into the XML file.
