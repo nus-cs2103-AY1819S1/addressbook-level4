@@ -77,7 +77,8 @@ public class EditIngredientCommandParserTest {
         assertParseFailure(parser, "1", EditIngredientByIndexCommand.MESSAGE_NOT_EDITED);
 
         // name specified but no field specified
-        assertParseFailure(parser, INGREDIENT_ORIGINAL_NAME_DESC_APPLE, EditIngredientByIndexCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, INGREDIENT_ORIGINAL_NAME_DESC_APPLE,
+                EditIngredientByIndexCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
