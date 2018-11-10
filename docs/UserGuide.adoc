@@ -182,6 +182,7 @@ Use with caution, as they may be difficult to distinguish (e.g. in a person's oc
 == Features
 
 ====
+
 *Notice*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which
@@ -250,6 +251,7 @@ Adds an occasion to TheTracker. +
 Format: +
 `addoccasion on/OCCASION_NAME [od/OCCASION_DATE] [loc/LOCATION] [t/TAG]...`
 
+
 Example: +
 `addoccasion on/discussion` +
 `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
@@ -261,6 +263,7 @@ Example: +
 * Occasion Name must be specified to create an occasion. The length of Occasion Name should be between 3 - 30.
 * If not entered, Occasion Date, Occasion Location and Tags are empty.
 ====
+
 
 // end::add[]
 
@@ -379,7 +382,6 @@ Example:
 `findperson e/johnd@example.com` +
 `findperson a/Clementi` +
 
-
 ==== Finding a module: `findmodule`
 
 Finds a module in TheTracker. +
@@ -399,7 +401,6 @@ Finds an occasion in TheTracker. +
 Format: +
 `findoccasion on/OCCASION_NAME`, `findoccasion od/OCCASION_DATE`, `findoccasion loc/LOCATION`
 
-
 Example:
 
 * `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion loc/SoC`
@@ -415,11 +416,17 @@ Format: +
 `delete INDEX`
 
 Examples:
+* `listperson` +
+`delete 1` +
+Deletes the 1st person in TheTracker.
+* `listmodule` +
+`findmodule sem/1` +
+`delete 2` +
+Deletes the 2nd module of the `find` command.
 
 * `delete 1` +
 Deletes the 1st entry of the active list. +
 // end::delete[]
-
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -468,13 +475,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reverses the `undo` command, which clears again) +
 // end::undoredo[]
 
-// tag::list[]
-=== Listing all entries of this kind: `list`
-Format: +
-* *List Person* : `listperson`
-* *List Module* : `listmodule`
-* *List Occasion* : `listoccasion`
-// end::list[]
+// tag::clear[]
+=== Clear all lists: `clear`
+A command to allow the user to clear all 3 lists.
+Format: `clear`
+
+[TIP]
+If this was done by mistake, you can `undo` the action, and all lists will be restored.
+
+// end::clear[]
+
 
 // tag::history
 === Showing command history: `history`
