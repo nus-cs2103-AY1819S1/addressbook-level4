@@ -38,6 +38,7 @@ import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.MedicineBuilder;
+import seedu.clinicio.ui.Ui;
 
 public class AddMedicineCommandTest {
 
@@ -109,10 +110,15 @@ public class AddMedicineCommandTest {
     private class ModelStub implements Model {
 
         @Override
-        public void updateQueue(Predicate<Patient> predicate) {
+        public void addUi(Ui ui) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
+        @Override
+        public void switchTab(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -248,6 +254,11 @@ public class AddMedicineCommandTest {
 
         @Override
         public void enqueueIntoPreferenceQueue(Person patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateQueue(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
