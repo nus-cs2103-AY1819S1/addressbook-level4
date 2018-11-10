@@ -63,7 +63,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private CalendarStorage calendarStorage;
     private EmailStorage emailStorage;
     private ProfilePictureStorage profilePictureStorage;
-    private boolean hasSampleBudgetBook = false;
+    //    private boolean hasSampleBudgetBook = false;
 
     public StorageManager(AddressBookStorage addressBookStorage, BudgetBookStorage budgetBookStorage,
                           UserPrefsStorage userPrefsStorage,
@@ -78,15 +78,15 @@ public class StorageManager extends ComponentManager implements Storage {
         this.profilePictureStorage = profilePictureStorage;
     }
 
-    @Override
-    public void isSampleBudgetBook() {
-        this.hasSampleBudgetBook = true;
-    }
-
-    @Override
-    public boolean hasSampleBudgetBook() {
-        return this.hasSampleBudgetBook;
-    }
+    //    @Override
+    //    public void isSampleBudgetBook() {
+    //        this.hasSampleBudgetBook = true;
+    //    }
+    //
+    //        @Override
+    //        public boolean hasSampleBudgetBook() {
+    //            return this.hasSampleBudgetBook;
+    //        }
 
     // ================ UserPrefs methods ==============================
 

@@ -37,7 +37,7 @@ import seedu.address.model.person.Room;
 public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
     EmailStorage, ProfilePictureStorage {
 
-    boolean hasSampleBudgetBook();
+    // boolean hasSampleBudgetBook();
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -156,5 +156,5 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     void readXslFile(Path ccaXslFilePath);
 
-    void isSampleBudgetBook();
+    //    void isSampleBudgetBook();
 }

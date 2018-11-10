@@ -125,7 +125,7 @@ public class MainApp extends Application {
         try {
             budgetBookOptional = storage.readBudgetBook();
             if (!budgetBookOptional.isPresent()) {
-                storage.isSampleBudgetBook();
+                //                storage.isSampleBudgetBook();
                 logger.info("Data file not found. Will be starting with a sample BudgetBook");
             }
             initialBudgetData = budgetBookOptional.orElseGet(SampleDataUtil::getSampleBudgetBook);
