@@ -298,6 +298,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isValidTimeFrame(int startDate, int endDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
                                         int endDate, int endHour, int endMinute) {
             throw new AssertionError("This method should not be called.");

@@ -391,6 +391,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean isValidTimeFrame(int startDate, int endDate) {
+        return calendarModel.isValidTimeFrame(startDate, 0, 0, endDate, 1, 0);
+    }
+
+    @Override
     public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
                                     int endDate, int endHour, int endMinute) {
         requireAllNonNull(startDate, startHour, startMinute, endDate, endHour, endMinute);

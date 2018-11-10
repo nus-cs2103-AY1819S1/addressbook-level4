@@ -251,6 +251,11 @@ public interface Model {
     /**
      * Returns true if the start date is earlier than the end date.
      */
+    boolean isValidTimeFrame(int startDate, int endDate);
+
+    /**
+     * Returns true if the start date and time is earlier than the end date and time.
+     */
     boolean isValidTimeFrame(int startDate, int startHour, int startMinute, int endDate, int endHour, int endMinute);
 
     /**

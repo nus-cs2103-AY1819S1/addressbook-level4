@@ -38,6 +38,7 @@ public class DeleteEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Calendar event deleted: %s";
     public static final String MESSAGE_NOT_EXISTING_CALENDAR = "This calendar doesn't exist in Hallper";
     public static final String MESSAGE_NOT_VALID_DATE = "This is not a valid date %s";
+    public static final String MESSAGE_NOT_VALID_TIMEFRAME = "End Date should not be earlier than Start Date";
     public static final String MESSAGE_NOT_EXISTING_EVENT = "This event does not exist in the calendar: %s";
 
     private final Month month;
@@ -47,6 +48,9 @@ public class DeleteEventCommand extends Command {
     private final String title;
 
     public DeleteEventCommand(Month month, Year year, int startDate, int endDate, String title) {
+        requireNonNull(month);
+        requireNonNull(year);
+        requireNonNull(title);
         this.month = month;
         this.year = year;
         this.startDate = startDate;
@@ -70,6 +74,11 @@ public class DeleteEventCommand extends Command {
         // Check whether endDate is valid
         if (!model.isValidDate(year, month, endDate)) {
             throw new CommandException(String.format(MESSAGE_NOT_VALID_DATE, endDate + "/" + month + "/" + year));
+        }
+
+        // Check whether start date and end date is a valid time frame
+        if (!model.isValidTimeFrame(startDate, endDate)) {
+            throw new CommandException(MESSAGE_NOT_VALID_TIMEFRAME);
         }
 
         // Check whether calendar is already loaded
