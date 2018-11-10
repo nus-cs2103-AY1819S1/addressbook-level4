@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,7 +25,6 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedScheduler versionedScheduler;
-    // private FilteredList<CalendarEvent> filteredCalendarEvents;
     private FSList fsList;
 
     /**
@@ -37,8 +37,20 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with scheduler: " + scheduler + " and user prefs " + userPrefs);
 
         versionedScheduler = new VersionedScheduler(scheduler);
-        // filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
         fsList = new FSList(versionedScheduler.getCalendarEventList());
+    }
+
+    /**
+     * Initializes a ModelManager with the given scheduler, userPrefs, and fsList
+     */
+    public ModelManager(ReadOnlyScheduler scheduler, UserPrefs userPrefs, FSList fsList) {
+        super();
+        requireAllNonNull(scheduler, userPrefs);
+
+        logger.fine("Initializing with scheduler: " + scheduler + " and user prefs " + userPrefs);
+
+        versionedScheduler = new VersionedScheduler(scheduler);
+        this.fsList = fsList;
     }
 
     public ModelManager() {
@@ -78,7 +90,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addCalendarEvent(CalendarEvent calendarEvent) {
         versionedScheduler.addCalendarEvent(calendarEvent);
-        resetFilteredCalendarEventList();
         indicateSchedulerChanged();
     }
 
@@ -90,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateSchedulerChanged();
     }
 
-    //=========== Filtered CalendarEvent List Accessors =============================================================
+    //=========== FSList Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code CalendarEvent} backed by the internal list of
@@ -102,40 +113,41 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code CalendarEvent} backed by the internal list of
+     * Returns an unmodifiable view of the {@code FSList} of {@code CalendarEvent} backed by the internal list of
      * {@code versionedScheduler}
      */
     @Override
     public ObservableList<CalendarEvent> getFilteredCalendarEventList() {
-        // return FXCollections.unmodifiableObservableList(filteredCalendarEvents);
         return FXCollections.unmodifiableObservableList(fsList.getFSList());
     }
 
     @Override
     public void updateFilteredCalendarEventList(Predicate<CalendarEvent> predicate) {
         requireNonNull(predicate);
-        // filteredCalendarEvents.setPredicate(predicate);
         fsList.setPredicate(predicate);
-    }
-
-    @Override
-    public void addPredicate(Predicate<CalendarEvent> predicate) {
-        requireNonNull(predicate);
-        // filteredCalendarEvents = new FilteredList<>(filteredCalendarEvents, predicate);
-        fsList.addPredicate(predicate);
     }
 
     @Override
     public void sortFilteredCalendarEventList(Comparator<CalendarEvent> comparator) {
         requireNonNull(comparator);
-        // filteredCalendarEvents = new FilteredList<>(new SortedList<>(filteredCalendarEvents, comparator));
         fsList.setComparator(comparator);
     }
 
     @Override
-    public void resetFilteredCalendarEventList() {
-        // filteredCalendarEvents = new FilteredList<>(versionedScheduler.getCalendarEventList());
-        fsList = new FSList(versionedScheduler.getCalendarEventList());
+    public void addPredicate(Predicate<CalendarEvent> predicate) {
+        requireNonNull(predicate);
+        fsList.addPredicate(predicate);
+    }
+
+    @Override
+    public void clearAllPredicatesAndComparators() {
+        fsList.clearPredicates();
+        fsList.clearComparator();
+    }
+
+    @Override
+    public FSList getFsList() {
+        return fsList.copy(versionedScheduler.getCalendarEventList());
     }
 
     //=========== Undo/Redo =================================================================================

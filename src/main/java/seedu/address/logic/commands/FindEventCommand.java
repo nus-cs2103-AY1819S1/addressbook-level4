@@ -52,7 +52,8 @@ public class FindEventCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetFilteredCalendarEventList();
+
+        model.clearAllPredicatesAndComparators();
         model.addPredicate(titlePredicate);
         if (tagsPredicate.hasTags()) {
             model.addPredicate(tagsPredicate);

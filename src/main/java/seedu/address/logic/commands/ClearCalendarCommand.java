@@ -20,7 +20,7 @@ public class ClearCalendarCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.resetData(new Scheduler());
-        model.resetFilteredCalendarEventList();
+        model.clearAllPredicatesAndComparators();
         model.commitScheduler();
         return new CommandResult(MESSAGE_SUCCESS);
     }

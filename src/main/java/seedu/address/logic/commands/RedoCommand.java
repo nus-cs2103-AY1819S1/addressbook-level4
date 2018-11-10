@@ -25,7 +25,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoScheduler();
-        model.resetFilteredCalendarEventList();
+        model.clearAllPredicatesAndComparators();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

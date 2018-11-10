@@ -24,7 +24,7 @@ public class ListEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        model.resetFilteredCalendarEventList();
+        model.clearAllPredicatesAndComparators();
 
         EventsCenter.getInstance().post(new RefreshCalendarPanelEvent());
         EventsCenter.getInstance().post(new SwitchToSearchTabEvent());
