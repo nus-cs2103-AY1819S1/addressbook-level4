@@ -39,19 +39,19 @@ public class PiconsoParserTest {
     private final PiconsoParser parser = new PiconsoParser();
 
     @Test
-    public void parseCommand_exit() throws Exception {
+    public void parseCommandExit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_help() throws Exception {
+    public void parseCommandHelp() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test
-    public void parseCommand_select() throws Exception {
+    public void parseCommandSelect() throws Exception {
         OpenCommand command = (OpenCommand) parser.parseCommand(
                 OpenCommand.COMMAND_WORD + " " + INDEX_FIRST_IMAGE.getOneBased());
         assertEquals(new OpenCommand(INDEX_FIRST_IMAGE), command);
@@ -59,7 +59,7 @@ public class PiconsoParserTest {
 
     //@@author benedictcss
     @Test
-    public void parseCommand_cd() throws Exception {
+    public void parseCommandCd() throws Exception {
         CdCommand command = (CdCommand) parser.parseCommand(CdCommand.COMMAND_WORD + " Desktop");
         assertEquals(new CdCommand(Paths.get("Desktop")), command);
 
@@ -69,38 +69,38 @@ public class PiconsoParserTest {
     }
 
     @Test
-    public void parseCommand_nextCommandWord_returnsNextCommand() throws Exception {
+    public void parseCommandNextCommandWordReturnsNextCommand() throws Exception {
         assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD) instanceof NextCommand);
         assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD + " 4") instanceof NextCommand);
     }
 
     @Test
-    public void parseCommand_prevCommandWord_returnsPrevCommand() throws Exception {
+    public void parseCommandPrevCommandWordReturnsPrevCommand() throws Exception {
         assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD) instanceof PrevCommand);
         assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD + " 4") instanceof PrevCommand);
     }
     //@@author
 
     @Test
-    public void parseCommand_lsCommandWord_returnsLsCommand() throws Exception {
+    public void parseCommandLsCommandWordReturnsLsCommand() throws Exception {
         assertTrue(parser.parseCommand(LsCommand.COMMAND_WORD) instanceof LsCommand);
         assertTrue(parser.parseCommand(LsCommand.COMMAND_WORD + " 23") instanceof LsCommand);
     }
 
     @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
+    public void parseCommandRedoCommandWordReturnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
     }
 
     @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
+    public void parseCommandUndoCommandWordReturnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
     @Test
-    public void parseCommand_canvasCommandWords_returnCanvasCommands() throws Exception {
+    public void parseCommandCanvasCommandWordsReturnCanvasCommands() throws Exception {
         assertTrue(parser.parseCommand("canvas size 3x3") instanceof CanvasCommand);
 
         assertTrue(parser.parseCommand("canvas auto-resize off") instanceof CanvasCommand);
@@ -113,7 +113,7 @@ public class PiconsoParserTest {
     }
 
     @Test
-    public void parseCommand_layerCommandWords_returnLayerCommands() throws Exception {
+    public void parseCommandLayerCommandWordsReturnLayerCommands() throws Exception {
         assertTrue(parser.parseCommand("layer add 1") instanceof LayerCommand);
         assertThrows(ParseException.class, ()-> parser.parseCommand("layer add"));
 
@@ -132,7 +132,7 @@ public class PiconsoParserTest {
     }
 
     @Test
-    public void parseCommand_googleCommandWord_returnsGoogleCommand() throws Exception {
+    public void parseCommandGoogleCommandWordReturnsGoogleCommand() throws Exception {
         assertTrue(parser.parseCommand(GoogleLsCommand.FULL_CMD) instanceof GoogleLsCommand);
         assertTrue(parser.parseCommand(GoogleDlCommand.FULL_CMD + " /a<album>") instanceof GoogleDlCommand);
         assertTrue(parser.parseCommand(GoogleUploadCommand.FULL_CMD + " all") instanceof GoogleUploadCommand);
@@ -140,26 +140,26 @@ public class PiconsoParserTest {
     }
 
     @Test
-    public void parseCommand_logoutCommandWord_returnsLogoutCommand() throws Exception {
+    public void parseCommandLogoutCommandWordReturnsLogoutCommand() throws Exception {
         assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD) instanceof LogoutCommand);
         assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD + " s") instanceof LogoutCommand);
     }
 
     @Test
-    public void parseCommand_loginCommandWord_returnsLoginCommand() throws Exception {
+    public void parseCommandLoginCommandWordReturnsLoginCommand() throws Exception {
         assertTrue(parser.parseCommand(LoginCommand.COMMAND_WORD) instanceof LoginCommand);
         assertTrue(parser.parseCommand(LoginCommand.COMMAND_WORD + " s") instanceof LoginCommand);
     }
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
+    public void parseCommandUnrecognisedInputThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         parser.parseCommand("");
     }
 
     @Test
-    public void parseCommand_unknownCommand_throwsParseException() throws Exception {
+    public void parseCommandUnknownCommandThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");

@@ -23,7 +23,7 @@ public class PreviewImageTest {
     private static final int ORIGINAL_IMAGE_WIDTH = 458;
 
     @Test
-    public void get_heightAndWidth() {
+    public void getHeightAndWidth() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertEquals(previewImage.getHeight(), ORIGINAL_IMAGE_HEIGHT);
         assertEquals(previewImage.getWidth(), ORIGINAL_IMAGE_WIDTH);
@@ -55,19 +55,19 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void commit_defaultPreviewImageState() {
+    public void commitDefaultPreviewImageState() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertPreviewImageState(previewImage, 0, 1);
     }
 
     @Test
-    public void commit_defaultPreviewImageStateWithSecondaryConstructor() {
+    public void commitDefaultPreviewImageStateWithSecondaryConstructor() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImageWithSecondaryConstructor();
         assertPreviewImageState(previewImage, 0, 1);
     }
 
     @Test
-    public void commit_multipleImagesPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+    public void commitMultipleImagesPointerAtEndOfStateListNoStatesRemovedCurrentStateSaved() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         previewImage.commit(PreviewImageGenerator.getABufferedImage());
         previewImage.commit(PreviewImageGenerator.getABufferedImage());

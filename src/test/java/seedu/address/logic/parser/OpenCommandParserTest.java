@@ -14,12 +14,12 @@ public class OpenCommandParserTest {
     private OpenCommandParser parser = new OpenCommandParser();
 
     @Test
-    public void parse_validArgs_returnsOpenCommand() {
+    public void parseValidArgsReturnsOpenCommand() {
         assertParseSuccess(parser, "1", new OpenCommand(INDEX_FIRST_IMAGE));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parseInvalidArgsThrowsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
     }
 }
