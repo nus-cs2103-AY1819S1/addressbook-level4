@@ -1,12 +1,12 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_MEALPLANNER_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
             List<Recipe> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
 
