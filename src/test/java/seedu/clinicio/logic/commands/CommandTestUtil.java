@@ -47,6 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_ALEX = "S9951423J";
     public static final String VALID_NRIC_BRYAN = "S9106823A";
     public static final String VALID_NRIC_CANDY = "T0190128B";
+    public static final String VALID_ALLERGIES = "dust";
 
     public static final String VALID_NAME_ADAM = "Adam Bell";
     public static final String VALID_NAME_BEN = "Ben Hill";
