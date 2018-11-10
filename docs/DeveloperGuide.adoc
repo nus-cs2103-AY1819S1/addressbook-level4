@@ -331,7 +331,7 @@ The `find-(FIELD)` command allows users to find unresolved articles by `name`, `
 ==== Current Implementation
 The below diagram illustrates the interaction between the `Logic` and `Model` components in finding an article with the specified keyword. In this example, `find-n wallet` command was executed.
 
-image::FindSequenceDiagram.png[width="800"]
+image::FindSequenceDiagram.PNG[width="800"]
 
 The `find-(FIELD)` command input is passed into an ArticleListParser object. The ArticleListParser reads the command word `find` and creates a `FindCommandParser` object that further parses the command input and creates a `FindCommand`. The `FindCommand` filters the the article list based on the keywords and updates the `Model` component on changes in the filtered article list.
 
@@ -349,14 +349,14 @@ The `find-(FIELD)` command input is passed into an ArticleListParser object. The
 
 // end::find[]
 
-// tag::find[]
+// tag::resolve[]
 === Resolve feature
 The `resolve` command allows users to resolve articles when they are claimed bu the owner.
 
 ==== Current Implementation
 The below diagram illustrates the interaction between the `Logic` and `Model` components in resolving an article.
 
-image::ResolveSequenceDiagram.png[width="800"]
+image::ResolveSequenceDiagram.PNG[width="800"]
 
 The `resolve` command input is passed into an ArticleListParser object. The ArticleListParser reads the command word `resolve` and creates a `ResolveCommandParser` object that further parses the command input and creates a `ResolveCommand`. The `ResolveCommand` then updates the article with the new information and updates the `Model` component on changes in the filtered unresolved article list.
 
