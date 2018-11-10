@@ -18,7 +18,7 @@ public class DeleteDoctorCommand extends DeletePersonCommand {
             + ": Deletes the doctor identified by name. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_PHONE + "PHONE] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe ";
 

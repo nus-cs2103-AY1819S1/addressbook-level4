@@ -314,8 +314,11 @@ Step 2. Upon hitting enter, a browser will be opened for user to login to google
 image::GoogleLoginPage.png[width="600"]
 
 Step 3. Simultaneously, the `Doctor` will be created and added to the storage of the system. In the case that the user
-does not login to google, subsequent access to their google calendar will be denied. However, doctor object will still
-be created.
+does not login to google, subsequent access to the HealthBook will be denied.
+
+[WARNING]
+Login to Google Calendar is MANDATORY for registration of doctor. This is to facilitate the features that allows doctor
+to interact with the address book. If no login is done, the HealthBook will not proceed.
 
 [NOTE]
 Doctor is saved in the storage as person. However, when we retrieve the doctor object from storage, it will be
@@ -333,13 +336,15 @@ Instead of having an additional browser, we load the login page into the Browser
 login for the login but user might miss the login compared to having a popped up browser.
 
 ===== Aspect: Saving Doctor with respect to Google Login
+* Alternative 2 (Alternative Choice): Doctor object will not be created and application will not respond if login is
+unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
+continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
+the google calendar login.
+
 * Alternative 1 (Current Choice): Allow doctor to still be created with or without the Google Login. Since the Google
 Calendar acts as an add-on, it should not interfere with the main function of the HealthBook. As such, we implemented
 register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
 prompt the user to login.
-
-* Alternative 2 (Alternative Choice): Doctor object will not be created if Google Login is unsuccessful, instead throw
-an exception. This will make Google Calendar mandatory for all doctors.
 
 === Remark Feature
 ==== Current Implementation
