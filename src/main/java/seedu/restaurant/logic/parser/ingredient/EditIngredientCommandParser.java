@@ -12,8 +12,6 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_PRI
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.restaurant.logic.parser.util.ParserUtil.parseIndex;
 
-import java.util.Optional;
-
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientByIndexCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientByNameCommand;
@@ -47,8 +45,6 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditIngredientCommand.MESSAGE_USAGE));
         }
-//
-//        Object indexOrName = IngredientParserUtil.parseIndexOrIngredientName(indexOrNameArg);
 
         EditIngredientDescriptor editIngredientDescriptor = new EditIngredientDescriptor();
         setNameDescriptor(argMultimap, editIngredientDescriptor);
@@ -61,8 +57,6 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
         }
 
         EditIngredientCommand editCommand = null;
-//        Index index;
-//        IngredientName name;
 
         String trimmedIndex = argMultimap.getPreamble().trim();
         if (!trimmedIndex.trim().isEmpty() && isNonZeroUnsignedInteger(trimmedIndex)) {
