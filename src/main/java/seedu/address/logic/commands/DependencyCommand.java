@@ -14,21 +14,23 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
- * Initiates a dependency between a dependant task and a dependee task.
+ * Toggles a dependency between a dependant task and a dependee task.
  * The dependent task is dependent on dependee task.
  */
 public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
-    public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n[%1$s] to [%2$s]\n"
-            + "[NOTE] To remove dependency call command on the same tasks. \n"
-            + "i.e. " + COMMAND_WORD + " 1 2";
-    public static final String MESSAGE_REMOVE_SUCCESS = "You have removed dependency for :\n[%1$s] to [%2$s]\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Dependencies of dependant on dependee.\n"
+            + ": Dependency of dependant on dependee.\n"
             + "Parameters: Index of task dependant, Index of task dependee\n"
             + "Example: " + COMMAND_WORD + " 1 2";
-    public static final String MESSAGE_CYCLIC_DEPENDENCY = "Dependencies rejected as new dependency will introduce"
-            + " a cyclic dependency";
+    public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n[%1$s] to [%2$s]\n"
+            + "[NOTE] To remove dependency call command on the same tasks. \n"
+            + "i.e. " + COMMAND_WORD + " %3$s %4$s";
+    public static final String MESSAGE_REMOVE_SUCCESS = "You have removed dependency for :\n[%1$s] to [%2$s]\n"
+            + "[NOTE] To add dependency call command on the same tasks. \n"
+            + "i.e. " + COMMAND_WORD + " %3$s %4$s";
+    public static final String MESSAGE_CYCLIC_DEPENDENCY_FAILURE = "Dependency rejected as new dependency will "
+            + "introduce a cyclic dependency";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
@@ -65,7 +67,7 @@ public class DependencyCommand extends Command {
             DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
             //Checking if introducing dependency will create a cyclic dependency
             if (dg.checkCyclicDependency(updatedTask)) {
-                throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);
+                throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY_FAILURE);
             }
             message = MESSAGE_ADD_SUCCESS;
         }
@@ -73,7 +75,8 @@ public class DependencyCommand extends Command {
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName()));
+        return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName(),
+                dependantIndex.getOneBased(), dependeeIndex.getOneBased()));
     }
 
     /**

@@ -67,7 +67,8 @@ public class DependenciesCommandTest {
 
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 
-        assertCommandFailure(dependencyCommand, model, commandHistory, DependencyCommand.MESSAGE_CYCLIC_DEPENDENCY);
+        assertCommandFailure(dependencyCommand, model, commandHistory,
+                DependencyCommand.MESSAGE_CYCLIC_DEPENDENCY_FAILURE);
     }
 
     @Test
