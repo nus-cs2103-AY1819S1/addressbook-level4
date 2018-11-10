@@ -656,6 +656,9 @@ Examples:
 * `mc 1` +
 Generates a medical certificate for the 1st patient in the Served Patient Queue.
 
+.Generating a medical certificate for patient `Alex Yeoh`.
+image::mc_fig.png[width="600"]
+
 ==== Generating receipt: `receipt`
 
 Generates a receipt for the Served Patient. +
@@ -670,6 +673,9 @@ Examples:
 
 * `receipt 5` +
 Generates a receipt for the 5th patient in the Served Patient Queue.
+
+.Generating a receipt for patient `Alex Yeoh`.
+image::receipt_fig.png[width="600"]
 
 ==== Generating referral letter: `refer`
 
@@ -689,6 +695,9 @@ Examples:
 
 * `refer 7` +
 Generates a referral letter for the 7th patient in the Served Patient Queue.
+
+.Generating a referral letter for patient `Alex Yeoh`.
+image::refer_fig.png[width="600"]
 // end::document[]
 
 // tag::misc[]
