@@ -30,7 +30,7 @@ public class CreateRecipeBuildCommand extends Command {
     public CommandResult execute(History history) {
         history.createRecipeBuilder(toAdd);
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
-                history.getContext().toString().toLowerCase(), toAdd));
+                history.getContextString(), toAdd));
     }
 
     @Override

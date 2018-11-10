@@ -46,6 +46,6 @@ public class ListCommand<T extends UniqueType> extends Command {
             }
         }
         model.updateFilteredList(PREDICATE_SHOW_ALL);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getKeyword()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getContextString()));
     }
 }

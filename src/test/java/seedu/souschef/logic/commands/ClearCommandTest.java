@@ -21,7 +21,7 @@ public class ClearCommandTest {
 
         assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
                 String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
-                history.getKeyword()),
+                history.getContextString()),
                 expectedModel);
     }
 
@@ -36,7 +36,7 @@ public class ClearCommandTest {
 
         assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
                 String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
-                        history.getKeyword()),
+                        history.getContextString()),
                 expectedModel);
     }*/
 

@@ -77,6 +77,6 @@ public class CrossFindCommand extends Command {
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_LISTED_OVERVIEW,
-                resultList.size(), history.getKeyword()));
+                resultList.size(), history.getContextString()));
     }
 }

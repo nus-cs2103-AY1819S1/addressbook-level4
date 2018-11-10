@@ -33,7 +33,7 @@ public class AddCommand<T extends UniqueType> extends Command {
         model.add(toAdd);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
-                history.getKeyword(), toAdd));
+                history.getContextString(), toAdd));
     }
 
     @Override

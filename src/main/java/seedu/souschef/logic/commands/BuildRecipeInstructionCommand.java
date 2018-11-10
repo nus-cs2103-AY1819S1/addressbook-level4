@@ -26,7 +26,7 @@ public class BuildRecipeInstructionCommand extends Command {
 
     @Override
     public CommandResult execute(History history) {
-        history.contributeToRecipe(toAdd);
+        history.recordRecipeInstruction(toAdd);
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
     }
 

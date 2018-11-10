@@ -28,7 +28,7 @@ public class FindCommand<T extends UniqueType> extends Command {
         model.updateFilteredList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, model.getFilteredList().size(),
-                        history.getKeyword()));
+                        history.getContextString()));
     }
 
     @Override
