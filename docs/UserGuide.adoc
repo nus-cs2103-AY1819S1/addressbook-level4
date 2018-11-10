@@ -52,8 +52,8 @@ Refer to <<Features>> for the details of each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [da/DRUG ALLERGY]` can be used as `da/aspirin da/insulin` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[da/DRUG ALLERGY]...` can be used as `{nbsp}` (i.e. 0 times), `da/aspirin`, `da/aspirin da/insulin` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -63,14 +63,19 @@ TIP: Features are sorted by their command word in lexicographical order.
 === Add appointment for patient: `addappt`
 Add a scheduled appointment for a patient.
 
-Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCTOR-IN-CHARGE`
+Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HH:MM doc/DOCTOR-IN-CHARGE`
 
 Example(s):
 
-* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
+* `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 10:30 doc/Dr. Pepper`
 
+[NOTE]
 The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
-*Other inputs will not be allowed.*
+*Other inputs are not allowed.*
+
+[WARNING]
+The HealthBase System assumes that there are `31` days for all months. For the inputs of the dates `31` and `29` (for February), it is the onus of the user to ensure that
+the input month has `31` days (for months except February) and `29` days for February in a leap year.
 //end::addappt[]
 
 //tag::adddiet[]
@@ -86,7 +91,7 @@ Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PH
 Example(s):
 
 * `adddiet ic/S1234567A alg/Egg alg/Crab cr/Halal pd/Hands cannot move.`
-//tag::adddiet[]
+//end::adddiet[]
 
 //tag::addmeds[]
 === Add patient medication: `addmeds`
@@ -101,32 +106,48 @@ Example(s):
 //end::addmeds[]
 //tag::addmh[]
 === Add to patient’s medical history: `addmh`
-Add an entry to an existing patient’s medical history.
+Add an non-blank diagnosis entry to an existing patient’s medical history.
 The patient must be registered within the system.
 
 Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
 ****
-* If the NRIC does not match to an existing patient in the system, an error will be displayed.
-* If the format of the doctor's name is incorrect, an error will be displayed.
+WARNING: The following invalid inputs will result in a command failure, and the display of an appropriate error message.
+
+* Invalid NRIC
+** The patient NRIC does not match to an existing patient in the system. The person will first need to be registered.
+* Incorrect format of the doctor's name.
+** Doctor's title must be included.
+** The first letter of all words in doctor's name must be captalised.
+* Blank Diagnosis
+** An empty diagnosis will not be accepted as a valid diagnosis.
 ****
 
 Example(s):
 
 * `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
 rest and rehydrate. doc/Dr. Zhang De`
+* `addmh ic/T9876543Z mh/Patient appears to have chronic cough. Referred to specialist. doc/Dr.Timothy`
+
+****
+TIP: If you want to view the newly added diagnoses to a particular patient, simply enter `view mh`.
+You may have to enter select <patient index>` or click on the patient panel card.
+To use the full capabilities of the `view` command, click <<#view-command, here>>.
+****
+
 //end::addmh[]
 
-=== Check-in a patient: `checkin`
-Add a person to the patient queue.
+//tag::register[]
+=== Register a new patient to the system: `register`
+Register a new patient together with necessary information into the system.
 
+Format: `register ic/NRIC n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS da/DRUG_ALLERGIES`
 
-Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
-
-* If the patient is already checked in, the command will not be allowed.
+* If the patient is already registered, the command will not be allowed.
 
 Example(s):
 
-* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 e/zhiyu@example.com a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 da/insulin da/aspirin`
+//end::register[]
 
 === Check-out a patient: `checkout`
 Remove a patient from the patient queue.
@@ -244,14 +265,8 @@ image::mhView.png[width=800]
 
 //end::view[]
 
-=== View all appointments for a patient: `viewappt`
-View all scheduled appointments for a patient.
-
-Format: `viewappt ic/NRIC`
-
-Example(s):
-
-* `viewappt ic/S1234567A`
+=== View all appointments for a patient: `view appt`
+See <<#view-command, entry>> on the `view` command.
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
@@ -275,7 +290,7 @@ See <<#view-command, entry>> on the `view` command.
 
 Example(s):
 
-* `viewmh ic/S1234567A`
+* `view mh ic/S1234567A`
 
 === View patient queue: `viewqueue`
 View the current patient queue.
@@ -297,6 +312,7 @@ Example(s):
 
 image::viewvisitors_screenshot.png[width=800]
 
+//tag::visitorin[]
 === Sign in patient’s visitors: `visitorin`
 Sign in a visitor for a patient.
 
@@ -307,6 +323,7 @@ Example(s):
 * `visitorin ic/S1234567A v/Amy`
 
 image::visitorin_screenshot.png[width=800]
+//end::visitorin[]
 
 === Sign out patient’s visitors: `visitorout`
 Sign out a visitor for a patient.
@@ -318,17 +335,6 @@ Example(s):
 * `visitorout ic/S1234567A v/Amy`
 
 image::visitorout_screenshot.png[width=800]
-
-=== Cancel appointment for patient: `xappt`
-Cancels a scheduled appointment for a patient.
-
-Format: `xappt INDEX`
-
-Example(s):
-
-* `viewappt S1234567A` +
-`xappt 2` +
-Deletes the second appointment belonging to patient with NRIC S1234567A.
 
 === Saving the data
 
@@ -377,10 +383,10 @@ Each command below will be summarised in the following format:
 * `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
 * `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to rest and rehydrate. doc/Dr.Zhang De Chou`
 
-*checkin*
+*register*
 
-* `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
-* `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+* `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 
 *checkout*
 
