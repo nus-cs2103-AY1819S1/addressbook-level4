@@ -101,9 +101,7 @@ public class PersonBuilder {
      * Sets the module list using {@code moduleList}.
      */
     public PersonBuilder withModuleList(List<Module> moduleList) {
-        for (Module module : moduleList) {
-            moduleList.add(module);
-        }
+        this.moduleList = new UniqueModuleList(moduleList);
         return this;
     }
 
@@ -158,7 +156,8 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, occasionList.asUnmodifiableObservableList(),
+                moduleList.asUnmodifiableObservableList());
     }
 
 }
