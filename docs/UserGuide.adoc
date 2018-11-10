@@ -128,7 +128,6 @@ Examples:
 `logout`
 // end::yaofeng(login/logout)[]
 
-
 ==== List all users : `listUser`
 
 Shows a list of all users in the Event Organiser. +

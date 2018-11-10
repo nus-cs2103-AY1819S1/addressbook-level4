@@ -293,7 +293,6 @@ image::LoginFeatureAfterLogin.png[width="300"]
 ** Pros: Enforce some level of authentication with minimal code
 ** Cons: Level of security is minimal
 
-
 * **Alternative 2** : Use Java API to hash the password
 ** Pros: Higher level of security for users
 ** Cons: May not be pertinent for the EventOrganiser app as of v1.3
