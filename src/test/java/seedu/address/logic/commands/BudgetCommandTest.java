@@ -25,6 +25,7 @@ public class BudgetCommandTest {
     private Model expectedModel = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
+
     @Test
     public void execute_budget_success() {
         assertCommandSuccess(new BudgetCommand(), model, commandHistory, SHOWING_BUDGET_MESSAGE, expectedModel);

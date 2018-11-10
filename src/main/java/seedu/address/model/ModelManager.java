@@ -169,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void initialiseBudgetBook() {
-        Path ccabookXmlFilePath = userPrefs.getBudgetBookFilePath();
+        Path ccabookXmlFilePath = Paths.get("data", "ccabook.xml");
         requireNonNull(ccabookXmlFilePath);
 
         if (!Files.exists(ccabookXmlFilePath)) {
@@ -567,7 +567,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author ericyjw
     @Override
     public void readXslFile() {
-        Path ccaXslFilePath = userPrefs.getCcaXslFilePath();
+        Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
         requireNonNull(ccaXslFilePath);
 
         if (!Files.exists(ccaXslFilePath)) {
