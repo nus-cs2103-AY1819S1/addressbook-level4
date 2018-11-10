@@ -40,7 +40,9 @@ public class DeletePersonCommand extends Command {
         return name;
     }
 
-    public Phone getPhone() { return phone; }
+    public Phone getPhone() {
+        return phone;
+    }
 
     public Tag getTag() {
         return tag;

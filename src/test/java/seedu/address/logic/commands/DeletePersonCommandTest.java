@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ALICE_PATIENT_APPT;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.BENSON_PATIENT_APPT;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.CARL_PATIENT_APPT;
@@ -25,7 +26,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.GoogleCalendarStub;
+import seedu.address.testutil.PatientBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -62,6 +65,26 @@ public class DeletePersonCommandTest {
         // not patient
         assertCommandFailure(new DeletePatientCommand(GEORGE_DOCTOR_APPT.getName(), GEORGE_DOCTOR_APPT.getPhone()),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
+    }
+
+    @Test
+    public void execute_duplicatePatient_throwsCommandException() {
+        // duplicate patient
+        model.addPatient(new PatientBuilder().withName(ALICE_PATIENT_APPT.getName().toString())
+                .withPhone("1234111").build());
+        assertCommandFailure(new DeletePatientCommand(ALICE_PATIENT_APPT.getName(), null),
+                model, commandHistory, String.format(DeletePatientCommand.MESSAGE_DUPLICATE_DELETE_PERSON, "Patient",
+                        "Patient", "Patient"));
+    }
+
+    @Test
+    public void execute_duplicateDoctor_throwsCommandException() {
+        // duplicate patient
+        model.addDoctor(new DoctorBuilder().withName(FIONA_DOCTOR_APPT.getName().toString())
+                .withPhone("1234111").build());
+        assertCommandFailure(new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName(), null),
+                model, commandHistory, String.format(DeletePatientCommand.MESSAGE_DUPLICATE_DELETE_PERSON, "Doctor",
+                        "Doctor", "Doctor"));
     }
 
     @Test
