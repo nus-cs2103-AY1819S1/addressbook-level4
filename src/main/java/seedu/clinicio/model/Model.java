@@ -39,6 +39,13 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
 
+    //@@author iamjackslayer
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index
+     */
+    void switchTab(int index);
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyClinicIo newData);
 

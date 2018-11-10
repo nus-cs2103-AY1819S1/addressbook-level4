@@ -56,6 +56,7 @@ public class EnqueueCommand extends Command {
 
         model.enqueue((Patient) patientToEnqueue);
         model.updateQueue(model.PREDICATE_SHOW_ALL_PATIENTS);
+        model.switchTab(2);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue.getName()));
     }
