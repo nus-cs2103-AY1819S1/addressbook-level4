@@ -14,7 +14,8 @@ import java.util.Set;
  */
 public class Dependencies {
 
-    private Set<String> hashes = new HashSet<>();
+    //Prevents reassignment
+    private final Set<String> hashes;
 
     /**
      * Constructs a {@code Dependencies}.
@@ -22,13 +23,15 @@ public class Dependencies {
      * @param hashes A list of hashes of task dependencies.
      */
     public Dependencies(Set<String> hashes) {
-        this.hashes = new HashSet<String>(hashes);
+        this.hashes = new HashSet<>(hashes);
     }
 
     /**
      * Constructs an empty dependencies object
      */
-    public Dependencies(){}
+    public Dependencies(){
+        this.hashes = new HashSet<>();
+    }
 
     /**
      * Adds a task that this task is dependent on.
@@ -43,7 +46,7 @@ public class Dependencies {
 
     /**
      * Removes a dependency to a task
-     * @param task
+     * @param task task to remove dependency to
      * @return new dependencies object without hashcode of given task
      */
     public Dependencies removeDependency(Task task) {
@@ -53,16 +56,16 @@ public class Dependencies {
     }
 
     /**
-     * Checks if task is contained within the internal representation
-     * @param task
-     * @return boolean hashes of whether task is contained within hashset
+     * Checks if this task is dependent on given task
+     * @param task given task to check
+     * @return result whether task is contained within current set of dependencies
      */
     public boolean containsDependency(Task task) {
         return hashes.contains(Integer.toString(task.hashCode()));
     }
 
     /**
-     * Returns the hashes of all the tasks specified in the dependency
+     * Returns the hashes of all the tasks conatined within the dependencies object
      * @return set of all hashes
      */
     public Set<String> getHashes() {
@@ -70,7 +73,7 @@ public class Dependencies {
     }
 
     /**
-     * Returns the hashes of all the tasks specified in the dependency
+     * Returns a new dependencies object with the old hash updated to new hash
      * @return set of all hashes
      */
     public Dependencies updateHash(String oldHash, String newHash) {
