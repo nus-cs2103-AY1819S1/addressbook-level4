@@ -29,8 +29,8 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
      */
     public FindPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS
-                        , PREFIX_MODULECODE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                        PREFIX_MODULECODE);
         if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MODULECODE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
@@ -45,7 +45,7 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
         } else if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             String[] emailKeyWords = argMultimap.getValue(PREFIX_EMAIL).get().trim().split("\\s+");
             return new FindPersonCommand(new EmailContainsKeywordsPredicate(Arrays.asList(emailKeyWords)));
-        } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()){
+        } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             String[] addressKeyWords = argMultimap.getValue(PREFIX_ADDRESS).get().trim().split("\\s+");
             return new FindPersonCommand(new AddressContainsKeywordsPredicate(Arrays.asList(addressKeyWords)));
         } else {
