@@ -72,7 +72,6 @@ public class RemarkCommand extends Command {
         Person personToEdit = null;
 
         for (Person person : lastShownList) {
-            System.out.println(person);
             if (person.getName().equals(name)) {
                 if (phone != null) {
                     if (person.getPhone().equals(phone)) {
