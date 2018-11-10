@@ -48,7 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                    file.delete();
+                file.delete();
             }
         }
         logger.info("Cache cleared.");

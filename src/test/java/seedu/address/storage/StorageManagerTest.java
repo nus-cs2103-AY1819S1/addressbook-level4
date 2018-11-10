@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -74,7 +73,7 @@ public class StorageManagerTest {
 
         storageManager.clearCache();
 
-        Assert.assertEquals(0, cache.list().length);
+        assertEquals(0, cache.list().length);
 
     }
 
