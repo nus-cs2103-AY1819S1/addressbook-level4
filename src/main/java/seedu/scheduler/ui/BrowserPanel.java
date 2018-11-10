@@ -51,7 +51,7 @@ public class BrowserPanel extends UiPart<Region> {
                         runnable.run();
                     }
                 },
-                9999000
+                999999000
         );
     }
 
