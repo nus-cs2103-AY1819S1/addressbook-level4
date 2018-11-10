@@ -291,10 +291,11 @@ xp has not yet been able to make the task 'worth it' to complete, then the amoun
 increase the magnitude and duration over which the xp increases.
 
 ====== Priority
-The Priority mode leaves the xp decision up to the user. It awards a flat rate of xp, equal to 10 times the priority
-value of the task. **This mode ignores difficulty.**
+The Priority mode leaves the xp decision up to the user. It is identical to the Flat mode for tasks with priority
+value 10 on all difficulty levels, however, different priority values will linearly scale the awarded xp. For
+example, a task with priority value 5 will only award half the xp of an equivalent task with priority value 10.
 
-
+[%hardbreaks]
 Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 	`GAME_MODE` can be `flat` (default), `decreasing`, `increasing`, `priority`;
 	`GAME_DIFFICULTY` can be `easy`, `medium` (default), `hard`, `extreme`.

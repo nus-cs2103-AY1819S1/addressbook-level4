@@ -14,7 +14,7 @@ public class PriorityMode extends GameMode {
     int completedMultiplier;
 
     PriorityMode() {
-        this(5, 10);
+        this(3, 6);
     }
 
     PriorityMode(int overdueMultiplier, int completedMultiplier) {
