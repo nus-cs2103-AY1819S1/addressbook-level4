@@ -29,7 +29,7 @@ Responsibility: Integration; Code quality
 
 === Kong Zijin
 image::kongzijin.png[width="150", align="left"]
-{empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
+{empty}[http://github.com/KongZijin[github]] [<<kongzijin#, portfolio>>]
 
 Role: Team Member
 Responsibility: Documentation; Testing
