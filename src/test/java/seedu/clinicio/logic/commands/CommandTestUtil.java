@@ -137,7 +137,7 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String INVALID_NRIC_DESC = " " + PREFIX_IC + "A12345%"; // '%' not allowed in nrics
-    public static final String INVALID_MED_PROB_DESC = " " + PREFIX_MEDICAL_PROBLEM 
+    public static final String INVALID_MED_PROB_DESC = " " + PREFIX_MEDICAL_PROBLEM
             + "Dia*"; // '*' not allowed in medical problems
     public static final String INVALID_MED_DESC = " " + PREFIX_MEDICATION + "Ibupr*"; // '*' not allowed in medications
     public static final String INVALID_ALLERGY_DESC = " " + PREFIX_ALLERGY + "Sa*"; // '*' not allowed in allergies

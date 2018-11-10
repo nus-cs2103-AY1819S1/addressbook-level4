@@ -167,7 +167,7 @@ public class AddPatientCommandParserTest {
                 + ADDRESS_DESC_BRYAN, expectedMessage);
 
         // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BRYAN + NRIC_DESC_BRYAN+ PHONE_DESC_BRYAN + EMAIL_DESC_BRYAN 
+        assertParseFailure(parser, NAME_DESC_BRYAN + NRIC_DESC_BRYAN + PHONE_DESC_BRYAN + EMAIL_DESC_BRYAN
                 + VALID_ADDRESS_BRYAN, expectedMessage);
 
         // all prefixes missing
