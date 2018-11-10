@@ -44,7 +44,7 @@ import seedu.scheduler.model.UserPrefs;
 /**
  * Contains tests for ConnectToGoogleCalendar.
  */
-class ConnectToGoogleCalendarTest {
+public class ConnectToGoogleCalendarTest {
     private static final String CALENDAR_NAME = "primary";
     private static final String SAMPLE = "123\u05D9\u05e0\u05D9\u05D1";
     private static final String TEMP_EVENT_NAME = "tempEventName";
@@ -114,7 +114,7 @@ class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    void clear() {
+    public void clear() {
         //set up test environment
         enable();
         final ConnectToGoogleCalendar connectToGoogleCalendar =
@@ -178,6 +178,22 @@ class ConnectToGoogleCalendarTest {
         assertNotNull(contents);
         assertEquals("Disabled" + System.getProperty("line.separator"), contents);
     }
+
+    @Test
+    public void setGoogleCalendarStatus() {
+        //Set Enabled
+        ConnectToGoogleCalendar.setGoogleCalendarStatus("Enabled");
+        String contents = getModeContent();
+        assertNotNull(contents);
+        assertEquals("Enabled" + System.getProperty("line.separator"), contents);
+
+        //Set Disabled
+        ConnectToGoogleCalendar.setGoogleCalendarStatus("Disabled");
+        contents = getModeContent();
+        assertNotNull(contents);
+        assertEquals("Disabled" + System.getProperty("line.separator"), contents);
+    }
+
     /**
      * Retrieves an status for testing purpose.
      *
