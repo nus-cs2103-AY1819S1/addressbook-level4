@@ -90,7 +90,7 @@ public class HelpCommandSystemTest extends ClinicIoSystemTest {
      * Asserts that the help window is open, and closes it after checking.
      */
     private void assertHelpWindowOpen() {
-        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
+        assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
         new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
