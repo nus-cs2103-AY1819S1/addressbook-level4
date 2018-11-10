@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
-        requiredPermission.addPermissions(Permission.REMOVE_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.DELETE_EMPLOYEE);
         this.targetIndex = targetIndex;
     }
 

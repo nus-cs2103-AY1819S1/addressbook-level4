@@ -29,7 +29,7 @@ public class DeleteAssignmentCommand extends Command {
     private final Index targetIndex;
 
     public DeleteAssignmentCommand(Index targetIndex) {
-        requiredPermission.addPermissions(Permission.REMOVE_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.DELETE_ASSIGNMENT);
         this.targetIndex = targetIndex;
     }
 

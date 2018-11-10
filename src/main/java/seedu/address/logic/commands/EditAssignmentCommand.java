@@ -54,7 +54,7 @@ public class EditAssignmentCommand extends Command {
         requireNonNull(index);
         requireNonNull(editAssignmentDescriptor);
 
-        requiredPermission.addPermissions(Permission.EDIT_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.EDIT_ASSIGNMENT);
         this.index = index;
         this.editAssignmentDescriptor = new EditAssignmentCommand.EditAssignmentDescriptor(editAssignmentDescriptor);
     }
