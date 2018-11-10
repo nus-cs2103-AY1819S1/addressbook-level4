@@ -4,21 +4,20 @@ import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toSet;
 import static seedu.address.logic.parser.ParserUtil.argsAreNameValuePair;
 import static seedu.address.logic.parser.ParserUtil.argsWithBounds;
-import static seedu.address.logic.parser.ParserUtil.targetCodeNotNull;
-import static seedu.address.logic.parser.ParserUtil.targetYearNullIffTargetSemesterNull;
 import static seedu.address.logic.parser.ParserUtil.validateName;
 
-import com.google.common.collect.ImmutableSet;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
+
+import com.google.common.collect.ImmutableSet;
+
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.parser.arguments.AddArgument;
-import seedu.address.logic.parser.arguments.DeleteArgument;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
@@ -109,7 +108,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         // instance.
         // Code, Year, Semeter, and Credit should not be null.
         EnumMap<AddArgument, Object> argMap = parseValues(args);
-        onlyGradeCanBeNull(argMap);
+        onlyGradeCanBeEmpty(argMap);
         Module newModule = getModuleWithAddArgMap(argMap);
 
         // Return delete module command for execution.
@@ -137,7 +136,14 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         return argMap;
     }
 
-    private static void onlyGradeCanBeNull(EnumMap<AddArgument, Object> argMap)
+    /**
+     * Only grade argument can be empty.
+     *
+     * @param argMap add argument map used to create module instance
+     * @throws ParseException thrown when code, year, semester, or credit is
+     * null
+     */
+    private static void onlyGradeCanBeEmpty(EnumMap<AddArgument, Object> argMap)
             throws ParseException {
         boolean codeIsNull = argMap.get(AddArgument.NEW_CODE) == null;
         boolean yearIsNull = argMap.get(AddArgument.NEW_YEAR) == null;

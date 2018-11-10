@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
@@ -8,12 +7,7 @@ import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddModuleCommand;
-import seedu.address.model.module.Code;
-import seedu.address.model.module.Credit;
-import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
-import seedu.address.model.module.Year;
 import seedu.address.model.util.ModuleBuilder;
 import seedu.address.testutil.Assert;
 
