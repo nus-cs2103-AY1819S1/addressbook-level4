@@ -642,6 +642,10 @@ then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `Addre
 `StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
 with the cleared persons list.
 
+The following sequence diagram shows how the clear operation works:
+
+image::ClearCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: Merging command to clear entire database or specific persons
@@ -678,10 +682,10 @@ a `CommandException` will be thrown. A combination of existing and non-existent 
 
 *Step 3:* `EraseCommand#execute(Model model, CommandHistory history)` is then called and uses the specified CCA arguments
 to create a new persons list with specified CCAs erased from associated persons.
-`ModelManager#removeTagsFromPersons(ArrayList<Person> target, ArrayList<Person> original)` is then invoked to update
+`ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)` is then invoked to update
 the internal list with the new persons list.
 
-*Step 4:* After the internal list is updated, `ModelManager#removeTagsFromPersons(ArrayList<Person> target, ArrayList<Person> original)`
+*Step 4:* After the internal list is updated, `ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)`
 then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
 `EventsCenter`.
 
@@ -689,6 +693,10 @@ then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `Addre
 `StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
 `StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
 with the new persons list.
+
+The following sequence diagram shows how the erase operation works:
+
+image::EraseCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Algorithm to identify persons associated with CCAs to be erased
@@ -730,7 +738,7 @@ format, the specified file will not be imported.
 
 *Step 3:* `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
 
-*Step 4:* `ImportCommand.execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+*Step 4:* `ImportCommand#execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
 Model model)` to read the document.
 
 *Step 5:* After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
@@ -742,6 +750,10 @@ Model model)` to read the document.
 `StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
 `StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
 with the new contacts.
+
+The following sequence diagram shows how the import operation works:
+
+image::ImportCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -785,6 +797,10 @@ data will not be exported. Otherwise, path and filename will be parsed into a si
 `StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
 `StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
 storage data to the specified path.
+
+The following sequence diagram shows how the export operation works:
+
+image::ExportCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
