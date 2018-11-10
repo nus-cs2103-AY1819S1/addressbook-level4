@@ -33,6 +33,10 @@ public class Url {
         value = url;
     }
 
+    public Url(Url url) {
+        this(url.value);
+    }
+
     /**
      * Returns true if a given string is a valid email.
      */

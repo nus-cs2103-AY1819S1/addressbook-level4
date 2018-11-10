@@ -36,6 +36,10 @@ public class SavedAmount {
         }
     }
 
+    public SavedAmount(SavedAmount savedAmount) {
+        this(savedAmount.value.toString());
+    }
+
     /**
      * Constructs a {@code SavedAmount} from an increment {@code Amount}.
      *

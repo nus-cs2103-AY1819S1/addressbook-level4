@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
@@ -54,6 +55,11 @@ public class Wish {
         this.id = id;
     }
 
+    public Wish(Wish wish) {
+        this(new Name(wish.name), new Price(wish.price), new Date(wish.date), new Url(wish.url),
+                new SavedAmount(wish.savedAmount), new Remark(wish.remark), wish.copyTags(), wish.id);
+    }
+
     /**
      * Every field must be present and not null.
      */
@@ -72,6 +78,15 @@ public class Wish {
         this.savedAmount = savedAmount;
 
         this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Performs a deep copy on each tag in {@code tags} and returns the copied set of tags.
+     * @return the deep copied set of tags.
+     */
+    private Set<Tag> copyTags() {
+        Set<Tag> copy = tags.stream().map(Tag::new).collect(Collectors.toSet());
+        return copy;
     }
 
     /**

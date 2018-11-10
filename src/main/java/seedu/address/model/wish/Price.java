@@ -25,6 +25,10 @@ public class Price {
         value = Double.parseDouble(price); // TO-DO: check before allowing.
     }
 
+    public Price(Price price) {
+        this(String.format("%.2f", price.value));
+    }
+
     /**
      * Returns true if a given string is a valid price.
      */

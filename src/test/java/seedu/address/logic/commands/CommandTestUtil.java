@@ -30,6 +30,9 @@ import seedu.address.testutil.EditWishDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_AGE_YEAR = "5y";
+
+    public static final String VALID_PRICE_CHARLES = "32.20";
+    public static final String VALID_DATE_1 = "01/01/2019";
     public static final String VALID_AGE_YEAR_MONTH = "7y2m";
     public static final String VALID_AGE_ALL_FIELDS = "3y7m2d";
     public static final String VALID_AGE_YEAR_DAY = "2y3d";
@@ -39,8 +42,6 @@ public class CommandTestUtil {
     public static final String VALID_NAME_CHARLES = "Charles the slave";
     public static final String VALID_PRICE_AMY = "11.11";
     public static final String VALID_PRICE_BOB = "22.20";
-    public static final String VALID_PRICE_CHARLES = "32.20";
-    public static final String VALID_DATE_1 = "01/01/2019";
     public static final String VALID_DATE_2 = "02/01/2019";
     public static final String VALID_DATE_CHARLES = "03/01/2100";
     public static final String VALID_URL_AMY = "https://www.lazada.sg/products/"
@@ -88,7 +89,9 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_SAMPLE_2 = " " + PREFIX_REMARK + SAMPLE_REMARK_2;
     public static final String REMARK_DESC_EMPTY = " " + PREFIX_REMARK;
 
-    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "9d2y"; // days need to come after years
+    public static final String INVALID_AGE_1 = "9d2y";
+
+    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + INVALID_AGE_1; // days need to come after years
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "9..2"; // two decimal points not allowed
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "15/21/2034"; // 21 is not a valid month

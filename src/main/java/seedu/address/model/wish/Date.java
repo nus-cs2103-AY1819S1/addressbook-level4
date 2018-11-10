@@ -37,6 +37,10 @@ public class Date {
         assert(isDateValid);
     }
 
+    public Date(Date date) {
+        this(date.date);
+    }
+
     /**
      * Returns true if a given string is a valid date.
      */

@@ -1,4 +1,5 @@
 package seedu.address.model.wish;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
@@ -13,12 +14,20 @@ public class RemarkTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Remark(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Remark((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Remark((Remark) null));
     }
 
     @Test
     public void constructor_emptyRemark_success() {
         assertTrue((new Remark("")).value.equals(""));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        Remark first = new Remark("first");
+        Remark copy = new Remark(first);
+        assertEquals(first, copy);
     }
 
     @Test

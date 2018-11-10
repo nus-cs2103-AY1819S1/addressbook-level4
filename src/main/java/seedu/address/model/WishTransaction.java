@@ -68,8 +68,16 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     public WishTransaction getCopy(WishTransaction wishTransaction) {
         WishTransaction copy = new WishTransaction();
         wishTransaction.getWishMap().entrySet().forEach(entry -> {
-            copy.wishMap.put(entry.getKey(), entry.getValue());
+            copy.wishMap.put(entry.getKey(), getCopy(entry.getValue()));
         });
+        return copy;
+    }
+
+    private LinkedList<Wish> getCopy(LinkedList<Wish> wishList) {
+        LinkedList<Wish> copy = new LinkedList<>();
+        for (Wish wish : wishList) {
+            copy.add(new Wish(wish));
+        }
         return copy;
     }
 
@@ -146,22 +154,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     public void updateWish(Wish target, Wish editedWish) {
         // get a reference to the stored wishes
         LinkedList<Wish> wishes = getWishList(getKey(target));
-        // change the key of the target wish
-        changeKey(target, editedWish);
         // update the stored wishes
-        setValueOfKey(editedWish, updateWishes(wishes, editedWish));
-    }
-
-    /**
-     * Changes the key for the entry of {@code existing} to key of {@code newWish}.
-     * Assumption: {@code existing} must be an existing wish in the map.
-     *
-     * @param existing existing wish in the {@code wishmap}.
-     * @param newWish wish to be changed to.
-     */
-    private void changeKey(Wish existing, Wish newWish) {
-        wishMap.remove(getKey(existing));
-        wishMap.put(getKey(newWish), null);
+        setValueOfKey(target, updateWishes(wishes, editedWish));
     }
 
     /**
@@ -197,7 +191,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     @Override
     public void resetData() {
-        resetData(new WishTransaction());
+        wishMap.clear();
     }
 
     /**

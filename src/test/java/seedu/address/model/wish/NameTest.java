@@ -1,5 +1,6 @@
 package seedu.address.model.wish;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -13,13 +14,22 @@ public class NameTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Name(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Name((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Name((Name) null));
     }
 
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
+    public void copyConstructor_success() {
+        Name name = new Name("randofh f0eih");
+        Name copy = new Name(name);
+        assertEquals(name, copy);
+
     }
 
     @Test
