@@ -83,7 +83,7 @@ public class ParserUtil {
     public static DueDate parseDueDate(String dueDate) throws ParseException {
         requireNonNull(dueDate);
         String trimmedDueDate = dueDate.trim();
-        if (!DueDate.isValidDueDate(trimmedDueDate)) {
+        if (!DueDate.isValidDueDateFormat(trimmedDueDate)) {
             throw new ParseException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
         return new DueDate(trimmedDueDate);

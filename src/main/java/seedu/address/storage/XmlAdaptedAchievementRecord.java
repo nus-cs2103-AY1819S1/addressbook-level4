@@ -218,7 +218,7 @@ public class XmlAdaptedAchievementRecord {
         if (source == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldName));
         }
-        if (!DateFormatUtil.isValidDateFormat(source)) {
+        if (!DateFormatUtil.isValidDate(source)) {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, fieldName));
         }
         final Calendar result = Calendar.getInstance();

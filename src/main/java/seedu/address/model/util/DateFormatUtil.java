@@ -1,4 +1,6 @@
 package seedu.address.model.util;
+import static java.util.Objects.requireNonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +49,7 @@ public class DateFormatUtil {
      * @param test string to be tested against the format
      * @return true if is the correct format. False otherwise
      */
-    public static boolean isValidDateFormat(String test) {
+    public static boolean isValidDate(String test) {
         return isValidMinimalFormatDate(test)
                 || isValidStandardFormatDate(test);
     }

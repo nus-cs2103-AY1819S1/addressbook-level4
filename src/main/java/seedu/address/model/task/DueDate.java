@@ -2,14 +2,14 @@ package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
+import static seedu.address.model.util.DateFormatUtil.isValidDate;
 import static seedu.address.model.util.DateFormatUtil.parseDate;
 
 import java.util.Date;
 
 /**
  * Represents a due date in the {@link Task}.
- * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDueDateFormat(String)}
  */
 public class DueDate implements Comparable<DueDate> {
 
@@ -28,7 +28,7 @@ public class DueDate implements Comparable<DueDate> {
      */
     public DueDate(String dueDate) {
         requireNonNull(dueDate);
-        checkArgument(isValidDueDate(dueDate), MESSAGE_DUEDATE_CONSTRAINTS);
+        checkArgument(isValidDueDateFormat(dueDate), MESSAGE_DUEDATE_CONSTRAINTS);
         value = dueDate;
         valueDate = parseDate(value);
     }
@@ -38,9 +38,9 @@ public class DueDate implements Comparable<DueDate> {
      *
      * @param test date to be checked
      */
-    public static boolean isValidDueDate(String test) {
+    public static boolean isValidDueDateFormat(String test) {
         requireNonNull(test);
-        return isValidDateFormat(test);
+        return isValidDate(test);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DueDate implements Comparable<DueDate> {
      * Returns time difference (in milliseconds) between now and due date
      * @return time to the time
      */
-    public long millisecondsToDueDate() {
+    public long timeToDueDate() {
         return this.valueDate.getTime() - new Date().getTime();
     }
 

@@ -110,7 +110,7 @@ public class Task {
         if (this.status != Status.IN_PROGRESS || this.isOverdue()) {
             return "------";
         }
-        long timeMiliseconds = this.dueDate.millisecondsToDueDate();
+        long timeMiliseconds = this.dueDate.timeToDueDate();
         return millisecondsToString(timeMiliseconds);
     }
 

@@ -122,7 +122,7 @@ public class XmlAdaptedTask {
         if (dueDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
         }
-        if (!DueDate.isValidDueDate(dueDate)) {
+        if (!DueDate.isValidDueDateFormat(dueDate)) {
             throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
         final DueDate modelDueDate = new DueDate(dueDate);
