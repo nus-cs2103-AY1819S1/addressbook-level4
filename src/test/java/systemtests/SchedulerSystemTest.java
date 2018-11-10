@@ -3,8 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingIgnoreOrder;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatchingIgnoreOrder;
+import static seedu.address.ui.testutil.GuiTestAssert.assertToDoListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertToDoListMatchingIgnoreOrder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +14,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
+import guitests.guihandles.TaskListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -32,10 +35,13 @@ import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.Scheduler;
+import seedu.address.model.ToDoList;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.testutil.GuiTestAssert;
 
 
 /**
@@ -98,6 +104,8 @@ public abstract class SchedulerSystemTest {
     public CalendarPanelHandle getCalendarEventListPanel() {
         return mainWindowHandle.getCalendarPanel();
     }
+
+    public TaskListPanelHandle getTaskListPanel() { return mainWindowHandle.getTaskListPanel(); }
 
     public CalendarDisplayHandle getCalendarDisplay() {
         return mainWindowHandle.getCalendarDisplay();
@@ -166,8 +174,22 @@ public abstract class SchedulerSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
-        assertListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
-        assertListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
+        assertCalendarListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertCalendarListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
+    }
+
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same todolistevent objects as {@code expectedModel},
+     * the todolist event list panel displays the todolist events in the model correctly.
+     */
+    protected void assertApplicationToDoDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                     ModelToDo expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new ToDoList(expectedModel.getToDoList()), testApp.readStorageToDoList());
+        assertToDoListMatching(getTaskListPanel(), expectedModel.getFilteredToDoListEventList());
     }
 
     /**
@@ -241,7 +263,7 @@ public abstract class SchedulerSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
+        assertCalendarListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
     }
 
     /**
@@ -249,6 +271,13 @@ public abstract class SchedulerSystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    /**
+     * Returns a defensive copy of the current modelToDo.
+     */
+    protected ModelToDo getModelToDo() {
+        return testApp.getModelToDo();
     }
 
 }
