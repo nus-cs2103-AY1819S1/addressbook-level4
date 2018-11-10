@@ -8,8 +8,8 @@ import java.util.Date;
 public class DateFormatUtil {
     public static final String DATE_FORMAT_MINIMAL = "dd-MM-yy";
     public static final String DATE_FORMAT_STANDARD = "dd-MM-yy HHmm";
-    public static final String DATE_FORMAT_MINIMAL_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}";
-    public static final String DATE_FORMAT_STANDARD_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4} \\d{4}";
+    public static final String DATE_FORMAT_MINIMAL_REGEX = "\\d{1,2}-\\d{1,2}-(?:\\d{4}|\\d{2})";
+    public static final String DATE_FORMAT_STANDARD_REGEX = "\\d{1,2}-\\d{1,2}-(?:\\d{4}|\\d{2}) \\d{4}";
 
     public static final SimpleDateFormat FORMAT_MINIMAL;
     public static final SimpleDateFormat FORMAT_STANDARD;
@@ -34,7 +34,7 @@ public class DateFormatUtil {
             } else if (isValidMinimalFormatDate(date)) {
                 result = FORMAT_MINIMAL.parse(date);
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             result = null;
         }
         return result;

@@ -28,15 +28,6 @@ public class DateFormatUtilTest {
         assertEquals(parseDate("12-12-2018"), new Date(1544544000000L));
     }
 
-    @Test
-    public void isValidDateFormat_validMinimalFormat() {
-        assertTrue(isValidDateFormat("12-12-18"));
-    }
-
-    @Test
-    public void isValidDateFormat_validStandardFormat() {
-        assertTrue(isValidDateFormat("12-12-18 1200"));
-    }
 
     @Test
     public void isValidDateFormat_validDateFormat_minimalFormat() {
@@ -51,8 +42,12 @@ public class DateFormatUtilTest {
     }
 
     @Test
-    public void isValidDateFormat_invalidDateFormat_standardFormat() {
+    public void isValidDateFormat_invalidDateFormat_allFormats() {
         assertFalse(isValidDateFormat("12-13-18"));
         assertFalse(isValidDateFormat("32-12-2018 1200"));
+
+        assertFalse(isValidDateFormat("12-12-18 100"));
+        assertFalse(isValidDateFormat("12-12-018 2100"));
+
     }
 }
