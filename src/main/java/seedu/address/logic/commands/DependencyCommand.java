@@ -50,6 +50,7 @@ public class DependencyCommand extends Command {
         if (checkIndexesPastCurrentBounds(lastShownList, dependantIndex, dependeeIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+
         //Creating a different task depending on whether the task dependency currently exists
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
@@ -58,17 +59,10 @@ public class DependencyCommand extends Command {
         String message;
         //Toggle dependency
         if (taskDependant.isDependentOn(taskDependee)) {
-            //If taskDependant is already dependant on dependee, remove dependency
-            updatedTask = createUndependantTask(taskDependant, taskDependee);
+            updatedTask = handleDependencyRemoval(taskDependant, taskDependee);
             message = MESSAGE_REMOVE_SUCCESS;
         } else {
-            //If taskDependant is not dependent on dependee, add dependency
-            updatedTask = createDependantTask(taskDependant, taskDependee);
-            DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
-            //Checking if introducing dependency will create a cyclic dependency
-            if (dg.checkCyclicDependency(updatedTask)) {
-                throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY_FAILURE);
-            }
+            updatedTask = handleDependencyAddition(taskDependant, taskDependee);
             message = MESSAGE_ADD_SUCCESS;
         }
         //Passes all checks
@@ -82,6 +76,22 @@ public class DependencyCommand extends Command {
     private boolean checkIndexesPastCurrentBounds(List<Task> lastShownList, Index dependantIndex, Index dependeeIndex) {
         return dependantIndex.getZeroBased() >= lastShownList.size()
                 || dependeeIndex.getZeroBased() >= lastShownList.size();
+    }
+
+    private Task handleDependencyRemoval(Task taskDependant, Task taskDependee) {
+        //If taskDependant is already dependant on dependee, remove dependency
+        return createUndependantTask(taskDependant, taskDependee);
+    }
+
+    private Task handleDependencyAddition(Task taskDependant, Task taskDependee) throws CommandException {
+        //If taskDependant is not dependent on dependee, add dependency
+        Task updatedTask = createDependantTask(taskDependant, taskDependee);
+        DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
+        //Checking if introducing dependency will create a cyclic dependency
+        if (dg.checkCyclicDependency(updatedTask)) {
+            throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY_FAILURE);
+        }
+        return updatedTask;
     }
 
     /**
