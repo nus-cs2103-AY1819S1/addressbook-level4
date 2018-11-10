@@ -115,15 +115,30 @@ public class SampleDataUtil {
         sdf.setLenient(false);
         try {
             ingredients = new Ingredient[]{
-                new Ingredient(new IngredientName("Carrot"), new IngredientAmount(300.0),
+                new Ingredient(new IngredientName("carrot"), new IngredientAmount(300.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-25-2018"))),
-                new Ingredient(new IngredientName("Tomato"), new IngredientAmount(200.0),
+                        new IngredientDate(sdf.parse("10-10-2018"))),
+                new Ingredient(new IngredientName("tomato"), new IngredientAmount(200.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-26-2018"))),
-                new Ingredient(new IngredientName("Potato"), new IngredientAmount(100.0),
+                        new IngredientDate(sdf.parse("10-11-2018"))),
+                new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
                             new IngredientServingUnit("gram"),
-                        new IngredientDate(sdf.parse("12-24-2018")))
+                        new IngredientDate(sdf.parse("10-12-2018"))),
+                    new Ingredient(new IngredientName("flour"), new IngredientAmount(300.0),
+                            new IngredientServingUnit("gram"),
+                            new IngredientDate(sdf.parse("10-16-2018"))),
+                    new Ingredient(new IngredientName("chicken"), new IngredientAmount(540.0),
+                            new IngredientServingUnit("gram"),
+                            new IngredientDate(sdf.parse("10-21-2018"))),
+                    new Ingredient(new IngredientName("beef"), new IngredientAmount(300.0),
+                            new IngredientServingUnit("gram"),
+                            new IngredientDate(sdf.parse("10-25-2018"))),
+                    new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
+                            new IngredientServingUnit("gram"),
+                            new IngredientDate(sdf.parse("10-30-2018"))),
+                    new Ingredient(new IngredientName("apple"), new IngredientAmount(120.0),
+                            new IngredientServingUnit("gram"),
+                            new IngredientDate(sdf.parse("10-30-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();
