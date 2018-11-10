@@ -343,18 +343,18 @@ public class FirstDayCommandTest {
 
     @Test
     public void computeAppTitle_test() throws CommandException {
-        String appTitle = "Schedule Planner";
+        String appTitle = "Student Schedule Planner";
 
         if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
-            appTitle = "Schedule Planner" + "  - " + fds.retrieveWeekDescription(rangeOfWeeks);
+            appTitle = "Student Schedule Planner" + "  - " + fds.retrieveWeekDescription(rangeOfWeeks);
         }
-
-        //if system time is within date range, appTitle should not be "Schedule Planner"
-        //else, appTitle should be "Schedule Planner"
+        
+        //if system time is within date range, appTitle should not be "Student Schedule Planner"
+        //else, appTitle should be "Student Schedule Planner"
         if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
-            assertFalse(appTitle.equals("Schedule Planner"));
+            assertFalse(appTitle.equals("Student Schedule Planner"));
         } else {
-            assertTrue(appTitle.equals("Schedule Planner"));
+            assertTrue(appTitle.equals("Student Schedule Planner"));
         }
     }
 
