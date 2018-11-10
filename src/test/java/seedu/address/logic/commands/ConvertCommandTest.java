@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessW
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,7 +35,7 @@ public class ConvertCommandTest {
 
         //executing convert command with a transaction whose converted amount that will cause duplication
         Transaction thirdTransaction = Transaction.copy(firstTransaction);
-        expectedMessage = Messages.MESSAGE_DUPLICATE_TRANSACTION;
+        expectedMessage = ConvertCommand.MESSAGE_CONVERT_CAUSING_DUPLICATION;
         thirdTransaction.setAmount(new Amount("USD 105.57"));
         model.addTransaction(thirdTransaction);
         assertCommandFailureWithModelChange(convertCommand, model, history, expectedMessage);
