@@ -66,25 +66,40 @@ Format: `help`
 
 === Adding a module: `c_add`
 
-Adds a module to CapTracker +
-Case 1: Module hasn't been taken yet +
-Format: `c_add MODULE_CODE YEAR SEMESTER CREDIT` +
-Case 2: Module already taken +
-Format: `c_add MODULE_CODE YEAR SEMESTER CREDIT GRADE`
+Adds a `*particular*` module entry in the CAPTracker. +
+*Case 1:* +
+Add incomplete module (Not graded yet). +
+_Format:_ +
+----
+c_add -m CODE -y YEAR -s SEMESTER -c CREDIT
+----
+*Case 2:* +
+Add completed module (With grade). +
+_Format:_ +
+----
+c_add -m CODE -y YEAR -s SEMESTER -c CREDIT -g GRADE
+----
 
-[TIP]
-A module with grade provided means it has already been completed while a module without grade means
-it hasn't been taken by the user.
+****
+* Arguments must be in name-value pair format (E.g. `-name value`).
+* Illegal name or value is not allowed.
+* `CODE` has to be specified
+* `YEAR` has to be specified
+* `SEMESTER` has to be specified
+* `CREDIT` has to be specified
+* `GRADE` has to be specified if it is completed
+* Module should not exist in CAPTracker
+****
 
 Examples:
 
-* `c_add CS2103 2 1 A+`
-* `c_add CS2103 2 1`
-
-****
-* Adding of a module that would lead to two modules sharing the same `Code`, `Year`, and `Semester`
-is not allowed.
-****
+* `c_edit -t CS2103 -g A+` +
+Change grade of CS2103 to A+.
+* `c_edit -t CS2103 -m CS2103T -c 2` +
+Change the module code and credit of CS2103 to CS2103T and 2 respectively.
+* `c_edit -t CS2103 -e 3 -z 2 -s 1` +
+Change the semester of CS2103 taken in year 3 semester 2 to 1. In this specific
+case, CS2103 was retaken and cap tracker has multiple entries of it.
 
 === Editing a module : `c_edit`
 
