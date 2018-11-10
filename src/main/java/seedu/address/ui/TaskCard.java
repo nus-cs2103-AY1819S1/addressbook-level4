@@ -38,17 +38,9 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label dueDate;
     @FXML
-    private Label remainingTime;
-    @FXML
-    private Label description;
-    @FXML
     private Label priorityValue;
     @FXML
     private Label status;
-    @FXML
-    private Label hash;
-    @FXML
-    private Label dependency;
     @FXML
     private FlowPane tags;
 
@@ -58,12 +50,8 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
-        remainingTime.setText(getRemainingTime());
-        description.setText(task.getDescription().value);
         priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
-        hash.setText(getHashId());
-        dependency.setText(getDependencies());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
         registerAsAnEventHandler(this);
     }
@@ -80,10 +68,10 @@ public class TaskCard extends UiPart<Region> {
         return "remaining time: " + task.getTimeToDueDate();
     }
 
-    @Subscribe
-    public void handleNewResultEvent(NewResultAvailableEvent abce) {
-        Platform.runLater(() -> remainingTime.setText(getRemainingTime()));
-    }
+//    @Subscribe
+//    public void handleNewResultEvent(NewResultAvailableEvent abce) {
+//        Platform.runLater(() -> remainingTime.setText(getRemainingTime()));
+//    }
 
     @Override
     public boolean equals(Object other) {

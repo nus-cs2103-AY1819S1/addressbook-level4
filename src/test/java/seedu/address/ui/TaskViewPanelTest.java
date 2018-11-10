@@ -8,6 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.LogicManagerTest;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 public class TaskViewPanelTest extends GuiUnitTest {
     private TaskPanelSelectionChangedEvent selectionChangedEventStub;
@@ -19,7 +24,10 @@ public class TaskViewPanelTest extends GuiUnitTest {
     public void setUp() {
         selectionChangedEventStub = new TaskPanelSelectionChangedEvent(A_TASK);
 
-        guiRobot.interact(() -> taskViewPanel = new TaskViewPanel(A_TASK));
+        Model model = new ModelManager();
+        model.addTask(A_TASK);
+        Logic logic = new LogicManager(model);
+        guiRobot.interact(() -> taskViewPanel = new TaskViewPanel(logic));
         uiPartRule.setUiPart(taskViewPanel);
 
         taskViewPanelHandle = new TaskViewPanelHandle(taskViewPanel.getRoot());
