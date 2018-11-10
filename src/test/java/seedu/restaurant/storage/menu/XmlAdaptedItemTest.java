@@ -19,6 +19,7 @@ import seedu.restaurant.storage.XmlAdaptedTag;
 import seedu.restaurant.storage.elements.XmlAdaptedItem;
 import seedu.restaurant.testutil.Assert;
 
+//@@author yican95
 public class XmlAdaptedItemTest {
     private static final String INVALID_NAME = "F@ies";
     private static final String INVALID_PRICE = "+2";
@@ -40,7 +41,6 @@ public class XmlAdaptedItemTest {
     static {
         VALID_REQUIRED_INGREDIENTS.put(VALID_INGREDIENT_NAME, VALID_INTEGER);
     }
-
 
     @Test
     public void toModelType_validItemDetails_returnsItem() throws Exception {

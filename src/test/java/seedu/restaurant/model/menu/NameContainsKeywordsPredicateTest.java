@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class NameContainsKeywordsPredicateTest {
 
     @Test
@@ -34,7 +35,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

@@ -5,17 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_BURGER;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_CHEESE;
-import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_TAG_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_TEST;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ACCOUNTS;
-import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_RECORDS;
-import static seedu.restaurant.testutil.TypicalPersons.ALICE;
-import static seedu.restaurant.testutil.TypicalPersons.AMY;
-import static seedu.restaurant.testutil.TypicalPersons.BENSON;
-import static seedu.restaurant.testutil.TypicalPersons.BOB;
-import static seedu.restaurant.testutil.TypicalPersons.DYLAN;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ADMIN;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ONE;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_TWO;
@@ -26,9 +20,14 @@ import static seedu.restaurant.testutil.menu.TypicalItems.BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.CHEESE_BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 import static seedu.restaurant.testutil.menu.TypicalItems.ITEM_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.ANDREW;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.BILLY;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.DANNY;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.ELSA;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.RESERVATION_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -46,18 +45,19 @@ import seedu.restaurant.model.ingredient.NumUnits;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotEnoughException;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.model.menu.Item;
+import seedu.restaurant.model.menu.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
-import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.exceptions.SalesRecordNotFoundException;
+import seedu.restaurant.model.reservation.Reservation;
+import seedu.restaurant.model.reservation.exceptions.ReservationNotFoundException;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.model.tag.Tag;
-import seedu.restaurant.testutil.PersonBuilder;
 import seedu.restaurant.testutil.RestaurantBookBuilder;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.reservation.ReservationBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class ModelManagerTest {
 
@@ -65,30 +65,7 @@ public class ModelManagerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private ModelManager modelManager = new ModelManager();
-    private RestaurantBook restaurantBookWithPersons = null;
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
-    }
-
-    @Test
-    public void hasPerson_personNotInRestaurantBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInRestaurantBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
-    }
+    private RestaurantBook restaurantBookWithItems = null;
 
     @Test
     public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
@@ -102,84 +79,43 @@ public class ModelManagerTest {
         modelManager.getFilteredAccountList().remove(0);
     }
 
+    //@@author yican95
     @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredItemList().remove(0);
     }
 
-    @Test
-    public void removeTag_noSuchTag_restaurantBookUnmodified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withPerson(AMY).withPerson(BOB).build();
-        UserPrefs userPrefs = new UserPrefs();
-
-        ModelManager unmodifiedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-        unmodifiedModelManager.removeTag(new Tag(VALID_TAG_TEST));
-
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-
-        assertEquals(unmodifiedModelManager, expectedModelManager);
-    }
-
-    @Test
-    public void removeTag_fromAllPersons_restaurantBookModified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withPerson(AMY).withPerson(BOB).build();
-        UserPrefs userPrefs = new UserPrefs();
-
-        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-        modifiedModelManager.removeTag(new Tag(VALID_TAG_FRIEND));
-
-        Person amyWithoutTags = new PersonBuilder(AMY).withTags().build();
-        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-        // Cannot init a new RestaurantBook due to difference in restaurantBookStateList
-        expectedModelManager.updatePerson(AMY, amyWithoutTags);
-        expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
-
-        assertEquals(modifiedModelManager, expectedModelManager);
-    }
-
-    @Test
-    public void removeTag_fromOnePerson_restaurantBookModified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withPerson(AMY).withPerson(DYLAN).build();
-        UserPrefs userPrefs = new UserPrefs();
-
-        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-        modifiedModelManager.removeTag(new Tag(VALID_TAG_FRIEND));
-
-        Person amyWithoutTags = new PersonBuilder(AMY).withTags().build();
-
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
-        expectedModelManager.updatePerson(AMY, amyWithoutTags);
-
-        assertEquals(modifiedModelManager, expectedModelManager);
-    }
 
     @Test
     public void hasRecord_nullRecord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasRecord(null);
     }
+
     @Test
     public void hasRecord_recordNotInSalesBook_returnsFalse() {
         assertFalse(modelManager.hasRecord(RECORD_DEFAULT));
     }
+
     @Test
     public void hasRecord_recordInSalesBook_returnsTrue() {
         modelManager.addRecord(RECORD_DEFAULT);
         assertTrue(modelManager.hasRecord(RECORD_DEFAULT));
     }
+
     @Test
     public void getRecordList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getRestaurantBook().getRecordList().remove(0);
     }
+
     @Test
     public void deleteRecord_recordNotInSalesBook_throwsRecordsNotFoundException() {
         thrown.expect(SalesRecordNotFoundException.class);
         modelManager.deleteRecord(RECORD_DEFAULT);
     }
+
     @Test
     public void deleteRecord_recordInSalesBook_returnTrue() {
         modelManager.addRecord(RECORD_DEFAULT);
@@ -187,11 +123,13 @@ public class ModelManagerTest {
         modelManager.deleteRecord(RECORD_DEFAULT);
         assertFalse(modelManager.hasRecord(RECORD_DEFAULT));
     }
+
     @Test
     public void updateRecord_recordNotInSalesBook_throwsRecordNotFoundException() {
         thrown.expect(SalesRecordNotFoundException.class);
         modelManager.updateRecord(RECORD_DEFAULT, RECORD_ONE);
     }
+
     @Test
     public void updateRecord_recordInSalesBook_returnTrue() {
         modelManager.addRecord(RECORD_DEFAULT);
@@ -200,12 +138,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasRecord(RECORD_DEFAULT));
         assertTrue(modelManager.hasRecord(record));
     }
+
     @Test
     public void getSalesReport_nullDate_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.getSalesReport(null);
     }
 
+    //@@author AZhiKai
     @Test
     public void hasAccount_nullAccount_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -282,6 +222,7 @@ public class ModelManagerTest {
         thrown.expect(IngredientNotFoundException.class);
         modelManager.deleteIngredient(BROCCOLI);
     }
+
     @Test
     public void deleteIngredient_ingredientInIngredientList_returnTrue() {
         modelManager.addIngredient(BROCCOLI);
@@ -289,11 +230,13 @@ public class ModelManagerTest {
         modelManager.deleteIngredient(BROCCOLI);
         assertFalse(modelManager.hasIngredient(BROCCOLI));
     }
+
     @Test
     public void updateIngredient_ingredientNotInIngredientList_throwsIngredientNotFoundException() {
         thrown.expect(IngredientNotFoundException.class);
         modelManager.updateIngredient(BROCCOLI, AVOCADO);
     }
+
     @Test
     public void updateIngredient_ingredientInIngredientList_returnTrue() {
         modelManager.addIngredient(BROCCOLI);
@@ -366,6 +309,7 @@ public class ModelManagerTest {
         assertEquals(new NumUnits(18), updatedNumUnits);
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void hasItem_nullItem_throwsNullPointerException() {
@@ -389,6 +333,7 @@ public class ModelManagerTest {
         thrown.expect(ItemNotFoundException.class);
         modelManager.deleteItem(ITEM_DEFAULT);
     }
+
     @Test
     public void deleteItem_itemInMenu_returnTrue() {
         modelManager.addItem(ITEM_DEFAULT);
@@ -396,11 +341,13 @@ public class ModelManagerTest {
         modelManager.deleteItem(ITEM_DEFAULT);
         assertFalse(modelManager.hasItem(ITEM_DEFAULT));
     }
+
     @Test
     public void updateItem_itemNotInMenu_throwsItemNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
         modelManager.updateItem(ITEM_DEFAULT, APPLE_JUICE);
     }
+
     @Test
     public void updateItem_itemInMenu_returnTrue() {
         modelManager.addItem(ITEM_DEFAULT);
@@ -412,28 +359,28 @@ public class ModelManagerTest {
 
     @Test
     public void removeTagForMenu_noSuchTag_restaurantBookUnmodified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BURGER).build();
+        restaurantBookWithItems = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BURGER).build();
 
-        ModelManager unmodifiedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        ModelManager unmodifiedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
         unmodifiedModelManager.removeTagForMenu(new Tag(VALID_TAG_TEST));
 
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
 
         assertEquals(unmodifiedModelManager, expectedModelManager);
     }
 
     @Test
     public void removeTagForMenu_fromAllItems_restaurantBookModified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withItem(CHEESE_BURGER).withItem(FRIES).build();
+        restaurantBookWithItems = new RestaurantBookBuilder().withItem(CHEESE_BURGER).withItem(FRIES).build();
         UserPrefs userPrefs = new UserPrefs();
 
-        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithItems, userPrefs);
         modifiedModelManager.removeTagForMenu(new Tag(VALID_ITEM_TAG_CHEESE));
 
         Item cheeseWithoutCheeseTags = new ItemBuilder(CHEESE_BURGER).withTags(VALID_ITEM_TAG_BURGER).build();
         Item friesWithoutTags = new ItemBuilder(FRIES).withTags().build();
 
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, userPrefs);
         // Cannot init a new RestaurantBook due to difference in restaurantBookStateList
         expectedModelManager.updateItem(CHEESE_BURGER, cheeseWithoutCheeseTags);
         expectedModelManager.updateItem(FRIES, friesWithoutTags);
@@ -443,24 +390,116 @@ public class ModelManagerTest {
 
     @Test
     public void removeTagForMenu_fromOneItem_restaurantBookModified() {
-        restaurantBookWithPersons = new RestaurantBookBuilder().withItem(FRIES).withItem(BURGER).build();
+        restaurantBookWithItems = new RestaurantBookBuilder().withItem(FRIES).withItem(BURGER).build();
 
-        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
         modifiedModelManager.removeTagForMenu(new Tag(VALID_ITEM_TAG_CHEESE));
 
         Item friesWithoutTags = new ItemBuilder(FRIES).withTags().build();
 
-        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
         expectedModelManager.updateItem(FRIES, friesWithoutTags);
 
         assertEquals(modifiedModelManager, expectedModelManager);
     }
 
+    //@@author m4dkip
+    // Reservation Management
+    @Test
+    public void hasReservation_nullReservation_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasReservation(null);
+    }
+
+    @Test
+    public void hasReservation_reservationNotInRestaurantBook_returnsFalse() {
+        assertFalse(modelManager.hasReservation(ANDREW));
+    }
+
+    @Test
+    public void hasReservation_reservationInRestaurantBook_returnsTrue() {
+        modelManager.addReservation(ANDREW);
+        assertTrue(modelManager.hasReservation(ANDREW));
+    }
+
+    @Test
+    public void deleteReservation_reservationNotInList_throwsReservationNotFoundException() {
+        thrown.expect(ReservationNotFoundException.class);
+        modelManager.deleteReservation(RESERVATION_DEFAULT);
+    }
+    @Test
+    public void deleteReservation_reservationInMenu_returnTrue() {
+        modelManager.addReservation(RESERVATION_DEFAULT);
+        assertTrue(modelManager.hasReservation(RESERVATION_DEFAULT));
+        modelManager.deleteReservation(RESERVATION_DEFAULT);
+        assertFalse(modelManager.hasReservation(RESERVATION_DEFAULT));
+    }
+    @Test
+    public void updateReservation_reservationNotInList_throwsReservationNotFoundException() {
+        thrown.expect(ReservationNotFoundException.class);
+        modelManager.updateReservation(RESERVATION_DEFAULT, ANDREW);
+    }
+    @Test
+    public void updateReservation_reservationInList_returnTrue() {
+        modelManager.addReservation(RESERVATION_DEFAULT);
+        Reservation reservation = new ReservationBuilder(ANDREW).build();
+        modelManager.updateReservation(RESERVATION_DEFAULT, reservation);
+        assertFalse(modelManager.hasReservation(RESERVATION_DEFAULT));
+        assertTrue(modelManager.hasReservation(reservation));
+    }
+
+    @Test
+    public void removeTagForReservation_noSuchTag_restaurantBookUnmodified() {
+        restaurantBookWithItems = new RestaurantBookBuilder().withReservation(ANDREW).withReservation(BILLY).build();
+
+        ModelManager unmodifiedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
+        unmodifiedModelManager.removeTagForReservation(new Tag(VALID_TAG_TEST));
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
+
+        assertEquals(unmodifiedModelManager, expectedModelManager);
+    }
+
+    @Test
+    public void removeTagForReservationList_fromAllReservations_restaurantBookModified() {
+        restaurantBookWithItems = new RestaurantBookBuilder().withReservation(DANNY).withReservation(BILLY).build();
+        UserPrefs userPrefs = new UserPrefs();
+
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithItems, userPrefs);
+        modifiedModelManager.removeTagForReservation(new Tag(VALID_RESERVATION_TAG_ANDREW));
+
+        Reservation dannyWithoutDrivingTag = new ReservationBuilder(DANNY).withTags().build();
+        Reservation billyWithoutTags = new ReservationBuilder(BILLY).withTags().build();
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, userPrefs);
+        // Cannot init a new RestaurantBook due to difference in restaurantBookStateList
+        expectedModelManager.updateReservation(DANNY, dannyWithoutDrivingTag);
+        expectedModelManager.updateReservation(BILLY, billyWithoutTags);
+
+        assertEquals(modifiedModelManager, expectedModelManager);
+    }
+
+    @Test
+    public void removeTagForReservationList_fromOneReservation_restaurantBookModified() {
+        restaurantBookWithItems = new RestaurantBookBuilder().withReservation(DANNY).withReservation(ELSA).build();
+
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
+        modifiedModelManager.removeTagForReservation(new Tag(VALID_RESERVATION_TAG_ANDREW));
+
+        Reservation dannyWithoutTags = new ReservationBuilder(DANNY).withTags().build();
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithItems, new UserPrefs());
+        expectedModelManager.updateReservation(DANNY, dannyWithoutTags);
+
+        assertEquals(modifiedModelManager, expectedModelManager);
+    }
+
+    //@@author
     @Test
     public void equals() {
         RestaurantBook restaurantBook = new RestaurantBookBuilder()
-                .withPerson(ALICE)
-                .withPerson(BENSON)
+                .withItem(BURGER)
+                .withItem(FRIES)
                 .withRecord(RECORD_ONE)
                 .withRecord(RECORD_TWO)
                 .withAccount(DEMO_ONE)
@@ -487,16 +526,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentRestaurantBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().toString().split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = BURGER.getName().toString().split("\\s+");
+        modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(restaurantBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         modelManager.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         modelManager.updateFilteredAccountList(PREDICATE_SHOW_ALL_ACCOUNTS);
-
-        //TODO: Test updateFilteredAccountList
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

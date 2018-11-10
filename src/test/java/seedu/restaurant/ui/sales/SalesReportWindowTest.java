@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
-import seedu.restaurant.model.salesrecord.SalesReport;
-import seedu.restaurant.testutil.salesrecords.ReportBuilder;
+import seedu.restaurant.model.sales.SalesReport;
+import seedu.restaurant.testutil.sales.ReportBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
 public class SalesReportWindowTest extends GuiUnitTest {
@@ -31,7 +31,7 @@ public class SalesReportWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void isShowing_salesReportIsHiding_returnsFalse() {
+    public void isShowing_salesReportWindowIsHiding_returnsFalse() {
         assertFalse(salesReportWindow.isShowing());
     }
 }

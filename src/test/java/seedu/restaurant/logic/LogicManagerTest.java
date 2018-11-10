@@ -1,9 +1,10 @@
 package seedu.restaurant.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 
 import org.junit.Before;
@@ -17,9 +18,10 @@ import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.HistoryCommand;
-import seedu.restaurant.logic.commands.ListCommand;
 import seedu.restaurant.logic.commands.account.RegisterCommand;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.ListItemsCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
@@ -53,28 +55,23 @@ public class LogicManagerTest {
         EventsCenter.getInstance().post(new LogoutEvent()); // logout before executing
         assertCommandException(RegisterCommand.COMMAND_WORD + " "
                         + PREFIX_ID + account.getUsername().toString() + " "
-                        + PREFIX_PASSWORD + account.getPassword().toString(),
+                        + PREFIX_PASSWORD + account.getPassword().toString() + " "
+                        + PREFIX_NAME + account.getName().toString(),
                 Messages.MESSAGE_COMMAND_FORBIDDEN);
     }
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteCommand = DeleteItemByIndexCommand.COMMAND_WORD + " 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListItemsCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListItemsCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
     }
 
     @Test

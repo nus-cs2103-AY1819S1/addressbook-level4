@@ -12,10 +12,10 @@ public class Ingredient {
 
     // Identity fields
     private final IngredientName name;
-    private final IngredientUnit unit;
-    private final IngredientPrice price;
 
     //Data fields
+    private final IngredientUnit unit;
+    private final IngredientPrice price;
     private final MinimumUnit minimum;
     private final NumUnits numUnits;
 
@@ -63,7 +63,7 @@ public class Ingredient {
         }
 
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName());
+                && otherIngredient.getName().equalsIgnoreCase(getName());
     }
 
     /**

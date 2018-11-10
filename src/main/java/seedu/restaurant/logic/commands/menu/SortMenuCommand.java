@@ -10,6 +10,7 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 
+//@@author yican95
 /**
  * Sorts and lists all items in menu either by name or price.
  */
@@ -19,7 +20,7 @@ public class SortMenuCommand extends Command {
 
     public static final String COMMAND_ALIAS = "sm";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all items by name in alphabetical order or "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all items by name in lexicographical order or "
             + "by price in ascending order "
             + "and displays them as a list with index numbers.\n"
             + "Parameters: SORTING METHOD(name or price)\n"

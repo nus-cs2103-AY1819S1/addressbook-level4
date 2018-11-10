@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.Assert;
 
+//@@author yican95
 public class NameTest {
 
     @Test

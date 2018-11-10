@@ -20,6 +20,7 @@ import seedu.restaurant.model.account.exceptions.AccountNotFoundException;
 import seedu.restaurant.model.account.exceptions.DuplicateAccountException;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class UniqueAccountListTest {
 
     @Rule

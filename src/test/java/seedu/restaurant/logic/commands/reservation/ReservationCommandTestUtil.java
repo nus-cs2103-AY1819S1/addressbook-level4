@@ -16,8 +16,9 @@ import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.reservation.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.reservation.Reservation;
 
+//@@author m4dkip
 /**
- * Contains helper methods for testing commands.
+ * Contains helper methods for testing reservation management related commands.
  */
 public class ReservationCommandTestUtil {
 

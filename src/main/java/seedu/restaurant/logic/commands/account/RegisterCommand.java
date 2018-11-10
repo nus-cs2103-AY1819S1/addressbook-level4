@@ -2,6 +2,7 @@ package seedu.restaurant.logic.commands.account;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 
 import seedu.restaurant.commons.core.EventsCenter;
@@ -13,8 +14,9 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 
+//@@author AZhiKai
 /**
- * Adds a new user account to the account file.
+ * Adds a new {@code Account}.
  */
 public class RegisterCommand extends Command {
 
@@ -24,13 +26,16 @@ public class RegisterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Registers a new user account. "
             + "Parameters: "
             + PREFIX_ID + "USERNAME "
-            + PREFIX_PASSWORD + "PASSWORD\n"
+            + PREFIX_PASSWORD + "PASSWORD "
+            + PREFIX_NAME + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "azhikai "
-            + PREFIX_PASSWORD + "1122qq";
+            + PREFIX_PASSWORD + "1122qq "
+            + PREFIX_NAME + "Ang Zhi Kai";
 
     public static final String MESSAGE_SUCCESS = "New account registered: %1$s";
-    public static final String MESSAGE_DUPLICATE_USERNAME = "This username already exists";
+    public static final String MESSAGE_DUPLICATE_USERNAME = "This username already exists. Please choose another "
+            + "username";
 
     private final Account account;
 

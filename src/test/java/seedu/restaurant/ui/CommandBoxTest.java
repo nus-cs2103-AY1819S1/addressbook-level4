@@ -13,14 +13,14 @@ import javafx.scene.input.KeyCode;
 import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.Logic;
 import seedu.restaurant.logic.LogicManager;
-import seedu.restaurant.logic.commands.ListCommand;
+import seedu.restaurant.logic.commands.menu.ListItemsCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = ListItemsCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -96,7 +96,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list";
+        String thirdCommand = "list-accounts";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);

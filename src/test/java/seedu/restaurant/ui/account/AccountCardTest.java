@@ -12,6 +12,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author AZhiKai
 public class AccountCardTest extends GuiUnitTest {
 
     @Test
@@ -60,7 +61,7 @@ public class AccountCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", accountCardHandle.getId());
 
-        // verify item details are displayed correctly
+        // verify account details are displayed correctly
         assertCardDisplaysAccount(expectedAccount, accountCardHandle);
     }
 }

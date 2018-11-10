@@ -22,9 +22,10 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.reservation.Reservation;
 
+//@@author m4dkip
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
- * DeleteCommand}.
+ * DeleteReservationCommand}.
  */
 public class DeleteReservationCommandTest {
 

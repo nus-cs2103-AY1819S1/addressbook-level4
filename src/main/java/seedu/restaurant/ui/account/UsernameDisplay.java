@@ -12,8 +12,9 @@ import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.ui.UiPart;
 
+//@@author AZhiKai
 /**
- * A ui for the Username label that is displayed at the header of the application.
+ * A ui for the {@code Username} label that is displayed at the header of the application.
  */
 public class UsernameDisplay extends UiPart<Region> {
 

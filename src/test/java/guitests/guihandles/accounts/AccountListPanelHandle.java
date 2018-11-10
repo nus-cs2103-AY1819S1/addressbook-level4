@@ -72,9 +72,7 @@ public class AccountListPanelHandle extends NodeHandle<ListView<Account>> {
             throw new IllegalArgumentException("Account does not exist.");
         }
 
-        guiRobot.interact(() -> {
-            getRootNode().scrollTo(account);
-        });
+        guiRobot.interact(() -> getRootNode().scrollTo(account));
         guiRobot.pauseForHuman();
     }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_USERNAME;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_TWO;
 
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.Assert;
 
+//@@author AZhiKai
 public class UsernameTest {
 
     @Test
@@ -20,8 +22,7 @@ public class UsernameTest {
 
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidUsername = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Username(invalidUsername));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Username(INVALID_USERNAME));
     }
 
     @Test
@@ -46,12 +47,12 @@ public class UsernameTest {
 
     @Test
     public void hash_code() {
-        Username userOne = new Username(VALID_USERNAME_DEMO_ONE);
+        Username usernameOne = new Username(VALID_USERNAME_DEMO_ONE);
+        assertEquals(usernameOne.hashCode(), usernameOne.hashCode());
 
-        assertEquals(userOne.hashCode(), userOne.hashCode());
+        Username usernameTwo = new Username(VALID_USERNAME_DEMO_TWO);
+        assertEquals(usernameTwo.hashCode(), usernameTwo.hashCode());
 
-        Username userTwo = new Username(VALID_USERNAME_DEMO_TWO);
-
-        assertNotEquals(userOne.hashCode(), userTwo.hashCode());
+        assertNotEquals(usernameOne.hashCode(), usernameTwo.hashCode());
     }
 }

@@ -23,6 +23,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author m4dkip
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectReservationCommand}.
  */
@@ -94,7 +95,7 @@ public class SelectReservationCommandTest {
 
     /**
      * Executes a {@code SelectReservationCommand} with the given {@code index}, and checks that
-     * {@code JumpToListRequestEvent} is raised with the correct index.
+     * {@code JumpToReservationListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectReservationCommand selectCommand = new SelectReservationCommand(index);

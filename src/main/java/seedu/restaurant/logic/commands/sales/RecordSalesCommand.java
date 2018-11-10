@@ -22,8 +22,8 @@ import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.exceptions.RequiredIngredientsNotFoundException;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.exceptions.RequiredIngredientsNotFoundException;
 
 /**
  * Record the sales volume of a menu item

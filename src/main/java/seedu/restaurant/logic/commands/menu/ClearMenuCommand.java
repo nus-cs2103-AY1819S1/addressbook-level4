@@ -10,6 +10,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
 
+//@@author yican95
 /**
  * Clears the menu.
  */

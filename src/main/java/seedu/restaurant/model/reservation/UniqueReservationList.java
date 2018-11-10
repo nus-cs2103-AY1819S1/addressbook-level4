@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.reservation.exceptions.DuplicateReservationException;
 import seedu.restaurant.model.reservation.exceptions.ReservationNotFoundException;
 
+//@@author m4dkip
 /**
  * A list of reservations that enforces uniqueness between its elements and does not allow nulls.
  * A reservation is considered unique by comparing using {@code Reservation#isSameReservation(Reservation)}. As
@@ -102,7 +103,8 @@ public class UniqueReservationList implements Iterable<Reservation> {
      * Sorts this list by Date/Time in ascending order.
      */
     public void sortReservations() {
-        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getDateTime()));
+        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getTime().getValue()));
+        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getDate().getValue()));
     }
 
     /**

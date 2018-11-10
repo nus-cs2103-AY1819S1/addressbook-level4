@@ -18,8 +18,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 
+//@@author AZhiKai
 /**
- * Change the password an existing {@code Account}.
+ * Change the password of an existing {@code Account}.
  */
 public class ChangePasswordCommand extends Command {
 
@@ -70,7 +71,7 @@ public class ChangePasswordCommand extends Command {
 
         Password updatedPassword = editAccountDescriptor.getPassword().orElse(accountToEdit.getPassword());
 
-        return new Account(accountToEdit.getUsername(), updatedPassword);
+        return new Account(accountToEdit.getUsername(), updatedPassword, accountToEdit.getName());
     }
 
     @Override
@@ -127,7 +128,7 @@ public class ChangePasswordCommand extends Command {
             // state check
             EditAccountDescriptor e = (EditAccountDescriptor) other;
 
-            return getPassword().equals(e.getPassword());
+            return password.equals(e.password);
         }
     }
 }
