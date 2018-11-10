@@ -40,9 +40,9 @@ public class XmlUtilTest {
     private static final String VALID_FINDER = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_DESCRIPTION = "4th street";
+    private static final String VALID_DESCRIPTION = "Found at 4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS =
-            Collections.singletonList(new XmlAdaptedTag("friends"));
+            Collections.singletonList(new XmlAdaptedTag("Black"));
 
     private static final boolean FALSE_ISRESOLVED = false;
     private static final String DEFAULT_OWNER = "Not Claimed";
