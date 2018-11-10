@@ -29,6 +29,8 @@ public class VolunteerCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label volunteerId;
+    @FXML
     private Label id;
     @FXML
     private Label phone;
@@ -42,6 +44,7 @@ public class VolunteerCard extends UiPart<Region> {
         this.volunteer = volunteer;
         id.setText(displayedIndex + ". ");
         name.setText(volunteer.getName().fullName);
+        volunteerId.setText(volunteer.getVolunteerId().id);
         phone.setText(volunteer.getPhone().value);
         email.setText(volunteer.getEmail().value);
         volunteer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

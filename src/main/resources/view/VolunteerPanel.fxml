@@ -10,6 +10,9 @@
         <Label fx:id="volunteerNameLabel" styleClass="event-name" />
         <FlowPane fx:id="volunteerTag" hgap="5"/>
         <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="volunteerIdLabel" styleClass="detail" />
+        </HBox>
+        <HBox spacing="5" alignment="CENTER_LEFT">
             <Label fx:id="volunteerGenderLabel" styleClass="detail" />
         </HBox>
         <HBox spacing="5" alignment="CENTER_LEFT">
