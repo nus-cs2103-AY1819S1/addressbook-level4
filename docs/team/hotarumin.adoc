@@ -68,18 +68,3 @@ include::../DeveloperGuide.adoc[tag=displaytagsinsidebar]
 include::../DeveloperGuide.adoc[tag=progressbar]
 
 
----
-
-PROJECT: Zen Coloring
-
-== Overview
-
-Zen Coloring was a web application I co-created with Lin Xu for Orbital 2018. The web application allows users to color black and white images using a built in drawing tool.
-Users can choose to upload their own images or use images uploaded by other users.
-
-https://zen-coloring.herokuapp.com/[Link to website]
-
-https://github.com/hotarumin/zen/[Github link]
-
----
-
