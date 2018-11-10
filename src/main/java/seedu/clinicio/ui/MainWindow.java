@@ -28,7 +28,7 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -63,7 +63,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane patientListPanelPlaceholder;
 
     @FXML
     private StackPane appointmentListPanelPlaceholder;
@@ -78,7 +78,7 @@ public class MainWindow extends UiPart<Stage> {
     private TabPane tabLists;
 
     @FXML
-    private Tab personTab;
+    private Tab patientTab;
 
     @FXML
     private Tab appointmentTab;
@@ -148,23 +148,23 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
 
-        personTab.setText("Persons");
-        personTab.setContent(personListPanelPlaceholder);
-        personTab.setClosable(false);
+        patientTab.setText("Patients");
+        patientTab.setContent(patientListPanelPlaceholder);
+        patientTab.setClosable(false);
 
         appointmentTab.setText("Appointments");
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
-        tabLists = new TabPane(personTab, appointmentTab);
+        tabLists = new TabPane(patientTab, appointmentTab);
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
+        patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -180,8 +180,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public void setPersonListPanel(ObservableList<Person> list) {
-        personListPanel = new PersonListPanel(list);
+    public void setPatientListPanel(ObservableList<Patient> list) {
+        patientListPanel = new PatientListPanel(list);
     }
 
     private void setTitle(String appTitle) {
@@ -241,8 +241,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public PatientListPanel getPatientListPanel() {
+        return patientListPanel;
     }
 
     @Subscribe

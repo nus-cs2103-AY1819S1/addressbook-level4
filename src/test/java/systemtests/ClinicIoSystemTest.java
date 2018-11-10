@@ -27,7 +27,7 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.PatientListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.clinicio.MainApp;
@@ -103,8 +103,8 @@ public abstract class ClinicIoSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public PatientListPanelHandle getPatientListPanel() {
+        return mainWindowHandle.getPatientListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,52 +139,52 @@ public abstract class ClinicIoSystemTest {
     }
 
     /**
-     * Displays all persons in the ClinicIO.
+     * Displays all patients in the ClinicIO.
      */
-    protected void showAllPersons() {
+    protected void showAllPatients() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getClinicIo().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getClinicIo().getPatientList().size(), getModel().getFilteredPatientList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all patients with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showPatientsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getClinicIo().getPersonList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the patient at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectPatient(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getPatientListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the ClinicIO.
+     * Deletes all patients in the ClinicIO.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllPatients() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getClinicIo().getPersonList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same patient objects as {@code expectedModel}
+     * and the patient list panel displays the patients in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new ClinicIo(expectedModel.getClinicIo()), testApp.readStorageClinicIo());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getPatientListPanel(), expectedModel.getFilteredPatientList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code PatientListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -192,7 +192,7 @@ public abstract class ClinicIoSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberUserSession();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getPatientListPanel().rememberSelectedPatientCard();
     }
 
     /**
@@ -202,18 +202,18 @@ public abstract class ClinicIoSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getPatientListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see PatientListPanelHandle#isSelectedPatientCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getPatientListPanel().navigateToCard(getPatientListPanel().getSelectedCardIndex());
+        String selectedCardName = getPatientListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -222,17 +222,17 @@ public abstract class ClinicIoSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPatientListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see PatientListPanelHandle#isSelectedPatientCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getPatientListPanel().isSelectedPatientCardChanged());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class ClinicIoSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPatientListPanel(), getModel().getFilteredPatientList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(USER_SESSION_STATUS_INITIAL,
                 getStatusBarFooter().getUserSession());

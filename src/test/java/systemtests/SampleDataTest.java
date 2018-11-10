@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.clinicio.model.ClinicIo;
-import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.util.SampleDataUtil;
 import seedu.clinicio.testutil.TestUtil;
 
@@ -45,7 +45,7 @@ public class SampleDataTest extends ClinicIoSystemTest {
 
     @Test
     public void clinicIo_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        Patient[] expectedList = SampleDataUtil.getSamplePatients();
+        assertListMatching(getPatientListPanel(), expectedList);
     }
 }

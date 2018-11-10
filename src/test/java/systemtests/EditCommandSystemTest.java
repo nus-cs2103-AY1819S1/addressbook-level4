@@ -110,7 +110,7 @@ public class EditCommandSystemTest extends ClinicIoSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered person list, edit index within bounds of ClinicIO and person list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -121,7 +121,7 @@ public class EditCommandSystemTest extends ClinicIoSystemTest {
         /* Case: filtered person list, edit index within bounds of ClinicIO but out of bounds of person list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getClinicIo().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -131,9 +131,9 @@ public class EditCommandSystemTest extends ClinicIoSystemTest {
         /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllPatients();
         index = INDEX_FIRST_PERSON;
-        selectPerson(index);
+        selectPatient(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the

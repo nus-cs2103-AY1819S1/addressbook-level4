@@ -6,12 +6,12 @@ import seedu.clinicio.model.person.Person;
 /**
  * Represents a selection change in the Person List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class PatientPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Person newSelection;
 
-    public PersonPanelSelectionChangedEvent(Person newSelection) {
+    public PatientPanelSelectionChangedEvent(Person newSelection) {
         this.newSelection = newSelection;
     }
 

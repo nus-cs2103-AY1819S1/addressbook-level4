@@ -6,7 +6,7 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.clinicio.testutil.TestUtil.getLastIndex;
 import static seedu.clinicio.testutil.TestUtil.getMidIndex;
-import static seedu.clinicio.testutil.TestUtil.getPerson;
+import static seedu.clinicio.testutil.TestUtil.getPatient;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.clinicio.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
@@ -18,6 +18,7 @@ import seedu.clinicio.logic.commands.DeleteCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.model.Model;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 
 public class DeleteCommandSystemTest extends ClinicIoSystemTest {
@@ -32,7 +33,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        Person deletedPerson = removePatient(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -48,7 +49,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removePatient(modelBeforeDeletingLast, lastPersonIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
@@ -59,7 +60,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered person list, delete index within bounds of ClinicIO and person list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
@@ -67,7 +68,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
         /* Case: filtered person list, delete index within bounds of ClinicIO but out of bounds of person list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getClinicIo().getPersonList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -75,13 +76,13 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
         /* --------------------- Performing delete operation while a person card is selected ------------------------ */
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
-        showAllPersons();
+        showAllPatients();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectPatient(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removePerson(expectedModel, selectedIndex);
+        deletedPerson = removePatient(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -112,13 +113,13 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s ClinicIO.
-     * @return the removed person
+     * Removes the {@code Patient} at the specified {@code index} in {@code model}'s ClinicIO.
+     * @return the removed patient
      */
-    private Person removePerson(Model model, Index index) {
-        Person targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
-        return targetPerson;
+    private Person removePatient(Model model, Index index) {
+        Patient targetPatient = getPatient(model, index);
+        model.deletePatient(targetPatient);
+        return targetPatient;
     }
 
     /**
@@ -128,8 +129,8 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Person deletedPerson = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        Person deletedPatient = removePatient(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPatient);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

@@ -38,13 +38,13 @@ public class ClearCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: selects first card in person list and clears ClinicIO -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original ClinicIO
-        selectPerson(Index.fromOneBased(1));
+        selectPatient(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
         /* Case: filters the person list before clearing -> entire ClinicIO cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original ClinicIO
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
