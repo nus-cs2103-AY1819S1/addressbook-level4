@@ -18,13 +18,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.TaskViewPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import guitests.guihandles.TaskListPanelHandle;
+import guitests.guihandles.TaskViewPanelHandle;
 
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
@@ -186,13 +186,10 @@ public abstract class TaskManagerSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the task view panel remains displaying the details
-     * of the previously selected task.
-     *
-     * @see TaskViewPanelHandle#isUrlChanged()
+     * Asserts that the previously selected card is now deselected and the task
+     * view panel remains displaying the details of the previously selected task.
      */
     protected void assertSelectedCardDeselected() {
-//        assertFalse(getTaskViewPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -200,7 +197,6 @@ public abstract class TaskManagerSystemTest {
      * Asserts that the task view panel is changed to display the details of the task in the task view panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
-     * @see TaskViewPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
@@ -209,9 +205,8 @@ public abstract class TaskManagerSystemTest {
     }
 
     /**
-     * Asserts that the task view's url and the selected card in the task list panel remain unchanged.
+     * Asserts that the task view's and the selected card in the task list panel remain unchanged.
      *
-     * @see TaskViewPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {

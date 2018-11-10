@@ -1,18 +1,18 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
 
-import guitests.guihandles.TaskViewPanelHandle;
 import org.junit.Before;
 import org.junit.Test;
+
+import guitests.guihandles.TaskViewPanelHandle;
 
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.LogicManagerTest;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+
 
 public class TaskViewPanelTest extends GuiUnitTest {
     private TaskPanelSelectionChangedEvent selectionChangedEventStub;
