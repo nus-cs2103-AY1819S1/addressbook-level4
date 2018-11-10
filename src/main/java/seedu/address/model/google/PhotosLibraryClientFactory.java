@@ -86,6 +86,11 @@ public class PhotosLibraryClientFactory {
         String clientId = clientSecrets.getDetails().getClientId();
 
         if (!TEST_FILE.exists()) {
+
+            // TODO: v2.0 develop a more intuitive way of avoiding this issue
+            // Currently BLOCKER.TXT is created because Google automatically creates a blank credential file when login,
+            // is launched even if user does not actually login. This causes our app to always redirect to google login
+            // whenever a blank credential file is found on start up.
             try {
                 FileUtil.createIfMissing(BLOCKER);
             } catch (Exception e) {

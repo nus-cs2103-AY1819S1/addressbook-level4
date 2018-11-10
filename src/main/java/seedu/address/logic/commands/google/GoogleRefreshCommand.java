@@ -33,12 +33,10 @@ public class GoogleRefreshCommand extends GoogleCommand {
             requireNonNull(model);
 
             model.getPhotoHandler().refreshLists();
+        } catch (ApiException api) {
+            throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
         } catch (Exception ex) {
-            String message = FAILURE_MESSAGE;
-            if (ex instanceof ApiException) {
-                message = MESSAGE_CONNECTION_FAILURE;
-            }
-            throw new CommandException(message);
+            throw new CommandException(FAILURE_MESSAGE + "\n\n" + MESSAGE_USAGE);
         }
         return new CommandResult("Images and albums refreshed!");
     }
