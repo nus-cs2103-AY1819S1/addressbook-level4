@@ -303,6 +303,14 @@ for every incomplete Module m:
 .Sequence Diagram of Target Grade calculation
 image::SDTranscriptTargetCalculation.png[width="800"]
 
+And below the activity diagram to further illustrate several exceptional cases.
+
+.Activity Diagram of Target Grade Calculation
+image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
+
+.Activity Diagram of the actual Target Grade Calculation
+image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
+
 // end::captargetcalculation[]
 // tag::undoredo[]
 === Undo/Redo feature
