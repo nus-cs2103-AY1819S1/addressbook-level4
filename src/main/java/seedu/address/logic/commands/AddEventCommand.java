@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.OverviewPanelEventUpdateEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -65,6 +67,7 @@ public class AddEventCommand extends Command {
 
         model.addEvent(toAdd);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new OverviewPanelEventUpdateEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

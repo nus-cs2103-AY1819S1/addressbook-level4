@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.OverviewPanelVolunteerUpdateEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -94,6 +96,7 @@ public class EditCommand extends Command {
         model.updateVolunteer(volunteerToEdit, editedVolunteer);
         model.updateFilteredVolunteerList(PREDICATE_SHOW_ALL_VOLUNTEERS);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new OverviewPanelVolunteerUpdateEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_VOLUNTEER_SUCCESS, editedVolunteer));
     }
 
