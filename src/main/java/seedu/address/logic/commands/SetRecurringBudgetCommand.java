@@ -24,7 +24,7 @@ public class SetRecurringBudgetCommand extends Command {
         + "[" + PREFIX_SECONDS + "SECONDS]\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_HOURS + "3";
 
-    public static final String MESSAGE_SUCCESS = "Budget recurrence is set at %s";
+    public static final String MESSAGE_SUCCESS = "Budget recurrence is set at %s seconds";
 
     private long toSet;
 

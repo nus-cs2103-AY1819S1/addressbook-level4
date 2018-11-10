@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
@@ -108,13 +108,13 @@ public class StatsCommand extends Command {
      * @return Predicate
      */
     private Predicate<Expense> getStatsPredicate() {
-        Calendar now = Calendar.getInstance();
+        LocalDateTime date;
         if (this.period == StatsPeriod.DAY) {
-            now.add(Calendar.DAY_OF_MONTH, this.periodAmount * -1);
+            date = LocalDateTime.now().minusDays((long) this.periodAmount);
         } else {
-            now.add(Calendar.MONTH, this.periodAmount * -1);
+            date = LocalDateTime.now().minusDays((long) this.periodAmount);
         }
-        return e -> e.getDate().fullDate.after(now);
+        return e -> e.getDate().getFullDate().isAfter(date);
     }
 
     private boolean isValidMode(String mode) {

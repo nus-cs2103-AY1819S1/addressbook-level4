@@ -56,18 +56,26 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.maximumTotalBudget = toBeCopied.getMaximumTotalBudget();
         resetData(toBeCopied);
     }
-    //// totalBudget operations
 
+
+    //// totalBudget operations
+    //@@author winsonhys
 
     /**
      * Modifies the maximum totalBudget for the current expense tracker
      * @param totalBudget a valid TotalBudget
      */
+
     public void modifyMaximumBudget(TotalBudget totalBudget) {
         double previousSpending = this.maximumTotalBudget.getCurrentExpenses();
         this.maximumTotalBudget = totalBudget;
         this.maximumTotalBudget.modifyExpenses(previousSpending);
     }
+
+    public String checkBudgetRestart() {
+        return this.maximumTotalBudget.checkBudgetRestart();
+    }
+
 
     /**
      * Adds a new category totalBudget to the expense tracker.
@@ -78,7 +86,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         CategoryBudget toAdd = budget;
         toAdd.modifyExpenses(this.expenses.asUnmodifiableObservableList().stream().mapToDouble(expense -> {
-            if (expense.getCategory().equals(budget.getCategory())) {
+            if (expense.getCategory().equals(budget.getCategory())
+                && (this.maximumTotalBudget.getPreviousRecurrence() == null
+                || (this.maximumTotalBudget.getPreviousRecurrence() != null
+                && this.maximumTotalBudget.getPreviousRecurrence().isBefore(expense.getDate().getFullDate())))) {
                 return expense.getCost().getCostValue();
             } else {
                 return 0;
@@ -229,7 +240,12 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        this.maximumTotalBudget.removeExpense(key);
+        LocalDateTime expenseDate = key.getDate().getFullDate();
+        LocalDateTime previousResetDateObject = this.maximumTotalBudget.getPreviousRecurrence();
+
+        if (previousResetDateObject == null || expenseDate.isAfter(previousResetDateObject)) {
+            this.maximumTotalBudget.removeExpense(key);
+        }
     }
 
     public TotalBudget getMaximumTotalBudget() {
