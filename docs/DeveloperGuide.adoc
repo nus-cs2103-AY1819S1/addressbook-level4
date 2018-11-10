@@ -901,7 +901,7 @@ The SE-EDU team does not provide support for modified template files.
 == Testing
 
 This section is designed for you to understand 
-the type of testing that our project uses and also ways to run our tests. +
+the type of testing that our project uses and ways to run our tests. +
 
 === Running Tests
 
