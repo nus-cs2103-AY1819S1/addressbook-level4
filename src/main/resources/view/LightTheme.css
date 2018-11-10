@@ -166,3 +166,11 @@
 .menu .left-container {
     -fx-background-color: black;
 }
+
+/** Tab Pane */
+.tab-pane {
+  -fx-tab-min-width: 64px;
+  -fx-tab-max-width: 64px;
+  -fx-tab-min-height: 40px;
+  -fx-tab-max-height: 40px;
+}
