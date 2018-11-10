@@ -11,14 +11,13 @@ import seedu.souschef.logic.History;
 import seedu.souschef.logic.IngredientDateComparator;
 import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Lists all recipes in the address book to the user.
+ * Lists all elements in model from SousChef to the user.
  */
-public class ListCommand<T extends UniqueType> extends Command {
+public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 

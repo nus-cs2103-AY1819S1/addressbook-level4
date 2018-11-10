@@ -52,7 +52,7 @@ public class CrossParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(crossRecipeModel, arguments);
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<CrossRecipe>(crossRecipeModel);
+            return new ListCommand(crossRecipeModel);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

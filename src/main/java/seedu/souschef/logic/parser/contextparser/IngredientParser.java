@@ -65,7 +65,7 @@ public class IngredientParser {
             return new ClearCommand<Ingredient>(model);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Ingredient>(model);
+            return new ListCommand(model);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

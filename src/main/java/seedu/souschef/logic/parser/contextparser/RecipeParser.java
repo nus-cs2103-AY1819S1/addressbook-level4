@@ -43,7 +43,7 @@ public class RecipeParser {
      *
      * @param recipeModel model data to be edited
      * @param userInput full user input string
-     * @param history
+     * @param history historical data from user input
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -81,7 +81,7 @@ public class RecipeParser {
             return new FindCommandParser().parseRecipe(recipeModel, arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Recipe>(recipeModel);
+            return new ListCommand(recipeModel);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(recipeModel, arguments);
@@ -91,6 +91,10 @@ public class RecipeParser {
         }
     }
 
+    /**
+     * Check if recipe history contains incomplete recipe.
+     * @throws ParseException if history does not contains incomplete recipe.
+     */
     private void isBuildingRecipe(History history) throws ParseException {
         if (!history.isBuildingRecipe()) {
             throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
