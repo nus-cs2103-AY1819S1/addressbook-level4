@@ -1,14 +1,9 @@
 package seedu.address.storage;
 
-import static java.util.Objects.requireNonNull;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -19,7 +14,6 @@ import com.google.common.eventbus.Subscribe;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
-import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
@@ -400,23 +394,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     //@@author ericyjw
-    @Override
-    public void readXslFile(Path ccaXslFilePath) {
-        requireNonNull(ccaXslFilePath);
-
-        if (!Files.exists(ccaXslFilePath)) {
-
-            try {
-                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
-
-                File dir = new File("data");
-                dir.mkdirs();
-
-                Files.copy(is, Paths.get("data", "ccabook.xsl"));
-            } catch (IOException e) {
-                logger.warning("An error occurred copying the resource!");
-            }
-
-        }
-    }
+    //    @Override
+    //    public void readXslFile(Path ccaXslFilePath) {
+    //        requireNonNull(ccaXslFilePath);
+    //
+    //        if (!Files.exists(ccaXslFilePath)) {
+    //
+    //            try {
+    //                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+    //
+    //                File dir = new File("data");
+    //                dir.mkdirs();
+    //
+    //                Files.copy(is, Paths.get("data", "ccabook.xsl"));
+    //            } catch (IOException e) {
+    //                logger.warning("An error occurred copying the resource!");
+    //            }
+    //
+    //        }
+    //    }
 }

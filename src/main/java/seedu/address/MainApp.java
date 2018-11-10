@@ -137,7 +137,7 @@ public class MainApp extends Application {
             initialBudgetData = new BudgetBook();
         }
 
-        storage.readXslFile(userPrefs.getCcaXslFilePath());
+        //        storage.readXslFile(userPrefs.getCcaXslFilePath());
 
         Set<String> emailNamesSet = storage.readEmailFiles();
 
