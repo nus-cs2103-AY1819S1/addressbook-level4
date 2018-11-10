@@ -50,7 +50,7 @@ public class TaskViewPanel extends UiPart<Region> {
     @FXML
     private Label hash;
     @FXML
-    private Label dependency;
+    private Label dependencies;
     @FXML
     private FlowPane tags;
     @FXML
@@ -78,7 +78,7 @@ public class TaskViewPanel extends UiPart<Region> {
             priorityValue.setText(task.getPriorityValue().value);
             status.setText(task.getStatus().toString());
             hash.setText(getHashId(task));
-            dependency.setText(getDependencies(task));
+            dependencies.setText(getDependencies(task));
             tags.getChildren().setAll(task
                     .getLabels()
                     .stream()
