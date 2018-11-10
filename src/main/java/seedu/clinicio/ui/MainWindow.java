@@ -13,7 +13,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -152,16 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        patientTab.setContent(patientListPanelPlaceholder);
-        patientTab.setClosable(false);
-
-        appointmentTab.setContent(appointmentListPanelPlaceholder);
-        appointmentTab.setClosable(false);
-
-        queueTab.setContent(queuePanelPlaceholder);
-        queueTab.setClosable(false);
-
-        tabLists = new TabPane(patientTab, appointmentTab, queueTab);
+        fillTab();
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
@@ -187,6 +177,19 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    private void fillTab() {
+        patientTab.setContent(patientListPanelPlaceholder);
+        patientTab.setClosable(false);
+
+        appointmentTab.setContent(appointmentListPanelPlaceholder);
+        appointmentTab.setClosable(false);
+
+        queueTab.setContent(queuePanelPlaceholder);
+        queueTab.setClosable(false);
+
+        tabLists = new TabPane(patientTab, appointmentTab, queueTab);
+    }
+    
     //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
