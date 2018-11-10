@@ -5,47 +5,51 @@ import java.util.Set;
 
 
 /**
- * Represents a Task's dependency to another task in the task manager.
+ * Represents all of a Task's dependencies to other tasks in the task manager.
+ * Hashes contained in the hashes field are hash codes of tasks that a Task is dependent on.
+ *
+ * When "this task" is used in the comments below, it refers to the task that has this dependencies object.
+ * This task is the dependent task, and the tasks that it is dependent on can be referred to as the dependee tasks.
  * Guarantees: immutable;
  */
-public class Dependency {
+public class Dependencies {
 
     private Set<String> hashes = new HashSet<>();
 
     /**
-     * Constructs an {@code Dependency}.
+     * Constructs a {@code Dependencies}.
      *
      * @param hashes A list of hashes of task dependencies.
      */
-    public Dependency(Set<String> hashes) {
+    public Dependencies(Set<String> hashes) {
         this.hashes = new HashSet<String>(hashes);
     }
 
     /**
-     * Constructs an empty dependency object
+     * Constructs an empty dependencies object
      */
-    public Dependency(){}
+    public Dependencies(){}
 
     /**
-     * Adds a task that it is dependent on.
+     * Adds a task that this task is dependent on.
      * @param task
-     * @return new dependency with the additional dependent task's hashcode
+     * @return new dependencies object with the additional dependee task's hashcode
      */
-    public Dependency addDependency(Task task) {
+    public Dependencies addDependency(Task task) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.add(Integer.toString(task.hashCode()));
-        return new Dependency(newValue);
+        return new Dependencies(newValue);
     }
 
     /**
      * Removes a dependency to a task
      * @param task
-     * @return new dependency object without hashcode of given task
+     * @return new dependencies object without hashcode of given task
      */
-    public Dependency removeDependency(Task task) {
+    public Dependencies removeDependency(Task task) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(Integer.toString(task.hashCode()));
-        return new Dependency(newValue);
+        return new Dependencies(newValue);
     }
 
     /**
@@ -66,22 +70,14 @@ public class Dependency {
     }
 
     /**
-     * Returns the number of dependencies present.
-     * @return an Integer representing the number of dependencies present.
-     */
-    public Integer getDependencyCount() {
-        return hashes.size();
-    }
-
-    /**
      * Returns the hashes of all the tasks specified in the dependency
      * @return set of all hashes
      */
-    public Dependency updateHash(String oldHash, String newHash) {
+    public Dependencies updateHash(String oldHash, String newHash) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(oldHash);
         newValue.add(newHash);
-        return new Dependency(newValue);
+        return new Dependencies(newValue);
     }
 
     @Override
@@ -97,8 +93,8 @@ public class Dependency {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Dependency // instanceof handles nulls
-                && hashes.equals(((Dependency) other).hashes)); // state check
+                || (other instanceof Dependencies // instanceof handles nulls
+                && hashes.equals(((Dependencies) other).hashes)); // state check
     }
     @Override
     public int hashCode() {

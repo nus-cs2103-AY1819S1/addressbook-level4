@@ -25,7 +25,7 @@ public class Task {
     // Data fields
     private final Description description;
     private final Set<Label> labels = new HashSet<>();
-    private final Dependency dependency;
+    private final Dependencies dependency;
 
     /**
      * Every field must be present and not null.
@@ -39,11 +39,11 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = Status.IN_PROGRESS;
-        this.dependency = new Dependency();
+        this.dependency = new Dependencies();
     }
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
-                Status status, Dependency dependency) {
+                Status status, Dependencies dependency) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels, status, dependency);
         this.name = name;
         this.dueDate = dueDate;
@@ -82,7 +82,7 @@ public class Task {
         return this.status;
     }
 
-    public Dependency getDependency() {
+    public Dependencies getDependency() {
         return this.dependency;
     }
 

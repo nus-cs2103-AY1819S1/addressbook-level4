@@ -284,8 +284,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Helper performs a dfs on the inverted dependency graph to find the earliest time of a task dependant among all its
-     * dependencies
+     * Helper performs a dfs on the inverted dependency graph to find the earliest time of a task dependant among all
+     * its dependencies
      * @param graph graph of all nodes in graph, mapped to the items that they are dependent on
      * @param memo memo stores intermediate results to prevent repeated computation
      * @param node node to find earliest dependent time of

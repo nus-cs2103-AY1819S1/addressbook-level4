@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.tag.Label;
-import seedu.address.model.task.Dependency;
+import seedu.address.model.task.Dependencies;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
@@ -29,7 +29,7 @@ public class TaskBuilder {
     private Description description;
     private Set<Label> labels;
     private Status status;
-    private Dependency dependency;
+    private Dependencies dependency;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -38,7 +38,7 @@ public class TaskBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
         status = Status.IN_PROGRESS;
-        dependency = new Dependency();
+        dependency = new Dependencies();
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         labels = new HashSet<>(taskToCopy.getLabels());
         status = taskToCopy.getStatus();
-        dependency = new Dependency(taskToCopy.getDependency().getHashes());
+        dependency = new Dependencies(taskToCopy.getDependency().getHashes());
     }
 
     /**

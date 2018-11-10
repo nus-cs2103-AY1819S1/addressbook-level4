@@ -23,7 +23,7 @@ import seedu.address.model.task.Task;
 
 
 
-public class DependencyCommandTest {
+public class DependenciesCommandTest {
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
 
     private CommandHistory commandHistory = new CommandHistory();

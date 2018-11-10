@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.DependencyCommand;
 
-public class DependencyCommandParserTest {
+public class DependenciesCommandParserTest {
     private DependencyCommandParser parser = new DependencyCommandParser();
     @Test
     public void parse_validArgs_returnsCompleteCommand() {
