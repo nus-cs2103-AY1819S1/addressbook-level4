@@ -759,11 +759,13 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
 
-image::LeaveApplicationSequenceDiagram.png[width="800"]
+image::LeaveApplicationSequenceDiagram_HighLevel.png[width="800"]
+
+image::LeaveApplicationSequenceDiagram.png[width="1000"]
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
-1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE...]` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
+1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE]...` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
 
 image::LeaveApplicationModelDiagram.png[width="400"]
 
