@@ -193,10 +193,10 @@ public class MainWindow extends UiPart<Stage> {
     //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
-     * @param index
+     * @param index The index position of the tab
      */
     public void switchTab(int index) {
-        tabLists.getSelectionModel().select(index);
+        tabLists.getSelectionModel().clearAndSelect(index);
     }
 
     void hide() {
