@@ -38,7 +38,7 @@ public class TimePoll extends AbstractPoll {
     }
 
     /**
-     * Creates the poll options.
+     * Creates the poll options based on the schedules of the participants.
      */
     private void createOptions(UniquePersonList participantList, LocalDate startDate, LocalDate endDate) {
         ArrayList<Schedule> schedules = new ArrayList<>();
@@ -67,7 +67,7 @@ public class TimePoll extends AbstractPoll {
         String dateString = date.format(dateFormat);
         List<String> times = sharedSchedule.getFreeSlotsByDay(dayOfWeek)
                 .stream()
-                .map(slot -> slot.getTime())
+                .map(slot -> slot.getTime().getStringRepresentation())
                 .collect(Collectors.toList());
         ArrayList<String> options = new ArrayList<>();
         for (String time : times) {

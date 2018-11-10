@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Time;
 
 /**
  * Max Schedule Command where two or more persons' schedule are ORed together to get the maximum subset.
@@ -55,7 +56,9 @@ public class MaxScheduleCommand extends Command {
                 schedule = Schedule.maxSchedule(schedule, person.getSchedule());
                 if (limit != null) {
                     String[] limitRange = limit.split("-");
-                    text = schedule.freeTimeToStringByTime(limitRange[0], limitRange[1]);
+                    Time startTime = new Time(limitRange[0]);
+                    Time endTime = new Time(limitRange[1]);
+                    text = schedule.freeTimeToStringByTime(startTime, endTime);
                 } else {
                     text = schedule.freeTimeToString();
                 }

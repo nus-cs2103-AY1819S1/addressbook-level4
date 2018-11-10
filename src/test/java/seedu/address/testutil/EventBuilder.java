@@ -60,7 +60,7 @@ public class EventBuilder {
         organiser = eventToCopy.getOrganiser();
         tags = new HashSet<>(eventToCopy.getTags());
         polls = new ArrayList<>(eventToCopy.getPolls());
-        personList = eventToCopy.getPersonList();
+        personList = eventToCopy.getParticipantList();
         startTime = eventToCopy.getStartTime();
         endTime = eventToCopy.getEndTime();
         date = eventToCopy.getDate();
@@ -123,7 +123,7 @@ public class EventBuilder {
         event.setTime(startTime, endTime);
         event.setOrganiser(organiser);
         event.setPolls(polls);
-        event.setPersonList(personList);
+        event.setParticipantList(personList);
         return event;
     }
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
@@ -276,11 +277,23 @@ public class SampleDataUtil {
         };
     }
 
-    public static Event[] getSampleEvents() {
-        return new Event[] {
-            new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet(),
+    /**
+     * Creates an event with a poll and poll options.
+     */
+    private static Event createEventWithPoll() {
+        Event eventWithPoll = new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"),
+                getTagSet("URGENT"),
                 LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
-                LocalTime.of(13, 00), ALEX),
+                LocalTime.of(13, 00), ALEX);
+        eventWithPoll.addPoll("Meeting date");
+        eventWithPoll.addOptionToPoll(Index.fromOneBased(1), "12 December");
+        eventWithPoll.addOptionToPoll(Index.fromOneBased(1), "13 December");
+        return eventWithPoll;
+    }
+
+    private static Event[] getSampleEvents() {
+        return new Event[] {
+            createEventWithPoll(),
             new Event(new EventName("CS2100 discussion"), new Address("NUS Deck"), getTagSet(),
                 LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
                 LocalTime.of(18, 30), DAVID),
@@ -291,17 +304,17 @@ public class SampleDataUtil {
                 LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
                 LocalTime.of(18, 30), CHARLOTTE),
             new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
-                    LocalDate.of(2018, 11, 19), LocalTime.of(17, 30),
-                    LocalTime.of(18, 30), CHARLOTTE),
+                LocalDate.of(2018, 11, 19), LocalTime.of(17, 30),
+                LocalTime.of(18, 30), CHARLOTTE),
             new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
-                    LocalDate.of(2018, 11, 26), LocalTime.of(17, 30),
-                    LocalTime.of(18, 30), CHARLOTTE),
+                LocalDate.of(2018, 11, 26), LocalTime.of(17, 30),
+                LocalTime.of(18, 30), CHARLOTTE),
             new Event(new EventName("Bernice's BD party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 1), LocalTime.of(22, 00),
-                    LocalTime.of(23, 30), DAVID),
+                LocalDate.of(2018, 12, 1), LocalTime.of(22, 00),
+                LocalTime.of(23, 30), DAVID),
             new Event(new EventName("David's BD party"), new Address("Residental College 4"), getTagSet(),
-                    LocalDate.of(2018, 12, 14), LocalTime.of(22, 00),
-                    LocalTime.of(23, 30), BERNICE),
+                LocalDate.of(2018, 12, 14), LocalTime.of(22, 00),
+                LocalTime.of(23, 30), BERNICE),
             new Event(new EventName("11th floor party"), new Address("Cinnamon College"), getTagSet(),
                 LocalDate.of(2018, 11, 15), LocalTime.of(22, 00),
                 LocalTime.of(23, 00), IRFAN),
@@ -309,35 +322,35 @@ public class SampleDataUtil {
                 LocalDate.of(2018, 11, 27), LocalTime.of(10, 00),
                 LocalTime.of(22, 30), BERNICE),
             new Event(new EventName("Lunch"), new Address("NUS Techno"), getTagSet(),
-                    LocalDate.of(2018, 12, 1), LocalTime.of(12, 30),
-                    LocalTime.of(13, 00), IRFAN),
+                LocalDate.of(2018, 12, 1), LocalTime.of(12, 30),
+                LocalTime.of(13, 00), IRFAN),
             new Event(new EventName("Dinner"), new Address("NUS Techno"), getTagSet(),
-                    LocalDate.of(2018, 12, 1), LocalTime.of(19, 30),
-                    LocalTime.of(20, 00), IRFAN),
+                LocalDate.of(2018, 12, 1), LocalTime.of(19, 30),
+                LocalTime.of(20, 00), IRFAN),
             new Event(new EventName("EOY Christmas Party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 22), LocalTime.of(19, 30),
-                    LocalTime.of(22, 00), IRFAN),
+                LocalDate.of(2018, 12, 22), LocalTime.of(19, 30),
+                LocalTime.of(22, 00), IRFAN),
             new Event(new EventName("New Year Party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 29), LocalTime.of(19, 30),
-                    LocalTime.of(22, 30), IRFAN),
+                LocalDate.of(2018, 12, 29), LocalTime.of(19, 30),
+                LocalTime.of(22, 30), IRFAN),
             new Event(new EventName("EOY Floor Party"), new Address("Cinnamon College"), getTagSet(),
-                    LocalDate.of(2018, 12, 10), LocalTime.of(21, 30),
-                    LocalTime.of(22, 30), DAVID),
+                LocalDate.of(2018, 12, 10), LocalTime.of(21, 30),
+                LocalTime.of(22, 30), DAVID),
             new Event(new EventName("CS1010 Discussion"), new Address("Tembusu College"), getTagSet(),
-                    LocalDate.of(2018, 12, 10), LocalTime.of(21, 30),
-                    LocalTime.of(22, 30), DAVID),
+                LocalDate.of(2018, 12, 10), LocalTime.of(21, 30),
+                LocalTime.of(22, 30), DAVID),
             new Event(new EventName("CS1101S Discussion"), new Address("Tembusu College"), getTagSet(),
-                    LocalDate.of(2018, 12, 11), LocalTime.of(21, 30),
-                    LocalTime.of(22, 30), RICHARD),
+                LocalDate.of(2018, 12, 11), LocalTime.of(21, 30),
+                LocalTime.of(22, 30), RICHARD),
             new Event(new EventName("CS1101S Discussion"), new Address("Tembusu College"), getTagSet(),
-                    LocalDate.of(2018, 12, 13), LocalTime.of(21, 30),
-                    LocalTime.of(22, 30), RICHARD),
+                LocalDate.of(2018, 12, 13), LocalTime.of(21, 30),
+                LocalTime.of(22, 30), RICHARD),
             new Event(new EventName("IFG Badminton"), new Address("Indoor Sports Hall 4"), getTagSet(),
-                    LocalDate.of(2018, 1, 15), LocalTime.of(12, 30),
-                    LocalTime.of(14, 00), ROY),
+                LocalDate.of(2018, 1, 15), LocalTime.of(12, 30),
+                LocalTime.of(14, 00), ROY),
             new Event(new EventName("IFG Soccer"), new Address("Indoor Sports Hall 4"), getTagSet(),
-                    LocalDate.of(2018, 1, 17), LocalTime.of(12, 30),
-                    LocalTime.of(15, 00), ROY),
+                LocalDate.of(2018, 1, 17), LocalTime.of(12, 30),
+                LocalTime.of(15, 00), ROY),
         };
     }
 

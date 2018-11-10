@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W10-3/main
 
 By: `Team W10-03`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `EventDetailsPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -1158,8 +1158,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 #### Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
-- [X] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
-- [X] V1.3: Improved login command with password.
+- [x] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
+- [x] V1.3: Improved login command with password.
 
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
@@ -1310,26 +1310,26 @@ Use case resumes from step 3.
 [discrete]
 === Use case: U04 – Create new event
 
-*Actor: User*
+*Actor: Event Organiser*
 
-*Precondition: User has identified himself/herself*
+*Precondition: Event organiser has logged himself/herself in*
 
 *MSS:*
 
-1.	User creates a new event by specifying the details of the event.
+1.	Event organiser creates a new event by specifying the name, location and tags of the event.
 2.	System checks that the details are valid.
-3.	System informs the user that the event has been successfully created.
+3.	System informs the event organiser that the event has been successfully created.
 
 +
 Use case ends.
 
 *Extensions:*
 
-* 2a. User enters invalid details.
+* 2a. Event organiser enters invalid details.
 +
-** 2a1. System will prompt user to re-enter the event details.
+** 2a1. System will prompt event organiser to re-enter the event details.
 +
-** 2a2. User enters event details again.
+** 2a2. Event organiser enters event details again.
 +
 Steps 2a1 - 2a2 are repeated until the details entered are valid.
 +
@@ -1338,15 +1338,15 @@ Use case resumes from step 3.
 [discrete]
 === Use case: U05 – Delete an event
 
-*Actor: User*
+*Actor: Event organiser*
 
-*Precondition: User has identified himself/herself*
+*Precondition: Event organiser has identified himself/herself*
 
 *MSS:*
 
-1.	User chooses to delete an event.
+1.	Event organiser chooses to delete an event.
 2.	System checks that the event belongs to the user.
-3.	System informs the user that the event has been successfully deleted.
+3.	System informs the event organiser that the event has been successfully deleted.
 
 +
 Use case ends.
@@ -1368,7 +1368,7 @@ Use case resumes from step 3.
 
 *Actor: User*
 
-*Precondition: User has identified himself*
+*Precondition: User has logged in*
 
 *MSS:*
 
@@ -1387,6 +1387,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+
+////
 === Use case: U07 – User invites other to join him/her event
 
 *Actor: Event organiser, another user that will be invited to join the event organiser’s event*
@@ -1419,26 +1421,68 @@ Use case resumes at step 2.
 ** 6a1. System informs the user that he/she has rejected the event invitation.
 +
 Use case ends.
-
+////
 [discrete]
-=== Use case: U08 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event
 
-*Actor: Event organiser, user who is keen to join an event*
+=== Use case: U07 – Event organiser creates a poll
 
-*Precondition: All relevant User has identified himself*
+*Actor: Event organiser*
+
+*Precondition: Event organiser has logged in and created an event*
 
 *MSS:*
 
-1.	User searches for the event that he wants to join.
-2.	System shows all the possible date, time, and location options that the event organiser has allocated for this event.
-3.	User chooses his/her preferred date, time, and locations.
-4.	System informs the user’s options has been successfully updated.
+1.	Event organiser selects an event.
+2.	Event organiser creates a new poll.
+3.	Event organiser creates options for the poll.
+4.	System informs the event organiser’s options has been successfully updated.
 5.	System updates polling information in its storage.
 
 +
 Use case ends.
 
 [discrete]
+
+=== Use case: U08 – User votes in a poll
+
+*Actor: User who is keen to join an event*
+
+*Precondition: User has logged in and has joined an event*
+
+*MSS:*
+
+1.	User selects a poll from the poll list of the event.
+2.	System displays the poll selected by the user.
+3.	User looks at the options given in the poll and votes for his/her preferred options.
+4.	System adds the user to the voter list of that option.
+5.  System updates the list of most popular options in the poll.
+6.	System updates polling information in its storage.
+
++
+Use case ends.
+
+[discrete]
+
+=== Use case: U08 – Event organiser confirms the event details
+
+*Actor: Event organiser*
+
+*Precondition: Event organiser has logged in, event participants have all joined and voted in polls*
+
+*MSS:*
+
+1.	Event organiser looks at the poll results.
+2.	System shows the top options for each of the polls.
+3.	Event organiser decides on the ideal time, date and location for the event and sets them accordingly.
+4.	System informs the user’s options has been successfully updated.
+5.	System updates event information in its storage.
+
++
+Use case ends.
+
+[discrete]
+
+////
 === Use case: U09 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event
 
 *Actor: Event organiser*
@@ -1490,6 +1534,7 @@ highest votes.
 ** 10a1. System will show all the options that have the highest votes only.
 +
 Use case resumes from step 12.
+////
 // end::UC[]
 
 [appendix]
@@ -1632,7 +1677,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case `maxSchedule sl/0000-0000`
    Expected: Free time of 0000 from Monday to Sunday is displayed.
 .. Test case `maxSchedule sl/0800-0900`
-      Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
+   Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
 .. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
@@ -1643,6 +1688,43 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
 .. Test case `deleteFriend 1,2`
    Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
+
+=== Add an event
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `addEvent n/CS1234 Group Meeting a/SoC Canteen t/URGENT`
+   Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
+   "Alex Yeoh" is the event organiser.
+   Event details are displayed in the event details panel, and "Alex Yeoh" is a participant of the event under "People attending".
+
+=== Add a poll
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Test case `addPoll n/Meeting date`
+   Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
+
+=== Add poll options
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `addOption i/1 o/12 December`
+   Expected: a new poll option with name "12 December" is created and displayed in the event details panel.
+.. Test case `addOption i/1 o/13 December`
+   Expected: a new poll option with name "13 December" is created and displayed in the event details panel.
+
+=== Set date
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `setDate d/12-12-2018`
+   Expected: the date "12-12-2018" is set and appears in the event card of the event.
+
+=== Join event
+.. Prerequisites: A user "Charlotte Oliveiro" is logged in and has yet to join the first event in the list.
+.. Test case `joinEvent 1`
+   Expected: The user "Charlotte Oliveiro" is added to the participants list of the first event.
+   The new event details are displayed in the event details panel.
+
+=== Vote in poll
+.. Prerequisites: User "Charlotte Oliveiro" is logged in and joined the first event in the list,
+to which the event organiser has added a poll "Meeting Date" at poll index 1. In the poll, there are the options `12 December` and `13 December` with no voters.
+.. Test case `vote i/1 o/12 December`
+   Expected: The user "Charlotte Oliveiro" is added to the voter list of the option "12 December"
+   The most popular options list updates to include "12 December"
 
 ////
 === Deleting a person
