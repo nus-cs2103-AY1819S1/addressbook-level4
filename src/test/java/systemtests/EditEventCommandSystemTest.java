@@ -246,8 +246,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         Model expectedModel = getModel();
 
         expectedModel.updateCalendarEvent(
-                expectedModel.getFilteredCalendarEventList().get(toEdit.getZeroBased()), editedCalendarEvent);
-        // expectedModel.resetFilteredCalendarEventList();
+            expectedModel.getFilteredCalendarEventList().get(toEdit.getZeroBased()), editedCalendarEvent);
 
         assertCommandSuccess(command, expectedModel,
             String.format(EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent),
@@ -281,7 +280,6 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.resetFilteredCalendarEventList();
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
