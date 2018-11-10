@@ -214,7 +214,7 @@ public interface Model {
     /**
      * Get whether clear is enabled.
      */
-    boolean getClearEnabled();
+    boolean getClearIsEnabled();
 
     /**
      * Sets the date of the pre-selected event.
