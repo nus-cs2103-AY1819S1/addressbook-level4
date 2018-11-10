@@ -75,19 +75,19 @@ public class ConnectToGoogleCalendar {
         return checkStatus("Enabled");
     }
 
-    public boolean isGoogleCalendarDisabled() {
+    public static boolean isGoogleCalendarDisabled() {
         return checkStatus("Disabled");
     }
 
-    public void setGoogleCalendarEnabled() {
+    public static void setGoogleCalendarEnabled() {
         setGoogleCalendarStatus("Enabled");
     }
 
-    public void setGoogleCalendarDisabled() {
+    public static void setGoogleCalendarDisabled() {
         setGoogleCalendarStatus("Disabled");
     }
 
-    public void setGoogleCalendarStatus(String wantedStatus) {
+    public static void setGoogleCalendarStatus(String wantedStatus) {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             String contents = wantedStatus;
@@ -117,7 +117,8 @@ public class ConnectToGoogleCalendar {
                 contents.append(text).append(lineSeparator);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("File does not exist");
+            return true;
         }
         return (contents.toString().trim().equals(expectedStatus));
     }
@@ -235,6 +236,7 @@ public class ConnectToGoogleCalendar {
             try {
                 service.events().insert(CALENDAR_NAME, gEvent).execute();
             } catch (IOException e) {
+                e.printStackTrace();
                 return false;
             }
         }
@@ -547,6 +549,25 @@ public class ConnectToGoogleCalendar {
             }
 
 
+        }
+        return true;
+    }
+
+    /**
+     * Deletes all events in the Google Calendar.
+     *
+     * @param enabled the enable status from caller
+     */
+    public boolean clear(boolean enabled) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
+        Calendar service = getCalendar();
+        try {
+            service.calendars().clear(CALENDAR_NAME).execute();
+        } catch (IOException e) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
         }
         return true;
     }
