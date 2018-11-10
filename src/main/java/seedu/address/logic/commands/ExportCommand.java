@@ -19,11 +19,13 @@ public abstract class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Export successfully to file path: %1$s";
     public static final String MESSAGE_FAIL_READ_FILE = "Failed to read file path. Please recheck the validity "
-            + "of the file path: %1$s.";
-    public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH = "Failed to export user data. Please recheck: \n"
+            + "of the file path";
+    public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH = "Failed to export user data. "
+            + "Please recheck: \n"
             + "1. The validity of the file extension. \n"
             + "2. The consistency of parameter [--[EXTENSION]] and the file extension.";
-    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. Please recheck the "
+    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. "
+            + "Please recheck the "
             + "validation of file path: %1$s.";
 
     protected Path exportedFilePath;

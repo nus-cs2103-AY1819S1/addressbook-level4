@@ -56,7 +56,7 @@ public class ExportXmlCommandTest {
         String filePath = dirPath + "validExport.xml";
         ExportXmlCommand exportXmlCommand = new ExportXmlCommand(ParserUtil.parseFilePath(filePath));
         exportXmlCommand.setStorage(storage);
-        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, filePath);
 
         assertCommandSuccess(exportXmlCommand, model, commandHistory, expectedMessage,
                 ParserUtil.parseFilePath(filePath));
