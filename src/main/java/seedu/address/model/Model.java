@@ -92,7 +92,7 @@ public interface Model {
     StatsMode getStatsMode();
 
     /**
-     * Updates statsNoOfDays to the given {@code noOfDays}.
+     * Updates statsNoOfDays to the given {@code periodAmount}.
      */
     void updatePeriodAmount(int periodAmount);
 
@@ -173,11 +173,16 @@ public interface Model {
      */
     String decryptString(String toDecrypt) throws NoUserSelectedException, IllegalValueException;
 
-    /** Returns an unmodifiable view of the expense stats*/
+    /**
+     * Returns an unmodifiable view of expenses which fulfill the statistics filter
+     *
+     * @return {@code ObservableList<Expense>} of expenses which fulfill statistics filter
+     * @throws NoUserSelectedException
+     */
     ObservableList<Expense> getExpenseStats() throws NoUserSelectedException;
 
     /**
-     * Updates the expense stats
+     * Updates the predicate used for expense statistics
      * @throws NullPointerException if {@code predicate} is null.
      * @throws NoUserSelectedException if there is no user selected in this Model
      */

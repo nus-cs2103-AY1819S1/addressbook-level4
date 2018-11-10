@@ -11,6 +11,8 @@ import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpe
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
@@ -48,13 +50,14 @@ public class MassEditCommand extends Command {
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "lunch -> "
-            + PREFIX_CATEGORY + "Lunch ";
+            + PREFIX_CATEGORY + "school " + PREFIX_COST + "1.00";
 
     public static final String MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS = "Edit expenses successfully.";
     public static final String MESSAGE_NO_EXPENSE_FOUND = "No expense is found by the keywords.";
 
     private final ExpenseContainsKeywordsPredicate predicate;
     private final EditExpenseDescriptor editExpenseDescriptor;
+    private final Logger logger;
 
     /**
      * @param predicate predicate to filter out the intended expenses
@@ -66,6 +69,7 @@ public class MassEditCommand extends Command {
 
         this.predicate = predicate;
         this.editExpenseDescriptor = editExpenseDescriptor;
+        this.logger = Logger.getLogger("MassEdit Logger");
     }
 
     @Override
@@ -89,9 +93,12 @@ public class MassEditCommand extends Command {
         for (int i = 0; i < storeList.size(); i++) {
             Expense toEdit = storeList.get(i);
             Expense editedExpense = createEditedExpense(toEdit, editExpenseDescriptor);
+            logger.log(Level.INFO,
+                    "Original expense:[" + toEdit + "] -> Edited expense: [" + editedExpense + "]");
             model.updateExpense(toEdit, editedExpense);
             editedList.add(editedExpense);
         }
+
         //Show the edited expenses to the user
         Predicate<Expense> newPredicate = e -> editedList.stream().anyMatch(newExpense -> e == newExpense);
         model.updateFilteredExpenseList(newPredicate);
@@ -99,7 +106,6 @@ public class MassEditCommand extends Command {
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
-
         return new CommandResult(MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS);
     }
 
