@@ -174,8 +174,8 @@ Undoable commands: those commands that modify the restaurant book's contents
 
 Examples:
 
-* `register id/root pw/1122qq` +
-`undo` (reverses the `register id/root pw/1122qq command) +
+* `register id/root pw/1122qq` `n/Ang Zhi Kai` +
+`undo` (reverses the `register id/root pw/1122qq n/Ang Zhi Kai` command) +
 
 * `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -252,7 +252,7 @@ History will automatically be cleared upon logging out
 ==== Creating user account: `register` or `reg`
 
 Creates a new user account. +
-Format: `register id/USERNAME pw/PASSWORD` or `reg id/USERNAME pw/PASSWORD`
+Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME` or `reg id/USERNAME pw/PASSWORD n/FULL_NAME`
 
 [NOTE]
 ====
@@ -262,8 +262,8 @@ for more information
 
 Examples:
 
-* `register id/azhikai pw/1122qq`
-* `reg id/azhikai pw/1122qq`
+* `register id/azhikai pw/1122qq n/Ang Zhi Kai`
+* `reg id/azhikai pw/1122qq n/Ang Zhi Kai`
 
 ==== Changing user password: `change-password` or `cp`
 
@@ -991,7 +991,7 @@ Selects the 6th record in the record list.
 === Upcoming Features
 [[Register-Improvement]]
 ==== Improving registration `[coming in v2.0]`
-Improves the existing `register` command by including the full name of the employee and role.
+Improves the existing `register` command by including role.
 
 Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID` or `reg id/USERNAME pw/PASSWORD n/FULL_NAME r/ROLE_ID`
 
@@ -1116,7 +1116,7 @@ contains the data of your previous *MeNUS* folder.
 |*Redo* |`redo` |`redo`
 |*Login* |`login id/USERNAME pw/PASSWORD` |`login id/root pw/1122qq`
 |*Logout* |`logout` |`logout`
-|*Create account* |`register/reg id/USERNAME pw/PASSWORD` |`register/reg id/azhikai pw/p@55w0rd`
+|*Create account* |`register/reg id/USERNAME pw/PASSWORD n/FULL_NAME` |`register/reg id/azhikai pw/1122qq n/Ang Zhi Kai`
 |*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
 |*List accounts* |`list-accounts/la` |`list-accounts/la`
