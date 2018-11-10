@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,9 +16,17 @@ import org.junit.jupiter.api.Test;
 
 import com.google.api.services.calendar.Calendar;
 
+import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.commands.ClearCommand;
+import seedu.scheduler.model.Model;
+import seedu.scheduler.model.ModelManager;
+import seedu.scheduler.model.UserPrefs;
+
 class ConnectToGoogleCalendarTest {
     private static final String CALENDAR_NAME = "primary";
     private static final String TEMP_EVENT_NAME = "tempEventName";
+    private CommandHistory commandHistory = new CommandHistory();
+    private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
 
     /**
      * Enables the test environment
@@ -103,7 +112,8 @@ class ConnectToGoogleCalendarTest {
         //check initial condition: not cleared
         assertNotEquals(0, size);
         //execute the clear command
-        connectToGoogleCalendar.clear(enabled);
+        ClearCommand command = new ClearCommand();
+        command.execute(model, commandHistory);
         //Retrieve the number of events after command
         try {
             size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
