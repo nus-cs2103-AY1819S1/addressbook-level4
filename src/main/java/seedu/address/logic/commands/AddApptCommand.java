@@ -45,7 +45,7 @@ public class AddApptCommand extends Command {
             + PREFIX_TYPE + "SRG "
             + PREFIX_PROCEDURE + "Brain transplant "
             + PREFIX_DATE_TIME + "27-04-2019 10:30 "
-            + PREFIX_DOCTOR + "Dr. Pepper ";
+            + PREFIX_DOCTOR + "Dr. Pepper";
 
     public static final String MESSAGE_SUCCESS = "Appointment added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
@@ -187,8 +187,8 @@ public class AddApptCommand extends Command {
     public static boolean isNotDuplicateDateTime(String test, ObservableList<Person> filteredByNric) {
         Person patient = filteredByNric.get(0);
         AppointmentsList apptList = patient.getAppointmentsList();
-        ObservableList<Appointment> ObservableApptList = apptList.getObservableCopyOfAppointmentsList();
-        for (Appointment appt : ObservableApptList) {
+        ObservableList<Appointment> observableApptList = apptList.getObservableCopyOfAppointmentsList();
+        for (Appointment appt : observableApptList) {
             if (appt.getDate_time().equals(test)) {
                 return false;
             }
