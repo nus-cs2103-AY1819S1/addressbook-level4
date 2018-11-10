@@ -481,7 +481,7 @@ for result listing of results in `ResultDisplay`.
 === View Status Feature
 ==== Current Implementation
 
-The view status function is being implemented with the help of `ViewStatusCommand` and `RideStatusPredicate` class.
+The view status function is implemented with the help of `ViewStatusCommand` and `RideStatusPredicate` class.
 When the `ThaneParkParser` parses the user input and finds the view status command word *viewstatus*, it calls a new `ViewStatusCommandParser` to parse the arguments from the user input.
 
 .Activity Diagram of `ViewStatusCommandParser`

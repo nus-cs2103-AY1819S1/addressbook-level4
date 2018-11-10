@@ -51,9 +51,17 @@ public class SampleDataUtil {
             new Ride(new Name("Magic Potion Spin"), new Maintenance("1"), new WaitTime("15"),
                     new Zone("Far Far Away, C3"), getTagSet("spin")),
             new Ride(new Name("Donkey Live"), new Maintenance("51"), new WaitTime("5"),
-                    new Zone("Far Far Away, C4"), getTagSet("singAlong")),
+                    new Zone("Far Far Away, C4"), getTagSet("singAlong", "stage")),
             new Ride(new Name("Puss in Boots Giant Journey"), new Maintenance("2"), new WaitTime("45"),
                     new Zone("Far Far Away, C5"), getTagSet("rollerCoaster")),
+            new Ride(new Name("Madagascar A Crate Adventure"), new Maintenance("10"), new WaitTime("5"),
+                    new Zone("Madagascar, B1"), getTagSet("boat", "river")),
+            new Ride(new Name("King Juliens Beach PartyGoRound"), new Maintenance("4"), new WaitTime("45"),
+                    new Zone("Madagascar, B2"), getTagSet("carousel")),
+            new Ride(new Name("Lights Camera Action By Steven Spielberg"), new Maintenance("100"), new WaitTime("55"),
+                    new Zone("New York, G1"), getTagSet("celebrity", "11am", "stage")),
+            new Ride(new Name("Sesame Street Spaghetti Space Chase"), new Maintenance("0"), new WaitTime("15"),
+                    new Zone("New York, G2"), getTagSet("children")),
         };
     }
 

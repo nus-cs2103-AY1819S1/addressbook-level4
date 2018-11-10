@@ -15,7 +15,7 @@ public abstract class StorageFileCreatingClass {
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
-    private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
+    public static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
     private static boolean isTestMode = true;
 
     /**

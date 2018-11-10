@@ -55,7 +55,8 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
                 + "word-wrap: break-word"),
             div(
                 img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
-            ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block; right: 0px")
+            ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block;"
+                   + "right: 0px; vertical-align:top")
         );
     }
 

@@ -44,20 +44,21 @@ public class MaintenanceTest {
 
     @Test
     public void isValidMaintenance() {
-        // null phone number
+        // null days since last maintenance
         Assert.assertThrows(NullPointerException.class, () -> Maintenance.isValidMaintenance(null));
 
-        // invalid numbers
+        // invalid days since last maintenance
         assertFalse(Maintenance.isValidMaintenance("")); // empty string
         assertFalse(Maintenance.isValidMaintenance(" ")); // spaces only
-        assertFalse(Maintenance.isValidMaintenance("phone")); // non-numeric
-        assertFalse(Maintenance.isValidMaintenance("9011p041")); // alphabets within digits
-        assertFalse(Maintenance.isValidMaintenance("9312 1534")); // spaces within digits
-        assertFalse(Maintenance.isValidMaintenance("124293842033123")); // long phone numbers
+        assertFalse(Maintenance.isValidMaintenance("-1")); // negative integers
+        assertFalse(Maintenance.isValidMaintenance("9p01")); // alphabets within digits
+        assertFalse(Maintenance.isValidMaintenance("9312 4")); // spaces within digits
+        assertFalse(Maintenance.isValidMaintenance("1000012345")); // more than 9 digits
 
-        // valid numbers
+        // valid days since last maintenance
+        assertTrue(Maintenance.isValidMaintenance("0")); // smallest acceptable integer
         assertTrue(Maintenance.isValidMaintenance("1")); // exactly 1 numbers
-        assertTrue(Maintenance.isValidMaintenance("93121534"));
+        assertTrue(Maintenance.isValidMaintenance("9999")); // largest acceptable integer
     }
 
     @Test
