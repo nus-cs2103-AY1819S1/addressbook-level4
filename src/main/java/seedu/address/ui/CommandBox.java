@@ -37,7 +37,6 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private final UserPrefs prefs;
     private String startDir;
-    private String currCommandText;
     private Queue<String> dirListWithSearchPrefix = new LinkedList<>();
     private ListElementPointer historySnapshot;
 
@@ -178,7 +177,7 @@ public class CommandBox extends UiPart<Region> {
                 File[] fileList = checkDir.listFiles();
 
                 if (!dirListWithSearchPrefix.isEmpty()
-                        && dirListWithSearchPrefix.peek().toUpperCase().equals(dir.toUpperCase())) {
+                        && dirListWithSearchPrefix.peek().equalsIgnoreCase(dir)) {
                     dirListWithSearchPrefix.add(dirListWithSearchPrefix.poll());
 
                     copyArgs.append(dirListWithSearchPrefix.peek());
