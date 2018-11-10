@@ -5,7 +5,8 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_HEALTHPLAN_USAGE
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_INSTRUCTION_INDEX;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_INSTRUCTION_STEP;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
@@ -84,6 +85,18 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE), pe);
         }
 
+        if (argMultimap.hasNestedPrefix()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
+        }
+
+        requireNonNull(model);
+        List<Recipe> lastShownList = model.getFilteredList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX));
+        }
+
+        // Parse individual parameters.
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -112,20 +125,14 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
+        // Parse for edit type: details or instruction
         if (argMultimap.getValue(PREFIX_STEP).isPresent() && !argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_INSTRUCTION_EDITED);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
         if (!argMultimap.getValue(PREFIX_STEP).isPresent() && argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_INSTRUCTION_EDITED);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
         if (!editRecipeDescriptor.isFieldEditedSpecific()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-        }
-
-        requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
 
@@ -357,7 +364,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             } else if (updatedInstruction.getKey().getOneBased() == instructions.size() + 1) {
                 instructions.add(updatedInstruction.getValue());
             } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_INSTRUCTION_INDEX));
+                throw new ParseException(String.format(MESSAGE_INVALID_INSTRUCTION_STEP));
             }
         }
 
