@@ -26,6 +26,7 @@ public class ModelManagerToDo extends ComponentManager implements ModelToDo {
 
     /**
      * Initializes a ModelManagerToDo with the given todolist and userPrefs.
+     * todo: remove the userPrefs from this class (since it is completely unused)
      */
     public ModelManagerToDo(ReadOnlyToDoList toDoList, UserPrefs userPrefs) {
         super();

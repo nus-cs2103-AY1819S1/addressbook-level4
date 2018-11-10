@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Initializes a ModelManager with the given scheduler and userPrefs.
+     * todo: remove the userPrefs from this class (since it is completely unused)
      */
     public ModelManager(ReadOnlyScheduler scheduler, UserPrefs userPrefs) {
         super();
