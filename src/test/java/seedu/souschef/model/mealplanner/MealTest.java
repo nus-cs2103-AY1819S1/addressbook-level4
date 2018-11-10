@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.souschef.model.planner.Breakfast;
+import seedu.souschef.model.planner.Dinner;
 import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.planner.exceptions.MealRecipeNotFoundException;
@@ -33,6 +34,20 @@ public class MealTest {
     @Test
     public void getRecipe_empty_throwsMealRecipeNotFoundException() {
         Assert.assertThrows(MealRecipeNotFoundException.class, () -> testBreakfast1.getRecipe());
+    }
+
+    @Test
+    public void mealIndexTest() {
+        assertTrue(new Breakfast().index == 0);
+        assertTrue(new Lunch().index == 1);
+        assertTrue(new Dinner().index == 2);
+    }
+
+    @Test
+    public void mealSlotTest() {
+        assertTrue(new Breakfast().slot.equals("breakfast"));
+        assertTrue(new Lunch().slot.equals("lunch"));
+        assertTrue(new Dinner().slot.equals("dinner"));
     }
 
     @Test
