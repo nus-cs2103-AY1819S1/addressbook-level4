@@ -36,5 +36,10 @@ public class Messages {
 
     // auto-complete
     public static final String MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE =
-        "Auto completion failed with this command word.";
+        "Auto completion failed. Invalid command for auto-complete feature.";
+    public static final String MESSAGE_ALREADY_FULL_COMMAND_FORMAT =
+        "Your command is already in full command format.";
+    public static final String MESSAGE_AUTO_COMPLETE_SUCCESS = "Your command is auto-completed.";
+    public static final String MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS =
+        "Next parameter holder is selected for you to replace.";
 }

@@ -1,14 +1,11 @@
 package seedu.parking.ui;
 
+import static seedu.parking.commons.core.Messages.MESSAGE_ALREADY_FULL_COMMAND_FORMAT;
+import static seedu.parking.commons.core.Messages.MESSAGE_AUTO_COMPLETE_SUCCESS;
 import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE;
+import static seedu.parking.commons.core.Messages.MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND;
-import static seedu.parking.logic.commands.CalculateCommand.FIRST_ARG;
-import static seedu.parking.logic.commands.FilterCommand.CARPARKTYPE_ARG;
-import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_FIRST_ARG;
-import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_SECOND_ARG;
-import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_THIRD_ARG;
-import static seedu.parking.logic.commands.FilterCommand.SYSTEMTYPE_ARG;
 import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_AVAILABLE_PARKING;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
@@ -28,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
@@ -57,10 +55,8 @@ public class CommandBox extends UiPart<Region> {
 
     //autocomplete variables
     private Map<String, String> autoCompleteCommands = new HashMap<>();
-    private int anchorPosition;
-    private int caretPosition;
-    private String selectedText = "";
     private String rawText = "";
+    private int caretPosition;
 
     @FXML
     private TextField commandTextField;
@@ -100,6 +96,7 @@ public class CommandBox extends UiPart<Region> {
             logger.info("----------------[AUTO COMPLETE][" + commandTextField.getText() + "]");
             try {
                 autoComplete();
+                caretPosition = commandTextField.getCaretPosition(); // save last position
             } catch (ParseException e) {
                 // handle command failure
                 setStyleToIndicateCommandFailure();
@@ -142,32 +139,35 @@ public class CommandBox extends UiPart<Region> {
 
                 String text = commandTextField.getText();
                 int indexOfFirstSpace = text.indexOf(" ");
-                commandTextField.selectRange(
-                    indexOfFirstSpace + 1, text.length());
+                commandTextField.selectRange(indexOfFirstSpace + 1, text.length());
 
             } else if (!input.equals("f") && !input.equals("fi")
                 && containsFromFirstLetter(FilterCommand.COMMAND_WORD, input)) {
 
-                int indexOfFirstArg = FilterCommand.FORMAT.indexOf(FREEPARKING_FIRST_ARG);
-                commandTextField.selectRange(
-                    indexOfFirstArg, indexOfFirstArg + FREEPARKING_FIRST_ARG.length());
-                caretPosition = commandTextField.getCaretPosition();
+                int indexOfFirstArg = FilterCommand.FORMAT.indexOf(FilterCommand.FREEPARKING_FIRST_ARG);
+                commandTextField.selectRange(indexOfFirstArg, indexOfFirstArg
+                    + FilterCommand.FREEPARKING_FIRST_ARG.length());
 
             } else if (containsFromFirstLetter(CalculateCommand.COMMAND_WORD, input)) {
 
-                int indexOfFirstArg = CalculateCommand.FORMAT.indexOf(FIRST_ARG);
+                int indexOfFirstArg = CalculateCommand.FORMAT.indexOf(CalculateCommand.FIRST_ARG);
                 commandTextField.selectRange(
-                    indexOfFirstArg, indexOfFirstArg + FIRST_ARG.length());
-                caretPosition = commandTextField.getCaretPosition();
+                    indexOfFirstArg, indexOfFirstArg + CalculateCommand.FIRST_ARG.length());
 
             }
+            EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_AUTO_COMPLETE_SUCCESS));
+
+        } else if (isFindCommandFormat(input) || isSelectCommandFormat(input)
+            || isNotifyCommandFormat(input)) {
+
+            throw new ParseException(MESSAGE_ALREADY_FULL_COMMAND_FORMAT);
 
         } else if (isFilterCommandFormat(input)) {
-            int positionOfWeekDay = input.indexOf(FREEPARKING_FIRST_ARG);
-            int positionOfStartTime = input.indexOf(FREEPARKING_SECOND_ARG);
-            int positionOfEndTime = input.indexOf(FREEPARKING_THIRD_ARG);
-            int positionOfCarparkType = input.indexOf(CARPARKTYPE_ARG);
-            int positionOfSystemType = input.indexOf(SYSTEMTYPE_ARG);
+            int positionOfWeekDay = input.indexOf(FilterCommand.FREEPARKING_FIRST_ARG);
+            int positionOfStartTime = input.indexOf(FilterCommand.FREEPARKING_SECOND_ARG);
+            int positionOfEndTime = input.indexOf(FilterCommand.FREEPARKING_THIRD_ARG);
+            int positionOfCarparkType = input.indexOf(FilterCommand.CARPARKTYPE_ARG);
+            int positionOfSystemType = input.indexOf(FilterCommand.SYSTEMTYPE_ARG);
             int positionOfAvailableParking = input.indexOf(PREFIX_AVAILABLE_PARKING.toString());
             int positionOfNightParking = input.indexOf(PREFIX_NIGHT_PARKING.toString());
             int positionOfShortTermParking = input.indexOf(PREFIX_SHORT_TERM.toString());
@@ -177,6 +177,7 @@ public class CommandBox extends UiPart<Region> {
                 positionOfShortTermParking};
 
             selectNextField(argumentsArray);
+            EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS));
         } else {
             throw new ParseException(MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE);
         }
@@ -217,12 +218,45 @@ public class CommandBox extends UiPart<Region> {
 
     /**
      * autocomplete helper function to check if the text input is already in
+     * find command format.
+     * @param input input by the user
+     * @return true if it is of find command format and false otherwise
+     */
+    private boolean isFindCommandFormat(String input) {
+        return input.startsWith(FindCommand.COMMAND_WORD)
+            && input.trim().length() > FindCommand.COMMAND_WORD.length();
+    }
+
+    /**
+     * autocomplete helper function to check if the text input is already in
+     * select command format.
+     * @param input input by the user
+     * @return true if it is of select command format and false otherwise
+     */
+    private boolean isSelectCommandFormat(String input) {
+        return input.startsWith(SelectCommand.COMMAND_WORD)
+            && input.trim().length() > SelectCommand.COMMAND_WORD.length();
+    }
+
+    /**
+     * autocomplete helper function to check if the text input is already in
+     * notify command format.
+     * @param input input by the user
+     * @return true if it is of notify command format and false otherwise
+     */
+    private boolean isNotifyCommandFormat(String input) {
+        return input.startsWith(NotifyCommand.COMMAND_WORD)
+            && input.trim().length() > NotifyCommand.COMMAND_WORD.length();
+    }
+
+    /**
+     * autocomplete helper function to check if the text input is already in
      * filter command format.
      * @param input input by the user
      * @return true if it is of filter command format and false otherwise
      */
     private boolean isFilterCommandFormat(String input) {
-        return input.startsWith("filter") && (input.contains(PREFIX_PARKING_TIME.toString())
+        return input.startsWith(FilterCommand.COMMAND_WORD) && (input.contains(PREFIX_PARKING_TIME.toString())
             || input.contains(PREFIX_NIGHT_PARKING.toString())
             || input.contains(PREFIX_CAR_TYPE.toString())
             || input.contains(PREFIX_AVAILABLE_PARKING.toString())
@@ -238,7 +272,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void selectNextField(int[] argumentsArray) {
         for (int i: argumentsArray) {
-            System.out.println(String.format("[%d]", i));
+            System.out.print(String.format("[%d]", i));
         }
         boolean updatedSelection = false;
         for (int i = 0; i < argumentsArray.length - 1; i++) {
@@ -246,8 +280,7 @@ public class CommandBox extends UiPart<Region> {
             //to the placeholder of arg[i + 1]
             System.out.println("caret at: " + caretPosition + " current at: " + argumentsArray[i]);
             if (caretPosition > argumentsArray[i] && caretPosition < argumentsArray[i + 1]) {
-                commandTextField.positionCaret(argumentsArray[i + 1]);
-                changeSelectionToNextField();
+                changeSelectionToNextField(argumentsArray[i + 1]);
                 updatedSelection = true;
                 break;
             }
@@ -256,22 +289,22 @@ public class CommandBox extends UiPart<Region> {
             //if caret position is not changed in the above for loop, it means
             //the caret is currently at the last field, then change selection to
             //the first arg so that continuously pressing tab will go in a cycle
-            commandTextField.positionCaret(argumentsArray[0]);
-            changeSelectionToNextField();
+            changeSelectionToNextField(argumentsArray[0]);
         }
-        commandTextField.requestFocus();
-        commandTextField.selectRange(anchorPosition, anchorPosition + selectedText.length());
-        selectedText = "";
-        caretPosition = commandTextField.getCaretPosition();
     }
 
     /**
      * Selects the word following the current caret position
+     *
+     * @param indexOfNextWord Position of begin of next word to be selected
      */
-    private void changeSelectionToNextField() {
+    private void changeSelectionToNextField(int indexOfNextWord) {
+        commandTextField.positionCaret(indexOfNextWord);
         commandTextField.selectNextWord();
-        anchorPosition = commandTextField.getAnchor();
-        selectedText = commandTextField.getSelectedText().trim();
+        String selectedText = commandTextField.getSelectedText().trim();
+        int anchorPosition = commandTextField.getAnchor();
+        commandTextField.requestFocus();
+        commandTextField.selectRange(anchorPosition, anchorPosition + selectedText.length());
     }
 
     /**
