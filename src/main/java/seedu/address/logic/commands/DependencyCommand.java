@@ -5,7 +5,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 
-import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -70,7 +69,7 @@ public class DependencyCommand extends Command {
      * Handle task dependency toggling by creating a new updated Task with the task dependency added or removed
      */
     private String handleTaskDependencyToggling(Model model, Index dependantIndex, Index dependeeIndex)
-            throws CommandException{
+            throws CommandException {
         List<Task> lastShownList = model.getFilteredTaskList();
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
