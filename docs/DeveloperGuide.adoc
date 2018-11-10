@@ -490,6 +490,92 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks2[]
 
+=== Archive Task
+The Archive Task feature allows user to archive completed tasks. The archived tasks are hidden from task list,
+can only be viewed through command `listarchived`. For implementation details
+regarding listing archived tasks, please refer to <<List Archived Tasks>>.
+
+==== Current Implementation
+The archiveTask mechanism is facilitated by SchedulePlanner.
+Schedule Planner has two lists of tasks,
+one is taskList for normal tasks, another is archivedTaskList for archived tasks.
+Normal task list is implemented using UniqueTaskList that does not allow duplicates,
+while archived task list is implemented using TaskList that allows duplicates. +
+Task list that is used to store normal tasks is implemented this way:
+----
+public class UniqueTaskList implements Iterable<Task> {
+   private boolean tasksAreUnique(List<Task> tasks) {
+       //... Check for duplicates logic...
+   }
+    //...
+}
+----
+While task list that is used to store archived tasks does not check for duplicates:
+----
+public class TaskList implements Iterable<Task> {
+    //...
+}
+----
+Given below is an example usage scenario and how the archiveTask mechanism behaves. We first
+assume that user executes command `archive 1`: +
+
+. The archiveCommand is created, 1 is recognised as `targetIndex`. +
+
+. `ArchiveCommand.execute()` calls `model.archiveTask()` and parse in `targetIndex` as parameter, which is `1`. +
+
+. `archiveTask()` method in schedulePlanner class is called, which deletes the first task shown in current task list from
+task list and stores it into archived task list.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of archive task command
+
+image::ArchiveDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Storage of archived tasks
+
+* **Alternative 1 (current choice):** Save archived tasks in a separate list.
+Implement two task lists in Schedule Planner, one for normal tasks, another for archived tasks. For archived tasks,
+instead of using UniqueTaskList, implement a new class that allow duplicates.
+** Pros: When listing normal tasks, program does not have to filter out archived tasks every time, which makes the
+algorithm more efficient. Besides, users is able to add in new task with same attributes as an archived task,
+which is more reasonable for user.
+** Cons: Listing archived tasks will need a new approach, different from other list commands; new class has to be
+ implemented to store archived tasks.
+
+* **Alternative 2:** Save archived tasks together with normal tasks.
+Schedule Planner only has one task list.
+Add boolean filed isArchived to Task class to differentiate archived and not archived tasks. +
+** Pros: It is easy to implement.
+** Cons: Each time list command is called, archived tasks have to be filtered out, which may affect performance.
+Besides, user cannot add in new task with same attributes as archived tasks, which is much less user-friendly.
+
+=== Automatic Partial Deletion of Archived Tasks
+The automatic deletion feature removes archived tasks with deadlines date earlier than 2 weeks ago from current time
+point from archived task list. There are two main reasons behind this feature. +
+Firstly, we want to optimize the user experience of viewing archived tasks. Users should be able to view archived tasks,
+but displaying all archived tasks will be too bulky and hard to view. In other words, we want to stop the archived task
+list from growing to infinity. +
+Another reason is we want to save storage space used by our application as much as possible.
+
+==== Current Implementation
+Every time when the application is launched, archived list is checked through. Tasks with deadline date earlier than
+2 weeks ago are then permanently deleted from archived task list.
+
+.Sequence Diagram of automatic partial deletion of archived tasks feature
+
+image::AutoDeleteArchived.png[width="800"]
+
+Given below is detailed explanation of how auto-deletion mechanism behaves: +
+
+. Application is launched
+. `init()` method in `MainApp` class is called, which then instantiates `Model` class and calls `autoDeleteArchived()`
+method in `Model` class.
+. `autoDeleteArchived()` method in 
+
+
 // tag::generateacademiccalendar[]
 === Generate Academic Calendar Weeks
 
