@@ -27,11 +27,13 @@ public class PostponeReminderCommand extends EditCommand {
             + ": Postpone all reminders of the event identified by the index number by the duration entered\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
-            + "Optional Flags (Only one at a time):\n"
-            + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h ";
 
-    public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone reminders of Event: %1$s";
+    public static final String MESSAGE_DO_NOT_SUPPORT_RECURRING = COMMAND_WORD
+            + " current do not support recurring events. Coming in v2.0";
+    public static final String MESSAGE_EVENT_HAVE_NO_REMINDERS = "The selected event does not have "
+            + "reminders to postpone";
+    public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone all reminders for Event: %1$s";
     public static final String MESSAGE_MULTIPLE_POSTPONE_DURATION = "Please enter only 1 duration to postpone.";
 
     private static final Logger logger = LogsCenter.getLogger(PostponeReminderCommand.class);
@@ -55,16 +57,24 @@ public class PostponeReminderCommand extends EditCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+        if (flags.length > 0) {
+            logger.info(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(MESSAGE_DO_NOT_SUPPORT_RECURRING);
+        }
+
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
         Event eventToEdit;
         eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
-        reminderDurationListToEdit.postpone(durationToPostpone);
-        editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
-        super.execute(model, history);
-
-        return new CommandResult(String.format(MESSAGE_POSTPONE_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        if (reminderDurationListToEdit.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_EVENT_HAVE_NO_REMINDERS, eventToEdit.getEventName()));
+        } else {
+            reminderDurationListToEdit.postpone(durationToPostpone);
+            editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
+            super.execute(model, history);
+            return new CommandResult(String.format(MESSAGE_POSTPONE_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        }
 
     }
 }

@@ -17,7 +17,6 @@ import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
 
 
-
 /**
  * Add reminders to an event identified using it's displayed index from the scheduler.
  */
@@ -29,12 +28,14 @@ public class AddReminderCommand extends EditCommand {
             + ": Add Reminders  the event identified by the index number used in the displayed event list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
-            + "Optional Flags (Only one at a time):\n"
-            + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
-            + PREFIX_EVENT_REMINDER_DURATION + "30m -a";
+            + PREFIX_EVENT_REMINDER_DURATION + "30m";
 
-    public static final String MESSAGE_ADD_REMINDER_SUCCESS = "Add reminders to Event: %1$s";
+
+    public static final String MESSAGE_ADD_REMINDER_SUCCESS = "Add non-repeated reminders to Event: %1$s";
+    public static final String MESSAGE_DO_NOT_SUPPORT_RECURRING = COMMAND_WORD
+            + " current do not support recurring events. Coming in v2.0";
+    public static final String MESSAGE_NO_CHANGE_TO_REMINDERS = "No changes to the reminders of Event: %1$s";
     private static final Logger logger = LogsCenter.getLogger(AddReminderCommand.class);
 
     private final ReminderDurationList durationsToAdd;
@@ -54,16 +55,24 @@ public class AddReminderCommand extends EditCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+        if (flags.length > 0) {
+            logger.info(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(MESSAGE_DO_NOT_SUPPORT_RECURRING);
+        }
+
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
         Event eventToEdit;
         eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
-        reminderDurationListToEdit.addAll(durationsToAdd);
+        Boolean isChanged = reminderDurationListToEdit.addAll(durationsToAdd);
         editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
         super.execute(model, history);
-
-        return new CommandResult(String.format(MESSAGE_ADD_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        if (isChanged) {
+            return new CommandResult(String.format(MESSAGE_ADD_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        } else {
+            return new CommandResult(String.format(MESSAGE_NO_CHANGE_TO_REMINDERS, eventToEdit.getEventName()));
+        }
 
     }
 

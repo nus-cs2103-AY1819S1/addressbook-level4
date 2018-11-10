@@ -27,12 +27,15 @@ public class DeleteReminderCommand extends EditCommand {
             + ": Delete Reminders of the event identified by the index number used in the displayed event list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
-            + "Optional Flags (Only one at a time):\n"
-            + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
-            + PREFIX_EVENT_REMINDER_DURATION + "30m " + "-a";
+            + PREFIX_EVENT_REMINDER_DURATION + "30m ";
 
-    public static final String MESSAGE_REMOVE_REMINDER_SUCCESS = "Remove reminders to Event: %1$s";
+    public static final String MESSAGE_DO_NOT_SUPPORT_RECURRING = COMMAND_WORD
+            + " current do not support recurring events. Coming in v2.0";
+    public static final String MESSAGE_SOME_REMINDERS_NOT_PRESENT = "Warning: Some reminders entered are not present. "
+            + "Other present reminders are removed from Event: %1$s";
+    public static final String MESSAGE_DELETE_REMINDER_SUCCESS = "Remove reminders from Event: %1$s";
+
     private static final Logger logger = LogsCenter.getLogger(DeleteReminderCommand.class);
 
     private final ReminderDurationList durationsToDelete;
@@ -53,17 +56,24 @@ public class DeleteReminderCommand extends EditCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+        if (flags.length > 0) {
+            logger.info(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(MESSAGE_DO_NOT_SUPPORT_RECURRING);
+        }
+
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
         Event eventToEdit;
         eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
-        reminderDurationListToEdit.removeAll(durationsToDelete);
+        Boolean isPresent = reminderDurationListToEdit.removeAll(durationsToDelete);
         editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
         super.execute(model, history);
-
-        return new CommandResult(String.format(MESSAGE_REMOVE_REMINDER_SUCCESS, eventToEdit.getEventName()));
-
+        if (isPresent) {
+            return new CommandResult(String.format(MESSAGE_DELETE_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SOME_REMINDERS_NOT_PRESENT, eventToEdit.getEventName()));
+        }
     }
 }
 

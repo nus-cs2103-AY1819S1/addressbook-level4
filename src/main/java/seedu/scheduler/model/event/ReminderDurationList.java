@@ -93,9 +93,10 @@ public class ReminderDurationList {
     /**
      * add ReminderDurationList to the set
      * @param durationList
+     * @return true if values are changed
      */
-    public void addAll(ReminderDurationList durationList) {
-        values.addAll(durationList.get());
+    public boolean addAll(ReminderDurationList durationList) {
+        return values.addAll(durationList.get());
     }
 
     /**
