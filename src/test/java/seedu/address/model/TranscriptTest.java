@@ -170,6 +170,15 @@ public class TranscriptTest {
     }
 
     @Test
+    public void assertAddingIncompleteModuleWithoutCapGoalNoTargetGrade() {
+        Transcript transcript = new Transcript();
+        transcript.addModule(INCOMPLETE_4MC_A);
+        transcript.addModule(INCOMPLETE_4MC_B);
+        transcript.addModule(INCOMPLETE_4MC_C);
+        assertTargetGradesEquals(transcript, "");
+    }
+
+    @Test
     public void assertTargetGradesIsNotHigherThanMinimumRequirementSuccess() {
         Transcript transcript = new Transcript();
         transcript.addModule(INCOMPLETE_4MC_A);

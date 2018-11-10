@@ -159,6 +159,7 @@ Delete CS2103 from the cap tracker.
 * `c_delete CS2103 1 2` +
 Delete CS2103 taken during the second semester of the first year.
 
+//tag::commandgoal[]
 === Setting Cap Goal : `c_goal`
 
 Set the CAP goal you want to achieve. +
@@ -172,12 +173,7 @@ Examples:
 
 * `c_goal 4.5` +
 Update your CAP goal to 4.5
-
-
-=== Calculate Cap : `c_cap`
-
-Calculate current CAP +
-Format: `c_cap`
+//end::commandgoal[]
 
 === Undoing commands : `c_undo`
 
@@ -194,6 +190,7 @@ Format: `c_redo`
 Exits the program. +
 Format: `exit`
 
+//tag::commandadjust[]
 === Adjusting target goals: `c_adjust`
 
 Adjust the grade of an incomplete module +
@@ -209,7 +206,7 @@ Adjusts the grade with module code CS2103 to have grade A
 
 * `c_adjust CS2103 1 1 A` +
 Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
-
+//end::commandadjust[]
 
 === Saving the data
 
