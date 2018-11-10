@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using its displayed index from the address book.
+ * Selects a person identified using its displayed index from the event organiser.
  */
 public class SelectUserCommand extends Command {
 

@@ -6,7 +6,6 @@
 == PROJECT: EventOrganiser
 
 ---
-
 == Overview
 
 EventOrganiser is a desktop application for organisation and management of events.
@@ -15,18 +14,15 @@ It is written in Java, and has about 10 kLoC.
 
 == Summary of
 
-* *Major enhancement*: added *Event and Poll commands and functionality*. +
-Event related commands: DeleteEvent, SelectEvent, JoinEvent, SetDate, SetTime, FindEvent, FindEventByTime +
-Poll related commands: AddPoll, AddPollOption, AddTimePoll, DisplayPoll, VoteCommand
+* *Major enhancement*: added *Event and Poll commands and functionality*.
 
-** What it does: Allows users to create, organise and sign-up for events, and create polls and vote for options in the poll.
-** Justification: The event related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.
+** What it does: Event-related commands allow event organisers to create, edit and manage events, and users to find and join events.
+ Poll-related commands allow event organiser to create polls and for participants to vote in the poll.
+** Justification: Event-related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.
 ** Highlights:
 *** Updated all components: logic, model, storage, UI to support event and polls
-*** Integrated Persons into Events: Persons are stored in events by index in storage, and events contain persons in runtime (eg in participant lists and voter lists).
-Person details within events update when persons are deleted or edited.
-*** Implement dependencies between commands: e.g. user must be logged in, event must be selected, user must be the event organiser,
-user must have joined the event are pre-conditions for using several commands
+*** Integrated Persons into Events: Persons are stored in events by index in storage and in runtime, and events are updated when user are edited or deleted.
+*** Implemented dependencies between commands e.g. users should select events before editing
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=thejrlinguist[Functional code]]
 
@@ -37,9 +33,7 @@ user must have joined the event are pre-conditions for using several commands
 *** Created PR from team-repo to AB4
 *** Updated AboutUs.doc: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
 *** Updated ReadMe: https://github.com/CS2103-AY1819S1-W10-3/main/pull/10[#10]
-*** Assigned issues after PE dry run.
 *** Updated sample data: https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
-*** Contributed to brainstorming features.
 
 ** Documentation:
 *** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
@@ -48,14 +42,14 @@ user must have joined the event are pre-conditions for using several commands
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given are excerpts from the sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=InBrief]
 
-include::../UserGuide.adoc[tag=KengJi]
+include::../UserGuide.adoc[tag=KengJi(1)]
 
-include::../UserGuide.adoc[tag=KengJi(Summary)]
+include::../UserGuide.adoc[tag=KengJi(2)]
 
 == Contributions to the Developer Guide
 

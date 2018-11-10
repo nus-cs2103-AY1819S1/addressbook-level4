@@ -9,7 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 
 /**
- * Predicate to check if event has any of the given attributes.
+ * Predicate to check if event has all of the given attributes.
  */
 public class EventAttributesPredicate implements Predicate<Event> {
     private EventName name;
@@ -45,18 +45,18 @@ public class EventAttributesPredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
-        return (date != null
-                && event.getDate().equals(date))
-                || (name != null
-                && event.getName().equals(name))
-                || (address != null
-                && event.getLocation().equals(address))
-                || (startTime != null
-                && event.getStartTime().equals(startTime))
-                || (organiser != null
-                && event.getOrganiser().equals(organiser))
-                || (participant != null
-                && event.containsPerson(participant));
+        return (date == null
+                || event.getDate().equals(date))
+                && (name == null
+                || event.getName().equals(name))
+                && (address == null
+                || event.getLocation().equals(address))
+                && (startTime == null
+                || event.getStartTime().equals(startTime))
+                && (organiser == null
+                || event.getOrganiser().equals(organiser))
+                && (participant == null
+                || event.containsPerson(participant));
     }
 
     @Override

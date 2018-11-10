@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -37,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listUser`* : lists all users in the Event Organiser
-* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates new user named `John Doe` to the Event Organiser.
+* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01` : creates new user named `John Doe` to the Event Organiser.
 * **`addEvent`**`n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
 
@@ -46,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * To use the application, you must first create an account using the `addUser` command, and then `login`.
 * If you are not yet logged in, you can still view event details using `selectEvent`, and find events using `findEvent` and `findEventByTime`, and list events using `listEvent`.
-* Without logging in, you can also use the `selectUser`, `findUser` and `listUser` commands.
+* Without logging in, you can also use the `selectUser`, `findUser`, `listUser`, `listFriends`, `suggestFriendsByInterests` commands.
 * When you are done, simply `logout` or `exit` the application.
 
 === Organise an event
@@ -94,7 +95,8 @@ Adds a new user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 [TIP]
-A user can have any number of tags and interests (including 0)
+A user can have any number of tags and interests (including 0) +
+<<Timetable>> download requires a valid nusmods link
 
 Examples:
 
@@ -128,7 +130,6 @@ Examples:
 `logout`
 // end::yaofeng(login/logout)[]
 
-
 ==== List all users : `listUser`
 
 Shows a list of all users in the Event Organiser. +
@@ -139,7 +140,7 @@ Format: `listUser`
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
+Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
@@ -190,7 +191,7 @@ Selects the 1st user in the results of the `find` command.
 
 ==== Edit a user : `editUser`
 
-Edits an existing user in the Event Organiser. +
+Edits the currently logged-in user in the Event Organiser. +
 Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
 
 ****
@@ -200,6 +201,7 @@ Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [
 * When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
+* <<Timetable>> download requires a valid nusmods link
 ****
 
 Examples:
@@ -211,36 +213,68 @@ Edits the phone number and email address of the user `Alex Yeoh` to be `91234567
 `editUser n/Betsy Crower t/` +
 Edits the name of the user `Alex Yeoh`to be `Betsy Crower` and clears all existing tags.
 
+// tag::scheduletimetable[]
+==== Timetable
+Timetable download guide
+
+To be referenced by any commands that use `tt/` prefix.
+Format `Command tt/ http://modsn.com/XXXX...`
+
+Example:
+* http://modsn.us/eDmp1
+* http://modsn.us/H4v8s
+
+****
+* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
+* Note that the timetable download may take a while regardless if the link is valid or not.
+* Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
+* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
+* If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
+* If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
+****
+// end::scheduletimetable[]
+
 // tag::addDeleteFriend[]
 
 ==== Add a friend : `addFriend`
 
-For two persons, adds friend with each other. +
-Format: `addFriend INDEX,INDEX`
+Adds a person to the logged-in user's friend list. +
+Format: `addFriend INDEX`
 
 ****
-* For two users at the 2 specified `INDEX`, adds each other as friend.
-* Only two indexes can be stated, seperated by a comma(,) with no spaces in between.
-* Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
-* The two users cannot be already friends.
+* Login is required.
+* The index refers to the index number shown in the displayed user list.
+* Adds the person at the specified `INDEX` into the logged-in user's friend list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The person specified at the `INDEX` cannot be the logged-in user himself/herself.
+* The person specified at the `INDEX` cannot be already in the logged-in user's friend list.
 ****
 
 Examples:
 
-* `addFriend 1,2` +
-1st and 2nd user becomes friends with each other and appear on each other's friend list.
+* `addFriend 2` +
+User specified at `INDEX` 2 is added to the logged-in user's friend list.
+
 
 ==== Delete a friend : `deleteFriend`
 
-For two persons, deletes each other as friend. +
-Format: `deleteFriend INDEX,INDEX`
+Deletes a person from the logged-in user's friend list. +
+Format: `deleteFriend INDEX`
 
 ****
-* For two users at the 2 specified `INDEX`, deletes each other as friend.
-* Only two indexes can be stated, seperated by a comma(,) with no spaces in between.
-* Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
-* The two users must already be friends.
+* Login is required.
+* The index refers to the index number shown in the displayed user list.
+* Deletes the person at the specified `INDEX` from the logged-in user's friend list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The person specified at the `INDEX` cannot be the logged-in user himself/herself.
+* The person specified at the `INDEX` must be already in the logged-in user's friend list.
 ****
+
+Examples:
+
+* `deleteFriend 2` +
+User specified at `INDEX` 2 is deleted from the logged-in user's friend list.
 // end::addDeleteFriend[]
 
 // tag::suggestFriends[]
@@ -254,15 +288,32 @@ Format: `suggestFriendsByInterests INDEX`
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Users who have at least one similar interest with the selected user will be displayed.
-* Users who are already friends with the selected user will not be displayed.
-* The selected user will also be displayed, so that he/she can activate the `AddFriendCommand` immediately after that with the other displayed users.
+* Users who are already in the friend list of the selected user will not be displayed.
 ****
 
 Examples:
 
 * `suggestFriendsByInterests 1` +
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user.
+Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user's friend list.
 // end::suggestFriends[]
+
+// tag::listFriends[]
+==== List all friends of a user : `listFriends`
+
+List all the users that are in the friend list of the selected user. +
+Format: `listFriends INDEX`
+
+****
+* List all the users that are in the friend list of the selected user at the specified `INDEX`.
+* The index refers to the index number shown in the displayed user list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listFriends 1` +
+List all the users who are in the friend list of the 1st user in the Event Organiser.
+// end::listFriends[]
 
 // tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`
@@ -280,7 +331,7 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 
 // end::maxschedule[]
 
-// tag::KengJi[]
+// tag::KengJi(1)[]
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
@@ -329,6 +380,7 @@ Format: `selectEvent index`
 * Selecting an event displays the event participants as well as the polls associated with the event.
 * Each poll in the event is given a unique poll index.
 ****
+// end::KengJi(1)[]
 
 image::EventSelectedDisplay.png[width="800"]
 
@@ -386,6 +438,7 @@ Examples:
 * `setTime t1/23:00 t2/23:30`
 * `setTime t1/13:30 t2/14:00`
 
+// tag::KengJi(2)[]
 ==== Create a new poll for an event : `addPoll n/NAME`
 Sets up a new poll for the event with the specified name. +
 Format: `addPoll n/POLL_NAME`
@@ -443,6 +496,7 @@ In the following example, the options `12 November` and `13 November` have been 
 Since there are no voters yet, the most popular options list is empty.
 
 image::AddOptionDisplay.png[width="800"]
+// end::KengJi(2)[]
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -526,8 +580,6 @@ Since it is the most popular option, `13 November` appears in the most popular o
 
 image::VoteOptionDisplay.png[width="800"]
 
-// end::KengJi[]
-
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -575,20 +627,36 @@ e.g. `login n/John Doe pass/password`
 e.g. `findUser n/James i/basketball`
 // end::yaofeng(commandsummary)[]
 
-* *Delete User* : `deleteUser INDEX` +
-e.g. `deleteUser 3`
+* *Delete User* : `deleteUser` +
+e.g. `deleteUser`
+
+// tag::agendazhang(commandsummary)[]
+* *Add a friend*  `addFriend INDEX`
+e.g. `addFriend 2`
+
+* *Delete a friend*  `deleteFriend INDEX`
+e.g. `addFriend 2`
+
+* *Suggest friends based on similar interests* : `suggestFriendsByInterests INDEX`
+e.g. `suggestFriendsByInterests 1`
+
+* *List all friends* : `listFriends INDEX`
+e.g. `listFriends 1`
+// end::agendazhang(commandsummary)[]
 
 // tag::scheduletimetable[]
-* *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
-e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
-e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
-e.g. `editUser 1 su/ monday 0000`
+* *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
+e.g. `editUser n/James Lee e/jameslee@example.com` +
+e.g. `editUser tt/ http://modsn.us/H4v8s` +
+e.g. `editUser su/ monday 0000`
 // end::scheduletimetable[]
 
 * *Select User* : `selectUser INDEX` +
 e.g.`selectUser 2`
 
 * *History* : `history`
+
+
 
 // tag::maxschedule[]
 * *Free time between persons*: `maxSchedule INDEX INDEX ... [sl/ LIMIT]` +

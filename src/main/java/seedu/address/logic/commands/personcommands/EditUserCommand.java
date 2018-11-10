@@ -38,7 +38,7 @@ import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of the logged-in person in the address book.
  */
 public class EditUserCommand extends Command {
 
@@ -65,7 +65,6 @@ public class EditUserCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
@@ -93,7 +92,6 @@ public class EditUserCommand extends Command {
         }
 
         updateFriendListsDueToEditedPerson(model, lastShownList, personToEdit, editedPerson);
-
         model.updatePerson(personToEdit, editedPerson);
         model.setCurrentUser(editedPerson);
         model.authenticateUser(editedPerson);
