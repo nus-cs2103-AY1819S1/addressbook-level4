@@ -13,7 +13,7 @@ import seedu.clinicio.model.medicine.MedicineNameContainsKeywordsPredicate;
  * Finds medicine in medicine inventory whose name matches the keyword.
  * Keyword matching is case insensitive.
  */
-public class FindMedicineCommand extends Command{
+public class FindMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "findmed";
 
