@@ -72,7 +72,7 @@ public class XmlSerializableClinicIo {
     public ClinicIo toModelType() throws IllegalValueException {
         ClinicIo clinicIo = new ClinicIo();
         for (XmlAdaptedPerson p : persons) {
-            Person person = Patient.buildFromPerson(p.toModelType());
+            Person person = p.toModelType();
             if (clinicIo.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
