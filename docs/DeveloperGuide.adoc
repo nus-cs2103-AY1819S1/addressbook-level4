@@ -376,7 +376,8 @@ If a command fails its execution, it will not call `Model#updateCurrentPreviewIm
 
 image::undoRedo2.png[width="800"]
 
-*Step 3.* The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, a `ChangeImageEvent` posted with the new image state by calling `PreviewImage#getImage()` to update the UI's preview image pane.
+*Step 3.* The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
+
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -405,6 +406,29 @@ If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `Pre
 The following activity diagram summarizes what happens when a user executes a new transformation:
 
 image::undoRedoActivityDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the undo command:
+
+image::undoRedoActivityDiagram2.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the redo command:
+
+image::undoRedoActivityDiagram3.png[width="800"]
+
+==== Undo-all and Redo-all
+The commands `undo-all` and `redo-all` follow the same implementation as undo and redo. They provide a convenient way to quickly undo and redo all transformations to the current layer's `PreviewImage` for the user.
+
+* `undo-all` shifts the `PreviewImage's` pointer to 0, pointing at the original state.
+
+* `redo-all` shifts the `PreviewImage's` pointer to `currentSize - 1`, the state with all the applied transformations.
+
+==== HistoryListPanel
+
+The HistoryListPanel provides a view for the user to see the history of transformations applied.
+Whenever a transformation is done or when a undo/redo command is executed, the `Model#refreshHistoryList()` is executed which refreshes the `HistoryListPanel` with a `HistoryUpdateEvent` containing the current layer's `PreviewImage's` list of transformations.
+A view of the panel is shown below:
+
+image::historyPanel.png[width="200"]
 
 
 ==== Design Considerations
