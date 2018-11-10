@@ -9,10 +9,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.commons.util.ImageMagickUtilTest;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.ModelGenerator;
+
+import static org.junit.Assert.fail;
 
 public class ConvertCommandTest {
 
@@ -25,9 +28,10 @@ public class ConvertCommandTest {
         ConvertCommand command = new ConvertCommand(transformation);
         try {
             command.execute(model, new CommandHistory());
-        } catch (Exception e) {
-            Logger logger = LogsCenter.getLogger(ImageMagickUtilTest.class);
-            logger.warning(e.getMessage());
+        } catch (CommandException e) {
+            if (!(e.getMessage() == null || e.getMessage() == "")) {
+                fail();
+            }
         }
     }
 }

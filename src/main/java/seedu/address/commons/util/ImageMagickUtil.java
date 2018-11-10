@@ -203,13 +203,13 @@ public class ImageMagickUtil {
             Map<String, String> mp = pb.environment();
             mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
+        if (getPlatform(osName) == LINUX || getPlatform(osName) == 0) {
+            throw new UnsupportedPlatformException();
+        }
         Process process = pb.start();
         process.waitFor();
         if (process.exitValue() != 0) {
             throw new IllegalArgumentException("Process fails");
-        }
-        if (getPlatform(osName) == LINUX || getPlatform(osName) == 0) {
-            throw new UnsupportedPlatformException();
         }
         FileInputStream is = new FileInputStream(output);
         Image modifiedImage = new Image(is);
