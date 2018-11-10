@@ -255,19 +255,20 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     /**
      * Returns the earliest time among all the dependencies of a task
+     *
      * @return
      */
     public Map<Task, DueDate> getEarliestDependentTime() {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
         Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
-        HashMap<Task, DueDate> visited = new HashMap<Task, DueDate>();
+        HashMap<Task, DueDate> result = new HashMap<>();
         for (Task task: graph.keySet()) {
-            if (!visited.containsKey(task)) {
-                getEarliestDependentTimeHelper(graph, visited, task);
+            if (!result.containsKey(task)) {
+                getEarliestDependentTimeHelper(graph, result, task);
             }
         }
-        return visited;
+        return result;
     }
 
     /**
@@ -317,7 +318,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             String hash = entry.getKey();
             Set<String> dependencies = entry.getValue();
 
-            Set<Task> newDependencies = new HashSet<Task>();
+            Set<Task> newDependencies = new HashSet<>();
             for (String dependency: dependencies) {
                 newDependencies.add(tasks.get(dependency));
             }
@@ -331,7 +332,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
-        // TODO: refine later
     }
 
     @Override

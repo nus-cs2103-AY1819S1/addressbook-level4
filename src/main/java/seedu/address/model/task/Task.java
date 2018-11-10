@@ -115,7 +115,7 @@ public class Task {
     }
 
     /**
-     * Converts a given milisecond duration to a human readable duration of type string
+     * Converts a given millisecond duration to a human readable duration of type string
      * @param timeMilliseconds
      * @return
      */
