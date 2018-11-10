@@ -22,13 +22,13 @@ public class DeleteModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the module identified by the module code, year, and"
-            + " semester.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
+            + "Deletes the module identified by the module code, year, and "
+            + "semester.\n"
             + "Parameters: -t MODULE_CODE [-e YEAR -z SEMESTER]\n"
             + "Example: " + COMMAND_WORD + " -t CS2103 -e 4 -z 2";
 
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module";
+    public static final String MESSAGE_DELETE_SUCCESS = "Deleted Module: %1$s";
 
     private final Code targetCode;
     private final Year targetYear;
@@ -89,15 +89,17 @@ public class DeleteModuleCommand extends Command {
         // Get target module.
         // Throws CommandException if module does not exists.
         // Throws CommandException if there is more than one matching module.
-        Module target = CommandUtil.getUniqueTargetModule(model, targetCode,
-                targetYear, targetSemester);
+        Module targetModule = CommandUtil.getUniqueTargetModule(model,
+                targetCode,
+                targetYear,
+                targetSemester);
 
         // Delete module and commit.
-        model.deleteModule(target);
-        model.commitAddressBook();
+        model.deleteModule(targetModule);
+        model.commitTranscript();
 
         // Return success message.
-        String successMsg = String.format(MESSAGE_DELETE_MODULE_SUCCESS);
+        String successMsg = String.format(MESSAGE_DELETE_SUCCESS, targetModule);
         return new CommandResult(successMsg);
     }
 
