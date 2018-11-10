@@ -247,16 +247,16 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/souschef/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AppContentParser` class to parse the user command.'
-.  `AppContentParser` passed necessary model to each feature parser such as `IngredientParser` according to the context.
+.  `Logic` uses the `AppContentParser` class to parse the user command.
+.  `AppContentParser` passes necessary model to each feature parser such as `IngredientParser` according to the context.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a recipe) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding an ingredient) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add onion 100
 gram 10-23-2018")` API call.
 
-.Interactions Inside the Logic Component for the adding ingredient
+.Interactions Inside the Logic Component for the adding an ingredient
 image::LogicSequenceDiagram.png[width="800"]
 
 // end::logicComponent[]
