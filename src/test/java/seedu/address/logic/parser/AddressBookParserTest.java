@@ -18,11 +18,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.ActiveCommand;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.AssignmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -48,6 +52,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.AssignmentUtil;
+import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.LeaveApplicationBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -220,6 +225,36 @@ public class AddressBookParserTest {
         DeleteAssignmentCommand command = (DeleteAssignmentCommand) parser.parseCommand(
                 DeleteAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_ASSIGNMENT.getOneBased());
         assertEquals(new DeleteAssignmentCommand(INDEX_FIRST_ASSIGNMENT), command);
+    }
+
+    @Test
+    public void parseCommand_editAssignment() throws Exception {
+        Assignment assignment = new AssignmentBuilder().build();
+        EditAssignmentCommand.EditAssignmentDescriptor descriptor =
+                new EditAssignmentDescriptorBuilder(assignment).build();
+        EditAssignmentCommand command =
+                (EditAssignmentCommand) parser.parseCommand(EditAssignmentCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_ASSIGNMENT.getOneBased() + " " +
+                        AssignmentUtil.getEditAssignmentDescriptorDetails(descriptor));
+        assertEquals(new EditAssignmentCommand(INDEX_FIRST_ASSIGNMENT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_assignment() throws Exception {
+        assertTrue(parser.parseCommand(AssignmentCommand.COMMAND_WORD) instanceof AssignmentCommand);
+        assertTrue(parser.parseCommand(AssignmentCommand.COMMAND_WORD + " 3") instanceof AssignmentCommand);
+    }
+
+    @Test
+    public void parseCommand_active() throws Exception {
+        assertTrue(parser.parseCommand(ActiveCommand.COMMAND_WORD) instanceof ActiveCommand);
+        assertTrue(parser.parseCommand(ActiveCommand.COMMAND_WORD + " 3") instanceof ActiveCommand);
+    }
+
+    @Test
+    public void parseCommand_archive() throws Exception {
+        assertTrue(parser.parseCommand(ArchiveCommand.COMMAND_WORD) instanceof ArchiveCommand);
+        assertTrue(parser.parseCommand(ArchiveCommand.COMMAND_WORD + " 3") instanceof ArchiveCommand);
     }
 
 }
