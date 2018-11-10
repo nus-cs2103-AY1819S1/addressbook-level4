@@ -61,7 +61,7 @@ public class AddApptCommand extends Command {
             + "and time.";
     public static final String MESSAGE_DUPLICATE_DATE_TIME = "There is already an existing appointment at this "
             + "date and time";
-    public static final String MESSAGE_INVALID_TYPE = "Invalid input type. Valid types are: PROP, DIAG, THP, SRG";
+    public static final String MESSAGE_INVALID_TYPE = "Invalid type input. Valid types are: PROP, DIAG, THP, SRG";
 
     private final Appointment appt;
     private final Nric patientNric;
