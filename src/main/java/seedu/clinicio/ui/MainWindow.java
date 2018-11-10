@@ -151,23 +151,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
-        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
-
-        patientTab.setText("Patients");
+        //patientTab.setText("Patients");
         patientTab.setContent(patientListPanelPlaceholder);
         patientTab.setClosable(false);
 
-        appointmentTab.setText("Appointments");
+        //appointmentTab.setText("Appointments");
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
-        //@@author iamjackslayer
-        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
-        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
-
-        queueTab.setText("Queue");
+        //queueTab.setText("Queue");
         queueTab.setContent(queuePanelPlaceholder);
         queueTab.setClosable(false);
 
@@ -176,10 +168,16 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
         patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
+        //@@author iamjackslayer
+        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
+        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

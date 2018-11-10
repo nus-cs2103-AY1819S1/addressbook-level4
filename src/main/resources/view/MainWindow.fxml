@@ -13,6 +13,7 @@
 
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -38,6 +39,11 @@
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
                     <TabPane fx:id="tabLists" side="LEFT">
                         <Tab fx:id="patientTab">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/images/clinicio.png" />
+                                </ImageView>
+                            </graphic>
                             <VBox fx:id="patientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10" />
@@ -46,6 +52,11 @@
                             </VBox>
                         </Tab>
                         <Tab fx:id="appointmentTab">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/images/clinicio.png" />
+                                </ImageView>
+                            </graphic>
                             <VBox fx:id="appointmentList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10" />
@@ -54,6 +65,11 @@
                             </VBox>
                         </Tab>
                         <Tab fx:id="queueTab">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/images/clinicio.png" />
+                                </ImageView>
+                            </graphic>
                             <VBox fx:id="patientQueue" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10" />
