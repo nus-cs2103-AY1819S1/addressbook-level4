@@ -192,7 +192,6 @@ public class TypicalEvents {
             .build();
 
     // weekly event
-
     public static final Event CS2103_LECTURE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
@@ -206,7 +205,6 @@ public class TypicalEvents {
 
     // monthly event
     public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
-
             .withEventUid(CONSTANT_EVENTUID.get(4))
             .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
             .withEventName("Dinner with Joe")

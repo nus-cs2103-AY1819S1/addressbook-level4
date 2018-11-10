@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
@@ -274,29 +275,22 @@ public class ConnectToGoogleCalendarTest {
         com.google.api.services.calendar.Calendar service =
                 connectToGoogleCalendar.getCalendar();
         //create a calendar for testing
-        Calendar expectedCalendar = new Calendar();
-        expectedCalendar.setSummary("testCalendar");
-        Calendar createdCalendar = null;
-        Calendar getFromGoogleCalendar =
-                null;
+        Calendar getFromGoogleCalendar = null;
         try {
-            createdCalendar = service.calendars().insert(expectedCalendar).execute();
-            //try to get the test calender from Google
-            getFromGoogleCalendar = service.calendars().get(createdCalendar.getId()).execute();
+            getFromGoogleCalendar = service.calendars().get(CALENDAR_NAME).execute();
             //check whether this is the test calender
-            assertEquals(createdCalendar.getId(), getFromGoogleCalendar.getId());
-            //remove the test calender from Google Calender
-            service.calendars().delete(createdCalendar.getId()).execute();
+            assertEquals("cs21031819f111tester@gmail.com", getFromGoogleCalendar.getId());
         } catch (IOException e) {
+            e.printStackTrace();
             throw new CommandException(MESSAGE_IO_ERROR);
         }
         //create an expected exception
         //Try to retrieve the deleted exception
         //Confirm the an exception will be thrown
-        Calendar finalCreatedCalendar = createdCalendar;
+        String fakeId = "fakeId";
         assertThrows(
                 com.google.api.client.googleapis.json.GoogleJsonResponseException.class, (
-                ) -> service.calendars().get(finalCreatedCalendar.getId()).execute());
+                ) -> service.calendars().get(fakeId).execute());
     }
 
     /**
@@ -365,8 +359,13 @@ public class ConnectToGoogleCalendarTest {
     @Test
     public void pushToGoogleCal() {
         enable();
+        /* Case: add a single event -> added */
+        Event validEvent = new EventBuilder(CHRISTMAS).build();
+        assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()));
+
         /* Case: add a repeated event -> added */
-        Event validEvent = new EventBuilder(CS2103_LECTURE).build();
+        validEvent = new EventBuilder(CS2103_LECTURE).build();
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()));
         disable();
