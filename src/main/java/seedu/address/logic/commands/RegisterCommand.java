@@ -22,7 +22,7 @@ public class RegisterCommand extends Command {
 
     public static final String COMMAND_WORD = "register";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a new patient into HealthBase \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a new patient into HealthBase. "
             + "Parameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "
