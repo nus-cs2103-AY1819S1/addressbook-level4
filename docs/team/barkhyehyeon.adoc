@@ -71,4 +71,4 @@ include::../UserGuide.adoc[tag=cross]
 
 include::../DeveloperGuide.adoc[tag=logicComponent]
 
-include::../DeveloperGuide.adoc[tag=ingredientManagement]
+include::../DeveloperGuide.adoc[tag=ingredientManager]
