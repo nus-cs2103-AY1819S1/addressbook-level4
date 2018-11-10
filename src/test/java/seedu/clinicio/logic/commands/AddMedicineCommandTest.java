@@ -174,7 +174,7 @@ public class AddMedicineCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getAllPatientsInQueue() {
+        public ObservableList<Patient> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -236,12 +236,12 @@ public class AddMedicineCommandTest {
         }
 
         @Override
-        public void enqueueIntoMainQueue(Person patient) {
+        public void enqueueIntoMainQueue(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void enqueueIntoPreferenceQueue(Person patient) {
+        public void enqueueIntoPreferenceQueue(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }
 
