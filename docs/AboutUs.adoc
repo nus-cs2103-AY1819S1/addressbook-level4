@@ -20,7 +20,7 @@ Role: Project Advisor
 
 === Jeremy Choo
 image::choojeremy.png[width="150", align="left"]
-{empty}[https://jch.ooo[Website]] [http://github.com/ChooJeremy[github]] [http://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/team/jeremychoo.adoc[portfolio]]
+{empty}[https://jch.ooo[Website]] [http://github.com/ChooJeremy[github]] [https://cs2103-ay1819s1-f10-1.github.io/main/team/choojeremy.html[portfolio]]
 
 Role: Team Lead +
 Responsibilities: Git, Logic
