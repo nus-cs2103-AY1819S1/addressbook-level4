@@ -1,1 +1,1 @@
-{"name":"blur","num":"1","args":{"arg1":"radius x sigma"}, "patterns":{"pattern1":"\\d{1,2}x\\d{1,2}"}}
+{"name":"blur","num":"1","args":{"arg1":"radius(0-99) x sigma(0-99)"}, "patterns":{"pattern1":"\\d{1,2}x\\d{1,2}"}}

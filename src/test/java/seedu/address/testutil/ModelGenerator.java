@@ -138,6 +138,15 @@ public class ModelGenerator {
     }
 
     /**
+     * Returns a Model with a test img.
+     */
+    public static Model getModelWithTestImg() {
+        Model model = getDefaultModel();
+        model.setCurrentOriginalImage(Paths.get("src", "test", "data", "sandbox", "test.jpg"));
+        return model;
+    }
+
+    /**
      * @return Returns a model with 3 layers and a directory of test images.
      */
     public static Model getModelWithPopulatedCanvasAndImgDirectory() {
@@ -152,5 +161,4 @@ public class ModelGenerator {
     public static Model getModelWithoutCanvas() {
         return new ModelManager(new UserPrefs(), true);
     }
-
 }

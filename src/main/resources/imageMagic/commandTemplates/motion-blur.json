@@ -1,0 +1,1 @@
+{"name":"motion-blur","num":"1","args":{"arg1":"radius(0-29) x sigma(0-19) +angle(0-99)"}, "patterns":{"pattern1":"[1-2]{0,1}\\d{0,1}x[0-1]{0,1}\\d{0,1}\\+\\d{1,2}"}}
