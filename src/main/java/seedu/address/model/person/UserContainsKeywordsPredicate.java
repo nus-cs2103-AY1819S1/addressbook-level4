@@ -17,68 +17,63 @@ public class UserContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> emailKeywords;
     private final List<String> interestKeywords;
     private final List<String> tagKeywords;
+    private boolean nameKeywordsExist;
+    private boolean phoneKeywordsExist;
+    private boolean addressKeywordsExist;
+    private boolean emailKeywordsExist;
+    private boolean interestKeywordsExist;
+    private boolean tagKeywordsExist;
 
-    public UserContainsKeywordsPredicate(List<String> nameKeywords,
-                                         List<String> phoneKeywords,
-                                         List<String> addressKeywords,
-                                         List<String> emailKeywords,
-                                         List<String> interestKeywords,
-                                         List<String> tagKeywords) {
+    public UserContainsKeywordsPredicate(List<String> nameKeywords, List<String> phoneKeywords,
+                                         List<String> addressKeywords, List<String> emailKeywords,
+                                         List<String> interestKeywords, List<String> tagKeywords) {
         this.nameKeywords = nameKeywords;
+        this.nameKeywordsExist = (nameKeywords != null);
+
         this.phoneKeywords = phoneKeywords;
+        this.phoneKeywordsExist = (phoneKeywords != null);
+
         this.addressKeywords = addressKeywords;
+        this.addressKeywordsExist = (addressKeywords != null);
+
         this.emailKeywords = emailKeywords;
+        this.emailKeywordsExist = (emailKeywords != null);
+
         this.interestKeywords = interestKeywords;
+        this.interestKeywordsExist = (interestKeywords != null);
+
         this.tagKeywords = tagKeywords;
+        this.tagKeywordsExist = (tagKeywords != null);
     }
 
     @Override
     public boolean test(Person person) {
-        boolean hasNameKeywords = false;
-        boolean hasPhoneKeywords = false;
-        boolean hasAddressKeywords = false;
-        boolean hasEmailKeywords = false;
-        boolean hasInterestKeywords = false;
-        boolean hasTagKeywords = false;
-
-        if (nameKeywords != null) {
-            hasNameKeywords = nameKeywords.stream()
-                    .anyMatch(nameKeyword -> StringUtil.containsWordIgnoreCase(person.getName().value, nameKeyword));
+        if (!nameKeywordsExist && !phoneKeywordsExist && !addressKeywordsExist && !emailKeywordsExist
+                && !interestKeywordsExist && !tagKeywordsExist) {
+            return false;
         }
 
-        if (phoneKeywords != null) {
-            hasPhoneKeywords = phoneKeywords.stream()
-                    .anyMatch(phoneKeyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, phoneKeyword));
-        }
-
-        if (addressKeywords != null) {
-            hasAddressKeywords = addressKeywords.stream()
-                    .anyMatch(addressKeyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value,
-                            addressKeyword));
-        }
-
-        if (emailKeywords != null) {
-            hasEmailKeywords = emailKeywords.stream()
-                    .anyMatch(emailKeyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, emailKeyword));
-        }
-
-        if (interestKeywords != null) {
-            hasInterestKeywords = interestKeywords.stream()
+        boolean matchesNameKeywords = (!nameKeywordsExist)
+                || attributeMatchesKeywords(person.getName().value, nameKeywords);
+        boolean matchesPhoneKeywords = (!phoneKeywordsExist)
+                || attributeMatchesKeywords(person.getPhone().value, phoneKeywords);
+        boolean matchesAddressKeywords = (!addressKeywordsExist)
+                || attributeMatchesKeywords(person.getAddress().value, addressKeywords);
+        boolean matchesEmailKeywords = (!emailKeywordsExist)
+                || attributeMatchesKeywords(person.getEmail().value, emailKeywords);
+        boolean matchesInterestKeywords = (!interestKeywordsExist) || interestKeywords.stream()
                     .anyMatch(interestKeyword -> StringUtil.containsWordIgnoreCase(person.getInterests()
                             .stream()
                             .map(x -> x.interestName)
                             .collect(joining(" ")), interestKeyword));
-        }
-
-        if (tagKeywords != null) {
-            hasTagKeywords = tagKeywords.stream()
+        boolean matchesTagKeywords = (!tagKeywordsExist) || tagKeywords.stream()
                     .anyMatch(tagKeyword -> StringUtil.containsWordIgnoreCase(person.getTags()
                             .stream()
                             .map(x -> x.tagName)
                             .collect(joining(" ")), tagKeyword));
-        }
-        return hasNameKeywords || hasPhoneKeywords || hasAddressKeywords || hasEmailKeywords || hasInterestKeywords
-                || hasTagKeywords;
+
+        return matchesNameKeywords && matchesPhoneKeywords && matchesAddressKeywords && matchesEmailKeywords
+                && matchesInterestKeywords && matchesTagKeywords;
     }
 
     @Override
@@ -97,5 +92,10 @@ public class UserContainsKeywordsPredicate implements Predicate<Person> {
                 || interestKeywords.equals(((UserContainsKeywordsPredicate) other).interestKeywords))
                 && (tagKeywords == null
                 || tagKeywords.equals(((UserContainsKeywordsPredicate) other).tagKeywords)));
+    }
+
+    private boolean attributeMatchesKeywords(String attribute, List<String> keywords) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(attribute, keyword));
     }
 }
