@@ -49,7 +49,7 @@ public class AddModuleCommandTest {
         CommandResult commandResult = new AddModuleCommand(validModule)
                 .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule),
+        assertEquals(String.format(AddModuleCommand.MESSAGE_ADD_SUCCESS, validModule),
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -62,7 +62,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(AddModuleCommand.MESSAGE_MODULE_ALREADY_EXIST);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -75,7 +75,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModuleComplete);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(AddModuleCommand.MESSAGE_MODULE_ALREADY_EXIST);
         addCommand.execute(modelStub, commandHistory);
     }
 
