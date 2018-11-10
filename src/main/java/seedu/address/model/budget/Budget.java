@@ -147,6 +147,11 @@ public class Budget {
     */
     public double getBudgetPercentage() {
         LOGGER.info("current Expenses" + currentExpenses / budgetCap);
+
+        if(budgetCap == 0){
+            return 0;
+        }
+
         return currentExpenses / budgetCap;
     }
 

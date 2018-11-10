@@ -8,6 +8,7 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_K
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +17,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.user.Username;
@@ -171,6 +174,11 @@ public class AddCommandTest {
         public boolean addWarningNotification() {
             return false;
         }
+
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+            return new HashSet<>();
+        }
     }
 
     /**
@@ -216,6 +224,11 @@ public class AddCommandTest {
             } else {
                 return true;
             }
+        }
+
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+            return new HashSet<>();
         }
     }
 
