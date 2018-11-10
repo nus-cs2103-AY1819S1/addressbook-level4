@@ -162,6 +162,22 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - This is used for Google related tests <br>
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
+                                            String expectedMessage) {
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the scheduler book and the filtered event list in the {@code actualModel} remain unchanged <br>
