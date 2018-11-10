@@ -52,7 +52,7 @@ public class FavouritesParser {
             return new FindCommandParser().parseIngredient(model, arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Recipe>(model);
+            return new ListCommand(model);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

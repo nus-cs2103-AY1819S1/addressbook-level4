@@ -62,7 +62,7 @@ public class MealPlannerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Day>(mealPlannerModel);
+            return new ListCommand(mealPlannerModel);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

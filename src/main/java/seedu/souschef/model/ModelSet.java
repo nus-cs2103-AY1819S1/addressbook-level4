@@ -6,7 +6,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
 /**
  * The API of the ModelSet component.
  */
@@ -16,8 +15,6 @@ public interface ModelSet {
 
     /** Returns the model for recipes*/
     Model<Recipe> getRecipeModel();
-
-    Model<Tag> getTagModel();
 
     /** Returns the model for meal planner*/
     Model<Day> getMealPlannerModel();

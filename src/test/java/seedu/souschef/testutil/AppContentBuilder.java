@@ -4,7 +4,7 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building recipe objects.
  * Example usage: <br>
  *     {@code AppContent ab = new AppContentBuilder().withRecipe("John", "Doe").build();}
  */
