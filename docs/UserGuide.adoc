@@ -263,7 +263,7 @@ to allow you to manage the clinic's patient record more efficiently.
 
 Here are the list of commands:
 
-==== Adding a patient: `addpatient` `[coming in v2.0]`
+==== Adding a patient: `addpatient`
 
 // tag::loginReceptionist[]
 [WARNING]
@@ -271,6 +271,7 @@ You must login as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
 You can add a patient to the clinic record. +
+
 Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 [TIP]
@@ -279,10 +280,13 @@ A patient can have any number of medical problems, medications, allergies (inclu
 [TIP]
 A patient does not need to choose a preferred doctor.
 
+[NOTE]
+You must choose a preferred doctor that exists inside ClinicIO record.
+
 Examples:
 
 * `addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
-* `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
+* `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure medList/Chlorothiazide`
 
 ==== Listing all patients : `listpatient` `[coming in v2.0]`
 
