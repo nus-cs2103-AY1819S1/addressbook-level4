@@ -73,7 +73,8 @@ public class TaskCard extends UiPart<Region> {
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
         registerAsAnEventHandler(this);
     }
-    //Used for testing TaskCard (Not testing earliest time of child)
+
+    //Used for testing TaskCard
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
