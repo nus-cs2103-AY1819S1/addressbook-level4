@@ -14,6 +14,9 @@ import seedu.address.model.medicalhistory.Timestamp;
  */
 @XmlRootElement
 public class XmlAdaptedTimestamp {
+    public static final String MESSAGE_DATE_TIME_FORMAT_INCORRECT = "The given timestamp was not in the "
+            + Timestamp.DATE_TIME_FORMATTER_PATTERN;
+
     @XmlElement(required = true)
     private String timestampAsString;
 
@@ -27,9 +30,14 @@ public class XmlAdaptedTimestamp {
      * that follows {@code Timestamp.DATE_TIME_FORMATTER_PATTERN}
      */
     public XmlAdaptedTimestamp(String timestampAsString) throws IllegalValueException {
-        if (!isValidFormat(timestampAsString)) {
-            throw new IllegalValueException(Timestamp.DATE_TIME_FORMATTER_PATTERN);
+        LocalDateTime ldt;
+
+        try {
+            ldt = LocalDateTime.parse(timestampAsString, Timestamp.DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalValueException(MESSAGE_DATE_TIME_FORMAT_INCORRECT);
         }
+
         this.timestampAsString = timestampAsString;
     }
 
