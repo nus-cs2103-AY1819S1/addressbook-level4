@@ -19,6 +19,7 @@ import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.model.Model;
+import seedu.thanepark.model.ride.Ride;
 
 public class ViewCommandSystemTest extends ThaneParkSystemTest {
     @Test
@@ -117,8 +118,10 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
+        Ride expectedRide = expectedModel.getFilteredRideList().get(expectedSelectedCardIndex.getZeroBased());
+        String expectedName = expectedRide.getName().fullName;
         String expectedResultMessage = String.format(
-                MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
+                MESSAGE_SELECT_PERSON_SUCCESS, expectedName, expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
 
         executeCommand(command);

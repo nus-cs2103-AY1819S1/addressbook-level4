@@ -98,7 +98,9 @@ public class ViewCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         ViewCommand viewCommand = new ViewCommand(index);
-        String expectedMessage = String.format(ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedName = expectedModel.getFilteredRideList().get(index.getZeroBased()).getName().fullName;
+        String expectedMessage = String.format(ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS, expectedName,
+                index.getOneBased());
 
         assertCommandSuccess(viewCommand, model, commandHistory, expectedMessage, expectedModel);
 

@@ -25,7 +25,7 @@ public class ViewCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Viewed Ride: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Viewed %1$s at index %2$s";
 
     private final Index targetIndex;
 
@@ -44,7 +44,9 @@ public class ViewCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        String targetRideName = filteredRideList.get(targetIndex.getZeroBased()).getName().fullName;
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS,
+                targetRideName, targetIndex.getOneBased()));
 
     }
 
