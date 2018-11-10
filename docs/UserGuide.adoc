@@ -646,11 +646,8 @@ Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
 [TIP]
-====
 .Pro tip(s):
-*This command cannot be used if there is no mc content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
-*Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-====
+Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -683,10 +680,7 @@ Format: `refer INDEX`
 
 [TIP]
 .Pro tip(s):
-====
-*This command cannot be used if there is no referral content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
-*Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-====
+Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
