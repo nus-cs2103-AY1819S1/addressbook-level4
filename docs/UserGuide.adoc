@@ -394,6 +394,7 @@ e.g. `add n/magic m/mystical arts [t/darkarts]`
 * *Learn* `learn NAME` +
 e.g. `learn fire`
 * *Clear* : `clear`
+* *WordOfTheDay* : `word`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...` +
