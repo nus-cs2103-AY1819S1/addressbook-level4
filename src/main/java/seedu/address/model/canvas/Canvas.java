@@ -28,10 +28,6 @@ public class Canvas {
     private int height;
     private int width;
 
-    public Canvas() {
-        isCanvasAuto = true;
-    }
-
     /**
      * Constructor for a canvas that has the size of the initial image.
      * Auto-resizing of the canvas defaults to false.
@@ -80,13 +76,17 @@ public class Canvas {
         return currentLayer;
     }
 
+    public void setCurrentLayerPosition(int x, int y) {
+        currentLayer.setPosition(x, y);
+    }
+
     public Index getCurrentLayerIndex() {
         return currentLayerIndex;
     }
 
     /**
      * Removes a layer from the canvas. If the only layer left is being removed,
-     * throws an {@codeIllegalOperationException}.
+     * throws an {@code IllegalOperationException}.
      * @param i - Index of the layer to remove.
      */
 

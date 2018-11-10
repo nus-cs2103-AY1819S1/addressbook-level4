@@ -17,7 +17,7 @@ public class HistoryUpdateEvent extends BaseEvent {
 
     /**
      * Constructor for a HistoryUpdateEvent
-     * @param toChange
+     * @param toChange - List of past operations to display
      */
     public HistoryUpdateEvent(ArrayList<String> toChange) {
         this.list = requireNonNull(toChange);

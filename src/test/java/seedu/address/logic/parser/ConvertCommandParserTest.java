@@ -15,26 +15,33 @@ public class ConvertCommandParserTest {
     @Test
     public void parseConvertArgument() throws ParseException {
         Transformation transformationBlur = new Transformation("blur", "0x8");
-        assertParseSuccess(parser, "convert " + transformationBlur.toString(),
+        assertParseSuccess(parser, transformationBlur.toString(),
                 new ConvertCommand(transformationBlur));
         Transformation transformationRotate = new Transformation("rotate", "90");
-        assertParseSuccess(parser, "convert " + transformationRotate.toString(),
+        assertParseSuccess(parser, transformationRotate.toString(),
                 new ConvertCommand(transformationRotate));
         Transformation transformationResize = new Transformation("resize", "50%");
-        assertParseSuccess(parser, "convert " + transformationResize.toString(),
+        assertParseSuccess(parser, transformationResize.toString(),
                 new ConvertCommand(transformationResize));
         Transformation transformationContrast = new Transformation("contrast");
-        assertParseSuccess(parser, "convert " + transformationContrast.toString(),
+        assertParseSuccess(parser, transformationContrast.toString(),
                 new ConvertCommand(transformationContrast));
         Transformation transformationSigmoidalContrast = new Transformation("sigmoidal-contrast", "10x10%");
-        assertParseSuccess(parser, "convert " + transformationSigmoidalContrast.toString(),
+        assertParseSuccess(parser, transformationSigmoidalContrast.toString(),
                 new ConvertCommand(transformationSigmoidalContrast));
+    }
+
+    @Test
+    public void parseRawConvertArgument() throws ParseException {
+        Transformation transformation = new Transformation("+noise gaussian");
+        assertParseSuccess(parser, "raw " + transformation.toString(),
+                new ConvertCommand(transformation.getOperation().split(" ")));
     }
 
     @Test
     public void parseConvertArgumentFail() throws ParseException {
         Transformation transformationBlur = new Transformation("blur", "0x8");
-        assertParseSuccess(parser, "convert " + transformationBlur.toString(),
+        assertParseSuccess(parser, transformationBlur.toString(),
                 new ConvertCommand(transformationBlur));
     }
 

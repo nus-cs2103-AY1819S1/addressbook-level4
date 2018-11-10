@@ -55,13 +55,13 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_startingWithSuccessfulCommand() {
+    public void commandBoxStartingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
     }
 
     @Test
-    public void commandBox_startingWithFailedCommand() {
+    public void commandBoxStartingWithFailedCommand() {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
 
@@ -72,7 +72,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_handleKeyPress() {
+    public void commandBoxHandleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
         guiRobot.push(KeyCode.ESCAPE);
@@ -83,7 +83,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleKeyPress_startingWithUp() {
+    public void handleKeyPressStartingWithUp() {
         // empty history
         assertInputHistory(KeyCode.UP, "");
         assertInputHistory(
@@ -116,7 +116,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleKeyPress_startingWithDown() {
+    public void handleKeyPressStartingWithDown() {
         // empty history
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, "");
@@ -141,7 +141,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
     // @@author benedictcss
     @Test
-    public void handleKeyPress_wrongCommandWordWithTab() {
+    public void handleKeyPressWrongCommandWordWithTab() {
         // empty commandBox
         assertInputHistory(KeyCode.TAB, "");
         assertInputHistory(KeyCode.DOWN, "");
@@ -167,7 +167,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleKeyPress_cdCommandWordWithTab() {
+    public void handleKeyPressCdCommandWordWithTab() {
         String os = System.getProperty("os.name").toLowerCase();
 
         // cd commands to get current directory with one input

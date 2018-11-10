@@ -22,33 +22,11 @@ public class TransformationSet {
     }
 
     /**
-     *
-     */
-    public TransformationSet(LinkedList<Transformation> transformations) {
-        this.transformations = transformations;
-        cursor = Index.fromOneBased(transformations.size());
-    }
-
-    /**
      * @param t
      * Adds transformations to transformation set
      */
     public void addTransformations(Transformation t) {
         transformations.addLast(t);
-        cursor = Index.fromOneBased(transformations.size());
-    }
-
-    /**
-     * @param steps
-     * Removes transformations from transformation set
-     */
-    public void removeTransformations(int steps) {
-        if (steps > transformations.size()) {
-            throw new IndexOutOfBoundsException("TODO: refactor message somewhere else");
-        }
-        for (int i = 0; i < steps; i++) {
-            transformations.pollLast();
-        }
         cursor = Index.fromOneBased(transformations.size());
     }
 

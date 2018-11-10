@@ -18,7 +18,7 @@ public class GoogleCommandParserTest {
     private final GoogleCommandParser parser = new GoogleCommandParser();
 
     @Test
-    public void parseCommand_ls_variants() throws ParseException {
+    public void parseCommandLsVariants() throws ParseException {
         assertEqualsGoogleLs("");
 
         // List all albums
@@ -32,7 +32,7 @@ public class GoogleCommandParserTest {
     }
 
     @Test
-    public void parseCommand_download() throws ParseException {
+    public void parseCommandDownload() throws ParseException {
         // Download album
         assertEqualsGoogleDl("/a<Album>");
 
@@ -52,7 +52,7 @@ public class GoogleCommandParserTest {
     }
 
     @Test
-    public void parseCommand_upload() throws ParseException {
+    public void parseCommandUpload() throws ParseException {
         // Upload directory
         assertEqualsGoogleUl("all");
 
@@ -69,12 +69,12 @@ public class GoogleCommandParserTest {
     }
 
     @Test
-    public void parseCommand_refresh() throws ParseException {
+    public void parseCommandRefresh() throws ParseException {
         assertTrue(parser.parse(GoogleRefreshCommand.TYPE) instanceof GoogleRefreshCommand);
     }
 
     @Test
-    public void parseCommand_invalid() {
+    public void parseCommandInvalid() {
         try {
             parser.parse("");
         } catch (Exception ex) {

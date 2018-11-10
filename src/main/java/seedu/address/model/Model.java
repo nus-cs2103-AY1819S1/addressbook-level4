@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -113,24 +112,19 @@ public interface Model {
     void updateImageListPrevBatch();
 
     /**
-     * Removes the image of the given index in the list.
-     */
-    void removeImageFromList(int idx);
-
-    /**
      * Retrieves the current displayed original image.
      */
     Path getCurrentOriginalImage();
 
     /**
+     * Set the current displayed original image.
+     */
+    void setCurrentOriginalImage(Path path);
+
+    /**
      * Retrieves the current displayed preview image.
      */
     PreviewImage getCurrentPreviewImage();
-
-    /**
-     * Sets the current model's preview image.
-     */
-    void setCurrentPreviewImage(PreviewImage previewImage);
 
     /**
      * Retrieves the current displayed preview image.
@@ -158,7 +152,7 @@ public interface Model {
 
     /**
      * update the transformationSet of the current image
-     * @param transformation
+     * @param transformation - transfomation to be added
      */
     void addTransformation(Transformation transformation);
 
@@ -172,9 +166,21 @@ public interface Model {
 
     void swapLayer(Index to, Index from) throws IllegalOperationException;
 
+    void setCanvasSize(int height, int width);
+
+    void setBackgroundColor(String color);
+
+    void setCanvasAuto(boolean auto);
+
+    int getCanvasHeight();
+
+    int getCanvasWidth();
+
     Canvas getCanvas();
 
-    void saveCanvas(String fileName) throws IOException, InterruptedException;
+    //void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException;
 
     void refreshHistoryList();
+
+    void setCurrentLayerPosition(int newX, int newY);
 }

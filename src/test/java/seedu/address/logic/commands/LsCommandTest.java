@@ -50,12 +50,12 @@ public class LsCommandTest {
     }
 
     @Test
-    public void execute_command_success() {
+    public void executeCommandSuccess() {
         assertExecutionSuccess(expectedMessage);
     }
 
     @Test
-    public void execute_directory_empty() {
+    public void executeDirectoryEmpty() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("emptydir").normalize());
         File emptydir = model.getCurrDirectory().toFile();
         if (!emptydir.exists()) {
@@ -65,7 +65,7 @@ public class LsCommandTest {
     }
 
     @Test
-    public void execute_invalid_directory() {
+    public void executeInvalidDirectory() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("invalid").normalize());
         assertExecutionSuccess(MESSAGE_INVALID_FILE_DIR);
     }

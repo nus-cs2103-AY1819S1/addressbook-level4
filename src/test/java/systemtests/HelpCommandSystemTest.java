@@ -51,7 +51,7 @@ public class HelpCommandSystemTest extends PiconsoSystemTest {
     }
 
     @Test
-    public void help_multipleCommands_onlyOneHelpWindowOpen() {
+    public void helpMultipleCommandsOnlyOneHelpWindowOpen() {
         getMainMenu().openHelpWindowUsingMenu();
 
         getMainWindowHandle().focus();

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.layer;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import seedu.address.testutil.ModelGenerator;
 class LayerDeleteCommandTest {
 
     @Test
-    void execute_deleteValid_success() {
+    public void executeDeleteValidSuccess() {
         String args = "2";
         Index indexToDelete = Index.fromOneBased(Integer.parseInt(args));
         Index workingOn = Index.fromOneBased(3);
@@ -28,6 +29,7 @@ class LayerDeleteCommandTest {
             assertNull(e);
         }
         CommandHistory ch = new CommandHistory();
+
         assertCommandSuccess(
                 new LayerDeleteCommand(args),
                 model,
@@ -37,64 +39,60 @@ class LayerDeleteCommandTest {
     }
 
     @Test
-    void execute_deleteCurrent_success() {
+    public void executeDeleteCurrentFailure() {
         String args = "2";
         Index workingOn = Index.fromOneBased(Integer.parseInt(args));
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
-        Model expectedModel = ModelGenerator.getModelWithPopulatedCanvas();
         model.getCanvas().setCurrentLayer(workingOn);
-
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+
+        assertCommandFailure(
                 new LayerDeleteCommand(args),
                 model,
                 ch,
-                String.format(Canvas.OUTPUT_ERROR_CURRENT_LAYER),
-                expectedModel);
+                Canvas.OUTPUT_ERROR_CURRENT_LAYER
+        );
     }
 
     @Test
-    void execute_deleteOnly_success() {
+    public void executeDeleteOnlyFailure() {
         String args = "1";
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+
+        assertCommandFailure(
                 new LayerDeleteCommand(args),
                 model,
                 ch,
-                String.format(Canvas.OUTPUT_ERROR_ONLY_LAYER),
-                expectedModel);
+                Canvas.OUTPUT_ERROR_ONLY_LAYER
+        );
     }
 
     @Test
-    void execute_deleteNull_success() {
+    public void executeDeleteNullFailure() {
         String args = null;
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+
+        assertCommandFailure(
                 new LayerDeleteCommand(args),
                 model,
                 ch,
-                String.format(LayerDeleteCommand.OUTPUT_FAILURE),
-                expectedModel);
+                LayerDeleteCommand.OUTPUT_FAILURE
+        );
     }
 
     @Test
-    void execute_deleteInvalidIndex_success() {
+    public void executeDeleteInvalidIndexFailure() {
         String args = "9";
-        Index workingOn = Index.fromOneBased(Integer.parseInt(args));
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
-
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+
+        assertCommandFailure(
                 new LayerDeleteCommand(args),
                 model,
                 ch,
-                String.format(LayerDeleteCommand.OUTPUT_FAILURE),
-                model);
+                LayerDeleteCommand.OUTPUT_FAILURE
+        );
     }
 }

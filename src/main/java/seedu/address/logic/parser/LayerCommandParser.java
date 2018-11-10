@@ -3,10 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.ENTIRE_LAYER_MESSAGE;
 
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.logic.commands.layer.LayerAddCommand;
 import seedu.address.logic.commands.layer.LayerCommand;
 import seedu.address.logic.commands.layer.LayerDeleteCommand;
@@ -25,11 +21,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class LayerCommandParser {
 
-    private static final Logger logger = LogsCenter.getLogger(CanvasCommandParser.class);
-
-    private String subcommand;
-    private String argument;
-
     /**
      * Parses the sub-command and arguments for the Canvas command
      *
@@ -38,8 +29,8 @@ public class LayerCommandParser {
     public LayerCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String[] argumentArray = args.trim().split(" ", 2);
-        subcommand = argumentArray[0];
-        argument = (argumentArray.length > 1) ? argumentArray[1] : null;
+        String subcommand = argumentArray[0];
+        String argument = (argumentArray.length > 1) ? argumentArray[1] : null;
 
         switch (subcommand) {
         case "add": {

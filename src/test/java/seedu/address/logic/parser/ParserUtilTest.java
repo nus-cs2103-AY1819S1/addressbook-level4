@@ -12,26 +12,25 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ParserUtilTest {
-    private static final String WHITESPACE = " \t\r\n";
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_invalidInput_throwsParseException() throws Exception {
+    public void parseIndexInvalidInputThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseIndex("10 a");
     }
 
     @Test
-    public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
+    public void parseIndexOutOfRangeInputThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
         ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
     }
 
     @Test
-    public void parseIndex_validInput_success() throws Exception {
+    public void parseIndexValidInputSuccess() throws Exception {
         // No whitespaces
         assertEquals(INDEX_FIRST_IMAGE, ParserUtil.parseIndex("1"));
 

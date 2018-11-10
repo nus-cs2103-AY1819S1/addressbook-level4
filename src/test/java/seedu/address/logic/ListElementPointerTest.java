@@ -26,7 +26,7 @@ public class ListElementPointerTest {
     }
 
     @Test
-    public void constructor_defensiveCopy_backingListUnmodified() {
+    public void constructorDefensiveCopyBackingListUnmodified() {
         List<String> list = new ArrayList<>();
         pointer = new ListElementPointer(list);
         list.add(FIRST_ELEMENT);

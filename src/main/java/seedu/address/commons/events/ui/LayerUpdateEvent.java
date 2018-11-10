@@ -19,12 +19,12 @@ public class LayerUpdateEvent extends BaseEvent {
 
     /**
      * Constructor for a LayerUpdateEvent
-     * @param toChange
+     * @param toChange - List of new layer names
+     * @param current - Index of the current layer
      */
     public LayerUpdateEvent(ArrayList<String> toChange, Index current) {
         this.list = requireNonNull(toChange);
         this.current = current;
-        System.out.println(String.format("current is now ", current.getOneBased()));
     }
 
     @Override

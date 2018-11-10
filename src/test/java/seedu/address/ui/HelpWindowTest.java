@@ -35,18 +35,18 @@ public class HelpWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void isShowing_helpWindowIsShowing_returnsTrue() {
+    public void isShowingHelpWindowIsShowingReturnsTrue() {
         guiRobot.interact(helpWindow::show);
         assertTrue(helpWindow.isShowing());
     }
 
     @Test
-    public void isShowing_helpWindowIsHiding_returnsFalse() {
+    public void isShowingHelpWindowIsHidingReturnsFalse() {
         assertFalse(helpWindow.isShowing());
     }
 
     @Test
-    public void focus_helpWindowNotFocused_focused() throws Exception {
+    public void focusHelpWindowNotFocusedFocused() throws Exception {
         // TODO: This test skip can be removed once this bug is fixed:
         // https://github.com/javafxports/openjdk-jfx/issues/50
         //

@@ -20,38 +20,38 @@ public class UndoCommandTest {
     private String messageFailure = UndoCommand.MESSAGE_FAILURE;
 
     @Test
-    public void executeDefaultStateSingleUndo_commandFailure() {
+    public void executeDefaultStateSingleUndoCommandFailure() {
         Model model = ModelGenerator.getDefaultModel();
         assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSingleUndoPointingAtStart_commandFailure() {
+    public void executeSingleUndoPointingAtStartCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSingleUndoPointingAtMid_commandSuccess() {
+    public void executeSingleUndoPointingAtMidCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 4);
     }
 
     @Test
-    public void executeSingleUndoPointingAtEnd_commandSuccess() {
+    public void executeSingleUndoPointingAtEndCommandSuccess() {
         Model model = ModelGenerator.getModelWithOneTransformation();
         assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 2);
     }
 
     @Test
-    public void executeSuccessiveUndoPointingAtEnd_commandSuccess() {
+    public void executeSuccessiveUndoPointingAtEndCommandSuccess() {
         Model model = ModelGenerator.getModelWithTwoTransformations();
         assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 1, 3);
         assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 3);
     }
 
     @Test
-    public void executeSingleUndoAfterPurge_commandSuccess() {
+    public void executeSingleUndoAfterPurgeCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         Model purgedModel = ModelGenerator.executeATransformation(model);
         assertCommandSuccess(undoCommand, purgedModel, commandHistory, messageSuccess, 0, 2);

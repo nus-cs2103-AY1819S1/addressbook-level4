@@ -46,21 +46,21 @@ public class CdCommandTest {
 
         // same directory -> returns true
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
-        assert_cdToDirectory_success(currDirectory);
+        assertCdToDirectorySuccess(currDirectory);
 
         // change to testimgs10
         expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("testimgs10").normalize());
-        assert_cdToDirectory_success(nextDirectory);
+        assertCdToDirectorySuccess(nextDirectory);
         assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
         // change to previous directory
         expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-        assert_cdToDirectory_success(prevDirectory);
+        assertCdToDirectorySuccess(prevDirectory);
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
         // change to previous directory
         expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-        assert_cdToDirectory_success(prevDirectory);
+        assertCdToDirectorySuccess(prevDirectory);
         assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
 
         // different paths -> returns false
@@ -72,7 +72,7 @@ public class CdCommandTest {
     }
 
     @Test
-    public void execute_cdToDirectory_failure() {
+    public void executeCdToDirectoryFailure() {
         model = getDefaultModel();
         expectedModel = getDefaultModel();
 
@@ -113,23 +113,23 @@ public class CdCommandTest {
     }
 
     @Test
-    public void execute_cdToDirectory_success() {
+    public void executeCdToDirectorySuccess() {
         if (os.contains("win")) {
             // cd commands to change drive on windows
             Path absWinPath = Paths.get("C://Users");
             expectedModel.updateCurrDirectory(absWinPath);
 
             CdCommand command = new CdCommand(absWinPath);
-            assert_cdToDirectory_success(command);
+            assertCdToDirectorySuccess(command);
         }
 
         if (os.contains("mac")) {
             // cd commands to change drive on mac
-            Path absMacPath = Paths.get("/Volume");
+            Path absMacPath = Paths.get("/Volumes");
             expectedModel.updateCurrDirectory(absMacPath);
 
             CdCommand command = new CdCommand(absMacPath);
-            assert_cdToDirectory_success(command);
+            assertCdToDirectorySuccess(command);
         }
 
         if (os.contains("nux") || os.contains("ubuntu")) {
@@ -138,14 +138,14 @@ public class CdCommandTest {
             expectedModel.updateCurrDirectory(absUbuPath);
 
             CdCommand command = new CdCommand(absUbuPath);
-            assert_cdToDirectory_success(command);
+            assertCdToDirectorySuccess(command);
         }
     }
 
     /**
      * Asserts cd command success with the given {@code command}
      */
-    public void assert_cdToDirectory_success(CdCommand command) {
+    public void assertCdToDirectorySuccess(CdCommand command) {
         // directory exists
         String expectedMessage = expectedModel.getCurrDirectory().toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, expectedModel.getTotalImagesInDir())

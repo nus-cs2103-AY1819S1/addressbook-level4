@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -35,9 +36,9 @@ public class LayerDeleteCommand extends LayerCommand {
 
     @Override
 
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (args == null) {
-            return new CommandResult(String.format(OUTPUT_FAILURE));
+            throw new CommandException(OUTPUT_FAILURE);
         }
         int index;
         Index toRemove;
@@ -45,14 +46,11 @@ public class LayerDeleteCommand extends LayerCommand {
         try {
             index = Integer.parseInt(args);
             toRemove = Index.fromOneBased(index);
-            if (toRemove.getZeroBased() < 0 | toRemove.getZeroBased() >= model.getCanvas().getLayers().size()) {
-                throw new NumberFormatException();
-            }
             currentLayer = model.removeLayer(toRemove);
-        } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new CommandException(OUTPUT_FAILURE);
         } catch (IllegalOperationException e) {
-            return new CommandResult(e.getMessage());
+            throw new CommandException(e.getMessage());
         }
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");

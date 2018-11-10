@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class CanvasAutoResizeCommandTest {
 
     @Test
-    void execute_turnOn_success() {
+    public void executeTurnOnSuccess() {
         String args = "on";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -26,7 +27,7 @@ class CanvasAutoResizeCommandTest {
     }
 
     @Test
-    void execute_turnOff_success() {
+    public void executeTurnOffSuccess() {
         String args = "off";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -41,19 +42,17 @@ class CanvasAutoResizeCommandTest {
     }
 
     @Test
-    void execute_invalidCommand_success() {
+    public void executeInvalidCommandFailure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+        assertCommandFailure(
                 new CanvasAutoResizeCommand(args),
                 model,
                 ch,
                 String.format(CanvasAutoResizeCommand.OUTPUT_FAILURE, args)
                         + "\n\n"
-                        + CanvasAutoResizeCommand.MESSAGE_USAGE,
-                expectedModel
+                        + CanvasAutoResizeCommand.MESSAGE_USAGE
         );
     }
 }

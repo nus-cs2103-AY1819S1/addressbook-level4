@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.canvas;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class CanvasBgcolorCommandTest {
 
     @Test
-    void execute_changeNone_success() {
+    public void executeChangeNoneSuccess() {
         String args = "none";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -26,7 +27,7 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void execute_changeRgba_success() {
+    public void executeChangeRgbaSuccess() {
         String args = "rgba(0,0,0,0.0)";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -41,7 +42,7 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void execute_changeHex_success() {
+    public void executeChangeHexSuccess() {
         String args = "#00ff00";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -56,19 +57,17 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void execute_changeInvalid_success() {
+    public void executeChangeInvalidFailure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
-        Model expectedModel = ModelGenerator.getDefaultModel();
-        expectedModel.getCanvas().setBackgroundColor(args);
         CommandHistory ch = new CommandHistory();
-        assertCommandSuccess(
+        assertCommandFailure(
                 new CanvasBgcolorCommand(args),
                 model,
                 ch,
                 String.format(CanvasBgcolorCommand.OUTPUT_FAILURE, args.toLowerCase())
                         + "\n\n"
-                        + CanvasBgcolorCommand.MESSAGE_USAGE,
-                expectedModel);
+                        + CanvasBgcolorCommand.MESSAGE_USAGE
+        );
     }
 }

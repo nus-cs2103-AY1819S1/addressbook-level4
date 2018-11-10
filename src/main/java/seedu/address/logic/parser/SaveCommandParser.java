@@ -23,6 +23,9 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      */
     public SaveCommand parse(String args) throws ParseException {
         String[] all = args.split(" ");
+        if (all.length == 1 && args.trim().equals("")) {
+            return new SaveCommand();
+        }
         if (all.length != 2 || isFormatValid(all[1])) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }

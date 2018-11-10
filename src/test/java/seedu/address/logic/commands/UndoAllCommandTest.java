@@ -20,45 +20,45 @@ public class UndoAllCommandTest {
     private String messageFailure = UndoAllCommand.MESSAGE_FAILURE;
 
     @Test
-    public void executeDefaultStateUndoAll_commandFailure() {
+    public void executeDefaultStateUndoAllCommandFailure() {
         Model model = ModelGenerator.getDefaultModel();
         assertCommandFailure(undoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeUndoAllPointingAtStart_commandFailure() {
+    public void executeUndoAllPointingAtStartCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandFailure(undoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeUndoAllPointingAtMid_commandSuccess() {
+    public void executeUndoAllPointingAtMidCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(undoAllCommand, model, commandHistory, messageSuccess, 0, 4);
     }
 
     @Test
-    public void executeUndoAllWithPointerAtEnd_commandSuccess() {
+    public void executeUndoAllWithPointerAtEndCommandSuccess() {
         Model model = ModelGenerator.getModelWithThreeTransformations();
         assertCommandSuccess(undoAllCommand, model, commandHistory, messageSuccess, 0, 4);
     }
 
     @Test
-    public void execute_successiveUndoAllPointingAtMid_commandFailure() {
+    public void executeSuccessiveUndoAllPointingAtMidCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(undoAllCommand, model, commandHistory, messageSuccess, 0, 4);
         assertCommandFailure(undoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute_successiveUndoAllPointingAtEnd_commandFailure() {
+    public void executeSuccessiveUndoAllPointingAtEndCommandFailure() {
         Model model = ModelGenerator.getModelWithThreeTransformations();
         assertCommandSuccess(undoAllCommand, model, commandHistory, messageSuccess, 0, 4);
         assertCommandFailure(undoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeUndoAllAfterPurge_commandSuccess() {
+    public void executeUndoAllAfterPurgeCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         Model purgedModel = ModelGenerator.executeATransformation(model);
         assertCommandSuccess(undoAllCommand, purgedModel, commandHistory, messageSuccess, 0, 2);

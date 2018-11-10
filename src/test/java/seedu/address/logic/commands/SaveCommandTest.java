@@ -16,12 +16,14 @@ import seedu.address.testutil.ModelGenerator;
 
 public class SaveCommandTest {
 
-    private Model model = ModelGenerator.getDefaultModel();
+    private Model model = ModelGenerator.getModelWithTestImg();
 
     @Test
     public void saveImageSuccessfully() throws CommandException {
         String fileName = "test.jpg";
-        SaveCommand command = new SaveCommand(fileName);
+        SaveCommand command = new SaveCommand();
+        command.execute(model, new CommandHistory());
+        command = new SaveCommand(fileName);
         File file = new File(model.getCurrDirectory().toString() + "/" + fileName);
         if (file.exists()) {
             file.delete();

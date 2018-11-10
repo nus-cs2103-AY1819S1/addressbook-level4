@@ -16,7 +16,7 @@ public class LoginCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_command_failure() {
+    public void executeCommandFailure() {
         // unable to write test for success due to connectivity issues
         // success test would require a permanent set of stored google credentials, thus is insecure.
         LoginCommand loginCommand = new LoginCommand();

@@ -26,7 +26,7 @@ public class NextCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_nextBatch_failure() {
+    public void executeNextBatchFailure() {
         assertEquals(model.getDirectoryImageList().size(), 7);
 
         // Directory image list does not change if next fails
@@ -35,7 +35,7 @@ public class NextCommandTest {
     }
 
     @Test
-    public void execute_nextBatch_success() {
+    public void executeNextBatchSuccess() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("testimgs10"));
         assertEquals(model.getTotalImagesInDir(), 14);
 

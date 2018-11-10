@@ -2,8 +2,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -36,20 +35,20 @@ public class OpenCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexImageList_success() {
+    public void executeValidIndexImageListSuccess() {
 
         assertExecutionSuccess(INDEX_FIRST_IMAGE);
         assertExecutionSuccess(INDEX_SECOND_IMAGE);
     }
 
     @Test
-    public void execute_indexExceedsTotalImageList_failure() {
+    public void executeIndexExceedsTotalImageListFailure() {
         assertEquals(model.getDirectoryImageList().size(), 7);
         assertExecutionFailure(INDEX_EIGHT_IMAGE, Messages.MESSAGE_INDEX_END_OF_IMAGE_LIST);
     }
 
     @Test
-    public void execute_indexExceedsBatchSize_failure() {
+    public void executeIndexExceedsBatchSizeFailure() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("testimgs10"));
         assertEquals(model.getTotalImagesInDir(), 14);
 
@@ -62,20 +61,20 @@ public class OpenCommandTest {
         OpenCommand openSecondCommand = new OpenCommand(INDEX_SECOND_IMAGE);
 
         // same object -> returns true
-        assertTrue(openFirstCommand.equals(openFirstCommand));
+        assertEquals(openFirstCommand, openFirstCommand);
 
         // same values -> returns true
         OpenCommand selectFirstCommandCopy = new OpenCommand(INDEX_FIRST_IMAGE);
-        assertTrue(openFirstCommand.equals(selectFirstCommandCopy));
+        assertEquals(openFirstCommand, selectFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(openFirstCommand.equals(1));
+        assertNotEquals(1, openFirstCommand);
 
         // null -> returns false
-        assertFalse(openFirstCommand.equals(null));
+        assertNotEquals(null, openFirstCommand);
 
-        // different person -> returns false
-        assertFalse(openFirstCommand.equals(openSecondCommand));
+        // different command -> returns false
+        assertNotEquals(openFirstCommand, openSecondCommand);
     }
 
     /**
