@@ -72,10 +72,3 @@ include::../UserGuide.adoc[tag=cross]
 include::../DeveloperGuide.adoc[tag=logicComponent]
 
 include::../DeveloperGuide.adoc[tag=ingredientManagement]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
