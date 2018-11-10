@@ -2,13 +2,13 @@ package guitests.guihandles;
 
 import java.net.URL;
 
+import org.w3c.dom.Document;
+
 import guitests.GuiRobot;
 import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
-import org.w3c.dom.Document;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.

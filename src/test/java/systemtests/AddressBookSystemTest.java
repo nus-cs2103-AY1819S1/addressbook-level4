@@ -14,8 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -220,7 +218,7 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        String selectedCardCCA = getPersonListPanel().getHandleToSelectedCard().getTags().toString();
+        String selectedCardCca = getPersonListPanel().getHandleToSelectedCard().getTags().toString();
         String selectedCardRoom = getPersonListPanel().getHandleToSelectedCard().getRoom();
         String selectedCardNumber = getPersonListPanel().getHandleToSelectedCard().getPhone();
         String selectedCardSchool = getPersonListPanel().getHandleToSelectedCard().getSchool();
@@ -239,7 +237,7 @@ public abstract class AddressBookSystemTest {
         }
 
         expectedHtmlString = expectedHtmlString.replace("$name", selectedCardName);
-        expectedHtmlString = expectedHtmlString.replace("$cca", selectedCardCCA);
+        expectedHtmlString = expectedHtmlString.replace("$cca", selectedCardCca);
         expectedHtmlString = expectedHtmlString.replace("$room", selectedCardRoom);
         expectedHtmlString = expectedHtmlString.replace("$number", selectedCardNumber);
         expectedHtmlString = expectedHtmlString.replace("$school", selectedCardSchool);

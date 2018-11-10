@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.NewImageEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
@@ -26,8 +28,6 @@ import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
-
-import javax.imageio.ImageIO;
 
 /**
  * Updates the profile picture of a person to the address book.

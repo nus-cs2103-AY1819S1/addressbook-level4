@@ -1,8 +1,8 @@
 package guitests.guihandles;
 
-import javafx.scene.web.WebView;
-
 import org.w3c.dom.Document;
+
+import javafx.scene.web.WebView;
 
 /**
  * Helper methods for dealing with {@code Profile View}.

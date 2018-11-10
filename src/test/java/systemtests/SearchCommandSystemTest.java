@@ -6,8 +6,8 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_D111;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_ENGINE;
 
@@ -101,7 +101,7 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         ModelHelper.setFilteredList(expectedModel, ALICE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
-        
+
         /* Case: search person in hallper, different types of keywords -> 3 persons found */
         command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_D111 + " " + KEYWORD_MATCHING_ENGINE;
         ModelHelper.setFilteredList(expectedModel, BENSON, ELLE, GEORGE);
