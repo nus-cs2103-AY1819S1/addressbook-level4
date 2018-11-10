@@ -9,9 +9,9 @@
 
 == Overview
 
-*MeNUS* is an all in one restaurant management desktop application developed to help restaurant owners
+*MeNUS* is an all-in-one restaurant management desktop application developed to help restaurant owners
 and managers streamline the process of managing restaurants. It allows the restaurant owners and managers to control
-their inventory, menu, sales and reservations efficiently all in one place.
+their inventory, menu, sales and reservations efficiently all-in-one place.
 *MeNUS* is also designed to help restaurants save cost from running expensive and independent systems.
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
@@ -21,17 +21,17 @@ approximately 30 KLOC.
 
 == Summary of contributions
 * *Major enhancement*: Added *Menu Management* feature
-** *What it does*: Allows the user to manage the menu with the various menu management commands.
-** *Justification*: It can be messy and tedious to manage menus manually. This feature help users to
-streamline the process of managing the menu by allowing them to modify the menu with just a single command.
+** *What it does*: Allows the user to manage the menus with the various menu management commands.
+** *Justification*: It can be messy and tedious to manage menus manually. This feature helps users to
+streamline the process of managing menus by allowing them to modify the menus with just a single command.
 ** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands.
-It required an in-depth analysis and understanding of *MeNUS* architecture to ensure that commands of each management
+It requires an in-depth analysis and understanding of *MeNUS* architecture to ensure that commands of each management
  feature is integrated properly together.
 
 * *Minor enhancement*: Added animation to the GUI
 (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/214[#214])
 ** *What it does*: Plays the https://docs.oracle.com/javafx/2/api/javafx/animation/FadeTransition.html[FadeTransition]
-for a duration of 150ms when the user enters a command.
+for a short duration when the user enters a command.
 
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
 
