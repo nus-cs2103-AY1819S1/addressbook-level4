@@ -34,7 +34,7 @@ public class FindEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_multipleKeywords_eventFound() throws ParseException {
+    public void execute_singleKeyword_eventFound() throws ParseException {
         EventAttributesPredicate predicate = makeEventsAttributesPredicate(NAME_DESC_MEETING);
         FindEventCommand command = new FindEventCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
