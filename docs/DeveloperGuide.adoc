@@ -294,7 +294,6 @@ image::LoginFeatureAfterLogin.png[width="300"]
 ** Pros: Enforce some level of authentication with minimal code
 ** Cons: Level of security is minimal
 
-
 * **Alternative 2** : Use Java API to hash the password
 ** Pros: Higher level of security for users
 ** Cons: May not be pertinent for the EventOrganiser app as of v1.3
@@ -481,6 +480,7 @@ This section explains the implementation of the features associated with the Sch
 
 For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not include a schedule object, and so adjustments have to be made.
 Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the weekly schedule is stored.
+
 
 ===== Aspect: Storage of schedule in person
 
