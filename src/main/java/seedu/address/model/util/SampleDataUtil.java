@@ -277,8 +277,12 @@ public class SampleDataUtil {
         };
     }
 
+    /**
+     * Creates an event with a poll and poll options.
+     */
     private static Event createEventWithPoll() {
-        Event eventWithPoll = new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet("URGENT"),
+        Event eventWithPoll = new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"),
+                getTagSet("URGENT"),
                 LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
                 LocalTime.of(13, 00), ALEX);
         eventWithPoll.addPoll("Meeting date");
