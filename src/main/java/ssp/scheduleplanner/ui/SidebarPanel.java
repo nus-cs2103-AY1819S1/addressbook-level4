@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
 import ssp.scheduleplanner.commons.events.ui.NewResultAvailableEvent;
+import ssp.scheduleplanner.commons.events.ui.ShowTagsRequestEvent;
 import ssp.scheduleplanner.logic.ListElementPointer;
 import ssp.scheduleplanner.logic.Logic;
 import ssp.scheduleplanner.logic.commands.CommandResult;
@@ -144,6 +145,16 @@ public class SidebarPanel extends UiPart<Region> {
                 }
             }
         });
+    }
 
+    @Subscribe
+    public void handleShowTagsRequestEvent(ShowTagsRequestEvent e) {
+        String catName = e.getCategory();
+        ObservableList<TitledPane> titledPanes = accordion.getPanes();
+        for (TitledPane titledPane : titledPanes) {
+            if (titledPane.getText().equals(catName)) {
+                accordion.setExpandedPane(titledPane);
+            }
+        }
     }
 }

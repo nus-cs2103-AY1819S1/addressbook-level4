@@ -137,7 +137,7 @@ public class SchedulePlannerParser {
             return new ProgressWeekCommand();
 
         case ShowTagsCommand.COMMAND_WORD:
-            return new ShowTagsCommand();
+            return new ShowTagsCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
