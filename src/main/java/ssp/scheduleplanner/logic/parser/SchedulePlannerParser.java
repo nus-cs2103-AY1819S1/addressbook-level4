@@ -33,6 +33,7 @@ import ssp.scheduleplanner.logic.commands.ProgressWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
 import ssp.scheduleplanner.logic.commands.RemoveCategoryCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
+import ssp.scheduleplanner.logic.commands.ShowTagsCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 
@@ -134,6 +135,9 @@ public class SchedulePlannerParser {
 
         case ProgressWeekCommand.COMMAND_WORD:
             return new ProgressWeekCommand();
+
+        case ShowTagsCommand.COMMAND_WORD:
+            return new ShowTagsCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
