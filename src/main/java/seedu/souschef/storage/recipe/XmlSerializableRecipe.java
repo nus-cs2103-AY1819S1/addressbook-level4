@@ -64,12 +64,7 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
         } else {
             appContent = new AppContent();
         }
-
         recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
-    }
-
-    public AppContent getAppContent() {
-        return appContent;
     }
 
     /**
@@ -80,9 +75,6 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
      */
     @Override
     public AppContent toModelType() throws IllegalValueException {
-        //problem area:
-        //this.appContent is returning null at this point
-
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
             if (this.appContent.getRecipes().contains(recipe)) {
