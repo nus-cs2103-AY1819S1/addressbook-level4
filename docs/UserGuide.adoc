@@ -69,7 +69,7 @@ Examples:
 === Registering a doctor: `register-doctor`
 Registers a doctor to the HealthBook. Doctor is automatically tagged as a "Doctor". +
 Format: `register-doctor n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
-
++
 [WARNING]
 Login to Google Calendar is mandatory. If no login is done, the application will not be able to proceed.
 Please ensure login is done before proceeding back to the HealthBook.
