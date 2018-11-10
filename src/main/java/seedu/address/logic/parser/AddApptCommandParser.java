@@ -47,6 +47,10 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         String procedure = argMultimap.getValue(PREFIX_PROCEDURE).get();
         String dateTime = argMultimap.getValue(PREFIX_DATE_TIME).get();
 
+        if (!Nric.isValidNric(patientNric)) {
+            throw new ParseException(Nric.MESSAGE_NAME_CONSTRAINTS);
+        }
+
         try {
             LocalDateTime.parse(dateTime, Appointment.DATE_TIME_FORMAT);
         } catch (DateTimeParseException dtpe) {
