@@ -11,6 +11,10 @@ import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.CommandBoxHandle;
+
+import javafx.scene.input.KeyCode;
+
 import seedu.clinicio.logic.Logic;
 import seedu.clinicio.logic.LogicManager;
 import seedu.clinicio.logic.commands.LoginCommand;
@@ -18,10 +22,6 @@ import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
 import seedu.clinicio.ui.CommandBox;
 import seedu.clinicio.ui.GuiUnitTest;
-
-import guitests.guihandles.CommandBoxHandle;
-
-import javafx.scene.input.KeyCode;
 
 public class PasswordPrefixFormatterTest extends GuiUnitTest {
 
