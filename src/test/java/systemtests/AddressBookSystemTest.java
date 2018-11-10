@@ -75,7 +75,7 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation()); // PROBLEMATIC LINE.
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         getPersonBrowserPanel();

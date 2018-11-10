@@ -101,7 +101,10 @@ public class PersonBuilder {
      * Sets the module list using {@code moduleList}.
      */
     public PersonBuilder withModuleList(List<Module> moduleList) {
-        this.moduleList = new UniqueModuleList(moduleList);
+        this.moduleList = new UniqueModuleList();
+        for (Module module : moduleList) {
+            this.moduleList.add(module);
+        }
         return this;
     }
 
