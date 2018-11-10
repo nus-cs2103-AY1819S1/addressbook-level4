@@ -3,12 +3,12 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_EFFECTIVE_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_LETHAL_DOSAGE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
