@@ -602,7 +602,7 @@ Step 2: `SelectCommand` checks passed arguments.
 
 Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
 
-
+//tag::wod[]
 
 === WordOfTheDay feature
 ==== Current Implementation
