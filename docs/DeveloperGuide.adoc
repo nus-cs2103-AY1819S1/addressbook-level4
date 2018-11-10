@@ -322,6 +322,33 @@ e: 'event' context
 
 The `switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
 
+
+The following code snippet shows what the `switch` command does upon execution:
+In addition to updating the context, the `switch` command also does the following:
+
+* Clear all predicates for volunteer, events and record lists.
+* Resets the state pointer (for undo/redo functions).
+* Raise a `ContextChangeEvent` to update the UI.
+
+```Java
+public class SwitchCommand extends Command {
+    //...
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        requireNonNull(model);
+
+        model.setCurrentContext(contextId);
+        model.updateFilteredVolunteerList(Model.PREDICATE_SHOW_ALL_VOLUNTEERS);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
+        model.resetStatePointer();
+
+        EventsCenter.getInstance().post(new ContextChangeEvent(contextId));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getContextName()));
+    }
+}
+```
+
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
 .Simplified sequence diagram of switch command
@@ -703,8 +730,46 @@ In addition to updating the context, the `manage` command also does the followin
 
 * Clear all predicates for volunteer list.
 * Filter the existing records by the selected event.
+* Resets the state pointer (for undo/redo functions).
 * Raise a `RecordChangeEvent` to set the selected event.
 * Raise a `ContextChangeEvent` to update the UI.
+
+The following code snippet shows what the `manage` command does upon execution:
+
+```Java
+public class ManageCommand extends Command {
+    //...
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        List<Event> filteredEventList = model.getFilteredEventList();
+        model.updateFilteredVolunteerList(PREDICATE_SHOW_ALL_VOLUNTEERS);
+
+        if (targetIndex.getZeroBased() >= filteredEventList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        model.switchToRecordContext();
+        model.setSelectedEvent(filteredEventList.get(targetIndex.getZeroBased()));
+        model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
+                filteredEventList.get(targetIndex.getZeroBased()).getEventId()
+        ));
+        model.resetStatePointer();
+
+
+        EventsCenter.getInstance().post(new RecordChangeEvent(
+                filteredEventList.get(targetIndex.getZeroBased())));
+        EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
+
+        return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS,
+                filteredEventList.get(targetIndex.getZeroBased()).getName().fullName)
+                + " [" + targetIndex.getOneBased() + "]");
+
+    }
+    //...
+}
+```
 
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
