@@ -11,7 +11,6 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
-import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 
 import java.util.Optional;
 import seedu.clinicio.commons.core.UserSession;
@@ -20,7 +19,6 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
