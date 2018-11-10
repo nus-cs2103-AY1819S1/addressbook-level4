@@ -138,6 +138,8 @@ Examples:
 * `find levitate` +
 Returns `levitate`
 
+//tag::group[]
+
 === Showing word by different group: `showgroup`
 
 (1). Shows all the existed group. +
@@ -189,6 +191,7 @@ Examples:
 
 * `groupdelete mustLearn` +
 Deletes group mustLearn and all the words inside
+// end::basic[]
 
 === Deleting a word : `delete`
 
