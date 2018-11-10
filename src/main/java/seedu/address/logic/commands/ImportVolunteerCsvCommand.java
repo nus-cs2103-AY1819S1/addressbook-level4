@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -30,6 +31,7 @@ import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * Imports a list of volunteers in csv format
@@ -87,17 +89,18 @@ public class ImportVolunteerCsvCommand extends Command {
                 }
                 args = args.trim();
                 ArgumentMultimap argMultimap =
-                        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENDER,
+                        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ID, PREFIX_GENDER,
                                 PREFIX_BIRTHDAY, PREFIX_PHONE, PREFIX_EMAIL,
                                 PREFIX_ADDRESS, PREFIX_TAG);
 
-                if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENDER, PREFIX_BIRTHDAY,
+                if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ID, PREFIX_GENDER, PREFIX_BIRTHDAY,
                         PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                         || !argMultimap.getPreamble().isEmpty()) {
                     throw new CommandException(MESSAGE_FORMAT_ERROR);
                 }
 
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+                VolunteerId volunteerId = ParserUtil.parseVolunteerId(argMultimap.getValue(PREFIX_ID).get());
                 Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
                 Birthday birthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get());
                 Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
@@ -106,7 +109,7 @@ public class ImportVolunteerCsvCommand extends Command {
                         argMultimap.getValue(PREFIX_ADDRESS).get());
                 Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-                Volunteer volunteer = new Volunteer(name, gender, birthday, phone, email, address, tagList);
+                Volunteer volunteer = new Volunteer(name, volunteerId, gender, birthday, phone, email, address, tagList);
 
                 if (!model.hasVolunteer(volunteer)) {
                     model.addVolunteer(volunteer);
