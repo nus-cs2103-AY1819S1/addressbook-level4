@@ -50,6 +50,7 @@ public class BudgetCommandTest {
 
                 Files.copy(is, Paths.get("data", "ccabook.xsl"));
             } catch (IOException e) {
+                System.out.println("Error");
             }
 
         }
