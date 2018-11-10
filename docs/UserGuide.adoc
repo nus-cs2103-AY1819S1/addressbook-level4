@@ -53,16 +53,16 @@ Let's work through a simple project in Piconso from start to finish.
 Format: `help`: viewing list of all commands
 
 // tag::dir[]
-=== Selecting images for editing: `select`
+=== Opening images for editing: `open`
 
-Format: `select [INDEX 1-10]`: selects an image for image-editing
+Format: `open [INDEX 1-10]`: opens an image for image-editing
 
-Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
+Format: `open -all`: adds all images in current directory from working set [Coming in v2.0]
 
 Examples:
 
-* `select 1` +
-* `select -all` [Coming in v2.0]
+* `open 1` +
+* `open -all` [Coming in v2.0]
 
 === Retrieving the next batch of images: `next`
 
@@ -72,8 +72,8 @@ Format: `next`: Retrieves the next 10 images for editing
 
 Format: `prev`: Retrieves the previous 10 images for editing
 // end::dir[]
-// tag::convert[]
 
+// tag::convert[]
 === Applying a transformation to an image : `convert`
 You can use the convert command with the given format
 
@@ -410,7 +410,7 @@ Format: `exit`: closes the application
 == Command Summary
 
 * *Help* : `help` +
-* *Select* : `select [INDEX]` +
+* *open* : `open [INDEX 1-10]` +
 e.g. `select 1` +
 * *Next* : `next` +
 * *Previous* : `prev` +
