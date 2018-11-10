@@ -13,7 +13,7 @@ import seedu.address.testutil.ModelGenerator;
 class LayerSelectCommandTest {
 
     @Test
-    public void execute_nullArgument_failure() {
+    public void executeNullArgumentFailure() {
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
         CommandHistory ch = new CommandHistory();
         assertCommandFailure(
@@ -25,7 +25,7 @@ class LayerSelectCommandTest {
     }
 
     @Test
-    public void execute_layerValidSelect_success() {
+    public void executeLayerValidSelectSuccess() {
         String args = "2";
         Index index = Index.fromOneBased(Integer.parseInt(args));
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
@@ -41,7 +41,7 @@ class LayerSelectCommandTest {
     }
 
     @Test
-    public void execute_layerInvalidSelect_failure() {
+    public void executeLayerInvalidSelectFailure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
@@ -54,9 +54,9 @@ class LayerSelectCommandTest {
     }
 
     @Test
-    public void execute_layerSelectWithoutCanvas_failure() {
+    public void executeLayerSelectWithoutCanvasFailure() {
         String args = "2";
-        Index index = Index.fromOneBased(Integer.parseInt(args));
+        //Index index = Index.fromOneBased(Integer.parseInt(args));
         Model model = ModelGenerator.getModelWithoutCanvas();
         CommandHistory ch = new CommandHistory();
         assertCommandFailure(

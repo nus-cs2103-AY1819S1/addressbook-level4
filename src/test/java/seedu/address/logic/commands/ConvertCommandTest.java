@@ -26,7 +26,7 @@ public class ConvertCommandTest {
         try {
             command.execute(model, new CommandHistory());
         } catch (CommandException e) {
-            if (!(e.getMessage() == null || e.getMessage() == "")) {
+            if (!(e.getMessage() == null || e.getMessage().equals(""))) {
                 fail();
             }
         }

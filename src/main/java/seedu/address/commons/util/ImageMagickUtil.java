@@ -35,7 +35,6 @@ public class ImageMagickUtil {
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
-    private static String ectPath;
     private static final String osName = System.getProperty("os.name").toLowerCase();
     private static String convertExecutablePath = "";
     private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
@@ -237,12 +236,10 @@ public class ImageMagickUtil {
             process.waitFor();
             //remove the __MACOSX folder in the mac
             new ProcessBuilder("rm", "-rf", currentPath.toString() + "/__MACOSX").start();
-            ectPath = currentPath.toString() + "/ImageMagick-7.0.8/bin/magick";
             convertExecutablePath = currentPath.toString() + "/ImageMagick-7.0.8/bin/convert";
             break;
         case WINDOWS:
             ResourceUtil.unzipFolder(zipFile);
-            ectPath = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/magick.exe";
             convertExecutablePath = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/convert.exe";
             break;
         default:

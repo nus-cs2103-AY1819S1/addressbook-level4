@@ -280,11 +280,9 @@ public class PhotoHandler {
         File dir = new File(path);
 
         for (File file : Objects.requireNonNull(dir.listFiles())) {
-            if (file.isFile()) {
-                if (ImageIO.read(file) != null) {
-                    imageNames.add(file.getName());
-                    newItems.add(generateNewMediaImage(file.getName(), path));
-                }
+            if (file.isFile() && ImageIO.read(file) != null) {
+                imageNames.add(file.getName());
+                newItems.add(generateNewMediaImage(file.getName(), path));
             }
         }
 

@@ -33,20 +33,20 @@ public class LayerAddCommandTest extends GuiUnitTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_invalidIndex_failure() {
+    public void executeInvalidIndexFailure() {
         String invalidIndex = "invalid";
         assertExecutionFailure(invalidIndex, LayerAddCommand.OUTPUT_FAILURE);
     }
 
 
     @Test
-    public void execute_validIndexImageList_success() {
+    public void executeValidIndexImageListSuccess() {
         assertExecutionSuccess(INDEX_FIRST_IMAGE);
         assertExecutionSuccess(INDEX_SECOND_IMAGE);
     }
 
     @Test
-    public void execute_indexExceedsTotalImageList_failure() {
+    public void executeIndexExceedsTotalImageListFailure() {
         assertEquals(model.getDirectoryImageList().size(), 7);
         assertExecutionFailure(INDEX_EIGHT_IMAGE, LayerAddCommand.OUTPUT_FAILURE);
         String outOfBoundsIndex = Integer.toString(INDEX_EIGHT_IMAGE.getOneBased());
@@ -54,7 +54,7 @@ public class LayerAddCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void execute_indexExceedsBatchSize_failure() {
+    public void executeIndexExceedsBatchSizeFailure() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("testimgs10"));
         assertEquals(model.getTotalImagesInDir(), 14);
         String outOfBoundsIndex = Integer.toString(INDEX_ELEVEN_IMAGE.getOneBased());

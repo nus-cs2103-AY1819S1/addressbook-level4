@@ -77,7 +77,7 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void commit_imagePointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+    public void commitImagePointerNotAtEndOfStateListStatesAfterPointerRemovedCurrentStateSaved() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithUndoneStates();
         previewImage.commit(PreviewImageGenerator.getABufferedImage());
 
@@ -85,13 +85,13 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void canUndo_defaultPreviewImage_returnsFalse() {
+    public void canUndoDefaultPreviewImageReturnsFalse() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertFalse(previewImage.canUndo());
     }
 
     @Test
-    public void canUndo_multipleImagesPointerAtStartOfStateList_returnsFalse() {
+    public void canUndoMultipleImagesPointerAtStartOfStateListReturnsFalse() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 3);
 
@@ -99,33 +99,33 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void canUndo_multipleImagesPointerAtMidOfStateList_returnsTrue() {
+    public void canUndoMultipleImagesPointerAtMidOfStateListReturnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
         assertTrue(previewImage.canUndo());
     }
 
     @Test
-    public void canUndo_multipleImagesPointerAtEndOfStateList_returnsTrue() {
+    public void canUndoMultipleImagesPointerAtEndOfStateListReturnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         assertTrue(previewImage.canUndo());
     }
 
     @Test
-    public void undo_defaultPreviewImage_throwsNoUndoableStateException() {
+    public void undoDefaultPreviewImageThrowsNoUndoableStateException() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertThrows(PreviewImage.NoUndoableStateException.class, previewImage::undo);
     }
 
     @Test
-    public void undo_multipleImagesPointerAtStartOfStateList_throwsNoUndoableStateException() {
+    public void undoMultipleImagesPointerAtStartOfStateListThrowsNoUndoableStateException() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 3);
         assertThrows(PreviewImage.NoUndoableStateException.class, previewImage::undo);
     }
 
     @Test
-    public void undo_multipleImagesPointerAtMidOfStateList_success() {
+    public void undoMultipleImagesPointerAtMidOfStateListSuccess() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
 
@@ -134,7 +134,7 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void undo_multipleImagesPointerAtEndOfStateList_success() {
+    public void undoMultipleImagesPointerAtEndOfStateListSuccess() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
 
         previewImage.undo();
@@ -142,38 +142,38 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void canRedo_defaultPreviewImage_returnsFalse() {
+    public void canRedoDefaultPreviewImageReturnsFalse() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertFalse(previewImage.canRedo());
     }
 
     @Test
-    public void canRedo_multipleImagesPointerAtStartOfStateList_returnsTrue() {
+    public void canRedoMultipleImagesPointerAtStartOfStateListReturnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithUndoneStates();
         assertTrue(previewImage.canRedo());
     }
 
     @Test
-    public void canRedo_multipleImagesPointerAtMidOfStateList_returnsTrue() {
+    public void canRedoMultipleImagesPointerAtMidOfStateListReturnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
         assertTrue(previewImage.canRedo());
     }
 
     @Test
-    public void canRedo_multipleImagePointerAtEndOfStateList_returnsFalse() {
+    public void canRedoMultipleImagePointerAtEndOfStateListReturnsFalse() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         assertFalse(previewImage.canRedo());
     }
 
     @Test
-    public void redo_defaultPreviewImage_throwsNoRedoableStateException() {
+    public void redoDefaultPreviewImageThrowsNoRedoableStateException() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
     }
 
     @Test
-    public void redo_multipleImagesPointerAtStartOfStateList_success() {
+    public void redoMultipleImagesPointerAtStartOfStateListSuccess() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 3);
 
@@ -183,7 +183,7 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtMidOfStateList_success() {
+    public void redoMultipleAddressBookPointerAtMidOfStateListSuccess() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
 
@@ -192,7 +192,7 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void redo_multipleImagesPointerAtEndOfStateList_throwsNoRedoableStateException() {
+    public void redoMultipleImagesPointerAtEndOfStateListThrowsNoRedoableStateException() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
 
         assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
