@@ -78,7 +78,6 @@ public class EraseCommand extends Command {
         }
 
         model.removeTagsFromPersons(modifiedPersons, toErase);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ERASE_SUCCESS, target));
     }

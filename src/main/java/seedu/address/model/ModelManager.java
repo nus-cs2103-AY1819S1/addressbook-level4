@@ -181,10 +181,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author kengwoon
     @Override
-    public void removeTagsFromPersons(List<Person> target, List<Person> original) {
-        for (int i = 0; i < target.size(); i++) {
-            updatePerson(original.get(i), target.get(i));
-        }
+    public void removeTagsFromPersons(List<Person> editedPersons, List<Person> targets) {
+        requireAllNonNull(editedPersons, targets);
+
+        versionedAddressBook.updateMultiplePersons(editedPersons, targets);
+        updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
