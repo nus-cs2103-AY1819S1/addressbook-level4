@@ -104,6 +104,59 @@ public class SampleDataUtil {
                             new Instruction("Fry each prata dough until brown on both sides.")
                     ),
                     getTagSet("Staple", "Vegetarian", "Halal")),
+            new Recipe(new Name("Cheese Fries"), new Difficulty("2"), new CookTime("40M"),
+                getInstructionList(
+                    new Instruction("Melt butter on low.",
+                        getIngredientPortionSet(new IngredientPortion("butter", "cup", 0.25))),
+                    new Instruction("Add milk. Add cheese slowly, while stirring.",
+                        getIngredientPortionSet(new IngredientPortion("milk", "cup", 0.75),
+                            new IngredientPortion("cheese", "g", 450.0))),
+                    new Instruction("Simmer for 20 minutes, stirring often.",
+                        new CookTime("20M"), getIngredientPortionSet()),
+                    new Instruction("Add salt and cornstarch mix.",
+                        getIngredientPortionSet(new IngredientPortion("salt", "teaspoon", 1.0),
+                            new IngredientPortion("cornstarch", "teaspoon", 0.5))),
+                    new Instruction("Simmer another 10 minutes, stirring often",
+                        new CookTime("10M"), getIngredientPortionSet()),
+                    new Instruction("Serve on top of fries")
+                ),
+                getTagSet("Western", "Vegetarian", "Halal")),
+            new Recipe(new Name("Chicken Kebab"), new Difficulty("3"), new CookTime("30M"),
+                getInstructionList(
+                    new Instruction("Heat grill to medium-high. In a bowl, toss the chicken, "
+                        + "garlic, thyme, oil and 1/2 tsp salt and pepper each. "
+                        + "Thread the chicken on the skewers.",
+                        getIngredientPortionSet(new IngredientPortion("chicken", "g", 680.0),
+                            new IngredientPortion("garlic", "clove", 2.0),
+                            new IngredientPortion("thyme", "tablespoon", 1.0),
+                            new IngredientPortion("olive oil", "tablespoon", 1.0),
+                            new IngredientPortion("salt", "teaspoon", 0.5),
+                            new IngredientPortion("pepper", "teaspoon", 0.5))),
+                    new Instruction("Grill the chicken, turning occasionally, "
+                        + "until the chicken is cooked through 7 to 10 minutes.", new CookTime("10M"),
+                    getIngredientPortionSet())
+                ),
+                getTagSet("Poultry", "Staple", "Halal")),
+            new Recipe(new Name("Egg Fried Rice"), new Difficulty("3"), new CookTime("30M"),
+                getInstructionList(
+                    new Instruction("Heat the vegetable oil in a wok, add the onion and "
+                        + "leek and fry gently until softened but not browned.",
+                        getIngredientPortionSet(new IngredientPortion("vegetable oil", "teaspoon", 0.125),
+                            new IngredientPortion("onion", "g", 5.0),
+                            new IngredientPortion("leek", "g", 150.0))),
+                    new Instruction("Add the eggs and whisk until they are beginning to scramble "
+                        + "and cook. Add the soy sauce and whisk.",
+                        getIngredientPortionSet(new IngredientPortion("eggs", "whole", 2.0),
+                            new IngredientPortion("soy sauce", "tablespoon", 2.0))),
+                    new Instruction("Add the cooked rice and stir well to coat in the eggs. Stir in "
+                        + "the chopped chives, salt and freshly ground black pepper and spoon into a serving dish. "
+                        + "Drizzle with soy sauce and serve.",
+                        getIngredientPortionSet(new IngredientPortion("rice", "g", 200.0),
+                            new IngredientPortion("chives", "tablespoon", 1.0),
+                            new IngredientPortion("salt", "tablespoon", 0.5),
+                            new IngredientPortion("black pepper", "tablespoon", 0.5)))
+                ),
+                getTagSet("Asian", "Staple")),
             new Recipe(new Name("Kimchi Jun"), new Difficulty("2"), new CookTime("10M"),
                         getInstructionList(
                                 new Instruction("Stir together the kimchi, kimchi juice,"
