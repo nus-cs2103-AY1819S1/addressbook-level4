@@ -949,8 +949,8 @@ e.g. `seedu.clinicio.logic.LogicManagerTest`
 
 == Dev Ops
 
-This section is designed to guide you through on the Dev Ops tools and practices that is used to manage 
-this project. + 
+This section is designed to guide you through on the Dev Ops tools and practices that is used to manage
+this project. +
 
 === Build Automation
 
