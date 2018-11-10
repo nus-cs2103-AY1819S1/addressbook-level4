@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -81,7 +82,7 @@ public class SalesReportWindow extends UiPart<Stage> {
         quantitySold.setCellValueFactory(new PropertyValueFactory<>("quantitySold"));
         initializePriceColumn();
         initializeRevenueColumn();
-        recordsTable.setItems(salesReport.getRecords());
+        recordsTable.setItems(FXCollections.observableArrayList(salesReport.getRecords()));
         totalRevenue.setText(String.format(totalRevenueMessage,
                 currencyFormatter.format(salesReport.getTotalRevenue())));
     }

@@ -12,9 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.antlr.runtime.EarlyExitException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 
@@ -118,13 +123,9 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
      * @param date Date of sales report to generate
      */
     public SalesReport generateSalesReport(Date date) {
-        ObservableList<SalesRecord> observableRecordList = FXCollections.observableArrayList();
-        for (SalesRecord salesRecord: internalList) {
-            if (salesRecord.getDate().equals(date)) {
-                observableRecordList.add(salesRecord);
-            }
-        }
-        return new SalesReport(date, FXCollections.unmodifiableObservableList(observableRecordList));
+        List<SalesRecord> associatedRecords =
+                internalList.stream().filter(s -> s.getDate().equals(date)).collect(Collectors.toList());
+        return new SalesReport(date, associatedRecords);
     }
 
     /**
