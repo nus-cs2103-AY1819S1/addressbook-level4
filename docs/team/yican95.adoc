@@ -10,9 +10,9 @@
 == Overview
 
 *MeNUS* is an all in one restaurant management desktop application developed to help restaurant owners
-and managers streamline the process of managing restaurants. It is also designed to help them
-save cost from running expensive and independent systems.
-// explain more
+and managers streamline the process of managing restaurants. It allows the restaurant owners and managers to control
+their inventory, menu, sales and reservations efficiently all in one place.
+*MeNUS* is also designed to help them save cost from running expensive and independent systems.
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). It also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX]. *MeNUS* is
@@ -20,28 +20,27 @@ Restaurant owners interact with *MeNUS* using a Command Line Interface
 approximately 30 KLOC.
 
 == Summary of contributions
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
-
 * *Major enhancement*: Added *Menu Management* feature
 ** *What it does*: Allows the user to manage the menu with the various menu management commands.
-** *Justification*: It can be messy and tedious to manage menus with paper and pen. This feature help users to
-streamline the process of managing the menu by allowing users to modify the menu with a single command.
-** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands and commands
-to be added in future. It required an in-depth analysis and understanding of *MeNUS* architecture.
-// Explain more
+** *Justification*: It can be messy and tedious to manage menus manually. This feature help users to
+streamline the process of managing the menu by allowing them to modify the menu with just a single command.
+** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands.
+It required an in-depth analysis and understanding of *MeNUS* architecture to ensure that commands of each management
+ feature is integrated properly together.
 
 * *Minor enhancement*: Added animation to the GUI
 (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/214[#214])
-** *What it does*: Plays the https://docs.oracle.com/javafx/2/api/javafx/animation/FadeTransition
-.html[FadeTransition] for a duration of 150ms when the user enters a command.
+** *What it does*: Plays the https://docs.oracle.com/javafx/2/api/javafx/animation/FadeTransition.html[FadeTransition]
+for a duration of 150ms when the user enters a command.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
 
 * *Other contributions*:
-
 ** Project management:
-*** TBU
+*** Maintained issue tracker
+*** Managed the integration of the features for *MeNUS*. Ensured that each feature was properly integrated into *MeNUS*.
 ** Enhancements to existing features:
 *** Updated the CSS theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests )
 ** Documentation:
 *** Added user stories & use cases in the Developer Guide:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37]
