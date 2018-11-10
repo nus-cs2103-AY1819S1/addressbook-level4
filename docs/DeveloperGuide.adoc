@@ -464,48 +464,93 @@ be successful even if they are not provided:
 
 ====
 
-Given below is an example usage scenario and how an AddCommand is carried out.
-
-Step 1. The user types in a valid `AddCommand`, for example,
-`add n/1 TB Toshiba SSD p/158 d/200d`, and the current date is 2nd October 2017 (2/10/2017).
-
 [NOTE]
 ====
+**Regarding Duration (`a/`) vs Date (`d/`)**
 
-* The Date should be in the format of `dd/mm/yyyy`, `dd` being days,
-`mm` being months, `yyyy` being the year,
-and the specified date should also be a valid date in the future.
-* If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
-* If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.
+* If `d/` is used, a valid Date should be used.
+** Date comes in the format of `dd/mm/yyyy`,
+`dd` being days, `mm` being months, `yyyy` being the year, and the
+** Specified date should also be a valid date in the future.
+* If `a/` is used, a valid Duration should be used.
+** length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
+* In any command, only `Duration` or `Date` can be used. Never both.
+* If an invalid string for date or duration is provided, a warning will be
+displayed to prompt the user to enter a valid date or duration.
 
 ====
+
+Given below is an example usage scenario and how an AddCommand is carried out.
+
+Step 1. The user types in a valid `AddCommand`, `add n/1 TB Toshiba SSD p/158 a/200d`, and the current date is 2nd October 2017 (2/10/2017).
+
 The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
-`Date` attribute which follows `d/` in the command will be discussed below.
+`Duration` attribute which follows `a/` in the command will be discussed below.
 
-The computation of wish expiry date is handled internally in the `ParserUtil` class,
-which is able to take days, months, and years as input to generate a proper `Date` with the current date that the user executes the command.
-Internally, `ParserUtil#parseDate()` converts the input date specified, and adds it to the current date to get the desired `Date`.
+Since `Duration` prefix is used, the computation of a wish's expiry date is handled
+internally in the `ParserUtil` class, which `ParserUtil#parseDate()` parses and converts
+the input string into a `Period` object (if input is valid),
+and adds the resultant `Period` to the current `Date` to get the desired
+`Date` of the `Wish`.
 
-The resultant wish will have the following properties:
+The resultant `Wish` will have the following properties:
 
+* id: `a randomly-generated UUID`
 * Name: _1TB Toshiba SSD_
-* SavedAmount: 0
+* SavedAmount: 0.00
 * Price: 158.00
 * Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
 
-Step 2. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
+The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
 which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
 as `filteredSortedWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
 
-_{TO-DO: Sequence Diagram here}_
+The following sequence diagram shows how an `AddCommand` is processed in WB:
+
+image::AddWishSequenceDiagram.png[width="800"]
+
+Step 2. Some time later, the user decides that she wants the exact same wish,
+but duplicated, and enters the exact same command, but with an exact `Date`
+instead of `Duration`, so the command entered is
+`add n/1 TB Toshiba SSD p/158 d/20/4/2018`.
+
+Since `Date` prefix is used, the `ParserUtil` parses the string into a `Date` object,
+and the resultant object is used directly for the resultant `Wish`.
+
+Similar to in Step 1, the command will be parsed successfully and a second `Wish`
+will be added, albeit with a different (hidden) id generated.
+
+The resultant `Wish` will have the following properties:
+
+* id: `another randomly-generated UUID`
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 0.00
+* Price: 158.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
 
 ==== Design Considerations
+* **Alternative 1 (current choice)**: Different prefixes for `Duration` and `Date`.
+** Pros: More focused user experience.
+User get more specific feedback depending on their preferred way of inputting date if a wrong input was made.
+If user uses `a/` and enters an incorrect `Duration`, the user will not receive an error message about the correct format
+for an exact `Date`, and will only be notified of the correct format of a `Duration`.
+** Pros: Easier to implement and handle isolate errors related to respective input parameters.
+** Cons: More prefixes for user to remember.
 
-
-_{TO-DO}_
+* **Alternative 2**: Have `Duration` and `Date` use the same prefix.
+** Pros: More natural usage of one prefix to determine `Wish` 's desired expiry date.
+** Cons: Conflating implementation of `Duration` and `Date`, hence harder to debug.
+** Cons: Tricky to implement, as we are parsing one input for two different desired formats.
 
 // end::wish[]
 
@@ -535,11 +580,10 @@ The resultant wish will have the following properties:
 * Name: _1TB Toshiba SSD_
 * SavedAmount: 10.00
 * Price: 15.00
-* DueDate: 20/4/2018 (20th April 2018)
+* Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
 * Fulfilled: `false`
 * Expired: `false`
 
@@ -558,11 +602,10 @@ The resultant wish will have the following properties:
 * Name: _1TB Toshiba SSD_
 * SavedAmount: 15.00
 * Price: 15.00
-* DueDate: 20/4/2018 (20th April 2018)
+* Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
 * Fulfilled: `true`
 * Expired: `false`
 
