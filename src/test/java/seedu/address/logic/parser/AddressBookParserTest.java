@@ -278,7 +278,7 @@ public class AddressBookParserTest {
                         + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_ALLERGY + VALID_ALLERGY + " "
                         + PREFIX_CONDITION + VALID_CONDITION);
         assertEquals(new AddMedicalHistoryCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY),
-                        VALID_ALLERGY, VALID_CONDITION), command);
+                VALID_ALLERGY, VALID_CONDITION), command);
     }
 
     @Test
