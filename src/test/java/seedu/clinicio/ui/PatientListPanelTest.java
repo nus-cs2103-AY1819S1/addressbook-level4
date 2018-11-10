@@ -8,7 +8,7 @@ import static seedu.clinicio.testutil.EventsUtil.postNow;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalPatients;
 
-import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardDisplaysPatient;
 import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
@@ -50,7 +50,7 @@ public class PatientListPanelTest extends GuiUnitTest {
             Patient expectedPatient = TYPICAL_PATIENTS.get(i);
             PatientCardHandle actualCard = patientListPanelHandle.getPatientCardHandle(i);
 
-            assertCardDisplaysPerson(expectedPatient, actualCard);
+            assertCardDisplaysPatient(expectedPatient, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }

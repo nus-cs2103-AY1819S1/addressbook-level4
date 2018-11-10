@@ -19,23 +19,17 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(PatientCardHandle expectedCard, PatientCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getNric(), actualCard.getNric());
         //assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPatient}.
      */
-    public static void assertCardDisplaysPerson(Patient expectedPatient, PatientCardHandle actualCard) {
+    public static void assertCardDisplaysPatient(Patient expectedPatient, PatientCardHandle actualCard) {
         assertEquals(expectedPatient.getName().fullName, actualCard.getName());
-        assertEquals(expectedPatient.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPatient.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPatient.getAddress().value, actualCard.getAddress());
-        /*assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());*/
+        assertEquals(expectedPatient.getNric().value, actualCard.getNric());
     }
 
     /**
@@ -45,7 +39,7 @@ public class GuiTestAssert {
     public static void assertListMatching(PatientListPanelHandle patientListPanelHandle, Patient... patients) {
         for (int i = 0; i < patients.length; i++) {
             patientListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(patients[i], patientListPanelHandle.getPatientCardHandle(i));
+            assertCardDisplaysPatient(patients[i], patientListPanelHandle.getPatientCardHandle(i));
         }
     }
 

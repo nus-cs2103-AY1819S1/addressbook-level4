@@ -3,7 +3,7 @@ package seedu.clinicio.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardDisplaysPatient;
 
 import org.junit.Test;
 
@@ -16,7 +16,6 @@ public class PatientCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
         Patient patientWithNoTags = new PatientBuilder().build();
         PatientCard patientCard = new PatientCard(patientWithNoTags, 1);
         uiPartRule.setUiPart(patientCard);
@@ -68,6 +67,6 @@ public class PatientCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", patientCardHandle.getId());
 
         // verify patient details are displayed correctly
-        assertCardDisplaysPerson(expectedPatient, patientCardHandle);
+        assertCardDisplaysPatient(expectedPatient, patientCardHandle);
     }
 }
