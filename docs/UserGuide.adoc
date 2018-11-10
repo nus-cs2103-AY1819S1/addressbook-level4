@@ -60,6 +60,26 @@ e.g. typing help and pressing Enter will open the help window.
 * Items in square brackets are optional e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `-t TAG...` can be used as `{nbsp}` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
 * Parameters can be in any order e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
+
+*Command Auto Complete*
+
+OASIS has provided you with a command auto complete feature to aid you with the usage of commands. With this functionality, you no longer have to memorise any commands!
+
+When you type commands into the command box, a drop down list of possible commands will appear, as shown in the screenshot below. 
+
+image::autoCompleteDropDownList.png[width=300]
+
+When the drop down list is shown, you can do the following:
+
+* Use `↑` and `↓` to navigate through the list
+* Press kbd:[Enter] to select the highlighted option
+
+After selecting the command, you will see that the command will be displayed in the command box. 
+
+If you wish to see a list of all commands, simply type kbd:[Space] into an empty command box. You should see the list as shown in the screenshot.
+
+image::autoCompleteDropDownListAllCommand.png[width=300]
+
 ====
 
 === Viewing help : `help`
