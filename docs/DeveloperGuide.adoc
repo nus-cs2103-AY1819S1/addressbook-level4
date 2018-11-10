@@ -419,18 +419,17 @@ The following are logging levels used:
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::viewarangeoftasks[]
-=== View Day/Week
+=== List tasks by Day/Week
 
-In order to enable users to better monitor their tasks in the schedule planner, Two more variations of
+In order to enable users to better monitor their tasks in the schedule planner, Two variations of
  `list` command were added.
 
-`listday` command supports viewing tasks due on the current date whereas `listweek` command supports viewing tasks
+`listday` command supports viewing tasks due on the current date, whereas `listweek` command supports viewing tasks
 from the current date till the closest Sunday.
 
 ==== Current Implementation
 
-`listday`/`listweek` mechanism utilises the same implementation used by
-`list` command:
+`listday`/`listweek` utilises the same implementation used by `list` command:
 
 * `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
 according to the predicate.
@@ -446,7 +445,8 @@ according to the predicate.
 Sunday) using `dateName`. `dateName` is the name of the current day.
 
 * appendDateList(dateList, numDaysTillSunday(dateName)) -- It generates sequential `DDMMYY` values
-based on the result of `numDaysTillSunday(dateName)` and insert into `dateList` . `dateList` is a `List<String>` object.
+based on the result of `numDaysTillSunday(dateName)` and inserts them into `dateList` . `dateList` is a `List<String>`
+object.
 
 * `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
 the list of dates from current date to closest Sunday date in `DDMMYY` format.
@@ -474,8 +474,7 @@ The following sequence diagram illustrates how the mechanism works:
 .Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 // end::viewarangeoftasks[]
-.Sequence Diagram of ListMonth Command
-image::ListMonthCommandSequenceDiagram.png[]
+
 // tag::viewarangeoftasks2[]
 ==== Design Considerations
 
@@ -488,6 +487,69 @@ image::ListMonthCommandSequenceDiagram.png[]
 E.g listday 130818 to view all tasks for 13 August 2018.
 ** Pros: It allows viewing for different date(s).
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
+// end::viewarangeoftasks2[]
+
+
+=== List tasks by Month
+
+The `listmonth` command is another variation of the `list` command, which supports viewing tasks due from the current
+date till the end of the month.
+
+==== Current Implementation
+
+`listmonth` utilises the same implementation used by the `list` command:
+
+* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
+according to the predicate.
+
+`listmonth` utilises the same implementation used by the `listweek` command:
+
+* `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
+a list of dates from current date to the end of the month in `DDMMYY` format.
+
+`listmonth` further implements the following operations:
+
+* numDaysTillEndOfMonth(currentDay) -- It computes the number of days from current date until the end of the month
+using `currentDay`.  `currentDay` is the current date in `LocalDate` format.
+
+* appendDateList(dateList, numDaysTillEndOfMonth(currentDay)) -- It generates sequential `DDMMYY` values
+based on the result of `numDaysTillEndOfMonth(currentDay)` and adds them into 'dateList` . `dateList` is a
+`List<String>` object.
+
+Given below is an example usage scenario and how `listmonth` mechanism behaves at each steps:
+
+Step 1. The user enters the command `listmonth`.
+
+Step 2. The command word `listmonth` invokes `LogicManger`, which invokes `SchedulePlannerParser` to return a
+`ListMonthCommand` object. `LogicManager` then invokes `ListMonthCommand#execute()`.
+
+Step 3. `ListMonthCommand#appendDateList(datelist, numDaysTillEndOfMonth(currentDay))` will be invoked. It
+generates sequential dates in `DDMMYY` format which are added into `dateList`. `numDaysTillEndOfMonth()` computes the
+number of days from the current date till the end of the month based on `currentDay`, the current date in `LocalDate`
+format.
+
+Step 4. `model.updateFilteredTaskList()` updates the task list with `DateWeekSamePredicate`
+as the predicate. `DateWeekSamePredicate` takes `dateList` in Step 3 as its parameter.
+
+Step 5. The updated task list would be reflected on `UI` to be displayed to the user.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of ListMonth Command
+image::ListMonthSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How does listmonth function
+
+* **Alternative 1 (current choice):** Fixed date interval based on commands
+** Pros: It is easy to implement and use.
+** Cons: It restricts view to tasks from current date till a fixed date in the future (last day of month)
+
+* **Alternative 2:** Allow `list` commands to receive arguments for start/end dates
+E.g list 130818 200918 to view all tasks between the two dates.
+** Pros: It allows viewing for different ranges.
+** Cons: It would be inconvenient to enter two date(s) each time the command is used.
 // end::viewarangeoftasks2[]
 
 // tag::generateacademiccalendar[]
@@ -644,26 +706,43 @@ description for each weeks.
 // end::generateacademiccalendar[]
 
 // tag::filtertags[]
-=== Filter Tags
+=== Filter by Tags (`filter` and `filterstrict`)
 
-The `filter` command allows the user to filter tasks in the schedule planner according to their tags. The user may
-search for multiple tags at once, and the schedule planner returns a list of tasks containing any of the tags
+The `filter` & `filterstrict` commands allow the user to filter tasks in the schedule planner according to their tags.
+The user may search for multiple tags at once, and the schedule planner returns a list of tasks containing the tags
 specified by the user.
+
+In the case of `filter`, multiple tags increases the range of
+search, while `filterstrict` increases the specificity of search.
+
 
 ==== Current Implementation
 
-The filter mechanism utilises "FilterCommandParser" to parse the user command into separate tags e.g `filter tag1
- tag2` will search for tasks with either tags `tag1`, `tag2`, or both.
+Since `filter` and `filterstrict` are implemented in similar fasion, we will simply refer to `filter`.
+
+The filter mechanism utilises `FilterCommandParser` to parse the user command into separate tags by invoking the method
+`FilterCommandParser.parse(args)`, where `args` are the tags to be filtered.  e.g `tag1 tag2` will be parsed into
+`tag1` and `tag2`.
 
 Given below is an example usage scenario and how the filter mechanism behaves at each step:
 
 Step 1. The user executes the command `filter tutorial CS2100`
 
-Step 2. The 'filter' command parses the argument `tutorial CS2100` into separate words `tutorial` and `CS2100` which
-are stored in a list in `TagsContainsKeywordsPredicate`.
+Step 2. The 'filter' command invokes `FilterCommandParser`, which parses the argument `tutorial CS2100` into separate
+words `tutorial` and `CS2100`, and are stored in an array in the predicate `TagsContainsKeywordsPredicate`.
 
-Step 3. `FilterCommand` is then created, which contains `TagsContainsKeywordsPredicate`, a predicate which searches
-for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` returns a list of tasks containing any of the tags input by the user.
+Step 3. `FilterCommandParser` then returns a `FilterCommand` , which contains `TagsContainsKeywordsPredicate`, a
+predicate which tests for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` calls `model
+.updateFilteredTaskList(TagsContainsKeywordsPredicate)`, which returns an updated list of tasks containing any of the
+ tags input by the user.
+
+[NOTE]
+`filter` filters tags inclusively, while `filterstrict` filters tags exclusively.
+
+
+The following sequence diagram summarizes what happens when a user executes a new filter command:
+
+image::FilterSequenceDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -1074,9 +1153,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |view tasks for next 7 days |have a relatively clear plan of this week
 
-|`* * *` |student |view tasks for future (more than 7 days) |record events that I can't miss in future
+|`* * *` |student |view tasks for the rest of the month |view my schedule for the month
 
-|`* * *` |student |search my tasks by keywords |find specific tasks easily
+|`* * *` |student |search my tasks by name |find specific tasks easily
+
+|`* * *` |student |search my tasks by tags |find specific tasks easily
 
 |`* * *` |student |view all commands |to guide me so that I could use the application
 
@@ -1085,6 +1166,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |student |view a history of all my commands in user-friendliness format |view what changes I had made before
 
 |`* * *` |student |clear the screen |have my screen interface cleaned of commands and result
+
+|`* *` |student |sort tasks by tags |tag my tasks
 
 |`* *` |student |sort tasks by category |categorise my tasks
 
@@ -1258,12 +1341,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Filter Tasks according to Tags
+=== Use case: Filter Tasks according to Tags (Inclusive)
 
 *MSS*
 
 1.  User requests to filter tasks by its tags from Student Schedule Planner.
-2.  Student Schedule Planner filters the tasks by the given parameters.
+2.  Student Schedule Planner filters the tasks with tags entered by user.
 3.  Student Schedule Planner displays the filtered tasks.
 +
 Use case ends.
@@ -1283,27 +1366,52 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: List tasks due today
+=== Use case: Filter Tasks according to Tags (Exclusive)
 
 *MSS*
 
-1.  User requests to view tasks due the current date from the Student Schedule Planner.
-2.  Student Schedule Planner filter the tasks by the current date.
-3.  Student Schedule Planner display the list of tasks due on the current date.
+1.  User requests to strictly filter tasks by its tags from Student Schedule Planner.
+2.  Student Schedule Planner strictly filters the tasks with tags entered by user.
+3.  Student Schedule Planner displays the strictly filtered tasks.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list tasks due today command did not follow the correct format.
+* 1a. The filterstrict task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
 Use case ends.
 [none]
-* 3a. The filtered task list is empty and thus display empty list.
+* 3a. The strictly filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due today
+
+*MSS*
+
+1.  User requests to view tasks due on current date from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks by current date.
+3.  Student Schedule Planner displays list of tasks due on current date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `listday` command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
 +
 Use case ends.
 
@@ -1312,23 +1420,49 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view tasks due from the current date until Sunday from the Student Schedule Planner.
-2.  Student Schedule Planner filter the tasks from the range of current date until Sunday.
-3.  Student Schedule Planner display the list of tasks due from current date until Sunday.
+1.  User requests to view tasks due from the current date to Sunday from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks from current date to Sunday.
+3.  Student Schedule Planner displays list of tasks due from current date to Sunday.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list tasks due until this Sunday command did not follow the correct format.
+* 1a. The `listweek` command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
 Use case ends.
 [none]
-* 3a. The filtered task list is empty and thus display empty list.
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
+
+=== Use case: List tasks due until the end of the month
+
+*MSS*
+
+1.  User requests to view tasks due from the current date until the end of month from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks from the range of current date until end of month
+3.  Student Schedule Planner display list of tasks due from current date until end of month.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `listmonth` command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
 +
 Use case ends.
 
