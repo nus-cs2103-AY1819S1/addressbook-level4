@@ -21,9 +21,9 @@ This portfolio showcases my contributions to this project.
 * *Major enhancement*: Added the *Reservation Management* feature
 ** *What it does*: Allows the user to manage a Reservations List using various commands
 ** *Justification*: It can be messy to manually manage restaurant reservations using pen and paper.
-This feature enables a systematic way to manage reservations.
-** *Highlights*: This project required me to communicate with my teammates to synchronize our different
-management systems. It required an in-depth analysis of the underlying *MeNUS* architecture.
+This feature enables a systematic and reliable way to manage reservations.
+** *Highlights*: This project required me to communicate with my teammates to integrate our different
+management systems together. It required an in-depth analysis of the underlying *MeNUS* architecture.
 
 * *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
@@ -31,14 +31,16 @@ https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
 * *Other contributions*:
 
 ** Project management:
-*** TBU
-** Enhancements to existing features:
-*** TBU
+*** Managed the documentation for the project team.
 ** Documentation:
-*** Wrote my feature descriptions in the User Guide and Developer Guide
+*** Wrote feature descriptions in the User Guide and Developer Guide
 *** Helped teammates edit language and phrasing in the User Guide and Developer Guide
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144]
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147]
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162]
 ** Tools:
 *** Integrated a third party library (Natty) to the project https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250]
 
