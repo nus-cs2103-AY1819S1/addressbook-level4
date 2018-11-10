@@ -326,6 +326,7 @@ Format: +
 Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
+// end::ingredient[]
 
 // tag::cross[]
 === Ingredient-Recipe Query Commands (Only applicable in cross context)
@@ -376,6 +377,7 @@ recipes based on ingredients'
 command(3.4.1.). +
 Format: +
 `list`
+// end::cross[]
 
 // tag::mealplanner[]
 === Meal Planner Commands (Only applicable in meal planner context)
@@ -403,6 +405,8 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
+
+// tag::healthplan[]
 === Health Plan Commands (Only applicable in health plan context)
 
 ==== Add plan: `add`
@@ -501,6 +505,8 @@ After being shown list of health plans +
 User enters command to compare against set health plan. +
 Format: +
 `compareIntake PLAN_ID`
+
+// end::healthplan[]
 
 === Cook-Mode Commands [coming in V2.0]
 ==== Next Instruction
