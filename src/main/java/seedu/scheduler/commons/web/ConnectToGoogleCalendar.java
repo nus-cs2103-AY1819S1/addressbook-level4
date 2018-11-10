@@ -704,6 +704,12 @@ public class ConnectToGoogleCalendar {
                 Collections.sort(instanceSort, (
                         a, b) -> a.getStart().getDateTime().toString()
                         .compareTo(b.getStart().getDateTime().toString()));
+
+                for (int i = 0; i < rangeStartIndex; i++) {
+                    com.google.api.services.calendar.model.Event instance = instanceSort.get(i);
+                    service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+                }
+
                 int editedEventIndex = 0;
                 for (int i = rangeStartIndex; i < instanceSort.size(); i++) {
                     com.google.api.services.calendar.model.Event instance = instanceSort.get(i);
