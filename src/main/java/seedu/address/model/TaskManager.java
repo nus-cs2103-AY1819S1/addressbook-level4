@@ -255,54 +255,56 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     /**
      * Returns the earliest time among all the dependencies of a task
+     *
      * @return
      */
     public Map<Task, DueDate> getEarliestDependentTime() {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
         Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
-        HashMap<Task, DueDate> visited = new HashMap<Task, DueDate>();
+        HashMap<Task, DueDate> result = new HashMap<>();
         for (Task task: graph.keySet()) {
-            if (!visited.containsKey(task)) {
-                getEarliestDependentTimeHelper(graph, visited, task);
+            if (!result.containsKey(task)) {
+                getEarliestDependentTimeHelper(graph, result, task);
             }
         }
-        return visited;
+        return result;
     }
+
     /**
-     * Returns the earliest time among all the dependencies of a task
-     * @return
+     * Returns the earliest DueDate among tasks that are dependent on a task
+     * @return earliest DueDate
      */
     public DueDate getEarliestDependentTimeForNode(Task node) {
         DependencyGraph dg = new DependencyGraph(this.getTaskList());
 
-        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
-        HashMap<Task, DueDate> visited = new HashMap<>();
-        return getEarliestDependentTimeHelper(graph, visited, node);
+        Map<Task, Set<Task>> invertedGraph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
+        HashMap<Task, DueDate> memo = new HashMap<>();
+        return getEarliestDependentTimeHelper(invertedGraph, memo, node);
 
     }
 
     /**
-     * Helper performs a dfs on the dependancy graph to find the earliest time of a task dependant among all its
-     * dependencies
-     * @param graph
-     * @param result
-     * @param node
-     * @return
+     * Helper performs a dfs on the inverted dependency graph to find the earliest time of a task dependant among all
+     * its dependencies
+     * @param graph graph of all nodes in graph, mapped to the items that they are dependent on
+     * @param memo memo stores intermediate results to prevent repeated computation
+     * @param node node to find earliest dependent time of
+     * @return earliest DueDate
      */
-    public DueDate getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, DueDate> result, Task node) {
-        if (result.containsKey(node)) {
-            return result.get(node);
+    public DueDate getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, DueDate> memo, Task node) {
+        if (memo.containsKey(node)) {
+            return memo.get(node);
         }
         DueDate earliestDate = node.getDueDate();
         for (Task dependee: graph.get(node)) {
-            DueDate consideredDate = getEarliestDependentTimeHelper(graph, result, dependee);
-            if (earliestDate == null || consideredDate.compareTo(earliestDate) < 0) {
+            DueDate consideredDate = getEarliestDependentTimeHelper(graph, memo, dependee);
+            if (consideredDate.compareTo(earliestDate) < 0) {
                 earliestDate = consideredDate;
             }
         }
 
-        result.put(node, earliestDate);
+        memo.put(node, earliestDate);
         return earliestDate;
     }
 
@@ -316,7 +318,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             String hash = entry.getKey();
             Set<String> dependencies = entry.getValue();
 
-            Set<Task> newDependencies = new HashSet<Task>();
+            Set<Task> newDependencies = new HashSet<>();
             for (String dependency: dependencies) {
                 newDependencies.add(tasks.get(dependency));
             }
@@ -330,7 +332,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
-        // TODO: refine later
     }
 
     @Override

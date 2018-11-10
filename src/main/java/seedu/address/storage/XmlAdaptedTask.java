@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Label;
-import seedu.address.model.task.Dependency;
+import seedu.address.model.task.Dependencies;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
@@ -122,7 +122,7 @@ public class XmlAdaptedTask {
         if (dueDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
         }
-        if (!DueDate.isValidDueDate(dueDate)) {
+        if (!DueDate.isValidDueDateFormat(dueDate)) {
             throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
         final DueDate modelDueDate = new DueDate(dueDate);
@@ -150,7 +150,7 @@ public class XmlAdaptedTask {
             throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
         }
         final Status modelStatus = Status.fromString(status);
-        final Dependency dependency = new Dependency(dependencies);
+        final Dependencies dependency = new Dependencies(dependencies);
 
         return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus,
                 dependency);
