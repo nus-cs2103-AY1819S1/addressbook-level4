@@ -77,7 +77,7 @@ public class MainApp extends Application {
         BudgetBookStorage budgetBookStorage = new XmlBudgetBookStorage(userPrefs.getBudgetBookFilePath());
         EmailStorage emailStorage = new EmailDirStorage(userPrefs.getEmailPath());
         ProfilePictureStorage profilePictureStorage = new ProfilePictureDirStorage(userPrefs.getProfilePicturePath(),
-                userPrefs.getOutputProfilePicturePath());
+            userPrefs.getOutputProfilePicturePath());
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
         storage = new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
             emailStorage, profilePictureStorage);

@@ -38,7 +38,7 @@ public class StorageManagerTest {
         IcsCalendarStorage calendarStorage = new IcsCalendarStorage(getTempFilePath("cal"));
         EmailDirStorage emailStorage = new EmailDirStorage(getTempFilePath("em"));
         ProfilePictureDirStorage profilePictureStorage = new ProfilePictureDirStorage((getTempFilePath("pro")),
-                getTempFilePath("outProfile"));
+            getTempFilePath("outProfile"));
         storageManager = new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
             emailStorage, profilePictureStorage);
     }

@@ -115,9 +115,9 @@ public class UserPrefs {
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(emailPath, o.emailPath)
-                && Objects.equals(calendarPath, o.calendarPath)
-                && Objects.equals(profilePicturePath, o.profilePicturePath)
-                && Objects.equals(outputProfilePicturePath, o.outputProfilePicturePath);
+            && Objects.equals(calendarPath, o.calendarPath)
+            && Objects.equals(profilePicturePath, o.profilePicturePath)
+            && Objects.equals(outputProfilePicturePath, o.outputProfilePicturePath);
 
     }
 

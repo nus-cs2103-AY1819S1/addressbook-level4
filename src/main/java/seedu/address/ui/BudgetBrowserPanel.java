@@ -29,7 +29,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
 
     //    public static final String BUDGET_PAGE = MainApp.class.getResource("/docs/ccabook.html").getPath();
     public static final String BUDGET_PAGE = "./data/ccabook.html";
-    public static final String BUDGET_PAGE_FILE = MainApp.class.getResource("/docs/ccabook.html").toString();
+    public static final String BUDGET_PAGE_FILE = "/data/ccabook.html";
     public static final String DEFAULT_PAGE = "default.html";
 
     private static final String FXML = "BudgetBrowserPanel.fxml";

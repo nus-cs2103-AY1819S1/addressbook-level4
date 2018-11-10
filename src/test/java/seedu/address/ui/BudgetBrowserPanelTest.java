@@ -16,7 +16,6 @@ import org.junit.Test;
 import guitests.guihandles.BudgetBrowserPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.CcaPanelSelectionChangedEvent;
-import seedu.address.model.cca.CcaName;
 
 //@@author ericyjw
 public class BudgetBrowserPanelTest extends GuiUnitTest {
@@ -40,23 +39,5 @@ public class BudgetBrowserPanelTest extends GuiUnitTest {
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, budgetBrowserPanelHandle.getLoadedUrl());
-    }
-
-    @Test
-    public void display_cca_directly() throws Exception {
-        selectionChangedEventStub = new CcaPanelSelectionChangedEvent(BASKETBALL);
-
-        guiRobot.interact(() -> budgetBrowserPanel = new BudgetBrowserPanel(new CcaName(VALID_CCA_NAME_BASKETBALL)));
-        uiPartRule.setUiPart(budgetBrowserPanel);
-
-        budgetBrowserPanelHandle = new BudgetBrowserPanelHandle(budgetBrowserPanel.getRoot());
-
-        // associated web page of a cca
-        postNow(selectionChangedEventStub);
-        String budgetPageUrl = BudgetBrowserPanel.BUDGET_PAGE_FILE;
-        URL expectedCcaUrl = new URL(budgetPageUrl);
-
-        waitUntilBrowserLoaded(budgetBrowserPanelHandle);
-        assertEquals(expectedCcaUrl, budgetBrowserPanelHandle.getLoadedUrl());
     }
 }
