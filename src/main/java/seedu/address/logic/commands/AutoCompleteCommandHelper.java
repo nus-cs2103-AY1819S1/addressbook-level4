@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 

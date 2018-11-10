@@ -6,18 +6,17 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class AutoCompleteCommandHelperTest {
+public class AutoCompleteCommandHelperTest {
 
-    Set<String> emptySet = new TreeSet<>();
-    String partialValidCommand = "modifypermissi"; //Partial valid command for "modifypermission"
-    //Partial valid command -> Set with full command.
-    Set<String> expectedResultForPartialValidCommand = new TreeSet<>(Arrays.asList("modifypermission"));
-    String partialInvalidCommand = "ppp";
+    private Set<String> emptySet = new TreeSet<>();
+    private String partialValidCommand = "modifypermissi"; //Partial valid command for "modifypermission"
+    private Set<String> expectedResultForPartialValidCommand = new TreeSet<>(Arrays.asList("modifypermission"));
+    private String partialInvalidCommand = "ppp";
 
     @Test
-    void autoCompleteWord() {
+    public void autoCompleteWord() {
 
         //null -> empty set
         Set<String> result = AutoCompleteCommandHelper.autoCompleteWord(null);
