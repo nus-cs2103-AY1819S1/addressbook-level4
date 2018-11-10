@@ -113,8 +113,9 @@ public class ClinicIoTest {
         Patient editedAlex = new PatientBuilder(ALEX).withAddress(VALID_ADDRESS_BOB)
                 .build();
         List<Patient> newPatients = Arrays.asList(ALEX, editedAlex);
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         ClinicIoStub newData = new ClinicIoStub(new ArrayList<>(), new ArrayList<>(),
-                newPatients, new ArrayList<>());
+                newPatients, new ArrayList<>(), newMedicines); 
 
         thrown.expect(DuplicatePatientException.class);
         clinicIo.resetData(newData);
@@ -244,7 +245,7 @@ public class ClinicIoTest {
     public void hasMedicine_medicineNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasMedicine(ORACORT));
     }
-  
+    
     // TODO: Add consultation test case
 
     @Test
