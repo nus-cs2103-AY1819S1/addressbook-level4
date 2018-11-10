@@ -6,10 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -19,14 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.permission.Permission;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.Project;
 import seedu.address.model.project.ProjectName;
 
 /**
@@ -77,21 +69,6 @@ public class EditAssignmentCommand extends Command {
         }
 
         Assignment assignmentToEdit = lastShownList.get(index.getZeroBased());
-
-        /*List<Person> personList = model.getFilteredPersonList();
-        Set<Project> assignmentNames;
-        for(Person p : personList){
-            //System.out.println(p.getProjects());
-            assignmentNames = p.getProjects();
-            for (Project pro : assignmentNames) {
-                //System.out.println(p.getName() + " " + pro.getProjectName());
-                //System.out.println(pro.getProjectName().toString() + " " + assignmentToEdit.getProjectName());
-                if(pro.getProjectName().toString().equals(assignmentToEdit.getProjectName())) {
-                    System.out.println("Need to edit.");
-                }
-            }
-        }*/
-
         Assignment editedAssignment = createEditedAssignment(assignmentToEdit, editAssignmentDescriptor);
 
         if (!assignmentToEdit.isSameAssignment(editedAssignment) && model.hasAssignment(editedAssignment)) {
@@ -120,25 +97,6 @@ public class EditAssignmentCommand extends Command {
                 editAssignmentDescriptor.getDescription().orElse(assignmentToEdit.getDescription());
 
         return new Assignment(updatedAssignmentName, updatedAuthor, updatedDescription);
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    public static Person createEditedPerson(Person personToEdit, EditCommand.EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Salary updatedSalary = editPersonDescriptor.getSalary().orElse(personToEdit.getSalary());
-        Set<Project> updatedProjects = editPersonDescriptor.getProjects().orElse(personToEdit.getProjects());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSalary,
-                personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects, personToEdit.getPermissionSet(),
-                personToEdit.getLeaveApplications());
     }
 
     @Override
