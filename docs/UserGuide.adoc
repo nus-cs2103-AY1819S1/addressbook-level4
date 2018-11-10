@@ -649,7 +649,6 @@ e.g. `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion l
 e.g. `undo`
 * *Redo* : `redo` +
 e.g. `redo`
-
 * *Clear* : `clear`
 * *Help* : `help`
 * *History* : `history`
