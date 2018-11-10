@@ -73,6 +73,8 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, config, userPrefs);
 
+        model.addUi(ui);
+
         initEventsCenter();
     }
 
@@ -98,7 +100,7 @@ public class MainApp extends Application {
             initialData = new ClinicIo();
         }
         //@@author iamjackslayer
-        return new ModelManager(initialData, userPrefs, (UiManager) ui);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
