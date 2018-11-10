@@ -164,7 +164,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
      * The person must not already exist in the ClinicIO.
      */
     public void addPerson(Person p) {
-        persons.add(Patient.buildFromPerson(p));
+        persons.add(p);
     }
 
     /**

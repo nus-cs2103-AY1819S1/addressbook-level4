@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.clinicio.commons.exceptions.IllegalValueException;
 
-import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Allergy;
 import seedu.clinicio.model.patient.MedicalProblem;
 import seedu.clinicio.model.patient.Medication;
@@ -40,9 +38,14 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private boolean isQueuing;
     @XmlElement
-    private Optional<Staff> preferredDoctor;
+    private XmlAdaptedStaff preferredDoctor;
     @XmlElement
-    private Optional<Appointment> appointment;
+    private XmlAdaptedAppointment appointment;
+
+    /**
+     * Constructs an XmlAdaptedAppointment. This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedPatient() {}
 
     /**
      * Constructs an XmlAdaptedPatient.
@@ -54,7 +57,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
-            Optional<Staff> preferredDoctor, Optional<Appointment> appointment) {
+            XmlAdaptedStaff preferredDoctor, XmlAdaptedAppointment appointment) {
         super(name, phone, email, address, new ArrayList<>());
         this.nric = nric;
         if (medicalProblems != null) {
@@ -66,7 +69,6 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         if (allergies != null) {
             this.allergies = new ArrayList<>(allergies);
         }
-
         this.isQueuing = isQueuing;
         this.preferredDoctor = preferredDoctor;
         this.appointment = appointment;
@@ -81,10 +83,14 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
                 .collect(Collectors.toList());
         allergies = patient.getAllergies().stream().map(XmlAdaptedAllergy::new)
                 .collect(Collectors.toList());
-
         isQueuing = patient.isQueuing();
-        preferredDoctor = patient.getPreferredDoctor();
-        appointment = patient.getAppointment();
+
+        if (patient.getPreferredDoctor().isPresent()) {
+            preferredDoctor = new XmlAdaptedStaff(patient.getPreferredDoctor().get());
+        }
+        if (patient.getAppointment().isPresent()) {
+            appointment = new XmlAdaptedAppointment(patient.getAppointment().get());
+        }
     }
 
     /**
@@ -121,10 +127,14 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
         final Set<Medication> modelMedications = new HashSet<>(patientMedications);
         final Set<Allergy> modelAllergies = new HashSet<>(patientAllergies);
 
+        Staff modelPreferredDoc = null;
+        if (preferredDoctor != null) {
+            modelPreferredDoc = preferredDoctor.toModelType();
+        }
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies, preferredDoctor.orElse(null));
+                modelAllergies, modelPreferredDoc);
 
         if (isQueuing) {
             patient.isQueuing();
@@ -132,13 +142,9 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
             patient.setIsNotQueuing();
         }
 
-        appointment.ifPresent(appointment1 -> {
-            patient.setAppointment(appointment1);
-        });
-
-        preferredDoctor.ifPresent(preferredDoctor -> {
-            patient.setPreferredDoctor(preferredDoctor);
-        });
+        if (appointment != null) {
+            patient.setAppointment(appointment.toModelType());
+        }
 
         return patient;
     }
