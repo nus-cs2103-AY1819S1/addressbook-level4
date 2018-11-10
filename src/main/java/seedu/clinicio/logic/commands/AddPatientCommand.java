@@ -13,8 +13,6 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 
-import java.util.Optional;
-
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
