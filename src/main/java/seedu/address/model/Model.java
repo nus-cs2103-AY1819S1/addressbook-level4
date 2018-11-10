@@ -125,6 +125,11 @@ public interface Model {
     Path getCurrentOriginalImage();
 
     /**
+     * Set the current displayed original image.
+     */
+    void setCurrentOriginalImage(Path path);
+
+    /**
      * Retrieves the current displayed preview image.
      */
     PreviewImage getCurrentPreviewImage();

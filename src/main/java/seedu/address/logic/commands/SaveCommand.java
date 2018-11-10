@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
@@ -55,10 +54,9 @@ public class SaveCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            Path currentDir = model.getCurrDirectory();
             File saveFile;
             if (!originalFile) {
-                saveFile = new File(currentDir.toString() + "/" + fileName);
+                saveFile = new File(model.getCurrDirectory().toString() + "/" + fileName);
                 if (saveFile.exists()) {
                     throw new CommandException(Messages.MESSAGE_DUPLICATED_IMAGE);
                 }
@@ -70,7 +68,7 @@ public class SaveCommand extends Command {
             BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             ImageIO.write(savedImage, format, saveFile);
         } catch (IOException e) {
-            throw new CommandException(e.toString());
+            throw new CommandException(e.getMessage());
         }
         model.updateEntireImageList();
         return new CommandResult(String.format("%s successfully saved!", fileName));

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -25,12 +26,17 @@ public class ConvertCommand extends Command {
             + ": do the operation to the image.\n"
             + "Parameters: operationName argument1 argument2 ...\n"
             + "Example: " + COMMAND_WORD + " blur 1x8";
+    public static final String MESSAGE_USAGE_RAW = COMMAND_WORD
+            + ": do the raw operation to the image by passing the args directly to ImageMagick.\n"
+            + "Parameters: argument1 argument2 ...\n"
+            + "Example: " + COMMAND_WORD + " raw +noise gaussian";
     //the path of the json file containing the arguments of the convert command
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
             ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
     private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
 
     private Transformation transformation;
+    private boolean isRaw;
 
 
     /**
@@ -39,6 +45,12 @@ public class ConvertCommand extends Command {
      */
     public ConvertCommand(Transformation transformation) {
         this.transformation = transformation;
+        this.isRaw = false;
+    }
+
+    public ConvertCommand(String[] args) {
+        this.transformation = new Transformation(Arrays.toString(args), args);
+        this.isRaw = true;
     }
 
     /**
@@ -52,14 +64,13 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
-                    transformation);
-            model.addTransformation(transformation);
+                    transformation, isRaw);
+            model.addTransformation(isRaw ? new Transformation(transformation.getOperation()) : transformation);
             model.updateCurrentPreviewImage(modifiedImage);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
         } catch (Exception e) {
-            throw new CommandException(e.toString());
+            throw new CommandException(isRaw ? "Invalid operation!" : e.getMessage());
         }
         return new CommandResult("process is done");
     }

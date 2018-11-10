@@ -142,6 +142,11 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentOriginalImage;
     }
 
+    @Override
+    public void setCurrentOriginalImage(Path path) {
+        this.currentOriginalImage = path;
+    }
+
     /**
      * Update the current displayed original image and
      * reinitialize the previewImageManager with the new image

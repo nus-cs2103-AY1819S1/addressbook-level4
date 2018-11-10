@@ -135,4 +135,13 @@ public class ModelGenerator {
         model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[3]), "Layer 3");
         return model;
     }
+
+    /**
+     * Returns a Model with a test img.
+     */
+    public static Model getModelWithTestImg() {
+        Model model = getDefaultModel();
+        model.setCurrentOriginalImage(Paths.get("src", "test", "data", "sandbox", "test.jpg"));
+        return model;
+    }
 }

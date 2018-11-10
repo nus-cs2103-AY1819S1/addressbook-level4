@@ -107,10 +107,9 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static BufferedImage processImage(Path path, Transformation transformation)
+    public static BufferedImage processImage(Path path, Transformation transformation, boolean isRaw)
             throws ParseException, IOException, InterruptedException, IllegalArgumentException,
             UnsupportedPlatformException {
-        ArrayList<String> cmds = parseOperationArguments(transformation);
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
@@ -118,8 +117,15 @@ public class ImageMagickUtil {
         args.add(path.toAbsolutePath().toString());
         args.add("-background");
         args.add("rgba(0,0,0,0)"); //HARDFIX!
-        args.add("-" + cmds.remove(0));
-        args.addAll(cmds);
+        if (!isRaw) {
+            ArrayList<String> cmds = parseOperationArguments(transformation);
+            args.add("-" + cmds.remove(0));
+            args.addAll(cmds);
+        } else {
+            ArrayList<String> cmds = transformation.toList();
+            cmds.remove(0);
+            args.addAll(cmds);
+        }
         args.add(modifiedFile);
         return runProcessBuilder(args, modifiedFile);
     }
@@ -271,27 +277,6 @@ public class ImageMagickUtil {
         throw new NoSuchElementException("The ImageMagick binaries cannot be found!");
     }
 
-    /**
-     * Handles a raw string and directly passes it to ImageMagick.
-     * @param path - full path to the image to work on.
-     * @param rawCommand - a string holding the raw command string to pass in.
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public static BufferedImage processRawImage(Path path, String rawCommand)
-            throws IOException, InterruptedException, UnsupportedPlatformException {
-        ArrayList<String> rawArgs = new ArrayList<>(Arrays.asList(rawCommand.trim().split(" ")));
-        String modifiedFile = tmpPath + "/output.png";
-        ArrayList<String> args = new ArrayList<>();
-        args.add(ImageMagickUtil.getExecuteImageMagick());
-        args.add(path.toAbsolutePath().toString());
-        args.add("-background");
-        args.add("rgba(0,0,0,0)"); //HARDFIX!
-        args.addAll(rawArgs);
-        args.add(modifiedFile);
-        return runProcessBuilder(args, modifiedFile);
-    }
     /**
      * Creates a ProcessBuilder instance to merge/flatten layers.
      * @param c - A canvas to be processed
