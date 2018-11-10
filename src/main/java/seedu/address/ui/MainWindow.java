@@ -276,6 +276,7 @@ public class MainWindow extends UiPart<Stage> {
     void processAssignmentList(AssignmentListEvent assignmentListEvent) {
         removePersonListPanelPlaceholderElements();
         fillAssignmentListParts();
+        listPicker.setAssignmentList();
     }
 
     private void removeLoginWindow() {

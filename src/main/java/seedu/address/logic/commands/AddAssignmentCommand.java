@@ -38,7 +38,7 @@ public class AddAssignmentCommand extends Command {
      */
     public AddAssignmentCommand(Assignment assignment) {
         requireNonNull(assignment);
-        requiredPermission.addPermissions(Permission.CREATE_PROJECT);
+        requiredPermission.addPermissions(Permission.ADD_ASSIGNMENT);
         toAdd = assignment;
     }
 
