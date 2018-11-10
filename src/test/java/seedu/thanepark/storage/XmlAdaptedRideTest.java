@@ -47,7 +47,7 @@ public class XmlAdaptedRideTest {
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
-    
+
     @Test
     public void toModelType_validNameWithSymbols() throws Exception {
         XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME_WITH_SYMBOLS, VALID_MAINTENANCE, VALID_WAIT_TIME,
