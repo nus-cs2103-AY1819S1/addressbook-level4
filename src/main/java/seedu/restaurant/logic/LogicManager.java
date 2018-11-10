@@ -16,6 +16,11 @@ import seedu.restaurant.logic.commands.HelpCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
 import seedu.restaurant.logic.commands.account.LogoutCommand;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
+import seedu.restaurant.logic.commands.menu.FilterMenuCommand;
+import seedu.restaurant.logic.commands.menu.FindItemCommand;
+import seedu.restaurant.logic.commands.menu.ListItemsCommand;
+import seedu.restaurant.logic.commands.menu.SelectItemCommand;
+import seedu.restaurant.logic.commands.menu.TodaySpecialCommand;
 import seedu.restaurant.logic.parser.RestaurantBookParser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.Model;
@@ -43,9 +48,16 @@ public class LogicManager extends ComponentManager implements Logic {
         restaurantBookParser = new RestaurantBookParser();
     }
 
-    //@@author AZhiKai
+    //@@author AZhiKai2
+
+    /**
+     * Verifies if a {@code Command} is a guest command which can be executed without being authenticated.
+     */
     private boolean isGuestCommand(Command command) {
-        return command instanceof LoginCommand || command instanceof HelpCommand || command instanceof ExitCommand;
+        return command instanceof LoginCommand || command instanceof HelpCommand
+                || command instanceof ExitCommand || command instanceof SelectItemCommand
+                || command instanceof FindItemCommand || command instanceof FilterMenuCommand
+                || command instanceof ListItemsCommand || command instanceof TodaySpecialCommand;
     }
 
     @Override
