@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import seedu.address.MainApp;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -88,7 +87,7 @@ public class UndoRedoCommandTestUtil {
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                    file.delete();
+                file.delete();
             }
         }
     }
