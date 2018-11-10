@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
+    private QueuePanel queuePanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -69,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane appointmentListPanelPlaceholder;
 
     @FXML
+    private StackPane queuePanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -79,6 +83,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab patientTab;
+
+    @FXML
+    private Tab queueTab;
 
     @FXML
     private Tab appointmentTab;
@@ -156,7 +163,15 @@ public class MainWindow extends UiPart<Stage> {
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
-        tabLists = new TabPane(patientTab, appointmentTab);
+        //@@author iamjackslayer
+        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
+        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+
+        queueTab.setText("Queue");
+        queueTab.setContent(queuePanelPlaceholder);
+        queueTab.setClosable(false);
+
+        tabLists = new TabPane(patientTab, appointmentTab, queueTab);
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
@@ -174,6 +189,15 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    //@@author iamjackslayer
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index
+     */
+    public void switchTab(int index) {
+        tabLists.getSelectionModel().select(index);
     }
 
     void hide() {
