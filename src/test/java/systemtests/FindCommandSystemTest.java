@@ -3,13 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.clinicio.testutil.TypicalPersons.BENSON;
-import static seedu.clinicio.testutil.TypicalPersons.CARL;
-import static seedu.clinicio.testutil.TypicalPersons.DANIEL;
+import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
+import static seedu.clinicio.testutil.TypicalPersons.CANDY;
+import static seedu.clinicio.testutil.TypicalPersons.DANNY;
 import static seedu.clinicio.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -19,7 +16,6 @@ import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.tag.Tag;
 
 public class FindCommandSystemTest extends ClinicIoSystemTest {
 
@@ -30,7 +26,7 @@ public class FindCommandSystemTest extends ClinicIoSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BRYAN, DANNY); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -42,31 +38,31 @@ public class FindCommandSystemTest extends ClinicIoSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = FindCommand.COMMAND_WORD + " Candy";
+        ModelHelper.setFilteredList(expectedModel, CANDY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in ClinicIO, 2 keywords -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = FindCommand.COMMAND_WORD + " Bryan Danny";
+        ModelHelper.setFilteredList(expectedModel, BRYAN, DANNY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in ClinicIO, 2 keywords in reversed order -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        command = FindCommand.COMMAND_WORD + " Danny Bryan";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in ClinicIO, 2 keywords with 1 repeat -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = FindCommand.COMMAND_WORD + " Danny Bryan Danny";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in ClinicIO, 2 matching keywords and 1 non-matching keyword
          * -> 2 persons found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " Danny Bryan NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -82,10 +78,10 @@ public class FindCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: find same persons in ClinicIO after deleting 1 of them -> 1 person found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getClinicIo().getPersonList().contains(BENSON));
+        assertFalse(getModel().getClinicIo().getPersonList().contains(BRYAN));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DANNY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -112,32 +108,32 @@ public class FindCommandSystemTest extends ClinicIoSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of person in ClinicIO -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        command = FindCommand.COMMAND_WORD + " " + DANNY.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find clinicio of person in ClinicIO -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + DANNY.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find email of person in ClinicIO -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        command = FindCommand.COMMAND_WORD + " " + DANNY.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of person in ClinicIO -> 0 persons found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        /*List<Tag> tags = new ArrayList<>(DANNY.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardUnchanged();*/
 
         /* Case: find while a person is selected -> selected card deselected */
         showAllPatients();
         selectPatient(Index.fromOneBased(1));
-        assertFalse(getPatientListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getPatientListPanel().getHandleToSelectedCard().getName().equals(DANNY.getName().fullName));
+        command = FindCommand.COMMAND_WORD + " Danny";
+        ModelHelper.setFilteredList(expectedModel, DANNY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
@@ -145,7 +141,7 @@ public class FindCommandSystemTest extends ClinicIoSystemTest {
         deleteAllPatients();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DANNY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

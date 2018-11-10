@@ -7,7 +7,7 @@ import static seedu.clinicio.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_
 import static seedu.clinicio.testutil.TestUtil.getLastIndex;
 import static seedu.clinicio.testutil.TestUtil.getMidIndex;
 import static seedu.clinicio.testutil.TestUtil.getPatient;
-import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -19,7 +19,6 @@ import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.model.person.Person;
 
 public class DeleteCommandSystemTest extends ClinicIoSystemTest {
 
@@ -32,9 +31,10 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Person deletedPerson = removePatient(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      "
+                + INDEX_FIRST_PATIENT.getOneBased() + "       ";
+        Patient deletedPatient = removePatient(expectedModel, INDEX_FIRST_PATIENT);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPatient);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last person in the list -> deleted */
@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: filtered person list, delete index within bounds of ClinicIO and person list -> deleted */
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_PATIENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
@@ -82,8 +82,8 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         selectPatient(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removePatient(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        deletedPatient = removePatient(expectedModel, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPatient);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
      * Removes the {@code Patient} at the specified {@code index} in {@code model}'s ClinicIO.
      * @return the removed patient
      */
-    private Person removePatient(Model model, Index index) {
+    private Patient removePatient(Model model, Index index) {
         Patient targetPatient = getPatient(model, index);
         model.deletePatient(targetPatient);
         return targetPatient;
@@ -129,7 +129,7 @@ public class DeleteCommandSystemTest extends ClinicIoSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Person deletedPatient = removePatient(expectedModel, toDelete);
+        Patient deletedPatient = removePatient(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPatient);
 
         assertCommandSuccess(

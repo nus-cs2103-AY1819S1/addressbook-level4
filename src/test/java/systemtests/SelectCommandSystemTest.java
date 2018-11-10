@@ -7,7 +7,7 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.clinicio.testutil.TestUtil.getLastIndex;
 import static seedu.clinicio.testutil.TestUtil.getMidIndex;
-import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -26,8 +26,8 @@ public class SelectCommandSystemTest extends ClinicIoSystemTest {
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PATIENT.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_PATIENT);
 
         /* Case: select the last card in the person list -> selected */
         Index personCount = getLastIndex(getModel());
@@ -94,7 +94,7 @@ public class SelectCommandSystemTest extends ClinicIoSystemTest {
 
         /* Case: select from empty ClinicIO -> rejected */
         deleteAllPatients();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PATIENT.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 

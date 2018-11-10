@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 import static seedu.clinicio.testutil.EventsUtil.postNow;
-import static seedu.clinicio.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalPatients;
 
 import static seedu.clinicio.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
@@ -32,7 +32,8 @@ public class PatientListPanelTest extends GuiUnitTest {
     private static final ObservableList<Patient> TYPICAL_PATIENTS =
             FXCollections.observableList(getTypicalPatients());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(
+            INDEX_SECOND_PATIENT);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -61,7 +62,7 @@ public class PatientListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         PatientCardHandle expectedPatient = patientListPanelHandle
-                .getPatientCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+                .getPatientCardHandle(INDEX_SECOND_PATIENT.getZeroBased());
         PatientCardHandle selectedPatient = patientListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPatient, selectedPatient);
     }

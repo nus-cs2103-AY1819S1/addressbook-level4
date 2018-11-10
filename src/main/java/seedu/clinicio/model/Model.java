@@ -75,6 +75,12 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Deletes the given patient.
+     * The patient must exist in the ClinicIO.
+     */
+    void deletePatient(Patient target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the ClinicIO.
      */
