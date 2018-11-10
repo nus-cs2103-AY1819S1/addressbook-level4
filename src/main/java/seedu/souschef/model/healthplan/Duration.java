@@ -9,8 +9,8 @@ import static seedu.souschef.commons.util.AppUtil.checkArgument;
  */
 public class Duration {
     public static final String MESSAGE_DURATION_CONSTRAINTS =
-            "Duration should only contain numbers";
-    public static final String DURATION_VALIDATION_REGEX = "\\d{1,}";
+            "Duration should only contain non-zero and non-negative numbers";
+    public static final String DURATION_VALIDATION_REGEX = "^[1-9]\\d*$";
     public final String value;
 
 
