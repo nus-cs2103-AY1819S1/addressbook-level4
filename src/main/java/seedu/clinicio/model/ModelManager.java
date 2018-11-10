@@ -101,6 +101,17 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ClinicIoChangedEvent(versionedClinicIo));
     }
 
+    //========== Ui changes ======================================================================
+
+    //@@author iamjackslayer
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index
+     */
+    public void switchTab(int index) {
+        uiManager.switchTab(index);
+    }
+
     //========== Boolean check ===============================================================================
 
     @Override
