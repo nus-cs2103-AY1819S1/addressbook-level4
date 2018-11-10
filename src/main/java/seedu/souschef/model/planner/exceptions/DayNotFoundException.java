@@ -1,7 +1,7 @@
 package seedu.souschef.model.planner.exceptions;
 
 /**
- * Signals that no recipe is found at the specified meal slot of the day.
+ * Signals that no recipe is found at the specified meal index of the day.
  */
 public class DayNotFoundException extends RuntimeException {
     /**
