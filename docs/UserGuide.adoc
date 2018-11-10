@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W10-1/main
 
 By: `Team W10-01`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -25,8 +25,8 @@ TheTracker is for NUS students who *prefer to use a desktop app for managing con
 This section explains how to setup TheTracker on your computer, and lists a few commands that you can try.
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `TheTracker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TheTracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 
@@ -39,7 +39,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * `listmodule` : lists all modules
-* `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+
+* `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named
+ `John Doe` to TheTracker.
+
 * `delete 2` : deletes the 2nd entry in the active list
 * `undo` : undoes the previous modifying action
 * `exit` : exits the app
@@ -181,11 +184,17 @@ Use with caution, as they may be difficult to distinguish (e.g. in a person's oc
 == Features
 
 ====
-*Command Format*`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+*Notice*
+
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which
+can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
+(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* `[]` after a command word (eg. `add[]`) refers to the postfix of the command. It may be person, module and
+occasion respectively.
 ====
 
 === Viewing help : `help`
@@ -194,7 +203,7 @@ Opens this user guide in a separate window.
 Format: `help`
 
 // tag::add[]
-=== Adding an entry: `add`
+=== Adding an entry: `add[]`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -203,37 +212,59 @@ A person, module or an occasion can have any number of tags (including 0) and in
 Adds a person to TheTracker. +
 
 Format: +
-`addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
+`addperson n/NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...` +
 
-Example:
+Example: +
+`addperson n/John Doe` +
+`addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+====
+*Notice*
 
-* `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
-Adds John Doe to TheTracker with his associated info.
+* Persons with the same Name and either one or both of Phone and Email are considered to be the same person.
+* Name must be specified to create a person contact.
+* If not enetered, Phone number, Email Address, Home Address and tags are empty.
+====
+
+
 
 ==== Adding a module: `addmodule`
 
 Adds a module to TheTracker. +
 
 Format: +
-`addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+`addmodule mc/MODULE_CODE [mt/MODULE_TITLE] [ay/ACADEMIC_YEAR] [sem/SEMESTER] [t/TAG]...` +
 
-Example:
+Example: +
+`addmodule mc/CS2103` +
+`addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg` +
+====
+*Notice*
 
-* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1819 sem/1 t/gg` +
-Adds CS2103 to TheTracker with its associated info.
+* Module with the same Module Code, Academic Year and Semester are considered to be the same module.
+* Module Code must be specified to create a module.
+* If not entered, Academic Year, Module Title, Semester and Tags are empty.
+* Semester number 3 and 4 are used to refer to special terms at NUS.
+====
+
 
 ==== Adding an occasion: `addoccasion`
 
 Adds an occasion to TheTracker. +
 
 Format: +
-`addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
+`addoccasion on/OCCASION_NAME [od/OCCASION_DATE] [loc/LOCATION] [t/TAG]...`
 
+Example: +
+`addoccasion on/discussion` +
+`addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 
-Example:
+====
+*Notice*
 
-* `addoccasion on/group discussion od/2018-01-01 loc/SoC t/project t/gg`
-Adds a group discussion to TheTracker with its associated info.
+* Occasion with the same Occasion Name and Occasion Date are considered to be the same occasion.
+* Occasion Name must be specified to create an occasion. The length of Occasion Name should be between 3 - 30.
+* If not entered, Occasion Date, Occasion Location and Tags are empty.
+====
 // end::add[]
 
 // tag::list[]
@@ -275,9 +306,10 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // end::select[]
 
 // tag::edit[]
-=== Editing an entry : `edit`
+=== Editing an entry : `edit[]`
 
 Edits an existing person, module or occasion in TheTracker. +
+It can be used to add optional field that is not specified in the add command.
 
 ==== Editing a person : `editperson`
 
@@ -286,9 +318,17 @@ Edits an existing person in TheTracker. +
 Format: +
 `editperson INDEX x/VALUE ...`
 
-****
-* Edits the person, name of part specified by x - "n | p | e | a | t" followed by the VALUE which is the value of the name, phone number, email, address or tag you want to change to. +
-****
+Example: +
+`editperson 6 p/91234567 e/johndoe@example.com` +
+Edits the person at INDEX 6 in TheTracker: edits his phone to 91234567 and email address to johndoe@example.com.
+
+====
+*Notice*
+
+* The `x/` in the format can should be replaced by `n/`, `p/`, `e/`, `a/`, `t/` to edit the Name, Phone, Email,
+Address and Tag respectively of the Person which is specified by INDEX.
+* The INDEX must be valid.
+====
 
 ==== Editing a module : `editmodule`
 
@@ -297,35 +337,36 @@ Edits an existing module in TheTracker. +
 Format: +
 `editmodule INDEX x/VALUE ...`
 
-****
-* Edits the module, name of part specified by x - "mc | mt | ay | sem | t" followed by the VALUE which is the value of the moduleCode, moduleTitle, academicYear, semester or tag you want to change to. +
-****
+Example: +
+`editmodule 1 mc/CS1101S` +
+Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
 
+====
+*Notice*
+
+* The `x/` in the format can should be replaced by `mc/`, `mt/`, `ay/`, `sem/`, `t/` to edit the Module Code,
+Module Title, Academic Year, Semester and Tag respectively of the Module which is specified by INDEX respectively.
+* The INDEX must be valid.
+
+====
 ==== Editing an occasion : `editoccasion`
 
 Edits an existing occasion in TheTracker. +
 Format: +
 `editoccasion x/VALUE ...`
 
-****
-* Edits the occasion, name of part specified by x - "on | od | loc | t" followed by the VALUE which is the value of the occasionName, occasionDate, occasionLocation or tag you want to change to. +
-****
-
-Common format:
-****
-* At least one value to edit must be provided. +
-* Existing values will be updated to the input values. +
-****
-
-Examples:
-
-* `editPerson 6 p/91234567 e/johndoe@example.com` +
-Edits the person of INDEX 6 in TheTracker: edits his phone to 91234567 and email address to johndoe@example.com.
-* `editModule 1 mc/CS1101S` +
-Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
-* `editOccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
+Example: +
+`editoccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
 Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17,
  edits the occasionLocation to NUS.
+====
+*Notice*
+
+* The `x/` in the format can should be replaced by `on/`, `od/`, `loc/`, `t/` to edit the Occasion Name,
+Occasion Date, Occasion Location and Tag respectively of the Occasion which is specified by INDEX respectively.
+* The INDEX must be valid.
+====
+
 // end::edit[]
 
 // tag::find[]
@@ -335,13 +376,15 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 Finds a person in TheTracker. +
 
 Format: +
-`findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS`
+`findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS`,
+`findperson mc/cs2103`
 
 Example:
 
-* `findperson n/John Doe`, `findperson p/98765432`, `findperson e/johnd@example.com`,
- `findperson a/Clementi` +
-
+* `findperson n/John Doe` +
+`findperson p/98765432` +
+`findperson e/johnd@example.com` +
+`findperson a/Clementi` +
 
 ==== Finding a module: `findmodule`
 
@@ -361,7 +404,6 @@ Finds an occasion in TheTracker. +
 
 Format: +
 `findoccasion on/OCCASION_NAME`, `findoccasion od/OCCASION_DATE`, `findoccasion loc/LOCATION`
-
 
 Example:
 
@@ -397,13 +439,14 @@ Deletes the 2nd module of the `find` command.
 
 A command to allow the user to undo previous commands. +
 
-Command Syntax: +
-`undo`: +
-This command will undo the user’s previous command. +
+Format: +
+`undo` +
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `clear` and `insertperson`).
+
+Undoable commands: those commands that modify the address book's content (`add[]`, `delete`, `edit[]`, `clear` and `insertperson`).
+
 ====
 
 Examples:
@@ -421,9 +464,8 @@ The `undo` command fails as there are no undoable commands executed previously. 
 
 A command to allow the user to redo previously undone commands. +
 
-Command Syntax:
+Format:
 `redo`:  +
-This command will redo the user’s previous undone command. +
 
 [NOTE]
 ====
@@ -439,6 +481,11 @@ Examples:
 * `delete 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`redo` (reverses the `undo` command, which clears again) +
 // end::undoredo[]
 
 // tag::clear[]
@@ -466,7 +513,6 @@ Examples:
 
 [TIP]
 You can use the up & down arrows to find your intended command in the drop-down list, and press kbd:[Enter] to select it.
-
 
 // tag::export[]
 === Exporting user data to xml/txt: `export`
@@ -548,6 +594,10 @@ group_name: The name of this group of people. +
 keyword: n/NAME The name of the person you want to put in this group.
                   i/INDEX The index of the person you want to put in this group.
 
+=== Exiting the program : `exit`
+Exits the program. +
+Format: `exit`
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
@@ -569,8 +619,6 @@ e.g. ` addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg `
 * *Add Occasion* `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...` +
 e.g. ` addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg `
 
-* *Clear* : `clear`
-
 * *Delete* : `delete INDEX` +
 e.g. `delete 2`
 
@@ -585,7 +633,7 @@ e.g. `editoccasion 1 on/Barbecue od/2019-6-17 loc/NUS`
 
 * *Find Person* : `findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS` +
 e.g. `findperson n/John Doe`, `findperson p/98765432`, `findperson e/johnd@example.com`,
- `findperson a/Clementi` +
+ `findperson a/Clementi`, `findperson mc/cs2103`+
 
 * *Find Module* :  `findmodule mc/MODULE_CODE`, `findmodule mt/MODULE_TITLE`, `findmodule ay/ACADEMIC_YEAR`,
   `findmodule sem/SEMESTER` +
@@ -597,8 +645,15 @@ e.g. `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion l
 * *List Person* : `listperson`
 * *List Module* : `listmodule`
 * *List Occasion* : `listoccasion`
+* *Undo* : `undo` +
+e.g. `undo`
+* *Redo* : `redo` +
+e.g. `redo`
+
+* *Clear* : `clear`
 * *Help* : `help`
 * *History* : `history`
+<<<<<<< HEAD
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Export data to xml file* : `export --xml [FILEPATH]` +
@@ -607,3 +662,6 @@ e.g. (Windows) `export --xml C:\Users\Anna\desktop\exported.xml`
 * *Export data to txt file* : `export --txt [FILEPATH]` +
 e.g. (MacOS, Linux) `export --txt /Users/Anna/Desktop/exported.txt`
 e.g. (Windows) `export --txt C:\Users\Anna\desktop\exported.txt`
+=======
+
+>>>>>>> 7076d8b2767347e0f5f3953cfc3a2e5c5bca01b7
