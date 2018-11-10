@@ -35,6 +35,7 @@ import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
@@ -91,6 +92,9 @@ public class AddressBookParser {
 
         case AddUserCommand.COMMAND_WORD:
             return new AddUserCommandParser().parse(arguments);
+
+        case DeleteUserCommand.COMMAND_WORD:
+            return new DeleteUserCommandParser().parse(arguments);
 
         case AddFriendCommand.COMMAND_WORD:
             return new AddFriendCommandParser().parse(arguments);
@@ -149,14 +153,14 @@ public class AddressBookParser {
         case SelectUserCommand.COMMAND_WORD:
             return new SelectUserCommandParser().parse(arguments);
 
-        case DeleteUserCommand.COMMAND_WORD:
-            return new DeleteUserCommand();
-
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
 
         case SuggestFriendsByInterestsCommand.COMMAND_WORD:
             return new SuggestFriendsByInterestsCommandParser().parse(arguments);
+
+        case ListFriendsCommand.COMMAND_WORD:
+            return new ListFriendsCommandParser().parse(arguments);
 
         case ListUserCommand.COMMAND_WORD:
             return new ListUserCommand();
