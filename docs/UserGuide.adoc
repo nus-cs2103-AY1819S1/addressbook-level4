@@ -237,8 +237,8 @@ Selects the 1st task in the results of the `find` command.
 [%hardbreaks]
 Shows a list of uncompleted tasks by their topological order in the CLI window.
 
-It will describe a sequence of `Task` s , that if executed in order, will be valid. Valid is defined as completing a task
-with all its depedencies fulfiled.
+It defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints.
 
 Example:
 
@@ -246,17 +246,20 @@ Example:
 
 [NOTE]
 ====
-
 Topological order is a linear ordering of vertices such that for every vertex u to vertex v,
 u comes before v in the ordering. (Source: https://en.wikipedia.org/wiki/Topological_sorting[wikipedia])
 
 In the context of our application, it is a linear ordering of `Task` s such that if `Task` A is dependent to `Task` B,
 B comes before A in the ordering.
-
-*In short, it defines a possible valid sequence of tasks to tackle given existing task dependency
- constraints*
 ====
 
+[NOTE]
+====
+image::TopologicalOrdering.png[width="300"]
+_Diagram of a possible dependency graph_
+
+A topological order of this graph is: [A, B, C]
+====
 
 // end::topoorder[]
 
