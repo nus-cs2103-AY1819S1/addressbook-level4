@@ -94,7 +94,13 @@ public class TranscriptTest {
         double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
         transcript.setCapGoal(capGoal);
         transcript.adjustModule(INCOMPLETE_4MC_A.updateTargetGrade(capGoal), new Grade(TypicalModules.GRADE_F));
+        assertCapGoalIsImpossible(transcript);
+    }
+
+    private void assertCapGoalIsImpossible(Transcript transcript) {
         assertTrue(transcript.isCapGoalImpossible());
+        List<Module> targetedModules = transcript.getTargetedModulesList();
+        assertTrue(targetedModules.isEmpty());
     }
 
     @Test
@@ -136,7 +142,7 @@ public class TranscriptTest {
         transcript.setCapGoal(capGoal);
         Module targetModule = INCOMPLETE_4MC_A.updateTargetGrade(capGoal);
         transcript.adjustModule(targetModule, new Grade(TypicalModules.GRADE_B_MINUS));
-        assertTrue(transcript.isCapGoalImpossible());
+        assertCapGoalIsImpossible(transcript);
         assertTargetGradesEquals(transcript, "");
     }
 
@@ -234,7 +240,7 @@ public class TranscriptTest {
         assertTargetGradesEquals(transcript, "");
 
         transcript.addModule(INCOMPLETE_4MC_A);
-        assertTrue(transcript.isCapGoalImpossible());
+        assertCapGoalIsImpossible(transcript);
 
         transcript.setCapGoal(4.0);
         assertTargetGradesEquals(transcript, "B+");
@@ -248,11 +254,11 @@ public class TranscriptTest {
         Transcript transcript = new Transcript();
         transcript.addModule(GRADE_BMINUS_4MC_A);
         transcript.setCapGoal(5.0);
-        assertTrue(transcript.isCapGoalImpossible());
+        assertCapGoalIsImpossible(transcript);
 
         transcript = new Transcript();
         transcript.setCapGoal(5.0);
-        assertTrue(transcript.isCapGoalImpossible());
+        assertCapGoalIsImpossible(transcript);
     }
 
     /**
