@@ -140,13 +140,13 @@ To use the full capabilities of the `view` command, click <<#view-command, here>
 === Register a new patient to the system: `register`
 Register a new patient together with necessary information into the system.
 
-Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS da/DRUG_ALLERGIES`
+Format: `register ic/NRIC n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS da/DRUG_ALLERGIES`
 
 * If the patient is already registered, the command will not be allowed.
 
 Example(s):
 
-* `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 da/insulin da/aspirin`
+* `register ic/S1234567A n/Ling Zhi Yu p/91234567 e/zhiyu@example.com a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 da/insulin da/aspirin`
 //end::register[]
 
 === Check-out a patient: `checkout`
