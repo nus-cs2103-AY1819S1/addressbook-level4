@@ -36,7 +36,7 @@
                 </MenuBar>
 
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                    <TabPane fx:id="tabLists">
+                    <TabPane fx:id="tabLists" side="LEFT">
                         <Tab fx:id="patientTab">
                             <VBox fx:id="patientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                                 <padding>
