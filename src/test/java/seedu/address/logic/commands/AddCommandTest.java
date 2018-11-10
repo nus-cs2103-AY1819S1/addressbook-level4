@@ -347,6 +347,11 @@ public class AddCommandTest {
         public void deleteCca(Cca ccaToDelete) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void readXslFile() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -50,6 +50,7 @@ public class BudgetCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new ShowBudgetViewEvent(ccaName));
+        model.readXslFile();
         return new CommandResult(SHOWING_BUDGET_MESSAGE);
     }
 

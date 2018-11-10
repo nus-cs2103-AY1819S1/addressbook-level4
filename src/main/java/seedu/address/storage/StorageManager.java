@@ -393,24 +393,8 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    //@@author ericyjw
     //    @Override
     //    public void readXslFile(Path ccaXslFilePath) {
-    //        requireNonNull(ccaXslFilePath);
     //
-    //        if (!Files.exists(ccaXslFilePath)) {
-    //
-    //            try {
-    //                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
-    //
-    //                File dir = new File("data");
-    //                dir.mkdirs();
-    //
-    //                Files.copy(is, Paths.get("data", "ccabook.xsl"));
-    //            } catch (IOException e) {
-    //                logger.warning("An error occurred copying the resource!");
-    //            }
-    //
-    //        }
     //    }
 }

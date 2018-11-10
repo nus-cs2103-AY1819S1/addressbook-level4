@@ -153,8 +153,7 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      */
     void handleNewImageEvent(NewImageEvent abce);
 
-
-    //    void readXslFile(Path ccaXslFilePath);
+    //   void readXslFile(Path ccaXslFilePath);
 
     //    void isSampleBudgetBook();
 }

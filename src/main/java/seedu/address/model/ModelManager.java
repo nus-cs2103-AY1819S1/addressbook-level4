@@ -3,8 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import net.fortuna.ical4j.model.Calendar;
+import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -552,6 +557,28 @@ public class ModelManager extends ComponentManager implements Model {
         saveEmail(event.data);
         raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         raise(new EmailViewEvent(emailModel));
+    }
+
+    //@@author ericyjw
+    @Override
+    public void readXslFile() {
+        Path ccaXslFilePath = userPrefs.getCcaXslFilePath();
+        requireNonNull(ccaXslFilePath);
+
+        if (!Files.exists(ccaXslFilePath)) {
+
+            try {
+                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+
+                File dir = new File("data");
+                dir.mkdirs();
+
+                Files.copy(is, Paths.get("data", "ccabook.xsl"));
+            } catch (IOException e) {
+                logger.warning("An error occurred copying the resource!");
+            }
+
+        }
     }
 
 }
