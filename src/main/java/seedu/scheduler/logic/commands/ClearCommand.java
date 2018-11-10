@@ -18,7 +18,9 @@ public class ClearCommand extends Command {
     public static final String COMMAND_ALIAS_THREE = "cl";
     public static final String COMMAND_ALIAS_FOUR = "c";
     public static final String MESSAGE_SUCCESS = "Scheduler has been cleared!";
-    public static final String MESSAGE_INTERNET_ERROR = "Warning: Internet Error.";
+    public static final String MESSAGE_INTERNET_ERROR = "Only local changes. "
+            + "no effects on your Google Calender.\n"
+            + "Internet Error / Status File Does Not Exist.";
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
 
@@ -31,7 +33,7 @@ public class ClearCommand extends Command {
                 connectToGoogleCalendar.clear(googleCalendarIsEnabled);
         model.commitScheduler();
 
-        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+        if (operationOnGoogleCalIsSuccessful | !ConnectToGoogleCalendar.isGoogleCalendarEnabled()) {
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             return new CommandResult(MESSAGE_SUCCESS

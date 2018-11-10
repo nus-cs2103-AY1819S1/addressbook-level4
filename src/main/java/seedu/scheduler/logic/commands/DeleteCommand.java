@@ -83,7 +83,7 @@ public class DeleteCommand extends Command {
 
         model.commitScheduler();
 
-        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+        if (operationOnGoogleCalIsSuccessful | !connectToGoogleCalendar.isGoogleCalendarEnabled()) {
             return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
         } else {
             return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName())

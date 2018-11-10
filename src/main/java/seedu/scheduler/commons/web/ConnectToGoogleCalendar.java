@@ -117,7 +117,8 @@ public class ConnectToGoogleCalendar {
                 contents.append(text).append(lineSeparator);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("File does not exist");
+            return true;
         }
         return (contents.toString().trim().equals(expectedStatus));
     }
@@ -235,6 +236,7 @@ public class ConnectToGoogleCalendar {
             try {
                 service.events().insert(CALENDAR_NAME, gEvent).execute();
             } catch (IOException e) {
+                e.printStackTrace();
                 return false;
             }
         }
