@@ -2,7 +2,7 @@
     -fx-font-family: "Segoe UI Bold";
     -background-: #ebf5ee;
     -mainblue-: #78a1bb;
-    -gainsboro-: #d9d9d9;
+    -tuscany-: #bfa89e;
 }
 
 .background {
@@ -71,8 +71,8 @@
 
 .table-view .column-header .label {
     -fx-font-size: 13pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-weight: light;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: 500;
     -fx-text-fill: black;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -88,9 +88,9 @@
 }
 
 .split-pane {
+    -fx-background-color: derive(#ebf5ee, 20%);
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#ebf5ee, 20%);
 }
 
 .list-view {
@@ -209,7 +209,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 /*
@@ -348,8 +348,9 @@
     -fx-text-fill: black;
 }
 
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+#filterField, #personListView, #moduleListView, #occasionListView {
+    -fx-background-color: derive(-mainblue-, 85%);
+    /*-fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);*/
 }
 
 #resultDisplay .content {
@@ -364,7 +365,7 @@
 
 #tags .label {
     -fx-text-fill: black;
-    -fx-background-color: #bfa89e;
+    -fx-background-color: -tuscany-;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
