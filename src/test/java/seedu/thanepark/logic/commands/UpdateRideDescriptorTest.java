@@ -4,11 +4,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 
 import org.junit.Test;
 
@@ -47,8 +47,9 @@ public class UpdateRideDescriptorTest {
         editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withWaitTime(VALID_WAIT_TIME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different zone -> returns false
-        editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withZone(VALID_ADDRESS_BOB).build();
+        // different thanepark -> returns false
+        editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withZone(VALID_ZONE_BOB).build();
+
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
