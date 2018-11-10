@@ -79,15 +79,15 @@ public class ConnectToGoogleCalendar {
         return checkStatus("Disabled");
     }
 
-    public void setGoogleCalendarEnabled() {
+    public static void setGoogleCalendarEnabled() {
         setGoogleCalendarStatus("Enabled");
     }
 
-    public void setGoogleCalendarDisabled() {
+    public static void setGoogleCalendarDisabled() {
         setGoogleCalendarStatus("Disabled");
     }
 
-    public void setGoogleCalendarStatus(String wantedStatus) {
+    public static void setGoogleCalendarStatus(String wantedStatus) {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
             String contents = wantedStatus;
