@@ -44,7 +44,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_ID_AMY = "S9595959A";
-    public static final String VALID_ID_BOB = "S9191919Z";
+    public static final String VALID_ID_BOB = "S9383064D";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_GENDER_AMY = "f";
@@ -109,11 +109,11 @@ public class CommandTestUtil {
 
     static {
 
-        DESC_AMY = new EditVolunteerDescriptorBuilder().withName(VALID_NAME_AMY).withVolunteerId(VALID_ID_AMY)
+        DESC_AMY = new EditVolunteerDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withGender(VALID_GENDER_AMY).withBirthday(VALID_BIRTHDAY_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_STUDENT).build();
-        DESC_BOB = new EditVolunteerDescriptorBuilder().withName(VALID_NAME_BOB).withVolunteerId(VALID_ID_BOB)
+        DESC_BOB = new EditVolunteerDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withGender(VALID_GENDER_BOB).withBirthday(VALID_BIRTHDAY_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_DRIVER, VALID_TAG_STUDENT).build();

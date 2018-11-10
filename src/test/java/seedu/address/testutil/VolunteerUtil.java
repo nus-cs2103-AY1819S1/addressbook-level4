@@ -49,7 +49,6 @@ public class VolunteerUtil {
     public static String getEditVolunteerDescriptorDetails(EditVolunteerDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getVolunteerId().ifPresent(volunteerId -> sb.append(PREFIX_ID).append(volunteerId.id).append(" "));
         descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_GENDER).append(gender.value).append(" "));
         descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_BIRTHDAY)
                 .append(birthday.value).append(" "));

@@ -36,7 +36,6 @@ public class EditVolunteerDescriptorBuilder {
     public EditVolunteerDescriptorBuilder(Volunteer volunteer) {
         descriptor = new EditVolunteerDescriptor();
 
-        descriptor.setVolunteerId(volunteer.getVolunteerId());
         descriptor.setName(volunteer.getName());
         descriptor.setGender(volunteer.getGender());
         descriptor.setBirthday(volunteer.getBirthday());
@@ -51,14 +50,6 @@ public class EditVolunteerDescriptorBuilder {
      */
     public EditVolunteerDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Id} of the {@code EditVolunteerDescriptor} that we are building.
-     */
-    public EditVolunteerDescriptorBuilder withVolunteerId(String volunteerId) {
-        descriptor.setVolunteerId(new VolunteerId(volunteerId));
         return this;
     }
 

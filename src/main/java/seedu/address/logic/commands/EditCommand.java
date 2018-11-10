@@ -44,10 +44,10 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the volunteer identified "
             + "by the index number used in the displayed volunteer list. "
+            + "NRIC numbers are not editable. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_ID + "VOLUNTEERID] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_BIRTHDAY + "BIRTHDAY] "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -109,8 +109,7 @@ public class EditCommand extends Command {
         assert volunteerToEdit != null;
 
         Name updatedName = editVolunteerDescriptor.getName().orElse(volunteerToEdit.getName());
-        VolunteerId updatedVolunteerId = editVolunteerDescriptor.getVolunteerId()
-                .orElse(volunteerToEdit.getVolunteerId());
+        VolunteerId updatedVolunteerId = volunteerToEdit.getVolunteerId();
         Gender updatedGender = editVolunteerDescriptor.getGender().orElse(volunteerToEdit.getGender());
         Birthday updatedBirthday = editVolunteerDescriptor.getBirthday().orElse(volunteerToEdit.getBirthday());
         Phone updatedPhone = editVolunteerDescriptor.getPhone().orElse(volunteerToEdit.getPhone());
@@ -145,7 +144,6 @@ public class EditCommand extends Command {
      * corresponding field value of the volunteer.
      */
     public static class EditVolunteerDescriptor {
-        private VolunteerId volunteerId;
         private Name name;
         private Gender gender;
         private Birthday birthday;
@@ -162,7 +160,6 @@ public class EditCommand extends Command {
          */
         public EditVolunteerDescriptor(EditVolunteerDescriptor toCopy) {
             setName(toCopy.name);
-            setVolunteerId(toCopy.volunteerId);
             setGender(toCopy.gender);
             setBirthday(toCopy.birthday);
             setPhone(toCopy.phone);
@@ -175,15 +172,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, volunteerId, gender, birthday, phone, email, address, tags);
-        }
-
-        public void setVolunteerId(VolunteerId volunteerId) {
-            this.volunteerId = volunteerId;
-        }
-
-        public Optional<VolunteerId> getVolunteerId() {
-            return Optional.ofNullable(volunteerId);
+            return CollectionUtil.isAnyNonNull(name, gender, birthday, phone, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -267,7 +256,6 @@ public class EditCommand extends Command {
             EditVolunteerDescriptor e = (EditVolunteerDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getVolunteerId().equals(e.getVolunteerId())
                     && getGender().equals(e.getGender())
                     && getBirthday().equals(e.getBirthday())
                     && getPhone().equals(e.getPhone())
