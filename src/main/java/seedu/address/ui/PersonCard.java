@@ -24,11 +24,6 @@ public class PersonCard extends UiPart<Region> {
 
     public final Patient patient;
 
-    private static final String BLUE_CHAS_COLOUR = "blue";
-    private static final String ORANGE_CHAS_COLOUR = "orange";
-    private static final String PIONEER_CHAS_COLOUR = "red";
-    private static final String GREY_COLOUR = "grey";
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -55,32 +50,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
-        initTags(patient);
-    }
-    /**
-     * Returns the color style for {@code tagName}'s label.
-     */
-    private String getTagColorStyleFor(String tagName) {
-        switch(tagName) {
-        case PIONEER_CHAS_COLOUR:
-            return PIONEER_CHAS_COLOUR;
-        case BLUE_CHAS_COLOUR:
-            return BLUE_CHAS_COLOUR;
-        case ORANGE_CHAS_COLOUR:
-            return ORANGE_CHAS_COLOUR;
-        default:
-            return GREY_COLOUR;
-        }
-    }
-    /**
-     * Creates the tag labels for {@code person}.
-     */
-    private void initTags(Patient patient) {
-        patient.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
-            tags.getChildren().add(tagLabel);
-        });
+        patient.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

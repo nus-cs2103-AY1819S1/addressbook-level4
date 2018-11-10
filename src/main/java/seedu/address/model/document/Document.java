@@ -36,14 +36,6 @@ public abstract class Document {
     private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
     private static final String CONTENT_PLACEHOLDER = "$content";
 
-    //Formatting the contents of the receipt into a table
-    private static final String RECEIPT_HEADER = "<table ID = \"contentTable\" width = 100%><col width = \"700\">";
-    private static final String RECEIPT_HEADER_CONTENT = "<tr ID = \"receiptHeader\"><div class=\"contentHeader\">"
-            + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
-    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\"><td>Total:"
-            + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
-    private static final String RECEIPT_END = "</td></tr></table>";
-
     //Error message strings
     private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
@@ -53,10 +45,6 @@ public abstract class Document {
     private Name name;
     private String fileType;
     private IcNumber icNumber;
-
-    private String mcDuration;
-    private String noteContent;
-    private String referralContent;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
