@@ -11,7 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -264,12 +265,13 @@ public abstract class AddressBookSystemTest {
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String lastUpdated = LocalDateTime.now().format(formatter);
-        String timestamp = lastUpdated;
+        String timestamp = Instant.ofEpochMilli(clockRule.getInjectedClock().millis())
+                .atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter);
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
     }
+
 
     /**
      * Asserts that the starting state of the application is correct.
