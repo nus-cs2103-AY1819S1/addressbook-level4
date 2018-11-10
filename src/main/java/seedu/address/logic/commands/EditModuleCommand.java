@@ -7,9 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.module.Module.createEditedModule;
 
 import java.util.List;
+import java.util.ListIterator;
+import java.util.function.Consumer;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -20,6 +23,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 
 /**
  * Edits the details of an existing module in the address book.
@@ -73,6 +79,7 @@ public class EditModuleCommand extends Command {
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
+        removeModuleFromAssociatedPersons(model, moduleToEdit, editedModule);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
@@ -83,6 +90,45 @@ public class EditModuleCommand extends Command {
         model.commitAddressBook();
         EventsCenter.getInstance().post(new ShowModuleRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Removes a module from the moduleList of all associated Persons.
+     */
+    private void removeModuleFromAssociatedPersons(Model model, Module moduleToEdit, Module editedModule) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            person.getModuleList()
+                    .asNormalList()
+                    .stream()
+                    .filter(module -> module.isSameModule(moduleToEdit))
+                    .findFirst()
+                    .ifPresent(editModuleFromPerson(model, person, editedModule));
+        }
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
+     */
+    private Consumer<Module> editModuleFromPerson(Model model, Person person, Module editModule) {
+        return module -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
+            int indexOfModuleToEdit = updatedModules.indexOf(editModule);
+            if (indexOfModuleToEdit != -1) {
+                updatedModules.remove(module);
+                updatedModules.add(indexOfModuleToEdit, editModule);
+                UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
+                updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+                Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+                model.updatePerson(person, updatedPerson);
+            }
+        };
     }
 
     @Override

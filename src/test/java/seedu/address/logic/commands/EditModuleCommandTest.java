@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandModuleTestUtil.DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_ST2131;
@@ -12,9 +13,11 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCU
 import static seedu.address.logic.commands.CommandModuleTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandModuleTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandModuleTestUtil.showModuleAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
-import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
+import static seedu.address.testutil.TypicalModules.ST2131;
 
 import org.junit.Test;
 
@@ -36,7 +39,7 @@ import seedu.address.testutil.ModuleDescriptorBuilder;
  */
 public class EditModuleCommandTest {
 
-    private Model model = new ModelManager(getTypicalModulesAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -223,6 +226,28 @@ public class EditModuleCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+
+    /**
+     * Tests whether modules are properly edited in their associated persons.
+     * 1. Inserts a {@code Person} into a {@code Module}
+     * 2. Edits the module.
+     * 3. The person should have the module after editing in its list.
+     */
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_moduleRemovedFromPerson() throws Exception {
+        Module editedModule = new ModuleBuilder().build();
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder(editedModule).build();
+        EditModuleCommand editModuleCommand = new EditModuleCommand(INDEX_FIRST_MODULE, descriptor);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_MODULE, ST2131); //dummy module used as indicator of insert 'type'
+        insertPersonIntoModuleCommand.execute(model, commandHistory);
+        editModuleCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList(),
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList());
+    }
+
 
     @Test
     public void equals() {
