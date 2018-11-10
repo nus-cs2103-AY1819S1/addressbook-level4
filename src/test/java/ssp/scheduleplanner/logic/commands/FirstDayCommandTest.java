@@ -348,7 +348,7 @@ public class FirstDayCommandTest {
         if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
             appTitle = "Student Schedule Planner" + "  - " + fds.retrieveWeekDescription(rangeOfWeeks);
         }
-        
+
         //if system time is within date range, appTitle should not be "Student Schedule Planner"
         //else, appTitle should be "Student Schedule Planner"
         if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
