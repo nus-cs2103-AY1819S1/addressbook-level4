@@ -147,8 +147,10 @@ public class DeleteMedicalHistoryCommand extends Command {
             return false;
         } else {
             DeleteMedicalHistoryCommand r = (DeleteMedicalHistoryCommand) o;
-            if (!name.equals(r.name) || allergies.size() != r.allergies.size()
-                    || conditions.size() != r.conditions.size()) {
+            if (!name.equals(r.name)) {
+                return false;
+            }
+            if (allergies.size() != r.allergies.size() || conditions.size() != r.conditions.size()) {
                 return false;
             }
             for (int i = 0; i < allergies.size(); i++) {
@@ -161,6 +163,7 @@ public class DeleteMedicalHistoryCommand extends Command {
                     return false;
                 }
             }
+
             return true;
         }
 
