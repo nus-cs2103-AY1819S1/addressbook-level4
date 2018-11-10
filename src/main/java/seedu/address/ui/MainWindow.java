@@ -1,6 +1,11 @@
 package seedu.address.ui;
 
 //import java.net.URL;
+
+import static seedu.address.commons.util.TypeUtil.MODULE;
+import static seedu.address.commons.util.TypeUtil.OCCASION;
+import static seedu.address.commons.util.TypeUtil.PERSON;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -186,6 +191,8 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel.updatePanel(logic.getFilteredModuleList());
         getBrowserPlaceholder().getChildren().add(moduleBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
+
+        logic.setActiveType(MODULE);
     }
 
     /**
@@ -200,6 +207,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel.updatePanel(logic.getFilteredPersonList());
         getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+        logic.setActiveType(PERSON);
     }
 
     /**
@@ -214,6 +223,8 @@ public class MainWindow extends UiPart<Stage> {
         occasionListPanel.updatePanel(logic.getFilteredOccasionList());
         getBrowserPlaceholder().getChildren().add(occasionBrowserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
+
+        logic.setActiveType(OCCASION);
     }
 
     /**

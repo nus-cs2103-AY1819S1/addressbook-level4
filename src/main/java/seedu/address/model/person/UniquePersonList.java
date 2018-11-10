@@ -58,6 +58,15 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Makes an copy of this UniquePersonList with shallow copies of the persons inside.
+     */
+    public UniquePersonList makeShallowDuplicate() {
+        List<Person> newList = this.internalList.stream()
+                .map((value) -> value.makeShallowDuplicate()).collect(Collectors.toList());
+        return new UniquePersonList(newList);
+    }
+
+    /**
      * Reset the data in personList to a set of new data.
      */
     public void resetData(ObservableList<Person> newData) {
