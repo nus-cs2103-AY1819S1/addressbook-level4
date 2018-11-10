@@ -16,6 +16,9 @@ life in the kitchen. +
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
 == Summary of contributions
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=barkhyehyeon[Functional
+code]]
+
 * *Major enhancement*: added *the ability to manage ingredients*
 ** What it does: Allows the user to track the stock of ingredients, view recipe according to ingredient and check
 shop amount.
@@ -54,6 +57,11 @@ https://github.com/CS2103-AY1819S1-F10-2/main/issues/195[3], https://github.com/
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=ingredient]
+
+include::../UserGuide.adoc[tag=cross]
+
+
 
 == Contributions to the Developer Guide
 
@@ -61,9 +69,6 @@ https://github.com/CS2103-AY1819S1-F10-2/main/issues/195[3], https://github.com/
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=logicComponent]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=ingredientManagement]

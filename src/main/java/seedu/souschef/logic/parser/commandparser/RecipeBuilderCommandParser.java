@@ -51,6 +51,7 @@ public class RecipeBuilderCommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME)
+                || argMultimap.hasNestedPrefix()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_ADD_RECIPE_USAGE));
@@ -82,6 +83,7 @@ public class RecipeBuilderCommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_INSTRUCTION, PREFIX_COOKTIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INSTRUCTION)
+                || argMultimap.hasNestedPrefix()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_CONT_RECIPE_USAGE));
@@ -106,8 +108,6 @@ public class RecipeBuilderCommandParser {
         }
         return new AddCommand<>(recipeModel, recipe);
     }
-
-
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
