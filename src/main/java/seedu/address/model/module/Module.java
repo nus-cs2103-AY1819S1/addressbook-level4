@@ -58,6 +58,25 @@ public class Module {
         this.tags.addAll(moduleDescriptor.getTags().orElse(new HashSet<Tag>()));
     }
 
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editedModuleDescriptor}.
+     */
+    public static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editedModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        ModuleCode updatedModuleCode = editedModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        ModuleTitle updatedModuleTitle = editedModuleDescriptor.getModuleTitle().orElse(moduleToEdit.getModuleTitle());
+        AcademicYear updatedAcademicYear =
+                editedModuleDescriptor.getAcademicYear().orElse(moduleToEdit.getAcademicYear());
+        Semester updatedSemester = editedModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        UniquePersonList updatedStudents = editedModuleDescriptor.getStudents().orElse(moduleToEdit.getStudents());
+        Set<Tag> updatedTags = editedModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        return new Module(updatedModuleCode, updatedModuleTitle, updatedAcademicYear, updatedSemester,
+                updatedStudents, updatedTags);
+    }
+
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
@@ -100,10 +119,22 @@ public class Module {
     }
 
     /**
+     * Makes an identical copy of this module with an empty person list.
+     */
+    public Module makeShallowDuplicate() {
+        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
+        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
+        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
+        Semester newSem = this.semester.makeDeepDuplicate();
+        UniquePersonList newList = new UniquePersonList();
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    // TODO change all places where getTags is used.
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
@@ -141,8 +172,7 @@ public class Module {
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getModuleTitle().equals(getModuleTitle())
                 && otherModule.getAcademicYear().equals(getAcademicYear())
-                && otherModule.getSemester().equals(getSemester())
-                && otherModule.getStudents().equals(getStudents());
+                && otherModule.getSemester().equals(getSemester());
     }
 
     @Override

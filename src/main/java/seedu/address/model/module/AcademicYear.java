@@ -78,7 +78,7 @@ public class AcademicYear {
         if (isEmptyYear) {
             return "";
         }
-        return firstYear() + "" + secondYear();
+        return String.format("%04d", yearNumber);
     }
 
     @Override
