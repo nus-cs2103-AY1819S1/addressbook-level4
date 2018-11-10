@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
@@ -96,7 +97,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
-        UserSession.destorySession();
+        UserSession.destroy();
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent,
                 "You have logged out successfully"));
         setUserSessionStatus(USER_SESSION_STATUS_INITIAL);
