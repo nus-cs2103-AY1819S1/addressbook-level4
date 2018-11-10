@@ -14,18 +14,9 @@ import seedu.souschef.storage.mealplanner.XmlSerializableMealPlan;
 import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores souschef data in an XML file
  */
 public class XmlFileStorage {
-
-    /**
-     * Constants to access the specific portions of the xml files
-     */
-    public static final String TYPE_RECIPE = "recipe";
-    public static final String TYPE_INGREDIENT = "ingredient";
-    public static final String TYPE_HEALTHPLAN = "healthplan";
-    public static final String TYPE_MEALPLAN = "mealplan";
-
 
     /**
      * Saves the given addressbook data to the specified file.
@@ -50,7 +41,6 @@ public class XmlFileStorage {
             throw new DataConversionException(e);
         }
     }
-
 
     /**
      * Returns address book in the file or an empty address book
