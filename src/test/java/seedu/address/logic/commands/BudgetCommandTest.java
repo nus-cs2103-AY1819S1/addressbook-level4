@@ -25,16 +25,29 @@ public class BudgetCommandTest {
     private Model expectedModel = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
-
     @Test
     public void execute_budget_success() {
-        assertCommandSuccess(new BudgetCommand(), model, commandHistory, SHOWING_BUDGET_MESSAGE, expectedModel);
+        model.initialiseBudgetBook();
+        model.readXslFile();
+
+        expectedModel.initialiseBudgetBook();
+        expectedModel.readXslFile();
+
+        Command c = new BudgetCommand();
+
+        assertCommandSuccess(c, model, commandHistory, SHOWING_BUDGET_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowBudgetViewEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
     public void execute_budgetSpecificCca_success() {
+        model.initialiseBudgetBook();
+        model.readXslFile();
+
+        expectedModel.initialiseBudgetBook();
+        expectedModel.readXslFile();
+
         model.addCca(BASKETBALL);
         model.commitBudgetBook();
         expectedModel.addCca(BASKETBALL);
