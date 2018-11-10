@@ -62,7 +62,7 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
     public static final String KEYWORD_MATCHING_D111 = "D111"; // A keyword that matches D111
-    public static final String KEYWORD_MATCHING_
+    public static final String KEYWORD_MATCHING_ENGINE = "Engine"; // A keyword that matches Engine
 
     private TypicalPersons() {} // prevents instantiation
 

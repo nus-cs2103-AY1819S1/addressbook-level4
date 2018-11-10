@@ -32,8 +32,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String PROFILE_PAGE = "/ProfileWindow.html";
-    public static final String PICTURE_LINK = "/Hallper/out/production/resources/profile_picture/";
-    public static final String JPG = ".jpg";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -92,7 +90,8 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        //loadPersonPage(event.getNewSelection());
+        loadProfile(event.getNewSelection());
     }
 
     //@@author EatOrBeEaten
@@ -115,13 +114,13 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
     }
 
+    //@@author javenseow
     @Subscribe
     private void handleProfileViewEvent(ProfileViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadProfile(event.getPersonSelected());
     }
 
-    //@@author javenseow
     /**
      * Loads HTML page of profile.
      * @param person The person that the profile will show.

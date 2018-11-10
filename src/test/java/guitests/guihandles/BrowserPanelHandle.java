@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import org.w3c.dom.Document;
+
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
@@ -60,5 +62,12 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      */
     public boolean isLoaded() {
         return isWebViewLoaded;
+    }
+
+    /**
+     * Returns the {@code htmlString} of the currently loaded profile.
+     */
+    public Document getLoadedProfile() {
+        return ProfileViewUtil.getLoadedProfile(getChildNode(BROWSER_ID));
     }
 }

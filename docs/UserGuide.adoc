@@ -75,7 +75,7 @@ Examples:
 // tag::image[]
 ==== Adds a picture to resident detail : `image`
 
-Uploads the image of resident staying in the specified room to Hallper and opens the resident's profile page. +
+Saves a copy of the image of resident staying in the specified room to Hallper. +
 Format: `image r/ROOM f/FILEPATH`
 
 ****
@@ -303,6 +303,26 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 Shows a list of all persons in Hallper. +
 Format: `list`
+
+==== Selecting a person: `select`
+
+Selects the person identified by the index number used in the displayed person list.
+Format: `select INDEX`
+
+* Selects the person and loads the profile page of the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer*, `1, 2, 3, ...`
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in Hallper.
+
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
 
 === Email
 This section lists features related to email in Hallper.
@@ -704,6 +724,12 @@ Format: `exit`
 Hallper data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+==== Displaying profile image `[coming in v2.0]`
+Hallper profile pictures are currently saved in the hard disk after the `image` command is executed. +
+In the future, the profile picture will be displayed on the on the profile together with the resident's
+other information.
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -733,6 +759,8 @@ e.g. `find James Jake`
 * *List* : `list`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search basketball A123`
+* *Select* : `select INDEX` +
+e.g. `select 1`
 
 ===== Email
 * *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +

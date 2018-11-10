@@ -10,6 +10,10 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -191,7 +195,7 @@ public abstract class AddressBookSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
@@ -203,7 +207,7 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -216,13 +220,32 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
+        String selectedCardCCA = getPersonListPanel().getHandleToSelectedCard().getTags().toString();
+        String selectedCardRoom = getPersonListPanel().getHandleToSelectedCard().getRoom();
+        String selectedCardNumber = getPersonListPanel().getHandleToSelectedCard().getPhone();
+        String selectedCardSchool = getPersonListPanel().getHandleToSelectedCard().getSchool();
+        String selectedCardEmail = getPersonListPanel().getHandleToSelectedCard().getEmail();
+
+        String expectedHtmlString = "";
+        String tempString;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
+            InputStream profilePage = getClass().getResourceAsStream(BrowserPanel.PROFILE_PAGE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
+            while ((tempString = reader.readLine()) != null) {
+                expectedHtmlString += tempString;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        expectedHtmlString = expectedHtmlString.replace("$name", selectedCardName);
+        expectedHtmlString = expectedHtmlString.replace("$cca", selectedCardCCA);
+        expectedHtmlString = expectedHtmlString.replace("$room", selectedCardRoom);
+        expectedHtmlString = expectedHtmlString.replace("$number", selectedCardNumber);
+        expectedHtmlString = expectedHtmlString.replace("$school", selectedCardSchool);
+        expectedHtmlString = expectedHtmlString.replace("$email", selectedCardEmail);
+
+        assertEquals(expectedHtmlString, getBrowserPanel().getLoadedProfile().toString());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
@@ -233,7 +256,7 @@ public abstract class AddressBookSystemTest {
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
