@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.CrossFindCommand;
+import seedu.souschef.logic.commands.CrossListCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
@@ -52,7 +53,7 @@ public class CrossParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(crossRecipeModel, arguments);
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(crossRecipeModel);
+            return new CrossListCommand(crossRecipeModel);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -59,6 +59,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses index for delete and edit command of ingredient
+     * @throws ParseException if the specified index is invalid (not within the index range of last shown ingredient
+     * list).
+     */
+    public static int parseIngredientIndex(List lastShownList, String[] tokens, String messageUsage)
+            throws ParseException {
+        int index;
+        try {
+            index = Integer.parseInt(tokens[0]) - 1;
+            if (index >= lastShownList.size() || index < 1 || tokens.length % 2 == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
+        }
+        return index;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *

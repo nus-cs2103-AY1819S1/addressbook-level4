@@ -1,5 +1,7 @@
 package seedu.souschef.model.planner;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,6 +25,7 @@ public class Day extends UniqueType {
      * @param date Date of the day.
      */
     public Day(LocalDate date) {
+        requireNonNull(date);
         this.date = date;
         this.meals = FXCollections.observableArrayList();
         this.meals.add(Breakfast.INDEX, new Breakfast());
@@ -31,6 +34,7 @@ public class Day extends UniqueType {
     }
 
     public Day(LocalDate date, ArrayList<Meal> meals) {
+        requireNonNull(date);
         this.date = date;
         this.meals = FXCollections.observableArrayList(meals);
     }

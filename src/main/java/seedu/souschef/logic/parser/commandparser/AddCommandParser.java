@@ -40,8 +40,12 @@ import seedu.souschef.model.planner.Day;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements CommandParser<AddCommand> {
-    @Override
+public class AddCommandParser {
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
@@ -124,7 +128,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_DUPLICATE, "plan name"));
         }
 
-        return new AddCommand<HealthPlan>(model, toAdd);
+        return new AddCommand<>(model, toAdd);
     }
 
 }

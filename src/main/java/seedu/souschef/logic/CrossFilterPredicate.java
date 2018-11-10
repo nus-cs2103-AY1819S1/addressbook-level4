@@ -9,7 +9,7 @@ import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Tests that a {@code Recipe} includes include-be included ingredients in inventory command.
+ * Tests that a {@code Recipe} includes certain ingredients in cross find command.
  */
 public class CrossFilterPredicate implements Predicate<Recipe> {
     private final List<IngredientDefinition> include;

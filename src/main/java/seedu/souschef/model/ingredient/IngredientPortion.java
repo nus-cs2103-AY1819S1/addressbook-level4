@@ -35,19 +35,19 @@ public class IngredientPortion extends IngredientDefinition {
 
     /**
      * Add amount between ingredients
+     * @param other
      */
-    public IngredientPortion addAmount(Object other) {
-        IngredientPortion otherIngredient = (IngredientPortion) other;
-        double total = this.getAmount().getValue() + otherIngredient.getAmount().getValue();
+    public IngredientPortion addAmount(IngredientPortion other) {
+        double total = this.getAmount().getValue() + other.getAmount().getValue();
         return new IngredientPortion(getName(), getUnit(), new IngredientAmount(total));
     }
 
     /**
      * Subtract amount between ingredients
+     * @param other
      */
-    public IngredientPortion subtractAmount(Object other) {
-        IngredientPortion otherIngredient = (IngredientPortion) other;
-        double total = this.getAmount().getValue() - otherIngredient.getAmount().getValue();
+    public IngredientPortion subtractAmount(IngredientPortion other) {
+        double total = this.getAmount().getValue() - other.getAmount().getValue();
         if (total <= 0) {
             total = 0.0;
         }

@@ -64,7 +64,7 @@ import seedu.souschef.model.recipe.Tag;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser implements CommandParser<EditCommand> {
+public class EditCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -151,24 +151,13 @@ public class EditCommandParser implements CommandParser<EditCommand> {
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    @Override
     public EditCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
-
+        String[] tokens = args.trim().split("\\s+");
         List<Ingredient> lastShownList = model.getFilteredList();
-        String[] tokens = args.toLowerCase().trim().split("\\s+");
-        int index;
-        try {
-            index = Integer.parseInt(tokens[0]) - 1;
-            if (index >= lastShownList.size() || tokens.length % 2 == 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
-            }
-        } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
-        }
-
-        Ingredient toEdit = lastShownList.get(index);
+        Ingredient toEdit = lastShownList.get(ParserUtil.parseIngredientIndex(lastShownList, tokens,
+                MESSAGE_EDIT_INGREDIENT_USAGE));
 
         String name;
         Double amount;
