@@ -604,14 +604,17 @@ Step 3: If the user leaves out or in other ways enters an invalid index, `Select
 
 
 
-**Word Of The Day**
+=== WordOfTheDay feature
+==== Current Implementation
 
 The Word Of The Day command is indicated as `WordOfTheDay` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
 
-Functions added:
+The Word Of The Day command utilizes the same functions in the Dictionary class made for the 'LearnCommand', but also adds the following functions:
 
 * `Dictionary#doesWordOfTheDayExist()` -- Checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
 * `Dictionary#fetchWordOfTheDay()` -- Parses the word of the day and its meaning from the Document object returned by `doesWordOfTheDayExist()` and returns itself (Dictionary object).
+
+Dictionary#fetchWordOfTheDay() is used in the WordOfTheDayParser class as WordOfTheDayParser#parse(), while all the other executions are self-contained within the Dictionary#fetchWordOfTheDay() function.
 
 Below is a description on how the Word Of The Day function operates:
 
@@ -621,7 +624,19 @@ Step 2: User would make sure that there is a working internet connection.
 
 Step 3: User would type "word" into the command line.
 
-Step 4: The word of the day will be fetched online. Should it be successful, the word of the day and its meaning will be displayed.
+Step 4: The word of the day will be parsed by WordOfTheDayParser, calling `WordOfTheDayParser#parse()` The WordOfTheDayParser exists solely for the purpose of utilizing the existing functions made for parsing the online Dictionary and putting the word into `:Word` objects.
+
+Step 5: This calls the `Dictionary` class and all relevant functions. The first one being `Dictionary#fetchWordOfTheDay()`.
+
+Step 6: The Word Of The Day will be fetched online from Dictionary.com and displayed by the WordOfTheDayCommand together with its meaning. Should the internet-connection fail, the operation throws a `MESSAGE_NO_INTERNET`.
+
+
+[NOTE]
+The Word Of The Day is displayed together with a "WordOfTheDay" tag. The word and the tag are not stored in any group somewhere, but is only displayed for the user. If the user wants to learn the word, he or she shall use the LearnCommand.
+
+The following sequence diagram shows how the learn command works:
+
+image::WordOfTheDaySequentialDiagram.jpg[width="820"]
 
 
 
