@@ -127,7 +127,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-        modelAllergies, modelPreferredDoc);
+                modelAllergies, modelPreferredDoc);
 
         if (isQueuing) {
             patient.isQueuing();
