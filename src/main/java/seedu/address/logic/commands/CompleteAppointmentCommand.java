@@ -111,7 +111,7 @@ public class CompleteAppointmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddAppointmentCommand // instanceof handles nulls
+                || (other instanceof CompleteAppointmentCommand // instanceof handles nulls
                 && (appointmentId == ((CompleteAppointmentCommand) other).appointmentId));
     }
 }

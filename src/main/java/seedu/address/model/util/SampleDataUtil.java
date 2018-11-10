@@ -26,18 +26,12 @@ public class SampleDataUtil {
 
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Patient(new Name("John Doe"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Patient(new Name("Utah Tan"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"), NON_EMPTY_REMARK,
                 getTagSet("Patient"), "123"),
             new Patient(new Name("Jackie Chen"), new Phone("91234232"), new Email("jackiechen@example.com"),
                     new Address("Blk 123 Clementi Street 9, #08-20"), EMPTY_REMARK,
                     getTagSet("Patient"), "123"),
-            new Doctor(new Name("Mary Jane"), new Phone("98232323"), new Email("maryjane@example.com"),
-                    new Address("Blk 32 Yishun Street 31, #09-30"), EMPTY_REMARK,
-                    getTagSet("Doctor")),
-            new Doctor(new Name("Tommy Tan"), new Phone("82312342"), new Email("tommytan@example.com"),
-                    new Address("Blk 11 Jurong West Street 11, #11-30"), EMPTY_REMARK,
-                    getTagSet("Doctor"))
         };
     }
 

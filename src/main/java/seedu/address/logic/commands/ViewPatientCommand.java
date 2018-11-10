@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * View a patient's information.
@@ -25,17 +27,22 @@ public class ViewPatientCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the patient identified by the name.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME \n"
+            + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_PHONE + "PHONE] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "Viewing Patient: %1$s";
     public static final String MESSAGE_INVALID_PATIENT = "This patient does not exist in the HealthBook";
+    public static final String MESSAGE_DUPLICATE_VIEW_PATIENT =
+            "There is multiple patients with this name. Please enter doctor's number to identify the unique patient.";
 
     private final Name name;
+    private final Phone phone;
 
-    public ViewPatientCommand(Name name) {
+    public ViewPatientCommand(Name name, Phone phone) {
         this.name = name;
+        this.phone = phone;
     }
 
     @Override
@@ -43,17 +50,29 @@ public class ViewPatientCommand extends Command {
             throws CommandException {
         requireNonNull(model);
         List<Person> personList = model.getFilteredPersonList();
-        Patient patient = (Patient) personList.stream()
-                .filter(person -> person.getName().equals(name) && person instanceof Patient)
-                .findFirst()
-                .orElse(null);
+        Patient patientToView = null;
+        for (Person person : personList) {
+            if (person.getName().equals(name) && person instanceof Patient) {
+                if (phone != null) {
+                    if (person.getPhone().equals(phone)) {
+                        patientToView = (Patient) person;
+                    }
+                } else {
+                    if (patientToView != null && patientToView.getName().equals(name)) {
+                        throw new CommandException(MESSAGE_DUPLICATE_VIEW_PATIENT);
+                    } else {
+                        patientToView = (Patient) person;
+                    }
+                }
+            }
+        }
 
-        if (patient == null) {
+        if (patientToView == null) {
             throw new CommandException(MESSAGE_INVALID_PATIENT);
         }
 
-        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, patient.getName()));
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patientToView));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, patientToView.getName()));
     }
 
     @Override
