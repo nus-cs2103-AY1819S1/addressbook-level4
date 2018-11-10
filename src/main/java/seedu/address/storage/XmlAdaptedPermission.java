@@ -13,7 +13,7 @@ public class XmlAdaptedPermission {
     @XmlValue
     private String permissionName;
 
-    private String MESSAGE_INVALID_PERMISSION = "Value not in Permission Enum";
+    private String messageInvalidPermission = "Value not in Permission Enum";
 
     /**
      * Constructs an XmlAdaptedPermission.
@@ -45,7 +45,7 @@ public class XmlAdaptedPermission {
      */
     public Permission toModelType() throws IllegalValueException {
         if (!Permission.isValidPermission(permissionName)) {
-            throw new IllegalValueException(MESSAGE_INVALID_PERMISSION);
+            throw new IllegalValueException(messageInvalidPermission);
         }
 
         return Permission.valueOf(permissionName);
