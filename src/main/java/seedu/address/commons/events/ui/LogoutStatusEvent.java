@@ -8,11 +8,6 @@ import seedu.address.commons.events.BaseEvent;
  * An event that notifies StatusBarFooter regarding a login status change.
  */
 public class LogoutStatusEvent extends BaseEvent {
-    /**
-     * Constructor for LogoutStatusEvent
-     */
-    public LogoutStatusEvent() {
-    }
 
     @Override
     public String toString() {

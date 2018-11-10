@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    //private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -133,7 +132,7 @@ public class CommandBox extends UiPart<Region> {
         String commandWord = getCommandWord(commandText.trim());
         if (commandWord.equals(CdCommand.COMMAND_WORD)) {
             String arguments = getArguments(commandText.trim());
-            if (arguments.equals("")) {
+            if ("".equals(arguments)) {
                 return;
             }
             searchDirectory(arguments);

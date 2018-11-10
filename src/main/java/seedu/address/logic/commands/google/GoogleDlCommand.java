@@ -71,12 +71,9 @@ public class GoogleDlCommand extends GoogleCommand {
 
             model.updateEntireImageList();
 
+        } catch (ApiException e) {
+            throw new CommandException(MESSAGE_CONNECTION_FAILURE);
         } catch (Exception ex) {
-
-            if (ex instanceof ApiException) {
-                throw new CommandException(MESSAGE_CONNECTION_FAILURE);
-            }
-
             if (parameter.isEmpty()) {
                 parameter = org;
             }

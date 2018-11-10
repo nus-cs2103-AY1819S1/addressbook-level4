@@ -22,10 +22,6 @@ public class GoogleRefreshCommand extends GoogleCommand {
     public static final String MESSAGE_USAGE = "Usage of google refresh (requires an internet connection): "
             + "\n- " + FULL_CMD + " Refreshes image and album list gotten from google ";
 
-    public GoogleRefreshCommand() {
-        super();
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history)
             throws CommandException {

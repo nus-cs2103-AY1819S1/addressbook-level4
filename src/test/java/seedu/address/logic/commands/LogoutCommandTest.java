@@ -21,7 +21,7 @@ public class LogoutCommandTest {
     private String credentialPath = "./src/main/resources/user_credentials/StoredCredential";
 
     @Test
-    public void execute_command() {
+    public void executeCommand() {
         LogoutCommand logoutCommand = new LogoutCommand();
         File file = new File(credentialPath);
         if (file.exists()) {

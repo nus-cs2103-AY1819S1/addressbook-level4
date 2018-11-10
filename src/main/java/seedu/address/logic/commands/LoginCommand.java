@@ -27,13 +27,6 @@ public class LoginCommand extends Command {
     protected static final String MESSAGE_LAUNCHED = "You will be re-directed to a login window shortly...";
     private static final String MESSAGE_LOGGED_IN = "Logged in as %s.";
 
-    /**
-     * Creates a LoginCommand to allow user to login to Google Account
-     */
-    public LoginCommand() {
-
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
