@@ -105,6 +105,7 @@ public abstract class CompleteCommand extends Command {
      * If there are none, update the model's view of the filtered task list
      * and commit changes to the model.
      * Else, throw a command exception.
+     *
      * @param model model which has uncommitted states
      * @throws CommandException
      */
