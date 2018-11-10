@@ -68,8 +68,8 @@ public class TaskViewPanel extends UiPart<Region> {
      * Updates the display to show the information regarding the task.
      */
     private void displayTask() {
-        if(displayedTask.isPresent()) {
-           Task task = displayedTask.get();
+        if (displayedTask.isPresent()) {
+            Task task = displayedTask.get();
             name.setText(task.getName().fullName);
             dueDate.setText(task.getDueDate().value);
             remainingTime.setText(getRemainingTime(task));
