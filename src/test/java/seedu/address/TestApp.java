@@ -94,10 +94,10 @@ public class TestApp extends MainApp {
 
     /**
      * Returns a defensive copy of the model.
+     * The new Model has the same predicates and comparator from FSList and thus the same ordering of FSList.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getScheduler()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredCalendarEventList());
+        Model copy = new ModelManager(model.getScheduler(), new UserPrefs(), model.getFsList());
         return copy;
     }
 

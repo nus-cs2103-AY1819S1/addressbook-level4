@@ -163,13 +163,6 @@ public abstract class SchedulerSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
-        /*
-        print("assertApplicationDisplaysExpected");
-        print("expected Command Input: " + expectedCommandInput);
-        print("actual command input :" + getCommandBox().getInput());
-        print("expected result message: " + expectedResultMessage);
-        print("actual result message: " + getResultDisplay().getText());
-        */
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
@@ -258,15 +251,4 @@ public abstract class SchedulerSystemTest {
         return testApp.getModel();
     }
 
-    // TODO: remove when finish testing
-    /*
-    public void print(String s) {
-        System.out.println(s);
-    }
-
-    public void print(List<CalendarEvent> xs) {
-        for (CalendarEvent ce : xs) {
-            System.out.println(ce);
-        }
-    }*/
 }
