@@ -70,7 +70,7 @@ public class ClinicIoParserTest {
 
     @Test
     public void parseCommand_listAppt() throws Exception {
-        String[] dates = {"02","03","2017"};
+        String[] dates = {"02", "03", "2017"};
         ListApptCommand command = (ListApptCommand) parser.parseCommand(
                 ListApptCommand.COMMAND_WORD + " " + dates[0] + " " + dates[1] + " " + dates[2]);
         assertEquals(new ListApptCommand(new AppointmentContainsDatePredicate(dates)), command);
