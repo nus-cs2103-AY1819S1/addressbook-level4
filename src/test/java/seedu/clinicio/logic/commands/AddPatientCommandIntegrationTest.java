@@ -36,7 +36,7 @@ public class AddPatientCommandIntegrationTest {
     public void execute_newPatient_success() {
         Patient validPatient = new PatientBuilder().build();
 
-        UserSession.createSession(ALAN);
+        UserSession.create(ALAN);
 
         Model expectedModel = new ModelManager(model.getClinicIo(), new UserPrefs());
         expectedModel.addPatient(validPatient);
@@ -48,7 +48,7 @@ public class AddPatientCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() {
-        UserSession.createSession(ALAN);
+        UserSession.create(ALAN);
         model.addPatient(ALEX);
         Patient patientInList = model.getClinicIo().getPatientList().get(0);
         assertCommandFailure(new AddPatientCommand(patientInList), model, commandHistory,

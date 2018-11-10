@@ -45,7 +45,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_validCredentials_returnTrue() {
-        UserSession.destorySession();
+        UserSession.destroy();
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         LoginCommand command = new LoginCommand(
@@ -55,7 +55,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_invalidCredentials_returnFalse() {
-        UserSession.destorySession();
+        UserSession.destroy();
         String expectedMessage = LoginCommand.MESSAGE_FAILURE;
 
         LoginCommand command = new LoginCommand(

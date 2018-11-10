@@ -61,8 +61,8 @@ public class AddPatientCommandTest {
         ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
 
-        UserSession.destorySession();
-        UserSession.createSession(ALAN);
+        UserSession.destroy();
+        UserSession.create(ALAN);
 
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
 
@@ -73,8 +73,8 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() throws Exception {
-        UserSession.destorySession();
-        UserSession.createSession(ALAN);
+        UserSession.destroy();
+        UserSession.create(ALAN);
 
         Patient validPatient = new PatientBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
@@ -87,7 +87,7 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_staffNotLogin_throwsCommandException() throws Exception {
-        UserSession.destorySession();
+        UserSession.destroy();
 
         Patient validPatient = new PatientBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
