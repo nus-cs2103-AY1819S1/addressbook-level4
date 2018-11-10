@@ -552,6 +552,25 @@ public class ConnectToGoogleCalendar {
     }
 
     /**
+     * Deletes all events in the Google Calendar.
+     *
+     * @param enabled the enable status from caller
+     */
+    public boolean clear(boolean enabled) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
+        Calendar service = getCalendar();
+        try {
+            service.calendars().clear(CALENDAR_NAME).execute();
+        } catch (IOException e) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Edits the details of an existing event in the Google Calendar.
      *
      * @param eventToEdit a local Event.
