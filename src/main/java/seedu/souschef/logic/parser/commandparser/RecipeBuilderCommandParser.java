@@ -83,6 +83,7 @@ public class RecipeBuilderCommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_INSTRUCTION, PREFIX_COOKTIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INSTRUCTION)
+                || argMultimap.hasNestedPrefix()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_CONT_RECIPE_USAGE));
