@@ -351,7 +351,7 @@ When user type in the command box, OASIS will predict what commands the user is 
 ==== Current Implementation
 
 Auto complete functionality in OASIS is supported by both `org.controlsfx.control.textfield.TextFields` API and `AutoCompleteCommandHelper` class.
- 
+
 When text is typed into the Command Box (`commandTextField` object), it will display a drop down list of possible commands, that is retrieved from `AutoCompleteCommandHelper` class.
 
 * `org.controlsfx.control.textfield.TextFields` API is utilised to display the drop down list.
@@ -362,7 +362,7 @@ When text is typed into the Command Box (`commandTextField` object), it will dis
 ===== Aspect: Logic & UI
 When `CommandBox` class is being constructed, `bindAutoCompletion` method provided by `TextFields` API will be utilised to create an auto-completion binding between the `commandTextField` object and `AutoCompleteCommandHelper#autoCompleteWord` method.
 
-With this binding, whenever `commandTextField` is updated, it will display a drop down list of possible commands retrieved from `AutoCompleteCommandHelper#autoCompleteWord` if it exist.  
+With this binding, whenever `commandTextField` is updated, it will display a drop down list of possible commands retrieved from `AutoCompleteCommandHelper#autoCompleteWord` if it exist.
 
 ===== Design Considerations
 
@@ -370,13 +370,13 @@ With this binding, whenever `commandTextField` is updated, it will display a dro
 
 ** Pros: Easy to implement.
 
-** Pros: Can view ALL possible commands. 
+** Pros: Can view ALL possible commands.
 
 ** Cons: There is a slight delay before the drop down list appear. Can potentially slow down user's who type fast.
 
 * Alternative 2: Immediately place predicted command as text into `commandTextField`.
 
-** Pros: No delay, predicted command is immediately displayed. 
+** Pros: No delay, predicted command is immediately displayed.
 
 ** Cons: Only able to view 1 possible command.
 
@@ -398,7 +398,7 @@ image::permissionPersonModel.png[width="750"]
 
 * `Permission` class contains the all possible Permissions that are available to a Person.
 
-* All values in `PermissionSet` must be from `Permission` class. 
+* All values in `PermissionSet` must be from `Permission` class.
 
 * `PresetPermission` is a enumeration class that resides in `PermissionSet`. `PresetPermission` is utilised by `PermissionSet` class to generate a `PermissionSet` object that represents the set of permission that a certain type of User will possess.
 
@@ -426,7 +426,7 @@ public AddCommand(Person person) {
 ----
 <1> The method to assign permission to a command
 
-Before any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object. 
+Before any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object.
 
 Given below is an example scenario of how commands will be executed.
 
@@ -499,17 +499,17 @@ image::modifyPermissionSequenceDiagram.png[width="350]
 
 ===== Design Considerations
 
-* Alternative 1 (Current Implementation): Allow both adding and removing of multiple permissions with one command with the use of prefixes. 
+* Alternative 1 (Current Implementation): Allow both adding and removing of multiple permissions with one command with the use of prefixes.
 
 ** Pros: Only need to learn how to use 1 command. Can perform both adding and removing of permissions with a single command.
 
-** Cons: Harder to implement then other alternatives. 
+** Cons: Harder to implement then other alternatives.
 
 * Alternative 2: Create 2 separate commands to handle adding and removing of permission. (E.g. `AddPermissionCommand` and `RemovePermissionCommand`)
 
 ** Pros: Easy to implement.
 
-** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 command if they wish to both add and remove permission. 
+** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 command if they wish to both add and remove permission.
 
 ==== View Permissions of employee
 
@@ -519,13 +519,13 @@ This feature allows the user to view the permissions that have been allocated to
 This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
 
 ===== Current Implementation
-To use this command, the user only have to give an `INDEX` parameter. 
+To use this command, the user only have to give an `INDEX` parameter.
 
 ====== Aspect: Logic
 
 To process this command, `ViewPermissionCommandParser` simply utilise `ParserUtil#parseIndex` to parse the argument into the `index` of the target employee.
 
-The index will then be used to create a `ViewPermissionCommand`. 
+The index will then be used to create a `ViewPermissionCommand`.
 
 When `ViewPermissionCommand` is executed, it will retrieve the targeted employee from the `Model`, and print out the list of permission that the employee possess.
 
@@ -537,9 +537,9 @@ image::viewPermissionSequenceDiagram.png[width="350]
 
 * Alternative 1 (Current Implementation): Display permissions as the result of a command.
 
-** Pros: Easy to implement. 
+** Pros: Easy to implement.
 
-** Cons: Can only view permissions of a single employee at a time. 
+** Cons: Can only view permissions of a single employee at a time.
 
 * Alternative 2: Display all permissions in the Person card.
 
@@ -547,7 +547,7 @@ image::viewPermissionSequenceDiagram.png[width="350]
 
 ** Pros: No commands required.
 
-** Cons: Person card can get very cluttered if employee have many permissions. 
+** Cons: Person card can get very cluttered if employee have many permissions.
 
 // end::permission[]
 

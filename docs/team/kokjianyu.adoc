@@ -21,16 +21,15 @@ The following section shows my code contribution for OASIS.
 ** Justification: There are many commands in OASIS that should only be performable by employees with certain
 authorization. Usage of permission allows the admins to easily ensure that previously stated criteria is met.
 ** Highlights: This enhancement requires modification to different components of the application, Model, Storage and Logic.
-Therefore, implementation was challenging as it requires in-depth knowledge of the different components. 
-However, usage of this
-enhancement is made to be simple, simply needing only 1 line of code to be added into any new Command class to ensure that
+Therefore, implementation was challenging as it requires in-depth knowledge of the different components.
+However, usage of this enhancement is made to be simple, simply needing only 1 line of code to be added into any new Command class to ensure that
 it can only be executed by authorized employees.
 
 === Major Enhancement: Added ability to modify the permissions granted to an employee
 
 ** What it does: Modify the permissions of the employee.
 ** Justification: Allows for easy modification of permission
-** Highlights: There are many different ways this functionality could have been done. Therefore, I spent quite some time to research how this functionality had been done on existing system, and have created and tested many different prototypes for this functionality before finally deciding on the current implementation. 
+** Highlights: There are many different ways this functionality could have been done. Therefore, I spent quite some time to research how this functionality had been done on existing system, and have created and tested many different prototypes for this functionality before finally deciding on the current implementation.
 
 === Major Enhancement: Added ability to view the permissions granted to an employee
 

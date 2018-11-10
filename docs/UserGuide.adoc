@@ -65,7 +65,7 @@ e.g. typing help and pressing Enter will open the help window.
 
 OASIS has provided you with a command auto complete feature to aid you with the usage of commands. With this functionality, you no longer have to memorise any commands!
 
-When you type commands into the command box, a drop down list of possible commands will appear, as shown in the screenshot below. 
+When you type commands into the command box, a drop down list of possible commands will appear, as shown in the screenshot below.
 
 image::autoCompleteDropDownList.png[width=300]
 
@@ -74,7 +74,7 @@ When the drop down list is shown, you can do the following:
 * Use `↑` and `↓` to navigate through the list
 * Press kbd:[Enter] to select the highlighted option
 
-After selecting the command, you will see that the command will be displayed in the command box. 
+After selecting the command, you will see that the command will be displayed in the command box.
 
 If you wish to see a list of all commands, simply type kbd:[Space] into an empty command box. You should see the list as shown in the screenshot.
 
