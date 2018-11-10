@@ -204,6 +204,7 @@ INSTRUCTION: +
 View a recipe and its details from the list. +
 ****
 * `INDEX` should be as displayed in the list.
+* Common serving unit "gram" is being displayed.
 ****
 Format: +
 `select INDEX`
@@ -211,7 +212,7 @@ Format: +
 ==== Search recipes: `find`
 Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
-dietary types (vegan, Keto),
+dietary types (Vegetarian, Halal),
 ingredients (egg, broccoli),
 preparation time (30M, 1H40M)
 and difficulty (1, 2, ..., 5). +
