@@ -42,7 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private Person currentUser;
     private Event currentEvent;
-    private boolean clearEnabled;
+    private boolean clearIsEnabled;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -57,7 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         currentUser = null;
-        clearEnabled = false;
+        clearIsEnabled = false;
     }
 
     public ModelManager() {
@@ -84,14 +84,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Checks if a person is the current user.
-     * @param person the Person to be checked.
-     */
-    public boolean authorisationCanBeGivenTo(Person person) {
-        return person.isSamePerson(currentUser);
-    }
-
-    /**
      * Logs out user.
      */
     public void removeCurrentUser() {
@@ -104,10 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         return (currentUser != null);
     }
 
-    public Person getCurrentUser() throws NoUserLoggedInException {
-        if (currentUser == null) {
-            throw new NoUserLoggedInException();
-        }
+    public Person getCurrentUser() {
         return currentUser;
     }
 
@@ -115,11 +104,11 @@ public class ModelManager extends ComponentManager implements Model {
      * Enable clear command, only for testing purposes.
      */
     public void setClearEnabled() {
-        clearEnabled = true;
+        clearIsEnabled = true;
     }
 
-    public boolean getClearEnabled() {
-        return clearEnabled;
+    public boolean getClearIsEnabled() {
+        return clearIsEnabled;
     }
 
     public void setSelectedEvent(Event currentEvent) {

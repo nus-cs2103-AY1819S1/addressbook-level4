@@ -170,7 +170,7 @@ public class FindUserCommandSystemTest extends AddressBookSystemTest {
         /* Case: find while a person is selected -> selected card deselected */
         showAllPersons();
         selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(BENSON.getName().fullName));
+        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(BENSON.getName().value));
         command = FindUserCommand.COMMAND_WORD + DESC_BENSON_NAME;
         ModelHelper.setFilteredList(expectedModel, BENSON);
         assertCommandSuccess(command, expectedModel);
