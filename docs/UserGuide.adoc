@@ -457,11 +457,6 @@ Examples:
 * `add-item n/Burger p/2`
 * `ai n/Burger Set p/4.5 t/Set`
 
-==== Listing all items in the menu : `list-items` or `li`
-
-Shows a list of all items in the menu. +
-Format: `list-items`
-
 ==== Editing an item in the menu : `edit-item` or `ei`
 
 Edits an existing item in the menu. +
@@ -524,6 +519,16 @@ Deletes the `Apple Juice` item in the menu.
 `din Cheese Fries` +
 Deletes `Cheese Fries` item in the results of the `find` command.
 //end::menuPart1[]
+
+==== Listing all items in the menu : `list-items` or `li`
+
+Shows a list of all items in the menu. +
+Format: `list-items`
+
+==== Clearing all entries : `clear-menu` or `cm`
+
+Clears all entries from the menu. +
+Format: `clear-menu`
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -604,11 +609,6 @@ Examples:
 Sorts the menu by item name in lexicographical order.
 * `sm PRICE` +
 Sorts the menu by item price in ascending order(lowest to highest).
-
-==== Clearing all entries : `clear-menu` or `cm`
-
-Clears all entries from the menu. +
-Format: `clear-menu`
 
 ==== Giving a discount to an item : `discount-item` or `dci`
 
@@ -693,7 +693,6 @@ Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
 Add/Update the recipe of the 1st item in the results of the `find` command.
-// end::menu[]
 
 //tag::reservations[]
 === Reservations Management
