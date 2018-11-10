@@ -31,8 +31,6 @@ public class TaskViewPanel extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label id;
-    @FXML
     private Label dueDate;
     @FXML
     private Label remainingTime;
@@ -49,7 +47,7 @@ public class TaskViewPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public TaskViewPanel(Task task, int displayedIndex) {
+    public TaskViewPanel(Task task) {
         super(FXML);
         displayTask(task);
         registerAsAnEventHandler(this);
@@ -57,7 +55,6 @@ public class TaskViewPanel extends UiPart<Region> {
 
     private void displayTask(Task task) {
         // TODO remove displayedIndex
-        id.setText(1 + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
         remainingTime.setText(getRemainingTime(task));
@@ -95,7 +92,7 @@ public class TaskViewPanel extends UiPart<Region> {
 
         // state check
         TaskViewPanel panel = (TaskViewPanel) other;
-        return id.getText().equals(panel.id.getText());
+        return hash.getText().equals(panel.hash.getText());
     }
 
     @Subscribe

@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        taskViewPanel = new TaskViewPanel(logic.getFilteredTaskList().get(0), 1);
+        taskViewPanel = new TaskViewPanel(logic.getFilteredTaskList().get(0));
         taskViewPlaceholder.getChildren().add(taskViewPanel.getRoot());
 
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
