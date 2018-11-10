@@ -422,7 +422,7 @@ a `NoUserLoggedInException` is thrown, and if there is no selected event, a `NoE
 In addition, four other possible exceptions might be thrown by the VoteCommand:
 
 * A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.
-* A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.
+* A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someone tries to vote twice.
 * A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.
 * The given option must exist in the selected poll, else, an IllegalArgumentException is thrown.
 
@@ -478,7 +478,8 @@ This section explains the implementation of the features associated with the Sch
 
 ==== Design considerations
 
-For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week's schedule is stored.
+For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not include a schedule object, and so adjustments have to be made. 
+Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the weekly schedule is stored.
 
 ===== Aspect: Storage of schedule in person
 
@@ -506,11 +507,11 @@ As manipulating bit strings may be complicated, getter, setter and merger method
 
 ===== Aspect: Schedule Update
 
-As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.
+As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.
 
 ===== Aspect: MaxSchedule Command
 
-Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
+Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
 
 Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
 It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.
@@ -533,8 +534,8 @@ This section explains the implementation of the features associated with the Tim
 
 `AddUserCommand` - The base Add command for person with one addition - Timetable parameter
 
-TimeTable is data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand.
-This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.
+TimeTable is a collection of data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule update parameters in the EditCommand.
+This timetable is also not stored inside the xml, but rather immediately translated into a schedule object to be passed back to the application, which would store the object inside the model.
 
 
 ===== Aspect: Timetable Source
@@ -577,9 +578,9 @@ Step 2. Then, to obtain the full details of the module (including all lessons an
 
 Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.
 
-Step 4. The filtered lessons is then converted into an arraylist of Slot.
+Step 4. The filtered lessons is then converted into a list of Slot.
 
-Step 5. The arraylist of Slot will be passed in a Schedule constructor to generate a new schedule.
+Step 5. The list of Slot will be passed in a Schedule constructor to generate a new schedule.
 
 Step 6. The new schedule object is returned to the application.
 
@@ -1150,28 +1151,28 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 ==== Division of work
 
-#### Keng Ji : Add event feature with polls and time, location features
+===== Keng Ji : Add event feature with polls and time, location features
 
 - [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
 - [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
 - [x] V1.3: Application able to generate poll options based on participants' schedules.
 
-#### Yao Feng : Add login function and improve on search functions
+===== Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
 - [x] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
 - [x] V1.3: Improved login command with password.
 
-#### Zhang Cheng : Add additional attributes for networking among users
+===== Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
 - [x] V1.2: Users able to specify friendships with other people.
 - [x] V1.3: Users able to search for friends and become more connected.
 
-#### Adeel : Add location-related features
+===== Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
 - [ ] V1.2: Implement recommendation of best meet-up location via MRT lines.
 - [ ] V1.3: Implement Google maps visualisation.
 
-#### Jason : Event Management/Recommendation
+===== Jason : Event Management/Recommendation
 - [x] V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.
 - [x] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
 - [x] V1.3: Visualize timetables of multiple friends.

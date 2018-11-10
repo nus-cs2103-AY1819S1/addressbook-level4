@@ -94,7 +94,8 @@ Adds a new user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 [TIP]
-A user can have any number of tags and interests (including 0)
+A user can have any number of tags and interests (including 0) +
+<<Timetable>> download requires a valid nusmods link
 
 Examples:
 
@@ -200,6 +201,7 @@ Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [
 * When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
+* <<Timetable>> download requires a valid nusmods link
 ****
 
 Examples:
@@ -210,6 +212,28 @@ Edits the phone number and email address of the user `Alex Yeoh` to be `91234567
 * `login n/Alex Yeoh pass/password` +
 `editUser n/Betsy Crower t/` +
 Edits the name of the user `Alex Yeoh`to be `Betsy Crower` and clears all existing tags.
+
+// tag::scheduletimetable[]
+==== Timetable
+Timetable download guide
+
+To be referenced by any commands that use `tt/` prefix.
+Format `Command tt/ http://modsn.com/XXXX...`
+
+Example:
+* http://modsn.us/eDmp1
+* http://modsn.us/H4v8s
+
+****
+* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL". 
+* Note that the timetable download may take a while regardless if the link is valid or not. 
+* Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
+* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
+* If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
+* If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
+****
+// end::scheduletimetable[]
 
 // tag::addDeleteFriend[]
 
@@ -237,7 +261,7 @@ Format: `deleteFriend INDEX,INDEX`
 
 ****
 * For two users at the 2 specified `INDEX`, deletes each other as friend.
-* Only two indexes can be stated, seperated by a comma(,) with no spaces in between.
+* Only two indexes can be stated, separated by a comma(,) with no spaces in between.
 * Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
 * The two users must already be friends.
 ****
@@ -580,9 +604,9 @@ e.g. `deleteUser 3`
 
 // tag::scheduletimetable[]
 * *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
-e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
-e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
-e.g. `editUser 1 su/ monday 0000`
+e.g. `editUser n/James Lee e/jameslee@example.com` +
+e.g. `editUser tt/ http://modsn.us/H4v8s` +
+e.g. `editUser su/ monday 0000`
 // end::scheduletimetable[]
 
 * *Select User* : `selectUser INDEX` +
