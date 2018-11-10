@@ -109,7 +109,7 @@ public class ConnectToGoogleCalendarTest {
         assertTrue(ConnectToGoogleCalendar.isGoogleCalendarDisabled());
     }
 
-    @Test(expected = CommandException.class)
+    @Test
     public void checkStatus() throws CommandException {
         //Prepare the test file where the status indicates Enabled
         enable();
@@ -124,16 +124,10 @@ public class ConnectToGoogleCalendarTest {
         assertTrue(ConnectToGoogleCalendar.checkStatus("Disabled"));
 
         //Try to read a non-readable file
-        String path = "./tokens/mode.txt";
+        String path = "./invalid/NotExist.txt";
         final File file = new File(path);
-        //Pre-condition: the file was writable before
-        assertTrue(file.canRead());
-        file.setReadable(false);
         //We force an exception
-        boolean result = ConnectToGoogleCalendar.checkStatus("Enabled");
-        assertFalse(result);
-        //set back the file to writable
-        file.setReadable(true);
+        assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
     }
 
     @Test
