@@ -1560,13 +1560,19 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  InsuRen should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  InsuRen should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  InsuRen should be able to hold up to 1000 clients' contact without a noticeable sluggishness in performance for typical usage.
 .  InsuRen should process a user command in 1 second or less, without any noticeable delay.
+.  InsuRen should display a clear and concise error message to provide feedback to the user when an invalid input is received.
 .  All data entries are backed-up regularly.
+.  All data entries are stored in a xml file.
 .  A user should be able to learn and use the product without any form of training.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The UI should be responsive to changes.
 .  The product should be self-explanatory and intuitive such that an insurance agent is able to adapt to it within the first 10 minutes of using the product for the first time.
 .  When the program crashes, all data up till the point of crash will still be available upon relaunch of the program.
+.  The system should work by running on the JAR file without any installation.
+.  The system should work even if the user does not have any internet connection.
+.  The JAR file should be small in size (< 50 MB).
 // end::nfr[]
 
 [appendix]
