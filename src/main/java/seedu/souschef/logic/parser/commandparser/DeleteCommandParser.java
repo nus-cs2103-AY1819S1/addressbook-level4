@@ -23,7 +23,7 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser implements CommandParser<DeleteCommand> {
+public class DeleteCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -49,7 +49,6 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         }
     }
 
-    @Override
     public DeleteCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);

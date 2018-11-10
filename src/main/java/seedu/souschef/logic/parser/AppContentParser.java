@@ -63,7 +63,6 @@ public class AppContentParser {
                     .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         case FAVOURITES:
             setFeatureStorage(storage, context);
-
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

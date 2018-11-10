@@ -22,7 +22,7 @@ import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser implements CommandParser<FindCommand> {
+public class FindCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
@@ -46,7 +46,6 @@ public class FindCommandParser implements CommandParser<FindCommand> {
      * and returns an FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    @Override
     public FindCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);

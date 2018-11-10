@@ -65,7 +65,6 @@ public class UniversalParser {
             EventsCenter.getInstance().post(new ListPanelSwitchEvent(Context.HEALTH_PLAN));
             return new ContextCommand(nextContext);
 
-
         case MealPlannerParser.COMMAND_WORD:
             nextContext = Context.MEAL_PLAN;
             checkContext(historyContext, nextContext);
