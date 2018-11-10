@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
+//import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.DESC_ALICE_AND_BENSON_ADDRESS;
 import static seedu.address.testutil.TypicalPersons.DESC_ALICE_AND_BENSON_AND_KENSON_INTEREST;
@@ -20,7 +20,7 @@ import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL_
 import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL_SUBSTRING;
 import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL_SUPERSTRING;
 import static seedu.address.testutil.TypicalPersons.DESC_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalPersons.ELLE;
+//import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 
