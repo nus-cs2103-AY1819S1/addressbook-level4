@@ -104,43 +104,45 @@ public class SampleDataUtil {
                             new Instruction("Fry each prata dough until brown on both sides.")
                     ),
                     getTagSet("Staple", "Vegetarian", "Halal")),
-                new Recipe(new Name("Kimchi Jun"), new Difficulty("2"), new CookTime("10M"),
+            new Recipe(new Name("Kimchi Jun"), new Difficulty("2"), new CookTime("10M"),
                         getInstructionList(
-                                new Instruction("Stir together the kimchi, kimchi juice," +
-                                        " flour, eggs, and green onion in a bowl.",
+                                new Instruction("Stir together the kimchi, kimchi juice,"
+                                        + " flour, eggs, and green onion in a bowl.",
                                         getIngredientPortionSet(new IngredientPortion("kimchi", "g", 150.0),
                                                 new IngredientPortion("flour", "g", 300.0),
                                                 new IngredientPortion("egg", "g", 100.0),
                                                 new IngredientPortion("green onion", "g", 100.0))),
-                                new Instruction("Using about 1/4 cup of batter for each pancake, pour into skillet, spreading" +
-                                        " as thin as possible. Cook pancakes until set and lightly browned, turning" +
-                                        " once, 3 to 5 minutes per side.",
+                                new Instruction("Using about 1/4 cup of batter for each pancake,"
+                                        + " pour into skillet, spreading"
+                                        + " as thin as possible. Cook pancakes until set and lightly browned, turning"
+                                        + " once, 3 to 5 minutes per side.",
                                         new CookTime("5M"),
                                         getIngredientPortionSet())),
                         getTagSet("Snack", "Korean")),
-                new Recipe(new Name("Kimchi Soup"), new Difficulty("2"), new CookTime("30M"),
+            new Recipe(new Name("Kimchi Soup"), new Difficulty("2"), new CookTime("30M"),
                         getInstructionList(
-                                new Instruction("Stir water, kimchi, pork shoulder, hot pepper paste," +
-                                        " sugar, and salt together in a pot.",
+                                new Instruction("Stir water, kimchi, pork shoulder, hot pepper paste,"
+                                        + " sugar, and salt together in a pot.",
                                         getIngredientPortionSet(new IngredientPortion("kimchi", "g", 50.0),
                                                 new IngredientPortion("pork shoulder", "g", 50.0),
                                                 new IngredientPortion("hot pepper paste", "tablespoon", 2.0))),
-                                new Instruction("bring to a boil, reduce heat to medium," +
-                                        " and simmer until meat is tender, about 20 minutes.",
+                                new Instruction("bring to a boil, reduce heat to medium,"
+                                        + " and simmer until meat is tender, about 20 minutes.",
                                         new CookTime("20M"),
                                         getIngredientPortionSet()),
                                 new Instruction("Remove from heat and stir in green onions.",
                                         getIngredientPortionSet(new IngredientPortion("green onion", "g", 20.0)))),
                         getTagSet("Staple", "Korean")),
-                new Recipe(new Name("Vegan Korean Kimchi Fried Rice"), new Difficulty("3"), new CookTime("20M"),
+            new Recipe(new Name("Vegan Korean Kimchi Fried Rice"), new Difficulty("3"), new CookTime("20M"),
                         getInstructionList(
-                                new Instruction("Add red onion, garlic, and ginger. Cook, stirring occasionally, until onion softens, about 3 minutes.",
+                                new Instruction("Add red onion, garlic, and ginger. Cook, stirring occasionally,"
+                                        + "until onion softens, about 3 minutes.",
                                         new CookTime("3M"),
                                         getIngredientPortionSet(new IngredientPortion("red onion", "g", 20.0),
                                                 new IngredientPortion("garlic", "g", 10.0),
                                                 new IngredientPortion("ginger", "g", 10.0))),
-                                new Instruction("Stir in cooked rice, soy sauce, sugar, kimchi," +
-                                        " Cook and stir until heated through, about 5 minutes",
+                                new Instruction("Stir in cooked rice, soy sauce, sugar, kimchi,"
+                                        + " Cook and stir until heated through, about 5 minutes",
                                         new CookTime("5M"),
                                         getIngredientPortionSet(new IngredientPortion("soy sauce", "tablespoon", 1.0),
                                                 new IngredientPortion("sugar", "tablespoon", 1.0),
@@ -168,24 +170,24 @@ public class SampleDataUtil {
                 new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
                             new IngredientServingUnit("gram"),
                         new IngredientDate(sdf.parse("10-12-2018"))),
-                    new Ingredient(new IngredientName("flour"), new IngredientAmount(300.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("10-16-2018"))),
-                    new Ingredient(new IngredientName("chicken"), new IngredientAmount(540.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("10-21-2018"))),
-                    new Ingredient(new IngredientName("beef"), new IngredientAmount(300.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("10-25-2018"))),
-                    new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("10-30-2018"))),
-                    new Ingredient(new IngredientName("apple"), new IngredientAmount(120.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("10-30-2018"))),
-                    new Ingredient(new IngredientName("kimchi"), new IngredientAmount(200.0),
-                            new IngredientServingUnit("gram"),
-                            new IngredientDate(sdf.parse("11-17-2018")))
+                new Ingredient(new IngredientName("flour"), new IngredientAmount(300.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-16-2018"))),
+                new Ingredient(new IngredientName("chicken"), new IngredientAmount(540.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-21-2018"))),
+                new Ingredient(new IngredientName("beef"), new IngredientAmount(300.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-25-2018"))),
+                new Ingredient(new IngredientName("potato"), new IngredientAmount(100.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-30-2018"))),
+                new Ingredient(new IngredientName("apple"), new IngredientAmount(120.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("10-30-2018"))),
+                new Ingredient(new IngredientName("kimchi"), new IngredientAmount(200.0),
+                        new IngredientServingUnit("gram"),
+                        new IngredientDate(sdf.parse("11-17-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();
