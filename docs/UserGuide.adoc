@@ -449,6 +449,7 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 * ITEM_NAME and ITEM_PRICE must be provided.
 * An item can have any number of tags (including 0)
 * ITEM_PRICE should only contain numbers, at most 2 decimal place and smaller than or equals to 2,147,483,647.
+* You cannot add items with the same name.
 ****
 
 Examples:
@@ -506,13 +507,12 @@ Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
 ==== Deleting an item by name: `delete-item-name` or `din`
 
 Deletes the specified item from the menu. +
-Format: `delete-item-name NAME`
+Format: `delete-item-name ITEM_NAME`
 
 ****
-* Deletes the item by the specified `NAME`.
-* The name of the item *must be in the displayed item list*.
-* The index *must be a positive integer* 1, 2, 3, ...
-* You can delete a range of items by adding the ending index `ei\INDEX`.
+* Deletes the item by the specified `ITEM_NAME`.
+* The ITEM_NAME *must be in the displayed item list*.
+* ITEM_NAME is case-insensitive.* e.g `burger` will match `Burger`
 ****
 
 Examples:
@@ -555,7 +555,7 @@ Format: `find-item KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Bur` will not match `Burger`
 * Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cheese Burger` will return
-`Cheese Fries`,`Cheese Cake`
+`Cheese Burger`, `Cheese Fries` and `Beef Burger`
 ****
 
 Examples:
@@ -574,8 +574,8 @@ Format: `filter-menu t/TAG`
 * The search is case insensitive. e.g `burger` will match `Burger`
 * Only filter by tag.
 * Only full words will be matched e.g. `Bur` will not match `Burger`
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cheese Burger` will return
-`Cheese Fries`,`Cheese Cake`
+* Items with tags matching at least one keyword will be returned (i.e. `OR` search). e.g. `drinks burger` will return
+items that are tagged with drinks or burger.
 ****
 
 Examples:
@@ -647,13 +647,13 @@ Examples:
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
 
-==== Add/Update recipe to item : `recipe-item` or `ri`
+==== Adding recipe to item : `recipe-item` or `ri`
 
-Adds/Updates recipe to the item identified by the index number used in the menu. +
+Adds recipe to the item identified by the index number used in the menu. +
 Format: `recipe-item INDEX r/RECIPE`
 
 ****
-* Adds/Updates a recipe to the item at the specified `INDEX`.
+* Adds a recipe to the item at the specified `INDEX`.
 * If the item has a recipe already, it will update the recipe.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -669,17 +669,18 @@ Add/Update the recipe of the 1st item to be `Some Recipe`.
 Add/Update the recipe of the 1st item in the results of the `find` command to be `Other Recipe`.
 
 [[add-required-ingredient]]
-==== Add required ingredients: `add-required-ingredients` or `ari`
+==== Adding required ingredients: `add-required-ingredients` or `ari`
 
-Adds/Updates required ingredients to the item identified by the index number used in the menu. +
+Adds/ required ingredients to the item identified by the index number used in the menu. +
 Format: `add-required-ingredients INDEX n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 
 ****
-* Adds/Updates required ingredients to the item at the specified `INDEX`.
+* Adds required ingredients to the item at the specified `INDEX`.
 * If the item has required ingredients already, it will update the required ingredients.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
-* NUMBER_OF_INGREDIENTS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
+* NUMBER_OF_INGREDIENTS for an ingredient must be paired with the INGREDIENT_NAME for that particular ingredient.
+e.g. `n/apple nu/3` or `nu/3 n/apple`
 ****
 
 Examples:
