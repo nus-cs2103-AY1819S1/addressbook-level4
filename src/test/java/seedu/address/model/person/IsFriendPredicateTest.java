@@ -1,10 +1,11 @@
 package seedu.address.model.person;
 
-import org.junit.Test;
-import seedu.address.testutil.TypicalPersons;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * Tests cases for {@code IsFriendPredicate}
