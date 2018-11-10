@@ -5,11 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javafx.collections.transformation.FilteredList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.DateSamePredicate;
-import ssp.scheduleplanner.model.task.Task;
 
 /**
  * Displays the percentage of tasks done for today.
