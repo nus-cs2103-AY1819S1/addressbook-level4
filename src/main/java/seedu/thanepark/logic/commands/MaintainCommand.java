@@ -80,7 +80,7 @@ public class MaintainCommand extends Command {
         assert rideToMaintain != null;
 
         Name updatedName = openRideDescriptor.getName().orElse(rideToMaintain.getName());
-        Maintenance updatedMaintenance = rideToMaintain.resetMaintenance();
+        Maintenance updatedMaintenance = new Maintenance(0);
         WaitTime updatedWaitTime = new WaitTime(0);
         Zone updatedZone = openRideDescriptor.getZone().orElse(rideToMaintain.getZone());
         Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToMaintain.getTags());

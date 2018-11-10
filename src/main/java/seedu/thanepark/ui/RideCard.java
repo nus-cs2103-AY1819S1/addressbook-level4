@@ -57,7 +57,7 @@ public class RideCard extends UiPart<Region> {
         } else if (ride.getStatus().equals(Status.SHUTDOWN)) {
             statusString.setStyle("-fx-background-color: #CC3045");
         } else if (ride.getStatus().equals(Status.MAINTENANCE)) {
-            statusString.setStyle("-fx-background-color: #cc6a26");
+            statusString.setStyle("-fx-background-color: #CC6A26");
         } else {
             //error
             throw new AccessibilityException(String.format("Status of %1s is unknown.", ride.getName().fullName));
