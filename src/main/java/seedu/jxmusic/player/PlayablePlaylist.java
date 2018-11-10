@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.util.Duration;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Playlist;
 
 /**
@@ -59,8 +60,13 @@ public class PlayablePlaylist implements Playable {
     }
 
     @Override
-    public void seek(Duration time) {
+    public void seek(Duration time) throws CommandException {
         current.seek(time);
+    }
+
+    @Override
+    public Duration getDuration() {
+        return current.getDuration();
     }
 
     /**

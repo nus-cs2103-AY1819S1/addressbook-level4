@@ -34,7 +34,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         library = new Library(readOnlyLibrary);
         filteredPlaylists = new FilteredList<>(library.getPlaylistList());
-        // filteredTrackList = new FilteredList<>(library.getObservableTrackList());
         ObservableList<Track> trackListFromSet = FXCollections.observableArrayList(library.getTracks());
         filteredTrackList = new FilteredList<>(trackListFromSet);
     }
