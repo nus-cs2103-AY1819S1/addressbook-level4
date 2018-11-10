@@ -49,7 +49,7 @@ public class MassEditCommand extends Command {
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "lunch -> "
-            + PREFIX_CATEGORY + "Lunch ";
+            + PREFIX_CATEGORY + "school " + PREFIX_COST + "1.00";
 
     public static final String MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS = "Edit expenses successfully.";
     public static final String MESSAGE_NO_EXPENSE_FOUND = "No expense is found by the keywords.";

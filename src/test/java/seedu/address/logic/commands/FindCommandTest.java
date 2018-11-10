@@ -135,7 +135,7 @@ public class FindCommandTest {
      * Test whether the find command is executed successfully
      * */
     private void testFindCommand(String input, int expectedNumber, List<Expense> expenses, Prefix... prefixes)
-            throws NoUserSelectedException{
+            throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, expectedNumber);
         ArgumentMultimap keywordsMap =
                 ArgumentTokenizer.tokenize(input, prefixes);

@@ -49,7 +49,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
 
         ensureKeywordsAreValid(keywordsMap);
-
-        return new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
+        ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
+        return new FindCommand(predicate);
     }
 }

@@ -66,7 +66,7 @@ public class EditExpenseDescriptorTest {
 
     //@@author jcjxwy
     @Test
-    public void test_createEditExpenseDescriptor_oneFieldSpecified_successful() {
+    public void test_createEditExpenseDescriptor_oneFieldSpecified() {
         ArgumentMultimap testMap = prepareMap("n/test");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
@@ -78,7 +78,7 @@ public class EditExpenseDescriptorTest {
     }
 
     @Test
-    public void test_createEditExpenseDescriptor_someFieldsSpecified_successful() {
+    public void test_createEditExpenseDescriptor_someFieldsSpecified() {
         ArgumentMultimap testMap = prepareMap("c/test $/1.00");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
@@ -91,7 +91,7 @@ public class EditExpenseDescriptorTest {
     }
 
     @Test
-    public void test_createEditExpenseDescriptor_allFieldsSpecified_successful() {
+    public void test_createEditExpenseDescriptor_allFieldsSpecified() {
         ArgumentMultimap testMap = prepareMap("n/same c/test $/1.00 t/equal d/01-01-2018");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
@@ -109,7 +109,7 @@ public class EditExpenseDescriptorTest {
     }
 
     @Test
-    public void test_createEditExpenseDescriptor_noFieldSpecified_fail() {
+    public void test_createEditExpenseDescriptor_noFieldSpecified() {
         ArgumentMultimap testMap = prepareMap("");
         try {
             EditExpenseDescriptor.createEditExpenseDescriptor(testMap);

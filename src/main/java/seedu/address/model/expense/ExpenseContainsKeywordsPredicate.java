@@ -68,7 +68,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     }
 
     /**
-     * Return true if the {@code Name} of {@param expense} contains {@param nameKeywords}.
+     * Return true if the {@code Name} of {@code expense} contains {@code nameKeywords}.
      * */
     public boolean containsNameKeywords(String nameKeywords, Expense expense) {
         assert nameKeywords != null : "nameKeywords should not be null.";
@@ -79,7 +79,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     }
 
     /**
-     * Return true if the {@code Category} of {@param expense} contains {@param categoryKeywords}.
+     * Return true if the {@code Category} of {@code expense} contains {@code categoryKeywords}.
      * */
     public boolean containsCategoryKeywords(String categoryKeywords, Expense expense) {
         assert categoryKeywords != null : "categoryKeywords should not be null.";
@@ -91,7 +91,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     }
 
     /**
-     * Return true if the {@code Cost} of {@param expense} is within the range denoted by {@param costKeywords}.
+     * Return true if the {@code Cost} of {@code expense} is within the range denoted by {@code costKeywords}.
      * */
     public boolean isWithinCostRange(String costKeywords, Expense expense) {
         assert costKeywords != null : "costKeywords should not be null.";
@@ -110,7 +110,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     }
 
     /**
-     * Return true if the {@code Date} of {@param expense} is within the range denoted by {@param dateKeywords}.
+     * Return true if the {@code Date} of {@code expense} is within the range denoted by {@code dateKeywords}.
      * */
     public boolean isWithinDateRange(String dateKeywords, Expense expense) {
         assert dateKeywords != null : "dateKeywords should not be null.";
@@ -132,7 +132,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     }
 
     /**
-     * Return true if any of the {@code Tag} of {@param expense} contains any element of {@param tagKeywords}.
+     * Return true if any of the {@code Tag} of {@code expense} contains any element of {@code tagKeywords}.
      * */
     public boolean checkTagKeywords(List<String> tagKeywords, Expense expense) {
         assert tagKeywords != null : "dateKeywords should not be null.";
