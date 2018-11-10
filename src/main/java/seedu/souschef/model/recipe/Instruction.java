@@ -2,6 +2,7 @@ package seedu.souschef.model.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
+import static seedu.souschef.model.recipe.CookTime.ZERO_COOKTIME;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,13 +37,11 @@ public class Instruction {
     }
 
     public Instruction(String instruction, Set<IngredientPortion> ingredients) {
-        this(instruction, new CookTime("0M"), ingredients);
+        this(instruction, new CookTime(ZERO_COOKTIME), ingredients);
     }
 
     public Instruction(String instruction) {
-        checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
-        this.value = instruction;
-        cookTime = new CookTime("0M");
+        this(instruction, new CookTime(ZERO_COOKTIME), new HashSet<>());
     }
 
     /**
