@@ -28,7 +28,7 @@ image::introToOASIS.png[width="900"]
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
-.  Download the latest oasis.jar.
+.  Download the latest oasis.jar https://github.com/CS2103-AY1819S1-F10-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The following Graphical User Interface (GUI) should appear in a few seconds:
 +
@@ -45,7 +45,7 @@ e.g. typing help and pressing Enter will open the help window.
 
 * *`list`* : lists all employees.
 * **`add`**`-n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
-* **`find`**`J*` : finds all employees that start with J.
+* **`find`**`J*` : finds all employees where any of their names start with J.
 * *`exit`* : exits the app
 
 .  Refer to <<Commands>> for details of each command.
@@ -82,15 +82,19 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Adds an employee into the system.
 
-Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-t PROJECT]`
+Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t ASSIGNMENT]`
+
+* If username is not specified, it will default to being the same as NAME.
 
 ****
-* To use this command, you must be logged in with "Add employee" permissions.
+* To use this command, you must be logged in with "ADD_EMPLOYEE" permissions.
+* Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
+* The username cannot be "Admin", as that is reserved for the admin account.
 ****
 Examples:
 
 * `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth`
+* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
@@ -104,7 +108,7 @@ Displays all the permissions that an employee has been assigned.
 Format: viewpermission INDEX
 
 ****
-* To use this command, you must be logged in with "Assign permission" permission.
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permissions.
 ****
 
 Examples:
@@ -118,7 +122,7 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
+* To use this command, you must be logged in and have the "REMOVE_EMPLOYEE" permission.
 * All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
@@ -128,7 +132,7 @@ Examples:
 
 === List details of employee : `select`
 
-Lists the detailed information of an employee. This is the same result as if the person is clicked in the GUI.
+Lists the detailed information of an employee. This will also display the employee's profile on the right. This is the same result as if the person is clicked in the GUI.
 
 Format: `select INDEX`
 
@@ -143,7 +147,7 @@ Adds an assignment into the system.
 Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
 
 ****
-* To use this command, you must be logged in with "Create assignment" permissions.
+* To use this command, you must be logged in with "CREATE_ASSIGNMENT" permissions.
 ****
 Examples:
 
@@ -154,7 +158,7 @@ Examples:
 
 Apply for leave on specific dates.
 
-Format: `leave add -de DESCRIPTION -da DATE [-da DATE]...`
+Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
@@ -173,7 +177,7 @@ Displays a list leave applications that you have made.
 Format: `leavelist`
 
 ****
-* If you have the "View Employee Leave" permissions, all other employee leave applications will be shown too.
+* If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
 ****
 
 === Approve a leave application : `leaveapprove`
@@ -184,7 +188,8 @@ Format: `leaveapprove [INDEX]`
 
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "Leave Approve" permissions.
+* To use this command, you must have "APPROVE_LEAVE" permissions.
+* Note that leave applications that have already been rejected can still be approved afterwards.
 ****
 
 Examples:
@@ -199,7 +204,8 @@ Format: `leavereject [INDEX]`
 
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "Leave Approve" permissions.
+* To use this command, you must have "APPROVE_LEAVE" permissions.
+* Note that leave applications that have already been approved can still be rejected afterwards.
 ****
 
 Examples:
@@ -213,7 +219,7 @@ Search and display all employees that match the given name criteria.
 Format: `find NAME`
 
 ****
-* NAME can be any name or parts of name.
+* NAME can be any name or parts of name that are separated by whitespace (such as a space charaacter).
 * You can use the * character to match any number of characters (0 or more)
 * You can also use the _ character to match any single character
 * Find is case insensitive
@@ -221,27 +227,39 @@ Format: `find NAME`
 
 Examples:
 
-* `find jian yu`: Displays everyone that has 'jian' or 'yu' in their name
+* `find jian yu`: Displays everyone whose names contain "jian" or "yu", surrounded by whitespace.
 
-* `find d*` Displays everyone whose's names start with d.
+* `find d*` Displays all employees where any of their names start with d.
 
-* 'find T_m' Displays 'Tom' and 'Tim', but not 'Tian'
+* `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
+
+=== Edit details of the currently logged in user : `myself`
+
+Changes the details of the currently logged in user
+
+Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t ASSIGNMENT]`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+****
+* This command is not usable as admin.
+****
+Examples:
+
+* `myself -p 91234567 -e johndoe@example.com`
+* `myself -n James`
 
 === Edit details : `edit`
 
 Changes the users details (such as contact information).
 
-Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]`
 
 * Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-****
-* To use this command, you must be logged in with "Edit Employee" permissions.
-* At least one of the parameters must be provided
-* Existing values will be updated to the input values
-****
 Examples:
 
 * `edit 1 -p 91234567 -e johndoe@example.com`
@@ -255,8 +273,25 @@ Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REM
 
 * Modifies the permission of the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 
+The following is the list of Permissions available.
+
+[width="100%",options="header"]
+|=========================================================
+|Permission|What it does
+|ADD_EMPLOYEE|Allows the user to add employee
+|REMOVE_EMPLOYEE|Allows the user to delete employee
+|EDIT_EMPLOYEE|Allows the user to edit information of an employee
+|VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
+|APPROVE_LEAVE|Allows user to approve and reject leave application
+|CREATE_ASSIGNMENT (Currently not used)|Allows user to create a assignment
+|ASSIGN_ASSIGNMENT (Currently not used)|Allows user to assign employee to a assignment
+|VIEW_ASSIGNMENT (Currently not used)|Allows user to view all assignments
+|ASSIGN_PERMISSION|Allows user to assign permission to employees
+|=========================================================
+
+
 ****
-* To use this command, you must be logged in with "Assign Permission" permission.
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
 * At least one of the parameters must be provided
 ****
 
@@ -389,10 +424,6 @@ Displays the list of employees removed from the system. To delete an employee fr
 
 Format: `archive`
 
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
-
 === Restoring employee to active list: `restore`
 
 Restores an employee to active list from the archived list.
@@ -400,8 +431,7 @@ Restores an employee to active list from the archived list.
 Format: `restore INDEX`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
-* All resotred employee will be taken back to the active list.
+* All restored employees will be taken back to the active list.
 ****
 
 Examples:
@@ -420,12 +450,12 @@ Format: `sector`
 
 === View leave summary : `leavesummary`
 
-Views the summary of off days current employees take for the month.
+Views the summary of off days current employees have taken for the month.
 
 Format: `leavesummary`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
+* To use this command, you must be logged in with "VIEW_EMPLOYEE_LEAVE" permissions.
 ****
 
 === View income summary : `summary`
@@ -441,7 +471,7 @@ Shows a list of all assignments in the system.
 Format: `listassignment`
 
 ****
-* To use this command, you must be logged in with "View Assignment" permissions.
+* To use this command, you must be logged in with "VIEW_ASSIGNMENT" permissions.
 ****
 
 === Removing an assignment: `deleteassignment`
@@ -451,7 +481,7 @@ Removes an assignment from the system.
 Format: `deleteassignment INDEX`
 
 ****
-* To use this command, you must be logged in with "Remove Assignment" permissions.
+* To use this command, you must be logged in with "REOMVE_ASSIGNMENT" permissions.
 ****
 
 == FAQ
@@ -472,7 +502,8 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
- |Sort employee display list| sort -CRITERIA| sort -d
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
+ |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
  |Search employees by name|find NAME| find Joshua
  |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
@@ -480,7 +511,7 @@ Format: `deleteassignment INDEX`
  |Change password|passwd|passwd
  |View archived employees|archive|archive
  |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
- |View leave application list|leavelist|leavelist
+ |View your own leave application list|leavelist|leavelist
  |Undo commands|undo|undo
  |Redo commands|Redo|Redo
  |Logout from the system|logout|logout
@@ -493,15 +524,16 @@ Format: `deleteassignment INDEX`
 [width="100%",options="header"]
 |=========================================================
  |Command|Required Permission|Format|Example
- |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT] | add -n Joshua -s 15000 -e josh@gmail.com -n
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
  |Delete employee|REMOVE_EMPLOYEE|delete INDEX|delete 1
- |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
   | edit 1 -p 91234567 -e johndoe@example.com
  |Clear|Admin|clear|clear
  |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
  modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
- |View all Permissions of employee| ASSIGN_PERMISSION| viewpermission INDEX|viewpermission 1
+ |View all Permissions of employee|ASSIGN_PERMISSION|viewpermission INDEX|viewpermission 1
+ |View leave application list of all employees|VIEW_EMPLOYEE_LEAVE|leavelist|leavelist
  |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
  |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
 |=========================================================

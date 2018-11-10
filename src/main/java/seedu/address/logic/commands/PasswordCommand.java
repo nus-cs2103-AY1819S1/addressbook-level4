@@ -56,7 +56,6 @@ public class PasswordCommand extends Command {
                         currentUser.getProfilePic());
                     model.updatePerson(currentUser.getPerson(), editedPerson);
                     model.commitAddressBook();
-                    model.setLoggedInUser(new User(editedPerson));
                     return new CommandResult(SHOWING_PASSWORD_MESSAGE);
                 });
                 return result;

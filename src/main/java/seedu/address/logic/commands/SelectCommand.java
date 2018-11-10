@@ -43,7 +43,11 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        if (model.getState() == 1) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex, 1));
+        } else if (model.getState() == 2) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex, 2));
+        }
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

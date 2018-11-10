@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Helper class to auto complete commands typed into command box
  */
 public class AutoCompleteCommandHelper {
     private static String[] commandWordList = {
         AddCommand.COMMAND_WORD,
+        ArchiveCommand.COMMAND_WORD,
         ClearCommand.COMMAND_WORD,
         DeleteCommand.COMMAND_WORD,
         EditCommand.COMMAND_WORD,
@@ -22,11 +27,15 @@ public class AutoCompleteCommandHelper {
         ModifyPermissionCommand.COMMAND_WORD,
         PasswordCommand.COMMAND_WORD,
         RedoCommand.COMMAND_WORD,
+        RestoreCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD,
+        SelfEditCommand.COMMAND_WORD,
         UndoCommand.COMMAND_WORD,
         AddAssignmentCommand.COMMAND_WORD,
         ModifyPermissionCommand.COMMAND_WORD,
         ListAssignmentCommand.COMMAND_WORD,
+        EditAssignmentCommand.COMMAND_WORD,
+        DeleteAssignmentCommand.COMMAND_WORD,
         ViewPermissionCommand.COMMAND_WORD
     };
 
@@ -36,12 +45,25 @@ public class AutoCompleteCommandHelper {
      * @param partialWord The current characters available in command box.
      * @return The predicted command.
      */
-    public static String autoCompleteWord(String partialWord) {
+    public static Set<String> autoCompleteWord(String partialWord) {
+        if (partialWord == null || partialWord.equals("")) {
+            return new TreeSet<>();
+        }
+
+        if (partialWord.equals(" ")) {
+            return getAllCommands();
+        }
+
+        Set<String> suggestions = new TreeSet<>();
         for (String s : commandWordList) {
             if (s.startsWith(partialWord)) {
-                return s;
+                suggestions.add(s);
             }
         }
-        return null;
+        return suggestions;
+    }
+
+    public static Set<String> getAllCommands() {
+        return new TreeSet<>(Arrays.asList(commandWordList));
     }
 }

@@ -58,6 +58,23 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_adminUsername_addFailed() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withUsername("Admin").build();
+
+        try {
+            CommandResult commandResult = new AddCommand(validPerson).runBody(modelStub, commandHistory);
+            //should not reach here
+            assert false;
+        } catch (CommandException ce) {
+            assert ce.getMessage().equals(AddCommand.MESSAGE_ADMIN_USERNAME);
+        }
+
+        assertEquals(Arrays.asList(), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
@@ -102,6 +119,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public int getState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean alreadyContainsUsername(String username, Person ignore) {
+            return false;
+        }
+
+        @Override
+        public void resetArchive(ReadOnlyArchiveList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -128,6 +160,16 @@ public class AddCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFromArchive(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -162,6 +204,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateArchivedPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Assignment> getFilteredAssignmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -183,6 +230,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredLeaveApplicationListForPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentListForPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,6 +281,11 @@ public class AddCommandTest {
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsAssignment(String newAssignment, Assignment ignore) {
+            return false;
         }
 
         @Override

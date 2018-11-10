@@ -33,7 +33,7 @@ public class LoginTest {
     @Test
     public void login_admin_successful() {
         String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
-        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.password;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.plaintext;
 
         EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword));
 
@@ -42,10 +42,20 @@ public class LoginTest {
     }
 
     @Test
+    public void login_admin_unsuccessful() {
+        String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.plaintext;
+
+        EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword + "hihihi"));
+
+        assertLastEventLoginUnsuccessful(FailedLoginEvent.INVALID_PASSWORD);
+    }
+
+    @Test
     public void login_user_successful() {
         Person loginPerson = model.getAddressBook().getPersonList().get(0);
         String username = loginPerson.getUsername().username;
-        String password = loginPerson.getPassword().password;
+        String password = loginPerson.getPassword().plaintext;
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 
@@ -60,7 +70,7 @@ public class LoginTest {
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 
-        assertLastEventLogoutUnsuccessful(FailedLoginEvent.NON_CONFORMING_INPUTS);
+        assertLastEventLoginUnsuccessful(FailedLoginEvent.NON_CONFORMING_INPUTS);
     }
 
     @Test
@@ -89,18 +99,18 @@ public class LoginTest {
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 
-        assertLastEventLogoutUnsuccessful(FailedLoginEvent.INVALID_USERNAME);
+        assertLastEventLoginUnsuccessful(FailedLoginEvent.INVALID_USERNAME);
     }
 
     @Test
     public void login_password_unsuccessful() {
         Person loginPerson = model.getAddressBook().getPersonList().get(0);
         String username = loginPerson.getUsername().username;
-        String password = loginPerson.getPassword().password + "1234";
+        String password = loginPerson.getPassword().plaintext + "1234";
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 
-        assertLastEventLogoutUnsuccessful(FailedLoginEvent.INVALID_PASSWORD);
+        assertLastEventLoginUnsuccessful(FailedLoginEvent.INVALID_PASSWORD);
     }
 
     /**
@@ -115,9 +125,9 @@ public class LoginTest {
 
     /**
      * Verifies that the login was unsuccessful, and for a certain reason
-     * @param reason The logout Event's message
+     * @param reason The Failed Login Event's message
      */
-    private void assertLastEventLogoutUnsuccessful(String reason) {
+    private void assertLastEventLoginUnsuccessful(String reason) {
         BaseEvent lastEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assert lastEvent instanceof FailedLoginEvent;
         FailedLoginEvent failedLoginEvent = (FailedLoginEvent) lastEvent;

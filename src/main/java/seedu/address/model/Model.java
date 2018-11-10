@@ -23,6 +23,12 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
+    /** Clears existing backing model and replaces with the provided new data. */
+    void resetArchive(ReadOnlyArchiveList newData);
+
+    /** Returns the current state of the person panel list */
+    int getState();
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
@@ -44,10 +50,31 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Deletes the given person in the archive list.
+     * The person must exist in the archive list.
+     */
+    void deleteFromArchive(Person target);
+
+    /**
+     * Restores the given person in the archive list.
+     * The person must exist in the archive list.
+     */
+    void restorePerson(Person target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Checks if the given username is already in the addressbook, for the current version.
+     * You can choose to ignore a person's username when doing so (i.e. you'er planning to update that person)
+     * @param username the Username to check against
+     * @param ignore The person to ignore, if any. null for no one.
+     * @return True if it's already in the address book, false otherwise
+     */
+    boolean alreadyContainsUsername(String username, Person ignore);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -79,6 +106,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the archived person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateArchivedPersonList(Predicate<Person> predicate);
 
     /** Returns an unmodifiable view of the filtered leave application list */
     ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList();
@@ -147,6 +180,15 @@ public interface Model {
      */
     void updateAssignment(Assignment target, Assignment editedAssignment);
 
+    /**
+     * Checks if the given assignment name is already in the assignmentlist, for the current version.
+     * You can choose to ignore an assignment's name when doing so (i.e. you'er planning to update that assignment)
+     * @param newAssignment the AssignmentName to check against
+     * @param ignore The person to ignore, if any. null for no one.
+     * @return False if it's already in the assignment list, true otherwise
+     */
+    boolean containsAssignment(String newAssignment, Assignment ignore);
+
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
 
@@ -155,6 +197,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code person}.
+     * @throws NullPointerException if {@code person} is null.
+     */
+    void updateFilteredAssignmentListForPerson(Person person);
 
     /**
      * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.

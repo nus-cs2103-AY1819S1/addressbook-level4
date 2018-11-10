@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ArchiveListEvent;
+import seedu.address.commons.events.ui.AssignmentListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
@@ -40,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private AssignmentListPanel assignmentListPanel;
     private PersonListPanel personListPanel;
     private LeaveListPanel leaveListPanel;
     private PersonListPanel archivedListPanel;
@@ -49,7 +52,6 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private AssignmentListPanel assignmentListPanel;
     private ListPicker listPicker;
 
     // Independent UI parts for login.
@@ -160,7 +162,7 @@ public class MainWindow extends UiPart<Stage> {
         listPicker = new ListPicker();
         listPickerPlaceholder.getChildren().add(listPicker.getRoot());
 
-        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList());
+        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
     }
 
     /**
@@ -178,9 +180,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up the person list placeholder with the person list
      */
     void fillPersonListParts() {
-        if (personListPanel == null) {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        }
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the archive list
+     */
+    void fillArchiveListParts() {
+        personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
@@ -192,6 +200,16 @@ public class MainWindow extends UiPart<Stage> {
             leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
         }
         personListPanelPlaceholder.getChildren().add(leaveListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the leave application list
+     */
+    void fillAssignmentListParts() {
+        if (assignmentListPanel == null) {
+            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        }
+        personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
 
     /**
@@ -223,6 +241,19 @@ public class MainWindow extends UiPart<Stage> {
     void processPersonList(PersonListEvent personListEvent) {
         removePersonListPanelPlaceholderElements();
         fillPersonListParts();
+        listPicker.setActiveList();
+    }
+
+    /**
+     * Listens for a archive list Event from the EventBus. This will be triggered when a ArchiveListEvent is pushed
+     * to the EventBus.
+     * @param archiveListEvent The event information
+     */
+    @Subscribe
+    void processArchiveList(ArchiveListEvent archiveListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillArchiveListParts();
+        listPicker.setArchiveList();
     }
 
     /**
@@ -234,6 +265,17 @@ public class MainWindow extends UiPart<Stage> {
     void processLeaveList(LeaveListEvent leaveListEvent) {
         removePersonListPanelPlaceholderElements();
         fillLeaveParts();
+    }
+
+    /**
+     * Listens for a assignment list Event from the EventBus. This will be triggered when a AssignmentListEvent
+     * is pushed to the EventBus.
+     * @param assignmentListEvent The event information
+     */
+    @Subscribe
+    void processAssignmentList(AssignmentListEvent assignmentListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillAssignmentListParts();
     }
 
     private void removeLoginWindow() {
@@ -267,6 +309,9 @@ public class MainWindow extends UiPart<Stage> {
         }
         if (leaveListPanel != null) {
             personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
+        }
+        if (assignmentListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
         }
     }
 
@@ -342,12 +387,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == 2) {
-            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
+            personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
         if (event.getNewSelection() == 1) {
-            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+        if (event.getNewSelection() == 3) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
         }
     }
 }

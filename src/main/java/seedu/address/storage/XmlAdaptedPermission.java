@@ -13,6 +13,8 @@ public class XmlAdaptedPermission {
     @XmlValue
     private String permissionName;
 
+    private String messageInvalidPermission = "Value not in Permission Enum";
+
     /**
      * Constructs an XmlAdaptedPermission.
      * This is the no-arg constructor that is required by JAXB.
@@ -43,8 +45,7 @@ public class XmlAdaptedPermission {
      */
     public Permission toModelType() throws IllegalValueException {
         if (!Permission.isValidPermission(permissionName)) {
-            //TODO: How to remove this magic word?
-            throw new IllegalValueException("Value not in Permission Enum");
+            throw new IllegalValueException(messageInvalidPermission);
         }
 
         return Permission.valueOf(permissionName);

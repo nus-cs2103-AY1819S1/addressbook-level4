@@ -23,7 +23,7 @@ image::choojeremy.png[width="150", align="left"]
 {empty}[https://jch.ooo[Website]] [http://github.com/ChooJeremy[github]]
 
 Role: Team Lead +
-Responsibilities: Git, Logic
+Responsibilities: Git, User Accounts (Login, Passwords, Profiles)
 
 '''
 
@@ -32,8 +32,7 @@ image::elliottan.png[width="150", align="left"]
 {empty}[http://github.com/elliottan[github]]
 
 Role: Developer +
-Responsibilities: Storage, Data +
-Secondary Responsibilities: Model
+Responsibilities: Leave System (Applying, Accepting, Rejecting)
 
 '''
 
@@ -42,7 +41,7 @@ image::rnardha.png[width="150", align="left"]
 {empty}[http://github.com/RnardHa[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Projects
 
 '''
 
@@ -51,8 +50,7 @@ image::jroberts91.png[width="150", align="left"]
 {empty}[http://github.com/jroberts91[github]] [http://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/team/joshuarobert.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: UI, Logic +
-Secondary: Storage
+Responsibilities: Archive (Archive, Restore)
 
 '''
 
@@ -61,6 +59,6 @@ image::kokjianyu.png[width="150", align="left"]
 {empty}[http://github.com/KokJianYu[github]]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: Permissions (Adding, Removing, Ensuring user has valid permissions)
 
 '''

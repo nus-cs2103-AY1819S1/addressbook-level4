@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.project.AssignmentContainsKeywordsPredicate;
+import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -75,6 +77,8 @@ public class CommandTestUtil {
     public static final String PROJECT_DESC_FALCON = " " + PREFIX_PROJECT + " " + VALID_PROJECT_FALCON;
     public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + " " + VALID_SALARY_AMY;
     public static final String SALARY_DESC_BOB = " " + PREFIX_SALARY + " " + VALID_SALARY_BOB;
+    public static final String USERNAME_DESC_AMY = " " + PREFIX_USERNAME + " " + VALID_USERNAME_AMY;
+    public static final String USERNAME_DESC_BOB = " " + PREFIX_USERNAME + " " + VALID_USERNAME_BOB;
     public static final String NAME_ASSIGNMENT_DESC_OASIS = " " + PREFIX_ASSIGNMENT_NAME + " " + VALID_PROJECT_OASIS;
     public static final String AUTHOR_ASSIGNMENT_DESC_OASIS = " " + PREFIX_AUTHOR + " " + VALID_NAME_AMY;
     public static final String ASSIGNMENT_DESC_OASIS =
@@ -121,6 +125,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final EditAssignmentCommand.EditAssignmentDescriptor DESC_OASIS;
+    public static final EditAssignmentCommand.EditAssignmentDescriptor DESC_FALCON;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -130,6 +137,10 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withSalary(VALID_SALARY_BOB).withProjects(VALID_PROJECT_OASIS)
                 .build();
+        DESC_OASIS = new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_PROJECT_OASIS)
+                .withAuthor(VALID_NAME_AMY).withDescription(VALID_DESCRIPTION_OASIS).build();
+        DESC_FALCON = new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_PROJECT_FALCON)
+                .withAuthor(VALID_NAME_BOB).withDescription(VALID_DESCRIPTION_FALCON).build();
     }
 
     /**

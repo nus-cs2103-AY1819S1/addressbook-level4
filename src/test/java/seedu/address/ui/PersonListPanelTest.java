@@ -28,7 +28,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_PERSON, 1);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -101,7 +102,14 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<address>a</address>\n");
             builder.append("<salary>1</salary>\n");
             builder.append("<username>").append(i).append("a</username>\n");
-            builder.append("<password>Pa55w0rd</password>\n");
+            builder.append("<password>\n");
+            builder.append("\t<salt>h1HI2gdr0JgNXa/dltOntgna5ONBkHz+VCfvL9o4yDqCSLkAo9mOtI7cSfwho/ks+0lBAsX"
+                + "/2P5Css46JQL7WUBhpuCYneBvzX8TsSnU1N6KYwM48qYwAteQ0fjH6Gi8fh9zVMm0Jlr7CT/xHeqdtfnjJfCF8CKsRf6nUt"
+                + "+PAYvYK3lIr6xk9a1RTvve4bzJRYOg3pZ4gU9CUfZgXDcL+fJBtFla6hMnNe/K6x7QtMUtKZ"
+                + "/goFZH7wy6PrGqXJxJI2xAe0FELFse3+stgU6Nk0Wiexl5i037V6Ue3Oz51+JrduoSxqnkg/NO4U9aqFdjc"
+                + "/i6b6lgE9q4QM6viC/J7Q==</salt>\n");
+            builder.append("\t<password>4B26rNzW4NVm5q9qaUkpMdKTChuZAmB9HHrseEcC+Gg=</password>\n");
+            builder.append("</password>\n");
             builder.append("</persons>\n");
         }
         builder.append("</addressbook>\n");
@@ -118,7 +126,7 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
+        PersonListPanel personListPanel = new PersonListPanel(backingList, 1);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),

@@ -21,6 +21,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.ProjectName;
 
@@ -118,6 +119,22 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String username} into a {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Does not verify if the username is unqiue in the system.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedName = username.trim();
+        if (!Username.isValidUsername(username) || username.equals("Admin")) {
+            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        return new Username(username);
     }
 
     /**

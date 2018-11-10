@@ -107,8 +107,7 @@ public class PermissionSetTest {
         ));
 
         //not allocated permission -> false
-        assertFalse(permissionSet.removePermissions(Permission.VIEW_PROJECT));
-
+        assertFalse(permissionSet.removePermissions(Permission.ADD_ASSIGNMENT));
 
 
         permissionSet = new PermissionSet();
@@ -153,7 +152,7 @@ public class PermissionSetTest {
         );
         //at least 1 permission in set -> true
         permissionsToRemove = new HashSet<>();
-        permissionsToRemove.add(Permission.VIEW_PROJECT);
+        permissionsToRemove.add(Permission.ADD_ASSIGNMENT);
         permissionsToRemove.add(Permission.ADD_EMPLOYEE);
         assertTrue(permissionSet.removePermissions((permissionsToRemove)));
     }
@@ -171,13 +170,13 @@ public class PermissionSetTest {
         //All permissions of admin in Permission Set
         assertTrue(permissionSet.containsAll(
                 Permission.ADD_EMPLOYEE,
-                Permission.REMOVE_EMPLOYEE,
+                Permission.DELETE_EMPLOYEE,
                 Permission.EDIT_EMPLOYEE,
                 Permission.VIEW_EMPLOYEE_LEAVE,
                 Permission.APPROVE_LEAVE,
-                Permission.CREATE_PROJECT,
-                Permission.VIEW_PROJECT,
-                Permission.ASSIGN_PROJECT,
+                Permission.ADD_ASSIGNMENT,
+                Permission.DELETE_ASSIGNMENT,
+                Permission.EDIT_ASSIGNMENT,
                 Permission.ASSIGN_PERMISSION
         ));
 
@@ -186,38 +185,38 @@ public class PermissionSetTest {
         //All permissions of Manager in Permission Set
         assertTrue(permissionSet.containsAll(
                 Permission.ADD_EMPLOYEE,
-                Permission.REMOVE_EMPLOYEE,
+                Permission.DELETE_EMPLOYEE,
                 Permission.EDIT_EMPLOYEE,
                 Permission.VIEW_EMPLOYEE_LEAVE,
                 Permission.APPROVE_LEAVE,
-                Permission.CREATE_PROJECT,
-                Permission.VIEW_PROJECT,
-                Permission.ASSIGN_PROJECT
+                Permission.ADD_ASSIGNMENT,
+                Permission.DELETE_ASSIGNMENT,
+                Permission.EDIT_ASSIGNMENT
         ));
 
         //Employee Preset
-        assertTrue(permissionSet.assignPresetPermission(PermissionSet.PresetPermission.EMPLOYEE));
+        permissionSet.assignPresetPermission(PermissionSet.PresetPermission.EMPLOYEE);
         //All permissions of Employee in Permission Set
-        assertTrue(permissionSet.containsAll(Permission.VIEW_PROJECT));
+        assertTrue(permissionSet.getGrantedPermission().isEmpty());
     }
 
     @Test
     public void getGrantedPermission() {
         PermissionSet permissionSet = new PermissionSet();
-        permissionSet.addPermissions(Permission.ADD_EMPLOYEE, Permission.REMOVE_EMPLOYEE);
+        permissionSet.addPermissions(Permission.ADD_EMPLOYEE, Permission.DELETE_EMPLOYEE);
 
         Set<Permission> readOnlyPermissionSet = permissionSet.getGrantedPermission();
         assertTrue(readOnlyPermissionSet.contains(Permission.ADD_EMPLOYEE));
-        assertTrue(readOnlyPermissionSet.contains(Permission.REMOVE_EMPLOYEE));
+        assertTrue(readOnlyPermissionSet.contains(Permission.DELETE_EMPLOYEE));
 
         Assert.assertThrows(UnsupportedOperationException.class, () ->
-            readOnlyPermissionSet.add(Permission.EDIT_EMPLOYEE));
+                readOnlyPermissionSet.add(Permission.EDIT_EMPLOYEE));
     }
 
     @Test
     public void containsAll() {
         PermissionSet testPermissionSet = new PermissionSet();
-        testPermissionSet.addPermissions(Permission.ADD_EMPLOYEE, Permission.REMOVE_EMPLOYEE);
+        testPermissionSet.addPermissions(Permission.ADD_EMPLOYEE, Permission.DELETE_EMPLOYEE);
 
         //null -> false
         assertFalse(testPermissionSet.containsAll((Permission[]) null));
@@ -226,8 +225,8 @@ public class PermissionSetTest {
         //list of not allocated permission -> false
         assertFalse(testPermissionSet.containsAll(Permission.EDIT_EMPLOYEE, Permission.ASSIGN_PERMISSION));
         //Existing permission -> true
-        assertTrue(testPermissionSet.containsAll(Permission.REMOVE_EMPLOYEE));
-        assertTrue(testPermissionSet.containsAll(Permission.REMOVE_EMPLOYEE, Permission.ADD_EMPLOYEE));
+        assertTrue(testPermissionSet.containsAll(Permission.DELETE_EMPLOYEE));
+        assertTrue(testPermissionSet.containsAll(Permission.DELETE_EMPLOYEE, Permission.ADD_EMPLOYEE));
 
         PermissionSet duplicatePermissionSet = new PermissionSet();
         duplicatePermissionSet.addPermissions(testPermissionSet);

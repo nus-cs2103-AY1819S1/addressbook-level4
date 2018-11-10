@@ -58,7 +58,7 @@ public class LeaveApproveCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         String originalUsername = originalPerson.getUsername().username;
-        String originalPassword = originalPerson.getPassword().password;
+        String originalPassword = originalPerson.getPassword().plaintext;
         leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
@@ -87,7 +87,7 @@ public class LeaveApproveCommandTest {
         showLeaveApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         String originalUsername = originalPerson.getUsername().username;
-        String originalPassword = originalPerson.getPassword().password;
+        String originalPassword = originalPerson.getPassword().plaintext;
         leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
@@ -135,7 +135,7 @@ public class LeaveApproveCommandTest {
         LeaveApplication leaveApplication = leaveApplications.get(0);
 
         String originalUsername = originalPerson.getUsername().username;
-        String originalPassword = originalPerson.getPassword().password;
+        String originalPassword = originalPerson.getPassword().plaintext;
         leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)

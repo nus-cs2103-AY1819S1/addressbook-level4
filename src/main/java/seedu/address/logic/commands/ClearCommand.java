@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
 import seedu.address.model.person.User;
 
@@ -19,6 +20,7 @@ public class ClearCommand extends Command {
     public CommandResult runBody(Model model, CommandHistory history) {
         requireNonNull(model);
         model.resetData(new AddressBook());
+        model.resetArchive(new ArchiveList());
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

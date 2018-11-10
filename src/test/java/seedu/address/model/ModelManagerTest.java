@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalAssignment.FALCON;
 import static seedu.address.testutil.TypicalAssignment.OASIS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -16,11 +17,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.exceptions.IllegalUsernameException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ArchiveListBuilder;
 import seedu.address.testutil.AssignmentListBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -43,6 +47,35 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void addPerson_usernameInAddressBook_throwsExecption() {
+        modelManager.addPerson(ALICE);
+        Person nextPerson = new PersonBuilder().withUsername(ALICE.getUsername().username).build();
+        try {
+            modelManager.addPerson(nextPerson);
+            //should throw exception
+            assert false;
+        } catch (IllegalUsernameException iue) {
+            assert iue.getUsername().equals(ALICE.getUsername().username);
+        }
+        assert modelManager.getAddressBook().getPersonList().size() == 1;
+    }
+
+    @Test
+    public void updatePerson_usernameInAddressBook_throwsExecption() {
+        modelManager.addPerson(ALICE);
+        modelManager.addPerson(BOB);
+        Person nextPerson = new PersonBuilder(BOB).withUsername(ALICE.getUsername().username).build();
+        try {
+            modelManager.updatePerson(BOB, nextPerson);
+            //should throw exception
+            assert false;
+        } catch (IllegalUsernameException iue) {
+            assert iue.getUsername().equals(ALICE.getUsername().username);
+        }
+        assert modelManager.hasPerson(BOB);
     }
 
     @Test

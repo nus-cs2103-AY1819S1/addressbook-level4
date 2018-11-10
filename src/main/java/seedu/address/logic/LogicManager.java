@@ -122,11 +122,16 @@ public class LogicManager extends ComponentManager implements Logic {
         String username = loginEvent.getUsername();
         String password = loginEvent.getPassword();
 
-        if (User.matchesAdminLogin(username, password)) {
-            User admin = User.getAdminUser();
-            model.setLoggedInUser(admin);
-            raise(new SuccessfulLoginEvent(admin));
-            return;
+        if (username.equals(User.getAdminUser().getUsername().username)) {
+            if (User.matchesAdminLogin(username, password)) {
+                User admin = User.getAdminUser();
+                model.setLoggedInUser(admin);
+                raise(new SuccessfulLoginEvent(admin));
+                return;
+            } else {
+                raise(new FailedLoginEvent(FailedLoginEvent.INVALID_PASSWORD));
+                return;
+            }
         }
 
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
