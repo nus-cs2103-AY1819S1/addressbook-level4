@@ -1,5 +1,6 @@
 package seedu.jxmusic.player;
 
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -11,12 +12,14 @@ import seedu.jxmusic.model.Track;
  */
 public class PlayableTrack implements Playable {
     private MediaPlayer mediaPlayer;
+    private Media media;
     private String fileName;
     private Track track;
 
     public PlayableTrack(Track track) {
         this.track = track;
-        mediaPlayer = new MediaPlayer(track.getMedia());
+        media = new Media(track.getFile().toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
         try {
             mediaPlayer.setOnReady(() -> {
                 System.out.println("ready");
@@ -65,7 +68,7 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void seek(Duration time) throws CommandException {
-        Duration trackDuration = track.getFileDuration();
+        Duration trackDuration = media.getDuration();
         if (time.compareTo(trackDuration) > 0) {
             throw new CommandException("Required time is beyond track's duration");
         }

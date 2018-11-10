@@ -12,7 +12,7 @@
    <AnchorPane minHeight="20.0" prefWidth="200.0" styleClass="cell_track_field_anchor_pane">
       <children>
          <Label layoutX="32.0" layoutY="2.0" styleClass="cell_track_field_captain" text="name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="2.0" />
-         <Label styleClass="cell_track_field_captain" text="time" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="2.0" />
+         <!--<Label styleClass="cell_track_field_captain" text="time" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="2.0" />-->
       </children>
    </AnchorPane>
     <ListView fx:id="trackListView" VBox.vgrow="ALWAYS" />

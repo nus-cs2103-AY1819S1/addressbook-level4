@@ -1,7 +1,5 @@
 package seedu.jxmusic.model;
 
-import static javafx.scene.media.MediaPlayer.Status.READY;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,8 +7,6 @@ import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 import seedu.jxmusic.commons.util.AppUtil;
 import seedu.jxmusic.commons.util.CollectionUtil;
 
@@ -29,8 +25,7 @@ public class Track implements Comparable {
     private final File file;
     // fileNameWithoutExtension not appended with MP3_EXTENSION
     private final String fileNameWithoutExtension;
-    private final Duration fileDuration;
-    private final Media media;
+    //private final Duration fileDuration;
 
     /**
      * Constructs a {@code Track}.
@@ -52,10 +47,10 @@ public class Track implements Comparable {
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
         AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
-        media = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        this.fileDuration = media.getDuration();
-        mediaPlayer = null;
+        //media = new Media(file.toURI().toString());
+        //MediaPlayer mediaPlayer = new MediaPlayer(media);
+        //this.fileDuration = media.getDuration();
+        //mediaPlayer = null;
     }
 
     public Track(File file) {
@@ -65,17 +60,17 @@ public class Track implements Comparable {
         this.file = file;
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);
-        media = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        while (mediaPlayer.getStatus() != READY) {
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        this.fileDuration = media.getDuration();
-        mediaPlayer = null;
+        //media = new Media(file.toURI().toString());
+        //MediaPlayer mediaPlayer = new MediaPlayer(media);
+        //while (mediaPlayer.getStatus() != READY) {
+            //try {
+                //Thread.sleep(5);
+            //} catch (InterruptedException e) {
+                //e.printStackTrace();
+            //}
+        //}
+        //this.fileDuration = media.getDuration();
+        //mediaPlayer = null;
     }
 
     public File getFile() {
@@ -90,23 +85,19 @@ public class Track implements Comparable {
         return fileNameWithoutExtension;
     }
 
-    public Duration getFileDuration() {
-        return fileDuration;
-    }
+    //public Duration getFileDuration() {
+        //return fileDuration;
+    //}
 
-    public Media getMedia() {
-        return media;
-    }
-
-    public String getDisplayedFileDuration() {
-        int totalSeconds = (int) fileDuration.toSeconds();
-        int seconds = totalSeconds % 60;
-        String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
-        int hours = totalSeconds / 3600;
-        int minutes = (totalSeconds - seconds - hours * 3600) / 60;
-        String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
-        return hours + minuteString + secondString;
-    }
+    //public String getDisplayedFileDuration() {
+        //int totalSeconds = (int) fileDuration.toSeconds();
+        //int seconds = totalSeconds % 60;
+        //String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
+        //int hours = totalSeconds / 3600;
+        //int minutes = (totalSeconds - seconds - hours * 3600) / 60;
+        //String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
+        //return hours + minuteString + secondString;
+    //}
 
     /**
      * Checks for javafx media support and header bytes
