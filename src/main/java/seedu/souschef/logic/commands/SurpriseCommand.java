@@ -44,11 +44,7 @@ public class SurpriseCommand extends Command {
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
 
-        try {
-            setRandomIndex();
-        } catch (ParseException pe) {
-            System.out.println("temp");
-        }
+        setRandomIndex();
 
         if (randomIndex.getZeroBased() >= filteredRecipeList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -58,16 +54,11 @@ public class SurpriseCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SURPRISE_SUCCESS, randomIndex.getOneBased()));
     }
 
-    public void setRandomIndex() throws ParseException {
+    public void setRandomIndex() {
         List<Recipe> filteredRecipeList = model.getFilteredList();
         int random = rand.nextInt(filteredRecipeList.size() + 1);
+        this.randomIndex = Index.fromZeroBased(random);
 
-        try {
-            this.randomIndex = ParserUtil.parseIndex(String.valueOf(random));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SurpriseCommand.MESSAGE_USAGE), pe);
-        }
     }
 
     @Override
