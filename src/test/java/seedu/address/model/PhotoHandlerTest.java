@@ -1,10 +1,9 @@
 package seedu.address.model;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static seedu.address.model.google.PhotoHandler.PICONSO_ALBUM;
 import static seedu.address.model.google.PhotoHandler.UPLOAD_FORMAT;
-import static seedu.address.model.google.PhotoHandler.WRONG_PATH;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +23,7 @@ import seedu.address.model.google.PhotoHandler;
 //@@author chivent
 
 /**
- * Test for {@code PhotoHandler}, most functions cannot be tested due to a lack of a google account.
+ * Test for {@code PhotoHandler}, most functions cannot be tested for success due to a lack of a google account.
  */
 public class PhotoHandlerTest {
 
@@ -52,10 +51,34 @@ public class PhotoHandlerTest {
     }
 
     @Test
+    public void returnAllImagesListWithRetrieval() {
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllImagesList();
+        } catch (NullPointerException nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+    }
+
+    @Test
     public void returnAllImagesList() {
         ArrayList<String> imageNames = new ArrayList<>();
         imageNames.addAll(imageMap.keySet());
         assertEquals(imageNames, photoHandler.returnAllImagesList());
+    }
+
+    @Test
+    public void returnAllAlbumsWithRetrieval() {
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllAlbumsList();
+        } catch (NullPointerException nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
     }
 
     @Test
@@ -66,29 +89,48 @@ public class PhotoHandlerTest {
     }
 
     @Test
+    public void returnAllImagesInAlbum() {
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllImagesinAlbum("album");
+        } catch (Exception nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+    }
+
+    @Test
     public void uploadImageExceptions() {
+        Exception compare = null;
+
         //InvalidPath
         try {
             photoHandler.uploadImage(dummyImage, "/sda/");
         } catch (Exception ex) {
-            assertEquals(String.format(WRONG_PATH, dummyImage), ex.getMessage());
+            compare = ex;
         }
+        assertEquals(new NullPointerException(), compare);
 
+        compare = null;
         // no PhotoLibraryClientInstance
         try {
             Path path = Paths.get("src", "test", "resources", "testimgs");
             photoHandler.uploadImage("test2.png", path.toString());
         } catch (Exception ex) {
-            assertTrue(ex instanceof NullPointerException);
+            compare = ex;
         }
+        assertEquals(new NullPointerException(), compare);
 
+        compare = null;
         //Upload all images no PhotoLibraryClientInstance
         try {
             Path path = Paths.get("src", "test", "resources", "testimgs");
             photoHandler.uploadAll(path.toString());
         } catch (Exception ex) {
-            assertTrue(ex instanceof NullPointerException);
+            compare = ex;
         }
+        assertEquals(new NullPointerException(), compare);
     }
 
     @Test

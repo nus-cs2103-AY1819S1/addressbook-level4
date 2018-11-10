@@ -45,9 +45,9 @@ public class FilmReelTest extends GuiUnitTest {
 
     @Before
     public void setUpResources() {
-        paths = setUpPaths();
-        secondPaths = setUpPaths();
-        fullPaths = setUpPaths();
+        paths = setUpPaths(IMAGE_LIST);
+        secondPaths = setUpPaths(SECOND_IMAGE_LIST);
+        fullPaths = setUpPaths(FULL_LIST);
     }
 
     @Test
@@ -135,9 +135,9 @@ public class FilmReelTest extends GuiUnitTest {
         }
     }
 
-    private List<Path> setUpPaths() {
+    private List<Path> setUpPaths(String[] list) {
         List<Path> temp = new ArrayList<>();
-        for (String s: IMAGE_LIST) {
+        for (String s: list) {
             try {
                 Path path = Paths.get("src", "test", "resources", "testimgs", s);
                 assertNotNull(s + "exists.", path);
@@ -150,8 +150,8 @@ public class FilmReelTest extends GuiUnitTest {
         return temp;
     }
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code FilmReelHandle} with a {@code FilmReel}.
+     * Also shows the {@code Stage} that displays only {@code FilmReel}.
      */
     private void initUi() {
         FilmReel filmReel = new FilmReel();
