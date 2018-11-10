@@ -198,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
     }
-    
+
     //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
