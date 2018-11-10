@@ -383,16 +383,18 @@ public class PhotoHandler {
     public String getUniqueName(Map map, String title, String mimeType) {
         String newTitle = title;
         String titleWithoutExtension;
+        String extension;
 
         if (mimeType != null) {
             titleWithoutExtension = newTitle.replace(mimeType, "");
+            extension = mimeType;
         } else {
             titleWithoutExtension = title;
-            mimeType = "";
+            extension = "";
         }
         int i = 1;
         while (map.get(newTitle) != null) {
-            newTitle = titleWithoutExtension + " (" + i + ")" + mimeType;
+            newTitle = titleWithoutExtension + " (" + i + ")" + extension;
             i++;
         }
 

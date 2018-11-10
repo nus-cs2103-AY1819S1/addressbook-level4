@@ -20,7 +20,7 @@ public class GoogleRefreshCommand extends GoogleCommand {
     public static final String TYPE = "refresh";
     public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google refresh (requires an internet connection): "
-            + "\n- " + FULL_CMD + " Refreshes image and album list gotten from google ";
+            + "\n- " + FULL_CMD + ": Refreshes image and album list gotten from google ";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history)
@@ -29,12 +29,10 @@ public class GoogleRefreshCommand extends GoogleCommand {
             requireNonNull(model);
 
             model.getPhotoHandler().refreshLists();
+        } catch (ApiException api) {
+            throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
         } catch (Exception ex) {
-            String message = FAILURE_MESSAGE;
-            if (ex instanceof ApiException) {
-                message = MESSAGE_CONNECTION_FAILURE;
-            }
-            throw new CommandException(message);
+            throw new CommandException(FAILURE_MESSAGE + "\n\n" + MESSAGE_USAGE);
         }
         return new CommandResult("Images and albums refreshed!");
     }
