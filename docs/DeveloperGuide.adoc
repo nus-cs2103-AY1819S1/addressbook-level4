@@ -32,15 +32,16 @@ If you are new to development, you can try working step-by-step tutorial from Or
 - https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
 - https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
 
-If you are new to contributing to ClinicIO, head over to <<Setting Up, Setting Up>> to start
-set up ClinicIO project.
+If you are new to contributing to ClinicIO, head over to <<intro, Introduction>> to have
+an overview of our project.
 
 == Introduction
 
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
-Go to the <<Installation Guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
+Go to the <<installation-guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
 
+[[installation-guide]]
 == Installation Guide
 
 This section is designed to help you to setup ClinicIO development environment.
@@ -742,7 +743,7 @@ ClinicIO provides a centralised patient management system to allow you to manage
 ==== Current Implementation
 
 The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand`
-which is the equivalent of Create, Read, Update and Delete (CRUD).
+which is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
 
 ===== `AddPatientCommand`
 
@@ -1560,7 +1561,7 @@ This section is designed to provide you with definitions for
 terms that are used in this document below.
 
 [horizontal]
-[[CRUD]] CRUD (Create, Read, Update and Delete)::
+[[crud]] Create, Read, Update and Delete (CRUD)::
 These are the basic functions of a persistent database.
 
 [[doctor]] Doctor::
