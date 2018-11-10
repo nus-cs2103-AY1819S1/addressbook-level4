@@ -17,20 +17,27 @@ public class XmlAdaptedMedicalHistory {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "MedicalHistory's %s field is missing!";
 
     @XmlElement
-    ArrayList<XmlAdaptedAllergy> allergies = new ArrayList<>();
+    private ArrayList<XmlAdaptedAllergy> allergies = new ArrayList<>();
     @XmlElement
-    ArrayList<XmlAdaptedCondition> conditions = new ArrayList<>();
+    private ArrayList<XmlAdaptedCondition> conditions = new ArrayList<>();
+
+    public ArrayList<XmlAdaptedAllergy> getXmlAdaptedAllergies() {
+        return allergies;
+    }
+    public ArrayList<XmlAdaptedCondition> getXmlAdaptedConditions() {
+        return conditions;
+    }
 
     /**
      * Constructs an XmlAdaptedMedicalHistory.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedMedicalHistory(ArrayList<XmlAdaptedAllergy> allergies, ArrayList<XmlAdaptedCondition> conditions){
+    public XmlAdaptedMedicalHistory(ArrayList<XmlAdaptedAllergy> allergies, ArrayList<XmlAdaptedCondition> conditions) {
         this.allergies = allergies;
         this.conditions = conditions;
     }
     public XmlAdaptedMedicalHistory(MedicalHistory source) {
-        for (int i = 0; i < source.getAllergies().size(); i++){
+        for (int i = 0; i < source.getAllergies().size(); i++) {
             this.allergies.add(new XmlAdaptedAllergy(source.getAllergies().get(i)));
         }
         for (int i = 0; i < source.getConditions().size(); i++) {

@@ -148,16 +148,16 @@ public class DeleteMedicalHistoryCommand extends Command {
         } else {
             DeleteMedicalHistoryCommand r = (DeleteMedicalHistoryCommand) o;
             if (!name.equals(r.name) || allergies.size() != r.allergies.size()
-                    || conditions.size() != r.conditions.size()){
+                    || conditions.size() != r.conditions.size()) {
                 return false;
             }
-            for (int i = 0;i < allergies.size(); i++){
-                if (!(allergies.get(i).equals(r.allergies.get(i)))){
+            for (int i = 0; i < allergies.size(); i++) {
+                if (!(allergies.get(i).equals(r.allergies.get(i)))) {
                     return false;
                 }
             }
-            for (int i = 0;i < conditions.size(); i++){
-                if (!(conditions.get(i).equals(r.conditions.get(i)))){
+            for (int i = 0; i < conditions.size(); i++) {
+                if (!(conditions.get(i).equals(r.conditions.get(i)))) {
                     return false;
                 }
             }

@@ -47,10 +47,10 @@ public class Allergy {
     /**
      * Returns array of allergy given array of string
      */
-    public static ArrayList<Allergy> toAllergyArray (ArrayList<String> string_allergies) {
+    public static ArrayList<Allergy> toAllergyArray (ArrayList<String> stringAllergies) {
         ArrayList<Allergy> allergies = new ArrayList<>();
-        for (int i = 0; i < string_allergies.size(); i++){
-            Allergy allergy = new Allergy(string_allergies.get(i).trim());
+        for (int i = 0; i < stringAllergies.size(); i++) {
+            Allergy allergy = new Allergy(stringAllergies.get(i).trim());
             allergies.add(allergy);
         }
         return allergies;

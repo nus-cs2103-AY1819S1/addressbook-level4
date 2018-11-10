@@ -185,47 +185,9 @@ public class AddMedicalHistoryCommand extends Command {
             return false;
         } else {
             AddMedicalHistoryCommand r = (AddMedicalHistoryCommand) o;
-            if (!name.equals(r.name)){
+            if (!name.equals(r.name)) {
                 return false;
             }
-//            if (allergies.equals(null)){
-//                if (!r.allergies.equals(null)){
-//                    return false;
-//                }
-//            } else {
-//                if (r.allergies.equals(null)) {
-//                    return false;
-//                } else {
-//                    if (allergies.size() != r.allergies.size()){
-//                        return false;
-//                    } else {
-//                        for (int i = 0; i < allergies.size(); i++) {
-//                            if (!(allergies.get(i).equals(r.allergies.get(i)))) {
-//                                return false;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            if (conditions.equals(null)){
-//                if (!r.conditions.equals(null)){
-//                    return false;
-//                }
-//            } else {
-//                if (r.conditions.equals(null)) {
-//                    return false;
-//                } else {
-//                    if (conditions.size() != r.conditions.size()){
-//                        return false;
-//                    } else {
-//                        for (int i = 0; i < conditions.size(); i++) {
-//                            if (!(conditions.get(i).equals(r.conditions.get(i)))) {
-//                                return false;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
             if (allergies.size() != r.allergies.size() || conditions.size() != r.conditions.size()) {
                 return false;
             }

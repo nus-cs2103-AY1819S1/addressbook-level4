@@ -13,7 +13,11 @@ public class XmlAdaptedCondition {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Condition's %s field is missing!";
 
     @XmlValue
-    String condition;
+    private String condition;
+
+    public String getXmlAdaptedCondition(){
+        return this.condition;
+    }
 
     /**
      * Constructs an XmlAdaptedTag.

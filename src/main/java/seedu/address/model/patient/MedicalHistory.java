@@ -35,12 +35,12 @@ public class MedicalHistory {
         allergies.add(allergy);
     }
 
-    public void addCondition(Condition condition) {
-        conditions.add(condition);
-    }
-
     public void addAllergy(String allergy) {
         allergies.add(new Allergy(allergy));
+    }
+
+    public void addCondition(Condition condition) {
+        conditions.add(condition);
     }
 
     public void addCondition(String condition) {

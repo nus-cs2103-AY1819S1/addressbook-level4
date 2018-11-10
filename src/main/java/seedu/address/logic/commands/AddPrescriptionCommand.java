@@ -116,8 +116,8 @@ public class AddPrescriptionCommand extends Command {
 
         // check if patient is allergic to medicine
         for (Allergy allergy: patientToEdit.getMedicalHistory().getAllergies()) {
-            String allergy_string = allergy.toString();
-            if ((allergy_string.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase()))) {
+            String allergyString = allergy.toString();
+            if ((allergyString.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase()))) {
                 throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
             }
         }

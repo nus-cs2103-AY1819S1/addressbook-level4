@@ -46,10 +46,10 @@ public class Condition {
     /**
      * Returns array of condition given array of string
      */
-    public static ArrayList<Condition> toConditionArray (ArrayList<String> string_conditions) {
+    public static ArrayList<Condition> toConditionArray (ArrayList<String> stringConditions) {
         ArrayList<Condition> conditions = new ArrayList<>();
-        for (int i = 0; i < string_conditions.size(); i++){
-            Condition condition = new Condition(string_conditions.get(i).trim());
+        for (int i = 0; i < stringConditions.size(); i++) {
+            Condition condition = new Condition(stringConditions.get(i).trim());
             conditions.add(condition);
         }
         return conditions;

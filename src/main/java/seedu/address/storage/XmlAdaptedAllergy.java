@@ -13,7 +13,13 @@ public class XmlAdaptedAllergy {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Allergy's %s field is missing!";
 
     @XmlValue
-    String allergy;
+    private String allergy;
+
+
+    public String getXmlAdaptedAllergy(){
+        return this.allergy;
+    }
+
 
     /**
      * Constructs an XmlAdaptedAllergy.
@@ -26,7 +32,7 @@ public class XmlAdaptedAllergy {
      * The argument is String.
      */
     public XmlAdaptedAllergy(String allergy) {
-        this.allergy = allergy;
+        allergy = allergy;
     }
 
     /**
