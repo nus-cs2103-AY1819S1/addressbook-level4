@@ -28,7 +28,7 @@ public class Grade {
     /**
      * Default value's value
      */
-    private static final String EMPTY_VALUE = "NIL";
+    public static final String EMPTY_VALUE = "NIL";
 
     /**
      * No whitespace allowed.

@@ -51,7 +51,7 @@ public class EditModuleCommandParserTest {
     @Test
     public void parseInvalidNumOfArgumentFails() {
         String exceptionMsg = "Invalid number of arguments!"
-                + " Number of arguments should be 16, 4, 6, 8, 10, 12, 14";
+                + " Number of arguments should be 4, 6, 8, 10, 12, 14, 16";
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser, "-t CS1231", exceptionMsg);

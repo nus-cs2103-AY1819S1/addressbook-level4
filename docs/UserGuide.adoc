@@ -40,7 +40,8 @@ e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * **`c_add`**`CS2103 2 1 4 A+` : Adds a module `CS2103` worth `4` MCs taken in Semester `1` as a
 Year `2` student.
-* **`c_delete`**`CS2103` : Deletes `CS2103` from CAPTracker.
+* `c_delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
+`1` from CAPTracker.
 * *`exit`* : Exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -140,25 +141,41 @@ case, CS2103 was retaken and cap tracker has multiple entries of it.
 
 === Deleting a module : `c_delete`
 
-Deletes a module from the cap tracker. +
-Format:
-
-* Only one module entry with the module code exist: `c_delete MODULE_CODE`
-* Multiple module entries with the same module code exist: `c_delete MODULE_CODE YEAR SEMESTER`
+Deletes a `*particular*` module entry in the CAPTracker. +
+*Case 1:* +
+`*Only one*` module entry have the specified target module code. +
+_Format:_ +
+----
+c_delete -t TARGET_CODE
+----
+*Case 2:* +
+`*More than one*` module entry in CAPTracker has the specified target module code. (E.g. Retook
+the module) +
+_Format:_ +
+----
+c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
+----
 
 ****
-* Targeted module entry have to exist in the CAPTracker before deleting it.
-* `Year` and `Semester` of the targeted entry must be specified if there exist multiple entries with
-  the same module `Code`.
+* Arguments must be in name-value pair format (E.g. `-name value`).
+* Illegal name or value is not allowed.
+* `TARGET_CODE` has to be specified.
+* `TARGET_YEAR` can be null if and only if `TARGET_SEMESTER` is null.
+* The targeted module entry should exist in the CAPTracker.
+* `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
+if there exist multiple entries with the same module `TARGET_CODE`.
 ****
 
 Examples:
 
-* `c_delete CS2103` +
-Delete CS2103 from the cap tracker.
-* `c_delete CS2103 1 2` +
-Delete CS2103 taken during the second semester of the first year.
+* `c_delete -t CS2103` +
+Deletes the only CS2103 module.
+* `c_delete -t CS2103 -e 3 -z 2` +
+Deletes CS2103 taken in year 3 semester 2. In this specific case, CS2103 was
+retaken and cap tracker has multiple entries of it.
 
+
+//tag::commandgoal[]
 === Setting Cap Goal : `c_goal`
 
 Set the CAP goal you want to achieve. +
@@ -172,12 +189,7 @@ Examples:
 
 * `c_goal 4.5` +
 Update your CAP goal to 4.5
-
-
-=== Calculate Cap : `c_cap`
-
-Calculate current CAP +
-Format: `c_cap`
+//end::commandgoal[]
 
 === Undoing commands : `c_undo`
 
@@ -194,6 +206,7 @@ Format: `c_redo`
 Exits the program. +
 Format: `exit`
 
+//tag::commandadjust[]
 === Adjusting target goals: `c_adjust`
 
 Adjust the grade of an incomplete module +
@@ -209,7 +222,7 @@ Adjusts the grade with module code CS2103 to have grade A
 
 * `c_adjust CS2103 1 1 A` +
 Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
-
+//end::commandadjust[]
 
 === Saving the data
 

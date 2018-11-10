@@ -99,23 +99,15 @@ link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/190[#190],
 
 == Contributions to the User Guide
 
-TBC
-
-//|===
-//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-//|===
-//
-//include::../UserGuide.adoc[tag=c_goal]
-
+include::../UserGuide.adoc[tag=commandgoal]
+include::../UserGuide.adoc[tag=commandadjust]
 
 == Contributions to the Developer Guide
 
-TBC
+include::../DeveloperGuide.adoc[tag=designmodel]
+include::../DeveloperGuide.adoc[tag=captargetcalculation]
+include::../DeveloperGuide.adoc[tag=usecase]
 
-//|===
-//|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-//|===
-//
-//include::../DeveloperGuide.adoc[tag=undoredo]
-//
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+=== Target Grade Calculation
+include::../DeveloperGuide.adoc[tag=manualtestcaptargetcalculation]
+
