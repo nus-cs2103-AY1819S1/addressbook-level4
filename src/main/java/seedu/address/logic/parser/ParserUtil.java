@@ -17,6 +17,7 @@ import seedu.address.model.volunteer.Email;
 import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Phone;
+import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -66,6 +67,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String id} into a {@code VolunteerId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static VolunteerId parseVolunteerId(String volunteerId) throws ParseException {
+        requireNonNull(volunteerId);
+        String trimmedVolunteerId = volunteerId.trim();
+        if (!VolunteerId.isValidId(trimmedVolunteerId)) {
+            throw new ParseException(VolunteerId.MESSAGE_ID_CONSTRAINTS);
+        }
+        return new VolunteerId(trimmedVolunteerId);
     }
 
     /**
