@@ -15,7 +15,7 @@ public class DueDate implements Comparable<DueDate> {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate should only contain numbers, and it should be in one of the following formats:\n"
-                    + " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm\n"
+                    + " dd-MM-yy, dd-MM-yyyy, dd-MM-yy HHmm, dd-mm-yyyy HHmm\n"
                     + "Note: 24h time format";
 
     public final String value;
