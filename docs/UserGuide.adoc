@@ -824,6 +824,7 @@ There is no need to save manually.
 |findmedicine |`fm`  |`findmedicine SERIAL_NUMBER` |`findmedicine 1001`
 |checkstock |`cs`  |`checkctock` |`checkStock`
 |=======================================================================
+// end::table[]
 
 === Queue Management
 
@@ -841,7 +842,6 @@ There is no need to save manually.
 |finish |- |`finish` |`finish`
 |payment |`pay`  |`payment INDEX` |`payment 6`
 |=======================================================================
-// end::table[]
 
 === Document Generation
 
