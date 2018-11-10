@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.souschef.commons.util.StringUtil;
-import seedu.souschef.model.ingredient.IngredientDefinition;
 
 /**
  * Tests that a {@code Recipe}'s {@code Name} matches any of the keywords given.
@@ -28,9 +27,9 @@ public class RecipeContainsKeywordsPredicate implements Predicate<Recipe> {
                             || recipe.getDifficulty().toString().equals(keyword)
                             || recipe.getTags().stream()
                             .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))
-                            || recipe.getIngredients().containsKey(new IngredientDefinition(keyword));
-                }
-                ));
+                            || recipe.getIngredients().keySet().stream().anyMatch(ingredientDefinition -> StringUtil
+                            .containsWordIgnoreCase(ingredientDefinition.toString(), keyword));
+                }));
     }
 
     @Override

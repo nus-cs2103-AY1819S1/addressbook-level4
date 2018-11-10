@@ -38,13 +38,13 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Contains utility methods for populating {@code AppContent} with sample data.
  */
 public class SampleDataUtil {
-    public static Recipe[] getSampleRecipes() {
+    public static Recipe[] getRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
@@ -214,13 +214,13 @@ public class SampleDataUtil {
         ArrayList<Meal> list = new ArrayList<>();
         ArrayList<Meal> list2 = new ArrayList<>();
 
-        list.add(new Breakfast(getSampleRecipes()[0]));
-        list.add(new Lunch(getSampleRecipes()[1]));
-        list.add(new Dinner(getSampleRecipes()[2]));
+        list.add(new Breakfast(getRecipes()[0]));
+        list.add(new Lunch(getRecipes()[1]));
+        list.add(new Dinner(getRecipes()[2]));
 
-        list2.add(new Breakfast(getSampleRecipes()[2]));
-        list2.add(new Lunch(getSampleRecipes()[3]));
-        list2.add(new Dinner(getSampleRecipes()[2]));
+        list2.add(new Breakfast(getRecipes()[2]));
+        list2.add(new Lunch(getRecipes()[3]));
+        list2.add(new Dinner(getRecipes()[2]));
 
         return new Day[] {
             new Day (modelDate, list),
@@ -229,13 +229,9 @@ public class SampleDataUtil {
         };
     }
 
-
-
-
-
-    public static ReadOnlyAppContent getSampleAddressBook() {
+    public static ReadOnlyAppContent getSampleRecipes() {
         AppContent sampleAb = new AppContent();
-        for (Recipe sampleRecipe : getSampleRecipes()) {
+        for (Recipe sampleRecipe : getRecipes()) {
             sampleAb.getRecipes().add(sampleRecipe);
         }
         return sampleAb;

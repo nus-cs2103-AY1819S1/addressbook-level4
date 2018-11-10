@@ -42,6 +42,6 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
         model.add(favourite);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                history.getKeyword()));
+                history.getContextString()));
     }
 }
