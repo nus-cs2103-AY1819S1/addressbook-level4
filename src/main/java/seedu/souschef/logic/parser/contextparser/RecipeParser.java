@@ -61,19 +61,12 @@ public class RecipeParser {
             return new RecipeBuilderCommandParser().parseRecipe(recipeModel, arguments);
 
         case BuildRecipeInstructionCommand.COMMAND_WORD:
-            if (history.isBuildingRecipe()) {
-                return new RecipeBuilderCommandParser().parseInstruction(arguments);
-            }
-            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
+            isBuildingRecipe(history);
+            return new RecipeBuilderCommandParser().parseInstruction(arguments);
 
         case AddCommand.COMMAND_WORD_END:
-            if (history.isBuildingRecipe()) {
-                AddCommand command = new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel,
-                        history.buildRecipe());
-                history.clearRecipe();
-                return command;
-            }
-            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
+            isBuildingRecipe(history);
+            return new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel, history);
 
         case AddFavouriteCommand.COMMAND_WORD:
             return new AddFavouriteCommand<Recipe>(recipeModel, arguments);
@@ -95,6 +88,12 @@ public class RecipeParser {
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    private void isBuildingRecipe(History history) throws ParseException {
+        if (!history.isBuildingRecipe()) {
+            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
         }
     }
 }
