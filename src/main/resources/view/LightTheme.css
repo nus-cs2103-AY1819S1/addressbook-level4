@@ -169,8 +169,12 @@
 
 /** Tab Pane */
 .tab-pane {
-  -fx-tab-min-width: 64px;
-  -fx-tab-max-width: 64px;
-  -fx-tab-min-height: 40px;
-  -fx-tab-max-height: 40px;
+    -fx-tab-min-width: 64px;
+    -fx-tab-max-width: 64px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+.tab:selected, .tab:hover{
+    -fx-background-color: #21777B 
 }
