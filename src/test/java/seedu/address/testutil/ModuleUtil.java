@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.arguments.DeleteArgument;
@@ -79,30 +80,49 @@ public class ModuleUtil {
         command += " ";
 
         if (code != null) {
-            command += EditArgument.NEW_CODE.getShortName()
+            command += " " + EditArgument.NEW_CODE.getShortName()
                     + " " + code.value;
         }
 
         if (year != null) {
-            command += EditArgument.NEW_YEAR.getShortName()
+            command += " " + EditArgument.NEW_YEAR.getShortName()
                     + " " + year.value;
         }
 
         if (semester != null) {
-            command += EditArgument.NEW_SEMESTER.getShortName()
+            command += " " + EditArgument.NEW_SEMESTER.getShortName()
                     + " " + semester.value;
         }
 
         if (credit != null) {
-            command += EditArgument.NEW_CREDIT.getShortName()
+            command += " " + EditArgument.NEW_CREDIT.getShortName()
                     + " " + credit.value;
         }
 
         if (grade != null) {
-            command += EditArgument.NEW_GRADE.getShortName()
+            command += " " + EditArgument.NEW_GRADE.getShortName()
                     + " " + grade.value;
         }
 
         return command;
+    }
+
+    //@@author jeremiah-ang
+
+    /**
+     * Returns an adjust command string for adjusting {@code code}
+     *
+     * @param code
+     * @param year
+     * @param sem
+     * @param grade
+     * @return an adjust command string
+     */
+    public static String getAdjustModuleCommand(Code code, Year year, Semester sem, Grade grade) {
+        return AdjustCommand.COMMAND_WORD + " "
+                + code.value + " "
+                + ((year == null) ? "" : year.value + " ")
+                + ((sem == null) ? "" : sem.value + " ")
+                + grade.value;
     }
 }
