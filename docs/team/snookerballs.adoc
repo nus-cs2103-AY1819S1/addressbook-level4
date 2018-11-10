@@ -22,18 +22,12 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 
 A GUI element that dynamically updates and displays the user's budget and expenses.
 
-.The Budget Panel Component
-image::Budget_Panel.png[width="800"]
 
-
-Consists of:
- . The Budget Bar - A `progressBar` which shows the the percentage of the budget that the user has used.
- . Expense and Budget information - Two `Text` objects in a `TextFlow` object. Displays, respectively, the exact amount of expenses spent and
- budget for the month.
 
 *Highlights*
 
-* Budget Bar
+* Budget Panel
+
 
 ** Implemented animation to smooth out changes to the progress percentage.
 ** Implemented color swapping. The`expenseDisplay` text object now turns red when over budget, and green when under budget.
@@ -113,7 +107,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
@@ -121,6 +114,6 @@ include::../UserGuide.adoc[tag=budget]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=userInterfaceRedesign]
+include::../DeveloperGuide.adoc[tag=userinterfaceredesign]
 
 

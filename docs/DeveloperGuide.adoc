@@ -572,7 +572,8 @@ A `CommandResult` is then created and returned to `LogicManager`.
 
 // end::massedit[]
 
-// tag::UserInterfaceRedesign[]
+// tag::userinterfaceredesign[]
+
 === User Interface Redesign
 
 The UI has been redesigned to implement the following UI elements required for the Expense Tracker:
@@ -681,8 +682,7 @@ The `n/` parameter can be omitted. In this case, all types of notifications will
  to `true`.
  If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
 
-
-// end::userInterfaceRedesign[]
+// end::userinterfaceredesign[]
 
 // tag::budget[]
 

@@ -13,8 +13,8 @@ import seedu.address.model.expense.Expense;
 public class ExpenseCard extends UiPart<Region> {
 
     private static final String FXML = "ExpenseListCard.fxml";
-    private static final String[] TAG_COLORS = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
-        "pink", "black", "grey"};
+    private static final String[] TAG_COLORS = {"#2E1F27", "#4C212A", "#AB3428", "#DD7230", "#114B5F", "6B2737", "#403D39",
+        "#96616B", "#1C5253", "#E3655B"};
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
