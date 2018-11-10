@@ -25,7 +25,7 @@ public class ViewDoctorCommandParserTest {
         // no leading and trailing whitespaces
         String userInput = " " + PREFIX_NAME + GEORGE_DOCTOR.getName();
         ViewDoctorCommand expectedViewDoctorCommand =
-                new ViewDoctorCommand(GEORGE_DOCTOR.getName());
+                new ViewDoctorCommand(GEORGE_DOCTOR.getName(), null);
         assertParseSuccess(parser, userInput, expectedViewDoctorCommand);
     }
 
