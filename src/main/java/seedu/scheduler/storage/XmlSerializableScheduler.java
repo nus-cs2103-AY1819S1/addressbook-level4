@@ -41,7 +41,7 @@ public class XmlSerializableScheduler {
      * Converts this scheduler into the model's {@code Scheduler} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedEvent}.
      */
     public Scheduler toModelType() throws IllegalValueException {
         Scheduler scheduler = new Scheduler();

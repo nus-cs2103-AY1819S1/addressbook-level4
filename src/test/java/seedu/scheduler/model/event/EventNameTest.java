@@ -25,11 +25,11 @@ public class EventNameTest {
         // null scheduler
         Assert.assertThrows(NullPointerException.class, () -> EventName.isValidEventName(null));
 
-        // invalid addresses
+        // invalid events
         assertFalse(EventName.isValidEventName("")); // empty string
         assertFalse(EventName.isValidEventName(" ")); // spaces only
 
-        // valid addresses
+        // valid events
         assertTrue(EventName.isValidEventName("CS2103 Lecture"));
         assertTrue(EventName.isValidEventName("-")); // one character
         assertTrue(EventName.isValidEventName("223")); // numbers only

@@ -423,7 +423,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 The current version does not sync this command with Google Calendar.
 ====
 
-Clears all entries from the address book. +
+Clears all entries from the scheduler. +
 Format: `clear` +
 Aliases: `clea` OR `cle` OR `cl` OR `c` +
 _Coming in V1.4: Command format can be typed case-insensitive_

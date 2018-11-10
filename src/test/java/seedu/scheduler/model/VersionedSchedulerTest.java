@@ -27,7 +27,7 @@ public class VersionedSchedulerTest {
     private final ReadOnlyScheduler emptyScheduler = new SchedulerBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
+    public void commit_singleScheduler_noStatesRemovedCurrentStateSaved() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(emptyScheduler);
 
         versionedScheduler.commit();
