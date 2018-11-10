@@ -25,6 +25,12 @@ The image shown below highlights the difference sections of OASIS's user interfa
 
 image::introToOASIS.png[width="900"]
 
+=== Symbols used in this guide
+[NOTE]
+* Denotes something that you may want to take note of.
+[WARNING]
+* Denotes a warning for something critical.
+
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -162,7 +168,16 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
-* You must specify at least 1 `DATE`. Your leave will be applied for all the dates specified after each `-da`.
+* Your leave will be applied for all the dates specified after each `-da`.
+****
+
+[NOTE]
+****
+* You must specify at least 1 `DATE`. 
+****
+
+[WARNING]
+****
 * If the `DATE` is of an illegal format, the command will be rejected.
 ****
 
@@ -176,6 +191,7 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
+[NOTE]
 ****
 * If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
 ****
@@ -188,8 +204,12 @@ Format: `leaveapprove [INDEX]`
 
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been rejected can still be approved afterwards.
+****
+
+[NOTE]
+****
+* To use this command, you must have "APPROVE_LEAVE" permissions.
 ****
 
 Examples:
@@ -204,8 +224,12 @@ Format: `leavereject [INDEX]`
 
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been approved can still be rejected afterwards.
+****
+
+[NOTE]
+****
+* To use this command, you must have "APPROVE_LEAVE" permissions.
 ****
 
 Examples:
