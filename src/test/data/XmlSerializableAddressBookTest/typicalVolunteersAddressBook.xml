@@ -2,18 +2,18 @@
 <!-- AddressBook save file which contains the same Volunteer values as in TypicalVolunteers#getTypicalAddressBook() -->
 <addressbook>
     <volunteers>
-        <volunteerId>1</volunteerId>
         <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
         <gender>f</gender>
-        <birthday>21-08-1986</birthday>
+        <birthday>01-02-1993</birthday>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>student</tagged>
     </volunteers>
     <volunteers>
-        <volunteerId>2</volunteerId>
         <name>Benson Meier</name>
+        <volunteerId>F8859919P</volunteerId>
         <gender>m</gender>
         <birthday>29-09-1988</birthday>
         <phone>98765432</phone>
@@ -23,8 +23,8 @@
         <tagged>student</tagged>
     </volunteers>
     <volunteers>
-        <volunteerId>3</volunteerId>
         <name>Carl Kurz</name>
+        <volunteerId>S9061638B</volunteerId>
         <gender>m</gender>
         <birthday>27-05-1990</birthday>
         <phone>95352563</phone>
@@ -32,27 +32,27 @@
         <address>wall street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>4</volunteerId>
         <name>Daniel Meier</name>
+        <volunteerId>T0124775H</volunteerId>
         <gender>m</gender>
-        <birthday>31-10-1993</birthday>
+        <birthday>31-10-2001</birthday>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <tagged>student</tagged>
     </volunteers>
     <volunteers>
-        <volunteerId>5</volunteerId>
         <name>Elle Meyer</name>
+        <volunteerId>G0090865M</volunteerId>
         <gender>f</gender>
-        <birthday>13-11-1994</birthday>
+        <birthday>13-11-2000</birthday>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
     </volunteers>
     <volunteers>
-        <volunteerId>6</volunteerId>
         <name>Fiona Kunz</name>
+        <volunteerId>S9544754F</volunteerId>
         <gender>f</gender>
         <birthday>12-01-1995</birthday>
         <phone>9482427</phone>
@@ -60,8 +60,8 @@
         <address>little tokyo</address>
     </volunteers>
     <volunteers>
-        <volunteerId>7</volunteerId>
         <name>George Best</name>
+        <volunteerId>S9501647B</volunteerId>
         <gender>m</gender>
         <birthday>14-01-1995</birthday>
         <phone>9482442</phone>

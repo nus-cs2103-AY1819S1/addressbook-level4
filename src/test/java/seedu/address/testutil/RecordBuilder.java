@@ -11,7 +11,7 @@ import seedu.address.model.volunteer.VolunteerId;
  */
 public class RecordBuilder {
     public static final int DEFAULT_EVENTID = 1;
-    public static final int DEFAULT_VOLUNTEERID = 1;
+    public static final String DEFAULT_VOLUNTEERID = "S1234567A";
     public static final String DEFAULT_HOUR = "0";
     public static final String DEFAULT_REMARK = "Emcee for event";
 
@@ -48,7 +48,7 @@ public class RecordBuilder {
     /**
      * Sets the {@code VolunteerId} of the {@code Record} that we are building.
      */
-    public RecordBuilder withVolunteerId(int volunteerId) {
+    public RecordBuilder withVolunteerId(String volunteerId) {
         this.volunteerId = new VolunteerId(volunteerId);
         return this;
     }

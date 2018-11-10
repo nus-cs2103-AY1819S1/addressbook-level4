@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,6 +33,7 @@ public class VolunteerUtil {
     public static String getVolunteerDetails(Volunteer volunteer) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + volunteer.getName().fullName + " ");
+        sb.append(PREFIX_ID + volunteer.getVolunteerId().id + " ");
         sb.append(PREFIX_GENDER + volunteer.getGender().value + " ");
         sb.append(PREFIX_BIRTHDAY + volunteer.getBirthday().value + " ");
         sb.append(PREFIX_PHONE + volunteer.getPhone().value + " ");
@@ -47,6 +49,7 @@ public class VolunteerUtil {
     public static String getEditVolunteerDescriptorDetails(EditVolunteerDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getVolunteerId().ifPresent(volunteerId -> sb.append(PREFIX_ID).append(volunteerId.id).append(" "));
         descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_GENDER).append(gender.value).append(" "));
         descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_BIRTHDAY)
                 .append(birthday.value).append(" "));

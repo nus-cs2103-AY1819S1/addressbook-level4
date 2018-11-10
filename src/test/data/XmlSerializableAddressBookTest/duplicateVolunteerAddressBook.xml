@@ -2,10 +2,10 @@
 <addressbook>
 
     <volunteers>
-        <volunteerId>1</volunteerId>
         <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
         <gender>f</gender>
-        <birthday>21-08-1986</birthday>
+        <birthday>01-02-1993</birthday>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
@@ -14,13 +14,14 @@
 
     <!-- Volunteer with same identity as Alice Pauline -->
     <volunteers>
-        <volunteerId>1</volunteerId>
         <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
         <gender>f</gender>
-        <birthday>21-08-1986</birthday>
+        <birthday>01-02-1993</birthday>
         <phone>94351253</phone>
-        <email>pauline@example.com</email>
-        <address>4th street</address>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>student</tagged>
     </volunteers>
 
 </addressbook>

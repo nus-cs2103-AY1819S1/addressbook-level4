@@ -2,6 +2,7 @@
 <!-- Volunteer with an incorrect phone format -->
 <volunteer>
     <name>Hans Muster</name>
+    <volunteerId>S8712345A</volunteerId>
     <gender>m</gender>
     <birthday>22-05-1987</birthday>
     <phone>9482asf424</phone>

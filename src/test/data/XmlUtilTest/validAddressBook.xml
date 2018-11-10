@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <volunteers>
-        <volunteerId>1</volunteerId>
         <name>Hans Muster</name>
+        <volunteerId isPrivate="false">S8712345A</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday isPrivate="false">22-05-1987</birthday>
         <phone isPrivate="false">9482424</phone>
@@ -10,8 +10,8 @@
         <address isPrivate="false">4th street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>2</volunteerId>
         <name>Ruth Mueller</name>
+        <volunteerId isPrivate="false">S8706988E</volunteerId>
         <gender isPrivate="false">f</gender>
         <birthday isPrivate="false">10-05-1987</birthday>
         <phone isPrivate="false">87249245</phone>
@@ -19,8 +19,8 @@
         <address isPrivate="false">81th street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>3</volunteerId>
         <name>Heinz Kurz</name>
+        <volunteerId isPrivate="false">F8896420U</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday isPrivate="false">02-09-1988</birthday>
         <phone isPrivate="false">95352563</phone>
@@ -28,8 +28,8 @@
         <address isPrivate="false">wall street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>4</volunteerId>
         <name>Cornelia Meier</name>
+        <volunteerId isPrivate="false">S8912091H</volunteerId>
         <gender isPrivate="false">f</gender>
         <birthday isPrivate="false">01-04-1989</birthday>
         <phone isPrivate="false">87652533</phone>
@@ -37,8 +37,8 @@
         <address isPrivate="false">10th street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>5</volunteerId>
         <name>Werner Meyer</name>
+        <volunteerId isPrivate="false">S8988020C</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday isPrivate="false">06-09-1989</birthday>
         <phone isPrivate="false">9482224</phone>
@@ -46,8 +46,8 @@
         <address isPrivate="false">michegan ave</address>
     </volunteers>
     <volunteers>
-        <volunteerId>6</volunteerId>
         <name>Lydia Kunz</name>
+        <volunteerId isPrivate="false">S9078273H</volunteerId>
         <gender isPrivate="false">f</gender>
         <birthday isPrivate="false">19-11-1990</birthday>
         <phone isPrivate="false">9482427</phone>
@@ -55,8 +55,8 @@
         <address isPrivate="false">little tokyo</address>
     </volunteers>
     <volunteers>
-        <volunteerId>7</volunteerId>
         <name>Anna Best</name>
+        <volunteerId isPrivate="false">S9395133F</volunteerId>
         <gender isPrivate="false">f</gender>
         <birthday isPrivate="false">20-04-1993</birthday>
         <phone isPrivate="false">9482442</phone>
@@ -64,8 +64,8 @@
         <address isPrivate="false">4th street</address>
     </volunteers>
     <volunteers>
-        <volunteerId>8</volunteerId>
         <name>Stefan Meier</name>
+        <volunteerId isPrivate="false">S9329483A</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday isPrivate="false">28-07-1993</birthday>
         <phone isPrivate="false">8482424</phone>
@@ -73,8 +73,8 @@
         <address isPrivate="false">little india</address>
     </volunteers>
     <volunteers>
-        <volunteerId>9</volunteerId>
         <name>Martin Mueller</name>
+        <volunteerId isPrivate="false">S9880359I</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday isPrivate="false">30-06-1998</birthday>
         <phone isPrivate="false">8482131</phone>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Volunteer with missing name field -->
 <volunteer>
+    <volunteerId>S8712345A</volunteerId>
     <gender>m</gender>
     <birthday>22-05-1987</birthday>
     <phone>9482424</phone>
