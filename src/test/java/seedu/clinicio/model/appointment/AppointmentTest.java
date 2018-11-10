@@ -98,8 +98,8 @@ public class AppointmentTest {
         //same obj
         assertTrue(appt.isSameDoctor(appt));
 
-        //diff fields, same staff
-        assertTrue(appt.isSameDoctor(appt2));
+        //diff fields, same staff -> returns false
+        assertFalse(appt.isSameDoctor(appt2));
 
         //diff staff
         appt3.setAssignedStaff(BEN);
@@ -172,7 +172,7 @@ public class AppointmentTest {
 
         //same timing
         assertTrue(appt2.isOverlapAppointment(appt3));
-        assertTrue(appt.isOverlapAppointment(appt2));
+        assertFalse(appt.isOverlapAppointment(appt2));
 
         //this is later than appt but within overlap
         assertTrue(appt4.isOverlapAppointment(appt5));
