@@ -1,7 +1,7 @@
 package seedu.clinicio.commons.events.ui;
 
 import seedu.clinicio.commons.events.BaseEvent;
-import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.patient.Patient;
 
 /**
  * Represents a selection change in the Person List Panel
@@ -9,9 +9,9 @@ import seedu.clinicio.model.person.Person;
 public class PatientPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final Person newSelection;
+    private final Patient newSelection;
 
-    public PatientPanelSelectionChangedEvent(Person newSelection) {
+    public PatientPanelSelectionChangedEvent(Patient newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class PatientPanelSelectionChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Person getNewSelection() {
+    public Patient getNewSelection() {
         return newSelection;
     }
 }
