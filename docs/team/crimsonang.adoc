@@ -30,7 +30,7 @@ date or from the current date until the closest Sunday.
  due on a particular week and could use this to plan their remaining time properly. Users could also easily know what
   tasks they have on the current week.
 ** Highlights: This implementation was challenging as it required creating a new `model` and `storage` for saving and
-retrieving the academic weeks data.
+retrieving the data. It was also tedious and time consuming to conduct tests for different dates.
 ** Credits: https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java[#1],
 https://stackoverflow.com/questions/156503/how-do-you-assert-that-a-certain-exception-is-thrown-in-junit-4-tests[#2],
 https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java[#3],
