@@ -41,12 +41,20 @@ public class TypicalPatientsAndDoctors {
             .withTags("Patient", "friends")
             .withMedicalHistory("", "").build();
     public static final Patient ELLE_PATIENT = new PatientBuilder()
-            .withName("Elle Meyer").withPhone("9482224")
+            .withName("Elle Meyer")
+            .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
             .withRemark("")
             .withTags("Patient")
             .withMedicalHistory("", "").build();
+    public static final Doctor BENSON_DOCTOR = new DoctorBuilder()
+            .withName("Benson Meier")
+            .withPhone("97482947")
+            .withEmail("benson@doctor.com")
+            .withAddress("little india")
+            .withRemark("")
+            .withTags("Doctor").build();
     public static final Doctor FIONA_DOCTOR = new DoctorBuilder()
             .withName("Fiona Kunz")
             .withPhone("9482427")
@@ -90,6 +98,6 @@ public class TypicalPatientsAndDoctors {
 
     public static List<Person> getTypicalPatientsAndDoctors() {
         return new ArrayList<>(Arrays.asList(ALICE_PATIENT, BENSON_PATIENT, CARL_PATIENT,
-                DANIEL_PATIENT, ELLE_PATIENT, FIONA_DOCTOR, GEORGE_DOCTOR, HELENA_DOCTOR));
+                DANIEL_PATIENT, ELLE_PATIENT, BENSON_DOCTOR, FIONA_DOCTOR, GEORGE_DOCTOR, HELENA_DOCTOR));
     }
 }
