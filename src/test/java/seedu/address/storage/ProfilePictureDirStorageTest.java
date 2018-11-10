@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
