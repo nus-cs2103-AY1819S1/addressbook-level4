@@ -115,7 +115,7 @@ public class XmlAdaptedEvent {
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
-        participants = source.getPersonList()
+        participants = source.getParticipantList()
                 .asUnmodifiableObservableList()
                 .stream()
                 .map(person -> String.valueOf(personList.indexOf(person)))
@@ -197,7 +197,7 @@ public class XmlAdaptedEvent {
                 logger.info("Person not added to participants list.");
             }
         }
-        event.setPersonList(modelPersonList);
+        event.setParticipantList(modelPersonList);
         return event;
     }
 

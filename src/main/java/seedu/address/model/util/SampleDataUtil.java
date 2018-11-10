@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
@@ -276,11 +277,23 @@ public class SampleDataUtil {
         };
     }
 
-    public static Event[] getSampleEvents() {
-        return new Event[] {
-            new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet(),
+    /**
+     * Creates an event with a poll and poll options.
+     */
+    private static Event createEventWithPoll() {
+        Event eventWithPoll = new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"),
+                getTagSet("URGENT"),
                 LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
-                LocalTime.of(13, 00), ALEX),
+                LocalTime.of(13, 00), ALEX);
+        eventWithPoll.addPoll("Meeting date");
+        eventWithPoll.addOptionToPoll(Index.fromOneBased(1), "12 December");
+        eventWithPoll.addOptionToPoll(Index.fromOneBased(1), "13 December");
+        return eventWithPoll;
+    }
+
+    private static Event[] getSampleEvents() {
+        return new Event[] {
+            createEventWithPoll(),
             new Event(new EventName("CS2100 discussion"), new Address("NUS Deck"), getTagSet(),
                 LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
                 LocalTime.of(18, 30), DAVID),
