@@ -226,6 +226,7 @@ Format: `addFriend INDEX,INDEX`
 
 Examples:
 
+
 * `addFriend 1,2` +
 1st and 2nd user becomes friends with each other and appear on each other's friend list.
 
