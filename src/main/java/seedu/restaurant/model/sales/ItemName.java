@@ -54,7 +54,7 @@ public class ItemName {
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullName.toLowerCase().hashCode();
     }
 
 }

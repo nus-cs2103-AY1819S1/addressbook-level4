@@ -42,12 +42,12 @@ public class RecordSalesCommand extends Command {
             + PREFIX_QUANTITY_SOLD + "QUANTITY SOLD "
             + PREFIX_ITEM_PRICE + "ITEM_PRICE\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + " 25-09-2018 "
+            + PREFIX_DATE + "25-09-2018 "
             + PREFIX_ITEM_NAME + "Fried Rice "
             + PREFIX_QUANTITY_SOLD + "35 "
             + PREFIX_ITEM_PRICE + "5.50";
 
-    public static final String MESSAGE_RECORD_SALES_SUCCESS = "Sales volume recorded.\n%1$s";
+    public static final String MESSAGE_RECORD_SALES_SUCCESS = "Sales volume recorded: %1$s";
     public static final String MESSAGE_DUPLICATE_SALES_RECORD = "Sales record of \"%1$s\" already exists on the same "
             + "date.";
     public static final String MESSAGE_ITEM_NOT_FOUND = "However, the item does not exist in the menu section. "
