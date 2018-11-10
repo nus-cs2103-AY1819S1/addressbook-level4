@@ -31,7 +31,7 @@ public class CategoryIconHandle extends NodeHandle<Node> {
 
     public double getCategoryPercentage() {
         return Double.parseDouble(categoryPercentage.getText().substring(0,
-                categoryPercentage.getText().length() - 1))/100;
+                categoryPercentage.getText().length() - 1)) / 100;
     }
     /**
      * Returns true if the information in this object matches the information in the {@code budget} object

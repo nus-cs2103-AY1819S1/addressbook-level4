@@ -28,7 +28,7 @@ public class CategoryIcon extends UiPart<Region> {
 
     public CategoryIcon(CategoryBudget budget) {
         super(FXML);
-        categoryPercentage.setText(String.format("%.2f", budget.getBudgetRatio()*100) + SUFFIX);
+        categoryPercentage.setText(String.format("%.2f", budget.getBudgetRatio() * 100) + SUFFIX);
         categoryName.setText(budget.toString());
         Image image = new Image(IMAGE_PATH);
         categoryIcon.setImage(image);

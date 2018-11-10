@@ -1,7 +1,7 @@
 package seedu.address.model.notification;
 
 /**
- * Notification class to display general notifications
+ * Represents a notification to display general notifications
  */
 public class GeneralNotification extends Notification {
     public GeneralNotification (String header, String body) {

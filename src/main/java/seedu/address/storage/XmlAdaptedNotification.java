@@ -8,6 +8,8 @@ import seedu.address.model.notification.Notification.NotificationType;
 import seedu.address.model.notification.TipNotification;
 import seedu.address.model.notification.WarningNotification;
 
+import static java.util.Objects.requireNonNull;
+
 //@author Snookerballs
 
 /**

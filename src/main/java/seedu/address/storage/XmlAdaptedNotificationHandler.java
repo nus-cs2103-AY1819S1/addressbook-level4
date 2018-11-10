@@ -5,8 +5,11 @@ import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.storage.storageutil.LocalDateTimeAdapter;
+
+import static java.util.Objects.requireNonNull;
 
 //@@Snookerballs
 
@@ -14,6 +17,8 @@ import seedu.address.storage.storageutil.LocalDateTimeAdapter;
  * JAXB-friendly adapted version of NotificationHandler.
  */
 public class XmlAdaptedNotificationHandler {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "NotificationHandler's %s field is missing!";
 
     @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     private LocalDateTime lastTipSentOn;
@@ -36,15 +41,30 @@ public class XmlAdaptedNotificationHandler {
      * @param source source budget
      */
     public XmlAdaptedNotificationHandler(NotificationHandler source) {
-        lastTipSentOn = source.getLastTipSentOn();
-        isTipEnabled = source.isTipEnabled();
-        isWarningEnabled = source.isWarningEnabled();
+        this(source.getLastTipSentOn(), source.isTipEnabled(), source.isWarningEnabled());
+    }
+
+    /**
+     * Creates a {@code XmlAdaptedNotificationHandler} based on the given parameters for JAXB use.
+     *
+     * @param date
+     * @param isTipEnabled
+     * @param isWarningEnabled
+     */
+    public XmlAdaptedNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
+        this.lastTipSentOn = date;
+        this.isTipEnabled = isTipEnabled;
+        this.isWarningEnabled = isWarningEnabled;
     }
 
     /**
      * Converts this jaxb-friendly adapted expense object into the model's NotificationHandler object.
      */
-    public NotificationHandler toModelType() {
+    public NotificationHandler toModelType() throws IllegalValueException {
+        if (lastTipSentOn == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "lastTipSentOn"));
+        }
+
         return new NotificationHandler(lastTipSentOn, isTipEnabled, isWarningEnabled);
     }
 
@@ -64,6 +84,18 @@ public class XmlAdaptedNotificationHandler {
                 && this.lastTipSentOn.getMonth().equals(((XmlAdaptedNotificationHandler) other)
                 .lastTipSentOn.getMonth())
                 && this.lastTipSentOn.getYear() == ((XmlAdaptedNotificationHandler) other).lastTipSentOn.getYear();
+    }
+
+    public LocalDateTime getLastTipSentOn() {
+        return lastTipSentOn;
+    }
+
+    public boolean isTipEnabled() {
+        return isTipEnabled;
+    }
+
+    public boolean isWarningEnabled() {
+        return isWarningEnabled;
     }
 
 }

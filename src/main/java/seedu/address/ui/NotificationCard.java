@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.Notification.NotificationType;
 
+//@@author Snookerballs
 /**
  * An UI component that displays information of a {@code Expense}.
  */

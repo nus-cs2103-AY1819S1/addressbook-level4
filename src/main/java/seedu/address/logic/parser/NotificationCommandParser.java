@@ -38,7 +38,7 @@ public class NotificationCommandParser implements Parser<NotificationCommand> {
                     NotificationCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_NOTIFICATION_TYPE).isPresent()) {
+        if (arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_TYPE)) {
             isSuccessfulSet = descriptor.setNotificationType(argMultimap.getValue(PREFIX_NOTIFICATION_TYPE).get());
             if (!isSuccessfulSet) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

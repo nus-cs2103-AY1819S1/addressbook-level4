@@ -2,12 +2,13 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DecimalFormat;
+
 import org.junit.Test;
 
 import guitests.guihandles.CategoryIconHandle;
 import seedu.address.model.budget.CategoryBudget;
 
-import java.text.DecimalFormat;
 
 //@author Snookerballs
 public class CategoryIconTest extends GuiUnitTest {

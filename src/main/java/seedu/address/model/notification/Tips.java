@@ -1,13 +1,14 @@
 package seedu.address.model.notification;
 
-import seedu.address.commons.core.LogsCenter;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 
 /**
  * Represents a list of available tips.

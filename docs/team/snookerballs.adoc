@@ -46,7 +46,8 @@ using it as well. Small touches such as animation and dynamic changing of text c
 
 * *Highlights*
 
-** dfsf
+** The challenge of implementing this enhancement arose from the squashing of visual bugs caused by unexpected inputs such as overly
+large numbers. Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.
 
 . *Notification System*
 
@@ -67,25 +68,23 @@ user is or is about to spend over their budget.
 allows users to toggle the different types of notifications on and off, increasing the customizability of `ExpenseTracker`.
 
 * *Highlights*
-** dsf
+** The implementation of this feature involved all components of Expense Tracker, including the storing of data and the
+implementation of a new command. The challenge mainly revolved around manipulating the way `Notification` and `Tip` objects
+were stored, read and retrieved.
 
 * *Minor enhancement*:
 . Other Minor Animations such as GUI fade-in upon login.
 . Complete Overhaul of CSS.
 . Added color to Tags
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
-** Project management:
-* In Charge of the UI.
-***
 ** Documentation:
-*** Updated the User Guide
-*** Updated the Developer Guide
+*** Updated the `Notification` compoenent section of the User Guide
+*** Updated the `Use Case` and `User Interface` component section of the Developer Guide
 *** Made changes to the Developer Guide. Improved language and edited diagrams:
-
 
 
 ** Community:

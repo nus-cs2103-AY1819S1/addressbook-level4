@@ -44,6 +44,7 @@ public class NotificationCommandTest {
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
         // Toggle off test
+        expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_OFF);
         descriptor.setToggle(NotificationCommand.OPTION_OFF);
         NotificationCommand notificationCommand = new NotificationCommand(descriptor);
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -56,6 +57,7 @@ public class NotificationCommandTest {
         assertFalse(model.getNotificationHandler().isWarningEnabled());
 
         //Toggle on test
+        expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_ON);
         expectedModel.toggleBothNotification(true);
         expectedModel.commitExpenseTracker();
         descriptor = new NotificationCommandDescriptor();
@@ -74,13 +76,13 @@ public class NotificationCommandTest {
     @Test
     public void execute_toggleTip_successful() throws NoUserSelectedException {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
-        String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
         Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.toggleTipNotification(false);
         expectedModel.commitExpenseTracker();
 
         // Toggle off test
+        String expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_OFF);
         descriptor.setToggle(NotificationCommand.OPTION_OFF);
         descriptor.setNotificationType(NotificationCommand.OPTION_TIP);
         NotificationCommand notificationCommand = new NotificationCommand(descriptor);
@@ -92,7 +94,8 @@ public class NotificationCommandTest {
         assertFalse(model.getNotificationHandler().isTipEnabled());
         assertTrue(model.getNotificationHandler().isWarningEnabled());
 
-        // Toggle off test
+        // Toggle on test
+        expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_ON);
         expectedModel.toggleTipNotification(false);
         expectedModel.commitExpenseTracker();
 
@@ -118,6 +121,7 @@ public class NotificationCommandTest {
         expectedModel.commitExpenseTracker();
 
         // Toggle off test
+        expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_OFF);
         descriptor.setToggle(NotificationCommand.OPTION_OFF);
         descriptor.setNotificationType(NotificationCommand.OPTION_WARNING);
         NotificationCommand notificationCommand = new NotificationCommand(descriptor);
@@ -129,7 +133,8 @@ public class NotificationCommandTest {
         assertTrue(model.getNotificationHandler().isTipEnabled());
         assertFalse(model.getNotificationHandler().isWarningEnabled());
 
-        // Toggle off test
+        // Toggle on test
+        expectedMessage = String.format(NotificationCommand.MESSAGE_SUCCESS, NotificationCommand.OPTION_ON);
         expectedModel.toggleWarningNotification(false);
         expectedModel.commitExpenseTracker();
 

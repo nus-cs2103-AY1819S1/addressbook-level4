@@ -29,8 +29,8 @@ public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
     private static final double ANIMATION_TIME = 0.5;
     private static final double NUM_OF_FRAMES = 10;
-    private static final double TIME_OF_KEY_FRAMES = ANIMATION_TIME / NUM_OF_FRAMES;
-    private static final double CURRENT_FONT_SIZE = 30.0;
+    private static final double TIME_BETWEEN_KEY_FRAMES = ANIMATION_TIME / NUM_OF_FRAMES;
+    private static final double FONT_SIZE = 30.0;
 
     private Timeline timeline;
     private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
@@ -59,8 +59,8 @@ public class BudgetPanel extends UiPart<Region> {
         budgetDisplay = new Text("/$0");
         expenseDisplay = new Text("$0");
         budgetDisplay.setStyle("-fx-fill: #555555;");
-        budgetDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
-        expenseDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
+        budgetDisplay.setFont(Font.font("Futura", FONT_SIZE));
+        expenseDisplay.setFont(Font.font("Futura", FONT_SIZE));
         percentageDisplay.getChildren().addAll(expenseDisplay, budgetDisplay);
 
         update(totalBudget);
@@ -155,7 +155,7 @@ public class BudgetPanel extends UiPart<Region> {
         double amountToIncrementExpenses = (newExpenses - currentExpenses) / NUM_OF_FRAMES;
         double amountToIncrementBudget = (newBudgetCap - currentBudgetCap) / NUM_OF_FRAMES;
 
-        for (double i = TIME_OF_KEY_FRAMES; i <= ANIMATION_TIME; i += TIME_OF_KEY_FRAMES) {
+        for (double i = TIME_BETWEEN_KEY_FRAMES; i <= ANIMATION_TIME; i += TIME_BETWEEN_KEY_FRAMES) {
             KeyFrame frame = new KeyFrame(Duration.seconds(i), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {

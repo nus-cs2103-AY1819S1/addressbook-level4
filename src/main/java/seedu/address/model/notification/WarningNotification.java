@@ -29,9 +29,9 @@ public class WarningNotification extends Notification {
     }
 
     /**
-    * Generates a body depending on the budget level.
-    * @param budget level to check
-    * @return the body message  of the warning
+    * Generates a {@code body} depending on the budget level.
+    * @param budget level to check against
+    * @return the body message of {@code this}.
     */
     private String generateBody(Budget budget) {
         if (budget.getBudgetRatio() > PERCENTAGE_TO_SEND_OVERBUDGET_MESSAGE) {

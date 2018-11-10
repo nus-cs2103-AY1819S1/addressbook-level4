@@ -583,14 +583,15 @@ The UI has been redesigned to implement the following UI elements required for t
 * Notifications Panel
 * Categories Panel
 
-Animations will also be incorporated into the UI elements for a better user experience.
+Animations has been incorporated into the UI elements for a better user experience.
 
 ==== Budget Panel
 
-The `totalBudget` panel consists of 3 UI elements:
+The `totalBudget` panel consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
+*   `BudgetPanel#percentageDisplay` - A `TextFlow` objects that manages `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay`.
 *	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
@@ -614,10 +615,14 @@ If a command fails its execution, the `UpdateBudgetPanelEvent` will not be poste
 [NOTE]
 If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
 
-. A call to 'BudgetPanel#addIncrementAnimationKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects. With this information, the amount to increment `BudgetPanel#expenseDisplay` by each `KeyFrame` can be calculated.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
+With this information, the amount to increment `BudgetPanel#expenseDisplay` by in each `KeyFrame` can be calculated.
  `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
 [NOTE]
-`BudgetPanel#incrementKeyFrames()` handles the animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+`BudgetPanel#addTextAnimationKeyFrames()` handles the incrementing animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+
+. For each `KeyFrame`, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to `BudgetPanel#alterTextSize()`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be scaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
 
 . `Timeline#playFromStart()` is called to execute the animation.
 
@@ -632,8 +637,8 @@ The following sequence diagram shows the process of updating the `BudgetPanel` U
 .Sequence diagram of the `BudgetPanel` update
 image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
-===== Design Considerations
-====== Aspect: Choosing which library to use for animation implementation
+==== Design Considerations
+===== Aspect: Choosing which library to use for animation implementation
 
 * **Alternative 1 (current choice):** Use the `Timeline` and `KeyFrame` class
 ** Pros: More flexible; Able to create the animation frame by frame.
@@ -642,7 +647,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the `Text` elements of the `BudgetPanel`.
 
-====== Aspect: Implementation of `Text` elements
+===== Aspect: Implementation of `Text` elements
 * **Alternative 1 (Initial Choice):** Use two `Label` objects; one to display `currentExpenses` and another to display `budgetCap`.
 ** Pros: Allows the implementation of separate text color changing and animation.
 ** Cons: Difficult to keep both text objects centralized in relation to the `budgetBar`, especially if `currentExpenses` or `budgetCap` are large numbers.
@@ -655,8 +660,8 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ** Pros: Easy to centralize the `Text` objects by taking advantage of the properties of `TextFlow`. Allows the implementation of separate text color changing and animation.
 ** Cons: Does not solve the issue of decentralization when `currentExpenses` or `budgetCap` are large numbers.
 
-====== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
-* **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain width.
+===== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
+* **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain height.
 ** Pros: -
 ** Cons: Difficult to adjust the fonts of both `Text` objects such that the final font size is neither too large nor too short.
 
@@ -665,29 +670,30 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ** Cons: In the case of very large numbers, the `TextFlow` object is shrunk down to a point where the text in non-legible. However,
 we assume that the average user who is seriously using `ExpenseTracker` will not set  `currentExpenses` or `budgetCap` to such large numbers.
 
-==== Notification System
-The Notification System is comprised of 6 features:
-* `Notification` - An abstract method that consists of a `header`, `type` and `body`. There are two types of `Notification`,
+=== Notification System
+The Notification System is comprised of the following classes:
+
+* `Notification` - An abstract class that consists of a `header`, `type` and `body`. There are two types of `Notification`,
 `TipNotification` and `WarningNotification`.
-* `NotificationPanel` `and NotificationCard` - Lists the notifications that have been sent to the user.
-* `NotificationHandler` - Handles the storing and logic of notifications.
+* `NotificationPanel` `and NotificationCard` - UI elements that displays the list the notifications that have been sent to the user.
+* `NotificationHandler` - Manages the list of notifications.
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
 * `NotificationHandler` - Handles the storage and creation of `Notification` objects.
-* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` - Manages the saving and reading on Notifications.
+* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
 
 Given below is an example scenario of how the Notification System functions:
 
 . The user launches the application for the first time. A new `NotificationHandler` is instantiated.
 
-. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
+been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning` to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning()` to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
 [NOTE]
-The same procedure is carried out if the user execute an `edit` command.
+The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
@@ -695,17 +701,22 @@ the new `Notification`.
 Given below is an example scenario of how the `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. The command is received by the `ExpenseTrackerParser`.
 
-.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+. A call to `NotificationCommand#parse()` is made, which creates a `NotificationCommandDescriptor` object with the two
 extracted parameters `warning` and `off`. A `NotificationCommand` is returned to the `LogicManager`.
 [NOTE]
-The `n/` parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
 . `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
 `NotificationPanel#isWarningEnabled` to `false`.
 [NOTE]
- If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications` would be called to set `NotificationHandler#isTipEnabled`
+ If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications()` would be called to set `NotificationHandler#isTipEnabled`
  to `true`.
- If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
+ If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead.
+
+==== Design Considerations
+===== Aspect: How to Store Notifications
+
+
 
 // end::userinterfaceredesign[]
 
