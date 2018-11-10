@@ -12,11 +12,23 @@ import seedu.address.model.task.Task;
  */
 public class DecreasingMode extends GameMode {
 
+    public int getDaysBefore() {
+        return daysBefore;
+    }
+
+    public int getOverdueXp() {
+        return overdueXp;
+    }
+
+    public int getCompletedXp() {
+        return completedXp;
+    }
+
     private int daysBefore;
     private int overdueXp;
     private int completedXp;
 
-    DecreasingMode() {
+    public DecreasingMode() {
         this(3, 30, 60);
     }
 
@@ -29,7 +41,7 @@ public class DecreasingMode extends GameMode {
      * @param overdueXp   The minimum XP, awarded to overdue tasks.
      * @param completedXp The maximum XP, awarded to tasks completed early.
      */
-    DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
+    public DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
         this.daysBefore = daysBefore;
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
@@ -95,5 +107,10 @@ public class DecreasingMode extends GameMode {
 
         return earlyByMilliseconds / windowMilliseconds;
 
+    }
+
+    @Override
+    public DecreasingMode copy() {
+        return new DecreasingMode(daysBefore, overdueXp, completedXp);
     }
 }

@@ -10,14 +10,22 @@ import seedu.address.model.task.Task;
  */
 public class PriorityMode extends GameMode {
 
+    public int getOverdueMultiplier() {
+        return overdueMultiplier;
+    }
+
+    public int getCompletedMultiplier() {
+        return completedMultiplier;
+    }
+
     private int overdueMultiplier;
     private int completedMultiplier;
 
-    PriorityMode() {
+    public PriorityMode() {
         this(3, 6);
     }
 
-    PriorityMode(int overdueMultiplier, int completedMultiplier) {
+    public PriorityMode(int overdueMultiplier, int completedMultiplier) {
         this.overdueMultiplier = overdueMultiplier;
         this.completedMultiplier = completedMultiplier;
     }
@@ -34,5 +42,10 @@ public class PriorityMode extends GameMode {
 
         // If not overdue, task is completed before deadline
         return priorityValue * completedMultiplier;
+    }
+
+    @Override
+    public PriorityMode copy() {
+        return new PriorityMode(overdueMultiplier, completedMultiplier);
     }
 }

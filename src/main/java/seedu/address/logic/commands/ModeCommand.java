@@ -29,9 +29,15 @@ public class ModeCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + DECREASING_MODE + " " + EXTREME_MODE;
 
     public static final String MESSAGE_MODE_CHANGE_SUCCESS = "Game mode successfully changed!";
+    public static final String MESSAGE_CURRENT_MODE = "You are currently using the %s mode!";
 
     private final String newGameModeName;
     private final String newGameDifficultyName;
+
+    public ModeCommand() {
+        this.newGameModeName = null;
+        this.newGameDifficultyName = null;
+    }
 
     public ModeCommand(String newGameModeName) {
         this.newGameModeName = newGameModeName;
@@ -47,7 +53,11 @@ public class ModeCommand extends Command {
     public CommandResult executePrimitive(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        if (newGameDifficultyName == null) {
+        if (newGameModeName == null && newGameDifficultyName == null) {
+            String modeName = model.getTaskManager().getGameManager().getGameMode().getClass().getSimpleName();
+            String shortName = modeName.split("Mode")[0];
+            return new CommandResult(String.format(MESSAGE_CURRENT_MODE, shortName));
+        } else if (newGameDifficultyName == null) {
             model.updateGameMode(newGameModeName);
         } else {
             model.updateGameMode(newGameModeName, newGameDifficultyName);

@@ -345,6 +345,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         return copy;
     }
 
+    public GameManager getGameManager() {
+        return gameManager.copy();
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager.replace(gameManager);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

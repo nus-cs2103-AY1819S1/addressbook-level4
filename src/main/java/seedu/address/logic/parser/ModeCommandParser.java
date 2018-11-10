@@ -19,6 +19,11 @@ public class ModeCommandParser implements Parser<ModeCommand> {
      */
     public ModeCommand parse(String args) throws ParseException {
         String trimmedArg = args.trim();
+
+        if (isValidNoArgumentModeCommand(trimmedArg)) {
+            return new ModeCommand();
+        }
+
         if (isValidOneArgumentModeCommand(trimmedArg)) {
             return new ModeCommand(trimmedArg);
         }
@@ -30,6 +35,13 @@ public class ModeCommandParser implements Parser<ModeCommand> {
 
         throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Checks if the argument is simply the command word itself.
+     */
+    private boolean isValidNoArgumentModeCommand(String arg) {
+        return arg.isEmpty();
     }
 
     /**

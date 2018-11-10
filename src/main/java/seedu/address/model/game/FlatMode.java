@@ -9,10 +9,18 @@ import seedu.address.model.task.Task;
  */
 public class FlatMode extends GameMode {
 
+    public int getOverdueXp() {
+        return overdueXp;
+    }
+
+    public int getCompletedXp() {
+        return completedXp;
+    }
+
     private int overdueXp;
     private int completedXp;
 
-    FlatMode() {
+    public FlatMode() {
         this(30, 60);
     }
 
@@ -23,7 +31,7 @@ public class FlatMode extends GameMode {
      * @param overdueXp The XP to award to overdue tasks.
      * @param completedXp The XP to award to tasks completed on time.
      */
-    FlatMode(int overdueXp, int completedXp) {
+    public FlatMode(int overdueXp, int completedXp) {
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
     }
@@ -47,5 +55,10 @@ public class FlatMode extends GameMode {
         // At this point, then taskFrom.isStatusOverdue() && taskTo.isCompleted() is True
         return overdueXp;
 
+    }
+
+    @Override
+    public FlatMode copy() {
+        return new FlatMode(overdueXp, completedXp);
     }
 }
