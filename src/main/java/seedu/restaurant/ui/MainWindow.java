@@ -407,7 +407,6 @@ public class MainWindow extends UiPart<Stage> {
         //setPanel(browserPanel.getRoot());
     }
 
-
     //@@author HyperionNKJ
     @Subscribe
     private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {

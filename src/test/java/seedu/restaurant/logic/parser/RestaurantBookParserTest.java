@@ -277,6 +277,7 @@ public class RestaurantBookParserTest {
         parser.parseCommand("unknownCommand");
     }
 
+    //@@author AZhiKai
     @Test
     public void parseCommand_register() throws ParseException {
         Account account = new AccountBuilder().build();

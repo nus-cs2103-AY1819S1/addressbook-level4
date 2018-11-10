@@ -46,9 +46,9 @@ public interface Model {
      */
     void resetRestaurantBookVersion();
 
+    //@@author HyperionNKJ
     //=========== API for Sales =============================================================
 
-    //@@author HyperionNKJ
     /**
      * Adds the given record. {@code record} must not already exist in the sales book.
      */
