@@ -62,7 +62,7 @@ public class TaskCard extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    //Used for testing TaskCard (Not testing earliest time of child)
+    //Used for testing TaskCard
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
@@ -77,7 +77,7 @@ public class TaskCard extends UiPart<Region> {
     }
 
     private String getHashId() {
-        return "Dependency id: " + Integer.toString(task.hashCode());
+        return "Dependencies id: " + Integer.toString(task.hashCode());
     }
 
     private String getDependencies() {

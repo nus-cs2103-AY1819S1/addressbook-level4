@@ -26,10 +26,8 @@ public class TaskListPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
-
     @FXML
     private ListView<Task> personListView;
-
 
     public TaskListPanel(ObservableList<Task> taskList, ReadOnlyTaskManager taskManager) {
         super(FXML);

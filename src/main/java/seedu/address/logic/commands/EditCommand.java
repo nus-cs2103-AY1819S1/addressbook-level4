@@ -21,7 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Label;
-import seedu.address.model.task.Dependency;
+import seedu.address.model.task.Dependencies;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
@@ -114,7 +114,7 @@ public class EditCommand extends Command {
                 updatedStatus = Status.IN_PROGRESS;
             }
         }
-        Dependency dependency = editTaskDescriptor.getDependency().orElse(taskToEdit.getDependency());
+        Dependencies dependency = editTaskDescriptor.getDependency().orElse(taskToEdit.getDependency());
 
         return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
                 updatedStatus, dependency);
@@ -152,7 +152,7 @@ public class EditCommand extends Command {
         private Description description;
         private Set<Label> labels;
         private Status status;
-        private Dependency dependency;
+        private Dependencies dependency;
 
         public EditTaskDescriptor() {}
 
@@ -234,11 +234,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setDependency(Dependency dependency) {
+        public void setDependency(Dependencies dependency) {
             this.dependency = dependency;
         }
 
-        public Optional<Dependency> getDependency() {
+        public Optional<Dependencies> getDependency() {
             return Optional.ofNullable(dependency);
         }
 

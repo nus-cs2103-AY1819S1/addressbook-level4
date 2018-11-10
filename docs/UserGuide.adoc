@@ -90,7 +90,7 @@ Format:
 
 `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
-Date Format: `dd-MM-yy` or `dd-MM-yy HHmm`. A missing `HHmm` field will cause time to
+Date Format: `dd-MM-yy` or `dd-MM-yy HHmm` or `dd-MM-yyyy` or `dd-MM-yyyy HHmm`. A missing `HHmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
 
 On task creation, the task's `INDEX` is shown as such:

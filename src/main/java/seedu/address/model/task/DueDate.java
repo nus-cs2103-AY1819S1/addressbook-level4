@@ -2,20 +2,20 @@ package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
+import static seedu.address.model.util.DateFormatUtil.isValidDate;
 import static seedu.address.model.util.DateFormatUtil.parseDate;
 
 import java.util.Date;
 
 /**
  * Represents a due date in the {@link Task}.
- * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDueDateFormat(String)}
  */
 public class DueDate implements Comparable<DueDate> {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate should only contain numbers, and it should be in one of the following formats:\n"
-                    + " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm\n"
+                    + " dd-MM-yy, dd-MM-yyyy, dd-MM-yy HHmm, dd-mm-yyyy HHmm\n"
                     + "Note: 24h time format";
 
     public final String value;
@@ -28,7 +28,7 @@ public class DueDate implements Comparable<DueDate> {
      */
     public DueDate(String dueDate) {
         requireNonNull(dueDate);
-        checkArgument(isValidDueDate(dueDate), MESSAGE_DUEDATE_CONSTRAINTS);
+        checkArgument(isValidDueDateFormat(dueDate), MESSAGE_DUEDATE_CONSTRAINTS);
         value = dueDate;
         valueDate = parseDate(value);
     }
@@ -38,9 +38,9 @@ public class DueDate implements Comparable<DueDate> {
      *
      * @param test date to be checked
      */
-    public static boolean isValidDueDate(String test) {
+    public static boolean isValidDueDateFormat(String test) {
         requireNonNull(test);
-        return isValidDateFormat(test);
+        return isValidDate(test);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DueDate implements Comparable<DueDate> {
      * Returns time difference (in milliseconds) between now and due date
      * @return time to the time
      */
-    public long millisecondsToDueDate() {
+    public long timeToDueDate() {
         return this.valueDate.getTime() - new Date().getTime();
     }
 
@@ -67,7 +67,7 @@ public class DueDate implements Comparable<DueDate> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DueDate // instanceof handles nulls
-                && value.equals(((DueDate) other).value)); // state check
+                && valueDate.equals(((DueDate) other).valueDate)); // state check
     }
 
     @Override
