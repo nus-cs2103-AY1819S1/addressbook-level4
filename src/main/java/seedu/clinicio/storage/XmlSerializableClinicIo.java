@@ -12,6 +12,7 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
@@ -26,6 +27,7 @@ public class XmlSerializableClinicIo {
     public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s).";
     public static final String MESSAGE_DUPLICATE_STAFF = "Staffs list contains duplicate staff(s).";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -39,6 +41,9 @@ public class XmlSerializableClinicIo {
     @XmlElement
     private List<XmlAdaptedAppointment> appointments;
 
+    @XmlElement
+    private List<XmlAdaptedMedicine> medicines;
+
     /**
      * Creates an empty XmlSerializableClinicIo.
      * This empty constructor is required for marshalling.
@@ -48,6 +53,7 @@ public class XmlSerializableClinicIo {
         patients = new ArrayList<>();
         staffs = new ArrayList<>();
         appointments = new ArrayList<>();
+        medicines = new ArrayList<>();
     }
 
     /**
@@ -60,6 +66,7 @@ public class XmlSerializableClinicIo {
         staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream()
                 .map(XmlAdaptedAppointment::new).collect(Collectors.toList()));
+        medicines.addAll(src.getMedicineList().stream().map(XmlAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     /**
@@ -67,7 +74,8 @@ public class XmlSerializableClinicIo {
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson} & {@code XmlAdaptedStaff}
-     * & {@code XmlAdaptedReceptionist} & {@code XmlAdaptedAppointment}.
+     * & {@code XmlAdaptedReceptionist} & {@code XmlAdaptedAppointment}
+     * & {@code XmlAdaptedMedicine}.
      */
     public ClinicIo toModelType() throws IllegalValueException {
         ClinicIo clinicIo = new ClinicIo();
@@ -100,6 +108,14 @@ public class XmlSerializableClinicIo {
             }
             clinicIo.addAppointment(appointment);
         }
+        //@@author aaronseahyh
+        for (XmlAdaptedMedicine m : medicines) {
+            Medicine medicine = m.toModelType();
+            if (clinicIo.hasMedicine(medicine)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
+            }
+            clinicIo.addMedicine(medicine);
+        }
 
         return clinicIo;
     }
@@ -117,7 +133,7 @@ public class XmlSerializableClinicIo {
         return persons.equals(((XmlSerializableClinicIo) other).persons)
                 && appointments.equals(((XmlSerializableClinicIo) other).appointments)
                 && patients.equals(((XmlSerializableClinicIo) other).patients)
-                && staffs.equals(((XmlSerializableClinicIo) other).staffs);
-
+                && staffs.equals(((XmlSerializableClinicIo) other).staffs)
+                && medicines.equals(((XmlSerializableClinicIo) other).medicines);
     }
 }

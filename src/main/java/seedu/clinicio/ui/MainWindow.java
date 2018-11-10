@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -48,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+
+    private AppointmentListPanel appointmentListPanel;
+    private QueuePanel queuePanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -66,10 +71,27 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane appointmentListPanelPlaceholder;
+
+    @FXML
+    private StackPane queuePanelPlaceholder;
+
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabLists;
+
+    @FXML
+    private Tab personTab;
+
+    @FXML
+    private Tab queueTab;
+
+    @FXML
+    private Tab appointmentTab;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -132,6 +154,27 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
+        personTab.setText("Persons");
+        personTab.setContent(personListPanelPlaceholder);
+        personTab.setClosable(false);
+
+        appointmentTab.setText("Appointments");
+        appointmentTab.setContent(appointmentListPanelPlaceholder);
+        appointmentTab.setClosable(false);
+
+        //@@author iamjackslayer
+        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
+        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+
+        queueTab.setText("Queue");
+        queueTab.setContent(queuePanelPlaceholder);
+        queueTab.setClosable(false);
+
+        tabLists = new TabPane(personTab, appointmentTab, queueTab);
+
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         analyticsDisplay.setVisible(false);
@@ -151,6 +194,15 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    //@@author iamjackslayer
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index
+     */
+    public void switchTab(int index) {
+        tabLists.getSelectionModel().select(index);
     }
 
     void hide() {

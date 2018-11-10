@@ -22,15 +22,20 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.analytics.data.StatData;
-
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.medicine.Medicine;
+import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.util.PatientComparator;
+import seedu.clinicio.ui.Ui;
+import seedu.clinicio.ui.UiManager;
+
+
 /**
  * Represents the in-memory model of the ClinicIO data.
  */
@@ -38,17 +43,21 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedClinicIo versionedClinicIo;
+    private final FilteredList<Patient> allPatientsInQueue;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Consultation> filteredConsultations;
+    private final FilteredList<Medicine> filteredMedicines;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
     private final Analytics analytics;
+    //@@author iamjackslayer
+    private UiManager uiManager = null;
 
     /**
-     * Initializes a ModelManager with the given ClinicIO and userPrefs.
+     * Initializes a ModelManager with the given ClinicIO, userPrefs and ui.
      */
     public ModelManager(ReadOnlyClinicIo clinicIo, UserPrefs userPrefs) {
         super();
@@ -63,9 +72,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
+        //@@author aaronseahyh
+        filteredMedicines = new FilteredList<>(versionedClinicIo.getMedicineList());
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
+        allPatientsInQueue = new FilteredList<>(versionedClinicIo.getQueue());
         //@@author arsalanc-v2
         analytics = new Analytics();
     }
@@ -90,6 +102,25 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ClinicIoChangedEvent(versionedClinicIo));
     }
 
+    //========== Ui changes ======================================================================
+
+    //@@author iamjackslayer
+    public void addUi(Ui ui) {
+        uiManager = (UiManager) ui;
+    }
+
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index the index of the tab
+     */
+    public void switchTab(int index) {
+        // if uiManager is null, it is assumed that this method is
+        // called from test classes that don't require switchTab.
+        if (uiManager != null) {
+            uiManager.switchTab(index);
+        }
+    }
+
     //========== Boolean check ===============================================================================
 
     @Override
@@ -111,6 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasStaff(staff);
     }
 
+    //@@author iamjackslayer
     @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
@@ -146,6 +178,14 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(consultation);
         return versionedClinicIo.hasConsultation(consultation);
     }
+
+    //@@author aaronseahyh
+    @Override
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedClinicIo.hasMedicine(medicine);
+    }
+
     //========== Delete ======================================================================================
 
     @Override
@@ -174,6 +214,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteConsultation(Consultation target) {
         versionedClinicIo.removeConsultation(target);
     }
+
+    //@@author aaronseahyh
+    @Override
+    public void deleteMedicine(Medicine target) {
+        versionedClinicIo.removeMedicine(target);
+        indicateClinicIoChanged();
+    }
+
     //========== Add =========================================================================================
 
     @Override
@@ -212,7 +260,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
     }
 
+    //@@author aaronseahyh
+    @Override
+    public void addMedicine(Medicine newMedicine) {
+        versionedClinicIo.addMedicine(newMedicine);
+        updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+        indicateClinicIoChanged();
+    }
+
     //========== Update ======================================================================================
+
     //@@author iamjackslayer
     @Override
     public void enqueue(Patient patient) throws CommandException {
@@ -226,6 +283,16 @@ public class ModelManager extends ComponentManager implements Model {
             enqueueIntoMainQueue(patient);
         }
 
+        ArrayList<Patient> temp = new ArrayList<>();
+        temp.addAll(mainQueue.getList().subList(0, mainQueue.getList().size()));
+        temp.addAll(preferenceQueue.getList().subList(0, preferenceQueue.getList().size()));
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        //   temp.sort(comparator);
+
+        versionedClinicIo.setQueue(temp.subList(0, temp.size()));
+
+        updateQueue(PREDICATE_SHOW_ALL_PATIENTS);
+        indicateClinicIoChanged();
         patient.setIsQueuing();
     }
 
@@ -255,7 +322,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void enqueueIntoMainQueue(Person patient) {
-        mainQueue.add(patient);
+        mainQueue.add((Patient) patient);
     }
 
     //@@author iamjackslayer
@@ -265,7 +332,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void enqueueIntoPreferenceQueue(Person patient) {
-        preferenceQueue.add(patient);
+        preferenceQueue.add((Patient) patient);
     }
 
     @Override
@@ -289,6 +356,15 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedConsultation);
         versionedClinicIo.updateConsultation(target, editedConsultation);
     }
+
+    //@@author aaronseahyh
+    @Override
+    public void updateMedicineQuantity(Medicine target, MedicineQuantity newQuantity) {
+        requireAllNonNull(target, newQuantity);
+        versionedClinicIo.updateMedicineQuantity(target, newQuantity);
+        indicateClinicIoChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -308,14 +384,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author iamjackslayer
     @Override
-    public ObservableList<Person> getAllPatientsInQueue() {
-        ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
-        allPatientsInQueue.addAll(preferenceQueue.getList());
+    public void updateQueue(Predicate<Patient> predicate) {
+        requireAllNonNull(predicate);
+        allPatientsInQueue.setPredicate(predicate);
+    }
 
+    //@@author iamjackslayer
+    @Override
+    public ObservableList<Patient> getAllPatientsInQueue() {
+        allPatientsInQueue.clear();
+        allPatientsInQueue.addAll(mainQueue.getList());
+        allPatientsInQueue.addAll(preferenceQueue.getList());
         PatientComparator<Person> comparator = new PatientComparator<>();
         allPatientsInQueue.sort(comparator);
-        return FXCollections.unmodifiableObservableList(
-                new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
+        return FXCollections.unmodifiableObservableList(allPatientsInQueue);
     }
     //=========== Filtered Patient List Accessors =============================================================
 
@@ -382,6 +464,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Consultation List Accessors ========================================================
+
     //@@author arsalanc-v2
     /**
      * Returns an unmodifiable view of the list of {@code Consultation} backed by the internal list of
@@ -399,7 +482,27 @@ public class ModelManager extends ComponentManager implements Model {
         filteredConsultations.setPredicate(predicate);
     }
 
+    //=========== Filtered Medicine Inventory Accessors ========================================================
+
+    //@@author aaronseahyh
+    /**
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedMedicineInventory}
+     */
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return FXCollections.unmodifiableObservableList(filteredMedicines);
+    }
+
+    //@@author aaronseahyh
+    @Override
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        filteredMedicines.setPredicate(predicate);
+    }
+
     //=========== Export ==================================================================================
+
     //@@author arsalanc-v2
 
     /**
@@ -428,6 +531,7 @@ public class ModelManager extends ComponentManager implements Model {
     public String exportPatientsConsultations() {
         return ExportPatientsData.exportConsultations(versionedClinicIo.getPatientList());
     }
+
     //=========== Undo/Redo ==================================================================================
 
     @Override
@@ -521,6 +625,8 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredStaffs.equals(other.filteredStaffs)
-                && filteredAppointments.equals(other.filteredAppointments);
+                && filteredAppointments.equals(other.filteredAppointments)
+                && filteredMedicines.equals(other.filteredMedicines);
     }
+
 }
