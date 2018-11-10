@@ -4,7 +4,6 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.clinicio.testutil.EventsUtil.postNow;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.clinicio.ui.UiPart.FXML_FILE_FOLDER;
 

@@ -74,6 +74,7 @@ public class AddPatientCommand extends Command {
         }
 
         model.addPatient(toAdd);
+        model.switchTab(0);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
