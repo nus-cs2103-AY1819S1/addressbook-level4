@@ -57,4 +57,14 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Check for any undefined prefix within values of the known prefix.
+     * @return true, if undefined prefix is found. If not, false.
+     */
+    public boolean hasNestedPrefix() {
+        return argMultimap.values().stream().anyMatch(
+            list -> list.stream().anyMatch(value -> value.matches(".*\\s(\\p{Alpha})/.*"))
+        );
+    }
 }
