@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -151,15 +152,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //patientTab.setText("Patients");
         patientTab.setContent(patientListPanelPlaceholder);
         patientTab.setClosable(false);
 
-        //appointmentTab.setText("Appointments");
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
-        //queueTab.setText("Queue");
         queueTab.setContent(queuePanelPlaceholder);
         queueTab.setClosable(false);
 
