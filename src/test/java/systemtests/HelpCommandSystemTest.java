@@ -40,7 +40,7 @@ public class HelpCommandSystemTest extends ClinicIoSystemTest {
         assertHelpWindowOpen();
 
         getPersonListPanel().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        getMainMenu().openHelpWindowUsingMenu();
         assertHelpWindowOpen();
 
         getBrowserPanel().click();
