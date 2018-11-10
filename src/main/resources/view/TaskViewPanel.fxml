@@ -62,6 +62,12 @@
                 <Label styleClass="cell_big_label">Dependency: </Label>
                 <Label fx:id="dependency" styleClass="cell_big_label" text="\$dependency" />
             </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label styleClass="cell_big_label">Earliest due date of dependant tasks: </Label>
+                <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" text="\$earliestTimeOfChildren" />
+            </HBox>
+
         </VBox>
     </GridPane>
 </HBox>

@@ -55,6 +55,8 @@ public class TaskViewPanel extends UiPart<Region> {
     private Label dependency;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label earliestTimeOfChildren;
 
     public TaskViewPanel(Logic logic) {
         super(FXML);
@@ -75,6 +77,7 @@ public class TaskViewPanel extends UiPart<Region> {
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
         remainingTime.setText(getRemainingTime(task));
+        earliestTimeOfChildren.setText(getChildTime());
         description.setText(task.getDescription().value);
         priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
@@ -109,6 +112,15 @@ public class TaskViewPanel extends UiPart<Region> {
         return task.getTimeToDueDate();
     }
 
+    private String getChildTime() {
+        try {
+            return logic.getTaskManager().getEarliestDependentTimeForNode(this.latestTask).value;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -131,6 +143,14 @@ public class TaskViewPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         Task task = event.getNewSelection();
         displayTask(task);
+    }
+    @Subscribe
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        try {
+            earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.latestTask).value);
+        } catch (Exception e) {
+            return;
+        }
     }
 
     @Subscribe
