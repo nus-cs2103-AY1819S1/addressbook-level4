@@ -151,21 +151,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        fillTab();
+        setUpTab();
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
-        patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
-
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
-        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
-
-        //@@author iamjackslayer
-        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
-        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+        setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -177,7 +169,10 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void fillTab() {
+    /**
+     * Set up tabs and tab pane in {@code MainWindow.fxml}
+     */
+    private void setUpTab() {
         patientTab.setContent(patientListPanelPlaceholder);
         patientTab.setClosable(false);
 
@@ -188,6 +183,20 @@ public class MainWindow extends UiPart<Stage> {
         queueTab.setClosable(false);
 
         tabLists = new TabPane(patientTab, appointmentTab, queueTab);
+    }
+
+    /**
+     * Set up all the list panel in {@code MainWindow}.
+     */
+    private void setUpListPanel() {
+        patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
+        patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
+        queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
+        queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
     }
     
     //@@author iamjackslayer
