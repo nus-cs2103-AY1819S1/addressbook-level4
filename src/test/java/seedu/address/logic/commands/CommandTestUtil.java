@@ -18,12 +18,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.contacts.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.tasks.FindCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.MatchesEndDatePredicate;
+import seedu.address.model.task.MatchesStartDatePredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.FindTaskPredicateAssemblerBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -95,6 +99,42 @@ public class CommandTestUtil {
     public static final String VALID_END_TIME_BRUSH = "2359";
     public static final String VALID_END_TIME_SLAUGHTER = "1830";
 
+    public static final FindCommand.TaskPredicateAssembler FIND_BRUSH_BY_NAME;
+    public static final FindCommand.TaskPredicateAssembler FIND_SLAUGHTER_AND_BRUSH_BY_NAME;
+    public static final FindCommand.TaskPredicateAssembler FIND_BRUSH_BY_END_DATE;
+    public static final FindCommand.TaskPredicateAssembler FIND_SLAUGHTER_BY_START_DATE;
+    public static final FindCommand.TaskPredicateAssembler FIND_SLAUGHTER_BY_NAME_AND_START_DATE;
+
+    public static final seedu.address.model.task.NameContainsKeywordsPredicate BRUSH_NAME_PREDICATE =
+            new seedu.address.model.task.NameContainsKeywordsPredicate(Arrays.asList("Brush"));
+    public static final seedu.address.model.task.NameContainsKeywordsPredicate SLAUGHTER_NAME_PREDICATE =
+            new seedu.address.model.task.NameContainsKeywordsPredicate(Arrays.asList("Slaughter"));
+    public static final seedu.address.model.task.NameContainsKeywordsPredicate SLAUGHTER_BRUSH_NAME_PREDICATE =
+            new seedu.address.model.task.NameContainsKeywordsPredicate(Arrays.asList("cows"));
+    public static final MatchesStartDatePredicate BRUSH_START_DATE_PREDICATE =
+            new MatchesStartDatePredicate(VALID_START_DATE_BRUSH);
+    public static final MatchesEndDatePredicate BRUSH_END_DATE_PREDICATE =
+            new MatchesEndDatePredicate(VALID_END_DATE_BRUSH);
+    public static final MatchesStartDatePredicate SLAUGHTER_START_DATE_PREDICATE =
+            new MatchesStartDatePredicate(VALID_START_DATE_SLAUGHTER);
+    public static final MatchesEndDatePredicate SLAUGHTER_END_DATE_PREDICATE =
+            new MatchesEndDatePredicate(VALID_END_DATE_SLAUGHTER);
+
+    static {
+        FIND_BRUSH_BY_NAME = new FindTaskPredicateAssemblerBuilder().withNamePredicate(BRUSH_NAME_PREDICATE).build();
+        FIND_BRUSH_BY_END_DATE =
+                new FindTaskPredicateAssemblerBuilder().withEndDatePredicate(BRUSH_END_DATE_PREDICATE).build();
+        FIND_SLAUGHTER_BY_START_DATE =
+                new FindTaskPredicateAssemblerBuilder().withStartDatePredicate(SLAUGHTER_START_DATE_PREDICATE).build();
+        FIND_SLAUGHTER_AND_BRUSH_BY_NAME =
+                new FindTaskPredicateAssemblerBuilder().withNamePredicate(SLAUGHTER_BRUSH_NAME_PREDICATE).build();
+        FIND_SLAUGHTER_BY_NAME_AND_START_DATE =
+                new FindTaskPredicateAssemblerBuilder()
+                        .withNamePredicate(SLAUGHTER_NAME_PREDICATE)
+                        .withStartDatePredicate(SLAUGHTER_START_DATE_PREDICATE)
+                        .build();
+    }
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
@@ -102,7 +142,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -123,7 +163,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
