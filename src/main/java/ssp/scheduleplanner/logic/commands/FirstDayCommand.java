@@ -193,13 +193,13 @@ public class FirstDayCommand extends Command {
      * @throws CommandException
      */
     public String computeAppTitle() throws CommandException {
-        String appTitle = "Schedule Planner";
+        String appTitle = "Student Schedule Planner";
 
         String[][] retrieveData = new String[WEEKS_IN_SEMESTER][3];
         retrieveData = retrieveRangeOfWeeks(retrieveData);
 
         if (isWithinDateRange(retrieveData[0][0], retrieveData[16][1])) {
-            appTitle = "Schedule Planner" + "  - " + retrieveWeekDescription(retrieveData);
+            appTitle = "Student Schedule Planner" + "  - " + retrieveWeekDescription(retrieveData);
         }
 
         return appTitle;
