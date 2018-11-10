@@ -1,29 +1,30 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_JESSIE;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -37,7 +38,6 @@ import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.thanepark.model.ride.Maintenance;
-import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
@@ -81,8 +81,6 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, "1" + VALID_NAME_SYMBOLS, Name.MESSAGE_NAME_CONSTRAINTS);
         // invalid maintenance
         assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
@@ -112,9 +110,9 @@ public class UpdateCommandParserTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + VALID_NAME_SYMBOLS + INVALID_WAIT_TIME_DESC + VALID_ZONE_AMY
+        assertParseFailure(parser, "1" + VALID_NAME_SYMBOLS + INVALID_WAIT_TIME_DESC + INVALID_ZONE_DESC
                         + VALID_MAINTENANCE_AMY,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+                WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
     }
 
     @Test
@@ -150,6 +148,13 @@ public class UpdateCommandParserTest {
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // name with symbols
+        targetIndex = INDEX_FIRST_PERSON;
+        userInput = targetIndex.getOneBased() + VALID_NAME_SYMBOLS;
+        descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_JESSIE).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // maintenance

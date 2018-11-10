@@ -1,7 +1,5 @@
 package seedu.thanepark.testutil;
 
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -10,6 +8,8 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;

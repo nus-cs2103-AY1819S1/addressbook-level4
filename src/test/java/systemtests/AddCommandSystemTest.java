@@ -34,6 +34,7 @@ import static seedu.thanepark.testutil.TypicalRides.IDA;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
+
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.AddCommand;
@@ -101,7 +102,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: add a ride, missing tags -> added */
         assertCommandSuccess(HAUNTED);
-    
+
         /* Case: valid name with symbols -> accepted */
         toAdd = new RideBuilder(AMY).withName(VALID_NAME_JESSIE).withMaintenance(VALID_MAINTENANCE_AMY)
                 .withAddress(VALID_ZONE_AMY).withWaitTime(VALID_WAIT_TIME_AMY).withTags().build();

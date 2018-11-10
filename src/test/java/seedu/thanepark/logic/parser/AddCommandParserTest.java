@@ -1,15 +1,10 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -18,12 +13,18 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_JESSIE;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.thanepark.testutil.TypicalRides.AMY;
@@ -33,7 +34,6 @@ import org.junit.Test;
 
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.model.ride.Maintenance;
-import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
@@ -72,6 +72,12 @@ public class AddCommandParserTest {
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedRideMultipleTags));
+
+        // valid name with symbols
+        Ride expectedRideWithSymbols = new RideBuilder(BOB).withName(VALID_NAME_JESSIE)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        assertParseSuccess(parser, VALID_NAME_SYMBOLS + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedRideWithSymbols));
     }
 
     @Test
@@ -109,10 +115,6 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, VALID_NAME_SYMBOLS + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
-
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
@@ -129,9 +131,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // two invalid values, only first invalid value reported
-        assertParseFailure(parser, VALID_NAME_SYMBOLS + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + INVALID_ZONE_DESC,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+        // tw invalid values, only first invalid value reported
+        assertParseFailure(parser, VALID_NAME_SYMBOLS + MAINTENANCE_DESC_BOB + INVALID_WAIT_TIME_DESC
+                + INVALID_ZONE_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB

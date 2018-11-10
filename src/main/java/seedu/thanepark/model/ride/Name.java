@@ -10,7 +10,8 @@ import static seedu.thanepark.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters, punctuation characters and spaces,\n"
+                    + " and it should not be blank, and cannot start with a symbol";
 
     /*
      * The first character of the thanepark must not be a whitespace,

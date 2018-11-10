@@ -23,7 +23,7 @@ import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "@@@@@@@A";
     private static final String INVALID_MAINTENANCE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_WAIT_TIME = "example.com";
