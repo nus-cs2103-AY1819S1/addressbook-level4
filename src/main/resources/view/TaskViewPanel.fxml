@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
 <HBox id="cardPane" styleClass="task-view-panel" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane fx:id="taskViewGridPane" HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -22,13 +23,45 @@
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="dueDate" styleClass="cell_small_label" text="\$dueDate" />
-      <Label fx:id="remainingTime" styleClass="cell_small_label" text="\$remainingTime" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-      <Label fx:id="priorityValue" styleClass="cell_small_label" text="\$priorityValue" />
-      <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
-      <Label fx:id="hash" styleClass="cell_small_label" text="\$hash" />
-      <Label fx:id="dependency" styleClass="cell_small_label" text="\$dependency" />
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Due Date:</Label>
+            <Label fx:id="dueDate" styleClass="cell_big_label" text="\$dueDate" />
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Remaining Time: </Label>
+            <Label fx:id="remainingTime" styleClass="cell_big_label" text="\$remainingTime" />
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Description: </Label>
+            <Label fx:id="description" styleClass="cell_big_label" text="\$description" />
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Priority Value: </Label>
+            <Label fx:id="priorityValue" styleClass="cell_big_label" text="\$priorityValue" />
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Status: </Label>
+            <Label fx:id="status" styleClass="cell_big_label" text="\$status" />
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Hash: </Label>
+            <Label fx:id="hash" styleClass="cell_big_label" text="\$hash" />
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="cell_big_label">Dependency: </Label>
+            <Label fx:id="dependency" styleClass="cell_big_label" text="\$dependency" />
+        </HBox>
     </VBox>
   </GridPane>
 </HBox>
