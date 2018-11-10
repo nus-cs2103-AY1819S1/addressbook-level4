@@ -17,10 +17,10 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Module within the address book.
- * @author waytan
  */
 public class Module {
 
+    //@@author waytan
     // Identity fields
     private final ModuleCode moduleCode;
     private final ModuleTitle moduleTitle;
@@ -44,6 +44,7 @@ public class Module {
         this.tags.addAll(tags);
     }
 
+    //@@author
     /**
      * Create a module from a moduleDescriptor
      * @param moduleDescriptor
@@ -77,6 +78,7 @@ public class Module {
                 updatedStudents, updatedTags);
     }
 
+    //@@author waytan
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
@@ -97,6 +99,7 @@ public class Module {
         return students == null ? new UniquePersonList(new ArrayList<>()) : students;
     }
 
+    //@@author
     public Property moduleCodeProperty() {
         return new SimpleStringProperty(moduleCode.fullModuleCode);
     }
@@ -118,6 +121,7 @@ public class Module {
         return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
     }
 
+    //@@author waytan
     /**
      * Makes an identical copy of this module with an empty person list.
      */

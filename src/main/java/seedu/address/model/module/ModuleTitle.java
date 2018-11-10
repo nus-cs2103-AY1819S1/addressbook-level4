@@ -6,11 +6,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Module's Title in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidTitle(String)}
- *
- * @author waytan
  */
 public class ModuleTitle {
 
+    //@@author waytan
     public static final String MESSAGE_MODULETITLE_CONSTRAINTS =
             "Module Titles should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -46,6 +45,7 @@ public class ModuleTitle {
         return test.matches(MODULETITLE_VALIDATION_REGEX);
     }
 
+    //@@author spikerheado1234
     /**
      * Makes an identical deep copy of this ModuleTitle.
      */
@@ -54,6 +54,7 @@ public class ModuleTitle {
         return newTitle;
     }
 
+    //@@author waytan
     @Override
     public String toString() {
         return fullModuleTitle;

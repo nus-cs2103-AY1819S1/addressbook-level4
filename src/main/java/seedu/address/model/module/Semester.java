@@ -7,9 +7,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Module's semester in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidSemester(String)} (String)}
  *
- * @author waytan
  */
 public class Semester {
+    //@@author waytan
     public static final String MESSAGE_SEMESTER_CONSTRAINTS =
             "Semester should only consist of an integer between 1 and 4 inclusive";
 
@@ -35,6 +35,7 @@ public class Semester {
         semesterNumber = number;
     }
 
+    //@@author spikerheado1234
     /**
      * Makes an identical deep copy of this Semester.
      */
@@ -43,6 +44,7 @@ public class Semester {
         return newSemester;
     }
 
+    //@@author waytan
     /**
      * Returns true if a given number is a valid semester.
      */
@@ -52,10 +54,6 @@ public class Semester {
         }
         Integer semester = Integer.parseInt(number);
         return 1 <= semester && semester <= 4;
-    }
-
-    public String toStringFull() {
-        return "Semester " + semesterNumber;
     }
 
     @Override

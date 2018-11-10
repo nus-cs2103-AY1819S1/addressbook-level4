@@ -26,9 +26,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.UniquePersonList;
 
+//@@author waytan
 /**
  * Deletes an entry identified using its displayed index in the active list.
- * @author waytan
  */
 public class DeleteCommand extends Command {
 
