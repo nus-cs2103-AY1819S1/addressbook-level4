@@ -3,7 +3,7 @@ package seedu.thanepark.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
@@ -52,7 +52,7 @@ public class ThaneParkTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two rides with the same identity fields
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Ride> newRides = Arrays.asList(ACCELERATOR, editedAlice);
         ThaneParkStub newData = new ThaneParkStub(newRides);
@@ -81,7 +81,7 @@ public class ThaneParkTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         thanePark.addRide(ACCELERATOR);
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(thanePark.hasRide(editedAlice));
     }

@@ -3,7 +3,7 @@ package seedu.thanepark.model.ride;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
@@ -46,7 +46,7 @@ public class UniqueRideListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRideList.add(ACCELERATOR);
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueRideList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueRideListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueRideList.add(ACCELERATOR);
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueRideList.setRide(ACCELERATOR, editedAlice);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
