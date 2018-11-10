@@ -33,6 +33,8 @@ public class OccasionDateTest {
         assertFalse(OccasionDate.isValidDate("2018-12-23*")); // non-existent date
         assertFalse(OccasionDate.isValidDate("2018-02-29*")); // non-existent date
         assertFalse(OccasionDate.isValidDate("2018/02/21")); // incorrect date format
+        assertFalse(OccasionDate.isValidDate("2018-12-32")); // non-existent date
+        assertFalse(OccasionDate.isValidDate("2018-02-29")); // non-existent date
 
         // valid name
         assertTrue(OccasionDate.isValidDate("2018-01-01")); // YYYY-MM-DD
