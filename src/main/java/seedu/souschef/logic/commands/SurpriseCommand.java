@@ -1,7 +1,6 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 import java.util.Random;
@@ -12,8 +11,6 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
-import seedu.souschef.logic.parser.ParserUtil;
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
