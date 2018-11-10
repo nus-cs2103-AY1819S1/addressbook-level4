@@ -361,6 +361,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Displays the current word of the day and its meaning from Dictionary.com. (Requires a working internet connection).
 Format: `word`
 
+[NOTE]
+This function does only display the word and its meaning. If you want to learn the word. Please use the `LearnCommand` feature:
+Format: learn [word]
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -390,6 +394,7 @@ e.g. `add n/magic m/mystical arts [t/darkarts]`
 * *Learn* `learn NAME` +
 e.g. `learn fire`
 * *Clear* : `clear`
+* *WordOfTheDay* : `word`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...` +
@@ -405,5 +410,3 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-
-
