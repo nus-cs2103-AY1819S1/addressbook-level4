@@ -96,7 +96,7 @@ public class MainApp extends Application {
             if (!readOnlyAppContentOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
-            initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleRecipes);
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
