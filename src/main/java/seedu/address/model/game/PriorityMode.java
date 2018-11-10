@@ -9,8 +9,30 @@ import seedu.address.model.task.Task;
  * A GameMode awarding XP based on the user-defined priority value.
  */
 public class PriorityMode extends GameMode {
+
+    int overdueMultiplier;
+    int completedMultiplier;
+
+    PriorityMode() {
+        this(5, 10);
+    }
+
+    PriorityMode(int overdueMultiplier, int completedMultiplier) {
+        this.overdueMultiplier = overdueMultiplier;
+        this.completedMultiplier = completedMultiplier;
+    }
+
     @Override
     int appraiseXpChange(Task taskFrom, Task taskTo) {
-        return Integer.parseInt(taskFrom.getPriorityValue().value) * 10;
+
+        String rawPriorityValue = taskFrom.getPriorityValue().value;
+        int priorityValue = Integer.parseInt(rawPriorityValue);
+
+        if (taskFrom.isStatusOverdue()) {
+            return priorityValue * overdueMultiplier;
+        }
+
+        // If not overdue, task is completed before deadline
+        return priorityValue * completedMultiplier;
     }
 }

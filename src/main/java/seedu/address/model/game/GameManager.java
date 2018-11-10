@@ -113,7 +113,7 @@ public class GameManager {
             break;
 
         case ModeCommand.PRIORITY_MODE:
-            this.gameMode = new PriorityMode();
+            this.gameMode = new PriorityMode(low / 10, high / 10);
             break;
         default:
             assert false;
