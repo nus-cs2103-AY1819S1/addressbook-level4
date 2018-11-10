@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
 //@@author chivent
-
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
