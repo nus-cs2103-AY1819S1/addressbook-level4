@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -16,7 +15,7 @@ public class AdjustCommandParserTest {
 
     @Test
     public void parseValidCommandSuccess() {
-        Module adjustedModule = TypicalModules.duplicateWithGradesAdjusted(TypicalModules.DATA_STRUCTURES);
+        Module adjustedModule = TypicalModules.DATA_STRUCTURES;
         assertAdjustParseFullArgumentSuccess(adjustedModule);
         assertAdjustParseCodeOnlySuccess(adjustedModule);
     }
@@ -26,6 +25,7 @@ public class AdjustCommandParserTest {
      * @param expectedModule
      */
     private void assertAdjustParseFullArgumentSuccess(Module expectedModule) {
+
         String userInput = expectedModule.getCode().value
                 + " " + expectedModule.getYear().value
                 + " " + expectedModule.getSemester().value
@@ -48,18 +48,17 @@ public class AdjustCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    @Test
-    public void parseInvalidCommandFailure() {
-        assertWrongNumberArgumentParseFailure();
-    }
 
-    /**
-     * Assert that given wrong number of argument should fail
-     */
-    private void assertWrongNumberArgumentParseFailure() {
+    @Test
+    public void assertWrongNumberArgumentParseFailure() {
+        String expectedMessage = "Invalid number of arguments! Number of arguments should be 2, 4";
         String userInput = "1 1 1";
-        String expectedMessage = String.format(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AdjustCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, expectedMessage);
+
+        userInput = "1";
+        assertParseFailure(parser, userInput, expectedMessage);
+
+        userInput = "1 1 1 1 1";
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }

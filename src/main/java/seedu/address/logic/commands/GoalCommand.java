@@ -34,6 +34,7 @@ public class GoalCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.updateCapGoal(goal);
         CapGoal capGoal = model.getCapGoal();
+        model.commitTranscript();
         return new CommandResult(String.format(MESSAGE_SUCCESS, capGoal.toString()));
     }
 

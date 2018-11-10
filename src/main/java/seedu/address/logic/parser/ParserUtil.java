@@ -136,6 +136,7 @@ public class ParserUtil {
 
         if (!allowedSize.contains(args.length)) {
             String allowedNumOfArgs = allowedSize.stream()
+                    .sorted()
                     .map(Objects::toString)
                     .collect(Collectors.joining(", "));
 
