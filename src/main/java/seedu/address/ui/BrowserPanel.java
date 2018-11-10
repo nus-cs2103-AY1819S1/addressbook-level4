@@ -78,7 +78,7 @@ public class BrowserPanel extends UiPart<Region> {
             person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
             person.getFriends().stream()
                 .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
-            events.filtered((i) -> i.getPersonList().contains(person))
+            events.filtered((i) -> i.getParticipantList().contains(person))
                 .stream().map(u -> u.getName().value).collect(Collectors.joining(", ")),
             person.getSchedule().prettyPrint(),
         };

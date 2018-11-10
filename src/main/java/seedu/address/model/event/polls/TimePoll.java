@@ -38,7 +38,7 @@ public class TimePoll extends AbstractPoll {
     }
 
     /**
-     * Creates the poll options.
+     * Creates the poll options based on the schedules of the participants.
      */
     private void createOptions(UniquePersonList participantList, LocalDate startDate, LocalDate endDate) {
         ArrayList<Schedule> schedules = new ArrayList<>();

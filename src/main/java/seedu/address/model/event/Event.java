@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -32,10 +33,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Event {
 
-    // Identity fields
     private EventName name;
-
-    // Data fields
     private Address location;
 
     private LocalDate date;
@@ -46,7 +44,7 @@ public class Event {
 
     private Set<Tag> tags = new HashSet<>();
     private final ArrayList<AbstractPoll> polls = new ArrayList<>();
-    private final UniquePersonList personList = new UniquePersonList();
+    private final UniquePersonList participantList = new UniquePersonList();
 
     /**
      * Every field must be present and not null.
@@ -68,6 +66,7 @@ public class Event {
         this.startTime = startTime;
         this.endTime = endTime;
         this.organiser = organiser;
+        this.participantList.add(organiser);
     }
 
     public EventName getName() {
@@ -175,32 +174,32 @@ public class Event {
      * Adds a new person to the event.
      */
     public void addPerson(Person person) throws DuplicatePersonException {
-        personList.add(person);
+        participantList.add(person);
     }
 
-    public UniquePersonList getPersonList() {
-        return personList;
-    }
-
-    /**
-     * Sets the person list of the event.
-     */
-    public void setPersonList(UniquePersonList personList) {
-        this.personList.setPersons(personList);
+    public UniquePersonList getParticipantList() {
+        return participantList;
     }
 
     /**
-     * Adds list of persons into the person list.
+     * Sets the participant list of the event.
      */
-    public void setPersonList(ArrayList<Person> personList) {
-        this.personList.setPersons(personList);
+    public void setParticipantList(UniquePersonList participantList) {
+        this.participantList.setPersons(participantList);
+    }
+
+    /**
+     * Adds list of persons into the participant list.
+     */
+    public void setParticipantList(ArrayList<Person> personList) {
+        this.participantList.setPersons(personList);
     }
 
     /**
      * Returns the name list of the people attending as a string.
      */
     public String getNameList() {
-        return personList.getNameList();
+        return participantList.getNameList();
     }
 
     /**
@@ -218,7 +217,7 @@ public class Event {
      */
     public String addTimePoll(LocalDate startDate, LocalDate endDate) {
         int id = polls.size() + 1;
-        TimePoll poll = new TimePoll(id, personList, startDate, endDate);
+        TimePoll poll = new TimePoll(id, participantList, startDate, endDate);
         polls.add(poll);
         return poll.displayPoll();
     }
@@ -242,9 +241,7 @@ public class Event {
      * Adds polls into the poll list.
      */
     public void setPolls(ArrayList<AbstractPoll> polls) {
-        for (AbstractPoll poll : polls) {
-            this.polls.add(poll);
-        }
+        this.polls.addAll(polls);
     }
 
     /**
@@ -267,7 +264,7 @@ public class Event {
      */
     public String addVoteToPoll(Index pollIndex, Person person, String option)
             throws UserNotJoinedEventException, DuplicatePersonException {
-        if (!personList.contains(person)) {
+        if (!participantList.contains(person)) {
             throw new UserNotJoinedEventException();
         }
         int index = pollIndex.getZeroBased();
@@ -285,8 +282,8 @@ public class Event {
             setOrganiser(editedPerson);
             changed = true;
         }
-        if (personList.contains(target)) {
-            personList.setPerson(target, editedPerson);
+        if (participantList.contains(target)) {
+            participantList.setPerson(target, editedPerson);
             changed = true;
         }
         for (AbstractPoll poll : polls) {
@@ -299,8 +296,8 @@ public class Event {
      * Deletes a person from the event participant list and polls.
      */
     public void deletePerson(Person target) {
-        if (personList.contains(target)) {
-            personList.remove(target);
+        if (participantList.contains(target)) {
+            participantList.remove(target);
         }
         for (AbstractPoll poll : polls) {
             poll.deletePerson(target);
@@ -308,14 +305,14 @@ public class Event {
     }
 
     /**
-     * Returns true if the target person is the event organiser is or is an event participant.
+     * Returns true if the target person is the event organiser or is an event participant.
      */
     public boolean containsPerson(Name personName) {
         boolean contains = false;
         if (organiser.getName().equals(personName)) {
             contains = true;
         }
-        for (Person person : personList) {
+        for (Person person : participantList) {
             if (person.getName().equals(personName)) {
                 contains = true;
             }
@@ -373,7 +370,7 @@ public class Event {
                 && otherEvent.getDate().equals(getDate())
                 && otherEvent.getStartTime().equals(getStartTime())
                 && otherEvent.getEndTime().equals(getEndTime())
-                && otherEvent.getPersonList().equals(getPersonList())
+                && otherEvent.getParticipantList().equals(getParticipantList())
                 && otherEvent.getOrganiser().equals(getOrganiser())
                 && otherEvent.getPolls().equals(getPolls());
     }
@@ -384,23 +381,35 @@ public class Event {
         return Objects.hash(name, location, tags);
     }
 
+    /**
+     * Returns a deep copy of the event object.
+     */
     public Event getCopy() {
         Event copy = new Event(name, location, tags);
-        copy.organiser = this.organiser;
-        copy.date = this.date;
-        copy.startTime = this.startTime;
-        copy.endTime = this.endTime;
-        this.personList.forEach(person -> copy.personList.add(person));
+        copy.organiser = organiser;
+        copy.date = date;
+        copy.startTime = startTime;
+        copy.endTime = endTime;
+        copy.setParticipantList(participantList);
+        copy.polls.addAll(copyPollList());
+        return copy;
+    }
+
+    /**
+     * Returns a deep copy of the poll list.
+     */
+    private ArrayList<AbstractPoll> copyPollList() {
+        ArrayList<AbstractPoll> pollListCopy = new ArrayList<>();
         for (AbstractPoll poll : polls) {
             if (poll instanceof Poll) {
                 Poll genericPoll = (Poll) poll;
-                copy.polls.add(genericPoll.copy());
+                pollListCopy.add(genericPoll.copy());
             } else if (poll instanceof TimePoll) {
                 TimePoll timePoll = (TimePoll) poll;
-                copy.polls.add(timePoll.copy());
+                pollListCopy.add(timePoll.copy());
             }
         }
-        return copy;
+        return pollListCopy;
     }
 
     public String getInfo() {
@@ -408,7 +417,7 @@ public class Event {
         List<String> pollList = polls.stream()
                 .map(p -> p.getPollName())
                 .collect(Collectors.toList());
-        String personNameList = personList.getNameList();
+        String personNameList = participantList.getNameList();
         builder.append("People attending: " + '\n')
                 .append(personNameList + '\n')
                 .append("Polls: " + '\n');

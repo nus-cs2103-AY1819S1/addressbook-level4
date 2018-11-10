@@ -24,7 +24,6 @@ More importantly, EventOrganiser is *optimized for those who prefer to work with
 If you can type fast, EventOrganiser can help you to arrange events faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
@@ -39,13 +38,37 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listUser`* : lists all users in the Event Organiser
-* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates a new user named `John Doe` to the Event Organiser.
-* `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
+* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates new user named `John Doe` to the Event Organiser.
+* **`addEvent`**`n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
 
-To use the application, you must first create an account using the `addUser` command, and then login.
-You may then decide to organise an event using the `addEvent` command, to which you can specify the date, time and create polls.
-Alternatively, you may decide to search for an event to join, and then vote in the event polls.
+// tag::InBrief[]
+== How it works, in brief
+
+* To use the application, you must first create an account using the `addUser` command, and then `login`.
+* If you are not yet logged in, you can still view event details using `selectEvent`, and find events using `findEvent` and `findEventByTime`, and list events using `listEvent`.
+* Without logging in, you can also use the `selectUser`, `findUser` and `listUser` commands.
+* When you are done, simply `logout` or `exit` the application.
+
+=== Organise an event
+* If you are looking to organise an event, you may do so using the `addEvent` command.
+* After creating the event, you may wish to specify the date, time, or specify only after participants have joined.
+* You may create polls to get participants to vote on the details of the event using `addPoll` and `addPollOption`.
+* You can create a special TimePoll using `addTimePoll` after all participants have joined to decide on a suitable time. This generates poll options based on the NUS timetables/schedules of the participants.
+* You may decide to `deleteEvent` after the event is over, or leave it in the organiser as a form of record.
+
+=== Join an event
+* If you are looking to join an event as a participant, you may search for an event to join using the `findEvent` and `findEventByTime` commands.
+* You can also search for other users using the `findUser` and `listFriends` commands to see what events they have joined and join that event as well.
+* After joining the event using `joinEvent`, you can vote in the polls by displaying the poll details using `displayPoll`.
+* You can then add options using `addOption`, or simply vote for an option using `vote`.
+
+=== Manage your account
+* After setting up your account, you can edit your own details using the `editUser` command, and delete your own account using `deleteUser`.
+* You can also search for other users using `suggestFriendsByInterests` and add them as your friend using `addFriend`, or remove them as a friend using `deleteFriend`.
+* You can populate your schedule using an NUSMODs link, and also manually add time slots into your schedule.
+
+// end::InBrief[]
 
 [[Features]]
 == Features
@@ -57,6 +80,7 @@ Alternatively, you may decide to search for an event to join, and then vote in t
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
 ====
 
 Shows all the commands in the application and how to use them.
@@ -265,9 +289,11 @@ Adds a new event to the Event Organiser. +
 Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
 
 ****
+* Login is required.
 * Adds a new event with the given name, location and any number of tags.
 * Tags must be a single word not separated by spaces.
 * The newly created event will display the logged in user as the event organiser.
+* The event organiser is immediately added as one of the participants.
 * The newly created event will automatically be selected for further editing.
 ****
 
@@ -284,7 +310,7 @@ Format: `deleteEvent INDEX`
 * Deletes the event at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Event can only be deleted by the event organiser.
+* Login is required, and the event can only be deleted by the event organiser.
 * While it is recommended that the event organiser closes the event after it is over, this is not required, in case the details of the event is needed to record-keeping purposes.
 ****
 
@@ -300,8 +326,9 @@ Format: `selectEvent index`
 
 ****
 * An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
+* The event is automatically selected after you have either created the event using `addEvent` or joined the event using `joinEvent`.
 * Selecting an event displays the event participants as well as the polls associated with the event.
-* Each poll in the event is given a unique index.
+* Each poll in the event is given a unique poll index.
 ****
 
 image::EventSelectedDisplay.png[width="800"]
@@ -336,7 +363,7 @@ Format: `setDate d/DAY-MONTH-YEAR`
 * Day, month and year are specified as numbers.
 * Day and month must be written as two digits, e.g. January must be specified as `01` and not `1`.
 * Year must be written out in full.
-* An event must first be selected.
+* An event must first be selected, and you must be the event organiser to set the date.
 * You are allowed to set a date before the current day, should you wish to do so for record-keeping purposes.
 ****
 
@@ -352,7 +379,7 @@ Format: `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE`
 ****
 * Time is specified in 24 hour format, separated by a colon.
 * The time with prefix `t1` represents the start time and prefix `t2` represents the end time.
-* An event must first be selected.
+* An event must first be selected, and you must be the event organiser to set the time.
 ****
 
 Examples:
@@ -363,6 +390,11 @@ Examples:
 ==== Create a new poll for an event : `addPoll n/NAME`
 Sets up a new poll for the event with the specified name. +
 Format: `addPoll n/POLL_NAME`
+
+****
+* Only the event organiser may create a new poll.
+* Multiple polls of the same name are allowed.
+****
 
 * `addPoll n/Date` +
 The screenshot shows the outcome of this command.
@@ -392,8 +424,9 @@ Add new poll option in the specified poll. +
 Format: `addOption i/POLL_INDEX o/POLL_OPTION`
 
 ****
-* The poll index specifies the index of the poll in the selected event, which can be viewed by selecting the event using `selectEvent`.
+* The poll index is the index of the poll in the selected event, which can be viewed by selecting the event using `selectEvent`.
 * An event must first be selected.
+* As long as you have joined the event, you may add options to the poll.
 * An option can be any string.
 * Time polls do not support adding of options.
 * When options are added and no users have voted, the list of most popular options is empty.
@@ -428,11 +461,6 @@ Examples:
 * `displayPoll i/1` +
 Displays the poll with index 1 associated with the already selected event, if it exists in the event.
 
-==== List all events : `listEvent`
-
-Shows a list of all events in the Event Organiser. +
-Format: `listEvent`
-
 === Join event commands
 
 ==== Find event by the name of the event : `findEvent`
@@ -445,10 +473,14 @@ Examples:
 Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
 
 ==== Find event by a time interval: `findEventByTime`
-Finds events based start and end time. +
-Format: `findEvent d/DATE t1/FROMTIME t2/TOTIME`
+Finds events based on a date, start and end time. +
+Format: `findEvent d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 
 ****
+* The tag `t1` specifies the start time and `t2` is the end time.
+* Day, month and year are specified as numbers.
+* Day and month must be written as two digits, e.g. January must be specified as `01` and not `1`.
+* Year must be written out in full as four digits.
 * Times are specfied in 24 hour, HOUR:MINUTE format.
 ****
 
@@ -457,9 +489,18 @@ Examples:
 * `findEvent d/12-12-2018 t1/12:00 t2/18:00` +
 Finds all events held between 12pm and 6pm on 12 December 2018.
 
+==== List all events : `listEvent`
+
+Shows a list of all events in the Event Organiser. +
+Format: `listEvent`
+
 ==== Join event : `joinEvent`
 Joins event identified by event index in the event list. +
 Format: `joinEvent INDEX`
+
+****
+* Login is required. The current user is added to the participant list of the event.
+****
 
 Examples:
 
@@ -566,9 +607,7 @@ e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
 e.g. `deleteEvent 1`
 
 * *Edit Event* : `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...` +
-  e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
-  e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
-  e.g. `editUser 1 su/ monday 0000`
+  e.g. `editEvent n/CS2102 Meeting t/URGENT t/ByInvite`
 
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
@@ -591,16 +630,21 @@ e.g. `setTime t1/12:30 t2/13:45`
 === Event participant commands
 * *Select Event* : `selectEvent INDEX` +
 e.g. `selectEvent 1`
+
 * *Join Event* : `joinEvent INDEX` +
 e.g. `joinEvent 1`
+
 * *Vote* : `vote i/POLL_INDEX o/POLL_OPTION` +
 e.g. `vote i/1 o/Play games`
+
 * *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
 [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 e.g. `findEvent d/12-12-2018 pn/John Doe`
 e.g. `findEvent a/SoC Canteen on/Alice Tan`
+
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
+
 * *List Events* : `listEvent` +
 e.g. `listEvent`
 // end::KengJi(Summary)[]
