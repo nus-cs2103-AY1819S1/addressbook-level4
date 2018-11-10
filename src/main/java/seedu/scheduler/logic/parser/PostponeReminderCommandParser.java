@@ -14,10 +14,13 @@ import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.commands.PostponeReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 
-public class PostponeReminderCommandParser implements Parser<PostponeReminderCommand>{
+/**
+ * Parses input arguments and creates a new PostponeReminderCommand object
+ */
+public class PostponeReminderCommandParser implements Parser<PostponeReminderCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PostponeCommand
+     * and returns an PostponeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public PostponeReminderCommand parse(String args) throws ParseException {
@@ -40,13 +43,13 @@ public class PostponeReminderCommandParser implements Parser<PostponeReminderCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PostponeReminderCommand.MESSAGE_USAGE));
         }
 
-        if ( argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).size() != 1) {
-            throw new ParseException( String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        if (argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).size() != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     PostponeReminderCommand.MESSAGE_MULTIPLE_POSTPONE_DURATION));
         }
 
         Duration durationToPostpone = ParserUtil.parseReminderDuration(
-                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).get(0));
+            argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).get(0));
 
 
         return new PostponeReminderCommand(index, durationToPostpone, Iterables.toArray(flags, Flag.class));

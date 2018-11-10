@@ -5,43 +5,48 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.util.Set;
+
 import com.google.common.collect.Iterables;
+
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.ReminderDurationList;
 
+/**
+ * Parses input arguments and creates a new AddReminderCommand object
+ */
 public class AddReminderCommandParser implements Parser<AddReminderCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddReminderCommand
+     * and returns an AddReminderCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddReminderCommand parse(String args) throws ParseException {
 
-            requireNonNull(args);
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_REMINDER_DURATION);
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_REMINDER_DURATION);
 
-            Index index;
+        Index index;
 
-            try {
-                index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            } catch (ParseException pe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddReminderCommand.MESSAGE_USAGE), pe);
-            }
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            AddReminderCommand.MESSAGE_USAGE), pe);
+        }
 
-            Set<Flag> flags = ParserUtil.parseFlags(argMultimap.getFlags());
-            if (flags.size() > 1) {
-                throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
-            }
+        Set<Flag> flags = ParserUtil.parseFlags(argMultimap.getFlags());
+        if (flags.size() > 1) {
+            throw new ParseException(
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
+        }
 
 
-            ReminderDurationList durationsToAdd = ParserUtil.parseReminderDurations(
+        ReminderDurationList durationsToAdd = ParserUtil.parseReminderDurations(
             argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
 
-            return new AddReminderCommand(index, durationsToAdd, Iterables.toArray(flags, Flag.class));
+        return new AddReminderCommand(index, durationsToAdd, Iterables.toArray(flags, Flag.class));
     }
 }

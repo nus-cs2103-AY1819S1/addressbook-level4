@@ -64,11 +64,12 @@ public class EditCommand extends Command {
             + "no effects on your Google Calender.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
-    private final ConnectToGoogleCalendar connectToGoogleCalendar =
-            new ConnectToGoogleCalendar();
     protected final Index index;
     protected final EditEventDescriptor editEventDescriptor;
     protected final Flag[] flags;
+
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
 
     /**
      * @param index               of the event in the filtered event list to edit

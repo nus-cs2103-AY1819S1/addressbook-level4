@@ -288,8 +288,8 @@ public class PopUpManager {
                         //logger.info("Checking for incoming events");
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
                         //logger.info(frontEventDateTime.toString());
-                        while (frontEventDateTime.isClose(currentDateTime) ||
-                                frontEventDateTime.isPast(currentDateTime)) {
+                        while (frontEventDateTime.isClose(currentDateTime)
+                                || frontEventDateTime.isPast(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
                             displayPopUp(currentPopUp.getEventName().toString(), currentPopUp.getPopUpDisplay());
                             // pastPopUps.add(currentPopUp);

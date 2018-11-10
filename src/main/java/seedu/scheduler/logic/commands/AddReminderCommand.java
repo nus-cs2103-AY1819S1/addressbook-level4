@@ -3,7 +3,6 @@ package seedu.scheduler.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
-
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -32,14 +31,13 @@ public class AddReminderCommand extends EditCommand {
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
             + "Optional Flags (Only one at a time):\n"
             + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
-            + "Example: " + COMMAND_WORD + " 1 "  + PREFIX_EVENT_REMINDER_DURATION + "1h "
-            + PREFIX_EVENT_REMINDER_DURATION + "30m " + "-a";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
+            + PREFIX_EVENT_REMINDER_DURATION + "30m -a";
 
     public static final String MESSAGE_ADD_REMINDER_SUCCESS = "Add reminders to Event: %1$s";
     private static final Logger logger = LogsCenter.getLogger(AddReminderCommand.class);
 
     private final ReminderDurationList durationsToAdd;
-
 
     public AddReminderCommand(Index index, ReminderDurationList durationsToAdd, Flag... flags) {
         super(index, new EditCommand.EditEventDescriptor(), flags);

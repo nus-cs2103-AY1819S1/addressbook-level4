@@ -1,11 +1,9 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.scheduler.commons.core.LogsCenter;
@@ -19,7 +17,7 @@ import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
 
 /**
- * Add reminders to an event identified using it's displayed index from the scheduler.
+ * Delete reminders to an event identified using it's displayed index from the scheduler.
  */
 public class DeleteReminderCommand extends EditCommand {
 

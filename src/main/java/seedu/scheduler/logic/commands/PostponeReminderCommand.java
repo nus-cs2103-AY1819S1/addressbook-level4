@@ -17,6 +17,9 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
 
+/**
+ * Postpone all reminders to an event identified using it's displayed index from the scheduler by the duration entered.
+ */
 public class PostponeReminderCommand extends EditCommand {
     public static final String COMMAND_WORD = "postponeReminder";
 
@@ -26,7 +29,7 @@ public class PostponeReminderCommand extends EditCommand {
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
             + "Optional Flags (Only one at a time):\n"
             + "-u: edit all upcoming events\n" + "-a: edit all similar repeating events.\n"
-            + "Example: " + COMMAND_WORD + " 1 "  + PREFIX_EVENT_REMINDER_DURATION + "1h ";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h ";
 
     public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone reminders of Event: %1$s";
     public static final String MESSAGE_MULTIPLE_POSTPONE_DURATION = "Please enter only 1 duration to postpone.";

@@ -14,11 +14,14 @@ import seedu.scheduler.logic.commands.DeleteReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.ReminderDurationList;
 
+/**
+ * Parses input arguments and creates a new DeleteReminderCommand object
+ */
 public class DeleteReminderCommandParser implements Parser<DeleteReminderCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteReminderCommand
+     * and returns an DeleteReminderCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteReminderCommand parse(String args) throws ParseException {
@@ -43,7 +46,7 @@ public class DeleteReminderCommandParser implements Parser<DeleteReminderCommand
 
 
         ReminderDurationList durationsToAdd = ParserUtil.parseReminderDurations(
-                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
+            argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
 
         return new DeleteReminderCommand(index, durationsToAdd, Iterables.toArray(flags, Flag.class));
