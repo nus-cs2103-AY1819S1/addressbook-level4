@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T09-3/main
 
 By: `CS2103-AY1819S1-T09-3`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -117,12 +117,11 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram1.png[width="800"]
 
-[discrete]
-==== Events-Driven nature of the design
-
+The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+.Structure of the UI Component
 image::UiClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -142,6 +141,7 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+.Structure of the Logic Component
 image::LogicClassDiagram1.png[width="800"]
 
 *API* :
@@ -152,8 +152,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. converting an image) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
+Given below is the Sequence Diagram for interactions within the Logic component for the execute("cd") API call.
+
+.Interactions inside the Logic Component for the `cd` command
+image::LogicComponentClassDiagram.png[width="800"]
+
 [[Design-Model]]
 === Model component
+
+.Structure of the Model Component
 image::ModelClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -166,11 +173,20 @@ The `Model`,
 
 [[Design-Storage]]
 === Storage component
-_{To be updated}_
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
 
 [[Design-Commons]]
-=== Commons component
-_{To be updated}_
+=== Common classes
+
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.

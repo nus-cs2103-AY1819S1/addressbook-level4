@@ -20,7 +20,7 @@ public class GoogleRefreshCommand extends GoogleCommand {
     public static final String TYPE = "refresh";
     public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google refresh (requires an internet connection): "
-            + "\n- " + FULL_CMD + " Refreshes image and album list gotten from google ";
+            + "\n- " + FULL_CMD + ": Refreshes image and album list gotten from google ";
 
     public GoogleRefreshCommand() {
         super();
