@@ -21,4 +21,5 @@ public interface Playable {
     void pause();
     void stop();
     void seek(Duration time) throws CommandException;
+    Duration getDuration();
 }

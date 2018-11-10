@@ -76,6 +76,11 @@ public class PlayableTrack implements Playable {
         mediaPlayer.seek(time);
     }
 
+    @Override
+    public Duration getDuration() {
+        return media.getDuration();
+    }
+
     public void setOnEndOfMedia(Runnable runnable) {
         mediaPlayer.setOnEndOfMedia(runnable);
     }

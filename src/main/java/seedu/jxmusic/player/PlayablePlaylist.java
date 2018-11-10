@@ -64,6 +64,11 @@ public class PlayablePlaylist implements Playable {
         current.seek(time);
     }
 
+    @Override
+    public Duration getDuration() {
+        return current.getDuration();
+    }
+
     /**
      * Plays next track in the playlist
      */

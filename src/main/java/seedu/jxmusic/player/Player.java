@@ -41,6 +41,10 @@ public interface Player {
      */
     void seek(Duration time) throws CommandException;
 
+    /**
+     * Returns the duration of the currently playing track
+     */
+    Duration getDuration();
 
     /**
      * Returns the status of the player

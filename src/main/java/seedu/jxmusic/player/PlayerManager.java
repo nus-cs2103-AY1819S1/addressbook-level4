@@ -77,6 +77,11 @@ public class PlayerManager extends ComponentManager implements Player {
     }
 
     @Override
+    public Duration getDuration() {
+        return currentlyPlaying.getDuration();
+    }
+
+    @Override
     public Playable.Status getStatus() {
         if (currentlyPlaying == null) {
             return Playable.Status.UNINITIALIZED;
