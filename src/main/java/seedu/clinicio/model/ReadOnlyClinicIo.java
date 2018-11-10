@@ -3,6 +3,7 @@ package seedu.clinicio.model;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
@@ -38,4 +39,10 @@ public interface ReadOnlyClinicIo {
     //@@author iamjackslayer
     ObservableList<Patient> getQueue();
 
+    //@@author aaronseahyh
+    /**
+     * Returns an unmodifiable view of the medicine list.
+     * This list will not contain any duplicate medicines.
+     */
+    ObservableList<Medicine> getMedicineList();
 }

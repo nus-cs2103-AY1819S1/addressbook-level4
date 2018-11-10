@@ -4,6 +4,10 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EFFECTIVEDOSAGE_VENTOLIN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -14,6 +18,18 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_DAISY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_FRANK;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_LETHALDOSAGE_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_LETHALDOSAGE_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_LETHALDOSAGE_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_LETHALDOSAGE_VENTOLIN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_VENTOLIN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_VENTOLIN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
@@ -32,6 +48,14 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PRICE_VENTOLIN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_QUANTITY_CHLORPHENIRAMINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_QUANTITY_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_QUANTITY_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_QUANTITY_VENTOLIN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
@@ -43,13 +67,14 @@ import java.util.List;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Person} and {@code Medicine} objects to be used in tests.
  */
 public class TypicalPersons {
 
@@ -150,6 +175,25 @@ public class TypicalPersons {
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(18, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
 
+    // Medicines
+    public static final Medicine PARACETAMOL = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_PARACETAMOL)
+            .withMedicineType(VALID_MEDICINETYPE_PARACETAMOL).withEffectiveDosage(VALID_EFFECTIVEDOSAGE_PARACETAMOL)
+            .withLethalDosage(VALID_LETHALDOSAGE_PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
+            .withMedicineQuantity(VALID_QUANTITY_PARACETAMOL).build();
+    public static final Medicine CHLORPHENIRAMINE = new MedicineBuilder()
+            .withMedicineName(VALID_MEDICINENAME_CHLORPHENIRAMINE).withMedicineType(VALID_MEDICINETYPE_CHLORPHENIRAMINE)
+            .withEffectiveDosage(VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE)
+            .withLethalDosage(VALID_LETHALDOSAGE_CHLORPHENIRAMINE).withMedicinePrice(VALID_PRICE_CHLORPHENIRAMINE)
+            .withMedicineQuantity(VALID_QUANTITY_CHLORPHENIRAMINE).build();
+    public static final Medicine ORACORT = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_ORACORT)
+            .withMedicineType(VALID_MEDICINETYPE_ORACORT).withEffectiveDosage(VALID_EFFECTIVEDOSAGE_ORACORT)
+            .withLethalDosage(VALID_LETHALDOSAGE_ORACORT).withMedicinePrice(VALID_PRICE_ORACORT)
+            .withMedicineQuantity(VALID_QUANTITY_ORACORT).build();
+    public static final Medicine VENTOLIN = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_VENTOLIN)
+            .withMedicineType(VALID_MEDICINETYPE_VENTOLIN).withEffectiveDosage(VALID_EFFECTIVEDOSAGE_VENTOLIN)
+            .withLethalDosage(VALID_LETHALDOSAGE_VENTOLIN).withMedicinePrice(VALID_PRICE_VENTOLIN)
+            .withMedicineQuantity(VALID_QUANTITY_VENTOLIN).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {
@@ -174,6 +218,11 @@ public class TypicalPersons {
             clinicIo.addAppointment(appointment);
         }
         */
+        /*
+        for (Medicine medicine : getTypicalMedicines()) {
+            clinicIo.addMedicine(medicine);
+        }
+        */
         return clinicIo;
     }
 
@@ -192,4 +241,9 @@ public class TypicalPersons {
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
     }
+
+    public static List<Medicine> getTypicalMedicines() {
+        return new ArrayList<>(Arrays.asList(PARACETAMOL, CHLORPHENIRAMINE, ORACORT, VENTOLIN));
+    }
+
 }
