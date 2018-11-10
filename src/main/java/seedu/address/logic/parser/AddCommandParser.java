@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.NegativeValueParseException;
+import seedu.address.commons.exceptions.TooRichException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Category;
@@ -47,6 +48,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Expense expense;
         if (cost.getCostValue() <= 0) {
             throw new NegativeValueParseException();
+        }
+        if (cost.getCostValue() > 99999999999999999999999.00) {
+            throw new TooRichException();
         }
         if (!dateString.isPresent()) {
             expense = new Expense(name, category, cost, tagList);
