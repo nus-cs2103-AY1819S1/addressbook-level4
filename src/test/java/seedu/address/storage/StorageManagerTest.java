@@ -141,6 +141,7 @@ public class StorageManagerTest {
         }
     }
 
+    //@@author GilgameshTC
     @Test
     public void handleCalendarCreatedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called

@@ -75,6 +75,12 @@ public class StorageManager extends ComponentManager implements Storage {
         this.profilePictureStorage = profilePictureStorage;
     }
 
+    @Override
+    public StorageManager makeCopyOf() {
+        return new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
+                emailStorage, profilePictureStorage);
+    }
+
     // ================ UserPrefs methods ==============================
 
     @Override

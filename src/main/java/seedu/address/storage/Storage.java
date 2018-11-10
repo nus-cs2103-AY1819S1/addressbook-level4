@@ -37,6 +37,11 @@ import seedu.address.model.person.Room;
 public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
     EmailStorage, ProfilePictureStorage {
 
+    /**
+     * Make a defensive copy of StorageManager.
+     */
+    public StorageManager makeCopyOf();
+
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 

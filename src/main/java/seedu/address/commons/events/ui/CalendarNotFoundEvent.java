@@ -9,7 +9,7 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class CalendarNotFoundEvent extends BaseEvent {
 
-    public final String message = "Error: Calendar \"%s\" cannot be found";
+    public final String message = "Error: Calendar \"%s\" cannot be found.\n" + "Updating memory of Hallper now.";
 
     public final String calendarName;
 
