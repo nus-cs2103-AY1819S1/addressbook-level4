@@ -52,7 +52,7 @@ public class AddModuleCommand extends Command {
         model.commitTranscript();
 
         // Return success message.
-        String successMsg = String.format(MESSAGE_ADD_SUCCESS, tooAdd);
+        String successMsg = String.format(MESSAGE_ADD_SUCCESS, toAdd);
         return new CommandResult(successMsg);
     }
 
