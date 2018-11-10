@@ -6,12 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.occasion.Occasion.createEditedOccasion;
 
 import java.util.List;
-import java.util.ListIterator;
-import java.util.function.Consumer;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -22,9 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
-import seedu.address.model.occasion.UniqueOccasionList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Edits the details of an existing occasion in the address book.
@@ -79,7 +74,7 @@ public class EditOccasionCommand extends Command {
 
         Occasion occasionToEdit = lastShownList.get(index.getZeroBased());
         Occasion editedOccasion = createEditedOccasion(occasionToEdit, editOccasionDescriptor);
-        removeOccasionFromAssociatedPersons(model, occasionToEdit, editedOccasion);
+        AttendanceListUtil.editOccasionFromAssociatedPersons(model, occasionToEdit, editedOccasion);
 
         if (!occasionToEdit.isSameOccasion(editedOccasion) && model.hasOccasion(editedOccasion)) {
             throw new CommandException(MESSAGE_DUPLICATE_OCCASION);
@@ -90,46 +85,6 @@ public class EditOccasionCommand extends Command {
         model.commitAddressBook();
         EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion));
-    }
-
-
-    //Reused from teammate @waytan with minor modifications
-    /**
-     * Removes a occasion from the occasionList of all associated Persons.
-     */
-    private void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToEdit, Occasion editedOccasion) {
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> completePersonList = model.getFilteredPersonList();
-        ListIterator<Person> personListIterator = completePersonList.listIterator();
-        while (personListIterator.hasNext()) {
-            Person person = personListIterator.next();
-            person.getOccasionList()
-                    .asNormalList()
-                    .stream()
-                    .filter(occasion -> occasion.isSameOccasion(occasionToEdit))
-                    .findFirst()
-                    .ifPresent(editOccasionFromPerson(model, person, editedOccasion));
-        }
-    }
-
-    //Reused from teammate @waytan with minor modifications
-    /**
-     * Returns a consumer that takes in a Occasion and removes it from the specified Person in the Model.
-     */
-    private Consumer<Occasion> editOccasionFromPerson(Model model, Person person, Occasion editOccasion) {
-        return occasion -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
-            int indexOfOccasionToEdit = updatedOccasions.indexOf(editOccasion);
-            if (indexOfOccasionToEdit != -1) {
-                updatedOccasions.remove(occasion);
-                updatedOccasions.add(indexOfOccasionToEdit, editOccasion);
-                UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
-                updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
-                Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
-                model.updatePerson(person, updatedPerson);
-            }
-        };
     }
 
     @Override

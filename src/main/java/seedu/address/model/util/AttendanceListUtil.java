@@ -83,6 +83,26 @@ public class AttendanceListUtil {
         }
     }
 
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Removes a module from the moduleList of all associated Persons.
+     */
+    public static void editModuleFromAssociatedPersons(Model model, Module moduleToEdit, Module editedModule) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            person.getModuleList()
+                    .asNormalList()
+                    .stream()
+                    .filter(module -> module.isSameModule(moduleToEdit))
+                    .findFirst()
+                    .ifPresent(editModuleFromPerson(model, person, editedModule));
+        }
+    }
+
+
     //@@author waytan
     /**
      * Removes an Occasion from the occasionList of all associated Persons.
@@ -103,68 +123,68 @@ public class AttendanceListUtil {
         }
     }
 
-    //@@author waytan
+    //Reused from teammate @waytan with minor modifications
     /**
-     * Returns a consumer that takes in a Person and removes it from the specified Occasion in the Model.
+     * Removes a occasion from the occasionList of all associated Persons.
      */
-    public static Consumer<Person> removePersonFromOccasion(Model model, Occasion occasion) {
-        return person -> {
-            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
-            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
-            updatedPersons.remove(person);
-            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-            updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
-            Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
-            model.updateOccasion(occasion, updatedOccasion);
-        };
+    public static void editOccasionFromAssociatedPersons(Model model, Occasion occasionToEdit,
+                                                           Occasion editedOccasion) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            person.getOccasionList()
+                    .asNormalList()
+                    .stream()
+                    .filter(occasion -> occasion.isSameOccasion(occasionToEdit))
+                    .findFirst()
+                    .ifPresent(editOccasionFromPerson(model, person, editedOccasion));
+        }
     }
 
-    //@@author waytan
+    //Reused from teammate @waytan with minor modifications
     /**
-     * Returns a consumer that takes in a Person and removes it from the specified module in the model.
+     * Edits person from his associate modules.
+     * @param model
+     * @param personToEdit The person to edit.
+     * @param editedPerson The person after editing.
      */
-    public static Consumer<Person> removePersonFromModule(Model model, Module module) {
-        return person -> {
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
-            updatedPersons.remove(person);
-            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-            updatedModuleDescriptor.setStudents(updatedPersonList);
-            Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
-            model.updateModule(module, updatedModule);
-        };
+    public static void editPersonFromAssociateModules(Model model, Person personToEdit, Person editedPerson) {
+        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        List<Module> completeModuleList = model.getFilteredModuleList();
+        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
+        while (moduleListIterator.hasNext()) {
+            Module module = moduleListIterator.next();
+            module.getStudents()
+                    .asNormalList()
+                    .stream()
+                    .filter(person -> person.isSamePerson(personToEdit))
+                    .findFirst()
+                    .ifPresent(editPersonFromModule(model, module, editedPerson));
+        }
     }
 
-    //@@author waytan
+    //Reused from teammate @waytan with minor modifications
     /**
-     * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
+     * Edits person from his associate occasion.
+     * @param model
+     * @param personToEdit The person to edit.
+     * @param editedPerson The person after editing.
      */
-    public static Consumer<Module> removeModuleFromPerson(Model model, Person person) {
-        return module -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
-            updatedModules.remove(module);
-            UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
-            updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
-            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
-            model.updatePerson(person, updatedPerson);
-        };
-    }
-
-    //@@author waytan
-    /**
-     * Returns a consumer that takes in an Occasion and removes it from the specified Person in the Model.
-     */
-    public static Consumer<Occasion> removeOccasionFromPerson(Model model, Person person) {
-        return occasion -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
-            updatedOccasions.remove(occasion);
-            UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
-            updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
-            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
-            model.updatePerson(person, updatedPerson);
-        };
+    public static void editPersonFromAssociateOccasions(Model model, Person personToEdit, Person editedPerson) {
+        model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
+        List<Occasion> completeOccasionList = model.getFilteredOccasionList();
+        ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
+        while (occasionListIterator.hasNext()) {
+            Occasion occasion = occasionListIterator.next();
+            occasion.getAttendanceList()
+                    .asNormalList()
+                    .stream()
+                    .filter(person -> person.isSamePerson(personToEdit))
+                    .findFirst()
+                    .ifPresent(editPersonFromOccasion(model, occasion, editedPerson));
+        }
     }
 
     /**
@@ -187,5 +207,149 @@ public class AttendanceListUtil {
     public static void delinkPersonOccasion(Model model, Person person, Occasion occasion) {
         removePersonFromOccasion(model, occasion).accept(person);
         removeOccasionFromPerson(model, person).accept(occasion);
+    }
+
+    //@@author waytan
+    /**
+     * Returns a consumer that takes in a Person and removes it from the specified Occasion in the Model.
+     */
+    private static Consumer<Person> removePersonFromOccasion(Model model, Occasion occasion) {
+        return person -> {
+            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
+            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
+            updatedPersons.remove(person);
+            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+            updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
+            Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+            model.updateOccasion(occasion, updatedOccasion);
+        };
+    }
+
+    //@@author waytan
+    /**
+     * Returns a consumer that takes in a Person and removes it from the specified module in the model.
+     */
+    private static Consumer<Person> removePersonFromModule(Model model, Module module) {
+        return person -> {
+            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+            updatedPersons.remove(person);
+            UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+            updatedModuleDescriptor.setStudents(updatedPersonList);
+            Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+            model.updateModule(module, updatedModule);
+        };
+    }
+
+    //@@author waytan
+    /**
+     * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
+     */
+    private static Consumer<Module> removeModuleFromPerson(Model model, Person person) {
+        return module -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
+            updatedModules.remove(module);
+            UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
+            updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            model.updatePerson(person, updatedPerson);
+        };
+    }
+
+    //@@author waytan
+    /**
+     * Returns a consumer that takes in an Occasion and removes it from the specified Person in the Model.
+     */
+    private static Consumer<Occasion> removeOccasionFromPerson(Model model, Person person) {
+        return occasion -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
+            updatedOccasions.remove(occasion);
+            UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
+            updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
+            Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            model.updatePerson(person, updatedPerson);
+        };
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Returns a consumer that takes in a Person and edits it in the specified Module in the model.
+     */
+    private static Consumer<Person> editPersonFromModule(Model model, Module module, Person editedPerson) {
+        return person -> {
+            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+            int indexOfPersonToEdit = updatedPersons.indexOf(person);
+            if (indexOfPersonToEdit != -1) {
+                updatedPersons.remove(person);
+                updatedPersons.add(indexOfPersonToEdit, editedPerson);
+                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+                updatedModuleDescriptor.setStudents(updatedPersonList);
+                Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+                model.updateModule(module, updatedModule);
+            }
+        };
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Returns a consumer that takes in a Person and edits it in the specified Occasion in the model.
+     */
+    private static Consumer<Person> editPersonFromOccasion(Model model, Occasion occasion, Person editedPerson) {
+        return person -> {
+            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
+            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
+            int indexOfPersonToEdit = updatedPersons.indexOf(person);
+            if (indexOfPersonToEdit != -1) {
+                updatedPersons.remove(person);
+                updatedPersons.add(indexOfPersonToEdit, editedPerson);
+                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+                updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
+                Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+                model.updateOccasion(occasion, updatedOccasion);
+            }
+        };
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
+     */
+    private static Consumer<Module> editModuleFromPerson(Model model, Person person, Module editModule) {
+        return module -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
+            int indexOfModuleToEdit = updatedModules.indexOf(editModule);
+            if (indexOfModuleToEdit != -1) {
+                updatedModules.remove(module);
+                updatedModules.add(indexOfModuleToEdit, editModule);
+                UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
+                updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+                Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+                model.updatePerson(person, updatedPerson);
+            }
+        };
+    }
+
+    //Reused from teammate @waytan with minor modifications
+    /**
+     * Returns a consumer that takes in a Occasion and removes it from the specified Person in the Model.
+     */
+    private static Consumer<Occasion> editOccasionFromPerson(Model model, Person person, Occasion editOccasion) {
+        return occasion -> {
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
+            int indexOfOccasionToEdit = updatedOccasions.indexOf(editOccasion);
+            if (indexOfOccasionToEdit != -1) {
+                updatedOccasions.remove(occasion);
+                updatedOccasions.add(indexOfOccasionToEdit, editOccasion);
+                UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
+                updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
+                Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+                model.updatePerson(person, updatedPerson);
+            }
+        };
     }
 }

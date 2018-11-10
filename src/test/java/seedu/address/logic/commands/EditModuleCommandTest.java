@@ -97,7 +97,8 @@ public class EditModuleCommandTest {
         showModuleAtIndex(model, INDEX_FIRST_MODULE);
 
         Module moduleInFilteredList = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-        Module editedModule = new ModuleBuilder(moduleInFilteredList).withModuleTitle(VALID_MODULETITLE_CS2100).build();
+        Module editedModule =
+                new ModuleBuilder(moduleInFilteredList).withModuleTitle(VALID_MODULETITLE_CS2100).build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(INDEX_FIRST_MODULE,
                 new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100).build());
 
@@ -138,7 +139,8 @@ public class EditModuleCommandTest {
                 .withModuleTitle(VALID_MODULETITLE_ST2131).build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        assertCommandFailure(editModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     /**
@@ -155,7 +157,8 @@ public class EditModuleCommandTest {
         EditModuleCommand editModuleCommand = new EditModuleCommand(outOfBoundIndex,
                 new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131).build());
 
-        assertCommandFailure(editModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        assertCommandFailure(editModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -188,7 +191,8 @@ public class EditModuleCommandTest {
         EditModuleCommand editModuleCommand = new EditModuleCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(editModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        assertCommandFailure(editModuleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

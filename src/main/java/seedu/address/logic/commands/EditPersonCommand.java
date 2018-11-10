@@ -6,27 +6,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.person.Person.createEditedPerson;
 
 import java.util.List;
-import java.util.ListIterator;
-import java.util.function.Consumer;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleDescriptor;
-import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -79,8 +71,8 @@ public class EditPersonCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        editPersonFromAssociateModules(model, personToEdit, editedPerson);
-        editPersonFromAssociateOccasions(model, personToEdit, editedPerson);
+        AttendanceListUtil.editPersonFromAssociateModules(model, personToEdit, editedPerson);
+        AttendanceListUtil.editPersonFromAssociateOccasions(model, personToEdit, editedPerson);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -90,92 +82,6 @@ public class EditPersonCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
-    }
-
-    //Reused from teammate @waytan with minor modifications
-
-    /**
-     * Edits person from his associate modules.
-     * @param model
-     * @param personToEdit The person to edit.
-     * @param editedPerson The person after editing.
-     */
-    private void editPersonFromAssociateModules(Model model, Person personToEdit, Person editedPerson) {
-        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        List<Module> completeModuleList = model.getFilteredModuleList();
-        ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
-        while (moduleListIterator.hasNext()) {
-            Module module = moduleListIterator.next();
-            module.getStudents()
-                    .asNormalList()
-                    .stream()
-                    .filter(person -> person.isSamePerson(personToEdit))
-                    .findFirst()
-                    .ifPresent(editPersonFromModule(model, module, editedPerson));
-        }
-    }
-
-    //Reused from teammate @waytan with minor modifications
-
-    /**
-     * Edits person from his associate occasion.
-     * @param model
-     * @param personToEdit The person to edit.
-     * @param editedPerson The person after editing.
-     */
-    private void editPersonFromAssociateOccasions(Model model, Person personToEdit, Person editedPerson) {
-        model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
-        List<Occasion> completeOccasionList = model.getFilteredOccasionList();
-        ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
-        while (occasionListIterator.hasNext()) {
-            Occasion occasion = occasionListIterator.next();
-            occasion.getAttendanceList()
-                    .asNormalList()
-                    .stream()
-                    .filter(person -> person.isSamePerson(personToEdit))
-                    .findFirst()
-                    .ifPresent(editPersonFromOccasion(model, occasion, editedPerson));
-        }
-    }
-
-    //Reused from teammate @waytan with minor modifications
-    /**
-     * Returns a consumer that takes in a Person and edits it in the specified Module in the model.
-     */
-    private Consumer<Person> editPersonFromModule(Model model, Module module, Person editedPerson) {
-        return person -> {
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
-            int indexOfPersonToEdit = updatedPersons.indexOf(person);
-            if (indexOfPersonToEdit != -1) {
-                updatedPersons.remove(person);
-                updatedPersons.add(indexOfPersonToEdit, editedPerson);
-                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-                updatedModuleDescriptor.setStudents(updatedPersonList);
-                Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
-                model.updateModule(module, updatedModule);
-            }
-        };
-    }
-
-    //Reused from teammate @waytan with minor modifications
-    /**
-     * Returns a consumer that takes in a Person and edits it in the specified Occasion in the model.
-     */
-    private Consumer<Person> editPersonFromOccasion(Model model, Occasion occasion, Person editedPerson) {
-        return person -> {
-            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
-            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
-            int indexOfPersonToEdit = updatedPersons.indexOf(person);
-            if (indexOfPersonToEdit != -1) {
-                updatedPersons.remove(person);
-                updatedPersons.add(indexOfPersonToEdit, editedPerson);
-                UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
-                updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
-                Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
-                model.updateOccasion(occasion, updatedOccasion);
-            }
-        };
     }
 
     @Override
