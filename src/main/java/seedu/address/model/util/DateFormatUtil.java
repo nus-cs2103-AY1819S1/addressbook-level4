@@ -1,4 +1,5 @@
 package seedu.address.model.util;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -28,12 +29,12 @@ public class DateFormatUtil {
     public static Date parseDate(String date) {
         Date result = null;
         try {
-            if (isValidDateStandardFormat(date)) {
+            if (isValidStandardFormatDate(date)) {
                 result = FORMAT_STANDARD.parse(date);
-            } else if (isValidDateMinimalFormat(date)) {
+            } else if (isValidMinimalFormatDate(date)) {
                 result = FORMAT_MINIMAL.parse(date);
             }
-        } catch (Exception e) {
+        } catch (ParseException e) {
             result = null;
         }
         return result;
@@ -47,16 +48,16 @@ public class DateFormatUtil {
      * @return true if is the correct format. False otherwise
      */
     public static boolean isValidDateFormat(String test) {
-        return isValidDateMinimalFormat(test)
-                || isValidDateStandardFormat(test);
+        return isValidMinimalFormatDate(test)
+                || isValidStandardFormatDate(test);
     }
 
-    private static boolean isValidDateMinimalFormat(String test) {
-        return isValidDateFormatFromTemplate(test, FORMAT_MINIMAL, DATE_FORMAT_MINIMAL_REGEX);
+    private static boolean isValidMinimalFormatDate(String test) {
+        return isValidDateFormatFromTemplates(test, FORMAT_MINIMAL, DATE_FORMAT_MINIMAL_REGEX);
     }
 
-    private static boolean isValidDateStandardFormat(String test) {
-        return isValidDateFormatFromTemplate(test, FORMAT_STANDARD, DATE_FORMAT_STANDARD_REGEX);
+    private static boolean isValidStandardFormatDate(String test) {
+        return isValidDateFormatFromTemplates(test, FORMAT_STANDARD, DATE_FORMAT_STANDARD_REGEX);
     }
 
     /**
@@ -66,12 +67,19 @@ public class DateFormatUtil {
      * @param format format to test string with
      * @return true if is the correct format. False otherwise
      */
-    private static boolean isValidDateFormatFromTemplate(String test, SimpleDateFormat format, String regex) {
+    private static boolean isValidDateFormatFromTemplates(String test, SimpleDateFormat format, String regex) {
+        return isValidDateFormatFromDateFormat(test, format) && isValidDateFormatFromRegex(test, regex);
+    }
+
+    private static boolean isValidDateFormatFromDateFormat(String test, SimpleDateFormat format) {
         try {
             format.parse(test);
-        } catch (Exception e) {
+            return true;
+        } catch (ParseException e) {
             return false;
         }
+    }
+    private static boolean isValidDateFormatFromRegex(String test, String regex) {
         return test.matches(regex);
     }
 
