@@ -17,6 +17,7 @@ import seedu.address.model.person.TimeTable;
 
 
 /**
+ * Utilities for Timetable Download
  * @author adjscent
  */
 public class TimeTableUtil {
@@ -53,17 +54,19 @@ public class TimeTableUtil {
 
 
     /**
+     * Parse links from the share command of Nusmods
      * @param url
-     * @return
-     * @throws ParseException
+     * @return Timetable
+     * @throws ParseException if the url link is invalid
      */
     public static TimeTable parseUrl(String url) throws ParseException {
         return parseLongUrl(parseShortUrl(url));
     }
 
     /**
+     * Part of parse link
      * @param urlString
-     * @return
+     * @return Timetable
      * @throws ParseException
      */
     public static String parseShortUrl(String urlString) throws ParseException {
@@ -102,8 +105,10 @@ public class TimeTableUtil {
     }
 
     /**
+     * Part of parse link
+     * Breaks down the long url into sections
      * @param urlString
-     * @return
+     * @return Timetable
      * @throws ParseException
      */
     public static TimeTable parseLongUrl(String urlString) throws ParseException {
@@ -119,7 +124,12 @@ public class TimeTableUtil {
         String semster = parts[SEMSTER_INDEX];
 
         // get each modules from url and remove share?
-        String[] modules = parts[MODULE_INDEX].split(REGEX_GET_SEPARATER)[1].split(REGEX_MODULE_SEPARATER);
+        String[] share = parts[MODULE_INDEX].split(REGEX_GET_SEPARATER);
+        if (share.length < 2) {
+            TimeTable timetable = new TimeTable(lessonList);
+            return timetable;
+        }
+        String[] modules = share[1].split(REGEX_MODULE_SEPARATER);
 
         // Get all of the (limited) module information via api call
         for (String module : modules) {
@@ -132,9 +142,10 @@ public class TimeTableUtil {
     }
 
     /**
+     * Convert the module into list of lesson
      * @param module
      * @param semster
-     * @return
+     * @return ArrayList<Lesson>
      * @throws ParseException
      */
     public static ArrayList<Lesson> parseModule(String module, String semster) throws ParseException {
