@@ -75,8 +75,6 @@ public class InsertPersonCommand extends Command {
                                 personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
                                 personToReplace, moduleToReplace);
-            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
 
@@ -102,8 +100,6 @@ public class InsertPersonCommand extends Command {
                                 personToReplace.makeShallowDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace, occasionToReplace);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
 
