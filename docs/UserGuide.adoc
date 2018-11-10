@@ -326,6 +326,7 @@ Format: +
 Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
+// end::ingredient[]
 
 // tag::cross[]
 === Ingredient-Recipe Query Commands (Only applicable in cross context)
@@ -376,6 +377,7 @@ recipes based on ingredients'
 command(3.4.1.). +
 Format: +
 `list`
+// end::cross[]
 
 // tag::mealplanner[]
 === Meal Planner Commands (Only applicable in meal planner context)
