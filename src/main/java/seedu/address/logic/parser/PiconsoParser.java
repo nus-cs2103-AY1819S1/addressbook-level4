@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ConvertCommand;
-import seedu.address.logic.commands.CreateConvertCommand;
+import seedu.address.logic.commands.ApplyCommand;
+import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LoginCommand;
@@ -69,11 +69,11 @@ public class PiconsoParser {
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
 
-        case ConvertCommand.COMMAND_WORD:
-            return new ConvertCommandParser().parse(arguments);
+        case ApplyCommand.COMMAND_WORD:
+            return new ApplyCommandParser().parse(arguments);
 
-        case CreateConvertCommand.COMMAND_WORD:
-            return new CreateConvertCommandParser().parse(arguments);
+        case CreateApplyCommand.COMMAND_WORD:
+            return new CreateApplyCommandParser().parse(arguments);
 
         case SaveCommand.COMMAND_WORD:
             return new SaveCommandParser().parse(arguments);
