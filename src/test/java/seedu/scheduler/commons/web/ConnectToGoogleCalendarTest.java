@@ -15,14 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class ConnectToGoogleCalendarTest {
 
-    @Test
-    void isGoogleCalendarEnabled() {
-        setUpStatus("Enabled");
-        assertTrue(ConnectToGoogleCalendar.isGoogleCalendarEnabled());
-        setUpStatus("Disabled");
-        assertFalse(ConnectToGoogleCalendar.isGoogleCalendarEnabled());
-    }
-
     private void setUpStatus(String enabled) {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
@@ -31,6 +23,14 @@ class ConnectToGoogleCalendarTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void isGoogleCalendarEnabled() {
+        setUpStatus("Enabled");
+        assertTrue(ConnectToGoogleCalendar.isGoogleCalendarEnabled());
+        setUpStatus("Disabled");
+        assertFalse(ConnectToGoogleCalendar.isGoogleCalendarEnabled());
     }
 
     @Test
@@ -44,13 +44,13 @@ class ConnectToGoogleCalendarTest {
         //Prepare the test file where the status indicates Enabled
         setUpStatus("Enabled");
         //Test whether returns Enabled
-        Assert.assertTrue(ConnectToGoogleCalendar.checkStatus("Enabled"));
-        Assert.assertFalse(ConnectToGoogleCalendar.checkStatus("Disabled"));
+        assertTrue(ConnectToGoogleCalendar.checkStatus("Enabled"));
+        assertFalse(ConnectToGoogleCalendar.checkStatus("Disabled"));
 
         //Prepare the test file where the status indicates Disabled
         setUpStatus("Disabled");
         //Test whether returns Disabled
-        Assert.assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
-        Assert.assertTrue(ConnectToGoogleCalendar.checkStatus("Disabled"));
+        assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
+        assertTrue(ConnectToGoogleCalendar.checkStatus("Disabled"));
     }
 }
