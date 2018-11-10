@@ -52,15 +52,37 @@ public class PasswordPrefixFormatterTest {
 
     @Test
     public void unmaskPassword() {
+        // Password prefix is on the last one
         String text = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_ROLE + "doctor"
                 + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
                 + WHITESPACE + PREFIX_PASSWORD + "doctor";
         String expectedText = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_ROLE + "doctor"
                 + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
                 + WHITESPACE + PREFIX_PASSWORD + VALID_PASSWORD_ADAM;
-
-        // IsHistory -> false, IsBackspace -> false
         String formattedText = formatter.maskPassword(text, false, false) + "1";
+
+        assertEquals(expectedText, formatter.unmaskPassword(formattedText));
+
+        // Password prefix is before role and after name.
+        text = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
+                + WHITESPACE + PREFIX_PASSWORD + "doctor1"
+                + WHITESPACE + PREFIX_ROLE + "doctor";
+        expectedText = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
+                + WHITESPACE + PREFIX_PASSWORD + VALID_PASSWORD_ADAM
+                + WHITESPACE + PREFIX_ROLE + "doctor";
+        formattedText = formatter.maskPassword(text, false, false);
+        
+        assertEquals(expectedText, formatter.unmaskPassword(formattedText));
+
+        // Password prefix is the first one
+        text = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_PASSWORD + "doctor1"
+                + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
+                + WHITESPACE + PREFIX_ROLE + "doctor";
+        expectedText = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_PASSWORD + VALID_PASSWORD_ADAM
+                + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
+                + WHITESPACE + PREFIX_ROLE + "doctor";
+        formattedText = formatter.maskPassword(text, false, false);
+
         assertEquals(expectedText, formatter.unmaskPassword(formattedText));
     }
 }
