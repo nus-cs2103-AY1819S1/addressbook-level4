@@ -47,8 +47,7 @@ public class DependencyCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
         //Checking if indexes are out of bounds
-        if (dependantIndex.getZeroBased() >= lastShownList.size()
-                || dependeeIndex.getZeroBased() >= lastShownList.size()) {
+        if (checkIndexesPastCurrentBounds(lastShownList, dependantIndex, dependeeIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         //Creating a different task depending on whether the task dependency currently exists
@@ -78,6 +77,11 @@ public class DependencyCommand extends Command {
         model.commitTaskManager();
         return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName(),
                 dependantIndex.getOneBased(), dependeeIndex.getOneBased()));
+    }
+
+    private boolean checkIndexesPastCurrentBounds(List<Task> lastShownList, Index dependantIndex, Index dependeeIndex) {
+        return dependantIndex.getZeroBased() >= lastShownList.size()
+                || dependeeIndex.getZeroBased() >= lastShownList.size();
     }
 
     /**
