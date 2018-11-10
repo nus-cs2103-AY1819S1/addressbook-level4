@@ -60,6 +60,41 @@ public class CalendarModelTest {
     }
 
     @Test
+    public void updateExistingCalendar_nullYear_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.updateExistingCalendar(null, VALID_MONTH_JAN);
+
+    }
+
+    @Test
+    public void updateExistingCalendar_nullMonth_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.updateExistingCalendar(VALID_YEAR_2018, null);
+
+    }
+
+    @Test
+    public void removeExistingCalendar_nullYear_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.removeExistingCalendar(null, VALID_MONTH_JAN);
+
+    }
+
+    @Test
+    public void removeExistingCalendar_nullMonth_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.removeExistingCalendar(VALID_YEAR_2018, null);
+
+    }
+
+    @Test
+    public void removeExistingCalendar_calendarInCalendarModel_returnsTrue() {
+        calendarModel.updateExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB);
+        calendarModel.removeExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB);
+        assertTrue(!calendarModel.isExistingCalendar(VALID_YEAR_2018, VALID_MONTH_FEB));
+    }
+
+    @Test
     public void isLoadedCalendar_nullYear_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         calendarModel.isLoadedCalendar(null, VALID_MONTH_JAN);

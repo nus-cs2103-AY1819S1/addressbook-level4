@@ -3,7 +3,6 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 
 //@@author GilgameshTC
-
 /**
  * Indicates a calendar has been requested to be loaded
  */

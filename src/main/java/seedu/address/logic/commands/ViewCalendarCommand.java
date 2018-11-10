@@ -11,7 +11,6 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
-
 /**
  * View a Calendar with a specified month and year.
  */

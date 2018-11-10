@@ -361,6 +361,8 @@ public class CalendarModel {
 
     /** Updates Map:existingCalendar. */
     public void updateExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         Set<Month> yearOfCal = existingCalendar.get(year);
         if (yearOfCal == null) {
             Set<Month> newYearOfCal = new HashSet<>();
@@ -373,6 +375,8 @@ public class CalendarModel {
 
     /** Removes a calendar from the Map:existingCalendar. */
     public void removeExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         if (isExistingCalendar(year, month)) {
             Set<Month> yearOfCal = existingCalendar.get(year);
             yearOfCal.remove(month);
