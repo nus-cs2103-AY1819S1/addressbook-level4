@@ -19,45 +19,45 @@ public class RedoAllCommandTest {
     private String messageFailure = RedoAllCommand.MESSAGE_FAILURE;
 
     @Test
-    public void executeDefaultStateRedoAll_commandFailure() {
+    public void executeDefaultStateRedoAllCommandFailure() {
         Model model = ModelGenerator.getDefaultModel();
         assertCommandFailure(redoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeRedoAllPointingAtStart_commandSuccess() {
+    public void executeRedoAllPointingAtStartCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandSuccess(redoAllCommand, model, commandHistory, messageSuccess, 3, 4);
     }
 
     @Test
-    public void executeRedoAllPointingAtMid_commandSuccess() {
+    public void executeRedoAllPointingAtMidCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(redoAllCommand, model, commandHistory, messageSuccess, 3, 4);
     }
 
     @Test
-    public void executeRedoAllPointingAtEnd_commandFailure() {
+    public void executeRedoAllPointingAtEndCommandFailure() {
         Model model = ModelGenerator.getModelWithTwoTransformations();
         assertCommandFailure(redoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSuccessiveRedoAllPointingAtStart_commandFailure() {
+    public void executeSuccessiveRedoAllPointingAtStartCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandSuccess(redoAllCommand, model, commandHistory, messageSuccess, 3, 4);
         assertCommandFailure(redoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSuccessiveRedoAllPointingAtMid_commandFailure() {
+    public void executeSuccessiveRedoAllPointingAtMidCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(redoAllCommand, model, commandHistory, messageSuccess, 3, 4);
         assertCommandFailure(redoAllCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeRedoAllAfterPurge_commandFailure() {
+    public void executeRedoAllAfterPurgeCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         Model purgedModel = ModelGenerator.executeATransformation(model);
         assertCommandFailure(redoAllCommand, purgedModel, commandHistory, messageFailure);

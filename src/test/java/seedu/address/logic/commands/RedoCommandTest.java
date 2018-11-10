@@ -19,38 +19,38 @@ public class RedoCommandTest {
     private String messageFailure = RedoCommand.MESSAGE_FAILURE;
 
     @Test
-    public void executeDefaultStateSingleRedo_commandFailure() {
+    public void executeDefaultStateSingleRedoCommandFailure() {
         Model model = ModelGenerator.getDefaultModel();
         assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSingleRedoPointingAtStart_commandSuccess() {
+    public void executeSingleRedoPointingAtStartCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
     }
 
     @Test
-    public void executeSingleRedoPointingAtMid_commandSuccess() {
+    public void executeSingleRedoPointingAtMidCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
         assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
     }
 
     @Test
-    public void executeSingleRedoPointingAtEnd_commandFailure() {
+    public void executeSingleRedoPointingAtEndCommandFailure() {
         Model model = ModelGenerator.getModelWithTwoTransformations();
         assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void executeSuccessiveRedoPointingAtStart_commandSuccess() {
+    public void executeSuccessiveRedoPointingAtStartCommandSuccess() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
         assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
     }
 
     @Test
-    public void executeSingleRedoAfterPurge_commandFailure() {
+    public void executeSingleRedoAfterPurgeCommandFailure() {
         Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         Model purgedModel = ModelGenerator.executeATransformation(model);
         assertCommandFailure(redoCommand, purgedModel, commandHistory, messageFailure);

@@ -43,14 +43,14 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     @Test
-    public void close_menuBarExitButton_exitAppRequestEventPosted() {
+    public void closeMenuBarExitButtonExitAppRequestEventPosted() {
         mainWindowHandle.clickOnMenuExitButton();
         //assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         //assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
-    public void close_externalRequest_exitAppRequestEventPosted() {
+    public void closeExternalRequestExitAppRequestEventPosted() {
         mainWindowHandle.closeMainWindowExternally();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);

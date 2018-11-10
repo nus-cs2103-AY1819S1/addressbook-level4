@@ -12,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class CanvasAutoResizeCommandTest {
 
     @Test
-    public void execute_turnOn_success() {
+    public void executeTurnOnSuccess() {
         String args = "on";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -27,7 +27,7 @@ class CanvasAutoResizeCommandTest {
     }
 
     @Test
-    public void execute_turnOff_success() {
+    public void executeTurnOffSuccess() {
         String args = "off";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -42,7 +42,7 @@ class CanvasAutoResizeCommandTest {
     }
 
     @Test
-    public void execute_invalidCommand_failure() {
+    public void executeInvalidCommandFailure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
