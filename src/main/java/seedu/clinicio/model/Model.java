@@ -100,6 +100,9 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    // @@author iamjackslayer
+    ObservableList<Patient> getAllPatientsInQueue();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -109,8 +112,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
-    // @@author iamjackslayer
-    ObservableList<Patient> getAllPatientsInQueue();
+    /**
+     * Updates the filter of the queue by the given {@code predicate}
+     * @param predicate
+     */
+    void updateQueue(Predicate<Patient> predicate);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

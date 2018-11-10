@@ -163,6 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         appointmentTab.setClosable(false);
 
+        //@@author iamjackslayer
         queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
 

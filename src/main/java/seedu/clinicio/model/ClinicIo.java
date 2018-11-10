@@ -13,6 +13,7 @@ import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.consultation.UniqueConsultationList;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patient.UniquePatientList;
+import seedu.clinicio.model.patientqueue.UniqueQueue;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.UniquePersonList;
 import seedu.clinicio.model.staff.Password;
@@ -32,6 +33,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
     private final UniqueConsultationList consultations;
+    //@@author iamjackslayer
+    private final UniqueQueue queue;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -48,6 +51,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
         //@@author gingivitiss
         appointments = new UniqueAppointmentList();
         consultations = new UniqueConsultationList();
+        //@@author iamjackslayer
+        queue = new UniqueQueue();
     }
 
     public ClinicIo() {}
@@ -157,6 +162,18 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public boolean hasConsultation(Consultation consultation) {
         requireNonNull(consultation);
         return consultations.contains(consultation);
+    }
+
+    //@@author iamjackslayer
+
+    /**
+     * Updates the queue in ClinicIO.
+     * @param replacement
+     */
+    public void setQueue(List<Patient> replacement) {
+        requireNonNull(replacement);
+        queue.setPatients(replacement);
+        //queue.add(replacement.get(0));
     }
 
     /**
@@ -310,6 +327,12 @@ public class ClinicIo implements ReadOnlyClinicIo {
     @Override
     public ObservableList<Staff> getStaffList() {
         return staffs.asUnmodifiableObservableList();
+    }
+
+    //@@author iamjackslayer
+    @Override
+    public ObservableList<Patient> getQueue() {
+        return queue.asUnmodifiableObservableList();
     }
 
     //@@author gingivitiss

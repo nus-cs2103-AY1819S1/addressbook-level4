@@ -35,4 +35,7 @@ public interface ReadOnlyClinicIo {
      */
     ObservableList<Appointment> getAppointmentList();
 
+    //@@author iamjackslayer
+    ObservableList<Patient> getQueue();
+
 }

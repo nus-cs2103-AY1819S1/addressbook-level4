@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedClinicIo versionedClinicIo;
+    private final FilteredList<Patient> allPatientsInQueue;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Staff> filteredStaffs;
@@ -66,6 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
+        allPatientsInQueue = new FilteredList<>(versionedClinicIo.getQueue());
         //@@author arsalanc-v2
         analytics = new Analytics();
     }
@@ -111,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasStaff(staff);
     }
 
+    //@@author iamjackslayer
     @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
@@ -226,6 +229,16 @@ public class ModelManager extends ComponentManager implements Model {
             enqueueIntoMainQueue(patient);
         }
 
+        ArrayList<Patient> temp = new ArrayList<>();
+        temp.addAll(mainQueue.getList().subList(0, mainQueue.getList().size()));
+        temp.addAll(preferenceQueue.getList().subList(0, preferenceQueue.getList().size()));
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        //   temp.sort(comparator);
+
+        versionedClinicIo.setQueue(temp.subList(0, temp.size()));
+
+        updateQueue(PREDICATE_SHOW_ALL_PATIENTS);
+        indicateClinicIoChanged();
         patient.setIsQueuing();
     }
 
@@ -308,14 +321,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author iamjackslayer
     @Override
-    public ObservableList<Patient> getAllPatientsInQueue() {
-        ArrayList<Patient> allPatientsInQueue = new ArrayList(mainQueue.getList());
-        allPatientsInQueue.addAll(preferenceQueue.getList());
+    public void updateQueue(Predicate<Patient> predicate) {
+        requireAllNonNull(predicate);
+        allPatientsInQueue.setPredicate(predicate);
+    }
 
+    //@@author iamjackslayer
+    @Override
+    public ObservableList<Patient> getAllPatientsInQueue() {
+        allPatientsInQueue.clear();
+        allPatientsInQueue.addAll(mainQueue.getList());
+        allPatientsInQueue.addAll(preferenceQueue.getList());
         PatientComparator<Person> comparator = new PatientComparator<>();
         allPatientsInQueue.sort(comparator);
-        return FXCollections.unmodifiableObservableList(
-                new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
+        return FXCollections.unmodifiableObservableList(allPatientsInQueue);
     }
     //=========== Filtered Patient List Accessors =============================================================
 
