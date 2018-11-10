@@ -260,14 +260,16 @@ public class InsertPersonCommandTest {
         }
 
         @Override
-        public void insertPerson(Person person, Module module, Person personToInsert,
-                                 Module moduleToInsert) {
+        public void insertPerson(Person personDeep, Module moduleDeep,
+                                 Person personShallow, Module moduleShallow,
+                                 Person personToInsert, Module moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void insertPerson(Person person, Occasion occasion, Person personToInsert,
-                                 Occasion moduleToInsert) {
+        public void insertPerson(Person personDeep, Occasion occasionDeep,
+                                 Person personShallow, Occasion occasionShallow,
+                                 Person personToInsert, Occasion moduleToInsert) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -324,23 +326,23 @@ public class InsertPersonCommandTest {
         }
 
         @Override
-        public void insertPerson(Person personToInsert, Occasion occasionToInsert,
+        public void insertPerson(Person personToInsertDeep, Occasion occasionToInsertDeep,
+                                        Person personToInsertShallow, Occasion occasionToInsertShallow,
                                         Person personToReplace, Occasion occasionToReplace) {
-            requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);
-            personToInsert.getOccasionList().add(occasionToInsert);
-            occasionToInsert.getAttendanceList().add(personToInsert);
-            updatePerson(personToInsert, personToReplace);
-            updateOccasion(occasionToInsert, occasionToReplace);
+            personToInsertDeep.getOccasionList().add(occasionToInsertShallow);
+            occasionToInsertDeep.getAttendanceList().add(personToInsertShallow);
+            updatePerson(personToInsertDeep, personToReplace);
+            updateOccasion(occasionToInsertDeep, occasionToReplace);
         }
 
         @Override
-        public void insertPerson(Person personToInsert, Module moduleToInsert,
+        public void insertPerson(Person personToInsertDeep, Module moduleToInsertDeep,
+                                        Person personToInsertShallow, Module moduleToInsertShallow,
                                         Person personToReplace, Module moduleToReplace) {
-            requireAllNonNull(personToInsert, moduleToInsert, personToReplace, moduleToReplace);
-            personToInsert.getModuleList().add(moduleToInsert);
-            moduleToInsert.getStudents().add(personToInsert);
-            updatePerson(personToInsert, personToReplace);
-            updateModule(moduleToInsert, moduleToReplace);
+            personToInsertDeep.getModuleList().add(moduleToInsertShallow);
+            moduleToInsertDeep.getStudents().add(personToInsertShallow);
+            updatePerson(personToInsertDeep, personToReplace);
+            updateModule(moduleToInsertDeep, moduleToReplace);
         }
 
         @Override

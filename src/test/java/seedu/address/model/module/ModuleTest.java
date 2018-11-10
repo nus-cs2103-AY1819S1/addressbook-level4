@@ -104,10 +104,10 @@ public class ModuleTest {
         copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withSemester("4").build();
         assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
 
-        // different students list -> returns false
+        // different students list -> returns true
         UniquePersonList validStudents = new UniquePersonList(new ArrayList<>());
         validStudents.add(ALICE);
         copiedModuleOne = new ModuleBuilder(TYPICAL_MODULE_ONE).withStudents(validStudents).build();
-        assertFalse(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
+        assertTrue(TYPICAL_MODULE_ONE.equals(copiedModuleOne));
     }
 }

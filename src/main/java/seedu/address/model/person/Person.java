@@ -38,15 +38,16 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  UniqueModuleList moduleList, UniqueOccasionList occasionList) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        occasionList = new UniqueOccasionList();
-        moduleList = new UniqueModuleList();
+        this.occasionList = occasionList;
+        this.moduleList = moduleList;
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
@@ -145,6 +146,43 @@ public class Person {
         return new Person(newName, newPhone, newEmail, newAddress, newTag,
                             newUniqueOccasionList.asUnmodifiableObservableList(),
                                 newUniqueModuleList.asUnmodifiableObservableList());
+    }
+
+    /**
+     * Makes an identical copy of this person with empty module and occasion lists.
+     */
+    public Person makeShallowDuplicate() {
+        Name newName = this.name.makeDeepDuplicate();
+        Phone newPhone = this.phone.makeDeepDuplicate();
+        Email newEmail = this.email.makeDeepDuplicate();
+        Address newAddress = this.address.makeDeepDuplicate();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = new UniqueOccasionList();
+        UniqueModuleList newUniqueModuleList = new UniqueModuleList();
+        return new Person(newName, newPhone, newEmail, newAddress, newTag,
+                newUniqueOccasionList.asUnmodifiableObservableList(),
+                newUniqueModuleList.asUnmodifiableObservableList());
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editedPersonDescriptor}.
+     */
+    public static Person createEditedPerson(Person personToEdit, PersonDescriptor editedPersonDescriptor) {
+        assert personToEdit != null;
+
+        Name updatedName = editedPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editedPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editedPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editedPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        UniqueModuleList updatedModuleList = editedPersonDescriptor
+                .getModuleList().orElse(personToEdit.getModuleList());
+        UniqueOccasionList updatedOccasionList = editedPersonDescriptor
+                .getOccasionList().orElse(personToEdit.getOccasionList());
+        Set<Tag> updatedTags = editedPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedModuleList, updatedOccasionList);
     }
 
     /**

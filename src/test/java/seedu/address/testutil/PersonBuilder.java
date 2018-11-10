@@ -163,8 +163,7 @@ public class PersonBuilder {
      * @return person which has been built.
      */
     public Person build() {
-        return new Person(name, phone, email, address, tags, occasionList.asUnmodifiableObservableList(),
-                moduleList.asUnmodifiableObservableList());
+        return new Person(name, phone, email, address, tags, moduleList, occasionList);
     }
 
 }

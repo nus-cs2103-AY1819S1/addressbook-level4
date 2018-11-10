@@ -11,16 +11,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class OccasionName {
 
-    public static final String MESSAGE_OCCASIONNAME_CONSTRAINTS = "Occasion "
-        + "names should only contain alphanumeric characters and spaces with length ranges from 3 to 30"
-        + ", and it should not be blank.";
+    public static final String MESSAGE_OCCASIONNAME_CONSTRAINTS =
+            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The name of an occasion should consist of any number of alphanumeric
-     * characters and spaces.
-     * Length of the name should be restricted between 3 - 30.
+     * characters and spaces..
      */
-    public static final String OCCASIONNAME_VALIDATION_REGEX = "[a-zA-Z0-9 ]{3,30}";
+    public static final String OCCASIONNAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String fullOccasionName;
 

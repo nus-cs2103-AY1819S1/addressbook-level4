@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,26 +195,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces {@code personToInsert} and {@code moduleToInsert} with
      * {@code personToReplace} and {@code moduleToReplace} respectively.
      */
-    public void insertPerson(Person personToInsert, Module moduleToInsert,
-                             Person personToReplace, Module moduleToReplace) {
-        requireAllNonNull(personToInsert, moduleToInsert);
-        personToInsert.getModuleList().add(moduleToInsert);
-        moduleToInsert.getStudents().add(personToInsert);
-        updatePerson(personToReplace, personToInsert);
-        updateModule(moduleToReplace, moduleToInsert);
+    public void insertPerson(Person personToInsertDeep, Module moduleToInsertDeep, Person personToInsertShallow,
+                             Module moduleToInsertShallow, Person personToReplace, Module moduleToReplace) {
+        personToInsertDeep.getModuleList().add(moduleToInsertShallow);
+        moduleToInsertDeep.getStudents().add(personToInsertShallow);
+        updatePerson(personToReplace, personToInsertDeep);
+        updateModule(moduleToReplace, moduleToInsertDeep);
     }
 
     /**
      * Replaces {@code personToInsert} and {@code occasionToInsert} with
      * {@code personToReplace} and {@code occasionToReplace} respectively.
      */
-    public void insertPerson(Person personToInsert, Occasion occasionToInsert,
-                             Person personToReplace, Occasion occasionToReplace) {
-        requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);
-        personToInsert.getOccasionList().add(occasionToInsert);
-        occasionToInsert.getAttendanceList().add(personToInsert);
-        updatePerson(personToReplace, personToInsert);
-        updateOccasion(occasionToReplace, occasionToInsert);
+    public void insertPerson(Person personToInsertDeep, Occasion occasionToInsertDeep, Person personToInsertShallow,
+                             Occasion occasionToInsertShallow, Person personToReplace, Occasion occasionToReplace) {
+        personToInsertDeep.getOccasionList().add(occasionToInsertShallow);
+        occasionToInsertDeep.getAttendanceList().add(personToInsertShallow);
+        updatePerson(personToReplace, personToInsertDeep);
+        updateOccasion(occasionToReplace, occasionToInsertDeep);
     }
 
 

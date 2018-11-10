@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,6 +30,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of occasions */
     ObservableList<Occasion> getFilteredOccasionList();
+
+    /** Returns the type of active list */
+    TypeUtil getActiveType();
+
+    /** Sets the type of active list */
+    void setActiveType(TypeUtil newActiveType);
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

@@ -159,17 +159,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void insertPerson(Person personToInsert, Module moduleToInsert,
-                                    Person personToReplace, Module moduleToReplace) {
-        versionedAddressBook.insertPerson(personToInsert, moduleToInsert, personToReplace, moduleToReplace);
+    public void insertPerson(Person personToInsertDeep, Module moduleToInsertDeep, Person personToInsertShallow,
+                                    Module moduleToInsertShallow, Person personToReplace, Module moduleToReplace) {
+        versionedAddressBook.insertPerson(personToInsertDeep, moduleToInsertDeep,
+                                            personToInsertShallow, moduleToInsertShallow,
+                                            personToReplace, moduleToReplace);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void insertPerson(Person personToInsert, Occasion occasionToInsert,
-                                    Person personToReplace, Occasion occasionToReplace) {
-        versionedAddressBook.insertPerson(personToInsert, occasionToInsert,
-                                            personToReplace, occasionToReplace);
+    public void insertPerson(Person personToInsertDeep, Occasion occasionToInsertDeep, Person personToInsertShallow,
+                                    Occasion occasionToInsertShallow, Person personToReplace,
+                                            Occasion occasionToReplace) {
+        versionedAddressBook.insertPerson(personToInsertDeep, occasionToInsertDeep, personToInsertShallow,
+                                            occasionToInsertShallow, personToReplace, occasionToReplace);
         indicateAddressBookChanged();
     }
 
