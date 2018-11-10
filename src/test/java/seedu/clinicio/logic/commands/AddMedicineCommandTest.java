@@ -107,19 +107,8 @@ public class AddMedicineCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        
+
         @Override
-        public void addUi(Ui ui) {
-            throw new AssertionError("This method should not be called.");
-        }
-        
-         //@@author iamjackslayer
-        @Override
-        public void switchTab(int index) {
-            throw new AssertionError("This method should not be called.");
-        }
-        
-         @Override
         public void updateQueue(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
