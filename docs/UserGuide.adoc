@@ -69,8 +69,13 @@ Example(s):
 
 * `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
 
+[NOTE]
 The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
 *Other inputs will not be allowed.*
+
+[WARNING]
+The HealthBase System assumes that there are `31` days for all months. For the inputs of the dates `31` and `29` (for February), it is the onus of the user to ensure that
+the input month has `31` days (for months except February) and `29` days for February in a leap year.
 //end::addappt[]
 
 //tag::adddiet[]
