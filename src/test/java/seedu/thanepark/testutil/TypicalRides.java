@@ -56,6 +56,10 @@ public class TypicalRides {
             .withWaitTime(VALID_WAIT_TIME_BOB)
             .withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+    public static final Ride RACHEL = new RideBuilder().withName("R@chel")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withWaitTime("16").withMaintenance("31")
+            .withTags("heightRestrictions", "rollerCoaster").build();
 
     public static final String KEYWORD_MATCHING_THE = "The"; // A keyword that matches MEIER
 

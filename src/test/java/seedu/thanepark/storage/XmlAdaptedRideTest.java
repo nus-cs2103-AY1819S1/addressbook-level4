@@ -3,6 +3,7 @@ package seedu.thanepark.storage;
 import static org.junit.Assert.assertEquals;
 import static seedu.thanepark.storage.XmlAdaptedRide.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
+import static seedu.thanepark.testutil.TypicalRides.RACHEL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.testutil.Assert;
 
 public class XmlAdaptedRideTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String VALID_NAME_WITH_SYMBOLS = "R@chel";
     private static final String INVALID_MAINTENANCE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
@@ -39,11 +40,10 @@ public class XmlAdaptedRideTest {
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedRide person =
-                new XmlAdaptedRide(INVALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_validNameWithSymbols() throws Exception {
+        XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME_WITH_SYMBOLS, VALID_MAINTENANCE, VALID_WAIT_TIME,
+                VALID_ADDRESS, VALID_TAGS);
+        assertEquals(RACHEL, person.toModelType());
     }
 
     @Test
