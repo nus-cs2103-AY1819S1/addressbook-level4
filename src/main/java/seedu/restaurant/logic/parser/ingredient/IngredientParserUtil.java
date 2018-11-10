@@ -110,7 +110,7 @@ public class IngredientParserUtil {
         requireNonNull(numUnits);
         String trimmedNumUnits = numUnits.trim();
         if (!StringUtil.isUnsignedInteger(trimmedNumUnits)) {
-            throw new ParseException(NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS);
+            throw new ParseException(NumUnits.MESSAGE_NUM_UNITS_CONSTRAINTS);
         }
         return new NumUnits(parseInt(trimmedNumUnits));
     }

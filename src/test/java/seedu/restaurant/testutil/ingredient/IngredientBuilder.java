@@ -16,7 +16,7 @@ public class IngredientBuilder {
     public static final String DEFAULT_UNIT = "packet of 5";
     public static final String DEFAULT_PRICE = "1.90";
     public static final int DEFAULT_MINIMUM = 3;
-    public static final int DEFAULT_NUMUNITS = 0;
+    public static final int DEFAULT_NUM_UNITS = 0;
 
     private IngredientName name;
     private IngredientUnit unit;
@@ -29,7 +29,7 @@ public class IngredientBuilder {
         unit = new IngredientUnit(DEFAULT_UNIT);
         price = new IngredientPrice(DEFAULT_PRICE);
         minimum = new MinimumUnit(DEFAULT_MINIMUM);
-        numUnits = new NumUnits(DEFAULT_NUMUNITS);
+        numUnits = new NumUnits(DEFAULT_NUM_UNITS);
     }
 
     /**

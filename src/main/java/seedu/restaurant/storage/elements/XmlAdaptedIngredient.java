@@ -156,7 +156,7 @@ public class XmlAdaptedIngredient {
                     NumUnits.class.getSimpleName()));
         }
         if (!NumUnits.isValidNumUnits(numUnits)) {
-            throw new IllegalValueException(NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS);
+            throw new IllegalValueException(NumUnits.MESSAGE_NUM_UNITS_CONSTRAINTS);
         }
     }
 

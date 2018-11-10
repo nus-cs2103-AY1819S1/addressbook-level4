@@ -136,8 +136,8 @@ public class CommandTestUtil {
     public static final String VALID_PRICE_BROCCOLI = "6.50";
     public static final int VALID_MINIMUM_APPLE = 3;
     public static final int VALID_MINIMUM_BROCCOLI = 5;
-    public static final int VALID_NUMUNITS_APPLE = 10;
-    public static final int VALID_NUMUNITS_BROCCOLI = 28;
+    public static final int VALID_NUM_UNITS_APPLE = 10;
+    public static final int VALID_NUM_UNITS_BROCCOLI = 28;
 
     public static final String INGREDIENT_NAME_DESC_APPLE = " " + PREFIX_INGREDIENT_NAME + VALID_NAME_APPLE;
     public static final String INGREDIENT_NAME_DESC_BROCCOLI = " " + PREFIX_INGREDIENT_NAME + VALID_NAME_BROCCOLI;
