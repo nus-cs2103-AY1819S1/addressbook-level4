@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ProjectName {
 
-    public static final String MESSAGE_PROJECT_NAME_CONSTRAINTS = "Project names should not be blank";
+    public static final String MESSAGE_PROJECT_NAME_CONSTRAINTS = "Assignment names should not be blank";
 
     /*
      * The first character of the project name must not be a whitespace,
