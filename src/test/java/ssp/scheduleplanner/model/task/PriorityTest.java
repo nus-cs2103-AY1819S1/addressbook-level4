@@ -22,7 +22,7 @@ public class PriorityTest {
 
     @Test
     public void isValidEmail() {
-        
+
         // null priority
         Assert.assertThrows(NullPointerException.class, () -> Priority.isValidPriority(null));
 
