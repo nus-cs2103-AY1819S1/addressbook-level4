@@ -61,20 +61,20 @@ https://github.com/CS2103-AY1819S1-W16-1/main/issues/156[#156]
 == Contributions to the User Guide
 
 |===
-|_The following sections below showcase my contributions to the User Guide and
+|_The following sections below showcase some of my contributions to the User Guide and
 my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=menu]
+include::../UserGuide.adoc[tag=menuPart1]
 
-//include::../UserGuide.adoc[tag=menuv2]
+include::../UserGuide.adoc[tag=menuPart2]
 
 [[dev]]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections below showcase my contributions to the Developer Guide. It also showcase my ability to write
-technical documentation and the technical depth of my contributions to the project._
+|_The following sections below showcase some of my contributions to the Developer Guide. It also showcase my ability to
+write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=menuPart1]

@@ -437,7 +437,7 @@ Examples:
 * `stockup n/cod fish nu/5`
 * `stockup n/chicken thigh nu/10 n/fries nu/20 n/tomato ketchup nu/50`
 
-// tag::menu[]
+// tag::menuPart1[]
 === Menu Management
 [[add-item]]
 ==== Adding an item to the menu: `add-item` or `ai`
@@ -523,6 +523,7 @@ Deletes the `Apple Juice` item in the menu.
 * `fi Cheese` +
 `din Cheese Fries` +
 Deletes `Cheese Fries` item in the results of the `find` command.
+//end::menuPart1[]
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -565,6 +566,7 @@ Returns `burger` and `Cheese Burger`
 * `fi Cheese Chocolate Fruit` +
 Returns any item having names `Cheese`, `Chocolate`, or `Fruit`
 
+//tag::menuPart2[]
 ==== Filter menu by tag: `filter-menu` or `fm`
 
 Finds items that contain the given tag in the menu. +
@@ -646,6 +648,7 @@ Examples:
 * `today-special` +
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
+//end::menuPart2[]
 
 ==== Adding recipe to item : `recipe-item` or `ri`
 
