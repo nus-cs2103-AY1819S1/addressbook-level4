@@ -39,6 +39,9 @@ public class QueueDisplay extends UiPart<Region> {
     public QueueDisplay() {
         super(FXML);
 
+        // Disable right-click
+        this.display.setContextMenuEnabled(false);
+
         // Init web view script runner
         this.webViewScript = new WebViewScriptManager(this.display);
 
