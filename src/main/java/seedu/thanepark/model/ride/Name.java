@@ -18,7 +18,7 @@ public class Name {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*[\\p{Punct}\\p{Alnum} ]*"
-            +"[\\p{Punct} ]*";
+            + "[\\p{Punct} ]*";
 
     public final String fullName;
 
