@@ -157,7 +157,8 @@ Steps to the specified time point of the current track. +
 Format: `seek d/TIME`
 
 ****
-* `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the time point.
+* `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the
+time point. Only unsigend integers are alloewed as time inputs.
 * Examples of valid `TIME`:
 ** `10` (10 sec)
 ** `1 59` (1 min 59 sec)
