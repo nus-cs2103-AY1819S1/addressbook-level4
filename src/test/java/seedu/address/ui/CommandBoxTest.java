@@ -13,8 +13,8 @@ import javafx.scene.input.KeyCode;
 import seedu.address.MainApp;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.ApplyCommand;
 import seedu.address.logic.commands.CdCommand;
-import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -28,7 +28,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
     private static final String CD_COMMAND_THAT_SUCCEEDS = CdCommand.COMMAND_WORD;
     private static final String UNDO_COMMAND_THAT_FAILS = UndoCommand.COMMAND_WORD;
-    private static final String CONVERT_COMMAND_THAT_FAILS = ConvertCommand.COMMAND_WORD;
+    private static final String APPLY_COMMAND_THAT_FAILS = ApplyCommand.COMMAND_WORD;
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -160,10 +160,10 @@ public class CommandBoxTest extends GuiUnitTest {
         assertInputHistory(KeyCode.UP, UNDO_COMMAND_THAT_FAILS + " ");
 
         // convert command
-        commandBoxHandle.setText(CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.TAB, CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.DOWN, CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.UP, CONVERT_COMMAND_THAT_FAILS + " ");
+        commandBoxHandle.setText(APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.TAB, APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.DOWN, APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.UP, APPLY_COMMAND_THAT_FAILS + " ");
     }
 
     @Test
