@@ -33,14 +33,14 @@ public interface FeatureStorage {
 
     /**
      * Saves the given {@link ReadOnlyAppContent} to the storage.
-     * @param addressBook cannot be null.
+     * @param readOnlyAppContent cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveFeature(ReadOnlyAppContent addressBook) throws IOException;
+    void saveFeature(ReadOnlyAppContent readOnlyAppContent) throws IOException;
 
     /**
      * @see #saveFeature(ReadOnlyAppContent)
      */
-    void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
+    void saveFeature(ReadOnlyAppContent readOnlyAppContent, Path filePath) throws IOException;
 
 }
