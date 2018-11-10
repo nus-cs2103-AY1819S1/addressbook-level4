@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.net.URL;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -54,7 +55,6 @@ public class TaskViewPanel extends UiPart<Region> {
     }
 
     private void displayTask(Task task) {
-        // TODO remove displayedIndex
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
         remainingTime.setText(getRemainingTime(task));
@@ -63,7 +63,7 @@ public class TaskViewPanel extends UiPart<Region> {
         status.setText(task.getStatus().toString());
         hash.setText(getHashId(task));
         dependency.setText(getDependencies(task));
-        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        tags.getChildren().setAll(task.getLabels().stream().map(t -> new Label(t.labelName)).collect(Collectors.toList()));
     }
 
     private String getHashId(Task task) {
