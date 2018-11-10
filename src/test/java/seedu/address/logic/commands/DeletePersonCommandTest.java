@@ -41,7 +41,7 @@ public class DeletePersonCommandTest {
     public void execute_validPatient_success() {
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(0);
         DeletePatientCommand deletePatientCommand =
-                new DeletePatientCommand(firstPatient.getName());
+                new DeletePatientCommand(firstPatient.getName(), firstPatient.getPhone());
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, firstPatient);
 
@@ -56,11 +56,11 @@ public class DeletePersonCommandTest {
     @Test
     public void execute_invalidPatient_throwsCommandException() {
         // invalid name
-        assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445")),
+        assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445"), null),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
 
         // not patient
-        assertCommandFailure(new DeletePatientCommand(GEORGE_DOCTOR_APPT.getName()),
+        assertCommandFailure(new DeletePatientCommand(GEORGE_DOCTOR_APPT.getName(), GEORGE_DOCTOR_APPT.getPhone()),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
     }
 
@@ -68,7 +68,7 @@ public class DeletePersonCommandTest {
     public void execute_validDoctor_success() {
         Doctor firstDoctor = (Doctor) model.getFilteredPersonList().get(5);
         DeleteDoctorCommand deleteDoctorCommand =
-                new DeleteDoctorCommand(firstDoctor.getName());
+                new DeleteDoctorCommand(firstDoctor.getName(), firstDoctor.getPhone());
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, firstDoctor);
 
@@ -85,11 +85,11 @@ public class DeletePersonCommandTest {
     @Test
     public void execute_invalidDoctor_throwsCommandException() {
         // invalid name
-        assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445")),
+        assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445"), null),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
 
         // not doctor
-        assertCommandFailure(new DeleteDoctorCommand(ALICE_PATIENT_APPT.getName()),
+        assertCommandFailure(new DeleteDoctorCommand(ALICE_PATIENT_APPT.getName(), null),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
     }
 
@@ -165,19 +165,21 @@ public class DeletePersonCommandTest {
 
     @Test
     public void equals() {
-        DeletePatientCommand deleteFirstCommand = new DeletePatientCommand(ALICE_PATIENT_APPT.getName());
-        DeletePatientCommand deleteSecondCommand = new DeletePatientCommand(BENSON_PATIENT_APPT.getName());
-        DeleteDoctorCommand deleteThirdCommand = new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName());
-        DeleteDoctorCommand deleteFourthCommand = new DeleteDoctorCommand(GEORGE_DOCTOR_APPT.getName());
+        DeletePatientCommand deleteFirstCommand = new DeletePatientCommand(ALICE_PATIENT_APPT.getName(), null);
+        DeletePatientCommand deleteSecondCommand = new DeletePatientCommand(BENSON_PATIENT_APPT.getName(), null);
+        DeleteDoctorCommand deleteThirdCommand = new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName(), null);
+        DeleteDoctorCommand deleteFourthCommand = new DeleteDoctorCommand(GEORGE_DOCTOR_APPT.getName(), null);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
         assertTrue(deleteThirdCommand.equals(deleteThirdCommand));
 
         // same values -> returns true
-        DeletePatientCommand deleteFirstCommandCopy = new DeletePatientCommand(ALICE_PATIENT_APPT.getName());
+        DeletePatientCommand deleteFirstCommandCopy = new DeletePatientCommand(ALICE_PATIENT_APPT.getName(),
+                null);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
-        DeleteDoctorCommand deleteThirdCommandCopy = new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName());
+        DeleteDoctorCommand deleteThirdCommandCopy = new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName(),
+                null);
         assertTrue(deleteThirdCommandCopy.equals(deleteThirdCommandCopy));
 
         // different types -> returns false
