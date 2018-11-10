@@ -16,6 +16,12 @@ import seedu.address.model.module.Year;
  * Parses input arguments and creates a new AdjustCommand object
  */
 public class AdjustCommandParser implements Parser<AdjustCommand> {
+
+    public static final String INPUT_SUGGESTION = "\nInput order: c_adjust MODULE_CODE GRADE"
+            + "\nExample 1: c_adjust CS2103 A"
+            + "\nIf the module code is NOT unique, include the YEAR and SEM: "
+            + "c_adjust MODULE_CODE YEAR SEM GRADE"
+            + "\nExample 2: c_adjust CS2103 1 1 A";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -23,12 +29,7 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        String inputSuggestion = "\nInput order: c_adjust MODULE_CODE GRADE"
-                + "\nExample 1: c_adjust CS2103 A"
-                + "\nIf the module code is NOT unique, include the YEAR and SEM: "
-                + "c_adjust MODULE_CODE YEAR SEM GRADE"
-                + "\nExample 2: c_adjust CS2103 1 1 A";
-        argsWithBounds(tokenizedArgs, Set.of(2, 4), inputSuggestion);
+        argsWithBounds(tokenizedArgs, Set.of(2, 4), INPUT_SUGGESTION);
 
         int index = 0;
 

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.DeleteModuleCommandParser.INPUT_SUGGESTION;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 
 import java.util.EnumMap;
@@ -51,14 +52,10 @@ public class DeleteModuleCommandParserTest {
      */
     @Test
     public void parseInvalidNumOfArgumentFails() {
-        String inputSuggestion = "\nInput order: 'c_delete -t TARGET_CODE' "
-                + "OR c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
-                + "\nExample 1: c_delete -t CS2103 "
-                + "\nExample 2: c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER";
         String exceptionMsg = "Invalid number of arguments! Number of arguments"
                 + " should be 2, 4, 6"
                 + "\n"
-                + inputSuggestion;
+                + INPUT_SUGGESTION;
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser,

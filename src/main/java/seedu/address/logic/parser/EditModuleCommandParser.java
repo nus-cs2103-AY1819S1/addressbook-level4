@@ -29,6 +29,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * {@code EditModuleCommand}.
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
+
+    public static final String INPUT_SUGGESTION = "\nInput order: 'c_edit -t TARGET_CODE' "
+            + "OR 'c_edit -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
+            + "\nUse [-m NEW_CODE]\n"
+            + "[-y NEW_YEAR]\n"
+            + "[-s NEW_SEMESTER]\n"
+            + "[-c NEW_CREDIT]\n"
+            + "[-g NEW_GRADE] to edit specific areas."
+            + "\nExample 1: c_edit -t CS2103 -g A+ "
+            + "\nExample 2: c_edit -t CS2103 -e 3 -z 2 -s 1";
     /**
      * Message that informs that the command is in a wrong format and
      * prints the usage for edit command.
@@ -128,17 +138,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         // Arguments should be in name-value pair.
         // Name should be legal.
         // No duplicate name.
-        String inputSuggestion = "\nInput order: 'c_edit -t TARGET_CODE' "
-                + "OR 'c_edit -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
-                + "\nUse [-m NEW_CODE]\n"
-                + "[-y NEW_YEAR]\n"
-                + "[-s NEW_SEMESTER]\n"
-                + "[-c NEW_CREDIT]\n"
-                + "[-g NEW_GRADE] to edit specific areas."
-                + "\nExample 1: c_edit -t CS2103 -g A+ "
-                + "\nExample 2: c_edit -t CS2103 -e 3 -z 2 -s 1";
-
-        argsWithBounds(args, ALLOWED_ARG_SIZE, inputSuggestion);
+        argsWithBounds(args, ALLOWED_ARG_SIZE, INPUT_SUGGESTION);
         argsAreNameValuePair(args, MESSAGE_INVALID_FORMAT);
         validateName(args, NAME_TO_ARGUMENT_MAP, MESSAGE_INVALID_FORMAT);
 
