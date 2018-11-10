@@ -79,12 +79,12 @@ public class Amount implements Comparable<Amount> {
     /**
      * Calculates interest based on interestScheme and interestRate inputted by the user.
      */
-    public static Amount calculateInterest(Amount principalAmount, String interestScheme, String interestRate,
-                                           long durationInMonths) {
+    public static Amount calculateInterest(Amount principalAmount, InterestScheme interestScheme,
+                                           InterestRate interestRate, long durationInMonths) {
         int monthsInAYear = 12;
         Amount convertedAmount = new Amount();
-        convertedAmount.interestScheme = new InterestScheme(interestScheme);
-        convertedAmount.interestRate = new InterestRate(interestRate);
+        convertedAmount.interestScheme = interestScheme;
+        convertedAmount.interestRate = interestRate;
         double originalValue = principalAmount.getValue();
         double calculatedValue;
         if (convertedAmount.interestScheme.getValue().equals("simple")) {
