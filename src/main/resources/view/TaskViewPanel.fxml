@@ -19,53 +19,53 @@
             </padding>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Name: </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+                <Label styleClass="cell_big_label">NAME: </Label>
+                <Label fx:id="name" styleClass="cell_big_label"/>
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Tags: </Label>
+                <Label styleClass="cell_big_label">TAGS: </Label>
                 <FlowPane fx:id="tags" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Due Date: </Label>
-                <Label fx:id="dueDate" styleClass="cell_big_label" text="\$dueDate" />
+                <Label styleClass="cell_big_label">DUE DATE: </Label>
+                <Label fx:id="dueDate" styleClass="cell_big_label"/>
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Remaining Time: </Label>
-                <Label fx:id="remainingTime" styleClass="cell_big_label" text="\$remainingTime" />
+                <Label styleClass="cell_big_label">REMAINING TIME: </Label>
+                <Label fx:id="remainingTime" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Description: </Label>
-                <Label fx:id="description" styleClass="cell_big_label" text="\$description" />
+                <Label styleClass="cell_big_label">DESCRIPTION: </Label>
+                <Label fx:id="description" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Priority Value: </Label>
-                <Label fx:id="priorityValue" styleClass="cell_big_label" text="\$priorityValue" />
+                <Label styleClass="cell_big_label">PRIORITY VALUE: </Label>
+                <Label fx:id="priorityValue" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Status: </Label>
-                <Label fx:id="status" styleClass="cell_big_label" text="\$status" />
+                <Label styleClass="cell_big_label">STATUS: </Label>
+                <Label fx:id="status" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Hash: </Label>
-                <Label fx:id="hash" styleClass="cell_big_label" text="\$hash" />
+                <Label styleClass="cell_big_label">HASH: </Label>
+                <Label fx:id="hash" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Dependency: </Label>
-                <Label fx:id="dependency" styleClass="cell_big_label" text="\$dependency" />
+                <Label styleClass="cell_big_label">DEPENDENCY: </Label>
+                <Label fx:id="dependency" styleClass="cell_big_label" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">Earliest due date of dependant tasks: </Label>
-                <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" text="\$earliestTimeOfChildren" />
+                <Label styleClass="cell_big_label">EFFECTIVE DUE DATE: </Label>
+                <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" />
             </HBox>
 
         </VBox>
