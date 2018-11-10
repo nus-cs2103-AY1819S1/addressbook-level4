@@ -28,7 +28,10 @@ import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
@@ -147,13 +150,13 @@ public class SampleDataUtil {
         ArrayList<Meal> list = new ArrayList<>();
         ArrayList<Meal> list2 = new ArrayList<>();
 
-        list.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[0]));
-        list.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[1]));
-        list.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+        list.add(new Breakfast(getSampleRecipes()[0]));
+        list.add(new Lunch(getSampleRecipes()[1]));
+        list.add(new Dinner(getSampleRecipes()[2]));
 
-        list2.add(new Meal(Meal.Slot.BREAKFAST, getSampleRecipes()[2]));
-        list2.add(new Meal(Meal.Slot.LUNCH, getSampleRecipes()[3]));
-        list2.add(new Meal(Meal.Slot.DINNER, getSampleRecipes()[2]));
+        list2.add(new Breakfast(getSampleRecipes()[2]));
+        list2.add(new Lunch(getSampleRecipes()[3]));
+        list2.add(new Dinner(getSampleRecipes()[2]));
 
         return new Day[] {
             new Day (modelDate, list),

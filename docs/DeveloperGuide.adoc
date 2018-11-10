@@ -208,26 +208,30 @@ between the superclass and subclass of the old hierarchy to give the new hierarc
 
 _Explanation_:
 
-With the GenericListPanel, GenericCard and GenericPanelSelectionChangedEvent classes,
+With the *GenericListPanel*, *GenericCard* and *GenericPanelSelectionChangedEvent* classes,
 new features which wish to use the UI list panel simply have to have their respective
 classes extend these three abstract classes and implement their methods accordingly.
 Then the respective fxml files for [feature]ListPanel and [feature]Card have to be
 created.
 
-_MainWindow.java and UiManager.java_:
+_MainWindow.java and ListPanelSwitchEvent.java_:
 
+*ListPanelSwitchEvent* encapsulates an event where the list panel needs to change context.
+It extends *BaseEvent* and contains a *Context* attribute to store information on which context
+the list panel needs to switch to. +
 To switch between different list panels for different features, switchTo[feature]ListPanel()
 methods have to be implemented in MainWindow. This method gets the respective filteredList
 from the model within modelSet within logic and uses it to change the generalListPanel.
-The switchTo[feature]ListPanel() method has to then be implemented in UiManager (and
-declared in Ui interface) so that the method can be called through UiManager.
+The handleListPanelSwitchEvent() method is invoked when a *ListPanelSwitchEvent* is posted
+to the *EventsCenter*, and the method then checks the context attribute of the *ListPanelSwitchEvent*
+object to determine which context the list panel needs to switch to, and then calls the correct method.
 
 
 _Usage_:
 
-Now in order to switch between the different list panels, the developer just has to
-call their switchTo[feature]ListPanel() function from the Ui interface. This can be done
-anywhere as long as they have access to UiManager.
+Now in order to switch between the different feature list panels, the developer just has to
+create their handler method, instantiating a *ListPanelSwitchEvent* with their desired context
+and then raising the event by posting it to the *EventsCenter*.
 
 // end::uimodularisation[]
 
@@ -367,10 +371,20 @@ with 3 empty *Meal* objects in the _mealList_.
 as they have the same *LocalDate* _date_. This is to ensure no duplication of dates
 within the Meal Planner.
 
-* *Meal*: encapsulates a *Optional<Recipe>* _recipe_ and an int _slot_ indicating which
-meal slot each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner).
+* *Meal*: abstract class which encapsulates a *Optional<Recipe>* _recipe_, an *int* _index_
+indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner),
+and a *String* _slot_ containing its corresponding name.
 
-** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
+* *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
+Contains a predefined integer index of 0 and a predefined String slot name of "breakfast".
+
+* *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
+Contains a predefined integer index of 1 and a predefined String slot name of "lunch".
+
+* *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
+Contains a predefined integer index of 2 and a predefined String slot name of "dinner".
+
+** An empty *Meal* is defined as having no recipe, i.e. empty *Optional*.
 ****
 
 Class diagram:
@@ -416,8 +430,8 @@ Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 The select command selects a recipe of a specified meal of a specified day and displays the details
 of the recipe (ingredients, instructions, etc) in the DetailPanel. +
 *MealPlannerParser* invokes the parseMealRecipe() command of *SelectCommandParser*. The desired
-index and meal slot are parsed from the user input and used to extract the _recipe_ from the
-specified day's desired meal slot. Using this _recipe_, the _recipeModel_ is searched and the
+index and meal index are parsed from the user input and used to extract the _recipe_ from the
+specified day's desired meal index. Using this _recipe_, the _recipeModel_ is searched and the
 index of the matching recipe is returned. +
 The index and the _recipeModel_ are then passed to
 a *SelectCommand* which executes the displaying of the recipe details in the same manner as
@@ -522,7 +536,7 @@ word, and `Ingredient` for any matching `IngredientDefinition`. All keywords mus
 
 The following code snippet shows how the predict determines each recipe: +
 
-include::../src/main/java/seedu/souschef/model/recipe/NameContainsKeywordsPredicate.java[lines=20..34]
+include::../src/main/java/seedu/souschef/model/recipe/RecipeContainsKeywordsPredicate.java[lines=20..34]
 
 The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
 
@@ -992,8 +1006,8 @@ Use case ends.
 
 1. User requests to list available recipes.
 2. System shows list of available recipes.
-3. User selects desired recipe and adds it to the desired meal slot.
-4. System shows the recipe listed under the indicated meal slot.
+3. User selects desired recipe and adds it to the desired meal index.
+4. System shows the recipe listed under the indicated meal index.
 +
 Use case ends.
 
@@ -1005,7 +1019,7 @@ Use case ends.
 1. User requests to view current meal plan.
 2. System shows current meal plan.
 3. User requests to delete unwanted recipe.
-4. System shows specified meal slot as empty.
+4. System shows specified meal index as empty.
 +
 Use case ends.
 
@@ -1024,8 +1038,8 @@ Use case ends.
 
 *MSS*
 
-1. User requests to view recipe for a specific meal slot.
-2. System shows the full recipe of the specified meal slot.
+1. User requests to view recipe for a specific meal index.
+2. System shows the full recipe of the specified meal index.
 +
 Use case ends.
 
