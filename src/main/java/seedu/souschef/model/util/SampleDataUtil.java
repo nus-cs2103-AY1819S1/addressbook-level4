@@ -49,46 +49,63 @@ public class SampleDataUtil {
             new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Boil the chicken in water 700 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"),
+                                    getIngredientPortionSet())
                     ), getTagSet("Asian", "Singapore", "Poultry")),
             new Recipe(new Name("Black pepper Chicken"), new Difficulty("2"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Heat up the pan with old 2 tablespoon.",
-                                    getIngredientPortionSet(new IngredientPortion("oil", "tablespoon", 2.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("oil", "tablespoon", 2.0))),
                             new Instruction("Add oyster sauce 3 tablespoon, black pepper 20 g and water 50 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("oyster sauce", "tablespoon",
+
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("oyster sauce", "tablespoon",
                                             3.0))),
-                            new Instruction("Stir-fry for 10 mins.", new CookTime("10M"), getIngredientPortionSet())
+                            new Instruction("Stir-fry for 10 mins.", new CookTime("10M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Spicy", "Poultry")),
             new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice vegetables 70 gram of any kind.",
-                                    getIngredientPortionSet(new IngredientPortion("vegetables", "gram", 70.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("vegetables", "gram", 70.0))),
                             new Instruction("Add water 200 ml and noodles 300 g into the pan.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 200.0),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 200.0),
                                             new IngredientPortion("noodles", "gram", 300.0))),
                             new Instruction("Remove the water and put soy sauce 50 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 50.0))),
-                            new Instruction("Fry for 7 mins.", new CookTime("7M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 50.0))),
+                            new Instruction("Fry for 7 mins.", new CookTime("7M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Staple", "Vegetarian")),
             new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("50M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Boil the chicken in water 700 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Staple", "Poultry")),
             new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("40M"),
@@ -103,7 +120,30 @@ public class SampleDataUtil {
                                     + "griddle or heavy iron pan."),
                             new Instruction("Fry each prata dough until brown on both sides.")
                     ),
-                    getTagSet("Staple", "Vegetarian", "Halal"))
+                    getTagSet("Staple", "Vegetarian", "Halal")),
+
+                new Recipe(new Name("American Breakfast"), new Difficulty("2"), new CookTime("15M"),
+                        getInstructionList(
+                                new Instruction("Crack 2 whole eggs and beat the eggs with 3/4 cup milk, a" +
+                                        "pinch of salt and black pepper",
+                                        getIngredientPortionSet(
+                                                new IngredientPortion("egg", "whole", 2.0),
+                                                new IngredientPortion("milk", "cup", 0.75),
+                                                new IngredientPortion("salt", "pinch", 1.0),
+                                                new IngredientPortion("blackPepper", "pinch", 1.0))),
+                                new Instruction("Put 2 sausages and 2 pieces of bread into a toaster for " +
+                                        "15mins",
+                                        new CookTime("15M"),
+                                        getIngredientPortionSet(
+                                                new IngredientPortion("sausage", "whole", 2.0),
+                                                new IngredientPortion("bread", "whole", 2.0)
+                                        )),
+                                new Instruction("Heat one teaspoon butter on a pan.",
+                                        getIngredientPortionSet(
+                                                new IngredientPortion("butter", "teaspoon", 1.0))),
+                                new Instruction("")
+                        ),
+                        getTagSet("Western", "American"))
         };
     }
 
