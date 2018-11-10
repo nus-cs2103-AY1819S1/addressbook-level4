@@ -11,7 +11,7 @@ import java.util.Date;
  * Represents a due date in the {@link Task}.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
  */
-public class DueDate {
+public class DueDate implements Comparable<DueDate> {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate should only contain numbers, and it should be in one of the following formats:\n"
@@ -68,6 +68,11 @@ public class DueDate {
         return other == this // short circuit if same object
                 || (other instanceof DueDate // instanceof handles nulls
                 && value.equals(((DueDate) other).value)); // state check
+    }
+
+    @Override
+    public int compareTo(DueDate other) {
+        return (int) (this.valueDate.getTime() - other.valueDate.getTime());
     }
 
     @Override

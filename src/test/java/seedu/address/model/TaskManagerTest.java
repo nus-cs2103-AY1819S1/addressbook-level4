@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.TaskBuilder;
@@ -118,6 +119,12 @@ public class TaskManagerTest {
         public List<Task> getTopologicalOrder() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public DueDate getEarliestDependentTimeForNode(Task node) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
 }

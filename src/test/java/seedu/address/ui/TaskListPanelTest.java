@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 import seedu.address.storage.XmlSerializableTaskManager;
 
@@ -129,7 +130,7 @@ public class TaskListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code TaskListPanel}.
      */
     private void initUi(ObservableList<Task> backingList) {
-        TaskListPanel taskListPanel = new TaskListPanel(backingList);
+        TaskListPanel taskListPanel = new TaskListPanel(backingList, new TaskManager());
         uiPartRule.setUiPart(taskListPanel);
 
         taskListPanelHandle = new TaskListPanelHandle(getChildNode(taskListPanel.getRoot(),
