@@ -69,33 +69,35 @@ public class ConnectToGoogleCalendar {
             + "Operation effect is only local.";
     private static final String MESSAGE_IO_ERROR = "Unable to retrieve event from Google Calendar."
             + "Please check your network and check its existence on Google Calendar.";
+    private static final String MESSAGE_READ_WRITE_ERROR =
+            "Unable to write/read the status to the local status indicator file";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
-    public static boolean isGoogleCalendarEnabled() {
+    public static boolean isGoogleCalendarEnabled() throws CommandException {
         return checkStatus("Enabled");
     }
 
-    public static boolean isGoogleCalendarDisabled() {
+    public static boolean isGoogleCalendarDisabled() throws CommandException {
         return checkStatus("Disabled");
     }
 
-    public static void setGoogleCalendarEnabled() {
+    public static void setGoogleCalendarEnabled() throws CommandException {
         setGoogleCalendarStatus("Enabled");
     }
 
-    public static void setGoogleCalendarDisabled() {
+    public static void setGoogleCalendarDisabled() throws CommandException {
         setGoogleCalendarStatus("Disabled");
     }
 
-    public static void setGoogleCalendarStatus(String wantedStatus) {
+    public static void setGoogleCalendarStatus(String wantedStatus) throws CommandException {
         File file = new File("./tokens/mode.txt");
         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-            String contents = wantedStatus;
-            writer.write(contents);
+            writer.write(wantedStatus);
             logger.info("Google Calendar status changed to " + wantedStatus
                     + " recoded in ./tokens/enabled.txt");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning(MESSAGE_READ_WRITE_ERROR);
+            throw new CommandException(MESSAGE_READ_WRITE_ERROR);
         }
     }
 
@@ -106,25 +108,24 @@ public class ConnectToGoogleCalendar {
      *
      * @return true if the expected status is true
      */
-    public static boolean checkStatus(String expectedStatus) {
+    public static boolean checkStatus(String expectedStatus) throws CommandException {
         File file = new File("./tokens/mode.txt");
         StringBuilder contents = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-
             String text;
             String lineSeparator = System.getProperty("line.separator");
             while ((text = reader.readLine()) != null) {
                 contents.append(text).append(lineSeparator);
             }
         } catch (IOException e) {
-            logger.warning("File does not exist");
-            return true;
+            logger.info(MESSAGE_IO_ERROR);
+            throw new CommandException(MESSAGE_IO_ERROR);
         }
         return (contents.toString().trim().equals(expectedStatus));
     }
 
 
-    public Calendar getCalendar() {
+    public Calendar getCalendar() throws CommandException {
         NetHttpTransport httpTransport = getNetHttpTransport();
 
         // Build Google calender service object.
@@ -146,20 +147,20 @@ public class ConnectToGoogleCalendar {
             //re-direct back to the stdout
             System.setOut(System.out);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(MESSAGE_IO_ERROR);
+            throw new CommandException(MESSAGE_IO_ERROR);
         }
         return service;
     }
 
-    public NetHttpTransport getNetHttpTransport() {
+    public NetHttpTransport getNetHttpTransport() throws CommandException {
         // Build a new authorized API client service.
         NetHttpTransport httpTransport = null;
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        } catch (GeneralSecurityException e) {
+        } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException(MESSAGE_IO_ERROR);
         }
         return httpTransport;
     }
@@ -213,7 +214,7 @@ public class ConnectToGoogleCalendar {
     /**
      * Pushes the event(s) to Google Calendar.
      */
-    public boolean pushToGoogleCal(boolean enabled, List<Event> toAddList) {
+    public boolean pushToGoogleCal(boolean enabled, List<Event> toAddList) throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -310,7 +311,7 @@ public class ConnectToGoogleCalendar {
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
      */
-    public boolean deleteOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) {
+    public boolean deleteOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -395,7 +396,7 @@ public class ConnectToGoogleCalendar {
      * @param totalInstance
      */
     public boolean deleteUpcomingOnGoogleCal(
-            boolean enabled, Event eventToDelete, int instanceIndex, int totalInstance) {
+            boolean enabled, Event eventToDelete, int instanceIndex, int totalInstance) throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -479,7 +480,8 @@ public class ConnectToGoogleCalendar {
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
      */
-    public boolean deleteAllOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) {
+    public boolean deleteAllOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex)
+            throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -558,7 +560,7 @@ public class ConnectToGoogleCalendar {
      *
      * @param enabled the enable status from caller
      */
-    public boolean clear(boolean enabled) {
+    public boolean clear(boolean enabled) throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -698,7 +700,8 @@ public class ConnectToGoogleCalendar {
      * @param rangeStartIndex the effect of update will start from this index
      */
     public boolean updateRangeGoogleEvent(boolean enabled,
-            Event eventToEdit, List<Event> editedEvents, int instanceIndex, int rangeStartIndex) {
+            Event eventToEdit, List<Event> editedEvents, int instanceIndex, int rangeStartIndex)
+            throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
         }
@@ -771,7 +774,7 @@ public class ConnectToGoogleCalendar {
      *
      * @return true if it is disabled
      */
-    private boolean statusIsDisabled(boolean enabled) {
+    private boolean statusIsDisabled(boolean enabled) throws CommandException {
         return !enabled | isGoogleCalendarDisabled();
     }
 
@@ -803,7 +806,7 @@ public class ConnectToGoogleCalendar {
         return recurringEventId;
     }
 
-    public Events getEvents(Calendar service) throws UnknownHostException {
+    public Events getEvents(Calendar service) throws UnknownHostException, CommandException {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
@@ -819,12 +822,10 @@ public class ConnectToGoogleCalendar {
                     .execute();
         } catch (UnknownHostException e) {
             throw e;
-        } catch (java.net.SocketException e2) {
-            new CommandResult(MESSAGE_IO_ERROR);
-            e2.printStackTrace();
         } catch (IOException e3) {
-            new CommandResult(MESSAGE_IO_ERROR);
             e3.printStackTrace();
+            logger.info(MESSAGE_IO_ERROR);
+            throw new CommandException(MESSAGE_IO_ERROR);
         }
         return events;
     }
@@ -847,10 +848,6 @@ public class ConnectToGoogleCalendar {
                     .execute();
         } catch (UnknownHostException e) {
             throw e;
-        } catch (java.net.SocketException e2) {
-            logger.warning(MESSAGE_IO_ERROR);
-            new CommandResult(MESSAGE_IO_ERROR);
-            e2.printStackTrace();
         } catch (IOException e3) {
             logger.warning(MESSAGE_IO_ERROR);
             new CommandResult(MESSAGE_IO_ERROR);

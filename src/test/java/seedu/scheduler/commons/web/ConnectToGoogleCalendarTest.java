@@ -37,6 +37,7 @@ import com.google.api.services.calendar.model.Calendar;
 
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.ClearCommand;
+import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
 import seedu.scheduler.model.UserPrefs;
@@ -46,6 +47,8 @@ import seedu.scheduler.model.UserPrefs;
  */
 public class ConnectToGoogleCalendarTest {
     private static final String CALENDAR_NAME = "primary";
+    private static final String MESSAGE_READ_WRITE_ERROR =
+            "Unable to write/read the status to the local status indicator file";
     private static final String SAMPLE = "123\u05D9\u05e0\u05D9\u05D1";
     private static final String TEMP_EVENT_NAME = "tempEventName";
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -79,7 +82,7 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void isGoogleCalendarEnabled() {
+    public void isGoogleCalendarEnabled() throws CommandException {
         //Status is "Enabled" -> ok
         enable();
         assertTrue(ConnectToGoogleCalendar.isGoogleCalendarEnabled());
@@ -89,7 +92,7 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void isGoogleCalendarDisabled() {
+    public void isGoogleCalendarDisabled() throws CommandException {
         //Status is not "Disabled" -> fail
         enable();
         assertFalse(ConnectToGoogleCalendar.isGoogleCalendarDisabled());
@@ -99,7 +102,7 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void checkStatus() {
+    public void checkStatus() throws CommandException {
         //Prepare the test file where the status indicates Enabled
         enable();
         //Test whether returns Enabled
@@ -114,7 +117,7 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void clear() {
+    public void clear() throws CommandException {
         //set up test environment
         enable();
         final ConnectToGoogleCalendar connectToGoogleCalendar =
@@ -157,7 +160,7 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void setGoogleCalendarEnabled() {
+    public void setGoogleCalendarEnabled() throws CommandException {
         //execute the command
         ConnectToGoogleCalendar.setGoogleCalendarEnabled();
         //get the result from the status file
@@ -168,8 +171,9 @@ public class ConnectToGoogleCalendarTest {
         //clean up test
         disable();
     }
+
     @Test
-    public void setGoogleCalendarDisabled() {
+    public void setGoogleCalendarDisabled() throws CommandException {
         //execute the command
         ConnectToGoogleCalendar.setGoogleCalendarDisabled();
         //get the result from the mode.txt
@@ -179,8 +183,8 @@ public class ConnectToGoogleCalendarTest {
         assertEquals("Disabled" + System.getProperty("line.separator"), contents);
     }
 
-    @Test
-    public void setGoogleCalendarStatus() {
+    @Test(expected = CommandException.class)
+    public void setGoogleCalendarStatus() throws CommandException {
         //Set Enabled
         ConnectToGoogleCalendar.setGoogleCalendarStatus("Enabled");
         String contents = getModeContent();
@@ -192,6 +196,24 @@ public class ConnectToGoogleCalendarTest {
         contents = getModeContent();
         assertNotNull(contents);
         assertEquals("Disabled" + System.getProperty("line.separator"), contents);
+
+        //Try to write to a read-only file
+        String path = "./tokens/mode.txt";
+        final File file = new File(path);
+        //Pre-condition: the file was writable before
+        assertTrue(file.canWrite());
+        file.setWritable(false);
+        try {
+            //We force an exception
+            ConnectToGoogleCalendar.setGoogleCalendarStatus("");
+        } catch (CommandException e) {
+            //This will be captured by Junit test
+            //This catch is not needed actually, put here for completeness
+            throw new CommandException(MESSAGE_READ_WRITE_ERROR);
+        } finally {
+            //set back the file to writable
+            file.setWritable(true);
+        }
     }
 
     /**
@@ -216,8 +238,9 @@ public class ConnectToGoogleCalendarTest {
         //convert to string and return
         return contents.toString();
     }
+
     @Test
-    public void getCalendar() throws IOException {
+    public void getCalendar() throws CommandException {
         //get a connection to Google
         final ConnectToGoogleCalendar connectToGoogleCalendar =
                 new ConnectToGoogleCalendar();
@@ -227,21 +250,38 @@ public class ConnectToGoogleCalendarTest {
         //create a calendar for testing
         Calendar expectedCalendar = new Calendar();
         expectedCalendar.setSummary("testCalendar");
-        Calendar createdCalendar = service.calendars().insert(expectedCalendar).execute();
+        Calendar createdCalendar = null;
+        try {
+            createdCalendar = service.calendars().insert(expectedCalendar).execute();
+        } catch (IOException e) {
+            //TODO:
+            e.printStackTrace();
+        }
         //try to get the test calender from Google
         Calendar getFromGoogleCalendar =
-                service.calendars().get(createdCalendar.getId()).execute();
+                null;
+        try {
+            getFromGoogleCalendar = service.calendars().get(createdCalendar.getId()).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //check whether this is the test calender
         assertEquals(createdCalendar.getId(), getFromGoogleCalendar.getId());
         //remove the test calender from Google Calender
-        service.calendars().delete(createdCalendar.getId()).execute();
+        try {
+            service.calendars().delete(createdCalendar.getId()).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //create an expected exception
         //Try to retrieve the deleted exception
         //Confirm the an exception will be thrown
+        Calendar finalCreatedCalendar = createdCalendar;
         assertThrows(
                 com.google.api.client.googleapis.json.GoogleJsonResponseException.class, (
-                ) -> service.calendars().get(createdCalendar.getId()).execute());
+                ) -> service.calendars().get(finalCreatedCalendar.getId()).execute());
     }
+
     /**
      * Tests {@link GoogleCredential}.
      *
@@ -271,6 +311,7 @@ public class ConnectToGoogleCalendarTest {
         response.download(outputStream);
         assertEquals(SAMPLE, outputStream.toString("UTF-8"));
     }
+
     /**
      * Tests {@link GoogleCredential}.
      *

@@ -48,10 +48,10 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!connectToGoogleCalendar.netIsAvailable()) {
+        if (!ConnectToGoogleCalendar.netIsAvailable()) {
             throw new CommandException(MESSAGE_INTERNET_ERROR);
         }
-        if (connectToGoogleCalendar.isGoogleCalendarEnabled()) {
+        if (ConnectToGoogleCalendar.isGoogleCalendarEnabled()) {
             throw new CommandException(MESSAGE_REJECT_SECOND_INITIALIZE);
         }
 
@@ -166,7 +166,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         //Extract the listOfGoogleEvents from the events object
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents = events.getItems();
         if (listOfGoogleEvents.isEmpty()) {
-            connectToGoogleCalendar.setGoogleCalendarEnabled();
+            ConnectToGoogleCalendar.setGoogleCalendarEnabled();
             return new CommandResult(MESSAGE_NO_EVENTS);
         } else {
             //Upcoming events
@@ -177,7 +177,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         for (Event event : eventsToadd) {
             model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
         }
-        connectToGoogleCalendar.setGoogleCalendarEnabled();
+        ConnectToGoogleCalendar.setGoogleCalendarEnabled();
         model.commitScheduler();
         return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
