@@ -1,9 +1,13 @@
 package seedu.clinicio.testutil;
 
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
@@ -24,8 +28,10 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_CANDY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
@@ -104,10 +110,18 @@ public class TypicalPersons {
     public static final Staff BEN = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
+    // Manually added (Staff without hash password)
+    public static final Staff ADAM_1 = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
+            .withPassword("123456", false).build();
+    public static final Staff BEN_1 = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
+            .withPassword("123456", false).build();
+
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
+            .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
             .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
+            .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
             .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
 
     //Not inside ClinicIO
