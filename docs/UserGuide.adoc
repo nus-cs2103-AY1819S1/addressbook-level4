@@ -87,7 +87,7 @@ Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook,
 
 Examples:
 
-* `delete-patient n/Jane Doe'
+* `delete-patient n/Jane Doe`
 * `delete-patient n/John Doe p/98264293`
 
 === Deleting a doctor: `delete-doctor`
