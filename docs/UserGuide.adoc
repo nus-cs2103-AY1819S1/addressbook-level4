@@ -70,6 +70,12 @@ Examples:
 Registers a doctor to the HealthBook. Doctor is automatically tagged as a "Doctor". +
 Format: `register-doctor n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
+[WARNING]
+====
+Login to Google Calendar is mandatory. If no login is done, the application will not be able to proceed.
+Please ensure login is done before proceeding back to the HealthBook.
+====
+
 Examples:
 
 * `register-doctor n/Mary Jane p/98765432 e/maryj@example.com a/John street, block 123, #01-01`
@@ -254,57 +260,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the HealthBook to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the HealthBook's content (`register-doctor`,`register-patient`,
-`delete-doctor`, `delete-patient` and `remark`).
-====
-
-Examples:
-
-* `delete-patient 10001` +
-`list` +
-`undo` (reverses the `delete-patient 10001` command) +
-
-* `view-patient n/John Doe` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete-patient 10001` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete-patient 10001` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete-patient 10001` +
-`undo` (reverses the `delete-patient 10001` command) +
-`redo` (reapplies the `delete-patient 10001` command) +
-
-* `delete-patient 10001` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete-patient 10001` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete-patient 10001` command) +
-`redo` (reapplies the `delete-patient 10001` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
 === Clearing all entries : `clear`
 
 Clears all entries from the HealthBook. +
@@ -371,7 +326,5 @@ e.g. `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hypergl
 * *Remark* : `remark n/NAME [p/PHONE] r/REMARK` +
 e.g `remark n/John Doe p/84729292 r/Has chronic heart disease`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Clear* : `clear`
 * *Exit* : `exit`
