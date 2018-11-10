@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.oracle.tools.packager.UnsupportedPlatformException;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.CreateConvertCommand;
+import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
 
@@ -83,7 +83,7 @@ public class ImageMagickUtilTest {
             ArrayList<Transformation> list = new ArrayList<>();
             list.add(new Transformation("blur", "0x8"));
             list.add(new Transformation("rotate", "90"));
-            new CreateConvertCommand("blurR", list);
+            new CreateApplyCommand("blurR", list);
             ImageMagickUtil.setTemperatyCommandForder(testCommandFolder.toString());
             ImageMagickUtil.processImage(path, new Transformation("@blurR"), false);
         } catch (UnsupportedPlatformException e) {
