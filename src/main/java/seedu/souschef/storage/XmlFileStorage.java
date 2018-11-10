@@ -19,7 +19,7 @@ import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 public class XmlFileStorage {
 
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given SousChef data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableGeneric xmlContent)
             throws FileNotFoundException {
@@ -31,22 +31,10 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns SousChef in the file or an empty Souschef
      */
-    public static XmlSerializableGeneric loadDataFromSaveFile(Path file) throws DataConversionException,
-            FileNotFoundException {
-        try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableGeneric.class);
-        } catch (JAXBException e) {
-            throw new DataConversionException(e);
-        }
-    }
-
-    /**
-     * Returns address book in the file or an empty address book
-     */
-    public static XmlSerializableGeneric loadDataFromSaveFile(Path file, Context context) throws DataConversionException,
-            FileNotFoundException {
+    public static XmlSerializableGeneric loadDataFromSaveFile(Path file, Context context)
+            throws DataConversionException, FileNotFoundException {
         try {
             if (Context.RECIPE.equals(context)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableRecipe.class);
