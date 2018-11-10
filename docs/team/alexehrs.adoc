@@ -9,7 +9,7 @@
 
 == Overview
 
-LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
+LearnVocabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
 
 == Summary of contributions
 
@@ -17,11 +17,12 @@ LearnVocuabulary is a desktop application for people who prefer to use an offlin
 ** What it does: Looks up the current word of the day on website Dictionary.com. It fetches the word, extracts its meaning and displays it for the user to learn.
 ** Justification: The features saves time when a user cannot think of a word to learn, or just otherwise would like to learn a new random word that is usually very special or rare.
 ** Highlights: The feature had to be integrated by looking at several existing commands in detail as well extending code freshly written by another team member (russellong95).
+** Some PRs for the feature: https://github.com/CS2103-AY1819S1-T10-3/main/pull/91[#91], https://github.com/CS2103-AY1819S1-T10-3/main/pull/93[#93], https://github.com/CS2103-AY1819S1-T10-3/main/pull/154[#154]
 
 * *Minor enhancement*: Deleted/refactored fields Email, Phone and Address from AB4.
-Fields were used extensively throughout the application in and required careful but major changes of the existing code to not break the whole application. (Pull requests: https://github.com/CS2103-AY1819S1-T10-3/main/pull/50[#50] and https://github.com/CS2103-AY1819S1-T10-3/main/pull/23[#23])
+Fields were used extensively throughout the application and required careful but major changes of the existing code to not break the whole application. (Pull requests: https://github.com/CS2103-AY1819S1-T10-3/main/pull/50[#50] and https://github.com/CS2103-AY1819S1-T10-3/main/pull/23[#23])
 
-* *Minor enhancement*: Added different coloring of tags. However, feature was later removed due to a fresh restart of the project. After that I considered the feature to be only "nice to have" and did not reimplement it.
+* *Minor enhancement*: Added different coloring of tags. However, feature was later removed due to a fresh restart of the project. After that I considered the feature to be only "nice to have" and did not reimplement it. PR: https://github.com/CS2103-AY1819S1-T10-3/main/pull/10[#10]
 
 * *Code contributed*: [RepoSense collated code] (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alexehrs)
 
@@ -38,7 +39,7 @@ Fields were used extensively throughout the application in and required careful 
 *** For example formatting of Developer Guide and User guide to make Netlify render the website correctly (Pull requests: https://github.com/CS2103-AY1819S1-T10-3/main/pull/76[#76] and https://github.com/CS2103-AY1819S1-T10-3/main/pull/77[#77])
 
 ** Community:
-*** Reported bugs and suggestions for other teams in class (Examples: https://github.com/CS2103-AY1819S1-W14-1/main/issues/206[1] https://github.com/CS2103-AY1819S1-W14-1/main/issues/192[2], https://github.com/CS2103-AY1819S1-W14-1/main/issues/208[3], https://github.com/CS2103-AY1819S1-W14-1/main/issues/212[4], https://github.com/CS2103-AY1819S1-W14-1/main/issues/218[5])
+*** Reported bugs and suggestions for other teams in class (Examples: https://github.com/CS2103-AY1819S1-W14-1/main/issues/206[1], https://github.com/CS2103-AY1819S1-W14-1/main/issues/192[2], https://github.com/CS2103-AY1819S1-W14-1/main/issues/208[3], https://github.com/CS2103-AY1819S1-W14-1/main/issues/212[4], https://github.com/CS2103-AY1819S1-W14-1/main/issues/218[5])
 *** General team bug fixes. For example PR https://github.com/CS2103-AY1819S1-T10-3/main/pull/73[#73]
 *** Added documentation for features implemented.
 
