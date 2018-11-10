@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -32,10 +33,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Event {
 
-    // Identity fields
     private EventName name;
-
-    // Data fields
     private Address location;
 
     private LocalDate date;
@@ -242,9 +240,7 @@ public class Event {
      * Adds polls into the poll list.
      */
     public void setPolls(ArrayList<AbstractPoll> polls) {
-        for (AbstractPoll poll : polls) {
-            this.polls.add(poll);
-        }
+        this.polls.addAll(polls);
     }
 
     /**
@@ -308,7 +304,7 @@ public class Event {
     }
 
     /**
-     * Returns true if the target person is the event organiser is or is an event participant.
+     * Returns true if the target person is the event organiser or is an event participant.
      */
     public boolean containsPerson(Name personName) {
         boolean contains = false;
@@ -384,23 +380,35 @@ public class Event {
         return Objects.hash(name, location, tags);
     }
 
+    /**
+     * Returns a deep copy of the event object.
+     */
     public Event getCopy() {
         Event copy = new Event(name, location, tags);
         copy.organiser = this.organiser;
         copy.date = this.date;
         copy.startTime = this.startTime;
         copy.endTime = this.endTime;
-        this.personList.forEach(person -> copy.personList.add(person));
+        copy.setPersonList(this.personList);
+        copy.polls.addAll(copyPollList());
+        return copy;
+    }
+
+    /**
+     * Returns a deep copy of the poll list.
+     */
+    private ArrayList<AbstractPoll> copyPollList() {
+        ArrayList<AbstractPoll> pollListCopy = new ArrayList<>();
         for (AbstractPoll poll : polls) {
             if (poll instanceof Poll) {
                 Poll genericPoll = (Poll) poll;
-                copy.polls.add(genericPoll.copy());
+                pollListCopy.add(genericPoll.copy());
             } else if (poll instanceof TimePoll) {
                 TimePoll timePoll = (TimePoll) poll;
-                copy.polls.add(timePoll.copy());
+                pollListCopy.add(timePoll.copy());
             }
         }
-        return copy;
+        return pollListCopy;
     }
 
     public String getInfo() {

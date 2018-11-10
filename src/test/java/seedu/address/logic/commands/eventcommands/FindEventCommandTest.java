@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

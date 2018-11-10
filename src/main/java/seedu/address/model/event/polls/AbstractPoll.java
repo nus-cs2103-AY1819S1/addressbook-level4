@@ -65,6 +65,7 @@ public class AbstractPoll {
 
     /**
      * Retrieves most popular options by number of votes.
+     * Returns an empty list if no users have voted.
      */
     private LinkedList<String> getPopularOptions() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
@@ -84,7 +85,7 @@ public class AbstractPoll {
     }
 
     /**
-     * Returns a string representation of the poll
+     * Returns a string representation of the poll.
      */
     public String displayPoll() {
         String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
