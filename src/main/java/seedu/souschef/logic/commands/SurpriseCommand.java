@@ -60,7 +60,7 @@ public class SurpriseCommand extends Command {
 
     public void setRandomIndex() throws ParseException {
         List<Recipe> filteredRecipeList = model.getFilteredList();
-        int random = rand.nextInt(filteredRecipeList.size());
+        int random = rand.nextInt(filteredRecipeList.size() + 1);
 
         try {
             this.randomIndex = ParserUtil.parseIndex(String.valueOf(random));
