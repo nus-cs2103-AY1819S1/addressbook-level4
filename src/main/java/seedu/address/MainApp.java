@@ -85,9 +85,9 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-//        if (storage.hasSampleBudgetBook()) {
-//            model.initialiseBudgetBook();
-//        }
+        //        if (storage.hasSampleBudgetBook()) {
+        //            model.initialiseBudgetBook();
+        //        }
 
         logic = new LogicManager(model);
 
