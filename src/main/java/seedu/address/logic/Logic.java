@@ -42,21 +42,20 @@ public interface Logic {
     ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException;
 
     /**
-     * Returns a LinkedHashMap of expenses for the bar chart where the key is a String which represents the x-axis data
-     * and the value is a double which represents the total amount
+     * Returns a map of expenses with key and value pair representing data for the statistics chart
      * @return a LinkedHashMap of expenses for the bar chart
      * @throws NoUserSelectedException
      */
     LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException;
 
     /**
-     * @return a StatsMode representing the current mode of statistics
+     * @return a {@code StatsMode} representing the current mode of statistics
      * @throws NoUserSelectedException
      */
     StatsMode getStatsMode() throws NoUserSelectedException;
 
     /**
-     * @return a StatsPeriod representing the current period of statistics
+     * @return a {@code StatsPeriod} representing the current period of statistics
      * @throws NoUserSelectedException
      */
     StatsPeriod getStatsPeriod() throws NoUserSelectedException;
