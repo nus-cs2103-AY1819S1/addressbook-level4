@@ -23,11 +23,9 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
-
-
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CrossFindCommand
+     * and returns an CrossFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
