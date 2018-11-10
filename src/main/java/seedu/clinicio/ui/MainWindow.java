@@ -173,8 +173,6 @@ public class MainWindow extends UiPart<Stage> {
 
         tabLists = new TabPane(personTab, appointmentTab, queueTab);
 
-        tabLists.getSelectionModel().select(queueTab);
-
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
@@ -191,6 +189,15 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    //@@author iamjackslayer
+    /**
+     * Switches the current tab to the tab of given index.
+     * @param index
+     */
+    public void switchTab(int index) {
+        tabLists.getSelectionModel().select(index);
     }
 
     void hide() {
