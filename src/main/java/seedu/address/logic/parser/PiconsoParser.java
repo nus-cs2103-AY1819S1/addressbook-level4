@@ -6,9 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ApplyCommand;
 import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ApplyCommand;
 import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
