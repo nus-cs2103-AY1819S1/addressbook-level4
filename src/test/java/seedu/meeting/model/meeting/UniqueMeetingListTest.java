@@ -83,4 +83,32 @@ public class UniqueMeetingListTest {
         thrown.expect(UnsupportedOperationException.class);
         uniqueMeetingList.asUnmodifiableObservableList().remove(0);
     }
+
+    @Test
+    public void equals() {
+        List<Meeting> meetings = new ArrayList<>();
+        meetings.add(PROJECT_2103T.getMeeting());
+        meetings.add(GROUP_2101.getMeeting());
+        uniqueMeetingList.setMeetings(meetings);
+
+        UniqueMeetingList duplicateUniqueMeetingList = new UniqueMeetingList();
+        duplicateUniqueMeetingList.setMeetings(meetings);
+
+        // Same meetings -> return true
+        assertTrue(uniqueMeetingList.equals(duplicateUniqueMeetingList));
+
+        // null -> return false
+        assertFalse(uniqueMeetingList.equals(null));
+
+        // Different object types -> return false
+        assertFalse(uniqueMeetingList.equals(1));
+
+        UniqueMeetingList differentUniqueMeetingList = new UniqueMeetingList();
+        List<Meeting> otherMeetings = new ArrayList<>();
+        otherMeetings.add(PROJECT_2103T.getMeeting());
+        differentUniqueMeetingList.setMeetings(otherMeetings);
+
+        // different list -> return false
+        assertFalse(uniqueMeetingList.equals(differentUniqueMeetingList));
+    }
 }
