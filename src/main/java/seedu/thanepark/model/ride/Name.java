@@ -16,7 +16,8 @@ public class Name {
      * The first character of the thanepark must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*[\\p{Punct}\\p{Alnum} ]*"
+            +"[\\p{Punct} ]*";
 
     public final String fullName;
 
