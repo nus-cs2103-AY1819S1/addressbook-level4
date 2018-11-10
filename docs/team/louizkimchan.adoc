@@ -20,12 +20,12 @@
 ** Credits: Nil.
 
 * *Minor enhancement*: Make the address, email and phone number fields `Optional` (Pull requests https://github.com[#16], https://github.com[#33]).
+** What it does: Instead of requiring all fields to be filled when adding a person, which may require an Insurance Agent to fill placeholder information, she can leave several fields blank instead.
+** Justification: This feature improves the product significantly, because insurance agents do not always have all the information about their clients they need, but they may still need to keep track of them and contact them with whatever incomplete information they have. This feature thus adds a degree of freedom and ease of use to insurance agents.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
-
-Misc: 29, 112
 
 ** Project management:
 *** Managed release `v1.3.1` on GitHub
