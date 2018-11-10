@@ -281,11 +281,13 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleOverviewEvent(OverviewPanelChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleOverview();
     }
 
     @Subscribe
     private void handleReplaceWithContextPanelEvent(ReplaceWithContextPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleReplaceWithContextPanel();
     }
 
