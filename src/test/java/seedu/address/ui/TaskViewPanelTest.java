@@ -19,7 +19,7 @@ public class TaskViewPanelTest extends GuiUnitTest {
     public void setUp() {
         selectionChangedEventStub = new TaskPanelSelectionChangedEvent(A_TASK);
 
-//        guiRobot.interact(() -> taskViewPanel = new TaskViewPanel());
+        guiRobot.interact(() -> taskViewPanel = new TaskViewPanel(A_TASK, 1));
         uiPartRule.setUiPart(taskViewPanel);
 
         taskViewPanelHandle = new TaskViewPanelHandle(taskViewPanel.getRoot());

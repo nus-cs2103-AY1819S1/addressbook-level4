@@ -12,7 +12,7 @@ public class MainWindowHandle extends StageHandle {
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final TaskViewPanelHandle browserPanel;
+    private final TaskViewPanelHandle taskViewPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -22,7 +22,7 @@ public class MainWindowHandle extends StageHandle {
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new TaskViewPanelHandle(getChildNode(TaskViewPanelHandle.BROWSER_ID));
+        taskViewPanel = new TaskViewPanelHandle(getChildNode(TaskViewPanelHandle.TASK_VIEW_PANEL_ID));
     }
 
     public TaskListPanelHandle getTaskListPanel() {
@@ -45,7 +45,7 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public TaskViewPanelHandle getBrowserPanel() {
-        return browserPanel;
+    public TaskViewPanelHandle getTaskViewPanel() {
+        return taskViewPanel;
     }
 }

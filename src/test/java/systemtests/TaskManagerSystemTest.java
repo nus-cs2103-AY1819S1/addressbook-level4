@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -66,7 +65,6 @@ public abstract class TaskManagerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -107,7 +105,7 @@ public abstract class TaskManagerSystemTest {
     }
 
     public TaskViewPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
+        return mainWindowHandle.getTaskViewPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -129,8 +127,6 @@ public abstract class TaskManagerSystemTest {
         clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -184,20 +180,19 @@ public abstract class TaskManagerSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedTaskCard();
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
+     * Asserts that the previously selected card is now deselected and the task view panel remains displaying the details
      * of the previously selected task.
      *
      * @see TaskViewPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+//        assertFalse(getTaskViewPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -214,13 +209,12 @@ public abstract class TaskManagerSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the task list panel remain unchanged.
+     * Asserts that the task view's url and the selected card in the task list panel remain unchanged.
      *
      * @see TaskViewPanelHandle#isUrlChanged()
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedTaskCardChanged());
     }
 
