@@ -331,8 +331,8 @@ public class InsertPersonCommandTest {
                                         Person personToReplace, Occasion occasionToReplace) {
             personToInsertDeep.getOccasionList().add(occasionToInsertShallow);
             occasionToInsertDeep.getAttendanceList().add(personToInsertShallow);
-            updatePerson(personToInsertDeep, personToReplace);
-            updateOccasion(occasionToInsertDeep, occasionToReplace);
+            updatePerson(personToReplace, personToInsertDeep);
+            updateOccasion(occasionToReplace, occasionToInsertDeep);
         }
 
         @Override
@@ -341,29 +341,29 @@ public class InsertPersonCommandTest {
                                         Person personToReplace, Module moduleToReplace) {
             personToInsertDeep.getModuleList().add(moduleToInsertShallow);
             moduleToInsertDeep.getStudents().add(personToInsertShallow);
-            updatePerson(personToInsertDeep, personToReplace);
-            updateModule(moduleToInsertDeep, moduleToReplace);
+            updatePerson(personToReplace, personToInsertDeep);
+            updateModule(moduleToReplace, moduleToInsertDeep);
         }
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
             requireNonNull(editedPerson);
 
-            personList.setPerson(editedPerson, target);
+            personList.setPerson(target, editedPerson);
         }
 
         @Override
         public void updateModule(Module target, Module editedModule) {
             requireNonNull(editedModule);
 
-            moduleList.setModule(editedModule, target);
+            moduleList.setModule(target, editedModule);
         }
 
         @Override
         public void updateOccasion(Occasion target, Occasion editedOccasion) {
             requireNonNull(editedOccasion);
 
-            occasionList.setOccasion(editedOccasion, target);
+            occasionList.setOccasion(target, editedOccasion);
         }
 
         @Override

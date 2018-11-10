@@ -25,7 +25,8 @@ public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
     public InsertPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultiMap = ArgumentTokenizer
                 .tokenize(args, PREFIX_PERSONINDEX, PREFIX_MODULEINDEX, PREFIX_OCCASIONINDEX);
-        if (!arePrefixesPresent(argMultiMap, PREFIX_PERSONINDEX)) {
+        if (!arePrefixesPresent(argMultiMap, PREFIX_PERSONINDEX)
+                || hasDuplicatePrefix(argMultiMap)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertPersonCommand.MESSAGE_USAGE));
         }
 
@@ -55,5 +56,26 @@ public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if there are duplicate prefixes in {@code ArgumentMultimap}.
+     * @param argumentMultimap The map of arguments.
+     * @param prefix The prefix to check.
+     * @return if multimap has duplicate prefixes.
+     */
+    private static boolean hasDuplicatePrefix(ArgumentMultimap argumentMultimap, Prefix prefix) {
+        return argumentMultimap.getAllValues(prefix).size() > 1;
+    }
+
+    /**
+     * Returns true if any of person, module or occasion index are duplicated in the arguments map.
+     * @param argumentMultimap the map of arguments.
+     * @return whether there are duplicate arguments.
+     */
+    private boolean hasDuplicatePrefix(ArgumentMultimap argumentMultimap) {
+        return hasDuplicatePrefix(argumentMultimap, PREFIX_PERSONINDEX)
+                || hasDuplicatePrefix(argumentMultimap, PREFIX_MODULEINDEX)
+                || hasDuplicatePrefix(argumentMultimap, PREFIX_OCCASIONINDEX);
     }
 }
