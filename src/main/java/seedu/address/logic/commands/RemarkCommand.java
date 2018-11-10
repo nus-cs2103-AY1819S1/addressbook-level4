@@ -126,9 +126,9 @@ public class RemarkCommand extends Command {
             return false;
         } else {
             RemarkCommand r = (RemarkCommand) o;
-            boolean optionalPhone_equals = (phone != null) ? phone.equals(r.phone) : true;
+            boolean optionalPhoneIsEquals = (phone != null) ? phone.equals(r.phone) : true;
             return name.equals(r.name)
-                    && optionalPhone_equals
+                    && optionalPhoneIsEquals
                     && remark.equals(r.remark);
         }
 
