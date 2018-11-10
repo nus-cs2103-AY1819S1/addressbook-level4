@@ -46,7 +46,7 @@ public class DeleteMedicineCommand extends Command {
         Medicine medicineToDelete = medicineList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
         model.commitClinicIo();
-        return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineList));
+        return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
     }
 
     @Override
