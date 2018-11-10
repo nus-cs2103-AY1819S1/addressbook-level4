@@ -353,3 +353,7 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.task-view-panel .label {
+    -fx-text-fill: white;
+}
