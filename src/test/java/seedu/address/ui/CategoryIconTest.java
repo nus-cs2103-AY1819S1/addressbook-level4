@@ -7,9 +7,10 @@ import org.junit.Test;
 import guitests.guihandles.CategoryIconHandle;
 import seedu.address.model.budget.CategoryBudget;
 
+import java.text.DecimalFormat;
+
 //@author Snookerballs
 public class CategoryIconTest extends GuiUnitTest {
-    private static final double DELTA = 1e-15;
 
     @Test
     public void display() {
@@ -18,7 +19,8 @@ public class CategoryIconTest extends GuiUnitTest {
         uiPartRule.setUiPart(categoryIcon);
         CategoryIconHandle categoryIconHandle = new CategoryIconHandle(getChildNode(categoryIcon.getRoot(),
                 CategoryIconHandle.CATEGORIES_ICON_ID));
-        assertEquals(categoryIconHandle.getCategoryBudgetCap(), budget.getBudgetPercentage(), DELTA);
+        DecimalFormat df = new DecimalFormat("#.##");
+        assertEquals(df.format(categoryIconHandle.getCategoryPercentage()), df.format(budget.getBudgetRatio()));
         assertEquals(categoryIconHandle.getCategoryName(), budget.toString());
     }
 

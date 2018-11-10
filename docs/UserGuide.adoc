@@ -572,6 +572,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 ====
 // end::statistics[]
 
+// tag::notification[]
 === Toggling Notifications: `notification`
 
 Toggles the ability of `Expense Tracker` to send notifications.
@@ -602,6 +603,8 @@ Disables the sending of both types of notifications. +
 * TOGGLE_OPTION can only be 'on' or 'off'
 * NOTIFICATION_TYPE is optional
 ====
+
+// end::notification[]
 
 === Clearing all entries : `clear`
 
@@ -736,6 +739,7 @@ This is a list of mappings of commands to their command shorthands in Expense Tr
 * `undo`: `u`
 * `redo`: `r`
 * `stats`:  `su`
+* `notification`: `n`
 * `clear`: `c`
 * `exit`: `x`
 

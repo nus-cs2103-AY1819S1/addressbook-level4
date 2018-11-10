@@ -34,7 +34,7 @@ public class WarningNotification extends Notification {
     * @return the body message  of the warning
     */
     private String generateBody(Budget budget) {
-        if (budget.getBudgetPercentage() > PERCENTAGE_TO_SEND_OVERBUDGET_MESSAGE) {
+        if (budget.getBudgetRatio() > PERCENTAGE_TO_SEND_OVERBUDGET_MESSAGE) {
             return MESSAGE_TO_SEND_WHEN_OVERBUDGET;
         }
         return MESSAGE_TO_SEND_WHEN_NEARING_BUDGET;

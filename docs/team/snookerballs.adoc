@@ -9,96 +9,89 @@
 
 == Overview
 
-This portfolio aims to document the contributions made by *Jaime Chow Wen Juan* to the *ExpenseTracker*.
+Expense Tracker is the secure, efficient financial application for the keyboard enthusiast. With features such as daily tips,
+statistics and budget setting, Expense Tracker aims to provide users with the necessary tools to become a better saver.
 
-The *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
-save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.
+ExpenseTracker was created for an NUS software engineering project. The task was to work in a team of 5, and morph or enhance
+an `AddressBook` application.
+
+This portfolio is a documentation of my contributions to the morphing of AddressBook into ExpenseTracker. I mainly worked on GUI overhauls, as well
+as the implementation of a Automatic Notification System.
 
 
 == Summary of contributions
 
-*  *Major enhancement 1*: Budget Panel*
+=== *Major enhancements*:
 
-A GUI element that dynamically updates and displays the user's budget and expenses.
-
-
-
-*Highlights*
-
-* Budget Panel
+.Before and After shots of the UI
+image::UiChange.png[width="800"]
 
 
-** Implemented animation to smooth out changes to the progress percentage.
-** Implemented color swapping. The`expenseDisplay` text object now turns red when over budget, and green when under budget.
+. *GUI Overhaul and Redesign*
 
-* Expense and Budget information
-** Implemented animation that creates an 'incrementing number' effect when updating the expense information.
-** Implemented color swapping. The progress meter now turns red when over budget, and green when under budget.
-** Text shrinking. Both text objects dynamically shrinks dependant on the length of the text information displayed.
+* *What It Does*
 
-![](images::Budget_Panel_Color_Swaps.gif)
+** The morphing of `AddressBook` into `Expense Tracker` resulted in the implementation of many new features. My main job was to
+implement a dynamically updating Graphical User Interface (GUI) for said features. The new GUI elements include:
 
-*Challenges*
+*** *Notification Panel* - Displays the list of automated notifications.
+*** *Budget Panel* - Displays information about the user's monthly total budget cap and expenses.
+*** *Category Panel* - Displays information about the user's budget cap for different categories of expenses.
 
-* Dynamic Text Size Change - As this is not a standard feature of any text-based JavaFX class, it
-                   had to manually implemented. In addition, `TextFlow` objects do not truncate any text overflows, but instead alters the `TextView` width. Attempting to dynamically increase or decrease the size of the text
-                   based on the `TextFlow#width` proved difficult and inconsistent when coupled with the animation.
+* *Justification*
 
-* Testing - There were issues that arose during testing due to the addition of animations. With how animations were implemented, the tests methods would check the values of the `progressBar` and `Text` objects before they were correctly updated.
-            Ultimately, a decision to call `Thread#sleep# for the duration of the animation was made.
+** A well-designed user interface is able to maximize use experience and allows `Expense Tracker` to stand out amongst the sea
+of financial applications. An eye catching and intuitive design encourages users to not only try our application, but to keep
+using it as well. Small touches such as animation and dynamic changing of text color wre also implemented for improved visual feedback.
 
-* *Major enhancement 2*: Notification System*
-A feature that allows the sending and displaying of notifications. The system consists of:
+* *Highlights*
 
-** `Notification` - Stores the message to be sent to the user. There are two types of `Notification`: `TipNotification` and `WarningNotification`.
-** `NotificationHandler` - Handles the storage and creation of `Notification` objects.
-** `NotificationPanel` and `NotificationCard` - GUI Elements that displays the Notifications to the user.
-** `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` - Manages the saving and reading on Notifications.
+** dfsf
 
-.The Notification Panel Component'
-image::Notification_Panel.png[width="800"]
+. *Notification System*
 
-*Highlights*
+* *What It Does*
+** The Notification System facilitates the sending of automated messages to the user. These notifications are displayed
+on the `NotificationPanel`.
 
-* `Notification`
+* Justification
+** I implemented this feature to appeal to the following users of `ExpenseTracker`:
 
-** Able to randomly generate a new saving tip when the user first logs in for that day.
-** Able to send a warning notification when the user is approaching or above budget.
+*** For the user who struggles to save money *due to lack of knowledge about saving*, tips will be provided daily in the
+form of notifications. Thus, the more a user uses `ExpenseTracker`, the more knowledgeable they can become about saving.
 
-* `NotificationHandler`
+*** For the user who has *trouble maintaining their budget*, the Notification System sends automated warnings whenever the
+user is or is about to spend over their budget.
 
-*Challenges*
+*** For the user who is *does not need aids or warnings*, I have added the `notification` command. This commands
+allows users to toggle the different types of notifications on and off, increasing the customizability of `ExpenseTracker`.
 
-* Testing - Issues with testing mainly arose due to a `LocalDateTime` instance field in the NotificationHandler class. The instance field was initially initialized to `LocalDate#now()`, resulting in many errors due to the dynamic nature of the instance field.
-Furthermore, the different methods in which a test `Model` object was instantiated in the existing tests caused numerous errors Thus, many test cases had to be rewritten to pass testing.
-[NOTE]
-As an example of this issue: a model created via `getTypicalExpenseTracker()` would not call `Model#loadData`, which meant that a `TipNotification` would not be generated.
-However, a `Model` created via `getTypicalModel` would not call `Model#loadData`. There were instances where these differently instantiated `Model` objects would be compared.
-
-* Notification Storage - The given `loadDataFromStorage` had difficulty reading a list of Notifications into the `XmlAdaptedNotificationHandler`. Thus, the list had to be separated and manually added to a newly instantiated `ExpenseTracker` object.
+* *Highlights*
+** dsf
 
 * *Minor enhancement*:
-. Minor Animations such as GUI fade-in upon login, and animation on statistics GUI elements.
-. CSS Overhaul.
-. Visual Redesign on the GUI.
+. Other Minor Animations such as GUI fade-in upon login.
+. Complete Overhaul of CSS.
+. Added color to Tags
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
+* In Charge of the UI.
 ***
 ** Documentation:
 *** Updated the User Guide
 *** Updated the Developer Guide
 *** Made changes to the Developer Guide. Improved language and edited diagrams:
-https://github.com/CS2103-AY1819S1-T12-1/main/pull/74[#74]
+
+
 
 ** Community:
 *** Reviewed PRs (with non-trivial review comments):
-
-_{you can add/remove categories in the list above}_
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/110[#110], https://github.com/CS2103-AY1819S1-T12-1/main/pull/175[#175],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/182[#182]
 
 == Contributions to the User Guide
 
@@ -107,6 +100,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=notification]
 
 == Contributions to the Developer Guide
 
@@ -115,5 +109,6 @@ _{you can add/remove categories in the list above}_
 |===
 
 include::../DeveloperGuide.adoc[tag=userinterfaceredesign]
+
 
 

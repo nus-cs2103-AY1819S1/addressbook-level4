@@ -55,7 +55,7 @@ import seedu.address.model.user.Username;
  * Represents the in-memory model of the expense tracker data.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger LOGGER = LogsCenter.getLogger(ModelManager.class);
     private static Tips tips;
 
     private VersionedExpenseTracker versionedExpenseTracker;
@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(expenseTrackers, userPrefs);
         this.expenseTrackers = expenseTrackers;
-        logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
+        LOGGER.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         this.tips = tips;
@@ -97,7 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(expenseTracker, userPrefs);
         Map<Username, EncryptedExpenseTracker> expenseTrackers = new TreeMap<>();
-        logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
+        LOGGER.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.expenseTrackers = expenseTrackers;
 
         try {
@@ -207,6 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddWarningNotification(getMaximumBudget());
         if (isNotificationAdded) {
+            LOGGER.info("Warning Notification will be sent.");
             this.versionedExpenseTracker.addNotificationToTop(new WarningNotification(getMaximumBudget()));
             indicateExpenseTrackerChanged();
         }
@@ -221,6 +222,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddTipNotification();
         if (isNotificationAdded) {
+            LOGGER.info("Tip Notification will be sent.");
             this.versionedExpenseTracker.addNotificationToTop(new TipNotification(tips));
             indicateExpenseTrackerChanged();
         }

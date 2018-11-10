@@ -131,14 +131,7 @@ public class BudgetPanel extends UiPart<Region> {
                 )
         );
 
-        addIncrementKeyFrames(newExpenses, newBudgetCap);
-        /*timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5),
-                    new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    timeline.stop();
-                }
-            }));*/
+        addTextAnimationKeyFrames(newExpenses, newBudgetCap);
 
         //Safeguard from animation error
         timeline.setOnFinished(temp -> {
@@ -158,7 +151,7 @@ public class BudgetPanel extends UiPart<Region> {
      * @param newExpenses to increment expenseDisplay to
      * @param newBudgetCap to increment budgetDisplay to
      */
-    public void addIncrementKeyFrames(double newExpenses, double newBudgetCap) {
+    public void addTextAnimationKeyFrames(double newExpenses, double newBudgetCap) {
         double amountToIncrementExpenses = (newExpenses - currentExpenses) / NUM_OF_FRAMES;
         double amountToIncrementBudget = (newBudgetCap - currentBudgetCap) / NUM_OF_FRAMES;
 

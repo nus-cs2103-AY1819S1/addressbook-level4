@@ -15,6 +15,7 @@ import seedu.address.model.budget.CategoryBudget;
 public class CategoryIcon extends UiPart<Region> {
     private static final String FXML = "CategoryIcon.fxml";
     private static final String IMAGE_PATH = "/images/categoryIcons/categoryIcon.png";
+    private static final String SUFFIX = "%";
 
     @FXML
     private Label categoryName;
@@ -23,11 +24,11 @@ public class CategoryIcon extends UiPart<Region> {
     private ImageView categoryIcon;
 
     @FXML
-    private Label categoryBudgetCap;
+    private Label categoryPercentage;
 
     public CategoryIcon(CategoryBudget budget) {
         super(FXML);
-        categoryBudgetCap.setText(Double.toString(budget.getBudgetPercentage()) + "%");
+        categoryPercentage.setText(String.format("%.2f", budget.getBudgetRatio()*100) + SUFFIX);
         categoryName.setText(budget.toString());
         Image image = new Image(IMAGE_PATH);
         categoryIcon.setImage(image);

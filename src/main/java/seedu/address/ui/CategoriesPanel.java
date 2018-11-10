@@ -14,9 +14,9 @@ import seedu.address.model.budget.CategoryBudget;
 public class CategoriesPanel extends UiPart<Region> {
 
     private static final String FXML = "CategoriesPanel.fxml";
+    private static final int CURRENT_ROW = 0;
     private static final int MAX_COL = 4;
     private static int currentColumn;
-    private static int currentRow;
 
     @FXML
     private GridPane categoriesGrid;
@@ -28,7 +28,6 @@ public class CategoriesPanel extends UiPart<Region> {
     public CategoriesPanel(Iterator<CategoryBudget> categories) {
         super(FXML);
         currentColumn = 0;
-        currentRow = 0;
         setConnection(categories);
     }
 
@@ -45,7 +44,7 @@ public class CategoriesPanel extends UiPart<Region> {
     */
     public void updateCategories(CategoryBudget category) {
         CategoryIcon categoryIcon = new CategoryIcon(category);
-        categoriesGrid.add(categoryIcon.getRoot(), currentColumn, currentRow);
+        categoriesGrid.add(categoryIcon.getRoot(), currentColumn, CURRENT_ROW);
         currentColumn++;
     }
 

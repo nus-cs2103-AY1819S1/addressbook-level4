@@ -76,7 +76,7 @@ public class NotificationHandler implements Iterable<Notification> {
      * @return true if a warning should be sent,false if otherwise.
      */
     public boolean isTimeToSendWarning(Budget budget) {
-        return isWarningEnabled && budget.getBudgetPercentage() > WARNING_NOTIFICATION_TRESHOLD;
+        return isWarningEnabled && budget.getBudgetRatio() > WARNING_NOTIFICATION_TRESHOLD;
     }
 
     /**
@@ -155,14 +155,15 @@ public class NotificationHandler implements Iterable<Notification> {
      * @param isTipEnabled to set
      * @param isWarningEnabled to set
      */
-    public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
+    public void modifyNotificationHandlerWithoutList(LocalDateTime date, boolean isTipEnabled,
+                                                     boolean isWarningEnabled) {
         this.lastTipSentOn = date;
         this.isTipEnabled = isTipEnabled;
         this.isWarningEnabled = isWarningEnabled;
     }
 
     /**
-     * Reset list
+     * Reset list to a new list
      */
     public void clearList() {
         internalList = FXCollections.observableArrayList();

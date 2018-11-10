@@ -198,7 +198,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Modify notificationHandler {@code WarningNotification}
      */
     public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
-        notificationHandler.modifyNotificationHandler(date, isTipEnabled, isWarningEnabled);
+        notificationHandler.modifyNotificationHandlerWithoutList(date, isTipEnabled, isWarningEnabled);
     }
 
     //// expense-level operations
