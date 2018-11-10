@@ -17,11 +17,12 @@ public class TargetWeightTest {
 
     @Test
     public void isValidTargetWeight() {
-        String negativeTargetWeight = "-60.0";
+        String negativeTargetDoubleWeight = "-60.0";
+        String negativeTargetWeight = "-60";
         String zeroTargetWeight = "0";
         String blank = "";
         String whiteSpace = " ";
-        String trailingZeroTest = "00";
+        String trailingZeroTest = "00.0";
 
         String validDoubleTargetWeight = "60.05";
         String validTargetWeight = "60";
@@ -30,6 +31,7 @@ public class TargetWeightTest {
         Assert.assertThrows(NullPointerException.class, () -> new TargetWeight(null));
 
         //false cases
+        assertFalse(TargetWeight.isValidWeight(negativeTargetDoubleWeight));
         assertFalse(TargetWeight.isValidWeight(negativeTargetWeight));
         assertFalse(TargetWeight.isValidWeight(zeroTargetWeight));
         assertFalse(TargetWeight.isValidWeight(blank));

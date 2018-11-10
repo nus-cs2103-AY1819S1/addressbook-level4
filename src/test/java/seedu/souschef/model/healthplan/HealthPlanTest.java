@@ -80,7 +80,7 @@ public class HealthPlanTest {
 
         editedPlan = new HealthPlanBuilder(healthPlanA).withScheme("LOSS").build();
         assertFalse(healthPlanA.equals(editedPlan));
-        
+
     }
 
 

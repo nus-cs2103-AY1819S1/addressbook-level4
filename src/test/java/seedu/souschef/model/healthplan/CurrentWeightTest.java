@@ -17,11 +17,12 @@ public class CurrentWeightTest {
 
     @Test
     public void isValidCurrentWeight() {
-        String negativeCurrentWeight = "-60.0";
+        String negativeCurrentDoubleWeight = "-60.0";
+        String negativeCurrentWeight = "-60";
         String zeroCurrentWeight = "0";
         String blank = "";
         String whiteSpace = " ";
-        String trailingZeroTest = "00";
+        String trailingZeroTest = "00.0";
 
         String validDoubleCurrentWeight = "60.05";
         String validCurrentWeight = "60";
@@ -30,6 +31,7 @@ public class CurrentWeightTest {
         Assert.assertThrows(NullPointerException.class, () -> new CurrentWeight(null));
 
         //false cases
+        assertFalse(CurrentWeight.isValidWeight(negativeCurrentDoubleWeight));
         assertFalse(CurrentWeight.isValidWeight(negativeCurrentWeight));
         assertFalse(CurrentWeight.isValidWeight(zeroCurrentWeight));
         assertFalse(CurrentWeight.isValidWeight(blank));

@@ -25,7 +25,7 @@ public class CurrentHeightTest {
         String validCurrentHeight = "100";
         String invalidSingleDigitAge = "5";
         String invalidDoubleDigitAge = "15";
-        String trailingZeroTest = "00";
+        String trailingZeroTest = "000";
 
         //test null case
         Assert.assertThrows(NullPointerException.class, () -> new CurrentHeight(null));
