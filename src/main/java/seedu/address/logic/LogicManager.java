@@ -162,6 +162,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getCategoryList();
     }*/
 
+    //@@author
     public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
         return model.getNotificationList();
     }
