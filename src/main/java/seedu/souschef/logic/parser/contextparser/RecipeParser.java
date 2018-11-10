@@ -39,9 +39,9 @@ public class RecipeParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses user input from recipe within context into command for execution.
      *
-     * @param recipeModel
+     * @param recipeModel model data to be edited
      * @param userInput full user input string
      * @param history
      * @return the command based on the user input
