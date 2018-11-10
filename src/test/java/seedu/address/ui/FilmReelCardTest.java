@@ -53,7 +53,7 @@ public class FilmReelCardTest extends GuiUnitTest {
         assertTrue(imageCard.equals(imageCard));
 
         // null -> returns false
-        assertFalse(imageCard.equals(null));
+        assertFalse(imageCard == null);
 
         // different types -> returns false
         assertFalse(imageCard.equals(0));

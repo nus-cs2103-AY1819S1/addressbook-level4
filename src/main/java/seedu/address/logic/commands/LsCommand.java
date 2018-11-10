@@ -55,10 +55,9 @@ public class LsCommand extends Command {
             }
 
             return new CommandResult(fileNames.toString());
+        } catch (NullPointerException e) {
+            return new CommandResult(MESSAGE_INVALID_FILE_DIR);
         } catch (Exception ex) {
-            if (ex instanceof NullPointerException) {
-                return new CommandResult(MESSAGE_INVALID_FILE_DIR);
-            }
             return new CommandResult(ex.getMessage());
         }
 
