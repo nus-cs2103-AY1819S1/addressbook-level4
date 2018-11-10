@@ -49,46 +49,63 @@ public class SampleDataUtil {
             new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("40M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Boil the chicken in water 700 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"),
+                                    getIngredientPortionSet())
                     ), getTagSet("Asian", "Singapore", "Poultry")),
             new Recipe(new Name("Black pepper Chicken"), new Difficulty("2"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Heat up the pan with old 2 tablespoon.",
-                                    getIngredientPortionSet(new IngredientPortion("oil", "tablespoon", 2.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("oil", "tablespoon", 2.0))),
                             new Instruction("Add oyster sauce 3 tablespoon, black pepper 20 g and water 50 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("oyster sauce", "tablespoon",
+
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("oyster sauce", "tablespoon",
                                             3.0))),
-                            new Instruction("Stir-fry for 10 mins.", new CookTime("10M"), getIngredientPortionSet())
+                            new Instruction("Stir-fry for 10 mins.", new CookTime("10M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Spicy", "Poultry")),
             new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("20M"),
                     getInstructionList(
                             new Instruction("Slice vegetables 70 gram of any kind.",
-                                    getIngredientPortionSet(new IngredientPortion("vegetables", "gram", 70.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("vegetables", "gram", 70.0))),
                             new Instruction("Add water 200 ml and noodles 300 g into the pan.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 200.0),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 200.0),
                                             new IngredientPortion("noodles", "gram", 300.0))),
                             new Instruction("Remove the water and put soy sauce 50 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 50.0))),
-                            new Instruction("Fry for 7 mins.", new CookTime("7M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 50.0))),
+                            new Instruction("Fry for 7 mins.", new CookTime("7M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Asian", "Staple", "Vegetarian")),
             new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("50M"),
                     getInstructionList(
                             new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
-                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("Chicken", "kg", 1.2))),
                             new Instruction("Boil the chicken in water 700 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("water", "ml", 700.0))),
                             new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
-                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
-                            new Instruction("Cook for 20 mins.", new CookTime("20M"), getIngredientPortionSet())
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("20M"),
+                                    getIngredientPortionSet())
                     ),
                     getTagSet("Staple", "Poultry")),
             new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("40M"),
@@ -104,6 +121,7 @@ public class SampleDataUtil {
                             new Instruction("Fry each prata dough until brown on both sides.")
                     ),
                     getTagSet("Staple", "Vegetarian", "Halal")),
+
             new Recipe(new Name("Cheese Fries"), new Difficulty("2"), new CookTime("40M"),
                 getInstructionList(
                     new Instruction("Melt butter on low.",
@@ -157,6 +175,7 @@ public class SampleDataUtil {
                             new IngredientPortion("black pepper", "tablespoon", 0.5)))
                 ),
                 getTagSet("Asian", "Staple")),
+
             new Recipe(new Name("Kimchi Jun"), new Difficulty("2"), new CookTime("10M"),
                         getInstructionList(
                                 new Instruction("Stir together the kimchi, kimchi juice,"
@@ -187,22 +206,112 @@ public class SampleDataUtil {
                                         getIngredientPortionSet(new IngredientPortion("green onion", "g", 20.0)))),
                         getTagSet("Staple", "Korean")),
             new Recipe(new Name("Vegan Korean Kimchi Fried Rice"), new Difficulty("3"), new CookTime("20M"),
-                        getInstructionList(
-                                new Instruction("Add red onion, garlic, and ginger. Cook, stirring occasionally,"
-                                        + "until onion softens, about 3 minutes.",
-                                        new CookTime("3M"),
-                                        getIngredientPortionSet(new IngredientPortion("red onion", "g", 20.0),
-                                                new IngredientPortion("garlic", "g", 10.0),
-                                                new IngredientPortion("ginger", "g", 10.0))),
-                                new Instruction("Stir in cooked rice, soy sauce, sugar, kimchi,"
-                                        + " Cook and stir until heated through, about 5 minutes",
-                                        new CookTime("5M"),
-                                        getIngredientPortionSet(new IngredientPortion("soy sauce", "tablespoon", 1.0),
-                                                new IngredientPortion("sugar", "tablespoon", 1.0),
-                                                new IngredientPortion("kimchi", "g", 20.0))),
-                                new Instruction("scrape the bottom of the skillet to prevent sticking.",
-                                        getIngredientPortionSet())),
-                        getTagSet("Staple", "Vegan", "Korean"))
+                    getInstructionList(
+                            new Instruction("Add red onion, garlic, and ginger. Cook, stirring occasionally,"
+                                    + "until onion softens, about 3 minutes.",
+                                    new CookTime("3M"),
+                                    getIngredientPortionSet(new IngredientPortion("red onion", "g", 20.0),
+                                            new IngredientPortion("garlic", "g", 10.0),
+                                            new IngredientPortion("ginger", "g", 10.0))),
+                            new Instruction("Stir in cooked rice, soy sauce, sugar, kimchi,"
+                                    + " Cook and stir until heated through, about 5 minutes",
+                                    new CookTime("5M"),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("soy sauce", "tablespoon", 1.0),
+                                            new IngredientPortion("sugar", "tablespoon", 1.0),
+                                            new IngredientPortion("kimchi", "g", 20.0))),
+                            new Instruction("scrape the bottom of the skillet to prevent sticking.",
+                                    getIngredientPortionSet())),
+                    getTagSet("Staple", "Vegan", "Korean")),
+
+            new Recipe(new Name("American Breakfast"), new Difficulty("2"), new CookTime("15M"),
+                    getInstructionList(
+                            new Instruction("Crack 2 whole eggs and beat the eggs with 3/4 cup milk, a"
+                                    + "pinch of salt and black pepper",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("egg", "whole", 2.0),
+                                            new IngredientPortion("milk", "cup", 0.75),
+                                            new IngredientPortion("salt", "pinch", 1.0),
+                                            new IngredientPortion("blackPepper", "pinch", 1.0))),
+                            new Instruction("Put 2 sausages and 2 pieces of bread into a toaster for "
+                                    + "15mins",
+                                    new CookTime("15M"),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("sausage", "whole", 2.0),
+                                            new IngredientPortion("bread", "whole", 2.0)
+                                    )),
+                            new Instruction("Heat one teaspoon butter on a pan.",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("butter", "teaspoon", 1.0))),
+                            new Instruction("Pour the mixture into the pan and heat on slow fire.",
+                                    new CookTime("10M"), getIngredientPortionSet()),
+                            new Instruction("Serve and enjoy!")
+                    ),
+                    getTagSet("Western", "American")),
+            new Recipe(new Name("HK Style French Toast"), new Difficulty("2"), new CookTime("15M"),
+                    getInstructionList(
+                            new Instruction("Crack 2 whole eggs and beat the eggs with 3/4 cup milk, a"
+                                    + "teaspoon of sugar",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("egg", "whole", 2.0),
+                                            new IngredientPortion("milk", "cup", 0.75),
+                                            new IngredientPortion("sugar", "teaspoon", 1.0)
+                                    )),
+                            new Instruction("Spread 1 tablespoon of peanut butter onto 2 slices of bread",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("bread", "whole", 2.0),
+                                            new IngredientPortion("peanutButter", "tablespoon", 1.0)
+                                    )),
+                            new Instruction("Heat one teaspoon butter on a pan.",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("butter", "teaspoon", 1.0)
+                                    )),
+                            new Instruction("Batter the sandwich into the mixture and cook on high heat",
+                                    new CookTime("10M"), getIngredientPortionSet()
+                            ),
+                            new Instruction("Serve dish, topping with 1 tablespoon of condense milk and "
+                                    + "1 teaspoon of butter", getIngredientPortionSet(
+                                            new IngredientPortion("butter", "teaspoon", 1.0),
+                                    new IngredientPortion("condenseMilk", "tablespoon", 1.0)
+                            )
+                            )),
+                    getTagSet("Asian", "HK")),
+            new Recipe(new Name("Beef steak with butter rice"), new Difficulty("4"), new CookTime("30M"),
+                    getInstructionList(
+                            new Instruction("Leave beef exposed to room temperature for 15M",
+                                    new CookTime("15M"), getIngredientPortionSet(
+                                            new IngredientPortion("beef", "piece", 1.0)
+                            )),
+                            new Instruction("Season beef lightly with pinch of salt and pepper",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("salt", "pinch", 1.0),
+                                            new IngredientPortion("blackPepper", "pinch", 1.0))),
+                            new Instruction("Heat one teaspoon butter on a pan.",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("butter", "teaspoon", 1.0)
+                                    )),
+                            new Instruction("Sear the beef on medium heat, starting from the fattier parts"
+                                    + ", then cook until browned.",
+                                    new CookTime("10M"), getIngredientPortionSet()),
+                            new Instruction("Lightly glaze wok with 1 teaspoon of olive oil",
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("oliveOil", "teaspoon", 1.0)
+                                    )),
+                            new Instruction("Fry 1 clove of garlic in wok until golden brown",
+                                    new CookTime("5M"),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("garlic", "clove", 1.0))),
+                            new Instruction("Ease in 1 cup of leftover rice and 2 tablespoon of butter",
+                                    new CookTime("10M"),
+                                    getIngredientPortionSet(
+                                            new IngredientPortion("butter", "tablespoon", 2.0),
+                                            new IngredientPortion("rice", "cup", 1.0)
+                                    )),
+                            new Instruction("Stir fry until everything is evenly mixed",
+                                    new CookTime("5M"), getIngredientPortionSet()),
+                            new Instruction("Plate beef and rice and serve!")
+                    ),
+                    getTagSet("Western", "American")),
         };
     }
 
@@ -255,7 +364,9 @@ public class SampleDataUtil {
             new HealthPlan(new HealthPlanName("Lose weight"), new TargetWeight("70"), new CurrentWeight("80"),
                   new CurrentHeight("160"), new Age("25"), new Duration("10"), Scheme.LOSS, new ArrayList<Day>()),
             new HealthPlan(new HealthPlanName("gain weight"), new TargetWeight("60"), new CurrentWeight("50"),
-                  new CurrentHeight("160"), new Age("27"), new Duration("10"), Scheme.GAIN, new ArrayList<Day>())
+                  new CurrentHeight("160"), new Age("27"), new Duration("10"), Scheme.GAIN, new ArrayList<Day>()),
+            new HealthPlan(new HealthPlanName("maintain weight"), new TargetWeight("60"), new CurrentWeight("60"),
+                  new CurrentHeight("150"), new Age("23"), new Duration("8"), Scheme.MAINTAIN, new ArrayList<Day>())
         };
     }
 
