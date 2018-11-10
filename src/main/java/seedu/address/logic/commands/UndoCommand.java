@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VOLUNTEERS;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,6 +36,10 @@ public class UndoCommand extends Command {
 
         if (model.getContextId().equals(Context.RECORD_CONTEXT_ID)) {
             EventsCenter.getInstance().post(new RecordChangeEvent(model.getSelectedEvent()));
+        } else if (model.getContextId().equals(Context.EVENT_CONTEXT_ID)) {
+            EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
+        } else if (model.getContextId().equals(Context.VOLUNTEER_CONTEXT_ID)) {
+            EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
