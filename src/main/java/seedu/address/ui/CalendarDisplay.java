@@ -93,7 +93,8 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * TODO add javadoc comment
+     * Creates a new window to display {@root}.
+     * CalendarDisplay will block until the new window is closed.
      */
     private void displayPopUp(Parent root) {
         Scene scene = new Scene(root, 300, 200);
@@ -104,7 +105,7 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Sync the list of CalendarEvents to the calendar display
+     * Sync the list of CalendarEvents to the calendar display.
      *
      * @param calendarEventList the list of CalendarEvents to display
      */
@@ -113,7 +114,6 @@ public class CalendarDisplay extends UiPart<Region> {
         calendarEventList.forEach((calendarEvent -> calendarEvent.setAppointmentGroup(appointmentGroup)));
         agenda.appointments().addAll(calendarEventList);
 
-        // TODO: fix weird add/remove all items bug for first command
         this.calendarEventList.addListener(new ListChangeListener<CalendarEvent>() {
             @Override
             public void onChanged(Change<? extends CalendarEvent> c) {
@@ -121,14 +121,12 @@ public class CalendarDisplay extends UiPart<Region> {
                     if (c.wasRemoved()) {
                         for (CalendarEvent removedEvent : c.getRemoved()) {
                             agenda.appointments().remove(removedEvent);
-                            //System.out.println("event removed: " + removedEvent.toString());
                         }
                     }
                     if (c.wasAdded()) {
                         for (CalendarEvent addedEvent : c.getAddedSubList()) {
                             addedEvent.setAppointmentGroup(appointmentGroup);
                             agenda.appointments().add(c.getFrom(), addedEvent);
-                            //System.out.println("event added: " + addedEvent.toString() + " at index " + c.getFrom());
                         }
                     }
                 }
