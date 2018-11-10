@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -23,18 +23,31 @@ public class CalendarEventDialog extends UiPart<Region> {
     private CalendarEvent calendarEvent;
 
     @FXML
-    private TextField tfId;
+    private Label titleLabel;
 
     @FXML
-    private TextField tfName;
+    private Label descriptionLabel;
 
     @FXML
-    private TextField tfAge;
+    private Label venueLabel;
+
+    @FXML
+    private Label dateTimeLabel;
 
     public CalendarEventDialog(CalendarEvent calendarEvent) {
         super(FXML);
-
         this.calendarEvent = calendarEvent;
+        fillLabels();
+    }
+
+    /**
+     * Fills up the {@code CalendarEventDialog}'s Labels
+     */
+    public void fillLabels() {
+        titleLabel.setText(calendarEvent.getTitle().value);
+        descriptionLabel.setText(calendarEvent.getDescriptionObject().value);
+        venueLabel.setText(calendarEvent.getVenue().value);
+        dateTimeLabel.setText(calendarEvent.getStartLocalDateTime().toString());
     }
 
     /**
@@ -42,8 +55,6 @@ public class CalendarEventDialog extends UiPart<Region> {
      */
     @FXML
     public void onOkButtonClicked(ActionEvent event) {
-        System.out.println("huehuehue");
-
         closeStage(event);
     }
 

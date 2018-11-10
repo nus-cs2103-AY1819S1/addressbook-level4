@@ -34,6 +34,7 @@ public class CommandTestUtil {
 
     public static final String VALID_TITLE_LECTURE = "CS2103 Lecture";
     public static final String VALID_TITLE_TUTORIAL = "JS1011 Tutorial";
+    public static final String VALID_TITLE_SEMINAR = "FIN3101 Seminar";
     public static final String VALID_DESCRIPTION_LECTURE = "Abstraction, IntelliJ, Gradle";
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
     public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
@@ -66,6 +67,7 @@ public class CommandTestUtil {
     public static final String VENUE_DESC_TUTORIAL = " " + PREFIX_VENUE + VALID_VENUE_TUTORIAL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " q"; // start with whitespace not allowed
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // empty string not allowed

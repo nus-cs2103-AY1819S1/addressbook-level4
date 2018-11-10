@@ -75,7 +75,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.resetFilteredCalendarEventList();
+        modelManager.clearAllPredicatesAndComparators();
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoScheduler();
-        model.resetFilteredCalendarEventList();
+        model.clearAllPredicatesAndComparators();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

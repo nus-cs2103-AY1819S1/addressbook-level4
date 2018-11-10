@@ -77,7 +77,7 @@ public class XmlAdaptedCalendarEventTest {
     public void toModelType_invalidStart_throwsIllegalValueException() {
         XmlAdaptedCalendarEvent person = new XmlAdaptedCalendarEvent(VALID_TITLE, VALID_DESCRIPTION,
             INVALID_START, VALID_END, VALID_LOCATION, VALID_TAGS);
-        String expectedMessage = DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS;
+        String expectedMessage = DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -95,7 +95,7 @@ public class XmlAdaptedCalendarEventTest {
     public void toModelType_invalidEnd_throwsIllegalValueException() {
         XmlAdaptedCalendarEvent person = new XmlAdaptedCalendarEvent(VALID_TITLE, VALID_DESCRIPTION,
             VALID_START, INVALID_END, VALID_LOCATION, VALID_TAGS);
-        String expectedMessage = DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS;
+        String expectedMessage = DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

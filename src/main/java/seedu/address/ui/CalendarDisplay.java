@@ -36,6 +36,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
  */
 public class CalendarDisplay extends UiPart<Region> {
     private static final String FXML = "CalendarDisplay.fxml";
+    private static final String CSS = "view/ModifiedAgenda.css";
     private final Logger logger = LogsCenter.getLogger(CalendarDisplay.class);
 
     private ObservableList<CalendarEvent> calendarEventList;
@@ -57,7 +58,7 @@ public class CalendarDisplay extends UiPart<Region> {
         setConnections(calendarEventList);
         setControls();
 
-        agenda.getStylesheets().add("view/ModifiedAgenda.css"); // "src/main/resources/view/
+        agenda.getStylesheets().add(CSS); // "src/main/resources/view/
         setDisplayedDateTime(currentDateTime); // jump to the current time
     }
 
@@ -86,6 +87,7 @@ public class CalendarDisplay extends UiPart<Region> {
         agenda.setAppointmentChangedCallback(param -> null);
         agenda.setEditAppointmentCallback(param -> null);
         agenda.setSkin(new AgendaWeekSkin(agenda));
+        agenda.setId("agenda");
 
         calendarDisplayBox.getChildren().add(agenda);
     }
@@ -119,12 +121,14 @@ public class CalendarDisplay extends UiPart<Region> {
                     if (c.wasRemoved()) {
                         for (CalendarEvent removedEvent : c.getRemoved()) {
                             agenda.appointments().remove(removedEvent);
+                            //System.out.println("event removed: " + removedEvent.toString());
                         }
                     }
                     if (c.wasAdded()) {
                         for (CalendarEvent addedEvent : c.getAddedSubList()) {
                             addedEvent.setAppointmentGroup(appointmentGroup);
-                            agenda.appointments().add(addedEvent);
+                            agenda.appointments().add(c.getFrom(), addedEvent);
+                            //System.out.println("event added: " + addedEvent.toString() + " at index " + c.getFrom());
                         }
                     }
                 }
@@ -135,7 +139,6 @@ public class CalendarDisplay extends UiPart<Region> {
     /**
      * Set up the controls for interacting with the calendar display
      * The calendarDisplay must be in focus for this to work
-     * TODO: find way to set focus properly
      */
     public void setControls() {
         calendarDisplayBox.addEventFilter(KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -157,31 +160,32 @@ public class CalendarDisplay extends UiPart<Region> {
                     viewNext();
                     indicateCalendarDisplayTimeChanged();
                     break;
-                case L:
-                    // for testing
-                    // System.out.println("L pressed");
-                    break;
                 default:
                 }
             }
         });
     }
 
-    @FXML
     /**
-     * Bug fix: Consumes the DOWN event, preventing strange behaviour
+     * Consumes the arrow key events, preventing focus tranfering from calendar display
+     * to other UI components
      */
+    @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.DOWN) {
+        if (keyEvent.getCode() == KeyCode.UP
+            || keyEvent.getCode() == KeyCode.DOWN
+            || keyEvent.getCode() == KeyCode.LEFT
+            || keyEvent.getCode() == KeyCode.RIGHT) {
             keyEvent.consume();
         }
     }
+
 
     /**
      * Raises event to event center of change in display time
      * Depends on the current date, not on the first date displayed in the calendar
      */
-    private void indicateCalendarDisplayTimeChanged() {
+    public void indicateCalendarDisplayTimeChanged() {
         raise(new CalendarDisplayTimeChangedEvent(currentDateTime));
     }
 
@@ -200,7 +204,7 @@ public class CalendarDisplay extends UiPart<Region> {
      */
     private void handleCalendarPanelSelectionChangedEvent(CalendarPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setDisplayedDateTime(event.getNewSelection().getStartLocalDateTime());
+        setDisplayedDateTime(event.newSelection.getStartLocalDateTime());
     }
 
     /**

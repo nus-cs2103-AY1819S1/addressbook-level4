@@ -178,6 +178,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    // TODO: remove if not needed anymore
     /**
      * Refreshes the calendar event panel
      */
@@ -246,7 +247,6 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleRefreshCalendarPanelEvent(RefreshCalendarPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        refreshCalendarPanel();
     }
 
     @Subscribe

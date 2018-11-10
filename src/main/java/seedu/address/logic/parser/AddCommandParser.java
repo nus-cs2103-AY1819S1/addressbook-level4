@@ -53,7 +53,7 @@ public class AddCommandParser implements Parser<AddEventCommand> {
         DateTime start = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START).get());
         DateTime end = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END).get());
         if (!DateTimeInfo.isValidStartAndEnd(start, end)) {
-            throw new ParseException(DateTimeInfo.MESSAGE_STARTEND_CONSTRAINTS);
+            throw new ParseException(DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
 
         Title name = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());

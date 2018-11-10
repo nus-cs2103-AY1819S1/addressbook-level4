@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingIgnoreOrder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,10 +18,12 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
@@ -33,6 +36,7 @@ import seedu.address.model.Scheduler;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+
 
 /**
  * A system test class for Scheduler, which provides access to handles of GUI components and helper methods
@@ -95,6 +99,10 @@ public abstract class SchedulerSystemTest {
         return mainWindowHandle.getCalendarPanel();
     }
 
+    public CalendarDisplayHandle getCalendarDisplay() {
+        return mainWindowHandle.getCalendarDisplay();
+    }
+
     public ResultDisplayHandle getResultDisplay() {
         return mainWindowHandle.getResultDisplay();
     }
@@ -149,8 +157,9 @@ public abstract class SchedulerSystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same calendarevent objects as {@code expectedModel}
-     * and the calendar event list panel displays the calendar events in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same calendarevent objects as {@code expectedModel},
+     * the calendar event list panel displays the calendar events in the model correctly, and the calendar display
+     * displays the calendar events in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
@@ -158,6 +167,7 @@ public abstract class SchedulerSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
         assertListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
     }
 
     /**
@@ -240,4 +250,5 @@ public abstract class SchedulerSystemTest {
     protected Model getModel() {
         return testApp.getModel();
     }
+
 }
