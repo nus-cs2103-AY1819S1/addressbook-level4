@@ -156,6 +156,9 @@ public class InformationPanel extends UiPart<Region> {
                     } else {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                         setText(item.format(formatter));
+                        if (item.isBefore(LocalDateTime.now())) {
+                            setTextFill(Color.RED);
+                        }
                     }
                 }
             };

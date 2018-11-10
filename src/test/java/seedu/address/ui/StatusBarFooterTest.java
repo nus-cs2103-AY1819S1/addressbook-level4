@@ -9,8 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,8 +61,10 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
         // after address book is updated
         postNow(EVENT_STUB);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String lastUpdated = LocalDateTime.now().format(formatter);
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+                String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
     /**

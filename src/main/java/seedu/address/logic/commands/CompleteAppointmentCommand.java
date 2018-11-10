@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
- * Completes a patient's appointment in the health book.
+ * Completes an appointment in the health book.
  */
 public class CompleteAppointmentCommand extends Command {
 
@@ -37,6 +38,7 @@ public class CompleteAppointmentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment completed";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";
+    public static final String MESSAGE_APPOINTMENT_IN_FUTURE = "Appointment is still in the future";
 
     private final int appointmentId;
 
@@ -64,6 +66,10 @@ public class CompleteAppointmentCommand extends Command {
 
         if (appointment == null) {
             throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        if (appointment.getDateTime().isAfter(LocalDateTime.now())) {
+            throw new CommandException(MESSAGE_APPOINTMENT_IN_FUTURE);
         }
 
         for (Person person : personList) {
