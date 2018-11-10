@@ -27,7 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a volunteer to the application. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_ID + "VOLUNTEERID "
+            + PREFIX_ID + "NRIC "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_BIRTHDAY + "BIRTHDAY "
             + PREFIX_PHONE + "PHONE "

@@ -11,7 +11,8 @@ import java.util.Objects;
  */
 public class VolunteerId {
     public static final String MESSAGE_ID_CONSTRAINTS =
-            "Id should only start with letters S, T, F or G, followed by 7 digits, ending with an alphabet, and it should not be blank";
+            "NRIC should only start with letters S, T, F or G, followed by 7 digits, ending with an alphabet," +
+                    "and it should not be blank";
     public static final String ID_VALIDATION_REGEX = "(?i)^[STFG]\\d{7}[A-Z]$(?-i)";
 
     public final String id;
