@@ -22,10 +22,9 @@ import seedu.address.model.task.Task;
  * An UI component that displays all information of a {@code Task}.
  */
 public class TaskViewPanel extends UiPart<Region> {
+    private final Logger logger = LogsCenter.getLogger(TaskViewPanel.class);
 
     private static final String FXML = "TaskViewPanel.fxml";
-
-    public final Task task;
 
     @FXML
     private HBox cardPane;
@@ -52,29 +51,33 @@ public class TaskViewPanel extends UiPart<Region> {
 
     public TaskViewPanel(Task task, int displayedIndex) {
         super(FXML);
-        this.task = task;
-        id.setText(displayedIndex + ". ");
-        name.setText(task.getName().fullName);
-        dueDate.setText(task.getDueDate().value);
-        remainingTime.setText(getRemainingTime());
-        description.setText(task.getDescription().value);
-        priorityValue.setText(task.getPriorityValue().value);
-        status.setText(task.getStatus().toString());
-        hash.setText(getHashId());
-        dependency.setText(getDependencies());
-        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        displayTask(task);
         registerAsAnEventHandler(this);
     }
 
-    private String getHashId() {
+    private void displayTask(Task task) {
+        // TODO remove displayedIndex
+        id.setText(1 + ". ");
+        name.setText(task.getName().fullName);
+        dueDate.setText(task.getDueDate().value);
+        remainingTime.setText(getRemainingTime(task));
+        description.setText(task.getDescription().value);
+        priorityValue.setText(task.getPriorityValue().value);
+        status.setText(task.getStatus().toString());
+        hash.setText(getHashId(task));
+        dependency.setText(getDependencies(task));
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+    }
+
+    private String getHashId(Task task) {
         return "Dependency id: " + Integer.toString(task.hashCode());
     }
 
-    private String getDependencies() {
+    private String getDependencies(Task task) {
         return "dependencies: " + task.getDependency().toString();
     }
 
-    private String getRemainingTime() {
+    private String getRemainingTime(Task task) {
         return "remaining time: " + task.getTimeToDueDate();
     }
 
@@ -92,12 +95,13 @@ public class TaskViewPanel extends UiPart<Region> {
 
         // state check
         TaskViewPanel panel = (TaskViewPanel) other;
-        return id.getText().equals(panel.id.getText())
-                && task.equals(panel.task);
+        return id.getText().equals(panel.id.getText());
     }
 
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Task task = event.getNewSelection();
+        displayTask(task);
     }
 }
