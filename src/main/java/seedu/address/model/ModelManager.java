@@ -215,6 +215,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    @Override
     public void updateArchivedPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         archivedPersons.setPredicate(predicate);
@@ -253,8 +258,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean canUndoArchiveList() {
+        return versionedArchiveList.canUndo();
+    }
+
+    @Override
     public boolean canRedoAddressBook() {
         return versionedAddressBook.canRedo();
+    }
+
+    @Override
+    public boolean canRedoArchiveList() {
+        return versionedArchiveList.canRedo();
     }
 
     @Override
@@ -264,9 +279,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void undoArchiveList() {
+        versionedArchiveList.undo();
+        indicateArchivedListChanged();
+    }
+
+    @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void redoArchiveList() {
+        versionedArchiveList.redo();
+        indicateArchivedListChanged();
     }
 
     @Override
@@ -326,7 +353,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
-
         versionedAssignmentList.updateAssignment(target, editedAssignment);
         indicateAssignmentListChanged();
     }

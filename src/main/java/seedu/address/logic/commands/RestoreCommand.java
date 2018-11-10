@@ -25,7 +25,7 @@ public class RestoreCommand extends Command {
           + "Parameters: INDEX (must be a positive integer)\n"
           + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Restored Person: %1$s";
+    public static final String MESSAGE_RESTORED_PERSON_SUCCESS = "Restored Person: %1$s";
     //public static final String MESSAGE_DELETE_SELF_FAILURE = "You cannot delete yourself";
 
     private final Index targetIndex;
@@ -48,7 +48,7 @@ public class RestoreCommand extends Command {
 
         model.restorePerson(personToRestore);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToRestore));
+        return new CommandResult(String.format(MESSAGE_RESTORED_PERSON_SUCCESS, personToRestore));
     }
 
     @Override

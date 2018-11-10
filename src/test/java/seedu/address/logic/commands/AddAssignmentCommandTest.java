@@ -108,6 +108,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public void setState(int state) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean alreadyContainsUsername(String username, Person ignore) {
             throw new AssertionError("This method should not be called.");
         }
@@ -229,7 +234,17 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public boolean canUndoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -239,7 +254,17 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public void undoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 

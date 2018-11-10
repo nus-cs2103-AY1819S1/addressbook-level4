@@ -169,11 +169,27 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Displays all persons in the archive list.
+     */
+    protected void showAllArchivedPersons() {
+        executeCommand(ListCommand.COMMAND_WORD);
+        assertEquals(getModel().getArchiveList().getPersonList().size(), getModel().getArchivedPersonList().size());
+    }
+
+    /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    }
+
+    /**
+     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsArchivedWithName(String keyword) {
+        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getArchivedPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
     /**

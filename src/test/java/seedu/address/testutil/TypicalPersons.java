@@ -85,6 +85,23 @@ public class TypicalPersons {
             .withEmail("Barry@example.com").withAddress("Highstreet").withSalary("12000")
             .withProjects(VALID_PROJECT_OASIS).withUsername("Barry Lim").withPassword("Pa55w0rd")
             .build();
+    public static final Person HARRY = new PersonBuilder().withName("Harry Tan").withPhone("82829392")
+            .withEmail("J"
+                    + "Harry@example.com").withAddress("Highroad").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Harry Tan").withPassword("Pa55w0rd")
+            .build();
+    public static final Person SIMON = new PersonBuilder().withName("Simon Lim").withPhone("82738273")
+            .withEmail("Simon@example.com").withAddress("Highstreet").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Simon Lim").withPassword("Pa55w0rd")
+            .build();
+    public static final Person MARY = new PersonBuilder().withName("Mary Tan").withPhone("82829392")
+            .withEmail("Mary@example.com").withAddress("Highroad").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Mary Tan").withPassword("Pa55w0rd")
+            .build();
+    public static final Person JACK = new PersonBuilder().withName("Jack Lim").withPhone("82738273")
+            .withEmail("Jack@example.com").withAddress("Highstreet").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Jack Lim").withPassword("Pa55w0rd")
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -102,6 +119,9 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an {@code ArchiveList} with all the typical persons.
+     */
     public static ArchiveList getTypicalArchiveList() {
         ArchiveList al = new ArchiveList();
         for (Person person: getTypicalArchivedPersons()) {
@@ -115,6 +135,6 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalArchivedPersons() {
-        return new ArrayList<>(Arrays.asList(JORDAN, BARRY));
+        return new ArrayList<>(Arrays.asList(JORDAN, BARRY, HARRY, SIMON, MARY, JACK));
     }
 }
