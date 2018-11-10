@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarEventCardHandle;
+import guitests.guihandles.CalendarEventDialogHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.ToDoListEventCardHandle;
@@ -51,6 +52,17 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualDialog} displays the details of {@code expectedCalendarEvent}.
+     */
+    public static void assertDialogDisplaysCalendarEvent(CalendarEvent expectedCalendarEvent,
+                                                         CalendarEventDialogHandle actualDialog) {
+        assertEquals(expectedCalendarEvent.getTitle().value, actualDialog.getTitle());
+        assertEquals(expectedCalendarEvent.getDescriptionObject().value, actualDialog.getDescription());
+        assertEquals(expectedCalendarEvent.getVenue().value, actualDialog.getVenue());
+        assertEquals(expectedCalendarEvent.getStartLocalDateTime().toString(), actualDialog.getDateTimeString());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedToDoListEvent}.
      */
     public static void assertCardDisplaysToDo(ToDoListEvent expectedToDoListEvent,
@@ -83,21 +95,10 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents}
-     * correctly and
-     * in the correct order.
+     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents} correctly.
      */
     public static void assertListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
                                                      List<CalendarEvent> calendarEvents) {
-        /*
-        System.out.println("agenda calendar events:");
-        for(CalendarEvent c : calendarDisplayHandle.getDisplayedCalendarEvents()) {
-            System.out.println(c);
-        }
-        System.out.println("model calendar events:");
-        for(CalendarEvent c : calendarEvents) {
-            System.out.println(c);
-        }*/
         assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), calendarEvents.size());
         assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(calendarEvents));
     }

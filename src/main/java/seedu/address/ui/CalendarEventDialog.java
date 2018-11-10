@@ -13,26 +13,25 @@ import seedu.address.model.calendarevent.CalendarEvent;
 
 
 /**
- * TODO add javadoc comment
+ * A pop-up dialog to display the information of a {@code CalendarEvent} to the user.
  */
 public class CalendarEventDialog extends UiPart<Region> {
-
     private static final String FXML = "CalendarEventDialog.fxml";
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     private CalendarEvent calendarEvent;
 
     @FXML
-    private Label titleLabel;
+    private Label title;
 
     @FXML
-    private Label descriptionLabel;
+    private Label description;
 
     @FXML
-    private Label venueLabel;
+    private Label venue;
 
     @FXML
-    private Label dateTimeLabel;
+    private Label dateTime;
 
     public CalendarEventDialog(CalendarEvent calendarEvent) {
         super(FXML);
@@ -40,18 +39,22 @@ public class CalendarEventDialog extends UiPart<Region> {
         fillLabels();
     }
 
-    /**
-     * Fills up the {@code CalendarEventDialog}'s Labels
-     */
-    public void fillLabels() {
-        titleLabel.setText(calendarEvent.getTitle().value);
-        descriptionLabel.setText(calendarEvent.getDescriptionObject().value);
-        venueLabel.setText(calendarEvent.getVenue().value);
-        dateTimeLabel.setText(calendarEvent.getStartLocalDateTime().toString());
+    public CalendarEvent getCalendarEvent() {
+        return calendarEvent;
     }
 
     /**
-     * TODO add javadoc comment
+     * Fills up the labels using the information of the calendar event.
+     */
+    private void fillLabels() {
+        title.setText(calendarEvent.getTitle().value);
+        description.setText(calendarEvent.getDescriptionObject().value);
+        venue.setText(calendarEvent.getVenue().value);
+        dateTime.setText(calendarEvent.getStartLocalDateTime().toString());
+    }
+
+    /**
+     * Closes the dialog.
      */
     @FXML
     public void onOkButtonClicked(ActionEvent event) {
@@ -59,11 +62,29 @@ public class CalendarEventDialog extends UiPart<Region> {
     }
 
     /**
-     * TODO add javadoc comment
+     * Closes this Dialog.
      */
     private void closeStage(javafx.event.ActionEvent event) {
+        logger.info("Closing dialog.");
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof CalendarEventDialog)) {
+            return false;
+        }
+
+        // state check
+        CalendarEventDialog dialog = (CalendarEventDialog) other;
+        return calendarEvent.equals(dialog.getCalendarEvent());
     }
 }

@@ -49,7 +49,7 @@ public class CalendarDisplay extends UiPart<Region> {
         registerAsAnEventHandler(this);
 
         this.calendarEventList = calendarEventList;
-        this.currentDateTime = LocalDateTime.now();
+        this.currentDateTime = LocalDateTime.now().withNano(0);
         initAgenda();
         setConnections(calendarEventList);
         setControls();
@@ -87,7 +87,7 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Creates a new window to display {@param root}.
+     * Creates a new window to display root.
      * CalendarDisplay will block until the new window is closed.
      */
     private void displayPopUp(Parent root) {
@@ -101,7 +101,7 @@ public class CalendarDisplay extends UiPart<Region> {
     /**
      * Sync the list of CalendarEvents to the calendar display.
      *
-     * @param calendarEventList the list of CalendarEvents to display
+     * @param calendarEventList the list of CalendarEvents to display.
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {
         // populate the calendar
@@ -109,9 +109,13 @@ public class CalendarDisplay extends UiPart<Region> {
         agenda.appointments().addAll(calendarEventList);
 
         // push the changes to agenda
-        this.calendarEventList.addListener(this::forwardChanges);
+        calendarEventList.addListener(this::forwardChanges);
+        // calendarEventList.addListener();
     }
 
+    /**
+     * Forward changes in calendar event list to agenda
+     */
     private void forwardChanges(ListChangeListener.Change<? extends CalendarEvent> c) {
         while (c.next()) {
             if (c.wasRemoved()) {
@@ -129,24 +133,24 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Set up the controls for interacting with the calendar display
-     * The calendarDisplay must be in focus for this to work
+     * Set up the controls for interacting with the calendar display.
+     * The calendarDisplay must be in focus.
      */
     private void setControls() {
         calendarDisplayBox.addEventFilter(KEY_PRESSED, event -> {
             switch (event.getCode()) {
             case T: // toggle between day and week view
-                logger.info("Toggle Pressed");
+                logger.info("Toggle Pressed.");
                 toggleSkin();
                 agenda.requestFocus();
                 break;
             case LEFT:
-                logger.info("LEFT arrow Pressed");
+                logger.info("LEFT arrow Pressed.");
                 viewPrevious();
                 indicateCalendarDisplayTimeChanged();
                 break;
             case RIGHT:
-                logger.info("RIGHT arrow Pressed");
+                logger.info("RIGHT arrow Pressed.");
                 viewNext();
                 indicateCalendarDisplayTimeChanged();
                 break;
@@ -156,7 +160,7 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Consumes the arrow key events, preventing focus tranfering from calendar display
+     * Consumes the arrow key events, preventing focus tranfering from the calendar display
      * to other UI components
      */
     @FXML
