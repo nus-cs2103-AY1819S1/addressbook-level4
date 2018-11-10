@@ -37,7 +37,6 @@ import seedu.address.logic.commands.SelfEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.project.Assignment;
 
 /**
  * Parses user input.
