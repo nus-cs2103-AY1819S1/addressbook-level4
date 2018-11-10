@@ -7,7 +7,6 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
