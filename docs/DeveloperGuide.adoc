@@ -147,9 +147,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del p/Fav`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del 1`.
 
-.Component interactions for `playlist del p/Fav` command (part 1)
+.Component interactions for `playlist del 1` command (part 1)
 image::SDforDeletePlaylist.png[width="800"]
 
 [NOTE]
@@ -157,7 +157,7 @@ Note how the `Model` simply raises a `LibraryChangedEvent` when the library data
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `playlist del p/Fav` command (part 2)
+.Component interactions for `playlist del 1` command (part 2)
 image::SDforDeletePlaylistEventHandling.png[width="800"]
 
 [NOTE]
@@ -193,15 +193,15 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `LibraryParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a playlist) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("playlist del 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePlaylistSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `playlist del 1` Command
+image::LogicComponentSequenceDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
