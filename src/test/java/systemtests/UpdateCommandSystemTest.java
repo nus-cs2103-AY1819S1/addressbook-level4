@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
@@ -33,7 +34,6 @@ import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 import java.io.IOException;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.RedoCommand;
@@ -41,6 +41,7 @@ import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
@@ -170,17 +171,22 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 UpdateCommand.MESSAGE_NOT_UPDATED);
 
-        /* Case: invalid phone -> rejected */
+        /* Case: invalid name -> rejected */
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+                Name.MESSAGE_NAME_CONSTRAINTS);
+
+        /* Case: invalid maintenance -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid wait time -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_WAIT_TIME_DESC,
                 WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid thanepark -> rejected */
+        /* Case: invalid zone -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_ZONE_DESC,
                 Zone.MESSAGE_ZONE_CONSTRAINTS);

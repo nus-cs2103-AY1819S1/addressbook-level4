@@ -2,6 +2,7 @@ package systemtests;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
@@ -34,7 +35,6 @@ import static seedu.thanepark.testutil.TypicalRides.IDA;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.AddCommand;
@@ -42,6 +42,7 @@ import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
@@ -167,6 +168,11 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = "adds " + RideUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
+        /* Case: invalid name -> rejected */
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC
+                + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
+        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+
         /* Case: invalid maintenance -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
@@ -177,7 +183,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
                 + MAINTENANCE_DESC_AMY + INVALID_WAIT_TIME_DESC + ZONE_DESC_AMY;
         assertCommandFailure(command, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid thanepark -> rejected */
+        /* Case: invalid zone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + INVALID_ZONE_DESC;
         assertCommandFailure(command, Zone.MESSAGE_ZONE_CONSTRAINTS);

@@ -2,6 +2,7 @@ package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
@@ -31,9 +32,9 @@ import static seedu.thanepark.testutil.TypicalRides.AMY;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
@@ -115,6 +116,10 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        // invalid name
+        assertParseFailure(parser, INVALID_NAME_DESC + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
+
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
@@ -131,7 +136,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // tw invalid values, only first invalid value reported
+        // two invalid values, only first invalid value reported
         assertParseFailure(parser, VALID_NAME_SYMBOLS + MAINTENANCE_DESC_BOB + INVALID_WAIT_TIME_DESC
                 + INVALID_ZONE_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
