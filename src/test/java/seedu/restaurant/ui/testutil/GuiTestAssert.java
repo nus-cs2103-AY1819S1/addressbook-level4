@@ -21,7 +21,6 @@ import guitests.guihandles.menu.ItemStackPanelHandle;
 import guitests.guihandles.reservation.ReservationCardHandle;
 import guitests.guihandles.sales.RecordCardHandle;
 import guitests.guihandles.sales.RecordStackPanelHandle;
-import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
