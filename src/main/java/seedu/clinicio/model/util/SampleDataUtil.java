@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 import seedu.clinicio.commons.util.HashUtil;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.patient.Allergy;
+import seedu.clinicio.model.patient.MedicalProblem;
+import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -85,4 +88,30 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a medical problem set containing the list of strings given.
+     */
+    public static Set<MedicalProblem> getMedicalProblemSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(MedicalProblem::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a medication set containing the list of strings given.
+     */
+    public static Set<Medication> getMedicationSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Medication::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a allergy set containing the list of strings given.
+     */
+    public static Set<Allergy> getAllergySet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Allergy::new)
+                .collect(Collectors.toSet());
+    }
 }

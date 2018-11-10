@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_CAT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_DAISY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -13,11 +12,9 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.CAT;
 import static seedu.clinicio.testutil.TypicalPersons.DAISY;
-import static seedu.clinicio.testutil.TypicalPersons.FRANK;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
 import org.junit.Rule;
@@ -48,30 +45,21 @@ public class LoginCommandTest {
 
     @Test
     public void execute_validCredentials_returnTrue() {
+        UserSession.destroy();
         String expectedMessage = LoginCommand.MESSAGE_SUCCESS;
 
         LoginCommand command = new LoginCommand(
                 new Staff(DOCTOR, ADAM.getName(), new Password(VALID_PASSWORD_ADAM, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
-        UserSession.destorySession();
-
-        command = new LoginCommand(
-                new Staff(RECEPTIONIST, ALAN.getName(), new Password(VALID_PASSWORD_ALAN, false)));
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
     }
 
     @Test
     public void execute_invalidCredentials_returnFalse() {
+        UserSession.destroy();
         String expectedMessage = LoginCommand.MESSAGE_FAILURE;
 
         LoginCommand command = new LoginCommand(
                 new Staff(DOCTOR, BEN.getName(), new Password(VALID_PASSWORD_ADAM, false)));
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
-
-        command = new LoginCommand(
-                new Staff(RECEPTIONIST, FRANK.getName(), new Password(VALID_PASSWORD_ALAN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
     }
 
