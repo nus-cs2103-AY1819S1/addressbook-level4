@@ -41,7 +41,7 @@
                         <Tab fx:id="patientTab">
                             <graphic>
                                 <ImageView>
-                                    <Image url="@/images/clinicio.png" />
+                                    <Image url="@/images/medical_history.png" />
                                 </ImageView>
                             </graphic>
                             <VBox fx:id="patientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
@@ -49,6 +49,19 @@
                                     <Insets top="10" right="10" bottom="10" left="10" />
                                 </padding>
                                 <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
+                        <Tab fx:id="queueTab">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/images/line.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox fx:id="patientQueue" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10" />
+                                </padding>
+                                <StackPane fx:id="queuePanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
                         <Tab fx:id="appointmentTab">
@@ -62,19 +75,6 @@
                                     <Insets top="10" right="10" bottom="10" left="10" />
                                 </padding>
                                 <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                            </VBox>
-                        </Tab>
-                        <Tab fx:id="queueTab">
-                            <graphic>
-                                <ImageView>
-                                    <Image url="@/images/clinicio.png" />
-                                </ImageView>
-                            </graphic>
-                            <VBox fx:id="patientQueue" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-                                <padding>
-                                    <Insets top="10" right="10" bottom="10" left="10" />
-                                </padding>
-                                <StackPane fx:id="queuePanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
                     </TabPane>
