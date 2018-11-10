@@ -1,4 +1,4 @@
-= OASIS - Developer Guide
+= = image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -1438,9 +1438,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system
+.  Employee login to the system
 .  Oasis shows home page and displays list of employees
-.  Manager executes delete command on a selected employee
+.  Employee executes delete command on a selected employee
 .  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
@@ -1456,11 +1456,24 @@ Use case ends.
 +
 Use case ends.
 
+* 2b. Employee moves to archive list.
++
+** 2b1. OASIS shows archive list.
+** 2b2. Employee executes delete command on a selected employee
+** 2b3. Oasis deletes the employee from the system and shows success message.
++
+Use case ends.
+
 * 3a. The chosen employee is invalid.
 +
 ** 3a1. OASIS shows an error message.
 +
-Use case resumes at step 4.
+
+* 3b. Employee does not have required permissions.
++
+** 3a1. OASIS shows an error message.
++
+Use case ends.
 
 [discrete]
 === Use case: Apply for leave

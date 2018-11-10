@@ -44,8 +44,9 @@ e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all employees.
-* **`add`**`-n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
-* **`find`**`J*` : finds all employees where any of their names start with J.
+* *`add -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000`* : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
+* *`find J*`* : finds all employees where any of their names start with J.
+* *`delete 1`* : Deletes employee at the first location on the current displayed list.
 * *`exit`* : exits the app
 
 .  Refer to <<Commands>> for details of each command.
@@ -117,13 +118,14 @@ Examples:
 
 === Removing an employee from my department: `delete`
 
-Removes an employee from the system.
+Removes an employee from the current displayed list.
 
 Format: `delete INDEX`
 
 ****
 * To use this command, you must be logged in and have the "DELETE_EMPLOYEE" permission.
-* All deleted employees will be stored in the archive, when employee in archive is deleted again it will be taken out of archive.
+* Delete employees from the active list will be moved to archive list.
+* Deleted employees from the archive list will be deleted from the system.
 ****
 
 Examples:
@@ -427,6 +429,10 @@ Displays the list of employees removed from the system. To delete an employee fr
 
 Format: `archive`
 
+****
+* Replaces current view on the left panel to the archive list.
+****
+
 === Restoring employee to active list: `restore`
 
 Restores an employee to active list from the archived list.
@@ -434,7 +440,7 @@ Restores an employee to active list from the archived list.
 Format: `restore INDEX`
 
 ****
-* All restored employees will be taken back to the active list.
+* Restored employee will be moved back to the active list.
 ****
 
 Examples:
