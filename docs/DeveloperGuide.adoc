@@ -1000,7 +1000,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  *Actor* enters a wish with Name, Date, Price, Index (Optional).
+1.  *Actor* enters a wish with Name, Date, Price.
 2.  *System* adds wish to the wish list.
 +
 Use case ends.
@@ -1008,10 +1008,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. *Actor* fails to specify Name/Price.
+* 2a. *Actor* fails to specify any of the compulsory fields (Name, Price, and Date/Duration).
 +
 [none]
-** 2a1. *System* shows Add command usage.
+** 2a1. *System* shows a correct Add command usage with example.
 +
 Use case ends.
 
@@ -1019,7 +1019,7 @@ Use case ends.
 +
 [none]
 ** 2b1. *System* shows Add command usage.
-** 2b2. *Actor* is prompted to enter a valid argument.
+** 2b2. *Actor* is prompted to enter a valid argument in a specific format shown.
 +
 Use case ends.
 
