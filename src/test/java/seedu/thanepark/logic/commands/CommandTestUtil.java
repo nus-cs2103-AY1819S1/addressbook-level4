@@ -51,6 +51,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_SYMBOLS = " " + PREFIX_NAME + VALID_NAME_JESSIE;
 
     // 'a' not allowed in days since maintenance
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "[@]!!!!!";
     public static final String INVALID_MAINTENANCE_DESC = " " + PREFIX_MAINTENANCE + "911a";
     public static final String INVALID_WAIT_TIME_DESC = " " + PREFIX_WAITING_TIME + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ZONE_DESC = " " + PREFIX_ZONE; // empty string not allowed for addresses

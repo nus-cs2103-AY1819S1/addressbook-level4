@@ -2,6 +2,7 @@ package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
@@ -38,6 +39,7 @@ import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
@@ -81,6 +83,9 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        // invalid name
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
+
         // invalid maintenance
         assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
