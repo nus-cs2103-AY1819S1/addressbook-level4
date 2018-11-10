@@ -1,11 +1,6 @@
 package seedu.thanepark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
 
 import java.util.Collections;
@@ -16,7 +11,6 @@ import java.util.Set;
 
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
-import seedu.thanepark.commons.util.CollectionUtil;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;
@@ -29,44 +23,30 @@ import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
- * Edits the details of an existing ride in the thanepark book.
+ * Close an existing ride in the thane park for maintain.
  */
-public class UpdateCommand extends Command {
+public class MaintainCommand extends Command {
 
-    public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD = "maintain";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the ride identified "
-            + "by the index number used in the displayed ride list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_MAINTENANCE + "MAINTENANCE] "
-            + "[" + PREFIX_WAITING_TIME + "WAITING_TIME] "
-            + "[" + PREFIX_ZONE + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MAINTENANCE + "90 "
-            + PREFIX_WAITING_TIME + "60";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Close the ride identified by index for maintenance.\n "
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_UPDATE_RIDE_SUCCESS = "Updated Ride: %1$s";
-    public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
-    public static final String MESSAGE_DUPLICATE_RIDE = "This ride already exists in the thanepark book.";
-    public static final String MESSAGE_CLOSED_RIDE = "Maintenance and Waiting Time can only be updated "
-            + "if the ride is opened.\n";
+    public static final String MESSAGE_MAINTAIN_RIDE_SUCCESS = "Ride is closed for maintenance: %1$s";
+    public static final String MESSAGE_DUPLICATE_RIDE = "This ride is already closed for maintenance.";
 
     private final Index index;
-    private final UpdateRideDescriptor updateRideDescriptor;
+    private final MaintainCommand.UpdateRideDescriptor maintainRideDescriptor;
 
     /**
-     * @param index of the ride in the filtered ride list to edit
-     * @param updateRideDescriptor details to edit the ride with
+     * @param index of the ride in the filtered ride list to maintain
      */
-    public UpdateCommand(Index index, UpdateRideDescriptor updateRideDescriptor) {
+    public MaintainCommand(Index index) {
         requireNonNull(index);
-        requireNonNull(updateRideDescriptor);
 
         this.index = index;
-        this.updateRideDescriptor = new UpdateRideDescriptor(updateRideDescriptor);
+        this.maintainRideDescriptor = new MaintainCommand.UpdateRideDescriptor();
     }
 
     @Override
@@ -78,39 +58,33 @@ public class UpdateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         }
 
-        Ride rideToEdit = lastShownList.get(index.getZeroBased());
-        Ride editedRide = createUpdatedRide(rideToEdit, updateRideDescriptor);
+        Ride rideToMaintain = lastShownList.get(index.getZeroBased());
+        Ride editedRide = createUpdatedRide(rideToMaintain, maintainRideDescriptor);
 
-        if (!rideToEdit.isSameRide(editedRide) && model.hasRide(editedRide)) {
+        if (rideToMaintain.isSameRide(editedRide) && rideToMaintain.equals(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
-        model.updateRide(rideToEdit, editedRide);
+        model.updateRide(rideToMaintain, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         model.commitThanePark();
-        return new CommandResult(String.format(MESSAGE_UPDATE_RIDE_SUCCESS, editedRide));
+        return new CommandResult(String.format(MESSAGE_MAINTAIN_RIDE_SUCCESS, editedRide));
     }
 
     /**
-     * Creates and returns a {@code Ride} with the details of {@code rideToEdit}
-     * edited with {@code updateRideDescriptor}.
+     * Creates and returns a {@code Ride} with the details of {@code rideToMaintain}
+     * edited with {@code maintainRideDescriptor}.
      */
-    private static Ride createUpdatedRide(Ride rideToEdit,
-                                          UpdateRideDescriptor updateRideDescriptor) throws CommandException {
-        assert rideToEdit != null;
+    private static Ride createUpdatedRide(Ride rideToMaintain,
+                                          MaintainCommand.UpdateRideDescriptor openRideDescriptor) {
+        assert rideToMaintain != null;
 
-        if (rideToEdit.getStatus() != Status.OPEN) {
-            if (updateRideDescriptor.getMaintenance().isPresent() || updateRideDescriptor.getWaitTime().isPresent()) {
-                throw new CommandException(MESSAGE_CLOSED_RIDE);
-            }
-        }
-        Name updatedName = updateRideDescriptor.getName().orElse(rideToEdit.getName());
-        Maintenance updatedMaintenance =
-                updateRideDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
-        WaitTime updatedWaitTime = updateRideDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
-        Zone updatedZone = updateRideDescriptor.getZone().orElse(rideToEdit.getZone());
-        Set<Tag> updatedTags = updateRideDescriptor.getTags().orElse(rideToEdit.getTags());
-        Status updatedStatus = rideToEdit.getStatus();
+        Name updatedName = openRideDescriptor.getName().orElse(rideToMaintain.getName());
+        Maintenance updatedMaintenance = new Maintenance(0);
+        WaitTime updatedWaitTime = new WaitTime(0);
+        Zone updatedZone = openRideDescriptor.getZone().orElse(rideToMaintain.getZone());
+        Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToMaintain.getTags());
+        Status updatedStatus = Status.MAINTENANCE;
 
         return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags, updatedStatus);
     }
@@ -123,14 +97,14 @@ public class UpdateCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UpdateCommand)) {
+        if (!(other instanceof MaintainCommand)) {
             return false;
         }
 
         // state check
-        UpdateCommand e = (UpdateCommand) other;
+        MaintainCommand e = (MaintainCommand) other;
         return index.equals(e.index)
-                && updateRideDescriptor.equals(e.updateRideDescriptor);
+                && maintainRideDescriptor.equals(e.maintainRideDescriptor);
     }
 
     /**
@@ -143,6 +117,7 @@ public class UpdateCommand extends Command {
         private WaitTime waitTime;
         private Zone zone;
         private Set<Tag> tags;
+        private Status status;
 
         public UpdateRideDescriptor() {}
 
@@ -150,19 +125,13 @@ public class UpdateCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public UpdateRideDescriptor(UpdateRideDescriptor toCopy) {
+        public UpdateRideDescriptor(MaintainCommand.UpdateRideDescriptor toCopy) {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
             setZone(toCopy.zone);
             setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, maintenance, waitTime, zone, tags);
+            setStatus(toCopy.status);
         }
 
         public void setName(Name name) {
@@ -210,8 +179,17 @@ public class UpdateCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
+
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         @Override
@@ -222,18 +200,19 @@ public class UpdateCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UpdateRideDescriptor)) {
+            if (!(other instanceof MaintainCommand.UpdateRideDescriptor)) {
                 return false;
             }
 
             // state check
-            UpdateRideDescriptor e = (UpdateRideDescriptor) other;
+            MaintainCommand.UpdateRideDescriptor e = (MaintainCommand.UpdateRideDescriptor) other;
 
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
                     && getWaitTime().equals(e.getWaitTime())
                     && getZone().equals(e.getZone())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getStatus().equals(e.getStatus());
         }
     }
 }

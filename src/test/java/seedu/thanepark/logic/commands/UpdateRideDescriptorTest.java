@@ -39,16 +39,17 @@ public class UpdateRideDescriptorTest {
                 new UpdateRideDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
+        // different maintenance -> returns false
         editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withMaintenance(VALID_MAINTENANCE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different email -> returns false
+        // different waiting time -> returns false
         editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withWaitTime(VALID_WAIT_TIME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different thanepark -> returns false
-        editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withAddress(VALID_ZONE_BOB).build();
+        editedAmy = new UpdateRideDescriptorBuilder(DESC_AMY).withZone(VALID_ZONE_BOB).build();
+
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

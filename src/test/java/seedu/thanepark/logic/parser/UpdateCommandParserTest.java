@@ -127,7 +127,7 @@ public class UpdateCommandParserTest {
                 + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ZONE_AMY)
+                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withZone(VALID_ZONE_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
@@ -176,7 +176,8 @@ public class UpdateCommandParserTest {
 
         // thanepark
         userInput = targetIndex.getOneBased() + ZONE_DESC_AMY;
-        descriptor = new UpdateRideDescriptorBuilder().withAddress(VALID_ZONE_AMY).build();
+        descriptor = new UpdateRideDescriptorBuilder().withZone(VALID_ZONE_AMY).build();
+
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -196,7 +197,7 @@ public class UpdateCommandParserTest {
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
-                .withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withZone(VALID_ZONE_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
@@ -218,7 +219,8 @@ public class UpdateCommandParserTest {
                 + MAINTENANCE_DESC_BOB;
         descriptor = new UpdateRideDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB)
-                .withAddress(VALID_ZONE_BOB).build();
+                .withZone(VALID_ZONE_BOB).build();
+
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
