@@ -147,9 +147,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del p/Fav`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del 1`.
 
-.Component interactions for `playlist del p/Fav` command (part 1)
+.Component interactions for `playlist del 1` command (part 1)
 image::SDforDeletePlaylist.png[width="800"]
 
 [NOTE]
@@ -157,7 +157,7 @@ Note how the `Model` simply raises a `LibraryChangedEvent` when the library data
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `playlist del p/Fav` command (part 2)
+.Component interactions for `playlist del 1` command (part 2)
 image::SDforDeletePlaylistEventHandling.png[width="800"]
 
 [NOTE]
