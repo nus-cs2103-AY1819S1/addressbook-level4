@@ -63,11 +63,11 @@ public class Track implements Comparable {
         //media = new Media(file.toURI().toString());
         //MediaPlayer mediaPlayer = new MediaPlayer(media);
         //while (mediaPlayer.getStatus() != READY) {
-            //try {
-                //Thread.sleep(5);
-            //} catch (InterruptedException e) {
-                //e.printStackTrace();
-            //}
+        //try {
+        //Thread.sleep(5);
+        //} catch (InterruptedException e) {
+        //e.printStackTrace();
+        //}
         //}
         //this.fileDuration = media.getDuration();
         //mediaPlayer = null;
@@ -86,17 +86,17 @@ public class Track implements Comparable {
     }
 
     //public Duration getFileDuration() {
-        //return fileDuration;
+    //return fileDuration;
     //}
 
     //public String getDisplayedFileDuration() {
-        //int totalSeconds = (int) fileDuration.toSeconds();
-        //int seconds = totalSeconds % 60;
-        //String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
-        //int hours = totalSeconds / 3600;
-        //int minutes = (totalSeconds - seconds - hours * 3600) / 60;
-        //String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
-        //return hours + minuteString + secondString;
+    //int totalSeconds = (int) fileDuration.toSeconds();
+    //int seconds = totalSeconds % 60;
+    //String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
+    //int hours = totalSeconds / 3600;
+    //int minutes = (totalSeconds - seconds - hours * 3600) / 60;
+    //String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
+    //return hours + minuteString + secondString;
     //}
 
     /**
