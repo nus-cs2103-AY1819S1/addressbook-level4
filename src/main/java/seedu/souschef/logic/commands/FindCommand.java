@@ -8,7 +8,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Finds and lists all recipes in address book whose name contains any of the argument keywords.
+ * Finds and lists all recipes in SousChef whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand<T extends UniqueType> extends Command {

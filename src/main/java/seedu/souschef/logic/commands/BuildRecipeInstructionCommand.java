@@ -6,7 +6,7 @@ import seedu.souschef.logic.History;
 import seedu.souschef.model.recipe.Instruction;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a recipe to the SousChef.
  */
 public class BuildRecipeInstructionCommand extends Command {
 

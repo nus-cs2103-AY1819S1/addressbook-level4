@@ -27,7 +27,7 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
     private AppContent appContent;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableRecipe.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableRecipe() {

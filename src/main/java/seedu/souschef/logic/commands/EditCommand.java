@@ -3,12 +3,11 @@ package seedu.souschef.logic.commands;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.History;
-import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Edits the details of an existing recipe in the address book.
+ * Edits the details of an existing recipe.
  */
 public class EditCommand<T extends UniqueType> extends Command {
 

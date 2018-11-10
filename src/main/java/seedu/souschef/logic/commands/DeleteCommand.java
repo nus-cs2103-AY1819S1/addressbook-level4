@@ -5,7 +5,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Deletes a recipe identified using it's displayed index from the address book.
+ * Deletes a recipe identified using it's displayed index.
  */
 public class DeleteCommand<T extends UniqueType> extends Command {
 

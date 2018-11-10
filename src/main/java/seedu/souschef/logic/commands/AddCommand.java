@@ -7,7 +7,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a uniqueType to the SousChef.
  */
 public class AddCommand<T extends UniqueType> extends Command {
 
