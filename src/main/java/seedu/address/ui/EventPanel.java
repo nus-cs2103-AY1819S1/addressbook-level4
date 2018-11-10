@@ -95,7 +95,7 @@ public class EventPanel extends UiPart<Region> {
     }
 
     /**
-     * Ckears details in the event panel.
+     * Clears details in the event panel.
      */
     public void clearDetails() {
         eventNameLabel.setText("");
