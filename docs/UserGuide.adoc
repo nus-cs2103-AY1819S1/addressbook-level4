@@ -287,7 +287,7 @@ The following is the list of Permissions available.
 |VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
 |ADD_ASSIGNMENT|Allows user to add assignments into OASIS
-|DELETE_ASSIGNMENT|Allows user to delete assignments 
+|DELETE_ASSIGNMENT|Allows user to delete assignments
 |EDIT_ASSIGNMENT|Allows user to edit assignments
 |ASSIGN_PERMISSION|Allows user to assign permission to employees
 |=========================================================
