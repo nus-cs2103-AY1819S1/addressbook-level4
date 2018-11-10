@@ -21,7 +21,6 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Recipe> recipeModel;
     private final Model<HealthPlan> healthPlanModel;
     private final Model<Day> mealPlannerModel;
-    private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
     private final Model<CrossRecipe> crossRecipeModel;
     private final Model<Favourites> favouriteModel;
@@ -34,7 +33,6 @@ public class ModelSetCoordinator implements ModelSet {
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
         versionedAppContent = new VersionedAppContent(appContent);
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
-        tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
         crossRecipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getCrossRecipes());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
@@ -80,11 +78,6 @@ public class ModelSetCoordinator implements ModelSet {
     @Override
     public Model<Day> getMealPlannerModel() {
         return mealPlannerModel;
-    }
-
-    @Override
-    public Model<Tag> getTagModel() {
-        return tagModel;
     }
 
     @Override
