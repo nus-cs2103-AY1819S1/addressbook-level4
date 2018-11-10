@@ -2,6 +2,7 @@ package seedu.clinicio.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
@@ -23,6 +24,7 @@ import org.junit.rules.ExpectedException;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
+import seedu.clinicio.logic.commands.CancelApptCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.DeleteCommand;
 import seedu.clinicio.logic.commands.DequeueCommand;
@@ -63,6 +65,13 @@ public class ClinicIoParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final ClinicIoParser parser = new ClinicIoParser();
+
+    @Test
+    public void parseCommand_cancelAppt() throws Exception {
+        CancelApptCommand command = (CancelApptCommand) parser.parseCommand(
+                CancelApptCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new CancelApptCommand(INDEX_FIRST_PERSON), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
