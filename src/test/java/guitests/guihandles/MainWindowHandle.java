@@ -30,15 +30,18 @@ public class MainWindowHandle extends StageHandle {
     }
 
     public PersonListPanelHandle getPersonListPanel() {
+        // Switch to person list first.
         return personListPanel;
     }
 
     public ModuleListPanelHandle getModuleListPanel() {
+        // Switch to module list first.
         moduleListPanel = new ModuleListPanelHandle(getChildNode(ModuleListPanelHandle.MODULE_LIST_VIEW_ID));
         return moduleListPanel;
     }
 
     public OccasionListPanelHandle getOccasionListPanel() {
+        // Switch to occasion list first.
         occasionListPanel = new OccasionListPanelHandle(getChildNode(OccasionListPanelHandle.OCCASION_LIST_VIEW_ID));
         return occasionListPanel;
     }
@@ -60,15 +63,18 @@ public class MainWindowHandle extends StageHandle {
     }
 
     public PersonBrowserPanelHandle getPersonBrowserPanel() {
+        // Switch to person list.
         return personBrowserPanel;
     }
 
     public ModuleBrowserPanelHandle getModuleBrowserPanel() {
+        // Switch to module list.
         moduleBrowserPanel = new ModuleBrowserPanelHandle(getChildNode(ModuleBrowserPanelHandle.BROWSER_ID));
         return moduleBrowserPanel;
     }
 
     public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
+        // Switch to occasion list.
         occasionBrowserPanel = new OccasionBrowserPanelHandle(getChildNode(OccasionBrowserPanelHandle.BROWSER_ID));
         return occasionBrowserPanel;
     }
