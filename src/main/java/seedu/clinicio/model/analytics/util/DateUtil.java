@@ -25,7 +25,8 @@ public class DateUtil {
      * @return a list of the number of dates that occur in various time periods.
      */
     public static List<Integer> todayWeekMonthYear(List<Date> dates) {
-        return Arrays.asList(todayCount(dates), currentWeekCount(dates), currentMonthCount(dates), currentYearCount(dates));
+        return Arrays.asList(todayCount(dates), currentWeekCount(dates), currentMonthCount(dates),
+            currentYearCount(dates));
     }
 
     /**
@@ -82,12 +83,12 @@ public class DateUtil {
     public static List<Tuple<String, Integer>> eachDayCount(List<Date> dates) {
         List<Tuple<String, Integer>> daysCount = new ArrayList<>();
         for (DayOfWeek dayOfWeek : getDaysOfWeek()) {
-             long count = dates.stream()
+            long count = dates.stream()
                 .map(date -> getDayFromDate(date))
                 .filter(day-> dayOfWeek.equals(day))
                 .count();
 
-             Tuple<String, Integer> tuple = new Tuple<>(dayOfWeek.name(), toIntExact(count));
+            Tuple<String, Integer> tuple = new Tuple<>(dayOfWeek.name(), toIntExact(count));
         }
         return daysCount;
     }
@@ -123,7 +124,7 @@ public class DateUtil {
             int dateCount = 0;
             for (Date date : dates) {
                 if (nextWeekDate.equals(date)) {
-                   dateCount++;
+                    dateCount++;
                 }
             }
             Tuple<Date, Integer> tuple = new Tuple<>(nextWeekDate, dateCount);
