@@ -155,6 +155,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 box.
 ====
 
+// tag::savingsHistory[]
 === View your saving history: `history -s`
 
 Shows a history of savings you have allocated, from newest to oldest. +
