@@ -54,7 +54,6 @@ public class StorageManager extends ComponentManager implements Storage {
         this.featureStorage = recipeStorage;
     }
 
-    //TODO: Constructor redundant
     public StorageManager(FeatureStorage featureStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.featureStorage = featureStorage;
