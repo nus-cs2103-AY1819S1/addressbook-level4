@@ -459,7 +459,6 @@
 .axis {
     -fx-tick-label-font-size: 12pt;
     -fx-tick-label-fill: white;
-    -fx-tick-label-font: "IBM Plex Sans";
     -fx-tick-length: 1;
     -fx-minor-tick-length: 1;
 }
