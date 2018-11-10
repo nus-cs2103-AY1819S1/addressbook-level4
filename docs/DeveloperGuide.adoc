@@ -624,7 +624,7 @@ Step 2: User would make sure that there is a working internet connection.
 
 Step 3: User would type "word" into the command line.
 
-Step 4: The word of the day will be parsed by WordOfTheDayParser, calling `WordOfTheDayParser#parse()` The WordOfTheDayParser exists solely for the purpose of utilizing the existing functions made for parsing the online Dictionary and putting the word into `:Word` objects.
+Step 4: The word of the day will be parsed by WordOfTheDayParser, calling `WordOfTheDayParser#parse()` The WordOfTheDayParser exists solely for the purpose of utilizing the existing functions made for parsing the online Dictionary and putting the word into a `Word` object.
 
 Step 5: This calls the `Dictionary` class and all relevant functions. The first one being `Dictionary#fetchWordOfTheDay()`.
 
