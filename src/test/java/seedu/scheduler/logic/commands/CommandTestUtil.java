@@ -226,4 +226,15 @@ public class CommandTestUtil {
         model.commitScheduler();
     }
 
+    /**
+     * Executes {@code command}
+     * Such as set up events on Google Calendar for those events ready for editing.
+     */
+    public static void helperCommand(Command command, Model actualModel, CommandHistory actualCommandHistory) {
+        try {
+            command.execute(actualModel, actualCommandHistory);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
+    }
 }
