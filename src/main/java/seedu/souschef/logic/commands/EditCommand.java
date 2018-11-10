@@ -32,7 +32,7 @@ public class EditCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(History history) throws CommandException {
+    public CommandResult execute(History history) {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
