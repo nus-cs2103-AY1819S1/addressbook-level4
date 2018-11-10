@@ -55,6 +55,7 @@ import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngr
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
 import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
+import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
@@ -457,6 +458,32 @@ public class RestaurantBookParserTest {
         command = (SelectIngredientCommand) parser.parseCommand(
                 SelectIngredientCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
         assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_stockUp() throws Exception {
+        // full command name, one ingredient
+        StockUpCommand command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10");
+        Map<IngredientName, Integer> hashMap = new HashMap<>();
+        hashMap.put(new IngredientName("Chicken Thigh"), 10);
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // command alias, one ingredient
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10");
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // full command name, multiple ingredients
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10 n/Apple nu/80");
+        hashMap.put(new IngredientName("Apple"), 80);
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // command alias, multiple ingredients
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10 n/Apple nu/80");
+        assertEquals(new StockUpCommand(hashMap), command);
     }
 
     //@@author yican95
