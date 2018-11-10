@@ -48,8 +48,6 @@ public class TaskViewPanel extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
-    private Label hash;
-    @FXML
     private Label dependencies;
     @FXML
     private FlowPane tags;
@@ -77,7 +75,6 @@ public class TaskViewPanel extends UiPart<Region> {
             description.setText(task.getDescription().value);
             priorityValue.setText(task.getPriorityValue().value);
             status.setText(task.getStatus().toString());
-            hash.setText(getHashId(task));
             dependencies.setText(getDependencies(task));
             tags.getChildren().setAll(task
                     .getLabels()
@@ -85,10 +82,6 @@ public class TaskViewPanel extends UiPart<Region> {
                     .map(t -> new Label(t.labelName))
                     .collect(Collectors.toList()));
         }
-    }
-
-    private String getHashId(Task task) {
-        return Integer.toString(task.hashCode());
     }
 
     private String getDependencies(Task task) {
@@ -131,7 +124,7 @@ public class TaskViewPanel extends UiPart<Region> {
 
         // state check
         TaskViewPanel panel = (TaskViewPanel) other;
-        return hash.getText().equals(panel.hash.getText());
+        return displayedTask.map(t -> t.hashCode()).equals(panel.displayedTask.map(t -> t.hashCode()));
     }
 
     @Subscribe

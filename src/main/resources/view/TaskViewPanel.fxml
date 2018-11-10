@@ -54,11 +54,6 @@
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">HASH: </Label>
-                <Label fx:id="hash" styleClass="cell_big_label" />
-            </HBox>
-
-            <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label styleClass="cell_big_label">DEPENDENCIES: </Label>
                 <Label fx:id="dependencies" styleClass="cell_big_label" />
             </HBox>
