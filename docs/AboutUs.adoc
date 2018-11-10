@@ -20,7 +20,7 @@ Responsibilities: Ensure things are not done at last minute.
 
 === Alexander Ehrs
 image::alexehrs.png[width="150", align="left"]
-{empty}[http://github.com/alexehrs[github]]
+{empty}[http://github.com/alexehrs[github]][<<alexehrs#, portfolio>>]
 
 In charge of: Documentation
 Responsibilities: Ensures documentation done properly.
