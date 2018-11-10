@@ -49,8 +49,9 @@ public class BudgetCommand extends Command {
             throw new CommandException(MESSAGE_NON_EXISTENT_CCA);
         }
 
-        EventsCenter.getInstance().post(new ShowBudgetViewEvent(ccaName));
+        model.initialiseBudgetBook();
         model.readXslFile();
+        EventsCenter.getInstance().post(new ShowBudgetViewEvent(ccaName));
         return new CommandResult(SHOWING_BUDGET_MESSAGE);
     }
 

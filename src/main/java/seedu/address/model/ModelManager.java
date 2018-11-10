@@ -169,7 +169,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void initialiseBudgetBook() {
-        raise(new BudgetBookChangedEvent(versionedBudgetBook));
+        Path ccabookXmlFilePath = userPrefs.getBudgetBookFilePath();
+        requireNonNull(ccabookXmlFilePath);
+
+        if (!Files.exists(ccabookXmlFilePath)) {
+            raise(new BudgetBookChangedEvent(versionedBudgetBook));
+        }
     }
 
 
