@@ -23,8 +23,8 @@ public class Amount implements Comparable<Amount> {
     public static final Set<Currency> CURRENCIES = Currency.getAvailableCurrencies();
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
             "The transaction amount must be real number rounded to two decimal places, "
-                    + "prefixed by a three letter currency code";
-    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d+.\\d{2}";
+                    + "prefixed by a valid ISO 4217 three letter currency code";
+    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d+\\.\\d{2}";
     public static final Amount DEFAULT_AMOUNT = new Amount();
     private Currency currency;
     private String value;
@@ -106,9 +106,6 @@ public class Amount implements Comparable<Amount> {
      */
     @SuppressWarnings("unchecked")
     public static Amount convertCurrency(Amount amount) throws IOException {
-        if (!Amount.isValidAmount(amount.toString())) {
-            return null;
-        }
         Currency currencyCode = amount.currency;
         if (currencyCode.toString().equals("SGD")) {
             return amount;
@@ -136,7 +133,7 @@ public class Amount implements Comparable<Amount> {
             return false;
         }
         Amount amount = (Amount) other;
-        return other == this || value.equals(amount.value);
+        return other == this || (value.equals(amount.value) && currency.equals(amount.currency));
     }
 
     @Override
