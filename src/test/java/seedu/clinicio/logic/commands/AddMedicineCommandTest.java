@@ -236,12 +236,12 @@ public class AddMedicineCommandTest {
         }
 
         @Override
-        public void enqueueIntoMainQueue(Patient patient) {
+        public void enqueueIntoMainQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void enqueueIntoPreferenceQueue(Patient patient) {
+        public void enqueueIntoPreferenceQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
 
