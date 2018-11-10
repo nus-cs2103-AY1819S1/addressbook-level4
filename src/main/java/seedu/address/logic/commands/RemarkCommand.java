@@ -72,7 +72,6 @@ public class RemarkCommand extends Command {
         Person personToEdit = null;
 
         for (Person person : lastShownList) {
-            System.out.println(person);
             if (person.getName().equals(name)) {
                 if (phone != null) {
                     if (person.getPhone().equals(phone)) {
@@ -127,9 +126,9 @@ public class RemarkCommand extends Command {
             return false;
         } else {
             RemarkCommand r = (RemarkCommand) o;
-            boolean optionalPhone_equals = (phone != null) ? phone.equals(r.phone) : true;
+            boolean optionalPhoneIsEquals = (phone != null) ? phone.equals(r.phone) : true;
             return name.equals(r.name)
-                    && optionalPhone_equals
+                    && optionalPhoneIsEquals
                     && remark.equals(r.remark);
         }
 
