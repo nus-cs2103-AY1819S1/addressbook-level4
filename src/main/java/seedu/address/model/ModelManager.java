@@ -4,19 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.model.calendarevent.FSList;
+import seedu.address.model.calendarevent.FsList;
 
 /**
  * Represents the in-memory model of the scheduler data.
@@ -25,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedScheduler versionedScheduler;
-    private FSList fsList;
+    private FsList fsList;
 
     /**
      * Initializes a ModelManager with the given scheduler and userPrefs.
@@ -37,13 +34,13 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with scheduler: " + scheduler + " and user prefs " + userPrefs);
 
         versionedScheduler = new VersionedScheduler(scheduler);
-        fsList = new FSList(versionedScheduler.getCalendarEventList());
+        fsList = new FsList(versionedScheduler.getCalendarEventList());
     }
 
     /**
      * Initializes a ModelManager with the given scheduler, userPrefs, and fsList
      */
-    public ModelManager(ReadOnlyScheduler scheduler, UserPrefs userPrefs, FSList fsList) {
+    public ModelManager(ReadOnlyScheduler scheduler, UserPrefs userPrefs, FsList fsList) {
         super();
         requireAllNonNull(scheduler, userPrefs);
 
@@ -101,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateSchedulerChanged();
     }
 
-    //=========== FSList Accessors =============================================================
+    //=========== FsList Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code CalendarEvent} backed by the internal list of
@@ -113,12 +110,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the {@code FSList} of {@code CalendarEvent} backed by the internal list of
+     * Returns an unmodifiable view of the {@code FsList} of {@code CalendarEvent} backed by the internal list of
      * {@code versionedScheduler}
      */
     @Override
     public ObservableList<CalendarEvent> getFilteredCalendarEventList() {
-        return FXCollections.unmodifiableObservableList(fsList.getFSList());
+        return FXCollections.unmodifiableObservableList(fsList.getFsList());
     }
 
     @Override
@@ -146,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public FSList getFsList() {
+    public FsList getFsList() {
         return fsList.copy(versionedScheduler.getCalendarEventList());
     }
 

@@ -1,12 +1,13 @@
 package seedu.address.model.calendarevent;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.function.Predicate;
 
 /**
  * Filtered-and-Sorted List. A List of {@code CalendarEvents} that combines SortedList and FilteredList.
@@ -14,7 +15,7 @@ import java.util.function.Predicate;
  *
  * Implemented using a SortedList wrapped wit a FilteredList.
  */
-public class FSList {
+public class FsList {
 
     private ArrayList<Predicate<CalendarEvent>> predicates;
     private ObservableList<CalendarEvent> calendarEvents;
@@ -22,12 +23,12 @@ public class FSList {
     private FilteredList<CalendarEvent> filteredList;
 
     /**
-     * Creates a new FSList wrapped around the backingList.
-     * The FSList has no predicates and no comparators.
+     * Creates a new FsList wrapped around the backingList.
+     * The FsList has no predicates and no comparators.
      *
      * @param backingList list of CalendarEvents to be filtered and sorted.
      */
-    public FSList(ObservableList<CalendarEvent> backingList) {
+    public FsList(ObservableList<CalendarEvent> backingList) {
         predicates = new ArrayList<>();
         calendarEvents = backingList;
         sortedList = new SortedList<>(calendarEvents);
@@ -37,18 +38,18 @@ public class FSList {
     /**
      * @return the filtered-and-sorted list.
      */
-    public FilteredList<CalendarEvent> getFSList() {
+    public FilteredList<CalendarEvent> getFsList() {
         return filteredList;
     }
 
     /**
-     * Returns a new FSList wrapping backingList.
-     * The new FSList uses the same predicates and comparator as the copied FSList.
+     * Returns a new FsList wrapping backingList.
+     * The new FsList uses the same predicates and comparator as the copied FsList.
      *
      * @param backingList the list to be filted-and-sorted.
      */
-    public FSList copy(ObservableList<CalendarEvent> backingList) {
-        FSList copy = new FSList(backingList);
+    public FsList copy(ObservableList<CalendarEvent> backingList) {
+        FsList copy = new FsList(backingList);
 
         // copy predicates and comparator
         copy.predicates.addAll(this.predicates);
@@ -59,9 +60,9 @@ public class FSList {
 
     /**
      * Sets the predicate for filtering.
-     * Clears all existing predicates from FSList.
+     * Clears all existing predicates from FsList.
      *
-     * @param predicate for filtering FSList.
+     * @param predicate for filtering FsList.
      */
     public void setPredicate(Predicate<CalendarEvent> predicate) {
         clearPredicates();
@@ -71,7 +72,7 @@ public class FSList {
     /**
      * Add a predicate to the filtered list, on top of existing predicates.
      *
-     * @param predicate additional predicate to filter FSList.
+     * @param predicate additional predicate to filter FsList.
      */
     public void addPredicate(Predicate<CalendarEvent> predicate) {
         predicates.add(predicate);
@@ -79,7 +80,7 @@ public class FSList {
     }
 
     /**
-     * Clears all predicates from FSList.
+     * Clears all predicates from FsList.
      */
     public void clearPredicates() {
         predicates.clear();
@@ -108,7 +109,7 @@ public class FSList {
     }
 
     /**
-     * Set the comparator for sorting the FSList.
+     * Set the comparator for sorting the FsList.
      */
     public void setComparator(Comparator<CalendarEvent> comparator) {
         sortedList.setComparator(comparator);

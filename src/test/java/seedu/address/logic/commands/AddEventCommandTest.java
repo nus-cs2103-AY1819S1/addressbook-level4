@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.model.calendarevent.FSList;
+import seedu.address.model.calendarevent.FsList;
 import seedu.address.testutil.CalendarEventBuilder;
 
 public class AddEventCommandTest {
@@ -151,7 +151,7 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public FSList getFsList() {
+        public FsList getFsList() {
             throw new AssertionError("This method should not be called.");
         }
 

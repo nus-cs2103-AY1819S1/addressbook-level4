@@ -19,7 +19,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableScheduler;
 import seedu.address.testutil.TestUtil;
-import systemtests.ModelHelper;
+
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -94,7 +94,7 @@ public class TestApp extends MainApp {
 
     /**
      * Returns a defensive copy of the model.
-     * The new Model has the same predicates and comparator from FSList and thus the same ordering of FSList.
+     * The new Model has the same predicates and comparator from FsList and thus the same ordering of FsList.
      */
     public Model getModel() {
         Model copy = new ModelManager(model.getScheduler(), new UserPrefs(), model.getFsList());
