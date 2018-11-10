@@ -19,7 +19,7 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void constructor_withCommandHistory_copiesCommandHistory() {
+    public void constructorWithCommandHistoryCopiesCommandHistory() {
         final CommandHistory commandHistoryWithA = new CommandHistory();
         commandHistoryWithA.add("a");
 

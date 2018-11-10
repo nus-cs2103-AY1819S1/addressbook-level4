@@ -112,14 +112,14 @@ public interface Model {
     void updateImageListPrevBatch();
 
     /**
-     * Removes the image of the given index in the list.
-     */
-    void removeImageFromList(int idx);
-
-    /**
      * Retrieves the current displayed original image.
      */
     Path getCurrentOriginalImage();
+
+    /**
+     * Set the current displayed original image.
+     */
+    void setCurrentOriginalImage(Path path);
 
     /**
      * Retrieves the current displayed preview image.
@@ -177,6 +177,8 @@ public interface Model {
     int getCanvasWidth();
 
     Canvas getCanvas();
+
+    //void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException;
 
     void refreshHistoryList();
 

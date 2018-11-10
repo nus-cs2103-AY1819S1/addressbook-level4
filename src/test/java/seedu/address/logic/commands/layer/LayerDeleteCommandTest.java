@@ -15,7 +15,7 @@ import seedu.address.testutil.ModelGenerator;
 class LayerDeleteCommandTest {
 
     @Test
-    public void execute_deleteValid_success() {
+    public void executeDeleteValidSuccess() {
         String args = "2";
         Index indexToDelete = Index.fromOneBased(Integer.parseInt(args));
         Index workingOn = Index.fromOneBased(3);
@@ -39,7 +39,7 @@ class LayerDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteCurrent_failure() {
+    public void executeDeleteCurrentFailure() {
         String args = "2";
         Index workingOn = Index.fromOneBased(Integer.parseInt(args));
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
@@ -55,7 +55,7 @@ class LayerDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteOnly_failure() {
+    public void executeDeleteOnlyFailure() {
         String args = "1";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
@@ -69,7 +69,7 @@ class LayerDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteNull_failure() {
+    public void executeDeleteNullFailure() {
         String args = null;
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
@@ -83,7 +83,7 @@ class LayerDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteInvalidIndex_failure() {
+    public void executeDeleteInvalidIndexFailure() {
         String args = "9";
         Model model = ModelGenerator.getModelWithPopulatedCanvas();
         CommandHistory ch = new CommandHistory();

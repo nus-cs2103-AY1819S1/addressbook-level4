@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -45,17 +44,13 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void clearCache() {
-        String cachePath = MainApp.MAIN_PATH + "/cache";
-        File cache = new File(cachePath);
+        File cache = new File("cache");
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                if (!file.getName().equals("dummy.txt")) {
-                    file.delete();
-                }
+                file.delete();
             }
         }
         logger.info("Cache cleared.");
     }
-
 }

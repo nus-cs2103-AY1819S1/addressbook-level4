@@ -8,11 +8,12 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
+
+import com.oracle.tools.packager.UnsupportedPlatformException;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -46,7 +47,7 @@ public class ImageMagickUtil {
      * @return
      * @throws NoSuchElementException
      */
-    public static URL getImageMagickZipUrl() throws NoSuchElementException {
+    public static URL getImageMagickZipUrl(String osName) throws NoSuchElementException {
         switch (getPlatform(osName)) {
         case MAC:
             return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
@@ -57,18 +58,11 @@ public class ImageMagickUtil {
         }
     }
 
-    public static String getExecuteImageMagick() throws NoSuchElementException {
-        if (ectPath != null && !ectPath.equals("")) {
-            return ectPath;
-        }
-        throw new NoSuchElementException("cannot find ImageMagick package");
-    }
-
     public static String getCommandSaveFolder() {
         return commandSaveFolder;
     }
 
-    //this method is used for tesing only
+    //these two methods are used for tesing only
     public static void setTemperatyCommandForder(String folder) {
         commandSaveFolder = folder;
     }
@@ -101,19 +95,24 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static BufferedImage processImage(Path path, Transformation transformation)
-            throws ParseException, IOException, InterruptedException, IllegalArgumentException {
-        ArrayList<String> cmds = parseOperationArguments(transformation);
+    public static BufferedImage processImage(Path path, Transformation transformation, boolean isRaw)
+            throws ParseException, IOException, InterruptedException, IllegalArgumentException,
+            UnsupportedPlatformException {
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
-        args.add(ImageMagickUtil.getExecuteImageMagick());
+        args.add(ImageMagickUtil.getConvertExecutablePath());
         args.add(path.toAbsolutePath().toString());
         args.add("-background");
         args.add("rgba(0,0,0,0)"); //HARDFIX!
-        args.add("-" + cmds.get(0));
-        for (int i = 1; i < cmds.size(); i++) {
-            args.add(cmds.get(i));
+        if (!isRaw) {
+            ArrayList<String> cmds = parseOperationArguments(transformation);
+            args.add("-" + cmds.remove(0));
+            args.addAll(cmds);
+        } else {
+            ArrayList<String> cmds = transformation.toList();
+            cmds.remove(0);
+            args.addAll(cmds);
         }
         args.add(modifiedFile);
         return runProcessBuilder(args, modifiedFile);
@@ -198,7 +197,7 @@ public class ImageMagickUtil {
      */
 
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
-            throws IOException, InterruptedException, IllegalArgumentException {
+            throws IOException, InterruptedException, IllegalArgumentException, UnsupportedPlatformException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform(osName) == MAC) {
             Map<String, String> mp = pb.environment();
@@ -209,8 +208,9 @@ public class ImageMagickUtil {
         if (process.exitValue() != 0) {
             throw new IllegalArgumentException("Process fails");
         }
-        List<String> tmp = pb.command();
-        System.out.println(tmp);
+        if (getPlatform(osName) == LINUX || getPlatform(osName) == 0) {
+            throw new UnsupportedPlatformException();
+        }
         FileInputStream is = new FileInputStream(output);
         Image modifiedImage = new Image(is);
         return SwingFXUtils.fromFXImage(modifiedImage, null);
@@ -223,8 +223,8 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void copyOutside(UserPrefs userPrefs) throws IOException, InterruptedException {
-        URL zipUrl = getImageMagickZipUrl();
+    public static void copyOutside(UserPrefs userPrefs, String osName) throws IOException, InterruptedException {
+        URL zipUrl = getImageMagickZipUrl(osName);
         Path currentPath = userPrefs.getCurrDirectory();
         File zipFile = new File(currentPath.toString() + "/temp.zip");
         File tempFolder = new File(userPrefs.getCurrDirectory() + "/tempFolder");
@@ -266,32 +266,12 @@ public class ImageMagickUtil {
 
     //@@author j-lum
     /**
-     * Handles a raw string and directly passes it to ImageMagick.
-     * @param path - full path to the image to work on.
-     * @param rawCommand - a string holding the raw command string to pass in.
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public static BufferedImage processRawImage(Path path, String rawCommand)
-            throws IOException, InterruptedException {
-        ArrayList<String> rawArgs = new ArrayList<>(Arrays.asList(rawCommand.trim().split(" ")));
-        String modifiedFile = tmpPath + "/output.png";
-        ArrayList<String> args = new ArrayList<>();
-        args.add(ImageMagickUtil.getExecuteImageMagick());
-        args.add(path.toAbsolutePath().toString());
-        args.add("-background");
-        args.add("rgba(0,0,0,0)"); //HARDFIX!
-        args.addAll(rawArgs);
-        args.add(modifiedFile);
-        return runProcessBuilder(args, modifiedFile);
-    }
-    /**
      * Creates a ProcessBuilder instance to merge/flatten layers.
      * @param c - A canvas to be processed
      * @return a buffered image with a merged canvas.
      */
-    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
+    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException,
+            UnsupportedPlatformException {
         ArrayList<String> args = new ArrayList<>();
         String output = tmpPath + "/modified.png";
         args.add(getConvertExecutablePath());
@@ -319,7 +299,7 @@ public class ImageMagickUtil {
      * @param c - A canvas to be processed
      * *//*
     public static void saveCanvas(Canvas c, Path outDirectory, String fileName)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, UnsupportedPlatformException {
         ArrayList<String> args = new ArrayList<>();
         String output = outDirectory + "/" + fileName;
         args.add(getConvertExecutablePath());
@@ -358,7 +338,7 @@ public class ImageMagickUtil {
                                     ImageMagickUtil.processCanvas(c), null), target));
         } catch (IOException e) {
             logger.severe(e.getMessage());
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | UnsupportedPlatformException e) {
             logger.severe(e.getMessage());
         }
 

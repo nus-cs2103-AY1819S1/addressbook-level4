@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import seedu.address.MainApp;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -84,14 +83,11 @@ public class UndoRedoCommandTestUtil {
      * Clears cache in storage folder.
      */
     public static void clearCache() {
-        String cachePath = MainApp.MAIN_PATH + "/cache";
-        File cache = new File(cachePath);
+        File cache = new File("cache");
         File[] list = cache.listFiles();
         if (list != null) {
             for (File file: list) {
-                if (!file.getName().equals("dummy.txt")) {
-                    file.delete();
-                }
+                file.delete();
             }
         }
     }
