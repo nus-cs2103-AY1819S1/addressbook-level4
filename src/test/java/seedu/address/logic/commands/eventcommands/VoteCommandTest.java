@@ -107,7 +107,7 @@ public class VoteCommandTest {
         event.addPoll("Generic poll");
         Poll poll = (Poll) event.getPoll(index);
         poll.addOption(OPTION_NAME);
-        event.setPersonList(new ArrayList<>());
+        event.setParticipantList(new ArrayList<>());
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_HAVE_NOT_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);

@@ -153,8 +153,8 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                .withResolverStyle(ResolverStyle.SMART));
+            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-uuuu")
+                .withResolverStyle(ResolverStyle.STRICT));
             return newDate;
         } catch (DateTimeParseException e) {
             throw new ParseException(Messages.MESSAGE_WRONG_DATE_FORMAT);

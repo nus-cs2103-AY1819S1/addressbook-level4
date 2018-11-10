@@ -42,14 +42,16 @@ user must have joined the event are pre-conditions for using several commands
 *** Contributed to brainstorming features.
 
 ** Documentation:
-*** Contributed to portions of User Guide and Developer Guide relevant to my own features. Links can be found below.
-*** Wrote significant portions of initial draft of User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+*** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
+*** Contributed heavily to initial draft of User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
 
 == Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=InBrief]
 
 include::../UserGuide.adoc[tag=KengJi]
 
@@ -61,4 +63,4 @@ include::../UserGuide.adoc[tag=KengJi(Summary)]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=poll]
+include::../DeveloperGuide.adoc[tag=poll]sele
