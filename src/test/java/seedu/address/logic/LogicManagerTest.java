@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
 import org.junit.Rule;
@@ -99,7 +99,7 @@ public class LogicManagerTest {
 
         model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
         map = logic.getExpenseStats();
-        String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
+        String month = validExpense.getDate().getFullDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(month));
         assertTrue(map.get(month) == validExpense.getCost().getCostValue());
@@ -127,7 +127,7 @@ public class LogicManagerTest {
 
         model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
         map = logic.getExpenseStats();
-        String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
+        String month = validExpense.getDate().getFullDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(month));
         assertTrue(map.get(month) == (validExpense.getCost().getCostValue() * 2));

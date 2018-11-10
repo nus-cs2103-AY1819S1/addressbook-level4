@@ -15,10 +15,12 @@ import seedu.address.model.Model;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
+
 
 
 public class BudgetIntegrationTest {
@@ -37,6 +39,21 @@ public class BudgetIntegrationTest {
         Expense toAdd = new ExpenseBuilder().withCost("2.00").build();
         new AddCommand(toAdd).execute(this.model, this.commandHistory);
         assertTrue(this.model.getMaximumBudget().getCurrentExpenses() == originalExpenses + 2.00);
+    }
+
+    @Test
+    public void setCategoryBudget_hasExpenses_spendingUpdated() throws CommandException, NoUserSelectedException {
+        Category selectedCategory = model.getFilteredExpenseList().get(0).getCategory();
+        double totalExpensesOfSelectedCategory =
+            model.getFilteredExpenseList().stream().filter(x -> x.getCategory().equals(selectedCategory))
+                .mapToDouble(x -> x.getCost().getCostValue()).sum();
+        this.model.modifyMaximumBudget(new TotalBudget("99999.00"));
+        new SetCategoryBudgetCommand(new CategoryBudget(selectedCategory.categoryName, "999.00"))
+            .execute(this.model, this.commandHistory);
+        CategoryBudget cBudget = this.model.getMaximumBudget().getCategoryBudgets().toArray(new CategoryBudget[1])[0];
+        assertEquals(cBudget.getCurrentExpenses(), totalExpensesOfSelectedCategory);
+
+
     }
 
     @Test

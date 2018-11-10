@@ -378,7 +378,7 @@ The classes `Username` and `Password` have also been implemented and have the fo
 Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
 
 . The user launches the application and the directory path in the UserPref points at the _data_ folder
-. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyAddressBook>` with the `Username` of the user data as the key and the user data as a `ReadOnlyExpenseTracker` as the value to the MainApp class.
+. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, EncryptedExpensetracker>` with the `Username` of the user data as the key and the user data as an `EncryptedExpenseTracker` as the value to the MainApp class.
 . A `Model` instance will then be initialized using the previously mentioned `Map` of user data.
 
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.

@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
-import java.text.SimpleDateFormat;
-
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
@@ -94,7 +93,7 @@ public class LogicManager extends ComponentManager implements Logic {
             if (statsPeriod == statsPeriod.DAY) {
                 period = e.getDate().toString();
             } else {
-                period = new SimpleDateFormat("MMM-YYYY").format(e.getDate().fullDate.getTime());
+                period = e.getDate().getFullDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             }
 
             if (stats.containsKey(period)) {

@@ -387,6 +387,5 @@ public class MainWindow extends UiPart<Stage> {
     public void handleUpdateCategoriesPanelEvent(UpdateCategoriesPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         categoriesPanel.setConnection(event.categoryBudgets);
-        System.out.println("WHY ARE YOU CALLING TWICE");
     }
 }

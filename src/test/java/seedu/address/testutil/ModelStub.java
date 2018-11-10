@@ -32,6 +32,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addGeneralNotification(Notification notif) {
+        throw new AssertionError("addGeneralNotification method should not be called.");
+    }
+
+    @Override
     public void setRecurrenceFrequency(long seconds) throws NoUserSelectedException {
         throw new AssertionError("setRecurrenceFrequency should not be called");
     }

@@ -2,11 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.budget.TotalBudget.NOT_SET;
+import static seedu.address.model.budget.TotalBudget.SPENDING_RESET;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,9 +22,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
@@ -39,6 +42,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.GeneralNotification;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.notification.TipNotification;
@@ -221,6 +225,15 @@ public class ModelManager extends ComponentManager implements Model {
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
+    }
+
+    @Override
+    public void addGeneralNotification(Notification notif) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        this.versionedExpenseTracker.addNotificationToTop(notif);
+        indicateExpenseTrackerChanged();
     }
 
     @Override
@@ -425,9 +438,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private Predicate <Expense> defaultExpensePredicate() {
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.DAY_OF_MONTH, 7 * -1);
-        return e -> e.getDate().fullDate.after(now);
+        LocalDateTime now = LocalDateTime.now().minusDays(7);
+        return e -> e.getDate().getFullDate().isAfter(now);
     }
 
     //@@author JasonChong96
@@ -456,7 +468,15 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
-            checkBudgetRestart();
+            String budgetStatus = checkBudgetRestart();
+            if (budgetStatus.equals(NOT_SET)) {
+                addGeneralNotification(new GeneralNotification("Recurrence",
+                    "Recurrence "
+                        + "time has not been set!"));
+            } else if (budgetStatus.equals(SPENDING_RESET)) {
+                addGeneralNotification(new GeneralNotification("Now you have money!",
+                    "Spending has been reset!"));
+            }
             addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException("NoUserSelectedException thrown after loading user data");
@@ -567,13 +587,17 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Checks if totalBudget is required to restart due to recurrence
      */
-    protected void checkBudgetRestart() {
-        this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
+    protected String checkBudgetRestart() throws NoUserSelectedException {
+        String response = this.versionedExpenseTracker.checkBudgetRestart();
+        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
+        indicateExpenseTrackerChanged();
+        return response;
     }
 
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
+
         ModelManager copy = new ModelManager(expenseTrackers, userPrefs, tips);
         copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
         copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());

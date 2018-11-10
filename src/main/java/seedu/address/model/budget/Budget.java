@@ -49,6 +49,15 @@ public class Budget {
 
     }
 
+    public Budget (String budget, String currentExpenses) {
+        requireNonNull(budget);
+        checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
+        checkArgument(isValidBudget(currentExpenses), BUDGET_VALIDATION_REGEX);
+        this.budgetCap = Double.parseDouble(budget);
+        this.currentExpenses = Double.parseDouble(currentExpenses);
+
+    }
+
     /**
      * Constructs a {@code Budget} with modified current expenses
      * @param budget
@@ -124,8 +133,7 @@ public class Budget {
     @Override
     public boolean equals (Object budget) {
         Budget anotherBudget = (Budget) budget;
-        return this.currentExpenses == anotherBudget.currentExpenses
-            && this.budgetCap == anotherBudget.budgetCap;
+        return this.budgetCap == anotherBudget.budgetCap;
     }
 
     @Override
@@ -133,12 +141,10 @@ public class Budget {
         return String.format("$%.2f", this.budgetCap);
     }
 
-
-    //@@Snookerballs
     /**
-     * Calculates and returns the percentage of budget used
-     * @return the percentage of budget that has been used
-     */
+    * Calculates and returns the percentage of budget used
+    * @return the percentage of budget that has been used
+    */
     public double getBudgetPercentage() {
         LOGGER.info("current Expenses" + currentExpenses / budgetCap);
         return currentExpenses / budgetCap;

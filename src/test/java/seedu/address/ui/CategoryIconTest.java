@@ -18,7 +18,7 @@ public class CategoryIconTest extends GuiUnitTest {
         uiPartRule.setUiPart(categoryIcon);
         CategoryIconHandle categoryIconHandle = new CategoryIconHandle(getChildNode(categoryIcon.getRoot(),
                 CategoryIconHandle.CATEGORIES_ICON_ID));
-        assertEquals(categoryIconHandle.getCategoryBudgetCap(), budget.getBudgetCap(), DELTA);
+        assertEquals(categoryIconHandle.getCategoryBudgetCap(), budget.getBudgetPercentage(), DELTA);
         assertEquals(categoryIconHandle.getCategoryName(), budget.toString());
     }
 

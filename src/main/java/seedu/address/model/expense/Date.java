@@ -2,9 +2,8 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //@@author jonathantjm
 /**
@@ -16,8 +15,18 @@ public class Date extends ExpenseField {
             "Date should be valid. Format dd-MM-yyyy";
 
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\-)(\\d{1,2})(\\-)(\\d{4})";
-    public final Calendar fullDate = Calendar.getInstance();
+    private LocalDateTime fullDate;
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+
+    /**
+     * Constructs a {@code Date} with current date.
+     *
+     */
+    public Date() {
+        super("");
+        this.fullDate = LocalDateTime.now();
+    }
 
     /**
      * Constructs a {@code Date}.
@@ -28,17 +37,24 @@ public class Date extends ExpenseField {
         super(date);
         checkArgument(isValidDate(date), DATE_FORMAT_CONSTRAINTS);
         String [] parsedDate = date.split("-");
-        fullDate.set(Integer.parseInt(parsedDate[2]),
-                Integer.parseInt(parsedDate[1]) - 1,
-                Integer.parseInt(parsedDate[0]));
+        setFullDate(
+                Integer.parseInt(parsedDate[2]),
+                Integer.parseInt(parsedDate[1]),
+                Integer.parseInt(parsedDate[0])
+        );
     }
 
     /**
-     * Constructs a {@code Date} with current date.
-     *
+     * Returns a
+     * @return
      */
-    public Date() {
-        super(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
+    public LocalDateTime getFullDate() {
+        return this.fullDate;
+    }
+
+    public void setFullDate(int year, int month, int day) {
+        this.fullDate = LocalDateTime.of(year, month, day, 0, 0);
+
     }
 
     /**
@@ -46,14 +62,14 @@ public class Date extends ExpenseField {
      * */
     public static boolean isValidDate(String test) {
         if (test.matches(DATE_VALIDATION_REGEX)) {
-            Calendar date = new GregorianCalendar();
             String [] parsedDate = test.split("-");
-            date.setLenient(false);
-            date.set(Integer.parseInt(parsedDate[2]),
-                    Integer.parseInt(parsedDate[1]) - 1,
-                    Integer.parseInt(parsedDate[0]));
             try {
-                date.getTime();
+                LocalDateTime date = LocalDateTime.of(Integer.parseInt(parsedDate[2]),
+                        Integer.parseInt(parsedDate[1]),
+                        Integer.parseInt(parsedDate[0]),
+                        0,
+                        0
+                );
                 return true;
             } catch (Exception e) {
                 return false;
@@ -64,8 +80,7 @@ public class Date extends ExpenseField {
 
     @Override
     public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(fullDate.getTime());
+        return fullDate.format(dateFormat);
     }
 
     /**
@@ -82,9 +97,10 @@ public class Date extends ExpenseField {
         }
 
         Date otherDate = (Date) other;
-        return fullDate.get(Calendar.DAY_OF_YEAR) == otherDate.fullDate.get(Calendar.DAY_OF_YEAR)
-                && fullDate.get(Calendar.MONTH) == otherDate.fullDate.get(Calendar.MONTH)
-                && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
+        return
+            this.fullDate.getDayOfMonth() == otherDate.fullDate.getDayOfMonth()
+            && this.fullDate.getMonthValue() == otherDate.fullDate.getMonthValue()
+            && this.fullDate.getYear() == otherDate.fullDate.getYear();
     }
 
     /**
@@ -94,11 +110,9 @@ public class Date extends ExpenseField {
      * @return 1 if b is after a, -1 if b is before a and 0 if they are equal
      */
     public static int compare(Date a, Date b) {
-        if (a.equals(b)) {
-            return 0;
-        } else if (b.fullDate.after(a.fullDate)) {
-            return 1;
-        }
-        return -1;
+        LocalDateTime first = a.fullDate;
+        LocalDateTime second = b.fullDate;
+
+        return second.compareTo(first);
     }
 }
