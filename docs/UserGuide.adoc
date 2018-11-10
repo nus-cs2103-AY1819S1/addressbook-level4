@@ -160,6 +160,22 @@ Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 CAP tracker data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Understanding the User Interface
+Understanding the User Interface can be tricky - what do all the different colours mean? How do I
+know what has been saved or not? Where can I see new modules I've added?
+
+* To view new modules you've added, scroll down to the bottom of the pannel that you have categorized your
+module under; either the 'Completed Modules' panel on the left, or the 'Incomplete Modules' panel on the
+right. Your new entry should be at the bottom of these lists.
+
+* Understanding the colours. The grades of modules in the 'Completed Modules' panel on the left
+are circled in GREEN. This indicates that this particular module has already been taken and this is
+a grade that the user does not need to worry about; it is in the past.
+The grades in the the 'Incomplete Modules' panel on the right  are circled in RED. This indicates
+that this particular module has not been taken and that the grade displayed in this RED circle is
+not certain. It is a grade that the user needs to be aware of as it's outcome will impact the
+users overall CAP score.
+
 == FAQ
 
 *Q*: I entered the wrong grade into my module. How do I change it? +
