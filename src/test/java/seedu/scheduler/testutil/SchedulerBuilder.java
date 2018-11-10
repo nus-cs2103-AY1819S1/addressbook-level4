@@ -21,7 +21,7 @@ public class SchedulerBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Event} to the {@code Scheduler} that we are building.
      */
     public SchedulerBuilder withEvent(Event event) {
         scheduler.addEvent(event);

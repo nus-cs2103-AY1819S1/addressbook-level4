@@ -33,7 +33,7 @@ public class EventCardTest extends GuiUnitTest {
         Event event = new EventBuilder().build();
         EventCard eventCard = new EventCard(event, 0);
 
-        // same person, same index -> returns true
+        // same event, same index -> returns true
         EventCard copy = new EventCard(event, 0);
         assertTrue(eventCard.equals(copy));
 

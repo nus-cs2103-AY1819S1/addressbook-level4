@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Event;
@@ -40,6 +41,7 @@ public class RepeatEventGenerator {
         assert targetEvent != null;
 
         List<Event> repeatedEventList = new ArrayList<>();
+        UUID eventUid = targetEvent.getEventUid();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
         Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
@@ -47,7 +49,7 @@ public class RepeatEventGenerator {
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)
                 && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    targetEvent.getEventUid(),
+                    eventUid,
                     targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -59,6 +61,7 @@ public class RepeatEventGenerator {
                     targetEvent.getTags(),
                     targetEvent.getReminderDurationList()
             ));
+            eventUid = UUID.randomUUID();
             switch (targetEvent.getRepeatType()) {
             case DAILY:
                 repeatStartDateTime = repeatStartDateTime.plusDays(1);
