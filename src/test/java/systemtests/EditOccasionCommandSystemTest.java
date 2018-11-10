@@ -126,22 +126,6 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditOccasionCommand.COMMAND_WORD + " " + invalidIndex + OCCASIONNAME_DESC_ONE,
                 Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a occasion card is selected --------------------- */
-
-        /* Case: selects first card in the occasion list, edit a occasion -> edited, card selection remains
-         * unchanged but browser url changes
-         */
-        // TODO: -> uncomment test back when select works.
-        //showAllOccasions();
-        //index = INDEX_FIRST_OCCASION;
-        //selectOccasion(index);
-        //command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_TWO
-        //        + OCCASIONDATE_DESC_TWO
-        //        + OCCASIONLOCATION_DESC_TWO + TAG_DESC_SLEEP;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new occasion's name
-        //assertCommandSuccess(command, index, OCCASION_TWO, index);
-
         /* --------------------------------- Performing invalid edit operation -------------------------- */
 
         /* Case: invalid index (0) -> rejected */
@@ -180,16 +164,6 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditOccasionCommand.COMMAND_WORD + " " + INDEX_FIRST_OCCASION.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
-
-        // TODO: -> uncomment test back when select works.
-        /* Case: edit a occasion with new values same as another occasion's values -> rejected */
-        //executeCommand(OccasionUtil.getAddCommand(OCCASION_ONE));
-        //assertTrue(getModel().getAddressBook().getOccasionList().contains(OCCASION_ONE));
-        //index = INDEX_FIRST_OCCASION;
-        //assertFalse(getModel().getFilteredOccasionList().get(index.getZeroBased()).equals(OCCASION_ONE));
-        //command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE
-        //        + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_STUDY;
-        //assertCommandFailure(command, EditOccasionCommand.MESSAGE_DUPLICATE_OCCASION);
 
         /* Case: edit a occasion with new values same as another occasion's values but with different tags ->
         rejected */
