@@ -18,6 +18,8 @@ import javafx.scene.layout.Region;
 import javafx.util.StringConverter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
+import seedu.address.commons.events.ui.OverviewPanelEventUpdateEvent;
+import seedu.address.commons.events.ui.OverviewPanelVolunteerUpdateEvent;
 import seedu.address.model.Overview;
 import seedu.address.model.event.Event;
 import seedu.address.model.record.Record;
@@ -62,7 +64,11 @@ public class OverviewPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void setLabelText() {
+    /**
+     * Sets number of events for each event status
+     */
+    private void setNumOfEventText() {
+        completedLabel.setText("");
         upcomingLabel.setText(Integer.toString(overview.getNumOfUpcomingEvents()));
         ongoingLabel.setText(Integer.toString(overview.getNumOfOngoingEvents()));
         completedLabel.setText(Integer.toString(overview.getNumOfCompletedEvents()));
@@ -122,15 +128,41 @@ public class OverviewPanel extends UiPart<Region> {
         ageBarChart.setLegendVisible(false);
     }
 
-    @Subscribe
-    private void handleOverviewPanelSelectionChangedEvent(OverviewPanelChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setLabelText();
-
+    /**
+     * This method updates panel with latest event statistics.
+     */
+    private void updateEventStatistics() {
         overview.calculateNumOfEvents();
+
+        setNumOfEventText();
+    }
+
+    /**
+     * This method updates panel with latest volunteer statistics.
+     */
+    private void updateVolunteerStatistics() {
         overview.calculateVolunteerDemographics();
 
         createGenderPieChart();
         createAgeBarChart();
+    }
+
+    @Subscribe
+    private void handleOverviewPanelSelectionChangedEvent(OverviewPanelChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        updateEventStatistics();
+        updateVolunteerStatistics();
+    }
+
+    @Subscribe
+    private void handleEventUpdateUpdateEvent(OverviewPanelEventUpdateEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        updateEventStatistics();
+    }
+
+    @Subscribe
+    private void handleVolunteerUpdateUpdateEvent(OverviewPanelVolunteerUpdateEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        updateVolunteerStatistics();
     }
 }
