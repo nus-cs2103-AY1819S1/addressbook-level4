@@ -31,7 +31,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
+    public DeleteCommand<Recipe> parseRecipe(Model<Recipe> model, String args) throws ParseException {
         try {
             Index targetIndex = ParserUtil.parseIndex(args);
             requireNonNull(model);
@@ -96,31 +96,6 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_HEALTHPLAN_USAGE), pe);
-        }
-    }
-
-    /**
-     *
-     * @param model
-     * @param args
-     * @return
-     * @throws ParseException
-     */
-    public DeleteCommand<Recipe> parseFavourites(Model model, String args) throws ParseException {
-        try {
-            Index targetIndex = ParserUtil.parseIndex(args);
-            requireNonNull(model);
-            List<Recipe> lastShownList = model.getFilteredList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE));
-            }
-            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
-
-            return new DeleteCommand<>(model, toDelete);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE), pe);
         }
     }
 
