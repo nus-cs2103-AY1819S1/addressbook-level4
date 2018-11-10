@@ -3,7 +3,7 @@ package seedu.parking.ui;
 import static seedu.parking.commons.core.Messages.MESSAGE_ALREADY_FULL_COMMAND_FORMAT;
 import static seedu.parking.commons.core.Messages.MESSAGE_AUTO_COMPLETE_SUCCESS;
 import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE;
-import static seedu.parking.commons.core.Messages.MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS;
+import static seedu.parking.commons.core.Messages.MESSAGE_SELECT_NEXT_HOLDER_SUCCESS;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND;
 import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
@@ -14,7 +14,9 @@ import static seedu.parking.logic.parser.CliSyntax.PREFIX_PARKING_TIME;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_SYSTEM_TYPE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -112,6 +114,8 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Handles autocomplete logic to either display full format, or select next
      * select next argument placeholder if full format is already displayed.
+     *
+     * @exception ParseException exception if invalid or ambiguous command is used at input
      */
     private void autoComplete() throws ParseException {
 
@@ -160,24 +164,30 @@ public class CommandBox extends UiPart<Region> {
         } else if (isFindCommandFormat(input) || isSelectCommandFormat(input)
             || isNotifyCommandFormat(input)) {
 
-            throw new ParseException(MESSAGE_ALREADY_FULL_COMMAND_FORMAT);
+            EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                MESSAGE_ALREADY_FULL_COMMAND_FORMAT));
 
         } else if (isFilterCommandFormat(input)) {
-            int positionOfWeekDay = input.indexOf(FilterCommand.FREEPARKING_FIRST_ARG);
-            int positionOfStartTime = input.indexOf(FilterCommand.FREEPARKING_SECOND_ARG);
-            int positionOfEndTime = input.indexOf(FilterCommand.FREEPARKING_THIRD_ARG);
-            int positionOfCarparkType = input.indexOf(FilterCommand.CARPARKTYPE_ARG);
-            int positionOfSystemType = input.indexOf(FilterCommand.SYSTEMTYPE_ARG);
-            int positionOfAvailableParking = input.indexOf(PREFIX_AVAILABLE_PARKING.toString());
-            int positionOfNightParking = input.indexOf(PREFIX_NIGHT_PARKING.toString());
-            int positionOfShortTermParking = input.indexOf(PREFIX_SHORT_TERM.toString());
-            int[] argumentsArray = {positionOfWeekDay, positionOfStartTime,
-                positionOfEndTime, positionOfCarparkType, positionOfSystemType,
-                positionOfAvailableParking, positionOfNightParking,
-                positionOfShortTermParking};
+            List<Integer> indicesList = new ArrayList<>();
+            indicesList.add(input.indexOf(FilterCommand.FREEPARKING_FIRST_ARG));
+            indicesList.add(input.indexOf(FilterCommand.FREEPARKING_SECOND_ARG));
+            indicesList.add(input.indexOf(FilterCommand.FREEPARKING_THIRD_ARG));
+            indicesList.add(input.indexOf(FilterCommand.CARPARKTYPE_ARG));
+            indicesList.add(input.indexOf(FilterCommand.SYSTEMTYPE_ARG));
+            indicesList.add(input.indexOf(PREFIX_AVAILABLE_PARKING.toString()));
+            indicesList.add(input.indexOf(PREFIX_NIGHT_PARKING.toString()));
+            indicesList.add(input.indexOf(PREFIX_SHORT_TERM.toString()));
 
-            selectNextField(argumentsArray);
-            EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS));
+            // Convert List<Integer> to int[]
+            int[] indicesArray = indicesList.stream().mapToInt(i -> i).filter(n -> n != -1).toArray();
+            if (indicesArray.length > 0) {
+                selectNextField(indicesArray);
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                    MESSAGE_SELECT_NEXT_HOLDER_SUCCESS));
+            } else {
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                    MESSAGE_ALREADY_FULL_COMMAND_FORMAT));
+            }
         } else {
             throw new ParseException(MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE);
         }
@@ -256,7 +266,8 @@ public class CommandBox extends UiPart<Region> {
      * @return true if it is of filter command format and false otherwise
      */
     private boolean isFilterCommandFormat(String input) {
-        return input.startsWith(FilterCommand.COMMAND_WORD) && (input.contains(PREFIX_PARKING_TIME.toString())
+        return input.startsWith(FilterCommand.COMMAND_WORD)
+            && (input.contains(PREFIX_PARKING_TIME.toString())
             || input.contains(PREFIX_NIGHT_PARKING.toString())
             || input.contains(PREFIX_CAR_TYPE.toString())
             || input.contains(PREFIX_AVAILABLE_PARKING.toString())
@@ -271,16 +282,12 @@ public class CommandBox extends UiPart<Region> {
      * last element is the end position of text input
      */
     private void selectNextField(int[] argumentsArray) {
-        for (int i: argumentsArray) {
-            System.out.print(String.format("[%d]", i));
-        }
         boolean updatedSelection = false;
         for (int i = 0; i < argumentsArray.length - 1; i++) {
             //check if the current position is in between arg[i] and arg[i + 1], if so, change selection
             //to the placeholder of arg[i + 1]
-            System.out.println("caret at: " + caretPosition + " current at: " + argumentsArray[i]);
             if (caretPosition > argumentsArray[i] && caretPosition < argumentsArray[i + 1]) {
-                changeSelectionToNextField(argumentsArray[i + 1]);
+                selectionNextField(argumentsArray[i + 1]);
                 updatedSelection = true;
                 break;
             }
@@ -289,7 +296,7 @@ public class CommandBox extends UiPart<Region> {
             //if caret position is not changed in the above for loop, it means
             //the caret is currently at the last field, then change selection to
             //the first arg so that continuously pressing tab will go in a cycle
-            changeSelectionToNextField(argumentsArray[0]);
+            selectionNextField(argumentsArray[0]);
         }
     }
 
@@ -298,7 +305,7 @@ public class CommandBox extends UiPart<Region> {
      *
      * @param indexOfNextWord Position of begin of next word to be selected
      */
-    private void changeSelectionToNextField(int indexOfNextWord) {
+    private void selectionNextField(int indexOfNextWord) {
         commandTextField.positionCaret(indexOfNextWord);
         commandTextField.selectNextWord();
         String selectedText = commandTextField.getSelectedText().trim();

@@ -40,6 +40,6 @@ public class Messages {
     public static final String MESSAGE_ALREADY_FULL_COMMAND_FORMAT =
         "Your command is already in full command format.";
     public static final String MESSAGE_AUTO_COMPLETE_SUCCESS = "Your command is auto-completed.";
-    public static final String MESSAGE_NEXT_HOLDER_SELECTED_SUCCESS =
+    public static final String MESSAGE_SELECT_NEXT_HOLDER_SUCCESS =
         "Next parameter holder is selected for you to replace.";
 }
