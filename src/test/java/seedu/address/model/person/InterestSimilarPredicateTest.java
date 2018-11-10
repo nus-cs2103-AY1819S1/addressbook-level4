@@ -28,9 +28,6 @@ public class InterestSimilarPredicateTest {
         // different types -> returns false
         assertFalse(firstPredicate.equals(1));
 
-        // null -> returns false
-        assertFalse(firstPredicate.equals(null));
-
         // different person -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
