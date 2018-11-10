@@ -396,8 +396,7 @@ public class MainWindow extends UiPart<Stage> {
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
         if (event.getNewSelection() == 3) {
-            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
-            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
             personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
         }
     }
