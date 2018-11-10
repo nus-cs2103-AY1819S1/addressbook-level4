@@ -440,6 +440,7 @@ public class MainWindow extends UiPart<Stage> {
         handleSwitchToIngredient();
     }
 
+    //@@author HyperionNKJ
     @Subscribe
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
