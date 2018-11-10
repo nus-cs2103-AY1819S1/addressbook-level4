@@ -21,9 +21,9 @@ import seedu.address.model.util.AttendanceListUtil;
  * or an occasion.
  * @author alistair
  */
-public class RemovePersonCommand extends Command {
+public class TakeOutPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeperson";
+    public static final String COMMAND_WORD = "takeoutperson";
     public static final String MESSAGE_SUCCESS_REMOVE_FROM_MODULE = "Successfully removed person from module.";
     public static final String MESSAGE_SUCCESS_REMOVE_FROM_OCCASION = "Successfully removed person from occasion";
     public static final String MESSAGE_FAILURE = "Failed to remove person as person is not linked "
@@ -38,7 +38,7 @@ public class RemovePersonCommand extends Command {
     private int moduleIndex;
     private int occasionIndex;
 
-    public RemovePersonCommand(Index personIndex, Index eventIndex, TypeUtil currType) {
+    public TakeOutPersonCommand(Index personIndex, Index eventIndex, TypeUtil currType) {
         requireAllNonNull(personIndex, moduleIndex);
         this.currType = currType;
         this.personIndex = personIndex.getZeroBased();
@@ -113,10 +113,10 @@ public class RemovePersonCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || other instanceof RemovePersonCommand
-                && currType.equals(((RemovePersonCommand) other).getCurrType())
-                && personIndex == ((RemovePersonCommand) other).getPersonIndex()
-                && moduleIndex == ((RemovePersonCommand) other).getModuleIndex()
-                && occasionIndex == ((RemovePersonCommand) other).getOccasionIndex();
+                || other instanceof TakeOutPersonCommand
+                && currType.equals(((TakeOutPersonCommand) other).getCurrType())
+                && personIndex == ((TakeOutPersonCommand) other).getPersonIndex()
+                && moduleIndex == ((TakeOutPersonCommand) other).getModuleIndex()
+                && occasionIndex == ((TakeOutPersonCommand) other).getOccasionIndex();
     }
 }
