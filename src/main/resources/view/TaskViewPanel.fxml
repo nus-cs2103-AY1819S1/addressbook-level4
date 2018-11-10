@@ -33,30 +33,25 @@
             <Label fx:id="remainingTime" styleClass="cell_big_label" text="\$remainingTime" />
         </HBox>
 
-
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label styleClass="cell_big_label">Description: </Label>
             <Label fx:id="description" styleClass="cell_big_label" text="\$description" />
         </HBox>
-
 
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label styleClass="cell_big_label">Priority Value: </Label>
             <Label fx:id="priorityValue" styleClass="cell_big_label" text="\$priorityValue" />
         </HBox>
 
-
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label styleClass="cell_big_label">Status: </Label>
             <Label fx:id="status" styleClass="cell_big_label" text="\$status" />
         </HBox>
 
-
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label styleClass="cell_big_label">Hash: </Label>
             <Label fx:id="hash" styleClass="cell_big_label" text="\$hash" />
         </HBox>
-
 
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label styleClass="cell_big_label">Dependency: </Label>

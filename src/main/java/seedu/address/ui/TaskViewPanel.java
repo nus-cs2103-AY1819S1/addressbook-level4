@@ -67,15 +67,15 @@ public class TaskViewPanel extends UiPart<Region> {
     }
 
     private String getHashId(Task task) {
-        return "Dependency id: " + Integer.toString(task.hashCode());
+        return Integer.toString(task.hashCode());
     }
 
     private String getDependencies(Task task) {
-        return "dependencies: " + task.getDependency().toString();
+        return task.getDependency().toString();
     }
 
     private String getRemainingTime(Task task) {
-        return "remaining time: " + task.getTimeToDueDate();
+        return task.getTimeToDueDate();
     }
 
     @Override
