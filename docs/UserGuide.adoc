@@ -357,8 +357,8 @@ particular week's description to the title of the application. +
 Example:
 ====
 The following diagram illustrates when you used `firstday` command with the date `130818`
-and launch the application within `221018` to `281018` (Week 10 for
-NUS academic year 18/19 semester 1), the application title will be appended with "Week 10".
+and launch the application within `121118` to `181118` (Week 13 for
+NUS academic year 18/19 semester 1), the application title will be appended with "Week 13".
 
 image::FirstDayCommand_UG_Before_After.png[width="500"]
 ====
