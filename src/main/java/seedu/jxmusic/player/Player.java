@@ -1,6 +1,7 @@
 package seedu.jxmusic.player;
 
 import javafx.util.Duration;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 
@@ -38,8 +39,12 @@ public interface Player {
     /**
      * Seeks to the specified {@code time} in the playing track
      */
-    void seek(Duration time);
+    void seek(Duration time) throws CommandException;
 
+    /**
+     * Returns the duration of the currently playing track
+     */
+    Duration getDuration();
 
     /**
      * Returns the status of the player

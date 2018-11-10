@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
+import seedu.jxmusic.logic.commands.DurationCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
@@ -59,12 +60,14 @@ public class LibraryParser {
         case PauseCommand.COMMAND_WORD:
             return new PauseCommand(); // todo parse (argument)
 
+        case DurationCommand.COMMAND_PHRASE:
+            return new DurationCommand();
+
         case StopCommand.COMMAND_WORD:
             return new StopCommand();
 
-        case SeekCommand.COMMAND_WORD:
-            //double time = arguments.toInt() sth like this, change the string to time in double
-            //return new SeekCommand(time);
+        case SeekCommand.COMMAND_PHRASE:
+            return new SeekCommandParser().parse(arguments);
 
         case PlaylistListCommand.COMMAND_PHRASE:
             return new PlaylistListCommand();

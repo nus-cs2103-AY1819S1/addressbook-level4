@@ -496,7 +496,7 @@ Format: `exit`
 * *Pause track* : `pause`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
-* *Seek time point* : `seek t/TIME` +
+* *Seek time point* : `seek d/TIME` +
 eg. `seek d/1 10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`

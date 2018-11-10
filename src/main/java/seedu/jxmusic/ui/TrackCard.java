@@ -28,12 +28,15 @@ public class TrackCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    //@FXML
+    //private Label duration;
 
     public TrackCard(Track track, int displayedIndex) {
         super(FXML);
         this.track = track;
         id.setText(displayedIndex + ".");
         name.setText(track.getFileNameWithoutExtension());
+        //duration.setText(track.getDisplayedFileDuration());
     }
 
     @Override
