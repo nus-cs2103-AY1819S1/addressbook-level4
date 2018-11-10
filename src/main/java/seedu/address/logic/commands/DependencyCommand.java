@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -45,13 +46,32 @@ public class DependencyCommand extends Command {
     @Override
     public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Task> lastShownList = model.getFilteredTaskList();
         //Checking if indexes are out of bounds
-        if (checkIndexesPastCurrentBounds(lastShownList, dependantIndex, dependeeIndex)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+        checkIndexesPastCurrentBounds(model, dependantIndex, dependeeIndex);
+        String message = handleTaskDependencyToggling(model, dependantIndex, dependeeIndex);
+        return new CommandResult(message);
+    }
 
-        //Creating a different task depending on whether the task dependency currently exists
+    /**
+     * Check if indexes are past list boundaries. Throws command exception if they are past boundaries.
+     * @throws CommandException if indexes are past list boundaries
+     */
+    private void checkIndexesPastCurrentBounds(Model model, Index dependantIndex, Index dependeeIndex)
+            throws CommandException {
+        List<Task> lastShownList = model.getFilteredTaskList();
+        if (dependantIndex.getZeroBased() >= lastShownList.size()
+                || dependeeIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
+        }
+    }
+
+    /**
+     * Handle task dependency toggling by creating a new updated Task with the task dependency added or removed
+     */
+    private String handleTaskDependencyToggling(Model model, Index dependantIndex, Index dependeeIndex)
+            throws CommandException{
+        List<Task> lastShownList = model.getFilteredTaskList();
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
 
@@ -65,21 +85,17 @@ public class DependencyCommand extends Command {
             updatedTask = handleDependencyAddition(taskDependant, taskDependee, model);
             message = MESSAGE_ADD_SUCCESS;
         }
-        //Passes all checks
+        //Process updated Task
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(message, updatedTask.getName(), taskDependee.getName(),
-                dependantIndex.getOneBased(), dependeeIndex.getOneBased()));
-    }
 
-    private boolean checkIndexesPastCurrentBounds(List<Task> lastShownList, Index dependantIndex, Index dependeeIndex) {
-        return dependantIndex.getZeroBased() >= lastShownList.size()
-                || dependeeIndex.getZeroBased() >= lastShownList.size();
+        return String.format(message, updatedTask.getName(), taskDependee.getName(),
+                dependantIndex.getOneBased(), dependeeIndex.getOneBased());
     }
 
     /**
-     * Handles dependency removal
+     * Handle dependency removal
      */
     private Task handleDependencyRemoval(Task taskDependant, Task taskDependee) {
         //If taskDependant is already dependant on dependee, remove dependency
@@ -87,7 +103,7 @@ public class DependencyCommand extends Command {
     }
 
     /**
-     * Handles dependency addition
+     * Handle dependency addition
      * @throws CommandException
      */
     private Task handleDependencyAddition(Task taskDependant, Task taskDependee, Model model) throws CommandException {

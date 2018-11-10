@@ -182,7 +182,7 @@ public class DependencyCommandTest {
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
         assertEquals(dependantTask.getDependency(), model.getFilteredTaskList().get(
                 INDEX_FIRST_TASK.getZeroBased()).getDependency());
-        // redo -> deletes same second task in unfiltered task list=-
+        // redo -> deletes same second task in unfiltered task list
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
