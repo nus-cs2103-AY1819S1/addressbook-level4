@@ -57,15 +57,14 @@ public class GoogleLsCommand extends GoogleCommand {
             }
 
             if (toPrint.toString().isEmpty()) {
-                if (!"/a".equals(parameter)) {
+                if ("/a".equals(parameter)) {
                     toPrint.append("Empty! No images to be displayed");
                 }
             }
-        } catch (ApiException e) {
+        } catch (ApiException api) {
             throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
         } catch (Exception ex) {
-            String message = FAILURE_MESSAGE;
-            throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
+            throw new CommandException(FAILURE_MESSAGE + "\n\n" + MESSAGE_USAGE);
         }
 
         return new CommandResult(toPrint.toString());
