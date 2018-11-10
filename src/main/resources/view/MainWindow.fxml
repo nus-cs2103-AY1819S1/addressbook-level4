@@ -67,7 +67,7 @@
                         <Tab fx:id="appointmentTab">
                             <graphic>
                                 <ImageView>
-                                    <Image url="@/images/clinicio.png" />
+                                    <Image url="@/images/blood.png" />
                                 </ImageView>
                             </graphic>
                             <VBox fx:id="appointmentList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
