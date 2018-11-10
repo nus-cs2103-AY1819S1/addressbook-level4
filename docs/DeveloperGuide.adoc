@@ -733,37 +733,19 @@ Other possible design considerations are shown below.
 
 // end::login[]
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
-
 // tag::leaveapplication[]
 === Leave Application
 ==== Current Implementation
 
 A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
 
-image::LeaveApplicationSequenceDiagram.png[width="800"]
+image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
+
+image::LeaveApplicationSequenceDiagram.png[width="1000"]
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
-1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE...]` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
+1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE]...` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
 
 image::LeaveApplicationModelDiagram.png[width="400"]
 
@@ -785,6 +767,26 @@ image::LeaveApplicationModelDiagram.png[width="400"]
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
 // end::leaveapplication[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
