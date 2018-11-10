@@ -97,8 +97,8 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty ClinicIO");
             initialData = new ClinicIo();
         }
-
-        return new ModelManager(initialData, userPrefs);
+        //@@author iamjackslayer
+        return new ModelManager(initialData, userPrefs, (UiManager) ui);
     }
 
     private void initLogging(Config config) {

@@ -173,6 +173,8 @@ public class MainWindow extends UiPart<Stage> {
 
         tabLists = new TabPane(personTab, appointmentTab, queueTab);
 
+        tabLists.getSelectionModel().select(queueTab);
+
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());

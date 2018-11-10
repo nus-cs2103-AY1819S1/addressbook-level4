@@ -12,10 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.clinicio.commons.core.ComponentManager;
+import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.LogsCenter;
 
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.logic.LogicManager;
 import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
@@ -31,6 +33,8 @@ import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.util.PatientComparator;
+import seedu.clinicio.ui.UiManager;
+
 /**
  * Represents the in-memory model of the ClinicIO data.
  */
@@ -47,15 +51,18 @@ public class ModelManager extends ComponentManager implements Model {
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
     private final Analytics analytics;
+    //@@author iamjackslayer
+    private final UiManager uiManager;
 
     /**
-     * Initializes a ModelManager with the given ClinicIO and userPrefs.
+     * Initializes a ModelManager with the given ClinicIO, userPrefs and ui.
      */
-    public ModelManager(ReadOnlyClinicIo clinicIo, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyClinicIo clinicIo, UserPrefs userPrefs, UiManager uiManager) {
         super();
         requireAllNonNull(clinicIo, userPrefs);
 
-        logger.fine("Initializing with ClinicIO: " + clinicIo + " and user prefs " + userPrefs);
+        logger.fine("Initializing with ClinicIO: " + clinicIo + " and user prefs " + userPrefs
+                + " and ui manager " + uiManager);
 
         versionedClinicIo = new VersionedClinicIo(clinicIo);
         //@@author jjlee050
@@ -68,12 +75,14 @@ public class ModelManager extends ComponentManager implements Model {
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
         allPatientsInQueue = new FilteredList<>(versionedClinicIo.getQueue());
+        this.uiManager = uiManager;
         //@@author arsalanc-v2
         analytics = new Analytics();
     }
 
     public ModelManager() {
-        this(new ClinicIo(), new UserPrefs());
+        this(new ClinicIo(), new UserPrefs(), new UiManager(
+                new LogicManager(new ModelManager()), new Config(), new UserPrefs()));
     }
 
     @Override
