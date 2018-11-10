@@ -24,11 +24,9 @@ public class DurationCommand extends Command {
             Duration fileDuration = player.getDuration();
             int totalSeconds = (int) fileDuration.toSeconds();
             int seconds = totalSeconds % 60;
-            String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
             int hours = totalSeconds / 3600;
             int minutes = (totalSeconds - seconds - hours * 3600) / 60;
-            String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
-            String durationString = hours + minuteString + secondString;
+            String durationString = String.format("%02dh %02dm %02ds", hours, minutes, seconds);
             return new CommandResult(String.format(MESSAGE_SUCCESS, durationString));
         default:
             return new CommandResult(MESSAGE_FAILURE);
