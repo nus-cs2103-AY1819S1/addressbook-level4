@@ -12,7 +12,7 @@
 *MeNUS* is an all in one restaurant management desktop application developed to help restaurant owners
 and managers streamline the process of managing restaurants. It allows the restaurant owners and managers to control
 their inventory, menu, sales and reservations efficiently all in one place.
-*MeNUS* is also designed to help them save cost from running expensive and independent systems.
+*MeNUS* is also designed to help restaurants save cost from running expensive and independent systems.
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). It also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX]. *MeNUS* is
