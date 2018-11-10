@@ -17,7 +17,8 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new MassEditCommand
  * */
-public class MassEditCommandParser implements Parser {
+//@@author jcjxwy
+public class MassEditCommandParser implements Parser<MassEditCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the MassEditCommand
@@ -40,6 +41,7 @@ public class MassEditCommandParser implements Parser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
         }
 
+        //Check whether the user enters at least one prefix
         if (!keywords.contains("/") || !editedKeywords.contains("/")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
         }
