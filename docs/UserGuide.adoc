@@ -643,9 +643,9 @@ Refer to <<command-record-manage>> on how to manage events.
 
 Format: `delete VOLUNTEER_INDEX`
 
-****
-* VOLUNTEER_INDEX comes from the table view of existing volunteers.
-****
+[NOTE]
+VOLUNTEER_INDEX comes from the table view of existing volunteers.
+
 
 The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
 This display can be seen after executing the `manage` command.
