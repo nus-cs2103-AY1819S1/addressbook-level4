@@ -104,7 +104,7 @@ public abstract class TaskManagerSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public TaskViewPanelHandle getBrowserPanel() {
+    public TaskViewPanelHandle getTaskViewPanel() {
         return mainWindowHandle.getTaskViewPanel();
     }
 

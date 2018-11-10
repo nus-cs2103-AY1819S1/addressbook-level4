@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.TaskViewPanel;
 import seedu.address.ui.StatusBarFooter;
 
 /**
@@ -43,9 +42,9 @@ public class HelpCommandSystemTest extends TaskManagerSystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
+        getTaskViewPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
