@@ -371,32 +371,4 @@ public class ConnectToGoogleCalendarTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()));
         disable();
     }
-
-    @Test
-    public void deleteOnGoogleCal() {
-    }
-
-    @Test
-    public void deleteUpcomingOnGoogleCal() {
-    }
-
-    @Test
-    public void deleteAllOnGoogleCal() {
-    }
-
-    @Test
-    public void updateSingleGoogleEvent() {
-    }
-
-    @Test
-    public void updateRangeGoogleEvent() {
-    }
-
-    @Test
-    public void getEvents() {
-    }
-
-    @Test
-    public void getSingleEvents() {
-    }
 }
