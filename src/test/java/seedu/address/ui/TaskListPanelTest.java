@@ -130,7 +130,7 @@ public class TaskListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code TaskListPanel}.
      */
     private void initUi(ObservableList<Task> backingList) {
-        TaskListPanel taskListPanel = new TaskListPanel(backingList, new TaskManager());
+        TaskListPanel taskListPanel = new TaskListPanel(backingList);
         uiPartRule.setUiPart(taskListPanel);
 
         taskListPanelHandle = new TaskListPanelHandle(getChildNode(taskListPanel.getRoot(),

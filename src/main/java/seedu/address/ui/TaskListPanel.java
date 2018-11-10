@@ -22,18 +22,15 @@ import seedu.address.model.task.Task;
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
 
-    public final ReadOnlyTaskManager taskManager;
-
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
     private ListView<Task> personListView;
 
-    public TaskListPanel(ObservableList<Task> taskList, ReadOnlyTaskManager taskManager) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
         setConnections(taskList);
         registerAsAnEventHandler(this);
-        this.taskManager = taskManager;
     }
 
     private void setConnections(ObservableList<Task> taskList) {
@@ -80,7 +77,7 @@ public class TaskListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TaskCard(task, getIndex() + 1, taskManager).getRoot());
+                setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }
     }

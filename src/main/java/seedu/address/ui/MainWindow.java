@@ -130,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         achievementPanel = new AchievementPanel(logic.getAchievementRecord());
         achievementPlaceholder.getChildren().add(achievementPanel.getRoot());
 
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList(), logic.getTaskManager());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();

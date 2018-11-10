@@ -7,9 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.task.Task;
 
 
@@ -29,7 +26,6 @@ public class TaskCard extends UiPart<Region> {
      */
 
     public final Task task;
-    private ReadOnlyTaskManager taskManager;
 
     @FXML
     private HBox cardPane;
@@ -45,28 +41,10 @@ public class TaskCard extends UiPart<Region> {
     private Label status;
     @FXML
     private FlowPane tags;
-    @FXML
-    private Label earliestTimeOfChildren;
 
-    public TaskCard(Task task, int displayedIndex, ReadOnlyTaskManager taskManager) {
-        super(FXML);
-        this.task = task;
-        this.taskManager = taskManager;
-        id.setText(displayedIndex + ". ");
-        name.setText(task.getName().fullName);
-        dueDate.setText(task.getDueDate().value);
-        earliestTimeOfChildren.setText(getChildTime());
-        priorityValue.setText(task.getPriorityValue().value);
-        status.setText(task.getStatus().toString());
-        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
-        registerAsAnEventHandler(this);
-    }
-
-    //Used for testing TaskCard
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
-        this.taskManager = null;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
@@ -74,36 +52,6 @@ public class TaskCard extends UiPart<Region> {
         status.setText(task.getStatus().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
         registerAsAnEventHandler(this);
-    }
-
-    private String getHashId() {
-        return "Dependencies id: " + Integer.toString(task.hashCode());
-    }
-
-    private String getDependencies() {
-        return "dependencies: " + task.getDependency().toString();
-    }
-
-    private String getRemainingTime() {
-        return "remaining time: " + task.getTimeToDueDate();
-    }
-
-    private String getChildTime() {
-        try {
-            return this.taskManager.getEarliestDependentTimeForNode(this.task).value;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-
-    @Subscribe
-    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
-        try {
-            earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.task).value);
-        } catch (Exception e) {
-            return;
-        }
     }
 
     @Override
