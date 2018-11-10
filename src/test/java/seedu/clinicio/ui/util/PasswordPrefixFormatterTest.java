@@ -23,13 +23,13 @@ public class PasswordPrefixFormatterTest {
     public void setUp() {
         formatter = new PasswordPrefixFormatter();
     }
-    
+
     @Test
     public void maskPassword() {
         String text = LoginCommand.COMMAND_WORD + WHITESPACE + PREFIX_ROLE + "doctor"
                 + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
                 + WHITESPACE + PREFIX_PASSWORD + VALID_PASSWORD_ADAM;
-        String expectedText = LoginCommand.COMMAND_WORD  + WHITESPACE + PREFIX_ROLE + "doctor" 
+        String expectedText = LoginCommand.COMMAND_WORD  + WHITESPACE + PREFIX_ROLE + "doctor"
                 + WHITESPACE + PREFIX_NAME + ADAM.getName().fullName
                 + WHITESPACE + PREFIX_PASSWORD + "-------2";
         assertEquals(expectedText, formatter.maskPassword(text, false, false) + "2");
