@@ -9,8 +9,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.storage.storageutil.LocalDateTimeAdapter;
 
-import static java.util.Objects.requireNonNull;
-
 //@@Snookerballs
 
 /**
