@@ -84,14 +84,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Checks if a person is the current user.
-     * @param person the Person to be checked.
-     */
-    public boolean authorisationCanBeGivenTo(Person person) {
-        return person.isSamePerson(currentUser);
-    }
-
-    /**
      * Logs out user.
      */
     public void removeCurrentUser() {
@@ -104,10 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         return (currentUser != null);
     }
 
-    public Person getCurrentUser() throws NoUserLoggedInException {
-        if (currentUser == null) {
-            throw new NoUserLoggedInException();
-        }
+    public Person getCurrentUser() {
         return currentUser;
     }
 

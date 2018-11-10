@@ -90,7 +90,7 @@ public class BrowserPanel extends UiPart<Region> {
         );
 
 
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        //loadPage(SEARCH_PAGE_URL + person.getName().value);
     }
 
     //    /**
@@ -130,7 +130,7 @@ public class BrowserPanel extends UiPart<Region> {
     //        );
     //
     //
-    //        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    //        //loadPage(SEARCH_PAGE_URL + person.getName().value);
     //    }
 
 
