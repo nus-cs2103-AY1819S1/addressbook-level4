@@ -186,6 +186,7 @@ Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Bro
 
 * `edit 2 p/22 a/22w` +
 Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
+
 == Contributions to the Developer Guide
 
 |===
