@@ -16,13 +16,13 @@ public class AddCommand<T extends UniqueType> extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "New %1$s added: %2$s";
 
-    private final Model model;
+    private final Model<T> model;
     private final T toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
      */
-    public AddCommand(Model model, T toAdd) {
+    public AddCommand(Model<T> model, T toAdd) {
         requireNonNull(toAdd);
         this.model = model;
         this.toAdd = toAdd;

@@ -18,7 +18,7 @@ public class FindCommand<T extends UniqueType> extends Command {
     private final Model<T> model;
     private final Predicate predicate;
 
-    public FindCommand(Model model, Predicate predicate) {
+    public FindCommand(Model<T> model, Predicate predicate) {
         this.model = model;
         this.predicate = predicate;
     }
