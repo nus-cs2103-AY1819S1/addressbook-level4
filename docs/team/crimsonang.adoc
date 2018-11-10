@@ -11,11 +11,11 @@ PROJECT: Student Schedule Planner
 == Overview
 
 This portfolio showcases the software engineering skills I acquired during my time of study in National University of
- Singapore.
+ Singapore (NUS).
 
 Student Schedule Planner (SSP) is a desktop application created by my team T12-3 for CS2103T module. SSP
-aimed to help university students to manage their tasks effectively. It is morphed from an existing product called
-AddressBook, with constraints such as the primary mode of user input must be via command-line interface.
+aimed to aid university students to manage their tasks effectively. It is morphed from an existing product called
+`Address Book`, with constraints such as command-line interface must be the main mode of user input.
 
 My contributions to the project included adding `firstday`, `listday` and `listweek` commands to aid the
 users in better monitoring of their tasks.
@@ -37,21 +37,16 @@ https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-
 https://stackoverflow.com/questions/428918/how-can-i-increment-a-date-by-one-day-in-java[#4],
 https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[#5]
 
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=crimsonang[Project
-Code Dashboard]
-
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=crimsonang[RepoSense]
 * *Other contributions*:
-
 ** Project management:
+*** Morphed and transformed portions of `Address Book` into current product `Student Schedule Planner`.
 *** Managed releases `mid-v1.3` - `v1.3` (2 releases) on GitHub
 ** Documentation:
 *** Morphed existing diagrams of the Developer Guide:
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/81[#81]
-*** Updated `Target User Profile` of the Developer Guide:
+*** Added `Target User Profile`, `User Stories` of the Developer Guide:
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1]
-*** Added `User Stories` of the Developer Guide:
-https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1]
-
 ** Community:
 *** Contributed to forum discussions: https://github.com/nus-cs2103-AY1819S1/forum/issues/132[#132],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/146[#146]
@@ -60,7 +55,7 @@ https://github.com/CS2103-AY1819S1-T12-3/main/pull/125[#125]
 *** Some parts of `listday` command test cases I added was adopted by a classmate:
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/201[#201]
 ** Tools:
-*** Integrated two Github plugin (AppVeyor, Coveralls) to the team repo
+*** Integrated two Github plugins (AppVeyor, Coveralls) to the team repo
 
 == Contributions to the User Guide
 
