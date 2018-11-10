@@ -8,11 +8,15 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.AdjustCommand;
-import seedu.address.logic.commands.CapCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteModuleCommand;
+import seedu.address.logic.commands.EditModuleCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.RedoModuleCommand;
+import seedu.address.logic.commands.UndoModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author alexkmj
@@ -47,14 +51,34 @@ public class TranscriptParser {
         switch (commandWord) {
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
+
         case AdjustCommand.COMMAND_WORD:
             return new AdjustCommandParser().parse(arguments);
+
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
-        case CapCommand.COMMAND_WORD:
-            return new CapCommand();
+
+        case EditModuleCommand.COMMAND_WORD:
+            return new EditModuleCommandParser().parse(arguments);
+
         case GoalCommand.COMMAND_WORD:
             return new GoalCommandParser().parse(arguments);
+
+        case RedoModuleCommand.COMMAND_WORD:
+            return new RedoModuleCommand();
+
+        case UndoModuleCommand.COMMAND_WORD:
+            return new UndoModuleCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

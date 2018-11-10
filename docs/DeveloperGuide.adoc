@@ -205,6 +205,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
+//tag::designmodel[]
 === Model component
 
 .Structure of the Model Component
@@ -220,6 +221,7 @@ The `Model`,
 * does not depend on any of the other three components.
 * provides filter function to filter `Module` with different kind of `Grade`
 
+//end::designmodel[]
 [[Design-Storage]]
 === Storage component
 
@@ -243,6 +245,65 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::captargetcalculation[]
+=== CAP & Target Grades Calculation
+
+The two calculations are triggered upon an change to the list of modules in `Transcript` _i.e. add/update/delete_.
+
+.Sequence Diagram of updating modules in Transcript
+image::SDTranscriptModulesUpdate.png[width="800"]
+
+[[Implementation-CAP]]
+==== CAP Calculation
+
+The CAP calculation is handled by `Transcript`.
+
+The pseudo-code for CAP is the following:
+```
+all_points <- sum(credits(m) * points(m) for all completed modules m)
+all_credits <- sum(credits(m) for all completed modules m)
+
+CAP <- all_points/all_credits
+```
+
+.Sequence Diagram of CAP calculation
+image::SDTranscriptCalculateCap.png[width="800"]
+
+CAP Calculation is triggered by:
+
+[[Implementation-TargetGrades]]
+==== Target Grades Calculation
+
+The target `Grade` calculation is facilitated by `Transcript`.
+The returned list of modules with target `Grade` assures the following properties:
+
+* Reducing the `Grade` of any proposed target will result in the increase of another.
+* If `x` is the minimum `Grade` required when assigned to *all* modules to obtain the desired CAP Goal,
+none of the proposed target `Grade` will be greater than `x`
++
+i.e. if assigning `B+` to *all* module is the minimal requirement to obtain the desired CAP Goal,
+none of the proposed target `Grade` will be `A-` or above.
+
+Below is the pseudo-code for Target Grade Calculation:
+```
+CG <- CAP goal of user.
+TC <- total credit of completed and incomplete modules.
+PO <- total points achieved from completed modules.
+P <- CG * TC - PO // total points needed to achieve from incomplete modules.
+
+mc_remaining <- sum of module credit of all incomplete modules
+accumulated_points <- 0
+for every incomplete Module m:
+    avg_point_per_mc <- (P - accumulated_points) / mc_remaining
+    target(m) <- ceiling(avg_point_per_mc)
+    mc_remaining <- mc_remaining - credits(m)
+    accumulated_points <- accumulated_points + (credits(m) * target(m))
+
+```
+.Sequence Diagram of Target Grade calculation
+image::SDTranscriptTargetCalculation.png[width="800"]
+
+// end::captargetcalculation[]
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -598,6 +659,7 @@ can enter my entries incrementally.
 [appendix]
 == Use Cases
 
+//tag::usecase[]
 === Use case: [UC1] Calculating current CAP
 
 *MSS*
@@ -681,6 +743,7 @@ Use case ends.
 +
 Use case ends
 
+//end::usecase[]
 [appendix]
 == Non Functional Requirements
 
@@ -697,23 +760,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -737,49 +783,129 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+//tag::manualtestcaptargetcalculation[]
+=== CAP Calculation
 
-=== Deleting a person
+. Initial CAP should be 0
+.. Launch the application
+.. Delete any Completed Modules already added
++
+*Expected*: Current CAP should be 0
 
-. Deleting a person while all persons are listed
+. CAP should increase/decrease correctly while *Adding* modules
+.. CAP score of 1 Module
+... Add a module(4MC, Grade B+) with the following command +
+    `c_add CS1010 1 1 4 B+`
+... Observe the current CAP
++
+*Expected*: Current CAP should be 4.0
+.. CAP score of 3 Module
+... Add another module(4MC, Grade A-) with the following command +
+    `c_add CS1020 1 2 4 A-`
+... Observe the current CAP
++
+*Expected*: Current CAP should be 4.25
+... Add another module(5MC, Grade C+) with the following command +
+    `c_add CS2010 2 1 5 C+`
+... Observe the current CAP
++
+*Expected*: Current CAP should be 3.58
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. CAP should increase/decrease correctly while *Editing* modules
+.. Edit one of the module with the following command +
+    `c_edit TBC`
+.. Observe the current CAP
++
+*Expected*: Current CAP should be TBC
 
-_{ more test cases ... }_
+. CAP should increase/decrease correctly while *Deleting* modules
+.. Delete one of the module with the following command +
+    `c_delete CS1020`
+.. Observe the current CAP
++
+*Expected*: Current CAP should be 3.17
 
-=== Saving data
+=== Target Grade Calculation
 
-. Dealing with missing/corrupted data files
+[NOTE]
+_To follow this guide, ensure the there are only the following 2 modules:_ +
+Completed Modules:
+CS1010 year 1 sem 1 credits 4 grade B+ +
+   `c_add cs1010 1 1 4 B+` +
+CS1020 year 1 sem 2 credits 4 grade C+ +
+   `c_add cs2010 1 2 4 C+`
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Target Grade should not be calculated when there is no CAP Goal
+.. Remove any CAP Goal with the following command +
+    `c_goal 0`
+.. Add 2 incomplete module with the following command (One after another) +
+    `c_add CS4234 4 1 4` +
+    `c_add CS4226 4 1 4`
++
+*Expected*: Both module should have grade NIL
 
-_{ more test cases ... }_
+. Target Grade should not update upon entering an impossible CAP Goal
+.. Add an impossible CAP Goal with the following command +
+    `c_goal 5.0`
+.. Observe the CAP Goal field
+*Expected*: CAP Goal should be `5.0 (Impossible)` and both modules should still have grade NIL
 
-=== Navigating the UI
+. Target Grade should update upon entering an achievable CAP Goal
+.. Change the CAP Goal to something achievable with the following command +
+    `c_goal 4.0`
+.. Observe the Target Grades of CS4234 and CS4226
+*Expected*: CS4234 -> `A` CS4226 -> `A-`
 
-. The UI is split into four sections; the three display columns and the search bar.
+. Target Grade should update upon modifying the list of modules
+.. Adding another completed module with good grade
+... Add a module with good grade with the following command: +
+    `c_add CS2100 1 2 4 A`
+... Observe that the Target Grades of CS4234 and CS4226 have dropped
+*Expected*: CS4234 -> `A-` CS4226 -> `B+`
 
-. Column 1
+.. Adding another completed module with bad grade
+... Add a module with good grade with the following command: +
+    `c_add CS2105 2 1 4 C+`
+... Observe that the Target Grades of CS4234 and CS4226 have increased
+*Expected*: CS4234 -> `A` CS4226 -> `A`
 
-.. Used to display modules that the user has entered which are already completed.
-.. It is assumed that the modules in this column have grades that are true representations of the users academic results.
+.. Adding another incomplete
+... Add a incomplete module with the following command: +
+    `c_add CS4231 4 2 4`
+... Observe that the Target Grades of CS4234 and CS4226 have dropped
+*Expected*: CS4234 -> `A` CS4226 -> `A-` CS4231 -> `A-`
 
-. Column 2
+. Adjusting target grade
+.. Increase a target grade should reduce another
+... Adjust CS4226 with the following command +
+    `c_adjust cs4226 A`
+... Observe the Target Grade of CS4234
+*Expected*: CS4234 -> `A-`
 
-.. Used to display modules that the user wants to predict the grades of in order to reach CAP goal.
-.. It is assumed that the modules in this column have not been completed by the user and therefore do not have an entered grade.
+.. Decreasing a target grade should reduce another
+... Adjust CS4226 with the following command +
+    `c_adjust cs4226 A-`
+... Observe the Target Grade of CS4234
+*Expected*: CS4234 -> `A`
 
-. Column 3
+.. Decreasing a target grade causing goal to be impossible will not recalculate target grade
+... Adjust CS4226 with the following command +
+    `c_adjust cs4226 C+`
+... Observe the CAP Goal field
+*Expected*: CAP Goal should be `4.0 (Impossible)`
 
-.. Used to display summary statistics of the information entered by the user and calculated by the app.
-.. Includes total number of modules entered, CAP Goal, and required grades to reach CAP Goal.
+. Adjusting multiple modules
+.. Adjusting all modules to grades above what was target will be ok
+    `c_adjust cs4226 A` +
+    `c_adjust cs4234 A`
+.. Observe the CAP Goal field
+*Expected*: CAP Goal should still be 4.0
 
-_{ more test cases ... }_
+.. Adjusting all modules to grades below what was target will result in impossible CAP Goal
+    `c_adjust cs4226 A-` +
+    `c_adjust cs4234 A-`
+.. Observe the CAP Goal field
+*Expected*: CAP Goal should be `4.0 (Impossible)`
 
-'''
+//end::manualtestcaptargetcalculation[]
+

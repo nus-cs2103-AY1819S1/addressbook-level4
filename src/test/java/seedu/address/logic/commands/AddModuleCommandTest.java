@@ -66,6 +66,19 @@ public class AddModuleCommandTest {
         addCommand.execute(modelStub, commandHistory);
     }
 
+    //@@author jeremiah-ang
+    @Test
+    public void executeDuplicateModuleDifferentCompletionStateThrowsCommandException() throws Exception {
+        Module validModuleIncomplete = new ModuleBuilder().withCompleted(false).build();
+        Module validModuleComplete = new ModuleBuilder(validModuleIncomplete).withCompleted(true).build();
+        AddModuleCommand addCommand = new AddModuleCommand(validModuleIncomplete);
+        ModelStub modelStub = new ModelStubWithModule(validModuleComplete);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */

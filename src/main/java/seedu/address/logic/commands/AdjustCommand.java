@@ -10,6 +10,7 @@ import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
+import seedu.address.model.module.exceptions.ModuleCompletedException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
@@ -32,6 +33,7 @@ public class AdjustCommand extends Command {
             + MESSAGE_COMMAND_CODE_YEAR_SEM;
     public static final String MESSAGE_SUCCESS = "Module Adjusted: %1$s";
     public static final String MESSAGE_MODULE_NOT_FOUND = "Module not found";
+    public static final String MESSAGE_MODULE_COMPLETED = "Module already Completed!\n" + MESSAGE_USAGE;
 
     private final Code code;
     private final Year year;
@@ -71,8 +73,15 @@ public class AdjustCommand extends Command {
                 throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
             }
         }
-        Module adjustedModule = model.adjustModule(targetModule, grade);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
+
+        try {
+            Module adjustedModule = model.adjustModule(targetModule, grade);
+            model.commitTranscript();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
+        } catch (ModuleCompletedException mce) {
+            throw new CommandException(MESSAGE_MODULE_COMPLETED);
+        }
+
     }
 
     @Override
