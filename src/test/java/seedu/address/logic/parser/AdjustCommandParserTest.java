@@ -51,7 +51,14 @@ public class AdjustCommandParserTest {
 
     @Test
     public void assertWrongNumberArgumentParseFailure() {
-        String expectedMessage = "Invalid number of arguments! Number of arguments should be 2, 4";
+        String inputSuggestion = "\nInput order: c_adjust MODULE_CODE GRADE"
+                + "\nExample 1: c_adjust CS2103 A"
+                + "\nIf the module code is NOT unique, include the YEAR and SEM: "
+                + "c_adjust MODULE_CODE YEAR SEM GRADE"
+                + "\nExample 2: c_adjust CS2103 1 1 A";
+        String expectedMessage = "Invalid number of arguments! Number of arguments should be 2, 4"
+                + "\n"
+                + inputSuggestion;
         String userInput = "1 1 1";
         assertParseFailure(parser, userInput, expectedMessage);
 

@@ -51,8 +51,14 @@ public class DeleteModuleCommandParserTest {
      */
     @Test
     public void parseInvalidNumOfArgumentFails() {
+        String inputSuggestion = "\nInput order: 'c_delete -t TARGET_CODE' "
+                + "OR c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
+                + "\nExample 1: c_delete -t CS2103 "
+                + "\nExample 2: c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER";
         String exceptionMsg = "Invalid number of arguments! Number of arguments"
-                + " should be 2, 4, 6";
+                + " should be 2, 4, 6"
+                + "\n"
+                + inputSuggestion;
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser,

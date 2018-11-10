@@ -23,7 +23,12 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        argsWithBounds(tokenizedArgs, Set.of(2, 4));
+        String inputSuggestion = "\nInput order: c_adjust MODULE_CODE GRADE"
+                + "\nExample 1: c_adjust CS2103 A"
+                + "\nIf the module code is NOT unique, include the YEAR and SEM: "
+                + "c_adjust MODULE_CODE YEAR SEM GRADE"
+                + "\nExample 2: c_adjust CS2103 1 1 A";
+        argsWithBounds(tokenizedArgs, Set.of(2, 4), inputSuggestion);
 
         int index = 0;
 

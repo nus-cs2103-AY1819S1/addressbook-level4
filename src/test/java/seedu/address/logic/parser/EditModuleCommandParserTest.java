@@ -50,8 +50,19 @@ public class EditModuleCommandParserTest {
      */
     @Test
     public void parseInvalidNumOfArgumentFails() {
+        String inputSuggestion = "\nInput order: 'c_edit -t TARGET_CODE' "
+                + "OR 'c_edit -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
+                + "\nUse [-m NEW_CODE]\n"
+                + "[-y NEW_YEAR]\n"
+                + "[-s NEW_SEMESTER]\n"
+                + "[-c NEW_CREDIT]\n"
+                + "[-g NEW_GRADE] to edit specific areas."
+                + "\nExample 1: c_edit -t CS2103 -g A+ "
+                + "\nExample 2: c_edit -t CS2103 -e 3 -z 2 -s 1";
         String exceptionMsg = "Invalid number of arguments!"
-                + " Number of arguments should be 4, 6, 8, 10, 12, 14, 16";
+                + " Number of arguments should be 4, 6, 8, 10, 12, 14, 16"
+                + "\n"
+                + inputSuggestion;
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser, "-t CS1231", exceptionMsg);

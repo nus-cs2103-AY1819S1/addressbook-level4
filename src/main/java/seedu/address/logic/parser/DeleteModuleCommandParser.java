@@ -115,7 +115,11 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
         // Arguments should be in name-value pair.
         // Name should be legal.
         // No duplicate name.
-        argsWithBounds(args, ALLOWED_ARG_SIZE);
+        String inputSuggestion = "\nInput order: 'c_delete -t TARGET_CODE' "
+                + "OR c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER'"
+                + "\nExample 1: c_delete -t CS2103 "
+                + "\nExample 2: c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER";
+        argsWithBounds(args, ALLOWED_ARG_SIZE, inputSuggestion);
         argsAreNameValuePair(args, MESSAGE_INVALID_FORMAT);
         validateName(args, NAME_TO_ARGUMENT_MAP, MESSAGE_INVALID_FORMAT);
 
