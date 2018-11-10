@@ -99,7 +99,7 @@ public class VolunteerListPanelTest extends GuiUnitTest {
         for (int i = 0; i < volunteerCount; i++) {
             builder.append("<volunteers>\n");
             builder.append("<name>John</name>\n");
-            builder.append("<volunteerId>S").append(i+1000000).append("B</volunteerId>\n");
+            builder.append("<volunteerId>S").append(i + 1000000).append("B</volunteerId>\n");
             builder.append("<gender>m</gender>\n");
             builder.append("<birthday>01-01-1991</birthday>\n");
             builder.append("<phone>000</phone>\n");

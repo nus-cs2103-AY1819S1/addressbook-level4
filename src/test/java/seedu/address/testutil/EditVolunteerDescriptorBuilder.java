@@ -13,7 +13,6 @@ import seedu.address.model.volunteer.Gender;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
-import seedu.address.model.volunteer.VolunteerId;
 
 /**
  * A utility class to help with building EditVolunteerDescriptor objects.

@@ -54,7 +54,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_ID).isPresent()) {
-            throw  new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE));
         }
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {

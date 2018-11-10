@@ -93,8 +93,8 @@ public class XmlUtilTest {
     public void xmlAdaptedFromFile_fileWithInvalidVolunteerField_validResult() throws Exception {
         XmlAdaptedVolunteer actualVolunteer = XmlUtil.getDataFromFile(
                 INVALID_VOLUNTEER_FIELD_FILE, XmlAdaptedVolunteerWithRootElement.class);
-        XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(VALID_NAME, VALID_ID, VALID_GENDER, VALID_BIRTHDAY,
-                INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_VOLUNTEER_TAGS);
+        XmlAdaptedVolunteer expectedVolunteer = new XmlAdaptedVolunteer(VALID_NAME, VALID_ID, VALID_GENDER,
+                VALID_BIRTHDAY, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_VOLUNTEER_TAGS);
         assertEquals(expectedVolunteer, actualVolunteer);
     }
 
