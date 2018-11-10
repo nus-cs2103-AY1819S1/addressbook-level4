@@ -18,15 +18,23 @@ import seedu.thanepark.logic.commands.MaintainCommand;
  */
 public class MaintainCommandParserTest {
 
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MaintainCommand.MESSAGE_USAGE);
+
     private MaintainCommandParser parser = new MaintainCommandParser();
 
     @Test
-    public void parse_validArgs_returnsShutDownCommand() {
+    public void parse_validArgs_returnsMaintainCommand() {
         assertParseSuccess(parser, "1", new MaintainCommand(INDEX_FIRST_PERSON));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MaintainCommand.MESSAGE_USAGE));
+        // string
+        assertParseFailure(parser, "abc", MESSAGE_INVALID_FORMAT);
+
+        // no index
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+
     }
 }
