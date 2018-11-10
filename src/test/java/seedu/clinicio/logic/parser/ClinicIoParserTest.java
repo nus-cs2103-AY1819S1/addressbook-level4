@@ -7,6 +7,7 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -39,6 +40,7 @@ import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
+import seedu.clinicio.logic.commands.ListApptCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
@@ -48,6 +50,7 @@ import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.ShowPatientInQueueCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
@@ -65,6 +68,14 @@ public class ClinicIoParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final ClinicIoParser parser = new ClinicIoParser();
+
+    @Test
+    public void parseCommand_listAppt() throws Exception {
+        String[] dates = {"02","03","2017"};
+        ListApptCommand command = (ListApptCommand) parser.parseCommand(
+                ListApptCommand.COMMAND_WORD + " " + dates[0] + " " + dates[1] + " " + dates[2]);
+        assertEquals(new ListApptCommand(new AppointmentContainsDatePredicate(dates)), command);
+    }
 
     @Test
     public void parseCommand_cancelAppt() throws Exception {
