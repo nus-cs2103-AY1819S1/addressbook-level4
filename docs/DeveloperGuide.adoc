@@ -730,7 +730,7 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 
 // tag::menuPart1[]
 === Menu Management feature
-Menu management feature extends `MeNuS` with a menu and provides the users with the ability to add items to the
+Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
 
 ==== Current Implementation
@@ -740,13 +740,18 @@ The menu management feature implements the following operations:
 * `add-item` command -- Adds an item to the menu. The item must not already exist in the menu.
 * `edit-item` command -- Replaces the target item with the editedItem. Target item
  must be in the menu and editedItem must not be the same as another existing item in the menu.
-* `delete-item` command -- Removes the equivalent item from the menu. The item must exist in the menu.
+* `delete-item-index` or `delete-item-name` command -- Removes the equivalent item(s) from the menu.
+The item(s) must exist in the menu.
 * `list-items` command -- Lists all the items in the menu.
 * `select-item` command -- Selects an item in the menu and loads the page of the selected item.
 * `sort-menu` -- Sorts the menu by name or price. The user must specify the sorting method.
 * `find-item` command -- Finds items whose names contain any of the given keywords.
 * `filter-menu` command -- Finds items whose tags contain any of the given keywords.
 * `today-special` command -- Finds items whose tags contain the `DAY_OF_THE_WEEK`.
+* `discount-item` command -- Gives discount to the equivalent item(s) in the menu. The item(s) must exist in the menu.
+* `recipe-item` command -- Adds a recipe to the equivalent item in the menu. The item must exist in the menu.
+* `add-required-ingredients` command --  Adds the required ingredients to the equivalent item in the menu. The item
+must exist in the menu.
 
 Each `Item` object consists of `Name` and `Price`.
 // end::menuPart1[]
