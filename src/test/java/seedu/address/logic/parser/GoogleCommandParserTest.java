@@ -45,8 +45,7 @@ public class GoogleCommandParserTest {
         //Assert invalid
         try {
             assertEqualsGoogleDl("");
-        } catch (Exception ex) {
-            assertTrue(ex instanceof ParseException);
+        } catch (ParseException ex) {
             assertEquals(ex.getMessage(), MESSAGE_GOOGLE_INVALID_FORMAT + "\n\n" + GoogleDlCommand.MESSAGE_USAGE);
         }
     }
@@ -62,8 +61,7 @@ public class GoogleCommandParserTest {
         //Assert invalid
         try {
             assertEqualsGoogleUl("");
-        } catch (Exception ex) {
-            assertTrue(ex instanceof ParseException);
+        } catch (ParseException ex) {
             assertEquals(ex.getMessage(), MESSAGE_GOOGLE_INVALID_FORMAT + "\n\n" + GoogleUploadCommand.MESSAGE_USAGE);
         }
     }
@@ -77,22 +75,19 @@ public class GoogleCommandParserTest {
     public void parseCommandInvalid() {
         try {
             parser.parse("");
-        } catch (Exception ex) {
-            assertTrue(ex instanceof ParseException);
+        } catch (ParseException ex) {
             assertEquals(ex.getMessage(), ENTIRE_GOOGLE_MESSAGE);
         }
 
         try {
             parser.parse("qe");
-        } catch (Exception ex) {
-            assertTrue(ex instanceof ParseException);
+        } catch (ParseException ex) {
             assertEquals(ex.getMessage(), ENTIRE_GOOGLE_MESSAGE);
         }
 
         try {
             parser.parse("g");
-        } catch (Exception ex) {
-            assertTrue(ex instanceof ParseException);
+        } catch (ParseException ex) {
             assertEquals(ex.getMessage(), ENTIRE_GOOGLE_MESSAGE);
         }
     }

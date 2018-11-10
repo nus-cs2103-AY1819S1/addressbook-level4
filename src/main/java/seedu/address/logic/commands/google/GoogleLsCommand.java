@@ -45,7 +45,7 @@ public class GoogleLsCommand extends GoogleCommand {
                 printTarget = model.getPhotoHandler().returnAllImagesList();
 
                 //Retrieve all names and call
-            } else if (parameter.equals("/a")) {
+            } else if ("/a".equals(parameter)) {
                 printTarget = model.getPhotoHandler().returnAllAlbumsList();
             } else {
                 parameter = parameter.substring(1, parameter.length() - 1);
@@ -57,16 +57,14 @@ public class GoogleLsCommand extends GoogleCommand {
             }
 
             if (toPrint.toString().isEmpty()) {
-                if (!parameter.equals("/a")) {
+                if (!"/a".equals(parameter)) {
                     toPrint.append("Empty! No images to be displayed");
                 }
             }
+        } catch (ApiException e) {
+            throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
         } catch (Exception ex) {
-
             String message = FAILURE_MESSAGE;
-            if (ex instanceof ApiException) {
-                message = MESSAGE_CONNECTION_FAILURE;
-            }
             throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
         }
 

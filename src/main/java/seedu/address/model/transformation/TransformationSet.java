@@ -2,8 +2,6 @@ package seedu.address.model.transformation;
 
 import java.util.LinkedList;
 
-import seedu.address.commons.core.index.Index;
-
 //@@author j-lum
 
 /**
@@ -11,14 +9,14 @@ import seedu.address.commons.core.index.Index;
  */
 public class TransformationSet {
     private LinkedList<Transformation> transformations;
-    private Index cursor;
+    //private Index cursor;
 
     /**
      * Default constructor.
      */
     public TransformationSet() {
         transformations = new LinkedList<>();
-        cursor = Index.fromZeroBased(0);
+        //cursor = Index.fromZeroBased(0);
     }
 
     /**
@@ -27,7 +25,7 @@ public class TransformationSet {
      */
     public void addTransformations(Transformation t) {
         transformations.addLast(t);
-        cursor = Index.fromOneBased(transformations.size());
+        //cursor = Index.fromOneBased(transformations.size());
     }
 
     public LinkedList<Transformation> getTransformations() {
