@@ -9,13 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CreateConvertCommand;
+import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.model.transformation.Transformation;
 
-public class CreateConvertCommandParserTest {
+public class CreateApplyCommandParserTest {
 
-    private CreateConvertCommandParser parser = new CreateConvertCommandParser();
-    private String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateConvertCommand.MESSAGE_USAGE);
+    private CreateApplyCommandParser parser = new CreateApplyCommandParser();
+    private String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateApplyCommand.MESSAGE_USAGE);
 
     @Test
     public void parseCommandSuccessfully() {
@@ -23,12 +23,12 @@ public class CreateConvertCommandParserTest {
         List<Transformation> list = new ArrayList<>();
         Transformation transformation = new Transformation("blur", "0x8");
         list.add(transformation);
-        assertParseSuccess(parser, input, new CreateConvertCommand("blurSample", list));
+        assertParseSuccess(parser, input, new CreateApplyCommand("blurSample", list));
         //test case with multiple operations
         String input2 = "create blurR blur|0x8 rotate|90";
         Transformation transformation2 = new Transformation("rotate", "90");
         list.add(transformation2);
-        assertParseSuccess(parser, input2, new CreateConvertCommand("blurR", list));
+        assertParseSuccess(parser, input2, new CreateApplyCommand("blurR", list));
     }
 
     @Test

@@ -17,7 +17,7 @@ import seedu.address.model.transformation.Transformation;
 import seedu.address.storage.JsonConvertArgsStorageTest;
 import seedu.address.testutil.ModelGenerator;
 
-public class CreateConvertCommandTest {
+public class CreateApplyCommandTest {
 
     @Test
     public void createOperationsSuccessfully() throws CommandException {
@@ -27,11 +27,11 @@ public class CreateConvertCommandTest {
         Transformation transformation = new Transformation("blur", "0x8");
         List<Transformation> list = new ArrayList<>();
         list.add(transformation);
-        CreateConvertCommand command = new CreateConvertCommand("newOperation", list);
+        CreateApplyCommand command = new CreateApplyCommand("newOperation", list);
         command.execute(ModelGenerator.getDefaultModel(), null);
         //test the case with multiple transformations
         list.add(transformation);
-        command = new CreateConvertCommand("newOperation", list);
+        command = new CreateApplyCommand("newOperation", list);
         command.execute(ModelGenerator.getDefaultModel(), null);
         if (!new File(JsonConvertArgsStorageTest.TEST_DATA_FOLDER.toString()).exists()) {
             fail();
@@ -48,13 +48,13 @@ public class CreateConvertCommandTest {
         List<Transformation> list = new ArrayList<>();
         list.add(transformation);
         list.add(transformation2);
-        CreateConvertCommand command = new CreateConvertCommand("newOperation", list);
+        CreateApplyCommand command = new CreateApplyCommand("newOperation", list);
         assertCommandFailure(command, null, new CommandHistory(), Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
         //test with different failure cases
         list.remove(transformation2);
         Transformation transformation3 = new Transformation("resize", "fake");
         list.add(transformation3);
-        command = new CreateConvertCommand("newOperation", list);
+        command = new CreateApplyCommand("newOperation", list);
         assertCommandFailure(command, null, new CommandHistory(), Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
     }
 }
