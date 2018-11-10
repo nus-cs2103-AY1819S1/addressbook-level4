@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PATIENT_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PATIENT_NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -14,6 +18,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 
 public class RemarkCommandParserTest {
@@ -26,13 +31,24 @@ public class RemarkCommandParserTest {
     @Test
     public void parse_allFieldSpecified_success() {
         // multiple patient names - last patient name accepted
-        assertParseSuccess(parser, PATIENT_NAME_DESC_AMY + PATIENT_NAME_DESC_AMY + REMARK_DESC_AMY,
-                new RemarkCommand(new Name(VALID_NAME_AMY), new Remark(VALID_REMARK_AMY)));
+        assertParseSuccess(parser, NAME_DESC_BOB + NAME_DESC_AMY + PHONE_DESC_AMY + REMARK_DESC_AMY,
+                new RemarkCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY),
+                        new Remark(VALID_REMARK_AMY)));
+
+        // multiple phones - last phone accepted
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_BOB + PHONE_DESC_AMY + REMARK_DESC_AMY,
+                new RemarkCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY), new Remark(VALID_REMARK_AMY)));
 
         // multiple remarks - last remark accepted
-        assertParseSuccess(parser, PATIENT_NAME_DESC_AMY + REMARK_DESC_BOB + REMARK_DESC_AMY,
-                new RemarkCommand(new Name(VALID_NAME_AMY), new Remark(VALID_REMARK_AMY)));
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + REMARK_DESC_BOB + REMARK_DESC_AMY,
+                new RemarkCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY), new Remark(VALID_REMARK_AMY)));
+    }
 
+    @Test
+    public void parse_optionalFieldSpecified_success() {
+        // no phone input
+        assertParseSuccess(parser, NAME_DESC_AMY + REMARK_DESC_AMY,
+                new RemarkCommand(new Name(VALID_NAME_AMY), null, new Remark(VALID_REMARK_AMY)));
     }
 
     @Test
@@ -47,10 +63,9 @@ public class RemarkCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_PATIENT_NAME_DESC + REMARK_DESC_AMY, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_AMY + REMARK_DESC_AMY,
+                Name.MESSAGE_NAME_CONSTRAINTS);
     }
-
-
 
 
 }

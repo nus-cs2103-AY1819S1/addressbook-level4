@@ -2,7 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.stream.Stream;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 
 
@@ -25,19 +27,21 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
 
     public RemarkCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_NAME, PREFIX_REMARK);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_REMARK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_NAME, PREFIX_REMARK)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemarkCommand.MESSAGE_USAGE));
         }
 
-
-        Name patientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PATIENT_NAME).get());
-        Remark patientRemark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-
-        return new RemarkCommand(patientName, patientRemark);
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+        Phone phone = null;
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        }
+        return new RemarkCommand(name, phone, remark);
 
     }
 

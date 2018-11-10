@@ -9,12 +9,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONSUMPTION_PER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
@@ -54,6 +55,7 @@ import seedu.address.model.appointment.Prescription;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -141,11 +143,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remarkCommandWord_returnsRemarkCommand() throws Exception {
-        final Remark remark = new Remark(VALID_REMARK_AMY);
         final Name name = new Name(VALID_NAME_AMY);
+        final Phone phone = new Phone(VALID_PHONE_AMY);
+        final Remark remark = new Remark(VALID_REMARK_AMY);
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD
-                + " " + PREFIX_PATIENT_NAME + name.toString() + " " + PREFIX_REMARK + remark.toString());
-        assertEquals(new RemarkCommand(name, remark), command);
+                + " " + PREFIX_NAME + name.toString() + " " + PREFIX_PHONE + phone.toString() + " "
+                + PREFIX_REMARK + remark.toString());
+        assertEquals(new RemarkCommand(name, phone, remark), command);
     }
 
     @Test
@@ -186,14 +190,14 @@ public class AddressBookParserTest {
     public void parseCommand_deletePatientCommandWord_returnsDeletePatientCommand() throws Exception {
         DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
                 DeletePatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE_PATIENT.getName().fullName);
-        assertEquals(new DeletePatientCommand(ALICE_PATIENT.getName()), command);
+        assertEquals(new DeletePatientCommand(ALICE_PATIENT.getName(), null), command);
     }
 
     @Test
     public void parseCommand_deleteDoctorCommandWord_returnsDeleteDoctorCommand() throws Exception {
         DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
                 DeleteDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE_DOCTOR.getName().fullName);
-        assertEquals(new DeleteDoctorCommand(GEORGE_DOCTOR.getName()), command);
+        assertEquals(new DeleteDoctorCommand(GEORGE_DOCTOR.getName(), null), command);
     }
 
     @Test
