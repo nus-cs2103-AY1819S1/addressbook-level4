@@ -36,7 +36,7 @@ public class EditAssignmentCommand extends Command {
             + "[" + PREFIX_AUTHOR + " AUTHOR] "
             + "[" + PREFIX_ASSIGNMENT_DESCRIPTION + " DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ASSIGNMENT_NAME + " OASIS v2.0 "
+            + PREFIX_ASSIGNMENT_NAME + " OASIS v2 "
             + PREFIX_AUTHOR + " MARY GOSLOW";
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";

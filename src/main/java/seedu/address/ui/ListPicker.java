@@ -68,6 +68,7 @@ public class ListPicker extends UiPart<Region> {
                 activeList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
                 //activeList.setDisable(false);
                 raise(new ListPickerSelectionChangedEvent(3));
+                raise(new ChangeOnListPickerClickEvent(3));
             }
         });
         registerAsAnEventHandler(this);
@@ -83,5 +84,11 @@ public class ListPicker extends UiPart<Region> {
         activeList.setStyle("-fx-border-color: #28B463; -fx-background-color: #28B463;");
         archiveList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
         assignmentList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
+    }
+
+    public void setAssignmentList() {
+        assignmentList.setStyle("-fx-border-color: #28B463; -fx-background-color: #28B463;");
+        archiveList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
+        activeList.setStyle("-fx-background-color: #95A5A6; -fx-border-color: #95A5A6;");
     }
 }
