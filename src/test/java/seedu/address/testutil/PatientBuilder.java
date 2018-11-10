@@ -26,7 +26,7 @@ public class PatientBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAG = "Patient";
-    public static final String DEFAULT_REMARK = "Likes to swim";
+    public static final String DEFAULT_REMARK = "";
     public static final String DEFAULT_TELEGRAM_ID = "1234";
     public static final String VALID_ALLERGY = "milk";
     public static final String VALID_CONDITION = "sub-health";

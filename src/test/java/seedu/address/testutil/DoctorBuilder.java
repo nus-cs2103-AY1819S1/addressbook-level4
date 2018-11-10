@@ -24,7 +24,7 @@ public class DoctorBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAG = "Doctor";
-    public static final String DEFAULT_REMARK = "Likes to swim";
+    public static final String DEFAULT_REMARK = "";
 
     private Name name;
     private Phone phone;
