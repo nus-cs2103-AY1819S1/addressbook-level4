@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * View a doctor's upcoming appointments.
@@ -25,17 +27,22 @@ public class ViewDoctorCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the doctor identified by the name.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME \n"
+            + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_PHONE + "PHONE] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "Viewing Doctor: %1$s";
     public static final String MESSAGE_INVALID_DOCTOR = "This doctor does not exist in the HealthBook";
+    public static final String MESSAGE_DUPLICATE_VIEW_DOCTOR =
+            "There is multiple doctors with this name. Please enter doctor's number to identify the unique doctor.";
 
     private final Name name;
+    private final Phone phone;
 
-    public ViewDoctorCommand(Name name) {
+    public ViewDoctorCommand(Name name, Phone phone) {
         this.name = name;
+        this.phone = phone;
     }
 
     @Override
@@ -43,17 +50,29 @@ public class ViewDoctorCommand extends Command {
             throws CommandException {
         requireNonNull(model);
         List<Person> personList = model.getFilteredPersonList();
-        Doctor doctor = (Doctor) personList.stream()
-                .filter(person -> person.getName().equals(name) && person instanceof Doctor)
-                .findFirst()
-                .orElse(null);
+        Doctor doctorToView = null;
+        for (Person person : personList) {
+            if (person.getName().equals(name) && person instanceof Doctor) {
+                if (phone != null) {
+                    if (person.getPhone().equals(phone)) {
+                        doctorToView = (Doctor) person;
+                    }
+                } else {
+                    if (doctorToView != null && doctorToView.getName().equals(name)) {
+                        throw new CommandException(MESSAGE_DUPLICATE_VIEW_DOCTOR);
+                    } else {
+                        doctorToView = (Doctor) person;
+                    }
+                }
+            }
+        }
 
-        if (doctor == null) {
+        if (doctorToView == null) {
             throw new CommandException(MESSAGE_INVALID_DOCTOR);
         }
 
-        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(doctor));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, doctor.getName()));
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(doctorToView));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, doctorToView.getName()));
     }
 
     @Override
