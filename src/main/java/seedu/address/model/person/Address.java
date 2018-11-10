@@ -42,6 +42,9 @@ public class Address {
      * Makes an identical deep copy of this Address.
      */
     public Address makeDeepDuplicate() {
+        if (this.value.equals("")) {
+            return new Address();
+        }
         Address newAddress = new Address(new String(value));
         return newAddress;
     }
