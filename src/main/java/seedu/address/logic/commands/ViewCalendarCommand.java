@@ -33,6 +33,8 @@ public class ViewCalendarCommand extends Command {
     private final Year year;
 
     public ViewCalendarCommand(Month month, Year year) {
+        requireNonNull(month);
+        requireNonNull(year);
         this.month = month;
         this.year = year;
     }

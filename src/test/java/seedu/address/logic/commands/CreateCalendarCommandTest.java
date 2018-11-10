@@ -71,8 +71,8 @@ public class CreateCalendarCommandTest {
                 new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
         CreateCalendarCommand createFeb2018CalendarCommand =
                 new CreateCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2018);
-        CreateCalendarCommand createFeb2017CalendarCommand =
-                new CreateCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2017);
+        CreateCalendarCommand createJan2017CalendarCommand =
+                new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2017);
 
         // same object -> returns true
         assertTrue(createJan2018CalendarCommand.equals(createJan2018CalendarCommand));
@@ -92,9 +92,7 @@ public class CreateCalendarCommandTest {
         assertFalse(createJan2018CalendarCommand.equals(createFeb2018CalendarCommand));
 
         // different year same month -> returns false
-        assertFalse(createFeb2018CalendarCommand.equals(createFeb2017CalendarCommand));
+        assertFalse(createJan2018CalendarCommand.equals(createJan2017CalendarCommand));
 
-        // different year different month -> returns false
-        assertFalse(createJan2018CalendarCommand.equals(createFeb2017CalendarCommand));
     }
 }
