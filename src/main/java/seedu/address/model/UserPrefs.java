@@ -21,8 +21,9 @@ public class UserPrefs {
     private Path budgetBookFilePath = Paths.get("data", "ccabook.xml");
     private Path ccaXslFilePath = Paths.get("src", "main", "resources", "docs", "ccabook.xsl");
     private Path emailPath = Paths.get("email");
-    private Path calendarPath = Paths.get("calendar");
+    private Path calendarPath = Paths.get("calendars");
     private Path profilePicturePath = Paths.get("src", "main", "resources", "profile_picture");
+    private Path outputProfilePicturePath = Paths.get("out", "production", "resources", "profile_picture");
     private Map<Year, Set<Month>> existingCalendar;
 
     public UserPrefs() {
@@ -94,6 +95,10 @@ public class UserPrefs {
         return profilePicturePath;
     }
 
+    public Path getOutputProfilePicturePath() {
+        return outputProfilePicturePath;
+    }
+
     //@@author
 
     @Override
@@ -110,8 +115,9 @@ public class UserPrefs {
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(emailPath, o.emailPath)
-            && Objects.equals(calendarPath, o.calendarPath)
-            && Objects.equals(profilePicturePath, o.profilePicturePath);
+                && Objects.equals(calendarPath, o.calendarPath)
+                && Objects.equals(profilePicturePath, o.profilePicturePath)
+                && Objects.equals(outputProfilePicturePath, o.outputProfilePicturePath);
 
     }
 
@@ -127,7 +133,8 @@ public class UserPrefs {
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nEmail directory location : " + emailPath);
         sb.append("\nCalendar directory location : " + calendarPath);
-        sb.append("\nProfile Picture directory location : " + profilePicturePath);
+        sb.append("\nProfile picture directory location : " + profilePicturePath);
+        sb.append("\nOutput profile picture directory location: " + outputProfilePicturePath);
         return sb.toString();
     }
 }

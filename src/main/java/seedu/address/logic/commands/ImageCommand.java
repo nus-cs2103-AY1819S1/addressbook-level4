@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.NewImageEvent;
 import seedu.address.commons.events.ui.ProfileViewEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -91,6 +92,7 @@ public class ImageCommand extends Command {
 
         model.updatePerson(resident, editedPerson);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         EventsCenter.getInstance().post(new ProfileViewEvent(editedPerson));
         return new CommandResult(String.format(MESSAGE_SUCCESS, resident));
     }

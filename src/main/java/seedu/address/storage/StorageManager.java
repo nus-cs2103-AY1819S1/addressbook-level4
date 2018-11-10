@@ -258,6 +258,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new EmailLoadedEvent(loadedEmail));
         } catch (IOException e) {
             logger.warning("Email file not found: " + StringUtil.getDetails(e));
+            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
             raise(new EmailNotFoundEvent(event.data));
         }
     }
@@ -270,6 +271,7 @@ public class StorageManager extends ComponentManager implements Storage {
             deleteEmail(event.data);
         } catch (IOException e) {
             logger.warning("Email file not found: " + StringUtil.getDetails(e));
+            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
             raise(new EmailNotFoundEvent(event.data));
         }
     }
