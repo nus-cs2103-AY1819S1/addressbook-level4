@@ -27,7 +27,8 @@ public class XmlAdaptedMedicalHistory {
     public ArrayList<XmlAdaptedCondition> getXmlAdaptedConditions() {
         return conditions;
     }
-
+    
+    public XmlAdaptedMedicalHistory(){}
     /**
      * Constructs an XmlAdaptedMedicalHistory.
      * This is the no-arg constructor that is required by JAXB.
@@ -44,7 +45,7 @@ public class XmlAdaptedMedicalHistory {
             this.conditions.add(new XmlAdaptedCondition(source.getConditions().get(i)));
         }
     }
-    public XmlAdaptedMedicalHistory(){}
+
 
     /**
      * Converts this jaxb-friendly adapted MedicalHistory object into the model's MedicalHistory object.

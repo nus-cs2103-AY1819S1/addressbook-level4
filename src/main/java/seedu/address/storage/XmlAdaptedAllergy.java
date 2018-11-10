@@ -16,10 +16,6 @@ public class XmlAdaptedAllergy {
     private String allergy;
 
 
-    public String getXmlAdaptedAllergy(){
-        return this.allergy;
-    }
-
 
     /**
      * Constructs an XmlAdaptedAllergy.
@@ -45,6 +41,9 @@ public class XmlAdaptedAllergy {
     }
 
 
+    public String getXmlAdaptedAllergy() {
+        return this.allergy;
+    }
 
     /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.

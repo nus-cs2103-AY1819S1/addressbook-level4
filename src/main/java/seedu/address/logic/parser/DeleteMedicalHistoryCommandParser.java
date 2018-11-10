@@ -41,20 +41,20 @@ public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHi
                     DeleteMedicalHistoryCommand.MESSAGE_USAGE));
         }
         String nameStr = argMultimap.getValue(PREFIX_NAME).get();
-        String allergy_string = null;
-        String condition_string = null;
+        String allergyString = null;
+        String conditionString = null;
         ArrayList<Allergy> allergies = new ArrayList<>();
         ArrayList<Condition> conditions = new ArrayList<>();
         Phone phone = null;
         if (arePrefixesPresent(argMultimap, PREFIX_ALLERGY)) {
-            allergy_string = argMultimap.getValue(PREFIX_ALLERGY).get();
-            System.out.println("exist allergy input: " + allergy_string);
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergy_string.split(","))));
+            allergyString = argMultimap.getValue(PREFIX_ALLERGY).get();
+            System.out.println("exist allergy input: " + allergyString);
+            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
 
         }
         if (arePrefixesPresent(argMultimap, PREFIX_CONDITION)) {
-            condition_string = argMultimap.getValue(PREFIX_CONDITION).get();
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(condition_string.split(","))));
+            conditionString = argMultimap.getValue(PREFIX_CONDITION).get();
+            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {

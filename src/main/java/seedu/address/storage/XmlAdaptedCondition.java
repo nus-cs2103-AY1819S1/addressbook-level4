@@ -14,11 +14,6 @@ public class XmlAdaptedCondition {
 
     @XmlValue
     private String condition;
-
-    public String getXmlAdaptedCondition(){
-        return this.condition;
-    }
-
     /**
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
@@ -40,6 +35,11 @@ public class XmlAdaptedCondition {
      */
     public XmlAdaptedCondition(Condition source) {
         condition = source.condition;
+    }
+
+
+    public String getXmlAdaptedCondition() {
+        return this.condition;
     }
 
 
