@@ -300,86 +300,8 @@ The `Storage` component does the following:
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== General
-
-This section describes the details on how the general features are implemented.
-
-//tag::command-switch[]
-[[Implementation-Switch]]
-==== Switch command
-The `switch` command is used to switch the context between 'volunteer' and 'event'.
-
-===== Current implementation
-
-This `switch` command requires the `SwitchCommandParser` class to parse user input and help determine the context to switch to. +
-
-`SwitchCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format or is an invalid context to switch to.
-
-[NOTE]
-There are only 2 valid contexts which a user can switch to with the command. +
-v: 'volunteer' context +
-e: 'event' context
-
-The `switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
-
-
-The following code snippet shows what the `switch` command does upon execution:
-In addition to updating the context, the `switch` command also does the following:
-
-* Clear all predicates for volunteer, events and record lists.
-* Resets the state pointer (for undo/redo functions).
-* Raise a `ContextChangeEvent` to update the UI.
-
-```Java
-public class SwitchCommand extends Command {
-    //...
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-
-        model.setCurrentContext(contextId);
-        model.updateFilteredVolunteerList(Model.PREDICATE_SHOW_ALL_VOLUNTEERS);
-        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
-        model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
-        model.resetStatePointer();
-
-        EventsCenter.getInstance().post(new ContextChangeEvent(contextId));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getContextName()));
-    }
-}
-```
-
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram of switch command
-image::command_switch_sd.png[switch SD, 800]
-
-===== Design considerations
-====== Aspect: How context is maintained
-* **Alternative 1 (current choice):** Create a new `Context` class.
-+
-[cols="1,10"]
-|===
-|Pros| Can support even more contexts in the future due to the flexibility of a class.
-|Cons| Tedious to do as relevant methods have to be implemented in model.
-|===
-+
-
-* **Alternative 2:** Pass a hard-coded context id around.
-+
-[cols="1,10"]
-|===
-|Pros| No need to create a new object to handle the context.
-|Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
-|===
-+
-
-
-// end::command-switch[]
-
-
 // tag::undoredo[]
-==== Undo/Redo feature
+=== Undo/Redo feature
 ===== Current implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -483,7 +405,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 +
 // end::undoredo[]
 
-==== Logging
+=== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -499,16 +421,86 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Designates event details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 [[Implementation-Configuration]]
-==== Configuration
+=== Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== Volunteer management
+//tag::command-switch[]
+[[Implementation-Switch]]
+=== Switch command
+The `switch` command is used to switch the context between 'volunteer' and 'event'.
 
-This section describes the details on how the volunteer management features are implemented.
+===== Current implementation
+
+This `switch` command requires the `SwitchCommandParser` class to parse user input and help determine the context to switch to. +
+
+`SwitchCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format or is an invalid context to switch to.
+
+[NOTE]
+There are only 2 valid contexts which a user can switch to with the command. +
+v: 'volunteer' context +
+e: 'event' context
+
+The `switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
+
+
+The following code snippet shows what the `switch` command does upon execution:
+In addition to updating the context, the `switch` command also does the following:
+
+* Clear all predicates for volunteer, events and record lists.
+* Resets the state pointer (for undo/redo functions).
+* Raise a `ContextChangeEvent` to update the UI.
+
+```Java
+public class SwitchCommand extends Command {
+    //...
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        requireNonNull(model);
+
+        model.setCurrentContext(contextId);
+        model.updateFilteredVolunteerList(Model.PREDICATE_SHOW_ALL_VOLUNTEERS);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
+        model.resetStatePointer();
+
+        EventsCenter.getInstance().post(new ContextChangeEvent(contextId));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getContextName()));
+    }
+}
+```
+
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram of switch command
+image::command_switch_sd.png[switch SD, 800]
+
+===== Design considerations
+====== Aspect: How context is maintained
+* **Alternative 1 (current choice):** Create a new `Context` class.
++
+[cols="1,10"]
+|===
+|Pros| Can support even more contexts in the future due to the flexibility of a class.
+|Cons| Tedious to do as relevant methods have to be implemented in model.
+|===
++
+
+* **Alternative 2:** Pass a hard-coded context id around.
++
+[cols="1,10"]
+|===
+|Pros| No need to create a new object to handle the context.
+|Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
+|===
++
+
+
+// end::command-switch[]
+
 
 // tag::exportcert[]
-==== Export Volunteer Certificate
+=== Export Volunteer Certificate
 
 The `exportcert` command enables the volunteer manager to export a PDF document detailing a volunteer's involvement with the organisation.
 This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
@@ -654,11 +646,7 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 // end::exportcert[]
 
 // tag::eventmanagement[]
-=== Event management
-
-This section describes the details on how the event management features are implemented.
-
-==== Auto-incremented event ID
+=== Auto-incremented event ID
 
 The auto-incremented event ID field is used by the `Record` class to identify unique events. An integer ID field is used because
 identifying unique events based on multiple String fields would be computationally inefficient.
@@ -702,20 +690,11 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 |===
 +
 
-
-==== Delete event [Coming in V1.3]
-
 // end::eventmanagement[]
-
-
-=== Record management
-
-This section describes the details on how the record management features are implemented.
-
 
 //tag::command-manage[]
 [[Implementation-Manage]]
-==== Manage command
+=== Manage command
 
 The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
 
@@ -797,6 +776,27 @@ image::command_manage_sd.png[manage SD, 800]
 +
 
 //end::command-manage[]
+
+===== Design considerations
+====== Aspect: Context switching
+* **Alternative 1 (current choice):** Utilize `Context` class used in the `switch` function. (See <<Implementation-Switch>>)
++
+[cols="1,10"]
+|===
+|Pros| No need to create a new class to change context.
+|Cons| Have to create a new method in `Context` class to handle parsed user input.
+|===
++
+
+* **Alternative 2:** Pass event and volunteer objects via `LogicManager`.
++
+[cols="1,10"]
+|===
+|Pros| Implementation is easy.
+|Cons| Classes becomes tightly coupled. The UI component would have access to methods it does not need.
+|===
++
+
 
 == Documentation
 
