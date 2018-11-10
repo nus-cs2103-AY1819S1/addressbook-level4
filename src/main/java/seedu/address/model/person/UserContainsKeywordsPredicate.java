@@ -34,36 +34,36 @@ public class UserContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        boolean nameHasKeyword = false;
-        boolean phoneHasKeyword = false;
-        boolean addressHasKeyword = false;
-        boolean emailHasKeyword = false;
-        boolean interestHasKeyword = false;
-        boolean tagHasKeyword = false;
+        boolean hasNameKeywords = false;
+        boolean hasPhoneKeywords = false;
+        boolean hasAddressKeywords = false;
+        boolean hasEmailKeywords = false;
+        boolean hasInterestKeywords = false;
+        boolean hasTagKeywords = false;
 
         if (nameKeywords != null) {
-            nameHasKeyword = nameKeywords.stream()
-                    .anyMatch(nameKeyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, nameKeyword));
+            hasNameKeywords = nameKeywords.stream()
+                    .anyMatch(nameKeyword -> StringUtil.containsWordIgnoreCase(person.getName().value, nameKeyword));
         }
 
         if (phoneKeywords != null) {
-            phoneHasKeyword = phoneKeywords.stream()
+            hasPhoneKeywords = phoneKeywords.stream()
                     .anyMatch(phoneKeyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, phoneKeyword));
         }
 
         if (addressKeywords != null) {
-            addressHasKeyword = addressKeywords.stream()
+            hasAddressKeywords = addressKeywords.stream()
                     .anyMatch(addressKeyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value,
                             addressKeyword));
         }
 
         if (emailKeywords != null) {
-            emailHasKeyword = emailKeywords.stream()
+            hasEmailKeywords = emailKeywords.stream()
                     .anyMatch(emailKeyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, emailKeyword));
         }
 
         if (interestKeywords != null) {
-            interestHasKeyword = interestKeywords.stream()
+            hasInterestKeywords = interestKeywords.stream()
                     .anyMatch(interestKeyword -> StringUtil.containsWordIgnoreCase(person.getInterests()
                             .stream()
                             .map(x -> x.interestName)
@@ -71,14 +71,14 @@ public class UserContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         if (tagKeywords != null) {
-            tagHasKeyword = tagKeywords.stream()
+            hasTagKeywords = tagKeywords.stream()
                     .anyMatch(tagKeyword -> StringUtil.containsWordIgnoreCase(person.getTags()
                             .stream()
                             .map(x -> x.tagName)
                             .collect(joining(" ")), tagKeyword));
         }
-        return nameHasKeyword || phoneHasKeyword || addressHasKeyword || emailHasKeyword || interestHasKeyword
-                || tagHasKeyword;
+        return hasNameKeywords || hasPhoneKeywords || hasAddressKeywords || hasEmailKeywords || hasInterestKeywords
+                || hasTagKeywords;
     }
 
     @Override
