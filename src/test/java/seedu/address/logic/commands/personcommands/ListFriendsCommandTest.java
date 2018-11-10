@@ -16,14 +16,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.InterestSimilarPredicate;
+import seedu.address.model.person.IsFriendPredicate;
 import seedu.address.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code SuggestFriendsByInterestsCommand}.
+ * {@code ListFriendsCommand}.
  */
-public class SuggestFriendsByInterestsCommandTest {
+public class ListFriendsCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -32,50 +32,50 @@ public class SuggestFriendsByInterestsCommandTest {
     @Test
     public void executeValidIndexUnfilteredListSuccess() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
-        SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand = new
-                SuggestFriendsByInterestsCommand(INDEX_FIRST);
+        ListFriendsCommand listFriendsCommand = new
+                ListFriendsCommand(INDEX_FIRST);
         String expectedMessage = String.format(
-                SuggestFriendsByInterestsCommand.MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS,
+                ListFriendsCommand.MESSAGE_LIST_FRIENDS_SUCCESS,
                 targetPerson.getName());
 
-        InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);
+        IsFriendPredicate predicate = new IsFriendPredicate(targetPerson);
         expectedModel.updateFilteredPersonList(predicate);
 
-        assertCommandSuccess(suggestFriendsByInterestsCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(listFriendsCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void executeInvalidIndexUnfilteredListThrowsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand = new
-                SuggestFriendsByInterestsCommand(outOfBoundIndex);
+        ListFriendsCommand listFriendsCommand = new
+                ListFriendsCommand(outOfBoundIndex);
 
-        assertCommandFailure(suggestFriendsByInterestsCommand, model, commandHistory,
+        assertCommandFailure(listFriendsCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand1 = new
-                SuggestFriendsByInterestsCommand(INDEX_FIRST);
-        SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand2 = new
-                SuggestFriendsByInterestsCommand(INDEX_SECOND);
+        ListFriendsCommand listFriendsCommand1 = new
+                ListFriendsCommand(INDEX_FIRST);
+        ListFriendsCommand listFriendsCommand2 = new
+                ListFriendsCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(suggestFriendsByInterestsCommand1.equals(suggestFriendsByInterestsCommand1));
+        assertTrue(listFriendsCommand1.equals(listFriendsCommand1));
 
         // same values -> returns true
-        SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand1Copy = new
-                SuggestFriendsByInterestsCommand(INDEX_FIRST);
-        assertTrue(suggestFriendsByInterestsCommand1.equals(suggestFriendsByInterestsCommand1Copy));
+        ListFriendsCommand listFriendsCommand1Copy = new
+                ListFriendsCommand(INDEX_FIRST);
+        assertTrue(listFriendsCommand1.equals(listFriendsCommand1Copy));
 
         // different types -> returns false
-        assertFalse(suggestFriendsByInterestsCommand1.equals(1));
+        assertFalse(listFriendsCommand1.equals(1));
 
         // null -> returns false
-        assertFalse(suggestFriendsByInterestsCommand1 == null);
+        assertFalse(listFriendsCommand1 == null);
 
         // different person -> returns false
-        assertFalse(suggestFriendsByInterestsCommand1.equals(suggestFriendsByInterestsCommand2));
+        assertFalse(listFriendsCommand1.equals(listFriendsCommand2));
     }
 }
