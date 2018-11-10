@@ -62,13 +62,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can also search for other users using the `findUser` and `listFriends` commands to see what events they have joined and join that event as well.
 * After joining the event using `joinEvent`, you can vote in the polls by displaying the poll details using `displayPoll`.
 * You can then add options using `addOption`, or simply vote for an option using `vote`.
+// end::InBrief[]
 
 === Manage your account
 * After setting up your account, you can edit your own details using the `editUser` command, and delete your own account using `deleteUser`.
 * You can also search for other users using `suggestFriendsByInterests` and add them as your friend using `addFriend`, or remove them as a friend using `deleteFriend`.
 * You can populate your schedule using an NUSMODs link, and also manually add time slots into your schedule.
-
-// end::InBrief[]
 
 [[Features]]
 == Features
@@ -449,13 +448,15 @@ Format: `addPoll n/POLL_NAME`
 ****
 
 * `addPoll n/Date` +
-The screenshot shows the outcome of this command.
 Upon adding a new poll, only the index and name of the poll is displayed, as shown.
 The event organiser can then proceed to add options to the poll.
 Selecting the event again using the `selectEvent` command displays the list of all polls in the event.
+// end::KengJi(2)[]
 
+The following screenshot shows the outcome of this command.
 image::AddPollDisplay.png[width="800"]
 
+// tag::KengJi(3)[]
 ==== Create a new time-based poll for an event : `addTimePoll`
 Sets up a new time-based poll for the event with the specified name after all users have joined. +
 Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR``
@@ -471,7 +472,7 @@ Examples:
 
 * `addTimePoll d1/08-09-2018 d2/10-09-2018`
 
-==== Setup poll for location : `addOption`
+==== Add options to poll : `addOption`
 Add new poll option in the specified poll. +
 Format: `addOption i/POLL_INDEX o/POLL_OPTION`
 
@@ -494,9 +495,10 @@ This option would be relevant in the context of a poll for an appropriate activi
 `addOption i/3 o/13 November` +
 In the following example, the options `12 November` and `13 November` have been added to the poll.
 Since there are no voters yet, the most popular options list is empty.
+// end::KengJi(3)[]
 
 image::AddOptionDisplay.png[width="800"]
-// end::KengJi(2)[]
+
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -656,8 +658,6 @@ e.g.`selectUser 2`
 
 * *History* : `history`
 
-
-
 // tag::maxschedule[]
 * *Free time between persons*: `maxSchedule INDEX INDEX ... [sl/ LIMIT]` +
 e.g. `maxSchedule 1 2 3`
@@ -705,9 +705,9 @@ e.g. `joinEvent 1`
 e.g. `vote i/1 o/Play games`
 
 * *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
-[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
-e.g. `findEvent d/12-12-2018 pn/John Doe`
-e.g. `findEvent a/SoC Canteen on/Alice Tan`
+[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]` +
+e.g. `findEvent d/12-12-2018 on/Alex Yeoh` +
+e.g. `findEvent a/SoC Canteen`
 
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
