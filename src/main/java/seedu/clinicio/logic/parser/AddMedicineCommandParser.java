@@ -3,23 +3,23 @@ package seedu.clinicio.logic.parser;
 //@@author aaronseahyh
 
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_EFFECTIVE_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_LETHAL_DOSAGE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 
 import java.util.stream.Stream;
 
 import seedu.clinicio.logic.commands.AddMedicineCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.medicine.Medicine;
-import seedu.clinicio.model.medicine.MedicineName;
-import seedu.clinicio.model.medicine.MedicineType;
 import seedu.clinicio.model.medicine.MedicineDosage;
+import seedu.clinicio.model.medicine.MedicineName;
 import seedu.clinicio.model.medicine.MedicinePrice;
 import seedu.clinicio.model.medicine.MedicineQuantity;
+import seedu.clinicio.model.medicine.MedicineType;
 
 /**
  * Parses input arguments and creates a new AddMedicineCommand object
@@ -46,7 +46,8 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
 
         MedicineName name = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
         MedicineType type = ParserUtil.parseMedicineType(argMultimap.getValue(PREFIX_MEDICINE_TYPE).get());
-        MedicineDosage effectiveDosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_MEDICINE_EFFECTIVE_DOSAGE).get());
+        MedicineDosage effectiveDosage =
+            ParserUtil.parseDosage(argMultimap.getValue(PREFIX_MEDICINE_EFFECTIVE_DOSAGE).get());
         MedicineDosage lethalDosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_MEDICINE_LETHAL_DOSAGE).get());
         MedicinePrice price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_MEDICINE_PRICE).get());
         MedicineQuantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_MEDICINE_QUANTITY).get());
