@@ -43,12 +43,10 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_ORIGINAL_NAME, PREFIX_INGREDIENT_NAME,
                         PREFIX_INGREDIENT_UNIT, PREFIX_INGREDIENT_PRICE, PREFIX_INGREDIENT_MINIMUM);
 
-//        String indexOrNameArg = argMultimap.getValue(PREFIX_INGREDIENT_ORIGINAL_NAME).orElse(argMultimap.getPreamble());
-//
-//        if (indexOrNameArg.trim().isEmpty()) {
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-//                    EditIngredientCommand.MESSAGE_USAGE));
-//        }
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditIngredientCommand.MESSAGE_USAGE));
+        }
 //
 //        Object indexOrName = IngredientParserUtil.parseIndexOrIngredientName(indexOrNameArg);
 

@@ -438,13 +438,13 @@ public class RestaurantBookParserTest {
 
         // full command name, edit by name
         command = (EditIngredientByNameCommand) parser.parseCommand(
-                EditIngredientByNameCommand.COMMAND_WORD + " " + "Chicken Thigh"
+                EditIngredientByNameCommand.COMMAND_WORD + " " + "on/Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
 
         // command alias, edit by name
         command = (EditIngredientByNameCommand) parser.parseCommand(
-                EditIngredientByNameCommand.COMMAND_ALIAS + " " + "Chicken Thigh"
+                EditIngredientByNameCommand.COMMAND_ALIAS + " " + "on/Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
     }
