@@ -10,6 +10,7 @@ import org.simplejavamail.email.Email;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
@@ -224,12 +225,17 @@ public interface Model {
     boolean hasEmail(String fileName);
 
     /**
-     * Passes the calendar loaded from memory into model
+     * Passes the calendar loaded from memory into model.
      */
     void handleCalendarLoadedEvent(CalendarLoadedEvent event);
 
     /**
-     * Returns true if the model already has a calendar with the same month and year
+     * Remove the calendar from the model.
+     */
+    void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event);
+
+    /**
+     * Returns true if the model already has a calendar with the same month and year.
      */
     boolean isExistingCalendar(Year year, Month month);
 

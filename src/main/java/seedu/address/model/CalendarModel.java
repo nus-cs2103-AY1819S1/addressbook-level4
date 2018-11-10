@@ -371,6 +371,14 @@ public class CalendarModel {
         }
     }
 
+    /** Removes a calendar from the Map:existingCalendar. */
+    public void removeExistingCalendar(Year year, Month month) {
+        if (isExistingCalendar(year, month)) {
+            Set<Month> yearOfCal = existingCalendar.get(year);
+            yearOfCal.remove(month);
+        }
+    }
+
     /** Returns the updated Map: existingCalendar. */
     public Map<Year, Set<Month>> getExistingCalendar() {
         return existingCalendar;

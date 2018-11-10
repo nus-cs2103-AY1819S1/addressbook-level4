@@ -26,7 +26,7 @@ public class ViewCalendarCommand extends Command {
         + PREFIX_MONTH + "OCT "
         + PREFIX_YEAR + "2018 ";
 
-    public static final String MESSAGE_SUCCESS = "Calendar loaded onto UI: %s";
+    public static final String MESSAGE_SUCCESS = "Loading calendar onto UI: %s";
     public static final String MESSAGE_NOT_EXISTING_CALENDAR = "This calendar doesn't exist in Hallper";
 
     private final Month month;

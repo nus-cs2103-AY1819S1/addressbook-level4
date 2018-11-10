@@ -33,6 +33,7 @@ import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.commons.events.ui.CalendarViewEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
@@ -364,6 +365,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
         calendarModel.loadCalendar(event.calendar, event.calendarName);
         indicateViewCalendar(event.calendar, event.calendarName);
+    }
+
+    @Override
+    @Subscribe
+    public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
+        calendarModel.removeExistingCalendar(event.year, event.month);
+        updateExistingCalendar();
     }
 
     @Override

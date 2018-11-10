@@ -33,6 +33,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.storage.ImageReadingExceptionEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
+import seedu.address.commons.events.ui.CalendarNotFoundEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
@@ -42,6 +44,8 @@ import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 import seedu.address.model.person.Room;
 
 
@@ -302,7 +306,14 @@ public class StorageManager extends ComponentManager implements Storage {
             Calendar calendarToBeLoaded = loadCalendar(event.calendarName);
             indicateCalendarLoaded(calendarToBeLoaded, event.calendarName);
         } catch (IOException | ParserException e) {
+            String[] tokenizedCalendarName = event.calendarName.split("-");
+            Month month = new Month(tokenizedCalendarName[0]);
+            Year year = new Year(tokenizedCalendarName[1]);
+
             logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
+            raise(new RemoveExistingCalendarInModelEvent(month, year));
+            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
+            raise(new CalendarNotFoundEvent(event.calendarName));
         }
     }
 

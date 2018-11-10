@@ -20,6 +20,7 @@ import org.simplejavamail.email.Email;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -274,6 +275,11 @@ public class AddCommandTest {
 
         @Override
         public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
             throw new AssertionError("This method should not be called.");
         }
 
