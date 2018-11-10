@@ -653,11 +653,12 @@ Examples:
 
 * `mc 1` +
 Generates a medical certificate for the 1st patient in the Served Patient Queue.
-// end::mc[]
 
 .Generating a medical certificate for patient `Alex Yeoh`.
 image::mc_fig.png[width="600"]
+// end::mc[]
 
+// tag::receipt[]
 ==== Generating receipt: `receipt`
 
 Generates a receipt for the Served Patient. +
@@ -675,6 +676,7 @@ Generates a receipt for the 5th patient in the Served Patient Queue.
 
 .Generating a receipt for patient `Alex Yeoh`.
 image::receipt_fig.png[width="600"]
+// end::receipt[]
 
 // tag::refer[]
 ==== Generating referral letter: `refer`
