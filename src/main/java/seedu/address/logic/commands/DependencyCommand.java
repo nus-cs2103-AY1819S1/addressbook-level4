@@ -109,7 +109,7 @@ public class DependencyCommand extends Command {
     private Task handleDependencyAddition(Task taskDependant, Task taskDependee, Model model) throws CommandException {
         //If taskDependant is not dependent on dependee, add dependency
         Task updatedTask = createDependantTask(taskDependant, taskDependee);
-        DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
+        DependencyGraph dg = new DependencyGraph(model.getFilteredTaskList());
         //Checking if introducing dependency will create a cyclic dependency
         if (dg.checkCyclicDependency(updatedTask)) {
             throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY_FAILURE);
