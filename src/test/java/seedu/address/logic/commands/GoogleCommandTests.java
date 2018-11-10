@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.google.GoogleUploadCommand.MESSAGE_ALL_DUPLICATE;
 import static seedu.address.logic.commands.google.GoogleUploadCommand.MESSAGE_DUPLICATE;
@@ -10,6 +11,7 @@ import static seedu.address.testutil.ModelGenerator.getDefaultModel;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.google.GoogleCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
 import seedu.address.logic.commands.google.GoogleRefreshCommand;
@@ -145,5 +147,21 @@ public class GoogleCommandTests {
 
         command = new GoogleRefreshCommand();
         assertCommandFailure(command, model, commandHistory, msg);
+    }
+
+    @Test
+    public void testGoogleEquals() {
+        GoogleCommand testCommand = new GoogleLsCommand("test");
+        assertEquals(testCommand, new GoogleLsCommand("test"));
+        assertNotEquals(testCommand, new GoogleLsCommand("fail"));
+
+        testCommand = new GoogleDlCommand("test");
+        assertEquals(testCommand, new GoogleDlCommand("test"));
+        assertNotEquals(testCommand, new GoogleDlCommand("fail"));
+
+        testCommand = new GoogleUploadCommand("test");
+        assertEquals(testCommand, new GoogleUploadCommand("test"));
+        assertNotEquals(testCommand, new GoogleUploadCommand("fail"));
+        assertNotEquals(testCommand, new GoogleDlCommand("fail"));
     }
 }

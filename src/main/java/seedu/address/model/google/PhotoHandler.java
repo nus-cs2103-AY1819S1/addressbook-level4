@@ -53,7 +53,7 @@ public class PhotoHandler {
     private Map<String, MediaItem> imageMap = new HashMap<>();
     private Map<String, MediaItem> albumSpecificMap = new HashMap<>();
 
-    PhotoHandler(PhotosLibraryClient client, String email) {
+    public PhotoHandler(PhotosLibraryClient client, String email) {
         photosLibraryClient = client;
         user = email;
     }
