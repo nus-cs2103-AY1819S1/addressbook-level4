@@ -34,7 +34,7 @@ import seedu.scheduler.model.event.RepeatType;
 public class TypicalEvents {
 
     public static final String KEYWORD_MATCHING_STARTUP = "Startup"; // A keyword that matches Study
-    private static final ArrayList<UUID> CONSTANT_EVENTUID = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<UUID> CONSTANT_EVENTUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a621"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a622"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a623"),
@@ -47,7 +47,7 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632")));
-    private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a635"),
@@ -182,7 +182,21 @@ public class TypicalEvents {
             .build();
 
     // weekly event
+
+    public static final Event CS2103_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS2103")
+            .withStartDateTime(LocalDateTime.of(2018, 8, 17, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 8, 17, 18, 0))
+            .withDescription("CS2103 Description").withVenue("I3")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 11, 16, 18, 1))
+            .build();
+
+    // monthly event
     public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
+
             .withEventUid(CONSTANT_EVENTUID.get(4))
             .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
             .withEventName("Dinner with Joe")

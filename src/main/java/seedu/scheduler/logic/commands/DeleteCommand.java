@@ -35,6 +35,9 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 -a";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
+    public static final String MESSAGE_INTERNET_ERROR = "Only local changes,"
+            + "no effects on your Google Calender.";
+
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
     private final Index targetIndex;
@@ -48,6 +51,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
         List<Event> lastShownList = model.getFilteredEventList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -57,21 +61,34 @@ public class DeleteCommand extends Command {
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
         int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToDelete);
+        boolean operationOnGoogleCalIsSuccessful;
         if (flags.length == 0) {
-            connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
+            operationOnGoogleCalIsSuccessful =
+                    connectToGoogleCalendar.deleteOnGoogleCal(googleCalendarIsEnabled, eventToDelete, instanceIndex);
             model.deleteEvent(eventToDelete);
         } else {
             if (flags[0].equals(FLAG_UPCOMING)) {
-                connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex, totalInstance);
+                operationOnGoogleCalIsSuccessful =
+                        connectToGoogleCalendar.deleteUpcomingOnGoogleCal(
+                                googleCalendarIsEnabled, eventToDelete,
+                                instanceIndex, totalInstance);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
-                connectToGoogleCalendar.deleteAllOnGoogleCal(eventToDelete, instanceIndex);
+                operationOnGoogleCalIsSuccessful =
+                        connectToGoogleCalendar.deleteAllOnGoogleCal (
+                                googleCalendarIsEnabled, eventToDelete, instanceIndex);
                 model.deleteRepeatingEvents(eventToDelete);
             }
         }
 
         model.commitScheduler();
-        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
+
+        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+            return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
+        } else {
+            return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName())
+                    + "\n" + MESSAGE_INTERNET_ERROR);
+        }
     }
 
     @Override

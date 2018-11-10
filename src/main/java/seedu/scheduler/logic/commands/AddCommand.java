@@ -56,6 +56,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
     public static final String MESSAGE_OVERFLOW_EVENT = "This event repeats too many times";
+    public static final String MESSAGE_INTERNET_ERROR = "Warning: Internet Error."
+            + "Only local changes,"
+            + "no effects on your Google Calender.";
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -73,6 +76,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
@@ -83,9 +87,18 @@ public class AddCommand extends Command {
         } catch (EventOverflowException e) {
             throw new CommandException(MESSAGE_OVERFLOW_EVENT);
         }
+
+
+        boolean operationOnGoogleCalIsSuccessful =
+                connectToGoogleCalendar.pushToGoogleCal(googleCalendarIsEnabled, Collections.singletonList(toAdd));
         model.commitScheduler();
-        connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName()));
+        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName()));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName())
+                    + "\n" + MESSAGE_INTERNET_ERROR);
+        }
+
     }
 
     @Override

@@ -46,35 +46,6 @@ public class RepeatEventGeneratorTest {
                 repeatEventGenerator.generateAllRepeatedEvents(JIM_BIRTHDAY_YEAR_ONE));
     }
 
-    @Test
-    public void generateDailyRepeatEvents() {
-        // standard day of a year
-        assertEquals(STUDY_WITH_JANE_DAILY_LIST,
-                repeatEventGenerator.generateDailyRepeatEvents(STUDY_WITH_JANE_DAY_ONE));
-    }
-
-    @Test
-    public void generateWeeklyRepeatEvents() {
-        assertEquals(DINNER_WITH_JOE_WEEKLY_LIST,
-                repeatEventGenerator.generateWeeklyRepeatEvents(DINNER_WITH_JOE_WEEK_ONE));
-    }
-
-    @Test
-    public void generateMonthlyRepeatEvents() {
-        assertEquals(STARTUP_LECTURE_MONTHLY_LIST,
-                repeatEventGenerator.generateMonthlyRepeatEvents(STARTUP_LECTURE_MONTH_ONE));
-    }
-
-    @Test
-    public void generateYearlyRepeatEvents() {
-        // standard day of year
-        assertEquals(JIM_BIRTHDAY_YEARLY_LIST,
-                repeatEventGenerator.generateYearlyRepeatEvents(JIM_BIRTHDAY_YEAR_ONE));
-        // day of leap year
-        assertEquals(LEAP_DAY_CELEBRATION_YEARLY_LIST,
-                repeatEventGenerator.generateYearlyRepeatEvents(LEAP_DAY_CELEBRATION_YEAR_ONE));
-    }
-
     /**
      * Initialise RepeatEventGenerator if the instance is not yet created.
      */

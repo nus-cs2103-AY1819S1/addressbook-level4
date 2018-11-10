@@ -16,8 +16,10 @@ import seedu.scheduler.model.tag.Tag;
  */
 public class Event {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "Event's start date and time should be before event's end date and time";
+    public static final String MESSAGE_START_END_DATETIME_CONSTRAINTS =
+            "Event's start date and time should be equal or before event's end date and time";
+    public static final String MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS =
+            "Event's end date and time should be equal or before event's repeat until date and time";
 
     // Identity fields
     private final UUID eventUid; //distinct for recurring events
@@ -58,35 +60,12 @@ public class Event {
     }
 
     /**
-     * Does not take in eventUid. Will generate a random eventUid
-     * Used every time a new event is created
-     */
-    public Event(UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
-                 Description description, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
-                 ReminderDurationList reminderDurationList) {
-        this(UUID.randomUUID(), eventSetUid, eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
-    }
-
-
-    /**
      * Does not take in reminderDurationList, which is set to an Empty ReminderDurationList
      */
     public Event(UUID eventUid, UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
         this(eventUid, eventSetUid, eventName, startDateTime, endDateTime, description,
-                venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
-    }
-
-    /**
-     * Does not take in reminderDurationList and eventUid
-     */
-    public Event(UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
-                 Description description, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
-        this(UUID.randomUUID(), eventSetUid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
     }
 
