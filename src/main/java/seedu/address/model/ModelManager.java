@@ -284,11 +284,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Module adjustModule(Module targetModule, Grade adjustGrade) {
-        return versionedTranscript.adjustModule(targetModule, adjustGrade);
-    }
-
-    @Override
     public double getCap() {
         return versionedTranscript.getCurrentCap();
     }
