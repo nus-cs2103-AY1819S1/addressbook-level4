@@ -15,7 +15,6 @@ public class EditCommand<T extends UniqueType> extends Command {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_NOT_INSTRUCTION_EDITED = "Instruction field must be provided to edit.";
 
     private final Model model;
     private final T toEdit;
