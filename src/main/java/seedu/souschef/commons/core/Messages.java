@@ -28,7 +28,6 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
-    public static final String MESSAGE_INVALID_EMPTY_PLAN_INDEX = "Please enter an index!";
     public static final String MESSAGE_INVALID_PLAN_INDEX = "The plan index provided must be a non-decimal number";
     public static final String MESSAGE_INVALID_DAY_INDEX = "The day index provided must be a non-decimal number";
     public static final String MESSAGE_PLAN_INDEX_OUT_OF_RANGE = "The plan index provided is invalid";
