@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TRANSACTION;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,13 +32,16 @@ public class ConvertCommand extends Command {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
         if (lastShownList.isEmpty()) {
-            return new CommandResult(MESSAGE_NO_TRANSACTION_AMOUNTS);
+            throw new CommandException(MESSAGE_NO_TRANSACTION_AMOUNTS);
         }
         try {
             for (Transaction transactionToEdit : lastShownList) {
                 Amount convertedAmount = Amount.convertCurrency(transactionToEdit.getAmount());
                 Transaction editedTransaction = Transaction.copy(transactionToEdit);
                 editedTransaction.setAmount(convertedAmount);
+                if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
+                    throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+                }
                 model.updateTransaction(transactionToEdit, editedTransaction);
             }
         } catch (IOException ex) {
