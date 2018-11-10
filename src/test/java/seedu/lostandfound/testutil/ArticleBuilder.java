@@ -110,7 +110,7 @@ public class ArticleBuilder {
      * Sets the {@code isResolved} of the {@code Article} that we are building.
      */
     public ArticleBuilder withIsResolved(boolean isResolved) {
-        this.isResolved = false;
+        this.isResolved = isResolved;
         return this;
     }
 
