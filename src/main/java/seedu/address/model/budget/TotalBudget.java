@@ -23,6 +23,7 @@ public class TotalBudget extends Budget {
     public static final String DO_NOTHING = "DO_NOTHING";
     protected long numberOfSecondsToRecurAgain;
     private LocalDateTime nextRecurrence;
+    private LocalDateTime previousRecurrence;
     private HashSet<CategoryBudget> categoryBudgets;
 
 
@@ -56,10 +57,11 @@ public class TotalBudget extends Budget {
 
     /**
      * Constructs a {@code TotalBudget} with modified current expenses, recurrence and category budgets
-     * @param budget
-     * @param currentExpenses
-     * @param nextRecurrence
-     * @param numberOfSecondsToRecurAgain
+     * @param budget a budget value of type {@code double}
+     * @param currentExpenses a current expense value of type {@code double}
+     * @param nextRecurrence a valid nextRecurrence object of type {@code LocalDateTime}
+     * @param numberOfSecondsToRecurAgain an long signifying the countdown to the next recurrence
+     * @param categoryBudgets {@code HashSet} of {@code CategoryBudget}
      */
     public TotalBudget(double budget, double currentExpenses, LocalDateTime nextRecurrence,
                        long numberOfSecondsToRecurAgain, HashSet<CategoryBudget> categoryBudgets) {
@@ -83,15 +85,22 @@ public class TotalBudget extends Budget {
 
 
     /**
-     * Returns the current date in which the totalBudget is created
+     * Returns the next date in which the spending is reset
      *
-     * @return a LocalDate object that consists of the most recent timestamp.
+     * @return a LocalDateTime object that consists of the next reset timestamp.
      */
 
     public LocalDateTime getNextRecurrence() {
         return this.nextRecurrence;
     }
 
+    /**
+     * Returns the previous date in which the spending is reset
+     * @return a LocalDateTime object that consists of the previous reset timestamp.
+     */
+    public LocalDateTime getPreviousRecurrence() {
+        return this.previousRecurrence;
+    }
 
     /**
      * Sets the recurrence frequency
@@ -99,20 +108,21 @@ public class TotalBudget extends Budget {
      */
     public void setRecurrenceFrequency(long seconds) {
         this.numberOfSecondsToRecurAgain = seconds;
-        if (this.nextRecurrence == null) {
-            this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
-        }
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
     }
 
 
-
+    /**
+     * Returns the number of seconds that counts down to the next recurrence
+     * @return number of seconds to recur again
+     */
     public long getNumberOfSecondsToRecurAgain() {
         return this.numberOfSecondsToRecurAgain;
     }
 
     /**
      * Adds a category totalBudget. Total sum of all category budgets cannot exceed the totalBudget cap.
-     * @param budget
+     * @param budget a valid CategoryBudget
      * @throws CategoryBudgetExceedTotalBudgetException throws this if adding a category totalBudget exceeds the current
      * total totalBudget.
      */
@@ -210,6 +220,7 @@ public class TotalBudget extends Budget {
             return NOT_SET;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+            this.previousRecurrence = LocalDateTime.now();
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
             return SPENDING_RESET;

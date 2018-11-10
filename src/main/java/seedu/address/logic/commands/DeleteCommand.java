@@ -47,6 +47,7 @@ public class DeleteCommand extends Command {
         }
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         model.deleteExpense(expenseToDelete);
 
         model.commitExpenseTracker();

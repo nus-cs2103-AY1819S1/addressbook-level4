@@ -22,9 +22,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
@@ -587,13 +589,17 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Checks if totalBudget is required to restart due to recurrence
      */
-    protected String checkBudgetRestart() {
-        return this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
+    protected String checkBudgetRestart() throws NoUserSelectedException {
+        String response = this.versionedExpenseTracker.checkBudgetRestart();
+        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(this.getMaximumBudget()));
+        indicateExpenseTrackerChanged();
+        return response;
     }
 
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
+
         ModelManager copy = new ModelManager(expenseTrackers, userPrefs, tips);
         copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
         copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());
