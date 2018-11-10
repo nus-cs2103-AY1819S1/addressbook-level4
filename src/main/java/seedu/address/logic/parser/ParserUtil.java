@@ -228,7 +228,7 @@ public class ParserUtil {
 
     //@@author jcjxwy
     /**
-     *  Check whether all the keywords are valid.
+     * Check whether all the keywords are valid.
      * @throws ParseException if any keyword entered by user does not conform the expected format, or user enters
      * multiple keywords for Name/Category/Cost/Date.
      * */
@@ -239,6 +239,18 @@ public class ParserUtil {
         List<String> dateKeywords = keywordsMap.getAllValues(PREFIX_DATE);
         List<String> costKeywords = keywordsMap.getAllValues(PREFIX_COST);
 
+        requireValidNameKeywords(nameKeywords);
+        requireValidCategoryKeywords(categoryKeywords);
+        requireValidTagKeywords(tagKeywords);
+        requireValidDateKeywords(dateKeywords);
+        requireValidCostKeywords(costKeywords);
+    }
+
+    /**
+     * Check whether the name keyword is valid.
+     * @throws ParseException if the user enters multiple name keywords or the name keyword is invalid
+     * */
+    public static void requireValidNameKeywords(List<String> nameKeywords) throws ParseException {
         //If the user enters multiple name keywords
         if (nameKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -249,7 +261,13 @@ public class ParserUtil {
         if (!nameKeywords.isEmpty() && !Name.isValidName(nameKeywords.get(0))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
         }
+    }
 
+    /**
+     * Check whether the category keyword is valid.
+     * @throws ParseException if the user enters multiple category keywords or the category keyword is invalid
+     * */
+    public static void requireValidCategoryKeywords(List<String> categoryKeywords) throws ParseException {
         //If the user enters multiple category keywords
         if (categoryKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -261,8 +279,13 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     Category.MESSAGE_CATEGORY_CONSTRAINTS));
         }
+    }
 
-        //If any of the tag keywords is invalid
+    /**
+     * Check whether the tag keywords are valid.
+     * @throws ParseException any of the tag keyword is invalid
+     * */
+    public static void requireValidTagKeywords(List<String> tagKeywords) throws ParseException {
         if (!tagKeywords.isEmpty()) {
             for (String tag : tagKeywords) {
                 if (!Tag.isValidTagName(tag)) {
@@ -271,7 +294,13 @@ public class ParserUtil {
                 }
             }
         }
+    }
 
+    /**
+     * Check whether the date keyword is valid.
+     * @throws ParseException if the user enters multiple date keywords or the date keyword is invalid
+     * */
+    public static void requireValidDateKeywords(List<String> dateKeywords) throws ParseException {
         //If the user enters multiple date keywords
         if (dateKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -305,7 +334,13 @@ public class ParserUtil {
             }
 
         }
+    }
 
+    /**
+     * Check whether the cost keyword is valid.
+     * @throws ParseException if the user enters multiple cost keywords or the cost keyword is invalid
+     * */
+    public static void requireValidCostKeywords(List<String> costKeywords) throws ParseException {
         //If the user enters multiple cost keywords
         if (costKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -340,4 +375,5 @@ public class ParserUtil {
             }
         }
     }
+
 }

@@ -91,13 +91,13 @@ public class MassEditCommand extends Command {
             model.updateExpense(toEdit, editedExpense);
             editedList.add(editedExpense);
         }
+
         //Show the edited expenses to the user
         Predicate<Expense> newPredicate = e -> editedList.stream().anyMatch(newExpense -> e == newExpense);
         model.updateFilteredExpenseList(newPredicate);
 
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
-
         return new CommandResult(MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS);
     }
 

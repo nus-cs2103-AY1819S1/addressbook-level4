@@ -47,26 +47,26 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_GAME.equals(DESC_IPHONE));
 
         // different name -> returns false
-        EditExpenseDescriptor editedAmy =
+        EditExpenseDescriptor editedGame =
                 new EditExpenseDescriptorBuilder(DESC_GAME).withName(VALID_NAME_IPHONE).build();
-        assertFalse(DESC_GAME.equals(editedAmy));
+        assertFalse(DESC_GAME.equals(editedGame));
 
         // different category -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withCategory(VALID_CATEGORY_IPHONE).build();
-        assertFalse(DESC_GAME.equals(editedAmy));
+        editedGame = new EditExpenseDescriptorBuilder(DESC_GAME).withCategory(VALID_CATEGORY_IPHONE).build();
+        assertFalse(DESC_GAME.equals(editedGame));
 
         // different address -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withCost(VALID_COST_IPHONE).build();
-        assertFalse(DESC_GAME.equals(editedAmy));
+        editedGame = new EditExpenseDescriptorBuilder(DESC_GAME).withCost(VALID_COST_IPHONE).build();
+        assertFalse(DESC_GAME.equals(editedGame));
 
         // different tags -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_GAME).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_GAME.equals(editedAmy));
+        editedGame = new EditExpenseDescriptorBuilder(DESC_GAME).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(DESC_GAME.equals(editedGame));
     }
 
     //@@author jcjxwy
     @Test
-    public void test_createEditExpenseDescriptor_successful() {
+    public void test_createEditExpenseDescriptor_oneFieldSpecified_successful() {
         ArgumentMultimap testMap = prepareMap("n/test");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
@@ -75,8 +75,11 @@ public class EditExpenseDescriptorTest {
             pe.printStackTrace();
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
+    }
 
-        testMap = prepareMap("c/test $/1.00");
+    @Test
+    public void test_createEditExpenseDescriptor_someFieldsSpecified_successful() {
+        ArgumentMultimap testMap = prepareMap("c/test $/1.00");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
             assertTrue(test.getCategory().get().equals(new Category("test")));
@@ -85,8 +88,11 @@ public class EditExpenseDescriptorTest {
             pe.printStackTrace();
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
+    }
 
-        testMap = prepareMap("n/same c/test $/1.00 t/equal d/01-01-2018");
+    @Test
+    public void test_createEditExpenseDescriptor_allFieldsSpecified_successful() {
+        ArgumentMultimap testMap = prepareMap("n/same c/test $/1.00 t/equal d/01-01-2018");
         try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
             assertTrue(test.getCategory().get().equals(new Category("test")));
@@ -103,7 +109,7 @@ public class EditExpenseDescriptorTest {
     }
 
     @Test
-    public void test_createEditExpenseDescriptor_fail() {
+    public void test_createEditExpenseDescriptor_noFieldSpecified_fail() {
         ArgumentMultimap testMap = prepareMap("");
         try {
             EditExpenseDescriptor.createEditExpenseDescriptor(testMap);

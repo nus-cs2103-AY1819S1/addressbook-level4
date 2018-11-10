@@ -21,6 +21,7 @@ import static seedu.address.testutil.TypicalExpenses.TOY;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -30,6 +31,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
 /**
@@ -71,113 +73,77 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noExpenseFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/ ", PREFIX_NAME);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
+        testFindCommand(" n/ ", 0,
+                Collections.emptyList(), PREFIX_NAME);
     }
 
     @Test
     public void execute_multipleNameKeywords_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/toy tax books", PREFIX_NAME);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TOY, TAX, BOOKS), model.getFilteredExpenseList());
+        testFindCommand(" n/toy tax books", 3,
+                Arrays.asList(TOY, TAX, BOOKS), PREFIX_NAME);
     }
 
     @Test
     public void execute_oneCategoryKeyword_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 2);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("c/Food", PREFIX_CATEGORY);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ICECREAM, LUNCH), model.getFilteredExpenseList());
+        testFindCommand(" c/Food", 2,
+                Arrays.asList(ICECREAM, LUNCH), PREFIX_CATEGORY);
     }
 
     @Test
     public void execute_multipleTagKeyword_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("t/Friends", PREFIX_TAG);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), model.getFilteredExpenseList());
+        testFindCommand(" t/Friends", 3,
+                Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), PREFIX_TAG);
     }
 
     @Test
     public void execute_oneDateKeyword_oneExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 1);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("d/03-10-2018", PREFIX_DATE);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TOY), model.getFilteredExpenseList());
+        testFindCommand(" d/03-10-2018", 1,
+                Arrays.asList(TOY), PREFIX_DATE);
     }
 
     @Test
     public void execute_multipleDateKeyword_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 5);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("d/02-10-2018:04-10-2018", PREFIX_DATE);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES, LUNCH), model.getFilteredExpenseList());
+        testFindCommand(" d/02-10-2018:04-10-2018", 5,
+                Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES, LUNCH), PREFIX_DATE);
     }
 
     @Test
     public void execute_oneCostKeyword_oneExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 1);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("$/1.00", PREFIX_COST);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TOY), model.getFilteredExpenseList());
+        testFindCommand(" $/1.00", 1,
+                Arrays.asList(TOY), PREFIX_COST);
     }
 
     @Test
     public void execute_multipleCostKeyword_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 4);
-        ExpenseContainsKeywordsPredicate predicate = preparePredicate("$/1.00:3.00", PREFIX_COST);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES), model.getFilteredExpenseList());
+        testFindCommand(" $/1.00:3.00", 4,
+                Arrays.asList(SCHOOLFEE, ICECREAM, TOY, CLOTHES), PREFIX_COST);
     }
 
     @Test
     public void execute_multipleKeyword_oneExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 1);
-        ArgumentMultimap keywordsMap =
-                ArgumentTokenizer.tokenize(" t/Friends c/School", PREFIX_TAG, PREFIX_CATEGORY);
-        ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SCHOOLFEE), model.getFilteredExpenseList());
+        testFindCommand(" t/Friends c/School", 1,
+                Arrays.asList(SCHOOLFEE), PREFIX_TAG, PREFIX_CATEGORY);
     }
 
     @Test
     public void execute_multipleKeyword_multipleExpensesFound() throws NoUserSelectedException {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
+        testFindCommand(" t/Friends $/2.00:3.00", 3,
+                Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), PREFIX_TAG, PREFIX_COST);
+    }
+
+    /**
+     * Test whether the find command is executed successfully
+     * */
+    private void testFindCommand(String input, int expectedNumber, List<Expense> expenses, Prefix... prefixes)
+            throws NoUserSelectedException{
+        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, expectedNumber);
         ArgumentMultimap keywordsMap =
-                ArgumentTokenizer.tokenize(" t/Friends $/2.00:3.00", PREFIX_TAG, PREFIX_COST);
+                ArgumentTokenizer.tokenize(input, prefixes);
         ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SCHOOLFEE, ICECREAM, CLOTHES), model.getFilteredExpenseList());
+        assertEquals(expenses, model.getFilteredExpenseList());
     }
 
-    /**
-     * Parses {@code userInput} into a {@code ExpenseContainsKeywordsPredicate}.
-     */
-    private ExpenseContainsKeywordsPredicate preparePredicate(String userInput, Prefix prefix) {
-        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" " + userInput, prefix);
-        return new ExpenseContainsKeywordsPredicate(keywordsMap);
-    }
 }

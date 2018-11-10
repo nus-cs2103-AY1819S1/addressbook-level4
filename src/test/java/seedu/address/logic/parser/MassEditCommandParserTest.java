@@ -45,6 +45,10 @@ public class MassEditCommandParserTest {
 
         //multiple symbols
         assertParseFailure(parser, "n/test -> c/test -> n/test", MESSAGE_INVALID_FORMAT);
+
+        //wrong prefix format
+        assertParseFailure(parser, "n test -> c/test", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "n/test -> c test", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

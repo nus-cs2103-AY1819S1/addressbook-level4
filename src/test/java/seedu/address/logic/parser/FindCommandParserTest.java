@@ -34,7 +34,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsFindCommand_parseSucceed() {
         // one keyword
         ArgumentMultimap keywordsMap = prepareKeywords("n/Have Lunch");
         FindCommand expectedFindCommand =
@@ -46,10 +46,15 @@ public class FindCommandParserTest {
         keywordsMap = prepareKeywords("n/Buy books c/Book");
         expectedFindCommand = new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
         assertParseSuccess(parser, " n/Buy books c/Book", expectedFindCommand);
+
+        // all keywords
+        keywordsMap = prepareKeywords("n/lunch c/food t/myself d/01-01-2018 $/5.00");
+        expectedFindCommand = new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
+        assertParseSuccess(parser, " n/lunch c/food t/myself d/01-01-2018 $/5.00", expectedFindCommand);
     }
 
     @Test
-    public void parse_invalidArgs_parseFail() {
+    public void parse_invalidArgs_invalidNameKeywords_parseFail() {
         //invalid name keywords
         assertParseFailure(parser, " n/Have Lunch@KFC ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
@@ -63,7 +68,10 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " n/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
 
+    }
 
+    @Test
+    public void parse_invalidArgs_invalidCategoryKeywords_parseFail() {
         //invalid category keywords
         assertParseFailure(parser, " c/Lunch@KFC  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
@@ -76,8 +84,10 @@ public class FindCommandParserTest {
         //empty category keywords
         assertParseFailure(parser, " c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
+    }
 
-
+    @Test
+    public void parse_invalidArgs_invalidTagKeywords_parseFail() {
         //invalid tag keywords
         assertParseFailure(parser, " t/Lunch@KFC  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
@@ -85,8 +95,10 @@ public class FindCommandParserTest {
         //empty tag keyword
         assertParseFailure(parser, " t/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
+    }
 
-
+    @Test
+    public void parse_invalidArgs_invalidCostKeywords_parseFail() {
         //invalid cost keywords
         assertParseFailure(parser, " $/2.320",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -115,12 +127,17 @@ public class FindCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Cost.MESSAGE_COST_CONSTRAINTS + "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
 
+    }
 
+    @Test
+    public void parse_invalidArgs_invalidDateKeywords_parseFail() {
         //invalid date keywords
         assertParseFailure(parser, " d/60-02-2019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Date.DATE_FORMAT_CONSTRAINTS + "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
         assertParseFailure(parser, " d/01-02-2019:99-02-2019",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
+        assertParseFailure(parser, " d/99-02-2019:01-10-2019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
 
         //ending date is earlier than starting date
@@ -143,9 +160,10 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " d/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Date.DATE_FORMAT_CONSTRAINTS + "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+    }
 
-
-        //missing prefix
+    @Test
+    public void parse_invalidArgs_missingPrefix_parseFail() {
         assertParseFailure(parser, " /School ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "  ",
