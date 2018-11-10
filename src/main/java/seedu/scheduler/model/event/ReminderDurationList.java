@@ -4,13 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Assert;
+import edu.emory.mathcs.backport.java.util.Collections;
+
 
 /**
  * Represents a list of duration object for reminder times
@@ -164,10 +166,13 @@ public class ReminderDurationList {
     @Override
     public String toString() {
         String output = "";
+
+        ArrayList<Duration> array = new ArrayList<>(values);
+        Collections.sort(array);
         if (values.size() == 0) {
             output = EMPTY_VALUE;
         } else {
-            for (Duration duration: values) {
+            for (Duration duration: array) {
                 output += duration.toString() + ", ";
             }
             output = output.substring(0, output.length() - 2);
