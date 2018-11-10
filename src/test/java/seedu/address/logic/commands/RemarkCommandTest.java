@@ -79,6 +79,14 @@ public class RemarkCommandTest {
     }
 
     @Test
+    public void execute_duplicateNames_failure() {
+        Person personToEdit = model.getFilteredPersonList().get(1);
+
+        RemarkCommand remarkCommand = new RemarkCommand(personToEdit.getName(), null, personToEdit.getRemark());
+        assertCommandFailure(remarkCommand, model, commandHistory, remarkCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
 
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
