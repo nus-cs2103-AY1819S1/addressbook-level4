@@ -1555,11 +1555,15 @@ Use case ends.
 This section is designed to provide you with definitions for
 terms that are used in this document below.
 
+[horizontal]
 [[CRUD]] CRUD (Create, Read, Update and Delete)::
 These are the basic functions of a persistent database.
 
 [[doctor]] Doctor::
 A person who is qualified to treat people who are ill.
+
+[[GUI]] GUI::
+Graphical User Interface
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1587,7 +1591,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window will be full-screen.
 
 . Saving window preferences
 
