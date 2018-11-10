@@ -530,7 +530,7 @@ The following sequence diagram illustrates how the mechanism works:
 
 .Sequence Diagram of archive task command
 
-image::ArchiveDiagram.png[width="800"]
+image::Archive.png[width="800"]
 
 ==== Design Considerations
 
@@ -566,14 +566,31 @@ Every time when the application is launched, archived list is checked through. T
 
 .Sequence Diagram of automatic partial deletion of archived tasks feature
 
-image::AutoDeleteArchived.png[width="800"]
+image::AutoDelete.png[width="800"]
 
 Given below is detailed explanation of how auto-deletion mechanism behaves: +
 
 . Application is launched
-. `init()` method in `MainApp` class is called, which then instantiates `Model` class and calls `autoDeleteArchived()`
-method in `Model` class.
-. `autoDeleteArchived()` method in 
+. `MainApp#init()` is called, which instantiates `Model` class and calls `Model#autoDeleteArchived()`.
+. `Model#autoDeleteArchived()` then calls `TaskList#autoDelete()`. Note that `TaskList` is an object type
+implemented to store archived tasks. `TaskList#autoDelete()` then scan through archived tasks and deletes
+those archived tasks with deadline date earlier than 2 weeks before current time point.
+
+==== Design Considerations
+===== Aspect: What tasks should we delete?
+We had a rough idea of deleting away "old" tasks. However, how should we define "old"? +
+
+* **Alternative 1 (current choice):** Delete tasks with deadline date earlier than 2 weeks before current date.
+** Pros: This implementation is easier for testing. Testers do not have to alternate their system time to
+test the feature.
+** Cons: The logic may be less user-friendly comparing to Alternative 2. Usually what users expect is more likely
+to be "able to check tasks that were archived recently". For example, if user has just archived a
+task that has been overdue for 1 month (the deadline date of this task is 1 month earlier than current date),
+he/she may find it not so intuitive if next time he/she runs the app, the task cannot be found in archived task list.
+
+* **Alternative 2 :** Delete tasks that were archived 2 weeks before current date.
+** Pros: This implementation may be more user-friendly comparing with Alternative 1.
+** Cons: The feature would be hard to test for testers.
 
 
 // tag::generateacademiccalendar[]
@@ -841,6 +858,39 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 ** Cons: Since only one section of the UI needs to be changed, changing the whole scene seems redundant.
 
 //end::listarchivedtasks[]
+
+//tag::sorting[]
+=== Sort tasks
+The sorting feature enables tasks to be displayed in the order of deadline date and priority.
+
+==== Current Implementation
+Sorting feature does not require any user input command.
+Whenever the tasks are listed, it will always be listed according to deadline date, then priority.
+3 is the highest priority, while 1 is the lowest. +
+
+Assume there are two tasks in a task list, task A and task B. Given below is the scenario when
+task list is retrieved from schedule planner using any kind of `list` command and how the sorting mechanism
+behanves.
+
+. `UniqueTaskList#sorted()` is called and `Task#compare()` is parsed in as comparator.
+. `Task#compare()` calls Date.compare(), which compares the deadline date of task A and task B.
+
+.. If task A has earlier deadline date than task B, the order will be task A followed by task B, and vice versa.
+.. If task A and task B have the same deadline date,
+`Priority#compare()` is then called, which compares priority of task A and task B.
+
+... If task A has higher priority than task B, the order will be task A followed by task B and vice versa.
+... If task A and task B have the same priority, then `Name#compare()` is called,
+which compares the task name of A and B according to JAVA `compareTo()` method of `String` class.
+
+.Sequence diagram of sorting feature.
+
+==== Design Considerations
+===== Aspect: How should sorting be executed
+
+
+
+//end::sorting[]
 
 //tag::displaytagsinsidebar[]
 
