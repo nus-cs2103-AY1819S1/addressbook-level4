@@ -798,42 +798,6 @@ my progress and evaluate how I am doing.
 == Use cases
 Only features that require more than a few steps to implement will be shown.
 
-=== Use case: Display Welcome Screen
-==== MSS
-.  User logs in successfully
-.  Application fetches QOTD and shows it.
-.  Application then displays **10** tasks sorted by ascending deadline.
-
-Use case ends.
-
-==== Extensions
-
-* 3a. There are less than **10** tasks available
-** 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
-
-Use case ends.
-
-* 3b. There are multiple tasks with the same deadline.
-** 3b1. Tie will be broken by the lexicographic order of Task name
-** 3b2. If multiple tasks have the same lexicographic order, the outputted task will be
-non-deterministic
-
-Use case ends.
-
-=== Use case: Display Motivational Quote (MQ) on task completion
-==== MSS
-. User marks task as complete.
-. Application shows MQ.
-
-Use case ends.
-
-==== Extensions
-
-* 1a. User marks multiple tasks as complete.
-** 1a1. Application still shows only one MQ.
-
-Use case ends.
-
 === Use case: List Task
 ==== MSS
 . User requests to list tasks, fulfilling a (potentially empty) set of criteria.
@@ -914,19 +878,6 @@ Use case resumes at step 1 in MSS.
 
 Use case resumes at step 1 in MSS.
 
-=== Use case: Viewing Command History
-==== MSS
-. User requests to view command history.
-. Application displays command history.
-
-Use case ends.
-
-==== Extensions
-* 1a. Command history is empty.
-** 1a1. Application informs user that there is no command history.
-
-Use case ends.
-
 === Use case: Undoing Last Command
 ==== MSS
 . User requests undoing last command.
@@ -977,28 +928,6 @@ pre-completed state and no points are earned.
 
 * 2a. User earns enough points to level up
 ** 2a1. Application displays a congratulatory message, current points, and points earned to user.
-
-=== Use case: Display Statistics
-==== MSS
-. User requests for statistics.
-. Application fetches data and displays statistics.
-
-==== Extensions
-* 2a. There are no statistics.
-** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
-
-Use case ends.
-
-=== Use case: Failing to complete task
-==== MSS
-. User fails to complete tasks on time
-. Application displays points lost and current current points to user.
-
-==== Extensions
-* 2a. User loses enough points that it level down.
-    * 2a1. Application displays a warning message, current points, and points lost to user.
-
-Use case ends.
 
 [appendix]
 == Non-functional requirements
