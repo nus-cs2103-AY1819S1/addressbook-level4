@@ -38,8 +38,8 @@ import seedu.address.testutil.PatientBuilder;
 public class AddMedicalHistoryCommandTest {
     private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    ArrayList<Allergy> emptyAllergy = new ArrayList<>();
-    ArrayList<Condition> emptyCondition = new ArrayList<>();
+    private ArrayList<Allergy> emptyAllergy = new ArrayList<>();
+    private ArrayList<Condition> emptyCondition = new ArrayList<>();
 
     @Test
     public void execute_addMedicalHistory_success() {

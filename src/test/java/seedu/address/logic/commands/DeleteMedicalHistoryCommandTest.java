@@ -36,10 +36,11 @@ import seedu.address.testutil.PatientBuilder;
  * Contains integration tests and unit tests for DeleteMedicalHistoryCommand.
  */
 public class DeleteMedicalHistoryCommandTest {
+    private ArrayList<Allergy> emptyAllergy = new ArrayList<>();
+    private ArrayList<Condition> emptyCondition = new ArrayList<>();
     private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    ArrayList<Allergy> emptyAllergy = new ArrayList<>();
-    ArrayList<Condition> emptyCondition = new ArrayList<>();
+
 
     @Test
     public void execute_deleteMedicalHistory_success() {

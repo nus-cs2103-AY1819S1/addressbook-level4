@@ -25,9 +25,10 @@ import seedu.address.model.person.Phone;
 public class DeleteMedicalHistoryCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMedicalHistoryCommand.MESSAGE_USAGE);
+    private ArrayList<Allergy> emptyAllergy = new ArrayList<>();
+    private ArrayList<Condition> emptyCondition = new ArrayList<>();
     private DeleteMedicalHistoryCommandParser parser = new DeleteMedicalHistoryCommandParser();
-    ArrayList<Allergy> emptyAllergy = new ArrayList<>();
-    ArrayList<Condition> emptyCondition = new ArrayList<>();
+
     @Test
     public void parse_fieldSpecified_success() {
         ArrayList<Allergy> allergies = new ArrayList<>();

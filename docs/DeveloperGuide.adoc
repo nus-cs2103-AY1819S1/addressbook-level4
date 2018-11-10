@@ -364,7 +364,7 @@ command is implemented such that it is able to add `allergies` AND/OR `condition
 image::AddMedicalHistorySequenceDiagram.png[width="600"]
 
 Step 1. The user types in `add-medical-history` in the command box followed by the parameter `n/John Doe al/penicillin,milk
-c/sub-healthy,hyperglycemia`
+c/subhealthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
@@ -391,7 +391,7 @@ The delete medical history feature is facilitated by `DeleteMedicalHistoryComman
 image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
 
 Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `n/John Doe
-al/penicillin,milk c/sub-healthy,hyperglycemia`
+al/penicillin,milk c/subhealthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.

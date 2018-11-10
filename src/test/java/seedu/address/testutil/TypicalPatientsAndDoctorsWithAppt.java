@@ -48,7 +48,7 @@ public class TypicalPatientsAndDoctorsWithAppt {
             .withPhone("94351253")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("Paracetamol", "sub-health")
+            .withMedicalHistory("Paracetamol", "subhealth")
             .withAppointment(FIRST).build();
 
     public static final Patient BENSON_PATIENT_APPT = new PatientBuilder().withName("Benson Meier")

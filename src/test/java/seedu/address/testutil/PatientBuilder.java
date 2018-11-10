@@ -131,20 +131,20 @@ public class PatientBuilder {
      * Sets the {@code MedicalHistory} of the {@code Patient} that we are building.
      */
 
-    public PatientBuilder withMedicalHistory(String allergy_string, String condition_string) {
+    public PatientBuilder withMedicalHistory(String allergyString, String conditionString) {
         ArrayList<Allergy> allergies = new ArrayList<>();
         ArrayList<Condition> conditions = new ArrayList<>();
-        if (allergy_string.equals("") && condition_string.equals("")) {
+        if (allergyString.equals("") && conditionString.equals("")) {
             this.medicalHistory = new MedicalHistory();
-        } else if (!(allergy_string.equals("")) && condition_string.equals("")) {
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergy_string.split(","))));
+        } else if (!(allergyString.equals("")) && conditionString.equals("")) {
+            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
             this.medicalHistory.setAllergies(allergies);
-        } else if ((allergy_string.equals("")) && !(condition_string.equals(""))) {
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(condition_string.split(","))));
+        } else if ((allergyString.equals("")) && !(conditionString.equals(""))) {
+            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
             this.medicalHistory.setConditions(conditions);
         } else {
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergy_string.split(","))));
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(condition_string.split(","))));
+            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
+            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
             this.medicalHistory.setAllergies(allergies);
             this.medicalHistory.setConditions(conditions);
         }
