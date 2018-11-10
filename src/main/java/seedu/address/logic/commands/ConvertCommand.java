@@ -24,6 +24,8 @@ public class ConvertCommand extends Command {
             + " to Singapore Dollars.\n"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_CONVERT_CAUSING_DUPLICATION =
+            "Executing convert command will lead to duplicate transactions";
     public static final String MESSAGE_SUCCESS = "Amounts converted in all transactions!!";
     public static final String MESSAGE_NO_TRANSACTION_AMOUNTS = "No transaction amounts left to convert!!";
 
@@ -40,7 +42,7 @@ public class ConvertCommand extends Command {
                 Transaction editedTransaction = Transaction.copy(transactionToEdit);
                 editedTransaction.setAmount(convertedAmount);
                 if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-                    throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+                    throw new CommandException(MESSAGE_CONVERT_CAUSING_DUPLICATION);
                 }
                 model.updateTransaction(transactionToEdit, editedTransaction);
             }
