@@ -38,6 +38,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add`**`n/Do CS2103 tutorial t/02-12-18 1330 p/5 d/Do it for Jelena l/tutorial` : adds a task named `Do 2103 tutorial` to the task manager.
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`exit`* : exits the app
+* *`dependency 1 2`* : adds a dependency between 1st task show in current list and 2nd task shown in current list, where
+1st task is dependent on the second task.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -53,6 +55,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PRIORITY_VALUE`, `p/PRIORITY_VALUE n/NAME` is also acceptable.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
+
+=== Note on command execution
+[TODO] Add if check status is still done at this stage.
 
 === System Commands
 ==== Viewing help: `help`
@@ -133,7 +138,7 @@ Format:
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)
+Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists, or removed if it does not.
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
@@ -279,7 +284,32 @@ Selects the 1st task in the results of the `find` command.
 // tag::topoorder[]
 ==== Listing Tasks by topological order: `topoorder`
 [%hardbreaks]
-Shows a list of uncompleted tasks by their topological order. (In the CLI window).
+Shows a list of uncompleted tasks by their topological order in the CLI window.
+
+It defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints.
+
+Example:
+
+* `topoorder`
+
+[NOTE]
+====
+Topological order is a linear ordering of vertices such that for every vertex u to vertex v,
+u comes before v in the ordering. (Source: https://en.wikipedia.org/wiki/Topological_sorting[wikipedia])
+
+In the context of our application, it is a linear ordering of `Task` s such that if `Task` A is dependent to `Task` B,
+B comes before A in the ordering.
+====
+
+[NOTE]
+====
+image::TopologicalOrdering.png[width="300"]
+_Diagram of a possible dependency graph_
+
+A topological order of this graph is: [A, B, C]
+====
+
 // end::topoorder[]
 
 === Gamification
@@ -385,6 +415,9 @@ Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 ** *Select* : `select INDEX`
 
 ** *Achievements* : `achievements TIME_SPAN`
+
+** *Topological order* : `topoorder`
+
 
 // tag::complete-2.0[]
 == Features to be included by v2.0
