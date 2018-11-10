@@ -6,35 +6,33 @@ import seedu.souschef.model.planner.exceptions.MealRecipeNotFoundException;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Represents a meal slot (breakfast, lunch, dinner) of a day.
- * Contains a recipe for the meal, as well as a predefined integer index value.
+ * Represents a meal (breakfast, lunch, dinner) of a day.
+ * Contains a recipe for the meal, as well as the corresponding meal slot and index.
  */
-public class Meal {
+public abstract class Meal {
 
-    // Attributes
-    private final Slot slot;
+    public final String slot;
+    public final int index;
     private Optional<Recipe> recipe;
 
-    public Meal(Slot slot) {
-        this.slot = slot;
+    public Meal(String slot, int index) {
         this.recipe = Optional.empty();
+        this.slot = slot;
+        this.index = index;
     }
 
-    public Meal(Slot slot, Recipe recipe) {
-        this.slot = slot;
+    public Meal(String slot, int index, Recipe recipe) {
         this.recipe = Optional.ofNullable(recipe);
+        this.slot = slot;
+        this.index = index;
     }
 
     public Recipe getRecipe() {
         if (this.recipe.isPresent()) {
             return this.recipe.get();
         } else {
-            throw new MealRecipeNotFoundException("No recipe at selected meal slot.");
+            throw new MealRecipeNotFoundException("No recipe at selected meal index.");
         }
-    }
-
-    public Slot getSlot() {
-        return this.slot;
     }
 
     public void setRecipe(Recipe recipe) {
@@ -47,52 +45,25 @@ public class Meal {
      * @return true if no recipe is present, false if a recipe is present.
      */
     public boolean isEmpty() {
-        return !this.recipe.isPresent();
+        return !recipe.isPresent();
     }
 
     /**
-     * Converts a string command token to to its Enum counterpart.
+     * Converts a string command token to to its integer index counterpart.
      *
      * @param s Command string token
      * @return Meal
      * @throws IllegalArgumentException
      */
     public static int stringToIntSlot(String s) throws IllegalArgumentException {
-        if (s.equalsIgnoreCase("breakfast")) {
-            return 0;
-        } else if (s.equalsIgnoreCase("lunch")) {
-            return 1;
-        } else if (s.equalsIgnoreCase("dinner")) {
-            return 2;
+        if (s.equalsIgnoreCase(Breakfast.SLOT)) {
+            return Breakfast.INDEX;
+        } else if (s.equalsIgnoreCase(Lunch.SLOT)) {
+            return Lunch.INDEX;
+        } else if (s.equalsIgnoreCase(Dinner.SLOT)) {
+            return Dinner.INDEX;
         } else {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
     }
-
-    /**
-     * Converts a string token to its Enum counterpart.
-     *
-     * @param s String token
-     * @return Meal.Slot
-     * @throws IllegalArgumentException
-     */
-    public static Slot stringToEnumSlot(String s) throws IllegalArgumentException {
-        if (s.equalsIgnoreCase("breakfast")) {
-            return Slot.BREAKFAST;
-        } else if (s.equalsIgnoreCase("lunch")) {
-            return Slot.LUNCH;
-        } else if (s.equalsIgnoreCase("dinner")) {
-            return Slot.DINNER;
-        } else {
-            throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
-        }
-    }
-
-    /**
-     * Represents the 3 meals of a day.
-     */
-    public enum Slot {
-        BREAKFAST, LUNCH, DINNER;
-    }
-
 }

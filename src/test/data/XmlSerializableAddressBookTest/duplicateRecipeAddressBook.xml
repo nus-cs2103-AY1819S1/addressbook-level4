@@ -2,19 +2,25 @@
 <souschef>
 
     <recipes>
-        <name>Alice Pauline</name>
+        <name>Chicken Rice</name>
         <difficulty>3</difficulty>
-        <cooktime>PT34M</cooktime>
-        <tagged>colleagues</tagged>
-        <tagged>friends</tagged>
+        <cooktime>34M</cooktime>
+        <tagged>asian</tagged>
+        <tagged>staple</tagged>
+        <instructions>
+            <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
 
     <!-- Recipe with same identity as Alice Pauline -->
     <recipes>
-        <name>Alice Pauline</name>
+        <name>Chicken Rice</name>
         <difficulty>3</difficulty>
-        <cooktime>PT34M</cooktime>
-        <tagged>colleagues</tagged>
+        <cooktime>34M</cooktime>
+        <tagged>asian</tagged>
+        <instructions>
+            <instruction>Pre-heat oven.</instruction>
+        </instructions>
     </recipes>
 
 </souschef>

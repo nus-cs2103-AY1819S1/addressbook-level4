@@ -9,10 +9,10 @@ import seedu.souschef.model.ingredient.IngredientDefinition;
 /**
  * Tests that a {@code Recipe}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Recipe> {
+public class RecipeContainsKeywordsPredicate implements Predicate<Recipe> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public RecipeContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -36,8 +36,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Recipe> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof RecipeContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((RecipeContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

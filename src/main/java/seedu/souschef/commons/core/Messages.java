@@ -10,7 +10,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -29,10 +28,21 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
+    public static final String MESSAGE_INVALID_EMPTY_PLAN_INDEX = "Please enter an index!";
+    public static final String MESSAGE_INVALID_PLAN_INDEX = "The plan index provided must be a non-decimal number";
+    public static final String MESSAGE_INVALID_DAY_INDEX = "The day index provided must be a non-decimal number";
+    public static final String MESSAGE_PLAN_INDEX_OUT_OF_RANGE = "The plan index provided is invalid";
+    public static final String MESSAGE_DAY_INDEX_OUT_OF_RANGE = "The day index provided is invalid";
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
-    public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
-    public static final String MESSAGE_NO_ELEMENT = "There is no matching result";
+    public static final String MESSAGE_DUPLICATE = "This %1$s already exists and cannot be added, %1$s must be unique";
+    public static final String MESSAGE_ALREADY_IN_CONTEXT = "Already in %1$s context. Please switch to another "
+            + "context.";
+    public static final String MESSAGE_NO_RECIPE_CONSTRUCTED = "Basic information of recipe not added. "
+            + "Please use " + AddCommand.COMMAND_WORD + " command first.";
+    public static final String MESSAGE_NO_RECIPE_INSTRUCTION = "This recipe does not contain instruction, "
+            + "please add instruction into recipe using " + BuildRecipeInstructionCommand.COMMAND_WORD
+            + " command.";
 
     // Add command messages
     public static final String MESSAGE_ADD_RECIPE_USAGE = AddCommand.COMMAND_WORD
@@ -45,7 +55,7 @@ public class Messages {
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_NAME + "Chicken Rice "
             + PREFIX_DIFFICULTY + "5 "
-            + PREFIX_COOKTIME + "PT1H20M "
+            + PREFIX_COOKTIME + "1H20M "
             + PREFIX_TAG + "asian "
             + PREFIX_TAG + "chinese";
 
@@ -58,17 +68,14 @@ public class Messages {
             + "Example: " + BuildRecipeInstructionCommand.COMMAND_WORD + " "
             + PREFIX_INSTRUCTION + "Pour "
             + PREFIX_INGREDIENT + "chicken stock 300 ml "
-            + "into pot and heat it up."
-            + PREFIX_COOKTIME + "PT10M";
+            + "into pot and heat it up. "
+            + PREFIX_COOKTIME + "10M";
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
-            + "Name "
-            + "Amount "
-            + "Serving_Unit(gram/piece)"
-            + "Date(MM-dd-yyyy)"
+            + "NAME AMOUNT SERVING_UNIT DATE(MM-dd-yyyy)\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
-            + "onion 100 gram 10-24-2018";
+            + "onion 100 gram 11-02-2018";
 
     public static final String MESSAGE_ADD_HEALTHPLAN_USAGE = AddCommand.COMMAND_WORD + ": Adds a healthplan. "
             + "Parameters: "
@@ -77,16 +84,14 @@ public class Messages {
             + PREFIX_CHEIGHT + "Current Height(CM) "
             + PREFIX_CWEIGHT + "Current Weight(KG) "
             + PREFIX_TWEIGHT + "Target Weight(KG) "
-            + PREFIX_DURATION + "Duration(Days) "
-            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN) \n"
+            + PREFIX_DURATION + "Duration(Days) \n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_HPNAME + "SLIM DOWN "
             + PREFIX_AGE + "25 "
             + PREFIX_CHEIGHT + "170 "
-            + PREFIX_CWEIGHT + "70 "
-            + PREFIX_TWEIGHT + "60 "
-            + PREFIX_DURATION + "10 "
-            + PREFIX_SCHEME + "LOSS ";
+            + PREFIX_CWEIGHT + "70.0 "
+            + PREFIX_TWEIGHT + "60.0 "
+            + PREFIX_DURATION + "10 ";
 
     public static final String MESSAGE_ADD_FAVOURITE_USAGE = AddCommand.COMMAND_WORD
             + ": Adds a recipe to your favourite. "
@@ -101,8 +106,8 @@ public class Messages {
 
     public static final String MESSAGE_DELETE_INGREDIENT_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the recipe identified by the name"
-            + "Parameters: Name"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " onion";
+            + "Parameters: INDEX\n"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_HEALTHPLAN_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"
@@ -131,13 +136,19 @@ public class Messages {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
             + PREFIX_DIFFICULTY + "3 "
-            + PREFIX_COOKTIME + "PT1H20M\n"
+            + PREFIX_COOKTIME + "1H20M\n"
             + "Alternative parameters: INDEX (must be a positive index) "
             + PREFIX_STEP + "STEP "
             + PREFIX_INSTRUCTION + "INSTRUCTION "
-            + "[" + PREFIX_COOKTIME + "TIME]";
+            + "[" + PREFIX_COOKTIME + "TIME]\n"
+            + "Example: " + EditCommand.COMMAND_WORD + " 1 "
+            + PREFIX_STEP + "3 " + PREFIX_INSTRUCTION + "Boil #water 100 ml.";
 
-    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD;
+    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD
+            + ": Edits the details of the ingredient identified "
+            + "Parameters: INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]...\n"
+            + "Example: " + EditCommand.COMMAND_WORD + " 1 name onion amount 200";
+
     public static final String MESSAGE_EDIT_HEALTHPLAN_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the health plan identified "
             + "by the index number used in the displayed health plan list. "
@@ -148,8 +159,7 @@ public class Messages {
             + "[" + PREFIX_CWEIGHT + "CURRENT WEIGHT(KG)] "
             + "[" + PREFIX_CHEIGHT + "CURRENT HEIGHT(CM)] "
             + "[" + PREFIX_TWEIGHT + "TARGET WEIGHT(KG)] "
-            + "[" + PREFIX_DURATION + "DURATION(DAYS)] "
-            + "[" + PREFIX_SCHEME + "SCHEME(GAIN/LOSS/MAINTAIN)] \n"
+            + "[" + PREFIX_DURATION + "DURATION(DAYS)] \n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
             + PREFIX_HPNAME + "Lose weight "
             + PREFIX_AGE + "23";
@@ -160,7 +170,18 @@ public class Messages {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + FindCommand.COMMAND_WORD + " chicken asian western";
-    public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD;
-    public static final String MESSAGE_FIND_HEALTHPLAN_USAGE = FindCommand.COMMAND_WORD;
+
+    public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD
+            + ": Finds all ingredients whose names contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + FindCommand.COMMAND_WORD + " onion";
+
+    public static final String MESSAGE_FIND_MEALPLAN_USAGE = FindCommand.COMMAND_WORD
+        + ": Finds the meal plan whose date matches the "
+        + "the specified date and displays it.\n"
+        + "Parameters: DATE\n"
+        + "Example: " + FindCommand.COMMAND_WORD + " 2018-11-29";
+
     public static final String MESSAGE_FIND_FAVOURITES_USAGE = FindCommand.COMMAND_WORD;
 }

@@ -32,7 +32,10 @@ public class CrossFindCommandParser {
      */
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
-        String[] tokens = argument.trim().split("\\s+");
+        String[] tokens = argument.trim().toLowerCase().split("\\s+");
+        for (int i = 0; i < tokens.length; i++) {
+            tokens[i] = tokens[i].replaceAll("_", " ");
+        }
 
         if (tokens.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
@@ -48,7 +51,7 @@ public class CrossFindCommandParser {
         List<IngredientDefinition> include = new ArrayList<>();
         List<IngredientDefinition> prioritize = new ArrayList<>();
 
-        ingredientModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_INGREDIENTS);
+        ingredientModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<Ingredient> ingredientList = ingredientModel.getFilteredList();
 
         int index = 1;
@@ -97,7 +100,7 @@ public class CrossFindCommandParser {
             }
         }
 
-        crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
+        crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
 
         Map<Recipe, List<IngredientDefinition>> crossRecipeMap = new HashMap<>();

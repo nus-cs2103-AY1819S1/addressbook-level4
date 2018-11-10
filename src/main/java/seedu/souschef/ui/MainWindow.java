@@ -187,7 +187,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     protected void showHealthPlanDetails(int index) {
         hideBrowserSidePanel();
-        generalListPanel = new HealthPlanDetailsPanel(logic.getFilteredHealthPlanList(), index);
+        generalListPanel = new HealthPlanDetailsPanel(logic.getFilteredHealthPlanList(),
+                logic.getFilteredRecipeList(), index);
         browserPlaceholder.getChildren().add(generalListPanel.getRoot());
 
     }

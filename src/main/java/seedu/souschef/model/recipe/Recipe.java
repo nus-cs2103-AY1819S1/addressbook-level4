@@ -99,7 +99,7 @@ public class Recipe extends UniqueType {
         }
 
         return otherRecipe != null
-                && otherRecipe.getName().equals(getName())
+                && otherRecipe.getName().isSame(getName())
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty());
     }

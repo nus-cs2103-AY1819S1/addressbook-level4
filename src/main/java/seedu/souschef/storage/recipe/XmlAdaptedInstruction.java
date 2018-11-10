@@ -56,7 +56,7 @@ public class XmlAdaptedInstruction {
     public XmlAdaptedInstruction(Instruction source) {
         instruction = source.value;
         cooktime = source.cookTime.toString();
-        if (Duration.parse(cooktime).isZero()) {
+        if (source.cookTime.isZero()) {
             cooktime = null;
         }
         ingredients = source.ingredients.stream().map(XmlAdaptedIngredientPortion::new)

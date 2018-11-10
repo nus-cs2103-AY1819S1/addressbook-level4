@@ -7,7 +7,10 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.souschef.commons.exceptions.IllegalValueException;
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.recipe.XmlAdaptedLiteRecipe;
@@ -47,8 +50,8 @@ public class XmlAdaptedMealPlan {
 
     public XmlAdaptedMealPlan(Day source) {
         date = source.getDate().toString();
-        if (!source.getMeal(Meal.Slot.BREAKFAST).isEmpty()) {
-            Recipe sourceRecipe = source.getMeal(Meal.Slot.BREAKFAST).getRecipe();
+        if (!source.getMeal(Breakfast.SLOT).isEmpty()) {
+            Recipe sourceRecipe = source.getMeal(Breakfast.SLOT).getRecipe();
             String sourceName = sourceRecipe.getName().fullName;
             String sourceDifficulty = sourceRecipe.getDifficulty().toString();
             String sourceCookTime = sourceRecipe.getCookTime().toString();
@@ -57,8 +60,8 @@ public class XmlAdaptedMealPlan {
             breakfast = null;
         }
 
-        if (!source.getMeal(Meal.Slot.LUNCH).isEmpty()) {
-            Recipe sourceRecipe = source.getMeal(Meal.Slot.LUNCH).getRecipe();
+        if (!source.getMeal(Lunch.SLOT).isEmpty()) {
+            Recipe sourceRecipe = source.getMeal(Lunch.SLOT).getRecipe();
             String sourceName = sourceRecipe.getName().fullName;
             String sourceDifficulty = sourceRecipe.getDifficulty().toString();
             String sourceCookTime = sourceRecipe.getCookTime().toString();
@@ -67,8 +70,8 @@ public class XmlAdaptedMealPlan {
             lunch = null;
         }
 
-        if (!source.getMeal(Meal.Slot.DINNER).isEmpty()) {
-            Recipe sourceRecipe = source.getMeal(Meal.Slot.DINNER).getRecipe();
+        if (!source.getMeal(Dinner.SLOT).isEmpty()) {
+            Recipe sourceRecipe = source.getMeal(Dinner.SLOT).getRecipe();
             String sourceName = sourceRecipe.getName().fullName;
             String sourceDifficulty = sourceRecipe.getDifficulty().toString();
             String sourceCookTime = sourceRecipe.getCookTime().toString();
@@ -97,21 +100,21 @@ public class XmlAdaptedMealPlan {
         ArrayList<Meal> modelMeals = new ArrayList<>();
 
         if (breakfast != null) {
-            modelMeals.add(0, new Meal(Meal.Slot.BREAKFAST, breakfast.toModelType()));
+            modelMeals.add(0, new Breakfast(breakfast.toModelType()));
         } else {
-            modelMeals.add(0, new Meal(Meal.Slot.BREAKFAST, null));
+            modelMeals.add(0, new Breakfast());
         }
 
         if (lunch != null) {
-            modelMeals.add(1, new Meal(Meal.Slot.LUNCH, lunch.toModelType()));
+            modelMeals.add(1, new Lunch(lunch.toModelType()));
         } else {
-            modelMeals.add(1, new Meal(Meal.Slot.LUNCH, null));
+            modelMeals.add(1, new Lunch());
         }
 
         if (dinner != null) {
-            modelMeals.add(2, new Meal(Meal.Slot.DINNER, dinner.toModelType()));
+            modelMeals.add(2, new Dinner(dinner.toModelType()));
         } else {
-            modelMeals.add(2, new Meal(Meal.Slot.DINNER, null));
+            modelMeals.add(2, new Dinner());
 
         }
 

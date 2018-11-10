@@ -21,30 +21,31 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class TypicalRecipes {
 
-    public static final Recipe ALICE = new RecipeBuilder().withName("Alice Pauline")
-            .withCooktime("PT23M")
-            .withDifficulty("5")
-            .withTags("friends").build();
-    public static final Recipe BENSON = new RecipeBuilder().withName("Benson Meier")
-            .withCooktime("PT23M")
+    public static final Recipe APPLE = new RecipeBuilder().withName("Apple Pie")
+            .withCooktime("23M")
+            .withDifficulty("2")
+            .withInstruction("Pre-heat oven.")
+            .withTags("dessert").build();
+    public static final Recipe BANDITO = new RecipeBuilder().withName("Bandito Pockett")
+            .withCooktime("23M")
             .withDifficulty("5")
             .withInstruction("Mix all ingredients")
-            .withTags("owesMoney", "friends").build();
-    public static final Recipe CARL = new RecipeBuilder().withName("Carl Kurz").withCooktime("PT23M")
-            .withDifficulty("5").build();
-    public static final Recipe DANIEL = new RecipeBuilder().withName("Daniel Meier").withCooktime("PT23M")
-            .withDifficulty("5").withTags("friends").build();
-    public static final Recipe ELLE = new RecipeBuilder().withName("Elle Meyer").withCooktime("PT23M")
-            .withDifficulty("5").build();
-    public static final Recipe FIONA = new RecipeBuilder().withName("Fiona Kunz").withCooktime("PT23M")
-            .withDifficulty("5").build();
-    public static final Recipe GEORGE = new RecipeBuilder().withName("George Best").withCooktime("PT23M")
-            .withDifficulty("5").build();
+            .withTags("mexican", "wrap").build();
+    public static final Recipe CHINESE = new RecipeBuilder().withName("Chinese Fried Noodles").withCooktime("23M")
+            .withInstruction("Pre-heat oven.").withDifficulty("5").build();
+    public static final Recipe DANISH = new RecipeBuilder().withName("Danish Blueberry Tart").withCooktime("23M")
+            .withInstruction("Pre-heat oven.").withDifficulty("5").withTags("Danish").build();
+    public static final Recipe EGG = new RecipeBuilder().withName("Egg Roll").withCooktime("23M")
+            .withInstruction("Pre-heat oven.").withDifficulty("5").build();
+    public static final Recipe FRENCH = new RecipeBuilder().withName("French Onion Soup").withCooktime("23M")
+            .withInstruction("Pre-heat oven.").withDifficulty("5").build();
+    public static final Recipe GREEN = new RecipeBuilder().withName("Green Curry").withCooktime("23M")
+            .withInstruction("Pre-heat oven.").withDifficulty("5").build();
 
     // Manually added
-    public static final Recipe HOON = new RecipeBuilder().withName("Hoon Meier").withCooktime("PT23M")
+    public static final Recipe HOON = new RecipeBuilder().withName("Hoon Meier").withCooktime("23M")
             .withDifficulty("5").build();
-    public static final Recipe IDA = new RecipeBuilder().withName("Ida Mueller").withCooktime("PT23M")
+    public static final Recipe IDA = new RecipeBuilder().withName("Ida Mueller").withCooktime("23M")
             .withDifficulty("5").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}
@@ -70,6 +71,6 @@ public class TypicalRecipes {
     }
 
     public static List<Recipe> getTypicalRecipes() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(APPLE, BANDITO, CHINESE, DANISH, EGG, FRENCH, GREEN));
     }
 }

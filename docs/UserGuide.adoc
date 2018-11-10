@@ -41,62 +41,85 @@ image::Ui.png[width="790"]
 e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
-* *`-search KEYWORD... [x/KEYWORD]...`* : search for recipes related and excluded from the keywords
-* *`-favorite`* : display personal favorited recipes
-* *`-plannerlist`* : display personal meal schedule
+* *`find KEYWORD...`* : search for recipes related and excluded from the keywords (only within recipe context)
+* *`-mealplanner`* : Switch to meal planner context and display personal meal schedule
 * *`-exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::features[]
+
 [[Features]]
 == Features
+In Sous Chef, there are 2 types of command: universal commands and context-unique commands. +
+ +
+The universal commands can be used throughout the application and perform application-wide action. You can identify a
+ universal command from its "-" convention followed by a keyword (e.g. -exit). +
+ +
+ The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands (Only applicable in recipe context)>> can only be
+ used in -recipe context). These commands contains only a action key word followed by the required parameters, if any. (e.g. select INDEX)
 
 ====
-*Command Format*
+*Command Format Convention*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Chicken Rice`.
 * Items in square brackets are optional.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Japanese`, `t/Halal t/Seafood` etc.
 
 ====
+// end::features[]
+
+// tag::universalCommand[]
 === Universal Commands
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
-
 Format: +
 `-help`
 
-==== Display recipes database: `-recipe`
-Display all recipes records. +
+==== View history: `-history`
+To view previous commands entered. +
 Format: +
-`-recipe`
+`-history`
 
+<<<<<<< HEAD
 ==== Display new recipe: `-surprise`
 Display a random recipe for the user who wants to try something bold
 and new but has no idea what they want. +
 Format: +
 `-surprise`
-
-==== Display favorites: `-favourite`
-List all the bookmarked favourite recipes of the user. +
+=======
+==== Switch to recipe context: `-recipe`
+Switch to recipe context and display recipes. +
+See <<Recipes Commands (Only applicable in recipe context)>> to view commands for recipe context. +
 Format: +
-`-favourite`
+`-recipe`
+>>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 
-==== Display ingredient manager: `-ingredient`
-Ingredient manager is an inventory manager that helps stock
-tracking of existing ingredient available at home. +
+==== Switch to ingredient manager context: `-ingredient`
+Switch to ingredient manager context and display ingredient manager, which helps stock
+tracking of ingredient that the user currently have. +
+See <<Ingredient Manager Commands (Only applicable in ingredient context)>> to view commands for ingredient manager
+context. +
 Format: +
 `-ingredient`
 
-==== Display meal planner: `-mealplanner`
-Display current Meal Planner. Shows the planned meals for breakfast,
-lunch and dinner for previously planned days. +
+==== Switch to ingredient-recipe query context: `-cross`
+Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients includes and get information of needed amounts of ingredients. +
+See <<Ingredient-Recipe Query Commands (Only applicable in cross context)>> to view commands for ingredient-recipe
+query context. +
+Format: +
+`-cross`
+
+==== Switch to meal planner context: `-mealplanner`
+Switch to meal planner context and display the planned meals for breakfast, lunch and dinner for previously planned days. +
+See <<Meal Planner Commands (Only applicable in meal planner context)>> to view commands for meal planner context. +
 Format: +
 `-mealplanner`
 
-==== Display health plan: `-healthplan`
-Display the current health plan, shows health plan set by the user and the days added into the plan
-which is tied to meal plans +
+==== Switch to health plan context: `-healthplan`
+Switch to health plan context and display health plan set by the user and the days added into the plan which is tied
+ to meal plans. +
+See <<Health Plan Commands (Only applicable in health plan context)>> to view commands for health plan context. +
 Format: +
 `-healthplan`
 
@@ -105,14 +128,28 @@ Format: +
 Format: +
 `-exit`
 
-=== Recipes Commands
-==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]...  cont i/INSTRUCTION... [c/TIME] end`
+// end::universalCommand[]
+// tag::recipeCommand[]
+
+=== Recipes Commands (Only applicable in recipe context)
+
+==== List recipes: `list`
+Show all recipes. +
+Format: +
+`list`
+
+==== Add a recipe: `add` `cont` `end`
 Add new recipe. +
+[NOTE]
+====
+Full set of commands `add` `cont` `end` should be performed for the addition of recipe to be completed.
+====
 ****
-* This is a multi-line command.
+* This is a multi-line command. (i.e. `add`, `cont` and `end` must be in a seperate command entry)
 * Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
 ** NAME should come with any alphanumeric characters.
-** TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
+** TIME should have a integer value each with a postfix of H/M/S. A mixture of up to 2 postfixes are allowed i.e. H
+& M or M & S. Valid examples: 1H15M, 30M20S, 35M.
 ** DIFFICULTY should range from 1 to 5.
 ** TAG should come with any alphanumberic character.
 * Subsequence lines must start with `cont` and should only include details on one instructional step each.
@@ -123,9 +160,17 @@ Add new recipe. +
 *** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
 *** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
 *** SERVING_UNIT should only come as a single word. e.g. gram, g, ml.
-* Action will only be completed with a new line command `end`.
+* Recipe without at least one instruction and 'end' command will not be added.
+* User can perform other commands and continue adding instructions as required. `cont` command need not be continuous.
+* To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
+and enter a new recipe details as desired.
 
+[NOTE]
+====
+Recipes containing the same name, difficulty and cooktime are considered as duplicates and should not be allowed.
+====
 ****
+
 Format: +
 `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
 cont i/INSTRUCTION... [c/TIME] +
@@ -135,7 +180,7 @@ end` +
 INSTRUCTION: +
 `TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 
-==== Edit a recipe: `edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...`
+==== Edit a recipe: `edit`
 Edit new recipe. +
 ****
 * Attributes included are to be edited on a replacement basis (not concatenation e.g. tags are being replaced and not
@@ -145,11 +190,13 @@ Edit new recipe. +
 ** First: Used to edit recipe generic information namely name, cook time, difficulty
 and tags.
 *** NAME should come with any alphanumeric characters.
-*** TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
+*** TIME should have a integer value each with a postfix of H/M/S. A mixture of up to 2 postfixes are allowed i.e. H & M or M & S. Valid examples: 1H15M, 30M20S, 35M.
 *** DIFFICULTY should range from 1 to 5.
 *** TAG should come with any alphanumberic character.
 ** Second: Used to edit a single instruction of that recipe.
-*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command.
+*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command. Or you can add a new step by
+using a STEP 1 number higher the highest existing step. (e.g. 6 existing steps, use `s/7` to add instead of
+replace.)
 *** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using
 `#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
 ****
@@ -161,7 +208,7 @@ or +
 INSTRUCTION: +
 `TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 
-==== Display recipe details: `select INDEX`
+==== Display recipe details: `select`
 View a recipe and its details from the list. +
 ****
 * `INDEX` should be as displayed in the list.
@@ -169,13 +216,13 @@ View a recipe and its details from the list. +
 Format: +
 `select INDEX`
 
-==== Search recipes: `find KEYWORD...`
+==== Search recipes: `find`
 Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
 dietary types (vegan, Keto),
 ingredients (egg, broccoli),
-preparation time (quick, 30mins)
-and difficulty (easy, simple, challenging). +
+preparation time (30M, 1H40M)
+and difficulty (1, 2, ..., 5). +
 ****
 * `KEYWORD` is case insensitive.
 * The order of keywords does not matter.
@@ -183,7 +230,7 @@ and difficulty (easy, simple, challenging). +
 Format: +
 `find KEYWORD...`
 
-==== Delete recipe: `delete INDEX`
+==== Delete recipe: `delete`
 Delete a recipe and its details from the list. +
 ****
 * `INDEX` should be as displayed in the list.
@@ -191,13 +238,15 @@ Delete a recipe and its details from the list. +
 Format: +
 `delete INDEX`
 
-==== Activate cook-mode [coming in V2.0]: `cook INDEX`
+==== Activate cook-mode [coming in V2.0]: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
 ****
 * `INDEX` should be as displayed in the list.
 ****
 Format: +
 `cook INDEX`
+
+// end::recipeCommand[]
 
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +
@@ -207,6 +256,7 @@ Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
 
+<<<<<<< HEAD
 ==== Display recipe suggestion: `-suggest` [coming in V1.4]
 Display system suggestions based on user's past navigation history
 and favorites. +
@@ -214,6 +264,9 @@ Format: +
 `-suggest`
 
 ==== Add to meal plan: `plan INDEX DATE MEAL`
+=======
+==== Add to meal plan: `plan`
+>>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 Add a specified recipe to meal plan. +
 ****
 * INDEX should be the index number of the recipe displayed
@@ -223,15 +276,16 @@ Add a specified recipe to meal plan. +
 Format: +
 `plan INDEX DATE MEAL`
 
-==== Add to review [coming in V2.0]: `review [Comment] RATING`
+==== Add to review [coming in V2.0]: `review`
 Add comment and rating to current recipe. +
 ****
 * Local command on recipe page.
 * Rating must be between *1 to 5*.
 ****
 Format: +
-`review [Comment] RATING`
+`review [COMMENT] RATING`
 
+<<<<<<< HEAD
 === Favourites Commands
 
 ==== List all ingredients: `list`
@@ -265,95 +319,121 @@ Clears all favourite recipes.
 Format: `clear`
 
 === Ingredient Manager Commands
+=======
+// tag::ingredient[]
+=== Ingredient Manager Commands (Only applicable in ingredient context)
+>>>>>>> 35fafbea16ae0ff1bc817b4ceaf10f8c6dc5424a
 
 ==== Add an ingredient: `add`
 
-Adds an ingredient to the ingredient manager.
+Adds an ingredient to the ingredient manager. +
 Format: +
 `add NAME AMOUNT SERVING_UNIT DATE`
 
 ****
-* If there are more than 1 words for name, ‘_’ is used to separate words
-* Serving Unit: follows the recipe book's standard
-* Entered Date: mm-dd-yyyy
+* For compound word, ‘_’ is used to separate words.
+* Serving units are pre-defined in the serving unit dictionary. Those undefined in the dictionary are not available.
+* Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
+teaspoon and cup.
+* Amounts are converted with common serving unit(e.g. gram and cm3).
+* Format for date should be MM-dd-yyyy
+* Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
+expire date.
 ****
 ==== List all ingredients: `list`
 
-Shows a list of user’s ingredients. Ingredients are sorted by entered date, so that the ingredients entered earlier
+Shows a list of ingredients in ingredient manager. Ingredients are sorted by date, so that the ingredients with
+earlier date
 are placed high in order. +
 Format: +
 `list`
 
 ==== Edit ingredient info: `edit`
 
-Edit an existing ingredient in the ingredient manager. +
+Edit an existing ingredient in ingredient manager. +
 Format: +
-`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]...`
+****
+* Field name is either name, amount, or date.
+* Restrictions for respective field's input are same as in add command(3.3.1.).
+****
 
 ==== Find ingredient: `find`
 
-Find ingredients whose name contains any of the given keywords.
+Find ingredients in ingredient manager whose name contains any of the given keywords. +
 Format: +
-`find KEYWORD…`
+`find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* Keywords are case insensitive
-* Only the name is searched
-* Match only full words
+* Only the name is searched.
+* Match by full words.
 ****
 
 ==== Delete ingredient: `delete`
 
-Delete ingredient added by user according to its index in last shown list.
+Delete ingredient in ingredient manager according to its index in the last shown list. +
 Format: +
 `delete INDEX`
 
-==== Clear ingredients: `clear`
+==== Clear all ingredients: `clear`
 
-Clears all ingredients.
-
-Format: `clear`
+Clears all ingredients in ingredient manager. +
+Format: +
+`clear`
 
 // tag::cross[]
-=== Recipe-Ingredient Query Commands
+=== Ingredient-Recipe Query Commands (Only applicable in cross context)
 
-==== View Recipe based on Ingredients
-By default, the list has recipes that are stored in normal recipe list. User can filter, sort the recipe list
-based on ingredients. Also, needed amount of ingredients is calculated based on the number of serving unit so that
-user can check it with select command later. +
+==== View Recipes based on Ingredients `view`
+By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
+based on ingredients contained in recipes. Also, needed amounts of ingredients are calculated by considering the number
+ of
+serving units and ingredients stored in ingredient manager, so
+that
+user can take a look by applying select command later. +
 Format: +
-`recipe NUMBER_OF_SERVINGS include [inventory] KEYWORD... prioritize [inventory] KEYWORD...` +
+`view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]... prioritize [inventory] KEYWORD [MORE_KEYWORDS]...` +
 ****
-* "include" keyword filters the list, leaving the recipes that includes all of following ingredients on the list. +
-* "prioritize" keyword sorts the recipes based on number of following ingredients it contains. Recipes containing the
-most number of following ingredients would placed high in order. +
-* "inventory" keyword either follows "include" or "prioritize", provides all the ingreident in Ingredient
+* Number of servings can be a floating point value.
+* Names of ingredients are used as keywords. If the keyword is a compound word, '_' is used to separate between the
+words.
+(For example,
+spring_onion)
+* "include" keyword filters the list, only leaving the recipes that includes all of following ingredients in the list. +
+* "prioritize" keyword sorts the recipes based on number of the following ingredients contained. Recipes containing
+ the
+most number of following ingredients would be placed high in order. +
+* "inventory" keyword provides all the ingreident in Ingredient
 Manager
-as parameter to the keyword that it follows. +
-* "inventory" keyword is optional, but cannot appear more than once. Also, it should
+as parameter to the keyword it follows. +
+* "inventory" keyword is optional, but cannot appear more than once. It
 directly
-follow "include" or "prioritize" keyword.
+follows either "include" keyword or "prioritize" keyword.
 ****
 
-==== View needed amount of ingredients for a Recipe
-For a recipe on the list resulting from cross find command, user can view amount of respective ingredients that
-needs to be prepared additionally. It
+==== View needed amounts of ingredients for a Recipe `select`
+For a recipe in the list shown as a result of above command(3.4.1.), user can view amounts of respective ingredient
+in the recipe
+that
+needs to be additionally prepared. It reflects number of serving units and
 refers to Ingredient Manager to get the amount of ingredients the user currently have. +
 Format: +
 `select INDEX` +
 ****
-* Amount of necessary ingredients is calculated based on the information in Ingredient Manager. +
-e.g. If positive, (Number of Servings *
- Total Amount needed for a Recipe - Amount that the user currently have). Otherwise, 0.
+* Amounts of necessary ingredients are calculated based on the information in Ingredient Manager. +
+e.g. If positive, (Number of Servings ×
+ Total Amount of an ingredient for a Recipe - Amount of an ingredient stored in ingredient manager). Otherwise, 0.
 ****
 ==== List all recipes: `list`
-
-Shows a list of recipes. The list restores the default mode, erasing the result of cross find command. +
+Shows a list of recipes. It restores the default state of the list, undoing the calculation resulting from 'view
+recipes based on ingredients'
+command(3.4.1.). +
 Format: +
 `list`
 
 // tag::mealplanner[]
-=== Meal Planner Commands
+=== Meal Planner Commands (Only applicable in meal planner context)
+
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
@@ -365,7 +445,6 @@ After displaying the meal planner, deletes the specified day.
 
 Format: `delete INDEX`
 
-==== Clear planner: `clear`
 
 Clears all the meal slots of the meal planner.
 
@@ -378,24 +457,22 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
-
-=== Health-planner Command
+=== Health Plan Commands (Only applicable in health plan context)
 
 ==== Add plan: `add`
 
 Adds a health plan under the user. +
 Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
-TARGET WEIGHT, DURATION AND SCHEME +
+TARGET WEIGHT, AND DURATION+
 
 Format: +
-`add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION s/SCHEME` +
+`add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION` +
 
 ****
 * Height is numeric and input is of centimetre units
 * Current weight is numeric and input is of Kilogram units
 * Target Weight is numeric and input is of Kilogram units
 * AGE must be numeric
-* GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
 * DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
@@ -414,7 +491,7 @@ Format: +
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION] [s/SCHEME]` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]` +
 
 ****
 * INDEX specifies the entry to edit, has to be numeric and more than 0
@@ -422,7 +499,6 @@ Format : +
 * Current weight is numeric, be more than 0 and input is of Kilogram units
 * Target Weight is numeric, be more than 0 and input is of Kilogram units
 * AGE must be numeric and more than 0
-* GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
 * DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
@@ -431,7 +507,7 @@ Format : +
 After being shown the meal planner list by the system +
 User selects to add to intake List +
 Format: +
-`addDay p/PlanIndex d/DayIndex'
+`addDay p/PLAN_INDEX d/DAY_INDEX'
 
 ****
 * Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
@@ -443,7 +519,7 @@ Format: +
 After being shown the list of days from intake list +
 User selects day to remove and also the plan to remove from +
 Format: +
-`deleteDay p/PlanIndex d/DayIndex`
+`deleteDay p/PLAN_INDEX d/DAY_INDEX`
 
 ****
 * Plan Index specifies the plan to delete from, has to be more than 0 and be a valid index on the list
@@ -455,6 +531,12 @@ Format: +
 User enters command to view the full list of meals beside the health plan list
 Format: +
 'showMeal'
+
+==== Hide view on the right : 'hideMeal'
+
+User enters command to hide any view that is currently displayed on the right
+Format: +
+'hideMeal'
 
 ==== View plan details : `showDetails`
 
@@ -515,17 +597,18 @@ Format: +
 *Universal Commands*
 
 * View help: `-help`
-* Display all recipe: `-recipe`
-* Display recipe suggestion: `-suggest`
-* Display new recipe: `-surprise`
-* Display favorites: `-favourite`
-* Display ingredient manager: `-ingredient`
-* Display meal planner: `-mealplanner`
+* View history: `-history`
+* Switch to recipe context: `-recipe`
+* Switch to ingredient manager context: `-ingredient`
+* Switch to ingredient-recipe query context: `-cross`
+* Switch to meal planner context: `-mealplanner`
+* Switch to health plan context: `-healthplan`
 * Exit application: `-exit`
 
-*Recipes Commands*
+*Recipes Commands (Only applicable in recipe context)*
 
-* Add a recipe: `add n/NAME c/TIME [t/TAG]... +
+* List recipes: `list` +
+* Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
 cont i/INSTRUCTION [c/TIME] +
 cont... +
 end`
@@ -539,35 +622,43 @@ or +
 * Search recipes: `find KEYWORD...`
 * Delete recipe details: `delete INDEX`
 * Activate cook-mode [coming in V2.0]: `cook INDEX`
-
-*Recipe Details Commands*
-
 * Add recipe to favourite: `favourite`
 * Add to meal plan: `plan INDEX DATE MEAL`
-* Active cook-mode: `cook`
+* Add to review [Coming in V2.0]: `review [COMMENT] RATING`
 
-*Ingredient Manager Commands*
+*Ingredient Manager Commands (Only applicable in ingredient context)*
 
 * Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
 * List all ingredients: `list`
-* Clear all ingredients: `clear`
-* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
-* Search ingredient: `find KEYWORD…`
+* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Search ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
 * Delete ingredient: `delete INDEX`
+* Clear all ingredients: `clear`
 
-*Recipe-Ingredient Query Commands*
+*Recipe-Ingredient Query Commands (Only applicable in cross context)*
 
-* View Recipe based on Ingredients: `recipe NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
-KEYWORD…​`
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]…​ prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​`
 * View needed amount of ingredients for a Recipe: `select INDEX`
 * List all recipes: `list`
 
 
-*Meal Planner Commands*
+*Meal Planner Commands (Only applicable in meal planner context)*
 
 * Delete day: `delete INDEX`
 * Clear planner: `clear`
 * View recipe details: `select INDEX MEAL`
+
+*Health Plan Commands*
+
+* Add health plan: `add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
+* Delete health plan `delete INDEX`
+* Edit health plan: `edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
+* Show all current meals planned in system: `showMeal`
+* Hide panels on the right: `hideMeal`
+* Show details of a health plan: `showDetails INDEX`
+* Add a day from meal planner into a health plan: `addDay p/PLAN_INDEX d/DAY_INDEX`
+* Remove a day from the list of meals in health plan: `deleteDay p/PLAN_INDEX d/DAY_INDEX`
+
 
 *Cook-Mode Commands [coming in V2.0]*
 

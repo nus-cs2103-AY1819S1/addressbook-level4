@@ -110,7 +110,7 @@ public class DetailPanel extends UiPart<Region> {
         Map<IngredientDefinition, IngredientPortion> neededIngredients = crossRecipe.getNeededIngredients();
         name.setText(targetRecipe.getName().fullName);
         ingredientLabel.setText("Ingredients: ");
-        ingredientToShopLabel.setText("Ingredients to shop");
+        ingredientToShopLabel.setText("Ingredients to shop: ");
         instructionLabel.setText("Instruction: ");
         ingredients.setText(ingredientsDisplay(targetRecipe.getIngredients()));
         ingredientsToShop.setText(ingredientsDisplay(neededIngredients));
