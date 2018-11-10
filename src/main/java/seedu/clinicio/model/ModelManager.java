@@ -110,7 +110,11 @@ public class ModelManager extends ComponentManager implements Model {
      * @param index the index of the tab
      */
     public void switchTab(int index) {
-        uiManager.switchTab(index);
+        // if uiManager is null, it is assumed that this method is
+        // called from test classes that don't require switchTab.
+        if (uiManager != null) {
+            uiManager.switchTab(index);
+        }
     }
 
     //========== Boolean check ===============================================================================

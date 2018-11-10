@@ -40,6 +40,7 @@ import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.PatientBuilder;
+import seedu.clinicio.ui.Ui;
 
 public class AddPatientCommandTest {
 
@@ -126,6 +127,27 @@ public class AddPatientCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        //@@author iamjackslayer
+        @Override
+        public void updateQueue(Predicate<Patient> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Patient> getAllPatientsInQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUi(Ui ui) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void switchTab(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -189,11 +211,6 @@ public class AddPatientCommandTest {
 
         @Override
         public ObservableList<Patient> getFilteredPatientList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -387,6 +404,11 @@ public class AddPatientCommandTest {
             requireNonNull(patient);
             return this.patient.isSamePatient(patient);
         }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
+        }
     }
 
     /**
@@ -415,6 +437,11 @@ public class AddPatientCommandTest {
         @Override
         public ReadOnlyClinicIo getClinicIo() {
             return new ClinicIo();
+        }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
         }
     }
 
