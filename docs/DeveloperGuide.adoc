@@ -283,7 +283,7 @@ The `Storage` component does the following:
 
 Classes used by multiple components are in the `ssp.scheduleplanner.commons` package.
 
-== Current Implementation
+== Implementation
 
 This section elaborates on how certain features are implemented.
 
@@ -761,18 +761,50 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 === Display Tags in Sidebar
 
 Whenever the user tags a task with a new tag, the tag will be added to the sidebar panel. The user will be able to view
-all of the tags he/she has used to categorize tasks.
-
-[coming in v1.4]
+all of the tags he/she has used to categorize tasks. Entering the command tags c/CATEGORY will expand the tab for the specified category to show all tags listed under that category.
 
 ==== Current Implementation
+
+Every time any category or tag is changed in the Student Schedule Planner, it raises a SchedulePlannerChangedEvent. The UI will then handle that event and update the side bar panel with the new version of categories and tags.
+
+Given below is an example usage scenario and how the schedule planner behaves at each step:
+
+Step 1. The user executes command `addtag c/Modules t/CS2100`.
+
+Step 2. The `addtag` command updates the model with the new tag and raises a new SchedulePlannerChangedEvent.
+
+Step 3. SidebarPanel responds to the SchedulePlannerChangedEvent with SidebarPanel#handleSchedulePlannerChangedEvent().
+
+Step 4. The Accordion containing all the categories and tags is cleared.
+
+Step 5. The Accordion is filled with the new list of updated categories and tags.
+
+Step 6. The user executes command `tags c/Modules`.
+
+Step 7. The ShowTagsCommand raises a new ShowTagsRequestEvent("Modules").
+
+Step 8. SidebarPanel responds to the ShowTagsRequestEvent with SidebarPanel#handleShowTagsRequestEvent().
+
+Step 9. The TitledPane with the matching name "Modules" is expanded to display all the tags listed under the Modules category.
+
+==== Design Considerations
+
+===== Aspect: How to update the tags on UI
+
+* **Alternative 1 (current choice):** Clear all the TitledPanes and add new TitledPanes accordingly.
+** Pros: No matter which category or tag is changed, or what type of change (ie. delete, add, or edit), this change can be handled by the same method each time.
+** Cons: It is redundant to clear everything and replace them with new TitledPanes.
+
+* **Alternative 2:** Handle different kinds of changes to the category or tag lists.
+** Pros: It is a lot faster to only change the TitledPane that is affected.
+** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: category is deleted/edited/created/cleared, or a tag is deleted/added)
 
 //end::displaytagsinsidebar[]
 
 //tag::progressbar[]
-=== Display Progress Bar
+=== Display Progress Bars
 
-The `progresstoday` and `progressweek` commands display the percentage of tasks archived for the current day and week respectively. The progress bars at the bottom also reflect the percentages automatically without the need for any commands to be entered.
+The progress bars for today's progress and this week's progress at the bottom reflect the percentages automatically when the schedule planner is changed in any way.
 
 ==== Current Implementation
 
@@ -781,7 +813,7 @@ UI part ProgressBarPanel will handle this event and update the values for both t
 
 Given below is an example usage scenario and how the progress bar mechanism behaves at each step:
 
-Step 1. User adds a new Task for today.
+Step 1. User archives a Task due today.
 
 Step 2. A new SchedulePlannerChangedEvent is raised.
 
@@ -801,11 +833,18 @@ Step 9. The same is done for this week's progress bar but the lists are filtered
 
 The following sequence diagram shows how the progress bar mechanism works:
 
+image::ProgressBarSequenceDiagram.png[width="400"]
 
 ==== Design Considerations
 
-===== Aspect:
-* **Alternative 1 (current choice):**
+===== Aspect: How the percentages are calculated
+* **Alternative 1 (current choice):** Calculate the percentage of progress by finding the size of filtered task list and filtered archived list.
+** Pros: It is easy to implement.
+** Cons: It may be slow if the task list and archived task list are very long.
+
+* **Alternative 2:** Keep track of number of uncompleted and completed tasks in new Objects called Day and Week.
+** Pros: It is much faster to calculate the percentage compared to filtering each task list by a predicate then calculating its size.
+** Cons: The Day and Week objects must be updated for a majority of the commands the app supports. If I had more time, I would have been able to implement this fully.
 
 //end::progressbar[]
 == Documentation
