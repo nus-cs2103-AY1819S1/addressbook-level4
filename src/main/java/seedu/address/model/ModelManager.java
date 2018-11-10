@@ -174,9 +174,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author kengwoon
     @Override
     public void clearMultiplePersons(List<Person> target) {
-        for (Person p : target) {
-            deletePerson(p);
-        }
+        versionedAddressBook.removeMultiplePersons(target);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
@@ -200,6 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addMultiplePersons(List<Person> personList) {
         versionedAddressBook.addMultiplePersons(personList);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 

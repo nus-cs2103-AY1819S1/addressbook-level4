@@ -101,7 +101,6 @@ public class ClearCommand extends Command {
         }
 
         model.clearMultiplePersons(toClear);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
     }

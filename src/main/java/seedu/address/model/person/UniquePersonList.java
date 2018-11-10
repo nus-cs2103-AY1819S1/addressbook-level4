@@ -58,7 +58,7 @@ public class UniquePersonList implements Iterable<Person> {
     //@@author kengwoon
 
     /**
-     * Adds a person to the list.
+     * Adds persons to the list.
      * Existing persons will be ignored.
      */
     public void addMultiplePersons(List<Person> toAdd) {
@@ -66,6 +66,19 @@ public class UniquePersonList implements Iterable<Person> {
         for (Person p : toAdd) {
             if (!contains(p)) {
                 internalList.add(p);
+            }
+        }
+    }
+
+    /**
+     * Removes persons from the list.
+     * Existing persons will be ignored.
+     */
+    public void removeMultiplePersons(List<Person> toRemove) {
+        requireNonNull(toRemove);
+        for (Person p : toRemove) {
+            if (!internalList.remove(p)) {
+                throw new PersonNotFoundException();
             }
         }
     }
