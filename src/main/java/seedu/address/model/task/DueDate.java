@@ -67,7 +67,7 @@ public class DueDate implements Comparable<DueDate> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DueDate // instanceof handles nulls
-                && value.equals(((DueDate) other).value)); // state check
+                && valueDate.equals(((DueDate) other).valueDate)); // state check
     }
 
     @Override

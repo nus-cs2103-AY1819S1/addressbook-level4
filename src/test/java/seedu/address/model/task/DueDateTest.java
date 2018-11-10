@@ -61,6 +61,9 @@ public class DueDateTest {
         DueDate date1 = new DueDate("1-1-18");
         DueDate date2 = new DueDate("1-1-18");
         assertTrue(date1.equals(date2));
+
+        DueDate date3 = new DueDate("1-1-18 0000");
+        assertTrue(date1.equals(date3));
     }
 
     @Test
