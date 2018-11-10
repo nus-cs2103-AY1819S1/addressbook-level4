@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCodeContainsKeywordsPredicate;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -72,6 +71,5 @@ public class PersonModuleCodeContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new PersonModuleCodeContainsKeywordsPredicate(Arrays.asList("cs2103t"));
         assertFalse(predicate.test(new PersonBuilder().withModuleList(moduleList).build()));
-        
     }
 }

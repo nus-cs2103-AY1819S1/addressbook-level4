@@ -155,6 +155,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds a new person.
+     * @return person which has been built.
+     */
     public Person build() {
         return new Person(name, phone, email, address, tags, occasionList.asUnmodifiableObservableList(),
                 moduleList.asUnmodifiableObservableList());
