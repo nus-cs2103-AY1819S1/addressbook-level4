@@ -1,9 +1,3 @@
-== Note
-
-This is a template for a portfolio, copied from the original AB4 fork.
-
----
-
 = Jeffery Kwoh Ji Hui - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
