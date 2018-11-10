@@ -422,7 +422,7 @@ image::undoRedoSequenceDiagram.png[width="800"]
 The redo command does the opposite — it calls `Model#redoPreviewImage()`, which shifts the currentStatePointer once to the right, pointing to the previously undone state.
 
 [NOTE]
-If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `PreviewImage's` last state, then there are no undone states to restore. The `redo` command uses `Model#canReddoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `PreviewImage's` last state, then there are no undone states to restore. The `redo` command uses `Model#canRedoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 
 The following activity diagram summarizes what happens when a user executes a new transformation:
