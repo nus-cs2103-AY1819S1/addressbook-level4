@@ -72,6 +72,8 @@ public class InsertPersonCommand extends Command {
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
+                                personToReplace.makeDeepDuplicate(),
+                                moduleToReplace.makeDeepDuplicate(),
                                 personToReplace, moduleToReplace);
             model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -96,6 +98,8 @@ public class InsertPersonCommand extends Command {
             }
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
+                                occasionToReplace.makeDeepDuplicate(),
+                                personToReplace.makeShallowDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace, occasionToReplace);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
