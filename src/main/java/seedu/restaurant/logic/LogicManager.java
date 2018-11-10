@@ -20,7 +20,6 @@ import seedu.restaurant.logic.commands.menu.FilterMenuCommand;
 import seedu.restaurant.logic.commands.menu.FindItemCommand;
 import seedu.restaurant.logic.commands.menu.ListItemsCommand;
 import seedu.restaurant.logic.commands.menu.SelectItemCommand;
-import seedu.restaurant.logic.commands.menu.SortMenuCommand;
 import seedu.restaurant.logic.commands.menu.TodaySpecialCommand;
 import seedu.restaurant.logic.parser.RestaurantBookParser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
@@ -58,8 +57,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return command instanceof LoginCommand || command instanceof HelpCommand
                 || command instanceof ExitCommand || command instanceof SelectItemCommand
                 || command instanceof FindItemCommand || command instanceof FilterMenuCommand
-                || command instanceof ListItemsCommand || command instanceof SortMenuCommand
-                || command instanceof TodaySpecialCommand;
+                || command instanceof ListItemsCommand || command instanceof TodaySpecialCommand;
     }
 
     @Override
