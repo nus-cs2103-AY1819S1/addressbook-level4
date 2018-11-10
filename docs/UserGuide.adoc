@@ -109,11 +109,11 @@ please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
 Adds copies of the same task to a specified day in the week, for a given number of weeks. +
 ====
-[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
+[blue]`repeat r/REPEATS i/INTERVAL n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 ====
 Example: +
 ====
-Input: [blue]`add r/3 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
+Input: [blue]`add r/3 i/7 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
 
 Outcome: Adds 3 tasks named [blue]`Lecture` with priority level [blue]`3`,
 tag [blue]`CS3241`, venue at [blue]`mpsh1`, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
@@ -137,7 +137,7 @@ will have the deadline set to the 21st  century instead. For example, a task cre
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit INDEX n/NAME p/PRIORITYLEVEL t/[TAGS]... d/DEADLINE v/VENUE`
+[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE] v/[VENUE]`
 ====
 Example:
 
@@ -297,7 +297,7 @@ image::ListMonth_Before_After.png[width="400"]
 
 Finds tasks whose names match with given keyword. +
 ====
-[blue]`find [NAME]`
+[blue]`find NAME`
 ====
 Example:
 ====
@@ -318,7 +318,7 @@ You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS
 === Filtering Tasks by Tag
 Filters and lists tasks with tags matching those entered by the user. User may input more than 1 tag. +
 ====
-[blue]`filter [TAG] [TAG2] ...`
+[blue]`filter TAG [TAG2] ...`
 ====
 Example:
 ====
@@ -383,7 +383,7 @@ will be rejected as they are considered as more than one set of date.
 Adds a new category to the schedule planner.
 Our application allows user to organize tags by saving tags into relevant categories. +
 ====
-[blue]`addcat c/[CATEGORY]`
+[blue]`addcat c/CATEGORY`
 ====
 
 Example:
@@ -409,7 +409,7 @@ categories must have different names.
 === Adding a Tag to a Category
 Adds a tag to selected existing category.
 ====
-[blue]`addtag c/[CATEGORY] t/[TAG]`
+[blue]`addtag c/CATEGORY t/TAG`
 ====
 
 Example:
@@ -430,7 +430,7 @@ these tags will be automatically added to default category [blue]`Others`.
 === Clearing a Category
 Clears all tags saved under selected category.
 ====
-[blue]`clearcat c/[CATEGORY]`
+[blue]`clearcat c/CATEGORY`
 ====
 
 Example:
@@ -452,7 +452,7 @@ category [blue]`Modules`, the tag [blue]`CS2105` will be removed from schedule p
 === Deleting a Category
 Deletes an existing category from schedule planner.
 ====
-[blue]`removecat c/[CATEGORY]`
+[blue]`removecat c/CATEGORY`
 ====
 
 Example:
@@ -471,7 +471,7 @@ For more detailed guide about clearing categories, please refer to <<Clearing a 
 === Renaming a Category
 Edits name of an existing category.
 ====
-[blue]`editcat c/[ORIGINAL CATEGORY NAME] c/[NEW CATEGORY NAME]`
+[blue]`editcat c/ORIGINAL CATEGORY NAME c/NEW CATEGORY NAME`
 ====
 
 Example:
@@ -493,9 +493,9 @@ does not overlap with other existing categories in your schedule planner.
 // tag::showtags[]
 === Displaying Used Tags
 
-Shows all tags that have been used in the sidebar. +
+Shows all tags categorised under the specified category. It expands the tab in the sidebar. +
 ====
-[blue]`tags`
+[blue]`tags c/CATEGORY`
 ====
 // end::showtags[]
 // tag::progressbar[]
@@ -595,7 +595,7 @@ Example: +
 ====
 * *Adding Recurring Tasks* :
 ====
-[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
+[blue]`repeat r/REPEATS i/INTERVAL n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 ====
 * **Listing All Tasks** :
 ====
@@ -613,21 +613,21 @@ Example: +
 * **Finding Tasks by Name** :
 
 ====
-[blue]`find [NAME]` +
+[blue]`find NAME` +
 
 Example: +
 [blue]`find tutorial` +
 ====
 * **Filter Tasks by Tag** :
 ====
-[blue]`filter [TAG] ...` +
+[blue]`filter TAG ...` +
 
 Example: +
 [blue]`filter tutorial`
 ====
 * **Deleting Tasks** :
 ====
-[blue]`delete [INDEX]` +
+[blue]`delete INDEX` +
 
 Example: +
 [blue]`delete 1` +
@@ -635,7 +635,7 @@ Example: +
 * **Archiving Tasks** :
 
 ====
-[blue]`archive [INDEX]` +
+[blue]`archive INDEX` +
 
 Example: +
 [blue]`archive 1` +
@@ -668,7 +668,7 @@ Example: +
 
 * **Listing Used Tags** :
 ====
-[blue]`tags`
+[blue]`tags c/CATEGORY`
 ====
 
 * **Displaying Today's Progress** :
