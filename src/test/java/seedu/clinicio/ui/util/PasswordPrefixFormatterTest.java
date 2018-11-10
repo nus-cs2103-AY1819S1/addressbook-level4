@@ -71,7 +71,7 @@ public class PasswordPrefixFormatterTest {
                 + WHITESPACE + PREFIX_PASSWORD + VALID_PASSWORD_ADAM
                 + WHITESPACE + PREFIX_ROLE + "doctor";
         formattedText = formatter.maskPassword(text, false, false);
-        
+
         assertEquals(expectedText, formatter.unmaskPassword(formattedText));
 
         // Password prefix is the first one
