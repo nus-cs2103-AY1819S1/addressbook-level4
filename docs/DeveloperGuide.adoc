@@ -821,7 +821,7 @@ image::RLSequenceDiagram.png[width="900"]
 
 When the `ReferralLetterCommand` is executed, it will construct a new `ReferralLetter` object and extract the relevant information
 from the `ServedPatient` specified by the `index`.
-Shown below is how information like `referralContent` and `noteContent` is formatted into the referral letter document template.
+Shown below is how information like `referralContent` and `noteContent` are formatted into the referral letter document template.
 ``` Java
     public String formatInformation() {
             String referralContent = getReferralContent();

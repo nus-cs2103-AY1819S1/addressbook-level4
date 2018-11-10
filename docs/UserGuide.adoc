@@ -642,12 +642,11 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::mc[]
 ==== Generating medical certificate: `mc`
 
-Generates a medical certificate for the Served Patient. +
+Clinic staff can use this command to generate a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -660,13 +659,12 @@ image::mc_fig.png[width="600"]
 
 ==== Generating receipt: `receipt`
 
-Generates a receipt for the Served Patient. +
+Clinic staff can use this command to generate a receipt for the Served Patient. +
 Alias: `rec` +
 Format: `receipt INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a receipt for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -679,14 +677,13 @@ image::receipt_fig.png[width="600"]
 // tag::refer[]
 ==== Generating referral letter: `refer`
 
-Generates a referral letter for the Served Patient. +
+Clinic staff can use this command to generate a referral letter for the Served Patient. +
 Alias: `ref` +
 
 Format: `refer INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
