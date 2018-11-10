@@ -12,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class CanvasBgcolorCommandTest {
 
     @Test
-    void executeChangeNoneSuccess() {
+    public void executeChangeNoneSuccess() {
         String args = "none";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -27,7 +27,7 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void executeChangeRgbaSuccess() {
+    public void executeChangeRgbaSuccess() {
         String args = "rgba(0,0,0,0.0)";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -42,7 +42,7 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void executeChangeHexSuccess() {
+    public void executeChangeHexSuccess() {
         String args = "#00ff00";
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -57,7 +57,7 @@ class CanvasBgcolorCommandTest {
     }
 
     @Test
-    void executeChangeInvalidFailure() {
+    public void executeChangeInvalidFailure() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();

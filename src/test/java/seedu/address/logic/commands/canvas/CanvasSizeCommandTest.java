@@ -12,7 +12,7 @@ import seedu.address.testutil.ModelGenerator;
 class CanvasSizeCommandTest {
 
     @Test
-    void executeChangeSizeSuccess() {
+    public void executeChangeSizeSuccess() {
         int newHeight = 123;
         int newWidth = 456;
         String args = String.format("%dx%d", newWidth, newHeight);
@@ -30,7 +30,7 @@ class CanvasSizeCommandTest {
     }
 
     @Test
-    void executeListSizeSuccess() {
+    public void executeListSizeSuccess() {
         String args = null;
         Model model = ModelGenerator.getDefaultModel();
         Model expectedModel = ModelGenerator.getDefaultModel();
@@ -46,7 +46,7 @@ class CanvasSizeCommandTest {
     }
 
     @Test
-    void executeInvalidSizeFailure() {
+    public void executeInvalidSizeFailure() {
         String args = "-100x100";
         Model model = ModelGenerator.getDefaultModel();
         CommandHistory ch = new CommandHistory();
@@ -61,7 +61,7 @@ class CanvasSizeCommandTest {
     }
 
     @Test
-    void executeChangeInvalidFailure() {
+    public void executeChangeInvalidFailure() {
         int newHeight = -123;
         int newWidth = 456;
         String args = String.format("%dx%d", newWidth, newHeight);
