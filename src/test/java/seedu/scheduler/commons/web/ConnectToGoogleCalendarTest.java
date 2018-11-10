@@ -358,6 +358,7 @@ public class ConnectToGoogleCalendarTest {
 
     @Test
     public void pushToGoogleCal() {
+        //set up the google-enabled environment
         enable();
         /* Case: add a single event -> added */
         Event validEvent = new EventBuilder(CHRISTMAS).build();
@@ -368,6 +369,20 @@ public class ConnectToGoogleCalendarTest {
         validEvent = new EventBuilder(CS2103_LECTURE).build();
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()));
+        //close the google-enabled environment
+        disable();
+    }
+
+    @Test
+    public void deleteOnGoogleCal() {
+        //set up the google-enabled environment
+        enable();
+        Event validEvent = new EventBuilder(CHRISTMAS).build();
+        validEvent.getEventUid();
+
+
+
+        //close the google-enabled environment
         disable();
     }
 }
