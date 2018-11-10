@@ -64,8 +64,8 @@ class ConnectToGoogleCalendarTest {
 
     @Test
     void isGoogleCalendarDisabled() {
-        boolean isDisabled = true;
-        assertEquals(true, isDisabled);
+        disable();
+        assertTrue(ConnectToGoogleCalendar.isGoogleCalendarDisabled());
     }
 
     @Test

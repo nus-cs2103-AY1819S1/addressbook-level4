@@ -75,7 +75,7 @@ public class ConnectToGoogleCalendar {
         return checkStatus("Enabled");
     }
 
-    public boolean isGoogleCalendarDisabled() {
+    public static boolean isGoogleCalendarDisabled() {
         return checkStatus("Disabled");
     }
 
