@@ -51,6 +51,9 @@ public class Email {
      * Makes an identical deep copy of this Email.
      */
     public Email makeDeepDuplicate() {
+        if (this.value.equals("")) {
+            return new Email();
+        }
         Email newEmail = new Email(new String(value));
         return newEmail;
     }

@@ -143,6 +143,7 @@ public class ModuleBuilder {
         this.students = new UniquePersonList();
         return this;
     }
+
     /**
      * Builds a new module.
      * @return module which has been built.
