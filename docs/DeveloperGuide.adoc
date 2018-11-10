@@ -1420,7 +1420,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 1. Generating academic calendar weeks data
 
-.. Prerequisites: Only dates from 21st century in DDMMYY format is considered valid date
+.. Prerequisites: Only dates from 21st century in `DDMMYY` format is considered valid date.
 .. Test case: `firstday 161118 12` +
    Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the same.
 .. Test case: `firstday 999999` +
