@@ -145,7 +145,7 @@ public class TimeTableUtil {
      * Convert the module into list of lesson
      * @param module
      * @param semster
-     * @return ArrayList<Lesson>
+     * @return ArrayList
      * @throws ParseException
      */
     public static ArrayList<Lesson> parseModule(String module, String semster) throws ParseException {
