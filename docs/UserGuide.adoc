@@ -130,7 +130,6 @@ Examples:
 `logout`
 // end::yaofeng(login/logout)[]
 
-
 ==== List all users : `listUser`
 
 Shows a list of all users in the Event Organiser. +
@@ -256,6 +255,7 @@ Examples:
 
 * `addFriend 2` +
 User specified at `INDEX` 2 is added to the logged-in user's friend list.
+
 
 ==== Delete a friend : `deleteFriend`
 
