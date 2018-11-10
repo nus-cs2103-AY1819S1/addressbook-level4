@@ -44,11 +44,11 @@ public class AutoCompleteCommandHelper {
      */
     public static Set<String> autoCompleteWord(String partialWord) {
         if (partialWord == null || partialWord.equals("")) {
-            return new HashSet<>();
+            return new TreeSet<>();
         }
 
         if (partialWord.equals(" ")) {
-            return new HashSet<>(Arrays.asList(commandWordList));
+            return getAllCommands();
         }
 
         Set<String> suggestions = new TreeSet<>();
@@ -58,5 +58,9 @@ public class AutoCompleteCommandHelper {
             }
         }
         return suggestions;
+    }
+
+    public static Set<String> getAllCommands() {
+        return new TreeSet<>(Arrays.asList(commandWordList));
     }
 }
