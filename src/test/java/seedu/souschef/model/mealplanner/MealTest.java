@@ -18,7 +18,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 import seedu.souschef.testutil.Assert;
 
 public class MealTest {
