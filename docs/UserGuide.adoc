@@ -62,7 +62,7 @@ Shorthand: `h`
 === Adding a person: `add`
 
 Adds a person to InsuRen. Tags should not be `edit` or `delete` (case-insensitive). +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `a`
 
