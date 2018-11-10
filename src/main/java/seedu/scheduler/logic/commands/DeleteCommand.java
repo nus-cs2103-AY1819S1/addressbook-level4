@@ -51,6 +51,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean googleCalendarIsEnabled = connectToGoogleCalendar.isGoogleCalendarEnabled();
         List<Event> lastShownList = model.getFilteredEventList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -63,16 +64,19 @@ public class DeleteCommand extends Command {
         boolean operationOnGoogleCalIsSuccessful;
         if (flags.length == 0) {
             operationOnGoogleCalIsSuccessful =
-                    connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
+                    connectToGoogleCalendar.deleteOnGoogleCal(googleCalendarIsEnabled, eventToDelete, instanceIndex);
             model.deleteEvent(eventToDelete);
         } else {
             if (flags[0].equals(FLAG_UPCOMING)) {
                 operationOnGoogleCalIsSuccessful =
-                        connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex, totalInstance);
+                        connectToGoogleCalendar.deleteUpcomingOnGoogleCal(
+                                googleCalendarIsEnabled, eventToDelete,
+                                instanceIndex, totalInstance);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
                 operationOnGoogleCalIsSuccessful =
-                        connectToGoogleCalendar.deleteAllOnGoogleCal (eventToDelete, instanceIndex);
+                        connectToGoogleCalendar.deleteAllOnGoogleCal (
+                                googleCalendarIsEnabled, eventToDelete, instanceIndex);
                 model.deleteRepeatingEvents(eventToDelete);
             }
         }

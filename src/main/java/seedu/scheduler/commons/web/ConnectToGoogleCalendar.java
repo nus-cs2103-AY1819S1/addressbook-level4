@@ -47,7 +47,7 @@ import com.google.api.services.calendar.model.Events;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.logic.commands.CommandResult;
-import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
+import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
@@ -71,7 +71,7 @@ public class ConnectToGoogleCalendar {
             + "Please check your network and check its existence on Google Calendar.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
-    public boolean isGoogleCalendarEnabled() {
+    public static boolean isGoogleCalendarEnabled() {
         return checkStatus("Enabled");
     }
 
@@ -106,7 +106,7 @@ public class ConnectToGoogleCalendar {
      *
      * @return true if the expected status is true
      */
-    public boolean checkStatus (String expectedStatus) {
+    public static boolean checkStatus(String expectedStatus) {
         File file = new File("./tokens/mode.txt");
         StringBuilder contents = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -187,7 +187,7 @@ public class ConnectToGoogleCalendar {
 
     public static GoogleClientSecrets getGoogleClientSecrets() throws IOException {
         // Load client secrets.
-        InputStream in = GetGoogleCalendarEventsCommand.class
+        InputStream in = EnterGoogleCalendarModeCommand.class
                 .getResourceAsStream(CREDENTIALS_FILE_PATH);
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
@@ -212,7 +212,10 @@ public class ConnectToGoogleCalendar {
     /**
      * Pushes the event(s) to Google Calendar.
      */
-    public boolean pushToGoogleCal(List<Event> toAddList) {
+    public boolean pushToGoogleCal(boolean enabled, List<Event> toAddList) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
 
         logger.info("Starting to push events Google Calendar");
         Calendar service = getCalendar();
@@ -305,7 +308,11 @@ public class ConnectToGoogleCalendar {
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
      */
-    public boolean deleteOnGoogleCal(Event eventToDelete, int instanceIndex) {
+    public boolean deleteOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
+
         Calendar service = getCalendar();
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
@@ -385,7 +392,12 @@ public class ConnectToGoogleCalendar {
      * @param instanceIndex the instance index for recurring event.
      * @param totalInstance
      */
-    public boolean deleteUpcomingOnGoogleCal(Event eventToDelete, int instanceIndex, int totalInstance) {
+    public boolean deleteUpcomingOnGoogleCal(
+            boolean enabled, Event eventToDelete, int instanceIndex, int totalInstance) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
+
         Calendar service = getCalendar();
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
@@ -465,7 +477,10 @@ public class ConnectToGoogleCalendar {
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
      */
-    public boolean deleteAllOnGoogleCal(Event eventToDelete, int instanceIndex) {
+    public boolean deleteAllOnGoogleCal(boolean enabled, Event eventToDelete, int instanceIndex) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
         Calendar service = getCalendar();
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
@@ -542,8 +557,11 @@ public class ConnectToGoogleCalendar {
      * @param eventToEdit a local Event.
      * @param editedEvent an edited local Event.
      */
-    public boolean updateSingleGoogleEvent(
+    public boolean updateSingleGoogleEvent(boolean enabled,
             Event eventToEdit, Event editedEvent, int instanceIndex) throws CommandException {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
         assert eventToEdit != null;
         assert editedEvent != null;
         Calendar service = getCalendar();
@@ -658,8 +676,11 @@ public class ConnectToGoogleCalendar {
      * @param editedEvents    an edited local Event.
      * @param rangeStartIndex the effect of update will start from this index
      */
-    public boolean updateRangeGoogleEvent(
+    public boolean updateRangeGoogleEvent(boolean enabled,
             Event eventToEdit, List<Event> editedEvents, int instanceIndex, int rangeStartIndex) {
+        if (statusIsDisabled(enabled)) {
+            return false;
+        }
         assert !editedEvents.isEmpty();
         assert editedEvents.get(0).isRepeatEvent();
         assert eventToEdit != null;
@@ -714,6 +735,17 @@ public class ConnectToGoogleCalendar {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks whether in offline mode
+     *
+     * @param enabled status carried forward from default
+     *
+     * @return true if it is disabled
+     */
+    private boolean statusIsDisabled(boolean enabled) {
+        return !enabled | isGoogleCalendarDisabled();
     }
 
     private String getRecurringEventId(Event eventToEdit, Calendar service) {

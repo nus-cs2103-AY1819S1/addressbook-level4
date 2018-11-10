@@ -14,6 +14,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIM
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
 import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
 import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_ONE;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -117,5 +118,16 @@ public class EventTest {
         editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withEndDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).build();
         assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
+    }
+
+    @Test
+    public void isRepeatEvent() {
+        // Event without a RepeatType is not a RepeatEvent
+        Event discussionWithJackSingleCopy = new EventBuilder(DISCUSSION_WITH_JACK).build();
+        assertFalse(discussionWithJackSingleCopy.isRepeatEvent());
+
+        // Event with a RepeatType is RepeatEvent
+        Event studyWithJaneCopy = new EventBuilder(STUDY_WITH_JANE_DAY_ONE).build();
+        assertTrue(studyWithJaneCopy.isRepeatEvent());
     }
 }

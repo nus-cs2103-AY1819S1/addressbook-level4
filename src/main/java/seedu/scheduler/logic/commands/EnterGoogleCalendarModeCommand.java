@@ -29,8 +29,8 @@ import seedu.scheduler.model.event.RepeatType;
 /**
  * Get events from google calendar.
  */
-public class GetGoogleCalendarEventsCommand extends Command {
-    public static final String COMMAND_WORD = "getGCEvents";
+public class EnterGoogleCalendarModeCommand extends Command {
+    public static final String COMMAND_WORD = "EnterGoogleCalendarMode";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get google calendar events.\n"
             + "download the events from primary google calendar.\n"
             + "Parameters: NONE "
@@ -166,6 +166,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         //Extract the listOfGoogleEvents from the events object
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents = events.getItems();
         if (listOfGoogleEvents.isEmpty()) {
+            connectToGoogleCalendar.setGoogleCalendarEnabled();
             return new CommandResult(MESSAGE_NO_EVENTS);
         } else {
             //Upcoming events
