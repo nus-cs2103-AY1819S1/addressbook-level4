@@ -28,7 +28,7 @@ public class FindPersonCommand extends Command {
             + "Example: " + COMMAND_WORD + " p/123 2333 6666 \n"
             + "Example: " + COMMAND_WORD + " e/abc@de.fg \n"
             + "Example: " + COMMAND_WORD + " a/qwer 123 \n"
-            + "Example: " + COMMAND_WORD + " amc/CS2103 \n";
+            + "Example: " + COMMAND_WORD + " mc/CS2103 \n";
 
     private final Predicate<Person> predicate;
 
