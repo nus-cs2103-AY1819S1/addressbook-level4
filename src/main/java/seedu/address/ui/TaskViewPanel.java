@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,6 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.task.Task;
 
 /**
@@ -31,9 +31,7 @@ public class TaskViewPanel extends UiPart<Region> {
 
     private Logic logic;
 
-    // Used for keeping track of "remaining time", that uses a
-    // NewResultAvailableEvent (with no Task attached to it)
-    private Task latestTask;
+    private Optional<Task> displayedTask;
 
     @FXML
     private HBox cardPane;
@@ -61,34 +59,32 @@ public class TaskViewPanel extends UiPart<Region> {
     public TaskViewPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
-        if (logic.getFilteredTaskList().size() > 0) {
-            displayTask(logic.getFilteredTaskList().get(0));
-        }
+        this.displayedTask = logic.getFilteredTaskList().stream().findFirst();
+        displayTask();
         registerAsAnEventHandler(this);
     }
 
     /**
-     * Updates the display to show the information regarding the given task.
-     * As a side effect, it updates {@code latestTask}
-     *
-     * @param task the task whose information the view should display
+     * Updates the display to show the information regarding the task.
      */
-    private void displayTask(Task task) {
-        name.setText(task.getName().fullName);
-        dueDate.setText(task.getDueDate().value);
-        remainingTime.setText(getRemainingTime(task));
-        earliestTimeOfChildren.setText(getChildTime());
-        description.setText(task.getDescription().value);
-        priorityValue.setText(task.getPriorityValue().value);
-        status.setText(task.getStatus().toString());
-        hash.setText(getHashId(task));
-        dependency.setText(getDependencies(task));
-        tags.getChildren().setAll(task
-                .getLabels()
-                .stream()
-                .map(t -> new Label(t.labelName))
-                .collect(Collectors.toList()));
-        latestTask = task;
+    private void displayTask() {
+        if(displayedTask.isPresent()) {
+           Task task = displayedTask.get();
+            name.setText(task.getName().fullName);
+            dueDate.setText(task.getDueDate().value);
+            remainingTime.setText(getRemainingTime(task));
+            earliestTimeOfChildren.setText(getChildTime());
+            description.setText(task.getDescription().value);
+            priorityValue.setText(task.getPriorityValue().value);
+            status.setText(task.getStatus().toString());
+            hash.setText(getHashId(task));
+            dependency.setText(getDependencies(task));
+            tags.getChildren().setAll(task
+                    .getLabels()
+                    .stream()
+                    .map(t -> new Label(t.labelName))
+                    .collect(Collectors.toList()));
+        }
     }
 
     private String getHashId(Task task) {
@@ -114,7 +110,7 @@ public class TaskViewPanel extends UiPart<Region> {
 
     private String getChildTime() {
         try {
-            return logic.getTaskManager().getEarliestDependentTimeForNode(this.latestTask).value;
+            return logic.getTaskManager().getEarliestDependentTimeForNode(this.displayedTask.get()).value;
         } catch (Exception e) {
             return "";
         }
@@ -141,13 +137,13 @@ public class TaskViewPanel extends UiPart<Region> {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        Task task = event.getNewSelection();
-        displayTask(task);
+        displayedTask = Optional.of(event.getNewSelection());
+        displayTask();
     }
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
         try {
-            earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.latestTask).value);
+            earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.displayedTask.get()).value);
         } catch (Exception e) {
             return;
         }
@@ -155,6 +151,8 @@ public class TaskViewPanel extends UiPart<Region> {
 
     @Subscribe
     public void handleNewResultEvent(NewResultAvailableEvent abce) {
-        Platform.runLater(() -> remainingTime.setText(getRemainingTime(latestTask)));
+        if (displayedTask.isPresent()) {
+            Platform.runLater(() -> remainingTime.setText(getRemainingTime(displayedTask.get())));
+        }
     }
 }
