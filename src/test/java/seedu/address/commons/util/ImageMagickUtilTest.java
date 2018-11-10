@@ -11,12 +11,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.oracle.tools.packager.UnsupportedPlatformException;
 import org.junit.Test;
+
+import com.oracle.tools.packager.UnsupportedPlatformException;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CreateConvertCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
 

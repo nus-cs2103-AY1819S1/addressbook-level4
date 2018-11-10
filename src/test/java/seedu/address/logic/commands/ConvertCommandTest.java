@@ -1,21 +1,18 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
-import seedu.address.commons.util.ImageMagickUtilTest;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.ModelGenerator;
-
-import static org.junit.Assert.fail;
 
 public class ConvertCommandTest {
 
