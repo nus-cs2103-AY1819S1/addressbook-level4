@@ -52,7 +52,7 @@ public class ExportTxtCommandTest {
         String filePath = dirPath + "validExport.txt";
         ExportTxtCommand exportTxtCommand = new ExportTxtCommand(ParserUtil.parseFilePath(filePath));
         exportTxtCommand.setStorage(storage);
-        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, filePath);
 
         assertCommandSuccess(exportTxtCommand, model, commandHistory, expectedMessage);
     }

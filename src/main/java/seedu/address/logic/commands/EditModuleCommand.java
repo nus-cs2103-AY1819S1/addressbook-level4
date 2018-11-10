@@ -20,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Edits the details of an existing module in the address book.
@@ -73,6 +74,7 @@ public class EditModuleCommand extends Command {
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
+        AttendanceListUtil.editModuleFromAssociatedPersons(model, moduleToEdit, editedModule);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
