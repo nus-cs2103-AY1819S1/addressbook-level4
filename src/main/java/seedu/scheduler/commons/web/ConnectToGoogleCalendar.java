@@ -71,7 +71,7 @@ public class ConnectToGoogleCalendar {
             + "Please check your network and check its existence on Google Calendar.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
-    public boolean isGoogleCalendarEnabled() {
+    public static boolean isGoogleCalendarEnabled() {
         return checkStatus("Enabled");
     }
 
@@ -106,7 +106,7 @@ public class ConnectToGoogleCalendar {
      *
      * @return true if the expected status is true
      */
-    public boolean checkStatus (String expectedStatus) {
+    public static boolean checkStatus(String expectedStatus) {
         File file = new File("./tokens/mode.txt");
         StringBuilder contents = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
