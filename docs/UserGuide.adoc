@@ -284,7 +284,8 @@ image::addmedicalrecord-example-2.png[width="650"]
 
 ==== Adding a medicine: `addmedicine`
 
-Adds a medicine to the CLInic medicine database. +
+Bought the latest medicine that effectively cures eczema? +
+Use `addmedicine` to add that medicine to the CLInic now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
@@ -295,10 +296,38 @@ Example:
 
 * `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
 Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `1000` units to the CLInic inventory.
+
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
+
+See below for a pictorial guide on how to add aspirin to the records:
+
+//. Type `liststock` or `ls` into the command box as shown in Figure 10 below.
+
+//.Start up of CLInic
+//image::addmedicine-example-1.png[width="650"]
+
+//[start = 1]
+//. See Figure 10 below for the change of the patient panel to medicine panel.
+
+//.Result of entering `liststock` command
+//image::addmedicine-example-2.png[width="650"]
+
+[start = 1]
+. Enter the `am` command with the desired parameters as shown in Figure 10 below.
+
+.Type the `am` command into the command box
+image::addmedicine-example-3.png[width="650"]
+
+[start = 2]
+. Scroll all the way down on the medicine panel to see the medicine added to CLInic.
+See Figure 11 below for example.
+
+.Scroll down to see the medicine successfully added
+image::addmedicine-example-4.png[width="650"]
 // end::addmedicine[]
 
+// tag::editmedicine[]
 ==== Editing a medicine: `editmedicine`
 
 Edits the details of an existing medicine. +
@@ -321,6 +350,7 @@ Example:
 Renames the medicine at index 1 to `hydrazine` whilst updating its stock to `1500`.
 * `em 1 sn/91853` +
 Updates the serial number of the medicine at index 1 to `91853`.
+// end::editmedicine[]
 
 ==== Restocking a medicine: `restock`
 
@@ -345,11 +375,18 @@ Lists all medicine information in the CLInic medicine inventory. +
 Alias: `ls` +
 Format: `liststock`
 
+// tag::findmedicine[]
+
 ==== Finding details of a medicine: `findmedicine`
 
-Finds the details of a medicine from its medicine name. +
+Finding the best medicine for your patient? +
+Use `findmedicine` to search for
+the details of a medicine from its medicine name. +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
+
+[TIP]
+You can enter more than one name to get the results of all medicines with the names entered.
 
 Example:
 
@@ -358,13 +395,37 @@ Finds the details of the medicines tagged with the keyword `panadol`.
 * `fm chlorpheniramine` +
 Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 
+See below for a pictorial guide on how to find chlorpheniramine in the records:
+
+[start = 1]
+. Enter the `fm` command with the desired parameters as shown in Figure 12 below.
+
+.Type `fm` command into the command box
+image::find-medicine-example-1.png[width="650"]
+
+[start = 2]
+. See the medicine panel as shown in Figure 13 for all the medicines named "chlorpheniramine".
+
+.See all medicines named "chlorpheniramine".
+image::find-medicine-example-2.png[width="650"]
+
+// end::findmedicine[]
+
+// tag::checkstock[]
 
 ==== Listing medicines that are low in supply: `checkstock`
-
-Lists all medicines that are low in supply. +
+Need to do the time-consuming stock taking?
+Use `checkstock` and get it done in under 2 seconds! +
 Alias: `cs` +
 Format: `checkstock`
 
+[NOTE]
+Medicines that are low in supply are those whose stock level is equal to or lower than their minimum stock quantity.
+
+See below for a pictorial guide on how to use checkstock:
+
+
+// end::checkstock[]
 
 [[pqms]]
 // tag::pqms[]
@@ -578,23 +639,26 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::document[]
 === Document Generation
 
+// tag::mc[]
 ==== Generating medical certificate: `mc`
 
 Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
 [TIP]
-====
 .Pro tip(s):
-*This command cannot be used if there is no mc content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
-*Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-====
+Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
 * `mc 1` +
 Generates a medical certificate for the 1st patient in the Served Patient Queue.
 
+.Generating a medical certificate for patient `Alex Yeoh`.
+image::mc_fig.png[width="600"]
+// end::mc[]
+
+// tag::receipt[]
 ==== Generating receipt: `receipt`
 
 Generates a receipt for the Served Patient. +
@@ -610,6 +674,11 @@ Examples:
 * `receipt 5` +
 Generates a receipt for the 5th patient in the Served Patient Queue.
 
+.Generating a receipt for patient `Alex Yeoh`.
+image::receipt_fig.png[width="600"]
+// end::receipt[]
+
+// tag::refer[]
 ==== Generating referral letter: `refer`
 
 Generates a referral letter for the Served Patient. +
@@ -619,15 +688,16 @@ Format: `refer INDEX`
 
 [TIP]
 .Pro tip(s):
-====
-*This command cannot be used if there is no referral content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
-*Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-====
+Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
 * `refer 7` +
 Generates a referral letter for the 7th patient in the Served Patient Queue.
+
+.Generating a referral letter for patient `Alex Yeoh`.
+image::refer_fig.png[width="600"]
+// end::refer[]
 // end::document[]
 
 // tag::misc[]
@@ -723,6 +793,7 @@ There is no need to save manually.
 *Q*: Why can't I execute the `finish` command even if there is a Current Patient? +
 *A*: You are required to add notes to the Current Patient before using the `finish` command, use the <<adddocument, `adddocument`>> command to add notes.
 
+// tag::table[]
 == Command Summary
 
 === Patient
@@ -753,6 +824,7 @@ There is no need to save manually.
 |findmedicine |`fm`  |`findmedicine SERIAL_NUMBER` |`findmedicine 1001`
 |checkstock |`cs`  |`checkctock` |`checkStock`
 |=======================================================================
+// end::table[]
 
 === Queue Management
 

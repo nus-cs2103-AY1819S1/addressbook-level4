@@ -302,8 +302,8 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
-.Undo/Redo sequence diagram
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Sequence diagram for UndoCommand/RedoCommand.
+image::UndoRedoSequenceDiagram.png[width="000"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -369,8 +369,8 @@ Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType`
 
 When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the sequence diagram for this command.
 
-.Sequence diagram for AddMedicalRecordCommand
-image::addMedicalRecord-SequenceDiagram.png[width="850"]
+.Sequence diagram for AddMedicalRecordCommand.
+image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
 The following figure shows the code section which performs this merging.
 
@@ -440,7 +440,7 @@ The medicine records system is used to manage the medicine inventory in the clin
 creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
 `receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
 
-Given below is are examples of how the medicine class is used:
+Given below is an example of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
@@ -551,8 +551,8 @@ of the PQMS.
 
 For better illustration, the following sequence diagram shows how the `register` commands works:
 
-.Register Sequence Diagram
-image::RegisterSequenceDiagram.png[width="1000"]
+.Sequence Diagram for RegisterCommand.
+image::RegisterSequenceDiagram.png[width="900"]
 
 The other PQMS commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
@@ -604,30 +604,32 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 ==== Implementation of `Document`
 The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
  `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
- to henceforth as _document related commands_, all inherit from it. It can be thought of as a *formatting template*,
- specifying and organising the common information that all these documents must have. Shown below is a class diagram
- illustrating how `Document`, `Receipt`, `MedicalCertificate` and `ReferralLetter` relate to one another.
+ to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
+ specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
+ template file. +
+ Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
+ `ReferralLetter` relate to one another.
 
 .Class diagram representing how the `Document` and _document related_ classes are implemented.
-image::DocumentClassDiagram.png[width="600"]
+image::DocumentClassDiagram.png[width="900"]
 
-As the template on which the documents are built from, the `Document` `abstract class` itself *cannot* be instantiated.
- The `Document` `abstract class` has the following key features:
+As the formatter which directs how the documents are built from the `DocumentTemplate.html` template, the `Document`
+`abstract class` itself *cannot* be instantiated.  The `Document` `abstract class` has the following key features:
 
-* contains a `name` and `icNumber` attribute, extracted from the `ServedPatient` from which the document is constructed.
+* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the document was constructed from.
 * has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
 * has the `formatInformation` `abstract method` which the extending classes have to implement.
 
 The following activity diagram summarises what happens internally when a _document related command_ is executed.
 
 .Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
-image::DocumentActivityDiagram.png[width="600"]
+image::DocumentActivityDiagram.png[width="900"]
 
 As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will
 be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
  as detailed in the following steps.
 
-Step 1. The resulting _document related object_ will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
+Step 1. The resulting _document related object_ will call the `generateDocument` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
 ``` Java
 private String makeFileName() {
     return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
@@ -641,7 +643,9 @@ private String makeFileName() {
 The `FILE_NAME_DELIMITER` is abstracted so as to allow users to change the delimiter to a `string` of their choice.
 It is used as a means of separating fields of information in file names.
 ====
-Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder values prefixed by a `$` that will be replaced with the actual information pertaining to the `Served Patient's` consultation.
+Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder
+values prefixed by a `$` that will be replaced with the actual information pertaining to the `ServedPatient's`
+consultation. Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
 ``` Java
 private String convertHtmlIntoString() {
     StringBuilder contentBuilder = new StringBuilder();
@@ -687,8 +691,8 @@ private HashMap<String, String> generateContent() {
     return informationFieldPairs;
 }
 ```
-Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the corresponding information, a `BufferedOutputStream`
-is used to write the `string` into the `HTML` file, concluding the generation of the `HTML` file.
+Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the correct information, a `BufferedOutputStream`
+is used to write the updated `string` into the `HTML` file, concluding the generation of the `Document` `HTML` file.
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
@@ -703,7 +707,7 @@ flexibility of structuring the contents unique to its document type by means of 
 ** Pros:
 *** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
 ****
-`Enums` can prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+`Enums` can restrict the period of medical leave to be counted in only days/weeks. This prevents absurd scenarios like issuing a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ****
 ** Cons:
 *** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
@@ -717,12 +721,15 @@ flexibility of structuring the contents unique to its document type by means of 
 ==== Implementation of `Receipt`
 The `Receipt` class structure is as follows:
 
-* contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `Served Patient` from which the `Receipt` was constructed from.
-* contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
-* has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
+* Contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `ServedPatient` from which the `Receipt` was constructed from.
+* Contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
+* Has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
 
 Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
- served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
+ `ServedPatient` 's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
+
+.Sequence diagram for ReceiptCommand.
+image::ReceiptSequenceDiagram.png[width="900"]
 
 When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
 from the `ServedPatient` specified by the `index`.
@@ -758,22 +765,39 @@ Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is
 ==== Implementation of `MedicalCertificate`
 The `MedicalCertificate` class structure is as follows:
 
-* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+* Has attributes of the `ServedPatient` it is generated from, which includes the `ServedPatient` 's `name` and `IcNumber`.
 ** These attributes are marked as `final` as they should not be changed.
-* contains additional information like the `startDate` and `startDate` of their medical leave
-as well as the name of the issuing doctor `doctorName`.
+* Contains additional information like the duration, start-date and end-date of their medical leave.
 
-Users can generate a `MedicalCertificate` for a specific `ServedPatient` by invoking the `MedicalCertificateCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+Users can generate a `MedicalCertificate` for a specific `ServedPatient` by invoking the `MedicalCertificateCommand`
+ accompanied by the `ServedPatient` 's index in the `ServedPatientList`.
+ The below sequence diagram illustrates how the `MedicalCertificateCommand` works.
 
-Given below is an example usage scenario and explanation for the inner workings of the `MedicalCertificateCommand`.
+// to be updated by Syahiran
+.Sequence diagram for MedicalCertificateCommand.
+image::MCSequenceDiagram.png[width="900"]
 
-Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
-This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+When the `MedicalCertificateCommand` is executed, it will construct a new `MedicalCertificate` object and extract the relevant information
+from the `ServedPatient` specified by the `index`.
+Shown below is how information like `numMcDays` is formatted into the medical certificate document template.
+``` Java
+    public String formatInformation() {
+            int numMcDays = getMcDays();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
-image::ServePatient.png[width="650"]
-
-Step 2. The user executes `mc 1` command to generate a `MedicalCertificate` with the relevant object. Up till this milestone v1.2, the contents of the `MedicalCertificate` will be reflected in the `ResultDisplay` as shown below.
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("This is to certify that the above-named patient is unfit for duty for a period of ")
+                    .append("<b>" + numMcDays + "</b>")
+                    .append(" <b>day(s)</b>, from ")
+                    .append("<b>" + LocalDate.now().format(formatter) + "</b>")
+                    .append(" <b>to</b> ")
+                    .append("<b>" + LocalDate.now().plusDays(numMcDays - 1).format(formatter) + "</b>")
+                    .append(" <b>inclusive.</b><br><br>")
+                    .append("This certificate is not valid for absence from court attendance.<br><br>")
+                    .append("<b>Issuing Doctor:</b> Dr Chester Sng" + "<br>");
+            return stringBuilder.toString();
+        }
+```
 
 [WARNING]
 Executing `mc` with an invalid index will **not** result in the generation of a `MedicalCertificate`.
@@ -783,21 +807,36 @@ Executing `mc` with an invalid index will **not** result in the generation of a 
 ==== Implementation of `ReferralLetter`
 The `ReferralLetter` class structure is as follows:
 
-* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
-** These attributes are marked as `final` and cannot be changed.
-* contains additional information like the issuing doctor's `notes`.
+* Has attributes of the `ServedPatient` it is generated from, which includes the `ServedPatient` 's `name` and `IcNumber`.
+** These attributes are marked as `final` as they should not be changed.
+* Contains additional information like the doctor's referral notes and patient's referred location.
 
-Users can generate a `ReferralLetter` for a specific `ServedPatient` by invoking the `ReferralLetterCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+Users can generate a `ReferralLetter` for a specific `ServedPatient` by invoking the `ReferralLetterCommand`
+ accompanied by the `ServedPatient` 's index in the `ServedPatientList`.
+ The below sequence diagram illustrates how the `ReferralLetterCommand` works.
 
-Given below is an example usage scenario and explanation for the inner workings of the `ReferralLetterCommand`.
+// to be updated by Syahiran
+.Sequence diagram for ReferralLetterCommand.
+image::RLSequenceDiagram.png[width="900"]
 
-Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
-This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+When the `ReferralLetterCommand` is executed, it will construct a new `ReferralLetter` object and extract the relevant information
+from the `ServedPatient` specified by the `index`.
+Shown below is how information like `referralContent` and `noteContent` is formatted into the referral letter document template.
+``` Java
+    public String formatInformation() {
+            String referralContent = getReferralContent();
+            String noteContent = getNoteContent();
 
-.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
-image::ServePatient.png[width="650"]
-
-Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with the relevant object. Up till this milestone v1.2, the contents of the `ReferralLetter` will be reflected in the `ResultDisplay` as shown below.
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("This is to certify that the above-named patient has been referred to: ")
+                    .append("<b>" + referralContent.toUpperCase() + "</b>" + "<br><br>")
+                    .append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
+                    .append(noteContent + "<br><br>")
+                    .append("Kindly do accept him under your care. Thank you very much.<br><br>")
+                    .append("<b>Issuing Doctor:</b> Dr Chester Sng" + "<br>");
+            return stringBuilder.toString();
+        }
+```
 
 [WARNING]
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.

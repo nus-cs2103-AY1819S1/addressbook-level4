@@ -50,6 +50,9 @@ public class BrowserPanel extends UiPart<Region> {
     public BrowserPanel() {
         super(FXML);
 
+        // Disable right-click
+        this.browser.setContextMenuEnabled(false);
+
         // Initialise WebViewScript to run the script in the browser
         this.webViewScript = new WebViewScriptManager(this.browser);
 

@@ -36,6 +36,9 @@ public class DocumentWindow extends UiPart<Stage> {
     public DocumentWindow(Stage root) {
         super(FXML, root);
 
+        // Disable right-click
+        this.browser.setContextMenuEnabled(false);
+
         // Initialise WebViewScript to run the script in the browser
         this.webViewScript = new WebViewScriptManager(this.browser);
 
