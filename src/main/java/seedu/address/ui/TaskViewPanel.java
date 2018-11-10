@@ -79,7 +79,16 @@ public class TaskViewPanel extends UiPart<Region> {
     }
 
     private String getDependencies(Task task) {
-        return task.getDependency().toString();
+        ObservableList<Task> tasks = logic.getFilteredTaskList();
+        List<String> names = task
+                .getDependency()
+                .getHashes()
+                .stream()
+                .map(hash -> tasks.stream().filter(t -> String.valueOf(t.hashCode()).equals(hash)).findFirst().get())
+                .map(t -> t.getName().toString())
+                .map(str -> str.length() > 20 ? str.substring(0, 12) + "..." : str)
+                .collect(Collectors.toList());
+        return String.join(", ", names);
     }
 
     private String getRemainingTime(Task task) {
