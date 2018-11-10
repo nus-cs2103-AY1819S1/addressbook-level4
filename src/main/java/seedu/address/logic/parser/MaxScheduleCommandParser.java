@@ -41,7 +41,7 @@ public class MaxScheduleCommandParser implements Parser<MaxScheduleCommand> {
                     MESSAGE_INVALID_COMMAND_FORMAT, MaxScheduleCommand.MESSAGE_USAGE));
             }
 
-            if (limitKeyword[0].length() != 4 && limitKeyword[1].length() != 4) {
+            if (limitKeyword[0].length() != 4 || limitKeyword[1].length() != 4) {
                 throw new ParseException(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, MaxScheduleCommand.MESSAGE_USAGE));
             }
