@@ -8,46 +8,45 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.InsertPersonCommand;
+import seedu.address.commons.util.TypeUtil;
+import seedu.address.logic.commands.RemovePersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleDescriptor;
-import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionDescriptor;
 
 /**
- * The parser for the insert person command. Parses the user's command line input
- * and decides whether or not to insert a person into a module, or occasion bidirectionally.
+ * The parser for the remove person command. Parses the user's command line input
+ * and decides whether or not to remove a person from a module, or occasion bidirectionally.
+ * @author alistair
  */
-public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
+public class RemovePersonCommandParser implements Parser<RemovePersonCommand> {
 
     @Override
-    public InsertPersonCommand parse(String args) throws ParseException {
+    public RemovePersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultiMap = ArgumentTokenizer
                 .tokenize(args, PREFIX_PERSONINDEX, PREFIX_MODULEINDEX, PREFIX_OCCASIONINDEX);
+
         if (!arePrefixesPresent(argMultiMap, PREFIX_PERSONINDEX)
                 || hasDuplicatePrefix(argMultiMap)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertPersonCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RemovePersonCommand.MESSAGE_USAGE));
         }
 
         Index personIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_PERSONINDEX).get());
 
-        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) {
+        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)
+                && !arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) {
             Index moduleIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_MODULEINDEX).get());
-            ModuleDescriptor dummyModuleDescriptor = new ModuleDescriptor();
-            Module dummyModule = new Module(dummyModuleDescriptor);
-            return new InsertPersonCommand(personIndex, moduleIndex, dummyModule);
+            return new RemovePersonCommand(personIndex, moduleIndex, TypeUtil.MODULE);
 
-        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) {
+        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)
+                && !arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) {
             Index occasionIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_OCCASIONINDEX).get());
-            OccasionDescriptor dummyOccasionDescriptor = new OccasionDescriptor();
-            Occasion dummyOccasion = new Occasion(dummyOccasionDescriptor);
-            return new InsertPersonCommand(personIndex, occasionIndex, dummyOccasion);
+            return new RemovePersonCommand(personIndex, occasionIndex, TypeUtil.OCCASION);
 
+        } else {
+            //Missing either a module or occasion index, or have both.
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RemovePersonCommand.MESSAGE_USAGE));
         }
-
-        // Missing either a module or a person index.
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertPersonCommand.MESSAGE_USAGE));
     }
 
     /**
