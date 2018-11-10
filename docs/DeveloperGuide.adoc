@@ -302,8 +302,8 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
-.Undo/Redo sequence diagram
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Sequence diagram for UndoCommand/RedoCommand.
+image::UndoRedoSequenceDiagram.png[width="000"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -369,8 +369,8 @@ Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType`
 
 When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the sequence diagram for this command.
 
-.Sequence diagram for AddMedicalRecordCommand
-image::addMedicalRecord-SequenceDiagram.png[width="850"]
+.Sequence diagram for AddMedicalRecordCommand.
+image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
 The following figure shows the code section which performs this merging.
 
@@ -440,7 +440,7 @@ The medicine records system is used to manage the medicine inventory in the clin
 creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
 `receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
 
-Given below is are examples of how the medicine class is used:
+Given below is an example of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
@@ -472,126 +472,91 @@ The Patient Queue Management System (PQMS) consists of three main classes: `Pati
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
 he is done with seeing the doctor, he will become a `ServedPatient` and put into the  `ServedPatientQueue` to await payment and document processing.
 
-The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispenseMedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
-The following code snippet shows part of how the `ServedPatient` is implemented:
+.Class Diagram of PQMS
+image::PQMSClassDiagram.png[width="850"]
+
+`ServedPatient` acts as a wrapper for `Patient`, storing intermediate information that are likely to change during the patient's visit to the clinic.
+`CurrentPatient` acts as a wrapper for `ServedPatient`, updating the intermediate information that it contains. These intermediate information are
+`McContent`, `ReferralContent`, `NoteContent` and `Medicine` allocated.
+
+The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispensemedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
+
+These commands inherit from `QueueCommand` because it will require more arguments in its execute command. The PQMS is not inside `Model` as it is only required during runtime;
+it does not need to be loaded into storage. A new `QueueCommand` abstract class is created that inherits from `Command`, however, it defines another method signature of `execute`.
+
+The following code snippet shows how the `QueueCommand` is implemented:
 
 ```Java
 /**
- * Represents a patient that has already consulted the doctor in the address book.
- * It has all the necessary data needed to generate any object that inherits from document.
+ * Represents a command with hidden internal logic and the ability to be executed.
  */
-public class ServedPatient {
-
-    private Patient patient;
-    private String noteContent;
-    private String referralContent;
-    private String mcContent;
-    private Map<Medicine, QuantityToDispense> medicineAllocated;
+public abstract class QueueCommand extends Command {
 
     /**
-     * Constructs a servedPatient object from a patient object to extract all the information
-     * necessary for printing a document.
+     * Executes the command and returns the result message.
      *
-     * @param patient A valid patient.
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
-    public ServedPatient(Patient patient) {
-        requireNonNull(patient);
-        medicineAllocated = new HashMap<>();
-        this.patient = patient;
-        this.noteContent = "";
-        this.referralContent = "";
-        this.mcContent = "";
-    }
-
-    public Name getName() {
-        return patient.getName();
-    }
-
-    public IcNumber getIcNumber() {
-        return patient.getIcNumber();
-    }
-
-    public String getNoteContent() {
-        return this.noteContent;
-    }
-
-    public String getMcContent() {
-        return this.mcContent;
-    }
-
-    public String getReferralContent() {
-        return this.referralContent;
-    }
-
-    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
-        return medicineAllocated;
-    }
-
-    public String addNoteContent(String content) {
-        return noteContent = content;
-    }
-
-    public String addReferralContent(String content) {
-        return referralContent = content;
-    }
-
-    public String addMcContent(String content) {
-        return mcContent = content;
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        throw new CommandException("Queue Command should not call this version of execute");
     }
 
     /**
-     * Add specified quantity of medicine to patient.
-     * @param medicine to be added.
-     * @param quantity of medicine to be added.
-     * @return string representation of medicine added.
+     * Executes the command and returns the result message.
+     * This version of execute is used because there are more arguments needed for the queue commands.
+     *
+     * @param model {@code Model} which the command should opreate on.
+     * @param patientQueue {@code patientQueue} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution
      */
-    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
-        medicineAllocated.put(medicine, quantity);
-        return medicine.toString();
-    }
+    public abstract CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
+                            ServedPatientList servedPatientList, CommandHistory history) throws CommandException;
 
-    /**
-     * Checks whether current is a specified patient.
-     * @return true if queue contains patient.
-     */
-    public boolean isPatient(Patient patient) {
-        return (this.patient).isSamePerson(patient);
-    }
-
-    /**
-     * Update the patient if any information changes.
-     */
-    public void updatePatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    /**
-     * @return a console-friendly representation of the patient.
-     */
-    public String toNameAndIc() {
-        return patient.toNameAndIc();
-    }
-
-    public Patient getPatient() {
-        return this.patient;
-    }
 }
 ```
 
-The `ServedPatient` class composes of a `Patient`.  `ServedPatient` acts as a wrapper to the `Patient` class,
-holding intermediate information that  are likely to change during the `Patient's` stay in the PQMS. When the `finish` command is called, the `Note` of
-the `Patient` will be updated. `Document` content such as `McContent` and `ReferralContent` can be accessed by the `Document` class to process the
-Medical Certificate and Referral Letter if necessary.
+One of the `QueueCommands` is the `RegisterCommand`, the follow code snippet shows how the `RegisterCommand` makes use of both the `Model` and `PatientQueue`
+of the PQMS.
 
-The following sequence diagram shows how the `register` command works:
+```Java
+@Override
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
+                                 ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
+        requireNonNull(patientQueue);
 
-.Register Sequence Diagram
-image::RegisterSequenceDiagram.png[width="1000"]
+        List<Patient> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Patient patientToRegister = lastShownList.get(targetIndex.getZeroBased());
+
+        if (patientQueue.contains(patientToRegister) || currentPatient.isPatient(patientToRegister)
+                || servedPatientList.containsPatient(patientToRegister)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+
+        int position = patientQueue.enqueue(patientToRegister);
+        return new CommandResult(MESSAGE_SUCCESS + patientToRegister.toNameAndIc()
+                + " with Queue Number: " + position + "\n" + patientQueue.displayQueue());
+    }
+```
+
+For better illustration, the following sequence diagram shows how the `register` commands works:
+
+.Sequence Diagram for RegisterCommand.
+image::RegisterSequenceDiagram.png[width="900"]
 
 The other PQMS commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
-Given below is an example usage scenario and how the PQMS is used in each step.
+Given below is an example usage scenario of the PQMS.
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
@@ -613,7 +578,7 @@ the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the nex
 .Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
 
-Step 5. The user executes various commands to generate necessary documents for the served patient.
+Step 5. The user executes various `Document` commands to generate necessary documents for the served patient.
 
 Step 6. The user finally executes `payment` command to end the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
@@ -658,7 +623,7 @@ As the formatter which directs how the documents are built from the `DocumentTem
 The following activity diagram summarises what happens internally when a _document related command_ is executed.
 
 .Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
-image::DocumentActivityDiagram.png[width="600"]
+image::DocumentActivityDiagram.png[width="900"]
 
 As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will
 be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
@@ -762,6 +727,9 @@ The `Receipt` class structure is as follows:
 
 Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
  served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
+
+.Sequence diagram for ReceiptCommand.
+image::ReceiptSequenceDiagram.png[width="900"]
 
 When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
 from the `ServedPatient` specified by the `index`.
