@@ -363,7 +363,19 @@ Permission have to be stored in the addressbook where the information for `Perso
 image::permissionStorage.png[width="350]
 
 ===== Aspect: Logic
-Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command.
+Commands will be required to populate a `requiredPermission:PermissionSet` object with all `Permission` the command requires user to have to execute the command.
+
+The following is an example on how to assign permission to a Command.
+
+.AddCommand.java
+[source,java]
+----
+public AddCommand(Person person) {
+    requireNonNull(person);
+    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE);
+    toAdd = person;
+}
+----
 
 Given below is an example scenario of how commands will be executed.
 
@@ -389,7 +401,7 @@ image::permissionCommandActivityDiagram.png[width="450"]
 
 ** Pros: Easy to control the commands a user can access.
 
-** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users.
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
 * Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
@@ -397,6 +409,46 @@ The commands executable by the user will depend on their class.
 ** Pros: Easy to implement. Only require small modification in existing classes.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+
+=== Supporting features for Permission System
+
+The following are features that have been implemented to support the Permission System.
+
+==== Modify Permissions of employee
+
+This feature allows the user to change the Permission that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+===== Current Implementation
+
+This feature allows the user to indicate what permission to add and remove based on the prefix.
+
+* `-a PERMISSION_TO_ADD` to add permission
+* `-r PERMISSION_TO_REMOVE` to remove permission
+
+To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which can be used to retrieve the `index` of the targeted employee.
+
+The list of keywords is then used to create `permissionToAdd:Set<Permission>` and `permissionToRemove:Set<Permission>`, depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
+
+ Might want to insert code snippet here
+
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
+
+The following is a sequence diagram that visualizes how this operation works.
+
+image::modifyPermissionSequenceDiagram.png[width="350]
+
+
+==== View Permissions of employee
+
+This feature allows the user to view the permissions that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+
 // end::permission
 
 // tag::project
