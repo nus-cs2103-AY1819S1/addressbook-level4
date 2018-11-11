@@ -87,7 +87,7 @@ public class TaskViewPanel extends UiPart<Region> {
     private String getDependencies(Task task) {
         ObservableList<Task> tasks = logic.getFilteredTaskList();
         List<String> names = task
-                .getDependency()
+                .getDependencies()
                 .getHashes()
                 .stream()
                 .map(hash -> tasks.stream().filter(t -> String.valueOf(t.hashCode()).equals(hash)).findFirst().get())

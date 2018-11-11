@@ -22,7 +22,7 @@ public class DependencyGraph {
         this.taskList = taskList;
         for (Task task: taskList) {
             String hash = Integer.toString(task.hashCode());
-            Set<String> edges = task.getDependency().getHashes();
+            Set<String> edges = task.getDependencies().getHashes();
             adjacencyList.put(hash, edges);
         }
         //Defensive check: Check cycles on graph instantiation
@@ -77,7 +77,7 @@ public class DependencyGraph {
         assert updatedTask != null;
         String hash = Integer.toString(updatedTask.hashCode());
         adjacencyList.remove(hash);
-        adjacencyList.put(hash, updatedTask.getDependency().getHashes());
+        adjacencyList.put(hash, updatedTask.getDependencies().getHashes());
         return checkPresenceOfCycle();
     }
 

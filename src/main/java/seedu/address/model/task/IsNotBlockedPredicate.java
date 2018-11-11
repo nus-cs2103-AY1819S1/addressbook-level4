@@ -20,7 +20,7 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
     @Override
     public boolean test(Task task) {
         return task
-                .getDependency()
+                .getDependencies()
                 .getHashes()
                 .stream()
                 .map(hash -> model

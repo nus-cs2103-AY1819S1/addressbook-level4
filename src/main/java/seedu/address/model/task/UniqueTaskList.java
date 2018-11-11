@@ -157,7 +157,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private Task createOverdueTask(Task taskToEdit) {
         return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
                 taskToEdit.getDescription(), taskToEdit.getLabels(), Status.OVERDUE,
-                taskToEdit.getDependency());
+                taskToEdit.getDependencies());
     }
 
     /**

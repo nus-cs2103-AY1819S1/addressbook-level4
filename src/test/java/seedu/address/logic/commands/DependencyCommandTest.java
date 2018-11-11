@@ -193,8 +193,8 @@ public class DependencyCommandTest {
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-        assertEquals(dependantTask.getDependency(), model.getFilteredTaskList().get(
-                INDEX_FIRST_TASK.getZeroBased()).getDependency());
+        assertEquals(dependantTask.getDependencies(), model.getFilteredTaskList().get(
+                INDEX_FIRST_TASK.getZeroBased()).getDependencies());
         // redo -> deletes same second task in unfiltered task list
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

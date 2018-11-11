@@ -129,7 +129,7 @@ public class CompleteLabelCommandTest {
                 taskToComplete.getDescription(),
                 taskToComplete.getLabels(),
                 Status.COMPLETED,
-                taskToComplete.getDependency()
+                taskToComplete.getDependencies()
         );
     }
 
