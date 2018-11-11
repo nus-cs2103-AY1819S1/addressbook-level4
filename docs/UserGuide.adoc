@@ -217,11 +217,15 @@ Examples:
 * `playlist del 1` +
 Deletes the first playlist in the panel if it exists.
 
+// tag::tracklist_gj[]
 === Listing all tracks : `track list`
 
 Shows a list of all tracks in the library. +
 Format: `track list`
 
+// end::tracklist_gj[]
+
+// tag::tracksearch_gj[]
 === Searching for a track : `track search`
 
 Searches for tracks by names. +
@@ -235,6 +239,7 @@ Examples:
 
 * `track search aliez` +
 Searches for tracks that has aliez in their names.
+// end::tracklist_gj[]
 
 === Adding a track into a playlist : `track add`
 
@@ -274,6 +279,7 @@ Examples:
 * `track del p/Favourites i/3` +
 Deletes the 3rd track in "Favourites" playlist.
 
+// tag::v2.0_gj[]
 === Stepping a track : `step` [coming in v2.0]
 
 Steps forward by default 10 seconds or specified time in seconds. +
@@ -461,6 +467,8 @@ Examples:
 `shuffle` +
 `shuffle off` +
 Switches off shuffling mode.
+
+// end::v2.0_gj[]
 
 === Clearing all entries : `clear`
 

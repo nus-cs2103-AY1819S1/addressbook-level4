@@ -307,7 +307,7 @@ Therefore, any test that depends on MediaPlayer are skipped by using `Assume.ass
 *** Additional dependency
 *** Existing mp3 libraries for java are old and badly documented.
 
-
+// tag::ReadLibrary[]
 === ReadLibrary
 ==== Current Implementation
 The `readLibrary` is a part of `JsonLibraryStorage`. It reads the Json file as well as the library folder when initialising the `library` class. It calls the following operations:
@@ -342,7 +342,9 @@ image::TrackScannerActivityDiagram.png[width="800"]
 ==== Future Enhancements
 
 When the user double clicks the jar file it cannot run because the unzipping of jar file is done using `process.exec`, which requires the user to run the jar file using terminal. This needs to be addressed in future development.
+// end::ReadLibrary[]
 
+// tag::Tracksearchandlist[]
 === Track search and Track list
 ==== Current Implementation
 The `tracklist` and `tracksearch` commands are implemented to view and filter tracks in the library.
@@ -380,6 +382,7 @@ image::TrackSearchCommandSequenceDiagram.png[width="800"]
 
 ==== Future Enhancements
 Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
+// end::Tracksearchandlist[]
 
 === Playback Feature
 Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.

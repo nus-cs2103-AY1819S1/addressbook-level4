@@ -30,8 +30,9 @@ JxMusic is for those who prefer to use a desktop app for listening to music. Mor
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=features]
+include::../UserGuide.adoc[tag=tracklist_gj]
 
+include::../UserGuide.adoc[tag=v2.0_gj]
 
 == Contributions to the Developer Guide
 
