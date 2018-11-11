@@ -114,7 +114,7 @@ public class MassEditCommandTest {
     }
 
     /**
-     * Test the mass edit command
+     * Test whether the mass edit command is executed successfully
      * @param keywordsMap - the {@code ArgumentMultimap} which contains the input keywords
      * @param editExpenseDescriptor - the {@code EditExpenseDescriptor} which describes the edited {@code Expense}
      * */

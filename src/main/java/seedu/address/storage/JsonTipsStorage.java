@@ -16,6 +16,7 @@ import seedu.address.model.notification.Tip;
 public class JsonTipsStorage implements TipsStorage {
 
     private static InputStream fileStream = JsonTipsStorage.class.getResourceAsStream("/json/tips.json");
+
     @Override
     public Optional<List<Tip>> readTips() throws IOException {
         return readTips(fileStream);
