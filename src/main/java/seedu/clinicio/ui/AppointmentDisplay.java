@@ -28,6 +28,10 @@ public class AppointmentDisplay extends UiPart<Region>{
         appointmentBox.setVisible(false);
     }
 
+    public void setVisible(boolean isVisible) {
+        appointmentBox.setVisible(isVisible);
+    }
+
     @Subscribe
     private void handleAppointmentPanelSelectionEvent(AppointmentPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
