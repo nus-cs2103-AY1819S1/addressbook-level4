@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
-        //Update dependencies with the hash of the new task (since task was edited
+        //Update dependencies to target task with the hash of the edited task if task was edited and hashcode changed
         String oldHash = Integer.toString(target.hashCode());
         String newHash = Integer.toString(editedTask.hashCode());
         if (!oldHash.equals(newHash)) {
