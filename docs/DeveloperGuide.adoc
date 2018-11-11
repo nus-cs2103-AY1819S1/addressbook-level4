@@ -607,7 +607,7 @@ Hallper.
 ===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
 
 https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
-The library is widely used and easy to understand so any new develeper can easily extend the current features.
+The library is widely used and easy to understand so any new developer can easily extend the current features.
 // end::calendar[]
 
 // tag::budget[]
