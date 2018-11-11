@@ -25,7 +25,6 @@ The image shown below highlights the difference sections of OASIS's user interfa
 
 image::introToOASIS.png[width="900"]
 
-// tag::quickstart-begin[]
 === Symbols used in this guide
 [NOTE]
 ====
@@ -36,6 +35,7 @@ Denotes something that you may want to take note of.
 Denotes a warning for something critical.
 ====
 
+// tag::quickstart-begin[]
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -263,6 +263,7 @@ Examples:
 
 * `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
 
+// tag::myself[]
 === Edit details of the currently logged in user : `myself`
 
 Changes the details of the currently logged in user
@@ -279,6 +280,8 @@ Examples:
 
 * `myself -p 91234567 -e johndoe@example.com`
 * `myself -n James`
+
+// end::myself[]
 
 === Edit details : `edit`
 
@@ -333,6 +336,7 @@ Examples:
 * modifypermission 1 -a ADD_EMPLOYEE
 * modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
 
+// tag::passwd[]
 === Change password : `passwd`
 
 Changes user password.
@@ -345,6 +349,8 @@ Format: `passwd`
 
 [WARNING]
 Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+
+// end::passwd[]
 
 === Undoing previous command : `undo`
 
