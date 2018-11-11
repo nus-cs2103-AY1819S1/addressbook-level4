@@ -385,8 +385,8 @@ This feature is facilitated by newly added methods in the Model interface which 
 * `Model#hasSelectedUser()` -- Checks if a user is currently logged in in `Model`
 * `Model#setPassword(Password, String)` -- Changes the `Password` of the user that is currently logged in. Requires the new password as a `Password` object and as a plain text `String`.
 * `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
-* `Model#encryptString(String)` -- Encrypts the input String using the currently logged in user's encryption key
-* `Model#decryptString(String)` -- Decrypts the input String using the currently logged in user's encryption key.
+* `Model#encryptString(String)` -- Encrypts the input `String` using the currently logged in user's encryption key
+* `Model#decryptString(String)` -- Decrypts the input `String` using the currently logged in user's encryption key.
 
 When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
@@ -404,9 +404,9 @@ public void methodName() throws NoUserSelectedException {
 
 The classes `Username` and `Password` have also been implemented and have the following noteworthy characteristics:
 
-* Two `Username` classes are equivalent if and only if the internal username String are equivalent (case-insensitive).
-* `Username` cannot be constructed with a String containing a white space or any of the following characters: _" > < : \ / | ? *_
-* When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal String in the `Password` object
+* Two `Username` classes are equivalent if and only if the internal username `String` are equivalent (case-insensitive).
+* `Username` cannot be constructed with a `String` containing a white space or any of the following characters: _" > < : \ / | ? *_
+* When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal `String` in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
 
 Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
@@ -446,7 +446,7 @@ Below is an example usage scenario and how the Sign Up and Login system behaves 
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
 . The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
-. `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty string is used as the password since `john`&#8217;s account has no password).
+. `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty `String` is used as the password since `john`&#8217;s account has no password).
 . The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
 
 Below is the UML sequence diagram that shows how `SignUpCommand` works.
@@ -464,7 +464,7 @@ Below is an example usage scenario and how the Password system behaves at each s
 . The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
 . The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
-. `john`&#8217;s expense data gets encrypted using a new encryption key generated from the String `password2`. This also applies in future whenever it is saved to the data file.
+. `john`&#8217;s expense data gets encrypted using a new encryption key generated from the `String` `password2`. This also applies in future whenever it is saved to the data file.
 
 Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 
@@ -577,7 +577,7 @@ image::implementation/FindCommandSequenceDiagram.png[width="800"]
 . User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `ExpenseTrackerParser`,
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
-. `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 an `ArgumentMultimap` Object.
 
 . `FindCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
@@ -608,7 +608,7 @@ image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
 . User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
   which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
 
-. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 two `ArgumentMultimap` Objects.
 
 . `MassEditCommandParser#parse()` method then create a `ExpenseContainsKeywordsPredicate` Object. Then it calls `EditExpenseDescriptor#createEditExpenseDescriptor()` method to create an
@@ -865,7 +865,7 @@ Steps of the command execution are as follows:
 
 . `ExpenseTrackerParser` will then create a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
 
-. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 an `ArgumentMultimap` Object.
 
 . `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
@@ -1697,7 +1697,7 @@ Use case ends
 *MSS*
 
 1. User keys in command to encrypt a specified string.
-2. Expense Tracker encrypts the specified string with the user's encryption key.
+2. Expense Tracker encrypts the specified `String` with the user's encryption key.
 +
 Use case ends
 
@@ -1713,7 +1713,7 @@ Use case ends
 *MSS*
 
 1. User keys in command to decrypt a specified encrypted string.
-2. Expense Tracker decrypts the specified string with the user's encryption key.
+2. Expense Tracker decrypts the specified `String` with the user's encryption key.
 +
 Use case ends
 
@@ -1723,8 +1723,8 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
-    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+* 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
     ** Use case ends.
 
 [discrete]
