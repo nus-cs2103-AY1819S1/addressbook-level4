@@ -74,3 +74,11 @@ include::../UserGuide.adoc[tag=autocomplete]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=deleteperson]
+
+include::../DeveloperGuide.adoc[tag=viewperson]
+
+include::../DeveloperGuide.adoc[tag=addappointment]
+
+include::../DeveloperGuide.adoc[tag=deleteappointment]

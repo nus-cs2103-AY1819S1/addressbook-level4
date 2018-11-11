@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T10-2/main
+:repoURL: https://github.com/CS2103-AY1819S1-T10-2/main/tree/master
 
-By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -141,9 +141,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete-patient n/John Doe`.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `delete-patient n/John Doe` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -151,7 +151,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `delete-patient n/John Doe` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -167,7 +167,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `InformationPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -192,9 +192,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete-patient n/John Doe")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete-patient n/John Doe` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -223,7 +223,7 @@ image::StorageComponentClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Health Book data in xml format and read it back.
+* can save the HealthBook data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -234,33 +234,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Delete Patient and Doctor Feature
-==== Current Implementation
-The delete patient and doctor features are facilitated by `DeletePatientCommand` and `DeleteDoctorCommand`. Both extends
-`DeleteCommand` such that it is able to delete a specific class of `Person` (i.e. `Patient` or `Doctor`) instead. Additionally,
-instead of deletion by index, deletion by name is used in this implementation.
-
-.Delete Patient Sequence Diagram
-image::DeletePatientSequenceDiagram.png[width="600"]
-
-.Delete Doctor Sequence Diagram
-image::DeleteDoctorSequenceDiagram.png[width="600"]
-
-Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
-
-Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
-
-==== Design Considerations
-===== Aspect: Algorithm to find `Patient` or `Doctor` to delete
-* Alternative 1 (current choice):  Loop through `model.getFilteredPersonList()` to find `Patient` or `Doctor` to delete
-** Pros: Easy to implement
-** Cons: If size of list grows unusually large (unusual because of our target audience), it may take awhile to retrieve the
-`Patient` or `Doctor`
-
-* Alternative 2: Use a Map that maps name to `Patient` or `Doctor`
-** Pros: Fast retrieval
-** Cons: Will have to change a lot of lines of code
-
+// tag::registerpatient[]
 === Register Patient Feature
 ==== Current Implementation
 The register patient are facilitated by `RegisterPatientCommand` and `RegisterPatientCommandParser`. This command extends
@@ -294,6 +268,7 @@ through easily when required.
 * Alternative 2 (Previous Implementation): Upcoming Appointments stored within a Queue and Past Appointments stored within a
 Stack.
 
+// tag::registerdoctor[]
 === Register Doctor Feature
 ==== Current Implementation
 The register doctor are facilitated by `RegisterDoctorCommand` and `RegisterDoctorCommandParser`. This command extends
@@ -324,7 +299,6 @@ to interact with the address book. If no login is done, the HealthBook will not 
 Doctor is saved in the storage as person. However, when we retrieve the doctor object from storage, it will be
 created as a doctor as determined by their tag.
 
-
 ==== Design Considerations
 ===== Aspect: Presenting Google Calendar Login to Doctors
 * Alternative 1 (Current Choice): Implement Google Calendar login with a popped up browser. This allow the data transfer
@@ -336,29 +310,139 @@ Instead of having an additional browser, we load the login page into the Browser
 login for the login but user might miss the login compared to having a popped up browser.
 
 ===== Aspect: Saving Doctor with respect to Google Login
-* Alternative 2 (Alternative Choice): Doctor object will not be created and application will not respond if login is
-unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
-continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
-the google calendar login.
-
 * Alternative 1 (Current Choice): Allow doctor to still be created with or without the Google Login. Since the Google
 Calendar acts as an add-on, it should not interfere with the main function of the HealthBook. As such, we implemented
 register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
 prompt the user to login.
 
-=== Remark Feature
+* Alternative 2 (Alternative Choice): Doctor object will not be created and application will not respond if login is
+unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
+continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
+the google calendar login.
+
+// tag::deleteperson[]
+=== Delete Patient and Doctor Feature
 ==== Current Implementation
-Remark command allows user to input any information into Patient object with no restrictions. This command can
-only be called after patient is created.
+The delete patient and doctor features are facilitated by `DeletePatientCommand` and `DeleteDoctorCommand`. Both extends
+`DeleteCommand` such that it is able to delete a specific subclass of `Person` (i.e. `Patient` or `Doctor`) instead. Additionally,
+instead of deletion by index, deletion by name is used in this implementation.
 
-.Remark Command Sequence Diagram
-image::RemarkSequenceDiagram.png[width="600"]
+.Delete Patient Sequence Diagram
+image::DeletePatientSequenceDiagram.png[width="600"]
 
-Step 1. The user types in `remark` in the command box followed by the parameters `appointment_id r/some remark`
+.Delete Doctor Sequence Diagram
+image::DeleteDoctorSequenceDiagram.png[width="600"]
 
-Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
-previous remark will be deleted.
+Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
 
+Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
+
+==== Design Considerations
+===== Aspect: Algorithm to find `Patient` or `Doctor` to delete
+* Alternative 1 (Current choice):  Loop through `model.getFilteredPersonList()` to find `Patient` or `Doctor` to delete
+** Pros: Easy to implement
+** Cons: If size of list grows unusually large (unusual because of our target audience), it may take awhile to retrieve the
+`Patient` or `Doctor`
+
+* Alternative 2: Use a Map that maps name to `Patient` or `Doctor`
+** Pros: Fast retrieval
+** Cons: Will have to change a lot of lines of code
+
+// tag::viewperson[]
+=== View Patient and Doctor Feature
+==== Current Implementation
+The view patient and doctor features are facilitated by `ViewPatientCommand` and `ViewDoctorCommand`. This feature shows information
+of the person corresponding to the name specified.
+
+.View Patient Sequence Diagram
+image::ViewPatientSequenceDiagram.png[width="600"]
+
+.View Doctor Sequence Diagram
+image::ViewDoctorSequenceDiagram.png[width="600"]
+
+Step 1. The user types in `view-patient` or `view-doctor` in the command box followed by the parameters `n/John Doe`
+
+Step 2. Upon hitting enter, information of `Patient` or `Doctor` will be reflected on the main information panel
+
+// tag::filterperson[]
+=== Filter Patient and Filter Doctor Feature
+==== Current Implementation
+This feature help to filter all patients/doctors in HealthBook
+
+.Filter Patient Sequence Diagram
+image::FilterPatientSequenceDiagram.png[width="600"]
+
+Step 1. The user types `filter-patient` or `filter-doctor` in the command box
+
+Step 2. Upon hitting enter, all persons who are tagged as `Patient` or `Doctor` would appear on the panel
+
+// tag::addappointment[]
+=== Add Appointment Feature
+==== Current Implementation
+The add appointment features are facilitated by `AddAppointmentCommand`. This feature allows user to add appointments in the HealthBook
+which will be added to the respective `Patient` and `Doctor` of the `Appointment` as well.
+
+.Add Appointment Sequence Diagram
+image::AddAppointmentSequenceDiagram.png[width="600"]
+
+Step 1. The user types in `add-appointment` in the command box followed by the parameters `np/John Doe nd/Mary Jane d/2018-10-17 15:00`
+
+Step 2. Upon hitting enter, the `Appointment` will be added to the HealthBook, the `Patient`, and the `Doctor` and his/her Google calendar
+
+// tag::deleteappointment[]
+=== Delete Appointment Feature
+==== Current Implementation
+The delete appointment features are facilitated by `DeleteAppointmentCommand`. This feature allows user to delete appointments in the HealthBook
+which will be deleted from the respective `Patient` and `Doctor` of the `Appointment` as well.
+
+.Delete Appointment Sequence Diagram
+image::DeleteAppointmentSequenceDiagram.png[width="600"]
+
+Step 1. The user types in `delete-appointment` in the command box followed by the appointment id `10000`
+
+Step 2. Upon hitting enter, the `Appointment` will be removed from the HealthBook, the `Patient`, and the `Doctor` and his/her Google calendar
+
+// tag::completeappointment[]
+=== Complete Appointment Feature
+==== Current Implementation
+The complete appointment features are facilitated by `CompleteAppointmentCommand`. This feature allows user to complete existing appointments
+in the HealthBook which change the status of the `Appointment` from `UPCOMING` to `COMPLETED`.
+
+.Complete Appointment Sequence Diagram
+image::CompleteAppointmentSequenceDiagram.png[width="600"]
+
+Step 1. The user types in `complete-appointment` in the command box followed by the appointment id `10000`
+
+Step 2. Upon hitting enter, the status in the `Appointment` will be changed from `UPCOMING` to `COMPLETED`
+
+// tag::addprescription[]
+=== Add Prescription Feature
+==== Current Implementation
+The add prescription feature is facilitated by `AddPrescriptionCommand` and `AddPrescriptionCommandParser`.
+This command is implemented such that it is able to add a `Prescription` object for a specific `Appointment` specified by appointment id.
+
+Step 1. The user types `add-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`.
+
+Step 2. Upon hitting enter, the `Prescription` will be created and added to the `Appointment`.
+
+[WARNING]
+Exception will be thrown if a medicine of the same name already exists in appointment regardless of dosage and consumption per day. +
+Exception will be thrown if medicine that the patient is allergic to is added to the appointment.
+
+// tag::deleteprescription[]
+=== Delete Prescription Feature
+==== Current Implementation
+The delete prescription is facilitated by `DeletePrescriptionCommand` and `DeletePrescriptionCommandParser`.
+This command is implemented such that it is able to delete a `Prescription object for a specific `Appointment` specified by appointment id.
+
+Step 1. The user types `delete-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME`.
+
+Step 2. Upon hitting enter, the `Prescription` will be deleted from the `Appointment`.
+
+[WARNING]
+Exception will be thrown if medicine to be deleted does not exist in appointment.
+
+// tag::addmedicalhistory[]
 === Add Medical History Feature
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
@@ -387,6 +471,7 @@ Exception will be thrown if inputs for both field are blank.
 `AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
 * Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
+// tag::deletemedicalhistory[]
 === Delete Medical History Feature
 ==== Current Implementation
 The delete medical history feature is facilitated by `DeleteMedicalHistoryCommand` and
@@ -415,41 +500,19 @@ Exception will be thrown if given input is not in the original medical history.
 `AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
 * Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
-=== Filter Patient and Filter Doctor Feature
-===== Current Implementation
-This feature help to filter all patients/doctors in health book
-
-.Filter Patient Sequence Diagram
-image::FilterPatientSequenceDiagram.png[width="600"]
-
-Step 1. The user types `filter-patient` or `filter-doctor` in the command box
-
-Step 2. Upon hitting enter, all persons who are tagged as "Patient" or "Doctor" would appear on the panel
-
-=== Add Prescription Feature
+// tag::remark[]
+=== Remark Feature
 ==== Current Implementation
-The add prescription feature is facilitated by `AddPrescriptionCommand` and `AddPrescriptionCommandParser`.
-This command is implemented such that it is able to add a `Prescription` object for a specific `Appointment` specified by appointment id.
+Remark command allows user to input any information into Patient object with no restrictions. This command can
+only be called after patient is created.
 
-Step 1. The user types `add-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`.
+.Remark Command Sequence Diagram
+image::RemarkSequenceDiagram.png[width="600"]
 
-Step 2. Upon hitting enter, the `Prescription` will be created and added to the `Appointment`.
+Step 1. The user types in `remark` in the command box followed by the parameters `appointment_id r/some remark`
 
-[WARNING]
-Exception will be thrown if a medicine of the same name already exists in appointment regardless of dosage and consumption per day. +
-Exception will be thrown if medicine that the patient is allergic to is added to the appointment.
-
-=== Delete Prescription Feature
-==== Current Implementation
-The delete prescription is facilitated by `DeletePrescriptionCommand` and `DeletePrescriptionCommandParser`.
-This command is implemented such that it is able to delete a `Prescription object for a specific `Appointment` specified by appointment id.
-
-Step 1. The user types `delete-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME`.
-
-Step 2. Upon hitting enter, the `Prescription` will be deleted from the `Appointment`.
-
-[WARNING]
-Exception will be thrown if medicine to be deleted does not exist in appointment.
+Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
+previous remark will be deleted.
 
 === Logging
 
