@@ -296,7 +296,5 @@ e.g. `c_adjust CS2103 A` +
 or +
 `c_adjust MODULE_CODE YEAR SEM GRADE` +
 e.g. `c_adjust CS2103 1 1 A`
-* *Undo* : `c_undo`
-* *Redo* : `c_redo`
 * *Help* : `help`
 * *Exit* : `exit`
