@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 
 public class ExportCommandTest {
 
