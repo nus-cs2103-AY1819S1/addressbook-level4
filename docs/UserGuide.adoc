@@ -20,7 +20,8 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-**Ding Dong!** Welcome to *CLInic*! +
+**Ding Dong!** Welcome to *CLInic*!
+
 *CLInic* is a desktop application designed to streamline and expedite operations in clinics.
 Regardless of whether you are a doctor or a receptionist at a clinic , merely having an average to high typing
 speed is the only pre-requisite required to reap its numerous benefits, which includes:
@@ -120,7 +121,7 @@ Examples:
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clinton@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the right, indicated by the black cursor.
-image::AddEx1.png[width="600"]
+image::AddEx1.png[width="900"]
 
 ==== Editing a patient: `edit`
 Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient had recently changed his address? +
@@ -146,10 +147,10 @@ Upon successful execution, you should see the patient's details updated in the p
 Examples:
 
 * `edit 5 p/98534228 e/clawyq@cs2101.com` +
-Updates the phone number and e-mail address of the 5th patient in the list to `98534228 ` and `clawyq@cs2101.com` respectively, as shown below.
+Updates the phone number and e-mail address of the 5th patient in the list to `98534228` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
-image::EditEx1.png[width="600"]
+image::EditEx1.png[width="900"]
 // end::patientfirsthalf[]
 
 ==== Locating a patient by name: `find`
@@ -647,12 +648,11 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::mc[]
 ==== Generating medical certificate: `mc`
 
-Generates a medical certificate for the Served Patient. +
+Clinic staff can use this command to generate a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -666,13 +666,12 @@ image::mc_fig.png[width="600"]
 // tag::receipt[]
 ==== Generating receipt: `receipt`
 
-Generates a receipt for the Served Patient. +
+Clinic staff can use this command to generate a receipt for the Served Patient. +
 Alias: `rec` +
 Format: `receipt INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a receipt for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
@@ -686,14 +685,13 @@ image::receipt_fig.png[width="600"]
 // tag::refer[]
 ==== Generating referral letter: `refer`
 
-Generates a referral letter for the Served Patient. +
+Clinic staff can use this command to generate a referral letter for the Served Patient. +
 Alias: `ref` +
 
 Format: `refer INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 

@@ -78,7 +78,6 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
         }
 
-
         Medicine medicineToEdit = lastShownList.get(index.getZeroBased());
         Medicine editedMedicine = createEditedMedicine(medicineToEdit, medicineDescriptor);
 
@@ -87,26 +86,16 @@ public class EditMedicineCommand extends Command {
         }
 
         // changes both medicine name and serial number
-        if (model.hasMedicineName(editedMedicine)
-                && model.hasSerialNumber(editedMedicine)
-                && medicineDescriptor.isMedicineNameChanged()
-                && medicineDescriptor.isSerialNumberChanged()) {
-            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER + "\n" + MESSAGE_DUPLICATE_MEDICINE_NAME);
-        }
+        assertMedicineNameAndSerialNumberChanged(model, editedMedicine);
 
         // only the serial number changed
         // assert serial number changed
-        if (model.hasSerialNumber(editedMedicine)
-                && medicineDescriptor.isSerialNumberChanged()) {
-            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
-        }
+        assertOnlySerialNumberChanged(model, editedMedicine);
 
         // only the medicine name changed
         // assert medicine name changed
-        if (model.hasMedicineName(editedMedicine)
-                && medicineDescriptor.isMedicineNameChanged()) {
-            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
-        }
+        assertOnlyMedicineNameChanged(model, editedMedicine);
+
         model.updateMedicine(medicineToEdit, editedMedicine);
         model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
         model.commitAddressBook();
@@ -114,6 +103,51 @@ public class EditMedicineCommand extends Command {
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
         return new CommandResult(String.format(MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine));
+    }
+
+    /**
+     * Asserts that medicine name has changed when user tries to change the medicine name, and the medicine name
+     * already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
+    private void assertOnlyMedicineNameChanged(Model model, Medicine editedMedicine) throws CommandException {
+        if (model.hasMedicineName(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
+        }
+    }
+
+    /**
+     * Asserts that serial number has changed when user tries to change the serial number, and the serial number
+     * already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
+    private void assertOnlySerialNumberChanged(Model model, Medicine editedMedicine) throws CommandException {
+        if (model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isSerialNumberChanged()) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
+        }
+    }
+
+    /**
+     * Asserts that both the medicine name and serial number have changed when user tries to change the both of them,
+     * and both parameters already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
+    private void assertMedicineNameAndSerialNumberChanged(Model model, Medicine editedMedicine)
+            throws CommandException {
+        if (model.hasMedicineName(editedMedicine)
+                && model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()
+                && medicineDescriptor.isSerialNumberChanged()) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER + "\n" + MESSAGE_DUPLICATE_MEDICINE_NAME);
+        }
     }
 
     /**
