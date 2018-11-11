@@ -1,6 +1,5 @@
 = Teo Jia Jun - Project Portfolio
 :site-section: AboutUs
-:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
@@ -12,14 +11,16 @@
 == Overview
 
 This portfolio serves to document my contributions to ThanePark.
-ThanePark is a project that I have done in my software engineering module(CS2103T), in year 2, semester 1.
+ThanePark is a project that I have done in my software engineering module(CS2103T).
+It was done during the first semester of my second year in NUS School of Computing,
+together with three other classmates.
 It is a desktop application used for theme park operators to manage their rides.
 
 A limitation set by the module is that the user has to interact with ThanePark using a Command Line Interface(CLI).
 It also has a Graphical User Interface(GUI) created with JavaFX.
 ThanePark is written in Java, and has about 10,000 lines of code.
 
-My task in ThanePark is to implement the view status command to view rides of different statuses and to update documents.
+My role in ThanePark is to implement the viewstatus status command to view rides of different statuses and to update documents.
 
 
 == Summary of Contributions
@@ -32,14 +33,26 @@ My task in ThanePark is to implement the view status command to view rides of di
 ** Credits: The view status feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
             `RideContainsKeywordsPredicate`.
 
-* *Minor enhancement*:
+* *Minor enhancement*: added the `maintain` command.
+** What it does: allows the user to change the status of a selected ride to `MAINTENANCE`.
+** Justification: Allows the user to find relevant rides with ease.
+** Highlight: This enhancement involved changes the status of the ride to `MAINTENANCE`.
+  In doing so, the command also updates the maintenance and waiting time field to zero
+** Credits: The view status feature is based on the way update feature works, ... ...
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added Developer Guide
+
+** Enhancements to existing features:
+*** sdvss
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class
 
 
 == Contributions to the User Guide
@@ -55,7 +68,8 @@ include::../UserGuide.adoc[tag=viewstatus]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=viewstatus]

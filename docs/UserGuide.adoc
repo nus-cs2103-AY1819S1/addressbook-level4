@@ -457,7 +457,7 @@ image::./ui_screenshots/viewstatus-example-3.png[width="600"]
 .After executing `viewstatus MainTenaNce` command
 image::./ui_screenshots/viewstatus-example-4.png[width="600"]
 
-As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`. 
+As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`.
 |===
 
 ==== Viewing all available rides: `viewall`
@@ -545,9 +545,12 @@ image::./ui_screenshots/find-example-3.png[width="600"]
 |===
 // end::filter[]
 
-=== See commands to be implemented in v2.0
+=== Add access for different type of users
 
-This section contains all commands that will be implemented in v2.0.
+This section contains all commands that is related to accessing the system.
+
+[NOTE]
+All commands in this section have not been implemented. They will be implemented in v2.0.
 
 ==== Signing up as a user
 Creates a new user profile to allow the user to access ThanePark. +
