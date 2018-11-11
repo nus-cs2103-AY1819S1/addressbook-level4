@@ -52,7 +52,8 @@ Refer to <<Features>> for details of each command.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [c/CCA]` can be used as `n/John Doe c/soccer` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[c/CCA]...` can be used as `{nbsp}` (i.e. 0 times), `c/soccer`, `c/soccer c/basketball` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[c/CCA]...` can be used as
+`{nbsp}` (i.e. 0 times), `c/soccer`, `c/soccer c/basketball` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -92,7 +93,7 @@ Clears all residents from Hallper. +
 Format: `clear all`
 
 ****
-* 'all' is case-sensitive.
+* `all` is case-sensitive.
 ****
 
 Example:
@@ -503,6 +504,7 @@ Displays view of calendar with current week as default page with the events load
 
 image::calendar_view_diagram.png[width="790"]
 
+// tag::budget[]
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
 
@@ -533,12 +535,8 @@ Format: `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS`
 
 [NOTE]
 ====
-Transaction entry can only be added one at a time.
-====
-
-[NOTE]
-====
-`undo` and `redo` command does not apply to `add_trans`.
+* Transaction entry can only be added one at a time.
+* `undo` and `redo` command does not apply to `add_trans`.
 ====
 
 Examples:
@@ -559,14 +557,35 @@ Deletes the CCA with the specified name.
 [NOTE]
 ====
 * The CCA specifed must exist in the Hallper.
-
-* `undo` and `redo` command does not apply to `create`.
+* `undo` and `redo` command does not apply to `delete_cca`.
 ====
 
 Examples:
 
 * `delete_cca c/netball`
 * `delete_cca c/Basketball F`
+
+==== Deleting a transaction entry : `delete_trans`
+
+Deletes the specified transaction entry from the specified CCA from Hallper. +
+Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
+
+****
+* Deletes the specific transaction entry from the CCA with the specified name.
+* The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
+****
+
+[NOTE]
+====
+* The CCA specifed must exist in the Hallper.
+* The transaction entry number must exist for the specified CCA.
+* `undo` and `redo` command does not apply to `delete_trans`.
+====
+
+Examples:
+
+* `delete_trans c/netball trans/1`
+* `delete_trans c/Basketball F trans/3`
 
 ==== Updating a cca : `update`
 
@@ -575,7 +594,6 @@ Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEA
 [trans/ENTRY_NUMBER] [date/DATE] [amount/AMOUNT] [remarks/REMARKS]`
 
 ****
-* Edits the CCA specified with `c/`. `c/` is required.
 * At least one of the optional fields must be provided.
 * When `trans/` is included, at least one of the fields in the transaction entry must be provided.
 * Existing values will be updated to the input values.
@@ -629,13 +647,15 @@ Opens up the Budget Window.
 * `budget c/Softball` +
 Opens up the Budget Window, showing the transaction history of `Softball`.
 
+// end::budget[]
+
 === Miscellaneous
 This section lists miscellaneous commands for navigating Hallper.
 
-==== Viewing help : `help`
+==== Exiting the program : `exit`
 
-Opens up the User Guide in a new window. +
-Format: `help`
+Exits the program. +
+Format: `exit`
 
 ==== Listing entered commands : `history`
 
@@ -648,6 +668,34 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+==== Saving the data
+
+Hallper data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
 ==== Undoing previous command : `undo`
 
 Restores Hallper to the state before the previous _undoable_ command was executed. +
@@ -674,38 +722,10 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+==== Viewing help : `help`
 
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-==== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-==== Saving the data
-
-Hallper data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Opens up the User Guide in a new window. +
+Format: `help`
 
 == FAQ
 

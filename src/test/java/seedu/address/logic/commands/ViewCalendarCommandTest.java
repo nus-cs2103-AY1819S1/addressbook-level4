@@ -38,7 +38,7 @@ public class ViewCalendarCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
-            getTypicalExistingEmails());
+        getTypicalExistingEmails());
 
     private void updateExistingCalendarsInModel(Year year, Month month) {
         model.getCalendarModel().updateExistingCalendar(year, month);
@@ -70,7 +70,7 @@ public class ViewCalendarCommandTest {
 
         String expectedMessage = String.format(MESSAGE_SUCCESS, DEFAULT_MONTH + "-" + DEFAULT_YEAR + ".ics");
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         // Update expected model's existing calendars
         expectedModel.getCalendarModel().updateExistingCalendar(DEFAULT_YEAR, DEFAULT_MONTH);
         expectedModel.updateExistingCalendar();
@@ -89,18 +89,18 @@ public class ViewCalendarCommandTest {
     @Test
     public void equals() {
         ViewCalendarCommand viewJan2018CalendarCommand =
-                new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
+            new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
         ViewCalendarCommand viewFeb2018CalendarCommand =
-                new ViewCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2018);
+            new ViewCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2018);
         ViewCalendarCommand viewJan2017CalendarCommand =
-                new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2017);
+            new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2017);
 
         // same object -> returns true
         assertTrue(viewJan2018CalendarCommand.equals(viewJan2018CalendarCommand));
 
         // same values -> returns true
         ViewCalendarCommand viewJan2018CalendarCommandCopy =
-                new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
+            new ViewCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
         assertTrue(viewJan2018CalendarCommand.equals(viewJan2018CalendarCommandCopy));
 
         // different types -> returns false

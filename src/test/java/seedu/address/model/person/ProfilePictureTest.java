@@ -29,8 +29,8 @@ public class ProfilePictureTest {
 
         // invalid profile picture
         assertFalse(ProfilePicture.isValidProfilePicture(Paths.get("^"))); // only non-alphanumeric characters
-        assertFalse(ProfilePicture
-                .isValidProfilePicture(Paths.get(".", "resources", "profile_picture"))); // does not end jpg or png
+        assertFalse(ProfilePicture.isValidProfilePicture(Paths.get(".", "resources", "profile_picture"))); // does
+        // not end jpg or png
         assertFalse(ProfilePicture.isValidProfilePicture(Paths.get("a.png"))); // ends with .png
 
         //valid profile picture

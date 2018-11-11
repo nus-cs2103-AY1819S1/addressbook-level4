@@ -36,15 +36,15 @@ public class ViewCalendarCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR,
-                new ViewCalendarCommand(expectedMonth, expectedYear));
+            new ViewCalendarCommand(expectedMonth, expectedYear));
 
         // lower-case month
         assertParseSuccess(parser, LOWER_CASE_MONTH + FOUR_DIGIT_YEAR,
-                new ViewCalendarCommand(expectedMonth, expectedYear));
+            new ViewCalendarCommand(expectedMonth, expectedYear));
 
         // mix-case month
         assertParseSuccess(parser, MIX_CASE_MONTH + FOUR_DIGIT_YEAR,
-                new ViewCalendarCommand(expectedMonth, expectedYear));
+            new ViewCalendarCommand(expectedMonth, expectedYear));
     }
 
     @Test
@@ -74,14 +74,14 @@ public class ViewCalendarCommandParserTest {
 
         // invalid year (Less than 4 characters)
         assertParseFailure(parser, UPPER_CASE_MONTH + INVALID_YEAR_LESS_THAN_FOUR_DIGIT,
-                Year.MESSAGE_YEAR_CONSTRAINTS);
+            Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // invalid year (More than 4 characters)
         assertParseFailure(parser, UPPER_CASE_MONTH + INVALID_YEAR_MORE_THAN_FOUR_DIGIT,
-                Year.MESSAGE_YEAR_CONSTRAINTS);
+            Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCalendarCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCalendarCommand.MESSAGE_USAGE));
     }
 }

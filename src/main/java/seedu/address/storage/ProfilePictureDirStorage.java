@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+
 import javax.imageio.ImageIO;
 
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.person.Room;
 
 //@@author javenseow
+
 /**
  * A class to access Profile Picture directory in the hard disk.
  */

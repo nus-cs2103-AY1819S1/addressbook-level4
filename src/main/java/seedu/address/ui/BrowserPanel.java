@@ -131,6 +131,7 @@ public class BrowserPanel extends UiPart<Region> {
     //@@author javenseow
     /**
      * Loads HTML page of profile.
+     *
      * @param person The person that the profile will show.
      */
     public void loadProfile(Person person) {
@@ -140,6 +141,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     /**
      * Loads the HTML code of profile view.
+     *
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {

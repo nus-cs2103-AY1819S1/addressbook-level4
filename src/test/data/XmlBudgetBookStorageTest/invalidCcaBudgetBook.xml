@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ccabook>
+    <!-- Cca with invalid budget field -->
+    <ccas>
+        <name>Badminton</name>
+        <head>Peter parker</head>
+        <viceHead>roy</viceHead>
+        <budget>-1222</budget>
+        <spent>0</spent>
+        <outstanding>1222</outstanding>
+    </ccas>
+</ccabook>

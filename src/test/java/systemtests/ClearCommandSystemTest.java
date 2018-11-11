@@ -99,6 +99,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     }
 
     //@@author kengwoon
+
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code ClearCommand#MESSAGE_CLEAR_SPECIFIC_SUCCESS} and the model related components equal to an
@@ -106,6 +107,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertSpecificCommandSuccess(String command) {
@@ -128,7 +130,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         }
         expectedModel.clearMultiplePersons(toClear);
         assertCommandSuccess(command, String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, keywords),
-                                expectedModel);
+            expectedModel);
     }
 
     /**

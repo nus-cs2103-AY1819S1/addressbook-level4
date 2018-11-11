@@ -74,11 +74,11 @@ public class BudgetBook implements ReadOnlyBudgetBook {
         Set<Tag> tagSet = person.getTags();
         for (Tag tag : tagSet) {
             String ccaName = tag.tagName;
-            if (ccas.contains(ccaName)) {
-                return true;
+            if (!ccas.contains(ccaName)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

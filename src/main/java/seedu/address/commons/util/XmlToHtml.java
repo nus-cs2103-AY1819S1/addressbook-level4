@@ -24,29 +24,27 @@ import org.xml.sax.SAXException;
  *
  * @author ericyjw
  */
-public class XmlToHmtl {
-
-    private static final String ccaBook = "./data/ccabook.xml";
-    private static final String ccaBookXsl = "./docs/ccabook.xsl";
-    private static final String outputHtml = "./data/ccabook.html";
+public class XmlToHtml {
+    private static final String CCABOOK_FILEPATH = "./data/ccabook.xml";
+    private static final String CCABOOK_XSL_FILEPATH = "data/ccabook.xsl";
+    private static final String CCABOOK_HTML_FILEPATH = "data/ccabook.html";
 
     /**
      * Convert ccabook.xml into ccabook.hmtl to view on the Webview of FXML
      */
     public static void convertCcaBook(String chosenCca) {
-
         changeChosenCcaTo(chosenCca);
-        try {
 
+        try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
 
-            File xmlFile = new File(ccaBook);
-            File xslFile = new File(ccaBookXsl);
+            File xmlFile = new File(CCABOOK_FILEPATH);
+            File xslFile = new File(CCABOOK_XSL_FILEPATH);
+
             Transformer transformer = tFactory.newTransformer
                 (new StreamSource(xslFile));
-
-            transformer.transform(new javax.xml.transform.stream.StreamSource(xmlFile),
-                new StreamResult(new FileOutputStream(outputHtml)));
+            transformer.transform(new StreamSource(xmlFile),
+                new StreamResult(new FileOutputStream(CCABOOK_HTML_FILEPATH)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +59,7 @@ public class XmlToHmtl {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse(ccaBookXsl);
+            Document doc = docBuilder.parse(CCABOOK_XSL_FILEPATH);
 
             // Set the display information of the chosen CCA
             Node chosen = doc.getElementsByTagName("xsl:if").item(0);
@@ -74,7 +72,8 @@ public class XmlToHmtl {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(ccaBookXsl));
+            StreamResult result =
+                new StreamResult(new File(CCABOOK_XSL_FILEPATH));
             transformer.transform(source, result);
 
         } catch (ParserConfigurationException pce) {

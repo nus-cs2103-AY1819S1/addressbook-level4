@@ -5,6 +5,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
+
 /**
  * Indicates a calendar has been removed from the local storage and the existing calendars in model
  * should be updated.
