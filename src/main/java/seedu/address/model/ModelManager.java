@@ -33,6 +33,7 @@ import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.commons.events.ui.CalendarViewEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
@@ -106,6 +107,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyBudgetBook getBudgetBook() {
         return versionedBudgetBook;
+    }
+
+    @Override
+    public CalendarModel getCalendarModel() {
+        return calendarModel;
     }
 
     @Override
@@ -379,6 +385,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    @Subscribe
+    public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
+        calendarModel.removeExistingCalendar(event.year, event.month);
+        updateExistingCalendar();
+    }
+
+    @Override
     public boolean isExistingCalendar(Year year, Month month) {
         requireAllNonNull(year, month);
         return calendarModel.isExistingCalendar(year, month);
@@ -400,6 +413,11 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean isValidTime(int hour, int minute) {
         requireAllNonNull(hour, minute);
         return calendarModel.isValidTime(hour, minute);
+    }
+
+    @Override
+    public boolean isValidTimeFrame(int startDate, int endDate) {
+        return calendarModel.isValidTimeFrame(startDate, 0, 0, endDate, 1, 0);
     }
 
     @Override
@@ -472,7 +490,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateExistingCalendar() {
-        userPrefs.setExistingCalendar(calendarModel.updateExistingCalendar());
+        userPrefs.setExistingCalendar(calendarModel.getExistingCalendar());
     }
 
     //@@author
