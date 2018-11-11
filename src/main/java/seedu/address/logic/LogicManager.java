@@ -77,6 +77,9 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
+    /**
+     * Check if any events needs to be raised and raise them.
+     */
     private void raiseEvents(Command command) {
         if (command instanceof AddCommand
                 || command instanceof AddMedicineCommand
