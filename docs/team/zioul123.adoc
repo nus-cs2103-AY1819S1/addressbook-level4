@@ -37,6 +37,7 @@
 *** Update the images shown on the project page (Pull requests https://github.com[#2], https://github.com[#15], https://github.com[#28], https://github.com[#56]))
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#22], https://github.com[#23], https://github.com[#40], https://github.com[#57], https://github.com[#58], https://github.com[#60], https://github.com[#71]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-F11-4/main/issues/169[1], https://github.com/CS2103-AY1819S1-F11-4/main/issues/171[2], https://github.com/CS2103-AY1819S1-F11-4/main/issues/184[3], https://github.com/CS2103-AY1819S1-F11-4/main/issues/186[4], https://github.com/CS2103-AY1819S1-F11-4/main/issues/190[5])
 ** Tools:
 *** Get CI tools to print stack traces on failed tests (Pull request https://github.com[#77])
 
