@@ -5,18 +5,24 @@ package seedu.clinicio.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinicio.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
+import org.junit.Rule;
 import org.junit.Test;
 
+import org.junit.rules.ExpectedException;
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
 import seedu.clinicio.model.UserPrefs;
@@ -33,8 +39,14 @@ public class DeleteMedicineCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private Analytics analytics = new Analytics();
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Medicine medicineToDelete = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(INDEX_FIRST_MEDICINE);
 
@@ -49,6 +61,9 @@ public class DeleteMedicineCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
         DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(outOfBoundIndex);
 
@@ -58,6 +73,9 @@ public class DeleteMedicineCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
 
         Medicine medicineToDelete = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
@@ -75,6 +93,9 @@ public class DeleteMedicineCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
 
         Index outOfBoundIndex = INDEX_SECOND_MEDICINE;
@@ -89,6 +110,9 @@ public class DeleteMedicineCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Medicine medicineToDelete = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(INDEX_FIRST_MEDICINE);
         Model expectedModel = new ModelManager(model.getClinicIo(), new UserPrefs());
@@ -111,6 +135,9 @@ public class DeleteMedicineCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
         DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(outOfBoundIndex);
 
@@ -132,6 +159,9 @@ public class DeleteMedicineCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameMedicineDeleted() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(INDEX_FIRST_MEDICINE);
         Model expectedModel = new ModelManager(model.getClinicIo(), new UserPrefs());
 
@@ -153,6 +183,18 @@ public class DeleteMedicineCommandTest {
         expectedModel.redoClinicIo();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel,
                 analytics);
+    }
+
+    @Test
+    public void execute_staffNotLogin_throwsCommandException() throws Exception {
+        UserSession.destroy();
+
+        DeleteMedicineCommand deleteMedicineCommand = new DeleteMedicineCommand(INDEX_FIRST_MEDICINE);
+        Model expectedModel = new ModelManager(model.getClinicIo(), new UserPrefs());
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
+        deleteMedicineCommand.execute(expectedModel, commandHistory);
     }
 
     @Test
