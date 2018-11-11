@@ -494,7 +494,7 @@ The command will be executed successfully if at least one permission is added or
 
 The following is a sequence diagram that visualizes how this operation works.
 
-image::modifyPermissionSequenceDiagram.png[width="350]
+image::modifyPermissionSequenceDiagram.png[width="700"]
 
 ===== Design Considerations
 
@@ -530,7 +530,7 @@ When `ViewPermissionCommand` is executed, it will retrieve the targeted employee
 
 The following is a sequence diagram that visualizes how this operation works.
 
-image::viewPermissionSequenceDiagram.png[width="350]
+image::viewPermissionSequenceDiagram.png[width="700"]
 
 ===== Design Considerations
 
