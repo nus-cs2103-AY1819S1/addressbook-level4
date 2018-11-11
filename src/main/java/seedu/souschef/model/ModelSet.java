@@ -1,5 +1,6 @@
 package seedu.souschef.model;
 
+import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
@@ -30,4 +31,12 @@ public interface ModelSet {
 
     /** Returns the model for favourite*/
     Model<Favourites> getFavouriteModel();
+
+    /**
+     * Registers the object as an event handler at the {@link EventsCenter}
+     * @param handler usually {@code this}
+     */
+    default void registerAsAnEventHandler(Object handler) {
+        EventsCenter.getInstance().registerHandler(handler);
+    }
 }

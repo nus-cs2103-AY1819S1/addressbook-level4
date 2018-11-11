@@ -280,7 +280,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    protected void handleListPanelSwitchEvent(ListPanelSwitchEvent event) {
+    private void handleListPanelSwitchEvent(ListPanelSwitchEvent event) {
         switch (event.context) {
         case RECIPE:
             switchToRecipeListPanel();
@@ -313,7 +313,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    protected void handleBrowserUiChangedEvent(BrowserUiChangedEvent event) {
+    private void handleBrowserUiChangedEvent(BrowserUiChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getType().equals("healthplanDetails")) {
             showHealthPlanDetails(event.getIndex());
