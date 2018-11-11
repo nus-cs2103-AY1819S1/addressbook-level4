@@ -26,6 +26,12 @@ public class ProfilePictureDirStorageTest {
         readProfilePicture(null);
     }
 
+    @Test
+    public void readImageFile_missingFile_throwsIoException() throws Exception {
+        thrown.expect(IOException.class);
+        readProfilePicture(new File("MissingFile.jpg"));
+    }
+
     /**
      * Reads {@code file} into the {@code readProfilePicture} method of
      * {@code ProfilePictureDirStorage}.
