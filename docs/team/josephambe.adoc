@@ -69,7 +69,7 @@ to refer back to the User Guide.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+
 === Understanding the User Interface
 Understanding the User Interface can be tricky - what do all the different colours mean? How do I
 know what has been saved or not? Where can I see new modules I've added?
@@ -133,3 +133,7 @@ and will know to use the `enter` button on their keyboard when ready to submit a
 for the box, a scroll down option becomes available for the user to continue reading the message.
 .  The fourth row displays the summary of the users current CAP goal and their target CAP.
 
+
+include::../DeveloperGuide.adoc[tag=value]
+include::../DeveloperGuide.adoc[tag=targetUser]
+include::../DeveloperGuide.adoc[tag=userStories]

@@ -270,6 +270,18 @@ users overall CAP score.
 *A*: Use the `c_edit` command to input the correct information for the module +
 `c_edit -t MODULE_CODE -g ACTUAL_GRADE`
 
+*Q*: I entered the year I took my module, 2018, and it doesn't work. Why not?
+*A*: The year of the module in CAPTracker doesn't refer to the calander year, but
+instead the year that you are studying at. For example, a module taken in your
+second year of study would have a year value of 2.
+
+*Q*: I entered a new module but can't see it in the app. Where is it?
+*A*: New modules you have added will appear at the bottom of the list in either
+the 'Completed Modules' list or the 'Incomplete Modules' list depending on your
+specification. Scroll down to the bottom of these lists to find your new module;
+it may not appear without you scrolling if there are already a number of mdoules
+entered!
+
 == Command Summary
 
 * *Add* +
