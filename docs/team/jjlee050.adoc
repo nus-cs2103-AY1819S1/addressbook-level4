@@ -9,24 +9,44 @@
 
 == 1. Overview
 
-The purpose of this project portfolio page is to showcase my work done and contributions made throughout the project.
+This portfolio summarises my contributions made throughout the project.
 
-ClinicIO is a project from CS2103T intended for students
-to learn Software Engineering at an entry-level.
+ClinicIO is a project from CS2103T intended for students to learn Software Engineering at an entry-level.
 
 ClinicIO is a clinic management desktop application that allows receptionists can manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
+As the team lead, I am responsible for the overall team coordination. This
+involved providing a clear set of goals and direction for the team, oversee the whole project and
+listen to teammates feedback for improvements. Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
+defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.
+
+As a developer, I am in charge of the UI component of this program. This involves understanding
+how UI is managed in this project and to ensure that the UI component of this project is well maintained.
+
+See below for more details on my contributions for the duration of 10 weeks.
+
 == 2. Summary of contributions
 
+This section’s purpose is to summarise my contributions for the duration of this project. For more details about the contributions, click the link to the corresponding pull request.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050[My Codes]
+
 * *Major enhancement*:
-** Added *the ability to login/logout commands*
-*** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
+** Added *Patient Management* feature (Main Enhancement)
+*** What it does: This feature provide a centralised patient for the user to manage the clinic patients record.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+*** Highlights: This enhancement is integrated alongside with queue, appointment and data commands to provide a cohesive system.
+It requires an in-depth understanding of ClinicIO's architecture.
+
+** Added *User Authentication* feature
+*** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
+*** Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** Alter the UI to provide a more beautiful UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
 
 * *Other contributions*:
 
@@ -40,13 +60,12 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: -
 *** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
 
@@ -55,8 +74,6 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=ui-walkthrough]
 
 include::../UserGuide.adoc[tag=authenticationcommands]
 
@@ -68,4 +85,7 @@ include::../UserGuide.adoc[tag=patientcommands]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=patientManagement]
+
 include::../DeveloperGuide.adoc[tag=login]
+
