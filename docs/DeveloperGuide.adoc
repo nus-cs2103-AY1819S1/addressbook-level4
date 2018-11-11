@@ -526,8 +526,11 @@ which informs the user that there are no expenditures
 
 // tag::find[]
 === Find
+
 This feature allows users to filter out specific expenses by entering multiple keywords.
 Only the expenses which contain all the keywords will be shown on the expense list panel.
+
+This implementation is under Logic and Model Components.
 
 ==== Current Implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -557,22 +560,29 @@ new predicate.
 and returned to `LogicManager`.
 
 ==== Design Consideration
-This feature can be implemented in different ways. Below
+
+This feature can be implemented in different ways in terms of how the target expenses are found.
+The alternative ways of implementation are shown below.
 
 ===== Aspect: How to filter out targeted expenses
-* **Alternative 1 (current choice): Check through all expenses and select those with all the keywords
+* **Alternative 1 (current choice):** Check through all expenses and select those with all the keywords
 ** Pros: Easy to implement. No need to change original architecture.
-** Cons: Time-consuming. Tends to work slower when there is a large number of expenses.
-* **Alternative 2: Store expenses in separated files and only check the relevant files while filtering.
+** Cons: Time-consuming. Tends to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separated files and only check the relevant files while filtering.
 ** Pros: More efficient. No need to check every expense.
-** Cons: Need extra space as one expense may belong to different files.
+** Cons: Need to change the original architecture of storage.
 
 // end::find[]
 
 // tag::massedit[]
 === Mass Edit
 
-=== Current implementation
+This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
+targeted expenses as well as the fields they would like to edit.
+
+This implementation is under Logic and Model components.
+
+==== Current implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of mass edit mechanism
@@ -596,11 +606,23 @@ method to update the predicate of FilterList<Expense>. `Model#getFilteredExpense
 . A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
 Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
 
-. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+. When loop ends, `Model#updateFilteredExpenseList()` is called to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
 
-=== Design Consideration
+==== Design Consideration
 
+This feature can be implemented in different ways in terms of how the target expenses are edited.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to Edit the targeted expenses
+* **Alternative 1(current choice):** Filter out the targeted expenses and replace them with edited expenses.
+** Pros: Easy to implement. Align with current architecture.
+** Cons: Time-consuming. Tends to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separated file. When the expenses are edited, move them
+to another file according to the edited fields.
+** Pros: Easy to identify the targeted expenses. No need to check every expense.
+** Cons: Hard to implement. Need to change original architecture of storage. May need to create new
+files during edition.
 
 // end::massedit[]
 

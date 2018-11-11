@@ -9,14 +9,16 @@
 
 This portfolio aims to document my role and contribution to the *ExpenseTracker*.
 
-ExpenseTracker is a desktop application used for tracking user's expenses.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+*ExpenseTracker* is a desktop application used for tracking user's expenses.
+The user interacts with it using a Command Line Interface (CLI),
+and it has a Graphical User Interface (GUI) created with JavaFX.
 It is written in Java, and has about 20 kLoC.
+It is the product of CS2103T team project.
 
-This project is CS2103T team project. The main purpose of this project is to morph
-AddressBook - Level 4,a given desktop application, into a new application.
+The main purpose of this project is to morph AddressBook - Level 4,
+a given desktop application, into any new application. We work as a team of 5.
 
-Some of its main features are:
+Some of the main features of *ExpenseTracker* are:
 
 . Setting a budget for expenses.
 . Multiple user accounts.
@@ -24,22 +26,33 @@ Some of its main features are:
 . Statistics for expenses.
 
 == Summary of contributions
+This section summarizes my contribution to the project.
 
-* *Major enhancement*: added *the ability to find and edit multiple expenses by keywords*
-** What it does: Allow user to filter out the particular expenses by entering relevant keywords. Allow user to mass edit
-these expenses.
-** Justification: This feature improves the product significantly because it is more convenient for user to find and edit particular expenses.
-** Highlights: This enhancement affects existing commands and commands to be added in future.
-It required an in-depth analysis of design alternatives. The implementation too was challenging
-as it required changes to existing commands.
+* *Major enhancement:*
+** added the ability to find and edit multiple expenses by specific keywords
+*** What it does: Allow user to filter out the particular expenses by entering relevant keywords. Allow user to edit
+all these expenses at the same time.
+*** Justification: This feature improves the product significantly because it is more convenient for user to find and edit particular expenses.
+Now users can easily view the list of expenses with desired details, i.e.,specific name, category, cost, etc.
+With mass edit, users can easily correct the wrongly recorded expenses.
+*** Highlights: This feature enhances the original filtering function and makes filtering more flexible.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jcjxwy&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true}_
+* *Minor enhancement:*
+** Refactored original `AddressBook` and `Person` class into `ExpenseTracker` and `Expense` class.
+** Updated sample entries.
+** Modified the original `UniquePersonList` into `ExpenseList` to allow for duplicate `Expense`.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jcjxwy&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true[code]]
 
 * *Other contributions*:
 
-** Enhancements to existing features:
-** Refactored original AddressBook and Person class into ExpenseTracker and Expense class.
-** Updated sample entries.
+** Community:
+*** Report bugs for other teams(examples: https://github.com/CS2103-AY1819S1-W16-2/main/issues/209[1],
+https://github.com/CS2103-AY1819S1-W16-2/main/issues/211[2])
+
+** Documentation:
+*** Update Architecture and Dev Op sections of Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/91[#91]
+
 
 == Contributions to the User Guide
 
@@ -48,9 +61,26 @@ as it required changes to existing commands.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=find]
+include::../UserGuide.adoc[tag=find1]
 
-include::../UserGuide.adoc[tag=massedit]
+To use `find` command, simply enter the command in correct format and the desired expenses will be shown
+on the expense list panel. The diagram below illustrates the effect of `find` command.
+
+.Diagram to show the effect of find command
+image::FindCommandExampleDiagram.png[width="800"]
+
+include::../UserGuide.adoc[tag=find2]
+
+include::../UserGuide.adoc[tag=massedit1]
+
+To use `massedit` command, simply enter the command in correct format. The
+edited command will be shown on the expense list panel. The diagram below illustrate
+the effect of `massedit` command.
+
+.Diagram to show the effect of massedit command
+image::MassEditCommandExampleDiagram.png[width="800"]
+
+include::../UserGuide.adoc[tag=massedit2]
 
 == Contributions to the Developer Guide
 
@@ -62,8 +92,6 @@ include::../DeveloperGuide.adoc[tag=find]
 
 include::../DeveloperGuide.adoc[tag=massedit]
 
-
-== PROJECT: PowerPointLabs
 
 ---
 

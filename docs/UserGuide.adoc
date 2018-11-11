@@ -264,7 +264,7 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE can be a date in the future
 ====
 
-// tag::massedit[]
+// tag::massedit1[]
 === Editing multiple expenses : `massedit`
 
 Edits the all expenses which match the keywords specified.
@@ -272,6 +272,8 @@ Existing values of the expense will be edited according to the value of the para
 
 Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
+// end::massedit1[]
+// tag::massedit2[]
 ****
 *Examples:*
 
@@ -297,7 +299,7 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \->
 * Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
 ====
 
-// end::massedit[]
+// end::massedit2[]
 [[DeleteCommand]]
 === Deleting a expense : `delete`
 
@@ -318,13 +320,16 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the Expense List.
 ====
 
-// tag::find[]
+// tag::find1[]
 [[FindCommand]]
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...] `
 
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...]`
+// end::find1[]
+
+// tag::find2[]
 ****
 *Examples:*
 
@@ -348,10 +353,10 @@ Find all the expenses under the "School" category, with "lunch" tags and dates o
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * Keywords can contain multiple words, i.e. the KEYWORD `have lunch` are permitted
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
-* Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will an expense with the name `Have`
+* Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will give an expense with the name `Have`
 ====
 
-// end::find[]
+// end::find2[]
 [[ListCommand]]
 === Listing all expenses : `list`
 
