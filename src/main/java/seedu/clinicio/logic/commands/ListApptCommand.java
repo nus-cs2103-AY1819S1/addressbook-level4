@@ -21,8 +21,6 @@ public class ListApptCommand extends Command {
             + "Parameters: dd mm yyyy\n"
             + "Example: " + COMMAND_WORD + " 12 12 2012";
 
-    public static final String MESSAGE_SUCCESS = "Listed all appointments";
-
     private final AppointmentContainsDatePredicate predicate;
 
     public ListApptCommand(AppointmentContainsDatePredicate predicate) {

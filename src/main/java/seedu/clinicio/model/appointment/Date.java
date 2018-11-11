@@ -68,6 +68,9 @@ public class Date {
         return year;
     }
 
+    /**
+     * Checks if the regex pattern is correct.
+     */
     public static boolean isValidDate(String string) {
         return string.matches(DATE_VALIDATION_REGEX);
     }

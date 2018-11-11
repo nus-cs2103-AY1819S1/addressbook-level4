@@ -215,11 +215,11 @@ public class TypicalPersons {
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }
-        /*
+
         for (Appointment appointment : getTypicalAppointments()) {
             clinicIo.addAppointment(appointment);
         }
-        */
+
         /*
         for (Medicine medicine : getTypicalMedicines()) {
             clinicIo.addMedicine(medicine);
