@@ -32,6 +32,10 @@ public class DependencyCommand extends Command {
             + "i.e. " + COMMAND_WORD + " %3$s %4$s";
     public static final String MESSAGE_CYCLIC_DEPENDENCY_FAILURE = "Dependency rejected as new dependency will "
             + "introduce a cyclic dependency";
+    public static final String MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE = "Dependency rejected as "
+            + "dependant task cannot be completed while the dependee task is uncompleted. The introduction of this "
+            + "dependency will make the `COMPLETED` state of the dependant task invalid as it depends on a task that"
+            + "is uncompleted";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
@@ -62,6 +66,16 @@ public class DependencyCommand extends Command {
                 || dependeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
+        }
+    }
+
+    /**
+     * Check if task at dependant index is completed and if task at dependee index is not completed
+     * (Refer to completed command for this check)
+     */
+    private String checkTaskDependencyAtIndexes(Task dependantTask, Task dependeeTask) throws CommandException {
+        if (dependantTask.isStatusCompleted() && !dependeeTask.isStatusCompleted()) {
+            throw new CommandException(MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE);
         }
     }
 
