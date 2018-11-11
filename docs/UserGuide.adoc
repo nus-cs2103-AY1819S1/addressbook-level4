@@ -39,6 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add todo`**`t/CS2103 Assignment d/Version Control p/H` : adds a todo item titled `CS2103 Assignment` to the todo list.
 * **`delete event`**`3` : deletes the calendar event marked `3`.
 * **`delete todo`**`3` : deletes the todo item marked `3`.
+* **`show todo`**`3` : show the description of todo item marked `3`.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -151,6 +152,8 @@ Deletes the 2nd calendar event in the calendar.
 * `find event assignment` +
 `delete event 1` +
 Deletes the 1st calendar event in the results of the `find event` command.
+* `delete todo 1` +
+Deletes the 1st todo item in the todo list.
 
 === Selecting: `select`
 
@@ -171,6 +174,22 @@ Selects the 2nd calendar event in the calendar.
 * `find event lecture` +
 `select event 1` +
 Selects the 1st calendar event in the results of the `find event` command.
+
+=== Showing description: `showDescription`
+
+Shows description of the specified todo item from the todo list. +
+Format: `show todo INDEX`
+
+****
+* Shows description of the todo item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed todo list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `show todo 1` +
+Shows description of the 1st todo item in the todo list.
 
 === Listing entered commands : `history`
 
@@ -292,6 +311,8 @@ e.g. `find event CS2103 Lecture`
 * *Help* : `help`
 * *Select* : `select {event/todo} INDEX` +
 e.g.`select event 2`
+* *ShowDescription* : `show todo INDEX` +
+e.g.`show todo 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
