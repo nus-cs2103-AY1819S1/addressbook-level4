@@ -537,7 +537,7 @@ and adding an event tag. This may violate the Single Responsibility Principle (S
 // end::events[]
 
 [[seeEventContacts]]
-//tag::seeEventContact[]
+//tag::seeEventContacts[]
 === See Event Contacts feature
 ==== Current Implementation
 To obtain an event's contacts, comparisons are done using `Person#isSamePerson` to check if for each event contact, there exists a person in the system
@@ -573,7 +573,7 @@ even when the person's contact details no longer exist in the address book.
 `seeEventContacts` would not display the original nor edited person. When hovering over the contact, if there is no such person in the
 system who is the same person as the person originally added into EventsPlus+,
 the user would see a message indicating that the person has been deleted from the system.
-//end::seeEventContact[]
+//end::seeEventContacts[]
 
 [[EditEventAddress]]
 //tag::editEventAddress[]
@@ -1041,6 +1041,7 @@ about where the group can meet by providing a list of locations that can be cons
 * Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
 
 [appendix]
+//tag::userStories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1128,6 +1129,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |I cannot add duplicate contacts (manually) [Coming in V2.0] |avoid having duplicate contacts
 |=======================================================================
+//end::userStories[]
 
 [appendix]
 == Use Cases
