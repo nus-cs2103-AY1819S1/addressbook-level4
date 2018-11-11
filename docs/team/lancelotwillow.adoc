@@ -1,13 +1,10 @@
 = ZHANG TIANYANG - Project Portfolio
 
----
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == Project: Piconso
-
----
 
 == Overview
 
