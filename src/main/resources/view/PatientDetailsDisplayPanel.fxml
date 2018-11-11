@@ -41,7 +41,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <ListView fx:id="medProbListView"/>
+                <ListView fx:id="medProbListView" mouseTransparent="true" focusTraversable="false"/>
               </VBox>
             </Tab>
             <Tab fx:id="medTab">
@@ -54,7 +54,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <ListView fx:id="medListView"/>
+                <ListView fx:id="medListView" mouseTransparent="true" focusTraversable="false"/>
               </VBox>
             </Tab>
             <Tab fx:id="alrgTab">
@@ -67,7 +67,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <ListView fx:id="alrgListView"/>
+                <ListView fx:id="alrgListView" mouseTransparent="true" focusTraversable="false"/>
               </VBox>
             </Tab>
         </TabPane>
