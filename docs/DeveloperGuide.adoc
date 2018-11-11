@@ -293,6 +293,22 @@ image::AddToDoDeleteToDoSequenceDiagram.png[width="800"]
 
 The delete todo does the similar operation.It calls `ModelToDo#deleteToDoListEvent`.
 
+Given below is an example usage scenario for showing description of a todolist event, and how the todolist model behaves at each step.
+
+Step 1: Make sure the todo list is not empty.
+
+Step 2: The user executes `show todo [index of event]` while `[index of event]` is the index number for a corresponding todolist event` displayed in `ToDoList` GUI.
+
+Step 3: The `ShowDescriptionCommandParser` parsers out the strings for the index.
+
+Step 4: Then, `ParserUtil` checks that the input index is valid.
+
+Step 5: Following that, the corresponding description of `ToDoListEvent` will be showed and displayed on th a popup window.
+
+The following sequece diagram shows how the add todo operation works:
+
+image::ShowDescriptionSequenceDiagram.png[width="800"]
+
 ==== Logic for ToDoList feature:
 
 * `Logic#getFilteredToDoListEventList` -- Returns an unmodifiable view of the filtered list of `ToDoListEvent`.
