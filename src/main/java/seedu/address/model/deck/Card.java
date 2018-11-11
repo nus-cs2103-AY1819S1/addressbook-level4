@@ -20,8 +20,10 @@ public class Card {
         requireAllNonNull(question, answer);
         this.question = question;
         this.answer = answer;
-        performance = Performance.NORMAL;
         timesReviewed = 0;
+        performance = new Performance(Performance.Difficulty.NORMAL, timesReviewed);
+
+
     }
 
     public Card(Question question, Answer answer, Performance performance, int timesReviewed) {
