@@ -9,7 +9,7 @@
 
 == Overview
 
-LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes. More importantly, LearnVocuabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). With LearnVocabulary you can make digital flash-cards of words you find troublesome, and discard them only after you have memorized the meaning. LearnVocuabulary can fetch the words faster than searching it on the website.
+LearnVocabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes.
 
 == Summary of contributions
 
@@ -20,11 +20,7 @@ LearnVocuabulary is a desktop application for people who prefer to use an offlin
 It required a near in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands.
 
-* *Minor enhancement*: Added the show command, which displays the filtered word(s) unto the Ui, making the Ui appear more engaging and interactive.
-
-* *Minor enhancement*: Enhanced the add command, which adds a default tag should no tags be attached.
-
-* *Minor enhancement*: Enhanced the edit command, which prevents user from deleting all tags, must have at least one tag attached to a word.
+* *Minor enhancements*: Added the show command, which displays the filtered word(s) unto the Ui, making the Ui appear more engaging and interactive.
 
 * *Code contributed*: [RepoSense collated code] (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=russellong95)
 
@@ -37,7 +33,7 @@ The implementation too was challenging as it required changes to existing comman
 *** Managed RepoSense, Coveralls, Travis, co-managed Netlify
 
 ** Enhancements:
-***  Updated the add and edit commands to ensure that there will always be a tag to a word (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/151[#151]
+***  Enhanced the add command, which adds a default tag should no tags be attached. Enhanced the edit command, which prevents user from deleting all tags, must have at least one tag attached to a word. (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/151[#151]
 
 ** Documentation:
 *** Proper format of Developer and User Guide: https://github.com/CS2103-AY1819S1-T10-3/main/pull/157[#157] https://github.com/CS2103-AY1819S1-T10-3/main/pull/158[#158]
