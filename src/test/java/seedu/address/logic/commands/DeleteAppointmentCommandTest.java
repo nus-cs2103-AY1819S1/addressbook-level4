@@ -52,7 +52,7 @@ public class DeleteAppointmentCommandTest {
                 .withPhone("94351253")
                 .withRemark("")
                 .withTags("Patient")
-                .withMedicalHistory("egg", "sub-health").build();
+                .withMedicalHistory("egg", "subhealth").build();
         Doctor expectedDoctor = new DoctorBuilder()
                 .withName("Fiona Kunz")
                 .withPhone("9482427")

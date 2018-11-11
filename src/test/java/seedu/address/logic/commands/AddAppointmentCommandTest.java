@@ -55,7 +55,7 @@ public class AddAppointmentCommandTest {
                 .withPhone("94351253")
                 .withRemark("")
                 .withTags("Patient")
-                .withMedicalHistory("egg", "sub-health")
+                .withMedicalHistory("egg", "subhealth")
                 .withAppointment(FIRST).build();
         Doctor expectedDoctor = new DoctorBuilder()
                 .withName("Fiona Kunz")
