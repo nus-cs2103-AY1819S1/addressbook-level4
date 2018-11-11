@@ -1,27 +1,20 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
-import seedu.address.model.person.Person;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-import java.util.List;
-import java.util.Random;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
@@ -92,8 +85,8 @@ class GenerateLocationCommandTest {
     }
 
     /**
-     * Executes a {@code GenerateLocationCommand} with the given correct {@code index}, and checks that
-     * {@code FacultyLocationDisplayChangedEvent} is raised with the correct person.
+     * Executes a {@code GenerateLocationCommand} with the given correct {@code index} and {@code eventDate},
+     * and checks that {@code RandomMeetingLocationGeneratedEvent} is raised.
      */
     private void assertGenerateLocationDisplaySuccess(EventDate eventDate, Index index) {
         GenerateLocationCommand generateLocationCommand = new GenerateLocationCommand(eventDate, index);
