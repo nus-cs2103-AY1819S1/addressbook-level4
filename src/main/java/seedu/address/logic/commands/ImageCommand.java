@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.NewImageEvent;
-import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

@@ -18,8 +18,8 @@ duties as there they have to liaise with many different parties. As a result, my
 management system as our project for our software engineering module so as to help alleviate the inconvenience that
 they encounter while executing their duties. Hallper is an easy to use application which brings about much convenience to
 the JCRC since not much mouse interaction is required from them as everything can be done just by typing the commands
-available. By consolidating the types of features needed all into a single application, this will save the JCRC the
-trouble of having to open many different applications on their computer.
+available. By consolidating the types of features needed into a single application, this will save the JCRC the
+trouble of having to open many different window applications on their computers.
 
 The main features included in Hallper are email writing, budget management, calendar creation, profile picture
 uploading as well as import and export of Hallper. With all these features in place, we believe that Hallper will be the
@@ -76,9 +76,3 @@ include::../UserGuide.adoc[tag=image]
 |===
 
 include::../DeveloperGuide.adoc[tag=image]
-
-
-== PROJECT: PowerPointLabs
-
----
-
