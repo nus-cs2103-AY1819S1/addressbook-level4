@@ -15,42 +15,27 @@ kLoC.
 
 == Summary of Contributions
 
-* *Major Enhancements*: added *the ability to add, edit, and delete modules*
-** What it does: Lorem Ipsum
-** Justification: Lorem Ipsum
-** Highlights: Lorem Ipsum
+* *Major Enhancements*: added *the ability to add, edit, and delete modules*.
+** *What it does*: Allows the user to add, edit, and delete modules in CAPTracker one at a time. name-value paired (-name value) arguments instead of prefix used.
+** *Justification*: Adding, editing, and deleting is needed to populate the CAPTracker. The name-value pair is also more intuitive for advance CLI users
+** *Highlights*: name-value pair format was used as advance users are more familiar with it. The way the arguments are tokenize has also been changed.
 
-* *Minor enhancement*: Lorem Ipsum
-
+* *Minor enhancement*:
+*** Make improvements to the APIs: `CommandUtil.java`, `ParserUtil.java`, and `UniqueModuleList.java`
 * *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alexkmj[Project Code Dashboard - alexkmj]
 
 * *Other contributions*:
 
-** *Main contributor of `Logic`, `Model` components*:
-*** Morphed the `Logic` component including its unit test.
-*** Morphed the `Model` component including its unit test.
-*** Make improvements to the APIs:
-**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/logic/commands/CommandUtil.java[CommandUtil]
-**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/logic/parser/ParserUtil.java[ParserUtil]: `tokenize`, `argsWithBounds`, `argsAreNameValuePair`, and more.
-**** https://github.com/CS2103-AY1819S1-T13-4/main/blob/master/src/main/java/seedu/address/model/module/UniqueModuleList.java[UniqueModuelList]: `getOnlyOneModule`
+** `Morphing`: Morphed the `Logic` and `Model` component including its unit test. Introduced the `Module` package.
 
-** *Organization setup*:
-*** Created the https://github.com/CS2103-AY1819S1-T13-4[GitHub team organisation] according to the project requirements.
-*** Setup the developers team and added all the team members to it.
+** *Organization setup*: Created and setup GitHub team organisation.
 
-** *Repository setup:*
-*** Setup https://github.com/CS2103-AY1819S1-T13-4/main[organisation repository] as per project requirements.
-*** Enable https://ci.appveyor.com/project/alexkmj/main/branch/master[AppVeyor], https://app.codacy.com/project/CS2103-T13-4/main/dashboard[Codacy], https://coveralls.io/github/CS2103-AY1819S1-T13-4/main?branch=master[Coveralls], https://travis-ci.org/CS2103-AY1819S1-T13-4/main[Travis CI], and https://cs2103-ay1819s1-t13-4.github.io/main/[GitHub Pages Automatic Deployment].
-*** Create team https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/173[PR].
-*** Update documentation to remove parts not unrelated to _CAPTracker_.
-*** Update badges for AppVeyor, Codacy, Coveralls, Travis CI in https://github.com/CS2103-AY1819S1-T13-4/main#captracker[README.adoc] page.
+** *Repository setup:* Setup organisation repository. Enable AppVeyor, Codacy, Coveralls, Travis CI, and GitHub Pages and its badges. Create team PR.
 
 ** *Manage releases*
-*** Manage release for milestone https://github.com/CS2103-AY1819S1-T13-4/main/releases/tag/v1.2[v1.2]
-*** Manage release for milestone https://github.com/CS2103-AY1819S1-T13-4/main/releases/tag/v1.3[v1.3]
 
 ** *Community*
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T13-4/main/pull/23[#23], https://github.com/CS2103-AY1819S1-T13-4/main/pull/62[#62], https://github.com/CS2103-AY1819S1-T13-4/main/pull/71[#71], https://github.com/CS2103-AY1819S1-T13-4/main/pull/76[#76], https://github.com/CS2103-AY1819S1-T13-4/main/pull/106[#106]
+*** PRs reviewed: https://goo.gl/QqNNsj[#23], https://goo.gl/6Wy8o4[#62], https://goo.gl/szTgtm[#71], https://goo.gl/SsxRkG[#76], https://goo.gl/rrR4bv[#106]
 
 == Contributions to the User Guide
 

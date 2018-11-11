@@ -167,6 +167,7 @@ Change grade of `MA1521` to `A+`.
 
 *Command*: `edit -t CFG1010 -m ST2334 -c 4` +
 Change module credit to `4` and module code to `ST2334`.
+//end::edit[]
 
 *Command*: `edit -t CFG1020 -e 2 -z 1 -g CS` +
 Change the grade of `CFG1020` taken in year `2` and semester `1` to 1. +
@@ -184,7 +185,6 @@ specified +
 entries with the same module `TARGET_CODE` +
 - The edit cannot lead to two module entries sharing the same module code,
 year, and semester
-//end::edit[]
 
 //tag::delete[]
 === Deleting a module : `delete`
@@ -218,6 +218,7 @@ Deletes the only `CS2103` module.
 Deletes `CS2103` taken in year `3` semester `2`. +
 In this specific case, `CS2103` was retaken and there exist multiple entries
 of it.
+//end::delete[]
 
 IMPORTANT: - Arguments must be in name-value pair format (E.g. `-name value`) +
 - Illegal name or value is not allowed +
@@ -227,7 +228,6 @@ specified +
 - The targeted module entry should exist in the CAPTracker +
 - `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
 if there exist multiple entries with the same module `TARGET_CODE`.
-//end::delete[]
 
 //tag::commandgoal[]
 === Setting Cap Goal : `goal`
