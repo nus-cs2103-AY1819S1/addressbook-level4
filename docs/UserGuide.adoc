@@ -610,5 +610,9 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
 |Command|Key
-|
+|Add employee | CTRL + A
+|List employees | CTRL + L
+|Select | CTRL + S
+|Find employee | CTRL + F
+|Exit | CTRL + Q
 |=========================================================
