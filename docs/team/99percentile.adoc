@@ -26,21 +26,21 @@ This is what CLInic has to offer:
 . Realistic model of a clinic's daily operation and commands to manipulate data.
 . Customised receipts, medical certificates and referral letters for clinics.
 
-Want to make your clinic more organised? https://github.com/CS2103-AY1819S1-W16-4/main/releases[Download] CLInic and try it now for *FREE*!
+Want to make your clinic more organised? Download https://github.com/CS2103-AY1819S1-W16-4/main/releases[CLInic] and try it now for *FREE*!
 
 == Summary of Contributions
 //preface to this section to inform reader purpose of this section
-In this section, you can find the major and minor enhancement that I created for CLInic,
+In this section, you can find the major and minor enhancement that I made for CLInic,
 as well as my contributions to the project.
 
-* *Major enhancement*: Implementation of *medical records* in CLInic.
+* *Major enhancement*: Implementation of *medicine records system* in CLInic.
 ** What it does: It allows the clinic receptionist to automate the tracking of the amount of medicines.
-** Justification: The amount of medicines are tracked and there are useful commands that can organise or find the information of a medicine.
+** Justification: The amount of medicines is tracked and there are useful commands that can organise or find the information of a medicine.
 With this, you do not have to manually note down the change in level of medicine every time a medicine is dispensed or restocked.
 ** Highlights: With the `checkstock` command, you can easily list out all medical stocks that are low in stock in just 2 seconds!
 
 * *Minor enhancement*:
-** Rephrased output messages to make it more comprehensive.
+** Rephrased output messages to make it more comprehensible.
 
 * *Code contributed*:
 ** Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=99percentile[here] to see what I wrote!

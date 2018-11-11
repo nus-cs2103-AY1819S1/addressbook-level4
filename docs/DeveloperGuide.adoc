@@ -389,24 +389,26 @@ image::addMedicalRecord-SequenceDiagram.png[width="900"]
 === Medicine Records System
 The medicine records system is used to manage the medicine inventory in the clinic.
 It allows the clinic to automate the monitoring and management of their medicine supply easily.
-The potential to evolve this system is endless, from including artificial intelligence
-to manage the clinic supply without human intervention to delivering the first-hand information
-from medical breakthroughs to treat patients more effectively!
+There is great potential for this system to evolve, for example:
+
+* Using artificial intelligence to manage the clinic supply without human intervention.
+* Delivering first-hand information
+from medical breakthroughs to treat patients more effectively.
 
 ==== Current Implementation
-The _Medicine_ class and the properties of the medicine are stored in the Model package.
+The _Medicine_ class and the properties of the medicine are located in <<Model component, *Model*>>.
 They are modeled after the properties of a real medicine in a clinic context.
 The list of medicines currently tracked in the clinic is located in the AddressBook class.
 
-See the User Guide for the list of commands related to the medicine class.
+See the <<UserGuide.adoc#Medicine Records System,User Guide>> for the list of commands related to the medicine class.
 
 Given below are examples of how the medicine commands are used:
 
-Scenario 1. The clinic orders a new medicine that they do not currently have in their store.
- The user uses the `addMedicine` command to add the new medicine into the records.
+Scenario 1: The clinic orders a new medicine that they do not currently possess.
+ The clinic receptionist uses the `addMedicine` command to add the new medicine into the records.
 
-Scenario 2. There is a wrong entry of one of the serial number of the medicine. The user types
-`editmedicine` to correct the serial number. The code on how it works is shown below:
+Scenario 2: There is a wrong entry for one of the serial number of the medicine. The user uses the
+`editmedicine` command to correct the serial number. The code on how it works is shown below:
 
 [source,java]
 ----
@@ -426,6 +428,12 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
+        /* The following three methods checks if the new medicine name or
+        new serial number that is entered used by other medicines in CLInic.
+        If so, they throw an error specifying which of the two is duplicated.
+        This is done as the medicine name and serial number are unique to a medicine.
+        */
+
         checkBothNewMedicineNameAndSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewMedicineNameAlreadyExisting(model, editedMedicine);
@@ -441,33 +449,33 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 }
 ----
 
-Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
-During payment a `receipt` command is executed by the user to fetch the prices
-for the medicine that is allocated, in addition, the stock level of the medicine is updated.
+Scenario 3: The doctor prescribes the patient he is serving a medicine. The `dispensemedicine` command is entered.
+The stock level of the medicine is then updated.
 
 .Sequence Diagram for `dispensemedicine`
 image::DispenseMedicineSequenceDiagram.png[width="800"]
 
-Scenario 4. The user needs to check for the stock level of every medicine.
-The user executes the `checkStock` command
-which lists the medicine that are below their Minimum Stock Quantity.
+Scenario 4: The clinic receptionist needs to check for the stock level of every medicine.
+He executes the `checkStock` command
+which lists *all* medicines that are below their _Minimum Stock Quantity_.
 
 .Filter medicines that are low in supply
-image::checkstockfilter.png[width="800"]
+image::checkstockfilter.png[width="450"]
 
 ==== Design Considerations
 // preface
-The medicines in the clinic were needed to be stored in a Java Collections.
-Below were the possible ones we chose and the analysis of each one.
+The medicines in the clinic need to be stored in a Java Collection.
+Listed below are the ones we considered and the analysis of each choice:
 
 ===== Aspect: Execution of the command
 
-* **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Many useful methods to manipulate data.
-** Cons: Need to search through the list to find a medicine.
-* **Alternative 2:** Stores the medicine in a hash map.
-** Pros: Quick reference for object given index.
-** Cons: Many commands need to change to list to use the method and change back, more complex.
+* **Current choice:** Stores the medicines in a list.
+** Pros: Many easy and useful methods to manipulate medicines in the list, such as `add`, `get` and `remove`.
+** Cons: Relatively slow when searching through the list to find a medicine.
+* **Alternative:** Stores the medicines in a hash map.
+** Pros: Quick reference for object given the medicine name or serial number.
+** Cons: Cumbersome and error-prone when there is a need to change the hash map into a list to manipulate the medicines.
+
 //end::medicine[]
 
 // tag::pqms[]
