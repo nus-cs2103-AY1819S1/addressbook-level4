@@ -43,10 +43,11 @@ for a short duration when the user enters a command.
 ** Enhancements to existing features:
 *** Updated the JavaFX Cascading Style Sheets(CSS) theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
 ** Documentation:
-*** Added user stories & use cases in the Developer Guide:
+*** Added user stories, use cases and instructions for manual testing in the Developer Guide:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/142[#142]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/142[#142],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/285[#285]
 *** Added menu management features description in <<user,User Guide>> and implementation in <<dev, Developer Guide>>
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
