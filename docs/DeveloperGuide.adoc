@@ -511,6 +511,11 @@ A list of filtered rides would be returned.
 
 // end::viewstatus[]
 
+// tag::open[]
+=== Open and Shutdown Feature
+
+// end::open[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
