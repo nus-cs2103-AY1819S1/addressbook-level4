@@ -1022,4 +1022,4 @@ dependency that will cause a cyclic dependency +
 .. Prerequisites: -
 .. Test case: `topoorder` +
 Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
-constraints.
+constraints will be displayed in the window below the command line.
