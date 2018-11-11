@@ -93,14 +93,19 @@ Shows all the commands in the application and how to use them.
 Adds a new user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
-[TIP]
-A user can have any number of tags and interests (including 0) +
-<<Timetable>> download requires a valid nusmods link
+****
+* INTEREST refers to the things that the user is interested in, such as hobbies.
+* TAG refers to a group that the user is affiliated with, such as faculty name or class number.
+* A user can have any number of tags and interests (including 0).
+* Interests and tags must be alphanumeric.
+* Each interest and tag can only be one word long. For example, 'i/play tennis' will not be accepted and should be written as 2 separate interests ('i/play' and 'i/tennis').
+* <<Timetable>> download requires a valid nusmods link.
+****
 
 Examples:
 
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
-* `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
+* `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/SOC`
 
 // tag::yaofeng(login/logout)[]
 
@@ -287,6 +292,7 @@ Format: `suggestFriendsByInterests INDEX`
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Users who have at least one similar interest with the selected user will be displayed.
+* Note that similar interest means that the interest must be exactly alphanumeric equivalent, case sensitive. For example, 'study' will not be similar to 'Study'.
 * Users who are already in the friend list of the selected user will not be displayed.
 ****
 
