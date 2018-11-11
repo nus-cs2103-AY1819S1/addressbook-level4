@@ -7,7 +7,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ModuleBrowserChangeEvent;
@@ -288,6 +287,7 @@ public class AttendanceListUtil {
     /**
      * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
      */
+
     private static Consumer<Module> removeModuleFromPerson(Model model, Person person) {
         return module -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
@@ -299,7 +299,6 @@ public class AttendanceListUtil {
             model.updatePerson(person, updatedPerson);
         };
     }
-
     //@@author waytan
     /**
      * Returns a consumer that takes in an Occasion and removes it from the specified Person in the Model.
@@ -324,8 +323,7 @@ public class AttendanceListUtil {
     private static Consumer<Person> editPersonFromModule(Model model, Module module, Person editedPerson) {
         return person -> {
             ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            List<Person> updatedPersons = module.getStudents().asNormalList().stream()
-                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
@@ -346,8 +344,7 @@ public class AttendanceListUtil {
     private static Consumer<Person> editPersonFromOccasion(Model model, Occasion occasion, Person editedPerson) {
         return person -> {
             OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
-            List<Person> updatedPersons = occasion.getAttendanceList().asNormalList().stream()
-                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
@@ -368,14 +365,12 @@ public class AttendanceListUtil {
     private static Consumer<Module> editModuleFromPerson(Model model, Person person, Module editModule) {
         return module -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Module> updatedModules = person.getModuleList().asNormalList().stream()
-                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
             int indexOfModuleToEdit = updatedModules.indexOf(module);
             if (indexOfModuleToEdit != -1) {
                 updatedModules.remove(module);
                 updatedModules.add(indexOfModuleToEdit, editModule);
-                UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
-                updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+                updatedPersonDescriptor.setUniqueModuleList(new UniqueModuleList(updatedModules));
                 Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
                 model.updatePerson(person, updatedPerson);
             }
@@ -390,8 +385,7 @@ public class AttendanceListUtil {
     private static Consumer<Occasion> editOccasionFromPerson(Model model, Person person, Occasion editOccasion) {
         return occasion -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Occasion> updatedOccasions = person.getOccasionList().asNormalList().stream()
-                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
             int indexOfOccasionToEdit = updatedOccasions.indexOf(occasion);
             if (indexOfOccasionToEdit != -1) {
                 updatedOccasions.remove(occasion);
