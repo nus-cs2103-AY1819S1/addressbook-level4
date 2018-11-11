@@ -11,48 +11,44 @@
 == Overview
 
 This portfolio serves to document my contributions to ThanePark.
-ThanePark is a project that I have done in my software engineering module(CS2103T).
-It was done during the first semester of my second year in NUS School of Computing,
-together with three other classmates.
-It is a desktop application used for theme park operators to manage their rides.
+ThanePark is a desktop application used for theme park operators to manage their rides.
+It was managed and developed by a team of four members who spent three months on this project.
+This project is part of a software engineering module, CS2103T, offered by the School of Computing, National University of Singapore.
 
 A limitation set by the module is that the user has to interact with ThanePark using a Command Line Interface(CLI).
 It also has a Graphical User Interface(GUI) created with JavaFX.
-ThanePark is written in Java, and has about 10,000 lines of code.
+ThanePark is written in Java, and has about 12,000 lines of code.
 
-My role in ThanePark is to implement the viewstatus status command to view rides of different statuses and to update documents.
+My role in ThanePark is to implement the `viewstatus` feature and to update documents.
 
 
 == Summary of Contributions
 
-* *Major enhancement*: added the `viewstatus` command
-** What it does: allows the user to obtain a list of rides filtered by the statuses of the rides.
-** Justification: Allows the user to find relevant rides with ease.
-** Highlight: This enhancement involved introduction a new predicate class, `RideStatusPredicate`,
+* *Major enhancement*: The addition of the `viewstatus` feature.
+** What it does: This feature allows the user to obtain a list of rides filtered by the statuses of the rides.
+** Justification: This feature allows the user to find the relevant rides with ease.
+** Highlight: This feature introduces a new predicate class, `RideStatusPredicate`,
   to allow users to input a fixed set of statuses to compare values with the existing data.
-** Credits: The view status feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
+** Credits: This feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
             `RideContainsKeywordsPredicate`.
 
-* *Minor enhancement*: added the `maintain` command.
-** What it does: allows the user to change the status of a selected ride to `MAINTENANCE`.
-** Justification: Allows the user to find relevant rides with ease.
-** Highlight: This enhancement involved changes the status of the ride to `MAINTENANCE`.
+* *Minor enhancement*: The addition of the `maintain` feature.
+** What it does: This feature allows the user to update the status of a selected ride to `MAINTENANCE`.
+** Justification: This feature allows the user to keep track of the status of the ride.
+** Highlight: This enhancement involves changing the status of the ride to `MAINTENANCE`.
   In doing so, the command also updates the maintenance and waiting time field to zero
-** Credits: The view status feature is based on the way update feature works, ... ...
+** Credits: The maintain feature is based on the way update feature works, by updating the `status`, `maintenance` and `waiting time` fields instead of all other fields.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiajunteo&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Functional and test code]]
 
 * *Other contributions*:
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-*** Added Developer Guide
-
-** Enhancements to existing features:
-*** sdvss
+*** Updated the section of the User Guide on view information of rides [https://github.com/CS2103-AY1819S1-W14-2/main/pull/154[Pull Request #154]]
+*** Updated the section of the Developer Guide on View Status feature [https://github.com/CS2103-AY1819S1-W14-2/main/pull/101[Pull Request #101]]
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the class
+*** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-1/main/issues/144[T09-1 Issue #144]]
 
 
 == Contributions to the User Guide
