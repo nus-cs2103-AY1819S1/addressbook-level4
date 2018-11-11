@@ -186,7 +186,7 @@ Sieves out all the patients who have `yu` in their names.
 .Before and after executing the `find` command specified above via its alias `f`.
 image::FindEx1.png[width="650"]
 
-// tag::patientsecondhalf[]
+
 ==== Listing all patients: `list`
 Need to list all patients in the database? +
 Do this easily with the `list` command. +
@@ -224,6 +224,7 @@ Deletes the 1st patient in the resulting list of the `find` command.
 .Before and after executing the `find Bryan` and `d 1` command
 image::delete-command-example.png[width="650]
 
+// tag::patientsecondhalf[]
 ==== Selecting a patient: `select`
 
 Selects a patient to view his profile. +
@@ -291,7 +292,11 @@ Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
-The serial number of a medicine *must* have at least 5 digits!
+====
+* The serial number of a medicine *must* have at least 5 digits!
+* This command is used for adding medicine that does not exist in CLInic. For restocking a
+medicine, use the `restock` command.
+====
 
 Example:
 
@@ -303,29 +308,8 @@ Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _
 
 See below for a pictorial guide on how to add aspirin to the records:
 
-//. Type `liststock` or `ls` into the command box as shown in Figure 10 below.
-
-//.Start up of CLInic
-//image::addmedicine-example-1.png[width="650"]
-
-//[start = 1]
-//. See Figure 10 below for the change of the patient panel to medicine panel.
-
-//.Result of entering `liststock` command
-//image::addmedicine-example-2.png[width="650"]
-
-[start = 1]
-. Enter the `am` command with the desired parameters as shown in Figure 10 below.
-
-.Type the `am` command into the command box
-image::addmedicine-example-3.png[width="650"]
-
-[start = 2]
-. Scroll all the way down on the medicine panel to see the medicine added to CLInic.
-See Figure 11 below for example.
-
-.Scroll down to see the medicine successfully added
-image::addmedicine-example-4.png[width="650"]
+.Guide to the `addmedicine` command
+image::AddMedicine.png[width="650"]
 // end::addmedicine[]
 
 // tag::editmedicine[]
@@ -380,42 +364,36 @@ Format: `liststock`
 
 ==== Finding details of a medicine: `findmedicine`
 
-Finding the best medicine for your patient? +
+Forgot the serial number of a medicine? +
 Use `findmedicine` to search for
-the details of a medicine from its medicine name. +
+the details of a medicine from its medicine name! +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
 
 [TIP]
-You can enter more than one name to get the results of all medicines with the names entered.
+You can enter more than one name to get the results of all medicines with the names entered. +
+See the third example below.
 
 Example:
 
 * `findmedicine panadol` +
-Finds the details of the medicines tagged with the keyword `panadol`.
+Finds the details of the medicines with the name _panadol_.
 * `fm chlorpheniramine` +
-Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
+Finds the details of the medicines with the name _chlorpheniramine_.
+* `fm telfast panadol`
+Finds the details of all medicines with the name _telfast_ or _panadol_.
 
 See below for a pictorial guide on how to find chlorpheniramine in the records:
 
-[start = 1]
-. Enter the `fm` command with the desired parameters as shown in Figure 12 below.
-
-.Type `fm` command into the command box
-image::find-medicine-example-1.png[width="650"]
-
-[start = 2]
-. See the medicine panel as shown in Figure 13 for all the medicines named "chlorpheniramine".
-
-.See all medicines named "chlorpheniramine".
-image::find-medicine-example-2.png[width="650"]
+.Guide to the `checkstock` command
+image::FindMedicine.png[width="650"]
 
 // end::findmedicine[]
 
 // tag::checkstock[]
 
 ==== Listing medicines that are low in supply: `checkstock`
-Need to do the time-consuming stock taking?
+No time to do stock taking? +
 Use `checkstock` and get it done in under 2 seconds! +
 Alias: `cs` +
 Format: `checkstock`
@@ -425,6 +403,8 @@ Medicines that are low in supply are those whose stock level is equal to or lowe
 
 See below for a pictorial guide on how to use checkstock:
 
+.Guide to the `checkstock` command
+image::CheckStock.png["width=650"]
 
 // end::checkstock[]
 

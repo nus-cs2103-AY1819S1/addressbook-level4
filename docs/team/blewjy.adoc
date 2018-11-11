@@ -47,7 +47,7 @@ I played the key role of adding the various UI elements to the application windo
 ** Added the GUI display for all the `Medicine` objects in the database. This GUI display replaces the left panel displaying the `Patient` objects whenever a `Medicine` related command is called.
 ** Added `addMedicalRecordCommand` that allows user to add a `MedicalRecord` to a specified `Patient`.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lew&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=true&repoSort=true[here] to view my contributed code.
 
 * *Other contributions*:
 

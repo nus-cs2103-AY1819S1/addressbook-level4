@@ -372,53 +372,6 @@ When this command is executed, the program creates a new `MedicalRecord` object 
 .Sequence diagram for AddMedicalRecordCommand.
 image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
-The following figure shows the code section which performs this merging.
-
-```java
-/**
- * Combines 2 medical records into one.
- * @param record1
- * @param record2
- * @return a single MedicalRecord object which is a combination of the two provided.
- */
-public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
-
-    BloodType newBloodType = record1.getBloodType();
-
-    if (!record1.getBloodType().equals(record2.getBloodType())
-            && !record1.getBloodType().value.equals("") && !record2.getBloodType().value.equals("")) {
-        // This is not allowed! Defaulting to original bloodtype...
-    } else {
-        newBloodType = record2.getBloodType();
-    }
-
-    List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
-    for (DrugAllergy drugAllergy: record2.getDrugAllergies()) {
-        if (!newDrugAllergies.contains(drugAllergy)) {
-            newDrugAllergies.add(drugAllergy);
-        }
-    }
-
-    List<Disease> newDiseaseHistory = new ArrayList<>(record1.getDiseaseHistory());
-    for (Disease disease: record2.getDiseaseHistory()) {
-        if (!newDiseaseHistory.contains(disease)) {
-            newDiseaseHistory.add(disease);
-        }
-    }
-
-    List<Note> newNotes = new ArrayList<>(record1.getNotes());
-    for (Note note: record2.getNotes()) {
-        if (!newNotes.contains(note)) {
-            newNotes.add(note);
-        }
-    }
-
-    MedicalRecord newRecord = new MedicalRecord(newBloodType, newDrugAllergies, newDiseaseHistory, newNotes);
-
-    return newRecord;
-}
-```
-
 ==== Design Considerations
 
 ===== Aspect: Execution of the command
@@ -434,34 +387,78 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 
 // tag::medicine[]
 === Medicine Records System
+The medicine records system is used to manage the medicine inventory in the clinic.
+It allows the clinic to automate the monitoring and management of their medicine supply easily.
+The potential to evolve this system is endless, from including artificial intelligence
+to manage the clinic supply without human intervention to delivering the first-hand information
+from medical breakthroughs to treat patients more effectively!
 
 ==== Current Implementation
-The medicine records system is used to manage the medicine inventory in the clinic. The _Medicine_ class and the properties
-of the medicine are stored under the Model package. The list of medicines currently tracked in the clinic is located in the AddressBook class.
+The _Medicine_ class and the properties of the medicine are stored in the Model package.
+They are modeled after the properties of a real medicine in a clinic context.
+The list of medicines currently tracked in the clinic is located in the AddressBook class.
 
-Click <<link, here>> for the list of commands related to the medicine class.
+See the User Guide for the list of commands related to the medicine class.
 
-Given below is an example of how the medicine class is used:
+Given below are examples of how the medicine commands are used:
 
 Scenario 1. The clinic orders a new medicine that they do not currently have in their store.
  The user uses the `addMedicine` command to add the new medicine into the records.
 
 Scenario 2. There is a wrong entry of one of the serial number of the medicine. The user types
-`editmedicine` to correct the serial number.
+`editmedicine` to correct the serial number. The code on how it works is shown below:
 
-// code snippet
+[source,java]
+----
+public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Medicine> lastShownList = model.getFilteredMedicineList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+        }
+
+        Medicine medicineToEdit = lastShownList.get(index.getZeroBased());
+        Medicine editedMedicine = createEditedMedicine(medicineToEdit, medicineDescriptor);
+
+        if (!medicineToEdit.isSameMedicine(editedMedicine)
+                && model.hasMedicine(editedMedicine)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
+        }
+
+        checkBothNewMedicineNameAndSerialNumberAlreadyExisting(model, editedMedicine);
+        checkNewSerialNumberAlreadyExisting(model, editedMedicine);
+        checkNewMedicineNameAlreadyExisting(model, editedMedicine);
+
+        model.updateMedicine(medicineToEdit, editedMedicine);
+        model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
+        model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
+
+        return new CommandResult(String.format(MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine));
+    }
+}
+----
 
 Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
 During payment a `receipt` command is executed by the user to fetch the prices
 for the medicine that is allocated, in addition, the stock level of the medicine is updated.
 
+.Sequence Diagram for `dispensemedicine`
+image::DispenseMedicineSequenceDiagram.png[width="800"]
+
 Scenario 4. The user needs to check for the stock level of every medicine.
 The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
 
-// sequence diagram for checkstock
+.Filter medicines that are low in supply
+image::checkstockfilter.png[width="800"]
 
 ==== Design Considerations
+// preface
+The medicines in the clinic were needed to be stored in a Java Collections.
+Below were the possible ones we chose and the analysis of each one.
 
 ===== Aspect: Execution of the command
 
@@ -546,13 +543,13 @@ Given below is an example usage scenario of the PQMS.
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
 .Registering 3 patients
-image::PQMSPatientQueue.png[650, 250]
+image::PQMSPatientQueue.png[750, 225]
 
 Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
 .Serve patient
-image::PQMSCurrentPatient.png[650, 250]
+image::PQMSCurrentPatient.png[750, 225]
 
 Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
@@ -561,7 +558,7 @@ Step 4. The `CurrentPatient` is done with the consultation. The user executes th
 the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the next patient in `PatientQueue`.
 
 .Finish serving patient
-image::PQMSServedPatientQueue.png[650, 250]
+image::PQMSServedPatientQueue.png[750, 225]
 
 Step 5. The user executes various `Document` commands to generate necessary documents for the served patient.
 
@@ -825,6 +822,17 @@ Shown below is how information like `referralContent` and `noteContent` are form
 
 [WARNING]
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
+
+==== Design Considerations
+
+===== Aspect: Implementation of `adddocument`, `MedicalCertificate` and `ReferralLetter` Commands
+
+* **Alternative 1 (current choice):** Issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
+** Pros: No need for an extra parameter to key in issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
+** Cons: There may be more than one doctor working in a clinic.
+* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the 'adddocument' command for the issuing doctor to key in his/her name.
+** Pros: Different doctors can sign off the medical certificates and referral letters.
+** Cons: Slightly more typing is necessary before doctors can execute the `adddocument` command.
 // end::referralletter[]
 
 // tag::applicationgui[]

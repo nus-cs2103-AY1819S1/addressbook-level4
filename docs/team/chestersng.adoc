@@ -45,7 +45,6 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 *** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F11-3/main/issues/193[1], https://github.com/CS2103-AY1819S1-F11-3/main/issues/176[2], https://github.com/CS2103-AY1819S1-F11-3/main/issues/180[3])
 
-
 == Contributions to the User Guide
 
 
