@@ -2,13 +2,13 @@ package systemtests;
 
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.restaurant.testutil.EventsUtil.postNow;
-import static seedu.restaurant.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.restaurant.testutil.menu.TypicalItems.KEYWORD_MATCHING_EGG;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.commands.ClearCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
@@ -49,15 +49,15 @@ public class ClearCommandSystemTest extends RestaurantBookSystemTest {
                 new ModelManager(SampleDataUtil.getSampleRestaurantBook(), new UserPrefs()));
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears restaurant book -> cleared and no card selected */
+        /* Case: selects first card in item list and clears restaurant book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original restaurant book
-        selectPerson(Index.fromOneBased(1));
+        selectItem(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the person list before clearing -> entire restaurant book cleared */
+        /* Case: filters the item list before clearing -> entire restaurant book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original restaurant book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showItemsWithName(KEYWORD_MATCHING_EGG);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

@@ -15,6 +15,7 @@ import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccount
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 
+//@@author AZhiKai
 public class ChangePasswordCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,

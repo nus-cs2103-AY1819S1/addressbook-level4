@@ -16,6 +16,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class RegisterCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -27,7 +28,7 @@ public class RegisterCommandTest {
     private Model model = new ModelManager();
 
     @Test
-    public void executeSuccess() throws CommandException {
+    public void execute() throws CommandException {
         Account validAccount = new AccountBuilder(DEMO_ADMIN).build();
         CommandResult commandResult = new RegisterCommand(validAccount).execute(model, commandHistory);
 
@@ -42,12 +43,5 @@ public class RegisterCommandTest {
         Account validAccount = new AccountBuilder(DEMO_ADMIN).build();
         new RegisterCommand(validAccount).execute(model, commandHistory);
         new RegisterCommand(validAccount).execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_accountExists_throwsCommandException() throws CommandException {
-        thrown.expect(CommandException.class);
-        Account invalidAccount = new AccountBuilder().build();
-        new LoginCommand(invalidAccount).execute(model, commandHistory);
     }
 }

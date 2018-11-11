@@ -28,14 +28,15 @@ public class IngredientNameTest {
         // invalid name
         assertFalse(IngredientName.isValidName("")); // empty string
         assertFalse(IngredientName.isValidName(" ")); // spaces only
-        assertFalse(IngredientName.isValidName("^")); // only non-alphanumeric characters
+        assertFalse(IngredientName.isValidName("^")); // contains special characters
         assertFalse(IngredientName.isValidName("fish*")); // contains non-alphanumeric characters
+        assertFalse(IngredientName.isValidName("12345")); // number string
+        assertFalse(IngredientName.isValidName("chicken 2")); // contains numbers
 
         // valid name
-        assertTrue(IngredientName.isValidName("fish fillet")); // alphabets only
-        assertTrue(IngredientName.isValidName("12345")); // numbers only
-        assertTrue(IngredientName.isValidName("chicken 2")); // alphanumeric characters
-        assertTrue(IngredientName.isValidName("Chicken Thigh")); // with capital letters
+        assertTrue(IngredientName.isValidName("Chicken")); // alphabets without space
+        assertTrue(IngredientName.isValidName("chicken thigh")); // lower case alphabets
+        assertTrue(IngredientName.isValidName("Chicken Thigh")); // both upper and lower case alphabets
         assertTrue(IngredientName.isValidName("Chicken Thigh without bone")); // long names
     }
 }

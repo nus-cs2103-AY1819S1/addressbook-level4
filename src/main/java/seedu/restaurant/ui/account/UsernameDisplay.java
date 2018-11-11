@@ -8,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.ui.UiPart;
 
+//@@author AZhiKai
 /**
- * A ui for the Username label that is displayed at the header of the application.
+ * A ui for the {@code Username} label that is displayed at the header of the application.
  */
 public class UsernameDisplay extends UiPart<Region> {
 

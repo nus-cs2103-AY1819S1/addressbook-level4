@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <restaurantbook>
-    <!-- Person with invalid username field -->
-    <accounts>
-        <username>a zhikai</username>
-        <password>1122qq</password>
-    </accounts>
+  <!-- Account with invalid username field -->
+  <accounts>
+    <username>a zhikai</username>
+    <password>1122qq</password>
+    <name>Ang Zhi Kai</name>
+  </accounts>
 </restaurantbook>

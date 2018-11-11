@@ -9,8 +9,9 @@ import java.util.Arrays;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
+//@@author AZhiKai
 /**
- * Represents an account password. Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
+ * Represents an {@code Account}'s password. Is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password {
 
@@ -97,7 +98,7 @@ public class Password {
         if (!isHashed(password)) {
             byte[] salt = generateSalt(username);
 
-            //TODO: Removing the salt certain test cases to fail due to mismatch of hashes.
+            //TODO: Removing the salt causes certain test cases to fail due to mismatch of hashes.
             byte[] hash = BCrypt.withDefaults().hash(6, salt, password.getBytes());
             password = new String(hash);
         }

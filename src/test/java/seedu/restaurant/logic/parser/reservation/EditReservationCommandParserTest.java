@@ -1,22 +1,27 @@
 package seedu.restaurant.logic.parser.reservation;
 
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_RESERVATION_DATETIME_DESC;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_RESERVATION_DATE_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_RESERVATION_NAME_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_RESERVATION_PAX_DESC;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_RESERVATION_TIME_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_DATETIME_DESC_ANDREW;
-import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_DATETIME_DESC_BILLY;
+import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_DATE_DESC_ANDREW;
+import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_DATE_DESC_BILLY;
 import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_NAME_DESC_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_PAX_DESC_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_PAX_DESC_BILLY;
+import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_TIME_DESC_ANDREW;
+import static seedu.restaurant.logic.commands.CommandTestUtil.RESERVATION_TIME_DESC_BILLY;
 import static seedu.restaurant.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.restaurant.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_DATETIME_ANDREW;
-import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_DATETIME_BILLY;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_DATE_ANDREW;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_DATE_BILLY;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_NAME_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_PAX_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_PAX_BILLY;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_TIME_ANDREW;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_TIME_BILLY;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -31,11 +36,14 @@ import org.junit.Test;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.reservation.EditReservationCommand;
 import seedu.restaurant.logic.commands.reservation.EditReservationCommand.EditReservationDescriptor;
+import seedu.restaurant.model.reservation.Date;
 import seedu.restaurant.model.reservation.Name;
 import seedu.restaurant.model.reservation.Pax;
+import seedu.restaurant.model.reservation.Time;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
 
+//@@author m4dkip
 public class EditReservationCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -78,15 +86,16 @@ public class EditReservationCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_RESERVATION_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
         // invalid pax
         assertParseFailure(parser, "1" + INVALID_RESERVATION_PAX_DESC, Pax.MESSAGE_PAX_CONSTRAINTS);
-        // invalid dateTime
-        assertParseFailure(parser, "1" + INVALID_RESERVATION_DATETIME_DESC,
-                "DateTime value should be in the form 2018-12-31T10:00:00");
+        // invalid date
+        assertParseFailure(parser, "1" + INVALID_RESERVATION_DATE_DESC, Date.MESSAGE_DATE_CONSTRAINTS);
+        // invalid time
+        assertParseFailure(parser, "1" + INVALID_RESERVATION_TIME_DESC, Time.MESSAGE_TIME_CONSTRAINTS);
 
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
-        // invalid pax followed by valid dateTime
-        assertParseFailure(parser, "1" + INVALID_RESERVATION_PAX_DESC + RESERVATION_DATETIME_DESC_ANDREW,
-                Pax.MESSAGE_PAX_CONSTRAINTS);
+        // invalid pax followed by valid date and time
+        assertParseFailure(parser, "1" + INVALID_RESERVATION_PAX_DESC + RESERVATION_DATE_DESC_ANDREW
+                        + RESERVATION_TIME_DESC_ANDREW, Pax.MESSAGE_PAX_CONSTRAINTS);
 
         // valid pax followed by invalid pax. The test case for invalid pax followed by valid pax
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -102,18 +111,20 @@ public class EditReservationCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
                 "1" + INVALID_RESERVATION_NAME_DESC + INVALID_RESERVATION_PAX_DESC
-                        + RESERVATION_DATETIME_DESC_ANDREW, Name.MESSAGE_NAME_CONSTRAINTS);
+                        + RESERVATION_DATE_DESC_ANDREW + RESERVATION_TIME_DESC_ANDREW, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + RESERVATION_PAX_DESC_BILLY + TAG_DESC_HUSBAND
-                + RESERVATION_DATETIME_DESC_ANDREW + RESERVATION_NAME_DESC_ANDREW + TAG_DESC_FRIEND;
+                + RESERVATION_DATE_DESC_ANDREW + RESERVATION_TIME_DESC_ANDREW + RESERVATION_NAME_DESC_ANDREW
+                + TAG_DESC_FRIEND;
 
         EditReservationDescriptor descriptor = new EditReservationDescriptorBuilder()
                 .withName(VALID_RESERVATION_NAME_ANDREW).withPax(VALID_RESERVATION_PAX_BILLY)
-                .withDateTime(VALID_RESERVATION_DATETIME_ANDREW).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withDate(VALID_RESERVATION_DATE_ANDREW).withTime(VALID_RESERVATION_TIME_ANDREW)
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditReservationCommand expectedCommand = new EditReservationCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -122,10 +133,12 @@ public class EditReservationCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = targetIndex.getOneBased() + RESERVATION_PAX_DESC_BILLY + RESERVATION_DATETIME_DESC_ANDREW;
+        String userInput = targetIndex.getOneBased() + RESERVATION_PAX_DESC_BILLY + RESERVATION_DATE_DESC_ANDREW
+                + RESERVATION_TIME_DESC_ANDREW;
 
         EditReservationDescriptor descriptor = new EditReservationDescriptorBuilder()
-                .withPax(VALID_RESERVATION_PAX_BILLY).withDateTime(VALID_RESERVATION_DATETIME_ANDREW).build();
+                .withPax(VALID_RESERVATION_PAX_BILLY).withDate(VALID_RESERVATION_DATE_ANDREW)
+                .withTime(VALID_RESERVATION_TIME_ANDREW).build();
         EditReservationCommand expectedCommand = new EditReservationCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -147,9 +160,15 @@ public class EditReservationCommandParserTest {
         expectedCommand = new EditReservationCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // dateTime
-        userInput = targetIndex.getOneBased() + RESERVATION_DATETIME_DESC_ANDREW;
-        descriptor = new EditReservationDescriptorBuilder().withDateTime(VALID_RESERVATION_DATETIME_ANDREW).build();
+        // date
+        userInput = targetIndex.getOneBased() + RESERVATION_DATE_DESC_ANDREW;
+        descriptor = new EditReservationDescriptorBuilder().withDate(VALID_RESERVATION_DATE_ANDREW).build();
+        expectedCommand = new EditReservationCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // time
+        userInput = targetIndex.getOneBased() + RESERVATION_TIME_DESC_ANDREW;
+        descriptor = new EditReservationDescriptorBuilder().withTime(VALID_RESERVATION_TIME_ANDREW).build();
         expectedCommand = new EditReservationCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -163,13 +182,14 @@ public class EditReservationCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = targetIndex.getOneBased() + RESERVATION_PAX_DESC_ANDREW + RESERVATION_DATETIME_DESC_ANDREW
-                + TAG_DESC_FRIEND + RESERVATION_PAX_DESC_ANDREW + RESERVATION_DATETIME_DESC_ANDREW + TAG_DESC_FRIEND
-                + RESERVATION_PAX_DESC_BILLY + RESERVATION_DATETIME_DESC_BILLY + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + RESERVATION_PAX_DESC_ANDREW + RESERVATION_TIME_DESC_ANDREW
+                + TAG_DESC_FRIEND + RESERVATION_PAX_DESC_ANDREW + RESERVATION_DATE_DESC_ANDREW + TAG_DESC_FRIEND
+                + RESERVATION_PAX_DESC_BILLY + RESERVATION_DATE_DESC_BILLY + RESERVATION_TIME_DESC_BILLY
+                + TAG_DESC_HUSBAND;
 
         EditReservationDescriptor descriptor = new EditReservationDescriptorBuilder()
-                .withPax(VALID_RESERVATION_PAX_BILLY).withDateTime(VALID_RESERVATION_DATETIME_BILLY)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withPax(VALID_RESERVATION_PAX_BILLY).withDate(VALID_RESERVATION_DATE_BILLY)
+                .withTime(VALID_RESERVATION_TIME_BILLY).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         EditReservationCommand expectedCommand = new EditReservationCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -186,10 +206,10 @@ public class EditReservationCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + RESERVATION_DATETIME_DESC_BILLY + INVALID_RESERVATION_PAX_DESC
-                + RESERVATION_PAX_DESC_BILLY;
+        userInput = targetIndex.getOneBased() + RESERVATION_DATE_DESC_BILLY + INVALID_RESERVATION_PAX_DESC
+                + RESERVATION_PAX_DESC_BILLY + RESERVATION_TIME_DESC_BILLY;
         descriptor = new EditReservationDescriptorBuilder().withPax(VALID_RESERVATION_PAX_BILLY)
-                .withDateTime(VALID_RESERVATION_DATETIME_BILLY).build();
+                .withDate(VALID_RESERVATION_DATE_BILLY).withTime(VALID_RESERVATION_TIME_BILLY).build();
         expectedCommand = new EditReservationCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -1,25 +1,21 @@
 package seedu.restaurant.logic.commands.ingredient;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.createEditedIngredient;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NUM;
-import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_INGREDIENTS;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
-import seedu.restaurant.commons.events.ui.DisplayIngredientListRequestEvent;
+import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
-import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngredientDescriptor;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
-import seedu.restaurant.model.ingredient.NumUnits;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
 /**
@@ -39,108 +35,51 @@ public class StockUpCommand extends Command {
 
     public static final String MESSAGE_STOCKUP_INGREDIENT_SUCCESS = "Ingredient(s) stocked up: %1$s";
 
-    private final List<ChangeStockDescriptor> stockDescriptorList;
+    private final Map<IngredientName, Integer> hashMap;
 
     /**
      * Creates a StockUpCommand to stock up the specified {@code Ingredient}
      */
-    public StockUpCommand(List<ChangeStockDescriptor> stockDescriptorList) {
-        requireNonNull(stockDescriptorList);
-        this.stockDescriptorList = stockDescriptorList;
+    public StockUpCommand(Map<IngredientName, Integer> ingredientHashMap) {
+        requireNonNull(ingredientHashMap);
+        this.hashMap = ingredientHashMap;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Ingredient ingredientToStockUp;
-        Ingredient stockedUpIngredient;
-        StringBuilder ingredientString = new StringBuilder();
 
-        for (int index = 0; index < stockDescriptorList.size(); index++) {
-            try {
-                IngredientName name = stockDescriptorList.get(index).getName();
-                NumUnits unitsToAdd = stockDescriptorList.get(index).getNumUnits();
-                ingredientToStockUp = model.findIngredient(name);
-                EditIngredientDescriptor editIngredientDescriptor = new EditIngredientDescriptor();
-                editIngredientDescriptor.setName(name);
-                editIngredientDescriptor.setNumUnits(unitsToAdd);
-                stockedUpIngredient = createEditedIngredient(ingredientToStockUp, editIngredientDescriptor);
-            } catch (IngredientNotFoundException e) {
-                throw new CommandException(Messages.MESSAGE_INGREDIENT_NAME_NOT_FOUND);
-            }
-
-            model.updateIngredient(ingredientToStockUp, stockedUpIngredient);
-            model.updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
-            ingredientString.append("\n" + stockedUpIngredient);
+        try {
+            model.stockUpIngredients(hashMap);
+        } catch (IngredientNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_STOCKUP_INGREDIENT_NOT_FOUND);
         }
+
+        StringBuilder ingredientList = buildIngredientList();
 
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayIngredientListRequestEvent());
-        return new CommandResult(String.format(MESSAGE_STOCKUP_INGREDIENT_SUCCESS, ingredientString));
+        return new CommandResult(String.format(MESSAGE_STOCKUP_INGREDIENT_SUCCESS, ingredientList));
+    }
+
+    /**
+     * Returns a string of ingredient names with their corresponding stocked up units.
+     */
+    private StringBuilder buildIngredientList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (HashMap.Entry<IngredientName, Integer> argPair : hashMap.entrySet()) {
+            IngredientName name = argPair.getKey();
+            Integer numUnits = argPair.getValue();
+            stringBuilder.append("\n" + numUnits.toString() + " units of " + name.toString());
+        }
+        return stringBuilder;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof StockUpCommand // instanceof handles nulls
-                    && stockDescriptorList.equals(((StockUpCommand) other).stockDescriptorList));
+                    && hashMap.equals(((StockUpCommand) other).hashMap));
     }
 
-    /**
-     * Stores the name of the ingredient and the number of units to be stocked up or consumed.
-     */
-    public static class ChangeStockDescriptor {
-        private IngredientName name;
-        private NumUnits numUnits;
-
-        public ChangeStockDescriptor() {}
-
-        public ChangeStockDescriptor(IngredientName name, NumUnits numUnits) {
-            this.name = name;
-            this.numUnits = numUnits;
-        }
-
-        /**
-         * Copy constructor.
-         */
-        public ChangeStockDescriptor(ChangeStockDescriptor toCopy) {
-            setName(toCopy.name);
-            setNumUnits(toCopy.numUnits);
-        }
-
-        public void setName(IngredientName name) {
-            this.name = name;
-        }
-
-        public IngredientName getName() {
-            return this.name;
-        }
-
-        public void setNumUnits(NumUnits numUnits) {
-            this.numUnits = numUnits;
-        }
-
-        public NumUnits getNumUnits() {
-            return this.numUnits;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof ChangeStockDescriptor)) {
-                return false;
-            }
-
-            // state check
-            ChangeStockDescriptor e = (ChangeStockDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getNumUnits().equals(e.getNumUnits());
-        }
-    }
 }

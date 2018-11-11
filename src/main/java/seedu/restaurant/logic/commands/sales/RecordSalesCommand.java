@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -22,8 +22,8 @@ import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.exceptions.RequiredIngredientsNotFoundException;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.exceptions.RequiredIngredientsNotFoundException;
 
 /**
  * Record the sales volume of a menu item

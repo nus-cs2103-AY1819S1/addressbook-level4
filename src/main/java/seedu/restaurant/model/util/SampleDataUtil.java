@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.restaurant.model.ReadOnlyRestaurantBook;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
+import seedu.restaurant.model.account.Name;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 import seedu.restaurant.model.tag.Tag;
@@ -16,8 +17,9 @@ import seedu.restaurant.model.tag.Tag;
  */
 public class SampleDataUtil {
 
+    //@@author AZhiKai
     private static Account getRootAccount() {
-        return new Account(new Username("root"), new Password("1122qq"));
+        return new Account(new Username("root"), new Password("1122qq"), new Name("Administrator"));
     }
 
     public static ReadOnlyRestaurantBook getSampleRestaurantBook() {

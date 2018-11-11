@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.restaurant.commons.core.pair.StringPair;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 
@@ -36,15 +35,14 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Tokenizes an arguments string and returns an {@code ArgumentPairMultimap} object that maps integer indices to
-     * their respective argument pair values. The indices are one-based and argument pairs are formed by pairing
-     * the argument value of the {@code firstPrefix} with the following argument of {@code secondPrefix},
-     * and so on repetitively.
+     * Tokenizes an arguments string and returns an {@code ArgumentPairMultimap} object that maps {@code String}
+     * arguments to their following {@code Integer} arguments. The argument value of the {@code firstPrefix} is
+     * mapped with the next argument of {@code secondPrefix}, and so on repetitively.
      *
      * @param argsString    Arguments string of the form: {@code <prefix>firstValue <prefix>secondValue}
      * @param firstPrefix   One prefix to tokenize the arguments string with
      * @param secondPrefix  Another prefix to tokenize the arguments string with
-     * @return              ArgumentPairMultimap object that maps integer indices to their argument pairs
+     * @return              ArgumentPairMultimap object that maps a string argument to the subsequent integer argument
      */
     public static ArgumentPairMultimap tokenizeToPair(
             String argsString, Prefix firstPrefix, Prefix secondPrefix) throws ParseException {
@@ -176,10 +174,8 @@ public class ArgumentTokenizer {
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        // Map indices to argument pairs
+        // Map first argument to next argument
         ArgumentPairMultimap argMultimap = new ArgumentPairMultimap();
-        StringPair argsPair;
-        int index = 1;
         for (int i = 0; i < prefixPositions.size() - 1; i = i + 2) {
             // Check prefixes to see if they follow the correct format
             String firstPrefix = prefixPositions.get(i).getPrefix().toString();
@@ -193,9 +189,8 @@ public class ArgumentTokenizer {
             String firstArgValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
             String secondArgValue = extractArgumentValue(argsString, prefixPositions.get(i + 1),
                     prefixPositions.get(i + 2));
-            argsPair = new StringPair(firstArgValue, secondArgValue);
-            argMultimap.put(index, argsPair);
-            index++;
+
+            argMultimap.put(firstArgValue, secondArgValue);
         }
 
         return argMultimap;

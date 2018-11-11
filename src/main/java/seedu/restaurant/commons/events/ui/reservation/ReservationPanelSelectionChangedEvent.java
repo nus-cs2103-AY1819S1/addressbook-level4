@@ -3,6 +3,7 @@ package seedu.restaurant.commons.events.ui.reservation;
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.reservation.Reservation;
 
+//@@author m4dkip
 /**
  * Represents a selection change in the Reservation List Panel
  */

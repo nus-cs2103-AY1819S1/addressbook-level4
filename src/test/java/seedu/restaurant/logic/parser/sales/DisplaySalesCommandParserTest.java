@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
-import seedu.restaurant.model.salesrecord.Date;
+import seedu.restaurant.model.sales.Date;
 
 
 class DisplaySalesCommandParserTest {

@@ -1,11 +1,14 @@
 package seedu.restaurant.logic.commands.reservation;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
 
+import seedu.restaurant.commons.core.EventsCenter;
+import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -26,12 +29,14 @@ public class AddReservationCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PAX + "PAX "
-            + PREFIX_DATETIME + "DATETIME "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_TIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PAX + "4 "
-            + PREFIX_DATETIME + "2018-12-03T10:00:00 "
+            + PREFIX_DATE + "05-12-2019 "
+            + PREFIX_TIME + "10:00 "
             + PREFIX_TAG + "Driving";
 
     public static final String MESSAGE_SUCCESS = "New reservation added: %1$s";
@@ -57,6 +62,7 @@ public class AddReservationCommand extends Command {
 
         model.addReservation(toAdd);
         model.commitRestaurantBook();
+        EventsCenter.getInstance().post(new DisplayReservationListRequestEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

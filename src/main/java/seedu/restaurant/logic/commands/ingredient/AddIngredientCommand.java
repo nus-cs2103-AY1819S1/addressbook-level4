@@ -7,7 +7,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_PRI
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_UNIT;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplayIngredientListRequestEvent;
+import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;

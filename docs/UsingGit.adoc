@@ -1,0 +1,35 @@
+= Using Git with Sourcetree
+:site-section: DeveloperGuide
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+== About Git and Sourcetree
+https://git-scm.com/[Git] is a popular distributed version control software (VCS). It is used to track changes in
+computer files and coordinating work on those files among multiple people. It is primarily used for source code
+management in software development,but it can be used to keep track of changes in any set of files.
+
+https://www.sourcetreeapp.com/[Sourcetree] on the other hand is a *free* Git client for Windows and Mac. The key benefit
+to Sourcetree is the visualization of the Git process. It can feel daunting when you're using the terminal, as
+you have a limited view of what's happening behind the scenes. Managing large projects with multiple branches,
+commits and developers can get messy. SourceTree can make the whole process more manageable.
+
+== Setting up
+Follow this setup guide to get *Git with Sourcetree* up and running on your computer.
+
+. Download Git https://git-scm.com/downloads[here].
+. Download Sourcetree https://www.sourcetreeapp.com/[here] and login using your Atlassian or Bitbucket server account.
+. Fork the repository you wish to contribute to on GitHub.
+. Go to the forked repository and click on `Clone or download` and copy the link.
+. Open Sourcetree and click `Clone` and paste the link into `Source Path / URL` and click `Clone`.
+. You are now ready for some development work!
+
+[TIP]
+====
+It is always a good idea to ensure that your forked repository is `ahead` or `even` with the upstream repository
+====
+

@@ -13,7 +13,7 @@
 and managers streamline the process of managing restaurants within National University of Singapore (NUS).
 
 == Summary of contributions
-
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=m4dkip[RepoSense]
 * *Major enhancement*: added the *Reservation Management* feature
 ** *What it does*: allows the user to manage a Reservations List using various commands
 ** *Justification*: This feature makes the process of managing Reservations much easier

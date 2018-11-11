@@ -12,11 +12,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.ui.UiPart;
 
 /**
@@ -65,21 +65,6 @@ public class SalesReportWindow extends UiPart<Stage> {
 
     /**
      * Shows the SalesReportWindow.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
      */
     public void show() {
         logger.fine("Displaying sales report.");

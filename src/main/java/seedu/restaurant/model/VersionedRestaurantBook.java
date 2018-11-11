@@ -19,6 +19,7 @@ public class VersionedRestaurantBook extends RestaurantBook {
         currentStatePointer = 0;
     }
 
+    //@@author AZhiKai
     /**
      * Resets the pointer of the versioned restaurant book after saving the latest state.
      */
@@ -29,6 +30,7 @@ public class VersionedRestaurantBook extends RestaurantBook {
         currentStatePointer = 0;
     }
 
+    //@@author
     /**
      * Saves a copy of the current {@code RestaurantBook} state at the end of the state list. Undone states are removed
      * from the state list.

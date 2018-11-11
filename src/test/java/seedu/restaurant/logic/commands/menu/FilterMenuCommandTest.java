@@ -20,6 +20,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
 
+//@@author yican95
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterMenuCommand}.
  */
@@ -51,7 +52,7 @@ public class FilterMenuCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

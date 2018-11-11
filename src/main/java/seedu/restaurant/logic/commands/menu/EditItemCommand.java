@@ -16,7 +16,7 @@ import java.util.Set;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.commons.util.CollectionUtil;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
@@ -30,6 +30,7 @@ import seedu.restaurant.model.menu.Price;
 import seedu.restaurant.model.menu.Recipe;
 import seedu.restaurant.model.tag.Tag;
 
+//@@author yican95
 /**
  * Edits the details of an existing item in the menu.
  */
@@ -50,8 +51,8 @@ public class EditItemCommand extends Command {
             + PREFIX_PRICE + "2";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the menu.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the menu";
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;

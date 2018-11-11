@@ -13,6 +13,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class AccountTest {
 
     @Rule
@@ -49,8 +50,7 @@ public class AccountTest {
         assertNotEquals(DEMO_ADMIN, demoAccount);
 
         // different username -> returns false
-        Account editedAdminAccount =
-                new AccountBuilder(DEMO_ADMIN).withUsername(VALID_USERNAME_DEMO_ONE).build();
+        Account editedAdminAccount = new AccountBuilder(DEMO_ADMIN).withUsername(VALID_USERNAME_DEMO_ONE).build();
         assertNotEquals(DEMO_ADMIN, editedAdminAccount);
     }
 
@@ -72,20 +72,14 @@ public class AccountTest {
     }
 
     @Test
-    public void hash_code() {
-        Account adminAccount = new AccountBuilder(DEMO_ADMIN).build();
+    public void hashcode() {
+        final Account adminAccount = new AccountBuilder(DEMO_ADMIN).build();
+        final Account demoAccount = new AccountBuilder(DEMO_ONE).build();
+
+        // same values -> returns same hashcode
         assertEquals(adminAccount.hashCode(), adminAccount.hashCode());
 
-        Account demoAccount = new AccountBuilder(DEMO_ONE).build();
+        // different values -> returns different hashcode
         assertNotEquals(adminAccount.hashCode(), demoAccount.hashCode());
-    }
-
-    @Test
-    public void hash_code_usernameOnly() {
-        Account accountDemoOne = new Account(DEMO_ONE.getUsername());
-        Account accountDemoTwo = new Account(DEMO_TWO.getUsername());
-
-        assertEquals(accountDemoOne.hashCode(), accountDemoOne.hashCode());
-        assertNotEquals(accountDemoOne.hashCode(), accountDemoTwo.hashCode());
     }
 }

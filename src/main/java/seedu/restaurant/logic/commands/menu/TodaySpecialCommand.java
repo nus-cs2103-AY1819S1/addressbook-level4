@@ -7,13 +7,14 @@ import java.util.Collections;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
 
+//@@author yican95
 /**
  * Finds and lists all items in menu whose tags contains the day of the week.
  */
@@ -25,8 +26,8 @@ public class TodaySpecialCommand extends Command {
 
     private final TagContainsKeywordsPredicate predicate;
 
-    public TodaySpecialCommand() {
-        this.predicate = preparePredicate();
+    public TodaySpecialCommand(Calendar calendar) {
+        this.predicate = preparePredicate(calendar);
     }
 
     @Override
@@ -41,9 +42,9 @@ public class TodaySpecialCommand extends Command {
     /**
      * Parses DAY_OF_WEEK into a {@code TagContainsKeywordsPredicate}.
      */
-    public static TagContainsKeywordsPredicate preparePredicate() {
+    public static TagContainsKeywordsPredicate preparePredicate(Calendar calendar) {
         String str;
-        switch (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
         case Calendar.SUNDAY:
             str = "sunday";
             break;

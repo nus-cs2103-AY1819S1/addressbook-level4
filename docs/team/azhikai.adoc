@@ -4,48 +4,57 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: MeNUS
-
 ---
+This portfolio aims to provide a summary of my contribution as Team Leader for the project,
+https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
 
 == Overview
 
 *MeNUS* is a restaurant management desktop application targeting restaurant owners in the National University
-of Singapore (NUS). It is built to help them better manage their restaurants, especially if they are using complex,
-expensive and independent systems. +
+of Singapore (NUS). It is built to help them better manage core aspects of their restaurants  --  employees, menus,
+inventory, sales and reservations -- all from a single location!
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). *MeNUS* also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX] and it
 is written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
-approximately 30 KLOC.
+approximately 25 KLoC.
 
-== Summary of contributions
+It is cross-platform supported and can be used on both Windows-based and Unix-based platforms.
 
+== Summary of Contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
 * *Major enhancement*: Added the *user management* feature
-** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system.
-** *Justification*: This feature introduce the security layer to the application by ensuring that only
-authorised personnel are able to execute certain sets of commands depending on their level of privilege.
+** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system on his
+ behalf.
+** *Justification*: This feature introduces the security layer by ensuring that only authorised employees are able to
+ execute certain sets of commands, depending on their level of privilege.
 ** *Highlights*: This enhancement affects existing commands such that certain commands require the user to be
 authenticated, otherwise it will not be executed. It required an in-depth analysis and understanding of the `Logic`,
 `Model` and `Storage` components. The implementation too was challenging as it required modifications to existing
 commands.
-** *Credits*: Account password is hashed using https://github.com/patrickfav/bcrypt[`bcrypt`].
+** *Credits*: Account password is secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
 
-* *Minor enhancement*: Added side navigation bar to access the different components of the application.
+* *Minor enhancement*: Added side navigation bar to allow access to the different components of the application with
+a click of a mouse or trackpad.
+** Navigation can also be done via CLI if user does not possess a mouse or trackpad.
 
 * *Other contributions*:
-
 ** Project Management:
 *** Team Lead; responsible for overall project coordination.
-*** Set up GitHub repository, Travis, AppVeyor, Codacy and Coveralls.
+*** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls and RepoSense.
 *** Maintained issue tracker, milestone, pull request approval and merger.
-*** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3` and `v1.4` (5 releases) on GitHub.
+*** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3`, `v1.3.1`, `v1.4` (6 releases) on GitHub.
 *** Configured deployment of static pages to GitHub Pages and Netlify.
-** Enhancements to existing features:
-*** TBU
+*** Morphed the project through refactoring and removing obsolete code:
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[#256].
+*** Practiced good pull request (PR) hygiene by ensuring positive coverage.
 ** Documentation:
-*** Morphed existing contents (UML and Sequence diagrams) of the User Guide and Developer Guide.
+*** Morphed the existing contents (UML and Sequence diagrams) of the User Guide and Developer Guide with respect to
+the morphed source code.
+*** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 ** Community:
-*** Reviewed significant number of pull requests with non-trivial review comments:
+*** https://github.com/CS2103-AY1819S1-F10-4/main/pulls/AZhiKai[Merged] more than 40 PRs.
+*** Reviewed more than 70 PRs with non-trivial review comments:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
@@ -66,7 +75,13 @@ https://github.com/nus-cs2103-AY1819S1/forum/issues/20[#20],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/33[#33],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/79[#79]
 *** Reported bugs and suggestions for other teams in the class:
-https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-430956137[#74]
+https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-430956137[#74],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/110[#110],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/111[#111],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/112[#112],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/113[#113],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/124[#124],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/130[#130]
 ** Tools:
 *** Integrated a third party library (bcrypt) to the project:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/38[#38],

@@ -32,15 +32,15 @@ import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class RecordSalesCommandTest {
 
@@ -203,7 +203,7 @@ public class RecordSalesCommandTest {
         // null -> returns false
         assertFalse(recordRecord1Command.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(recordRecord1Command.equals(recordRecord2Command));
     }
 
@@ -211,11 +211,6 @@ public class RecordSalesCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void resetData(ReadOnlyRestaurantBook newData) {
@@ -229,36 +224,6 @@ public class RecordSalesCommandTest {
 
         @Override
         public void resetRestaurantBookVersion() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeTag(Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -284,6 +249,21 @@ public class RecordSalesCommandTest {
 
         @Override
         public SalesReport getSalesReport(Date date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> rankDateBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<ItemName, Double> rankItemBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> getChronologicalSalesData() {
             throw new AssertionError("This method should not be called.");
         }
 

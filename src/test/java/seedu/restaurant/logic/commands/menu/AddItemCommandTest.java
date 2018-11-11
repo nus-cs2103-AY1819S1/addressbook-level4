@@ -27,14 +27,15 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class AddItemCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -93,7 +94,7 @@ public class AddItemCommandTest {
         // null -> returns false
         assertFalse(addAppleCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(addAppleCommand.equals(addBurgerCommand));
     }
 
@@ -101,11 +102,6 @@ public class AddItemCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void resetData(ReadOnlyRestaurantBook newData) {
@@ -119,36 +115,6 @@ public class AddItemCommandTest {
 
         @Override
         public void resetRestaurantBookVersion() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeTag(Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -234,6 +200,21 @@ public class AddItemCommandTest {
 
         @Override
         public SalesReport getSalesReport(Date date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> rankDateBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<ItemName, Double> rankItemBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> getChronologicalSalesData() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -40,10 +40,7 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
  features eg menu and sales management. The `stockup-history` and `consumption-history` commands also required
  picking up knowledge about JavaFX and SceneBuilder to create the front-end user interfaces.
 
-* *Minor enhancement*: To be updated.
-
-* *Code contributed*:
-** To be updated.
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=rebstan97[RepoSense]
 
 * *Other contributions*:
 

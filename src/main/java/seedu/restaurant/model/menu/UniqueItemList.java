@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.menu.exceptions.DuplicateItemException;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 
+//@@author yican95
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
  * An item is considered unique by comparing using {@code Item#isSameItem(Item)}. As such, adding and updating of

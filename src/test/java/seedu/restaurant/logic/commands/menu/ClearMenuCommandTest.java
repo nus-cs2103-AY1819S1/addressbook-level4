@@ -11,6 +11,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.UserPrefs;
 
+//@@author yican95
 public class ClearMenuCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();

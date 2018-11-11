@@ -23,7 +23,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_UNIT_APPLE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_UNIT_BROCCOLI;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.restaurant.logic.parser.util.ParserUtil.MESSAGE_NOT_INDEX_OR_NAME;
+import static seedu.restaurant.logic.parser.ingredient.IngredientParserUtil.MESSAGE_NOT_INDEX_OR_NAME;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
@@ -105,16 +105,16 @@ public class EditIngredientCommandParserTest {
 
         // invalid unit followed by valid price
         assertParseFailure(parser, VALID_NAME_BROCCOLI + INVALID_INGREDIENT_UNIT_DESC
-                        + INGREDIENT_PRICE_DESC_APPLE, IngredientUnit.MESSAGE_UNIT_CONSTRAINTS);
+                + INGREDIENT_PRICE_DESC_APPLE, IngredientUnit.MESSAGE_UNIT_CONSTRAINTS);
 
         // valid value followed by invalid value. The test case for invalid value followed by valid value
         // is tested at {@code parse_name_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, VALID_NAME_BROCCOLI + INGREDIENT_UNIT_DESC_BROCCOLI
-                        + INVALID_INGREDIENT_UNIT_DESC, IngredientUnit.MESSAGE_UNIT_CONSTRAINTS);
+                + INVALID_INGREDIENT_UNIT_DESC, IngredientUnit.MESSAGE_UNIT_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, VALID_NAME_BROCCOLI + INVALID_INGREDIENT_NAME_DESC
-                        + INVALID_INGREDIENT_UNIT_DESC, IngredientName.MESSAGE_NAME_CONSTRAINTS);
+                + INVALID_INGREDIENT_UNIT_DESC, IngredientName.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test

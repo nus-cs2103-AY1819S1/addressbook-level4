@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 
+//@@author m4dkip
 public class NameContainsKeywordsPredicateTest {
 
     @Test
@@ -34,7 +35,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different reservation -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

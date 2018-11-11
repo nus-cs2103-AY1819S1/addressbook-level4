@@ -3,6 +3,7 @@ package seedu.restaurant.model.reservation;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author m4dkip
 /**
  * Represents a Reservation's name in the restaurant book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

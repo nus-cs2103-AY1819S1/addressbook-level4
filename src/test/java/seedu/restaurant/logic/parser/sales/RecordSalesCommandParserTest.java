@@ -13,21 +13,21 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.PREFIX_WITH_VALID_
 import static seedu.restaurant.logic.commands.CommandTestUtil.PREFIX_WITH_VALID_QUANTITY_SOLD;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.restaurant.testutil.salesrecords.RecordBuilder.DEFAULT_DATE;
-import static seedu.restaurant.testutil.salesrecords.RecordBuilder.DEFAULT_ITEM_NAME;
-import static seedu.restaurant.testutil.salesrecords.RecordBuilder.DEFAULT_PRICE;
-import static seedu.restaurant.testutil.salesrecords.RecordBuilder.DEFAULT_QUANTITY_SOLD;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.RecordBuilder.DEFAULT_DATE;
+import static seedu.restaurant.testutil.sales.RecordBuilder.DEFAULT_ITEM_NAME;
+import static seedu.restaurant.testutil.sales.RecordBuilder.DEFAULT_PRICE;
+import static seedu.restaurant.testutil.sales.RecordBuilder.DEFAULT_QUANTITY_SOLD;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
 import org.junit.Test;
 
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class RecordSalesCommandParserTest {
     private RecordSalesCommandParser parser = new RecordSalesCommandParser();

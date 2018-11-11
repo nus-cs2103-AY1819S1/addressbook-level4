@@ -6,18 +6,17 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_NUMUNITS_APP
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_NUMUNITS_BROCCOLI;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.restaurant.model.ingredient.IngredientName.MESSAGE_NAME_CONSTRAINTS;
+import static seedu.restaurant.model.ingredient.NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
-import seedu.restaurant.logic.commands.ingredient.StockUpCommand.ChangeStockDescriptor;
 import seedu.restaurant.model.ingredient.IngredientName;
-import seedu.restaurant.model.ingredient.NumUnits;
-import seedu.restaurant.testutil.ingredient.ChangeStockDescriptorBuilder;
 
 public class StockUpCommandParserTest {
     private StockUpCommandParser parser = new StockUpCommandParser();
@@ -29,35 +28,32 @@ public class StockUpCommandParserTest {
     }
 
     @Test
+    public void parse_invalidName_failure() {
+        assertParseFailure(parser, "stockup n/Apple+ nu/10",
+                MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidNumUnits_failure() {
+        assertParseFailure(parser, "stockup n/Granny Smith Apple nu/-1",
+                MESSAGE_NUMUNITS_CONSTRAINTS);
+    }
+
+    @Test
     public void parse_validArgumentPair_success() {
-        List<ChangeStockDescriptor> descriptorList = new ArrayList<>();
-        ChangeStockDescriptor descriptor =
-                new ChangeStockDescriptorBuilder().withName(VALID_NAME_APPLE).withNumUnits(VALID_NUMUNITS_APPLE)
-                .build();
-        descriptorList.add(descriptor);
-        StockUpCommand expectedCommand = new StockUpCommand(descriptorList);
+        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        ingredientHashMap.put(new IngredientName(VALID_NAME_APPLE), 10);
+        StockUpCommand expectedCommand = new StockUpCommand(ingredientHashMap);
         assertParseSuccess(parser, "stockup n/Granny Smith Apple nu/10", expectedCommand);
     }
 
     @Test
     public void parse_validMultipleArgumentPairs_success() {
-        List<ChangeStockDescriptor> descriptorList = new ArrayList<>();
-        ChangeStockDescriptor descriptor =
-                new ChangeStockDescriptorBuilder().withName(VALID_NAME_APPLE).withNumUnits(VALID_NUMUNITS_APPLE)
-                        .build();
-        descriptorList.add(descriptor);
-        descriptor =
-                new ChangeStockDescriptorBuilder().withName(VALID_NAME_BROCCOLI).withNumUnits(VALID_NUMUNITS_BROCCOLI)
-                        .build();
-        descriptorList.add(descriptor);
-        StockUpCommand expectedCommand = new StockUpCommand(descriptorList);
-        assertParseSuccess(parser, "stockup n/Granny Smith Apple nu/10 n/Australian Broccoli nu/28",
-                expectedCommand);
-
-        IngredientName ingredientName = new IngredientName("Fresh Eggs");
-        NumUnits numUnits = new NumUnits(1000);
-        descriptor = new ChangeStockDescriptor(ingredientName, numUnits);
-        descriptorList.add(descriptor);
+        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        ingredientHashMap.put(new IngredientName(VALID_NAME_APPLE), VALID_NUMUNITS_APPLE);
+        ingredientHashMap.put(new IngredientName(VALID_NAME_BROCCOLI), VALID_NUMUNITS_BROCCOLI);
+        ingredientHashMap.put(new IngredientName("Fresh Eggs"), 1000);
+        StockUpCommand expectedCommand = new StockUpCommand(ingredientHashMap);
         assertParseSuccess(parser,
                 "stockup n/Granny Smith Apple nu/10 n/Australian Broccoli nu/28 n/Fresh Eggs nu/1000",
                 expectedCommand);

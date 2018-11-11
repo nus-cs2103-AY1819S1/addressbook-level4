@@ -9,8 +9,8 @@ import java.util.List;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.JumpToItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -19,6 +19,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Recipe;
 
+//@@author yican95
 /**
  * Adds a recipe to a item in the menu.
  */
@@ -26,7 +27,7 @@ public class RecipeItemCommand extends Command {
     public static final String COMMAND_WORD = "recipe-item";
     public static final String COMMAND_ALIAS = "ri";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the recipe for a item identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds/Updates the recipe for a item identified "
             + "by the index number used in the displayed item list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -69,7 +70,7 @@ public class RecipeItemCommand extends Command {
         model.commitRestaurantBook();
 
         EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+        EventsCenter.getInstance().post(new JumpToItemListRequestEvent(index));
         return new CommandResult(generateSuccessMessage(editedItem));
     }
     /**

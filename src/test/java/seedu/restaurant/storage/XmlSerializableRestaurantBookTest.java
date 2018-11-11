@@ -25,9 +25,7 @@ public class XmlSerializableRestaurantBookTest {
             "XmlSerializableRestaurantBookTest");
 
     // Account Management
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonOnlyRestaurantBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonOnlyRestaurantBook.xml");
+    private static final Path TYPICAL_RESTAURANT_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantBook.xml");
     private static final Path INVALID_ACCOUNT_FILE = TEST_DATA_FOLDER.resolve("invalidAccountOnlyRestaurantBook.xml");
     private static final Path DUPLICATE_ACCOUNT_FILE = TEST_DATA_FOLDER
             .resolve("duplicateAccountOnlyRestaurantBook.xml");
@@ -44,7 +42,6 @@ public class XmlSerializableRestaurantBookTest {
     private static final Path DUPLICATE_INGREDIENT_FILE = TEST_DATA_FOLDER
             .resolve("duplicateIngredientOnlyRestaurantBook"
                     + ".xml");
-    private static final Path TYPICAL_DUPLICATE_FILE = TEST_DATA_FOLDER.resolve("duplicateAccountRestaurantBook.xml");
 
     // Menu Management
     private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemsOnlyRestaurantBook.xml");
@@ -63,26 +60,11 @@ public class XmlSerializableRestaurantBookTest {
     private XmlSerializableRestaurantBook dataFromFile = null;
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE, XmlSerializableRestaurantBook.class);
+    public void toModelType_typicalRestaurantFile_success() throws Exception {
+        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_RESTAURANT_FILE, XmlSerializableRestaurantBook.class);
         RestaurantBook restaurantBookFromFile = dataFromFile.toModelType();
-        RestaurantBook typicalPersonsRestaurantBook = getTypicalRestaurantBook();
-        assertEquals(restaurantBookFromFile, typicalPersonsRestaurantBook);
-    }
-
-    @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        dataFromFile.toModelType();
-    }
-
-    @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableRestaurantBook.MESSAGE_DUPLICATE_PERSON);
-        dataFromFile.toModelType();
+        RestaurantBook typicalRestaurantBook = getTypicalRestaurantBook();
+        assertEquals(restaurantBookFromFile, typicalRestaurantBook);
     }
 
     @Test
@@ -125,6 +107,8 @@ public class XmlSerializableRestaurantBookTest {
         assertEquals(restaurantBookFromFile, typicalIngredientsRestaurantBook);
     }
 
+    //@@author AZhiKai
+    // Account Management
     @Test
     public void toModelType_invalidAccountFile_throwsIllegalValueException() throws Exception {
         dataFromFile = XmlUtil.getDataFromFile(INVALID_ACCOUNT_FILE, XmlSerializableRestaurantBook.class);
@@ -140,14 +124,7 @@ public class XmlSerializableRestaurantBookTest {
         dataFromFile.toModelType();
     }
 
-    @Test
-    public void toModelType_duplicateAccountInTypicalRestaurantBook_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_DUPLICATE_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableRestaurantBook.MESSAGE_DUPLICATE_ACCOUNT);
-        dataFromFile.toModelType();
-    }
-
+    //@@author yican95
     // Menu Management
     @Test
     public void toModelType_typicalItemsOnlyFile_success() throws Exception {
@@ -176,6 +153,7 @@ public class XmlSerializableRestaurantBookTest {
     }
 
     //Reservation Management
+    //@@author m4dkip
     @Test
     public void toModelType_invalidReservationOnlyFile_throwsIllegalValueException() throws Exception {
         XmlSerializableRestaurantBook dataFromFile = XmlUtil.getDataFromFile(INVALID_RESERVATION_FILE,
@@ -195,7 +173,7 @@ public class XmlSerializableRestaurantBookTest {
 
     @Test
     public void equals() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE, XmlSerializableRestaurantBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_ITEM_FILE, XmlSerializableRestaurantBook.class);
 
         // same object
         assertTrue(dataFromFile.equals(dataFromFile));

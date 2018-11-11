@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PASSWORD;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_TWO;
 
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.Assert;
 
+//@@author AZhiKai
 public class PasswordTest {
 
     @Test
@@ -20,8 +22,7 @@ public class PasswordTest {
 
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidPassword = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidPassword));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(INVALID_PASSWORD));
     }
 
     @Test
@@ -52,7 +53,7 @@ public class PasswordTest {
 
         Password passwordTwo = new Password("1122qq");
         passwordTwo.hash("azhikai12345678910"); // more than length 16 for username
-        assertTrue(Password.isHashed(passwordTwo.toString())); // hash version 2a, cost factor 6
+        assertTrue(Password.isHashed(passwordTwo.toString()));
     }
 
     @Test
@@ -95,6 +96,8 @@ public class PasswordTest {
         assertEquals(passwordOne.hashCode(), passwordOne.hashCode());
 
         Password passwordTwo = new Password(VALID_PASSWORD_DEMO_TWO);
+        assertEquals(passwordTwo.hashCode(), passwordTwo.hashCode());
+
         assertNotEquals(passwordOne.hashCode(), passwordTwo.hashCode());
     }
 }

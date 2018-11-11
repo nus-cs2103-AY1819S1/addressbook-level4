@@ -9,6 +9,7 @@ import java.util.List;
  * Stores the history of commands executed.
  */
 public class CommandHistory {
+
     private LinkedList<String> userInputHistory;
 
     public CommandHistory() {
@@ -25,6 +26,14 @@ public class CommandHistory {
     public void add(String userInput) {
         requireNonNull(userInput);
         userInputHistory.add(userInput);
+    }
+
+    /**
+     * Clears the list.
+     */
+    public void clear() {
+        userInputHistory.clear();
+        assert userInputHistory.size() == 0;
     }
 
     /**

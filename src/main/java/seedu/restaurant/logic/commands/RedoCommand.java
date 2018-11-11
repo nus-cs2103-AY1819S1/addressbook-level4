@@ -3,7 +3,6 @@ package seedu.restaurant.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ACCOUNTS;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_RESERVATIONS;
 
@@ -30,7 +29,6 @@ public class RedoCommand extends Command {
         }
 
         model.redoRestaurantBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         model.updateFilteredAccountList(PREDICATE_SHOW_ALL_ACCOUNTS);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);

@@ -8,7 +8,7 @@
     <minimum>2</minimum>
   </ingredients>
 
-  <!-- Person with same identity as Chicken Drumstick -->
+  <!-- Ingredient with same identity as Chicken Drumstick -->
   <ingredients>
     <name>Chicken Drumstick</name>
     <unit>kilogram</unit>

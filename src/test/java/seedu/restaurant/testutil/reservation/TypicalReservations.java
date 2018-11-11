@@ -7,33 +7,43 @@ import java.util.List;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.reservation.Reservation;
 
+//@@author m4dkip
 /**
  * A utility class containing a list of {@code Reservation} objects to be used in tests.
  */
 public class TypicalReservations {
+    public static final Reservation RESERVATION_DEFAULT = new ReservationBuilder().build();
 
     public static final Reservation ANDREW = new ReservationBuilder().withName("Andrew")
             .withPax("2")
-            .withDateTime("2018-12-03T12:00:00").build();
+            .withDate("03-12-2019")
+            .withTime("12:00").build();
     public static final Reservation BILLY = new ReservationBuilder().withName("Billy")
             .withPax("4")
-            .withDateTime("2018-12-05T18:00:00").build();
+            .withDate("05-12-2019")
+            .withTime("18:00").build();
     public static final Reservation CARELL = new ReservationBuilder().withName("Carell")
             .withPax("1")
-            .withDateTime("2018-10-03T15:00:00").build();
+            .withDate("03-10-2019")
+            .withTime("15:00").build();
     public static final Reservation DANNY = new ReservationBuilder().withName("Danny Phantom")
             .withPax("3")
-            .withDateTime("2018-09-13T12:00:00")
-            .withTags("driving").build();
+            .withDate("13-09-2019")
+            .withTime("12:00")
+            .withTags("Driving").build();
     public static final Reservation ELSA = new ReservationBuilder().withName("Elsa")
             .withPax("2")
-            .withDateTime("2018-10-31T13:00:00").build();
+            .withDate("13-10-2019")
+            .withTime("13:00")
+            .withTags("Allergies").build();
     public static final Reservation FROPPY = new ReservationBuilder().withName("Froppy")
             .withPax("8")
-            .withDateTime("2018-10-30T18:00:00").build();
+            .withDate("30-10-2019")
+            .withTime("18:00").build();
     public static final Reservation GUILE = new ReservationBuilder().withName("Guile")
             .withPax("2")
-            .withDateTime("2018-10-23T19:00:00").build();
+            .withDate("23-10-2018")
+            .withTime("19:00").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

@@ -19,7 +19,7 @@ Restaurant owners interact with *MeNUS* using a Command Line Interface
 approximately 30 KLOC.
 
 == Summary of contributions
-
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
 * *Major enhancement*: Added *Menu Management* feature
 ** *What it does*: Allows the user to manage the menu with the various menu management commands.
 ** *Justification*: This feature help users to streamline the process of designing and managing the menu.

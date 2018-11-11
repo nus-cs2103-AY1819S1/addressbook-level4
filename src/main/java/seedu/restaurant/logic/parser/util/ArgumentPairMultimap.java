@@ -3,42 +3,33 @@ package seedu.restaurant.logic.parser.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import seedu.restaurant.commons.core.pair.StringPair;
-
 /**
- * Stores mapping of indices to their respective argument pairs.
- * Each key must be associated with exactly two arguments forming a pair.
- * Keys are unique, but two keys may map to duplicate values for argument pairs.
+ * Stores mapping of 2 consecutive argument values found in the entire argument string.
+ * Each key is an odd-indexed argument value (eg first, third, fifth ... argument) and must be mapped to its subsequent
+ * even-indexed argument value (eg second, forth, ... argument).
+ * Keys are unique, but two keys may map to duplicate values.
  */
 public class ArgumentPairMultimap {
 
-    /** Indices mapped to their respective argument pairs **/
-    private final Map<Integer, StringPair> argMultimap = new HashMap<>();
+    /** Odd arguments mapped to its following argument **/
+    private final Map<String, String> argMultimap = new HashMap<>();
 
     /**
-     * Associates the specified argument value with an integer {@code index} key in this map.
-     * Assumes the map does not contain a mapping for the key when a new value
+     * Associates the specified argument value with previous argument in this map.
+     * Assumes the map does not contain a mapping for the key when a new value is added into the map.
      *
-     * @param index   Index key with which the specified argument pair value is to be associated
-     * @param argPair Argument value to be associated with the specified index key
+     * @param firstArg   Argument key with which its following argument is associated
+     * @param secondArg  Argument value to be associated with the previous argument key
      */
-    public void put(Integer index, StringPair argPair) {
-        argMultimap.put(index, argPair);
+    public void put(String firstArg, String secondArg) {
+        argMultimap.put(firstArg, secondArg);
     }
 
     /**
-     * Returns the value of {@code index}.
+     * Returns a defensive copy of {@code argMultimap}.
      */
-    public StringPair getValue(int index) {
-        return argMultimap.get(index);
-    }
-
-    /**
-     * Returns true if the argumentPairMultimap contains the {@code index} as a key.
-     * @param index Index key
-     */
-    public boolean contains(int index) {
-        return argMultimap.containsKey(index);
+    public Map<String, String> getArgMultimap() {
+        return new HashMap<>(argMultimap);
     }
 
     /**
@@ -49,5 +40,4 @@ public class ArgumentPairMultimap {
                 || (other instanceof ArgumentPairMultimap
                     && this.argMultimap.equals(((ArgumentPairMultimap) other).argMultimap));
     }
-
 }

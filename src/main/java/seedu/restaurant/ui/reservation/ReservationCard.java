@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.ui.UiPart;
 
+//@@author m4dkip
 /**
  * An UI component that displays information of a {@code Reservation}.
  */

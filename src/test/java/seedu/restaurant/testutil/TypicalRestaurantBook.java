@@ -1,32 +1,31 @@
 package seedu.restaurant.testutil;
 
-import static seedu.restaurant.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.restaurant.testutil.account.TypicalAccounts.getTypicalAccounts;
 import static seedu.restaurant.testutil.ingredient.TypicalIngredients.getTypicalIngredients;
 import static seedu.restaurant.testutil.menu.TypicalItems.getTypicalItems;
 import static seedu.restaurant.testutil.reservation.TypicalReservations.getTypicalReservations;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.getTypicalRecords;
+import static seedu.restaurant.testutil.sales.TypicalRecords.getTypicalRecords;
 
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * A utility class containing a list of all possible types of an {@code RestaurantBook} objects to be used in tests.
  */
 public class TypicalRestaurantBook {
 
+    //@@author AZhiKai
     /**
      * Returns an {@code RestaurantBook} with all the typical objects it can possibly represent.
      */
     public static RestaurantBook getTypicalRestaurantBook() {
         RestaurantBook ab = new RestaurantBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Item item : getTypicalItems()) {
+            ab.addItem(item);
         }
         for (SalesRecord record : getTypicalRecords()) {
             ab.addRecord(record);
@@ -37,22 +36,8 @@ public class TypicalRestaurantBook {
         for (Ingredient ingredient : getTypicalIngredients()) {
             ab.addIngredient(ingredient);
         }
-        for (Item item : getTypicalItems()) {
-            ab.addItem(item);
-        }
         for (Reservation reservation : getTypicalReservations()) {
             ab.addReservation(reservation);
-        }
-        return ab;
-    }
-
-    /**
-     * Returns an {@code RestaurantBook} with {@code Person} objects only.
-     */
-    public static RestaurantBook getTypicalRestaurantBookWithPersonOnly() {
-        RestaurantBook ab = new RestaurantBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
         }
         return ab;
     }
@@ -90,6 +75,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author yican95
     /**
      * Returns an {@code RestaurantBook} with {@code Item} objects only.
      */
@@ -101,6 +87,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author m4dkip
     /**
      * Returns an {@code RestaurantBook} with {@code Reservation} objects only.
      */

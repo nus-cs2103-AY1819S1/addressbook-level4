@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.Assert;
 
-
+//@@author m4dkip
 public class RemarkTest {
 
     @Test

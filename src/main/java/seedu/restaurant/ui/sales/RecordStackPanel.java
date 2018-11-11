@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.restaurant.model.ingredient.IngredientName;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
 /**

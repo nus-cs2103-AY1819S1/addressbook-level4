@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.ui.UiPart;
 
+//@@author AZhiKai
 /**
  * An UI component that displays information of a {@code Account}.
  */
@@ -29,12 +30,15 @@ public class AccountCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label username;
+    @FXML
+    private Label name;
 
     public AccountCard(Account account, int displayedIndex) {
         super(FXML);
         this.account = account;
         id.setText(displayedIndex + ". ");
         username.setText(account.getUsername().toString());
+        name.setText(account.getName().toString());
     }
 
     @Override

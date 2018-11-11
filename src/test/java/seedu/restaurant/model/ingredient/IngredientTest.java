@@ -27,8 +27,20 @@ public class IngredientTest {
         // null -> returns false
         assertFalse(APPLE.isSameIngredient(null));
 
+        // name in upper case
+        Ingredient editedApple = new IngredientBuilder(APPLE).withName("GRANNY SMITH APPLE").build();
+        assertTrue(APPLE.isSameIngredient(editedApple));
+
+        // name in different combination of upper and lower case
+        editedApple = new IngredientBuilder(APPLE).withName("GraNNY sMItH aPPle").build();
+        assertTrue(APPLE.isSameIngredient(editedApple));
+
+        // name in lower case
+        editedApple = new IngredientBuilder(APPLE).withName("granny smith apple").build();
+        assertTrue(APPLE.isSameIngredient(editedApple));
+
         // same name, different unit and price -> returns false
-        Ingredient editedApple = new IngredientBuilder(APPLE).withUnit(VALID_UNIT_BROCCOLI)
+        editedApple = new IngredientBuilder(APPLE).withUnit(VALID_UNIT_BROCCOLI)
                 .withPrice(VALID_PRICE_BROCCOLI).build();
         assertTrue(APPLE.isSameIngredient(editedApple));
 
@@ -46,7 +58,7 @@ public class IngredientTest {
                 .build();
         assertTrue(APPLE.isSameIngredient(editedApple));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same unit, same price, different attributes -> returns true
         editedApple = new IngredientBuilder(APPLE).withMinimum(VALID_MINIMUM_BROCCOLI).build();
         assertTrue(APPLE.isSameIngredient(editedApple));
     }

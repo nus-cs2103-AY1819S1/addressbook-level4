@@ -18,6 +18,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Username;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class DeregisterCommandParserTest {
 
     private DeregisterCommandParser parser = new DeregisterCommandParser();

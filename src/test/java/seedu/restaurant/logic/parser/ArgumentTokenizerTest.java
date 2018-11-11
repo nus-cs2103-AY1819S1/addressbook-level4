@@ -5,11 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.restaurant.logic.parser.util.ArgumentTokenizer.tokenizeToPair;
 
 import org.junit.Test;
 
-import seedu.restaurant.commons.core.pair.StringPair;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ArgumentMultimap;
@@ -22,7 +20,6 @@ public class ArgumentTokenizerTest {
     private final Prefix unknownPrefix = new Prefix("--u");
     private final Prefix pSlash = new Prefix("p/");
     private final Prefix qSlash = new Prefix("q/");
-    private final Prefix rSlash = new Prefix("r/");
     private final Prefix dashT = new Prefix("-t");
     private final Prefix hatQ = new Prefix("^Q");
 
@@ -198,46 +195,40 @@ public class ArgumentTokenizerTest {
     @Test
     public void tokenizeToPair_oneArgumentPair_success() {
         String argsString = " p/Cod Fish q/10";
-        StringPair expectedArgPair = new StringPair("Cod Fish", "10");
-        assertTokenizeToPairSuccess(argsString, pSlash, qSlash, expectedArgPair);
+        ArgumentPairMultimap expectedMultimap = new ArgumentPairMultimap();
+        expectedMultimap.put("Cod Fish", "10");
+        try {
+            ArgumentPairMultimap actualMultimap = ArgumentTokenizer.tokenizeToPair(argsString, pSlash, qSlash);
+            assertEquals(actualMultimap, expectedMultimap);
+        } catch (ParseException e) {
+            throw new AssertionError("The thrown ParseException was not expected.");
+        }
     }
 
     @Test
     public void tokenizeToPair_multipleArgumentPairs_success() {
         String argsString = " p/Cod Fish q/10 p/Chicken Thigh q/5";
-        StringPair firstExpectedArgPair = new StringPair("Cod Fish", "10");
-        StringPair secondExpectedArgPair = new StringPair("Chicken Thigh", "5");
-        assertTokenizeToPairSuccess(argsString, pSlash, qSlash, firstExpectedArgPair, secondExpectedArgPair);
-
-        argsString = " p/Cod Fish q/10 p/Chicken Thigh q/5 p/Green Apple q/20";
-        firstExpectedArgPair = new StringPair("Cod Fish", "10");
-        secondExpectedArgPair = new StringPair("Chicken Thigh", "5");
-        StringPair thirdExpectedArgPair = new StringPair("Green Apple", "20");
-        assertTokenizeToPairSuccess(argsString, pSlash, qSlash, firstExpectedArgPair, secondExpectedArgPair,
-                thirdExpectedArgPair);
+        ArgumentPairMultimap expectedMultimap = new ArgumentPairMultimap();
+        expectedMultimap.put("Cod Fish", "10");
+        expectedMultimap.put("Chicken Thigh", "5");
+        try {
+            ArgumentPairMultimap actualMultimap = ArgumentTokenizer.tokenizeToPair(argsString, pSlash, qSlash);
+            assertEquals(actualMultimap, expectedMultimap);
+        } catch (ParseException e) {
+            throw new AssertionError("The thrown ParseException was not expected.");
+        }
     }
 
     @Test
-    public void tokenizeToPair_duplicateArgumentPairs_success() {
-        String argsString = " p/Cod Fish q/10 p/Cod Fish q/10";
-        StringPair firstExpectedArgPair = new StringPair("Cod Fish", "10");
-        assertTokenizeToPairSuccess(argsString, pSlash, qSlash, firstExpectedArgPair, firstExpectedArgPair);
-    }
-
-    /**
-     * Asserts that {@code argsString} has been tokenised successfully into an argument pair based on the prefixes
-     */
-    private void assertTokenizeToPairSuccess(String argsString, Prefix firstPrefix,
-            Prefix secondPrefix, StringPair... expectedArgPairs) {
+    public void tokenizeToPair_duplicateFirstArgument_success() {
+        String argsString = " p/Cod Fish q/10 p/Cod Fish q/5";
+        ArgumentPairMultimap expectedMultimap = new ArgumentPairMultimap();
+        expectedMultimap.put("Cod Fish", "5");
         try {
-            ArgumentPairMultimap actualMultimap = tokenizeToPair(argsString, firstPrefix, secondPrefix);
-            int index = 1;
-            while (actualMultimap.contains(index)) {
-                assertEquals(actualMultimap.getValue(index), expectedArgPairs[index - 1]);
-                index++;
-            }
-        } catch (ParseException pe) {
-            throw new IllegalArgumentException("Invalid userInput.", pe);
+            ArgumentPairMultimap actualMultimap = ArgumentTokenizer.tokenizeToPair(argsString, pSlash, qSlash);
+            assertEquals(actualMultimap, expectedMultimap);
+        } catch (ParseException e) {
+            throw new AssertionError("The thrown ParseException was not expected.");
         }
     }
 
@@ -247,7 +238,7 @@ public class ArgumentTokenizerTest {
     private void assertTokenizeToPairFailure(String argsString, Prefix firstPrefix, Prefix secondPrefix,
             String expectedMessage) {
         try {
-            tokenizeToPair(argsString, firstPrefix, secondPrefix);
+            ArgumentTokenizer.tokenizeToPair(argsString, firstPrefix, secondPrefix);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());

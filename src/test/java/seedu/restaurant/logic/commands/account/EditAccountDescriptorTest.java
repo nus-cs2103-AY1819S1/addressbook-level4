@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 
+//@@author AZhiKai
 public class EditAccountDescriptorTest {
 
     @Test

@@ -30,6 +30,8 @@ public class HistoryCommandTest {
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
         assertCommandSuccess(new HistoryCommand(), model, history, expectedMessage, expectedModel);
-    }
 
+        history.clear();
+        assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
+    }
 }

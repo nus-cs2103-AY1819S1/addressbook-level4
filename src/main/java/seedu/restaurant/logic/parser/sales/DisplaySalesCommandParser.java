@@ -5,7 +5,7 @@ import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
-import seedu.restaurant.model.salesrecord.Date;
+import seedu.restaurant.model.sales.Date;
 
 /**
  * Parses input arguments and creates a new DisplaySalesCommand object

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.account.exceptions.AccountNotFoundException;
 import seedu.restaurant.model.account.exceptions.DuplicateAccountException;
 
+//@@author AZhiKai
 /**
  * A list of account that enforces uniqueness between its elements and does not allow nulls. An account is considered
  * unique by comparing using {@code Account#isSameUsername(Account)}. As such, adding and updating of account uses

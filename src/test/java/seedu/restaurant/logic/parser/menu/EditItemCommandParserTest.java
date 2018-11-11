@@ -2,7 +2,7 @@ package seedu.restaurant.logic.parser.menu;
 
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_ITEM_NAME_DESC;
-import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_ITEM_PRICE_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.ITEM_NAME_DESC_BURGER;
 import static seedu.restaurant.logic.commands.CommandTestUtil.ITEM_NAME_DESC_FRIES;
@@ -33,6 +33,7 @@ import seedu.restaurant.model.menu.Price;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
 
+//@@author yican95
 public class EditItemCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -72,7 +73,7 @@ public class EditItemCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_ITEM_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid rice
+        assertParseFailure(parser, "1" + INVALID_ITEM_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid rice
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid name followed by valid price
@@ -81,7 +82,7 @@ public class EditItemCommandParserTest {
 
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + ITEM_PRICE_DESC_BURGER + INVALID_PRICE_DESC,
+        assertParseFailure(parser, "1" + ITEM_PRICE_DESC_BURGER + INVALID_ITEM_PRICE_DESC,
                 Price.MESSAGE_PRICE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Item} being edited,
@@ -94,7 +95,7 @@ public class EditItemCommandParserTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_ITEM_NAME_DESC + INVALID_PRICE_DESC,
+        assertParseFailure(parser, "1" + INVALID_ITEM_NAME_DESC + INVALID_ITEM_PRICE_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
@@ -152,13 +153,14 @@ public class EditItemCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST;
-        String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + ITEM_PRICE_DESC_BURGER;
+        String userInput = targetIndex.getOneBased() + INVALID_ITEM_PRICE_DESC + ITEM_PRICE_DESC_BURGER;
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withPrice(VALID_ITEM_PRICE_BURGER).build();
         EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + ITEM_NAME_DESC_BURGER + INVALID_PRICE_DESC + ITEM_PRICE_DESC_BURGER;
+        userInput = targetIndex.getOneBased() + ITEM_NAME_DESC_BURGER + INVALID_ITEM_PRICE_DESC
+                + ITEM_PRICE_DESC_BURGER;
         descriptor = new EditItemDescriptorBuilder().withName(VALID_ITEM_NAME_BURGER)
                 .withPrice(VALID_ITEM_PRICE_BURGER).build();
         expectedCommand = new EditItemCommand(targetIndex, descriptor);

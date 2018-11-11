@@ -8,6 +8,7 @@ import seedu.restaurant.logic.commands.menu.SortMenuCommand.SortMethod;
 import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 
+//@@author yican95
 /**
  * Parses input arguments and creates a new SortMenuCommand object
  */

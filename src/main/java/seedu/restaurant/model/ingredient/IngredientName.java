@@ -10,13 +10,13 @@ import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 public class IngredientName {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Ingredient names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Ingredient names should only contain alphabet characters and spaces, and it should not be blank";
 
     /*
      * The first character of the ingredient name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NAME_VALIDATION_REGEX = "[A-Za-z][( )A-Za-z]*";
 
     private final String fullName;
 
@@ -37,7 +37,6 @@ public class IngredientName {
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {

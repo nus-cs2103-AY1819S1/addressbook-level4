@@ -4,19 +4,13 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Unmodifiable view of an restaurant book
  */
 public interface ReadOnlyRestaurantBook {
-
-    /**
-     * Returns an unmodifiable view of the persons list. This list will not contain any duplicate persons.
-     */
-    ObservableList<Person> getPersonList();
 
     /**
      * Returns an unmodifiable view of the records list. This list will not contain any duplicate records.

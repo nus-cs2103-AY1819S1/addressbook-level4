@@ -12,7 +12,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PRICE_RECORD
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_QUANTITY_SOLD_RECORD_TWO;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.restaurant.logic.commands.CommandTestUtil.showRecordAtIndex;
+import static seedu.restaurant.logic.commands.sales.SalesCommandTestUtil.showRecordAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
@@ -30,9 +30,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.UserPrefs;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
