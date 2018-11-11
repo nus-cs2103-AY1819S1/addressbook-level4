@@ -38,13 +38,16 @@ easily.
 
 * *Minor enhancement*: Refactor `add`, `delete` and `update` commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
-   _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leongengsea[Functional
+   code]]
 
 * *Other contributions*:
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Update the user guide for the `open` and `shutdown` features.
+*** Update the developer guide for the implementation of the `open` feature with sequence and activity diagrams of how
+the `open` command works.
+*** Update project portfolio page(PPP).
 
 == Contributions to the User Guide
 
