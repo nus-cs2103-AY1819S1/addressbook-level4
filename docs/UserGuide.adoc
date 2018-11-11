@@ -153,7 +153,7 @@ Deletes the 2nd calendar event in the calendar.
 `delete event 1` +
 Deletes the 1st calendar event in the results of the `find event` command.
 * `list todo` +
-* `delete todo 1` +
+`delete todo 1` +
 Deletes the 1st todo item in the todo list.
 
 === Selecting: `select`
@@ -190,7 +190,7 @@ Format: `show todo INDEX`
 Examples:
 
 * `list todo` +
-* `show todo 1` +
+`show todo 1` +
 Shows description of the 1st todo item in the todo list.
 
 === Listing entered commands : `history`
