@@ -90,7 +90,7 @@ Lists all the uncompleted wishes in the WishBook.
 
 === List feature
 
-The 'list -c and list -u' command allows the user to view the list of all wishes, completed and ongoing, respectively.
+The `list -c and list -u` command allows the user to view the list of all wishes, completed and ongoing, respectively.
 A wish is completed if the savedAmount is greater or equal to the price of the wish.
 
 ==== Current Implementation
@@ -98,8 +98,8 @@ A wish is completed if the savedAmount is greater or equal to the price of the w
 
 Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
 
-.  The user executes the command 'list -c'.
-.  'model.updateFilteredWishList()' will update the wish list with 'WishCompletedPredicate' as the parameter (boolean). 'wish.isFulfilled()'' is called to check whether the wish is completed or not.
+.  The user executes the command `list -c`.
+.  `model.updateFilteredWishList()` will update the wish list with `WishCompletedPredicate` as the parameter (boolean). `wish.isFulfilled()` is called to check whether the wish is completed or not.
 .  The updated wish list would be reflected on the UI to be displayed to the user.
 
 The following sequence diagram shows how the Wish Detail Panel displays its updated content:
@@ -119,10 +119,10 @@ The UI has been redesigned to implement the following UI components required for
 
 The Wish List Panel consists of a list of Wish Card which contains 4 UI elements:
 
-* 'WishCard#nameLabel' - A 'Text' element that displays the wish’s name.
-* 'WishCard#progressLabel' - A 'Text' element that displays the wish’s saving progress in percentage format.
-* 'WishCard#tags' - A 'FlowPane' element that contains a Text element which displays the wish’s assigned tags.
-* 'WishCard#progressBar' - A 'progressBar' element that visually presents the percentage of the wish’s current saving progress.
+* `WishCard#nameLabel` - A `Text` element that displays the wish’s name.
+* `WishCard#progressLabel` - A `Text` element that displays the wish’s saving progress in percentage format.
+* `WishCard#tags` - A `FlowPane` element that contains a `Text` element which displays the wish’s assigned tags.
+* `WishCard#progressBar` - A `progressBar` element that visually presents the percentage of the wish’s current saving progress.
 
 Whenever the user adds a new wish or edits an existing wish, a new WishCard containing the wish will be added to the Wish List Panel or the content in the existing WishCard will be updated respectively.
 
@@ -130,33 +130,33 @@ The user will be able to view the wish’s current saving progress both in terms
 
 ===== Problem with the old design
 
-The UI (MainWindow) constructs the 'WishListPanel' by obtaining an 'ObservableList' of wish cards from 'Model', this list is assigned when UI starts, and will never be re-assigned.
+The UI (MainWindow) constructs the `WishListPanel` by obtaining an `ObservableList` of wish cards from `Model`, this list is assigned when UI starts, and will never be re-assigned.
 The UI "observes" the list and updates when it is modified.
 
-This approach works well for the 'WishListPanel' because WishBook contains only 1 list of wish cards.
-However, the saving history list in the 'WishDetailPanel' can not be updated in the same manner because Model component will change its card list’s reference when a user adds a new wish or updates the content of the wish.
+This approach works well for the `WishListPanel` because WishBook contains only 1 list of wish cards.
+However, the saving history list in the `WishDetailPanel` can not be updated in the same manner because Model component will change its card list’s reference when a user adds a new wish or updates the content of the wish.
 
-In this case, the 'WishDetailPanel' in UI will not be updated because the card list of which UI has reference to is actually not changed.
+In this case, the `WishDetailPanel` in UI will not be updated because the card list of which UI has reference to is actually not changed.
 
 ===== Design considerations
 
-* **Alternative 1 (current choice)**: Have a wishList in Model and keep it updated with the current list of cards
-** Explanation: The UI needs only 1 reference to this 'wishList', each time user executes any changes, 'wishList' is cleared and the new list of cards is copy to the 'wishList'.
-** Pros: The structure of 'Model' and UI component needs not be changed
+* **Alternative 1 (current choice)**: Have a wishList in `Model` and keep it updated with the current list of cards
+** Explanation: The UI needs only 1 reference to this `wishList`, each time user executes any changes, `wishList` is cleared and the new list of cards is copy to the `wishList`.
+** Pros: The structure of `Model` and UI component needs not be changed
 ** Cons: Need to keep a copy of the current card list, copying the whole list of cards for each command operation has bad effect on performance .
 
 * **Alternative 2**: Model component raises an event when its current card list’s reference is changed
-** Explanation: When user adds a new wish or executes save, 'Model' will raise an event ('WishPanelUpdatedEvent'), which is subscribed by UI, then UI can re-assign its list of cards and update the cards panel accordingly.
+** Explanation: When user adds a new wish or executes save, `Model` will raise an event (`WishPanelUpdatedEvent`), which is subscribed by UI, then UI can re-assign its list of cards and update the cards panel accordingly.
 ** Pros: Better performance
-** Cons: Need to re-design 'Model' and UI components 
+** Cons: Need to re-design `Model` and UI components 
 
 ==== Wish Detail Panel
 
 The Wish Detail Panel consists of 3 UI sub-components:
 
-* 'WishDetailSavingAmount' that contains text elements to display price and the saving progress of the wish
-* 'WishDetailSavingHistory' that contains a list of history of saving inputs of the wish
-* 'WishBrowserPanel' that displays WebView of the URL of the wish.
+* `WishDetailSavingAmount` that contains `Text` elements to display price and the saving progress of the wish
+* `WishDetailSavingHistory` that contains a `List` of history of saving inputs of the wish
+* `WishBrowserPanel` that displays `WebView` of the URL of the wish.
 
 Whenever the user adds a new wish or edits an existing wish, the content of the wish in Wish Detail Panel will be updated.
 The user will be able to view the wish’s current saving progress and the history of his/her saving inputs of the wish in the list format.
@@ -164,23 +164,23 @@ Also, the user will be able to browse through the wish’s product page via its 
 
 ===== Current Implementation
 
-Every time a new Wish is added or an existing wish is updated by the commands such as save, it raises a 'WishDataUpdatedEvent'.
-The UI will then handle that event and update the 'WishDetailPanel' with the new version of wish.
+Every time a new Wish is added or an existing wish is updated by the commands such as save, it raises a `WishDataUpdatedEvent`.
+The UI will then handle that event and update the `WishDetailPanel` with the new version of wish.
 
-Given below is an example usage scenario and how the WishBook behaves and 'WishDetailPanel' is updated at each step:
+Given below is an example usage scenario and how the WishBook behaves and `WishDetailPanel` is updated at each step:
 
-.  The user executes the command 'save 1 1000'.
+.  The user executes the command `save 1 1000`.
+
 [NOTE]
-====
 If a command fails its execution, WishDataUpdatedEvent will not be posted.
-====
-.  The save command updates the model with the new wish and raises a new 'WishDataUpdatedEvent'.
-.  'WishDetailSavingAmount' and 'WishDetailSavingHistory' responds to the 'WishDataUpdatedEvent' with 'WishListPanel#handleWishUpdatedEvent()'.
-.  The 'WishDetailSavingAmount' updates the wish’s current saving progress when 'WishDetailSavingAmount#loadWishDetails' is called.
-.  The progress is calculated from when 'Wish#getProgress' is called. The value is saveAmount / price. Then the progress label for the wish is set to that fraction.
-.  The 'WishDetailSavingHistory' updates the wish’s saving history list when 'WishDetailSavingHistory#loadWishDetails' is called.
+
+.  The save command updates the model with the new wish and raises a new `WishDataUpdatedEvent`.
+.  `WishDetailSavingAmount` and `WishDetailSavingHistory` responds to the `WishDataUpdatedEvent` with `WishListPanel#handleWishUpdatedEvent()`.
+.  The `WishDetailSavingAmount` updates the wish’s current saving progress when `WishDetailSavingAmount#loadWishDetails` is called.
+.  The progress is calculated from when `Wish#getProgress` is called. The value is saveAmount / price. Then the progress label for the wish is set to that fraction.
+.  The `WishDetailSavingHistory` updates the wish’s saving history list when `WishDetailSavingHistory#loadWishDetails` is called.
 .  The saving history list is cleared.
-.  The new set of history entry is retrieved from 'wishTransaction#getWishMap' and the saved amount is calculated from subtracting previous saving amount from the next one.
+.  The new set of history entry is retrieved from `wishTransaction#getWishMap` and the saved amount is calculated from subtracting previous saving amount from the next one.
 .  The saving history list is now filled with the new list of updated saving history.
 
 The following sequence diagram shows how the Wish Detail Panel displays its updated content:
@@ -197,4 +197,4 @@ image::WishDetailPanelSequenceDiagram.png[width="790"]
 
 * **Alternative 2**: Handle different kinds of changes to the progress or history lists.
 ** Pros: It is a lot faster to only change the sub component that is affected.
-** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: wish is deleted/edited/created/cleared, or a 'wishTransaction' is deleted/added)
+** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: wish is deleted/edited/created/cleared, or a `wishTransaction` is deleted/added)
