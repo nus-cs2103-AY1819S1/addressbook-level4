@@ -329,63 +329,86 @@ This section describes some noteworthy details on how certain features are imple
 === Ingredient Manager
 ==== Total management of ingredients that user currently have
 
-Ingredient Manager is an address book of ingredients. With the basic functions from a normal address book such as
-add, edit, delete and list, Ingredient Manager has some useful functions specific for management of ingredients. +
-First of all, serving units can be converted to common units with reference to serving unit dictionary.
-Conversion to common units is necessary to enable arithmetic calculation for amounts. Also, it is easier to compare
-between ingredients when the amounts are shown with common units. Secondly, when you apply the list command,
-ingredients are sorted by date. Since ingredients have to be consumed in a certain period, it keeps user be reminded of old ingredients.
+Ingredient Manager is an address book of ingredients, with some basic functions similar to that of a normal address
+book such as
+add, edit, delete and list. Additionally, Ingredient Manager has some useful functions specific for management of
+ingredients. +
+Firstly, serving units can be converted to a common serving unit with reference to the serving unit dictionary.
+Conversion to a common serving unit is necessary to enable arithmetic calculation between amounts. Also, it is easier to
+compare
+between ingredients when the amounts are shown in common serving units. Secondly, when you apply the list command,
+ingredients are sorted by date. Since ingredients have to be consumed in a limited period, it keeps user be reminded of
+ old ingredients.
 
-===== Current implementation for serving units dictionary
-Ingredient Manager uses gram for common units. Serving unit dictionary is implemented with `static HashMap` in
+===== Current implementation of serving units dictionary
+Ingredient Manager uses `gram` for the common serving unit. Serving unit dictionary is implemented with `static
+HashMap` in
 `IngredientServingUnit` class, which
 contains
- names of a serving units as a key and IngredientServingUnitDefinition objects as a value.
+ names of a serving unit as a key and a IngredientServingUnitDefinition object as a value.
  `IngredientServingUnitDefinition` has three fields, which are a serving unit to be converted, a common serving unit,
   and
- a constant to be multiplied for conversion. When conversion is to be done, you find the value in the HashMap with a
- input serving unit as a key. Then, you multiply the amount of ingredient with the constant and replace the unit with
-  common unit. This process is wrapped in a method named `convertToCommonUnit` in ingredient models containing amount
-  as a field.
+ a constant to be multiplied for conversion. When conversion is to be done, you find the value in the HashMap with an
+ input serving unit as a key. Then, you multiply the amount of ingredient with the constant and replace the current
+ unit with a
+  common unit. This process is wrapped in a method called `convertToCommonUnit()` in ingredient models which contains
+  amount field.
 
-===== Alternative Implementation for serving units dictionary
-In the current implementation, a serving unit to be converted is used both as a key of the HashMap and one of the
-fields
-in value of the HashMap. This duplication can be removed by replacing the value of the HashMap with array
-containing other two fields. However, wrapping the three fields in a separate class is desired for abstraction.
-Although in our current application only make use of the class for conversion to common unit, the direction of
-conversion can be also done the other way around for display purpose. Also, in a more complete version of the
-dictionary, the definitions needed for conversion should also contain information related to a specific ingredient so
- that the dictionary considers the validity of the combination between an ingredient and serving units. The
- duplication between key and value in HashMap can be cancelled out with the convenience in implementation obtained
- from choosing HashMap that other data structures for searching in dictionary.
+===== Alternative Implementation of serving units dictionary
+In the current implementation, a serving unit to be converted exists both as a key and in a value
+ of
+the HashMap. This duplication can be removed by transforming the form of the value in the HashMap from a definition
+object to an array
+containing the other two fields of the object. However, creating a separate class to wrap three fields is more
+desired
+for
+abstraction.
+In the current version of the application, definition object is only used for conversion to a common serving
+unit. But in later version, conversion can be done the other way around for the purpose of display. Also, in a more
+complete version of the
+dictionary, definition should be expanded to cover information related to validity of combination between specific
+serving
+unit and ingredient, and its conversion value. Also, using HashMap brings huge convenience in further implementation of
+ functions which include searching of value in the dictionary,
+cancelling
+out the cost of duplication.
 
 ==== View recipes according to ingredients, and check shop amount
-This command works on separate context called cross, because the result of command manipulates recipes, not
-ingredients. This commands
-filters(include) and sorts(prioritize) recipes based on ingredients given in the command. However, this command is
-closely tied to the information stored in Ingredient Manager. First of all, you can provide all ingredients in
+This command works on separate context called cross, because the result of command manipulates list of recipes, not
+ingredients. The command
+filters(include) and sorts(prioritize) recipes based on ingredients given in the command, and makes use of
+information stored in Ingredient Manager in two ways. Firstly, you can provide all ingredients in
 Ingredient
- Manager as parameter for filtering or sorting. This might be useful when a user wants to find food that can be
- cooked while maximizing the use of existing ingredients. Secondly, for the recipes that are on the list as a result
- of the commands, additionally needed amount of each ingredient in a recipe is calculated. Because ingredients in
- Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
- desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
+ Manager as parameter for filtering or sorting. This might be useful when a user wants to find recipe that maximizes
+  the use of existing ingredients. Secondly, for the recipes that are on the list as a result
+ of filtering and sorting, additional amount of ingredients that need to be prepared for a recipe is calculated.
+ Because
+ ingredients in
+ Ingredient Manager are considered as stock that the user currently have, their amounts are subtracted from the
+ desired amount, calculated considering the number of servings. After cooking,
  she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
+
+===== Current implementation of cross recipe model
+Although it looks similar, models used for recipe context and cross context are different. `crossRecipe` class extends
+Recipe class with one more additional field, a Map named neededIngredients. This has `IngredientDefinition` object as a
+key,
+ and `IngredientPortion` object as a value. It is to store the information of needed amount of an ingredient obtained
+  from the calculation in amount field of IngredientPortion object.
 
 ===== Current implementation of ingredient models
 image::IngredientModelDiagram.png[width="1000"]
 
-Currently, there are three ingredient related models, namely `IngredientDefinition`, `IngredientPortion`, and
-`Ingredient` where IngredientPortion inherits IngredientDefinition, and Ingredient inherits IngredientPortion.
-IngredientDefinition is a wrapper class for ingredient name. Ingredient portion additionally includes amount as
-field, and Ingredient is the most complete version of ingredient used by ingredient manager with date information.
-The reason for this hierarchical implementation is that there exists different needs for ingredient related fields
-across features and functions. For example, ingredient in recipe uses IngredientPortion, and ingredient in Ingredient
- Manager uses Ingredient. IngredientDefinition is used as a key of a HashMap when implementing the "view recipes
- according to ingredients" function. It can be potentially used to construct ingredient dictionary and more complete
- serving unit dictionary in the future version of the application.
-
+There are three ingredient related models, namely `IngredientDefinition`, `IngredientPortion`, and
+`Ingredient`.
+IngredientDefinition is a wrapper class for ingredient name. IngredientPortion inherits IngredientDefinition and
+additionally includes amount
+field. Ingredient again inherits IngredientPortion, which is the most complete version of ingredient with date
+information, used by Ingredient Manager.
+Reason for hierarchical implementation is that there exists different needs for ingredient related fields
+across features or functions. For example, ingredient in recipe uses IngredientPortion, and ingredient in Ingredient
+ Manager uses Ingredient. IngredientDefinition is used as a key of a HashMap in implementing 'view recipes
+ according to ingredients' function. It can be used to construct ingredient dictionary or to expand unit dictionary in
+ the future version of the application.
 // end::ingredientManager[]
 
 // tag::mealplannerimplementation[]
