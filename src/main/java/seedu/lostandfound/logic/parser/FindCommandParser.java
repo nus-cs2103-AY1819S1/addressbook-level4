@@ -5,10 +5,7 @@ import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import seedu.lostandfound.MainApp;
-import seedu.lostandfound.commons.core.LogsCenter;
 import seedu.lostandfound.logic.commands.FindCommand;
 import seedu.lostandfound.logic.parser.exceptions.ParseException;
 import seedu.lostandfound.model.article.DescriptionContainsKeywordsPredicate;
@@ -19,7 +16,9 @@ import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String FIND_BY_NAME = "-n";
+    private static final String FIND_BY_DESCRIPTION = "-d";
+    private static final String FIND_BY_FINDER = "-f";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -35,7 +34,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        logger.info((Arrays.toString(nameKeywords)));
+
         List<String> listKeywords = new LinkedList<>(Arrays.asList(nameKeywords));
 
         String parameter = listKeywords.remove(0);
@@ -43,13 +42,13 @@ public class FindCommandParser implements Parser<FindCommand> {
         //different operations depending on FIELD
         switch (parameter) {
 
-        case "-n":
+        case FIND_BY_NAME:
             return new FindCommand(new NameContainsKeywordsPredicate(listKeywords));
 
-        case "-d":
+        case FIND_BY_DESCRIPTION:
             return new FindCommand(new DescriptionContainsKeywordsPredicate(listKeywords));
 
-        case "-f":
+        case FIND_BY_FINDER:
             return new FindCommand(new FinderContainsKeywordsPredicate(listKeywords));
 
         default:
