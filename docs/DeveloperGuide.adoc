@@ -446,9 +446,40 @@ This feature can only be performed by users that have `ASSIGN_PERMISSION` permis
 
 // end::permission
 
-// tag::project
+
+// tag::keyboardshortcuts[]
+=== Command Shortcuts
+
+With various keyboard combinations user will be able to invoke commands' keyword.
+
+==== Current Implementation
+
+Keyboard shortcuts in OASIS is implemented in the KeyEvent handler within the `CommandBox` class.
+
+When key combination is pressed, the text in the Command Box will be replaced with the corresponding command word.
+
+==== Aspect: Logic & UI
+
+Within the `CommandBox` class, there is KeyEvent handler method which will detect keyboard strokes. If the key pressed is a valid 
+combination, then the text in the command box will be replaced with the text corresponding to one of the existing commands.
+
+==== Design Consideration
+
+Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
+
+** Pros: It is easy and simple to implement.
+
+** Cons: As the number of commands increases over time, there will not be 
+enough key combination to accommodate all the commands. 
+
+
+// tag::keyboardshortcuts[]
+
+
+// tag::assignment[]
 === Assignment Management
-Assignment management is an important feature in company management system. As such there are four critical features of assignment management. These features are `addassignment`, `listassignment`, `deleteassignment` and `assignassignment`.
+Assignment management is an important feature in company management system. As such there are four critical features of assignment management. These features are `addassignment`, 
+`listassignments`, `deleteassignment` and `editassignment`.
 
 These commands could only be executed by user with the appropriate permission.
 
@@ -459,7 +490,7 @@ Model of the assignment has been created. `Assignment` will store information su
 
 The following diagram shows the class added to reflect the model `Assignment`:
 
-image::ProjectModel.PNG[width="450"]
+image::AssignmentModel.PNG[width="450"]
 
 ===== Aspect: Storage
 Add `XmlSerializableAssignmentList` and `XmlAdaptAssignment` class to Storage component. `XmlAdaptAssignment` will then have the element for assignment name, assignment author and assignment description.
@@ -524,7 +555,7 @@ Step 4. The system lists the assignments.
 ** Pros: Fast and efficient retrieval of information, even when the amount of data is massive.
 ** Cons: Separated system needs to be set up to store information. Additional cost.
 
-// end::project
+// end::assignment[]
 
 // tag::archive[]
 === View deleted employee archive feature
