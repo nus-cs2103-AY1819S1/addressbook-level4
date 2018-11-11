@@ -14,7 +14,7 @@ import seedu.address.model.ModelManager;
  */
 public class PerformanceSortCommand extends Command {
 
-    public static final String COMMAND_WORD = "perfsort";
+    public static final String COMMAND_WORD = "rank";
     public static final String MESSAGE_SUCCESS = "Cards are sorted by performance";
 
     @Override
@@ -24,11 +24,11 @@ public class PerformanceSortCommand extends Command {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
 
-        model.sort(ModelManager.SortingType.PERFORMANCE);
-        model.commitAnakin(COMMAND_WORD);
         if (!model.isInsideDeck()) {
             throw new CommandException(MESSAGE_INVALID_CARD_LEVEL_OPERATION);
         }
+        model.sort(ModelManager.SortingType.PERFORMANCE);
+        model.commitAnakin(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

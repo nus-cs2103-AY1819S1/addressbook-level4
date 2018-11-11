@@ -23,7 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
      * This enum encapsulates the different types of sorts that can be performed.
      */
     public enum SortingType {
-        PERFORMANCE, ALPHABETICAL
+        PERFORMANCE, LEXICOGRAPHICAL
     }
     public static final Logger LOGGER = LogsCenter.getLogger(ModelManager.class);
 
@@ -71,13 +71,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void sort(SortingType type) {
 
-        if (type == SortingType.ALPHABETICAL && isInsideDeck()) {
-            LOGGER.info("Execute Alphabetical Card Sort");
-            versionedAnakin.sort(SortingType.ALPHABETICAL);
+        if (type == SortingType.LEXICOGRAPHICAL && isInsideDeck()) {
+            LOGGER.info("Execute Lexicographical Card Sort");
+            versionedAnakin.sort(SortingType.LEXICOGRAPHICAL);
             updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        } else if (type == SortingType.ALPHABETICAL && !isInsideDeck()) {
-            LOGGER.info("Execute Alphabetical Deck Sort");
-            versionedAnakin.sort(SortingType.ALPHABETICAL);
+        } else if (type == SortingType.LEXICOGRAPHICAL && !isInsideDeck()) {
+            LOGGER.info("Execute Lexicographical Deck Sort");
+            versionedAnakin.sort(SortingType.LEXICOGRAPHICAL);
             updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
         } else if (type == SortingType.PERFORMANCE && isInsideDeck()) {
             LOGGER.info("Execute Performance card sort ");

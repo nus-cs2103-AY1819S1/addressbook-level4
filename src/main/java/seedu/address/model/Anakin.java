@@ -94,13 +94,13 @@ public class Anakin implements ReadOnlyAnakin {
     }
 
     /**
-     * Sort the current list of decks/cards in alphabetical order.
+     * Sort the current list of decks/cards in LEXICOGRAPHICAL order.
      */
     public void sort(ModelManager.SortingType type) {
-        if (type == ModelManager.SortingType.ALPHABETICAL && isInsideDeck()) {
+        if (type == ModelManager.SortingType.LEXICOGRAPHICAL && isInsideDeck()) {
             cards.sort();
             updateDisplayedCards();
-        } else if (type == ModelManager.SortingType.ALPHABETICAL && !isInsideDeck()) {
+        } else if (type == ModelManager.SortingType.LEXICOGRAPHICAL && !isInsideDeck()) {
             decks.sort();
         } else if (type == ModelManager.SortingType.PERFORMANCE && isInsideDeck()) {
             cards.perfsort();
