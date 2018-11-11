@@ -91,10 +91,12 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      * @throws ParseException thrown when user input does not conform to the
      * expected format
      */
+
     public AddModuleCommand parse(String argsInString)
             throws ParseException {
         // Converts argument string to tokenize argument array.
         String[] args = ParserUtil.tokenize(argsInString);
+
 
         // Size of argument should be 8 or 10.
         // Arguments should be in name-value pair.

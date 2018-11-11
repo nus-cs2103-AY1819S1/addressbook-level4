@@ -9,30 +9,57 @@
 
 == Overview
 
-CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+CAPTracker is for students who wants to use a desktop app for calculating and managing their
+CAP (Cumulative Average Point), allowing users to calculate their current CAP, and predict
+grades needed to achieve their ideal CAP in modules that haven’t been taken.
+
+CAPTracker is optimized for those who prefer to work with a CLI (Command Line Interface)
+while still having the benefits of a Graphical User Interface (GUI) created with JavaFX.
+
+CAPTracker is written in Java and has about 10kLoC.
 
 == Summary of contributions
 
-//* *Major enhancement*: TBC.
-//** What it does: TBC.
-//** Justification: TBC.
-//** Highlights: TBC.
-//** Credits: TBC.
-//
-//* *Minor enhancement*: TBC.
-//
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-//
-//* *Other contributions*:
-//
-//** Project management:
-//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-//** Enhancements to existing features:
-//** Documentation:
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): TBC.
-//*** Contributed to forum discussions (examples:  TBC.)
-//*** Reported bugs and suggestions for other teams in the class (examples:  TBC.)
+* *Major enhancement*: added the ability to view, display, and interact with CAPTracker.
+** What it does: allows users to understand and intuitively use the app with minimum
+additional instructions or hassel.
+** Justification: this feature improves CAPTracker significantly as it is the
+ base at which the user interacts with the product. It not only increases the
+  applications usability but also the seamless completion of tasks that
+  CAPTracker allows.
+** Highlights: This enhancement affects the way the user uses the product
+and how vital information such as CAP calculations and predictions are
+displayed. It requires an understanding of user interaction and behaviour,
+as well as skills in design, colour complentation, and visual communication.
+The implementation was challenging in that it forced me to think like the
+user and have a good understanding of how the whole project works together
+as I was combining results from various aspects of the software project.
+
+* *Minor enhancement*: Added a help section that gives the user hints on
+what commands they can use to navigate the application depending on what
+command they were trying to execute.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=josephambe
+* *Other contributions*:
+** Project management:
+*** Managed the initial setup of the project including delegating and
+organising tasks such as use case development, prioritizing user stories,
+identifying our value proposition, completing product surveys,
+separating non-functional requirements, defining project direction,
+target user profile, and problem addressed.
+** Enhancements to existing features:
+*** Enhanced the automated replies from the application when the user enters
+an incorrect command. Specialised it to respond to specific commands entered
+and provide useful information that prevents the user from constantly having
+to refer back to the User Guide.
+** Documentation:
+*** Updated the Developer Guide #2.2, #2.3,
+*** Updated the User Guide on #3.11
+** Community:
+*** PR’s reviewed with non-trivial comments, and suggestions.
+*** Contributed to discussions on the Slack Channel
+***  Reported bugs and suggestions for other team members in class
+*** The UI features I created was adopted by Yingnan in Group T13
 //** Tools:
 
 == Contributions to the User Guide
@@ -43,8 +70,27 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 |===
 
 //include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+=== Understanding the User Interface
+Understanding the User Interface can be tricky - what do all the different colours mean? How do I
+know what has been saved or not? Where can I see new modules I've added?
+
+* To view new modules you've added, scroll down to the bottom of the pannel that you have categorized your
+module under; either the 'Completed Modules' panel on the left, or the 'Incomplete Modules' panel on the
+right. Your new entry should be at the bottom of these lists.
+
+* Understanding the colours. The grades of modules in the 'Completed Modules' panel on the left
+are circled in GREEN. This indicates that this particular module has already been taken and this is
+a grade that the user does not need to worry about; it is in the past.
+The grades in the the 'Incomplete Modules' panel on the right  are circled in RED. This indicates
+that this particular module has not been taken and that the grade displayed in this RED circle is
+not certain. It is a grade that the user needs to be aware of as it's outcome will impact the
+users overall CAP score.
+
+*PLEASE NOTE*:
+As I am focused on the UI design of the product, there is a limited amount of information I can contribute to the User Guide. This is because if I need to explain the interface in too much detail, it means the user can’t intuitively use the product, which in turn, means I haven’t designed a very good interface.
+
+Part of my User Guide, which reminds users the format in which to type out commands, is integrated in the UI. This means that the user doesn’t have to keep switching back and forth between the User Guide and the product; they can receive the same information in real time when they need it.
+
 
 == Contributions to the Developer Guide
 
@@ -52,6 +98,38 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-//
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component uses JavaFX UI 'DarkTheme' to draw different text, sizes, fonts, and colours from. The actual data displayed in the UI is called using a sample transcript which is created through the Module and Transcript classes. The values themselves are abstracted from the '.fxml' files so the UI display can be easily updated.
+
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+[[Design-Layout]]
+=== UI component
+* The bottom two thirds of the UI is seperated into 2 panels to clearly identify the different outputs from commands entered by the user.
+* The first panel on the left is for Modules that have already been completed; this is shown by the GREEN circles which
+surround the grades which indicate this grade is "set" and of no concern to the user anymore.
+* The second panel on the right is for Modules that have not yet been completed by the user; this is shown by the RED
+circles which surround the grades to indicate that this is a grade the user should be aware of. The red indicates an
+urgency towards that module as it's outcome will affect the users predicted CAP goal.
+* The top third of the UI is seperated into four distinct rows;
+.  The first row contains the title and drop down menu's for `File` and `Help` options.
+.  The second row is the command line and how the user interacts with the application. Notice there is no button for the
+user to click when they are ready to enter their command; it is expected the user is familiar with Command Line Interface
+and will know to use the `enter` button on their keyboard when ready to submit a command to the app.
+.  The third row is where replies from the application to the user will be displayed. When the commands become too big
+for the box, a scroll down option becomes available for the user to continue reading the message.
+.  The fourth row displays the summary of the users current CAP goal and their target CAP.
+
