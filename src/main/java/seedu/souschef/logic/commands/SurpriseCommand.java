@@ -36,7 +36,7 @@ public class SurpriseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute (History history) throws CommandException{
+    public CommandResult execute (History history) throws CommandException {
         requireNonNull(model);
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
