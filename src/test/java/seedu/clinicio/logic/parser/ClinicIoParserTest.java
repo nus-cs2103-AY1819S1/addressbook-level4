@@ -46,6 +46,7 @@ import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListApptCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.ListMedicineCommand;
+import seedu.clinicio.logic.commands.ListPatientCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
 import seedu.clinicio.logic.commands.PatientStatisticsCommand;
@@ -220,6 +221,12 @@ public class ClinicIoParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD) instanceof ListPatientCommand);
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
     }
 
     @Test
