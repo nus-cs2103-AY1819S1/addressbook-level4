@@ -375,7 +375,7 @@ budget that is set,
 as shown in the figure below.
 
 .Notification that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+image::Overbudget.png[width="790"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -415,12 +415,12 @@ A detailed use case is given below:
 to inform you that this is done. This is shown in the figure below.
 
 .Notification that is shown when the expense tracker resets the available spending.
-image::reset_notif.PNG[width="790"]
+image::reset_notif.png[width="790"]
 
 A walk-through of the above steps is clearly shown in the diagram below.
 
 .Diagram showing the operation of the setRecurrenceFrequency feature
-image::userguide/recurrenceFrequencyGuide.PNG[width="790"]
+image::userguide/recurrenceFrequencyGuide.png[width="790"]
 
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`

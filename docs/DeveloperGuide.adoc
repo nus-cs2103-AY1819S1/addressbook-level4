@@ -710,7 +710,7 @@ If the user's spending exceeds their available spending for the budget, a warnin
  to the user.
 
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+image::Overbudget.png[width="790"]
 
 
 
@@ -852,7 +852,7 @@ the budget for this week, he could potentially spend lesser to make up for his o
 tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.
 
 .Diagram of a weekly budget
-image::budgetOfTheWeek.PNG[width="800"]
+image::budgetOfTheWeek.png[width="800"]
 
 .Diagram of a monthly budget.
 image::budgetOfTheMonth.png[width="800"]
