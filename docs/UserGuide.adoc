@@ -114,11 +114,12 @@ Example:
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
+
 ====
 
-Shows all the commands in the application and how to use them.
-
 === View help : `help`
+
+Shows all the commands in the application and how to use them.
 
 === User Commands
 
@@ -194,7 +195,7 @@ Examples:
 * `findUser p/87438807 i/dance` +
 Returns any user with the phone number `87438807` or interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
-Returns any user with the name `87438807` or email `john@example.com` or tag `teacher`
+Returns any user with the name consisting of the word `john` or email `john@example.com` or tag `teacher`
 
 ==== Delete a user : `deleteUser`
 
