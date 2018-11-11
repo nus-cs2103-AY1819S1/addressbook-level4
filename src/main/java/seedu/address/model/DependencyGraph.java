@@ -22,7 +22,7 @@ public class DependencyGraph {
         this.taskList = taskList;
         for (Task task : taskList) {
             String hash = Integer.toString(task.hashCode());
-            Set<String> edges = task.getDependencies().getHashes();
+            Set<String> edges = new HashSet<>(task.getDependencyHashes());
             adjacencyList.put(hash, edges);
         }
         //Defensive check: Check cycles on graph instantiation

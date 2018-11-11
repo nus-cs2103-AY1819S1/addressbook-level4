@@ -135,7 +135,7 @@ Format:
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee.
-For a dependency of a task A on task B, A is defined as the dependent task while task B is defined as the dependee task.
+For a dependency of a task A on task B, task A is defined as the dependent task while task B is defined as the dependee task.
 The dependency is added if it already exists,
 or removed if it does not.
 Format:
