@@ -122,6 +122,8 @@ public class DependencyCommand extends Command {
      * @return A new immutable task similar to dependantTask but with additional dependency
      */
     public static Task createDependantTask(Task dependantTask, Task dependeeTask) {
+        assert dependantTask != null;
+        assert dependeeTask != null;
         return new Task(
                 dependantTask.getName(),
                 dependantTask.getDueDate(),
@@ -138,6 +140,8 @@ public class DependencyCommand extends Command {
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */
     public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
+        assert dependantTask != null;
+        assert dependeeTask != null;
         return new Task(
                 dependantTask.getName(),
                 dependantTask.getDueDate(),
