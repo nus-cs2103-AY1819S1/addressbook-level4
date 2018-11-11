@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::harryqu123.png[width="150", align="left"]
 {empty}[https://github.com/Harryqu123[github]][<<harryqu123#, portfolio>>]
 
-In charge of: Deliverables and deadlines
+In charge of: Deliverables and deadlines + 
 Responsibilities: Ensure things are not done at last minute.
 '''
 
@@ -22,7 +22,7 @@ Responsibilities: Ensure things are not done at last minute.
 image::alexehrs.png[width="150", align="left"]
 {empty}[http://github.com/alexehrs[github]][<<alexehrs#, portfolio>>]
 
-In charge of: Documentation
+In charge of: Documentation +
 Responsibilities: Ensures documentation done properly.
 '''
 
@@ -30,7 +30,7 @@ Responsibilities: Ensures documentation done properly.
 image::russellong95.png[width="150", align="left"]
 {empty}[https://github.com/russellong95[github]][<<russellong95#, portfolio>>]
 
-In charge of: Team Lead, Testing and Integration
+In charge of: Team Lead, Testing and Integration +
 Responsibilities: Responsible for overall project coordination, ensure testing quality.
 '''
 
@@ -38,6 +38,6 @@ Responsibilities: Responsible for overall project coordination, ensure testing q
 image::danielkoh94.png[width="160", align="left"]
 {empty}[https://github.com/danielkoh94[github]][<<danielkoh94#, portfolio>>]
 
-In charge of: Coding Quality
+In charge of: Coding Quality +
 Responsibilities: Ensures code is of quality.
 '''
