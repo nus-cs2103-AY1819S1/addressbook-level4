@@ -449,7 +449,7 @@ Step 4. The event from step 3 is deleted from the system from the `Model` compon
 [[gettingAnEvent]]
 Events are retrieved based on their date and index in the displayed events list, as shown in the diagram below.
 
-image::get-event.png[Getting an event, width="800"]
+image::get-event.png[Getting an event]
 
 For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`.
 Step 1. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
@@ -465,7 +465,7 @@ The raised events are handled by:
 
 For instance, when an `Event` is added (or deleted), the event triggers are handled as follows.
 
-image::add-event_event-trigger.png[Handling of triggered events, width="800"]
+image::add-event_event-trigger.png[Handling of triggered events]
 
 ===== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
@@ -641,7 +641,7 @@ Step 3. `FindEventCommand` calls `Model#updateFilteredEventList` to filter the d
 Similar to the other event-related commands, the list-filtering is done in `Model`, and
 the change is propagated to the `UI` component by triggering an event. The details of the event triggers are as follows.
 
-image::find-event_event-triggers.png[Handling of triggered events, width="800"]
+image::find-event_event-triggers.png[Handling of triggered events]
 
 [[listEvent]]
 ==== Listing of all events
@@ -694,7 +694,7 @@ leaf nodes are the valid command words.
 ==== Current implementation
 `UI` component consists of a `TabPanel` which stores all the `Tab` objects in the `UI` as follows.
 
-image::tabPanel.png[Tab Panel basic class diagram, width="800"]
+image::tabPanel.png[Tab Panel basic class diagram]
 
 * **Alternative 1 (current choice):** `TabPanel` to store all `Tab` objects.
 ** *Pros:* New tabs can be added easily as a class, and initialized in `TabPanel`.
