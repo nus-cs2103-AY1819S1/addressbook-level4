@@ -755,7 +755,7 @@ public class ManageCommand extends Command {
 ```
 
 ===== Design considerations
-====== Aspect: Context switching
+====== Aspect: Context switching (to volunteering records)
 * **Alternative 1 (current choice):** Utilize `Context` class used in the `switch` function. (See <<Implementation-Switch>>)
 +
 [cols="1,10"]
@@ -775,27 +775,6 @@ public class ManageCommand extends Command {
 +
 
 //end::command-manage[]
-
-===== Design considerations
-====== Aspect: Context switching
-* **Alternative 1 (current choice):** Utilize `Context` class used in the `switch` function. (See <<Implementation-Switch>>)
-+
-[cols="1,10"]
-|===
-|Pros| No need to create a new class to change context.
-|Cons| Have to create a new method in `Context` class to handle parsed user input.
-|===
-+
-
-* **Alternative 2:** Pass event and volunteer objects via `LogicManager`.
-+
-[cols="1,10"]
-|===
-|Pros| Implementation is easy.
-|Cons| Classes becomes tightly coupled. The UI component would have access to methods it does not need.
-|===
-+
-
 
 == Documentation
 
