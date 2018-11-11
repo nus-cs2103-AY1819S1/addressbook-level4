@@ -37,6 +37,8 @@ public abstract class CompleteCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1\n"
         + "Parameters: l/LABEL\n"
         + "Example: " + COMMAND_WORD + " l/friends";
+    public static final String MESSAGE_UNFULFILLED_DEPENDENCIES =
+        "Cannot complete task(s) as there are unfulfilled dependencies";
 
     @Override
     public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
@@ -108,7 +110,7 @@ public abstract class CompleteCommand extends Command {
      */
     private void processModelSideEffects(Model model) throws CommandException {
         if (model.hasInvalidDependencies()) {
-            throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
+            throw new CommandException(MESSAGE_UNFULFILLED_DEPENDENCIES);
         }
 
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
