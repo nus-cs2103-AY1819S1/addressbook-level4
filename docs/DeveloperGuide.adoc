@@ -1166,3 +1166,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit n/potato t/` +
    Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same.
 //end::basic[]
+
+=== Trivia
+. Starting the trivia
+.. Prerequisites: Empty vocabulary list.
+.. Test case: `trivia`
+Expected: Trivia is unable to start. Error message shown on command box indicating that user needs to add words to the trivia list.
+.. Prerequisites: Non-empty vocabulary list.
+.. Test case: `trivia`
+Expected: Trivia mode starts. Command box shows the first question in the trivia
+ === Trivia answers
+.. Prerequisites: Trivia mode started.
+.. Test case: `triviaExit`
+Expected: Trivia mode is exited. The CLI should recognized and execute commands again.
+ .. Test case: `triviaexit`
+Expected: Trivia will output a wrong/correct message as the input is recognized as an answer to the trivia question instead of a command.
+ .. Test case: `triviaShow`
+Expected: Command box shows the current trivia question.
+ ..Test case: `triviashow`
+Expected: Similar to `triviaexit`
