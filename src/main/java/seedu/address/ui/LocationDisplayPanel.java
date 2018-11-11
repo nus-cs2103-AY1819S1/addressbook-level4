@@ -40,7 +40,7 @@ public class LocationDisplayPanel extends UiPart<Region> {
     /**
      * Second part of the lccation iframe content.
      */
-    private static String locationContentB = "&key=" + API_KEY +"\" "
+    private static String locationContentB = "&key=" + API_KEY + "\" "
             + "allowfullscreen></iframe>";
 
     private static final String FXML = "LocationDisplayPanel.fxml";
