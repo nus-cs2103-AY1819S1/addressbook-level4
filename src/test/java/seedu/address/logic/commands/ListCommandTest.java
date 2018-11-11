@@ -146,7 +146,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listFiltered_nonBlockedNoDepenencies() {
-        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 6);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 5);
         ListCommand.ListFilter filter = ListCommand.ListFilter.NOT_BLOCKED;
         ListCommand command = new ListCommand(filter);
 
@@ -157,7 +157,7 @@ public class ListCommandTest {
         model.updateTask(dependantTask, newTask);
 
         // Build expected model
-        expectedModel.updateFilteredTaskList(x -> !x.equals(dependantTask));
+        expectedModel.updateFilteredTaskList(x -> !x.equals(dependantTask) && !x.isStatusCompleted());
 
         Assert.assertNotEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -183,8 +183,12 @@ public class ListCommandTest {
         Task newTask = DependencyCommand.createDependantTask(dependantTask, completedDependeeTask);
         model.updateTask(dependantTask, newTask);
 
+        // Remove completed tasks from filtered tasks
+        expectedModel.updateFilteredTaskList(t -> !t.isStatusCompleted());
+
         // Dependant is shown because it's dependee is completed
-        assertCommandSuccess(command, model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 5);;
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
     }
 }
