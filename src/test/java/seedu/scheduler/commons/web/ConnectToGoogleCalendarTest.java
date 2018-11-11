@@ -11,8 +11,14 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
+import static seedu.scheduler.testutil.TypicalEvents.EXAM_CS2103;
+import static seedu.scheduler.testutil.TypicalEvents.EXAM_CS2103_UPDATED;
 import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.THURDSDAY_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE_UPDATED;
+import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE_UPDATED2;
+import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE_UPDATED_ONE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedReader;
@@ -24,6 +30,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -424,4 +431,91 @@ public class ConnectToGoogleCalendarTest {
         disable();
         sleep(5000);
     }
+
+    @Test
+    public void updateGoogleEvent() throws InterruptedException, CommandException {
+        //----------Offline edit single non repeat event-> fail ---------------
+        Event targetEvent = new EventBuilder(EXAM_CS2103).build();
+        Event editedEvent = new EventBuilder(EXAM_CS2103_UPDATED).build();
+        assertFalse(
+                connectToGoogleCalendar.updateSingleGoogleEvent(
+                        false, targetEvent, editedEvent, 0));
+
+        //----------edit single non repeat event-> ok ---------------
+        //Add a new event on Google Cal
+        enable();
+        helperCommand(new AddCommand(targetEvent), model, commandHistory);
+        disable();
+        sleep(5000);
+        enable();
+        //execute the edit command
+        assertTrue(
+                connectToGoogleCalendar.updateSingleGoogleEvent(
+                        true, targetEvent, editedEvent, 0));
+        disable();
+        sleep(10000);
+
+        //----------edit single repeat event instance-> ok ---------------
+        targetEvent = new EventBuilder(WEDNESDAY_LECTURE).build();
+        Event editedEventOne = new EventBuilder(WEDNESDAY_LECTURE_UPDATED_ONE).build();
+
+        enable();
+        helperCommand(new AddCommand(targetEvent), model, commandHistory);
+        sleep(10000);
+        assertTrue(
+                connectToGoogleCalendar.updateSingleGoogleEvent(
+                        true, targetEvent, editedEventOne, 1));
+        disable();
+        sleep(10000);
+
+        //----------edit upcoming repeat event instances-> ok ---------------
+        //case: Second Instance is selected
+        enable();
+        List<Event> editedList = WEDNESDAY_LECTURE_UPDATED;
+
+        int instanceIndex = 1;
+
+        assertTrue(
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        true, targetEvent,
+                        editedList,
+                        instanceIndex, instanceIndex));
+        disable();
+        sleep(10000);
+        //case: First Instance is selected
+        instanceIndex = 0;
+        enable();
+        assertTrue(
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        true, targetEvent,
+                        editedList,
+                        instanceIndex, instanceIndex));
+        disable();
+        sleep(10000);
+        //----------edit all repeat event instances-> ok ---------------
+        editedList = WEDNESDAY_LECTURE_UPDATED2;
+        //case: Second Instance is selected
+        enable();
+        instanceIndex = 1;
+        int effectRangeStartingIndex = 0;
+        assertTrue(
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        true, targetEvent,
+                        editedList,
+                        instanceIndex, effectRangeStartingIndex));
+        disable();
+        sleep(10000);
+        //case: First Instance is selected
+        instanceIndex = 0;
+        enable();
+        assertTrue(
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        true, targetEvent,
+                        editedList,
+                        instanceIndex, effectRangeStartingIndex));
+        disable();
+        sleep(10000);
+    }
+
+
 }
