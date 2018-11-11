@@ -253,6 +253,61 @@ Classes used by multiple components are in the `seedu.jxmusic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Player Component
+==== Current Implementation
+
+The Player component is a new component in addition to the existing 4 other components of AddressBook. It handles all audio related functionalities for some of the Command classes to use. Player mainly interacts with the JavaFX media library that is included in Java, so no third party library is involved.
+
+The job of the Player is basically forwarding requests of media playback controls to the Playable object.
+
+===== Singleton Player
+Player is implemented as a singleton as only one instance of it is required at any time. While singleton brings about undesired implications such as tighter coupling and lower testability, we ensured that Player is only used by the Command classes and no other parts of the code touches Player. As for testability, we discover that JUnit is not compatible for JavaFX media (details in <<Notable-Issues-JavaFXMedia>>). On the plus side, singleton pattern makes adding dependency very easy which is very helpful as adding dependency into the Logic component of Address Book was tedious.
+
+.Player component complete class diagram
+image::PlayerCompleteClassDiagram.png[width="800"]
+
+`PlayableStatus` to represents the state of the player, effectively acts as a layer on top of JavaFX’s `MediaPlayer.Status`.
+
+1. `UNINITIALIZED` - The initial state when no track or playlist has been played
+2. `PLAYING` - User enters either the `play p/` or `play t/` command
+3. `PAUSED` - User enters the `pause` command
+4. `STOPPED` - User enters the `stop` command
+5. `ERROR` - Any other states of the `MediaPlayer.Status` which JxMusic is not concerned with
+
+.`PlayableStatus` state chart diagram
+image::PlayableStatusStateChartDiagram.png[width="800"]
+
+[[Skipped-Tests]]
+===== Skipped Tests
+
+JUnit and JavaFX MediaPlayer does not work well together. Running any test that constructs a MediaPlayer object (ie `new MediaPlayer`) will throw `IllegalStateException: Toolkit not initialized`. In order to resolve the exception, it requires calling `Platform.startup()` before `new MediaPlayer` is called. Even so, the tests will not work on Travis nor Appveyor, throwing `MediaException: Cannot create player!` thus failing the builds. It is suspected to be due to incompatibility or lack of support for JavaFX Media on their test servers since JavaFX Media has its own link:https://www.oracle.com/technetwork/java/javafx/downloads/supportedconfigurations-1506746.html[dependencies (at the bottom of link)].
+
+Therefore, any test that depends on MediaPlayer are skipped by using `Assume.assumeNoException(mediaException)`.
+
+[[Notable-Issues-JavaFXMedia]]
+===== Notable Issues with JavaFX Media
+
+1. JavaFX Media does not work for mp3 files that has photoshopped album art. +
+* This issue has been reported as a link:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8210828[confirmed Java bug].
+2. Playing a track on MacOS requires setting the MediaPlayer current time to 0 before calling `play()` as it jumps to the end of media for no reason. Whereas on Windows, calling `MediaPlayer.play` works.
+* This issue is addressed at link:{repoUrl}/issues/35[#35].
+
+==== Design Considerations
+===== Aspect: Choice of media player library
+* **Alternative 1 (current choice):** Use JavaFX Media API
+** Pros:
+*** No additional dependency (link:https://www.oracle.com/technetwork/java/javafx/downloads/supportedconfigurations-1506746.html[at least on common operating systems])
+** Cons:
+*** <<Skipped-Tests>>
+
+* **Alternative 2:** Use 3rd party mp3 player library such as JLayer
+** Pros:
+*** Possibly less issues than JavaFX Media.
+** Cons:
+*** Additional dependency
+*** Existing mp3 libraries for java are old and badly documented.
+
+
 === ReadLibrary
 ==== Current Implementation
 The `readLibrary` is a part of `JsonLibraryStorage`. It reads the Json file as well as the library folder when initialising the `library` class. It calls the following operations:
@@ -273,16 +328,16 @@ image::TrackScannerActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Aspect: How `readLibrary` executes to access mp3 files in library folder.
-** Alternate 1: (Current choice): Read the Json file from data folder and scan the tracks from library folder at the same time.
-*** Pros:
-**** Enables the library to initialise with all the available tracks in library folder
-*** Cons:
-**** The track treeset in the library class will not update again after initialisation.
+===== Aspect: Choice of media player library
+* **Alternative 1 (current choice):** Read the Json file from data folder and scan the tracks from library folder at the same time.
+** Pros:
+*** Enables the library to initialise with all the available tracks in library folder
+** Cons:
+*** The track treeset in the library class will not update again after initialisation.
 
-** Alternate 2: Do not scan the tracks in `readLibrary`, scan the library each time the user search for tracks in the library folder.
-*** Pros:
-**** Lead to the files’ latest status inside the library folder
+* **Alternative 2:** Do not scan the tracks in `readLibrary`, scan the library each time the user search for tracks in the library folder.
+** Pros:
+*** Lead to the files’ latest status inside the library folder
 
 ==== Future Enhancements
 
@@ -303,28 +358,76 @@ image::TrackSearchCommandSequenceDiagram.png[width="800"]
 
 
 ==== Design Considerations
-* Aspect: Searching multiple keywords.
-** Alternative 1 (Current Choice): Combines each search results by each keywords separated by space.
-*** Pros:
-**** Find tracks that match with any of the keywords
-*** Cons:
-**** Spaces are not included in the keywords.
-** Alternative 2: consider words as one part of the desired track and show results of the search.
-*** Pros:
-**** Show more precise results
+===== Aspect: Searching multiple keywords.
+* **Alternative 1 (current choice):** Combines each search results by each keywords separated by space.
+** Pros:
+*** Find tracks that match with any of the keywords
+** Cons:
+*** Spaces are not included in the keywords.
+* **Alternative 2:** consider words as one part of the desired track and show results of the search.
+** Pros:
+*** Show more precise results
 
-* Aspect: Tracks listed display
-** Alternative 1 (Currently Choice): List the tracks in a new panel separate from playlist panel.
-*** Pros:
-**** Tracks are more clearly shown.
-** Alternative 2: Show the tracks in the message box
-*** Pros:
-**** Easier to implement.
-*** Cons:
-**** Takes up the message box and hence the success message or failing message cannot be seen.
+===== Aspect: Tracks listed display
+* **Alternative 1 (current choice):** List the tracks in a new panel separate from playlist panel.
+** Pros:
+*** Tracks are more clearly shown.
+* **Alternative 2:** Show the tracks in the message box
+** Pros:
+*** Easier to implement.
+** Cons:
+*** Takes up the message box and hence the success message or failing message cannot be seen.
 
 ==== Future Enhancements
 Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
+
+=== Playback Feature
+Four functionalities are implemented to achieve the playback task in JxMusic Player. Play enables users to play musics. Pause allows the break off of playing and stop terminates playing. Seek functionality achieve the requirement of seeking the playing to a certain time point. To aid the use of seek functionality, duration command is also implemented to let user get the length of the track in current playing.
+
+==== Play
+PlayCommand caters for commands having the word `play` in it, in particular, `play`, `play p/` and `play t/` commands. It consists of 5 modes:
+
+1. Continue from pause - `play`
+2. Default playlist - `play p/`
+3. Specific playlist - `play p/<playlist name>`
+4. Default track - `play t/`
+5. Specific track - `play t/<track name>`
+
+These modes are determined by the different PlayCommand constructors called by the PlayCommandParser after it parses the user input, as shown in the activity diagram below:
+
+.Play command activity diagram
+image::PlayCommandActivityDiagram.png[width="800"]
+
+Playing a playlist constructs a PlayablePlaylist which is essentially playing a list of PlayableTrack. The currently playing track is pointed by the `currentIndex`.
+
+image::PlayablePlaylistObjectDiagram1.png[width="800"]
+
+When a track finishes playing, the next track is played.
+
+image::PlayablePlaylistObjectDiagram2.png[width="800"]
+
+Future enhancement: implement `prev()` for playing the previous track.
+
+image::PlayablePlaylistObjectDiagram3.png[width="800"]
+
+===== Design Considerations
+===== Aspect: Initialization stage of PlayablePlaylist
+* **Alternative 1 (current choice):** Constructs a list of PlayableTrack
+** Pros:
+*** Better performance when switching tracks
+*** Easier implementation
+** Cons:
+*** Does not cater for playlist changes when it is playing (ie adding/deleting a track while the playlist is playing)
+* **Alternative 2:** Constructs PlayableTrack only when it is to be played
+** Pros:
+*** Caters for playlist changes
+** Cons:
+*** Slightly worse performance
+*** More complex implementation
+
+==== Pause
+...
+
 
 // tag::playlistNew[]
 === Playlist Management feature
