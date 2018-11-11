@@ -81,7 +81,8 @@ public class EditMedicineCommand extends Command {
         Medicine medicineToEdit = lastShownList.get(index.getZeroBased());
         Medicine editedMedicine = createEditedMedicine(medicineToEdit, medicineDescriptor);
 
-        if (!medicineToEdit.isSameMedicine(editedMedicine) && model.hasMedicine(editedMedicine)) {
+        if (!medicineToEdit.isSameMedicine(editedMedicine)
+                && model.hasMedicine(editedMedicine)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
@@ -99,10 +100,11 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that medicine name has changed when user tries to change the medicine name, and the medicine name
-     * already exists in the records.
+     * Asserts that medicine name has changed when user tries to change the medicine name,
+     * and the medicine name already exists in the records.
      */
-    private void checkNewMedicineNameAlreadyExisting(Model model, Medicine editedMedicine) throws CommandException {
+    private void checkNewMedicineNameAlreadyExisting(Model model, Medicine editedMedicine)
+            throws CommandException {
         if (model.hasMedicineName(editedMedicine)
                 && medicineDescriptor.isMedicineNameChanged()) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
@@ -110,10 +112,11 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that serial number has changed when user tries to change the serial number, and the serial number
-     * already exists in the records.
+     * Asserts that serial number has changed when user tries to change the serial number,
+     * and the serial number already exists in the records.
      */
-    private void checkNewSerialNumberAlreadyExisting(Model model, Medicine editedMedicine) throws CommandException {
+    private void checkNewSerialNumberAlreadyExisting(Model model, Medicine editedMedicine)
+            throws CommandException {
         if (model.hasSerialNumber(editedMedicine)
                 && medicineDescriptor.isSerialNumberChanged()) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
@@ -121,8 +124,8 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that both the medicine name and serial number have changed when user tries to change the both of them,
-     * and both parameters already exists in the records.
+     * Asserts that both the medicine name and serial number have changed when user tries to
+     * change the both of them, and both parameters already exists in the records.
      */
     private void checkBothNewMedicineNameAndSerialNumberAlreadyExisting(Model model, Medicine editedMedicine)
             throws CommandException {
