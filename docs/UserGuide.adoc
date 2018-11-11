@@ -487,7 +487,7 @@ Examples:
 * `importContacts file/~/Downloads/google.csv` +
   Imports all contacts from root/Downloads/google.csv into application address book
 // end::importContacts[]
-  
+
 === Notifications: `notification`
 
 Allow users to enable/disable notifications which appears upon application statrup. Notification is enabled by default.
