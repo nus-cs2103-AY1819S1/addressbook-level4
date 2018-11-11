@@ -192,7 +192,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the document window or docuses on it if it's already opened.
+     * Opens the document window or focuses on it if it's already opened.
      */
     @FXML
     public void handleShowDocument(Document document) {

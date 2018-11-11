@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -35,6 +37,13 @@ public class DocumentWindow extends UiPart<Stage> {
      */
     public DocumentWindow(Stage root) {
         super(FXML, root);
+
+        // Add a listener to check if window has lost focus. If lost focus, close the window
+        root.focusedProperty().addListener((ov, onHidden, onShown) -> {
+            if (onHidden) {
+                root.close();
+            }
+        });
 
         // Disable right-click
         this.browser.setContextMenuEnabled(false);
@@ -117,5 +126,6 @@ public class DocumentWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+        getRoot().show();
     }
 }
