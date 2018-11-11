@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -100,26 +101,12 @@ public class Event {
         organiser = person;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Optional<LocalDate> getDate() {
+        return Optional.ofNullable(date);
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    /**
-     * Returns true if the date has been set.
-     */
-    public boolean isDateSet() {
-        return (date != null);
-    }
-
-    /**
-     * Returns true if the start and end times are set.
-     */
-    public boolean isTimeSet() {
-        return (startTime != null && endTime != null);
     }
 
     /**
@@ -150,8 +137,17 @@ public class Event {
         return result;
     }
 
-    public LocalTime getStartTime() {
-        return startTime;
+    /**
+     * Returns an optional wrapper around startTime.
+     */
+    public Optional<LocalTime> getStartTime() {
+        return Optional.ofNullable(startTime);
+    }
+    /**
+     * Returns an optional wrapper around endTime.
+     */
+    public Optional<LocalTime> getEndTime() {
+        return Optional.ofNullable(endTime);
     }
 
     /**
@@ -164,10 +160,6 @@ public class Event {
         }
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 
     /**
@@ -333,20 +325,27 @@ public class Event {
     }
 
     /**
-     * Returns true if both events of the same name have at least one other identity field that is the same.
+     * Returns true if both events of the same name share their location, organiser and date.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
             return true;
         }
+        //need to make sure this works
+
+        //datesAreEqual if both events have dates or both events do not have dates
+        boolean datesAreEqual = (otherEvent.getDate().isPresent()
+                && getDate().isPresent()
+                && otherEvent.getDate().get().equals(getDate().get()))
+                || (!otherEvent.getDate().isPresent()
+                && !getDate().isPresent());
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getOrganiser().equals(getOrganiser())
-                && (otherEvent.getDate() == null
-                || otherEvent.getDate().equals(getDate()));
+                && datesAreEqual;
     }
 
     /**
@@ -364,12 +363,31 @@ public class Event {
         }
 
         Event otherEvent = (Event) other;
+
+        boolean datesAreEqual = (otherEvent.getDate().isPresent()
+                && getDate().isPresent()
+                && otherEvent.getDate().get().equals(getDate().get()))
+                || (!otherEvent.getDate().isPresent()
+                && !getDate().isPresent());
+
+        boolean startTimesAreEquals = (otherEvent.getStartTime().isPresent()
+                && getStartTime().isPresent()
+                && otherEvent.getStartTime().get().equals(getStartTime().get()))
+                || (!otherEvent.getStartTime().isPresent()
+                && !getStartTime().isPresent());
+
+        boolean endTimesAreEquals = (otherEvent.getEndTime().isPresent()
+                && getEndTime().isPresent()
+                && otherEvent.getEndTime().get().equals(getEndTime().get()))
+                || (!otherEvent.getEndTime().isPresent()
+                && !getEndTime().isPresent());
+
         return otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getTags().equals(getTags())
-                && otherEvent.getDate().equals(getDate())
-                && otherEvent.getStartTime().equals(getStartTime())
-                && otherEvent.getEndTime().equals(getEndTime())
+                && datesAreEqual
+                && startTimesAreEquals
+                && endTimesAreEquals
                 && otherEvent.getParticipantList().equals(getParticipantList())
                 && otherEvent.getOrganiser().equals(getOrganiser())
                 && otherEvent.getPolls().equals(getPolls());

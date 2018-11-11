@@ -99,19 +99,20 @@ public class XmlAdaptedEvent {
         name = source.getName().value;
         address = source.getLocation().value;
         organiser = String.valueOf(personList.indexOf(source.getOrganiser()));
-        //organiser = new XmlAdaptedPerson(source.getOrganiser());
+
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         date = source.getDateString();
-        LocalTime start = source.getStartTime();
-        if (start != null) {
-            this.startTime = start.toString();
+
+        if (source.getStartTime().isPresent()) {
+            startTime = source.getStartTime().get().toString();
         }
-        LocalTime end = source.getEndTime();
-        if (end != null) {
-            endTime = source.getEndTime().toString();
+
+        if (source.getEndTime().isPresent()) {
+            endTime = source.getEndTime().get().toString();
         }
+
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
@@ -120,7 +121,6 @@ public class XmlAdaptedEvent {
                 .stream()
                 .map(person -> String.valueOf(personList.indexOf(person)))
                 .map(XmlPersonIndex::new)
-                //.map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
     }
 
@@ -188,7 +188,6 @@ public class XmlAdaptedEvent {
 
         final ArrayList<Person> modelPersonList = new ArrayList<>();
 
-        //need to catch exceptions
         for (XmlPersonIndex personIndex : participants) {
             try {
                 Person modelPerson = personIndex.toModelType();
