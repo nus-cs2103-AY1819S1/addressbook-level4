@@ -4,48 +4,48 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
-import static seedu.address.testutil.TypicalExpenses.GAME;
-import static seedu.address.testutil.TypicalExpenses.IPHONE;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.DATE_DESC_1990;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_COST_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_COST_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_NAME_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.expensetracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.expensetracker.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.expensetracker.testutil.TypicalExpenses.GAME;
+import static seedu.expensetracker.testutil.TypicalExpenses.IPHONE;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ExpenseBuilder;
+import seedu.expensetracker.commons.core.Messages;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.EditCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Category;
+import seedu.expensetracker.model.expense.Cost;
+import seedu.expensetracker.model.expense.Expense;
+import seedu.expensetracker.model.expense.Name;
+import seedu.expensetracker.model.tag.Tag;
+import seedu.expensetracker.testutil.ExpenseBuilder;
 
 public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
@@ -179,7 +179,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased() + INVALID_CATEGORY_DESC,
                 Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid expensetracker -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
         /* Case: invalid tag -> rejected */
