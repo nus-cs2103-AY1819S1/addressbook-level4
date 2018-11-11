@@ -18,6 +18,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author HyperionNKJ
 public class RankDateCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();

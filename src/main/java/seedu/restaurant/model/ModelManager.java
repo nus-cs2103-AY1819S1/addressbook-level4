@@ -86,6 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new RestaurantBookChangedEvent(versionedRestaurantBook));
     }
 
+    //@@author HyperionNKJ
     //=========== Sales =================================================================================
 
     @Override

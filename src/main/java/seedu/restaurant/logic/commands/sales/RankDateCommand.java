@@ -1,5 +1,7 @@
 package seedu.restaurant.logic.commands.sales;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -14,6 +16,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 /**
  * Ranks the existing records' dates according to revenue in descending order
  */
@@ -31,12 +34,13 @@ public class RankDateCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         Map<Date, Double> dateRanking = model.rankDateBasedOnRevenue();
         if (dateRanking.isEmpty()) {
-            throw new CommandException(String.format(EMPTY_RECORD_LIST_MESSAGE));
+            throw new CommandException(EMPTY_RECORD_LIST_MESSAGE);
         }
         EventsCenter.getInstance().post(new DisplayRankingEvent(getStringRepresentation(dateRanking)));
-        return new CommandResult(String.format(DISPLAYING_RANK_DATE_MESSAGE));
+        return new CommandResult(DISPLAYING_RANK_DATE_MESSAGE);
     }
 
     /**

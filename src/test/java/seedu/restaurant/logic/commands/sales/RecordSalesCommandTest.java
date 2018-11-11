@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -42,6 +43,7 @@ import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class RecordSalesCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -568,6 +570,11 @@ public class RecordSalesCommandTest {
         @Override
         public Map<IngredientName, Integer> getRequiredIngredients(Item item) {
             return item.getRequiredIngredients();
+        }
+
+        @Override
+        public ObservableList<SalesRecord> getFilteredRecordList() {
+            return FXCollections.observableArrayList(recordsAdded);
         }
 
         /**

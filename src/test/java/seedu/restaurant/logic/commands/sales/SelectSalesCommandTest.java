@@ -24,6 +24,7 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author HyperionNKJ
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectSalesCommand}.
  */

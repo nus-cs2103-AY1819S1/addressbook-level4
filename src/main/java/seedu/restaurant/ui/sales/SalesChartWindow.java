@@ -12,6 +12,7 @@ import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Controller for a sales chart window. The sales data to plot in the line chart is given as a Map with Key = Date,
  * Value = Double
@@ -36,6 +37,7 @@ public class SalesChartWindow extends UiPart<Stage> {
     public SalesChartWindow(Stage root, Map<Date, Double> salesData) {
         super(FXML, root);
         root.setTitle("Sales Chart");
+        assert !salesData.isEmpty();
         this.salesData = salesData;
     }
 

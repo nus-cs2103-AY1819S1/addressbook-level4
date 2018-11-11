@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * A utility class containing a list of {@code SalesRecord} objects to be used in tests.
  */
