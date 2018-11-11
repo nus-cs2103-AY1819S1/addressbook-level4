@@ -41,7 +41,7 @@ public interface Logic {
     ObservableList<Day> getMealPlanList();
 
     /** Returns an unmodifiable view of the filtered lists of favourite */
-    ObservableList<Favourites> getFilteredFavouritesList();
+    ObservableList<Recipe> getFilteredFavouritesList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

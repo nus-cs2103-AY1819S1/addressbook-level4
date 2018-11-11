@@ -82,7 +82,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Favourites> getFilteredFavouritesList() {
+    public ObservableList<Recipe> getFilteredFavouritesList() {
         return modelSet.getFavouriteModel().getFilteredList();
     }
 
