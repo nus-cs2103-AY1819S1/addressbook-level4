@@ -72,7 +72,14 @@ public class DueDate implements Comparable<DueDate> {
 
     @Override
     public int compareTo(DueDate other) {
-        return (int) (this.valueDate.getTime() - other.valueDate.getTime());
+        long val = this.valueDate.getTime() - other.valueDate.getTime();
+        if ( val > 0) {
+            return 1;
+        } else if (val == 0) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
     @Override
