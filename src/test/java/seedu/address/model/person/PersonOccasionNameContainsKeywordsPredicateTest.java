@@ -10,9 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.PersonBuilder;
 
