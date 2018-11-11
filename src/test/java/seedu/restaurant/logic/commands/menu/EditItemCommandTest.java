@@ -10,7 +10,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_PRICE_F
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_CHEESE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.restaurant.logic.commands.menu.MenuCommandTestUtil.showItemAtIndex;
+import static seedu.restaurant.logic.commands.CommandTestUtil.showItemAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;

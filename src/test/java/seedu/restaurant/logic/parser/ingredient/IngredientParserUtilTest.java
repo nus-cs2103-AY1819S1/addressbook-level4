@@ -14,6 +14,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.testutil.Assert;
 
+//@@author rebstan97
 public class IngredientParserUtilTest {
 
     private static final String INVALID_INGREDIENT_NAME = "Chicken Drums+ick";

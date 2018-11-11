@@ -196,6 +196,7 @@ public interface Model {
 
     //=============== API for Ingredient ===============
 
+    //@@author rebstan97
     /**
      * Returns true if an ingredient with the same identity as {@code ingredient} exists in the restaurant book.
      */
