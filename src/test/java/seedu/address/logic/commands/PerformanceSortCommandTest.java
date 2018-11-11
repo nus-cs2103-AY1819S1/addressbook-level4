@@ -22,7 +22,7 @@ public class PerformanceSortCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_sortCardList() throws Exception {
+    public void execute_rankCardList() throws Exception {
         Deck expectedDeck = getTypicalDeck();
         expectedDeck.getCards().perfsort();
         List<Card> expectedCardList = expectedDeck.getCards().asUnmodifiableObservableList();
