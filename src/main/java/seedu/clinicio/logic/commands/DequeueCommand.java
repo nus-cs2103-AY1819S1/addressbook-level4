@@ -61,7 +61,15 @@ public class DequeueCommand extends Command {
         // This line ensures Observer of the list gets updated on UI.
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
+        model.switchTab(1);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DEQUEUE_PATIENT_SUCCESS, patientToDequeue.getName()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DequeueCommand // instanceof handles nulls
+                && index.equals(((DequeueCommand) other).index)); // state check
     }
 }
