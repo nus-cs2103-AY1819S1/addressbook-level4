@@ -355,7 +355,8 @@ Format: `add-ingredient n/INGREDIENT_NAME u/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM
 
 [NOTE]
 ====
-* MINIMUM refers to the minimum number of units below which an ingredient will be considered low in stock count
+* MINIMUM refers to the number of units below which an ingredient will be considered low in stock count.
+* When a new ingredient is first added, its number of units is set to zero.
 ====
 
 Examples:
@@ -363,27 +364,35 @@ Examples:
 * `add-ingredient n/cod fish u/kilogram p/20 m/1` +
 Adds the ingredient `cod fish` with a price of `$20/kilogram` and minimum threshold of `1 unit`.
 
+[[list-ingredients]]
 ==== Listing all ingredients : `list-ingredients` or `list-ing`
 
 Shows a list of all ingredients in the ingredient list. +
 Format: `list-ingredients`
 
+[[low-stock]]
 ==== Listing ingredients with low stock count: `low-stock`
 
 Shows a list of ingredients that are low in stock count. +
 Format: `low-stock`
 
+[NOTE]
+====
+* An ingredient is low in stock count when the number of units available is less than its minimum threshold.
+====
+
+[[delete-ingredient]]
 ==== Removing an ingredient: `delete-ingredient` or `delete-ing`
 
 Deletes the specified ingredient from the ingredient list. +
-Format: `delete-ingredient INDEX` or `delete-ingredient NAME`
+Format: `delete-ingredient INDEX` or `delete-ingredient INGREDIENT_NAME`
 
 [NOTE]
 ====
 * Deletes the ingredient at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed ingredient list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
-* Alternatively, deletes the ingredient with the specified `NAME`.
+* Alternatively, deletes the ingredient with the specified `INGREDIENT_NAME`.
 ====
 
 Examples:
@@ -397,16 +406,19 @@ Deletes the 1st ingredient in the ingredient list.
 `list-ingredients` +
 Deletes the ingredient `cod fish` from the ingredient list.
 
+[[edit-ingredient]]
 ==== Editing an ingredient: `edit-ingredient` or `edit-ing`
 
 Edits an ingredient in the ingredient list. +
-Format: `edit-ingredient INDEX [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or `edit-ingredient NAME [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]`
+Format: `edit-ingredient INDEX [n/INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or `edit-ingredient
+on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]`
 
 [NOTE]
 ====
 * Edits the ingredient at the specified `INDEX`. The index refers to the index number shown in the displayed ingredient list. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* Alternatively, edits the ingredient with the specified `NAME`.
+* Alternatively, edits the ingredient with the specified `ORIGINAL_INGREDIENT_NAME`.
+* If both `INDEX` and `ORIGINAL_INGREDIENT_NAME` are specified and valid, the edit will be done according to `INDEX`.
 ====
 
 [WARNING]
@@ -422,18 +434,19 @@ Edits the name of the 3rd ingredient to `thin fries`.
 * `edit-ingredient 4 u/1.5ml bottle p/1.20`  +
 Edits the unit type and price per unit of the 4th ingredient to be `1.5ml bottle` and `1.20` respectively.
 
-* `edit-ingredient ketchup n/tomato ketchup`  +
+* `edit-ingredient on/ketchup n/tomato ketchup`  +
 Edits the name of `ketchup` to be `tomato ketchup`.
 
 [[stockup]]
 ==== Stocking up an ingredient: `stockup`
 
 Increases the number of units of an ingredient or multiple ingredients. +
-Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
+Format: `stockup n/NAME... nu/NUMBER_OF_UNITS...`
 
-****
-* NUMBER_OF_UNITS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
-****
+[WARNING]
+====
+* `NUMBER_OF_UNITS` for an ingredient must follow the `NAME` for that particular ingredient.
+====
 
 Examples:
 
@@ -441,6 +454,28 @@ Examples:
 Stocks up `5 units` of `cod fish`.
 * `stockup n/chicken thigh nu/10 n/fries nu/20 n/tomato ketchup nu/50` +
 Stocks up `10 units` of `chicken thigh`, `20 units` of `fries` and `50 units` of `tomato ketchup`.
+
+[[select-ingredient]]
+==== Selecting an ingredient: `select-ingredient` or `select-ing`
+
+Selects the ingredient identified by the index number used in the displayed ingredient list. +
+Format: `select-ingredient INDEX` or `select-ing INDEX`
+
+[NOTE]
+====
+* Selects the ingredient and displays the details of the ingredient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed ingredient list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+====
+
+Examples:
+
+* `list-ingredients` +
+`select-ingredient 2` +
+Selects the 2nd ingredient in the displayed ingredient list.
+* `low-stock` +
+`select-ingredient 1` +
+Selects the 1st ingredient in the results of the `low-stock` command.
 // end::ingredientmanagement[]
 
 // tag::menu[]
@@ -1126,12 +1161,17 @@ contains the data of your previous *MeNUS* folder.
 |*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
 |*List accounts* |`list-accounts/la` |`list-accounts/la`
-|*Add ingredient* |`add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod fish t/kilogram p/20 m/1`
-|*List ingredient* |`list-ingredients` |`list-ingredients`
-|*List ingredient with low stock count* |`low-stock` |`low-stock`
-|*Edit ingredient* |`edit-ingredient INDEX [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or `edit-ingredient NAME [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` |`edit-ingredient 3 n/thin fries` or `edit-ingredient ketchup n/tomato ketchup`
-|*Delete ingredient* |`delete-ingredient INDEX` or `delete-ingredient NAME` |`delete-ingredient 1` or `delete-ingredient cod fish`
+|*Add ingredient* |`add-ingredient n/INGREDIENT_NAME u/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod
+fish u/kilogram p/20 m/1`
+|*List ingredients* |`list-ingredients` |`list-ingredients`
+|*List ingredients with low stock count* |`low-stock` |`low-stock`
+|*Edit ingredient* |`edit-ingredient INDEX [n/INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or
+`edit-ingredient on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]`
+|`edit-ingredient 3 n/thin fries` or `edit-ingredient on/ketchup n/tomato ketchup`
+|*Delete ingredient* |`delete-ingredient INDEX` or `delete-ingredient INGREDIENT_NAME` |`delete-ingredient 1` or
+`delete-ingredient cod fish`
 |*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
+|*Select ingredient* |`select-ingredient INDEX` |`select-ingredient 3`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item* |`delete-item INDEX` |`delete-item 3`
