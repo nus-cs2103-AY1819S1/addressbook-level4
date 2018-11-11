@@ -9,7 +9,7 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
     <HBox spacing="20" alignment="CENTER">
-        <Label styleClass="cell_list_label" text="UNCOMPLETED MODULES: "/>
+        <Label styleClass="cell_list_label" text="INCOMPLETE MODULES: "/>
     </HBox>
     <ListView fx:id="moduleListView" VBox.vgrow="ALWAYS" />
 
