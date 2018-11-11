@@ -3,6 +3,7 @@ package seedu.clinicio.logic.parser;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+
 import seedu.clinicio.logic.commands.FindPatientCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.patient.PatientNameContainsKeywordsPredicate;

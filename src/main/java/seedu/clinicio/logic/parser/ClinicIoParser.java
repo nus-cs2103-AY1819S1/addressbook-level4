@@ -102,7 +102,7 @@ public class ClinicIoParser {
 
         case FindPatientCommand.COMMAND_WORD:
             return new FindPatientCommandParser().parse(arguments);
-            
+
         case ExportPatientsCommand.COMMAND_WORD:
             return new ExportPatientsCommand();
 
