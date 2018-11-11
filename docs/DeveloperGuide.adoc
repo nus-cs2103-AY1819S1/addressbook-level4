@@ -435,8 +435,8 @@ Given below is the execution flow of `Add Command`.
 2. If the user input is valid and contains the keyword `add`, `AddCommandParser` will be instantiated.
 3. `SchedulerParser` will then call the `parse` method of `AddCommandParser`.
 4. `AddCommandParser` parses the user input with the respective parsing methods.
-5. `generateAllRepeatedEvents` method in `RepeatEventGenerator` is invoked to generate a list of repeating events according to the repeat type of event specified by the user input.
-6. `AddCommand` will be instantiated with the list of events.
+5. `AddCommand` will be instantiated with the parsed event.
+6. `generateAllRepeatedEvents` method in `RepeatEventGenerator` is invoked to generate a list of repeating events according to the repeat type of the parsed event.
 7. `LogicManager` will then proceed to call the `execute()` method of `AddCommand`.
 8. `Model` Component will then add the list of events to an internal list of events using the `addEvents` method.
 
