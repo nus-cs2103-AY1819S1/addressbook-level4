@@ -778,7 +778,7 @@ public class ConnectToGoogleCalendar {
             this.repeatedEventsFound = repeatedEventsFound;
         }
 
-        boolean getResult() {
+        public boolean getResult() {
             return myResult;
         }
 
