@@ -8,7 +8,7 @@ import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.account.UsernameContainsKeywordsPredicate;
+import seedu.restaurant.model.account.UsernameContainsKeywordPredicate;
 
 //@@author AZhiKai
 
@@ -29,9 +29,9 @@ public class FindAccountCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed %d accounts";
 
-    private final UsernameContainsKeywordsPredicate predicate;
+    private final UsernameContainsKeywordPredicate predicate;
 
-    public FindAccountCommand(UsernameContainsKeywordsPredicate predicate) {
+    public FindAccountCommand(UsernameContainsKeywordPredicate predicate) {
         this.predicate = predicate;
     }
 

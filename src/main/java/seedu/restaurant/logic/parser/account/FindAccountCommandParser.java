@@ -2,12 +2,10 @@ package seedu.restaurant.logic.parser.account;
 
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.restaurant.logic.commands.account.FindAccountCommand;
 import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
-import seedu.restaurant.model.account.UsernameContainsKeywordsPredicate;
+import seedu.restaurant.model.account.UsernameContainsKeywordPredicate;
 
 //@@author AZhiKai
 
@@ -28,8 +26,6 @@ public class FindAccountCommandParser implements Parser<FindAccountCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAccountCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindAccountCommand(new UsernameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindAccountCommand(new UsernameContainsKeywordPredicate(trimmedArgs));
     }
 }
