@@ -12,80 +12,49 @@
 Expense Tracker is the secure, efficient financial application for the keyboard enthusiast. With features such as daily tips,
 statistics and budget setting, Expense Tracker aims to provide users with the necessary tools to become a better saver.
 
-ExpenseTracker was created for an NUS software engineering project. The task was to work in a team of 5, and morph or enhance
-an `AddressBook` application.
-
 This portfolio is a documentation of my contributions to the morphing of AddressBook into ExpenseTracker. I mainly worked on GUI overhauls, as well
 as the implementation of a Automatic Notification System.
 
-
 == Summary of contributions
 
-=== *Major enhancements*:
-
-.Before and After shots of the UI
-image::UiChange.png[width="800"]
-
-
-. *GUI Overhaul and Redesign*
+*Major Enhancement:* Implementation of GUI elements for newly implemented features
 
 * *What It Does*
 
-** The morphing of `AddressBook` into `Expense Tracker` resulted in the implementation of many new features. My main job was to
-implement a dynamically updating Graphical User Interface (GUI) for said features. The new GUI elements include:
-
-*** *Notification Panel* - Displays the list of automated notifications.
-*** *Budget Panel* - Displays information about the user's monthly total budget cap and expenses.
-*** *Category Panel* - Displays information about the user's budget cap for different categories of expenses.
+** It displays the user's expenditure information on the GUI. This includes their notifications, monthly budget, monthly expenses and budgets for categories.
+The Notification System in particular, was entirely implemented by me. This feature generates and displays daily saving tips and warnings
+if the user is about to spend or have spent over their budget.
 
 * *Justification*
 
-** A well-designed user interface is able to maximize use experience and allows `Expense Tracker` to stand out amongst the sea
-of financial applications. An eye catching and intuitive design encourages users to not only try our application, but to keep
-using it as well. Small touches such as animation and dynamic changing of text color wre also implemented for improved visual feedback.
+** A well-designed and responsive user interface is able to maximize user experience and allows `Expense Tracker` to stand out amongst the sea
+of financial applications.
+
+** I believe that there will be a subset of user who use `Expense Tracker` because they are unable to maintain a budget. The Notification System aims to
+help said users by facilitating in budget management and providing general knowledge about saving money.
 
 * *Highlights*
 
-** The challenge of implementing this enhancement arose from the squashing of visual bugs caused by unexpected inputs such as overly
-large numbers. Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.
+** Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.
+** Additional features animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.
+** The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of Expense Tracker.
 
-. *Notification System*
+*Minor enhancements*:
 
-* *What It Does*
-** The Notification System facilitates the sending of automated messages to the user. These notifications are displayed
-on the `NotificationPanel`.
+. Implemented the `notification` command that allows users to toggle automated notification sending.
+. Implemented other minor Animations to existing features such fade-in effect upon login.
+. Implemented panel switching. The leftmost panel of the GUI can swap between statistical information and the list of expenses.
+. Completely Overhauled the CSS styling of the application.
+. Added color to `Tags`.
 
-* Justification
-** I implemented this feature to appeal to the following users of `ExpenseTracker`:
+*Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jaime&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Reposense Compilation]
 
-*** For the user who struggles to save money *due to lack of knowledge about saving*, tips will be provided daily in the
-form of notifications. Thus, the more a user uses `ExpenseTracker`, the more knowledgeable they can become about saving.
-
-*** For the user who has *trouble maintaining their budget*, the Notification System sends automated warnings whenever the
-user is or is about to spend over their budget.
-
-*** For the user who is *does not need aids or warnings*, I have added the `notification` command. This commands
-allows users to toggle the different types of notifications on and off, increasing the customizability of `ExpenseTracker`.
-
-* *Highlights*
-** The implementation of this feature involved all components of Expense Tracker, including the storing of data and the
-implementation of a new command. The challenge mainly revolved around manipulating the way `Notification` and `Tip` objects
-were stored, read and retrieved.
-
-* *Minor enhancement*:
-. Other Minor Animations such as GUI fade-in upon login:
-. Complete Overhaul of CSS: https://github.com/CS2103-AY1819S1-T12-1/main/pull/42[#42], https://github.com/CS2103-AY1819S1-T12-1/main/pull/113[#113]
-. Added color to Tags: https://github.com/CS2103-AY1819S1-T12-1/main/pull/6[#6]
-
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jaime&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Reposense Compilation]
-
-* *Other contributions*:
+*Other contributions*:
 
 ** Documentation:
 *** Updated the `Notification` component section of the User Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187]
 *** Updated the `Use Case`, `User Stories` and `User Interface` component section of the Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
 *** Made changes to the Developer Guide. Improved language and edited diagrams: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
-
 
 ** Community:
 *** Reviewed PRs (with non-trivial review comments):

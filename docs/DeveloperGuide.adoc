@@ -597,10 +597,12 @@ The UI has been redesigned to implement the following UI elements required for E
 * Notifications Panel
 * Categories Panel
 
-Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of `BudgetPanel`,
-which is the most extensive.
+.Before and After shots of the UI
+image::UiChange.png[width="800"]
 
-*Budget Panel*
+We will look at the implementation of `BudgetPanel`, which is the most extensive.
+
+==== Budget Panel
 
 The `Budget` panel consists of 4 UI elements:
 
@@ -698,6 +700,8 @@ The Notification System is comprised of the following classes:
 * `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
 * `Tips` - Reads and stores `Tip` objects in a list.
 
+==== Adding a Notification
+
 Given below are the steps of an example scenario of how the Notification System functions:
 
 . The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` is instantiated, and a call
@@ -715,6 +719,8 @@ The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
+
+==== Executing Notification Command
 
 Given below is an example scenario of how `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
