@@ -194,13 +194,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setUpTab() {
         patientTab.setContent(patientListPanelPlaceholder);
-        patientTab.setClosable(false);
 
         appointmentTab.setContent(appointmentListPanelPlaceholder);
-        appointmentTab.setClosable(false);
 
         queueTab.setContent(queuePanelPlaceholder);
-        queueTab.setClosable(false);
 
         tabLists = new TabPane(patientTab, appointmentTab, queueTab);
     }

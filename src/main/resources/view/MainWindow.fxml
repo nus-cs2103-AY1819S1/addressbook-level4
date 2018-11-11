@@ -60,7 +60,7 @@
                 </VBox>
 
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                    <TabPane fx:id="tabLists" side="LEFT">
+                    <TabPane fx:id="tabLists" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                         <Tab fx:id="patientTab">
                             <tooltip>
                                 <Tooltip text="Patient"/>
