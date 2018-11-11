@@ -34,13 +34,11 @@ authenticated, otherwise it will not be executed. It required an in-depth analys
 commands.
 ** *Credits*: Passwords are secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
 
-* *Minor enhancement #1*: Added side navigation bar to allow access to the different components of the application with
-a click of a mouse or trackpad, in addition to doing so via the CLI.
-
-* *Minor enhancement #2*: https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a
-different product.
-
 * *Other contributions*:
+** Minor enhancements:
+*** Added side navigation bar to allow access to the different components of the application with a click of a mouse
+or trackpad, in addition to doing so via the CLI.
+*** https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a different product.
 ** Project Management:
 *** Team Lead; responsible for overall project coordination.
 *** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls, RepoSense and Discord automatic notifications
