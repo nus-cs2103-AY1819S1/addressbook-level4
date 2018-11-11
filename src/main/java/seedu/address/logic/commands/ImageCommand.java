@@ -39,7 +39,7 @@ public class ImageCommand extends Command {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String PROFILE_PICTURE_VALIDATION_REGEX =
-            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
+        "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
     public static final String COMMAND_WORD = "image";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Uploads a profile picture to the resident of "

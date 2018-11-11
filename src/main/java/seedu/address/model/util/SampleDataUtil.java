@@ -53,8 +53,8 @@ public class SampleDataUtil {
         return new Cca[]{
             new Cca(
                 new CcaName("Hockey"),
-                new Name("MrYanDao"),
-                new Name("XiaoMing"),
+                new Name("Alex Yeoh"),
+                new Name("Bernice Yu"),
                 new Budget(500),
                 new Spent(300),
                 new Outstanding(200),
@@ -66,8 +66,8 @@ public class SampleDataUtil {
             ),
             new Cca(
                 new CcaName("Floorball"),
-                new Name("XiaoBitch"),
-                new Name("RisLow"),
+                new Name("Charlotte Oliveiro"),
+                new Name("David Li"),
                 new Budget(600),
                 new Spent(500),
                 new Outstanding(100),
@@ -78,8 +78,8 @@ public class SampleDataUtil {
             ),
             new Cca(
                 new CcaName("Handball"),
-                new Name("Steven Lim"),
-                new Name("Bumble Bee"),
+                new Name("Irfan Ibrahim"),
+                new Name("Roy Balakrishnan"),
                 new Budget(100),
                 new Spent(100),
                 new Outstanding(0),

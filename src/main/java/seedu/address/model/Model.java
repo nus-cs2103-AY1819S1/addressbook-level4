@@ -232,9 +232,14 @@ public interface Model {
     void saveEmail(Email email);
 
     /**
-     * Saves a newly composed email to the EmailModel.
+     * Saves a newly composed email to the EmailModel, and display it on BrowserPanel.
      */
     void saveComposedEmail(Email email);
+
+    /**
+     * Saves a newly composed email to the EmailModel.
+     */
+    void saveComposedEmailWithoutDisplay(Email email);
 
     /**
      * Deletes an existing email from EmailModel.
