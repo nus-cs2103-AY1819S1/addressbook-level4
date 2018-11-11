@@ -43,7 +43,6 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    Module DUMMY_MODULE = ST2131;
 
     //@@author
     @Test
@@ -440,12 +439,13 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeInsertPerson_validIndexFilteredList_personRemovedFromModule() throws Exception {
+        Module dummyModule = ST2131;
         model.setActiveType(PERSON);
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_MODULE, DUMMY_MODULE);
+                INDEX_FIRST_MODULE, dummyModule);
         insertPersonIntoModuleCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredModuleList().get(INDEX_FIRST_MODULE.getOneBased()).getStudents(),
@@ -481,12 +481,13 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeInsertPerson_validIndexFilteredList_moduleRemovedFromPerson() throws Exception {
+        Module dummyModule = ST2131;
         model.setActiveType(MODULE);
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_MODULE, DUMMY_MODULE);
+                INDEX_FIRST_MODULE, dummyModule);
         insertPersonIntoModuleCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList(),
