@@ -214,7 +214,7 @@ public class ConnectToGoogleCalendar {
         for (Event toAddEvent : toAddList) {
             gEvent = setCommonAttributes(gEvent, toAddEvent);
 
-            if (toAddEvent.getRepeatType() == RepeatType.NONE) {
+            if (toAddEvent.getRepeatType().equals(RepeatType.NONE)) {
                 gEvent = gEvent.setId(toAddEvent.getEventUid()
                         .toString()
                         .replaceAll("-", ""));
@@ -298,10 +298,11 @@ public class ConnectToGoogleCalendar {
      *
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
-     * @param deleteSingle
+     * @param deleteSingle true if it is intended to deelete a single event
+     * @param deleteAll true if it is intended to delete all instances
      */
     public boolean deleteEventOnGoogleCal(
-            boolean enabled, Event eventToDelete, int instanceIndex, boolean deleteSingle)
+            boolean enabled, Event eventToDelete, int instanceIndex, boolean deleteSingle, boolean deleteAll)
             throws CommandException {
         if (statusIsDisabled(enabled)) {
             return false;
@@ -311,17 +312,115 @@ public class ConnectToGoogleCalendar {
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
         boolean repeatedEventsFound = false;
-        Events allEventsOnGoogle = null;
 
         //Case1: delete non-repeat event
         //find EventId
+        Boolean success = deleteSingleNonRepeatEvent(eventToDelete, service, eventIds);
+        if (success != null) {
+            return success;
+        }
+
+        //Case2: delete repeated events
+        //Find the ICalUid
+        if (eventToDelete.isRepeatEvent()) {
+            FindIcalUid findIcalUid =
+                    new FindIcalUid(eventToDelete, service, eventIds, recurringEventId, repeatedEventsFound).invoke();
+            if (findIcalUid.getResult()) {
+                return false;
+            }
+            recurringEventId = findIcalUid.getRecurringEventId();
+            repeatedEventsFound = findIcalUid.isRepeatedEventsFound();
+        }
+
+        //No such event online
+        if (eventToDelete.isRepeatEvent() && !repeatedEventsFound) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
+        } else { //EventSet Found
+            try {
+                assert recurringEventId != null;
+                //Case 2.1: delete single instance
+                if (deleteSingle) {
+                    return deleteSingleInstance(instanceIndex, service, recurringEventId);
+                } else if (deleteAll | instanceIndex == 0) {
+                    //delete multiple instances
+                    //Case2.2: Delete All
+                    deleteAllInstances(service, eventIds);
+                } else {
+                    //Case2.3:delete upcoming (and this is not the first instance)
+                    deleteUpcomingInstances(instanceIndex, service, recurringEventId);
+                }
+            } catch (IOException e) {
+                logger.info(MESSAGE_IO_ERROR);
+                return false;
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Deletes 'on and after' repeat event instances in the Google Calendar
+     *
+     * @param instanceIndex the instance index for recurring event
+     * @param service the calender service object
+     * @param recurringEventId recurringEventId of the Google Event
+     */
+    private void deleteUpcomingInstances(int instanceIndex, Calendar service, String recurringEventId)
+            throws IOException {
+        Events instances = null;
+        instances = service.events()
+                .instances(CALENDAR_NAME, recurringEventId).execute();
+        assert instances != null;
+        for (int i = instanceIndex; i < instances.getItems().size(); i++) {
+            com.google.api.services.calendar.model.Event instance =
+                    instances.getItems().get(i);
+            instance.setStatus("cancelled");
+            service.events()
+                    .update(CALENDAR_NAME, instance.getId(), instance).execute();
+        }
+    }
+
+    /**
+     * Deletes all repeat event instances in the Google Calendar
+     *
+     * @param service the calender service object
+     * @param eventIds the list of events to be deleted
+     */
+    private void deleteAllInstances(Calendar service, List<String> eventIds) throws IOException {
+        for (String eventId : eventIds) {
+            service.events().delete(CALENDAR_NAME, eventId).execute();
+        }
+    }
+
+    /**
+     * Deletes a single repeat event instance in the Google Calendar
+     *
+     * @param instanceIndex the instance index for recurring event
+     * @param service the calender service object
+     * @param recurringEventId recurringEventId of the Google Event
+     */
+    private boolean deleteSingleInstance(int instanceIndex, Calendar service, String recurringEventId)
+            throws IOException {
+        Events instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
+        com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
+        instance.setStatus("cancelled");
+        service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+        return true;
+    }
+
+    /**
+     * Deletes a single non-repeat event instance in the Google Calendar
+     *
+     * @param eventToDelete the Event to be deleted
+     * @param service the calender service object
+     * @param eventIds the list of events to be deleted
+     */
+    private Boolean deleteSingleNonRepeatEvent(Event eventToDelete, Calendar service, List<String> eventIds) {
         if (!eventToDelete.isRepeatEvent()) {
             eventIds.add(eventToDelete.getEventUid()
                     .toString()
                     .replaceAll("-", ""));
-        }
-        //delete on Google
-        if (!eventToDelete.isRepeatEvent()) {
+            //delete on Google
             try {
                 service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
             } catch (IOException e) {
@@ -332,72 +431,7 @@ public class ConnectToGoogleCalendar {
         if (!eventToDelete.isRepeatEvent()) {
             return true;
         }
-        //Case2: delete repeated events
-        //Find the ICalUid
-        if (eventToDelete.isRepeatEvent()) {
-            String eventSetUid =
-                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
-            try {
-                allEventsOnGoogle = getSingleEvents(service);
-                for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                    if (Objects.equals(event.getICalUID(), eventSetUid)) {
-                        eventIds.add(event.getId());
-                        repeatedEventsFound = true;
-                        recurringEventId = event.getRecurringEventId();
-                        break;
-                    }
-                }
-            } catch (NullPointerException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-        }
-
-        //No such event online
-        if (eventToDelete.isRepeatEvent() && !repeatedEventsFound) {
-            logger.info(MESSAGE_IO_ERROR);
-            return false;
-        } else { //EventSet Found
-            try {
-                assert recurringEventId != null;
-                //Case 2.1delete single instance
-                if (deleteSingle) {
-                    Events instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
-                    com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
-                    instance.setStatus("cancelled");
-                    service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
-                    return true;
-                }
-
-                //delete multiple instances
-                switch (instanceIndex) {
-                case 0:
-                    //Case2.2: Delete All
-                    for (String eventId : eventIds) {
-                        service.events().delete(CALENDAR_NAME, eventId).execute();
-                    }
-                    break;
-                default:
-                    //Case2.3:delete upcoming
-                    Events instances = null;
-                    instances = service.events()
-                            .instances(CALENDAR_NAME, recurringEventId).execute();
-                    assert instances != null;
-                    for (int i = instanceIndex; i < instances.getItems().size(); i++) {
-                        com.google.api.services.calendar.model.Event instance =
-                                instances.getItems().get(i);
-                        instance.setStatus("cancelled");
-                        service.events()
-                                .update(CALENDAR_NAME, instance.getId(), instance).execute();
-                    }
-                    break;
-                }
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-            return true;
-        }
+        return null;
     }
 
     /**
@@ -625,11 +659,20 @@ public class ConnectToGoogleCalendar {
         return !enabled | isGoogleCalendarDisabled();
     }
 
-    private String getRecurringEventId(Event eventToEdit, Calendar service) {
+
+    /**
+     * Retrieves the recurring Event Id of a Google Event
+     *
+     * @param targetEvent the target Event
+     * @param service the Google calender service object
+     *
+     * @return the Recurring EventId
+     */
+    private String getRecurringEventId(Event targetEvent, Calendar service) {
         String recurringEventId = null;
         Events allEventsOnGoogle = null;
         String eventSetUid =
-                EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToEdit);
+                EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(targetEvent);
         logger.info("Trying to download Google Events from Calendar Service.");
         allEventsOnGoogle = getSingleEvents(service);
 
@@ -651,6 +694,14 @@ public class ConnectToGoogleCalendar {
         return recurringEventId;
     }
 
+
+    /**
+     * Retrieve Google Events (excluding the single instances of repeat Event)
+     *
+     * @param service the Google Calender Service
+     *
+     * @return true if it is disabled
+     */
     public Events getEvents(Calendar service) {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
@@ -676,6 +727,13 @@ public class ConnectToGoogleCalendar {
         return events;
     }
 
+    /**
+     * Retrieve Google Events (excluding the parent recurring event)
+     *
+     * @param service the Google Calender Service
+     *
+     * @return true if it is disabled
+     */
     public Events getSingleEvents(Calendar service) {
         //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
@@ -700,5 +758,61 @@ public class ConnectToGoogleCalendar {
         return events;
     }
 
+    /**
+     * A internal class to find the IcalUid of a Google Event
+     */
+    private class FindIcalUid {
+        private boolean myResult;
+        private Event eventToDelete;
+        private Calendar service;
+        private List<String> eventIds;
+        private String recurringEventId;
+        private boolean repeatedEventsFound;
 
+        public FindIcalUid(Event eventToDelete, Calendar service, List<String> eventIds, String recurringEventId,
+                           boolean repeatedEventsFound) {
+            this.eventToDelete = eventToDelete;
+            this.service = service;
+            this.eventIds = eventIds;
+            this.recurringEventId = recurringEventId;
+            this.repeatedEventsFound = repeatedEventsFound;
+        }
+
+        boolean getResult() {
+            return myResult;
+        }
+
+        public String getRecurringEventId() {
+            return recurringEventId;
+        }
+
+        public boolean isRepeatedEventsFound() {
+            return repeatedEventsFound;
+        }
+
+        /**
+         * Retireves the iCalUid
+         */
+        public FindIcalUid invoke() {
+            Events allEventsOnGoogle;
+            String eventSetUid =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
+            try {
+                allEventsOnGoogle = getSingleEvents(service);
+                for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
+                    if (Objects.equals(event.getICalUID(), eventSetUid)) {
+                        eventIds.add(event.getId());
+                        repeatedEventsFound = true;
+                        recurringEventId = event.getRecurringEventId();
+                    }
+                }
+            } catch (NullPointerException e) {
+                logger.info(MESSAGE_IO_ERROR);
+                myResult = true;
+                return this;
+            }
+            myResult = false;
+            return this;
+        }
+    }
 }

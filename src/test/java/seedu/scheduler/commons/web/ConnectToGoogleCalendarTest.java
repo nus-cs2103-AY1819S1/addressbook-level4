@@ -12,6 +12,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
 import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.THURDSDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedReader;
@@ -356,7 +357,7 @@ public class ConnectToGoogleCalendarTest {
         sleep(5000);
 
         /* Case: add a repeated eventSet -> added */
-        validEvent = new EventBuilder(FRIDAY_LECTURE).build();
+        validEvent = new EventBuilder(THURDSDAY_LECTURE).build();
         enable();
         //added
         helperCommand(new AddCommand(validEvent), model, commandHistory);
@@ -366,8 +367,8 @@ public class ConnectToGoogleCalendarTest {
                 connectToGoogleCalendar.getCalendar();
         Events events = connectToGoogleCalendar.getSingleEvents(service);
         //prevent disable too early
-        sleep(500);
-        disable();
+        sleep(5000);
+
         boolean found = false;
         for (com.google.api.services.calendar.model.Event event : events.getItems()) {
             if (event.getICalUID().equals(id)) {
@@ -377,6 +378,7 @@ public class ConnectToGoogleCalendarTest {
         }
         assertTrue(found);
         //close the google-enabled environment
+        disable();
         sleep(5000);
     }
 
@@ -391,12 +393,12 @@ public class ConnectToGoogleCalendarTest {
         helperCommand(new AddCommand(validEvent), model, commandHistory);
         //Prevent triggering Google's limit
         disable();
-        sleep(3000);
+        sleep(5000);
         enable();
         //execute the delete command
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
-                        true, validEvent, 0, true));
+                        true, validEvent, 0, true, false));
         //check
         //close the google-enabled environment
         disable();
@@ -410,15 +412,16 @@ public class ConnectToGoogleCalendarTest {
         enable();
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
-                        true, validEvent, 0, true));
+                        true, validEvent, 0, true, false));
         //-----------delete multiple upcoming repeating event in the EventSet--> pass -------
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
-                        true, validEvent, 2, false));
+                        true, validEvent, 2, false, false));
         //-----------delete all repeating event in the EventSet-> pass -------
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
-                        true, validEvent, 0, false));
+                        true, validEvent, 0, false, false));
         disable();
+        sleep(5000);
     }
 }
