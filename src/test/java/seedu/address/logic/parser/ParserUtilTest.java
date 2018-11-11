@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalModules.YEAR_ONE;
 import static seedu.address.testutil.TypicalModules.YEAR_THREE;
 import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,7 +62,7 @@ public class ParserUtilTest {
     public void validateNumOfArgs() throws Exception {
         String[] tokenize = {"a", "b", "c", "d"};
 
-        ParserUtil.argsWithBounds(tokenize, 4);
+        ParserUtil.argsWithBounds(tokenize, Collections.singleton(4));
         ParserUtil.argsWithBounds(tokenize, Integer.MIN_VALUE, 4, "");
         ParserUtil.argsWithBounds(tokenize, 4, Integer.MAX_VALUE, "");
 

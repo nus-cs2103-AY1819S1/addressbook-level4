@@ -87,10 +87,10 @@ public class ParserUtil {
      * @throws ParseException when the number of arguments is not equal to
      * {@code size}.
      */
-    public static void argsWithBounds(Object[] args, int size)
+    public static void argsWithBounds(Object[] args, Set<Integer> size)
             throws ParseException {
         requireNonNull(args);
-        argsWithBounds(args, size, size, "");
+        argsWithBounds(args, size, "");
     }
 
     /**
