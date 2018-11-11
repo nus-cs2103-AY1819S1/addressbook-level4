@@ -34,6 +34,11 @@ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=woodns
 * *Other contributions*:
 
 ** Project management:
+*** Morphed AddressBook application to Schedule Planner:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/39[#39],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/25[#25],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/15[#15],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/12[#12]
 
 ** Enhancements to existing features:
 *** Added sorting feature that allows tasks to always be displayed in the order of deadline date and priority.
@@ -45,28 +50,39 @@ whenever application launches.
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-3/main/pull/73[#73]
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W14-4/main/issues/187[#1],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/179[#2], https://github.com/CS2103-AY1819S1-W14-4/main/issues/174[#3],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/168[#4], https://github.com/CS2103-AY1819S1-W14-4/main/issues/166[#5],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/164[#6], https://github.com/CS2103-AY1819S1-W14-4/main/issues/161[#7],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/163[#8], https://github.com/CS2103-AY1819S1-W14-4/main/issues/160[#9],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/159[#10], https://github.com/CS2103-AY1819S1-W14-4/main/issues/157[#11],
-https://github.com/CS2103-AY1819S1-W14-4/main/issues/183[#12]
-
-*** 
-
+*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W14-4/main/issues/187[1],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/179[2], https://github.com/CS2103-AY1819S1-W14-4/main/issues/174[3],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/168[4], https://github.com/CS2103-AY1819S1-W14-4/main/issues/166[5],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/164[6], https://github.com/CS2103-AY1819S1-W14-4/main/issues/161[7],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/163[8], https://github.com/CS2103-AY1819S1-W14-4/main/issues/160[9],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/159[10], https://github.com/CS2103-AY1819S1-W14-4/main/issues/157[11],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/183[12]
 
 ** Tools:
+*** Integrated Codacy to the team repo
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User G
-uide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archivetask]
+
+include::../UserGuide.adoc[tag=addingcat]
+
+include::../UserGuide.adoc[tag=archivetag]
+
+include::../UserGuide.adoc[tag=clearcat]
+
+include::../UserGuide.adoc[tag=removetag]
+
+include::../UserGuide.adoc[tag=editcat]
+
+include::../UserGuide.adoc[tag=sorting]
+
 
 == Contributions to the Developer Guide
 
@@ -74,9 +90,11 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=archivetask]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=tags]
+
+include::../DeveloperGuide.adoc[tag=autoDelete]
 
 
 == PROJECT: PowerPointLabs

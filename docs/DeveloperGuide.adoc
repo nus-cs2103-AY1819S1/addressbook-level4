@@ -484,6 +484,7 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks2[]
 
+//tag::archive[]
 === Archive Task
 The Archive Task feature allows user to archive completed tasks. The archived tasks are hidden from task list,
 can only be viewed through command `listarchived`. For implementation details
@@ -545,7 +546,9 @@ Add boolean filed isArchived to Task class to differentiate archived and not arc
 ** Pros: It is easy to implement.
 ** Cons: Each time list command is called, archived tasks have to be filtered out, which may affect performance.
 Besides, user cannot add in new task with same attributes as archived tasks, which is much less user-friendly.
+//end::archive[]
 
+//tag::autoDelete[]
 === Automatic Partial Deletion of Archived Tasks
 The automatic deletion feature removes archived tasks with deadlines date earlier than 2 weeks ago from current time
 point from archived task list. There are two main reasons behind this feature. +
@@ -585,7 +588,7 @@ he/she may find it not so intuitive if next time he/she runs the app, the task c
 * **Alternative 2 :** Delete tasks that were archived 2 weeks before current date.
 ** Pros: This implementation may be more user-friendly comparing with Alternative 1.
 ** Cons: The feature would be hard to test for testers.
-
+//end::autoDelete[]
 
 
 === List Tasks by Month
