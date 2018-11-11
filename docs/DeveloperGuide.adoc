@@ -398,7 +398,7 @@ image::permissionPersonModel.png[width="750"]
 * `PresetPermission` is a enumeration class that resides in `PermissionSet`. `PresetPermission` is utilised by `PermissionSet` class to generate a `PermissionSet` object that represents the set of permission that a certain type of User will possess.
 
 [NOTE]
-As of v1.4, `PresetPermission` only contains the following: `Admin`, `Manager` and `Employee`.
+As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Manager` and `Employee`.
 
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
@@ -422,6 +422,8 @@ public AddCommand(Person person) {
 }
 ----
 <1> The method to assign permission to a command
+
+The code to ensure that each command is only executed by user with the correct permission is located in `Command#execute`.
 
 When any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object, before performing the command.
 
