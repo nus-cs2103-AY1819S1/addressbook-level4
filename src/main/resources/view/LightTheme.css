@@ -184,6 +184,11 @@
     -fx-border-color: #D2D2D2;
 }
 
-.tab:selected, .tab:hover{
+.tab:selected, .tab:hover {
     -fx-background-color: #21777B;
+}
+
+/** Patient Details */
+.patient-details-title {
+    -fx-text-size: 21px;
 }

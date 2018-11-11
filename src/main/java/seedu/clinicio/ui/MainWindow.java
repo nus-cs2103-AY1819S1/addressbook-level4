@@ -22,7 +22,10 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
+import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.logic.Logic;
@@ -45,7 +48,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
@@ -53,10 +55,9 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
-    private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane displayPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -154,10 +155,13 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         setUpTab();
 
-        browserPanel = new BrowserPanel();
+        //browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
-        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+        displayPanelPlaceholder.setVisible(false);
+        
         setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -282,5 +286,18 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent));
+        displayPanelPlaceholder.setVisible(true);
+    }
+
+    @Subscribe
+    public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
+        displayPanelPlaceholder.setVisible(false);
     }
 }
