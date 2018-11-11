@@ -63,7 +63,7 @@ public class FindAccountCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different item -> returns false
+        // different account -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
