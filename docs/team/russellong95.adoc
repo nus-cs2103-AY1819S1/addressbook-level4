@@ -31,14 +31,10 @@ The implementation too was challenging as it required changes to existing comman
 * *Other contributions*:
 
 ** Project management:
-*** Team-lead
-*** Testing
+*** Team-lead, testing and integration
 *** Managed releases `v1.0` - `v1.4` (3 releases) on GitHub
 *** Refactored AB4 into LearnVocabulary (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/49[#49])
-*** Co-managed Netlify
-*** Managed RepoSense
-*** Managed Coveralls
-*** Managed Travis, always ensuring it is building
+*** Managed RepoSense, Coveralls, Travis, co-managed Netlify
 
 ** Enhancements:
 ***  Updated the add and edit commands to ensure that there will always be a tag to a word (Pull request https://github.com/CS2103-AY1819S1-T10-3/main/pull/151[#151]
@@ -55,7 +51,6 @@ The implementation too was challenging as it required changes to existing comman
 *** Integrated a third party library (Jsoup) to the project (#42)
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -74,5 +69,3 @@ include::../UserGuide.adoc[tag=basic]
 include::../DeveloperGuide.adoc[tag=learn]
 
 include::../DeveloperGuide.adoc[tag=basic]
-
-
