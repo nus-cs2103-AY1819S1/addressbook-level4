@@ -386,13 +386,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: It requires dealing with commands that have already been undone: We must remember to skip these commands. It violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Log Messages
 
 We are using `java.util.logging` package for logging. `LogsCenter` class is used to manage logging levels and
