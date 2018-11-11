@@ -28,7 +28,7 @@ link:{repoURL}[MeNUS] is here to help you and it is the only restaurant manageme
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
 Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage core aspects of your restaurants --
-employees, menus, inventory, sales and reservations management -- all from a single location!
+accounts (i.e. employees), menus, inventory, sales and reservations management -- all from a single location!
 
 === Legends
 The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
@@ -82,7 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Components]]
 == Components
-*MeNUS* consists of five main components: account, menu, ingredient, sales and reservations management.
+*MeNUS* consists of five core components: accounts, menus, inventory, sales and reservations management.
 
 === Accounts
 * You can create accounts for your employees to manage the system on your behalf.
@@ -105,23 +105,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Key Features
 === Convenience
 *MeNUS* is an integrated application that will provide you with the utmost convenience and tools you will need to
-manage your restaurants in NUS.
+manage your restaurants. It allows you to:
 
-* Exporting data to `.xml` (default) or Excel file `[coming in v2.0]`.
+* Export data to `.xml` (default) or Excel file `[coming in v2.0]`.
 
 === Security
-Security is key to a business's success. *MeNUS* ensures the security of your restaurant's data by:
+We understand that digital security is your biggest concern. *MeNUS* is capable of securing your restaurants' data by:
 
-* Encrypting all restaurant data using AES-256. `[coming in v2.0]`
-* Securing account passwords using bcrypt.
-* Authenticating users before they can run any commands.
-* Logging both successful and failed login attempts.
+* Encrypting all data using state of the art encryption scheme `[coming in v2.0]`.
+* Requiring users to be authenticated before they can execute any commands.
+* Providing accountability through logging of system events.
 
 === Efficiency
 Time is money. *MeNUS* ensures that the application will:
 
-* Loading within 5 seconds.
-* Executing commands within split of a second and updating the GUI almost instantaneously.
+* Load within 5 seconds.
+* Execute commands within split of a second and update the GUI almost instantaneously.
 
 [[Commands]]
 == Commands
@@ -297,15 +296,15 @@ Examples:
 Selects the account identified by the index number. +
 Format: `select-account INDEX` or `sa INDEX`
 
+****
+* The index refers to the index number shown in the displayed item list
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
 [NOTE]
 ====
 Selecting the account does not render any data on the detailed panel due to the simplicity of the data itself
 ====
-
-****
-* The index refers to the index number shown in the displayed item list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
 
 Examples:
 
@@ -323,7 +322,7 @@ Format: `find-account KEYWORD` or `fa KEYWORD`
 
 ****
 * The search is case insensitive. e.g `root` will match `Root`
-* Only the username is searched.
+* Only the username is searched
 * Only full words will be matched e.g. `roo` will not match `root`
 ****
 
@@ -341,7 +340,7 @@ Format: `list-accounts` or `la`
 
 [WARNING]
 ====
-Password is masked by default and should never be shown on display
+Passwords are not and should not be displayed
 ====
 // end::accountmanagement[]
 
