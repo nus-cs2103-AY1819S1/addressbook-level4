@@ -22,17 +22,13 @@ in order to achieve their CAP Goal.
 to allow users to verify if they are able to graduate with their desired CAP Goal
 
 ** Highlights:
-*** Correctness/Limitations of the algorithm are carefully thought of.
-It may not provide the optimal solution, but it may very well be sufficient for students
-to have a general sense of the feasibility of attaining their CAP goal.
 *** Calculation of target grades are triggered when changes are made to the list of modules
 in the transcript and updated on the UI.
 *** Users may further adjust the target grade and obtain a updated list of target grades
 
 
 * *Minor enhancement*:
-** Added `adjust` command in Logic
-** Added `goal` command in Logic
+** Added `adjust` and `goal` command in Logic
 
 * *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah_ang
 
@@ -47,13 +43,7 @@ in the transcript and updated on the UI.
 *** Added Activity Diagram for Target Grade Calculations
 *** Updated User Guide for `goal` and `adjust` commands
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/76[#76],
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/78[#78],
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/102[#102],
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/133[#133],
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/135[#135],
-link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/190[#190],
+*** PRs reviewed (with non-trivial review comments): #76, #78, #102, #133, #135, #190, #216
 
 
 == Contributions to the User Guide
@@ -66,7 +56,4 @@ include::../UserGuide.adoc[tag=commandadjust]
 include::../DeveloperGuide.adoc[tag=designmodel]
 include::../DeveloperGuide.adoc[tag=captargetcalculation]
 include::../DeveloperGuide.adoc[tag=usecase]
-
-=== Target Grade Calculation
-include::../DeveloperGuide.adoc[tag=manualtestcaptargetcalculation]
 
