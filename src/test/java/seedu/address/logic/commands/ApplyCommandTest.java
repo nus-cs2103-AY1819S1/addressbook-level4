@@ -14,7 +14,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.ModelGenerator;
 
-public class ConvertCommandTest {
+public class ApplyCommandTest {
 
     private Model model = ModelGenerator.getModelWithTestImg();
 
@@ -22,7 +22,7 @@ public class ConvertCommandTest {
     public void assertExecuteSuccessfully() throws InterruptedException, IOException {
         ImageMagickUtil.copyOutside(new UserPrefs(), System.getProperty("os.name").toLowerCase());
         Transformation transformation = new Transformation("blur", "0x8");
-        ConvertCommand command = new ConvertCommand(transformation);
+        ApplyCommand command = new ApplyCommand(transformation);
         try {
             command.execute(model, new CommandHistory());
         } catch (CommandException e) {

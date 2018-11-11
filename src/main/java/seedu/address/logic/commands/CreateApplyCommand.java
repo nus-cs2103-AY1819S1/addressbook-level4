@@ -17,7 +17,7 @@ import seedu.address.storage.JsonConvertArgsStorage;
  * @@author lancelotwillow
  * the class to create the convert command
  */
-public class CreateConvertCommand extends Command {
+public class CreateApplyCommand extends Command {
 
     public static final String COMMAND_WORD = "create";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -27,7 +27,7 @@ public class CreateConvertCommand extends Command {
     private List<Transformation> cmds;
     private String name;
 
-    public CreateConvertCommand(String name, List<Transformation> cmds) {
+    public CreateApplyCommand(String name, List<Transformation> cmds) {
         if (cmds.isEmpty()) {
             throw new IllegalArgumentException("nothing inside the command arguments");
         } else {
@@ -44,7 +44,7 @@ public class CreateConvertCommand extends Command {
     private void checkSingleValidation(Transformation transformation) throws IllegalArgumentException, IOException {
         //just a template, not only this
         String operation = transformation.toList().get(0);
-        URL fileUrl = CreateConvertCommand.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
+        URL fileUrl = CreateApplyCommand.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
         if (fileUrl == null) {
             throw new IllegalArgumentException();
         }
@@ -88,7 +88,7 @@ public class CreateConvertCommand extends Command {
 
     @Override
     public boolean equals(Object object) {
-        CreateConvertCommand command = (CreateConvertCommand) object;
+        CreateApplyCommand command = (CreateApplyCommand) object;
         return command == this || name.equals(command.name) && cmds.equals(command.cmds);
     }
 }
