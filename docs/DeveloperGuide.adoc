@@ -828,12 +828,19 @@ Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
 ==== `add-reservation` Command
 The command takes in 3 parameters, `Name`, `Pax`, and `DateTime` to create a `Reservation` object.
 
+When parsing the `Date` for `Reservation`, the `Date` class will check to see if the date entered is in the
+`DD-MM-YYYY` format. If it is, then it will continue to parse the date normally using the parse method of `LocalDate`.
+If not, it will use the `Natty` Library to parse the date value.
+
+The `Date` class will also reject dates that have already passed the current date.
+
 After the `Reservation` Object is created, `RestaurantBook#addReservation(Reservation reservation)` is called to add the
 `Reservation` Object to the `UniqueReservationsList`.
 
 The following activity diagram summarizes what happens when a user executes `add-reservation` command:
 
 image::AddReservationActivityDiagram.png[width="650"]
+_Figure 4.8.2.1: Activity diagram to illustrate the `add-reservation` command_
 
 ==== `edit-reservation` Command
 The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
@@ -858,6 +865,7 @@ the UI.
 The following sequence diagram shows how the `list-reservations` command works:
 
 image::ListReservationsSequenceDiagram.png[width="1000"]
+_Figure 4.8.5.1: Sequence diagram to illustrate the `list-reservations` command_
 
 ==== Design Considerations
 *Aspect: How `Date` and `Time` are parsed*
