@@ -776,6 +776,7 @@ A leave application is represented by a `LeaveApplication` model object, as foll
 image::LeaveApplicationModelDiagram.png[width="400"]
 *API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
 
+===== Applying for leave
 The following sequence diagrams illustrate how an application for leave by an employee works:
 
 .Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
@@ -794,12 +795,15 @@ Given below is an example usage scenario and how the leave application mechanism
 
 1. The user executes the `leave add -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
 
-[NOTE]
-The `LeaveApplication` constructor removes all duplicate dates when creating the leave application.
-
 2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the `Model` will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
 3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<25-storage-component, Storage>> component.
+
+===== Viewing leave applications
+...
+
+===== Approving/rejecting leave applications
+...
 
 ==== Design Considerations
 
