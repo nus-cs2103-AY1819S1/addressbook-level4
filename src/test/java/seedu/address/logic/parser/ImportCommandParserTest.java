@@ -40,7 +40,7 @@ public class ImportCommandParserTest {
     public void perfectly_formatted_csv() throws FileNotFoundException, ParseException {
         ImportCommandParser parser = new ImportCommandParser();
         File file = CORRECT_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -82,7 +82,7 @@ public class ImportCommandParserTest {
     public void contactsWithOnlyName() throws FileNotFoundException, ParseException {
         ImportCommandParser parser = new ImportCommandParser();
         File file = CONTACT_ONLY_NAME_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -115,7 +115,7 @@ public class ImportCommandParserTest {
     public void contactsWithNoName() throws FileNotFoundException, ParseException {
         ImportCommandParser parser = new ImportCommandParser();
         File file = CONTACT_NO_NAME_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -147,7 +147,7 @@ public class ImportCommandParserTest {
     public void contactsWithInvalidField() throws FileNotFoundException, ParseException {
         ImportCommandParser parser = new ImportCommandParser();
         File file = INVALID_CONTACT_FIELD_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -171,7 +171,7 @@ public class ImportCommandParserTest {
     public void textDocCsv() throws FileNotFoundException, ParseException {
         ImportCommandParser parser = new ImportCommandParser();
         File file = TEXT_DOC_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();

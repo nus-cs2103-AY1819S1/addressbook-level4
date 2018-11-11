@@ -53,22 +53,23 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     @Override
     public ImportCommand parse(String args) throws ParseException {
         if (args.isEmpty()) {
-            return parseFileFromFileBrowser(getFileFromFileBrowser());
+            return parseFile(getFileFromFileBrowser());
         } else {
-            return parseFileFromArgs((args));
+            return parseFile(getFileFromArgs(args));
         }
     }
     /**
      * Parses the selected csv file pointed to by the user's input.
      */
-    private ImportCommand parseFileFromArgs(String args) throws ParseException {
+    private File getFileFromArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE_LOCATION);
         if (!argMultimap.getValue(PREFIX_FILE_LOCATION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
         Path fileLocation = ParserUtil.parseCsv(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
-        return parseFileFromFileBrowser(fileLocation.toFile());
+        System.out.println(fileLocation.toString());
+        return fileLocation.toFile();
     }
 
     private File getFileFromFileBrowser() {
@@ -83,7 +84,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     /**
      * Parses the selected csv file.
      */
-    public ImportCommand parseFileFromFileBrowser(File file) throws ParseException {
+    public ImportCommand parseFile(File file) throws ParseException {
 
         FileReader fr;
 

@@ -11,6 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -22,20 +25,25 @@ public class ExportCommandTest {
     private static final String EXPORTED_FILE_NAME = "exportedCommandTest.csv";
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvTest");
     private static final Path EXPECTED_FILE_NAME = TEST_DATA_FOLDER.resolve("expectedExport.csv");
+    private static String OS = System.getProperty("os.name").toLowerCase();
 
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
+
+    @Before
+    //This test crashes on Appveyor but passes on Travis and on JUnit
+    public void excludeWindows() {
+        boolean isWindows = (OS.indexOf("win") >= 0);
+        org.junit.Assume.assumeFalse(isWindows);
+    }
 
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
     }
 
-    //@Test
-    /**
-     * Current test is disabled until future updates
-     */
+    @Test
     public void execute_export_success() throws CommandException, IOException {
         setUp();
         CommandResult result = exportCommand.execute(model, commandHistory);
