@@ -38,7 +38,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
 
     @FXML
     private Text address;
-    
+
     @FXML
     private Text preferredDoctor;
 
