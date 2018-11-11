@@ -33,7 +33,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: "
             + "APPOINTMENT_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + "3 ";
+            + "10001 ";
 
     public static final String MESSAGE_SUCCESS = "Appointment deleted";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";

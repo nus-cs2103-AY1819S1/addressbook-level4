@@ -76,6 +76,13 @@ public class TypicalPatientsAndDoctors {
             .withAddress("7th street")
             .withRemark("")
             .withTags("Doctor").build();
+    public static final Patient IONA_PATIENT = new PatientBuilder()
+            .withName("Iona Porter").withPhone("9482224")
+            .withEmail("iona@example.com")
+            .withAddress("24th ave")
+            .withRemark("")
+            .withTags("Patient")
+            .withMedicalHistory("", "").build();
 
     private TypicalPatientsAndDoctors() {} // prevents instantiation
 
