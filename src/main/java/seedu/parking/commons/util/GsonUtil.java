@@ -274,6 +274,7 @@ public class GsonUtil {
                 postalCodeMap.put(Long.parseLong(splitData[0]), splitData[1]);
             }
         }
+        br.close();
     }
 
     /**
