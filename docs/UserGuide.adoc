@@ -288,7 +288,7 @@ Suggest friends for an existing user in the Event Organiser that have at least o
 Format: `suggestFriendsByInterests INDEX`
 
 ****
-* Suggests friends for the selected user at the specified `INDEX`.
+* Displays all the suggested friends for the selected user at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Users who have at least one similar interest with the selected user will be displayed.
@@ -299,7 +299,7 @@ Format: `suggestFriendsByInterests INDEX`
 Examples:
 
 * `suggestFriendsByInterests 1` +
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user's friend list.
+Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user's friend list.
 // end::suggestFriends[]
 
 // tag::listFriends[]
