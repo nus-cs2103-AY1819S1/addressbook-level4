@@ -146,7 +146,7 @@ public class StatisticsPanel extends UiPart<Region> {
         pieChart.getData().forEach(data ->
             data.nameProperty().bind(
                     Bindings.concat(
-                            data.getName(), " - $", data.pieValueProperty()
+                            data.getName(), " - $", String.format("%.2f", data.getPieValue())
                     )
             )
         );

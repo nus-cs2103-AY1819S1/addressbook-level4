@@ -301,7 +301,7 @@ Step 2. The user executes `delete 5` command to delete the 5th expense in Expens
 .Step 2 of undo/redo mechanism
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified Expense Tracker state to be saved into `expenseTrackerStateList`.
+Step 3. The user executes `add n/Lunch...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified Expense Tracker state to be saved into `expenseTrackerStateList`.
 
 .Step 3 of undo/redo mechanism
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
@@ -332,7 +332,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 .Step 5 of undo/redo mechanism
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since `currentStatePointer` is not pointing at the end of `expenseTrackerStateList`, all Expense Tracker states after `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since `currentStatePointer` is not pointing at the end of `expenseTrackerStateList`, all Expense Tracker states after `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Lunch ...` command. This is the behavior that most modern desktop applications follow.
 
 .Step 6 of undo/redo mechanism
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
@@ -461,7 +461,7 @@ and posts events in `EventsCenter`.
 Below is the UML sequence diagram and a step-by-step explanation of the preparation stage.
 
 .Sequence diagram of the preparation stage in the statistics mechanism
-image::implementation/StatsCommandSequenceDiagram.png[width="800"]
+image::implementation/StatsPreparationSequenceDiagram.png[width="800"]
 
 . User enters command `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
 to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
@@ -478,7 +478,7 @@ processing and retrieving the data to be displayed and finally displaying it.
 Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the statistics mechanism
-image::implementation/StatsUiSequenceDiagram.png[width="800"]
+image::implementation/StatsExecutionSequenceDiagram.png[width="800"]
 
 . The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which calls 'StatisticsPanel#setData()'
 and passes the data as parameters by calling
