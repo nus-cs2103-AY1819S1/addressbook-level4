@@ -15,7 +15,7 @@ import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
  * Achievements include the experience points(xp) earned by completing the task across all time, today, and this week,
  * number of tasks a user has completed across all time, today and this week and the level a user has reached.
  *
- * Keeps two date breakpoints at which today's or this week's achievements is cleared and the breakpoints are reset.
+ * Keeps two date breakpoints at which today's or this week's achievements are cleared and the breakpoints are reset.
  *
  * Records the the achievement record's display preference set by user, such preference is set by
  * {@link seedu.address.logic.commands.AchievementsCommand}.
@@ -24,7 +24,7 @@ import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
  */
 public class AchievementRecord {
 
-    public static final int MAX_INT_VALUE = 1000000000;
+    private static final int MAX_INT_VALUE = 1000000000;
 
     public static final int DISPLAY_ALL_TIME = 1;
     public static final int DISPLAY_TODAY = 2;
@@ -191,7 +191,7 @@ public class AchievementRecord {
     }
 
     /**
-     * Checks if given displayOption is valid.
+     * Checks if the given displayOption is valid.
      * A valid {@code displayOption} may only take the vale of {@code DISPLAY_ALL_TIME},
      * {@code DISPLAY_TODAY} or {@code DISPLAY_THIS_WEEK}.
      */
@@ -331,8 +331,8 @@ public class AchievementRecord {
      * Increments the xp, numTaskCompleted fields of this {@code AchievementRecord} with the new xp value.
      * Recalculates level with the new xp value and increments if necessary.
      *
-     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
-     * anymore.
+     * If the updated number of tasks completed or xp value exceeds the {@code MAX_INT_VALUE}, the fields are not
+     * updated anymore.
      */
     private void incrementAllTimeAchievementWithNewXp(int newXp) {
         // one task is completed each time xp is awarded
@@ -359,8 +359,8 @@ public class AchievementRecord {
      * Check if the current time has passed the previously set {@code nextDayBreakPoint}
      * Increment xp and number of tasks completed.
      *
-     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
-     * anymore.
+     * If the updated number of tasks completed or xp value exceeds the {@code MAX_INT_VALUE}, the fields are not
+     * updated anymore.
      */
     private void incrementAchievementByDayWithNewXp(int newXp) {
         checkDayBreakPoint();
@@ -383,8 +383,8 @@ public class AchievementRecord {
      * Check if the current time has passed the previously set {@code nextWeekBreakPoint}
      * Increment xp and number of tasks completed.
      *
-     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
-     * anymore.
+     * If the updated number of tasks completed or xp value exceeds the {@code MAX_INT_VALUE}, the fields are not
+     * updated anymore.
      */
     private void incrementAchievementByWeekWithNewXp(int newXp) {
         checkWeekBreakPoint();
