@@ -12,15 +12,11 @@ import java.nio.file.Paths;
 //@@author javenseow
 public class ProfilePicture {
 
-    public static final String MESSAGE_PROFILE_PICTURE_CONSTRAINTS =
-            "Profile picture should be either a .jpg or .png file, and not empty";
-
-    /*
-     * The first character of the file path must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String PROFILE_PICTURE_VALIDATION_REGEX =
-            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(?:jpg|png))(?:\\?([^#]*))?(?:#(.*))?";
+        "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
+    public static final String MESSAGE_PROFILE_PICTURE_CONSTRAINTS =
+        "Profile picture should only be a .jpg file, and not empty";
+
     public final Path filePath;
 
     /**
@@ -39,7 +35,7 @@ public class ProfilePicture {
     }
 
     /**
-     * Returns true if a given string ends with .jpg or .png.
+     * Returns true if a given string ends with .jpg.
      */
     public static boolean isValidProfilePicture(Path test) {
         return test.toString().matches(PROFILE_PICTURE_VALIDATION_REGEX);

@@ -20,6 +20,7 @@ import seedu.address.model.transaction.Entry;
 import seedu.address.model.transaction.Remarks;
 
 //@@author kengwoon
+
 /**
  * Imports XML file as transaction to update database.
  */
@@ -64,7 +65,7 @@ public class ImportTransaction {
                 CcaName ccaName = new CcaName(element.getElementsByTagName(CCA_NAME).item(INDEX).getTextContent());
                 Date date = new Date(element.getElementsByTagName(DATE).item(INDEX).getTextContent());
                 Amount amount = new Amount(Integer.parseInt(element.getElementsByTagName(AMOUNT).item(INDEX)
-                                                .getTextContent()));
+                    .getTextContent()));
                 Remarks remarks = new Remarks(element.getElementsByTagName(REMARKS).item(INDEX).getTextContent());
 
                 if (!model.hasCca(ccaName)) {
@@ -81,7 +82,7 @@ public class ImportTransaction {
 
                 Cca ccaToUpdate = lastShownList.get(index);
                 int entryNum = ccaToUpdate.getEntrySize() + 1;
-                Entry newEntry = new Entry (entryNum, date, amount, remarks);
+                Entry newEntry = new Entry(entryNum, date, amount, remarks);
                 Cca updatedCca = ccaToUpdate.addNewTransaction(newEntry);
                 updatedCca = TransactionMath.updateDetails(updatedCca);
 

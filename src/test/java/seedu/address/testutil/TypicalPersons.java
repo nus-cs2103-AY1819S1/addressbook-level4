@@ -46,7 +46,7 @@ public class TypicalPersons {
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withRoom("B420").withSchool("Engine").build();
 
-    // Manually added
+    // Manually added Person
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withRoom("B110").withSchool("Biz").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
@@ -61,6 +61,8 @@ public class TypicalPersons {
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_D111 = "D111"; // A keyword that matches D111
+    public static final String KEYWORD_MATCHING_ENGINE = "Engine"; // A keyword that matches Engine
 
     private TypicalPersons() {} // prevents instantiation
 

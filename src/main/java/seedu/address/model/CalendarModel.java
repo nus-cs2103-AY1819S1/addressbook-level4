@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -73,6 +75,8 @@ public class CalendarModel {
 
     /** Checks if calendar to be created already exists. */
     public boolean isExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         Set<Month> yearExists = existingCalendar.get(year);
         if (yearExists != null) {
             for (Month existingMonths : yearExists) {
@@ -89,6 +93,8 @@ public class CalendarModel {
      * Checks if calendar to be edited is already loaded.
      */
     public boolean isLoadedCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         String calendarName = month + "-" + year;
         if (this.loadedCalendar == null) {
             return false;
@@ -99,6 +105,8 @@ public class CalendarModel {
 
     /** Checks if date is valid in a particular month. */
     public boolean isValidDate(Year year, Month month, int date) {
+        requireNonNull(year);
+        requireNonNull(month);
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
@@ -184,14 +192,7 @@ public class CalendarModel {
         // ------------------------------
 
         // Update existing calendar map
-        Set<Month> yearOfCal = existingCalendar.get(year);
-        if (yearOfCal == null) {
-            Set<Month> newYearOfCal = new HashSet<>();
-            newYearOfCal.add(month);
-            existingCalendar.put(year, newYearOfCal);
-        } else {
-            yearOfCal.add(month);
-        }
+        updateExistingCalendar(year, month);
 
         return calendar;
     }
@@ -304,7 +305,9 @@ public class CalendarModel {
     /**
      * An event is considered the same in terms of its title and start - end date.
      */
-    private boolean isSameEvent(int startDate, int endDate, String title, VEvent event) {
+    protected boolean isSameEvent(int startDate, int endDate, String title, VEvent event) {
+        requireNonNull(title);
+        requireNonNull(event);
         boolean result;
 
         // Parse title from the event to check
@@ -332,6 +335,7 @@ public class CalendarModel {
 
     /** Checks if this specific event exists in the loaded Calendar. */
     public boolean isExistingEvent(int startDate, int endDate, String title) {
+        requireNonNull(title);
         // Store the event into private field eventToBeRemoved
         this.eventToBeRemoved = retrieveEvent(startDate, endDate, title);
         return isExistingEvent(this.eventToBeRemoved);
@@ -355,8 +359,36 @@ public class CalendarModel {
         return loadedCalendar;
     }
 
+    /**
+     * Updates Map:existingCalendar.
+     */
+    public void updateExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
+        Set<Month> yearOfCal = existingCalendar.get(year);
+        if (yearOfCal == null) {
+            Set<Month> newYearOfCal = new HashSet<>();
+            newYearOfCal.add(month);
+            existingCalendar.put(year, newYearOfCal);
+        } else {
+            yearOfCal.add(month);
+        }
+    }
+
+    /**
+     * Removes a calendar from the Map:existingCalendar.
+     */
+    public void removeExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
+        if (isExistingCalendar(year, month)) {
+            Set<Month> yearOfCal = existingCalendar.get(year);
+            yearOfCal.remove(month);
+        }
+    }
+
     /** Returns the updated Map: existingCalendar. */
-    public Map<Year, Set<Month>> updateExistingCalendar() {
+    public Map<Year, Set<Month>> getExistingCalendar() {
         return existingCalendar;
     }
 

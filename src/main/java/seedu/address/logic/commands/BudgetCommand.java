@@ -49,7 +49,19 @@ public class BudgetCommand extends Command {
             throw new CommandException(MESSAGE_NON_EXISTENT_CCA);
         }
 
+        model.initialiseBudgetBook();
+        model.readXslFile();
         EventsCenter.getInstance().post(new ShowBudgetViewEvent(ccaName));
         return new CommandResult(SHOWING_BUDGET_MESSAGE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (ccaName == null && ((BudgetCommand) other).ccaName == null) {
+            return true;
+        }
+        return other == this // short circuit if same object
+            || (other instanceof BudgetCommand // instanceof handles nulls
+            && ccaName.equals(((BudgetCommand) other).ccaName)); // state check
     }
 }

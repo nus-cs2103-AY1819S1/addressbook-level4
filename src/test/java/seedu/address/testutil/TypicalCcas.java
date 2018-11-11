@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_OUTSTANDING_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SPENT_BASKETBALL;
+import static seedu.address.testutil.TypicalEntries.getTransactionEmpty;
+import static seedu.address.testutil.TypicalEntries.getTransactionFourEntries;
+import static seedu.address.testutil.TypicalEntries.getTransactionTwoEntries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,44 +22,55 @@ public class TypicalCcas {
     public static final Cca BASKETBALL =
         new CcaBuilder()
             .withCcaName("BASKETBALL")
-            .withHead("Steven Lim")
-            .withViceHead("Benson")
-            .withBudget(500)
-            .withSpent(0)
-            .withOutstanding(0)
+            .withHead("Carl Kurz")
+            .withViceHead("Daniel Meier")
+            .withBudget(Integer.valueOf(VALID_BUDGET_BASKETBALL))
+            .withSpent(Integer.valueOf(VALID_SPENT_BASKETBALL))
+            .withOutstanding(Integer.valueOf(VALID_OUTSTANDING_BASKETBALL))
+            .withTransaction(getTransactionTwoEntries())
             .build();
 
     public static final Cca TRACK =
         new CcaBuilder()
             .withCcaName("track")
-            .withHead("Alice")
-            .withViceHead("Grace")
+            .withHead("Alice Pauline")
+            .withViceHead("Benson Meier")
             .withBudget(500)
             .withSpent(300)
             .withOutstanding(200)
-            .withTransaction(TRANSACTION_4_ENTRIES)
+            .withTransaction(getTransactionFourEntries())
             .build();
     public static final Cca BADMINTON =
         new CcaBuilder()
-            .withCcaName("badminton")
-            .withHead("BENSON")
-            .withViceHead("Carls")
+            .withCcaName("Badminton")
+            .withHead("Fiona Kunz")
+            .withViceHead("George Best")
             .withBudget(500)
             .withSpent(0)
             .withOutstanding(600)
-            .withTransaction(TRANSACTION_2_ENTRIES)
+            .withTransaction(getTransactionTwoEntries())
             .build();
     public static final Cca FLOORBALL =
         new CcaBuilder()
             .withCcaName("FLOORBALL")
             .withHead("-")
             .withViceHead("-")
-            .withBudget(500)
+            .withBudget(600)
             .withSpent(0)
             .withOutstanding(0)
-            .withTransaction(TRANSACTION_EMPTY)
+            .withTransaction(getTransactionEmpty())
             .build();
 
+    // Manually added Cca
+    public static final Cca HOCKEY = new CcaBuilder()
+        .withCcaName("Hockey")
+        .withBudget(400)
+        .build();
+    public static final Cca SOFTBALL = new CcaBuilder()
+        .withCcaName("softball")
+        .withBudget(450)
+        .withHead("Bob")
+        .build();
 
     private TypicalCcas() {} // prevents instantiation
 

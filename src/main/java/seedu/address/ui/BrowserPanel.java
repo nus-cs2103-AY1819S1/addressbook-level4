@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Logger;
-
-import org.apache.commons.io.FileUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.CalendarNotFoundEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ListEmailsEvent;
@@ -30,7 +31,7 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String PERSON_PROFILE_PAGE = "profile.html";
+    public static final String PROFILE_PAGE = "/ProfileWindow.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -89,7 +90,8 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        //loadPersonPage(event.getNewSelection());
+        loadProfile(event.getNewSelection());
     }
 
     //@@author EatOrBeEaten
@@ -112,14 +114,24 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
     }
 
+    //@@author javenseow
     @Subscribe
     private void handleProfileViewEvent(ProfileViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadProfile(event.getPersonSelected());
     }
 
+    //@@author GilgameshTC
+    @Subscribe
+    private void handleCalendarNotFoundEvent(CalendarNotFoundEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
+    }
+
+    //@@author javenseow
     /**
      * Loads HTML page of profile.
+     *
      * @param person The person that the profile will show.
      */
     public void loadProfile(Person person) {
@@ -129,23 +141,28 @@ public class BrowserPanel extends UiPart<Region> {
 
     /**
      * Loads the HTML code of profile view.
+     *
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        File htmlTemplateFile = new File("./src/main/resources/ProfileWindow.html");
-        String htmlString = null;
+        String htmlString = "";
+        String tempString;
         try {
-            htmlString = FileUtils.readFileToString(htmlTemplateFile);
+            InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
+            while ((tempString = reader.readLine()) != null) {
+                htmlString += tempString;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         htmlString = htmlString.replace("$name", person.getName().fullName);
         htmlString = htmlString.replace("$cca", person.getTags().toString());
         htmlString = htmlString.replace("$room", person.getRoom().value);
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        htmlString = htmlString.replace("$profileRoom", person.getRoom().value.toLowerCase());
 
         return htmlString;
     }
