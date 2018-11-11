@@ -600,8 +600,9 @@ Step 6. The new schedule object is returned to the application.
 ==== Current implementation
 This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
 
-* `AddFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other
-* `DeleteFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes no longer friends with each other
+* `AddFriendCommand` - takes in an `INDEX`, and adds the person specified at the `INDEX` to the logged-in person's friend list.
+* `DeleteFriendCommand` - takes in an `INDEX,` and deletes the person specified at the `INDEX` from the logged-in person's friend list.
+* `ListFriendsCommand` - takes in an `INDEX`, and displays all friends of the person specified at the `INDEX`.
 
 The following sequence diagram for AddFriendCommand is illustrated below:
 
@@ -609,38 +610,44 @@ image::AddFriendCommand.png[width="800"]
 
 ==== Design considerations
 
-===== Aspect: Bilateral friendships
+===== Aspect: Unilateral friendships
 
-Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.
+Friendships can be unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.
 
-To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.
+In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the `ListFriendsCommand` which can display all the friends of the particular user and their details in the display panel as shown below.
+
+image::ListAllFriendsExample.png[width="800"]
+
+To specify the addition of a user into the logged-in user's friend list (`AddFriendCommand`), the index of the user has to be provided. The command format is `addFriend INDEX`, where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index. The `INDEX` should also not be the current logged-in user himself/herself or someone who is already in his/her friend list. Whereas for `DeleteFriendCommand`, the `INDEX` should not be a user who is not currently in his/her friend list.
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a `Friend` class. The `Friend` class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of `Person` (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a `Person`. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the `Friend` object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
-In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.
+In the `Person` class, his/her friends will be represented using a `Set` of `Friend` objects as the friend list. In the example below, we will describe the procedures when `Person` A (logged-in user) wants to add `Person` B (user specified by `INDEX`) into his/her friend list.
 
-In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
+When `AddFriendCommand` is executed by `Person` A, once the checking is done (as described in the next aspect), a copy of `Person` A object will be created. Then the addFriendInList() method from `Person` class will be called, which creates a `Friend` object using `Person` B (as described by the paragraph above) and adds the newly created `Friend` object into the copy of `Person` A object's `Set` of friends. Finally, the copy of `Person` A object will replace the original `Person` A object in the `Model` using the updatePerson() method from the `Model` class.
 
-===== Aspect: Friendships can only be added once, deleted if they are currently friends
+In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the `Friend` object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
-Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.
+===== Aspect: User can only be added as friend once. User can only be deleted as friend if he/she is in the friend list of the logged-in user.
 
-Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if `DeleteFriendCommand` is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.
+Each person can only be added as a friend once by another person. If `Person` B is already in the friend list of `Person` A (logged-in user) and `AddFriendCommand` is called again `Person` B, the friend list of `Person` A will be checked using the hasFriendInList() method in `Person` class to confirm that `Person` B is already in the list, thus `Person` B will not be added into the list again.
+
+Similarly, if `Person` B is not yet in `Person` A's (logged-in user) friend list, and `DeleteFriendCommand` is called on `Person` B, the friend list of `Person` A will be checked using the hasFriendInList() method to confirm that `Person` B is not in the list, thus no one will be deleted from the list.
 
 ===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
 
-The friend lists of each user have to be constantly updated when a person is deleted from the Event Organizer or his attributes are modified (such as name change).
+The friend lists of each user have to be constantly updated when a user is deleted from the Event Organizer or his/her attributes are modified (such as change of name).
 
-The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).
+The following scenario describes what happens if `Person` B is already on the friend list of `Person` A.
 
-Person A gets deleted from the Event Organizer:
-This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.
+`Person` B gets deleted from the Event Organizer:
+This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), then `Person` B will be removed from `Person` A's friend list.
 
-Person A's attributes gets modified (eg change name/phone):
-This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.
+`Person` B's attributes gets modified (eg change name/phone):
+This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), the original Friend object in `Person` A's friend list will be replaced by the new Friend object created using the new attributes of `Person` B.
 
 // end:::addDeleteFriend[]
 
