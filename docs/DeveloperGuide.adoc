@@ -300,6 +300,8 @@ image::AddToDoDeleteToDoSequenceDiagram.png[width="800"]
 
 The delete todo does the similar operation.It calls `ModelToDo#deleteToDoListEvent`.
 
+`ShowDescriptionParser` functionaly have been created and allow user to show description of `ToDoListEvent` objects.
+
 Given below is an example usage scenario for showing description of a todolist event, and how the todolist model behaves at each step.
 
 Step 1: Make sure the todo list is not empty.
@@ -312,9 +314,17 @@ Step 4: Then, `ParserUtil` checks that the input index is valid.
 
 Step 5: Following that, the corresponding description of `ToDoListEvent` will be showed and displayed by `DescriptionDisplay`.
 
-The following sequece diagram shows how the add todo operation works:
+The following sequece diagram shows how the show todo operation works:
 
 image::ShowDescriptionSequenceDiagram.png[width="800"]
+
+Implementation for `list todo` is similar with `list event`.
+
+Step 1: The user executes `list todo`.
+
+Step 2: The `ListToDoCommand` will be executed.
+
+Step 3: The tab will change to display todo list panel.
 
 ==== Logic for ToDoList feature:
 
@@ -325,8 +335,9 @@ image::ShowDescriptionSequenceDiagram.png[width="800"]
 * `Command` -- Abstract class for executing todo list.
 * `Command#isToDoCommand` -- Judge the command is todo command or not.
 * `Command#excute(ModelToDo, CommandHistory)` -- Execute todo command.
-* `AddToDoCommand`/`DeleteToDoCommand` -- Extends `CommandToDo` for `add todo`/`delete todo` functionality.
-* `ShowDescriptionCommand` -- Show description of selected(index input) todolist event with an additional popUp window.
+* `AddToDoCommand`/`DeleteToDoCommand` -- Extends `Command` for `add todo`/`delete todo` functionality.
+* `ListToDoCommand` -- Extends `Command` for `list todo` functionality.
+* `ShowDescriptionCommand` -- Extends `Command` for `show todo` functionality.
 
 ===== parsers
 * `SchedulerParser#parserCommand` -- Add additionl parses user input into command for execution.
