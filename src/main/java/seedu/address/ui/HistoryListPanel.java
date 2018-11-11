@@ -32,7 +32,6 @@ public class HistoryListPanel extends UiPart<Region> {
     /**
      * Stores transformations that have been undone.
      */
-    //private Queue<String> redoQueue = new LinkedList<>();
 
     @FXML
     private ListView<String> historyListView;

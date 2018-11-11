@@ -25,7 +25,7 @@ public class LoginCommand extends Command {
             + "to log into Google Photos (requires an internet connection). ";
 
     protected static final String MESSAGE_LAUNCHED = "You will be re-directed to a login window shortly...";
-    static final String MESSAGE_LOGGED_IN = "Logged in as %s.";
+    private static final String MESSAGE_LOGGED_IN = "Logged in as %s.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

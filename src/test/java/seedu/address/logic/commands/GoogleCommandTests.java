@@ -99,7 +99,7 @@ public class GoogleCommandTests {
     }
 
     @Test
-    public void testGoogleUploadParsing() {
+    public void testGoogleDownloadParsing() {
         GoogleDlCommand command;
         String msg = GoogleDlCommand.MESSAGE_FAILURE + "\n\n" + GoogleDlCommand.MESSAGE_USAGE;
 
@@ -152,15 +152,18 @@ public class GoogleCommandTests {
     @Test
     public void testGoogleEquals() {
         GoogleCommand testCommand = new GoogleLsCommand("test");
+        assertEquals(testCommand, testCommand);
         assertEquals(testCommand, new GoogleLsCommand("test"));
         assertNotEquals(testCommand, new GoogleLsCommand("fail"));
+        assertNotEquals(testCommand, new GoogleUploadCommand("fail"));
 
         testCommand = new GoogleDlCommand("test");
-        assertEquals(testCommand, new GoogleDlCommand("test"));
+        assertEquals(testCommand, testCommand);
         assertNotEquals(testCommand, new GoogleDlCommand("fail"));
+        assertNotEquals(testCommand, new GoogleLsCommand("fail"));
 
         testCommand = new GoogleUploadCommand("test");
-        assertEquals(testCommand, new GoogleUploadCommand("test"));
+        assertEquals(testCommand, testCommand);
         assertNotEquals(testCommand, new GoogleUploadCommand("fail"));
         assertNotEquals(testCommand, new GoogleDlCommand("fail"));
     }
