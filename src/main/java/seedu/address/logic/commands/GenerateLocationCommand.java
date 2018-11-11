@@ -105,6 +105,9 @@ public class GenerateLocationCommand extends Command {
                 && meetingLocationEventIndex.equals(((GenerateLocationCommand) other).meetingLocationEventIndex));
     }
 
+    /**
+     * Creates the final message for a successful execution of the command.
+     */
     public String createFinalSuccessMessage(String eventName) {
         return MESSAGE_SUCCESS + eventName
                 + "! Use editEventLocation to"
