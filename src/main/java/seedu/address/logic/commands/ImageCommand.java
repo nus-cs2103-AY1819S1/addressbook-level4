@@ -111,7 +111,6 @@ public class ImageCommand extends Command {
 
         model.updatePerson(resident, editedPerson);
         model.commitAddressBook();
-        EventsCenter.getInstance().post(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         return new CommandResult(String.format(MESSAGE_SUCCESS, resident));
     }
 

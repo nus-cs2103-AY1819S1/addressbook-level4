@@ -740,7 +740,13 @@ then called to read the image file. After reading a valid image file, the
 `ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
 computer.
 
-Step 6. The profile of the person is displayed on the browser panel.
+Step 6. Hallper then updates the person's profile picture field with the name of the copied image.
+
+The following sequence diagram shows how the image operation works:
+
+image::Image Sequence Diagram.png[width="800"]
+_Figure 4.7.1.1: Sequence diagram for image operation_
+
 
 ==== Design Considerations
 ===== Aspect: Choice of component to read and save the file
