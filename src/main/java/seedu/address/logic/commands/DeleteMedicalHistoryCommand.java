@@ -49,9 +49,10 @@ public class DeleteMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "Non Exist Condition: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME =
-            " does not exist in the healthbook";
+            "This patient does not exist in the healthbook";
     public static final String MESSAGE_DUPLICATE_PATIENT =
             "There is multiple patients with this name. Please enter patients's number to identify the unique patient";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_DUPLICATE_INPUT = "Duplicate input";
 
     private final Name name;
     private final Phone phone;
@@ -108,6 +109,13 @@ public class DeleteMedicalHistoryCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
         }
         if (allergies.size() != 0) {
+            for (int i = 0; i < allergies.size(); i++) {
+                for (int j = i + 1; j < allergies.size(); j++) {
+                    if (allergies.get(i).equals(allergies.get(j))) {
+                        throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_DUPLICATE_INPUT);
+                    }
+                }
+            }
             for (int index = 0; index < allergies.size(); index++) {
                 if (editedMedicalHistory.getAllergies().contains(allergies.get(index))) {
                     editedMedicalHistory.getAllergies().remove(allergies.get(index));
@@ -118,6 +126,13 @@ public class DeleteMedicalHistoryCommand extends Command {
             }
         }
         if (conditions.size() != 0) {
+            for (int i = 0; i < conditions.size(); i++) {
+                for (int j = i + 1; j < conditions.size(); j++) {
+                    if (conditions.get(i).equals(conditions.get(j))) {
+                        throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_DUPLICATE_INPUT);
+                    }
+                }
+            }
             for (int index = 0; index < conditions.size(); index++) {
                 if (editedMedicalHistory.getConditions().contains(conditions.get(index))) {
                     editedMedicalHistory.getConditions().remove(conditions.get(index));
