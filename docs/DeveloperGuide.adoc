@@ -2204,8 +2204,8 @@ Use case ends.
 *MSS*
 
 1. JCRC member requests to add a person's image
-2. Hallper requests for name and image location
-3. JCRC member enters name and image location
+2. Hallper requests for room number and image location
+3. JCRC member enters room number and image location
 4. Hallper adds the image
 +
 Use case ends.

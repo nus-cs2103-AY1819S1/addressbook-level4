@@ -48,13 +48,17 @@ along with the tagged profile picture of the specified resident.
 ** Project management:
 *** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Edited the data fields of persons in Hallper to what was needed: https://github.com/CS2103-AY1819S1-W16-1/main/pull/12[#12]
 ** Documentation:
-*** Reorganized the User Guide to make it more user-friendly: https://github.com[#14]
-*** Designed the project logo
+*** Reorganized the User Guide to make it more user-friendly: https://github.com/CS2103-AY1819S1-W16-1/main/pull/70[#70]
+*** Designed project logo
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-1/main/pull/18[#18]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/166[1],
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/165[2],
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/162[3],
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/153[4])
 
 
 == Contributions to the User Guide
