@@ -37,6 +37,19 @@
                     </Menu>
                 </MenuBar>
 
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"  styleClass="pane-with-border"
+                  minHeight="100" prefHeight="100" maxHeight="100">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+                
                 <VBox spacing="16.0" alignment="BOTTOM_CENTER" fx:id="titleScreenPlaceHolder"
                   VBox.vgrow="ALWAYS">
                     <padding>
@@ -93,19 +106,6 @@
                         </padding>
                     </StackPane>
                 </SplitPane>
-
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10" />
-                    </padding>
-                </StackPane>
-
-                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"  styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10" />
-                    </padding>
-                </StackPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="status-bar-with-border"/>
             </VBox>
