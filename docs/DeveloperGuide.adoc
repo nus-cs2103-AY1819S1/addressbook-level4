@@ -500,33 +500,12 @@ it does not need to be loaded into storage. A new `QueueCommand` abstract class 
 The following code snippet shows how the `QueueCommand` is implemented:
 
 ```Java
-/**
- * Represents a command with hidden internal logic and the ability to be executed.
- */
 public abstract class QueueCommand extends Command {
 
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
-     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         throw new CommandException(Messages.MESSAGE_WRONG_EXECUTE_COMMAND);
     }
 
-    /**
-     * Executes the command and returns the result message.
-     * This version of execute is used because there are more arguments needed for the queue commands.
-     *
-     * @param model {@code Model} which the command should opreate on.
-     * @param patientQueue {@code patientQueue} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution
-     */
     public abstract CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                             ServedPatientList servedPatientList, CommandHistory history) throws CommandException;
 
@@ -537,7 +516,6 @@ One of the `QueueCommands` is the `RegisterCommand`, the follow code snippet sho
 of the PQMS.
 
 ```Java
-@Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
@@ -573,13 +551,13 @@ Given below is an example usage scenario of the PQMS.
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
 .Registering 3 patients
-image::PQMSPatientQueue.png[650, 250]
+image::PQMSPatientQueue.png[750, 225]
 
 Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
 .Serve patient
-image::PQMSCurrentPatient.png[650, 250]
+image::PQMSCurrentPatient.png[750, 225]
 
 Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
@@ -588,7 +566,7 @@ Step 4. The `CurrentPatient` is done with the consultation. The user executes th
 the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the next patient in `PatientQueue`.
 
 .Finish serving patient
-image::PQMSServedPatientQueue.png[650, 250]
+image::PQMSServedPatientQueue.png[750, 225]
 
 Step 5. The user executes various `Document` commands to generate necessary documents for the served patient.
 
