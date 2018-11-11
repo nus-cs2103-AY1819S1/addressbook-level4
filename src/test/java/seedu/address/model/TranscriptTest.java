@@ -88,30 +88,85 @@ public class TranscriptTest {
 
     @Test
     public void assertAdjustToFSuccess() {
-        Transcript transcript = new Transcript();
-        transcript.addModule(GRADE_BMINUS_4MC_A);
-        transcript.addModule(INCOMPLETE_4MC_A);
         double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
-        transcript.setCapGoal(capGoal);
-        transcript.adjustModule(INCOMPLETE_4MC_A.updateTargetGrade(capGoal), new Grade(TypicalModules.GRADE_F));
-        assertCapGoalIsImpossible(transcript);
+        Module targetModule = INCOMPLETE_4MC_A.updateTargetGrade(capGoal);
+        Grade grade = new Grade(TypicalModules.GRADE_F);
+        assertAdjustCapGoalImpossible(capGoal, targetModule, grade, INCOMPLETE_4MC_A, GRADE_BMINUS_4MC_A);
+
+        capGoal = 1.0;
+        targetModule = INCOMPLETE_4MC_A.updateTargetGrade(capGoal);
+        assertAdjustCapGoalPossible(capGoal, targetModule, grade, INCOMPLETE_4MC_A, GRADE_BMINUS_4MC_A);
     }
 
+    @Test
+    public void assertAdjustToCsSuccess() {
+        Module targetModule = INCOMPLETE_4MC_A.updateTargetGrade(5.0);
+        Grade grade = new Grade(TypicalModules.GRADE_CS);
+        assertAdjustCapGoalImpossible(4.0, targetModule, grade, INCOMPLETE_4MC_A, GRADE_BMINUS_4MC_A);
+
+        targetModule = INCOMPLETE_4MC_A.updateTargetGrade(3.0);
+        assertAdjustCapGoalPossible(3.0, targetModule, grade, INCOMPLETE_4MC_A, GRADE_BMINUS_4MC_A);
+    }
+
+    /**
+     * Asserts CAP Goal is impossible
+     * @param transcript
+     */
     private void assertCapGoalIsImpossible(Transcript transcript) {
         assertTrue(transcript.isCapGoalImpossible());
         List<Module> targetedModules = transcript.getTargetedModulesList();
         assertTrue(targetedModules.isEmpty());
     }
 
-    @Test
-    public void assertAdjustToCsSuccess() {
-        Transcript transcript = new Transcript();
-        transcript.addModule(GRADE_BMINUS_4MC_A);
-        transcript.addModule(INCOMPLETE_4MC_A);
-        double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
-        transcript.setCapGoal(capGoal);
-        transcript.adjustModule(INCOMPLETE_4MC_A.updateTargetGrade(capGoal), new Grade(TypicalModules.GRADE_CS));
+    /**
+     * Asserts CAP Goal is possible
+     * @param transcript
+     */
+    private void assertCapGoalIsPossible(Transcript transcript) {
         assertFalse(transcript.isCapGoalImpossible());
+    }
+
+    /**
+     * Asserts CAP Goal is possible after adjustment
+     * @param capGoal
+     * @param targetModule
+     * @param grade
+     * @param modules
+     */
+    private void assertAdjustCapGoalPossible(double capGoal, Module targetModule, Grade grade, Module... modules) {
+        assertAdjustCapGoalBehavior(capGoal, targetModule, grade, false, modules);
+    }
+
+    /**
+     * Asserts CAP Goal is impossible after adjustment
+     * @param capGoal
+     * @param targetModule
+     * @param grade
+     * @param modules
+     */
+    private void assertAdjustCapGoalImpossible(double capGoal, Module targetModule, Grade grade, Module... modules) {
+        assertAdjustCapGoalBehavior(capGoal, targetModule, grade, true, modules);
+    }
+
+    /**
+     * Asserts whether CAP Goal is impossible nor not after adjustment
+     * @param capGoal
+     * @param targetModule
+     * @param grade
+     * @param isImpossible
+     * @param modules
+     */
+    private void assertAdjustCapGoalBehavior(
+            double capGoal, Module targetModule, Grade grade, boolean isImpossible, Module... modules) {
+        Transcript transcript = new Transcript();
+        transcript.setModules(List.of(modules));
+        transcript.setCapGoal(capGoal);
+        transcript.adjustModule(targetModule, grade);
+        if (isImpossible) {
+            assertCapGoalIsImpossible(transcript);
+        } else {
+            assertCapGoalIsPossible(transcript);
+        }
     }
 
     @Test
@@ -124,26 +179,18 @@ public class TranscriptTest {
 
     @Test
     public void assertAdjustLastTargetModuleHigherSuccess() {
-        Transcript transcript = new Transcript();
-        transcript.addModule(INCOMPLETE_4MC_A);
         double capGoal = new Grade(TypicalModules.GRADE_B_MINUS).getPoint();
-        transcript.setCapGoal(capGoal);
         Module targetModule = INCOMPLETE_4MC_A.updateTargetGrade(capGoal);
-        transcript.adjustModule(targetModule, new Grade(TypicalModules.GRADE_A_PLUS));
-        assertFalse(transcript.isCapGoalImpossible());
-        assertTargetGradesEquals(transcript, "");
+        Grade grade = new Grade(TypicalModules.GRADE_A_PLUS);
+        assertAdjustCapGoalPossible(capGoal, targetModule, grade, INCOMPLETE_4MC_A);
     }
 
     @Test
     public void assertAdjustLastTargetModuleLowerCapGoalImpossibleSuccess() {
-        Transcript transcript = new Transcript();
-        transcript.addModule(INCOMPLETE_4MC_A);
         double capGoal = new Grade(TypicalModules.GRADE_B_PLUS).getPoint();
-        transcript.setCapGoal(capGoal);
         Module targetModule = INCOMPLETE_4MC_A.updateTargetGrade(capGoal);
-        transcript.adjustModule(targetModule, new Grade(TypicalModules.GRADE_B_MINUS));
-        assertCapGoalIsImpossible(transcript);
-        assertTargetGradesEquals(transcript, "");
+        Grade grade = new Grade(TypicalModules.GRADE_B_MINUS);
+        assertAdjustCapGoalImpossible(capGoal, targetModule, grade, INCOMPLETE_4MC_A);
     }
 
     @Test
