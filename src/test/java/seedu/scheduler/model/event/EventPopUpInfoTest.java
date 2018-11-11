@@ -36,7 +36,7 @@ public class EventPopUpInfoTest {
             new Description(VALID_DESCRIPTION_MA2101),
             new Venue(VALID_VENUE_MA2101)
             , Duration.parse("PT30M"));
-    private EventPopUpInfo MA2101_differentStarTime = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
+    private EventPopUpInfo MA2101_differentStartTime = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
             VALID_EVENT_UUID_MA2101, new EventName(VALID_EVENT_NAME_MA2101),
             new DateTime(VALID_START_DATETIME_MA3220),
             new DateTime(VALID_END_DATETIME_MA2101),
@@ -78,14 +78,20 @@ public class EventPopUpInfoTest {
 
         // different object -> returns false
         assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentDuration);
-        assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentStarTime);
+        assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentStartTime);
         assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentId);
 
     }
 
     @Test
-    public void getPopUpDisplay() {
+    public void compareTo() {
+        assertEquals(MA2101_eventPopUpInfo.compareTo(MA2101_eventPopUpInfo), 0);
+        assertEquals(MA2101_eventPopUpInfo.compareTo(MA2101_differentDuration), 1);
+        assertEquals(MA2101_differentDuration.compareTo(MA2101_eventPopUpInfo), -1);
+    }
 
+    @Test
+    public void getPopUpDisplay() {
         String expectedString = "Venue: " + MA2101_JANUARY_1_2018_YEARLY.getVenue().toString() + "\n" +
                 MA2101_JANUARY_1_2018_YEARLY.getStartDateTime().getPrettyString()
                 + " - " + MA2101_JANUARY_1_2018_YEARLY.getEndDateTime().getPrettyString();

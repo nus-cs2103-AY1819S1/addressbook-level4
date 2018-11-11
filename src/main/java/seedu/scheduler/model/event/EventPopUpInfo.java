@@ -52,7 +52,6 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
         return eventUid;
     }
 
-
     public UUID getEventSetUid() {
         return eventSetUid;
     }
@@ -107,8 +106,14 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
         return ((this == other) || (
                 other instanceof EventPopUpInfo
                         && this.eventUid.equals(((EventPopUpInfo) other).getEventUid())
+                        && this.eventSetUid.equals(((EventPopUpInfo) other).getEventSetUid())
+                        && this.eventName.equals(((EventPopUpInfo) other).getEventName())
                         && this.startDateTime.equals(((EventPopUpInfo) other).getStartDateTime())
-                        && this.duration.equals(((EventPopUpInfo) other).getDuration())));
+                        && this.endDateTime.equals(((EventPopUpInfo) other).getEndDateTime())
+                        && this.description.equals(((EventPopUpInfo) other).getDescription())
+                        && this.venue.equals(((EventPopUpInfo) other).getVenue())
+                        && this.duration.equals(((EventPopUpInfo) other).getDuration())
+                        && this.popUpDateTime.equals(((EventPopUpInfo) other).getPopUpDateTime())));
     }
 }
 
