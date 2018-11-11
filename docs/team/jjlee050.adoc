@@ -24,9 +24,11 @@ defining, assigning, and tracking project tasks, ensuring that project deliverab
 As a developer, I am in charge of the UI component of this program. This involves understanding
 how UI is managed in this project and to ensure that the UI component of this project is well maintained.  
 
-See below for more details on contributions made for the duration of 10 weeks.  
+See below for more details on my contributions for the duration of 10 weeks.  
 
 == 2. Summary of contributions
+
+This section’s purpose is to summarise my contributions for the duration of this project. For more details about the contributions, click the link to the corresponding pull request.
 
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050[My Codes]
 
@@ -42,7 +44,8 @@ See below for more details on contributions made for the duration of 10 weeks.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: Major revamp of the UI.
+* *Minor enhancement*: 
+** Redesign the UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
 
 * *Other contributions*:
 
@@ -57,12 +60,11 @@ See below for more details on contributions made for the duration of 10 weeks.
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: -
 *** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
 
