@@ -51,19 +51,19 @@ public class CompleteIndexCommand extends CompleteCommand {
      */
     private String completeOneTaskReturnStringOfTask(Index targetIndex,
                                                      List<Task> lastShownList,
-                                                     Model modelToUpdate)
-        throws CommandException {
+                                                     Model modelToUpdate) throws CommandException {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
-        Task completedTask = createCompletedTask(taskToComplete);
 
         if (taskToComplete.isStatusCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
+
+        Task completedTask = createCompletedTask(taskToComplete);
 
         modelToUpdate.updateTaskStatus(taskToComplete, completedTask);
         return completedTask.toString();

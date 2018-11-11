@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -53,33 +52,45 @@ public class CompleteLabelCommand extends CompleteCommand {
      * @return {@code String} representation of all the completed {@code Task}
      * @throws CommandException if there are no completable task that fulfills {@code taskPredicate}
      */
-    private String completeAllTasksReturnStringOfTasks(Model modelToUpdate)
-        throws CommandException {
+    private String completeAllTasksReturnStringOfTasks(Model modelToUpdate) throws CommandException {
 
-        Iterator<Task> taskIterator = generateSetOfCompletableTasks(this.taskPredicate, modelToUpdate)
-            .iterator();
-        String completedTasks = "";
+        Set<Task> tasksSet = generateSetOfCompletableTasks(this.taskPredicate, modelToUpdate);
 
         // throws an exception if there are no completable tasks
-        if (!taskIterator.hasNext()) {
+        if (tasksSet.isEmpty()) {
             throw new CommandException(MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
         }
 
+        String completedTasks = completeTasksInSetUpdateModel(modelToUpdate, tasksSet);
 
-        while (taskIterator.hasNext()) {
-            Task taskToComplete = taskIterator.next();
-            completedTasks += completeOneTaskReturnStringOfTask(
-                taskToComplete,
-                modelToUpdate) + "\n";
+        return completedTasks;
+    }
+
+    /**
+     * Complete all the tasks in the given set and return a {@code String} representation of its output.
+     *
+     * @param modelToUpdate Model to update completed tasks to
+     * @param taskSet Set of task to be completed
+     * @return {@code String} representation of its output
+     * @throws CommandException
+     */
+    private String completeTasksInSetUpdateModel(Model modelToUpdate, Set<Task> taskSet) throws CommandException {
+
+        StringBuilder completedTasks = new StringBuilder();
+
+        for (Task taskToComplete : taskSet) {
+            completedTasks.append(completeOneTaskReturnStringOfTask(taskToComplete, modelToUpdate));
+            completedTasks.append('\n');
         }
-
-        return completedTasks.trim();
+        return completedTasks.toString().trim();
     }
 
     /**
      * Completes the task supplied, updates the model without committing the model and returns
      * the {@code String} representation of the {@code Task}.
      *
+     * @param taskToComplete a single task to complete
+     * @param modelToUpdate Model to update completed tasks to
      * @return {@code String} representing the completed {@code Task}
      * @throws CommandException if the given {@code taskToComplete} is already completed
      */

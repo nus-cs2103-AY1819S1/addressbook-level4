@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.LabelsBuilder.createLabelsFromKeywords;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.CompleteCommand;
 import seedu.address.logic.commands.CompleteIndexCommand;
 import seedu.address.logic.commands.CompleteLabelCommand;
-import seedu.address.model.task.LabelMatchesKeywordPredicate;
+import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
 
 /**
  * Tests the CompleteCommandParser's ability to handle Index(es) and Labels
@@ -18,7 +19,8 @@ import seedu.address.model.task.LabelMatchesKeywordPredicate;
  */
 public class CompleteCommandParserTest {
 
-    private static final LabelMatchesKeywordPredicate LABEL_FRIENDS = new LabelMatchesKeywordPredicate("friends");
+    private static final LabelMatchesAnyKeywordPredicate LABEL_FRIENDS =
+        new LabelMatchesAnyKeywordPredicate(createLabelsFromKeywords("friends"));
     private CompleteCommandParser parser = new CompleteCommandParser();
 
     @Test

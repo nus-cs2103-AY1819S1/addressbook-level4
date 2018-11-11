@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.Rule;
@@ -31,7 +32,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.task.LabelMatchesKeywordPredicate;
+import seedu.address.model.tag.Label;
+import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
@@ -68,7 +70,8 @@ public class TaskManagerParserTest {
     public void parseCommand_labelComplete() throws Exception {
         CompleteCommand command = (CompleteCommand) parser.parseCommand(
                 CompleteCommand.COMMAND_WORD + " " + "l/friends");
-        assertEquals(new CompleteLabelCommand(new LabelMatchesKeywordPredicate("friends")), command);
+        Set<Label> labelSet = Set.of(new Label("friends"));
+        assertEquals(new CompleteLabelCommand(new LabelMatchesAnyKeywordPredicate(labelSet)), command);
     }
 
     @Test
