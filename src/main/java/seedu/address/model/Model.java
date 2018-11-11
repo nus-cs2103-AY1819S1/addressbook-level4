@@ -167,4 +167,6 @@ public interface Model {
      * Checks if the event is the favourite.
      */
     boolean isFavourite(Event event);
+
+    void indicateTabPanelSelectionChangedEvent() ;
 }

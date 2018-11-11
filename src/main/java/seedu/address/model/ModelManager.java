@@ -21,6 +21,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
 import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
+import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.filereader.FileReader;
@@ -122,6 +123,11 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateEventPanelDisplayChanged() {
         raise(new EventPanelDisplayChangedEvent());
+    }
+
+    @Override
+    public void indicateTabPanelSelectionChangedEvent() {
+        raise (new TabPanelSelectionChangedEvent());
     }
 
     @Override

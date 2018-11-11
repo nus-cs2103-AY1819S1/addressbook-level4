@@ -275,6 +275,11 @@ public class AddEventTagCommandTest {
         public boolean isFavourite(Event event)   {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void indicateTabPanelSelectionChangedEvent()    {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

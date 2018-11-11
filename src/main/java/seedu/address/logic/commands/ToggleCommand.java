@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.scene.control.Tab;
-import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.ui.TabPanel;
+import seedu.address.model.ModelManager;
 
 /**
  * Toggles between the various GUI tabs.
@@ -33,8 +31,7 @@ public class ToggleCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        TabPanel panel = new TabPanel(model.getFilteredEventListByDate(), model.getFilteredPersonList(),
-                model.getEventTagList());
+        model.indicateTabPanelSelectionChangedEvent();
 
         return new CommandResult(String.format(MESSAGE_TOGGLE_SUCCESS));
     }

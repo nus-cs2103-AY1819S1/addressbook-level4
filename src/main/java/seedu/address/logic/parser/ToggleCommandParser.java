@@ -2,9 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.logic.commands.ToggleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -20,10 +17,10 @@ public class ToggleCommandParser implements  Parser<ToggleCommand> {
 
     public ToggleCommand parse(String args) throws ParseException {
 
-        if (!isNull(args)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ToggleCommand.MESSAGE_USAGE));
-        }   else {
+        if (args.equals("")) {
             return new ToggleCommand();
+        }   else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ToggleCommand.MESSAGE_USAGE));
         }
     }
 }

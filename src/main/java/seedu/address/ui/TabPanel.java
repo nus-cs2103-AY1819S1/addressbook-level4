@@ -139,7 +139,13 @@ public class TabPanel extends UiPart<Region> {
         //switch active tab
         Tab curr = tabPane.getSelectionModel().getSelectedItem();
 
-
+        // select adjacent tab
+        for (int i = 0; i < tabList.size(); i++) {
+            if(tabList.get(i) == curr) {
+                Tab newTab = tabList.get((i+1) % tabList.size());
+                selectionModel.select(newTab);
+            }
+        }
     }
 
     private void handleEventPanelDisplayChangedEvent(EventPanelDisplayChangedEvent event) {

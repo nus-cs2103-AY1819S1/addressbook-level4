@@ -520,6 +520,11 @@ public class AddEventCommandTest {
         public String getFavourite()  {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void indicateTabPanelSelectionChangedEvent()    {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
