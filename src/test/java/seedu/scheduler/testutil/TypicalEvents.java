@@ -408,4 +408,10 @@ public class TypicalEvents {
                 JIM_BIRTHDAY_YEAR_THREE, LEAP_DAY_CELEBRATION_YEAR_ONE, LEAP_DAY_CELEBRATION_YEAR_TWO,
                 STARTUP_LECTURE_MONTH_ONE, STARTUP_LECTURE_MONTH_TWO, STARTUP_LECTURE_MONTH_THREE));
     }
+
+    public static List<Event> getStudyWithJaneAllList() {
+        return new ArrayList<>(Arrays.asList(STUDY_WITH_JANE_DAY_ONE,
+                STUDY_WITH_JANE_DAY_TWO, STUDY_WITH_JANE_DAY_THREE, STUDY_WITH_JANE_DAY_FOUR));
+    }
+
 }
