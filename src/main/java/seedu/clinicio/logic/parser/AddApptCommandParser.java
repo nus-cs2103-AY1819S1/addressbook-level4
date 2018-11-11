@@ -1,5 +1,7 @@
 package seedu.clinicio.logic.parser;
 
+//@@author gingivitiss
+
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
@@ -11,6 +13,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -24,6 +27,7 @@ import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
+import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 
 import seedu.clinicio.model.tag.Tag;
@@ -60,8 +64,9 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Patient patient = new Patient(name, phone, email, address, tags);
-
+        Person person = new Person(name, phone, email, address, tags);
+        //current implementation does not include medical records
+        Patient patient = new Patient(person, ic, new HashSet<>(), new HashSet<>(), new HashSet<>());
         Appointment appt = new Appointment(date, time, patient, type);
 
         return new AddApptCommand(appt);
