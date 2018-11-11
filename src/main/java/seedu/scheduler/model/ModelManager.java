@@ -3,13 +3,7 @@ package seedu.scheduler.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,10 +14,8 @@ import seedu.scheduler.commons.core.ComponentManager;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.events.model.SchedulerChangedEvent;
 import seedu.scheduler.model.event.Event;
-import seedu.scheduler.model.event.EventPopUpInfo;
-import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.tag.Tag;
-import seedu.scheduler.storage.Storage;
+
 
 /**
  * Represents the in-memory model of the scheduler data.
@@ -143,45 +135,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTag(Tag tag) {
         versionedScheduler.removeTag(tag);
-    }
-
-
-    @Override
-    public void syncWithPopUpManager(PopUpManager popUpManager, Storage storage) {
-        HashMap durationsLeft = new HashMap<UUID, HashSet<Duration>>();
-        ArrayList<EventPopUpInfo> popUpArray = popUpManager.getArray();
-        for (EventPopUpInfo eventPopUpInfo : popUpArray) {
-            UUID key = eventPopUpInfo.getEventUid();
-            Set<Duration> set = (Set<Duration>) durationsLeft.get(key);
-            if (set == null) {
-                Set<Duration> newSet = new HashSet<>();
-                newSet.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, newSet);
-            } else {
-                set.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, set);
-            }
-        }
-
-        ObservableList<Event> eventList = versionedScheduler.getEventList();
-        for (Event event : eventList) {
-            UUID eventUid = event.getEventUid();
-            HashSet<Duration> durationSet = (HashSet<Duration>) durationsLeft.get(eventUid);
-            ReminderDurationList reminderDurationList;
-            if (durationSet == null && !event.getReminderDurationList().isEmpty()) {
-                reminderDurationList = new ReminderDurationList();
-            } else if (durationSet != null && !durationSet.equals(event.getReminderDurationList())) {
-                reminderDurationList = new ReminderDurationList(durationSet);
-            } else {
-                continue;
-            }
-            Event editedEvent = new Event(event.getEventUid(), event.getEventSetUid(), event.getEventName(),
-                    event.getStartDateTime(), event.getEndDateTime(),
-                    event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
-                    event.getTags(), reminderDurationList);
-            versionedScheduler.updateEvent(event, editedEvent);
-            storage.handleSchedulerChangedEvent(new SchedulerChangedEvent(versionedScheduler));
-        }
     }
 
     //=========== Filtered Event List Accessors =============================================================

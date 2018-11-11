@@ -31,13 +31,9 @@ public class PopUpManager {
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
     private static PopUpManager instance;
     private PriorityQueue<EventPopUpInfo> popUpQueue;
-    private Boolean flag;
-    // private static ArrayList<EventPopUpInfo> pastPopUps;
 
     private PopUpManager() {
         popUpQueue = new PriorityQueue<>();
-        flag = false;
-        //pastPopUps = new ArrayList<>();
     }
 
     public static PopUpManager getInstance() {
@@ -179,7 +175,7 @@ public class PopUpManager {
      */
     private Boolean isUpcomingEvent(EventPopUpInfo event, Event target) {
         return (event.getEventSetUid().equals(target.getEventSetUid())
-                        && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+                        && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
     }
 
     /**

@@ -14,9 +14,11 @@ import seedu.scheduler.commons.events.ui.NewResultAvailableEvent;
 import seedu.scheduler.logic.ListElementPointer;
 import seedu.scheduler.logic.Logic;
 import seedu.scheduler.logic.commands.AddCommand;
+import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.DeleteReminderCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
@@ -24,6 +26,7 @@ import seedu.scheduler.logic.commands.FindCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
+import seedu.scheduler.logic.commands.PostponeReminderCommand;
 import seedu.scheduler.logic.commands.RedoCommand;
 import seedu.scheduler.logic.commands.SelectCommand;
 import seedu.scheduler.logic.commands.UndoCommand;
@@ -58,6 +61,8 @@ public class CommandBox extends UiPart<Region> {
                 DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_ALIAS_ONE, DeleteCommand.COMMAND_ALIAS_TWO,
                 DeleteCommand.COMMAND_ALIAS_THREE, DeleteCommand.COMMAND_ALIAS_FOUR, DeleteCommand.COMMAND_ALIAS_FIVE,
                 EditCommand.COMMAND_WORD, EditCommand.COMMAND_ALIAS_ONE, EditCommand.COMMAND_ALIAS_TWO,
+                AddReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD,
+                PostponeReminderCommand.COMMAND_WORD,
                 EnterGoogleCalendarModeCommand.COMMAND_WORD,
                 ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_ALIAS_ONE, ExitCommand.COMMAND_ALIAS_TWO,
                 ExitCommand.COMMAND_ALIAS_TWO, ExitCommand.COMMAND_ALIAS_THREE,
