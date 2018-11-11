@@ -97,7 +97,7 @@ public class XmlAdaptedTask {
                 .collect(Collectors.toList());
         status = source.getStatus().toString();
         hash = Integer.toString(source.hashCode());
-        dependencies = source.getDependency().getHashes();
+        dependencies = source.getDependencies().getHashes();
     }
 
     /**

@@ -34,8 +34,6 @@ public class DependencyGraphTest {
         Task c = new TaskBuilder().withName("C").withDependency(b).withDependency(a).build();
         Task completed3 = new TaskBuilder().withName("D").withDependency(c).withStatus(Status.COMPLETED).build();
 
-
-
         //preSortedTasks
         preSortedTasks.add(a);
         preSortedTasks.add(c);
@@ -44,7 +42,6 @@ public class DependencyGraphTest {
         preSortedTasks.add(completed1);
         preSortedTasks.add(completed2);
         preSortedTasks.add(completed3);
-
 
         //SortedTasks
         sortedTasks.add(a); //a should be first as completed1 and completed2 are completed tasks and dependency removed
@@ -78,7 +75,7 @@ public class DependencyGraphTest {
     public void topologicalSort_valid_returnsList() {
         DependencyGraph graph = new DependencyGraph(preSortedTasks);
         List<String> actualHashes = graph.topologicalSort();
-        List<String> expectedHashes = sortedTasks.stream().map((task)->Integer.toString(task.hashCode()))
+        List<String> expectedHashes = sortedTasks.stream().map((task) -> Integer.toString(task.hashCode()))
                 .collect(Collectors.toList());
         assertEquals(expectedHashes, actualHashes);
     }

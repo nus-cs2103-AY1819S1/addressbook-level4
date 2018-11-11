@@ -50,6 +50,9 @@ public class UniqueTaskList implements Iterable<Task> {
      * Replaces the task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
+     *
+     * @param target     target tasked to be replaced
+     * @param editedTask task to replace target with
      */
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
@@ -62,6 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
+        //Update dependencies with the hash of the new task (since task was edited
         String oldHash = Integer.toString(target.hashCode());
         String newHash = Integer.toString(editedTask.hashCode());
         if (!oldHash.equals(newHash)) {
@@ -80,9 +84,10 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * When a task is edited, a similar task with a new hashcode is generated. Tasks that are dependant
      * on the edited task should have their task dependency hashcode updated.
+     *
      * @param taskToEdit task with dependency to be updated to that of the new hash
-     * @param oldHash old hash of task
-     * @param newHash new hash of task
+     * @param oldHash    old hash of task
+     * @param newHash    new hash of task
      * @return new task with dependency updated
      */
     private Task createUpdatedHashReferenceTask(Task taskToEdit, String oldHash, String newHash) {
@@ -98,7 +103,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!internalList.remove(toRemove)) {
             throw new TaskNotFoundException();
         }
-        //Remove all dependencies on task to be remove
+        //Remove all dependencies that are on task to be remove
         for (int i = 0; i < internalList.size(); i++) {
             Task task = internalList.get(i);
             if (task.isDependentOn(toRemove)) {
@@ -110,6 +115,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Returns a {@code Task} with the dependency removed.
+     *
      * @param dependantTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */
@@ -136,6 +142,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.setAll(tasks);
     }
     //==============Check overdue state of tasks =============================
+
     /**
      * Checks overdue state of task and updates all relevant tasks
      */
@@ -151,13 +158,14 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Creates a task with an OVERDUE status
+     *
      * @param taskToEdit
      * @return
      */
     private Task createOverdueTask(Task taskToEdit) {
         return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
                 taskToEdit.getDescription(), taskToEdit.getLabels(), Status.OVERDUE,
-                taskToEdit.getDependency());
+                taskToEdit.getDependencies());
     }
 
     /**
