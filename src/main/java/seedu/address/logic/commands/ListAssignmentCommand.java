@@ -13,7 +13,7 @@ import seedu.address.model.Model;
  */
 public class ListAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "listassignment";
+    public static final String COMMAND_WORD = "listassignments";
 
     public static final String MESSAGE_SUCCESS = "Listed all assignments";
 
