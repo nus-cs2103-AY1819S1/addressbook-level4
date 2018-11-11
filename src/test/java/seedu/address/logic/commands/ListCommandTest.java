@@ -6,8 +6,14 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalTasks.J_TASK;
+import static seedu.address.testutil.TypicalTasks.K_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +21,14 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TaskManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.task.DueDateIsBeforeEndOfWeekPredicate;
+import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
+import seedu.address.testutil.TaskManagerBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -45,7 +55,7 @@ public class ListCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    /**
+
     @Test
     public void execute_listFiltered_beforeToday() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 1);
@@ -67,8 +77,7 @@ public class ListCommandTest {
                 expectedMessage, expectedModelWithPastTask);
         assertEquals(Arrays.asList(J_TASK), modelWithExtremeTemporalTasks.getFilteredTaskList());
     }
-     **/
-    /**
+
     @Test
     public void execute_listFiltered_beforeEndOfWeek() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 2);
@@ -106,8 +115,7 @@ public class ListCommandTest {
                 expectedMessage, expectedModelWithPastTask);
         assertEquals(Arrays.asList(J_TASK, taskDueThisWeek), modelWithExtremeTemporalTasks.getFilteredTaskList());
     }
-     */
-    /**
+
     @Test
     public void execute_listFiltered_beforeEndOfMonth() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 2);
@@ -145,7 +153,6 @@ public class ListCommandTest {
                 expectedMessage, expectedModelWithPastTask);
         assertEquals(Arrays.asList(J_TASK, taskDueThisMonth), modelWithExtremeTemporalTasks.getFilteredTaskList());
     }
-     */
 
     @Test
     public void execute_listFiltered_nonBlockedNoDepenencies() {
