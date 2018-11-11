@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.model.google.PhotoHandler.PICONSO_ALBUM;
 import static seedu.address.model.google.PhotoHandler.UPLOAD_FORMAT;
 
@@ -102,15 +103,14 @@ public class PhotoHandlerTest {
 
     @Test
     public void uploadImageExceptions() {
-        Exception compare = null;
+        Exception compare;
 
         //InvalidPath
         try {
             photoHandler.uploadImage(dummyImage, "/sda/");
         } catch (Exception ex) {
-            compare = ex;
+            assertEquals("fake.png does not exist in folder!", ex.getMessage());
         }
-        assertEquals(new NullPointerException(), compare);
 
         compare = null;
         // no PhotoLibraryClientInstance
@@ -120,7 +120,7 @@ public class PhotoHandlerTest {
         } catch (Exception ex) {
             compare = ex;
         }
-        assertEquals(new NullPointerException(), compare);
+        assertTrue(compare instanceof NullPointerException);
 
         compare = null;
         //Upload all images no PhotoLibraryClientInstance
@@ -130,7 +130,7 @@ public class PhotoHandlerTest {
         } catch (Exception ex) {
             compare = ex;
         }
-        assertEquals(new NullPointerException(), compare);
+        assertTrue(compare instanceof NullPointerException);
     }
 
     @Test
