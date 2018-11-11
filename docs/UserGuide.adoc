@@ -127,7 +127,7 @@ Edits a task in the task manager
 Format:
 `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 +Example:
-`edit 1 t/18-12-19 d/a updated detailed description of what needs to be done`
+`edit 1 t/18-12-19 d/an updated detailed description of what needs to be done`
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
@@ -274,7 +274,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 `Attack food`, `Induce happiness`
 ****
 
-+Example: `find happiness`
++Example: `find happiness` +
 -Example: `find OVERDUE`
 
 ==== Selecting a person : `select`
