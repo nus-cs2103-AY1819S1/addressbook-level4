@@ -56,7 +56,15 @@ public class IngredientListPanel extends UiPart<Region> {
         Platform.runLater(() -> {
             ingredientListView.scrollTo(index);
             ingredientListView.getSelectionModel().clearAndSelect(index);
+            raise(new IngredientPanelSelectionChangedEvent(ingredientListView.getItems().get(index)));
         });
+    }
+
+    @FXML
+    private void handleMouseClick() {
+        Ingredient ingredient = ingredientListView.getSelectionModel().getSelectedItem();
+        logger.fine("Selection in ingredient list panel changed to : '" + ingredient + "'");
+        raise(new IngredientPanelSelectionChangedEvent(ingredient));
     }
 
     @Subscribe
