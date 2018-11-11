@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
@@ -29,9 +29,9 @@ class GenerateLocationCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    final EventDate testEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
-    final Index existentIndex = Index.fromOneBased(1);
-    final Index nonExistentIndex = Index.fromOneBased(999);
+    public static final EventDate TEST_EVENT_DATE = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
+    public static final Index EXISTENT_INDEX = Index.fromOneBased(1);
+    public static final Index NON_EXISTENT_INDEX = Index.fromOneBased(999);
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -39,28 +39,28 @@ class GenerateLocationCommandTest {
 
     @Test
     public void execute_validDateInvalidIndexLocationNotDisplayed_success() {
-        assertGenerateLocationDisplayFailure(testEventDate, nonExistentIndex,
+        assertGenerateLocationDisplayFailure(TEST_EVENT_DATE, NON_EXISTENT_INDEX,
                 GenerateLocationCommand.MESSAGE_EVENT_DOES_NOT_EXIST);
     }
 
     @Test
     public void execute_validDateValidIndexLocationDisplayed_success() {
-        assertGenerateLocationDisplaySuccess(testEventDate, existentIndex);
+        assertGenerateLocationDisplaySuccess(TEST_EVENT_DATE, EXISTENT_INDEX);
     }
 
     @Test
     void equals() {
-        GenerateLocationCommand generateLocationFirstCommand = new GenerateLocationCommand(testEventDate,
-                INDEX_FIRST_PERSON);
-        GenerateLocationCommand generateLocationSecondCommand = new GenerateLocationCommand(testEventDate,
-                INDEX_SECOND_PERSON);
+        GenerateLocationCommand generateLocationFirstCommand = new GenerateLocationCommand(TEST_EVENT_DATE,
+                INDEX_FIRST_EVENT);
+        GenerateLocationCommand generateLocationSecondCommand = new GenerateLocationCommand(TEST_EVENT_DATE,
+                INDEX_SECOND_EVENT);
 
         // same object -> returns true
         assertTrue(generateLocationFirstCommand.equals(generateLocationFirstCommand));
 
         // same index values -> returns true
-        GenerateLocationCommand generateLocationFirstCommandCopy = new GenerateLocationCommand(testEventDate,
-                INDEX_FIRST_PERSON);
+        GenerateLocationCommand generateLocationFirstCommandCopy = new GenerateLocationCommand(TEST_EVENT_DATE,
+                INDEX_FIRST_EVENT);
         assertTrue(generateLocationFirstCommand.equals(generateLocationFirstCommandCopy));
 
         // different types -> returns false

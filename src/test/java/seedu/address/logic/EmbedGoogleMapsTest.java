@@ -32,6 +32,6 @@ class EmbedGoogleMapsTest {
 
     @Test
     void getMeetingPlaceId() {
-        assertNotEquals(null, EmbedGoogleMaps.getMeetingPlaceId());
+        assertNotEquals(null, EmbedGoogleMaps.getMeetingPlaceId()); // a null value should never be returned
     }
 }
