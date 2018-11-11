@@ -16,7 +16,7 @@ public class GameManager {
     private GameMode gameMode;
 
     public GameManager() {
-        this.gameMode = new FlatMode();
+        this.gameMode = GameMode.getDefaultGameMode();
     }
 
     public GameManager(GameMode gameMode) {

@@ -1,14 +1,21 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.game.*;
-
-import javax.xml.bind.annotation.XmlElement;
-
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.game.DecreasingMode;
+import seedu.address.model.game.FlatMode;
+import seedu.address.model.game.GameManager;
+import seedu.address.model.game.GameMode;
+import seedu.address.model.game.IncreasingMode;
+import seedu.address.model.game.PriorityMode;
+
+/**
+ * JAXB-friendly version of the {@code GameManager}.
+ */
 public class XmlAdaptedGameManager {
 
     @XmlElement(required = true)
@@ -45,6 +52,12 @@ public class XmlAdaptedGameManager {
         highXp = Integer.toString(mode.getHighXp());
     }
 
+    /**
+     * Converts this jaxb-friendly {@code XmlAdaptedGameManager} object into the model's
+     * {@code GameManager} object.
+     * @return
+     * @throws IllegalValueException
+     */
     public GameManager toModelType() throws IllegalValueException {
         // If game type is null, return new GameManager
         if (gameMode == null) {
@@ -58,21 +71,21 @@ public class XmlAdaptedGameManager {
 
         GameMode mode;
         switch(gameMode) {
-            case "FlatMode":
-                mode =  new FlatMode(periodInt, lowInt, highInt);
-                break;
-            case "DecreasingMode":
-                mode = new DecreasingMode(periodInt, lowInt, highInt);
-                break;
-            case "IncreasingMode":
-                mode = new IncreasingMode(periodInt, lowInt, highInt);
-                break;
-            case "PriorityMode":
-                mode = new PriorityMode(periodInt, lowInt, highInt);
-                break;
-            default:
-                throw new RuntimeException("GameMode not recognised");
-                // TODO: REMOVE. FOR DEBUGGING
+        case "FlatMode":
+            mode = new FlatMode(periodInt, lowInt, highInt);
+            break;
+        case "DecreasingMode":
+            mode = new DecreasingMode(periodInt, lowInt, highInt);
+            break;
+        case "IncreasingMode":
+            mode = new IncreasingMode(periodInt, lowInt, highInt);
+            break;
+        case "PriorityMode":
+            mode = new PriorityMode(periodInt, lowInt, highInt);
+            break;
+        default:
+            // Illegal gameMode -- return a new default one
+            return new GameManager();
         }
 
         return new GameManager(mode);

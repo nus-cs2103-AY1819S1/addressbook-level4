@@ -11,6 +11,10 @@ import seedu.address.model.task.Task;
  */
 public abstract class GameMode {
 
+    public static GameMode getDefaultGameMode() {
+        return new FlatMode();
+    }
+
     /**
      * Checks that the two supplied tasks are the same task, i.e., they are identical except
      * for completion status.
@@ -73,13 +77,13 @@ public abstract class GameMode {
 
     abstract int appraiseXpChange(Task taskFrom, Task taskTo);
 
-    abstract GameMode copy();
+    public abstract GameMode copy();
 
-    abstract public int getPeriod();
+    public abstract int getPeriod();
 
-    abstract public int getLowXp();
+    public abstract int getLowXp();
 
-    abstract public int getHighXp();
+    public abstract int getHighXp();
 
-    abstract public String getDescription();
+    public abstract String getDescription();
 }
