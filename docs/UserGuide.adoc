@@ -203,7 +203,10 @@ Deletes the loan with that has been indexed at position 1.
 // tag::setpass[]
 === Change the password of the app: `setpass`
 
-Change the current password of the app to `NEW_PASSWORD`. This provides users with the ability to use a different password in the event that the old password was compromised. +
+Change the current password of the app to `NEW_PASSWORD`. This allows you to use a different password in the event that the old password was compromised. Simply following the example screenshot below: +
+
+image::setpassExample.png[width="650"]
+
 Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
 
 ****
@@ -256,7 +259,10 @@ Marks the loan that has been indexed at position 1 as returned. Also automatical
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
 
-Populate all loans that were created between the range provided.
+Populate all loans that were created between the range provided. If you want to search for loans created within a given period for loan tracking, simply enter the command, as shown in the screenshot below:
+
+image::searchCommandScreenshot.png[width="650"]
+
 Format: `search START_DATE END_DATE`
 
 ****
