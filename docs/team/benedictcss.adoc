@@ -11,12 +11,20 @@
 
 This portfolio seeks to document my contributions to our team’s project, Piconso. Piconso is an CLI
 (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing on your Desktop. With
- Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of
- working with a mouse. Below is a list of main features of the application:
+Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of
+working with a mouse. Our project team consists of:
+
+* Jeffry Lum -- Project Advisor.
+* Ivan Ho -- Team Lead. Responsible for UI component.
+* Benedict Chua -- Developer. Responsible for Data management.
+* Ong Kai Le -- Developer. Responsible for Development Operations and Threading.
+* Zhang Tianyang -- Developer. Responsible for UI component as well.
+
+Below is a list of main features of our application:
 
 * Several traditional image-editing features such as rotate, blur etc.
 * Capability to define own custom transformation set.
-* Access images in local system drive.
+* Ability to access all your images in your local drive.
 * Direct access to images on Google Photos (download and upload).
 
 
@@ -24,7 +32,7 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 
 * *Major enhancement*: added the ability to cd into different directories.
 ** What it does: allows the user to traverse between folders in their home system.
-** Justification: This feature improves the product significantly because it allows user to access images stored in different folders in the home system.
+** Justification: This feature improves the product significantly because it allows user to access images stored in different folders in their drive.
 ** Highlights: This enhancement affects the model of the product as it now stores the current directory. The implementation was quite challenging as it required changes to the UserPrefs.
 * *Major enhancement*: added the ability to select images to display on GUI.
 ** What it does: allows the user to select the images from the current batch of images.
@@ -32,14 +40,14 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 ** Highlights: This enhancement affects existing commands. It requires in depth analysis of design alternative to ensure maximum efficiency in retrieving images.
 * *Minor enhancement*: added the ability to traverse through images with next/previous command.
 ** What it does: allows the user to move through the list of images in the current directory.
-** Justification: This feature is essential to the product because a user would need have access to all the images in the current directory for image-editing.
+** Justification: This feature is essential to the product because a user would need to have access to all the images in the current directory for image-editing.
 ** Highlights: This enhancement affects existing commands and implemented together with the select feature.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
 
 * *Other contributions*:
 ** Project Management:
-*** Created labels, milestones and issues for issue tracker on GitHub
+*** Managed labels, milestones and issues for issue tracker on GitHub
 *** Participated in tagging issues and merging/reviewing PRs
 *** Set up appveyor build and coveralls on Github
 ** Documentation:
