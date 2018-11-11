@@ -99,7 +99,7 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
-
+tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -158,7 +158,7 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-
+end::architecture[]
 [[Design-Ui]]
 === UI component
 
@@ -532,6 +532,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 
+//tag::targetUser[]
 [appendix]
 == Target User Profile
 - An NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
@@ -539,11 +540,15 @@ b. Require developers to download those libraries manually (this creates extra w
 - Can type fast.
 - Prefers typing over mouse input.
 - Is reasonably comfortable using CLI apps.
+//end::targetUser[]
 
+//tag::value[]
 [appendix]
 == Value Proposition
 Helps students manage their CAP and predict what grades they need to reach their CAP goal.
+//end::value[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -588,6 +593,7 @@ can enter my entries incrementally.
 1. As a user, I can view the module descriptions so that I know what modules I should take
 2. As a user I can enter the MCs for exchange I can keep track of modules that may not be mapped to our database of modules codes or isn’t the default number of MCs.
 3. As a user, I can export my timetable so that I can share it with my friend.
+//end::userStories[]
 
 [appendix]
 == Use Cases
