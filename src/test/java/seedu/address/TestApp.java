@@ -16,11 +16,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ModelManagerToDo;
 import seedu.address.model.ModelToDo;
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.Scheduler;
 import seedu.address.model.ToDoList;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableScheduler;
+import seedu.address.storage.XmlSerializableToDoList;
 import seedu.address.testutil.TestUtil;
 
 
@@ -31,25 +33,39 @@ import seedu.address.testutil.TestUtil;
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_TESTING_TODO = TestUtil.getFilePathInSandboxFolder("sampleDataToDo.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
         TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyScheduler> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyToDoList> initialDataSupplierToDo = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveFileLocationToDo = SAVE_LOCATION_FOR_TESTING_TODO;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyScheduler> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyScheduler> initialDataSupplier,
+                   Supplier<ReadOnlyToDoList> initialDataSupplierToDo,
+                   Path saveFileLocation,
+                   Path saveFileLocationToDo) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
+
+        this.initialDataSupplierToDo = initialDataSupplierToDo;
+        this.saveFileLocationToDo = saveFileLocationToDo;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableScheduler(this.initialDataSupplier.get()),
                 this.saveFileLocation);
+        }
+        // If some initial local data has been provided, write those to the file
+        if (initialDataSupplier.get() != null) {
+            createDataFileWithData(new XmlSerializableToDoList(this.initialDataSupplierToDo.get()),
+                this.saveFileLocationToDo);
         }
     }
 
@@ -72,6 +88,7 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setSchedulerFilePath(saveFileLocation);
+        userPrefs.setToDoListFilePath(saveFileLocationToDo);
         return userPrefs;
     }
 
