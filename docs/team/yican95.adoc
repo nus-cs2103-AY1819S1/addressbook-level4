@@ -5,7 +5,7 @@
 
 == PROJECT: MeNUS
 
-This portfolio showcases my contributions for https://github.com/CS2103-AY1819S1-F10-4/main[MeNUS].
+This portfolio serves as a summary of my contributions for https://github.com/CS2103-AY1819S1-F10-4/main[MeNUS].
 
 == Overview
 
@@ -21,7 +21,7 @@ approximately 30 KLOC.
 
 == Summary of contributions
 * *Major enhancement*: Added *Menu Management* feature
-** *What it does*: Allows the user to manage the menus with the various menu management commands.
+** *What it does*: Enables the user to manage the menus with the various menu management commands.
 ** *Justification*: It can be messy and tedious to manage menus manually. This feature helps users to
 streamline the process of managing menus by enabling them to modify the menus efficiently
 with just a single command.

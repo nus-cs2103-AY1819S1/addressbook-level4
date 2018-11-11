@@ -637,6 +637,7 @@ Revert the 1st item in the results of the `find` command to original price.
 * `li` +
 `dci 1 ei/3 dp/50` +
 Give the 1st item to the 3rd item in the menu a 50% discount.
+//end::menuPart2[]
 
 ==== Today's specials : `today-special` or `ts`
 
@@ -648,7 +649,6 @@ Examples:
 * `today-special` +
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
-//end::menuPart2[]
 
 ==== Adding recipe to item : `recipe-item` or `ri`
 
