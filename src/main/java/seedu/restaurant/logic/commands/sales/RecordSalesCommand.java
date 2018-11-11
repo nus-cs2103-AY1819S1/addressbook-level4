@@ -58,11 +58,11 @@ public class RecordSalesCommand extends Command {
     public static final String MESSAGE_REQUIRED_INGREDIENTS_NOT_FOUND = "However, the ingredients required to make "
             + "this item have not been specified. Please specify the ingredients required to enable auto-ingredient."
             + "update.";
-    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "However, some ingredient(s) required to make this item"
+    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "However, one or more ingredients required to make this item"
             + " were not found in the ingredient list. Please add the ingredient(s) to enable auto-ingredient update.";
-    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, some ingredient(s) in the ingredient list"
-            + " is insufficient to make the amount of item specified in the quantity sold field. Please stock up your "
-            + "ingredients to enable the auto-ingredient update.";
+    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, one or more required ingredients are "
+            + "insufficient to make the amount of item specified in the quantity sold field. Please stock up your "
+            + "ingredients to enable auto-ingredient update.";
     public static final String MESSAGE_INGREDIENT_UPDATE_SUCCESS = "Ingredient list has been updated.";
 
     private SalesRecord toAdd;
