@@ -65,6 +65,7 @@ public class Month {
      * Returns true if a given string is a valid month.
      */
     public static boolean isValidMonth(String test) {
+        test = test.toUpperCase();
         boolean isValid = false;
         for (String monthName : VALID_MONTHS) {
             if (test.compareTo(monthName) == 0) {

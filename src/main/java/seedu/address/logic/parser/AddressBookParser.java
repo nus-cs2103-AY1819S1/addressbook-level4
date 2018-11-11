@@ -139,7 +139,7 @@ public class AddressBookParser {
             return new CreateCcaCommandParser().parse(arguments);
 
         case UpdateCommand.COMMAND_WORD:
-            return new UpdateCommandPaser().parse(arguments);
+            return new UpdateCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
@@ -163,7 +163,7 @@ public class AddressBookParser {
             return new DeleteCcaCommandParser().parse(arguments);
 
         case AddTransactionCommand.COMMAND_WORD:
-            return new AddTransactionCommandPaser().parse(arguments);
+            return new AddTransactionCommandParser().parse(arguments);
 
         case DeleteTransactionCommand.COMMAND_WORD:
             return new DeleteTransactionCommandParser().parse(arguments);

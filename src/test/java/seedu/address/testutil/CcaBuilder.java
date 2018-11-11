@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.testutil.TypicalEntries.getTransactionEmpty;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 
@@ -25,7 +25,7 @@ public class CcaBuilder {
     public static final int DEFAULT_BUDGET = 500;
     public static final int DEFAULT_SPENT = 300;
     public static final int DEFAULT_OUTSTANDING = 200;
-    public static final Set<Entry> DEFAULT_TRANSACTION = TRANSACTION_EMPTY;
+    public static final Set<Entry> DEFAULT_TRANSACTION = getTransactionEmpty();
 
     private CcaName ccaName;
     private Name head;
@@ -85,7 +85,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Budget} of the {@code Cca} we are building.
      */
-    public CcaBuilder withBudget(int budget) {
+    public CcaBuilder withBudget(Integer budget) {
         this.budget = new Budget(budget);
         return this;
     }
@@ -93,7 +93,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Spent} of the {@code Cca} we are building.
      */
-    public CcaBuilder withSpent(int spent) {
+    public CcaBuilder withSpent(Integer spent) {
         this.spent = new Spent(spent);
         return this;
     }
@@ -101,7 +101,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Outstanding} of the {@code Cca} we are building.
      */
-    public CcaBuilder withOutstanding(int outstanding) {
+    public CcaBuilder withOutstanding(Integer outstanding) {
         this.outstanding = new Outstanding(outstanding);
         return this;
     }

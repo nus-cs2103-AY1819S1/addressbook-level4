@@ -15,7 +15,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CcaPanelSelectionChangedEvent;
-import seedu.address.commons.util.XmlToHmtl;
+import seedu.address.commons.util.XmlToHtml;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 
@@ -27,7 +27,9 @@ import seedu.address.model.cca.CcaName;
  */
 public class BudgetBrowserPanel extends UiPart<Region> {
 
+    //    public static final String BUDGET_PAGE = MainApp.class.getResource("/docs/ccabook.html").getPath();
     public static final String BUDGET_PAGE = "./data/ccabook.html";
+    public static final String BUDGET_PAGE_FILE = "/data/ccabook.html";
     public static final String DEFAULT_PAGE = "default.html";
 
     private static final String FXML = "BudgetBrowserPanel.fxml";
@@ -64,7 +66,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
      */
     private void loadCcaBudgetPage(CcaName ccaName) {
         String chosen = ccaName.getNameOfCca();
-        XmlToHmtl.convertCcaBook(chosen);
+        XmlToHtml.convertCcaBook(chosen);
         File budgetFile = new File(BUDGET_PAGE);
         try {
             URL url = budgetFile.toURI().toURL();
@@ -81,7 +83,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
      */
     private void loadCcaBudgetPage(Cca cca) {
         String chosen = cca.getCcaName();
-        XmlToHmtl.convertCcaBook(chosen);
+        XmlToHtml.convertCcaBook(chosen);
         File budgetFile = new File(BUDGET_PAGE);
         try {
             URL url = budgetFile.toURI().toURL();
@@ -103,12 +105,6 @@ public class BudgetBrowserPanel extends UiPart<Region> {
         loadPage(defaultPage.toExternalForm());
     }
 
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
-    }
 
     @Subscribe
     private void handleCcaPanelSelectionChangedEvent(CcaPanelSelectionChangedEvent event) {

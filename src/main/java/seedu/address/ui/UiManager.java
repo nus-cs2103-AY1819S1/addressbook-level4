@@ -126,6 +126,6 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleImageReadingExceptionEvent(ImageReadingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, IMAGE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
-                event.exception);
+            event.exception);
     }
 }

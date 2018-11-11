@@ -20,9 +20,11 @@ import org.simplejavamail.email.Email;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CalendarModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
@@ -112,6 +114,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addMultipleCcas(List<Cca> ccaList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -123,6 +130,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyBudgetBook getBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CalendarModel getCalendarModel() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,6 +156,11 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Name person) {
             return false;
+        }
+
+        @Override
+        public void initialiseBudgetBook() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -193,6 +210,11 @@ public class AddCommandTest {
 
         @Override
         public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -277,6 +299,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isExistingCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
         }
@@ -293,6 +320,11 @@ public class AddCommandTest {
 
         @Override
         public boolean isValidTime(int hour, int minute) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidTimeFrame(int startDate, int endDate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -345,6 +377,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteCca(Cca ccaToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void readXslFile() {
             throw new AssertionError("This method should not be called.");
         }
     }

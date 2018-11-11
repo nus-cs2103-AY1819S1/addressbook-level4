@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalCcas.BADMINTON;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
-import static seedu.address.testutil.TypicalCcas.FLOORBALL;
 import static seedu.address.testutil.TypicalCcas.TRACK;
 import static seedu.address.testutil.TypicalCcas.getTypicalBudgetBook;
 
@@ -89,11 +89,8 @@ public class BudgetBookTest {
 
     @Test
     public void hasCca_ccaWithSameIdentityFieldsInBudgetBook_returnsTrue() {
-        budgetBook.addCca(FLOORBALL);
-        Cca editedFloorball = new CcaBuilder(FLOORBALL)
-            .withBudget(500)
-            .withHead("Peter")
-            .build();
+        budgetBook.addCca(BADMINTON);
+        Cca editedFloorball = new CcaBuilder(BADMINTON).build();
         assertTrue(budgetBook.hasCca(editedFloorball));
     }
 

@@ -284,28 +284,22 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-===== Command: undo
-
-1) The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-2) The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-3) The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`,
-causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-4) The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo`
-command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -316,29 +310,22 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-===== Command: redo
-
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-*Things to Note*
-
-* Not all commands can undo or redo. Some commands, such as `list`, do not modify the address book and
-will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-* Some commands such as `clear`, will calls `Model#commitAddressBook()`. In this case, the `currentStatePointer` is
-not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
-
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -567,10 +554,27 @@ https://github.com/ical4j/ical4j[iCal4j] contains various methods that make crea
 The library is widely used and easy to understand so any new develeper can easily extend the current features.
 // end::calendar[]
 
-// tag::createcca[]
-=== Create CCA feature
+// tag::budget[]
+=== Budget feature
 ==== Current Implementation
 
+The budget feature in Hallper is implemented with reference to `AddressBook`. It stores `Cca` instead of `Person`, and
+each `Cca` contains the a `Budget` and a set of transaction `Entries`. The budget feature is facilitated by
+`BudgetBook` and `BudgetBookStorage`, and can also read and write onto the `ccabook.xml`, just like the  AddressBook.
+ The purpose of this budget feature is to keep track of each `Cca` transaction.
+
+It implements the following commands:
+
+ * `create_cca` -- Creates a CCA with a given budget.
+ * `delete_cca` -- Deletes a specified CCA.
+ * `update` -- Updates the details of the CCA.
+ * `add_trans` -- Adds a transaction entry to a specified CCA.
+ * `delete_trans`  -- Deletes a transaction entry to a specified CCA.
+ * `budget` -- Shows the transaction information of each CCA
+
+However, only the implementation of `create_cca`, `update`, `add_trans` and `budget` will be discussed.
+
+===== Create Command
 The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
 directory. It implements the following command:
@@ -578,22 +582,152 @@ directory. It implements the following command:
 * `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
 * `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
 
-These operations are exposed in the `Model` interface as `Model#addCca(Cca cca)`, `Model#hasCca(CcaName name)`,
-`Model#hasCca(Cca cca)` and `Model#commitBudgetBook()`.
+These operations are exposed in the `Model` interface as:
+
+* `Model#addCca(Cca cca)`
+* `Model#hasCca(CcaName name)`
+* `Model#hasCca(Cca cca)`
+* `Model#commitBudgetBook()`
 
 Given below is an example usage scenario and how the create cca mechanism behaves at each step.
 
-. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
+Step 1. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
 
-. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+Step 2. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
 name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
 
-. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
+
+Step 3. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
 `BudgetBookChangedEvent`, which is handled by `EventsCenter`.
 
-. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+Step 4. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
 event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
 `ccabook.xml` file with the new CCA.
+
+The following sequence diagram shows how the create operation works:
+
+.Sequence diagram for create CCA command
+image::CreateCcaCommandSequenceDiagram.png[width="1500"]
+
+===== Update Command
+The `update` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is getting updated, it looks up the `BudgetBook` in the `BudgetBookStorage` of the `Model` for the CCA to
+update. It then update the `Cca` stored inside the `ccabook.xml` file in the local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)` -- Creates an updated version
+of the target CCA.
+* `TransactionMath#updateDetails(Cca cca)` -- Update the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+* `Model#hasPerson(Name person)`
+
+Given below is an example usage scenario and how the update cca mechanism behaves at each step:
+
+Step 1. The user specified the CCA to be updated by including the CCA name and the fields to update.
+
+Step 2. The user can update the head's name, vice-head's name, budget allocated, and the details of a transaction entry
+such as its date, amount involved and remarks for the transaction. These information is stored in the
+`UpdateCommand#EditCcaDescriptor`. Any fields that are not valid will display error message.
+
+Step 3. `update` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the cca name
+ does not exists, an error message will appear. Otherwise, the updated CCA will be created from the
+ `UpdateCommand#EditCcaDescriptor` using
+ `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)`.
+
+Step 4. `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replace the existing CCA with the updated CCA and
+then invoke `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+Step 5. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its information.
+
+The following sequence diagram shows how the update operation works:
+
+.Sequence diagram for update command
+image::UpdateCommandSequenceDiagram.png[width="1500"]
+
+
+===== Add_Transaction Command
+
+The `add_trans` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a transaction entry is to be added, it looks up the `BudgetBook` in the `BudgetBookStorage` of
+the `Model` for the CCA and add the specified entry to the CCA. It then update the `Cca` stored inside the `ccabook.xml` file in the
+local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `TransactionMath#updateDetails(Cca cca)` -- Update the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+
+Given below is an example usage scenario and how the add transaction mechanism behaves at each step:
+
+Step 1. The user specified the CCA to add transaction to by including the CCA name and the transaction fields.
+
+Step 2. The user must include the `Date`, `Amount` and `Remarks` for the transaction entry. Any fields that are not
+valid will display error message.
+
+Step 3. `add_trans` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the
+cca name does not exists, an error message will appear. Otherwise, the an `Entry` is created and is added to the
+target `Cca` using `Cca#AddNewTransaction(Entry entry)`.
+
+Step 4. The `Spent` and `Outstanding` is then updated using `TransactionMath#updateDetails(Cca cca)`.
+
+Step 5. `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replace the existing CCA with the updated CCA and
+then invoke `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+Step 6. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its transaction entry.
+
+The following sequence diagram shows how the add_trans operation works:
+
+.Sequence diagram for update command
+image::AddTransCommandSequenceDiagram.png[width="1500"]
+
+===== Budget Command
+The `budget` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+It opens ups a separate window to display the CCA information and its transaction history of the . It implements the
+following command:
+
+* `EventsCenter#getInstance() -- Get the instance of the EventsCenter.
+* `EventsCenter#post(E event) -- Post an event to the event bus.
+
+Given below is an example usage scenario and how the budget mechanism behaves at each step.
+
+Step 1. The user enters the budget command with or without a specified CCA.
+
+Step 2. When a CCA is specified, `BudgetCommand(CcaName ccaName)` is called. Otherwise, `BudgetCommand()` is called
+and the `CcaName` is null.
+
+Step 3. If the CCA is specified, the `budget` command checks whether the CCA specified exist.
+
+Step 4. `budget` command then raise a `ShowBudgetViewEvent`, which is handled by `EventsCenter`.
+
+Step 5. `ShowBudgetViewEvent` is handled by `MainWindow#handleShowBudgetEvent(ShowBudgetViewEvent event)` and invokes
+ `MainWindow#handleBudget(CcaName ccaName)`. This opens the budget window through `BudgetWindow#show(CcaName ccaName)`.
+
+Step 6. It then checks whether the CCA name is present in `BudgetWindow#fillInnerParts(CcaName ccaName)`. If CCA name
+ is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
+ `BudgetBrowserPanel()` is called, showing a blank page.
+
+The following activity diagram summarizes what happens when a user executes a budget command:
+
+image::BudgetCommandActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -608,7 +742,120 @@ storing information.
 ** Pros: Faster in parsing information.
 ** Cons: Limited in terms of what objects can be modeled.
 
-// end::createcca[]
+// end::budget[]
+
+// tag::clear[]
+=== Clear feature
+==== Current Implementation
+The clear feature allows the user to clear persons associated with specified keywords from the database.
+
+It implements the following operations:
+* `ClearCommand#clearAll(Model model)` -- Clears the entire database.
+* `ClearCommand#clearSpecific(Model model)` -- Clears persons associated with specified keywords.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook`, `Model#resetData()` and
+`Model#clearMultiplePersons(List<Person> target)`.
+
+Given below is an example usage scenario and how the clear mechanism behaves at each step:
+
+*Step 1:* The user specifies CCA(s) and/or room(s) of persons to be cleared from the database.
+
+*Step 2:* `ClearCommandParser` checks for the validity of the CCA(s) and/or room(s) specified. If non-existent argument(s) specified,
+a `CommandException` will be thrown. A combination of existing and non-existent arguments specified will be successfully parsed.
+
+*Step 3:* `ClearCommand#execute(Model model, CommandHistory history)` is then called and invokes `ClearCommand#clearSpecific(Model model)`,
+which uses the specified arguments to create a persons list containing associated persons to be cleared.
+`ModelManager#clearMultiplePersons(List<Person> target)` is then invoked to clear the internal list of persons in target.
+
+*Step 4:* After the internal list is cleared, `ModelManager#clearMultiplePersons(List<Person> target)`
+then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+*Step 5:* `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the cleared persons list.
+
+The following sequence diagram shows how the clear operation works:
+
+image::ClearCommandSequenceDiagram.png[width="800"]
+
+
+The following activity diagram summarizes what happens when a user executes the clear command:
+
+image::ClearCommandActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: Merging command to clear entire database or specific persons
+* **Alternative 1 (current choice):** Clear command is merged.
+** Pros: Due to the similar function of clearing persons from the database, merging them under a single command makes it
+easier for the user to remember and produce the command input. Clearing of the entire database is also rarely executed
+so it makes logical sense to merge these commands.
+** Cons: The user will not be able to use `all` as a CCA as it is a reserved keyword to clear the entire database.
+
+* **Alternative 2:** Clear commands are separated.
+** Pros: The user can clearly distinguish between the two features by renaming them with different command inputs.
+** Cons: There is no need for a separate command for clearing the entire database as it is a rarely used feature.
+
+// end::clear[]
+
+// tag::erase[]
+=== Erase Feature
+==== Current Implementation
+The erase feature allows the user to erase specified CCAs from persons associated with the CCAs in the database.
+
+It implements the following operation:
+
+* `EraseCommand#execute(Model model, CommandHistory history)` -- Executes the erasure of CCAs from persons in the database.
+
+This operation is exposed in the `Model` interface as `Model#commitAddressBook()` and
+`Model#removeTagsFromPersons(ArrayList<Person> target, ArrayList<Person> original)`.
+
+Given below is an example usage scenario and how the erase mechanism behaves at each step:
+
+*Step 1:* The user specifies CCA(s) to be erased from the database.
+
+*Step 2:* `EraseCommandParser` checks for the validity of the CCA(s) specified. If non-existent CCA(s) specified,
+a `CommandException` will be thrown. A combination of existing and non-existent CCAs specified will be successfully parsed.
+
+*Step 3:* `EraseCommand#execute(Model model, CommandHistory history)` is then called and uses the specified CCA arguments
+to create a new persons list with specified CCAs erased from associated persons.
+`ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)` is then invoked to update
+the internal list with the new persons list.
+
+*Step 4:* After the internal list is updated, `ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)`
+then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+*Step 5:* `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new persons list.
+
+The following sequence diagram shows how the erase operation works:
+
+image::EraseCommandSequenceDiagram.png[width="800"]
+
+
+The following activity diagram summarizes what happens when a user executes the erase command:
+
+image::EraseCommandActivityDiagram.png[width="650"]
+
+==== Design Considerations
+===== Aspect: Algorithm to identify persons associated with CCAs to be erased
+* **Alternative 1 (current choice):** Loop through current internal list to extract associated persons.
+** Pros: The implementation of the extraction algorithm is straightforward and will not miss out any persons.
+** Cons: The execution time will be slow for large quantity of persons in the internal list.
+
+* **Alternative 2:** Store persons in a multilayer linked list data structure.
+** Pros: The number of CCAs are fewer than the number of persons in the database, so it would be faster to search for the
+target CCAs in the first layer of the linked list and obtain the entire second layer list of persons associated with the CCA.
+** Cons: The implementation is rather complicated and requires other commands such as add, edit and delete to be modified
+as well. More space would be needed on the computer to store the multilayer linked list other than the actual
+`addressbook.xml` file.
+
+// end::erase[]
 
 // tag::import[]
 === Import feature
@@ -628,25 +875,34 @@ and `Model#updateMultiplePersons`.
 
 Given below is an example usage scenario and how the import mechanism behaves at each step.
 
-. The user imports `.xml` file by specifying the path of the file.
+*Step 1:* The user imports `.xml` file by specifying the path of the file.
 
-. `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
+*Step 2:* `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
 format, the specified file will not be imported.
 
-. `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
+*Step 3:* `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
 
-. `ImportCommand.execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+*Step 4:* `ImportCommand#execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
 Model model)` to read the document.
 
-. After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
+*Step 5:* After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
 `ModelManager#addMultiplePersons(List<Person> personList)` to update Hallper's internal list and
 `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
 `EventsCenter`.
 
-. `AddressBookChangedEvent` is then handled by
+*Step 6:* `AddressBookChangedEvent` is then handled by
 `StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
 `StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
 with the new contacts.
+
+The following sequence diagram shows how the import operation works:
+
+image::ImportCommandSequenceDiagram.png[width="800"]
+
+
+The following activity diagram summarizes what happens when a user executes the import command:
+
+image::ImportCommandActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -678,18 +934,27 @@ This operation is exposed in the `Model` interface as `Model#exportAddressBook(P
 
 Given below is an example usage scenario and how the export mechanism behaves at each step.
 
-. The user exports an 'xml' file by specifying the destination path and name of the exported file.
+*Step 1:* The user exports an 'xml' file by specifying the destination path and name of the exported file.
 
-. `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
+*Step 2:* `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
 data will not be exported. Otherwise, path and filename will be parsed into a single, full path.
 
-. `ExportCommand#execute(Model model, CommandHistory history)` then invokes
+*Step 3:* `ExportCommand#execute(Model model, CommandHistory history)` then invokes
 `ModelManager#exportAddressBook(Path filePath)` which raises an `ExportAddressBookEvent`.
 
-. `ExportAddressBookEvent` is then handled by
+*Step 4:* `ExportAddressBookEvent` is then handled by
 `StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
 `StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
 storage data to the specified path.
+
+The following sequence diagram shows how the export operation works:
+
+image::ExportCommandSequenceDiagram.png[width="800"]
+
+
+The following activity diagram summarizes what happens when a user executes the export command:
+
+image::ExportCommandActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -704,8 +969,70 @@ applications to convert `.xml` file.
 ** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
 ** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
 underused or unused.
+// end::export[]
 
-// end:export[]
+// tag::image[]
+=== Image feature
+
+==== Current Implementation
+The image feature allows `.jpg` image files to be uploaded into Hallper to a specific person from the computer.
+The feature is facilitated by `ProfilePictureDirStorage`. It implements the follow operations:
+
+* `ProfilePictureDirStorage#readProfilePicture(File file)` -- Reads the file that is specified by the user through
+a path and returns a copy of the image that is being read.
+* `ProfilePictureDirStorage#saveProfilePicture(BufferedImage image, Room number)` -- Saves the copied image into the
+computer.
+
+Both operations are exposed in the `Storage` interface as `Storage#readProfilePicture(File file)` and
+`Storage#saveProfilePicture(BufferedImage image, Room number)` respectively.
+
+Given below is an example usage scenario and how the image mechanism behaves at each step:
+
+Step 1. The user specifies the file path of the `.jpg` image to be uploaded and the person's room number.
+
+Step 2. `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
+
+Step 3. `ImageCommand` searches Hallper for the person that is tagged with the specified room number. It returns an
+error message if the room number specified is not tagged to any person.
+
+Step 4. Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
+and copying of the image from the given file path.
+
+Step 5. The `NewImageEvent` goes to the `EventCenter`, and is then handled by
+`StorageManager#handleNewImageEvent(NewImageEvent event)`. `ProfilePictureStorage#readProfilePicture(File file)` is
+then called to read the image file. After reading a valid image file, the
+`ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
+computer.
+
+Step 6. Hallper then updates the person's profile picture field with the name of the copied image.
+
+The following sequence diagram shows how the image operation works:
+
+image::Image Sequence Diagram.png[width="800"]
+_Figure 4.7.1.1: Sequence diagram for image operation_
+
+
+==== Design Considerations
+===== Aspect: Choice of component to read and save the file
+
+* **Alternative 1 (current choice):** Read and save image file through `Storage`.
+** Pro: Reading and saving files through `Storage` follows the architecture that the project is built upon.
+** Con: Informing the user of invalid file path is much more complicated.
+
+* **Alternative 2:** Read and save image file through `ImageCommand`.
+** Pro: Informing the user of invalid file path will be similar to when an invalid command is given.
+** Con: Reading and saving the image file from `ImageCommand` breaks the architecture of the project.
+
+==== Aspect: Image type
+* **Alternative 1 (current choice):** Only `.jpg` image files.
+** Pro: Copying the image will be easier since all images saved will be in the form of `.jpg`.
+** Con: Limiting users to only being able to upload one type of image file.
+
+* **Alternative 2:** Allow for multiple image file types i.e `.jpg`, `.png`.
+** Pro: Increasing the valid image file types allows users to have more choices when choosing the picture to upload.
+** Con: Copying of the image will be more complicated since all images will be saved as a `.jpg` image file type.
+
+// end::image[]
 
 // tag::dataencryption[]
 === [Proposed] Data encryption

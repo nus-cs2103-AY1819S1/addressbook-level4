@@ -3,8 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import net.fortuna.ical4j.model.Calendar;
+import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -33,6 +38,7 @@ import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.commons.events.ui.CalendarViewEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
@@ -82,10 +88,32 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new BudgetBook(), new UserPrefs(), new HashSet<>());
     }
 
+    /**
+     * Constructor used for testing Address Book Commands.
+     *
+     * @param addressBook the address book with the typical {@code Person}
+     * @param userPrefs the user preference
+     */
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         versionedBudgetBook = new VersionedBudgetBook(new BudgetBook());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
+        emailModel = new EmailModel();
+        this.userPrefs = userPrefs;
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
+    }
+
+    /**
+     * Constructor used for testing Budget Book Commands.
+     *
+     * @param budgetBook the budget book with the typical {@code Cca}
+     * @param userPrefs the user preference
+     */
+    public ModelManager(BudgetBook budgetBook, UserPrefs userPrefs) {
+        versionedAddressBook = new VersionedAddressBook(new AddressBook());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         emailModel = new EmailModel();
         this.userPrefs = userPrefs;
@@ -109,6 +137,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public CalendarModel getCalendarModel() {
+        return calendarModel;
+    }
+
+    @Override
     public Set<String> getExistingEmails() {
         return emailModel.getExistingEmails();
     }
@@ -120,10 +153,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    //@@author ericyjw
     /**
      * Raises an event to indicate the model has changed
-     *
-     * @author ericyjw
      */
     private void indicateBudgetBookChanged() {
         raise(new BudgetBookChangedEvent(versionedBudgetBook));
@@ -140,6 +172,17 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
+
+    @Override
+    public void initialiseBudgetBook() {
+        Path ccabookXmlFilePath = Paths.get("data", "ccabook.xml");
+        requireNonNull(ccabookXmlFilePath);
+
+        if (!Files.exists(ccabookXmlFilePath)) {
+            raise(new BudgetBookChangedEvent(versionedBudgetBook));
+        }
+    }
+
 
     @Override
     public boolean hasCca(Person person) {
@@ -174,18 +217,18 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author kengwoon
     @Override
     public void clearMultiplePersons(List<Person> target) {
-        for (Person p : target) {
-            deletePerson(p);
-        }
+        versionedAddressBook.removeMultiplePersons(target);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     //@@author kengwoon
     @Override
-    public void removeTagsFromPersons(List<Person> target, List<Person> original) {
-        for (int i = 0; i < target.size(); i++) {
-            updatePerson(original.get(i), target.get(i));
-        }
+    public void removeTagsFromPersons(List<Person> editedPersons, List<Person> targets) {
+        requireAllNonNull(editedPersons, targets);
+
+        versionedAddressBook.updateMultiplePersons(editedPersons, targets);
+        updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
@@ -200,13 +243,22 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addMultiplePersons(List<Person> personList) {
         versionedAddressBook.addMultiplePersons(personList);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
+    //@@author ericyjw
     @Override
     public void addCca(Cca cca) {
         versionedBudgetBook.addCca(cca);
         updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        indicateBudgetBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void addMultipleCcas(List<Cca> ccaList) {
+        versionedBudgetBook.addMultipleCcas(ccaList);
         indicateBudgetBookChanged();
     }
 
@@ -223,6 +275,15 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedCca);
 
         versionedBudgetBook.updateCca(target, editedCca);
+        indicateBudgetBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
+        for (int i = 0; i < target.size(); i++) {
+            updateCca(target.get(i), editedCca.get(i));
+        }
         indicateBudgetBookChanged();
     }
 
@@ -362,6 +423,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    @Subscribe
+    public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
+        calendarModel.removeExistingCalendar(event.year, event.month);
+        updateExistingCalendar();
+    }
+
+    @Override
     public boolean isExistingCalendar(Year year, Month month) {
         requireAllNonNull(year, month);
         return calendarModel.isExistingCalendar(year, month);
@@ -383,6 +451,11 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean isValidTime(int hour, int minute) {
         requireAllNonNull(hour, minute);
         return calendarModel.isValidTime(hour, minute);
+    }
+
+    @Override
+    public boolean isValidTimeFrame(int startDate, int endDate) {
+        return calendarModel.isValidTimeFrame(startDate, 0, 0, endDate, 1, 0);
     }
 
     @Override
@@ -455,7 +528,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateExistingCalendar() {
-        userPrefs.setExistingCalendar(calendarModel.updateExistingCalendar());
+        userPrefs.setExistingCalendar(calendarModel.getExistingCalendar());
     }
 
     //@@author
@@ -544,6 +617,30 @@ public class ModelManager extends ComponentManager implements Model {
         saveEmail(event.data);
         raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
         raise(new EmailViewEvent(emailModel));
+    }
+
+    //@@author ericyjw
+    @Override
+    public void readXslFile() {
+        Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
+        requireNonNull(ccaXslFilePath);
+
+        if (!Files.exists(ccaXslFilePath)) {
+
+            try {
+                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+
+                File dir = new File("data");
+                dir.mkdirs();
+
+                Files.copy(is, Paths.get("data", "ccabook.xsl"));
+            } catch (IOException e) {
+                logger.warning("An error occurred copying the resource!");
+            } catch (NullPointerException e) {
+                logger.warning("Null pointer exception - no such path");
+            }
+
+        }
     }
 
 }

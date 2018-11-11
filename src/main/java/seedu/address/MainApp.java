@@ -77,7 +77,7 @@ public class MainApp extends Application {
         BudgetBookStorage budgetBookStorage = new XmlBudgetBookStorage(userPrefs.getBudgetBookFilePath());
         EmailStorage emailStorage = new EmailDirStorage(userPrefs.getEmailPath());
         ProfilePictureStorage profilePictureStorage = new ProfilePictureDirStorage(userPrefs.getProfilePicturePath(),
-                userPrefs.getOutputProfilePicturePath());
+            userPrefs.getOutputProfilePicturePath());
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
         storage = new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
             emailStorage, profilePictureStorage);
@@ -132,6 +132,8 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty BudgetBook");
             initialBudgetData = new BudgetBook();
         }
+
+        //        storage.readXslFile(userPrefs.getCcaXslFilePath());
 
         Set<String> emailNamesSet = storage.readEmailFiles();
 

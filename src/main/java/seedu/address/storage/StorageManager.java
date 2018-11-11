@@ -33,6 +33,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.storage.ImageReadingExceptionEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
+import seedu.address.commons.events.ui.CalendarNotFoundEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -41,6 +43,8 @@ import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 import seedu.address.model.person.Room;
 
 
@@ -68,6 +72,12 @@ public class StorageManager extends ComponentManager implements Storage {
         this.calendarStorage = calendarStorage;
         this.emailStorage = emailStorage;
         this.profilePictureStorage = profilePictureStorage;
+    }
+
+    @Override
+    public StorageManager makeCopyOf() {
+        return new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
+            emailStorage, profilePictureStorage);
     }
 
     // ================ UserPrefs methods ==============================
@@ -167,7 +177,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     //@@author kengwoon
-    // ================ Export and Import methods =========================
+    // ================ Export methods =========================
     @Override
     @Subscribe
     public void handleExportAddressBookEvent(ExportAddressBookEvent event) {
@@ -265,6 +275,18 @@ public class StorageManager extends ComponentManager implements Storage {
         return calendarStorage.getCalendarPath();
     }
 
+    @Override
+    public void setCalendarPath(Path newDirPath) {
+        calendarStorage.setCalendarPath(newDirPath);
+    }
+
+    /**
+     * Returns the CalendarStorage.
+     */
+    public CalendarStorage getCalendarStorage() {
+        return this.calendarStorage;
+    }
+
     /**
      * Raises an event to indicate that a calendar has been loaded.
      */
@@ -299,7 +321,14 @@ public class StorageManager extends ComponentManager implements Storage {
             Calendar calendarToBeLoaded = loadCalendar(event.calendarName);
             indicateCalendarLoaded(calendarToBeLoaded, event.calendarName);
         } catch (IOException | ParserException e) {
+            String[] tokenizedCalendarName = event.calendarName.split("-");
+            Month month = new Month(tokenizedCalendarName[0]);
+            Year year = new Year(tokenizedCalendarName[1]);
+
             logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
+            raise(new RemoveExistingCalendarInModelEvent(month, year));
+            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
+            raise(new CalendarNotFoundEvent(event.calendarName));
         }
     }
 
