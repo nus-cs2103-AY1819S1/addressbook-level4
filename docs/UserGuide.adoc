@@ -87,15 +87,15 @@ There are a range of `apply` commands we provide to cater many different transfo
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
 ** e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>` +
 * Flags such as `/a` are compulsory flags that need to be included when using that command
-** e.g `g ul ls /a`
+** e.g `g ls /a`
 
 === Viewing help : `help`
 
-Format: `help`: viewing list of all commands
+Format: `help` -> Shows a list of all commands.
 
 === Listing files in directory : `ls`
 
-Format: `ls`: lists files in the current directory
+Format: `ls` -> Lists all images and folders located in the current directory
 
 // tag::dir[]
 === Changing directories : `cd`
@@ -392,36 +392,37 @@ Examples:
 // end::layer[]
 
 // tag::google[]
-=== Logging in to Google Photos: `login`
 
-Format: `login`: allows you to log in to Google Photos
+=== Interacting with Google Photos: `g`
+Piconso allows you to connect to Google Photos so that you may easily upload and download photos for editing.
 
-[NOTE]
-====
-*Requires a stable internet connection* +
-Once the `login` command is launched, you *MUST* proceed with logging in from the redirected page, otherwise the application will freeze. You may use `logout` afterwards if you have changed your mind. +
+All Google-related commands will require a stable internet connection. Additionally as the following are internet-dependant, the commands will take a longer amount of time to execute as compared to the other offline features.
 
-A fix is upcoming in v2.0.
-====
-
-=== Google Photos related commands: `g`
+Connecting to Google Photos is *NOT* compulsory, it is simply an additional feature to supplement your experience with Piconso!
 
 [NOTE]
 ====
-All commands will require a stable internet connection.
+The higher the amount of images involved in your google command, the longer amount of time commands will take to process.
 ====
+
+==== Logging in to Google Photos: `login`
+Format : `login` - Allows you to connect to Google Photos through a browser redirect
 
 ==== Traversing Google Photos: `g ls`
+Format: `g ls (parameters)` - Lists the images you have in Google Photos.
 
-Format: `g ls`: lists all photos in your Google Photos, takes a longer amount of time depending on the number of images stored. +
-Format: `g ls /a`: lists all albums in your Google Photos. +
-Format: `g ls <ALBUM_NAME>`: lists all photos in specified album from Google Photos.
+There are 3 ways you can list your images.
+
+* `g ls`: Lists all images in your account +
+* `g ls /a`: Lists all your available albums +
+* `g ls <ALBUM_NAME>`: Lists all images in specified album from Google Photos.
 
 Examples:
 
-* `g ls <Vacation>`
+`* g ls <Vacation>` - Lists all images in the Vacation album.
 
 ==== Downloading photos from Google Photos: `g dl`
+Format: `g dl [parameters]` - Downloads your specified image from Google Photos.
 
 [NOTE]
 ====
@@ -429,39 +430,43 @@ All photos will be downloaded to the currently opened local directory. +
 Any files with duplicate naming existing in the targeted directory *WILL* be replaced
 ====
 
-Format: `g dl /i<IMAGE_NAME>`: downloads specified image from Google Photos +
-Format: `g dl /a<ALBUM_NAME>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: downloads a specific photo from a specific album in Google Photos.
+There are 3 ways you can list your images:
+
+* `g dl /i<IMAGE_NAME>`: Downloads the specified image from Google Photos +
+* `g dl /a<ALBUM_NAME>`: Downloads all images from the specified album into Google Photos. +
+* `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: Downloads a specific photo from a specific album in Google Photos.
 
 Examples:
 
-* `g dl /i<Beach.png>` -> Downloads Beach.png +
-* `g dl /a<Vacation>` -> Downloads all photos from Vacation album +
-* `g dl /a<Vacation> /i<Beach.png>` -> Downloads Beach.png from Vacation album +
+* `g dl /i<Beach.png>` - Downloads Beach.png +
+* `g dl /a<Vacation>` - Downloads all photos from Vacation album +
+* `g dl /a<Vacation> /i<Beach.png>` - Downloads Beach.png from Vacation album +
 
 ==== Uploading photos to Google Photos: `g ul`
+Format: `g ul [parameters]` - Uploads your specified image to Google Photos.
 
 [NOTE]
 ====
-All uploaded photos will be automatically categorised into album 'Piconso Uploads'
+All uploaded photos will be automatically categorised into album 'Piconso Uploads' in Google Photos
 ====
+There are 2 ways you can list your images:
 
-Format: `g ul <IMAGE_NAME>`: uploads specified image in currently open local directory to Google Photos +
-Format: `g ul all`: uploads all images in current directory to Google Photos, takes a longer amount of time depending on number of images to upload.
+* `g ul <IMAGE_NAME>`: Uploads the specified image to Google Photos +
+* `g ul all`: Uploads all images in current opened directory to Google Photos.
 
 Examples:
 
-* `g ul <Cat.png>` -> Uploads Cat.png +
+* `g ul <Cat.png>` - Uploads Cat.png +
 
 === Logging out of Google Photos: `logout`
 
-Format: `logout`: logs you out of Google Photos
+Format: `logout` - Disconnects you from  Google Photos
 
 // tag::google[]
 
 === Exiting the application: `exit`
 
-Format: `exit`: closes the application
+Format: `exit` - Closes the application
 
 == FAQ
 
