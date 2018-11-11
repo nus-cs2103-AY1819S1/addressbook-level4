@@ -1,11 +1,12 @@
 package seedu.learnvocabulary.logic.parser;
 
+import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.learnvocabulary.logic.commands.Command;
 import seedu.learnvocabulary.logic.commands.GroupdeleteCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.tag.Tag;
 
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //@@author Harryqu123
 /**
  * Create a new groupDelete command with given user input

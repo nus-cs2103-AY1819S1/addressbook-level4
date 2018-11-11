@@ -1,10 +1,13 @@
 package seedu.learnvocabulary.logic.parser;
 
+import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Arrays;
 
 import seedu.learnvocabulary.logic.commands.ShowGroupCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
+
 //
 //@@author Harryqu123
 
@@ -20,6 +23,10 @@ public class ShowGroupCommandParser implements Parser<ShowGroupCommand> {
      */
     public ShowGroupCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+        if (trimmedArgs.contains(" ")) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowGroupCommand.MESSAGE_MULTI_GROUP));
+        }
         return new ShowGroupCommand(new TagContainsKeywordsPredicate(Arrays.asList(trimmedArgs)));
     }
 
