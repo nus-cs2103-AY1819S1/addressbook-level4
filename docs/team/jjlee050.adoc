@@ -46,7 +46,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: 
-** Redesign the UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
+** Alter the UI to provide a more beautiful UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
 
 * *Other contributions*:
 
