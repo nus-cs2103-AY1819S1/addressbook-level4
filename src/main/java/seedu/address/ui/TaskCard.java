@@ -36,6 +36,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
+    private Label dependencyCount;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -46,6 +48,7 @@ public class TaskCard extends UiPart<Region> {
         dueDate.setText(task.getDueDate().value);
         status.setText(task.getStatus().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(truncateLabelName(tag.labelName))));
+        dependencyCount.setText(task.getDependency().getDependencyCount().toString());
         registerAsAnEventHandler(this);
     }
 
