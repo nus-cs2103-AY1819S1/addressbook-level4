@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -22,7 +23,10 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
+import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.logic.Logic;
@@ -155,7 +159,11 @@ public class MainWindow extends UiPart<Stage> {
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
+        analyticsDisplay.setVisible(false);
+
+        browserPlaceholder.setAlignment(Pos.TOP_CENTER);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         setUpListPanel();
 
@@ -275,6 +283,24 @@ public class MainWindow extends UiPart<Stage> {
 
     public PatientListPanel getPatientListPanel() {
         return patientListPanel;
+    }
+
+    @Subscribe
+    private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
+        analyticsDisplay.setVisible(true);
+        browserPanel.setVisible(false);
+    }
+
+    @Subscribe
+    private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
+        analyticsDisplay.setVisible(false);
+        browserPanel.setVisible(true);
+    }
+
+    @Subscribe
+    private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
+        analyticsDisplay.setVisible(false);
+        browserPanel.setVisible(true);
     }
 
     @Subscribe

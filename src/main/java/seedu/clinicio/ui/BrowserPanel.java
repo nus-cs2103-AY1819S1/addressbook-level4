@@ -69,4 +69,8 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }
+
+    public void setVisible(boolean isVisible) {
+        browser.setVisible(isVisible);
+    }
 }
