@@ -71,7 +71,7 @@ This will generate all resources required by the application and tests.
 
 In order to verify that you have successfully set the project up:
 
-. Run `seedu.address.MainApp` and try a few commands
+. Run `seedu.expensetracker.MainApp` and try a few commands
 . <<Testing,Run the tests>> and ensure that they all pass.
 
 === Configurations
@@ -142,7 +142,7 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of Expense Tracker. Given below is a
 quick overview for each component
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/expensetracker/MainApp.java[`MainApp`]. It is responsible for:
 
 * Initialising the components in the correct sequence and connecting them up with each other when the app is launched.
 * Shutting down the components and invoking cleanup methods where necessary when the app is shut down.
@@ -199,7 +199,7 @@ image::UiClassDiagram.png[width="800"]
 
 As per the diagram above, `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
-`UI` uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+`UI` uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/expensetracker/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 Below lists other functions that `UI` carries out:
 
@@ -215,7 +215,7 @@ Below lists other functions that `UI` carries out:
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/expensetracker/logic/Logic.java[`Logic.java`]
 
 As per the diagram above, `Logic` uses `ExpenseTrackerParser` to parse user commands.
 This results in a `Command` object which is executed by `LogicManager`. +
@@ -234,7 +234,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::UpdatedModelComponentClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensetracker/model/Model.java[`Model.java`]
 
 As per the diagram above, `ModelManager` implements the `Model` interface, which:
 
@@ -257,7 +257,7 @@ image:BetterOopModelComponentClassDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensetracker/storage/Storage.java[`Storage.java`]
 
 As per the diagram above, `StorageManager` implements the `Storage` interface, which:
 
@@ -269,7 +269,7 @@ As per the diagram above, `StorageManager` implements the `Storage` interface, w
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.expensetracker.commons` package.
 
 == Implementation
 
@@ -1107,14 +1107,14 @@ There are two main types of tests:
 
 *  *GUI Tests* - These are tests involving the GUI. They include:
 ** _System Tests_ which test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-** _Unit tests_ which test the individual components. These are in `seedu.address.ui` package.
+** _Unit tests_ which test the individual components. These are in `seedu.expensetracker.ui` package.
 *  *Non-GUI Tests* - These are tests not involving the GUI. They include:
 **  _Unit tests_ which target the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.expensetracker.commons.StringUtilTest`
 **  _Integration tests_ which check the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.expensetracker.storage.StorageManagerTest`
 **  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.expensetracker.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -1146,7 +1146,7 @@ We use https://www.netlify.com/[Netlify] to see a preview of how the HTML versio
 
 Follow the steps below to create a new release:
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/expensetracker/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  Create a new release using GitHub and upload the JAR file you created. See https://help.github.com/articles/creating-releases/
@@ -1486,22 +1486,22 @@ Use case ends
 
 1. User keys in command to login to an account.
 2. User also enters password of account.
-2. Expense Tracker logs user into account.
+3. Expense Tracker logs user into account.
 +
 Use case ends
 
 *Extensions*
 
-* 2a.Expense Tracker detects error in the entered data.
+* 3a.Expense Tracker detects error in the entered data.
     ** 2a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 2a.Expense Tracker detects that specified user does not exist.
+* 3a.Expense Tracker detects that specified user does not exist.
     ** 2a1. Expense Tracker informs user that user does not exist
     ** Use case ends.
 
-* 2a. Expense Tracker detects that the password is incorrect.
-** 2a1. Expense tracker informs the user that the entered password is incorrect.
+* 3a. Expense Tracker detects that the password is incorrect.
+** 3a1. Expense tracker informs the user that the entered password is incorrect.
 ** Use case ends
 
 [discrete]
