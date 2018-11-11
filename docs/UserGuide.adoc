@@ -1131,7 +1131,8 @@ contains the data of your previous *MeNUS* folder.
 |*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
-|*Delete item* |`delete-item INDEX` |`delete-item 3`
+|*Delete item by index* |`delete-item-index INDEX` |`delete-item-index 3`
+|*Delete item by name* |`delete-item-name ITEM_NAME` |`delete-item-name burger`
 |*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
