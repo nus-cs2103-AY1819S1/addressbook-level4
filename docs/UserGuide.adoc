@@ -135,9 +135,9 @@ Format:
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee.
-For a dependency of a task A on task B, task A is defined as the dependent task while task B is defined as the dependee task.
-The dependency is added if it already exists,
-or removed if it does not.
+For a given scenario where task A is dependent on task B, task A is defined as the dependent task while task B is defined as the dependee task.
+The dependency is added if it already exists amd removed if it does not.
+
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
@@ -155,9 +155,9 @@ There are several cases when a dependency cannot be created:
 
 1) The dependency introduces a cyclic dependency
 
-A cyclic dependency is defined as a path from a task back to the task itself.
+A cyclic dependency is defined as a dependency path from a task back to the task itself.
 
-image::CyclicDependency.png[width="200"]
+image::CyclicDependency.png[width="100"]
 
 In the diagram above, an additional dependency from `Task` A to `Task` C will introduce a cycle and hence will be rejected by the Task Manager.
 
@@ -322,7 +322,7 @@ B comes before A in the ordering.
 
 [NOTE]
 ====
-image::TopologicalOrdering.png[width="300"]
+image::TopologicalOrdering.png[width="100"]
 _Diagram of a possible dependency graph_
 
 A topological order of this graph is: [A, B, C]

@@ -122,7 +122,7 @@ abstract method in command.
 
 Simplified class diagram for the command component:
 
-image::CommandComponentClassDiagram.png[width="1200"]
+image::CommandComponentClassDiagram.png[width="600"]
 // end::command[]
 
 
@@ -578,8 +578,8 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded `Dependencies` object. This object internally represents dependencies with
-a hashset that contains the hashcode of the object that the task is dependent upon.
+The dependency mechanism is facilitated by an embedded `Dependencies` object. This object represents dependencies with
+a hashset that contains the hashcodes of the tasks that the task is dependent upon.
 
 Sequence Diagram of the dependencies command
 
@@ -590,7 +590,6 @@ image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 * ** Alternative 1(current choice):** Dependencies specified by unique hashcodes of tasks
 ** Pros:
-*** Simple to implement.
 *** There is no task creation propogation when task dependency is added. (refer to alternative 2).
 *** Easy to reform the dependency graph.
 ** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
@@ -1144,7 +1143,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 // tag::seanmanualtest[]
 === Effective Due Date field
-. Showcasing Effective Due Date field +
+. Showcasing Effective due date field +
 [NOTE]
 ====
 Effective due date is a field in the UI that updates accordingly to command changes.
@@ -1165,7 +1164,7 @@ image::EffectiveDueDate2.png[width="200"]
 _Diagram of Due Dates and Effective Due Dates for test case 1_
 
 .. Test case 1: `dependency 2 1`, `select 1` or click on Task A +
-Expected: Dependency added between task B and task A. Effective Due Date of A now specifies 1-1-18.
+Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
 Number of dependencies field on the task card updated.
 
 image::EffectiveDueDate3.png[width="200"]
