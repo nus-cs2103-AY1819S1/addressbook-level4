@@ -662,27 +662,25 @@ Step 4. The system lists the assignments.
 // end::assignment[]
 
 // tag::archive[]
-=== View deleted employee archive
-Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
+=== Archive employee feature
+Employees with the "Delete_employee" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list.
 
 ==== Proposed implementation
-The view deleted employee archive feature is facilitated by `VersionedArchiveList` and `UniquePersonList.
+The archive employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
 
-Given below is an example usage scenario and how the `VersionedArchiveList` and `UniquePersonList` behaves at each step.
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedArchiveList` will be initialized with the initial archive list state and an empty `UniquePersonList` is maintained.
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VerisionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
 
-Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person's data.
+Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The selected Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person’s data.
 
-Step 3. The user executes archive command to view the `UniquePersonList` in `VersionedArchiveList`.
+Step 3. The user executes archive command to change view from active list to the archive list.
 
 Step 4. OASIS shows delete person in step 2 in the archive list
 
 The following activity diagram summarizes what happens when a user executes remove and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
-
-The following sequence diagram shows how the archive operation works:
 
 
 ===== Aspect: Model
@@ -717,6 +715,56 @@ image::storageModelChangeJosh.PNG[width="350]
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive[]
+
+// tag::archive[]
+=== Restore employee feature
+Employees with the "Restore_employee" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “Delete_employee” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
+
+==== Proposed implementation
+The Restore or completely remove employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
+
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VersionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
+
+Step 2. The user executes archive command to change view from active list to the archive list.
+
+Step 3a1. The user executes restore 1 command to restore the first person in the archive list. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be transferred to the `UniquePersonList` in `VersionedAddressBook` and be back in the active list.
+
+Step 3a2. The user executes list command to change view from archive list to active list.
+
+Step 3a3. The employee restored in Step 3a1 is shown in active list
+
+Step 3b1. The user executes delete 1 command to completely remove the first person in the archive list from OASIS. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be deleted.
+
+Step3b2. Archive list updated and deleted employee is removed.
+
+The following activity diagram summarizes what happens when a user executes remove and restore command:
+
+image::archiveActivityDiagram.PNG[width="350]
+
+The following sequence diagram shows how the archive operation works:
+
+image::restoreSequenceDiagram.jpg[width="350]
+
+==== Design considerations
+===== Aspect: Lifetime of objects in Archive list
+* **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
+** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
+** Cons: May have performance issues in terms of memory usage as employee records stored a few years back could still be stored.
+* **Alternative 2:** Deleted after a certain number of time has passed.
+** Pros: More efficient memory usage wont store old employee records which could cause high memory usage.
+** Cons: Loss of data possible if an employee is accidentally deleted and not restored right away.
+
+===== Aspect: Data structure to support the archive commands
+
+* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
+** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
+** Cons: We must maintain a separate list for archived objects.
+* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+** Pros: Only need to change 1 attribute when an employee is deleted.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+// end::restore[]
 
 // tag::login[]
 === Login/Logout feature
