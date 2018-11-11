@@ -507,7 +507,7 @@ Format: `delete-item-name ITEM_NAME`
 ****
 * Deletes the item by the specified `ITEM_NAME`.
 * The ITEM_NAME *must be in the displayed item list*.
-* ITEM_NAME is case-insensitive.* e.g `burger` will match `Burger`
+* ITEM_NAME is case-insensitive. e.g `burger` will match `Burger`
 ****
 
 Examples:

@@ -759,12 +759,12 @@ Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<In
 The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
 user input for the sorting method.
 [NOTE]
-Currently only sort by name or price.
+Currently only sort by name or price
 
 The `SortMenuCommandParser` will parse the user input and checks if the input is valid. If the input is valid, it
 constructs an `SortMenuCommand` object.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the input is not valid, it will throw a `ParseException`
 
 The `SortMenuCommand` object will indirectly call the `UniqueItemList#sortItemsByName()` or
 `UniqueItemList#sortItemsByPrice()` and the sorts the menu.
@@ -789,7 +789,7 @@ keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParse
 `DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
 `DiscountItemCommand` object with `isAll` set to false.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the input is not valid, it will throw a `ParseException`
 
 The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount all
 items in the `UniqueItemList`. Otherwise, it will give the discount to the items specified by the index. The
