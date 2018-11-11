@@ -232,6 +232,7 @@ The following figure shows the expected panel before and after entering the `swi
 
 .Panel display changing from volunteers to events
 image::command_switch.png[switch, 600]
+//end::command-switch[]
 
 [[command-overview]]
 ==== Viewing overview: `overview`
