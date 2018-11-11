@@ -158,15 +158,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */
     public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
-        return new Task(
-                dependantTask.getName(),
-                dependantTask.getDueDate(),
-                dependantTask.getPriorityValue(),
-                dependantTask.getDescription(),
-                dependantTask.getLabels(),
-                dependantTask.getStatus(),
-                dependantTask.getDependency().spliceDependency(dependeeTask)
-        );
+        return dependeeTask.spliceDependency(dependeeTask);
     }
 
     /**

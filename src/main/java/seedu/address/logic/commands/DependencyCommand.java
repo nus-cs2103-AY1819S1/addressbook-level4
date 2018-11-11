@@ -141,7 +141,7 @@ public class DependencyCommand extends Command {
     public static Task createDependantTask(Task dependantTask, Task dependeeTask) {
         assert dependantTask != null;
         assert dependeeTask != null;
-        return dependantTask.concatDependency()
+        return dependantTask.concatDependency(dependeeTask);
     }
 
     /**
