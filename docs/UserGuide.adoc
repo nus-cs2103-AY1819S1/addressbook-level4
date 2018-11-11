@@ -355,8 +355,8 @@ Format: `add-ingredient n/INGREDIENT_NAME u/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM
 
 [NOTE]
 ====
-* MINIMUM refers to the number of units below which an ingredient will be considered low in stock count.
-* When a new ingredient is first added, its number of units is set to zero.
+* MINIMUM refers to the number of units below which an ingredient will be considered low in stock count
+* When a new ingredient is first added, its number of units is set to zero
 ====
 
 Examples:
@@ -378,7 +378,7 @@ Format: `low-stock`
 
 [NOTE]
 ====
-* An ingredient is low in stock count when the number of units available is less than its minimum threshold.
+* An ingredient is low in stock count when the number of units available is less than its minimum threshold
 ====
 
 [[delete-ingredient]]
@@ -389,10 +389,10 @@ Format: `delete-ingredient INDEX` or `delete-ingredient INGREDIENT_NAME`
 
 [NOTE]
 ====
-* Deletes the ingredient at the specified `INDEX`.
-* `INDEX` refers to the index number shown in the displayed ingredient list.
+* Deletes the ingredient at the specified `INDEX`
+* `INDEX` refers to the index number shown in the displayed ingredient list
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
-* Alternatively, deletes the ingredient with the specified `INGREDIENT_NAME`.
+* Alternatively, deletes the ingredient with the specified `INGREDIENT_NAME`
 ====
 
 Examples:
@@ -416,14 +416,14 @@ on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_U
 [NOTE]
 ====
 * Edits the ingredient at the specified `INDEX`. The index refers to the index number shown in the displayed ingredient list. The index *must be a positive integer* 1, 2, 3, ...
-* Existing values will be updated to the input values.
-* Alternatively, edits the ingredient with the specified `ORIGINAL_INGREDIENT_NAME`.
-* If both `INDEX` and `ORIGINAL_INGREDIENT_NAME` are specified and valid, the edit will be done according to `INDEX`.
+* Existing values will be updated to the input values
+* Alternatively, edits the ingredient with the specified `ORIGINAL_INGREDIENT_NAME`
+* If both `INDEX` and `ORIGINAL_INGREDIENT_NAME` are specified and valid, the edit will be done according to `INDEX`
 ====
 
 [WARNING]
 ====
-* At least one of the optional fields must be provided.
+* At least one of the optional fields must be provided!
 ====
 
 Examples:
@@ -445,7 +445,7 @@ Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
 
 [WARNING]
 ====
-* `NUMBER_OF_UNITS` for an ingredient must follow the `INGREDIENT_NAME` for that particular ingredient.
+* `NUMBER_OF_UNITS` for an ingredient must follow the `INGREDIENT_NAME` for that particular ingredient
 ====
 
 Examples:
@@ -463,8 +463,8 @@ Format: `select-ingredient INDEX` or `select-ing INDEX`
 
 [NOTE]
 ====
-* Selects the ingredient and displays the details of the ingredient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed ingredient list.
+* Selects the ingredient and displays the details of the ingredient at the specified `INDEX`
+* The index refers to the index number shown in the displayed ingredient list
 * The index *must be a positive integer* `1, 2, 3, ...`
 ====
 
