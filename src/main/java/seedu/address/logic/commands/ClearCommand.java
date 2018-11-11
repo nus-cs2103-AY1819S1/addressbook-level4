@@ -88,13 +88,11 @@ public class ClearCommand extends Command {
         List<Person> toClear = new ArrayList<>();
         List<Person> fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
-            if (isClearRoom && predicateRoom.test(p)) {
+            if (isClearRoom && predicateRoom.test(p) && !toClear.contains(p)) {
                 toClear.add(p);
             }
-            if (isClearTag && predicateTag.test(p)) {
-                if (!toClear.contains(p)) {
-                    toClear.add(p);
-                }
+            if (isClearTag && predicateTag.test(p) && !toClear.contains(p)) {
+                toClear.add(p);
             }
         }
 
