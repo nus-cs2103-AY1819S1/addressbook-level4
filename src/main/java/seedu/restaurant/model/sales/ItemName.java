@@ -56,5 +56,4 @@ public class ItemName {
     public int hashCode() {
         return fullName.toLowerCase().hashCode();
     }
-
 }

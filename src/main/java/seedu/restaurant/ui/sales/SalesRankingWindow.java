@@ -27,6 +27,7 @@ public class SalesRankingWindow extends UiPart<Stage> {
     private static final String ITEM_STRING = "Item";
     private static final String DATE_WINDOW_TITLE = DATE_STRING + " ranked by revenue";
     private static final String ITEM_WINDOW_TITLE = ITEM_STRING + " ranked by revenue";
+    private static final String DATE_DELIMITER = "-";
 
     private Map<String, String> salesRanking;
     private boolean isDateRanking;
@@ -48,6 +49,7 @@ public class SalesRankingWindow extends UiPart<Stage> {
      */
     public SalesRankingWindow(Stage root, Map<String, String> salesRanking) {
         super(FXML, root);
+        assert !salesRanking.isEmpty();
         this.salesRanking = salesRanking;
         isDateRanking = isDateRanking();
         root.setTitle((isDateRanking) ? DATE_WINDOW_TITLE : ITEM_WINDOW_TITLE);
@@ -64,7 +66,7 @@ public class SalesRankingWindow extends UiPart<Stage> {
      * Shows the SalesRankingWindow.
      */
     public void show() {
-        logger.fine("Displaying Sales Ranking.");
+        logger.fine("Displaying " + ((isDateRanking) ? DATE_STRING : ITEM_STRING) + "-Revenue sales ranking");
         initialize();
         getRoot().show();
     }
@@ -87,7 +89,7 @@ public class SalesRankingWindow extends UiPart<Stage> {
      * Returns true if this ranking is a date-revenue ranking. False if it is an item-revenue ranking.
      */
     private boolean isDateRanking() {
-        return salesRanking.keySet().stream().anyMatch(s -> s.contains("-"));
+        return salesRanking.keySet().stream().anyMatch(s -> s.contains(DATE_DELIMITER));
     }
 
     /**

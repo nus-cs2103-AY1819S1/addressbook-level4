@@ -37,6 +37,7 @@ public class SalesChartWindow extends UiPart<Stage> {
     public SalesChartWindow(Stage root, Map<Date, Double> salesData) {
         super(FXML, root);
         root.setTitle("Sales Chart");
+        assert !salesData.isEmpty();
         this.salesData = salesData;
     }
 

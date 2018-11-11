@@ -62,7 +62,10 @@ public class XmlAdaptedRecord {
         price = String.valueOf(source.getPrice().toString());
         ingredientsUsed = new HashMap<>();
 
-        for (Map.Entry<IngredientName, Integer> entry : source.getIngredientsUsed().entrySet()) {
+        Map<IngredientName, Integer> modelIngredientUsed = source.getIngredientsUsed();
+        assert modelIngredientUsed != null;
+
+        for (Map.Entry<IngredientName, Integer> entry : modelIngredientUsed.entrySet()) {
             IngredientName ingredient = entry.getKey();
             Integer quantityUsed = entry.getValue();
             ingredientsUsed.put(ingredient.toString(), quantityUsed.toString());
@@ -153,6 +156,7 @@ public class XmlAdaptedRecord {
      */
     private Map<IngredientName, Integer> ingredientUsedToModelType() throws IllegalValueException {
         Map<IngredientName, Integer> modelIngredientUsed = new HashMap<>();
+        assert ingredientsUsed != null;
 
         for (Map.Entry<String, String> entry : ingredientsUsed.entrySet()) {
             String ingredientName = entry.getKey();

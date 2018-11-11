@@ -100,8 +100,8 @@ public class RecordSalesCommand extends Command {
         model.addRecord(toAdd); // record will be added even if one of the four exceptions above was caught
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayRecordListRequestEvent());
-        EventsCenter.getInstance().post(new JumpToRecordListRequestEvent(
-                Index.fromOneBased(model.getFilteredRecordList().size()))); // display the newly added record
+        Index newRecordIndex = Index.fromOneBased(model.getFilteredRecordList().size());
+        EventsCenter.getInstance().post(new JumpToRecordListRequestEvent(newRecordIndex)); // display the added record
         return new CommandResult(String.format(MESSAGE_RECORD_SALES_SUCCESS, toAdd) + "\n"
                 + ingredientsUpdateStatus);
     }
@@ -128,7 +128,9 @@ public class RecordSalesCommand extends Command {
      * @return A Map representation of the required ingredients per unit of "item"
      */
     private Map<IngredientName, Integer> getRequiredIngredients(Model model) throws ItemNotFoundException {
-        Name itemName = new Name(toAdd.getName().toString());
+        String recordItemName = toAdd.getName().toString();
+        assert Name.isValidName(recordItemName);
+        Name itemName = new Name(recordItemName);
         Item item = model.findItem(itemName);
         return model.getRequiredIngredients(item);
     }

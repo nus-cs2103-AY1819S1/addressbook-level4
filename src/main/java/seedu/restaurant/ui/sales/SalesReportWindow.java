@@ -54,6 +54,7 @@ public class SalesReportWindow extends UiPart<Stage> {
      */
     public SalesReportWindow(Stage root, SalesReport salesReport) {
         super(FXML, root);
+        assert !salesReport.getRecords().isEmpty();
         root.setTitle(salesReport.toString());
         this.salesReport = salesReport;
     }

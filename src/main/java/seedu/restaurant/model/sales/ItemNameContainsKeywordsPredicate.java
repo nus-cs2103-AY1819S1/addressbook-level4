@@ -28,5 +28,4 @@ public class ItemNameContainsKeywordsPredicate implements Predicate<SalesRecord>
                 || (other instanceof ItemNameContainsKeywordsPredicate // instanceof handles nulls
                     && keywords.equals(((ItemNameContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }
