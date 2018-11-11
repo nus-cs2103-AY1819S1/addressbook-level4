@@ -1858,6 +1858,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
+
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
