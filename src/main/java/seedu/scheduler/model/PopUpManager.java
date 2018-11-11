@@ -31,13 +31,9 @@ public class PopUpManager {
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
     private static PopUpManager instance;
     private PriorityQueue<EventPopUpInfo> popUpQueue;
-    private Boolean flag;
-    // private static ArrayList<EventPopUpInfo> pastPopUps;
 
     private PopUpManager() {
         popUpQueue = new PriorityQueue<>();
-        flag = false;
-        //pastPopUps = new ArrayList<>();
     }
 
     public static PopUpManager getInstance() {
