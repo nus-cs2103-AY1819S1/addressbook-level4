@@ -25,12 +25,13 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 
 class GenerateLocationCommandTest {
 
-    final EventDate testEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
-    final Index existentIndex = Index.fromOneBased(1);
-    final Index nonExistentIndex = Index.fromOneBased(999);
 
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
+
+    final EventDate testEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
+    final Index existentIndex = Index.fromOneBased(1);
+    final Index nonExistentIndex = Index.fromOneBased(999);
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
