@@ -35,7 +35,7 @@ Role: Developer +
 Responsibilities: Storage, Project Management, Directory Navigation
 
 '''
-
+=
 === Zhang Tianyang
 image::lancelotwillow.png[width="150", align="left"]
 {empty}[http://github.com/lancelotwillow[github]] [<<lancelotwillow#, portfolio>>]

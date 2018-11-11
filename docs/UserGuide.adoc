@@ -36,8 +36,7 @@ In this tutorial, you will learn how to create some of the dankest memes startin
 
 If you ever get stuck with a command, pop down to the Features section for reference!
 
-.The Piconso team know how it feels.
-
+.The Piconso team knows how it feels.
 image::tutorial/before-after.png[width:2000]
 
 
@@ -46,8 +45,8 @@ image::tutorial/before-after.png[width:2000]
 . Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started!
 . Unzip the files into somewhere easy to access, like your Pictures folder.
 . Start Piconso!
-. Use the `cd` and `ls` commands to get to the folder with your unzipped assets.
-You can use the `TAB` key to auto-complete pesky folder names! If everything went well, you should see all your images show up in the Image Panel.
+. Use the `cd` and `ls` commands to get to the folder with your unzipped assets. Your current file location is as noted on the bottom right of the application.
+You can use the `TAB` key to auto-complete pesky folder names! If everything goes well, you should be able to see all the images show up in the Image Panel on the lower left.
 
 .Images and their corresponding indexes are showing up!
 image::tutorial/step 1.png[width:2000]
@@ -155,20 +154,20 @@ Before we let you go, wonder how we made the very first image you saw? Try this 
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
 ** e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>` +
 * Flags such as `/a` are compulsory flags that need to be included when using that command
-** e.g `g ul ls /a`
+** e.g `g ls /a`
 
-=== Viewing help : `help`
+=== Views help : `help`
 
-Format: `help`: viewing list of all commands
+Format: `help` -> Shows a list of all commands.
 
-=== Listing files in directory : `ls`
+=== Lists files in directory : `ls`
 
-Format: `ls`: lists files in the current directory
+Format: `ls` -> Lists all images and folders located in the current directory
 
 // tag::dir[]
-=== Changing directories : `cd`
+=== Changes directory : `cd`
 
-Format: `cd [DIRECTORY_NAME]`: changes directory
+Format: `cd [DIRECTORY_NAME]` -> Changes to specified directory
 
 [NOTE]
 ====
@@ -179,190 +178,181 @@ Example:
 
 * `cd C://Users` - Changes the directory to Users in C:/ drive.
 
-=== Opening images for editing: `open`
+=== Opens images for editing: `open`
 
-Format: `open [INDEX 1-10]`: opens an image for image-editing
+Format: `open [INDEX 1-10]` -> Opens an image for image-editing
 
-Format: `open -all`: adds all images in current directory from working set [Coming in v2.0]
+Format: `open -all` -> Adds all batch images in currently opened directory as layers.
 
 Examples:
 
 * `open 1` +
 * `open -all` [Coming in v2.0]
 
-=== Retrieving the next batch of images: `next`
+=== Retrieves the next batch of images: `next`
 
-Format: `next`: Retrieves the next 10 images for editing
+[NOTE]
+The image panel to the bottom left can only show 10 images at once, and by default will be showing the first 10 images in your directory.
 
-=== Retrieving the previous batch of images: `prev`
+Format: `next` -> Retrieves the next 10 images for editing
 
-Format: `prev`: Retrieves the previous 10 images for editing
+=== Retrieves the previous batch of images: `prev`
+
+Format: `prev` -> Retrieves the previous 10 images for editing
 
 // end::dir[]
 // tag::apply[]
 
-=== Applying a transformation to an image : `apply`
-You can use the apply command with the given format
+=== Applies a transformation to an image : `apply`
+There are 3 different ways to apply a transformation to an image. +
 
-Format1: `apply [operation] [arg1] [arg2] ...`: apply the specified transformation to the selected image
+Format: `apply [operation] [arg1] [arg2] ...` -> Applies the specified transformation to the selected layer (or the current image if there is only one layer). +
+Format: `apply @Operation` -> Applies a custom transformation to the image, `@` is compulsory. +
 
-[NOTE]
-you can also apply your own customized transformation, with the format `apply @Operation`, `@` is necessary
+There are many different transformations available, which we will briefly describe:
 
-Available transformations
+==== `blur`: Blurs your entire layer accordingly to the specified radius & sigma values.
+* _Format_: `apply blur [RadiusxSigma]`
+** Radius (0-99): Helps in blur calculation, recommended to have a value at least twice of Sigma
+** Sigma (0-99): Determines the extent of the blur
+* _Example_: `apply blur 16x8`
 
-* `blur`: you can performs gaussian blur on the currently opened image, with the argument specified with radius and sigama
+==== `motion-blur`: Simulates a motion blur on the layer
+* _Format_: `apply motion-blur [RadiusxSigma+Angle]`
+** Radius (0-29): Helps in blur calculation, recommended to have a value at least twice of Sigma
+** Sigma (0-19): Determines the extent of the blur
+** Angle (0-99): Direction of the blur
+* _Example_: `apply motion-blur 0x8+45`
 
-** Format: `apply blur [RadiusxSigama]`
-** Limit: the value for radius should in between [0 - 99], for sigama should in between [0 - 99]
-** Example: `apply blur 0x8`
-
-* `colorspace`: you can change the color space of the current image
-
-** Format: `apply colorspace [color space]`
-** Limit: only the provided color spaces is available, can be either up/low case
-** Example: `apply colorspace GRAY`
-
-[NOTE]
-for some of the color spaces, the image effect may not change after changing the color space
-
-* `contrast`: you can contrast of the image with the default setting.
-
-** Format: `apply contrast`
-** Example: `apply contrast`
+==== `colorspace`: Changes the color range of the current layer
+* _Format_: `apply colorspace [color space]`
+** color space (sRGB/RGB/GRAY/LAB/CMYK): Changes the range of colors allowed on the image. Can be typed as upper/lower case.
+* _Example_: `apply colorspace GRAY`
 
 [NOTE]
-the default contrast just hences the effect of the image, the result may not be so obvious,
-use sigmodial-contrast if want to make the effect more impressive.
+For some color spaces, the image may appear to remain the same even after after changing color spaces.
 
-* `motion-blur`: you can perform the motion blur to the image
-
-** Format: `apply motion-blur [RadiusxSigama+Angle]`
-** Limit: the value of radius should be between [0-29] the value of sigma should be between [0-19] the value of angle should between [0-99]
-** Example: `apply motion-blur 0x8+45`
-
-* `noise`: you can increase the noise of the image
-
-** Format: `apply noise [Radius]`
-** Limit: the value of radius should be between [0-29]
-** Example: `apply noise 12`
-
-* `resize`: you can resize the image to the specified percentage of the original one
-
-** Format: `convert resize [percentage]`
-** Limit: the value for the percentage should in between [1% - 300%]
-** Example: `convert resize 50%`
+==== `contrast`: Enhances the intensity differences between the lighter and darker elements
+* _Format_: `apply contrast`
+* _Example_: `apply contrast`
 
 [NOTE]
-as all the images will be resize to the canvas when displaying, the resize command may reduce a "same" image
-on the canvas
+The effect of `contrast` may not very obvious depending on the image you are using.
+You may repeat the transformation again or use `sigmodial-contrast` instead if want further enhance the effect.
 
-* `rotate`: you can rotate an image. DIRECTION [left, right]
-
-** Format: `convert rotate [value]`
-** Limit: the value should between -999 to 999
-** Example: `convert rotate 90`
-
-* `sharpen`: you can sharpen the currently opened image, with the argument specified with radius and sigama
-
-** Format: `apply sharpen [RadiusxSigama]`
-** Limit: the value for radius should in between [0 - 29], for sigama should in between [0 - 29]
-** Example: `apply sharpen 0x8`
-
-
-* `sigmoidal-contrast`: you can contrast the image with certain degree and percentage
-
-** Format: `convert sigmoidal-contrast [DegreexPercentage]`
-** Limit: the value for degree should between 1 - 99, for percentage should between 1% to 99%
+==== `sigmoidal-contrast`: Contrasts the image without saturating highlights or shadows.
+* Format: `convert sigmoidal-contrast [ContrastxMidpoint]`
+** Contrast (1-99): How much to increase the contrast.
+** Midpoint (1%-99%): Where the maximum change 'slope' in contrast should fall in the resultant image (0 is white; 50% is middle-gray; 100% is black).
 ** Example: `convert sigmoidal-contrast 10x10%`
 
-Format2: `apply raw [arg1] [arg2]`: pass the arguments entered directly to ImageMagick
+==== `noise`: Increases the noise in the image
+* _Format_: `apply noise [Radius]`
+** Radius (0-29): Determines the width of the affected area
+* _Example_: `apply noise 12`
+
+==== `resize`: Resizes the image
+* _Format_: `apply resize [percentage]`
+** Percentage (1%-300%): Percentage of resize relative to the original image.
+* _Example_: `convert resize 50%`
+
+[NOTE]
+As all the images will be resized to the canvas when displayed, the resize command may leave an image unaffected.
+
+==== `rotate`: Rotates an image
+* _Format_: `apply rotate [value]`
+** Value (-360 to 360): Degree to rotate the image by. Negative values rotate the image to the anti-clockwise.
+* _Example_: `convert rotate 90`
+
+==== `sharpen`: Sharpens the currently opened image
+
+** _Format_: `apply sharpen [RadiusxSigma]`
+** Radius (0-29): Helps in sharpen calculation.
+** Sigma (0-29): Determines the extent of the sharpen
+** _Example_: `apply sharpen 0x8`
+
+*Advanced `apply` command*
+
+Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
 
 [WARNING]
 **Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
 
 // end::apply[]
+
 // tag::create[]
 
-=== Customizing transformation for imageProcessing : `create`
+=== Creates custom transformation sets for use : `create`
 
-Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: create a customized transformation basing on the default transformations specified
+Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: Allows you to create your own custom transformation based on the transformations specified
 
 Example:
 
 * `create blurAndRotate blur|0x8 rotate|90`
-To use the newly created command, add an `@` before the command used:
-`apply @blurAndRotate`
 
-[NOTE]
-for the command created, you should add a @ before the command when running the customised command, ie convert @blurR
+** To use the newly created command, add an `@` before the command used -> `apply @blurAndRotate`
 
 // end::create[]
 // tag::save[]
 
-=== Saving images : `save`
+=== Saves images : `save`
 
-Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
+Format: `save (IMAGE_NAME)`: Saves the transformed image. Supports file formats jpg, jpeg, png, tiff, gif
 
 Example:
 
-* `save modified.png`
+* `save modified.png` - Saves the image into currently opened directory as `modified.png`
+* `save` - Overwrites the original image in the currently opened directory. (saved as its original name)
 
-[NOTE]
-====
-The image will be saved in the same directory as the original image. With no image name specified, it will save to the currently opened image.
-
-the format can also be all up cases.
-====
 // end::save[]
 // tag::undoredo[]
 
-=== Undoing a transformation : `undo`
+=== Undoes a transformation : `undo`
 
-Format: `undo`: Step back to the previous image state (in current layer)
+Format: `undo` -> Steps back to the previous image state (in current layer)
 
 [NOTE]
 ====
-Commands that can be undone: those commands that modify the image's transformation (anything done with `convert`).
+Only commands that modify the image's transformation (anything done with `apply`) can be undone.
 ====
 
 Example:
 
-* `convert blur 0x8` +
-`convert contrast` +
-`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
+`apply blur 0x8` +
+`apply contrast` +
+`undo` -> (undos the `apply contrast` command, image will be returned to be `blur 0x8` state) +
 
-=== Undoing all transformations : `undo-all`
+=== Undoes all transformations : `undo-all`
 
-Format: `undo-all`: Undoes all transformations (reverts image to original state)
-
-Example:
-
-* `convert blur 0x8` +
-`convert contrast` +
-`convert rotate 90` +
-`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
-
-=== Redoing a transformation : `redo`
-
-Format: `redo`: Step forward to the previously undone transformation
+Format: `undo-all` -> Undoes all transformations (reverts image to original state)
 
 Example:
 
-* `convert blur 0x8` +
-`convert contrast` +
-`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
-`redo` (reapplies the `convert contrast` command) +
+`apply blur 0x8` +
+`apply contrast` +
+`apply rotate 90` +
+`undo-all` -> undoes all 3 `apply` commands, image will be at original state
 
-=== Redoing all transformations : `redo-all`
+=== Redoes a transformation : `redo`
 
-Format: `redo-all`: Redoes all undone transformations
+Format: `redo` -> Steps forward to the previously undone transformation
 
 Example:
 
-* `convert blur 0x8` +
+`convert blur 0x8` +
 `convert contrast` +
-`convert rotate 90` +
+`undo` -> (undoes the `apply contrast` command, image will be at `blur 0x8` state) +
+`redo` -> (reapplies the `apply contrast` command) +
+
+=== Redoes all transformations : `redo-all`
+
+Format: `redo-all` -> Redoes all undone transformations
+
+Example:
+
+`apply blur 0x8` +
+`apply contrast` +
+`apply rotate 90` +
 `undo-all` (undoes all 3 `convert` commands, image will be at original state) +
 `redo-all` (reapplies all 3 `convert` commands) +
 // end::undoredo[]
@@ -370,12 +360,9 @@ Example:
 // tag::canvas[]
 === Canvas operations : `canvas`
 
-==== Changing the size of the canvas: `canvas size`
-You can change the size of the canvas to with this command. Remember that the effects of `canvas auto-resize` takes precedence!
+==== Changes the size of the canvas: `canvas size`
+Format: `canvas size (NEW_SIZE)` -> You can change the size of the canvas to with this command. Remember that the effects of `canvas auto-resize` takes precedence! +
 If `canvas auto-resize` is `off`, cropping might potentially occur.
-
-
-Format: `canvas size (NEW_SIZE)`
 
 [NOTE]
 ====
@@ -387,11 +374,9 @@ Examples:
 * `canvas size 800x600` - Sets the canvas to have a height of 800 pixels and a width of 600px.
 * `canvas size` - Prints the current size.
 
-==== Changing the background color of the canvas: `canvas bgcolor`
-You can change the background color of the canvas with this command. This is only visible if the canvas is larger than all the images placed on it.
+==== Changes the background color of the canvas: `canvas bgcolor`
+Format: `canvas bgcolor (NEW_COLOR)` -> You can change the background color of the canvas with this command. This is only visible if the canvas is larger than all the images placed on it.
 See the examples for the formats that your colors can take.
-
-Format: `canvas bgcolor (NEW_COLOR)`
 
 [NOTE]
 ====
@@ -407,105 +392,103 @@ Examples:
 * `canvas bgcolor` - Prints the background colour.
 
 ==== Allowing the canvas to auto-resize: `canvas auto-resize [ON|OFF]`
-This command allows you to turns the auto-resize for the canvas on or off.
+Format : `canvas auto-resize [ON|OFF]` -> This command allows you to turns the auto-resize for the canvas on or off.
+
+
 When auto-resize is on, it can potentially override the size manually specified with the `canvas size` command.
 When `on`, the canvas expands as required to ensure that no clipping occurs.
-
-Format : canvas auto-resize [ON|OFF]
 
 [NOTE]
 ====
 New canvases default to having auto-resize off.
 ====
 
-
 Examples:
 
-* `canvas auto-resize on`: Allows the canvas to expand and prevent cropping.
-* `canvas auto-resize off`: The height and width of the output canvas will remain as is.
+* `canvas auto-resize on` - Allows the canvas to expand and prevent cropping.
+* `canvas auto-resize off` - The height and width of the output canvas will remain as is.
 
 // end::canvas[]
 
 // tag::layer[]
 === Layer operations : `layer`
 
-==== Adding a new layer: `layer add [INDEX] (LAYER_NAME)`
-You can select the image at the provided index and add it to the current canvas with this command.
+==== Adds a new layer: `layer add [INDEX] (LAYER_NAME)`
+Format : `layer add [INDEX] (LAYER_NAME)` -> You can select the image at the provided index and add it to the current canvas with this command.
 
 [NOTE]
 ====
-If the optional parameter LAYER_NAME is not provided, one will be automatically generated.
+If the optional parameter LAYER_NAME is not provided, a name will be automatically generated.
 ====
 
 Examples:
 
 * `layer add 4` - Adds the image at index 4 to the canvas.
 
-==== Removing a layer: `layer remove [INDEX]`
-
-This command allows you to permanently removes a layer from canvas.
+==== Removes a layer: `layer remove [INDEX]`
+Format : `layer remove [INDEX]` -> This command allows you to permanently removes a layer from canvas.
 
 [WARNING]
 ====
 This operation is not reversible! Be careful when removing layers!
 ====
 
-==== Selecting a layer to work on: `layer select [INDEX]`
-This command allows you to a layer to that all `apply` and `layer position` operations will work on.
-The index of a layer is displayed before its name in the Layers panel.
+==== Selects a layer to work on: `layer select [INDEX]`
+Format : `layer select [INDEX]` -> This command allows you to a layer to that all `apply` and `layer position` operations will work on. The index of a layer is displayed before its name in the Layers panel.
 
 Examples:
 
 * `layer select 2` : Selects the layer at index 2.
 
-==== Swapping the order of two layers: `layer swap [TO_INDEX] [FROM_INDEX]`
-You can change the order of any two distinct layers with this command. The lower the index, the further behind it will be.
+==== Swaps the order of two layers: `layer swap [TO_INDEX] [FROM_INDEX]`
+Format : `layer swap [TO_INDEX] [FROM_INDEX]` -> You can change the order of any two distinct layers with this command. The lower the index, the further behind it will be.
 
 Examples:
 
-* `layer swap 1 2` : Changes the order of layer 1 and layer 2.
+* `layer swap 1 2` - Changes the order of layer 1 and layer 2.
 
-==== Positioning a layer: `layer position [POSITION]`
-This command allows you to set the x and y co-ordinates of the current layer.
-(0,0) is defined to be the top left of the screen.
+
+==== Positions a layer: `layer position [POSITION]`
+Format : `layer position [POSITION]` -> This command allows you to set the x and y co-ordinates of the current layer. (0,0) is defined to be the top left of the screen.
 
 Examples:
 
-* `layer position 50x100` : Sets the layer's top left corner to be at position (50, 100).
+* `layer position 50x100` - Sets the layer's top left corner to be at position (50, 100).
 
 // end::layer[]
 
 // tag::google[]
-=== Logging in to Google Photos: `login`
 
-Format: `login`: allows you to log in to Google Photos
+=== Interact with Google Photos: `g`
+Piconso allows you to connect to Google Photos so that you may easily upload and download photos for editing.
 
-[NOTE]
-====
-*Requires a stable internet connection* +
-Once the `login` command is launched, you *MUST* proceed with logging in from the redirected page, otherwise the application will freeze. You may use `logout` afterwards if you have changed your mind. +
+All Google-related commands will require a stable internet connection. Additionally as the following are internet-dependant, the commands will take a longer amount of time to execute as compared to the other offline features.
 
-A fix is upcoming in v2.0.
-====
-
-=== Google Photos related commands: `g`
+Connecting to Google Photos is *NOT* compulsory, it is simply an additional feature to supplement your experience with Piconso!
 
 [NOTE]
 ====
-All commands will require a stable internet connection.
+The higher the amount of images involved in your google command, the longer amount of time commands will take to process.
 ====
 
-==== Traversing Google Photos: `g ls`
+==== Logs in to Google Photos: `login`
+Format : `login` -> Allows you to connect to Google Photos through a browser redirect
 
-Format: `g ls`: lists all photos in your Google Photos, takes a longer amount of time depending on the number of images stored. +
-Format: `g ls /a`: lists all albums in your Google Photos. +
-Format: `g ls <ALBUM_NAME>`: lists all photos in specified album from Google Photos.
+==== Traverses Google Photos: `g ls`
+Format: `g ls (parameters)` -> Lists the images you have in Google Photos.
+
+There are 3 ways you can list your images.
+
+* `g ls`: Lists all images in your account +
+* `g ls /a`: Lists all your available albums +
+* `g ls <ALBUM_NAME>`: Lists all images in specified album from Google Photos.
 
 Examples:
 
-* `g ls <Vacation>`
+`* g ls <Vacation>` - Lists all images in the Vacation album.
 
-==== Downloading photos from Google Photos: `g dl`
+==== Downloads photos from Google Photos: `g dl`
+Format: `g dl [parameters]` -> Downloads your specified image from Google Photos.
 
 [NOTE]
 ====
@@ -513,39 +496,43 @@ All photos will be downloaded to the currently opened local directory. +
 Any files with duplicate naming existing in the targeted directory *WILL* be replaced
 ====
 
-Format: `g dl /i<IMAGE_NAME>`: downloads specified image from Google Photos +
-Format: `g dl /a<ALBUM_NAME>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: downloads a specific photo from a specific album in Google Photos.
+There are 3 ways you can list your images:
+
+* `g dl /i<IMAGE_NAME>` : Downloads the specified image from Google Photos +
+* `g dl /a<ALBUM_NAME>` : Downloads all images from the specified album into Google Photos. +
+* `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` : Downloads a specific photo from a specific album in Google Photos.
 
 Examples:
 
-* `g dl /i<Beach.png>` -> Downloads Beach.png +
-* `g dl /a<Vacation>` -> Downloads all photos from Vacation album +
-* `g dl /a<Vacation> /i<Beach.png>` -> Downloads Beach.png from Vacation album +
+* `g dl /i<Beach.png>` - Downloads Beach.png +
+* `g dl /a<Vacation>` - Downloads all photos from Vacation album +
+* `g dl /a<Vacation> /i<Beach.png>` - Downloads Beach.png from Vacation album +
 
-==== Uploading photos to Google Photos: `g ul`
+==== Uploads photos to Google Photos: `g ul`
+Format: `g ul [parameters]` -> Uploads your specified image to Google Photos.
 
 [NOTE]
 ====
-All uploaded photos will be automatically categorised into album 'Piconso Uploads'
+All uploaded photos will be automatically categorised into album 'Piconso Uploads' in Google Photos. Any duplicate images in Google Photos will be replaced by the new upload with the old name.
 ====
+There are 2 ways you can list your images:
 
-Format: `g ul <IMAGE_NAME>`: uploads specified image in currently open local directory to Google Photos +
-Format: `g ul all`: uploads all images in current directory to Google Photos, takes a longer amount of time depending on number of images to upload.
+* `g ul <IMAGE_NAME>` : Uploads the specified image to Google Photos +
+* `g ul all` : Uploads all images in current opened directory to Google Photos.
 
 Examples:
 
-* `g ul <Cat.png>` -> Uploads Cat.png +
+* `g ul <Cat.png>` - Uploads Cat.png +
 
-=== Logging out of Google Photos: `logout`
+=== Logs out of Google Photos: `logout`
 
-Format: `logout`: logs you out of Google Photos
+Format: `logout` -> Disconnects you from Google Photos
 
 // tag::google[]
 
-=== Exiting the application: `exit`
+=== Exits the application: `exit`
 
-Format: `exit`: closes the application
+Format: `exit` -> Closes the application
 
 == FAQ
 
