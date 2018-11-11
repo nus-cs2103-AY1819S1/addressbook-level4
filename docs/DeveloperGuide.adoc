@@ -1937,6 +1937,28 @@ Timestamp in the status bar is updated.
 Expected: Error details indicating invalid input for address field.
 Status bar remains the same.
 
+=== Viewing an event's contacts
+. Viewing an event's contacts
+.. Prerequisites: List all events using the `list` command. Multiple events in the list for 2018-04-01.
+First event for 2018-04-01 has an event contact existing in the current person list. Each of the test
+cases to be separately executed, without carrying forward the result from the previous test case in the list.
+.. Test case: `seeEventContacts d/2018-04-01 i/1` +
+Expected: Event's contacts of the event shown.
+Status bar remains the same.
+.. Test case: `edit 1 p/12345678` +
+ `seeEventContacts d/2018-04-01 i/1` +
+Expected: Updated event contact (edited person) of the same event shown.
+Timestamp in the status bar is updated when `edit` command was executed.
+.. Test case: `edit 1 n/Alex Lim` +
+ `seeEventContacts d/2018-04-01 i/1` +
+Expected: No persons shown.
+Timestamp in the status bar is updated when `edit` command was executed.
+.. Test case: (Note: Do execute the `undo` command after previous test had been executed to undo the effects of the `edit` command) +
+`delete 1` +
+`seeEventContacts d/2018-04-01 i/1` +
+Expected: No persons shown.
+Timestamp in the status bar is updated when `delete` command was executed.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
