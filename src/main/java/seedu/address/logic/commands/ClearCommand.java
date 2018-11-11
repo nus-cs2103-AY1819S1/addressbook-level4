@@ -92,7 +92,9 @@ public class ClearCommand extends Command {
                 toClear.add(p);
             }
             if (isClearTag && predicateTag.test(p)) {
-                toClear.add(p);
+                if (!toClear.contains(p)) {
+                    toClear.add(p);
+                }
             }
         }
 
