@@ -17,6 +17,7 @@ public class GroupaddCommand extends Command {
     //@@author Harryqu123
     public static final String MESSAGE_USAGE = "please type in the group";
     public static final String MESSAGE_NO_GROUP = "The group typed has existed.";
+    public static final String MESSAGE_MULTI_GROUP = "Only one group can be created once.";
     //@@author
     private final Tag toAdd;
 
