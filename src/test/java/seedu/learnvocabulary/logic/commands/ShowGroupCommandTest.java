@@ -2,6 +2,7 @@ package seedu.learnvocabulary.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
 
 import java.util.Arrays;
@@ -48,6 +49,13 @@ public class ShowGroupCommandTest {
 
         // different word -> returns false
         assertFalse(showFirstCommand.equals(showSecondCommand));
+    }
+    @Test
+    public void execute_randomKeywords_normalWordFound() {
+        TagContainsKeywordsPredicate predicate = preparePredicate("toLearn");
+        ShowGroupCommand command = new ShowGroupCommand(predicate);
+        expectedModel.updateTag(predicate);
+        assertCommandSuccess(command, model, commandHistory, "Group toLearn has been shown", expectedModel);
     }
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
