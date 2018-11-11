@@ -40,12 +40,12 @@ in the transcript and updated on the UI.
 
 ** Project management:
 *** Maintained issue tracker, milestones and review/merger of pull requests.
-** Enhancements to existing features: TBC
 ** Documentation:
 *** Updated existing content of the Model Section of Developer Guide
 *** Updated Use Cases to follow the proper format
 *** Added Sequence Diagrams for Target Grade and CAP Calculations
-*** Updated User Guide for several commands
+*** Added Activity Diagram for Target Grade Calculations
+*** Updated User Guide for `goal` and `adjust` commands
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 link:https://github.com/CS2103-AY1819S1-T13-4/main/pull/76[#76],
