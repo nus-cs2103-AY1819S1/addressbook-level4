@@ -21,7 +21,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
-public class FindPersonCommandByNameSystemTest extends AddressBookSystemTest {
+public class FindPersonCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() {
@@ -43,10 +43,21 @@ public class FindPersonCommandByNameSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
-        command = FindPersonCommand.COMMAND_WORD + " n/" + " Carl";
+        command = FindPersonCommand.COMMAND_WORD + " p/" + " 95352563";
         ModelHelper.setFilteredPersonList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+
+        /* Case: find person by phone where person list is not displaying the person we are finding -> 1 person found */
+        command = FindPersonCommand.COMMAND_WORD + " e/" + " heinz@example.com";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find person by phone where person list is not displaying the person we are finding -> 1 person found */
+        command = FindPersonCommand.COMMAND_WORD + " a/" + " wall";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
 
         /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
         command = FindPersonCommand.COMMAND_WORD + " n/" + " Benson Daniel";

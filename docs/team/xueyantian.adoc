@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TheTracker v1.3
+== PROJECT: TheTracker
 
 ---
 
@@ -77,9 +77,9 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=delete]
+include::../DeveloperGuide.adoc[tag=add]
 
-
+include::../DeveloperGuide.adoc[tag=find]
 
 == PROJECT: PowerPointLabs
 

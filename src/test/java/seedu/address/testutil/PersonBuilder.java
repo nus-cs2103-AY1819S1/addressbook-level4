@@ -101,7 +101,10 @@ public class PersonBuilder {
      * Sets the module list using {@code moduleList}.
      */
     public PersonBuilder withModuleList(List<Module> moduleList) {
-        this.moduleList = new UniqueModuleList(moduleList);
+        this.moduleList = new UniqueModuleList();
+        for (Module module : moduleList) {
+            this.moduleList.add(module);
+        }
         return this;
     }
 
@@ -117,8 +120,9 @@ public class PersonBuilder {
      * Sets the occasion list using {@code occasionList}.
      */
     public PersonBuilder withOccasionList(List<Occasion> occasionList) {
+        this.occasionList = new UniqueOccasionList();
         for (Occasion occasion : occasionList) {
-            occasionList.add(occasion);
+            this.occasionList.add(occasion);
         }
         return this;
     }
@@ -160,9 +164,7 @@ public class PersonBuilder {
      * @return person which has been built.
      */
     public Person build() {
-        return new Person(name, phone, email, address, tags, occasionList.asUnmodifiableObservableList(),
-                moduleList.asUnmodifiableObservableList());
-
+        return new Person(name, phone, email, address, tags, moduleList, occasionList);
     }
 
 }
