@@ -365,7 +365,8 @@ Format: `list`
 // tag::budget[]
 [[SetBudgetCommand]]
 === Setting a total budget: `setBudget`
-Sets the total budget that you should spend for Expense Tracker to prevent yourself from overspending.
+Sets a total budget. Expense Tracker will warn you when you are going to spend over your budget so you can prevent
+yourself from overspending
 
 Available spending is defined as the total amount of expenses you can add before you exceed your budget.
 
@@ -398,7 +399,11 @@ Sets the recurrence frequency for resetting the available spending of the total 
 
 If you draw a salary/have an allowance, this would allow you to track the portion of money you have spent against
 your salary/allowance. This ensures that you do not overspend on a certain day, causing you to not have enough money
-until you draw your next salary/allowance
+until you draw your next salary/allowance.
+
+If you have a daily budget, setting the recurrence frequency to 24 hours causes your available spending to reset
+everyday. Likewise, if you have a weekly budget, setting the frequency to 168 (24*7) hours causes your available
+spending to reset every week.
 
 Expense Tracker will reset your available spending after every user defined frequency.
 A detailed use case is given below:
