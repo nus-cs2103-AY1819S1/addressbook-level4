@@ -364,7 +364,7 @@ In `ToDoListEventCards`, there are four components:
 * `ToDoListEventCard#Label(title)` -- For display title of corresponding `ToDoListEvent`.
 * `ToDoListEventCard#Label(priority)` -- For display priority of corresponding `ToDoListEvent`. And different priorities will be displayed in different colors.
 
-The description popup GUI is developed by `DescriptionDisplay`, there are two components: 
+The description popup GUI is developed by `DescriptionDisplay`, there are two components:
 
 * `DescriptionDisplay#TextArea(description)` -- For display description of corresponding `ToDoListEvent`.
 * `DescriptionDisplay#Label(id)` -- For display index of corresponding `ToDoListEvent`.
