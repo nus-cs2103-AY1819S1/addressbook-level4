@@ -10,11 +10,11 @@ import seedu.restaurant.commons.util.StringUtil;
 /**
  * Tests that a {@code Account}'s {@code Username} matches any of the keywords given.
  */
-public class AccountContainsKeywordsPredicate implements Predicate<Account> {
+public class UsernameContainsKeywordsPredicate implements Predicate<Account> {
 
     private final List<String> keywords;
 
-    public AccountContainsKeywordsPredicate(List<String> keywords) {
+    public UsernameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -27,7 +27,7 @@ public class AccountContainsKeywordsPredicate implements Predicate<Account> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AccountContainsKeywordsPredicate // instanceof handles nulls
-                    && keywords.equals(((AccountContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof UsernameContainsKeywordsPredicate // instanceof handles nulls
+                    && keywords.equals(((UsernameContainsKeywordsPredicate) other).keywords)); // state check
     }
 }

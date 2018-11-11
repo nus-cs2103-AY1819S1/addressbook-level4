@@ -40,7 +40,7 @@ import seedu.restaurant.logic.commands.sales.EditSalesCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
-import seedu.restaurant.model.account.AccountContainsKeywordsPredicate;
+import seedu.restaurant.model.account.UsernameContainsKeywordsPredicate;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.menu.Item;
@@ -384,7 +384,7 @@ public class CommandTestUtil {
         Account account = model.getFilteredAccountList().get(targetIndex.getZeroBased());
         final String[] splitAccount = account.getUsername().toString().split("\\s+");
         model.updateFilteredAccountList(
-                new AccountContainsKeywordsPredicate(Collections.singletonList(splitAccount[0])));
+                new UsernameContainsKeywordsPredicate(Collections.singletonList(splitAccount[0])));
 
         assertEquals(1, model.getFilteredAccountList().size());
     }
