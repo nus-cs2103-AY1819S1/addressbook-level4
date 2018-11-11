@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 
@@ -150,25 +151,43 @@ public class Transcript implements ReadOnlyTranscript {
      * @return cap: cap score
      */
     private double calculateCap() {
-
         ObservableList<Module> gradedModulesList = getGradedModulesList();
         double totalModulePoint = calculateTotalModulePoint(gradedModulesList);
         double totalModuleCredit = calculateTotalModuleCredit(gradedModulesList);
+        return calculateCap(totalModulePoint, totalModuleCredit);
+    }
 
+    /**
+     * Calculate CAP given total points and credits gained.
+     * @param totalModulePoint
+     * @param totalModuleCredit
+     * @return CAP
+     */
+    private double calculateCap(double totalModulePoint, double totalModuleCredit) {
         double cap = 0;
         if (totalModuleCredit > 0) {
             cap = totalModulePoint / totalModuleCredit;
         }
-
         return cap;
+    }
+
+
+    /**
+     * Calculates the total module point from the list of list of modules
+     * @param listOfModules
+     * @return total module point
+     */
+    @SafeVarargs
+    private double calculateTotalModulePoint(List<Module>... listOfModules) {
+        return Stream.of(listOfModules).mapToDouble(this::calculateTotalModulePoint).sum();
     }
 
     /**
      * Calculates the total module point from the list of modules
      * @param modules
-     * @return
+     * @return total points from list of modules
      */
-    private double calculateTotalModulePoint(ObservableList<Module> modules) {
+    private double calculateTotalModulePoint(List<Module> modules) {
         double totalPoint = 0;
         for (Module module : modules) {
             totalPoint += module.getGrade().getPoint() * module.getCredits().value;
@@ -177,11 +196,21 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
+     * Calculates the total module credit from the list of list of modules
+     * @param listOfModules
+     * @return total module credit
+     */
+    @SafeVarargs
+    private double calculateTotalModuleCredit(List<Module>... listOfModules) {
+        return Stream.of(listOfModules).mapToDouble(this::calculateTotalModuleCredit).sum();
+    }
+
+    /**
      * Calculates the total module credit from the list of modules
      * @param modules
-     * @return
+     * @return total module credit from the list of modules
      */
-    private double calculateTotalModuleCredit(ObservableList<Module> modules) {
+    private double calculateTotalModuleCredit(List<Module> modules) {
         int totalModuleCredit = 0;
         for (Module module : modules) {
             totalModuleCredit += module.getCredits().value;
@@ -243,7 +272,8 @@ public class Transcript implements ReadOnlyTranscript {
             logger.info("No CAP Goal set, stopping target grades calculation.");
             return;
         }
-        ObservableList<Module> targetableModules = getTargetableModulesList();
+        ObservableList<Module> targetableModules = getTargetableModulesList().sorted(
+                Comparator.comparingInt(Module::getCreditsValue));
 
         try {
             List<Module> newTargetModules = getNewTargetModuleGrade(targetableModules);
@@ -277,18 +307,16 @@ public class Transcript implements ReadOnlyTranscript {
      * Calculates target module grade in order to achieve target goal
      * @return a list of modules with target grade if possible. null otherwise
      */
-    private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules)
+    private List<Module> getNewTargetModuleGrade(List<Module> sortedTargetableModules)
             throws CapGoalIsImpossibleException, NoTargetableModulesException {
-        ObservableList<Module> gradedModules = getGradedModulesList();
-        ObservableList<Module> adjustedModules = getGradedAdjustedModulesList();
-        ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
-                Comparator.comparingInt(Module::getCreditsValue));
+        List<Module> gradedModules = getGradedModulesList();
+        List<Module> adjustedModules = getGradedAdjustedModulesList();
 
         double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
-        double totalMc = calculateTotalModuleCredit(gradedModules)
-                + calculateTotalModuleCredit(adjustedModules) + totalUngradedModuleCredit;
-        double currentTotalPoint = calculateTotalModulePoint(gradedModules)
-                + calculateTotalModulePoint(adjustedModules);
+        double totalMc = calculateTotalModuleCredit(
+                gradedModules, adjustedModules, sortedTargetableModules);
+        double currentTotalPoint = calculateTotalModulePoint(
+                gradedModules, adjustedModules);
 
         if (totalUngradedModuleCredit == 0) {
             if (totalMc == 0 || capGoal.getValue() > currentTotalPoint / totalMc) {
@@ -312,7 +340,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> createNewTargetModuleGrade(
-            ObservableList<Module> sortedTargetableModules,
+            List<Module> sortedTargetableModules,
             double totalUngradedModuleCredit, double totalMc, double currentTotalPoint)
             throws CapGoalIsImpossibleException {
 
@@ -334,7 +362,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
-            ObservableList<Module> sortedTargetableModules,
+            List<Module> sortedTargetableModules,
             double givenTotalUngradedModuleCredit, double givenTotalScoreToAchieve)
             throws CapGoalIsImpossibleException {
 
@@ -367,7 +395,7 @@ public class Transcript implements ReadOnlyTranscript {
         }
         if (unitScoreToAchieve <= 0.5) {
             logger.info("Unit score to achieve is the minimum");
-            return 0.1;
+            return 1.0;
         }
         return unitScoreToAchieve;
     }
