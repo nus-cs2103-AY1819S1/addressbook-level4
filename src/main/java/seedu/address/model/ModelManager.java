@@ -154,16 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (target.equals(currentUser)) {
             currentUser = null;
         }
-        ArrayList<Event> deletedEvents = new ArrayList<>();
-        for (Event event : versionedAddressBook.getEventList()) {
-            if (event.getOrganiser().equals(target)) {
-                deletedEvents.add(event);
-            }
-            event.deletePerson(target);
-        }
-        for (Event event : deletedEvents) {
-            versionedAddressBook.removeEvent(event);
-        }
+        deleteEventsWithUser(target);
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -179,13 +170,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
+        updateUserInEvents(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
-        for (Event event : versionedAddressBook.getEventList()) {
-            boolean changed = event.updatePerson(target, editedPerson);
-            if (changed) {
-                versionedAddressBook.updateEvent(event, event);
-            }
-        }
         indicateAddressBookChanged();
     }
 
@@ -234,16 +220,39 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NotEventOrganiserException();
         }
 
-        if (name.isPresent()) {
-            currentEvent.setName(name.get());
-        }
-        if (location.isPresent()) {
-            currentEvent.setLocation(location.get());
-        }
-        if (tags.isPresent()) {
-            currentEvent.setTags(tags.get());
-        }
+        name.ifPresent(eventName -> currentEvent.setName(eventName));
+        location.ifPresent(eventLocation -> currentEvent.setLocation(eventLocation));
+        tags.ifPresent(eventTags -> currentEvent.setTags(eventTags));
+        versionedAddressBook.updateEvent(currentEvent, currentEvent);
         indicateAddressBookChanged();
+    }
+
+    /**
+     * Deletes the events that are organised by a deleted user.
+     */
+    private void deleteEventsWithUser(Person userToDelete) {
+        ArrayList<Event> deletedEvents = new ArrayList<>();
+        for (Event event : versionedAddressBook.getEventList()) {
+            if (event.getOrganiser().equals(userToDelete)) {
+                deletedEvents.add(event);
+            }
+            event.deletePerson(userToDelete);
+        }
+        for (Event event : deletedEvents) {
+            versionedAddressBook.removeEvent(event);
+        }
+    }
+
+    /**
+     * Updates the Persons in every event's participant list and polls.
+     */
+    private void updateUserInEvents(Person target, Person editedPerson) {
+        for (Event event : versionedAddressBook.getEventList()) {
+            boolean changed = event.updatePerson(target, editedPerson);
+            if (changed) {
+                versionedAddressBook.updateEvent(event, event);
+            }
+        }
     }
 
     /**

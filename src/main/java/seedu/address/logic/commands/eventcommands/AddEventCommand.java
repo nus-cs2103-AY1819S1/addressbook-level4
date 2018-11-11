@@ -59,10 +59,7 @@ public class AddEventCommand extends Command {
             model.setSelectedEvent(toAdd);
 
             Index eventIndex = Index.fromOneBased(model.getNumEvents());
-            Event event = model.getEvent(eventIndex);
-            model.setSelectedEvent(event);
-
-            EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo()));
+            EventsCenter.getInstance().post(new DisplayPollEvent(toAdd.getInfo()));
             EventsCenter.getInstance().post(new JumpToEventListRequestEvent(eventIndex));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (NoUserLoggedInException e) {
