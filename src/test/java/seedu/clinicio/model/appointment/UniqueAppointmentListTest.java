@@ -69,7 +69,8 @@ public class UniqueAppointmentListTest {
     @Test
     public void add_clashingAppointment_throwsAppointmentClashException() {
         uniqueAppointmentList.add(ALEX_APPT);
-        Appointment clashingAppt = new AppointmentBuilder(BRYAN_APPT).withTime(13, 00).build();
+        Appointment clashingAppt = new AppointmentBuilder(BRYAN_APPT).withTime(13, 00)
+                .withDate(2, 10, 2018).build();
         thrown.expect(AppointmentClashException.class);
         uniqueAppointmentList.add(clashingAppt);
     }
@@ -110,20 +111,13 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
-    public void setAppointment_editedAppointmentHasClash1_throwsAppointmentClashException() {
+    public void setAppointment_editedAppointmentHasClash_throwsAppointmentClashException() {
         uniqueAppointmentList.add(ALEX_APPT);
         uniqueAppointmentList.add(BRYAN_APPT);
         Appointment editedAppt = new AppointmentBuilder(BRYAN_APPT)
-                .withTime(13, 00).build();
+                .withTime(13, 00).withDate(2, 10, 2018).build();
         thrown.expect(AppointmentClashException.class);
         uniqueAppointmentList.setAppointment(BRYAN_APPT, editedAppt);
-    }
-
-    @Test
-    public void setAppointment_editedAppointmentHasClash2_throwsAppointmentClashException() {
-        uniqueAppointmentList.add(BRYAN_APPT);
-        thrown.expect(AppointmentClashException.class);
-        uniqueAppointmentList.add(CARL_APPT);
     }
 
     @Test
