@@ -1,10 +1,10 @@
 package ssp.scheduleplanner.model.task;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class OverduePredicateTest {
     private static final int SYSTEM_DATE = 111118;
@@ -12,7 +12,7 @@ public class OverduePredicateTest {
     private static final int SYSTEM_DATE_NOT_SAME = 121118;
 
     @Test
-    public void OverduePredicate_equal() {
+    public void overduePredicateEqual() {
 
         OverduePredicate pred1 = new OverduePredicate(SYSTEM_DATE);
         OverduePredicate pred2 = new OverduePredicate(SYSTEM_DATE_NOT_SAME);
