@@ -617,10 +617,9 @@ date till the end of the month.
 
 `listmonth` utilises the same implementation used by the `list` command:
 
-* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
-according to the predicate.
+* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model according to the predicate.
 
-`listmonth` utilises the same implementation used by the `listweek` command:
+`listmonth` also utilises the same implementation used by the `listweek` command:
 
 * `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
 a list of dates from current date to the end of the month in `DDMMYY` format.
@@ -642,12 +641,12 @@ Step 2. The command word `listmonth` invokes `LogicManger`, which invokes `Sched
 `ListMonthCommand` object. `LogicManager` then invokes `ListMonthCommand#execute()`.
 
 Step 3. `ListMonthCommand#appendDateList(datelist, numDaysTillEndOfMonth(currentDay))` will be invoked. It
-generates sequential dates in `DDMMYY` format which are added into `dateList`. `numDaysTillEndOfMonth()` computes the
-number of days from the current date till the end of the month based on `currentDay`, the current date in `LocalDate`
-format.
+generates sequential dates in `DDMMYY` format which are added into `dateList`. `numDaysTillEndOfMonth(currentDay)`
+computes the number of days from the current date till the end of the month based on `currentDay`. `currentDay` is the
+current date in `LocalDate` format.
 
-Step 4. `model.updateFilteredTaskList()` updates the task list with `DateWeekSamePredicate`
-as the predicate. `DateWeekSamePredicate` takes `dateList` in Step 3 as its parameter.
+Step 4. `model.updateFilteredTaskList()` updates the task list with `DateWeekSamePredicate` as the predicate.
+`DateWeekSamePredicate` takes `dateList` in Step 3 as its parameter.
 
 Step 5. The updated task list would be reflected on `UI` to be displayed to the user.
 
@@ -661,12 +660,13 @@ image::ListMonthSequenceDiagram.png[]
 ===== Aspect: How does listmonth function
 
 * **Alternative 1 (current choice):** Fixed date interval based on commands
-** Pros: It is easy to implement and use.
-** Cons: It restricts view to tasks from current date till a fixed date in the future (last day of month)
+** Pros: It is easier to implement, and faster for the user.
+** Cons: It may not be as flexible, as it restricts view to tasks from current date till a fixed date in the future
+(last day of the month)
 
 * **Alternative 2:** Allow `list` commands to receive arguments for start/end dates
 E.g list 130818 200918 to view all tasks between the two dates.
-** Pros: It allows viewing for different ranges.
+** Pros: It allows flexible viewing for different ranges.
 ** Cons: It would be inconvenient to enter two date(s) each time the command is used.
 // end::listmonth[]
 
@@ -831,13 +831,15 @@ The `filter` & `filterstrict` commands allow the user to filter tasks in the sch
 The user may search for multiple tags at once, and the schedule planner returns a list of tasks containing the tags
 specified by the user.
 
-In the case of `filter`, multiple tags increases the range of
-search, while `filterstrict` increases the specificity of search.
+The `filter` command searches for tasks inclusively, which means that when multiple tags are input, SSP filters tasks
+containing ANY of the user-input tags (e.g 'A', or 'B', or both 'A' & 'B').
+
+In contrast, `filterstrict`,filters tasks containing ALL of the user-input tags. (e.g ONLY 'A' & 'B')
 
 
 ==== Current Implementation
 
-Since `filter` and `filterstrict` are implemented in similar fasion, we will simply refer to `filter`.
+Since `filter` and `filterstrict` are implemented in similar fashion, we will simply refer to `filter`.
 
 The filter mechanism utilises `FilterCommandParser` to parse the user command into separate tags by invoking the method
 `FilterCommandParser.parse(args)`, where `args` are the tags to be filtered.  e.g `tag1 tag2` will be parsed into
@@ -856,7 +858,7 @@ predicate which tests for the tags 'tutorial' and 'CS2100'. `FilterCommand.execu
  tags input by the user.
 
 [NOTE]
-`filter` filters tags inclusively, while `filterstrict` filters tags exclusively.
+`filter` filters tasks inclusively, while `filterstrict` filters tasks exclusively.
 
 
 The following sequence diagram summarizes what happens when a user executes a new filter command:
