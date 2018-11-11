@@ -62,8 +62,11 @@ public class DeleteModuleCommandTest {
         expectedModel.deleteModule(DISCRETE_MATH);
         expectedModel.commitTranscript();
 
+        String expectedMessage = String.format(
+                DeleteModuleCommand.MESSAGE_DELETE_SUCCESS,
+                DISCRETE_MATH);
+
         assertCommandSuccess(command, model, commandHistory,
-                DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
-                expectedModel);
+                expectedMessage, expectedModel);
     }
 }

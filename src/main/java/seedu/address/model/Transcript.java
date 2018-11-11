@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 
@@ -18,8 +18,12 @@ import seedu.address.model.exceptions.NoTargetableModulesException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.module.Year;
 import seedu.address.model.module.exceptions.ModuleCompletedException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.exceptions.MultipleModuleEntryFoundException;
 
 //@@author alexkmj
 /**
@@ -27,7 +31,6 @@ import seedu.address.model.module.exceptions.ModuleCompletedException;
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class Transcript implements ReadOnlyTranscript {
-
     private static final Logger logger = LogsCenter.getLogger(Transcript.class);
 
     private final UniqueModuleList modules;
@@ -35,13 +38,13 @@ public class Transcript implements ReadOnlyTranscript {
     private double currentCap;
 
     /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     * The 'unusual' code block below is an non-static initialization block,
+     * sometimes used to avoid duplication between constructors.
+     * See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * Note that non-static init blocks are not recommended to use. There are
+     * other ways to avoid duplication among constructors.
      */
-
     {
         modules = new UniqueModuleList();
     }
@@ -83,19 +86,12 @@ public class Transcript implements ReadOnlyTranscript {
     //// module-level operations
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the transcript.
+     * Returns true if a module with the same identity as {@code module} exists
+     * in the transcript.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
-    }
-
-    /**
-     * Returns true if a module with the same identity as {@code module} exists in the transcript.
-     */
-    public boolean hasMultipleInstances(Code code) {
-        requireNonNull(code);
-        return modules.hasMultipleInstances(code);
     }
 
     /**
@@ -108,9 +104,10 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the transcript.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the transcript.
+     * Replaces the given module {@code target} in the list with
+     * {@code editedModule}. {@code target} must exist in the transcript.
+     * The module identity of {@code editedModule} must not be the same as
+     * another existing module in the transcript.
      */
     public void updateModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -124,14 +121,6 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void removeModule(Module key) {
         modules.remove(key);
-        modulesUpdated();
-    }
-
-    /**
-     * Removes {@code key} from this {@code Transcript}.
-     */
-    public void removeModule(Predicate<Module> predicate) {
-        modules.remove(predicate);
         modulesUpdated();
     }
 
@@ -162,25 +151,43 @@ public class Transcript implements ReadOnlyTranscript {
      * @return cap: cap score
      */
     private double calculateCap() {
-
         ObservableList<Module> gradedModulesList = getGradedModulesList();
         double totalModulePoint = calculateTotalModulePoint(gradedModulesList);
         double totalModuleCredit = calculateTotalModuleCredit(gradedModulesList);
+        return calculateCap(totalModulePoint, totalModuleCredit);
+    }
 
+    /**
+     * Calculate CAP given total points and credits gained.
+     * @param totalModulePoint
+     * @param totalModuleCredit
+     * @return CAP
+     */
+    private double calculateCap(double totalModulePoint, double totalModuleCredit) {
         double cap = 0;
         if (totalModuleCredit > 0) {
             cap = totalModulePoint / totalModuleCredit;
         }
-
         return cap;
+    }
+
+
+    /**
+     * Calculates the total module point from the list of list of modules
+     * @param listOfModules
+     * @return total module point
+     */
+    @SafeVarargs
+    private double calculateTotalModulePoint(List<Module>... listOfModules) {
+        return Stream.of(listOfModules).mapToDouble(this::calculateTotalModulePoint).sum();
     }
 
     /**
      * Calculates the total module point from the list of modules
      * @param modules
-     * @return
+     * @return total points from list of modules
      */
-    private double calculateTotalModulePoint(ObservableList<Module> modules) {
+    private double calculateTotalModulePoint(List<Module> modules) {
         double totalPoint = 0;
         for (Module module : modules) {
             totalPoint += module.getGrade().getPoint() * module.getCredits().value;
@@ -189,11 +196,21 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
+     * Calculates the total module credit from the list of list of modules
+     * @param listOfModules
+     * @return total module credit
+     */
+    @SafeVarargs
+    private double calculateTotalModuleCredit(List<Module>... listOfModules) {
+        return Stream.of(listOfModules).mapToDouble(this::calculateTotalModuleCredit).sum();
+    }
+
+    /**
      * Calculates the total module credit from the list of modules
      * @param modules
-     * @return
+     * @return total module credit from the list of modules
      */
-    private double calculateTotalModuleCredit(ObservableList<Module> modules) {
+    private double calculateTotalModuleCredit(List<Module> modules) {
         int totalModuleCredit = 0;
         for (Module module : modules) {
             totalModuleCredit += module.getCredits().value;
@@ -255,7 +272,8 @@ public class Transcript implements ReadOnlyTranscript {
             logger.info("No CAP Goal set, stopping target grades calculation.");
             return;
         }
-        ObservableList<Module> targetableModules = getTargetableModulesList();
+        ObservableList<Module> targetableModules = getTargetableModulesList().sorted(
+                Comparator.comparingInt(Module::getCreditsValue));
 
         try {
             List<Module> newTargetModules = getNewTargetModuleGrade(targetableModules);
@@ -289,18 +307,16 @@ public class Transcript implements ReadOnlyTranscript {
      * Calculates target module grade in order to achieve target goal
      * @return a list of modules with target grade if possible. null otherwise
      */
-    private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules)
+    private List<Module> getNewTargetModuleGrade(List<Module> sortedTargetableModules)
             throws CapGoalIsImpossibleException, NoTargetableModulesException {
-        ObservableList<Module> gradedModules = getGradedModulesList();
-        ObservableList<Module> adjustedModules = getGradedAdjustedModulesList();
-        ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
-                Comparator.comparingInt(Module::getCreditsValue));
+        List<Module> gradedModules = getGradedModulesList();
+        List<Module> adjustedModules = getGradedAdjustedModulesList();
 
         double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
-        double totalMc = calculateTotalModuleCredit(gradedModules)
-                + calculateTotalModuleCredit(adjustedModules) + totalUngradedModuleCredit;
-        double currentTotalPoint = calculateTotalModulePoint(gradedModules)
-                + calculateTotalModulePoint(adjustedModules);
+        double totalMc = calculateTotalModuleCredit(
+                gradedModules, adjustedModules, sortedTargetableModules);
+        double currentTotalPoint = calculateTotalModulePoint(
+                gradedModules, adjustedModules);
 
         if (totalUngradedModuleCredit == 0) {
             if (totalMc == 0 || capGoal.getValue() > currentTotalPoint / totalMc) {
@@ -324,7 +340,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> createNewTargetModuleGrade(
-            ObservableList<Module> sortedTargetableModules,
+            List<Module> sortedTargetableModules,
             double totalUngradedModuleCredit, double totalMc, double currentTotalPoint)
             throws CapGoalIsImpossibleException {
 
@@ -346,7 +362,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
-            ObservableList<Module> sortedTargetableModules,
+            List<Module> sortedTargetableModules,
             double givenTotalUngradedModuleCredit, double givenTotalScoreToAchieve)
             throws CapGoalIsImpossibleException {
 
@@ -379,7 +395,7 @@ public class Transcript implements ReadOnlyTranscript {
         }
         if (unitScoreToAchieve <= 0.5) {
             logger.info("Unit score to achieve is the minimum");
-            return 0.1;
+            return 1.0;
         }
         return unitScoreToAchieve;
     }
@@ -440,21 +456,25 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Finds module that matches module to find with isSameModule
-     * @param moduleToFind
-     * @return the Module that matches; null if not matched
+     * Returns the matching module entry.
+     * <p>
+     * Finds the module with {@code targetCode}, {@code targetYear} if
+     * {@code targetYear} is not null, and {@code targetSemester} if
+     * {@code targetSemester} is not null.
+     *
+     * @param targetCode code to match
+     * @param targetYear year to match if not null
+     * @param targetSemester semester to match if not null
+     * @return the matching module
+     * @throws ModuleNotFoundException thrown when no entries match the
+     * parameters.
+     * @throws MultipleModuleEntryFoundException thrown when multiple entries
+     * match the parameters.
      */
-    public Module findModule(Module moduleToFind) {
-        return modules.find(moduleToFind);
-    }
-
-    /**
-     * Finds the first instance of the module that has the same moduleCodeToFind
-     * @param moduleCodeToFind
-     * @return module that return true; null if not matched
-     */
-    public Module findModule(Code moduleCodeToFind) {
-        return modules.find(moduleCodeToFind);
+    public Module getOnlyOneModule(Code targetCode, Year targetYear,
+            Semester targetSemester)
+            throws ModuleNotFoundException, MultipleModuleEntryFoundException {
+        return modules.getOnlyOneModule(targetCode, targetYear, targetSemester);
     }
 
     /**

@@ -13,28 +13,31 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.exceptions.MultipleModuleEntryFoundException;
 
-//@@author alexkmj
 /**
- * A list of modules that enforces uniqueness between its elements and does not allow nulls.
+ * A list of modules that enforces uniqueness between its elements and does not
+ * allow nulls.
  * <p>
- * A module is considered unique by comparing {@code moduleA.equals(moduleB)}.
+ * A module is considered unique by comparing
+ * {@code moduleA.isSameModule(moduleB)}.
  * <p>
- * As such, adding and updating of modules uses {@code moduleA.equals(moduleB)} for equality so as
- * to ensure that the module being added or updated is unique in terms of identity in the
- * UniqueModuleList.
+ * As such, adding and updating of modules uses {@code moduleA.equals(moduleB)}
+ * for equality so as to ensure that the module being added or updated is unique
+ * in terms of identity in the {@code UniqueModuleList}.
  */
 public class UniqueModuleList implements Iterable<Module> {
-
+    //@@author alexkmj
     /**
      * Creates an observable list of module.
      * See {@link Module}.
      */
-    private final ObservableList<Module> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Module> internalList =
+            FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent module as the given argument.
-     * See {@link Module}.
+     * Returns true if the list contains an equivalent module as the given
+     * argument. See {@link Module}.
      *
      * @param toCheck the module that is being checked against
      * @return true if list contains equivalent module
@@ -45,19 +48,9 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Returns true if the list contains multiple instances of module with the given code.
-     */
-    public boolean hasMultipleInstances(Code code) {
-        requireNonNull(code);
-        return internalList.stream()
-                .filter(target -> target.getCode().equals(code))
-                .count() > 1;
-    }
-
-    /**
      * Adds a module to the list.
      * <p>
-     * The {@link Module} must not have already exist in the list.
+     * The {@link Module} should not exist in the list.
      *
      * @param toAdd the module that would be added into the list
      */
@@ -68,19 +61,27 @@ public class UniqueModuleList implements Iterable<Module> {
         }
         internalList.add(toAdd);
     }
+    //@@author
 
+    //@@author jeremiah-ang
     /**
-     * Adds all module in a list to the list
+     * Adds all module in a list to the list.
+     *
+     * @param modules collection of modules to add
+     * @return true if this list changed as a result of the call
      */
     public boolean addAll(Collection<Module> modules) {
         return internalList.addAll(modules);
     }
+    //@@author
 
+    //@@author alexkmj
     /**
      * Replaces the module {@code target} in the list with {@code editedModule}.
      * <p>
-     * {@code target} must exist in the list. The {@link Module} identity of {@code editedModule}
-     * must not be the same as another existing module in the list.
+     * {@code target} must exist in the list. The {@link Module} identity of
+     * {@code editedModule} must not be the same as another existing module in
+     * the list.
      *
      * @param target the module to be replaced
      * @param editedModule the modue that replaces the old module
@@ -101,11 +102,11 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Replaces the {@link #internalList} of this UniqueModuleList with the internalList of the
-     * replacement.
+     * Replaces the {@link #internalList} of this {@code UniqueModuleList} with
+     * the {@code internalList} of the replacement.
      *
-     * @param replacement the UniqueModuleList object that contains the internalList that is
-     * replacing the old internalList
+     * @param replacement the {@code UniqueModuleList} object that contains the
+     * {@code internalList} that is replacing the old {@code internalList}
      */
     public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
@@ -113,8 +114,9 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Replaces the contents of this list with {@code modules}. {@code modules} must not contain
-     * duplicate modules.
+     * Replaces the contents of this list with {@code modules}.
+     * <p>
+     * {@code modules} must not contain duplicate modules.
      *
      * @param modules the list of module that would replace the old list
      */
@@ -156,14 +158,18 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
     }
+    //@@author
 
+    //@@author jeremiah-ang
     /**
      * Removes all module in a list from the list
      */
     public boolean removeAll(Collection<Module> modules) {
         return internalList.removeAll(modules);
     }
+    //@@author
 
+    //@@author alexkmj
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      *
@@ -172,6 +178,7 @@ public class UniqueModuleList implements Iterable<Module> {
     public ObservableList<Module> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
+    //@@author
 
     /**
      * Returns true if {@code modules} contains only unique modules.
@@ -184,6 +191,7 @@ public class UniqueModuleList implements Iterable<Module> {
                 .distinct()
                 .count();
     }
+    //@@author
 
     //@@author jeremiah-ang
     /**
@@ -201,30 +209,64 @@ public class UniqueModuleList implements Iterable<Module> {
      * @param moduleToFind
      * @return the Module that matches; null if not matched
      */
-    public Module find(Module moduleToFind) {
-        for (Module module: internalList) {
-            if (module.isSameModule(moduleToFind)) {
-                return module;
-            }
-        }
-        return null;
+    public Module find(Module moduleToFind) throws ModuleNotFoundException {
+        return internalList.stream()
+                .filter(index -> index.isSameModule(moduleToFind))
+                .findAny()
+                .orElseThrow(() -> new ModuleNotFoundException());
     }
-
-    /**
-     * Finds the first instance of the module that has the same moduleCodeToFind
-     * @param moduleCodeToFind
-     * @return module that return true; null if not matched
-     */
-    public Module find(Code moduleCodeToFind) {
-        for (Module module: internalList) {
-            if (module.getCode().equals(moduleCodeToFind)) {
-                return module;
-            }
-        }
-        throw new ModuleNotFoundException();
-    }
-
     //@@author
+
+    //@@author alexkmj
+    /**
+     * Returns the matching module entry.
+     * <p>
+     * Finds the module with {@code targetCode}, {@code targetYear} if
+     * {@code targetYear} is not null, and {@code targetSemester} if
+     * {@code targetSemester} is not null.
+     *
+     * @param targetCode code to match
+     * @param targetYear year to match if not null
+     * @param targetSemester semester to match if not null
+     * @return the matching module
+     * @throws ModuleNotFoundException thrown when no entries match the
+     * parameters.
+     * @throws MultipleModuleEntryFoundException thrown when multiple entries
+     * match the parameters.
+     */
+    public Module getOnlyOneModule(Code targetCode, Year targetYear,
+            Semester targetSemester)
+            throws ModuleNotFoundException, MultipleModuleEntryFoundException {
+        requireNonNull(targetCode);
+
+        Predicate<Module> moduleMatches = index -> {
+            boolean codeMatch = targetCode == null
+                    || index.getCode().equals(targetCode);
+
+            boolean yearMatch = targetYear == null
+                    || index.getYear().equals(targetYear);
+
+            boolean semesterMatch = targetSemester == null
+                    || index.getSemester().equals(targetSemester);
+
+            return codeMatch && yearMatch && semesterMatch;
+        };
+
+        Module[] moduleArray = internalList.stream()
+                .filter(moduleMatches)
+                .toArray(Module[]::new);
+
+        if (moduleArray.length == 0) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (moduleArray.length > 1) {
+            throw new MultipleModuleEntryFoundException();
+        }
+
+        return moduleArray[0];
+    }
+
     /**
      * Returns the iterator of the internal list.
      *
@@ -245,13 +287,21 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueModuleList // instanceof handles nulls
-                && internalList.equals(((UniqueModuleList) other).internalList));
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof UniqueModuleList)) {
+            return false;
+        }
+
+        UniqueModuleList e = (UniqueModuleList) other;
+        return internalList.equals(e.internalList);
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
+    //@@author
 }

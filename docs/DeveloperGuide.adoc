@@ -99,7 +99,7 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
-
+tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -158,7 +158,7 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-
+end::architecture[]
 [[Design-Ui]]
 === UI component
 
@@ -179,10 +179,20 @@ The `UI` component uses JavaFX UI 'DarkTheme' to draw different text, sizes, fon
 
 [[Design-Layout]]
 === UI component
-* The UI is seperated into 3 columns to clearly identify the different outputs from commands entered by the user.
-* First UI Column is for Modules that have already been completed
-* Second UI Column is for Modules whose grades have been calculated by the application
-* Third UI Column is for displaying summary statistics.
+* The bottom two thirds of the UI is seperated into 2 panels to clearly identify the different outputs from commands entered by the user.
+* The first panel on the left is for Modules that have already been completed; this is shown by the GREEN circles which
+surround the grades which indicate this grade is "set" and of no concern to the user anymore.
+* The second panel on the right is for Modules that have not yet been completed by the user; this is shown by the RED
+circles which surround the grades to indicate that this is a grade the user should be aware of. The red indicates an
+urgency towards that module as it's outcome will affect the users predicted CAP goal.
+* The top third of the UI is seperated into four distinct rows;
+.  The first row contains the title and drop down menu's for `File` and `Help` options.
+.  The second row is the command line and how the user interacts with the application. Notice there is no button for the
+user to click when they are ready to enter their command; it is expected the user is familiar with Command Line Interface
+and will know to use the `enter` button on their keyboard when ready to submit a command to the app.
+.  The third row is where replies from the application to the user will be displayed. When the commands become too big
+for the box, a scroll down option becomes available for the user to continue reading the message.
+.  The fourth row displays the summary of the users current CAP goal and their target CAP.
 
 [[Design-Logic]]
 === Logic component
@@ -194,15 +204,16 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TranscriptParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a module) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the +
+ `execute("delete -t CS1231")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `delete -t CS1231` Command
+image::DeleteModuleForLogic.png[width="800"]
 
 [[Design-Model]]
 //tag::designmodel[]
@@ -222,6 +233,7 @@ The `Model`,
 * provides filter function to filter `Module` with different kind of `Grade`
 
 //end::designmodel[]
+//tag::designstorage[]
 [[Design-Storage]]
 === Storage component
 
@@ -240,7 +252,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
+//end::designstorage[]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -303,93 +315,15 @@ for every incomplete Module m:
 .Sequence Diagram of Target Grade calculation
 image::SDTranscriptTargetCalculation.png[width="800"]
 
+And below the activity diagram to further illustrate several exceptional cases.
+
+.Activity Diagram of Target Grade Calculation
+image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
+
+.Activity Diagram of the actual Target Grade Calculation
+image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
+
 // end::captargetcalculation[]
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -599,6 +533,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 
+//tag::targetUser[]
 [appendix]
 == Target User Profile
 - An NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
@@ -606,11 +541,15 @@ b. Require developers to download those libraries manually (this creates extra w
 - Can type fast.
 - Prefers typing over mouse input.
 - Is reasonably comfortable using CLI apps.
+//end::targetUser[]
 
+//tag::value[]
 [appendix]
 == Value Proposition
 Helps students manage their CAP and predict what grades they need to reach their CAP goal.
+//end::value[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -655,6 +594,7 @@ can enter my entries incrementally.
 1. As a user, I can view the module descriptions so that I know what modules I should take
 2. As a user I can enter the MCs for exchange I can keep track of modules that may not be mapped to our database of modules codes or isn’t the default number of MCs.
 3. As a user, I can export my timetable so that I can share it with my friend.
+//end::userStories[]
 
 [appendix]
 == Use Cases
@@ -682,26 +622,38 @@ Use case ends.
 +
 Use case ends
 
-=== Use case: [UC2] View grades needed to achieve CAP goal (based on previous grades)
+=== Use case: [UC2] View grades needed to achieve CAP goal
 
 *MSS*
 
-1. User enter CAP goal
-2. System displays target grades for ungraded modules
+1. User enters completed Modules
+2. User enters incomplete Modules
++
+Step 1-2 are repeated until user is satisfied.
+3. User enter CAP goal
+4. System calculated target grades
+5. System displays target grades for ungraded modules
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. CAP goal is invalid
-** 1a1. System shows an `Invalid CAP Goal` error message
+* 3a. CAP goal is invalid
+** 3a1. System shows an `Invalid CAP Goal` error message
 +
 Use case ends.
 
-* 2a. CAP goal is not achievable
-** 2a1. System shows an `Not achievable` error message
+* 4a. There are no incomplete Modules and current CAP is lesser than CAP Goal
+** 4a1. Go to step `5a`
 +
 Use case ends.
+
+* 5a. CAP goal is not achievable
+** 5a1. System inform that it is not achievable
++
+Use case ends.
+
+
 
 === Use case: [UC3] Updating target grades
 
@@ -718,7 +670,7 @@ Use case ends.
 *Extensions*
 
 * 2a. CAP goal is not achievable with new set of modules
-** 2a1. System shows an `Not achievable` error message
+** 2a1. System inform that it is not achievable
 +
 Use case ends.
 
@@ -742,6 +694,26 @@ Use case ends.
 3. System displays saved modules
 +
 Use case ends
+
+=== Use case: [UC6] Adjusting target grades
+
+*Pre-conditions:*
+
+* `[UC2]` completed
+* There are targets given to incomplete modules
+
+*MSS*
+
+1. User adjust target
+2. System recalculates target grades for remaining ungraded modules
+3. System displays new target grades for remaining ungraded modules
+
+*Extensions*
+
+* 2a. CAP goal is not achievable with new set of modules
+** 2a1. System inform that it is not achievable
++
+Use case ends.
 
 //end::usecase[]
 [appendix]
@@ -786,44 +758,86 @@ These instructions only provide a starting point for testers to work on; testers
 //tag::manualtestcaptargetcalculation[]
 === CAP Calculation
 
+[NOTE]
+To further test the *Correctness* of CAP Calculation you can input your own combination of modules and verify it with
+link:https://gradecalc.info/sg/nus/cumulative_gpa_calc.pl[This URL]
+
 . Initial CAP should be 0
 .. Launch the application
 .. Delete any Completed Modules already added
 +
-*Expected*: Current CAP should be 0
+|===
+|*Expected*: Current CAP should be 0
+|===
 
 . CAP should increase/decrease correctly while *Adding* modules
 .. CAP score of 1 Module
 ... Add a module(4MC, Grade B+) with the following command +
-    `c_add CS1010 1 1 4 B+`
+    `add -m CS1010 -y 1 -s 1 -c 4 -g B+`
 ... Observe the current CAP
 +
-*Expected*: Current CAP should be 4.0
-.. CAP score of 3 Module
+|===
+|*Expected*: Current CAP should be 4.0
+|===
+
+.. CAP score of 4 Module
 ... Add another module(4MC, Grade A-) with the following command +
-    `c_add CS1020 1 2 4 A-`
+    `add -m CS1020 -y 1 -s 2 -c 4 -g A-`
 ... Observe the current CAP
 +
-*Expected*: Current CAP should be 4.25
+|===
+|*Expected*: Current CAP should be 4.25
+|===
+
 ... Add another module(5MC, Grade C+) with the following command +
-    `c_add CS2010 2 1 5 C+`
+    `add -m CS2010 -y 2 -s 1 -c 5 -g C+`
 ... Observe the current CAP
 +
-*Expected*: Current CAP should be 3.58
+|===
+|*Expected*: Current CAP should be 3.58
+|===
+
+... Add another module(5MC, Grade CS) with the following command +
+    `add -m CS2020 -y 2 -s 1 -c 5 -g CS`
+... Observe the current CAP
++
+|===
+|*Expected*: Current CAP should be 3.58
+|===
 
 . CAP should increase/decrease correctly while *Editing* modules
-.. Edit one of the module with the following command +
-    `c_edit TBC`
+.. Edit one of the CS module with the following command +
+    `edit -t CS2020 -g B+`
 .. Observe the current CAP
 +
-*Expected*: Current CAP should be TBC
+|===
+|*Expected*: Current CAP should be 3.69
+|===
+
+.. Edit one of the 5MC module with the following command +
+    `edit -t CS2010 -c 4`
+.. Observe the current CAP
++
+|===
+|*Expected*: Current CAP should be 3.76
+|===
 
 . CAP should increase/decrease correctly while *Deleting* modules
 .. Delete one of the module with the following command +
-    `c_delete CS1020`
+    `delete -t CS2020`
 .. Observe the current CAP
 +
-*Expected*: Current CAP should be 3.17
+|===
+|*Expected*: Current CAP should be 3.67
+|===
+
+.. Delete another one of the module with the following command +
+    `delete -t CS1020`
+.. Observe the current CAP
++
+|===
+|*Expected*: Current CAP should be 3.25
+|===
 
 === Target Grade Calculation
 
@@ -831,81 +845,131 @@ These instructions only provide a starting point for testers to work on; testers
 _To follow this guide, ensure the there are only the following 2 modules:_ +
 Completed Modules:
 CS1010 year 1 sem 1 credits 4 grade B+ +
-   `c_add cs1010 1 1 4 B+` +
-CS1020 year 1 sem 2 credits 4 grade C+ +
-   `c_add cs2010 1 2 4 C+`
+   `add -m cs1010 -y 1 -s 1 -c 4 -g B+` +
+CS1020 year 2 sem 1 credits 4 grade C+ +
+   `add -m cs2010 -y 2 -s 1 -c 4 -g C+`
+
+[NOTE]
+You can also further verify that the given target grades together with the adjusted grades
+and completed grades indeed provide a CAP greater to or equal to your CAP Goal if it is possible
+with link:https://gradecalc.info/sg/nus/cumulative_gpa_calc.pl[This URL]
 
 . Target Grade should not be calculated when there is no CAP Goal
 .. Remove any CAP Goal with the following command +
-    `c_goal 0`
+    `goal 0`
 .. Add 2 incomplete module with the following command (One after another) +
-    `c_add CS4234 4 1 4` +
-    `c_add CS4226 4 1 4`
+    `add -m CS4234 -y 4 -s 1 -c 4` +
+    `add -m CS4226 -y 4 -s 1 -c 4`
 +
-*Expected*: Both module should have grade NIL
+|===
+|*Expected*: Both module should have grade NIL
+|===
 
 . Target Grade should not update upon entering an impossible CAP Goal
 .. Add an impossible CAP Goal with the following command +
-    `c_goal 5.0`
+    `goal 5.0`
 .. Observe the CAP Goal field
-*Expected*: CAP Goal should be `5.0 (Impossible)` and both modules should still have grade NIL
++
+|===
+|*Expected*: CAP Goal should be `5.0 (Impossible)` and both modules should still have grade NIL
+|===
 
 . Target Grade should update upon entering an achievable CAP Goal
 .. Change the CAP Goal to something achievable with the following command +
-    `c_goal 4.0`
+    `goal 4.0`
 .. Observe the Target Grades of CS4234 and CS4226
-*Expected*: CS4234 -> `A` CS4226 -> `A-`
++
+|===
+|*Expected*: CS4234 -> `A` CS4226 -> `A-`
+|===
+
+. Target Grade should update upon entering an unachievable CAP Goal
+.. Change the CAP Goal to something achievable with the following command +
+    `goal 5.0`
+.. Observe the Target Grades of CS4234 and CS4226
++
+|===
+*Expected*: both modules should have grade NIL
+|===
 
 . Target Grade should update upon modifying the list of modules
 .. Adding another completed module with good grade
+... Set a goal to something achievable with the following command +
+    `goal 4.0`
 ... Add a module with good grade with the following command: +
-    `c_add CS2100 1 2 4 A`
+    `add -m CS2100 -y 1 -s 2 -c 4 -g A`
 ... Observe that the Target Grades of CS4234 and CS4226 have dropped
-*Expected*: CS4234 -> `A-` CS4226 -> `B+`
++
+|===
+|*Expected*: CS4234 -> `A-` CS4226 -> `B+`
+|===
 
 .. Adding another completed module with bad grade
-... Add a module with good grade with the following command: +
-    `c_add CS2105 2 1 4 C+`
+... Add a module with bad grade with the following command: +
+    `add -m CS2105 -y 2 -s 1 -c 4 -g C+`
 ... Observe that the Target Grades of CS4234 and CS4226 have increased
-*Expected*: CS4234 -> `A` CS4226 -> `A`
++
+|===
+|*Expected*: CS4234 -> `A` CS4226 -> `A`
+|===
 
 .. Adding another incomplete
-... Add a incomplete module with the following command: +
-    `c_add CS4231 4 2 4`
+... Add another incomplete module with the following command: +
+    `add -m CS4231 -y 4 -s 2 -c 4`
 ... Observe that the Target Grades of CS4234 and CS4226 have dropped
-*Expected*: CS4234 -> `A` CS4226 -> `A-` CS4231 -> `A-`
++
+|===
+|*Expected*: CS4234 -> `A` CS4226 -> `A-` CS4231 -> `A-`
+|===
 
 . Adjusting target grade
-.. Increase a target grade should reduce another
+.. Increasing a target grade should reduce another
 ... Adjust CS4226 with the following command +
-    `c_adjust cs4226 A`
+    `adjust cs4226 A`
 ... Observe the Target Grade of CS4234
-*Expected*: CS4234 -> `A-`
++
+|===
+|*Expected*: CS4234 -> `A-` CS4231 -> `A-`
+|===
 
 .. Decreasing a target grade should reduce another
 ... Adjust CS4226 with the following command +
-    `c_adjust cs4226 A-`
+    `adjust cs4226 A-`
 ... Observe the Target Grade of CS4234
-*Expected*: CS4234 -> `A`
++
+|===
+|*Expected*: CS4234 -> `A` CS4231 -> `A-`
+|===
 
 .. Decreasing a target grade causing goal to be impossible will not recalculate target grade
 ... Adjust CS4226 with the following command +
-    `c_adjust cs4226 C+`
+    `adjust cs4226 C+`
 ... Observe the CAP Goal field
-*Expected*: CAP Goal should be `4.0 (Impossible)`
++
+|===
+|*Expected*: CAP Goal should be `4.0 (Impossible)` CS4234 -> `NIL` CS4231 -> `NIL`
+|===
 
-. Adjusting multiple modules
+. Adjusting multiple modules +
 .. Adjusting all modules to grades above what was target will be ok
-    `c_adjust cs4226 A` +
-    `c_adjust cs4234 A`
+    `adjust cs4226 A` +
+    `adjust cs4234 A` +
+    `adjust cs4231 A`
 .. Observe the CAP Goal field
-*Expected*: CAP Goal should still be 4.0
++
+|===
+|*Expected*: CAP Goal should still be 4.0
+|===
 
 .. Adjusting all modules to grades below what was target will result in impossible CAP Goal
     `c_adjust cs4226 A-` +
-    `c_adjust cs4234 A-`
+    `c_adjust cs4234 A-` +
+    `c_adjust cs4231 A-`
 .. Observe the CAP Goal field
-*Expected*: CAP Goal should be `4.0 (Impossible)`
++
+|===
+|*Expected*: CAP Goal should be `4.0 (Impossible)`
+|===
 
 //end::manualtestcaptargetcalculation[]
 

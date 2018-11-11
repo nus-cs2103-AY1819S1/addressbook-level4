@@ -16,7 +16,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
- * The main LogicManager of the app.
+ * The main {@code LogicManager} of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -44,15 +44,9 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
-    //@@author alexkmj
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
@@ -75,5 +69,9 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getIncompleteModuleList();
     }
 
-
+    //TODO: REMOVE LEGACY CODE
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
+    }
 }
