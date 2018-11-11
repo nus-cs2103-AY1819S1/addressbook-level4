@@ -12,6 +12,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Tooltip?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
     <GridPane>
         <columnConstraints>
@@ -28,17 +31,41 @@
             <Text fx:id="address" styleClass="patient-details-text" />
             <Text fx:id="preferredDoctor" styleClass="patient-details-text" />
             <TabPane fx:id="patientTabLists" id="patientTabLists" tabClosingPolicy="UNAVAILABLE">
-                <Tab fx:id="medProbTab" text="Medical Problems">
+                <Tab fx:id="medProbTab">
+                    <tooltip>
+                        <Tooltip text="Medical Problems"/>
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/images/stethoscope.png" />
+                        </ImageView>
+                    </graphic>
                     <VBox>
                         <TableView fx:id="medProbTableView"/>
                     </VBox>
                 </Tab>
-                <Tab fx:id="medTab" text="Medications">
+                <Tab fx:id="medTab">
+                    <tooltip>
+                        <Tooltip text="Medications"/>
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/images/medicine.png" />
+                        </ImageView>
+                    </graphic>
                     <VBox>
                         <TableView fx:id="medTableView"/>
                     </VBox>
                 </Tab>
-                <Tab fx:id="alrgTab" text="Allergies">
+                <Tab fx:id="alrgTab">
+                    <tooltip>
+                        <Tooltip text="Allergies"/>
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/images/allergy.png" />
+                        </ImageView>
+                    </graphic>
                     <VBox>
                         <TableView fx:id="alrgTableView"/>
                     </VBox>
