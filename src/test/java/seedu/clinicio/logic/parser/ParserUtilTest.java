@@ -9,7 +9,7 @@ import static seedu.clinicio.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 
-import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -106,10 +106,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_PATIENT, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_PATIENT, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
