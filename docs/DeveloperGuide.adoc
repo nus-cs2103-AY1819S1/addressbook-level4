@@ -413,7 +413,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 // tag::viewarangeoftasks[]
 
-=== View Tasks Due Today/this Week
+=== View Tasks Due Today/This Week
 
 In order to enable users to better monitor their tasks in the schedule planner, Two variations of
  `list` command were added.
@@ -484,7 +484,7 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 // end::viewarangeoftasks2[]
 
 
-=== List tasks by Month
+=== List Tasks by Month
 
 The `listmonth` command is another variation of the `list` command, which supports viewing tasks due from the current
 date till the end of the month.
