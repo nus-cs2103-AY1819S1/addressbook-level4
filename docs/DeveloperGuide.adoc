@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T10-2/main
 
-By: `CS2103 T10-2`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
