@@ -41,9 +41,9 @@ image::Ui.png[width="790"]
 e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some commands you can try:
 
-* **`add`**`-m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
+* `add -m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
 `4` MCs taken in Semester `1` as a Year `2` student.
-* **`delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
+* `delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
 `1` from CAPTracker.
 * *`exit`* : Exits the app
 
@@ -57,12 +57,12 @@ e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be replaced and supplied by the
 user. +
-e.g. `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
-`add CS2103 2 1 4 A+`.
+e.g. `add -m MODULE_CODE -y YEAR -s SEMESTER -c CREDIT [-g GRADE]`: +
+`add -m CS2103 -y 2 -s 1 -c 4 -g A+`.
 * Items in square brackets are optional. +
-e.g. `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
-`add CS2103 2 1 4 A+` or +
-`add CS2103 2 1 4`
+e.g. `add -m MODULE_CODE -y YEAR -s SEMESTER -c CREDIT [-g GRADE]`: +
+`add -m CS2103 -y 2 -s 1 -c 4 -g A+` or +
+`add -m CS2103 -y 2 -s 1 -c 4`
 ====
 
 === Viewing help : `help`
