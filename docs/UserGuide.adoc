@@ -201,7 +201,7 @@ Format: `next` -> Retrieves the next 10 images for editing
 Format: `prev` -> Retrieves the previous 10 images for editing
 
 // end::dir[]
-// tag::convert[]
+// tag::apply[]
 
 === Applies a transformation to an image : `apply`
 There are 3 different ways to apply a transformation to an image. +
@@ -278,8 +278,8 @@ Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to Image
 [WARNING]
 **Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
 
+// end::apply[]
 
-// end::convert[]
 // tag::create[]
 
 === Creates custom transformation sets for use : `create`

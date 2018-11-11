@@ -8,13 +8,13 @@
 
 == Overview
 
-Piconso - The Piconso is a command line image processing tool, supported by ImageMagick, and is built to handle all the image processing in a light weight and efficient way. Users are able to use command line to perform operations, and visualize the result in GUI which is powered by JavaFx. 
+Piconso - The Piconso is a command line image processing tool, supported by ImageMagick, and is built to handle all the image processing in a light weight and efficient way. Users are able to use command line to perform operations, and visualize the result in GUI which is powered by JavaFx.
 
 Unlink other image processing tools, without a long term learning process, piconso aims to privides simple, strarightforward, and user-friendly features. Moreover, piconso can be mouse free, which woould be more confortable for designers and developers.
 
 == Summary of contributions
 
-* *Major morphing*: 
+* *Major morphing*:
 ** *Enable the use of Imagemagick*
 *** What it does: It determine the current operating system, prepare the zipped pacakge of ImageMagick, unzipp and prepare the ImageMagick package.
 *** Justification:This is important as Imagemagick is the core part behind the app, allowing the editing of the images.
@@ -30,7 +30,7 @@ Unlink other image processing tools, without a long term learning process, picon
 *** Justification: This feature improves the product significantly as well, because when doing image editing, multiple transformations are used all the time. With this feature, the image editing will be much more efficient.
 *** Highlights: This enhancement also affects existing commands and commands to be added in future. The implementation was challenging as it need handle file creating, writing and accessing.
 
-* *Minor enhancement*: 
+* *Minor enhancement*:
 ** *Add a save command that allows the user to save the transformation wanted.*
 *** What it does: It allows users to save the changes to the current image to the disk.
 
