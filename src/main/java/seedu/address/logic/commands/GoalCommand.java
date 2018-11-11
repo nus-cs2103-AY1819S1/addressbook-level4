@@ -16,7 +16,7 @@ public class GoalCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set your CAP goal. "
             + "Parameters: "
             + "CAP_GOAL "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + "4.5";
 
     public static final String MESSAGE_SUCCESS = "Your CAP Goal: %1$s";

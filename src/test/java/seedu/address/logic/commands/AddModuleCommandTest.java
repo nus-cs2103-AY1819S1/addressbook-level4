@@ -23,6 +23,8 @@ import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.ModuleBuilder;
 
@@ -49,7 +51,7 @@ public class AddModuleCommandTest {
         CommandResult commandResult = new AddModuleCommand(validModule)
                 .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule),
+        assertEquals(String.format(AddModuleCommand.MESSAGE_ADD_SUCCESS, validModule),
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -62,7 +64,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(AddModuleCommand.MESSAGE_MODULE_ALREADY_EXIST);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -75,7 +77,7 @@ public class AddModuleCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModuleComplete);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(AddModuleCommand.MESSAGE_MODULE_ALREADY_EXIST);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -109,17 +111,7 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public boolean hasMultipleInstances(Code code) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteModule(Module target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteModule(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -239,12 +231,7 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public Module findModule(Module moduleToFind) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Module findModule(Code moduleCodeToFind) {
+        public Module getOnlyOneModule(Code targetCode, Year targetYear, Semester targetSemester) {
             throw new AssertionError("This method should not be called.");
         }
 

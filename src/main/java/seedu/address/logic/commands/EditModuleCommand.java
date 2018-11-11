@@ -35,13 +35,15 @@ public class EditModuleCommand extends Command {
             + ": Edits the details of the module specified by the module code."
             + " Existing values will be overwritten by the input values."
             + " \nParameters:"
-            + " -t TARGET_MODULE_CODE"
-            + " [-e TARGET_MODULE_YEAR -z TARGET_MODULE_SEMESTER]"
-            + " [-m NEW_MODULE_CODE]"
-            + " [-y NEW_YEAR]"
-            + " [-s NEW_SEMESTER]"
-            + " [-c NEW_CREDIT]"
-            + " [-g NEW_GRADE]";
+            + " \n-t TARGET_MODULE_CODE"
+            + " \n[-e TARGET_MODULE_YEAR -z TARGET_MODULE_SEMESTER]"
+            + " \n[-m NEW_MODULE_CODE]"
+            + " \n[-y NEW_YEAR]"
+            + " \n[-s NEW_SEMESTER]"
+            + " \n[-c NEW_CREDIT]"
+            + " \n[-g NEW_GRADE]"
+            + " \nExample 1: c_edit -t CS2103 -g A+ "
+            + " \nExample 2: c_edit -t CS2103 -e 3 -z 2 -s 1";
 
     // Constants for CommandException.
     public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
@@ -139,23 +141,23 @@ public class EditModuleCommand extends Command {
         // Get target module.
         // Throws CommandException if module does not exists.
         // Throws CommandException if module is incomplete and grade changed.
-        Module target = CommandUtil.getUniqueTargetModule(model,
+        Module targetModule = CommandUtil.getUniqueTargetModule(model,
                 targetCode,
                 targetYear,
                 targetSemester);
-        moduleCompletedIfGradeChange(target);
+        moduleCompletedIfGradeChange(targetModule);
 
         // Get edited module.
         // Throws CommandException if edited module already exist.
-        Module editedModule = createEditedModule(target);
+        Module editedModule = createEditedModule(targetModule);
         editedModuleExist(model, editedModule);
 
-        if (target.equals(editedModule)) {
+        if (targetModule.equals(editedModule)) {
             throw new CommandException("No changes");
         }
 
         // Update module and commit the transcript.
-        model.updateModule(target, editedModule);
+        model.updateModule(targetModule, editedModule);
         model.commitTranscript();
 
         String successMsg = String.format(MESSAGE_EDIT_SUCCESS, editedModule);
