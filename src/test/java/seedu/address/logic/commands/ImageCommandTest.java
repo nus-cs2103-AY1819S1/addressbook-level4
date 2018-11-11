@@ -29,7 +29,7 @@ import seedu.address.model.person.Room;
 //@@author javenseow
 public class ImageCommandTest {
 
-    private static final String IMAGE_COMMAND_TEST_DATA_FOLDER = "./src/test/data/ImageCommandTest/";
+    private static final String IMAGE_COMMAND_TEST_DATA_FOLDER = "src/test/data/ImageCommandTest/";
     private static final String INVALID_IMAGE = "Invalid.png";
     private static final String INVALID_ROOM = "B313";
     private static final String VALID_IMAGE = "Valid.jpg";
