@@ -232,6 +232,7 @@ The `Model`,
 * provides filter function to filter `Module` with different kind of `Grade`
 
 //end::designmodel[]
+//tag::designstorage[]
 [[Design-Storage]]
 === Storage component
 
@@ -250,7 +251,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
+//end::designstorage[]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
