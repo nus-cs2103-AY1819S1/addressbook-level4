@@ -55,8 +55,6 @@ public class TypicalRecipes {
             .withCooktime(VALID_COOKTIME_HR).withTags(VALID_TAG_STAPLE, VALID_TAG_SPICY)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     private TypicalRecipes() {} // prevents instantiation
 
     /**
