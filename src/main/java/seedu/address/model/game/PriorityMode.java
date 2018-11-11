@@ -26,6 +26,12 @@ public class PriorityMode extends GameMode {
     int appraiseXpChange(Task taskFrom, Task taskTo) {
 
         String rawPriorityValue = taskFrom.getPriorityValue().value;
+
+        // guard against unparseable priority values
+        if (rawPriorityValue.length() > 9) {
+            rawPriorityValue = "1000000000";
+        }
+
         int priorityValue = Integer.parseInt(rawPriorityValue);
 
         if (taskFrom.isStatusOverdue()) {
