@@ -113,7 +113,7 @@ public class AddressBookParser {
         //@@author chantca95
         case ImportCommand.COMMAND_WORD:
         case ImportCommand.COMMAND_ALIAS:
-            return new ImportCommandPreparer().init(arguments);
+            return new ImportCommandParser().parse(arguments);
 
         //@@author
         case ScheduleCommand.COMMAND_WORD:

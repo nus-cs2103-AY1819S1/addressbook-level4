@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
-public class ImportCommandPreparerTest {
+public class ImportCommandParserTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvTest");
     private static final Path CORRECT_CSV = TEST_DATA_FOLDER.resolve("AddressbookCorrect.csv");
@@ -38,9 +38,9 @@ public class ImportCommandPreparerTest {
 
     @Test
     public void perfectly_formatted_csv() throws FileNotFoundException, ParseException {
-        ImportCommandPreparer preparer = new ImportCommandPreparer();
+        ImportCommandParser parser = new ImportCommandParser();
         File file = CORRECT_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFileFromFileBrowser(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -80,9 +80,9 @@ public class ImportCommandPreparerTest {
 
     @Test
     public void contactsWithOnlyName() throws FileNotFoundException, ParseException {
-        ImportCommandPreparer preparer = new ImportCommandPreparer();
+        ImportCommandParser parser = new ImportCommandParser();
         File file = CONTACT_ONLY_NAME_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFileFromFileBrowser(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -113,9 +113,9 @@ public class ImportCommandPreparerTest {
 
     @Test
     public void contactsWithNoName() throws FileNotFoundException, ParseException {
-        ImportCommandPreparer preparer = new ImportCommandPreparer();
+        ImportCommandParser parser = new ImportCommandParser();
         File file = CONTACT_NO_NAME_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFileFromFileBrowser(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -145,9 +145,9 @@ public class ImportCommandPreparerTest {
 
     @Test
     public void contactsWithInvalidField() throws FileNotFoundException, ParseException {
-        ImportCommandPreparer preparer = new ImportCommandPreparer();
+        ImportCommandParser parser = new ImportCommandParser();
         File file = INVALID_CONTACT_FIELD_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFileFromFileBrowser(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
@@ -169,9 +169,9 @@ public class ImportCommandPreparerTest {
 
     @Test
     public void textDocCsv() throws FileNotFoundException, ParseException {
-        ImportCommandPreparer preparer = new ImportCommandPreparer();
+        ImportCommandParser parser = new ImportCommandParser();
         File file = TEXT_DOC_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFileFromFileBrowser(file);
 
         //Initialize the expected Import command
         ArrayList<Person> expectedPersons = new ArrayList<>();
