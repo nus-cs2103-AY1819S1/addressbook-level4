@@ -319,6 +319,17 @@ public class ModelManager extends ComponentManager implements Model {
             preferenceQueue.getList().remove(patient);
         }
 
+        ArrayList<Patient> temp = new ArrayList<>();
+        temp.addAll(mainQueue.getList().subList(0, mainQueue.getList().size()));
+        temp.addAll(preferenceQueue.getList().subList(0, preferenceQueue.getList().size()));
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        //   temp.sort(comparator);
+
+        versionedClinicIo.setQueue(temp.subList(0, temp.size()));
+
+        updateQueue(PREDICATE_SHOW_ALL_PATIENTS);
+        indicateClinicIoChanged();
+
         patient.setIsNotQueuing();
     }
 
