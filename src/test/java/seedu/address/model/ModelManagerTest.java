@@ -42,7 +42,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredCalendarEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredCalendarEventList().remove(0);
+        modelManager.getFilteredAndSortedCalendarEventList().remove(0);
     }
 
     @Test
@@ -69,10 +69,10 @@ public class ModelManagerTest {
         // different scheduler -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentScheduler, userPrefs)));
 
-        // different filteredList -> returns true
+        // different filteredList -> returns false
         String[] keywords = LECTURE.getTitle().value.split("\\s+");
         modelManager.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(keywords)));
-        assertTrue(modelManager.equals(new ModelManager(scheduler, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.clearAllPredicatesAndComparators();

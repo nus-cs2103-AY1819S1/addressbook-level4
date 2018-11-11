@@ -156,7 +156,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Scheduler expectedScheduler = new Scheduler(actualModel.getScheduler());
-        List<CalendarEvent> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCalendarEventList());
+        List<CalendarEvent> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedCalendarEventList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -166,7 +166,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedScheduler, actualModel.getScheduler());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCalendarEventList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedCalendarEventList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -203,13 +203,13 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showCalendarEventAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCalendarEventList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAndSortedCalendarEventList().size());
 
-        CalendarEvent calendarEvent = model.getFilteredCalendarEventList().get(targetIndex.getZeroBased());
+        CalendarEvent calendarEvent = model.getFilteredAndSortedCalendarEventList().get(targetIndex.getZeroBased());
         final String[] splitTitle = calendarEvent.getTitle().value.split("\\s+");
         model.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(splitTitle[1])));
         // fuzzy search may cause the size to be more than 1, e.g. CS2103 and CS2104 are similar words
-        assertEquals(1, model.getFilteredCalendarEventList().size());
+        assertEquals(1, model.getFilteredAndSortedCalendarEventList().size());
     }
 
     /**
@@ -232,7 +232,7 @@ public class CommandTestUtil {
      * Deletes the first calendar event in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstCalendarEvent(Model model) {
-        CalendarEvent firstCalendarEvent = model.getFilteredCalendarEventList().get(0);
+        CalendarEvent firstCalendarEvent = model.getFilteredAndSortedCalendarEventList().get(0);
         model.deleteCalendarEvent(firstCalendarEvent);
         model.commitScheduler();
     }

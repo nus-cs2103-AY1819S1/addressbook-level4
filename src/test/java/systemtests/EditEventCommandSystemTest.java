@@ -77,7 +77,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updateCalendarEvent(
-                getModel().getFilteredCalendarEventList().get(INDEX_FIRST_ELEMENT.getZeroBased()), editedCalendarEvent);
+                getModel().getFilteredAndSortedCalendarEventList().get(INDEX_FIRST_ELEMENT.getZeroBased()), editedCalendarEvent);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         // TODO: decide correct response
@@ -91,7 +91,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         -> edited */
         assertTrue(getModel().getScheduler().getCalendarEventList().contains(TUTORIAL));
         index = INDEX_SECOND_ELEMENT;
-        assertNotEquals(getModel().getFilteredCalendarEventList().get(index.getZeroBased()), TUTORIAL);
+        assertNotEquals(getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased()), TUTORIAL);
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
             + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
             + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -113,7 +113,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_ELEMENT;
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + TAG_EMPTY;
-        CalendarEvent calendarEventToEdit = getModel().getFilteredCalendarEventList().get(index.getZeroBased());
+        CalendarEvent calendarEventToEdit = getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased());
         editedCalendarEvent = new CalendarEventBuilder(calendarEventToEdit).withTags().build();
         assertCommandSuccess(command, index, editedCalendarEvent);
 
@@ -124,9 +124,9 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
         showCalendarEventsWithTitle(VALID_TITLE_SEMINAR);
         index = INDEX_FIRST_ELEMENT;
-        assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredAndSortedCalendarEventList().size());
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + TITLE_DESC_LECTURE;
-        calendarEventToEdit = getModel().getFilteredCalendarEventList().get(index.getZeroBased());
+        calendarEventToEdit = getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased());
         editedCalendarEvent = new CalendarEventBuilder(calendarEventToEdit).withTitle(VALID_TITLE_LECTURE).build();
         assertCommandSuccess(command, index, editedCalendarEvent);
 
@@ -163,7 +163,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredCalendarEventList().size() + 1;
+        invalidIndex = getModel().getFilteredAndSortedCalendarEventList().size() + 1;
         assertCommandFailure(EditEventCommand.COMMAND_WORD + " " + invalidIndex + TITLE_DESC_TUTORIAL,
             Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
@@ -199,7 +199,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         executeCommand(PersonUtil.getAddCommand(LECTURE));
         assertTrue(getModel().getScheduler().getCalendarEventList().contains(LECTURE));
         index = INDEX_FIRST_ELEMENT;
-        assertFalse(getModel().getFilteredCalendarEventList().get(index.getZeroBased()).equals(LECTURE));
+        assertFalse(getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased()).equals(LECTURE));
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
             + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE_2 + END_DESC_LECTURE_2
             + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
@@ -246,7 +246,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         Model expectedModel = getModel();
 
         expectedModel.updateCalendarEvent(
-            expectedModel.getFilteredCalendarEventList().get(toEdit.getZeroBased()), editedCalendarEvent);
+            expectedModel.getFilteredAndSortedCalendarEventList().get(toEdit.getZeroBased()), editedCalendarEvent);
 
         assertCommandSuccess(command, expectedModel,
             String.format(EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent),

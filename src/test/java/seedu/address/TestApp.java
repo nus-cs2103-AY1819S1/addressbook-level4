@@ -118,20 +118,19 @@ public class TestApp extends MainApp {
 
     /**
      * Returns a defensive copy of the model.
-     * The new Model has the same predicates and comparator from FsList and thus the same ordering of FsList.
+     * The new Model has the same predicate and comparator, and thus the same filters and sorting
+     * as the original {@code ObservableList}.
      */
     public Model getModel() {
-        Model copy = new ModelManager(model.getScheduler(), new UserPrefs(), model.getFsList());
-        return copy;
+        return new ModelManager(model.getScheduler(), new UserPrefs(), model.getPredicate(), model.getComparator());
     }
 
     /**
      * Returns a defensive copy of the modelToDo.
-     * The new Model has the same predicates and comparator from FsList and thus the same ordering of FsList.
+     *
      */
     public ModelToDo getModelToDo() {
-        ModelToDo copy = new ModelManagerToDo(modelToDo.getToDoList(), new UserPrefs());
-        return copy;
+        return new ModelManagerToDo(modelToDo.getToDoList(), new UserPrefs());
     }
 
     @Override

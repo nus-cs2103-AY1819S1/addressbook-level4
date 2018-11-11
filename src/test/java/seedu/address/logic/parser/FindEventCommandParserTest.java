@@ -70,7 +70,7 @@ public class FindEventCommandParserTest {
 
         // from date/time is chronologically after the before date/time
         assertParseFailure(parser, "  from/11 nov 8pm     before/10/11/18 20:00   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATETIMEPREDICATE_CONSTRAINTS));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
     }
 
     @Test

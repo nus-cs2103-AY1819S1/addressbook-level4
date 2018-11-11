@@ -46,11 +46,14 @@ public class FindCommandParser implements Parser<FindEventCommand> {
             // Date/time from must be chronologically earlier than date/time before
             if (dateFrom.isAfter(dateBefore)) {
                 throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATETIMEPREDICATE_CONSTRAINTS));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
             }
         }
 
-        List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
+        List<String> tagList = argMultimap.getAllValues(PREFIX_TAG)
+                                            .stream()
+                                            .map(String::trim)
+                                            .collect(Collectors.toList());
 
         if (tagList.stream().anyMatch(String::isEmpty)) {
             throw new ParseException(

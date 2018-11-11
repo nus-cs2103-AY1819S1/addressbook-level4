@@ -54,11 +54,7 @@ public class FindEventCommand extends Command {
         requireNonNull(model);
 
         model.clearAllPredicatesAndComparators();
-        model.addPredicate(titlePredicate);
-        if (tagsPredicate.hasTags()) {
-            model.addPredicate(tagsPredicate);
-        }
-        model.addPredicate(datePredicate);
+        model.updateFilteredCalendarEventList(titlePredicate, tagsPredicate, datePredicate);
         model.sortFilteredCalendarEventList(fuzzySearchComparator);
 
         EventsCenter.getInstance().post(new RefreshCalendarPanelEvent());
@@ -66,7 +62,7 @@ public class FindEventCommand extends Command {
 
         return new CommandResult(
             String.format(Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW,
-                model.getFilteredCalendarEventList().size()));
+                model.getFilteredAndSortedCalendarEventList().size()));
     }
 
     @Override

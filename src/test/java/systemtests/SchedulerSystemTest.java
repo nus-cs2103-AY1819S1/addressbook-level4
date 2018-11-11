@@ -135,7 +135,7 @@ public abstract class SchedulerSystemTest {
     protected void showAllCalendarEvents() {
         executeCommand(ListEventCommand.COMMAND_WORD);
         assertEquals(getModel().getScheduler().getCalendarEventList().size(),
-            getModel().getFilteredCalendarEventList().size());
+            getModel().getFilteredAndSortedCalendarEventList().size());
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class SchedulerSystemTest {
      */
     protected void showCalendarEventsWithTitle(String keyword) {
         executeCommand(FindEventCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCalendarEventList().size()
+        assertTrue(getModel().getFilteredAndSortedCalendarEventList().size()
             < getModel().getScheduler().getCalendarEventList().size());
     }
 
@@ -174,7 +174,7 @@ public abstract class SchedulerSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
-        assertCalendarEventListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(), expectedModel.getFilteredAndSortedCalendarEventList());
         assertCalendarListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
     }
 
@@ -263,7 +263,7 @@ public abstract class SchedulerSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertCalendarEventListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(), getModel().getFilteredAndSortedCalendarEventList());
     }
 
     /**

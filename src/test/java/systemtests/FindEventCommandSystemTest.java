@@ -170,7 +170,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-            MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, expectedModel.getFilteredCalendarEventList().size());
+            MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, expectedModel.getFilteredAndSortedCalendarEventList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

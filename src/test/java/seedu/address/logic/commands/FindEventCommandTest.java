@@ -82,7 +82,7 @@ public class FindEventCommandTest {
         FindEventCommand command = new FindEventCommand(predicate, comparator, datePredicate, tagsPredicate);
         expectedModel.updateFilteredCalendarEventList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredCalendarEventList());
+        assertEquals(Collections.emptyList(), model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate);
         expectedModel.sortFilteredCalendarEventList(comparator); // added because FindEventCommand sorts as well
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCalendarEventList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredAndSortedCalendarEventList());
     }
 
     /**
@@ -137,6 +137,7 @@ public class FindEventCommandTest {
      * Parses {@code userInput} into a {@code TagsPredicate}.
      */
     private TagsPredicate prepareTagsPredicate(String userInput) {
+        userInput = userInput.trim();
         if (userInput.isEmpty()) {
             return new TagsPredicate(Collections.emptyList());
         } else {

@@ -39,7 +39,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<CalendarEvent> filteredCalendarEventList = model.getFilteredCalendarEventList();
+        List<CalendarEvent> filteredCalendarEventList = model.getFilteredAndSortedCalendarEventList();
 
         if (targetIndex.getZeroBased() >= filteredCalendarEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
