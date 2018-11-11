@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandToDoSucc
 import static seedu.address.logic.commands.CommandTestUtil.showToDoListEventAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ELEMENT;
 import static seedu.address.testutil.TypicalTodoListEvents.getTypicalToDoList;
 
 import org.junit.Rule;
