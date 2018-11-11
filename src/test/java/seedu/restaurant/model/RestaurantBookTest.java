@@ -300,6 +300,35 @@ public class RestaurantBookTest {
         assertEquals(restaurantBookWithItems, expectedRestaurantBook);
     }
 
+    @Test
+    public void resetMenuData_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        restaurantBook.resetMenuData(null);
+    }
+
+    @Test
+    public void resetMenuData_withValidReadOnlyRestaurantBook_replacesMenuDataOnly() {
+        RestaurantBook newData = getTypicalRestaurantBookWithItemOnly();
+        restaurantBook.resetMenuData(newData);
+        assertEquals(newData, restaurantBook);
+    }
+
+    @Test
+    public void sortMenuByName_restaurantBookModified() {
+        RestaurantBook sortedByName = new RestaurantBookBuilder().withItem(BEEF_BURGER).withItem(APPLE_JUICE).build();
+        sortedByName.sortMenu(SortMethod.NAME);
+        restaurantBookWithItems = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BEEF_BURGER).build();
+        assertEquals(sortedByName, restaurantBookWithItems);
+    }
+
+    @Test
+    public void sortMenuByPrice_restaurantBookModified() {
+        RestaurantBook sortedByPrice = new RestaurantBookBuilder().withItem(BEEF_BURGER).withItem(APPLE_JUICE).build();
+        sortedByPrice.sortMenu(SortMethod.PRICE);
+        restaurantBookWithItems = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BEEF_BURGER).build();
+        assertEquals(sortedByPrice, restaurantBookWithItems);
+    }
+
     // Reservation Management
     @Test
     public void resetData_withDuplicateReservations_throwsDuplicateReservationException() {
@@ -349,35 +378,6 @@ public class RestaurantBookTest {
     public void getReservationList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         restaurantBook.getReservationList().remove(0);
-    }
-
-    @Test
-    public void resetMenuData_null_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        restaurantBook.resetMenuData(null);
-    }
-
-    @Test
-    public void resetMenuData_withValidReadOnlyRestaurantBook_replacesMenuDataOnly() {
-        RestaurantBook newData = getTypicalRestaurantBookWithItemOnly();
-        restaurantBook.resetMenuData(newData);
-        assertEquals(newData, restaurantBook);
-    }
-
-    @Test
-    public void sortMenuByName_restaurantBookModified() {
-        RestaurantBook sortedByName = new RestaurantBookBuilder().withItem(BEEF_BURGER).withItem(APPLE_JUICE).build();
-        sortedByName.sortMenu(SortMethod.NAME);
-        restaurantBookWithItems = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BEEF_BURGER).build();
-        assertEquals(sortedByName, restaurantBookWithItems);
-    }
-
-    @Test
-    public void sortMenuByPrice_restaurantBookModified() {
-        RestaurantBook sortedByPrice = new RestaurantBookBuilder().withItem(BEEF_BURGER).withItem(APPLE_JUICE).build();
-        sortedByPrice.sortMenu(SortMethod.PRICE);
-        restaurantBookWithItems = new RestaurantBookBuilder().withItem(APPLE_JUICE).withItem(BEEF_BURGER).build();
-        assertEquals(sortedByPrice, restaurantBookWithItems);
     }
 
     @Test

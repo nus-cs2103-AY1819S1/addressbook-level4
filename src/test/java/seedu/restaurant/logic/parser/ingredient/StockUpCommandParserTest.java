@@ -18,6 +18,7 @@ import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author rebstan97
 public class StockUpCommandParserTest {
     private StockUpCommandParser parser = new StockUpCommandParser();
 

@@ -31,6 +31,7 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * EditIngredientByNameCommand.
