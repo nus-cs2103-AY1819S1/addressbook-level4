@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.simplejavamail.email.Email;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -290,5 +291,9 @@ public abstract class AddressBookSystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    protected void saveComposedEmailWithoutDisplay(Email email) {
+        testApp.saveComposedEmailWithoutDisplay(email);
     }
 }
