@@ -10,7 +10,7 @@
 == Overview
 
 U-Schedule* is a desktop calendar application for university students written for the project for the module CS2103
-Software Engineering. The user interacts with it using a CLI, and it has a GUI created with JavaFX for user feedback. 
+Software Engineering. The user interacts with it using a CLI, and it has a GUI created with JavaFX for user feedback.
 It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
