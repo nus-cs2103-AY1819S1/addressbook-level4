@@ -100,7 +100,7 @@ public class XmlSchedulerStorageTest {
     }
 
     @Test
-    public void saveScheduler_nullAddressBook_throwsNullPointerException() {
+    public void saveScheduler_nullScheduler_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveScheduler(null, "SomeFile.xml");
     }

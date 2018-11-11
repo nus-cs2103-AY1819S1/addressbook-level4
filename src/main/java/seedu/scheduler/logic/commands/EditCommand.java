@@ -3,8 +3,15 @@ package seedu.scheduler.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.time.Duration;
@@ -53,11 +60,25 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_NAME + "NAME] "
-            + "[" + PREFIX_EVENT_NAME + "EMAIL] "
-            + "[" + PREFIX_EVENT_NAME + "ADDRESS] "
+            + "[" + PREFIX_START_DATE_TIME + "DATETIME in natural language] "
+            + "[" + PREFIX_END_DATE_TIME + "DATETIME in natural language] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_VENUE + "VENUE]"
+            + "[" + PREFIX_REPEAT_TYPE + "REPEAT TYPE]"
+            + "[" + PREFIX_REPEAT_UNTIL_DATE_TIME + "REPEAT UNTIL DATETIME]"
+            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]"
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_NAME + "johndoe@example.com";
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_EVENT_NAME + "Date with Cynthia "
+            + PREFIX_START_DATE_TIME + "today 11pm "
+            + PREFIX_END_DATE_TIME + "tomorrow 2am "
+            + PREFIX_DESCRIPTION + "Dating time "
+            + PREFIX_VENUE + "McDonald's "
+            + PREFIX_REPEAT_TYPE + "Weekly "
+            + PREFIX_REPEAT_UNTIL_DATE_TIME + "next Saturday 3am "
+            + PREFIX_EVENT_REMINDER_DURATION + "5h "
+            + PREFIX_TAG + "date "
+            + PREFIX_TAG + "planned";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -69,11 +90,12 @@ public class EditCommand extends Command {
             + "no effects on your Google Calender.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
+    protected final Index index;
+    protected final EditEventDescriptor editEventDescriptor;
+    protected final Flag[] flags;
+
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
-    private final Index index;
-    private final EditEventDescriptor editEventDescriptor;
-    private final Flag[] flags;
 
     /**
      * @param index               of the event in the filtered event list to edit
@@ -171,6 +193,7 @@ public class EditCommand extends Command {
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor)
             throws ParseException {
         assert eventToEdit != null;
+
         UUID eventUid = editEventDescriptor.getEventUid().orElse(eventToEdit.getEventUid());
         UUID eventUuid = editEventDescriptor.getEventSetUid().orElse(eventToEdit.getEventSetUid());
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
@@ -179,6 +202,8 @@ public class EditCommand extends Command {
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Venue updatedVenue = editEventDescriptor.getVenue().orElse(eventToEdit.getVenue());
         RepeatType updatedRepeatType = editEventDescriptor.getRepeatType().orElse(eventToEdit.getRepeatType());
+        DateTime updatedRepeatUntilDateTime = updatedEndDateTime.compareTo(eventToEdit.getEndDateTime()) > 0
+                ? updatedEndDateTime : eventToEdit.getRepeatUntilDateTime();
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
         ReminderDurationList updatedReminderDurationList =
                 editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
@@ -188,7 +213,7 @@ public class EditCommand extends Command {
         }
 
         return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
-                updatedDescription, updatedVenue, updatedRepeatType, updatedEndDateTime, updatedTags,
+                updatedDescription, updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags,
                 updatedReminderDurationList);
     }
 
