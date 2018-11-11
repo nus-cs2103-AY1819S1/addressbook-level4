@@ -278,7 +278,7 @@ A trivia game mode where it outputs meaning of words stored in vocabulary list a
 
 Format `trivia`
 
-To answer the trivia question, simply input the answer in the command box.
+To answer the trivia question, simply input the answer in the command box. Answer to the trivia questions are case-insensitive.
 
 Format `WORD`
 // end::trivia[]
@@ -293,7 +293,7 @@ Exits trivia game.
 
 Format `triviaExit`
 
-[NOTE] The above commands can only be used when in `trivia`
+[NOTE] The above commands can only be used when in `trivia` and the commands are case-sensitive.
 // end::triviaother[]
 
 === Listing entered commands : `history`
@@ -412,3 +412,6 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Trivia* : `trivia`
+* *Show trivia* : `triviaShow`
+* *Exit trivia* : `triviaExit`
