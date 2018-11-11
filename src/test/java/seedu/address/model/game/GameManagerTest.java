@@ -23,7 +23,7 @@ public class GameManagerTest {
         }
 
         @Override
-        GameMode copy() {
+        public GameMode copy() {
             return null;
         }
 
@@ -40,6 +40,11 @@ public class GameManagerTest {
         @Override
         public int getHighXp() {
             return 0;
+        }
+
+        @Override
+        public String getDescription() {
+            return "";
         }
 
     }

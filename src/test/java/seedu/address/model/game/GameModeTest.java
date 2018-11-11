@@ -22,7 +22,7 @@ public class GameModeTest {
         }
 
         @Override
-        GameMode copy() {
+        public GameMode copy() {
             return null;
         }
 
@@ -39,6 +39,11 @@ public class GameModeTest {
         @Override
         public int getHighXp() {
             return 0;
+        }
+
+        @Override
+        public String getDescription() {
+            return "";
         }
     }
 
