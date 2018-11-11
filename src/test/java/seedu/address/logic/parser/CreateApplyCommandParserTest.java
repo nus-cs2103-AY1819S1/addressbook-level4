@@ -33,7 +33,7 @@ public class CreateApplyCommandParserTest {
         list.add(transformation2);
         assertParseSuccess(parser, input2, new CreateApplyCommand("blurR", list));
         Command command = new PiconsoParser().parseCommand(input2);
-        assertTrue(command.equals(new CreateApplyCommand("blurR",list)));
+        assertTrue(command.equals(new CreateApplyCommand("blurR", list)));
     }
 
     @Test

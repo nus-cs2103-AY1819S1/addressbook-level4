@@ -22,7 +22,7 @@ public class SaveCommandParserTest {
         assertParseSuccess(parser, "save " + fileName, new SaveCommand(fileName));
         String fileName2 = "test.TIFF";
         assertParseSuccess(parser, "save " + fileName2, new SaveCommand(fileName2));
-        Command command = new PiconsoParser().parseCommand("save " + fileName   );
+        Command command = new PiconsoParser().parseCommand("save " + fileName);
         assertTrue(command.equals(new SaveCommand(fileName)));
     }
 

@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
 
@@ -30,7 +30,8 @@ public class ApplyCommandParserTest {
         Transformation transformationContrast = new Transformation("contrast");
         assertParseSuccess(parser, transformationContrast.toString(),
                 new ApplyCommand(transformationContrast));
-        Transformation transformationSigmoidalContrast = new Transformation("sigmoidal-contrast", "10x10%");
+        Transformation transformationSigmoidalContrast = new Transformation(
+                "sigmoidal-contrast", "10x10%");
         assertParseSuccess(parser, transformationSigmoidalContrast.toString(),
                 new ApplyCommand(transformationSigmoidalContrast));
         Command command = new PiconsoParser().parseCommand("apply blur 0x8");
@@ -47,7 +48,8 @@ public class ApplyCommandParserTest {
     @Test
     public void parseConvertArgumentFail() {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApplyCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "raw", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApplyCommand.MESSAGE_USAGE_RAW));
+        assertParseFailure(parser, "raw",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApplyCommand.MESSAGE_USAGE_RAW));
     }
 
 }
