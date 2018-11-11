@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
 <VBox fx:id="appointmentBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="appointmentDetails" styleClass="cell_big_label" text="\$appointmentDetails"/>
+    <Label fx:id="header" styleClass="appointment-header" text="\$header">
+        <padding>
+            <Insets top="8" bottom="5"/>
+        </padding>
+        <font>
+            <Font name="Segoe UI Bold" size="21.0" />
+        </font>
+    </Label>
+    <Line endX="100.0" startX="-100.0" strokeLineCap="ROUND" />
+    <Label fx:id="date" text="\$date">
+        <padding>
+            <Insets bottom="5" top="6" />
+        </padding>
+    </Label>
+    <Label fx:id="time" text="\$time">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
+    <Label fx:id="name" text="\$name">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
+    <Label fx:id="ic" text="\$ic">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
+    <Label fx:id="status" text="\$status">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
+    <Label fx:id="type" text="\$type">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
+    <Label fx:id="staff" text="\$staff">
+        <padding>
+            <Insets bottom="5" top="5" />
+        </padding>
+    </Label>
 </VBox>

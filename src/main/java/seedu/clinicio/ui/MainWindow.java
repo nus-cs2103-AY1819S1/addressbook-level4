@@ -160,14 +160,14 @@ public class MainWindow extends UiPart<Stage> {
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
-        /*analyticsDisplay.setVisible(false);
+        //analyticsDisplay.setVisible(false);
         appointmentDisplay = new AppointmentDisplay();
-        appointmentDisplay.setVisible(false);*/
+        appointmentDisplay.setVisible(false);
 
         browserPlaceholder.setAlignment(Pos.TOP_CENTER);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        /*browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-        browserPlaceholder.getChildren().add(appointmentDisplay.getRoot());*/
+        //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        browserPlaceholder.getChildren().add(appointmentDisplay.getRoot());
 
         setUpListPanel();
 

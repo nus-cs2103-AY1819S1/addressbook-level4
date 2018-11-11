@@ -20,7 +20,21 @@ public class AppointmentDisplay extends UiPart<Region>{
     @FXML
     private VBox appointmentBox;
     @FXML
-    private Label appointmentDetails;
+    private Label header;
+    @FXML
+    private Label date;
+    @FXML
+    private Label time;
+    @FXML
+    private Label name;
+    @FXML
+    private Label ic;
+    @FXML
+    private Label status;
+    @FXML
+    private Label type;
+    @FXML
+    private Label staff;
 
     public AppointmentDisplay() {
         super(FXML);
@@ -32,10 +46,27 @@ public class AppointmentDisplay extends UiPart<Region>{
         appointmentBox.setVisible(isVisible);
     }
 
+    public void setAllText(AppointmentPanelSelectionChangedEvent event) {
+
+        header.setText("Appointment Details");
+        date.setText(event.getNewSelection().getAppointmentDate().toString());
+        time.setText(event.getNewSelection().getAppointmentTime().toString());
+        name.setText("Name: " + event.getNewSelection().getPatient().getName().toString());
+        ic.setText("IC: " + event.getNewSelection().getPatient().getNric().toString());
+        status.setText(event.getNewSelection().statusToString());
+        type.setText(event.getNewSelection().typeToString());
+
+        if (!event.getNewSelection().getAssignedStaff().isPresent()) {
+            staff.setText("Doctor: None assigned");
+        } else {
+            staff.setText("Doctor: " + event.getNewSelection().getAssignedStaff().get().toString());
+        }
+    }
+
     @Subscribe
     private void handleAppointmentPanelSelectionEvent(AppointmentPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        appointmentDetails.setText(event.getNewSelection().toString());
+        setAllText(event);
         appointmentBox.setVisible(true);
     }
 
