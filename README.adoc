@@ -4,6 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/CS2103-AY1819S1-T12-3/main[image:https://travis-ci.org/CS2103-AY1819S1-T12-3/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/CrimsonAng/main[image:https://ci.appveyor.com/api/projects/status/opv4270qegxa4htw?svg=true[Build status]]
 https://coveralls.io/github/CS2103-AY1819S1-T12-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T12-3/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/c1c4590ed4b34b4fbdebb1efbf43d050["Codacy code quality", link="https://www.codacy.com/app/Woodnsuns/main_2?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-T12-3/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

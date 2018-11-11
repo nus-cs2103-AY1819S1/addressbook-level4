@@ -105,6 +105,8 @@ When you add new tasks with new tags (tags that have not been added to any exist
 these tags will be automatically added to default category [blue]`Others`. For detailed guide about category and tags,
 please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
+// tag::addrepeat[]
+
 === Adding a Recurring Task
 
 Adds copies of the same task to a specified day in the week, for a given number of weeks. +
@@ -113,10 +115,14 @@ Adds copies of the same task to a specified day in the week, for a given number 
 ====
 Example: +
 ====
-Input: [blue]`add r/3 i/7 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
+Input: [blue]`repeat r/4 i/7 n/CS2103T Tutorial p/3 t/Tutorial d/111018 v/COM1-0210`
 
-Outcome: Adds 3 tasks named [blue]`Lecture` with priority level [blue]`3`,
-tag [blue]`CS3241`, venue at [blue]`mpsh1`, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
+Outcome: Adds 3 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
+tag [blue]`Tutorial`, venue at [blue]`COM1-0210`, and deadlines on the 11th October 2018, 18th October 2018, 25th October 2018, and 1st November 2018.
+
+The diagram below contains screenshots of the task list before and after the above command was entered:
+
+image::beforeafteraddrepeat.png[width="800"]
 ====
 The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the `add` command.
 
@@ -131,7 +137,7 @@ Due to how the Date class was implemented, there is an unintended behavior. Any 
 will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
 1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
 
-
+// end::addrepeat[]
 
 === Editing a Task
 
@@ -208,7 +214,9 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
 Use the `list` command to find out the index of the task to be archived.
 View <<Viewing Archived Tasks>> for detailed guide.
-
+[TIP]
+Any archived tasks with deadline date earlier than 2 weeks before current date will be
+deleted from schedule planner when the application relaunches.
 //end::archivetask[]
 
 // tag::listarchived[]
@@ -244,12 +252,27 @@ Lists all tasks in the schedule planner. +
 [blue]`list`
 ====
 
+// tag::listoverdue[]
+
 === Viewing Overdue Tasks
 
 Shows a list all the overdue tasks. +
 ====
 [blue]`listoverdue`
 ====
+
+Example:
+====
+input: [blue]`listoverdue` on the date 11 Nov '18 (111118)
+
+output: Shows a list of tasks due on 10 Nov '18 (101118) and before.
+
+The following diagram contains screenshots of the task list before and after the command above was entered:
+
+image::beforeafterlistoverdue.png[width="800"]
+====
+
+// end::listoverdue[]
 
 // tag::listday[]
 === Viewing Tasks Due Today
@@ -294,6 +317,28 @@ image::ListMonth_Before_After.png[width="400"]
 Shows a list of tasks from 021118 to end of the month which is 301118.
 ====
 // end::listmonth[]
+
+//tag::sorting[]
+=== Sorting Tasks by Deadline Date and Priority
+All tasks will be automatically loaded in the order of deadlines.
+The order of tasks first depends on deadline date, then priority. +
+Given below is an example of two tasks with different deadline dates.
+Task `[blue]`Do CS2030 lab` is listed before task `Self study` because it has
+earlier deadline date.
+
+
+.Partial screenshot of task list
+
+image::sortingdate.png[width="400" caption="Figure 1. "]
+
+If two tasks have the same deadline, the order then depends on priority, one that has
+higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
+Given below is an example of two tasks with the same deadline dates.
+
+.Partial screenshot of task list
+
+image::sortingpriority.png[width="400" caption="Figure 2. "]
+//end::sorting[]
 
 === Finding Tasks by Name
 
@@ -720,6 +765,46 @@ Example: +
 
 Example: +
 [blue]`firstday 130818` +
+====
+
+* **Adding a Category**:
+====
+[blue]`addcat c/[CATEGORY]`
+
+Example: +
+[blue]`addcat c/Game list` +
+====
+
+* **Adding a Tag to a Category**:
+====
+[blue]`addtag c/CATEGORY t/TAG`
+
+Example: +
+[blue]`addtag c/Steam shopping list t/Overwatch`
+====
+
+* **Clearing a Category:**
+====
+[blue]`clearcat c/CATEGORY`
+
+Example: +
+[blue]`clearcat c/Modules`
+====
+
+* **Deleting a Category:**
+====
+[blue]`removecat c/CATEGORY`
+
+Example: +
+[blue]`removecat c/Steam shopping list`
+====
+
+* **Renaming a Category:**
+====
+[blue]`editcat c/ORIGINAL CATEGORY NAME c/NEW CATEGORY NAME`
+
+Example: +
+[blue]`editcat c/Steam shopping list c/Reading list`
 ====
 
 * **Listing Overdue Tasks** :

@@ -21,7 +21,7 @@ public class OverduePredicate implements Predicate<Task> {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof OverduePredicate
-                && equals(((OverduePredicate) other).date));
+                && date == ((OverduePredicate) other).date);
     }
 
 }
