@@ -152,7 +152,8 @@ public class AddressBookParserTest {
     public void parseCommand_find_alias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindCommand.COMMAND_WORD_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -160,7 +161,8 @@ public class AddressBookParserTest {
     public void parseCommand_findEvent() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindEventCommand command = (FindEventCommand) parser.parseCommand(
-                FindEventCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindEventCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindEventCommand(new EventTagMatchesKeywordsPredicate(keywords)), command);
     }
 
@@ -168,7 +170,8 @@ public class AddressBookParserTest {
     public void parseCommand_findEvent_alias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindEventCommand command = (FindEventCommand) parser.parseCommand(
-                FindEventCommand.COMMAND_WORD_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindEventCommand.COMMAND_WORD_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindEventCommand(new EventTagMatchesKeywordsPredicate(keywords)), command);
     }
 
@@ -226,7 +229,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_listEvent_alias() throws Exception {
         assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD_ALIAS) instanceof ListEventCommand);
-        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD_ALIAS + " 3") instanceof ListEventCommand);
+        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD_ALIAS + " 3")
+                instanceof ListEventCommand);
     }
 
     @Test
@@ -261,10 +265,11 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addEvent_alias() throws Exception {
         Event event = new ScheduledEventBuilder().build();
-        AddEventCommand command = (AddEventCommand) parser.parseCommand(ScheduledEventUtil.getAddEventCommandAlias(event));
+        AddEventCommand command = (AddEventCommand) parser.parseCommand(
+                ScheduledEventUtil.getAddEventCommandAlias(event));
         assertEquals(new AddEventCommand(event,
-                        new HashSet<>(Arrays.asList(Index.fromOneBased(Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1))))),
-                command);
+                        new HashSet<>(Arrays.asList(Index.fromOneBased(
+                                Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1))))), command);
     }
 
     @Test
@@ -304,7 +309,8 @@ public class AddressBookParserTest {
         SeeEventContactsCommand command = (SeeEventContactsCommand) parser.parseCommand(
                 SeeEventContactsCommand.COMMAND_WORD
                         + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
-        assertEquals(new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+        assertEquals(
+                new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
     }
 
     @Test
@@ -312,7 +318,8 @@ public class AddressBookParserTest {
         SeeEventContactsCommand command = (SeeEventContactsCommand) parser.parseCommand(
                 SeeEventContactsCommand.COMMAND_WORD_ALIAS
                         + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
-        assertEquals(new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+        assertEquals(
+                new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
     }
 
     @Test
