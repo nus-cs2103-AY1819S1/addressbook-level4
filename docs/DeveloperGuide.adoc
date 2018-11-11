@@ -372,53 +372,6 @@ When this command is executed, the program creates a new `MedicalRecord` object 
 .Sequence diagram for AddMedicalRecordCommand.
 image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
-The following figure shows the code section which performs this merging.
-
-```java
-/**
- * Combines 2 medical records into one.
- * @param record1
- * @param record2
- * @return a single MedicalRecord object which is a combination of the two provided.
- */
-public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
-
-    BloodType newBloodType = record1.getBloodType();
-
-    if (!record1.getBloodType().equals(record2.getBloodType())
-            && !record1.getBloodType().value.equals("") && !record2.getBloodType().value.equals("")) {
-        // This is not allowed! Defaulting to original bloodtype...
-    } else {
-        newBloodType = record2.getBloodType();
-    }
-
-    List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
-    for (DrugAllergy drugAllergy: record2.getDrugAllergies()) {
-        if (!newDrugAllergies.contains(drugAllergy)) {
-            newDrugAllergies.add(drugAllergy);
-        }
-    }
-
-    List<Disease> newDiseaseHistory = new ArrayList<>(record1.getDiseaseHistory());
-    for (Disease disease: record2.getDiseaseHistory()) {
-        if (!newDiseaseHistory.contains(disease)) {
-            newDiseaseHistory.add(disease);
-        }
-    }
-
-    List<Note> newNotes = new ArrayList<>(record1.getNotes());
-    for (Note note: record2.getNotes()) {
-        if (!newNotes.contains(note)) {
-            newNotes.add(note);
-        }
-    }
-
-    MedicalRecord newRecord = new MedicalRecord(newBloodType, newDrugAllergies, newDiseaseHistory, newNotes);
-
-    return newRecord;
-}
-```
-
 ==== Design Considerations
 
 ===== Aspect: Execution of the command
