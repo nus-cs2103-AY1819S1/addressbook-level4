@@ -610,11 +610,11 @@ image::PictureCommand3StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
-image::PictureCommandActivityDiagram.png[width="500"]
+image::PictureCommandActivityDiagram.png[width="400"]
 
 The following sequence diagram shows what happens when a user executes the `PictureCommand`:
 
-image::PictureCommandSequenceDiagram.png[width="500"]
+image::PictureCommandSequenceDiagram.png[width="700"]
 
 ==== Design Considerations
 
