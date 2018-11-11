@@ -1024,8 +1024,8 @@ to original values on `undo`, and changes again to the updated values on `redo`.
 . Change of display option on achievement UI
 
 .. Test case: `achievements today` +
-Expected: Achievement panel shows "Daily achievements from [today's date]:", current level, xp earned and number of tasks
-completed from the beginning of the day. +
+Expected: Achievement panel shows "Daily achievements from [today's date]:", current level, xp earned and number of
+tasks completed from the beginning of the day. +
 
 .. Test case: `achievements this week` +
 Expected: Achievement panel shows "Weekly achievements from [date]:", current level, xp earned and number of tasks
@@ -1037,11 +1037,11 @@ completed across all time. +
 
 .. Test case: `achievements all-time` `achievements today` `undo` `redo` +
 Expected: Achievement panel shows all-time achievement information followed by today's achievement information.
-On `undo`, it shows all-time achievement information again and on `redo`,  it shows back today's achievement information.
+On `undo`, it shows all-time achievement information again and on `redo`, it shows back today's achievement information.
 
 . Reset of time-based achievement fields
 .. Prerequisites:
-... change the specified fields in data/taskmanager.xml(or other storage path) to:
+... change the specified fields in data/taskmanager.xml(or other storage path) to: +
 `<xp>400</xp>` +
 `<numTaskCompleted>14</numTaskCompleted>` +
 `<nextDayBreakPoint>dd-mm-yy 0000</nextDayBreakPoint>`(where dd-mm-yy is tomorrow's date) +
@@ -1051,43 +1051,42 @@ On `undo`, it shows all-time achievement information again and on `redo`,  it sh
 `<xpValueByWeek>300</xpValueByWeek>` +
 `<numTaskCompletedByWeek>12</numTaskCompletedByWeek>` +
 .. Test case:
-... `achievement today`
+... `achievements today`
 ... set the system time of the testing computer to be tomorrow(one day after today)
-... `achievement today`
-
-    Expected: Before system time change, `achievement today` shows "Daily achievements from [today's date]:", today's
-xp to be 200, tasks completed to be 5. After system time change, `achievement today` shows "Daily achievements from
+... `achievements today` +
+Expected: Before system time change, `achievements today` shows "Daily achievements from [today's date]:", today's
+xp to be 200, tasks completed to be 5. After system time change, `achievements today` shows "Daily achievements from
 [tomorrow's date]:", this day's xp to be 0, tasks completed to be 0. All-time xp value remains 400, tasks completed
 remains 14. This week's xp value remains 300, tasks completed remains 12.
 
 .. Test case:
-... `achievement this week`
+... `achievements this week`
 ... set the system time of the testing computer to be next week(7 days after today)
-... `achievement this week`
-... `achievement today`
+... `achievements this week`
+... `achievements today` +
+Expected: Before system time change, `achievements this week` shows "Weekly achievements from [today's date]:",
+this week's xp to be 300, tasks completed to be 12. After system time change, `achievements this week` shows "Weekly
+achievements from [next week's date]:", this week's xp to be 0, tasks completed to be 0. Now, `achievements today`
+shows "Daily achievements from [next week's date]:", this day's xp to be 0, tasks completed to be 0.
 
-    Expected: Before system time change, `achievement this week` shows "Weekly achievements from [today's date]:", this week's
-xp to be 300, tasks completed to be 12. After system time change, `achievement this week` shows "Weekly achievements from
-[next week's date]:", this week's xp to be 0, tasks completed to be 0. Now, `achievement today` shows "Daily achievements from [next week's date]:", this day's xp to be 0, tasks completed to be 0.
-
-. Detection of invalid achievement information from storage +
+. Detection of invalid/corrupted achievement information from storage +
  +
 change the specified fields in data/taskmanager.xml(or other storage path) to:
 .. Test case: `<displayOption>5</displayOption>` (invalid display option)
-.. Test case: `<xp>59</xp>` `<level>lvl.2</level>` (non-match xp value and level)
+.. Test case: `<xp>59</xp>` `<level>lvl.2</level>` (non-matching xp value and level)
 .. Test case: `<xp>559</xp>` `<xpValueByDay>90</xpValueByDay>` `<xpValueByWeek>60</xpValueByWeek>` +
-(Inconsistent xp values. All-time's xp should never be smaller than this week's xp, which should never be smaller
+(Inconsistent xp values. All-time xp should never be smaller than this week's xp, which should never be smaller
 than today's xp.)
 .. Test case: `<numTaskCompleted>10</numTaskCompleted>` `<numTaskCompletedByDay>12</numTaskCompletedByDay>`
 `<numTaskCompletedByWeek>12</numTaskCompletedByWeek>` +
-(Inconsistent number of tasks completed. All-time's number should never be smaller than this week's number, which should never be smaller
-than today's number.)
+(Inconsistent number of tasks completed. All-time number should never be smaller than this week's number, which
+should never be smaller than today's number.)
 .. Test case: `<nextDayBreakPoint>12-11-18 0000</nextDayBreakPoint>`
-`<nextWeekBreakPoint>18-11-18 0000</nextWeekBreakPoint>` +
-(Inconsistent date breakpoints. nextWeekBreakPoint should never be earlier than nexDayBreakPoint, it should never be
+`<nextWeekBreakPoint>19-11-18 0000</nextWeekBreakPoint>` +
+(Inconsistent date breakpoints. `nextWeekBreakPoint` should never be earlier than `nexDayBreakPoint`, it should never be
 more than 6 days later than nexDayBreakPoint.)
 .. Test case: `<xp>1000000001</xp>` +
 (The maximum integer value maintained by achievement record is 1000000000.)
 
 Expected: Due to the invalid data fields, the data file is considered corrupted and task manager is initialized with an
-empty data file.
+empty data file. Task manager will be empty.
