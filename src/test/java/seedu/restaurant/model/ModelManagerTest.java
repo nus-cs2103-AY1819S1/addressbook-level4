@@ -200,6 +200,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasAccount(account));
     }
 
+    //@@author rebstan97
     @Test
     public void hasIngredient_nullIngredient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);

@@ -432,12 +432,14 @@ public class MainWindow extends UiPart<Stage> {
         handleSwitchToMenu();
     }
 
+    //@@author rebstan97
     @Subscribe
     private void handleDisplayIngredientListEvent(DisplayIngredientListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToIngredient();
     }
 
+    //@@author HyperionNKJ
     @Subscribe
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

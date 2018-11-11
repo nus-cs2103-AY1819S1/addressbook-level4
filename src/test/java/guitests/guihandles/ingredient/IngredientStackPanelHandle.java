@@ -14,7 +14,7 @@ public class IngredientStackPanelHandle extends NodeHandle<Node> {
     private static final String UNIT_FIELD_ID = "#unit";
     private static final String PRICE_FIELD_ID = "#price";
     private static final String MINIMUM_FIELD_ID = "#minimum";
-    private static final String NUMUNITS_FIELD_ID = "#numUnits";
+    private static final String NUM_UNITS_FIELD_ID = "#numUnits";
 
     private final Label nameLabel;
     private final Label unitLabel;
@@ -29,7 +29,7 @@ public class IngredientStackPanelHandle extends NodeHandle<Node> {
         unitLabel = getChildNode(UNIT_FIELD_ID);
         priceLabel = getChildNode(PRICE_FIELD_ID);
         minimumLabel = getChildNode(MINIMUM_FIELD_ID);
-        numUnitsLabel = getChildNode(NUMUNITS_FIELD_ID);
+        numUnitsLabel = getChildNode(NUM_UNITS_FIELD_ID);
     }
 
     public String getName() {
