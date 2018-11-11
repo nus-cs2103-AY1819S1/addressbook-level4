@@ -39,8 +39,7 @@ public abstract class CompleteCommand extends Command {
         + "Example: " + COMMAND_WORD + " l/friends";
 
     @Override
-    public CommandResult executePrimitive(Model model, CommandHistory history)
-        throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
 
         // Calculation of change in xp and level is inlined
         // as the viewing of the whole process as procedures that relies
@@ -75,8 +74,7 @@ public abstract class CompleteCommand extends Command {
      * @return {@code String} representation of completed tasks.
      * @throws CommandException
      */
-    private String completeTasks(Model model)
-        throws CommandException {
+    private String completeTasks(Model model) throws CommandException {
         // Creates a Runnable that reverts the filteredTaskList state to the
         // old filteredTaskList. (Runnable is created for readability)
         // Note: new ArrayList(...) is used here to create a shallow copy.
@@ -94,7 +92,6 @@ public abstract class CompleteCommand extends Command {
             restoreFilteredTaskList.run();
             throw ce;
         }
-
 
         return completedTasksOutput;
     }
