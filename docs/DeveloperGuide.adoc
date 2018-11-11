@@ -372,17 +372,30 @@ The filter function is implemented with the help of `FilterCommand` and `Attribu
 parse the arguments from the user input.
 
 It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
-an `AttributePredicate` is created with the operator (‘<', ‘>’, '< =' or '> =') and the attribute they are checking for (ie
-`Maintenance` or `WaitTime`). The AttributePredicates are added to a list. The user can add any amount of predicates that
+an `AttributePredicate` is created with the operator (‘<', ‘>’, '< =' or '> =' or '==') and the `NumericAttribute` they are checking for (ie
+`Maintenance` or `WaitTime`). The ``AttributePredicate``s are added to a list. The user can add any amount of predicates that
 they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3 predicates and if the user
-decides to input only one predicate, the list will only contain one.
+decides to input only one predicate, the list will only contain one. +
 
-A new `RideContainsConditionPredicate` is instantiated with the list of AttributePredicates. The `FilterCommandParser` will
+A new `RideContainsConditionPredicate` is instantiated with the list of ``AttributePredicate``s. The `FilterCommandParser` will
 return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
 
 The `LogicManager` execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
-the list of rides and it will check if the ride fulfils the required predicate(s). After that a list of filtered rides
-would be returned after each ride is tested with the predicate.
+the list of rides and it will check if the ride fulfils the required predicate(s). The `RideContainsConditionPredicate`
+will test each ride using this method:
+
+[source,java]
+----
+    public boolean test(Ride ride) {
+        return attributePredicates.stream().allMatch(p -> {
+            NumericAttribute attributeToTest = p.getAttribute();
+            NumericAttribute rideAttributeToTest = ride.getAttribute(attributeToTest);
+            return p.test(rideAttributeToTest);
+        });
+    }
+----
+So it should be pretty simple to add new ``NumericAttribute``s to the rides like ratings if you wish to with minimal
+changes to other classes. After that a list of filtered rides would be returned after each ride is tested with the predicate.
 
 ==== Design Considerations
 
