@@ -3,12 +3,11 @@ package seedu.souschef.logic.commands;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.History;
-import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Edits the details of an existing recipe in the address book.
+ * Edits the details of an existing recipe.
  */
 public class EditCommand<T extends UniqueType> extends Command {
 
@@ -16,7 +15,7 @@ public class EditCommand<T extends UniqueType> extends Command {
     public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
-    private final Model model;
+    private final Model<T> model;
     private final T toEdit;
     private final T edited;
 
@@ -25,19 +24,19 @@ public class EditCommand<T extends UniqueType> extends Command {
      * @param toEdit of the recipe in the filtered recipe list to edit
      * @param edited details to edit the recipe with
      */
-    public EditCommand(Model model, T toEdit, T edited) {
+    public EditCommand(Model<T> model, T toEdit, T edited) {
         this.model = model;
         this.toEdit = toEdit;
         this.edited = edited;
     }
 
     @Override
-    public CommandResult execute(History history) throws CommandException {
+    public CommandResult execute(History history) {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS,
-                history.getKeyword(), edited));
+                history.getContextString(), edited));
     }
 
     @Override

@@ -7,7 +7,7 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 
 /**

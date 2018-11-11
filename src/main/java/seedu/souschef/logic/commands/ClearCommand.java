@@ -24,6 +24,6 @@ public class ClearCommand<T extends UniqueType> extends Command {
     public CommandResult execute(History history) {
         this.model.resetList();
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_CLEAR_SUCCESS, history.getKeyword()));
+        return new CommandResult(String.format(MESSAGE_CLEAR_SUCCESS, history.getContextString()));
     }
 }

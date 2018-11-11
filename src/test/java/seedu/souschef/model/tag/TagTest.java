@@ -2,6 +2,7 @@ package seedu.souschef.model.tag;
 
 import org.junit.Test;
 
+import seedu.souschef.model.recipe.Tag;
 import seedu.souschef.testutil.Assert;
 
 public class TagTest {

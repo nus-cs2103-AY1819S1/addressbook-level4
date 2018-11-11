@@ -5,7 +5,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Deletes a recipe identified using it's displayed index from the address book.
+ * Deletes a recipe identified using it's displayed index.
  */
 public class DeleteCommand<T extends UniqueType> extends Command {
 
@@ -13,10 +13,10 @@ public class DeleteCommand<T extends UniqueType> extends Command {
 
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted %1$s: %2$s";
 
-    private final Model model;
+    private final Model<T> model;
     private final T toDelete;
 
-    public DeleteCommand(Model model, T toDelete) {
+    public DeleteCommand(Model<T> model, T toDelete) {
         this.model = model;
         this.toDelete = toDelete;
     }
@@ -26,7 +26,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
         model.delete(toDelete);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS,
-                history.getKeyword(), toDelete));
+                history.getContextString(), toDelete));
     }
 
     @Override

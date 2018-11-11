@@ -11,7 +11,7 @@ import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.RecipeBuilder;
 
 /**
- * Stores the history of commands executed.
+ * Stores the historical user transactional data executed.
  */
 public class History {
     private LinkedList<String> userInputHistory;
@@ -35,11 +35,11 @@ public class History {
         return context;
     }
 
-    public String getKeyword() {
+    public String getContextString() {
         if (context.equals(Context.CROSS)) {
-            return "recipe";
+            return Context.RECIPE.command.toLowerCase();
         }
-        return context.toString().toLowerCase();
+        return context.command.toLowerCase();
     }
 
     public void setContext(Context context) {
@@ -51,7 +51,7 @@ public class History {
         this.recipeBuilder = recipeBuilder;
     }
 
-    public void contributeToRecipe(Instruction instruction) {
+    public void recordRecipeInstruction(Instruction instruction) {
         recipeBuilder.addInstruction(instruction);
     }
 
@@ -59,8 +59,7 @@ public class History {
      * Create an actual instance of recipe from the builder.
      */
     public Recipe buildRecipe() {
-        Recipe recipe = recipeBuilder.build();
-        return recipe;
+        return recipeBuilder.build();
     }
 
     /**
