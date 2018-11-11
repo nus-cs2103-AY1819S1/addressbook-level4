@@ -106,6 +106,12 @@ public class TypicalTasks {
         return getTaskManagerWithGivenTasks(getTypicalDependentTasks());
     }
 
+    /**
+     * Helper method to generate a TaskManager for testing with a supplied collection of Tasks
+     *
+     * @param tasks A Collection of tasks to build the Task Manager with
+     * @return A Task Manager with an accompanying achievement record
+     */
     private static TaskManager getTaskManagerWithGivenTasks(Collection<Task> tasks) {
         TaskManager tm = new TaskManager();
         tm.setAchievements(ACHIEVEMENT);
@@ -115,10 +121,20 @@ public class TypicalTasks {
         return tm;
     }
 
+    /**
+     * Default typical tasks without dependencies.
+     *
+     * @return List of typical tasks (No dependencies)
+     */
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(A_TASK, B_TASK, C_TASK, D_TASK, E_TASK, F_TASK, G_TASK));
     }
 
+    /**
+     * Typical tasks created to specifically test for dependencies.
+     *
+     * @return List of typical tasks (No dependencies)
+     */
     public static List<Task> getTypicalDependentTasks() {
         return new ArrayList<>(Arrays.asList(D1_TASK, D2_TASK, D3_TASK));
     }
