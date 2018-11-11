@@ -67,36 +67,6 @@ public abstract class Statistics {
     }
 
     /**
-     * Calculates the range of an axis given {@code values} based on an {@code offset} from the minimum and maximum
-     * values.
-     * Assumes offset is not negative.
-     */
-    public Tuple<Integer, Integer> calculateAxisRange(List<Integer> values, int offset) {
-        requireNonNull(values);
-        // separate assertions for greater clarity in debugging
-        assert offset >= 0 : "Offset must not be negative";
-        assert offset >= 5 : "Offset must be at least five";
-
-        if (values.isEmpty()) {
-            return new Tuple<Integer, Integer>(0, offset);
-        }
-
-        int min = values.stream()
-            .mapToInt(v -> v)
-            .min()
-            .orElseGet(() -> 0);
-        min = Math.max(0, min - offset);
-
-        int max = values.stream()
-            .mapToInt(v -> v)
-            .max()
-            .orElseGet(() -> offset);
-        max = max + offset;
-
-        return new Tuple<Integer, Integer>(min, max);
-    }
-
-    /**
      * Transforms a map to a list of tuples for categorical data.
      * Considers categorical data to mean having a String, Integer pairing.
      */
