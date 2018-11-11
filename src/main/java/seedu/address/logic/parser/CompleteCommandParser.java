@@ -85,19 +85,21 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
         }
     }
 
-
     /**
      * Precondition: argMultiMaps contains args mapped to PREFIX_LABEL
-     *
      * Parses the given {@code String} of arguments in the context of the batch-based {@code Task<Predicate>}
      * consuming CompleteCommand and returns an CompleteCommand object for execution.
      *
+     * @param argMultiMap a {@ArgumentMultiMap} to extract all the labels from
+     * @return {@code CompleteLabelCommand}
      * @throws ParseException if the user input does not conform the expected format
      */
-    private CompleteCommand parseLabel(ArgumentMultimap argMultiMap) {
-        String labelArg = argMultiMap.getValue(PREFIX_LABEL).get();
+    private CompleteCommand parseLabel(ArgumentMultimap argMultiMap) throws ParseException {
 
-        return new CompleteLabelCommand(new LabelMatchesKeywordPredicate(labelArg));
+        List<String> labelArg = argMultiMap.getAllValues(PREFIX_LABEL);
+        Set<Label> parsedLabels = ParserUtil.parseLabels(labelArg); // throws ParseException
+
+        return new CompleteLabelCommand(new LabelMatchesKeywordPredicate(parsedLabels));
     }
 
 }
