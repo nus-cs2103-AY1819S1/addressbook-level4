@@ -413,7 +413,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 // tag::viewarangeoftasks[]
 
-=== View tasks due today/this week
+=== View Tasks Due Today/This Week
 
 In order to enable users to better monitor their tasks in the schedule planner, Two variations of
  `list` command were added.
@@ -468,7 +468,8 @@ The following sequence diagram illustrates how the mechanism works:
 .Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 // end::viewarangeoftasks[]
-
+.Sequence Diagram of ListMonth Command
+image::ListMonthCommandSequenceDiagram.png[]
 // tag::viewarangeoftasks2[]
 ==== Design Considerations
 
@@ -483,8 +484,111 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks2[]
 
+=== Archive Task
+The Archive Task feature allows user to archive completed tasks. The archived tasks are hidden from task list,
+can only be viewed through command `listarchived`. For implementation details
+regarding listing archived tasks, please refer to <<List Archived Tasks>>.
 
-=== List tasks by Month
+==== Current Implementation
+The archiveTask mechanism is facilitated by SchedulePlanner.
+Schedule Planner has two lists of tasks,
+one is taskList for normal tasks, another is archivedTaskList for archived tasks.
+Normal task list is implemented using UniqueTaskList that does not allow duplicates,
+while archived task list is implemented using TaskList that allows duplicates. +
+Task list that is used to store normal tasks is implemented this way:
+----
+public class UniqueTaskList implements Iterable<Task> {
+   private boolean tasksAreUnique(List<Task> tasks) {
+       //... Check for duplicates logic...
+   }
+    //...
+}
+----
+While task list that is used to store archived tasks does not check for duplicates:
+----
+public class TaskList implements Iterable<Task> {
+    //...
+}
+----
+Given below is an example usage scenario and how the archiveTask mechanism behaves. We first
+assume that user executes command `archive 1`: +
+
+. The archiveCommand is created, 1 is recognised as `targetIndex`. +
+
+. `ArchiveCommand.execute()` calls `model.archiveTask()` and parse in `targetIndex` as parameter, which is `1`. +
+
+. `archiveTask()` method in schedulePlanner class is called, which deletes the first task shown in current task list from
+task list and stores it into archived task list.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of archive task command
+
+image::Archive.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Storage of archived tasks
+
+* **Alternative 1 (current choice):** Save archived tasks in a separate list.
+Implement two task lists in Schedule Planner, one for normal tasks, another for archived tasks. For archived tasks,
+instead of using UniqueTaskList, implement a new class that allow duplicates.
+** Pros: When listing normal tasks, program does not have to filter out archived tasks every time, which makes the
+algorithm more efficient. Besides, users is able to add in new task with same attributes as an archived task,
+which is more reasonable for user.
+** Cons: Listing archived tasks will need a new approach, different from other list commands; new class has to be
+ implemented to store archived tasks.
+
+* **Alternative 2:** Save archived tasks together with normal tasks.
+Schedule Planner only has one task list.
+Add boolean filed isArchived to Task class to differentiate archived and not archived tasks. +
+** Pros: It is easy to implement.
+** Cons: Each time list command is called, archived tasks have to be filtered out, which may affect performance.
+Besides, user cannot add in new task with same attributes as archived tasks, which is much less user-friendly.
+
+=== Automatic Partial Deletion of Archived Tasks
+The automatic deletion feature removes archived tasks with deadlines date earlier than 2 weeks ago from current time
+point from archived task list. There are two main reasons behind this feature. +
+Firstly, we want to optimize the user experience of viewing archived tasks. Users should be able to view archived tasks,
+but displaying all archived tasks will be too bulky and hard to view. In other words, we want to stop the archived task
+list from growing to infinity. +
+Another reason is we want to save storage space used by our application as much as possible.
+
+==== Current Implementation
+Every time when the application is launched, archived list is checked through. Tasks with deadline date earlier than
+2 weeks ago are then permanently deleted from archived task list.
+
+.Sequence Diagram of automatic partial deletion of archived tasks feature
+
+image::AutoDelete.png[width="800"]
+
+Given below is detailed explanation of how auto-deletion mechanism behaves: +
+
+. Application is launched
+. `MainApp#init()` is called, which instantiates `Model` class and calls `Model#autoDeleteArchived()`.
+. `Model#autoDeleteArchived()` then calls `TaskList#autoDelete()`. Note that `TaskList` is an object type
+implemented to store archived tasks. `TaskList#autoDelete()` then scan through archived tasks and deletes
+those archived tasks with deadline date earlier than 2 weeks before current time point.
+
+==== Design Considerations
+===== Aspect: What tasks should we delete?
+We had a rough idea of deleting away "old" tasks. However, how should we define "old"? +
+
+* **Alternative 1 (current choice):** Delete tasks with deadline date earlier than 2 weeks before current date.
+** Pros: This implementation is easier for testing. Testers do not have to alternate their system time to
+test the feature.
+** Cons: The logic may be less user-friendly comparing to Alternative 2. Usually what users expect is more likely
+to be "able to check tasks that were archived recently". For example, if user has just archived a
+task that has been overdue for 1 month (the deadline date of this task is 1 month earlier than current date),
+he/she may find it not so intuitive if next time he/she runs the app, the task cannot be found in archived task list.
+
+* **Alternative 2 :** Delete tasks that were archived 2 weeks before current date.
+** Pros: This implementation may be more user-friendly comparing with Alternative 1.
+** Cons: The feature would be hard to test for testers.
+
+
+
+=== List Tasks by Month
 
 The `listmonth` command is another variation of the `list` command, which supports viewing tasks due from the current
 date till the end of the month.
@@ -637,8 +741,8 @@ Step 9. When user launch the application,`MainApp` will create a `FirstDayComman
 methods `fdc#createDefaultFileIfNotExist`, `fdc#createDefaultFileIfUnableConvert`, `fdc#createDefaultFileIfDiffSize`,
 `fdc#createDefaultFileIfNull` and `fdc#createDefaultFileIfInvalidDateOrRange`.
 
-If it is the first time the user launch the application or if user deleted `rangeofweek.xml` or modified the file
-content until some content are invalid, the application will create a default `rangeofweek.xml`.
+If it is the first time the user launches the application or if user deleted `rangeofweek.xml` or invalidated data in
+`rangeofweek.xml`, the application will record the log message and create a default `rangeofweek.xml`.
 
 The following code snippet shows that with the extra layer of data verification and rectification, the user do not need
  to worry when they accidentally invalidated the storage file.
@@ -828,6 +932,218 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 ** Cons: Since only one section of the UI needs to be changed, changing the whole scene seems redundant.
 
 //end::listarchivedtasks[]
+
+//tag::sorting[]
+=== Sort tasks
+The sorting feature enables tasks to be displayed in the order of deadline date and priority.
+
+==== Current Implementation
+Sorting feature does not require any user input command.
+Whenever the tasks are listed, it will always be listed according to deadline date, then priority.
+3 is the highest priority, while 1 is the lowest. +
+
+Assume there are two tasks in a task list, task A and task B. Given below is the scenario when
+task list is retrieved from schedule planner using any kind of `list` command and how the sorting mechanism
+behanves.
+
+. `UniqueTaskList#sorted()` is called and `Task#compare()` is parsed in as comparator.
+. `Task#compare()` calls Date.compare(), which compares the deadline date of task A and task B.
+
+.. If task A has earlier deadline date than task B, the order will be task A followed by task B, and vice versa.
+.. If task A and task B have the same deadline date,
+`Priority#compare()` is then called, which compares priority of task A and task B.
+
+... If task A has higher priority than task B, the order will be task A followed by task B and vice versa.
+... If task A and task B have the same priority, then `Name#compare()` is called,
+which compares the task name of A and B according to JAVA `compareTo()` method of `String` class.
+
+.Sequence diagram of sorting feature.
+
+image::Sorting.png[width="600"]
+
+==== Design Considerations
+===== Aspect: How should sorting be executed
+
+* **Alternative 1 (current choice): ** Automatically sort tasks whenever tasks are listed. In other words,
+whenever tasks are shown on UI, they are sorted according to deadline and priority.
+** Pros: The user experience is better using this approach,
+         because tasks are always listed in the order of deadline and priority.
+         The code required is less than Alternative 2 as well.
+** Cons: The performance of the application may be affected if the task list size is significantly large,
+         because the task list has to be traversed and sorted before displaying on UI. Of course considering actual
+         use case, such performance issue should be negligible.
+
+* **Alternative 2: ** Implement sort command exclusively for sorting tasks. For example, use command `sort tasks`
+to obtain sorted list of all tasks, and `sort archived` for sorted list of archived tasks.
+** Pros: We do not have to worry about performance issue.
+** Cons: Users have to type command `sort` every time, which is apparently not so user-friendly.
+//end::sorting[]
+
+
+//tag::tags[]
+=== Managing Tags Using Category
+
+The category feature enables users to organize their tags. Users can create category and
+save relevant tags inside category. There are two default categories in schedule planner,
+category `Modules` and category `Others`. These two default categories cannot be renamed or
+deleted, but user have full freedom to rename or delete other categories added by themselves.
+
+==== Current Implementation
+Each category has a unique name, and contains a list of tags. The list of tags is implemented
+using UniqueTagList, which does not allow duplicates, in other words, tags with same name.
+Given below is a snippet of implementation of UniqueTagList:
+----
+public class UniqueTagList implements Iterable<Tag> {
+    private boolean tagsAreUnique(List<Tag> tags) {
+        //Checks if tags are unique...
+    }
+}
+----
+Given below is a snippet of implementation of category:
+----
+public class Category {
+    //Two attributes, name and tag list
+    private String name;
+    private UniqueTagList tags;
+
+    ///Other implementation...
+}
+----
+
+Schedule Planner contains a list of cateogry list, implemented using `UniqueCategoryList`.
+`UniqueCategoryList` is a list used to save categories which does not allow duplicates.
+Any two categories with same name are considered identical. Given below is a snippet
+its implementation:
+----
+public class UniqueCategoryList implements Iterable<Category> {
+    public boolean contains(String name) {
+        //Checks whether this category name has been used...
+    }
+
+    private boolean categoriesAreUnique(List<Category> categories) {
+        //Checks whether there are duplicate categories...
+    }
+    //Other implementation...
+}
+----
+Given below is an example usage scenario and how the category mechanism behaves at each step: +
+
+Step 1. User enters command `addcat c/Game list` to add a category named `Game list`.
+The `addcat` command is executed. `AddCategoryCommand#execute()` calls `Model#addCategory()`, which then calls `VersionedSchedulePlanner#addCategory()`.
+`SchedulePlanner#addCategory()` then calls `UniqueCategoryList#add()`. `UniqueCategoryList#add()` checks if
+the existing category list contains any category with identical name as new category, if exists, `DuplicateCategoryException()`
+is thrown; if not, new category is created and added to category list.
+
+.Sequence Diagram of Add Category Command
+
+image::AddCategoryCommand.png[width="800"]
+
+Step 2. User enters command `addtag c/Game list t/Zelda` to add tag `Zelda` into category `Game list`.
+The command string is first passed to `AddTagCommandParser`, which parses string `Zelda` to tag (let us call it `tagZelda`)
+and creates `AddTag` command.
+The command is then executed. `AddTagCommand#execute()` calls `Model#addTag()` and passes
+ `tagZelda` and ` "Game list" ` as parameter. `Model#addTag()` then calls
+`VersionedSchedulePlanner#addTag()`, passes in `tagZelda` and ` "Game list" ` as parameter.
+ `VersionedSchedulePlanner#addCategory()` then calls
+`UniqueCategoryList#getCategory()`, passing in `Game list` as parameter and obtains corresponding category
+(let us call it `categoryGameList`).
+`Category#addTag()` is then called with parameter `categoryGameList` to add tag `tagZelda` to category `categoryGameList`.
+If there already exists a tag named `Zelda` in UniqueTagList of category `categoryGameList`, exception `DuplicateTagException`
+is thrown.
+
+.Sequence Daigram of Add Tag Command
+image::AddTagCommand.png[width="800"]
+
+Step 3. User enters command `editcat c/Game list c/Reading list` to rename category named `Game list` to `Reading list`.
+`EditCategoryCommandParser` creates `EditCategoryCommand`.
+When `EditCategoryCommand` executes, it calls `Model#editCategory()` and passes in `"Game list"` and `"Reading list"`
+ as parameter. `Model#editCategory()` then calls `VersionedSchedulePlanner#editCategory()` with parameter
+ `"Game list"` and `"Reading list"`. `VersionedSchedulePlanner` then calls `UniqueCategoryList#setCategory()`
+ to create a new category with name "Reading list" and same tag list as category `categoryGameList`, replace category
+ `categoryGameList` with this new category.
+ Below is a snippet of implementation of `UniqueCategoryList#setCategory()` used here:
+ ----
+    public void setCategory(String originalName, String newName) {
+        //...
+        if ((!contains(originalName))) {
+            //If there is no category with name "Game list", throw error
+            throw new CategoryNotFoundException();
+        }
+        if (newName.equals(originalName)) {
+            //If name "Reading list" has been used by another category, throw error
+            throw new DuplicateCategoryException();
+        }
+        //Obtain the category with name "Game list"
+        Category oldCategory = getCategory(originalName);
+        //Creat a new category which is identical to original category except name
+        Category newCategory = new Category(newName, oldCategory.getUniqueTagList());
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
+    }
+ ----
+
+. Sequence Diagram of Edit Category Command
+
+image::EditCategoryCommand.png[width="800"]
+
+Step 4. User enters command `removecat c/Reading list` to remove the category named `Reading list`. Let us call this
+category `categoryReadingList`.
+`RemoveCategoryCommandParser` first creates `RemoveCategoryCommand`.
+When `RemoveCategoryCommand` executes, it calls `Model#removeCategory()` and passes in `"Reading list"` as parameter.
+`Model#removeCategory()` calls `VersionedSchedulePlanner#removeCategory()` with parameter `"Reading list"`.
+`VersionedSchedulePlanner` then calls `UniqueCategoryList#removeCategory()` to find category
+`categoryReadingList` and remove it.
+After `categoryReadingList` is removed, its tag list is removed as well. For example, if user has added tag `Zelda` only in
+category named `Reading list`, then after removing this category, tag `Zelda` will be lost from schedule planner.
+
+. Sequence Diagram of Remove Category Command
+
+image::RemoveCategory.png[width="800"]
+
+Besides adding tag, renaming (editing) and removing, we support clearing category as well.
+Mechanism of clearing category is very similar to renaming (editing) category.
+`Model#clearCategory()` calls `VersionedSchedulePlanner#clearCategory()`, which then initialize a new empty
+category with name `"Modules"`.
+Below is a code snippet of `VersionedSchedulePlanner#clearCategory()`:
+----
+    public void clearCategory(String name) {
+        //...
+        this.categories.setCategory(name, new Category(name));
+    }
+----
+Below is a code snippet of #UniqueCategoryList#setCategory()` used here, which is slightly different from
+what is used in editing category:
+
+----
+    public void setCategory(String originalName, Category newCategory) {
+        //...
+        Category oldCategory = getCategory(originalName);
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
+    }
+----
+We omit the sequence diagram here because of its similarity to edit category command.
+
+==== Design Consideration
+
+===== Aspect: How to store and manage tags
+* **Alternative 1 (current choice):** Store Categories as `UniqueCategoryList` and allow users to
+add tags to categories. There will be no `UniqueTagList` directly managed by schedule planner. All tags
+are saved under UniqueTagList under individual Category. Because our application is catered for university
+students, we set two default categories, `Modules` and `Others`.
+** Pros: We allow users more freedom to manipulate with their tags and categorize their tags.
+User can add same tag to several categories, and the categories do not interfere. This is the most
+user-friendly design we can think of so far.
+** Cons: The implementation is more complicated than Alternative 2. Besides, this mechanism requires more
+commands to operate, which could be harder for user to remember.
+
+* **Alternative 2:** Store tags in `UniqueTagList` directly managed by schedule planner.
+The schedule planner has two tag lists, one is `Modules` and another one is `Others`.
+** Pros: It is easy to implement, and the operation requires less commands.
+** Cons: User has less freedom in managing tags. This design is less user-friendly than
+Alternative 1.
+
+//end::tags[]
+
+
 
 //tag::displaytagsinsidebar[]
 
@@ -1597,7 +1913,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the same.
 .. Test case: `firstday 130818` +
    Expected: Academic calendar data is generated and saved. Details shown in status message to inform user. After
-   relaunch the application, the application title will be appended with current week's description.
+   relaunching the application, the application title will be appended with current week's description.
 
 2. View tasks due today/this week
 
