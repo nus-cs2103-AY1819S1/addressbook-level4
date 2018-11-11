@@ -614,7 +614,7 @@ image::PictureCommandActivityDiagram.png[width="400"]
 
 The following sequence diagram shows what happens when a user executes the `PictureCommand`:
 
-image::PictureCommandSequenceDiagram.png[width="700"]
+image::PictureCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
