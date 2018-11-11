@@ -15,7 +15,11 @@ awk '
         if ($1 ~ /\.md$/) {
             severity = "WARN"
         } else if ($1 ~ /\.adoc$/) {
+<<<<<<< HEAD
             severity = "WARN"
+=======
+
+>>>>>>> fix travis
         }
         else {
             severity = "ERROR"

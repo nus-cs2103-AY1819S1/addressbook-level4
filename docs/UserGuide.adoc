@@ -115,7 +115,8 @@ Example:
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
 
-====
+
+=== View help : `help`
 
 Shows all the commands in the application and how to use them.
 
@@ -123,7 +124,7 @@ Shows all the commands in the application and how to use them.
 
 ==== Add a user : `addUser`
 
-Adds a new uniqiue user to EventOrganiser. +
+Adds a new unique user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 ****
