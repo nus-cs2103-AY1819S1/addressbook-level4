@@ -61,6 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
     private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
+    private TitleScreen titleScreen;
 
     @FXML
     private StackPane displayPanelPlaceholder;
@@ -171,7 +172,7 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay = new AnalyticsDisplay();
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
 
-        TitleScreen titleScreen = new TitleScreen();
+        titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
@@ -361,5 +362,6 @@ public class MainWindow extends UiPart<Stage> {
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
         hideInnerParts();
+        titleScreen.startAnimation();
     }
 }
