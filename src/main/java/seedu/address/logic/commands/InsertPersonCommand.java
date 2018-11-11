@@ -70,8 +70,8 @@ public class InsertPersonCommand extends Command {
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
-                                personToReplace.makeDeepDuplicate(),
-                                moduleToReplace.makeDeepDuplicate(),
+                                personToReplace.makeShallowDuplicate(),
+                                moduleToReplace.makeShallowDuplicate(),
                                 personToReplace, moduleToReplace);
             model.commitAddressBook();
             AttendanceListUtil.postRefreshEvent(model);
@@ -97,7 +97,7 @@ public class InsertPersonCommand extends Command {
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace.makeShallowDuplicate(),
-                                occasionToReplace.makeDeepDuplicate(),
+                                occasionToReplace.makeShallowDuplicate(),
                                 personToReplace, occasionToReplace);
             model.commitAddressBook();
             AttendanceListUtil.postRefreshEvent(model);
