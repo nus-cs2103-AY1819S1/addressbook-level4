@@ -50,6 +50,7 @@ using Webhook.
 `v1.3.1`, `v1.4` (6 releases) on GitHub.
 *** Configured deployment of static pages to GitHub Pages and Netlify.
 ** Documentation:
+*** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
 *** Morphed the existing contents of the User Guide and Developer Guide with respect to
 the morphed code base.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
@@ -73,10 +74,9 @@ https://github.com/CS2103-AY1819S1-W14-2/main/issues/130[#130]
 *** Integrated a third party library (bcrypt) to the project:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/38[#38],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/70[#70]
-** Others:
-*** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
+** Miscellaneous:
 *** Practiced good PR hygiene by ensuring no loss of code coverage.
-*** Conducted weekly face-to-face meeting.
+*** Chaired weekly face-to-face meeting.
 
 == Contributions to the User Guide
 
