@@ -2,20 +2,15 @@ package seedu.souschef.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.souschef.commons.events.model.AppContentChangedEvent;
-import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
@@ -74,32 +69,5 @@ public class StorageManagerTest {
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getFeatureFilePath());
     }
-
-    @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the
-        // saveAppContent method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAppContentChangedEvent(new AppContentChangedEvent(new AppContent()));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
-    }
-
-
-    /**
-     * A Stub class to throw an exception when the saveAppContent method is called
-     */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlRecipeStorage {
-
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
-            throw new IOException("dummy exception");
-        }
-    }
-
 
 }
