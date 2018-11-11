@@ -3,7 +3,6 @@ package seedu.meeting.model.meeting;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         requireNonNull(toAdd);
         internalList.setAll(toAdd);
 
-        Collections.sort(internalList, new MeetingComparator());
+        Collections.sort(internalList);
     }
 
     /**
@@ -57,15 +56,5 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMeetingList // instanceof handles nulls
                 && internalList.equals(((UniqueMeetingList) other).internalList));
-    }
-
-    /**
-     * Comparator for {@code Meeting} to sort meetings by time.
-     */
-    static class MeetingComparator implements Comparator<Meeting> {
-        @Override
-        public int compare(Meeting o1, Meeting o2) {
-            return o1.getTime().compareTo(o2.getTime());
-        }
     }
 }
