@@ -49,7 +49,7 @@ The following section shows all the other minor enhancements done for the projec
 *** All of my pull requests have referenced clearly to which issues they're attempt to address and have resulted in no loss of code coverage. Major examples: (https://github.com/CS2103-AY1819S1-F10-1/main/pull/84[#84] https://github.com/CS2103-AY1819S1-F10-1/main/pull/106[#106] https://github.com/CS2103-AY1819S1-F10-1/main/pull/118[#118])
 
 ** Enhancements to existing features:
-*** Allow for easier searching of employees by updated the find command to support `\*` and `\_` as wildcards. `*` as a generic wildcards for any number of characters (including 0), while `_` acts as a generic wildcard for a single character.
+*** Allow for easier searching of employees by updated the find command to support `\*` and `\_` as wildcards.
 *** Converted the parser to use `-` instead of `/` to read arguments, similar to the command line in modern day operating systems.
 
 ** Community:
@@ -64,8 +64,6 @@ The following section shows all the other minor enhancements done for the projec
 |===
 |_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
 |===
-
-include::../UserGuide.adoc[tag=quickstart-begin]
 
 include::../UserGuide.adoc[tag=myself]
 
