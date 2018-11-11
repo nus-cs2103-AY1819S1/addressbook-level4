@@ -302,7 +302,7 @@ Below is the pseudo-code for Target Grade Calculation:
 ```
 CG <- CAP goal of user.
 TC <- total credit of completed and incomplete modules.
-PO <- total points achieved from completed modules.
+PO <- total points achieved from completed and adjusted modules.
 P <- CG * TC - PO // total points needed to achieve from incomplete modules.
 
 mc_remaining <- sum of module credit of all incomplete modules
@@ -314,15 +314,19 @@ for every incomplete Module m:
     accumulated_points <- accumulated_points + (credits(m) * target(m))
 
 ```
+
+This sequence diagram shows the interaction of the different classes involved
+in the process of creating a new Module with updated target grade
+
 .Sequence Diagram of Target Grade calculation
 image::SDTranscriptTargetCalculation.png[width="800"]
 
 And below the activity diagram to further illustrate several exceptional cases.
 
-.Activity Diagram of Target Grade Calculation
+.Activity Diagram of High level view of Target Grade Calculation
 image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
 
-.Activity Diagram of the actual Target Grade Calculation
+.Activity Diagram of Calculate New Target Grade
 image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
 
 // end::captargetcalculation[]
@@ -891,7 +895,7 @@ with link:https://gradecalc.info/sg/nus/cumulative_gpa_calc.pl[This URL]
 .. Observe the Target Grades of CS4234 and CS4226
 +
 |===
-*Expected*: both modules should have grade NIL
+|*Expected*: both modules should have grade NIL
 |===
 
 . Target Grade should update upon modifying the list of modules
