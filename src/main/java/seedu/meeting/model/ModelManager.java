@@ -16,6 +16,7 @@ import seedu.meeting.commons.core.LogsCenter;
 import seedu.meeting.commons.events.model.MeetingBookChangedEvent;
 import seedu.meeting.commons.events.model.MeetingBookExportEvent;
 import seedu.meeting.commons.events.model.UserPrefsChangeEvent;
+import seedu.meeting.commons.events.ui.RefreshGroupListEvent;
 import seedu.meeting.model.group.Group;
 import seedu.meeting.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.meeting.model.group.exceptions.GroupNotFoundException;
@@ -173,17 +174,15 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author NyxF4ll
     @Override
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
-        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         versionedMeetingBook.setMeeting(group, meeting);
-        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        raise(new RefreshGroupListEvent());
         indicateMeetingBookChanged();
     }
 
     @Override
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
-        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         versionedMeetingBook.cancelMeeting(group);
-        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        raise(new RefreshGroupListEvent());
         indicateMeetingBookChanged();
     }
     // @@author
