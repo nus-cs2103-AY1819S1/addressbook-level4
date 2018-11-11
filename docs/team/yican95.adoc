@@ -41,11 +41,11 @@ for a short duration when the user enters a command.
 *** Maintained issue tracker
 *** Managed the integration of the features for *MeNUS*. Ensured that each feature was properly integrated into *MeNUS*.
 ** Enhancements to existing features:
-*** Updated the CSS theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
+*** Updated the JavaFX Cascading Style Sheets(CSS) theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
 ** Documentation:
 *** Added user stories & use cases in the Developer Guide:
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37]
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/142[#142]
 *** Added menu management features description in <<user,User Guide>> and implementation in <<dev, Developer Guide>>
 ** Community:
