@@ -208,7 +208,9 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
 Use the `list` command to find out the index of the task to be archived.
 View <<Viewing Archived Tasks>> for detailed guide.
-
+[TIP]
+Any archived tasks with deadline date earlier than 2 weeks before current date will be
+deleted from schedule planner when the application relaunches.
 //end::archivetask[]
 
 // tag::listarchived[]
@@ -292,6 +294,27 @@ output: Shows a list of tasks from 021118 to end of the month which is 301118.
 image::ListMonth_Before_After.png[width="400"]
 ====
 
+//tag::sorting[]
+=== Sorting Tasks by Deadline Date and Priority
+All tasks will be automatically loaded in the order of deadlines.
+The order of tasks first depends on deadline date, then priority. +
+Given below is an example of two tasks with different deadline dates.
+Task `[blue]`Do CS2030 lab` is listed before task `Self study` because it has
+earlier deadline date.
+
+
+.Partial screenshot of task list
+
+image::sortingdate.png[width="400" caption="Figure 1. "]
+
+If two tasks have the same deadline, the order then depends on priority, one that has
+higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
+Given below is an example of two tasks with the same deadline dates.
+
+.Partial screenshot of task list
+
+image::sortingpriority.png[width="400" caption="Figure 2. "]
+//end::sorting[]
 
 === Finding Tasks by Name
 
@@ -690,6 +713,46 @@ Example: +
 
 Example: +
 [blue]`firstday 130818` +
+====
+
+* **Adding a Category**:
+====
+[blue]`addcat c/[CATEGORY]`
+
+Example: +
+[blue]`addcat c/Game list` +
+====
+
+* **Adding a Tag to a Category**:
+====
+[blue]`addtag c/CATEGORY t/TAG`
+
+Example: +
+[blue]`addtag c/Steam shopping list t/Overwatch`
+====
+
+* **Clearing a Category:**
+====
+[blue]`clearcat c/CATEGORY`
+
+Example: +
+[blue]`clearcat c/Modules`
+====
+
+* **Deleting a Category:**
+====
+[blue]`removecat c/CATEGORY`
+
+Example: +
+[blue]`removecat c/Steam shopping list`
+====
+
+* **Renaming a Category:**
+====
+[blue]`editcat c/ORIGINAL CATEGORY NAME c/NEW CATEGORY NAME`
+
+Example: +
+[blue]`editcat c/Steam shopping list c/Reading list`
 ====
 
 * **Listing Overdue Tasks** :
