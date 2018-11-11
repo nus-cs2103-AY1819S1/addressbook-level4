@@ -332,6 +332,11 @@ Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all
 Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
 comes back from the future.
+
+[TIP]
+If under the unlikely circumstances, the increased xp or number of tasks completed is expected to exceed 1000000000,
+these fields will no long be updated.
+
 // end::achievements-usage[]
 
 // tag::gamemode-usage[]

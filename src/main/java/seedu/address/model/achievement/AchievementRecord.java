@@ -24,6 +24,8 @@ import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
  */
 public class AchievementRecord {
 
+    public static final int MAX_INT_VALUE = 1000000000;
+
     public static final int DISPLAY_ALL_TIME = 1;
     public static final int DISPLAY_TODAY = 2;
     public static final int DISPLAY_THIS_WEEK = 3;
@@ -328,9 +330,22 @@ public class AchievementRecord {
     /**
      * Increments the xp, numTaskCompleted fields of this {@code AchievementRecord} with the new xp value.
      * Recalculates level with the new xp value and increments if necessary.
+     *
+     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
+     * anymore.
      */
     private void incrementAllTimeAchievementWithNewXp(int newXp) {
+        // one task is completed each time xp is awarded
+        int newNumTaskCompleted = numTaskCompleted + 1;
+        if (newNumTaskCompleted > MAX_INT_VALUE) {
+            return;
+        }
+        numTaskCompleted = newNumTaskCompleted;
+
         int updatedXpValue = this.getXpValue() + newXp;
+        if (updatedXpValue > MAX_INT_VALUE) {
+            return;
+        }
         this.xp = new Xp(updatedXpValue);
 
         // recalculate level based on updated xp and update level field if necessary
@@ -338,33 +353,54 @@ public class AchievementRecord {
         if (!this.level.equals(newLevel)) {
             level = newLevel;
         }
-
-        // one task is completed each time xp is awarded
-        numTaskCompleted++;
     }
 
     /**
      * Check if the current time has passed the previously set {@code nextDayBreakPoint}
      * Increment xp and number of tasks completed.
+     *
+     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
+     * anymore.
      */
     private void incrementAchievementByDayWithNewXp(int newXp) {
         checkDayBreakPoint();
 
         // one task is completed each time xp is awarded
-        numTaskCompletedByDay++;
-        xpValueByDay += newXp;
+        int newNumTaskCompletedByDay = numTaskCompletedByDay + 1;
+        if (newNumTaskCompletedByDay > MAX_INT_VALUE) {
+            return;
+        }
+        numTaskCompletedByDay = newNumTaskCompletedByDay;
+
+        int updatedXpValueByDay = xpValueByDay + newXp;
+        if (updatedXpValueByDay > MAX_INT_VALUE) {
+            return;
+        }
+        xpValueByDay = updatedXpValueByDay;
     }
 
     /**
      * Check if the current time has passed the previously set {@code nextWeekBreakPoint}
      * Increment xp and number of tasks completed.
+     *
+     * If the updated number of tasks completed or xp value excess the {@code MAX_INT_VALUE}, the fields are not updated
+     * anymore.
      */
     private void incrementAchievementByWeekWithNewXp(int newXp) {
         checkWeekBreakPoint();
 
         // one task is completed each time xp is awarded
-        numTaskCompletedByWeek++;
-        xpValueByWeek += newXp;
+        int newNumTaskCompletedByWeek = numTaskCompletedByWeek + 1;
+        if (newNumTaskCompletedByWeek > MAX_INT_VALUE) {
+            return;
+        }
+        numTaskCompletedByWeek = newNumTaskCompletedByWeek;
+
+        int updatedXpValueByWeek = xpValueByWeek + newXp;
+        if (updatedXpValueByWeek > MAX_INT_VALUE) {
+            return;
+        }
+        xpValueByWeek = updatedXpValueByWeek;
     }
 
     /**
