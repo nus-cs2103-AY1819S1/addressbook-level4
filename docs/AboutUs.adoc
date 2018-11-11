@@ -41,10 +41,10 @@ Responsibilities: In charge of email feature
 
 === SHANNA LIM KENG WOON
 image::kengwoon.png[width="150", align="left"]
-{empty}[https://github.com/kengwoon[github]][<<kengwoon#, portfolio>>]
+{empty}[https://github.com/kengwoon[github]] [<<kengwoon#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of import and filter feature
+Responsibilities: In charge of export, import and filtered clearing features
 
 '''
 
