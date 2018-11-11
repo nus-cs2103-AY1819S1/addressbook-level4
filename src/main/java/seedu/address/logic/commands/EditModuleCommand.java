@@ -139,23 +139,23 @@ public class EditModuleCommand extends Command {
         // Get target module.
         // Throws CommandException if module does not exists.
         // Throws CommandException if module is incomplete and grade changed.
-        Module target = CommandUtil.getUniqueTargetModule(model,
+        Module targetModule = CommandUtil.getUniqueTargetModule(model,
                 targetCode,
                 targetYear,
                 targetSemester);
-        moduleCompletedIfGradeChange(target);
+        moduleCompletedIfGradeChange(targetModule);
 
         // Get edited module.
         // Throws CommandException if edited module already exist.
-        Module editedModule = createEditedModule(target);
+        Module editedModule = createEditedModule(targetModule);
         editedModuleExist(model, editedModule);
 
-        if (target.equals(editedModule)) {
+        if (targetModule.equals(editedModule)) {
             throw new CommandException("No changes");
         }
 
         // Update module and commit the transcript.
-        model.updateModule(target, editedModule);
+        model.updateModule(targetModule, editedModule);
         model.commitTranscript();
 
         String successMsg = String.format(MESSAGE_EDIT_SUCCESS, editedModule);
