@@ -115,6 +115,14 @@ public class BudgetBook implements ReadOnlyBudgetBook {
     }
 
     /**
+     * Adds persons to the address book.
+     * Existing persons will be ignored.
+     */
+    public void addMultipleCcas(List<Cca> ccaList) {
+        ccas.addMultipleCcas(ccaList);
+    }
+
+    /**
      * Replaces the given Cca {@code target} in the list with {@code editedCca}.
      * {@code target} must exist in the {@code UniqueCcaList}, in the Budget Book.
      * The Cca {@code editedCCA} must not be the same as another existing Cca in the budget book.

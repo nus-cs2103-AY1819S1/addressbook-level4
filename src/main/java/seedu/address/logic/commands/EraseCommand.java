@@ -20,8 +20,8 @@ import seedu.address.model.tag.Tag;
 public class EraseCommand extends Command {
 
     public static final String COMMAND_WORD = "erase";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Erases specified CCA "
-            + " tag(s) from all persons in Hallper\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Erases specified CCA(s) "
+            + " from all persons in Hallper\n"
             + "Parameters: KEYWORD\n"
             + "Example: " + COMMAND_WORD + " basketball";
     public static final String MESSAGE_ERASE_SUCCESS = "Erased %1$s from persons in Hallper";
@@ -78,7 +78,6 @@ public class EraseCommand extends Command {
         }
 
         model.removeTagsFromPersons(modifiedPersons, toErase);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ERASE_SUCCESS, target));
     }

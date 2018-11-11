@@ -22,6 +22,10 @@ import seedu.address.model.tag.Tag;
  */
 public class ImportCcaList {
 
+    private static final String HEADER = "cca";
+    private static final String NAME = "name";
+    private static final String ROOM = "room";
+
     private List<String> roomsList;
     private Document doc;
     private Model model;
@@ -40,7 +44,7 @@ public class ImportCcaList {
     public void execute() {
         List<Person> originalList = new ArrayList<>();
         List<Person> editedList = new ArrayList<>();
-        NodeList nList = doc.getElementsByTagName("cca");
+        NodeList nList = doc.getElementsByTagName(HEADER);
         for (int i = 0; i < nList.getLength(); i++) {
             List<Person> fullList = model.getAddressBook().getPersonList();
             originalList.clear();
@@ -49,8 +53,8 @@ public class ImportCcaList {
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                this.cca = element.getAttribute("name");
-                NodeList nodeList = element.getElementsByTagName("room");
+                this.cca = element.getAttribute(NAME);
+                NodeList nodeList = element.getElementsByTagName(ROOM);
                 for (int j = 0; j < nodeList.getLength(); j++) {
                     roomsList.add(nodeList.item(j).getTextContent());
                 }
@@ -66,6 +70,7 @@ public class ImportCcaList {
                 model.updateMultiplePersons(originalList, editedList);
             }
         }
+        model.commitAddressBook();
     }
 
     /**
