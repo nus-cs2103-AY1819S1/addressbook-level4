@@ -9,8 +9,8 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -18,15 +18,15 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
-import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
-import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
+import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.commons.events.ui.SwitchTabEvent;
@@ -50,7 +50,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
@@ -60,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private AnalyticsDisplay analyticsDisplay;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane displayPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -78,10 +77,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane queuePanelPlaceholder;
 
     @FXML
+    private VBox titleScreenPlaceHolder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private TabPane tabLists;
@@ -94,6 +99,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab appointmentTab;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -158,14 +164,11 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         setUpTab();
 
-        browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
-        analyticsDisplay.setVisible(false);
+        PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
 
-        browserPlaceholder.setAlignment(Pos.TOP_CENTER);
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-
+        hideInnerParts();
         setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -206,6 +209,32 @@ public class MainWindow extends UiPart<Stage> {
 
         queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+    }
+
+    /**
+     * Hide the inner parts.
+     */
+    private void hideInnerParts() {
+        displayPanelPlaceholder.setVisible(false);
+        patientListPanelPlaceholder.setVisible(false);
+        appointmentListPanelPlaceholder.setVisible(false);
+        queuePanelPlaceholder.setVisible(false);
+        splitPane.setVisible(false);
+        titleScreenPlaceHolder.setVisible(true);
+        titleScreenPlaceHolder.setManaged(true);
+    }
+
+    /**
+     * Display the inner parts.
+     */
+    private void showInnerParts() {
+        displayPanelPlaceholder.setVisible(true);
+        patientListPanelPlaceholder.setVisible(true);
+        appointmentListPanelPlaceholder.setVisible(true);
+        queuePanelPlaceholder.setVisible(true);
+        splitPane.setVisible(true);
+        titleScreenPlaceHolder.setVisible(false);
+        titleScreenPlaceHolder.setManaged(false);
     }
 
     //@@author iamjackslayer
@@ -296,26 +325,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        analyticsDisplay.setVisible(true);
-        browserPanel.setVisible(false);
-    }
-
-    @Subscribe
-    private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
-    }
-
-    @Subscribe
-    private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
-    }
-
-    @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent));
+        showInnerParts();
+    }
+
+    @Subscribe
+    public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
+        hideInnerParts();
     }
 }

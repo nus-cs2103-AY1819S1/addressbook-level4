@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+//@@author iamjackslayer
 
 import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
@@ -15,7 +16,6 @@ import seedu.clinicio.model.Model;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 
-//@@author iamjackslayer
 /**
  * Removes a given patient from the queue.
  */
@@ -46,7 +46,7 @@ public class DequeueCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPatientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -61,9 +61,10 @@ public class DequeueCommand extends Command {
         model.dequeue((Patient) patientToDequeue);
 
         // This line ensures Observer of the list gets updated on UI.
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateQueue(model.PREDICATE_SHOW_ALL_PATIENTS);
 
         EventsCenter.getInstance().post(new SwitchTabEvent(2));
+
 
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DEQUEUE_PATIENT_SUCCESS, patientToDequeue.getName()));

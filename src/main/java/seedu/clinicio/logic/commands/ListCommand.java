@@ -3,6 +3,8 @@ package seedu.clinicio.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 
@@ -20,7 +22,8 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.switchTab(0);
+        // model.switchTab(0);
+        EventsCenter.getInstance().post(new SwitchTabEvent(0));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
