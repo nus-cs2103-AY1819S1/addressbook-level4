@@ -766,30 +766,32 @@ When checking if 2 Passwords are the same, it is better to call `isSamePassword`
 
 // tag::leaveapplication[]
 === Leave Application
-In OASIS, an employee can make a leave application by specifying a description, as well as the dates, that he or she wishes to apply for.
+In OASIS, an employee can make a leave application by specifying a description, as well as the dates, that he or she wishes to apply for. Users are also able to view a list of all their own leave applications and their details, while those with the required permissions have the added ability to view all leave applications of all employees, as well as approve or reject leave applications.
 
 ==== Current Implementation
-
 A leave application is represented by a `LeaveApplication` model object, as follows:
 
 .Structure of a leave application
 image::LeaveApplicationModelDiagram.png[width="400"]
 *API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
+A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
 
 ===== Applying for leave
-The following sequence diagrams illustrate how an application for leave by an employee works:
+The following sequence diagrams illustrate how an application for leave by an employee works.
+
+The user issues a `leaveapply` command, which includes a description and one or more dates, in the command box UI. The Logic Manager in the Logic Component is then called upon to execute the command. The Model is then updated with the changes, and finally the EventsCenter is notified of this, and it goes on to ask the Storage Component to update the stored file data. This component-level interaction is depicted as follows:
 
 .Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
 image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
 [NOTE]
-There are further interactions of the EventCenter reacting to the event raised, but they are ommitted.
+There are further interactions of the EventCenter reacting to the event raised with the Storage Component, but they are ommitted.
 
-Zooming in to the Logic Component:
+Now, we zoom in on the Logic Component to have a more detailed look as to how the `leaveapply` command is handled. The command entered is firstly parsed to ensure validity, and then a new `LeaveApplication` is instantiated with the data parsed from the command. This `LeaveApplication` is kept inside a newly created `LeaveApplyCommand`, which is then executed to update the `Person` in the Model, which corresponds to the user who applied for leave. The sequence diagram is as follows:
 
 .Interactions in the Logic Component when a `leaveapply -de family holiday -da 2018-11-11` command is issued
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
 [NOTE]
-There are further interactions within the Model component that are omitted in this diagram.
+There are further interactions within the Model component, and beyond, that are omitted in this diagram.
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
@@ -800,18 +802,27 @@ Given below is an example usage scenario and how the leave application mechanism
 3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<25-storage-component, Storage>> component.
 
 ===== Viewing leave applications
-Employees can view their leave applications using the `leavelist` command. The following activity diagram summarizes how the command is executed, depending on what permissions the user has:
+Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
+
+1. The user executes the `leavelist` command.
+
+2. The system checks if the user is an Admin, or has the required permissions (`VIEW_EMPLOYEE_LEAVE` or `APPROVE_LEAVE`). If either one of the aforementioned conditions are satisfied, all leave applications of all other users will be displayed. If not, only the current logged-in user's own leave application records will be shown.
+
+The following activity diagram summarizes how the command is executed:
 
 .How the leave application list displayed is filtered currently
-image::LeaveViewActivityDiagram.png[width="600"]
+image::LeaveViewActivityDiagram.png[width="400"]
+*API:* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
+
+[NOTE]
+See <<leaveapplicationlisted, How a leave applications are listed>> for further explanation of how the list of leave applications are retrieved and displayed.
 
 ===== Approving/rejecting leave applications
-..
+...
 
 ==== Design Considerations
-
-===== Aspect: How a `LeaveApplication` is stored
-
+// tag::leaveapplicationstored[]
+===== Aspect: How leave applications are stored
 * **Alternative 1 (current choice):** Saved only as a part of `Person`.
 ** Pros: Easy to implement.
 ** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
@@ -821,6 +832,20 @@ image::LeaveViewActivityDiagram.png[width="600"]
 * **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+// end::leaveapplicationstored[]
+
+// tag::leaveapplicationlisted[]
+===== Aspect: How leave applications are listed
+* **Alternative 1 (current choice):** Saved only as a part of `Person`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
+* **Alternative 2:** Stored only as a part of `AddressBook`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
+* **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
+** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
+** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+// end::leaveapplicationlisted[]
 // end::leaveapplication[]
 
 === Logging
