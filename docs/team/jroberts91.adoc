@@ -14,9 +14,6 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 ** Behaviour:
 Allows a user with `Department Manager` permissions to delete an employee and it will be automatically added to the `archivelist` which can be viewed at a later time.
 
-User can then view the `archivelist` by clicking on "ArchiveList" button on the List Picker Panel as shown below:
-
-
 ** Justification:
 We want the Users to have the option of deleting an employee from the system but keeping his/her information incase of future need for it.
 
