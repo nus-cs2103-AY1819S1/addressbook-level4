@@ -277,13 +277,13 @@ the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
 
-Step 3. The user executes `open 1` command to open the first image in the first batch of 10 images. The open
+. The user executes `open 1` command to open the first image in the first batch of 10 images. The open
 command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
 then retrieved and displayed on the GUI.
 
 image::OpenCommand2.png[width=500]
 
-Step 4. The user then executes `open 5` command to select the fifth image in the batch of 10 images. The fifth image
+. The user then executes `open 5` command to select the fifth image in the batch of 10 images. The fifth image
 is then retrieved similarly and displayed on the GUI.
 
 image::OpenCommand3.png[width=450]
