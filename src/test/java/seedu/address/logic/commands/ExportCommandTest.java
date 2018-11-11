@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -24,11 +25,21 @@ public class ExportCommandTest {
     private static final String EXPORTED_FILE_NAME = "exportedCommandTest.csv";
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvTest");
     private static final Path EXPECTED_FILE_NAME = TEST_DATA_FOLDER.resolve("expectedExport.csv");
+    private static String OS = System.getProperty("os.name").toLowerCase();
 
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
+    
+    @Before
+    public void macOnly() {
+        org.junit.Assume.assumeFalse(isWindows());
+    }
 
+    public static boolean isWindows() {
+        return (OS.indexOf("win") >= 0);
+    }
+    
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
