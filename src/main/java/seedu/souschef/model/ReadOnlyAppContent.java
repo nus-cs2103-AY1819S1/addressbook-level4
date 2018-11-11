@@ -49,6 +49,6 @@ public interface ReadOnlyAppContent {
      * Returns an unmodifiable view of the favourite list.
      * This list will not contain any duplicate favourite recipes.
      */
-    ObservableList<Favourites> getObservableFavouritesList();
+    ObservableList<Recipe> getObservableFavouritesList();
 
 }

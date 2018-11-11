@@ -22,7 +22,7 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Day> mealPlannerModel;
     private final Model<Ingredient> ingredientModel;
     private final Model<CrossRecipe> crossRecipeModel;
-    private final Model<Favourites> favouriteModel;
+    private final Model<Recipe> favouriteModel;
     private final VersionedAppContent versionedAppContent;
     /**
      * Initializes all ModelManagers with the given appContent and userPrefs.
@@ -95,7 +95,7 @@ public class ModelSetCoordinator implements ModelSet {
     }
 
     @Override
-    public Model<Favourites> getFavouriteModel() {
+    public Model<Recipe> getFavouriteModel() {
         return favouriteModel;
     }
 
