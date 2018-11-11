@@ -29,7 +29,6 @@ public class GroupdeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
         if (!model.hasTag(toDelete)) {
             throw new CommandException(MESSAGE_NO_GROUP);
         }
