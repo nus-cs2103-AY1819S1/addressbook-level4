@@ -59,6 +59,7 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
+//tag::autoComplete[]
 === Auto-completion of commands: `TAB` key
 
 To auto-complete any command words, press the `TAB` key. +
@@ -67,6 +68,7 @@ For example, if `ad` is typed, `add` will be displayed in the command box upon p
 Note that only command words will be auto-completed, and the auto-completion will only be successful if there
 are any valid command words (including command aliases) containing the current input as a prefix. The
 auto-completed is the nearest word containing the current input as a prefix.
+//end::autoComplete[]
 
 === Viewing help : `help`, alias `h`
 
