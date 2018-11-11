@@ -74,6 +74,7 @@ public class DependencyGraph {
      * Updates graph and returns true if the update Task will result in a cycle in the graph
      */
     public boolean checkCyclicDependency(Task updatedTask) {
+        assert updatedTask != null;
         String hash = Integer.toString(updatedTask.hashCode());
         adjacencyList.remove(hash);
         adjacencyList.put(hash, updatedTask.getDependency().getHashes());
@@ -126,6 +127,7 @@ public class DependencyGraph {
      */
     private boolean depthFirstSearch(String node, Set<String> unvisited, List<String> visited, Set<String> stack,
                                      Map<String, Set<String>> adjacencyList) {
+        assert node != null;
         if (stack.contains(node)) {
             return true;
         }
