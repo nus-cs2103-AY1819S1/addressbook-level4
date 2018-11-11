@@ -309,7 +309,7 @@ users overall CAP score.
 *Q*: I entered the wrong grade into my module. How do I change it? +
 *A*: Use the `edit` command to input the correct information for the module +
 `edit -t MODULE_CODE -g ACTUAL_GRADE`
-
+//tag::ambersFAQ[]
 *Q*: I entered the year I took my module, 2018, and it doesn't work. Why not?
 *A*: The year of the module in CAPTracker doesn't refer to the calander year, but
 instead the year that you are studying at. For example, a module taken in your
@@ -328,7 +328,7 @@ completed modules and the number of incomplete modules the user has entered. If
 the completed modules do not have suffient grades to meet the CAP goal, try to
 add some modules you are planning to take; it may be that you need an A+ is four
 other modules before your CAP goal can be achieved.
-
+//end::ambersFAQ[]
  <>
 v1.0, 2018-04-11
 :toc:
