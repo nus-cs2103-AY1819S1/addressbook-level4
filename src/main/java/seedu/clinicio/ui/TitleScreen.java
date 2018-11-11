@@ -13,10 +13,10 @@ public class TitleScreen extends UiPart<Region> {
     private static final String FXML = "TitleScreen.fxml";
 
     private FadeTransition transition;
-    
+
     @FXML
     private ImageView titleImage;
-    
+
     public TitleScreen() {
         super(FXML);
         setAnimation();
@@ -35,7 +35,7 @@ public class TitleScreen extends UiPart<Region> {
         transition.setCycleCount(1);
         transition.setAutoReverse(false);
     }
-    
+
     /**
      * Start the animation.
      */
