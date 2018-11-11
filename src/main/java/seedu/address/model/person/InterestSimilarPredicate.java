@@ -1,8 +1,12 @@
 package seedu.address.model.person;
+
+import static java.util.stream.Collectors.joining;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.interest.Interest;
 
 /**
@@ -17,8 +21,6 @@ public class InterestSimilarPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person testedPerson) {
-        Set<Interest> similarInterests = new HashSet<>(targetPerson.getInterests());
-
         if (targetPerson.equals(testedPerson)) { // do not show the target person in the displayed list
             return false;
         }
@@ -26,8 +28,16 @@ public class InterestSimilarPredicate implements Predicate<Person> {
             return false;
         }
 
-        similarInterests.retainAll(testedPerson.getInterests());
-        return similarInterests.size() > 0; // check if they have at least one similar interest
+        Set<String> targetPersonInterestsInString = new HashSet<>();
+        for (Interest i : targetPerson.getInterests()) {
+            targetPersonInterestsInString.add(i.interestName);
+        }
+
+        return targetPersonInterestsInString.stream()
+                .anyMatch(interestKeyword -> StringUtil.containsWordIgnoreCase(targetPerson.getInterests()
+                        .stream()
+                        .map(x -> x.interestName)
+                        .collect(joining(" ")), interestKeyword));
     }
 
     @Override

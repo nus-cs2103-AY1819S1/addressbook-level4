@@ -85,7 +85,7 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
      * Parses the given keywords and returns the keywords that is stored in a list of Strings.
      * This is for interest and tag keywords.
      */
-    private List<String> parseKeywordsForInterestTagPrefix(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
+    private List<String> parseKeywordsForInterestTagPrefix(ArgumentMultimap argMultimap, Prefix prefix) {
         return argMultimap.getAllValues(prefix);
     }
 
@@ -93,7 +93,7 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
      * Gets the given keywords for the specified prefix.
      * This is for interest and tag keywords.
      */
-    private List<String> getKeywordsForInterestTagPrefix(Prefix prefix, ArgumentMultimap argMultimap) throws ParseException {
+    private List<String> getKeywordsForInterestTagPrefix(Prefix prefix, ArgumentMultimap argMultimap) {
         if (argMultimap.getAllValues(prefix).size() == 0) {
             return null;
         }
