@@ -14,7 +14,7 @@ import seedu.address.logic.commands.CompleteIndexCommand;
 import seedu.address.logic.commands.CompleteLabelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Label;
-import seedu.address.model.task.LabelMatchesKeywordPredicate;
+import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new CompleteCommand object
@@ -100,7 +100,7 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
         // throws ParseException, used as a guard against invalid labels
         Set<Label> parsedLabels = ParserUtil.parseLabels(labelArg);
 
-        return new CompleteLabelCommand(new LabelMatchesKeywordPredicate(parsedLabels));
+        return new CompleteLabelCommand(new LabelMatchesAnyKeywordPredicate(parsedLabels));
     }
 
 }
