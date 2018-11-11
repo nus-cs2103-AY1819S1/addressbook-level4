@@ -806,7 +806,7 @@ Employees can view their leave applications using the `leavelist` command. The f
 image::LeaveViewActivityDiagram.png[width="600"]
 
 ===== Approving/rejecting leave applications
-...
+..
 
 ==== Design Considerations
 
