@@ -1323,7 +1323,7 @@ Use case resumes at step 2.
 
 1. User inputs the customers’ meeting times in their address book entries.
 2. InsuRen stores the meeting times, and displays them in the person card of the client.
-2. User searches for meetings with clients by time, and InsuRen returns the client details if there is a meeting scheduled at that time.
+3. User searches for meetings with clients by time, and InsuRen returns the client details if there is a meeting scheduled at that time.
 +
 Use case ends.
 
