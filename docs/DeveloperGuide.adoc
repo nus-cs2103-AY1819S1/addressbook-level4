@@ -349,6 +349,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::compose[]
 === Email feature
+Written below is the implementation of the Email feature.
+
 ==== Current Implementation
 
 The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
@@ -368,6 +370,7 @@ Given below is an example usage scenario and how the Compose feature behaves at 
 
 Step 1. The user executes either the `ComposeEmailList` command or `ComposeEmailIndex` command, which creates an email.
 The `ComposeEmailList`/`ComposeEmailIndex` command calls `Model#saveComposedEmail(Email email)`, saving the email to `EmailModel`.
+In Figure 4.2.1.1, the user executes the `ComposeEmailList` command.
 
 Step 2. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
  email is saved to the `EmailModel`.
