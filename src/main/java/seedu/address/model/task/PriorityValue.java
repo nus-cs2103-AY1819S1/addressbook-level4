@@ -10,13 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PriorityValue {
 
     //private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_PRIORITY_VALUE_CONSTRAINTS = "Priority value should be a positive integer.";
+    public static final String MESSAGE_PRIORITY_VALUE_CONSTRAINTS = "Priority value should be a positive integer "
+            + "less than 9999, with no leading zeroes.";
     // alphanumeric and special characters
     //private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
     //private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     //private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     //private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String PRIORITY_VALUE_VALIDATION_REGEX = "^[1-9][0-9]*$";
+    public static final String PRIORITY_VALUE_VALIDATION_REGEX = "^[1-9][0-9]{0,3}$";
 
     public final String value;
 

@@ -34,14 +34,13 @@ public class PriorityValueTest {
         assertFalse(PriorityValue.isValidPriorityValue("asdf@example.com"));
         assertFalse(PriorityValue.isValidPriorityValue("None"));
         assertFalse(PriorityValue.isValidPriorityValue("-234567890987654345678965432345678987654321345678987654"));
-        assertFalse(PriorityValue.isValidPriorityValue("-Infinite"));
-        assertFalse(PriorityValue.isValidPriorityValue("HIGH"));
+        assertFalse(PriorityValue.isValidPriorityValue("10000"));
         assertFalse(PriorityValue.isValidPriorityValue("Medium"));
         assertFalse(PriorityValue.isValidPriorityValue("Immediate"));
 
         // valid priority value
         assertTrue(PriorityValue.isValidPriorityValue("1"));
         assertTrue(PriorityValue.isValidPriorityValue("2")); // minimal
-        assertTrue(PriorityValue.isValidPriorityValue("123456789876543212345678765432234567")); // long
+        assertTrue(PriorityValue.isValidPriorityValue("9999")); // long
     }
 }
