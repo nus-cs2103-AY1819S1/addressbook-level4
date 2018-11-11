@@ -33,7 +33,7 @@ public class ImportCommandParserTest {
     private static final Path INVALID_CONTACT_FIELD_CSV =
             TEST_DATA_FOLDER.resolve("AddressbookInvalidContactField.csv");
     private static final Path TEXT_DOC_CSV = TEST_DATA_FOLDER.resolve("AddressbookText.txt");
-    
+
     private static final ArrayList<String> noTags = new ArrayList<>();
 
     @Test
