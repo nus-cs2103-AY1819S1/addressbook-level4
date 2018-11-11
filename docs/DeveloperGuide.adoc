@@ -247,7 +247,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Scheduler data in xml format and read it back.
+* can save the ToDoList data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -541,19 +542,18 @@ The user can:
 
 The navigation features included are:
 
-1. Toggling between weekly view and daily view using `T` key.
+1. View a `CalendarEvent` in the time table display by selecting the event. The time table display will jump to the correct time period and attempt to centralize the selected event.
 
-2. View a `CalendarEvent` in the time table display by *selecting* the event. The time table display will jump to the correct time period and attempt to centralize the selected event.
+2. View the next/previous week or using the `left` and `right` arrows keys.
 
-3. View the next/previous week or day (depending on the current view) using the `left` and `right` arrows keys.
-
-4. The user can scroll up and down the 24-hour timeline using `up` and `down` arrow keys, or using the mouse scroll wheel.
+3. The user can scroll up and down the 24-hour timeline using `up` and `down` arrow keys, or using the mouse scroll wheel.
 
 ===== Design considerations
 
 Initially, the navigation features were implemented for ease of testing CalendarDisplay, with the intention to implement
 Command Line Interface commands in the future. This would agree with the project direction, since this application is intended to be controlled using the command line.
-Navigation method `2` would also be sufficient in most cases.
+Having the calendar jump to display selected events would also be
+would also be sufficient in most cases.
 
 However, `Agenda` 's time table display was implemented using a customized ScrollPane, which could be scrolled using the `up` and `down` arrow keys and the scroll wheel. Hence, using the `left` and `right` arrow keys for navigation felt very natural and user-friendly.
 

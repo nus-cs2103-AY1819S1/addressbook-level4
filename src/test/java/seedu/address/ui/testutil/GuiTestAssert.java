@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarEventCardHandle;
+import guitests.guihandles.CalendarEventDialogHandle;
 import guitests.guihandles.CalendarPanelHandle;
+import guitests.guihandles.DescriptionDisplayHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TaskListPanelHandle;
 import guitests.guihandles.ToDoListEventCardHandle;
@@ -53,6 +55,25 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualDialog} displays the details of {@code expectedCalendarEvent}.
+     */
+    public static void assertDialogDisplaysCalendarEvent(CalendarEvent expectedCalendarEvent,
+                                                         CalendarEventDialogHandle actualDialog) {
+        assertEquals(expectedCalendarEvent.getTitle().value, actualDialog.getTitle());
+        assertEquals(expectedCalendarEvent.getDescriptionObject().value, actualDialog.getDescription());
+        assertEquals(expectedCalendarEvent.getVenue().value, actualDialog.getVenue());
+        assertEquals(expectedCalendarEvent.getStartLocalDateTime().toString(), actualDialog.getDateTimeString());
+    }
+
+    /**
+     * Asserts that {@code descriptionDisplayHandle} displays the details of {@code toDoListEvent}.
+     */
+    public static void assertDescriptionDisplayDisplaysToDoListEvent(ToDoListEvent expectedToDoListEvent,
+                                                         DescriptionDisplayHandle descriptionDisplayHandle) {
+        assertEquals(expectedToDoListEvent.getDescription().value, descriptionDisplayHandle.getDescription());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedToDoListEvent}.
      */
     public static void assertCardDisplaysToDo(ToDoListEvent expectedToDoListEvent,
@@ -85,13 +106,10 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents}
-     * correctly and
-     * in the correct order.
+     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents} correctly.
      */
     public static void assertCalendarListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
                                                              List<CalendarEvent> calendarEvents) {
-
         assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), calendarEvents.size());
         assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(calendarEvents));
     }
