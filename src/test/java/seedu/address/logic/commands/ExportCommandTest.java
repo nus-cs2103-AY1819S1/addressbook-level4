@@ -32,12 +32,10 @@ public class ExportCommandTest {
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
 
     @Before
-    public void macOnly() {
-        org.junit.Assume.assumeFalse(isWindows());
-    }
-
-    public static boolean isWindows() {
-        return (OS.indexOf("win") >= 0);
+    //This test crashes on Appveyor but passes on Travis and on JUnit
+    public void excludeWindows() {
+        boolean isWindows = (OS.indexOf("win") >= 0);
+        org.junit.Assume.assumeFalse(isWindows);
     }
 
     public void setUp() {
