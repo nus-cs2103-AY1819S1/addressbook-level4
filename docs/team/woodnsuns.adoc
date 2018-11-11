@@ -1,4 +1,4 @@
-= [insert name] - Project Portfolio
+= [LIN XU] - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -8,30 +8,54 @@
 ---
 
 == Overview
+This document showcases my contributions in building desktop application Student Schedule Planner
+ for software engineering module CS2103T as a member of team T12-3. +
 
-Student Schedule Planner is a desktop todo-list application used to aid university students manage their tasks. User interacts with the application using CLI. The application also has a GUI created with Java FX. It is written in JAVA, which is around 10kLoC.
+Student Schedule Planner is a desktop task management application built specially for university students.
+Our application offers university students more convenience than other todo-list application through a series of features,
+such as multiple tagging for each tasks, customized task and tag management and so on.
+This application is built on top of original Address Book Level-4, which is around 6kLoC, written in JAVA OOP fashion.
+Currently our Student Schedule Planner has approximately 10kLoC.
 
 == Summary of contributions
-*[TO BE EDITED]*
 
-* *Major enhancement*: Major enhancement: Added archive command.
-** What it does: Allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command “listarchived”
-** Justification: This is a necessary command for a task managing application, because users have the need to hide completed tasks, and review them in a separate list.
+* *Major enhancement*: Major enhancement: Task management, which mainly involves two components, one is archive and another
+is category.
+** What it does: Archive command allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command “listarchived”.
+The tags used on tasks are managed by customizable categories.
+** Justification: Archive is a necessary command for a task managing application, because users have the need to hide completed tasks, and review them in a separate list. +
+As for category, our application allows user to attach multiple tags to a task when adding the task. Category is in charge of managing
+the tags. Hence our user can create their own categories and add relevant tags into a category.
 ** Highlights:
-** Credits:
 
-* *Minor enhancement*: Added sorting feature that allows tasks to always be displayed in the order of deadline date and priority.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=woodnsuns&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[RepoSense]
 
 * *Other contributions*:
 
 ** Project management:
+
 ** Enhancements to existing features:
+*** Added sorting feature that allows tasks to always be displayed in the order of deadline date and priority.
+*** Added automatic deletion feature that deletes archived tasks with deadline date earlier than 2 weeks before current date
+whenever application launches.
+
 ** Documentation:
-*** Documentation: Rewrote existing User Guide: https://github.com/CS2103-AY1819S1-T12-3/main/pull/56[#56],
+*** Documentation: Reformatted and edited existing User Guide: https://github.com/CS2103-AY1819S1-T12-3/main/pull/56[#56],
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-3/main/pull/73[#73]
+
 ** Community:
+*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W14-4/main/issues/187[#1],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/179[#2], https://github.com/CS2103-AY1819S1-W14-4/main/issues/174[#3],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/168[#4], https://github.com/CS2103-AY1819S1-W14-4/main/issues/166[#5],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/164[#6], https://github.com/CS2103-AY1819S1-W14-4/main/issues/161[#7],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/163[#8], https://github.com/CS2103-AY1819S1-W14-4/main/issues/160[#9],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/159[#10], https://github.com/CS2103-AY1819S1-W14-4/main/issues/157[#11],
+https://github.com/CS2103-AY1819S1-W14-4/main/issues/183[#12]
+
+*** 
+
+
 ** Tools:
 
 == Contributions to the User Guide
