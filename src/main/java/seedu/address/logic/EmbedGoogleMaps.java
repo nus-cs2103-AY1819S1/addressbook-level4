@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Stores the logic related to the Embedded Google Maps API.
  */
@@ -17,6 +19,14 @@ public class EmbedGoogleMaps {
     private static final String ystcomPlaceId = "ChIJSejKW_Ya2jER9bHfrr9sA-c";
     private static final String fassPlaceId = "ChIJadpVLvka2jERHq8cT_xdGVQ";
     private static final String yihPlaceId = "ChIJcWXf-_ca2jERnQ81RhxHf5o";
+    private static final String krPlaceId = "ChIJOdueMVIa2jERhE4TnhWtNpo";
+    private static final String icubePlaceId = "ChIJtX3gi1Ua2jERefFjXXzP-xk";
+    private static final String terracePlaceId = "ChIJAQAAsPga2jERULZADcNLT7w";
+    private static final String deckPlaceId = "ChIJVVVVJfka2jERZRl7AeJV__s";
+    private static final String humbleoriginsPlaceId = "ChIJA0UG2fka2jERCO0F5YbGzaE";
+    private static final String coffeeroastersPlaceId = "ChIJJ1vrQxMZ2jERIWEJYEK-dnM";
+
+
 
     /**
      * This method returns the faculty location's Google Place ID.
@@ -53,7 +63,25 @@ public class EmbedGoogleMaps {
     }
 
     // TODO to replace this with a random generator of placeId with an assortment of places
-    public static String getYihPlaceId() {
-        return yihPlaceId;
+    public static String getMeetingPlaceId() {
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 8);
+        String placeId = null;
+        if (randomNum == 1) {
+            placeId = yihPlaceId;
+        } else if (randomNum == 2) {
+            placeId = krPlaceId;
+        } else if (randomNum == 3) {
+            placeId = icubePlaceId;
+        } else if (randomNum == 4) {
+            placeId = terracePlaceId;
+        } else if (randomNum == 5) {
+            placeId = deckPlaceId;
+        } else if (randomNum == 6) {
+            placeId = humbleoriginsPlaceId;
+        } else if (randomNum == 7) {
+            placeId = coffeeroastersPlaceId;
+        }
+
+        return placeId;
     }
 }

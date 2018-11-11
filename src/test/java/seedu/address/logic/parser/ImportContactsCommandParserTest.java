@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.FileReaderBuilder.DEFAULT_CSV_FILE_PATH;
 import static seedu.address.testutil.FileReaderBuilder.EMPTY_CSV_FILE_PATH;
 import static seedu.address.testutil.FileReaderBuilder.FILE_DO_NOT_EXIST_PATH;
+import static seedu.address.testutil.FileReaderBuilder.HEADER_ONLY_CSV_FILE_PATH;
 import static seedu.address.testutil.FileReaderBuilder.INVALID_FILE;
 
 import org.junit.Test;
@@ -46,11 +47,19 @@ public class ImportContactsCommandParserTest {
     public void parse_invalidValue_failure() {
         String expectedMessage = String.format(MESSAGE_FILE_READER_INVALID_FORMAT,
                 ImportContactsCommand.MESSAGE_WRONG_FILE_FORMAT);
+        FileReader fileReader = new FileReaderBuilder().headerOnly().build();
 
-        // invalid file
+        // invalid file, header only csv
+        assertParseSuccess(parser, FILE_DESC + HEADER_ONLY_CSV_FILE_PATH,
+                new ImportContactsCommand(fileReader));
+
+        // invalid file, wrong header format
         assertParseFailure(parser, FILE_DESC + INVALID_FILE, expectedMessage);
 
         // empty file
+        assertParseFailure(parser, FILE_DESC + EMPTY_CSV_FILE_PATH, expectedMessage);
+
+        // non existent file
         assertParseFailure(parser, FILE_DESC + FILE_DO_NOT_EXIST_PATH, FilePath.MESSAGE_FILEPATH_CONSTRAINTS);
     }
 }

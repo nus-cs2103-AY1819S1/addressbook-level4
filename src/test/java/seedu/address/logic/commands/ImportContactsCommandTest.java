@@ -39,7 +39,8 @@ public class ImportContactsCommandTest {
 
         CommandResult commandResult = new ImportContactsCommand(fileReader).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(ImportContactsCommand.MESSAGE_SUCCESS, fileReader), commandResult.feedbackToUser);
+        assertEquals(String.format(ImportContactsCommand.MESSAGE_SUCCESS, fileReader.getAddContactStatus()),
+                commandResult.feedbackToUser);
         assertEquals(fileReader, modelStub.fileReader);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
