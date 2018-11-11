@@ -506,9 +506,13 @@ image::ScheduleDiagram.png[width="800"]
 
 As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.
 
+* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects 
+* Note that schedule only takes in Slots as an argument for its methods. Slot consists of a Time object and a Day object. This is to ensure Separation of Concerns in the schedule manipulation as schedule does not need to be ensure that the argument input is valid; The Time and Day objects will ensure the validity of values.
+* All commands that feed input into schedule should also validate the data input. In the event such data is not sanitised, defensive programming has been employed in Day and Time to deny the data.
+
 ===== Aspect: Schedule Update
 
-As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.
+To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.
 
 ===== Aspect: MaxSchedule Command
 
