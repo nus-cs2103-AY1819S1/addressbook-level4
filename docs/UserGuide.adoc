@@ -59,6 +59,7 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
+//tag::autoComplete[]
 === Auto-completion of commands: `TAB` key
 
 To auto-complete any command words, press the `TAB` key. +
@@ -67,6 +68,7 @@ For example, if `ad` is typed, `add` will be displayed in the command box upon p
 Note that only command words will be auto-completed, and the auto-completion will only be successful if there
 are any valid command words (including command aliases) containing the current input as a prefix. The
 auto-completed is the nearest word containing the current input as a prefix.
+//end::autoComplete[]
 
 === Viewing help : `help`, alias `h`
 
@@ -299,11 +301,11 @@ Examples:
 * `generateLocation n/First Meeting d/2018-04-06 st/1600`
 
 // tag::addEvent[]
-=== Adding an event: `addEvent`
+=== Adding an event: `addEvent`, alias `ae`
 
 Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/EVENT_ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
 
 The user can input values for the following fields when adding an event: +
 
@@ -312,11 +314,11 @@ The user can input values for the following fields when adding an event: +
 * Event date +
 * Event start time +
 * Event end time +
-* Address of event +
+* Event address +
 * Contact Index / Indices +
 * Event Type(s) +
 
-Note that each of these fields, except for contact indices and event type, are mandatory, and has to be supplied by the user
+Note that each of these fields, except for address, contact indices and event type, are mandatory, and has to be supplied by the user
 before the event can be successfully added into the system.
 In addition, note the following constraints for the input values.
 
@@ -331,6 +333,7 @@ e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/103
 * Contact indices should be based on the latest displayed person list.
 * Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
 in EventsPlus+, it has to be added in before creating the event with the new event tag.
+* If no event address is supplied by the user, "TBD" will be set in place of the address.
 ====
 
 //A notification will be sent to the user only 24 hours before the event.
@@ -354,16 +357,76 @@ In EventsPlus+, the events can be found in the Events tab,
 and are displayed according to their date, in decreasing date order.
 Within each date, the events are ordered from earliest to latest.
 
-After the user executes the command, a message indicating successful execution of the command will be displayed.
+After the user executes the command `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`,
+a message indicating successful execution of the command will be displayed.
 The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+
+If no address is supplied, "TBD" will be set in place of the address field. For instance, upon execution of the command
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200`, the newly added event is as highlighted below.
+The address field is set to "TBD".
+
+image::add-event-no-address.PNG[Adding an event without an address]
 // end::addEvent[]
+
+[[seeEventContacts]]
+//tag::seeEventContacts[]
+=== Viewing an event's contacts: `seeEventContacts`, alias `sec`
+
+Shows an event's contacts in the persons list. The information displayed in aligned with that in the UI
+when hovering over the event contact.
+
+Format: `seeEventContacts d/DATE(YYYY-MM-DD) i/EVENT_INDEX`
+
+[TIP]
+====
+* Event dates should be in the format YYYY-MM-DD
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `seeEventContacts d/2018-04-01 i/1` will refer to this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `seeEventContacts d/2018-10-18 i/2` will refer to this event.
+* When a person is deleted or no longer exists in the system, he/she will not appear in the displayed persons list.
+Also, when hovering over the event contact in the UI, a message indicating that this person no longer exists in EventsPlus+ is displayed.
+* If a person has been edited such that it still has the same identity as the original person added as an event contact into
+the event, the updated details (which is the latest information of the edited person) is shown, both in the persons list
+and when hovering over the event contact.
+====
+
+Example:
+
+* `seeEventContacts d/2018-04-01 i/1`
+
+image::see-event-contacts-1.PNG[Event contact display]
+
+* `edit 1 p/12345678` +
+ `seeEventContacts d/2018-04-01 i/1`
+ The phone number of the person is edited, but is still the same person as the originally-added event contact.
+ Hence, the system will show the edited event contact.
+
+image::see-event-contacts-2.PNG[Event contact display after edit]
+
+* `edit 1 n/Alex Lim` +
+ `seeEventContacts d/2018-04-01 i/1`
+ The edited is a different person from the originally-added event contact.
+ There is no existing person in the system who is the same as the originally-added event contact.
+ No persons are shown.
+
+image::see-event-contacts-3.PNG[Event contact display after edit]
+
+* `delete 1` +
+ `seeEventContacts d/2018-04-01 i/1`
+As `Alex` has been deleted, no persons are shown.
+
+image::see-event-contacts-4.PNG[Event contact display after delete]
+
+//end::seeEventContacts[]
 
 [[addEventTag]]
 // tag::addEventTag[]
-=== Adding an event tag: `addEventTag`
+=== Adding an event tag: `addEventTag`, alias `aet`
 
 Adds an event tag specified by the user into the system.
 
@@ -389,7 +452,7 @@ image::add-event-tag_new-event-tag.PNG[Adding an event tag]
 // end::addEventTag[]
 
 // tag::deleteEvent[]
-=== Deleting an event: `deleteEvent`
+=== Deleting an event: `deleteEvent`, alias `de`
 
 Adds an event in the system with information specified by the user.
 
@@ -421,15 +484,46 @@ image::delete-event-before.PNG[Deleting an event]
 image::delete-event-after.PNG[Deleting an event]
 // end::deleteEvent[]
 
+//tag::editEvent[]
+=== Edit event address: `editEventAddress`, alias `eea`
+Edits the address of the specified event in the address book.
+
+Format: `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS`
+
+Example:
+
+* `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
+
+[TIP]
+====
+* Event dates should be in the format YYYY-MM-DD
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `deleteEvent d/2018-04-01 i/1` will delete this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
+* the EVENT_ADDRESS field is mandatory
+====
+
+**Before command execution**
+
+image::edit-address-before.PNG[Editing an event address]
+
+**After command execution**
+
+image::edit-address-after.PNG[Editing an event address]
+
+//end::editEvent[]
+
 // tag::listEvent[]
-=== List all events: `listEvent`
+=== List all events: `listEvent`, alias `lse`
 
 Shows a list of all events in the address book. +
 Format: `listEvent`
 // end::listEvent[]
 
 // tag::findEvent[]
-=== Find events by event tags: `findEvent`
+=== Find events by event tags: `findEvent`, alias `fe`
 
 Shows a list of all events in the address book which are tagged as the specified tags in the command.
 Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>> section. +
@@ -688,44 +782,36 @@ Examples:
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY ` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
-
+[width="70%",cols="14%,<25%,<25%",options="header",]
+|=======================================================================
+|Command |Format |Example
+| *Add Person* | `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
+| *Clear Address Book* | `clear` |
+| *Delete Person* | `delete INDEX` | `delete 3`
+| *Edit Person* | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` | `edit 2 n/James Lee e/jameslee@example.com`
+| *Find Persons* | `find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
+| *List Persons* | `list` |
+| *Select Person* | `select INDEX` | `select 2`
 // * *Create Group *: `createGroup group/GROUP_NAME` +
 // e.g. `createGroup group/CS2103Group`
 // * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
 // e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
-
-* *Show Faculty Location visually* : `showLocation INDEX` +
-e.g. `showLocation 5`
-* *Suggest Location* : `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME` +
-e.g. `generateLocation n/First Meeting d/2018-01-14 st/1330`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
-* *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
-e.g. `deleteEvent d/2018-10-18 i/1`
-* *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
-e.g. `addEventTag t/Lecture t/Dinner`
-* *List Events* : `listEvent` +
-* *Find Events by Event Tag(s)* `findEvent EVENT_TAG [EVENT_TAG...]` +
-e.g. `findEvent Class lecture`
-* *Import Contacts* : `importContacts file/FILEPATH` +
-e.g. `importContacts file/~/Downloads/contacts1.csv`
-* *Disable and Enable Notification* : `notification enable/disable` +
-e.g. `notification disable`
-* *Favourite Event* : `favourite d/EVENT_DATE i/EVENT_INDEX` +
-e.g. `favourite d/2018-04-01 i/1`
+| *Show Faculty Location visually* | `showLocation INDEX` | `showLocation 5`
+| *Suggest Location* | `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME` | `generateLocation n/First Meeting d/2018-01-14 st/1330`
+| *Add Event* | `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
+| `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
+| *View an Event's Contacts* | `seeEventContacts d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `seeEventContacts d/2018-10-18 i/1`
+| *Delete Event* | `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `deleteEvent d/2018-10-18 i/1`
+| *Edit Event Address* | `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS`
+| `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
+| *Add Event Tag* | `addEventTag EVENT_TAG [t/EVENT_TAG...]` | `addEventTag t/Lecture t/Dinner`
+| *List Events* | `listEvent` |
+| *Find Events by Event Tag(s)* | `findEvent EVENT_TAG [EVENT_TAG...]` | `findEvent Class lecture`
+| *Import Contacts* | `importContacts file/FILEPATH` | `importContacts file/~/Downloads/contacts1.csv`
+| *Disable and Enable Notification* | `notification enable/disable` | `notification disable`
+| *Favourite Event* | `favourite d/EVENT_DATE i/EVENT_INDEX` | `favourite d/2018-04-01 i/1`
+| *Help* | `help` |
+| *History* | `history` |
+| *Undo* | `undo` |
+| *Redo* | `redo` |
+|=======================================================================

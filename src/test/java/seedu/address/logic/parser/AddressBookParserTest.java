@@ -4,11 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_ADDRESS_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DATE_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_FIRST_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
@@ -30,6 +33,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEventCommand;
@@ -39,10 +43,12 @@ import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SeeEventContactsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventAddress;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventTagMatchesKeywordsPredicate;
 import seedu.address.model.filereader.FileReader;
@@ -146,7 +152,8 @@ public class AddressBookParserTest {
     public void parseCommand_find_alias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindCommand.COMMAND_WORD_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -154,7 +161,17 @@ public class AddressBookParserTest {
     public void parseCommand_findEvent() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindEventCommand command = (FindEventCommand) parser.parseCommand(
-                FindEventCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindEventCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindEventCommand(new EventTagMatchesKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findEvent_alias() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+                FindEventCommand.COMMAND_WORD_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindEventCommand(new EventTagMatchesKeywordsPredicate(keywords)), command);
     }
 
@@ -210,6 +227,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_listEvent_alias() throws Exception {
+        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD_ALIAS) instanceof ListEventCommand);
+        assertTrue(parser.parseCommand(ListEventCommand.COMMAND_WORD_ALIAS + " 3")
+                instanceof ListEventCommand);
+    }
+
+    @Test
     public void parseCommand_list_alias() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD_ALIAS) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD_ALIAS + " 3") instanceof ListCommand);
@@ -239,6 +263,16 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addEvent_alias() throws Exception {
+        Event event = new ScheduledEventBuilder().build();
+        AddEventCommand command = (AddEventCommand) parser.parseCommand(
+                ScheduledEventUtil.getAddEventCommandAlias(event));
+        assertEquals(new AddEventCommand(event,
+                        new HashSet<>(Arrays.asList(Index.fromOneBased(
+                                Integer.parseInt(VALID_EVENT_CONTACT_INDEX_1))))), command);
+    }
+
+    @Test
     public void parseCommand_addEventTag() throws Exception {
         AddEventTagCommand command =
                 (AddEventTagCommand) parser.parseCommand(AddEventTagCommand.COMMAND_WORD
@@ -247,12 +281,63 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addEventTag_alias() throws Exception {
+        AddEventTagCommand command =
+                (AddEventTagCommand) parser.parseCommand(AddEventTagCommand.COMMAND_WORD_ALIAS
+                        + TAG_DESC_APPOINTMENT);
+        assertEquals(new AddEventTagCommand(new HashSet<>(Arrays.asList(APPOINTMENT_TAG))), command);
+    }
+
+    @Test
     public void parseCommand_deleteEvent() throws Exception {
         DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
                 DeleteEventCommand.COMMAND_WORD
-                        + EVENT_DATE_DESC_DOCTORAPPT + " "
-                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_PERSON), command);
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_deleteEvent_alias() throws Exception {
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+                DeleteEventCommand.COMMAND_WORD_ALIAS
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_seeEventContacts() throws Exception {
+        SeeEventContactsCommand command = (SeeEventContactsCommand) parser.parseCommand(
+                SeeEventContactsCommand.COMMAND_WORD
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(
+                new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_seeEventContacts_alias() throws Exception {
+        SeeEventContactsCommand command = (SeeEventContactsCommand) parser.parseCommand(
+                SeeEventContactsCommand.COMMAND_WORD_ALIAS
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(
+                new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_editEventAddress() throws Exception {
+        EditEventAddressCommand command = (EditEventAddressCommand) parser.parseCommand(
+                EditEventAddressCommand.COMMAND_WORD
+                + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT);
+        assertEquals(new EditEventAddressCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT,
+                new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)), command);
+    }
+
+    @Test
+    public void parseCommand_editEventAddress_alias() throws Exception {
+        EditEventAddressCommand command = (EditEventAddressCommand) parser.parseCommand(
+                EditEventAddressCommand.COMMAND_WORD_ALIAS
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC + EVENT_ADDRESS_DESC_DOCTORAPPT);
+        assertEquals(new EditEventAddressCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT,
+                new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT)), command);
     }
 
     @Test

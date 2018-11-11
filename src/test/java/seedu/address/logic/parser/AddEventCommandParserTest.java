@@ -34,6 +34,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_I
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_END_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
@@ -174,6 +175,17 @@ public class AddEventCommandParserTest {
                         + EVENT_END_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT
                         + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent, expectedIndices));
+
+        // zero event addresses
+        expectedEvent = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventAddress("TBD")
+                .withEventTags()
+                .withEventContacts()
+                .build();
+        assertParseSuccess(parser,
+                EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
+                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT,
+                new AddEventCommand(expectedEvent, new HashSet<>()));
     }
 
     @Test
@@ -183,37 +195,43 @@ public class AddEventCommandParserTest {
         // missing event name prefix
         assertParseFailure(parser,
                 VALID_EVENT_NAME_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
-                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 expectedMessage);
 
         // missing event description prefix
         assertParseFailure(parser,
                 EVENT_NAME_DESC_DOCTORAPPT + VALID_EVENT_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
-                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 expectedMessage);
 
         // missing event date prefix
         assertParseFailure(parser,
                 EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT + VALID_EVENT_DATE_DOCTORAPPT
-                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + EVENT_START_TIME_DESC_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 expectedMessage);
 
-        // missing event time prefix
+        // missing event start time prefix
         assertParseFailure(parser,
                 EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
-                        + VALID_EVENT_START_TIME_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+                        + VALID_EVENT_START_TIME_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 expectedMessage);
 
-        // missing event address prefix
+        // missing event end time prefix
         assertParseFailure(parser,
                 EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
-                        + EVENT_START_TIME_DESC_DOCTORAPPT + VALID_EVENT_ADDRESS_DOCTORAPPT,
+                        + EVENT_START_TIME_DESC_DOCTORAPPT + VALID_EVENT_END_TIME_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser,
                 VALID_EVENT_NAME_DOCTORAPPT + VALID_EVENT_DESC_DOCTORAPPT + VALID_EVENT_DATE_DOCTORAPPT
-                        + VALID_EVENT_START_TIME_DOCTORAPPT + VALID_EVENT_ADDRESS_DOCTORAPPT,
+                        + VALID_EVENT_START_TIME_DOCTORAPPT + EVENT_END_TIME_DESC_DOCTORAPPT
+                        + VALID_EVENT_ADDRESS_DOCTORAPPT,
                 expectedMessage);
     }
 

@@ -12,7 +12,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -44,7 +43,7 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private TabPane tabPane;
 
-    private SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private Tab webpageTab;
@@ -69,6 +68,7 @@ public class TabPanel extends UiPart<Region> {
         locationDisplayTab.setContent(locationDisplayPanel.getRoot());
 
         // set default tab
+        selectionModel = tabPane.getSelectionModel();
         selectionModel.select(eventsTab);
         tabList = tabPane.getTabs();
 
@@ -98,14 +98,6 @@ public class TabPanel extends UiPart<Region> {
         webpageTab = null;
         eventsTab = null;
         locationDisplayTab = null;
-    }
-
-    @Subscribe
-    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-
-        // switch active tab
-        selectionModel.select(eventsTab);
     }
 
     @Subscribe

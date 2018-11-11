@@ -60,6 +60,13 @@ public interface Model {
     boolean hasClashingEvent(Event event);
 
     /**
+     * Replaces the given event {@code target} with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    void updateEvent(Event target, Event editedEvent);
+
+    /**
      * Deletes the given event.
      * The event must exist in the address book.
      */

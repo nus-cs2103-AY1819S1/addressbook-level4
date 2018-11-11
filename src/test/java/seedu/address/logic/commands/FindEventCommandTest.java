@@ -29,6 +29,33 @@ public class FindEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
+    public void execute_zeroKeywords_noEventsFound() {
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
+        EventTagMatchesKeywordsPredicate predicate = preparePredicate(" ");
+        FindEventCommand command = new FindEventCommand(predicate);
+        expectedModel.updateFilteredEventList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredEventList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleEventsFound() {
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
+        EventTagMatchesKeywordsPredicate predicate = preparePredicate("Meeting Appointment");
+        FindEventCommand command = new FindEventCommand(predicate);
+        expectedModel.updateFilteredEventList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(DOCTORAPPT, MEETING), model.getFilteredEventList());
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code EventTagMatchesKeywordsPredicate}.
+     */
+    private EventTagMatchesKeywordsPredicate preparePredicate(String userInput) {
+        return new EventTagMatchesKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    @Test
     public void equals() {
         EventTagMatchesKeywordsPredicate firstPredicate =
                 new EventTagMatchesKeywordsPredicate(Collections.singletonList("first"));
@@ -55,30 +82,4 @@ public class FindEventCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
-    @Test
-    public void execute_zeroKeywords_noEventsFound() {
-        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
-        EventTagMatchesKeywordsPredicate predicate = preparePredicate(" ");
-        FindEventCommand command = new FindEventCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredEventList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleEventsFound() {
-        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
-        EventTagMatchesKeywordsPredicate predicate = preparePredicate("Meeting Appointment");
-        FindEventCommand command = new FindEventCommand(predicate);
-        expectedModel.updateFilteredEventList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DOCTORAPPT, MEETING), model.getFilteredEventList());
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code EventTagMatchesKeywordsPredicate}.
-     */
-    private EventTagMatchesKeywordsPredicate preparePredicate(String userInput) {
-        return new EventTagMatchesKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
 }

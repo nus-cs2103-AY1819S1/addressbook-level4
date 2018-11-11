@@ -183,6 +183,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        versionedAddressBook.updateEvent(target, editedEvent);
+        indicateAddressBookChanged();
+    }
+
     //=========== File Reader methods ========================================================================
     @Override
     public void importContacts(FileReader fileReader) {
@@ -245,6 +253,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        // indicate a change in display, even though displayed data does not change
         indicateEventPanelDisplayChanged();
     }
 
@@ -256,6 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.addListener((ListChangeListener.Change<? extends Event> change) -> {
             if (change.next()) {
                 indicateAddressBookEventChanged();
+                indicateEventPanelDisplayChanged();
             }
         });
     }
