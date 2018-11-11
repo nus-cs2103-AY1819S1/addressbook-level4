@@ -424,7 +424,7 @@ it as a *`.eml`* file.
 +
 image::compose_email_list.png[width="790"]
 +
-_Figure 4.3.1.1: Result after executing `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`._
+_Figure 4.3.2.2: Result after executing `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`._
 
 
 ==== Deleting an email : `delete_email`
@@ -438,13 +438,20 @@ Format: `delete_email SUBJECT`
 
 Examples:
 
-* `delete_email Meeting on Friday` +
-Deletes the email with the subject `Meeting on Friday`.
+* `delete_email Meeting` +
+Deletes the email with the subject `Meeting`.
+
+image::delete_email.png[width="790"]
+_Figure 4.3.3.1: Result after executing `delete_email Meeting`._
 
 ==== Listing all emails : `list_emails`
 
 Displays a list of all emails in Hallper. +
 Format: `list_emails`
+
+image:list_emails.png[width="790"]
+_Figure 4.3.4.1: Result after executing `list_emails`._
+
 
 ==== Viewing an email : `view_email`
 
@@ -460,8 +467,10 @@ Examples:
 * `view_email Meeting on Friday` +
 Displays the email with the subject `Meeting on Friday`.
 +
-.Result after executing `view_email Meeting on Friday`
 image::view_email.png[width="790"]
++
+_Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
+
 // end::email[]
 
 === Calendar
