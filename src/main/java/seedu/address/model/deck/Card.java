@@ -11,13 +11,12 @@ import java.util.Objects;
 public class Card {
 
     public static final double PERFORMANCE_MODERATING_FACTOR = -0.8;
+    public static final int BIAS = 4;
     public static final double UPDATED_SQUARED_COEFFICIENT = 0.02;
     public static final double UPDATED_LINEAR_COEFFICIENT = 0.28;
     public static final double REVIEW_INTERVAL_COEFFICIENT = 6;
-    public static final double EASINESS = 2.5;
     public static final double DEFAULT_REVIEW_SCORE = 2.5;
-    private static final int CORRECT_THRESHOLD = 2;
-
+    private static final int CORRECT_THRESHOLD = 1;
 
     private final Performance performance;
     private final int timesReviewed;
@@ -64,10 +63,10 @@ public class Card {
      */
     public static Card classifyCard(Card card, Performance performance) {
         int performanceAsInt = performance.ordinal();
-        card.updateReviewScore(performanceAsInt);
+        double scorePostUpdate = card.updateReviewScore(performanceAsInt);
         LocalDateTime nextReviewDate = calculateNextReviewDate(card, performance);
         return new Card(card.question, card.answer, performance, card.timesReviewed + 1,
-                card.reviewScore, nextReviewDate);
+                scorePostUpdate, nextReviewDate);
     }
     /**
      *  Find out when the card needs to be reviewed again for optimal recall.
@@ -78,15 +77,20 @@ public class Card {
         if (performance.isCorrect()) {
             addedDays = REVIEW_INTERVAL_COEFFICIENT * Math.pow(card.reviewScore, consecutiveCorrectAnswers - 1);
         }
+        System.out.println("addedDays " + addedDays);
+
+
         return card.nextReviewDate.plusDays((long) addedDays);
     }
 
     /**
      * Update the review score based on how well the user has performed on this card.
      */
-    public void updateReviewScore(int performanceAsInt) {
-        reviewScore = PERFORMANCE_MODERATING_FACTOR + UPDATED_LINEAR_COEFFICIENT * performanceAsInt
+    public double updateReviewScore(int performanceAsInt) {
+        performanceAsInt = performanceAsInt + BIAS;
+        return PERFORMANCE_MODERATING_FACTOR + UPDATED_LINEAR_COEFFICIENT * performanceAsInt
                 + UPDATED_SQUARED_COEFFICIENT * performanceAsInt * performanceAsInt;
+
     }
 
     public Question getQuestion() {
@@ -109,7 +113,7 @@ public class Card {
         return timesReviewed;
     }
     public int getConsecutiveCorrect() {
-        return (this.performance.ordinal() > CORRECT_THRESHOLD) ? timesReviewed + 1 : 0;
+        return (this.performance.ordinal() >= CORRECT_THRESHOLD) ? timesReviewed + 1 : 0;
     }
     public LocalDateTime getNextReview() {
         return nextReviewDate;
