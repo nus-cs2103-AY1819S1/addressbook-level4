@@ -45,14 +45,14 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_NAME_CS2103 = "CS2103";
     public static final String VALID_EVENT_NAME_MA2101 = "MA2101";
     public static final String VALID_EVENT_NAME_MA3220 = "MA3220";
-    public static final LocalDateTime VALID_START_DATETIME_CS2103 = LocalDateTime.of(2018, 8,
-            17, 16, 0);
+    public static final LocalDateTime VALID_START_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
+            30, 16, 0);
     public static final LocalDateTime VALID_START_DATETIME_MA2101 = LocalDateTime.of(2018, 1,
             1, 1, 1);
     public static final LocalDateTime VALID_START_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
             2, 2, 2);
-    public static final LocalDateTime VALID_END_DATETIME_CS2103 = LocalDateTime.of(2018, 8,
-            17, 18, 0);
+    public static final LocalDateTime VALID_END_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
+            30, 18, 0);
     public static final LocalDateTime VALID_END_DATETIME_MA2101 = LocalDateTime.of(2018, 1,
             1, 1, 2);
     public static final LocalDateTime VALID_END_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
@@ -67,7 +67,7 @@ public class CommandTestUtil {
     public static final RepeatType VALID_REPEAT_TYPE_MA2101 = RepeatType.YEARLY;
     public static final RepeatType VALID_REPEAT_TYPE_MA3220 = RepeatType.NONE;
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
-            16, 18, 1);
+            30, 18, 1);
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_MA2101 = LocalDateTime.of(2019, 1,
             1, 1, 2);
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_MA3220 = LocalDateTime.of(2019, 2,

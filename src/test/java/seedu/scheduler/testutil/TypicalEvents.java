@@ -88,20 +88,20 @@ public class TypicalEvents {
             .withEventName("Christmas")
             .withStartDateTime(LocalDateTime.of(2018, 12, 25, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 25, 23, 0))
-            .withDescription("Celebration").withVenue("Home")
+            .withDescription("Celebration")
+            .withVenue("Home")
             .withRepeatType(RepeatType.NONE)
             .build();
     public static final Event CHRISTMASEVE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
-            .withEventName("ChristmasEve")
+            .withEventName("Christmas Eve")
             .withStartDateTime(LocalDateTime.of(2018, 12, 24, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 24, 23, 0))
-            .withDescription("Go Home").withVenue("Home")
+            .withDescription("Celebration")
+            .withVenue("Home")
             .withRepeatType(RepeatType.NONE)
             .build();
-
-
 
     // daily event
     public static final Event STUDY_WITH_JANE_DAY_ONE = new EventBuilder()
@@ -202,15 +202,15 @@ public class TypicalEvents {
             .build();
 
     // weekly event
-    public static final Event CS2103_LECTURE = new EventBuilder()
+    public static final Event FRIDAY_LECTURE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
             .withEventName("CS2103")
-            .withStartDateTime(LocalDateTime.of(2018, 8, 17, 16, 0))
-            .withEndDateTime(LocalDateTime.of(2018, 8, 17, 18, 0))
+            .withStartDateTime(LocalDateTime.of(2018, 11, 30, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 30, 18, 0))
             .withDescription("CS2103 Description").withVenue("I3")
             .withRepeatType(RepeatType.WEEKLY)
-            .withRepeatUntilDateTime(LocalDateTime.of(2018, 11, 16, 18, 1))
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 13, 18, 1))
             .build();
 
     // monthly event

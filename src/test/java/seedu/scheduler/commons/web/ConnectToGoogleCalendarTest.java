@@ -3,7 +3,6 @@ package seedu.scheduler.commons.web;
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,7 +11,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
-import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedReader;
@@ -23,6 +22,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -66,6 +66,8 @@ public class ConnectToGoogleCalendarTest {
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
     private CommandHistory commandHistory = new CommandHistory();
     private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
 
     /**
      * Enables the test environment
@@ -132,8 +134,6 @@ public class ConnectToGoogleCalendarTest {
     public void clear() throws CommandException {
         //set up test environment
         enable();
-        final ConnectToGoogleCalendar connectToGoogleCalendar =
-                new ConnectToGoogleCalendar();
         com.google.api.services.calendar.Calendar service =
                 connectToGoogleCalendar.getCalendar();
 
@@ -150,9 +150,6 @@ public class ConnectToGoogleCalendarTest {
         enable();
         //Retrieve the number of events (should be at least 1)
         int size = -1;
-        size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
-        //check initial condition: not cleared
-        assertNotEquals(0, size);
         //execute the clear command
         ClearCommand command = new ClearCommand();
         command.execute(model, commandHistory);
@@ -339,28 +336,33 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void pushToGoogleCal() throws InterruptedException {
-        /* Case: add a single event -> added */
+    public void pushToGoogleCal() throws InterruptedException, CommandException {
         Event validEvent = new EventBuilder(CHRISTMAS).build();
+        /* Case: No internet -> Not added */
+        assertFalse(
+                connectToGoogleCalendar
+                        .pushToGoogleCal(false, Collections.singletonList(validEvent)
+                        ));
         //set up the google-enabled environment
         enable();
-        sleep(500);
+        /* Case: add a single event -> added */
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
                 String.format(MESSAGE_SUCCESS, validEvent.getEventName()));
+        //helperCommand(new AddCommand(validEvent), model, commandHistory);
         disable();
         //Prevent triggering Google's limit
         sleep(5000);
 
-        /* Case: add a repeated event -> added */
-        validEvent = new EventBuilder(CS2103_LECTURE).build();
+        /* Case: add a repeated eventSet -> added */
+        validEvent = new EventBuilder(FRIDAY_LECTURE).build();
         enable();
+        //helperCommand(new AddCommand(validEvent), model, commandHistory);
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
                 String.format(MESSAGE_SUCCESS, validEvent.getEventName()));
         disable();
         sleep(5000);
         //clean up
         enable();
-        helperCommand(new ClearCommand(), model, commandHistory);
         //close the google-enabled environment
         disable();
     }
@@ -369,9 +371,8 @@ public class ConnectToGoogleCalendarTest {
     public void deleteOnGoogleCal() throws InterruptedException, CommandException {
         //set up the google-enabled environment
         enable();
+
         //-----------delete single non-repeating event -> pass -------
-        //Fresh Start
-        helperCommand(new ClearCommand(), model, commandHistory);
         //Add a new event on Google Cal
         Event validEvent = new EventBuilder(CHRISTMASEVE).build();
         helperCommand(new AddCommand(validEvent), model, commandHistory);
@@ -380,13 +381,31 @@ public class ConnectToGoogleCalendarTest {
         sleep(3000);
         enable();
         //execute the delete command
-        final ConnectToGoogleCalendar connectToGoogleCalendar =
-                new ConnectToGoogleCalendar();
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
                         true, validEvent, 0, true));
         //check
         //close the google-enabled environment
+        disable();
+
+        //-----------delete single repeating event instance -> pass -------
+        validEvent = new EventBuilder(FRIDAY_LECTURE).build();
+        enable();
+        helperCommand(new AddCommand(validEvent), model, commandHistory);
+        disable();
+        sleep(5000);
+        enable();
+        assertTrue(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, validEvent, 0, true));
+        //-----------delete multiple upcoming repeating event in the EventSet--> pass -------
+        assertTrue(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, validEvent, 2, false));
+        //-----------delete all repeating event in the EventSet-> pass -------
+        assertTrue(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, validEvent, 0, false));
         disable();
     }
 }
