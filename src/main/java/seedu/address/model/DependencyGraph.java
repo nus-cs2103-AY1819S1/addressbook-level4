@@ -52,19 +52,17 @@ public class DependencyGraph {
     }
 
     /**
-     * Prunes away tasks where the dependency is completed.
+     * Prunes completed tasks and dependencies to completed tasks
      */
     public void pruneCompletedTasks() {
         for (Task task : this.taskList) {
             if (task.isStatusCompleted()) {
                 String hash = Integer.toString(task.hashCode());
-                //Prune away task dependencies of tasks where the dependee is completed
                 for (Set<String> set : adjacencyList.values()) {
                     if (set.contains(hash)) {
                         set.remove(hash);
                     }
                 }
-                //Remove the task dependency itself from consideration
                 adjacencyList.remove(hash);
             }
         }
@@ -73,18 +71,24 @@ public class DependencyGraph {
     //=================== Graph Operations ====================================
 
     /**
-     * Updates graph and returns true if the update Task will result in a cycle in the graph
+     * Returns true if the task with updated dependency will result in a cycle in the graph
+     *
+     * @param updatedTask task with an updated dependency
+     * @return <code>true</code> if cycle is present with updated dependency. <code>false</code> otherwise.
      */
     public boolean checkCyclicDependency(Task updatedTask) {
         assert updatedTask != null;
         String hash = Integer.toString(updatedTask.hashCode());
-        adjacencyList.remove(hash);
+        Set<String> removedDependency = adjacencyList.remove(hash);
+        assert removedDependency != null;
         adjacencyList.put(hash, updatedTask.getDependencies().getHashes());
         return checkPresenceOfCycle();
     }
 
     /**
-     * Checks if there will be a cycle in the graph
+     * Checks if there is a cycle in the graph
+     *
+     * @return <code>true</code> if a cycle is present; <code>false</code> otherwise.
      */
     public boolean checkPresenceOfCycle() {
         Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
@@ -127,7 +131,7 @@ public class DependencyGraph {
      * @param unvisited     set of unvisited nodes
      * @param stack         set of nodes in current path. Used to check cycles
      * @param adjacencyList
-     * @return true is there is a cycle
+     * @return <code>true</true> is there is a cycle
      */
     private boolean depthFirstSearch(String node, Set<String> unvisited, List<String> visited, Set<String> stack,
                                      Map<String, Set<String>> adjacencyList) {

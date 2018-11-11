@@ -16,7 +16,6 @@ import java.util.Set;
  */
 public class Dependencies {
 
-    //Prevents reassignment
     private final Set<String> hashes;
 
     /**
@@ -51,7 +50,7 @@ public class Dependencies {
      * Removes a dependency to a task
      *
      * @param task task to remove dependency to
-     * @return new dependencies object without hashcode of given task
+     * @return dependencies with dependency to task
      */
     public Dependencies spliceDependency(Task task) {
         Set<String> newValue = new HashSet<>(hashes);
@@ -63,7 +62,8 @@ public class Dependencies {
      * Checks if this task is dependent on given task
      *
      * @param task given task to check
-     * @return result whether task is contained within current set of dependencies
+     * @return <code>true</code> if task is contained within current set of dependencies; <code>false</code>
+     * otherwise
      */
     public boolean containsDependency(Task task) {
         return hashes.contains(Integer.toString(task.hashCode()));
@@ -93,7 +93,7 @@ public class Dependencies {
     }
 
     /**
-     * Returns the number of dependencies stored.
+     * Returns the number of dependencies stored
      *
      * @return the number of dependencies in this Dependencies object
      */

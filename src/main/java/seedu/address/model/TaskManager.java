@@ -36,8 +36,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         tasks = new UniqueTaskList();
         achievements = new AchievementRecord();
         gameManager = new GameManager();
@@ -119,7 +118,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// task-level operations
 
     /**
-     * Returns true if a task with the same identity as {@code task} exists in the task manager.
+     * Returns true if a task with the same identity as {@code task} exists in the task manager
+     *
+     * @param task task to check
+     * @return <code>true</code> if task is in dependency; <code>false</code> otherwise
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
@@ -256,6 +258,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Tasks dependent on given task includes tasks that beyond direct dependencies.
      * i.e. for a graph A <- B <- C,
      *
+     * @param node node to check timing for
      * @return earliest DueDate
      */
     public DueDate getEarliestDependentTimeForNode(Task node) {
@@ -269,7 +272,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     /**
      * Helper performs a dfs on the inverted dependency graph to find the earliest time of a task dependant among all
-     * its dependencies
+     * tasks dependent on it
      *
      * @param graph graph of all nodes in graph, mapped to the items that they are dependent on
      * @param memo  memo stores intermediate results to prevent repeated computation
@@ -292,6 +295,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         return earliestDate;
     }
 
+    /**
+     * Forms a graph of tasks from a graph of strings
+     * Needed to transform modified graphs with different dependencies
+     *
+     * @param preGraph graph of strings
+     * @return mapped graph
+     */
     public Map<Task, Set<Task>> getGraphOfTasksFromGraphOfHash(Map<String, Set<String>> preGraph) {
         HashMap<String, Task> tasks = new HashMap<>();
         for (Task task : this.getTaskList()) {
