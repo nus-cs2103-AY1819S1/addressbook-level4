@@ -48,7 +48,7 @@ Responsibilities: Logic refactoring
 
 === Qi Gongjie
 image::gongjie663746.png[width="150", align="left"]
-{empty}[http://github.com/Gongjie663746[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Gongjie663746[github]] [<<gongjie663746#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage refactoring
