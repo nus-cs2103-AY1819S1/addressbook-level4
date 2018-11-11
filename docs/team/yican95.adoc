@@ -19,7 +19,7 @@ Restaurant owners interact with *MeNUS* using a Command Line Interface
  written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
 approximately 30 KLOC.
 
-== Summary of contributions
+== Summary of Contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
 
 * *Major enhancement*: Added *Menu Management* feature
