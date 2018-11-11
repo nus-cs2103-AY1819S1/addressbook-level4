@@ -5,6 +5,8 @@ package seedu.clinicio.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 
@@ -21,7 +23,7 @@ public class ListMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
-        model.switchTab(3);
+        EventsCenter.getInstance().post(new SwitchTabEvent(3));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

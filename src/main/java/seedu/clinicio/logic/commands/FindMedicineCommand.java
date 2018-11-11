@@ -4,7 +4,9 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.medicine.MedicineNameContainsKeywordsPredicate;
@@ -33,7 +35,7 @@ public class FindMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredMedicineList(predicate);
-        model.switchTab(3);
+        EventsCenter.getInstance().post(new SwitchTabEvent(3));
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEDICINE_OVERVIEW, model.getFilteredMedicineList().size()));
     }

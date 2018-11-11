@@ -11,7 +11,9 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.UserSession;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -65,7 +67,7 @@ public class AddMedicineCommand extends Command {
         }
 
         model.addMedicine(toAddMedicine);
-        model.switchTab(3);
+        EventsCenter.getInstance().post(new SwitchTabEvent(3));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddMedicine));
     }
