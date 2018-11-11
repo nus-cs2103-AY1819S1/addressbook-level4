@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.leaveapplication.LeaveApplicationList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 public class ArchiveList implements ReadOnlyArchiveList {
 
     private final UniquePersonList persons;
+    private final LeaveApplicationList leaveApplications;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,13 +29,14 @@ public class ArchiveList implements ReadOnlyArchiveList {
      */
     {
         persons = new UniquePersonList();
+        leaveApplications = new LeaveApplicationList();
     }
 
     public ArchiveList() {}
 
     /**
-    * Creates an AddressBook using the Persons in the {@code toBeCopied}
-    */
+     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     */
     public ArchiveList(ReadOnlyArchiveList toBeCopied) {
         this();
         resetData(toBeCopied);
@@ -40,55 +45,74 @@ public class ArchiveList implements ReadOnlyArchiveList {
     //// list overwrite operations
 
     /**
-    * Replaces the contents of the person list with {@code persons}.
-    * {@code persons} must not contain duplicate persons.
-    */
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        updateLeaveList();
     }
 
     /**
-    * Resets the existing data of this {@code AddressBook} with {@code newData}.
-    */
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
     public void resetData(ReadOnlyArchiveList newData) {
         requireNonNull(newData);
+
         setPersons(newData.getPersonList());
+        updateLeaveList();
+    }
+
+    /**
+     * Updates the leave applications list
+     */
+    private void updateLeaveList() {
+        // Remove old elements
+        leaveApplications.setLeaveApplications(new LeaveApplicationList());
+
+        // Populate with new elements
+        persons.forEach(person -> person.getLeaveApplications().forEach(leaveApplication
+            -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
     }
 
     //// person-level operations
 
     /**
-    * Returns true if a person with the same identity as {@code person} exists in the address book.
-    */
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
     }
 
     /**
-    * Adds a person to the address book.
-    * The person must not already exist in the address book.
-    */
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
     public void addPerson(Person p) {
         persons.add(p);
+        updateLeaveList();
     }
 
     /**
-    * Replaces the given person {@code target} in the list with {@code editedPerson}.
-    * {@code target} must exist in the address book.
-    * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-    */
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
+
         persons.setPerson(target, editedPerson);
+        updateLeaveList();
     }
 
     /**
-    * Removes {@code key} from this {@code AddressBook}.
-    * {@code key} must exist in the address book.
-    */
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
     public void removePerson(Person key) {
         persons.remove(key);
+        updateLeaveList();
     }
 
     //// util methods
@@ -105,14 +129,20 @@ public class ArchiveList implements ReadOnlyArchiveList {
     }
 
     @Override
+    public ObservableList<LeaveApplicationWithEmployee> getLeaveApplicationList() {
+        return leaveApplications.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddressBook // instanceof handles nulls
-            && persons.equals(((ArchiveList) other).persons));
+                || (other instanceof ArchiveList // instanceof handles nulls
+                && persons.equals(((ArchiveList) other).persons));
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
     }
+
 }

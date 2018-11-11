@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Person with invalid name field -->
+    <persons>
+        <name>J@sh @@@r</name>
+        <phone isPrivate="false">2323224</phone>
+        <email isPrivate="false">josh@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+</addressbook>

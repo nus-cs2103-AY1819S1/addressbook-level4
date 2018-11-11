@@ -36,8 +36,15 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        List<Person> filteredPersonList;
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        if (model.getState() == 1) {
+            filteredPersonList = model.getFilteredPersonList();
+        } else if (model.getState() == 2) {
+            filteredPersonList = model.getArchivedPersonList();
+        } else {
+            filteredPersonList = null;
+        }
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

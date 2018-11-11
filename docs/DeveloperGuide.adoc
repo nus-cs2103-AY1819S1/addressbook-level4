@@ -234,11 +234,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
-
 [[Design-Storage]]
 
 === Storage component
@@ -712,7 +707,18 @@ While the login screen is displayed, other usual UI elements, such as the `brows
 [NOTE]
 To ensure that most tests still work with a login system, the `MainWindowHandle`, used by all GUI tests, automatically logs the user in right after the UI element loads.
 
-The following steps show how the program works as the user login:
+The following sequence diagram shows a high level overview between the components when a User begins logging into OASIS.
+
+.A high level overview of how components interact when a login is performed.
+image::LoginSequenceDiagram.png[]
+
+This situation branches if the user's input of username and password is invalid. The following activity diagram shows the branching case:
+
+.An activity diagram showing where the login code branches if the input does not match a user.
+image::LoginActivityDiagram.png[]
+
+The communication between `UI`, `Logic` and `Model` is mainly from using `EventsCenter` and firing events to tell the other components to act.
+The following detailed steps show how the program works as the user login.:
 
 1. When the program is started, UIManager creates the MainWindow and tells it to `fillLoginParts()`.
 
@@ -727,10 +733,6 @@ a. If there is no successful match, then a `FailedLoginEvent` is fired. The Logi
 5. If there is a successful match, then a `SuccessfulLoginEvent` is fired. This event contains the person that is currently logging in, wrapped in a User object.
 
 6. The `mainWindow` class catches the `SuccessfulLoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
-
-The following sequence diagram fully shows the steps involved:
-
-image::LoginSequenceDiagram.png[]
 
 When the user wishes to logout, he enters logout, which triggers the following:
 
@@ -838,27 +840,31 @@ Other possible design considerations are shown below.
 ** Pros: Easy to implement.
 ** Cons: Greatly increases coupling. If further commands were to require the same functionality, this hack would need to be done again for that function.
 
+==== Password Security
+There is a need to have passwords be stored securely as opposed to being stored in plain text. The standard today is to have password be salted and hashed, which is also the standard that OASIS is implemented in.
+
+All of this is handled within the `Password` class. API: link:{repoURL}/blob/master/src/main/java/seedu/address/model/person/Password.java[`Password.java`]
+
+The `Password` class stores the password in plaintext (if available), the salt and the hash of the password. The salt and the hash are always available.
+
+If the password object was created this session (i.e. the user changed his password this session), the plaintext will be available. Otherwise, if it was read from the saved XML file, then only the salt and hash are available.
+
+[NOTE]
+When checking if 2 Passwords are the same, it is better to call `isSamePassword` to verify if the 2 passwords are the same. `isSamePassword` checks if both passwords would have had the same plaintext. Utilizing `.equals` would also require the salt to match as well.
+
+==== Design Considerations
+===== Aspect: How much security is required for the password
+
+* **Alternative 1:** Just store and save the password in plaintext.
+** Pros: Very easy to implement. Makes testing significantly easier. Can verify both appropriate input and output.
+** Cons: No security. Anyone who wants to view someone else's password can just look into the data files and find it easily.
+* **Alternative 2:** Apply a hash to all passwords (i.e. SHA512).
+** Pros: Still somewhat easy to implement.
+** Cons: Testing becomes slightly harder as test code can no longer rely on getting the password in plaintext. Still not very secure, rainbowtables and hash crackers exist that can easily get back the plaintext password.
+* **Alternative 3: (current choice):** Apply a salt + hash to all passwords
+** Pros: Full security suite. Ensures that we aren't storing our user's passwords, so if the database is compromised, our user's passwords aren't easily broken.
+** Cons: Very hard to implement. Testing becomes significantly harder because calling `.equals` on Passwords that are the same may return false due to differences in salt.
 // end::login[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 // tag::leaveapplication[]
 === Leave Application
@@ -866,11 +872,13 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
 
-image::LeaveApplicationSequenceDiagram.png[width="800"]
+image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
+
+image::LeaveApplicationSequenceDiagram.png[width="1000"]
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
-1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE...]` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
+1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE]...` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
 
 image::LeaveApplicationModelDiagram.png[width="400"]
 
@@ -892,6 +900,26 @@ image::LeaveApplicationModelDiagram.png[width="400"]
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
 // end::leaveapplication[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 

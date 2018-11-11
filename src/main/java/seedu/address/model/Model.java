@@ -31,6 +31,10 @@ public interface Model {
     /** Returns the current state of the person panel list */
     int getState();
 
+    /** Sets the current state of the person panel list */
+    void setState(int state);
+
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
@@ -136,9 +140,19 @@ public interface Model {
     boolean canUndoAddressBook();
 
     /**
+     * Returns true if the model has previous archive list states to restore.
+     */
+    boolean canUndoArchiveList();
+
+    /**
      * Returns true if the model has undone address book states to restore.
      */
     boolean canRedoAddressBook();
+
+    /**
+     * Returns true if the model has undone archive list states to restore.
+     */
+    boolean canRedoArchiveList();
 
     /**
      * Restores the model's address book to its previous state.
@@ -146,9 +160,19 @@ public interface Model {
     void undoAddressBook();
 
     /**
+     * Restores the model's archive list to its previous state.
+     */
+    void undoArchiveList();
+
+    /**
      * Restores the model's address book to its previously undone state.
      */
     void redoAddressBook();
+
+    /**
+     * Restores the model's archive list to its previously undone state.
+     */
+    void redoArchiveList();
 
     /**
      * Saves the current address book state for undo/redo.

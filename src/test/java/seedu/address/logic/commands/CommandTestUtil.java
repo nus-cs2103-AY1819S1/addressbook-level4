@@ -204,6 +204,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s archived list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s archive list.
+     */
+    public static void showArchiveAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getArchivedPersonList().size());
+
+        Person person = model.getArchivedPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().fullName.split("\\s+");
+        model.updateArchivedPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getArchivedPersonList().size());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the assignment at the given {@code targetIndex} in the
      * {@code model}'s assignment list.
      */

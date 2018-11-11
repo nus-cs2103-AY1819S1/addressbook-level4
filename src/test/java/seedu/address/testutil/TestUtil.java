@@ -40,6 +40,13 @@ public class TestUtil {
     }
 
     /**
+     * Returns the middle index of the person in the {@code model}'s person list.
+     */
+    public static Index getMidArchiveIndex(Model model) {
+        return Index.fromOneBased(model.getArchivedPersonList().size() / 2);
+    }
+
+    /**
      * Returns the last index of the person in the {@code model}'s person list.
      */
     public static Index getLastIndex(Model model) {
@@ -47,9 +54,23 @@ public class TestUtil {
     }
 
     /**
+     * Returns the last index of the person in the {@code model}'s person list.
+     */
+    public static Index getLastArchiveIndex(Model model) {
+        return Index.fromOneBased(model.getArchivedPersonList().size());
+    }
+
+    /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the person in the {@code model}'s archive list at {@code index}.
+     */
+    public static Person getArchivedPerson(Model model, Index index) {
+        return model.getArchivedPersonList().get(index.getZeroBased());
     }
 }

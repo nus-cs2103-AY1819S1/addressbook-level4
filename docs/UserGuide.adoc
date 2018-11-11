@@ -25,6 +25,17 @@ The image shown below highlights the difference sections of OASIS's user interfa
 
 image::introToOASIS.png[width="900"]
 
+=== Symbols used in this guide
+[NOTE]
+====
+Denotes something that you may want to take note of.
+====
+[WARNING]
+====
+Denotes a warning for something critical.
+====
+
+// tag::quickstart-begin[]
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -35,6 +46,7 @@ image::introToOASIS.png[width="900"]
 image::Ui.png[width="790"]
 +
 .  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
+// end::quickstart-begin[]
 .  After you have logged in, you should be taken to the following screen:
 +
 image::UiLoggedin.PNG[width="790"]
@@ -186,9 +198,18 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
-* You must specify at least 1 `DATE`. Your leave will be applied for all the dates specified after each `-da`.
-* If the `DATE` is of an illegal format, the command will be rejected.
+* Your leave will be applied for all the dates specified after each `-da`.
 ****
+
+[NOTE]
+====
+You must specify at least 1 `DATE`.
+====
+
+[WARNING]
+====
+If the `DATE` is of an illegal format, the command will be rejected.
+====
 
 Examples:
 
@@ -200,9 +221,10 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
-****
-* If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
-****
+[NOTE]
+====
+If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
+====
 
 === Approve a leave application : `leaveapprove`
 
@@ -212,9 +234,13 @@ Format: `leaveapprove [INDEX]`
 
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been rejected can still be approved afterwards.
 ****
+
+[NOTE]
+====
+To use this command, you must have "APPROVE_LEAVE" permissions.
+====
 
 Examples:
 
@@ -228,9 +254,13 @@ Format: `leavereject [INDEX]`
 
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been approved can still be rejected afterwards.
 ****
+
+[NOTE]
+====
+To use this command, you must have "APPROVE_LEAVE" permissions.
+====
 
 Examples:
 
@@ -257,6 +287,7 @@ Examples:
 
 * `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
 
+// tag::myself[]
 === Edit details of the currently logged in user : `myself`
 
 Changes the details of the currently logged in user
@@ -273,6 +304,8 @@ Examples:
 
 * `myself -p 91234567 -e johndoe@example.com`
 * `myself -n James`
+
+// end::myself[]
 
 === Edit details : `edit`
 
@@ -329,6 +362,8 @@ Examples:
 * modifypermission 1 -a ADD_EMPLOYEE
 * modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
 //end::modifypermission[]
+
+// tag::passwd[]
 === Change password : `passwd`
 
 Changes user password.
@@ -341,6 +376,8 @@ Format: `passwd`
 
 [WARNING]
 Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+
+// end::passwd[]
 
 === Undoing previous command : `undo`
 
