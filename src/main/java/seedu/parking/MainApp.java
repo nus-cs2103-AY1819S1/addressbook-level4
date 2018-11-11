@@ -25,7 +25,6 @@ import seedu.parking.model.Model;
 import seedu.parking.model.ModelManager;
 import seedu.parking.model.ReadOnlyCarparkFinder;
 import seedu.parking.model.UserPrefs;
-import seedu.parking.model.util.SampleDataUtil;
 import seedu.parking.storage.CarparkFinderStorage;
 import seedu.parking.storage.JsonUserPrefsStorage;
 import seedu.parking.storage.Storage;
@@ -87,11 +86,11 @@ public class MainApp extends Application {
         try {
             carparkFinderOptional = storage.readCarparkFinder();
             if (!carparkFinderOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Car Park Finder");
+                logger.info("Data file not found. Will be starting with an empty Car Park Finder");
                 initialData = new CarparkFinder();
             } else {
                 logger.info("Data file found. Loading from saved data");
-                initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
+                initialData = carparkFinderOptional.get();
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Car Park Finder");
