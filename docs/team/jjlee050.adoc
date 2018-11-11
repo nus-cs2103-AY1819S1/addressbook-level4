@@ -9,21 +9,30 @@
 
 == 1. Overview
 
-The purpose of this project portfolio page is to showcase my work done and contributions made throughout the project.
+This portfolio summarises my contributions made throughout the project.
 
-ClinicIO is a project from CS2103T intended for students
-to learn Software Engineering at an entry-level.
+ClinicIO is a project from CS2103T intended for students to learn Software Engineering at an entry-level.
 
 ClinicIO is a clinic management desktop application that allows receptionists can manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
+
+As the team lead, I am responsible for the overall team coordination. This
+involved providing a clear set of goals and direction for the team, oversee the whole project and
+listen to teammates feedback for improvements. Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
+defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.
+
+As a developer, I am in charge of the UI component of this program. This involves understanding
+how UI is managed in this project and to ensure that the UI component of this project is well maintained.  
+
+See below for more details on contributions made for the duration of 10 weeks.  
 
 == 2. Summary of contributions
 
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050[My Codes]
 
 * *Major enhancement*:
-** Added *the ability to add patient* for the *Patient Management* feature
-*** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
+** Added *Patient Management* feature
+*** What it does: This feature allows the user to manage 
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
@@ -33,7 +42,7 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: -
+* *Minor enhancement*: Major revamp of the UI.
 
 * *Other contributions*:
 
