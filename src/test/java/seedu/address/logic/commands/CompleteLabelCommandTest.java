@@ -166,7 +166,6 @@ public class CompleteLabelCommandTest {
         expectedModel = modelStringPair.getKey();
         Set<String> expectedTokens = modelStringPair.getValue();
 
-
         // Creating actual data.
         // Creates a defensive copy of the model so that no side effects would be present in the
         // test file's model.
