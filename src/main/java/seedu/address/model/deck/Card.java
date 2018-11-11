@@ -57,6 +57,11 @@ public class Card {
         this.reviewScore = other.reviewScore;
     }
 
+    /**
+     * Assigns performance to the currently reviewed card.
+     * @param card the card being reviewed
+     * @param performance how well the user remembers the card
+     */
     public static Card classifyCard(Card card, Performance performance) {
         int performanceAsInt = performance.ordinal();
         card.updateReviewScore(performanceAsInt);
@@ -64,6 +69,9 @@ public class Card {
         return new Card(card.question, card.answer, performance, card.timesReviewed + 1,
                 card.reviewScore, nextReviewDate);
     }
+    /**
+     *  Find out when the card needs to be reviewed again for optimal recall.
+     */
     private static LocalDateTime calculateNextReviewDate(Card card, Performance performance) {
         double consecutiveCorrectAnswers = card.getConsecutiveCorrect();
         double addedDays = 1;
@@ -73,6 +81,9 @@ public class Card {
         return card.nextReviewDate.plusDays((long) addedDays);
     }
 
+    /**
+     * Update the review score based on how well the user has performed on this card.
+     */
     public void updateReviewScore(int performanceAsInt) {
         reviewScore = PERFORMANCE_MODERATING_FACTOR + UPDATED_LINEAR_COEFFICIENT * performanceAsInt
                 + UPDATED_SQUARED_COEFFICIENT * performanceAsInt * performanceAsInt;

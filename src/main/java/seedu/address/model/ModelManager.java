@@ -13,13 +13,15 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.Performance;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 
 /**
  * Represents the in-memory model of Anakin data.
  */
 public class ModelManager extends ComponentManager implements Model {
+    /**
+     * This enum encapsulates the different types of sorts that can be performed.
+     */
     public enum SortingType {
         PERFORMANCE, ALPHABETICAL
     }
