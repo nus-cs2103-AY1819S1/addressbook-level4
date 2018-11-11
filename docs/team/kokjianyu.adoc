@@ -79,8 +79,6 @@ include::../UserGuide.adoc[tag=autocomplete]
 
 include::../UserGuide.adoc[tag=modifypermission]
 
-include::../UserGuide.adoc[tag=viewpermission]
-
 == Contributions to the Developer Guide
 
 |===
@@ -88,6 +86,3 @@ include::../UserGuide.adoc[tag=viewpermission]
 |===
 
 include::../DeveloperGuide.adoc[tag=permission]
-
-include::../DeveloperGuide.adoc[tag=commandautocomplete]
-
