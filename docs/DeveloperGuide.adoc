@@ -857,7 +857,7 @@ Executing `refer` with an invalid index will **not** result in the generation of
 ** Cons: There may be more than one doctor working in a clinic.
 * **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the 'adddocument' command for the issuing doctor to key in his/her name.
 ** Pros: Different doctors can sign off the medical certificates and referral letters.
-** Cons: Slightly more typing is necessary when executing the `adddocument` command.
+** Cons: Slightly more typing is necessary before doctors can execute the `adddocument` command.
 // end::referralletter[]
 
 // tag::applicationgui[]
