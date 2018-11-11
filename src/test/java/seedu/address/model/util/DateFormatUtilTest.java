@@ -19,7 +19,7 @@ public class DateFormatUtilTest {
 
     @Test
     public void parseDate_invalidDateFormat() {
-        assertEquals(parseDate("12.12.18"), null);
+        assertEquals(parseDate("12.12.19"), null);
     }
 
     @Test
@@ -31,23 +31,23 @@ public class DateFormatUtilTest {
 
     @Test
     public void isValidDateFormat_validDateFormat_minimalFormat() {
-        assertTrue(isValidDate("12-12-18"));
-        assertTrue(isValidDate("13-12-2018"));
+        assertTrue(isValidDate("12-12-19"));
+        assertTrue(isValidDate("13-12-2019"));
     }
 
     @Test
     public void isValidDateFormat_validDateFormat_standardFormat() {
-        assertTrue(isValidDate("12-12-18 1200"));
-        assertTrue(isValidDate("13-12-2018 1200"));
+        assertTrue(isValidDate("12-12-19 1200"));
+        assertTrue(isValidDate("13-12-2019 1200"));
     }
 
     @Test
     public void isValidDateFormat_invalidDateFormat_allFormats() {
-        assertFalse(isValidDate("12-13-18"));
-        assertFalse(isValidDate("32-12-2018 1200"));
+        assertFalse(isValidDate("12-13-19"));
+        assertFalse(isValidDate("32-12-2019 1200"));
 
-        assertFalse(isValidDate("12-12-18 100"));
-        assertFalse(isValidDate("12-12-018 2100"));
+        assertFalse(isValidDate("12-12-19 100"));
+        assertFalse(isValidDate("12-12-019 2100"));
 
     }
 }
