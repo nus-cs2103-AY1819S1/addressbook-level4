@@ -286,7 +286,8 @@ public class ImageMagickUtil {
         args.add(getConvertExecutablePath());
         args.add("-size");
         args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
-        args.add(String.format("xc:%s", c.getBackgroundColor()));
+        args.add("-background");
+        args.add(String.format("%s", c.getBackgroundColor()));
 
         for (Layer l : c.getLayers()) {
             args.add("-page");
@@ -295,11 +296,12 @@ public class ImageMagickUtil {
         }
         if (c.isCanvasAuto()) {
             args.add("-layers");
-            args.add(" merge");
+            args.add("merge");
         } else {
             args.add("-flatten");
         }
         args.add(output);
+        System.out.println(args);
         return runProcessBuilder(args, output);
     }
 
