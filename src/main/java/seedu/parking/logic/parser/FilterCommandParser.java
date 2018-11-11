@@ -62,8 +62,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 startTime = argumentsList.get(index + 2);
                 endTime = argumentsList.get(index + 3);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                throw new ParseException(Messages.MESSAGE_FREEPARKING_HAS_INVALID_PARAMETERS);
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("hh.mmaa");
@@ -73,11 +72,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
             //check for invalid date
             try {
-                // Input time of user can only be of dateFormat2
                 inputStart = dateFormat.parse(startTime);
                 inputEnd = dateFormat.parse(endTime);
             } catch (java.text.ParseException pe) {
-                throw new ParseException(Messages.MESSAGE_START_OR_END_TIME_HAS_INCORRECT_FORMAT, pe);
+                throw new ParseException(Messages.MESSAGE_START_OR_END_TIME_HAS_INCORRECT_FORMAT);
             }
 
             // check for invalid day
@@ -96,7 +94,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
             String selectedCarparkType = argumentsList.get(index2 + 1).toUpperCase();
 
-            // check that selected car park type matches at least one of the strings
+            // check for invalid car park type
             String[] validCarParkTypes = {"SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"};
             boolean isValidCarparkType = Arrays.stream(validCarParkTypes).anyMatch(x -> x.equals(selectedCarparkType));
             if (!isValidCarparkType) {
@@ -112,12 +110,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
             String selectedParkingSystemType = argumentsList.get(index2 + 1).toUpperCase();
 
-            // check that selected car park type matches at least one of the strings
+            // check for invalid parking system type
             String[] validParkingSystemTypes = {"COUPON", "ELECTRONIC"};
             boolean isValidParkingSystemType = Arrays.stream(validParkingSystemTypes)
                                                      .anyMatch(x -> x.equals(selectedParkingSystemType));
             if (!isValidParkingSystemType) {
-                throw new ParseException(Messages.MESSAGE_CARPARK_TYPE_IS_INVALID);
+                throw new ParseException(Messages.MESSAGE_PARKINGSYSTEM_TYPE_IS_INVALID);
             }
 
             parkingSystemTypeParameter = new ParkingSystemTypeParameter(selectedParkingSystemType);
