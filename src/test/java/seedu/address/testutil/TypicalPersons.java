@@ -10,14 +10,12 @@ import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_PHONE_AMY
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalModules.getOneTypicalModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
@@ -57,10 +55,6 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-
-    // Manually added - Person with Module list
-    public static final List<Module> modules = getOneTypicalModule();
-    public static final Person FIONA_WITH_MODULES = new PersonBuilder(FIONA).withModuleList(modules).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
