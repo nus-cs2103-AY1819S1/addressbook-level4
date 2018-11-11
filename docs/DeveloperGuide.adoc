@@ -382,7 +382,7 @@ image::TrackSearchCommandSequenceDiagram.png[width="800"]
 Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
 
 === Playback Feature
-Four functionalities are implemented to achieve the playback task in JxMusic Player. Play enables users to play musics. Pause allows the break off of playing and stop terminates playing. Seek functionality achieve the requirement of seeking the playing to a certain time point. To aid the use of seek functionality, duration command is also implemented to let user get the length of the track in current playing.
+Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.
 
 ==== Play
 PlayCommand caters for commands having the word `play` in it, in particular, `play`, `play p/` and `play t/` commands. It consists of 5 modes:
@@ -426,8 +426,74 @@ image::PlayablePlaylistObjectDiagram3.png[width="800"]
 *** More complex implementation
 
 ==== Pause
-...
+`PauseCommand` is implemented to realize the pausing a playing entity.
+The playing could be resumed after pause and it will play from the time point at which the playing entity is paused.
+Ultimately, `pause()` method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
 
+==== Stop
+`StopCommand` is implemented to achieve the termination of playing of a playing entity.
+The playing could not be resumed after `stop`, but the entity being played is remembered and `play` command
+after `stop` will result in the playing of the entity from the beginning.
+Ultimately, `stop()` method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
+
+.Sequence of the `stop` command
+image::StopSequenceDiagram.png[width="800"]
+
+==== Seek
+===== Current Implementation
+The `seek` functionality enables user to seek the play of a track to a certain time point.
+This feature is achieved by the implementation of `SeekCommand` in logic class.
+To perform user’s instruction, `SeekCommandParser` is also being implemented. Ultimately, `seek(Duration seekTime)`
+method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
+
+===== Design Consideration
+===== Aspect:  How seek behaves when the time point is beyond start/stop(aka. total) time
+* **Alternative 1 (current choice):** throws exception with error message
+
+.Activity of `seek`
+image::SeekMethodActivityDiagram.png[width="800"]
+** Pro:
+*** User will get notification message if their intention could not be achieved
+** Con:
+*** Exception will be thrown and the duration information should be made clear to users.
+
+* **Alternative 2:** follows the specification of `seek(Duration seekTime)` in `javafx.scene.media.MediaPlayer` +
+In the documentation of `javafx.scene.media.MediaPlayer.seek(Duration seekTime)`, it specifies the following execution results: +
+If seekTime > stop time, seek to stop time. +
+If seekTime < start time, seek to start time.
+
+** Pro:
+*** No extra implementation of the retrieval of duration information needs to be done.
+** Con:
+*** User will not get notification message if their intention of seeking to a point out of playing time fails.
+
+==== Duration
+==== Current Implementation
+`DurationCommand` is implemented to enable users to know the duration of current playing track/paused/stopped track.
+A message contains the duration of the track will displayed in `ResultDisplay` of the `MainWindow`.
+
+==== Design Consideration
+==== Aspect: How user get to know the duration of a track
+* **Alternative 1 (current choice):** implements a command to retrieve the information of duration
+** Pro:
+*** User will have the control of the display of the duration information.
+** Con:
+*** Compare with Alternative 2, it is less user friendly since extra effort is needed for users
+to get the information of duration.
+
+* **Alternative 2:** displays the duration of tracks in `trackCard`
+
+.Proposed UI design with duration shown
+image::UIwithDuration.png[width="800"]
+
+This choice is what we chose at first, but subsequently we find out the some methods could not be tested due to the
+backwardness of javafx (Travis and AppVeyor throw `com.sun.media.jfxmedia.mediaexception: could not create player!`
+exception while local tests pass)
+
+** Pro:
+*** It is more convenient and intuitive since no extra effort need to be made to get to know the duration information.
+** Con:
+*** `javafx` feature might be an obstacle when testing.
 
 // tag::playlistNew[]
 === Playlist Management feature
