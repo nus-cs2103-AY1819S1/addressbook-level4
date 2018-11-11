@@ -323,8 +323,8 @@ e.g. `view-patient n/John Doe p/84729292`
 * *View doctor* : `view-doctor n/NAME [p/PHONE]` +
 e.g. `view-doctor n/Mary Jane`
 * *List* : `list`
-* *Filter doctors* : `filter-doctor`
 * *Filter patients* : `filter-patient`
+* *Filter doctors* : `filter-doctor`
 * *Book appointment* : `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/PATIENT_PHONE] d/DATE_TIME` +
 e.g. `add-appointment np/John Doe nd/Mary Jane pd/93736272 d/2018-10-17 15:00`
 * *Delete appointment* : `delete-appointment APPOINTMENT_ID` +
