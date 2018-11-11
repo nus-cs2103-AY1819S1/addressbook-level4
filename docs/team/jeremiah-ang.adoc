@@ -13,10 +13,10 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 
 == Summary of contributions
 
-* *Major enhancement*: Implemented the *CAP & Target Grade Calculation* feature.
+* *Major enhancement*: Implemented the *CAP & Target Grade Calculation* feature in Model.
 
-** What it does: Shows user their current CAP and what grades they needs to achieve
-for those incomplete modules so as to achieve their CAP goal.
+** What it does: Calculates the current CAP of the user and also calculate the target grades the user have to achieve
+in order to achieve their CAP Goal.
 
 ** Justification: This is one of the *must-have* User Story of the application,
 to allow users to verify if they are able to graduate with their desired CAP Goal
@@ -30,7 +30,9 @@ in the transcript and updated on the UI.
 *** Users may further adjust the target grade and obtain a updated list of target grades
 
 
-* *Minor enhancement*: Added the *Current CAP Calculation* feature.
+* *Minor enhancement*:
+** Added `adjust` command in Logic
+** Added `goal` command in Logic
 
 * *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah_ang
 
