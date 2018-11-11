@@ -38,32 +38,32 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
         TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyScheduler> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyScheduler> initialDataSupplierCalendarEvent = () -> null;
     protected Supplier<ReadOnlyToDoList> initialDataSupplierToDo = () -> null;
-    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveFileLocationCalendarEvent = SAVE_LOCATION_FOR_TESTING;
     protected Path saveFileLocationToDo = SAVE_LOCATION_FOR_TESTING_TODO;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyScheduler> initialDataSupplier,
+    public TestApp(Supplier<ReadOnlyScheduler> initialDataSupplierCalendarEvent,
                    Supplier<ReadOnlyToDoList> initialDataSupplierToDo,
-                   Path saveFileLocation,
+                   Path saveFileLocationCalendarEvent,
                    Path saveFileLocationToDo) {
         super();
-        this.initialDataSupplier = initialDataSupplier;
-        this.saveFileLocation = saveFileLocation;
+        this.initialDataSupplierCalendarEvent = initialDataSupplierCalendarEvent;
+        this.saveFileLocationCalendarEvent = saveFileLocationCalendarEvent;
 
         this.initialDataSupplierToDo = initialDataSupplierToDo;
         this.saveFileLocationToDo = saveFileLocationToDo;
 
-        // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableScheduler(this.initialDataSupplier.get()),
-                this.saveFileLocation);
+        // If some initial local data has been provided, write those to the files
+        if (initialDataSupplierCalendarEvent.get() != null) {
+            createDataFileWithData(new XmlSerializableScheduler(this.initialDataSupplierCalendarEvent.get()),
+                this.saveFileLocationCalendarEvent);
         }
-        // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
+
+        if (initialDataSupplierCalendarEvent.get() != null) {
             createDataFileWithData(new XmlSerializableToDoList(this.initialDataSupplierToDo.get()),
                 this.saveFileLocationToDo);
         }
@@ -87,7 +87,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setSchedulerFilePath(saveFileLocation);
+        userPrefs.setSchedulerFilePath(saveFileLocationCalendarEvent);
         userPrefs.setToDoListFilePath(saveFileLocationToDo);
         return userPrefs;
     }
@@ -144,7 +144,6 @@ public class TestApp extends MainApp {
 
     /**
      * Returns a defensive copy of the modelToDo.
-     * The new Model has the same predicates and comparator from FsList and thus the same ordering of FsList.
      */
     public ModelToDo getModelToDo() {
         ModelToDo copy = new ModelManagerToDo(modelToDo.getToDoList(), new UserPrefs());
