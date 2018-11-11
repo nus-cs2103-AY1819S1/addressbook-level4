@@ -71,17 +71,16 @@ public class DependencyGraph {
     //=================== Graph Operations ====================================
 
     /**
-     * Returns true if the task with updated dependency will result in a cycle in the graph
+     * Returns true if the task with updated dependency or new task will result in a cycle in the graph
      *
-     * @param updatedTask task with an updated dependency
+     * @param task task with an updated dependency or new task
      * @return <code>true</code> if cycle is present with updated dependency. <code>false</code> otherwise.
      */
-    public boolean checkCyclicDependency(Task updatedTask) {
-        assert updatedTask != null;
-        String hash = Integer.toString(updatedTask.hashCode());
-        Set<String> removedDependency = adjacencyList.remove(hash);
-        assert removedDependency != null;
-        adjacencyList.put(hash, updatedTask.getDependencies().getHashes());
+    public boolean checkCyclicDependency(Task task) {
+        assert task != null;
+        String hash = Integer.toString(task.hashCode());
+        adjacencyList.remove(hash);
+        adjacencyList.put(hash, task.getDependencies().getHashes());
         return checkPresenceOfCycle();
     }
 
