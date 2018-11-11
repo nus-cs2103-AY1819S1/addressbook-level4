@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON_PATIENT;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL_PATIENT;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ALICE_PATIENT_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.BENSON_PATIENT_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.DANIEL_PATIENT_APPT;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIFTH;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIONA_DOCTOR_APPT;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIRST;
@@ -159,7 +159,7 @@ public class AddAppointmentCommandTest {
     @Test
     public void execute_doctorClashAppointment_throwsCommandException() {
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(BENSON_PATIENT_APPT.getName(), BENSON_PATIENT_APPT.getPhone(),
+                new AddAppointmentCommand(DANIEL_PATIENT_APPT.getName(), DANIEL_PATIENT_APPT.getPhone(),
                         FIONA_DOCTOR_APPT.getName(), FIONA_DOCTOR_APPT.getPhone(), FIRST.getDateTime());
 
         assertCommandFailure(addAppointmentCommand, model, commandHistory,
