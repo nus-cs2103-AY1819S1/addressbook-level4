@@ -290,13 +290,13 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 Searches Hallper and lists all residents that are in `basketball`, staying in room `A123` or studying in `SoC`
- as seen in Figure 4.2.1.1 and Figure 4.2.1.2.
+in the Person List Panel as seen in Figure 4.2.1.1 and Figure 4.2.1.2.
 
 image::SearchExample.png[width="790"]
-_Figure 4.2.1.1: Screen before running search on Hallper._
+_Figure 4.2.1.1: Screen before running `search` on Hallper._
 
 image::SearchExample2.png[width="790"]
-_Figure 4.2.1.2: Screen after running search on Hallper._
+_Figure 4.2.1.2: Screen after running `search` on Hallper._
 
 * `search SoC` +
 Searches Hallper and lists all residents that are studying in `SoC`.
@@ -319,13 +319,22 @@ Format: `select INDEX`
 
 Examples:
 
+The screens for Hallper before and after executing the `select` command are shown below in Figure 4.2.4.1 and
+Figure 4.2.4.2 respectively:
+
+image::SearchExample.png[width="790"]
+_Figure 4.2.4.1: Screen before running `select` on Hallper._
+
+image::Select Example.png[width="790"]
+_Figure 4.2.4.2: Screen after running `select` on Hallper._
+
 * `list` +
 `select 2` +
-Selects the 2nd person in Hallper.
+Selects the 2nd person in Hallper and opens his/her profile page.
 
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st person in the results of the `find` command and opens his/her profile page.
 
 // tag::email[]
 === Email
@@ -450,15 +459,16 @@ Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 
 Example:
 
-Before executing command
+Before executing command:
 
 image::add_all_day_event_diagram_before.png[width="790"]
+_Figure 4.4.1.1: Screen before running `add_all_day_event` on Hallper._
 
 * `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
 
 image::add_all_day_event_diagram_after.png[width="790"]
-
+_Figure 4.4.1.2: Screen after running `add_all_day_event` on Hallper._
 
 ==== Adding event into calendar : `add_event`
 
@@ -477,15 +487,17 @@ edate/DD ehour/HH emin/mm title/NAME OF EVENT`
 
 Example:
 
-Before executing command
+Before executing command:
 
 image::add_event_diagram_before.png[width="790"]
+_Figure 4.4.2.1: Screen before running `add_event` on Hallper._
 
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
 
 image::add_event_diagram_after.png[width="790"]
+_Figure 4.4.2.2: Screen after running `add_event` on Hallper._
 
 ==== Creating calendar : `create_calendar`
 
@@ -520,20 +532,23 @@ Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
 
 Example:
 
-Before executing command +
+Before executing command: +
 
 image::delete_event_diagram_before.png[width="790"]
+_Figure 4.4.4.1: Screen before running `delete_event` on Hallper._
 
 * Deleting a non-existing event (Title is case sensitive) +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
 
 image::delete_event_diagram_after_invalid.png[width="790"]
+_Figure 4.4.4.2: Screen after running `delete_event` with a non-existing event in Hallper._
 
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
 
 image::delete_event_diagram_after_valid.png[width="790"]
+_Figure 4.4.4.3: Screen after running `delete_event` with an existing event in Hallper._
 
 ==== Viewing calendar : `view_calendar`
 

@@ -2,6 +2,7 @@ package seedu.address.commons.events.storage;
 
 import seedu.address.commons.events.BaseEvent;
 
+//@@author javenseow
 /**
  * Indicates an exception during an image reading
  */

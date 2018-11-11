@@ -989,29 +989,33 @@ Both operations are exposed in the `Storage` interface as `Storage#readProfilePi
 
 Given below is an example usage scenario and how the image mechanism behaves at each step:
 
-Step 1. The user specifies the file path of the `.jpg` image to be uploaded and the person's room number.
+*Step 1.* The user specifies the file path of the `.jpg` image to be uploaded and the person's room number.
 
-Step 2. `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
+*Step 2.* `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
 
-Step 3. `ImageCommand` searches Hallper for the person that is tagged with the specified room number. It returns an
+*Step 3.* `ImageCommand` searches Hallper for the person that is tagged with the specified room number. It returns an
 error message if the room number specified is not tagged to any person.
 
-Step 4. Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
+*Step 4.* Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
 and copying of the image from the given file path.
 
-Step 5. The `NewImageEvent` goes to the `EventCenter`, and is then handled by
+*Step 5.* The `NewImageEvent` goes to the `EventCenter`, and is then handled by
 `StorageManager#handleNewImageEvent(NewImageEvent event)`. `ProfilePictureStorage#readProfilePicture(File file)` is
 then called to read the image file. After reading a valid image file, the
 `ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
 computer.
 
-Step 6. Hallper then updates the person's profile picture field with the name of the copied image.
+*Step 6.* Hallper then updates the person's profile picture field with the name of the copied image.
 
 The following sequence diagram shows how the image operation works:
 
 image::Image Sequence Diagram.png[width="800"]
 _Figure 4.7.1.1: Sequence diagram for image operation_
 
+The following activity diagram summarizes what happens when a user executes the image command:
+
+image::Image Activity Diagram.png[width="650"]
+_Figure 4.7.1.2: Activity diagram for image operation_
 
 ==== Design Considerations
 ===== Aspect: Choice of component to read and save the file
@@ -1034,6 +1038,57 @@ _Figure 4.7.1.1: Sequence diagram for image operation_
 ** Con: Copying of the image will be more complicated since all images will be saved as a `.jpg` image file type.
 
 // end::image[]
+
+// tag::search[]
+=== Search feature
+
+==== Current Implementation
+The search feature allows the user to search for persons who in Hallper using their room number, school and CCAs.
+
+It implements the following operation:
+
+* `SearchCommand#execute(Model model, CommandHistory history)` -- Updates the filtered persons list with persons that
+has fields that match any of the predicates.
+
+This operation is exposed in the `Model` interface as `Model#updateFilteredPersonList(Predicate<Person> predicate)`.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+*Step 1.* The user specifies the keywords to search Hallper with.
+
+*Step 2.* `SearchCommandParser` checks for the keywords after the search command word. If there are no keywords
+after the search command word, a `ParseException` is thrown. Any keywords that comes after the search command word
+will be successfully parsed into a `FieldsContainsKeywordsPredicate`
+
+*Step 3.* `SearchCommand#execute(Model model, CommandHistory history)` is then called and uses the predicate to update
+the filtered persons list.
+
+*Step 4.* After updating the list, the `PersonListPanel` is then updated to display the search result.
+
+The following sequence diagram shows how the search operation works:
+
+image::Search Sequence Diagram.png[width="800"]
+_Figure 4.10.1.1: Sequence diagram for search operation_
+
+The following activity diagram summarizes what happens when a user executes the search command:
+
+image::Search Activity Diagram.png[width="650"]
+_Figure 4.10.1.2: Activity diagram for search operation_
+
+==== Design Considerations
+
+===== Aspect: Fields to search
+
+* *Alternative 1 (current choice):* Limit choice to only room number, school and CCA.
+** Pro: The search command will only search for the fields that are the most commonly used.
+** Con: The fields that can be used as keywords are limited.
+
+* *Alternative 2:* Include all available fields to be the search criteria.
+** Pro: Allows the command to search using more criteria.
+** Con: Including name as a search criteria will overlap with the current find command and phone numbers
+are not commonly used as search criterias.
+
+// end::search[]
 
 // tag::dataencryption[]
 === [Proposed] Data encryption
@@ -2150,8 +2205,8 @@ Use case ends.
 *MSS*
 
 1. JCRC member requests to add a person's image
-2. Hallper requests for name and image location
-3. JCRC member enters name and image location
+2. Hallper requests for room number and image location
+3. JCRC member enters room number and image location
 4. Hallper adds the image
 +
 Use case ends.
@@ -2181,23 +2236,6 @@ Co-Curricular Activity that residents can join within their respective halls.
 
 [[jcrc]] JCRC::
 Junior Common Room Committee in charge of administrative duties within their respective halls.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
