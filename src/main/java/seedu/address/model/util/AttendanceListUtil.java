@@ -83,6 +83,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Removes a module from the moduleList of all associated Persons.
@@ -123,6 +124,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Removes a occasion from the occasionList of all associated Persons.
@@ -143,6 +145,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Edits person from his associate modules.
@@ -165,6 +168,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Edits person from his associate occasion.
@@ -187,6 +191,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author alistairong
     /**
      * Removes said {@code person} from {@code module} attendance list in {@code model} and vice versa.
      * @param model The model to change.
@@ -198,6 +203,7 @@ public class AttendanceListUtil {
         removeModuleFromPerson(model, person).accept(module);
     }
 
+    //@@author alistairong
     /**
      * Removes said {@code person} from {@code occasion} attendance list in {@code model} and vice versa.
      * @param model The model to change.
@@ -273,6 +279,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Person and edits it in the specified Module in the model.
@@ -293,6 +300,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Person and edits it in the specified Occasion in the model.
@@ -313,6 +321,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
@@ -333,6 +342,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Occasion and removes it from the specified Person in the Model.
