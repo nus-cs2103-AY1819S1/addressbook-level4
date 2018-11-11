@@ -512,13 +512,15 @@ A list of filtered rides would be returned.
 
 // tag::open[]
 === Open/Shutdown Feature
-This section documents how open/shutdown features are implemented and how they work.
+This section documents how open/shutdown features are implemented and how they work. Note that `open` and `shutdown`
+features are very similar to each other.
 
 ==== Current Implementation
 
-.Activity Diagram of `OpenCommandParser`
-image::OpenActivityDiagram.png[width="800"]
+The `OpenActivityDiagram` below show the execution flow of `OpenCommand`:
 
+.Activity Diagram of `OpenCommand`
+image::OpenActivityDiagram.png[width="800"]
 
 The following sequence diagram will show how the open/shutdown feature works: +
 
@@ -526,15 +528,16 @@ The following sequence diagram will show how the open/shutdown feature works: +
 image::OpenSequenceDiagram.png[width="800"]
 
 
-As seen in the diagram above, the `open` function is implemented with the help of `OpenCommand` and `UpdateRideDescriptor` class. When the
-`ThaneParkParser` parses the user input and finds the open command word `open` it calls a new `OpenCommandParser` to
-parse the arguments from the user input.
+As seen in the diagram above, the `open` function is implemented with the help of `OpenCommand` and
+`UpdateRideDescriptor` class. When the `ThaneParkParser` parses the user input and finds the open command word `open`,
+it calls a new `OpenCommandParser` to parse the arguments from the user input.
 
 Next, the `OpenCommandParser` will parse the arguments from the user input into an `index` and
 return a new `OpenCommand` with the `index` as the parameter.
 
-Finally, the `LogicManager` will execute the `open` command, and the `index` will be used to find the `ride` from the list.
-After that, the `open` command will change the `status` of the `ride` to `Open` by utilising the `UpdateRideDescriptor`
+Finally, the `LogicManager` will execute the `open` command, and the `index` will be used to find the `ride` from the
+list.
+After that, the `open` command will change the status of the ride to `Open` by utilising the `UpdateRideDescriptor`
 class.
 
 
