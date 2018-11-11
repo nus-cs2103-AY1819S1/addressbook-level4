@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_NON_EXISTENT_CCA;
 import static seedu.address.logic.commands.BudgetCommand.SHOWING_BUDGET_MESSAGE;
@@ -8,17 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.MainApp;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
