@@ -216,6 +216,17 @@ public class Group {
         toRemove.removeGroupHelper(this);
     }
 
+    // @@author zenious
+    /**
+     * Remove a person from this group that is not in groups yet.
+     *
+     */
+    public void removeMemberNoGroups(Person toRemove) {
+        requireNonNull(toRemove);
+        this.members.remove(toRemove);
+    }
+    // @@author
+
     /**
      * This method is reserved to be called only from {@link seedu.meeting.model.person.Person#removeGroup(Group)}
      * and {@link Person#clearMembership()} methods.

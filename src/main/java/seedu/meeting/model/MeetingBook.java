@@ -159,14 +159,9 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the MeetingBook.
      *
-=======
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
->>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
     public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
@@ -180,14 +175,9 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
-<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the MeetingBook.
      *
-=======
-     * {@code target} must exist in the address book.
-     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
->>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
@@ -328,6 +318,18 @@ public class MeetingBook implements ReadOnlyMeetingBook {
             Iterator<Group> groupItr = importedBook.groups.iterator();
             while (groupItr.hasNext()) {
                 Group importGroup = groupItr.next();
+                List<Person> importGroupPersons = importGroup.getMembersView();
+                for (Person p: importGroupPersons) {
+                    for (Person p1 : persons.asUnmodifiableObservableList()) {
+                        if (!p1.equals(p)) {
+                            importGroup.removeMemberNoGroups(p);
+                            break;
+                        }
+                        if (importGroupPersons.isEmpty()) {
+                            break;
+                        }
+                    }
+                }
                 if (!hasGroup(importGroup)) {
                     addGroup(importGroup);
                 } else {
