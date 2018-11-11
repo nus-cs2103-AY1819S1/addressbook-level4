@@ -284,6 +284,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void saveComposedEmailWithoutDisplay(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteEmail(String fileName) {
             throw new AssertionError("This method should not be called.");
         }

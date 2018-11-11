@@ -547,18 +547,22 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         if (filteredPersons == null) {
-            return versionedAddressBook.equals(other.versionedAddressBook);
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                    && calendarModel.equals(other.calendarModel)
+                    && emailModel.equals(other.emailModel);
         } else if (calendarModel == null) {
             return versionedAddressBook.equals(other.versionedAddressBook)
-                    && filteredPersons.equals(other.filteredPersons);
+                    && filteredPersons.equals(other.filteredPersons)
+                    && emailModel.equals(other.emailModel);
         }
         return versionedAddressBook.equals(other.versionedAddressBook)
             && filteredPersons.equals(other.filteredPersons)
-            && calendarModel.equals(other.calendarModel);
+            && calendarModel.equals(other.calendarModel)
+            && emailModel.equals(other.emailModel);
     }
 
     //@@author EatOrBeEaten
-    //=========== Compose email =================================================================================
+    //=========== Email =================================================================================
 
     @Override
     public void saveEmail(Email email) {
@@ -573,6 +577,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void saveComposedEmailWithoutDisplay(Email email) {
+        emailModel.saveComposedEmail(email);
+        indicateEmailSavedWithoutDisplay();
+    }
+
+    @Override
     public void deleteEmail(String fileName) {
         emailModel.removeFromExistingEmails(fileName);
         raise(new EmailDeleteEvent(fileName));
@@ -580,14 +590,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasEmail(String fileName) {
+        requireNonNull(fileName);
         return emailModel.hasEmail(fileName);
     }
 
     /**
      * Raises an event to indicate that a new email has been saved to EmailModel.
      */
+    private void indicateEmailSavedWithoutDisplay() {
+        raise(new EmailSavedEvent(emailModel));
+    }
+
+    /**
+     * Raises an event to indicate that a new email has been saved to EmailModel, and displays it on the BrowserPanel.
+     */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
+        raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
+        raise(new EmailViewEvent(emailModel));
     }
 
     @Override
