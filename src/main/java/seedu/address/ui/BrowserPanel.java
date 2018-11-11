@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.CalendarNotFoundEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ListEmailsEvent;
@@ -120,6 +121,14 @@ public class BrowserPanel extends UiPart<Region> {
         loadProfile(event.getPersonSelected());
     }
 
+    //@@author GilgameshTC
+    @Subscribe
+    private void handleCalendarNotFoundEvent(CalendarNotFoundEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
+    }
+
+    //@@author javenseow
     /**
      * Loads HTML page of profile.
      * @param person The person that the profile will show.

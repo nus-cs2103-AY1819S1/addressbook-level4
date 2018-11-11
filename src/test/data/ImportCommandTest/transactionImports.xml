@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entries>
+	<transaction>
+		<cca>Basketball</cca>
+		<date>20.06.2014</date>
+		<amount>-400</amount>
+		<log>Basketball Camp</log>
+	</transaction>
+</entries>

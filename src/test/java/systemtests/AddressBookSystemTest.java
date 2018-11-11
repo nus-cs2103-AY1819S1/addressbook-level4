@@ -26,12 +26,14 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import jfxtras.icalendarfx.VCalendar;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
@@ -42,6 +44,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.storage.Storage;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -117,6 +120,9 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getBrowserPanel();
     }
 
+    public CalendarPanelHandle getCalendarPanel() {
+        return mainWindowHandle.getCalendarPanel();
+    }
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
@@ -188,15 +194,35 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * (@code expectedResultMessage} and the calendar panel displays the correct calendar.
+     */
+    protected void assertCalendarDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                  VCalendar expectedCalendar) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedCalendar, getCalendarPanel().getLoadedCalendar());
+    }
+
+    /**
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         //getBrowserPanel().rememberUrl();
+        getCalendarPanel().rememberCalendar();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
+    }
+
+    /**
+     * Asserts that the calendar loaded in Calendar Panl remains unchanged.
+     * @see CalendarPanelHandle#isCalendarChanged()
+     */
+    protected void assertCalendarUnchanged() {
+        assertFalse(getCalendarPanel().isCalendarChanged());
     }
 
     /**
@@ -311,5 +337,12 @@ public abstract class AddressBookSystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    /**
+     * Returns a defensive copy of the current storage.
+     */
+    protected Storage getStorage() {
+        return testApp.getStorage();
     }
 }

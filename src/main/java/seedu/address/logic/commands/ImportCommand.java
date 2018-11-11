@@ -16,7 +16,9 @@ import org.xml.sax.SAXException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.imports.ImportAddressBook;
+import seedu.address.logic.commands.imports.ImportBudgetBook;
 import seedu.address.logic.commands.imports.ImportCcaList;
+import seedu.address.logic.commands.imports.ImportTransaction;
 import seedu.address.model.Model;
 
 //@@author kengwoon
@@ -41,7 +43,7 @@ public class ImportCommand extends Command {
     public static final String IMPORT_ADDRESSBOOK = "addressbook";
     public static final String IMPORT_CCA_LIST = "list";
     public static final String IMPORT_BUDGETBOOK = "ccabook";
-    public static final String IMPORT_TRANSACTION = "transactions";
+    public static final String IMPORT_TRANSACTION = "entries";
 
     private final Path path;
 
@@ -66,11 +68,16 @@ public class ImportCommand extends Command {
         case IMPORT_CCA_LIST:
             new ImportCcaList(doc, model).execute();
             break;
+        case IMPORT_BUDGETBOOK:
+            new ImportBudgetBook(doc, model).execute();
+            break;
+        case IMPORT_TRANSACTION:
+            new ImportTransaction(doc, model).execute();
+            break;
         default:
             throw new CommandException(MESSAGE_PARSE_ERR);
         }
 
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, path.getFileName()));
     }
 

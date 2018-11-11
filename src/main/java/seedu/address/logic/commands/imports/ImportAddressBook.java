@@ -26,11 +26,19 @@ import seedu.address.model.tag.Tag;
  */
 public class ImportAddressBook {
 
+    private static final String HEADER = "persons";
+    private static final String NAME = "name";
+    private static final String PHONE = "phone";
+    private static final String EMAIL = "email";
+    private static final String ROOM = "room";
+    private static final String SCHOOL = "school";
+    private static final String TAG = "tagged";
+    private static final int INDEX = 0;
+
     private Document doc;
     private Model model;
     private List<Person> personList;
     private Set<Tag> tags;
-
 
     public ImportAddressBook(Document doc, Model model) {
         this.doc = doc;
@@ -45,19 +53,19 @@ public class ImportAddressBook {
     public void execute() {
         List<Person> fullList = model.getAddressBook().getPersonList();
         personList.clear();
-        NodeList nList = doc.getElementsByTagName("persons");
+        NodeList nList = doc.getElementsByTagName(HEADER);
         for (int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
             tags.clear();
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
-                Name name = new Name(element.getElementsByTagName("name").item(0).getTextContent());
-                Phone phone = new Phone(element.getElementsByTagName("phone").item(0).getTextContent());
-                Email email = new Email(element.getElementsByTagName("email").item(0).getTextContent());
-                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
-                School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
-                NodeList tagged = element.getElementsByTagName("tagged");
+                Name name = new Name(element.getElementsByTagName(NAME).item(INDEX).getTextContent());
+                Phone phone = new Phone(element.getElementsByTagName(PHONE).item(INDEX).getTextContent());
+                Email email = new Email(element.getElementsByTagName(EMAIL).item(INDEX).getTextContent());
+                Room room = new Room(element.getElementsByTagName(ROOM).item(INDEX).getTextContent());
+                School school = new School(element.getElementsByTagName(SCHOOL).item(INDEX).getTextContent());
+                NodeList tagged = element.getElementsByTagName(TAG);
                 if (tagged.getLength() != 0) {
                     for (int j = 0; j < tagged.getLength(); j++) {
                         tags.add(new Tag(tagged.item(j).getTextContent()));
@@ -70,5 +78,6 @@ public class ImportAddressBook {
             }
         }
         model.addMultiplePersons(personList);
+        model.commitAddressBook();
     }
 }
