@@ -267,6 +267,7 @@ through easily when required.
 
 * Alternative 2 (Previous Implementation): Upcoming Appointments stored within a Queue and Past Appointments stored within a
 Stack.
+// end::registerpatient[]
 
 // tag::registerdoctor[]
 === Register Doctor Feature
@@ -319,6 +320,7 @@ prompt the user to login.
 unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
 continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
 the google calendar login.
+// end::registerdoctor[]
 
 // tag::deleteperson[]
 === Delete Patient and Doctor Feature
@@ -347,6 +349,7 @@ Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the s
 * Alternative 2: Use a Map that maps name to `Patient` or `Doctor`
 ** Pros: Fast retrieval
 ** Cons: Will have to change a lot of lines of code
+// end::deleteperson[]
 
 // tag::viewperson[]
 === View Patient and Doctor Feature
@@ -363,6 +366,7 @@ image::ViewDoctorSequenceDiagram.png[width="600"]
 Step 1. The user types in `view-patient` or `view-doctor` in the command box followed by the parameters `n/John Doe`
 
 Step 2. Upon hitting enter, information of `Patient` or `Doctor` will be reflected on the main information panel
+// end::viewperson[]
 
 // tag::filterperson[]
 === Filter Patient and Filter Doctor Feature
@@ -375,6 +379,7 @@ image::FilterPatientSequenceDiagram.png[width="600"]
 Step 1. The user types `filter-patient` or `filter-doctor` in the command box
 
 Step 2. Upon hitting enter, all persons who are tagged as `Patient` or `Doctor` would appear on the panel
+// end::filterperson[]
 
 // tag::addappointment[]
 === Add Appointment Feature
@@ -388,6 +393,7 @@ image::AddAppointmentSequenceDiagram.png[width="600"]
 Step 1. The user types in `add-appointment` in the command box followed by the parameters `np/John Doe nd/Mary Jane d/2018-10-17 15:00`
 
 Step 2. Upon hitting enter, the `Appointment` will be added to the HealthBook, the `Patient`, and the `Doctor` and his/her Google calendar
+// end::addappointment[]
 
 // tag::deleteappointment[]
 === Delete Appointment Feature
@@ -401,6 +407,7 @@ image::DeleteAppointmentSequenceDiagram.png[width="600"]
 Step 1. The user types in `delete-appointment` in the command box followed by the appointment id `10000`
 
 Step 2. Upon hitting enter, the `Appointment` will be removed from the HealthBook, the `Patient`, and the `Doctor` and his/her Google calendar
+// end::deleteappointment[]
 
 // tag::completeappointment[]
 === Complete Appointment Feature
@@ -414,6 +421,7 @@ image::CompleteAppointmentSequenceDiagram.png[width="600"]
 Step 1. The user types in `complete-appointment` in the command box followed by the appointment id `10000`
 
 Step 2. Upon hitting enter, the status in the `Appointment` will be changed from `UPCOMING` to `COMPLETED`
+// end::completeappointment[]
 
 // tag::addprescription[]
 === Add Prescription Feature
@@ -428,6 +436,7 @@ Step 2. Upon hitting enter, the `Prescription` will be created and added to the 
 [WARNING]
 Exception will be thrown if a medicine of the same name already exists in appointment regardless of dosage and consumption per day. +
 Exception will be thrown if medicine that the patient is allergic to is added to the appointment.
+// end::addprescription[]
 
 // tag::deleteprescription[]
 === Delete Prescription Feature
@@ -441,6 +450,7 @@ Step 2. Upon hitting enter, the `Prescription` will be deleted from the `Appoint
 
 [WARNING]
 Exception will be thrown if medicine to be deleted does not exist in appointment.
+// end::deleteprescription[]
 
 // tag::addmedicalhistory[]
 === Add Medical History Feature
@@ -470,6 +480,7 @@ Exception will be thrown if inputs for both field are blank.
 * Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
 `AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
 * Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
+// end::addmedicalhistory[]
 
 // tag::deletemedicalhistory[]
 === Delete Medical History Feature
@@ -499,6 +510,7 @@ Exception will be thrown if given input is not in the original medical history.
 * Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
 `AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
 * Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
+// end::deletemedicalhistory[]
 
 // tag::remark[]
 === Remark Feature
@@ -513,6 +525,7 @@ Step 1. The user types in `remark` in the command box followed by the parameters
 
 Step 2. Upon hitting enter, the new remark will be visible in the Doctor/Patient's contact. If input was empty, the
 previous remark will be deleted.
+// end::remark[]
 
 === Logging
 
