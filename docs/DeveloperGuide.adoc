@@ -794,6 +794,9 @@ Given below is an example usage scenario and how the leave application mechanism
 
 1. The user executes the `leave add -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
 
+[NOTE]
+The `LeaveApplication` constructor removes all duplicate dates when creating the leave application.
+
 2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the `Model` will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
 3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<25-storage-component, Storage>> component.
@@ -802,13 +805,13 @@ Given below is an example usage scenario and how the leave application mechanism
 
 ===== Aspect: How a `LeaveApplication` is stored
 
-* **Alternative 1 (current choice):** Saves it only as a part of `Person`.
+* **Alternative 1 (current choice):** Saved only as a part of `Person`.
 ** Pros: Easy to implement.
-** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system.
-* **Alternative 2:** Stores it only as a part of `AddressBook`.
+** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
+* **Alternative 2:** Stored only as a part of `AddressBook`.
 ** Pros: Easy to implement.
 ** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
-* **Alternative 3:** Stores it as a part `Person` as well as `AddressBook`.
+* **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
 // end::leaveapplication[]
