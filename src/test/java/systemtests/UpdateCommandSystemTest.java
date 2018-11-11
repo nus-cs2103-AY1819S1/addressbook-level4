@@ -3,15 +3,11 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -22,6 +18,10 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_A
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
@@ -63,7 +63,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
          */
         Index index = INDEX_FIRST_PERSON;
         String command = " " + UpdateCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + MAINTENANCE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + MAINTENANCE_DESC_BOB + " " + WAIT_TIME_DESC_BOB + "  " + ZONE_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Ride editedRide = new RideBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedRide);
 
@@ -81,8 +81,8 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: edit a ride with new values same as existing values -> edited */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a ride with new values same as another ride's values but with different name -> edited */
@@ -90,8 +90,8 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         index = INDEX_SECOND_RIDE;
         assertNotEquals(getModel().getFilteredRideList().get(index.getZeroBased()), BOB);
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_AMY + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_AMY + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRide = new RideBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRide);
 
@@ -101,8 +101,8 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         index = INDEX_SECOND_RIDE;
         String editedName = "Different";
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + " " + PREFIX_NAME + editedName + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + " " + PREFIX_NAME + editedName + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRide = new RideBuilder(BOB).withName(editedName)
                 .withMaintenance(VALID_MAINTENANCE_AMY).withWaitTime(VALID_WAIT_TIME_AMY).build();
         assertCommandSuccess(command, index, editedRide);
@@ -143,8 +143,8 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+                + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY
+                + ZONE_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new ride's name
         assertCommandSuccess(command, index, AMY, index);
@@ -177,19 +177,19 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
+        /* Case: invalid maintenance -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid wait time -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_WAIT_TIME_DESC,
                 WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid thanepark -> rejected */
+        /* Case: invalid zone -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_ZONE_DESC,
                 Zone.MESSAGE_ZONE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
@@ -203,32 +203,32 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredRideList().get(index.getZeroBased()).equals(BOB));
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: edit a ride with new values same as another ride's values but with different tags -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: edit a ride with new values same as another ride's values but with different thanepark -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: edit a ride with new values same as another ride's values but with different phone -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_BOB
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: edit a ride with new values same as another ride's values but with different email -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_AMY
+                + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
     }
 

@@ -23,30 +23,30 @@ import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
- * Shut down an existing ride in the thane park.
+ * Close an existing ride in the thane park for maintain.
  */
-public class ShutDownCommand extends Command {
+public class MaintainCommand extends Command {
 
-    public static final String COMMAND_WORD = "shutdown";
+    public static final String COMMAND_WORD = "maintain";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shutdown the ride identified by index.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Close the ride identified by index for maintenance.\n "
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_SHUTDOWN_RIDE_SUCCESS = "Ride is shut down: %1$s";
-    public static final String MESSAGE_DUPLICATE_RIDE = "This ride is already shut down.";
+    public static final String MESSAGE_MAINTAIN_RIDE_SUCCESS = "Ride is closed for maintenance: %1$s";
+    public static final String MESSAGE_DUPLICATE_RIDE = "This ride is already closed for maintenance.";
 
     private final Index index;
-    private final UpdateRideDescriptor shutdownRideDescriptor;
+    private final MaintainCommand.UpdateRideDescriptor maintainRideDescriptor;
 
     /**
-     * @param index of the ride in the filtered ride list to open
+     * @param index of the ride in the filtered ride list to maintain
      */
-    public ShutDownCommand(Index index) {
+    public MaintainCommand(Index index) {
         requireNonNull(index);
 
         this.index = index;
-        this.shutdownRideDescriptor = new UpdateRideDescriptor();
+        this.maintainRideDescriptor = new MaintainCommand.UpdateRideDescriptor();
     }
 
     @Override
@@ -58,33 +58,33 @@ public class ShutDownCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         }
 
-        Ride rideToShutDown = lastShownList.get(index.getZeroBased());
-        Ride editedRide = createUpdatedRide(rideToShutDown, shutdownRideDescriptor);
+        Ride rideToMaintain = lastShownList.get(index.getZeroBased());
+        Ride editedRide = createUpdatedRide(rideToMaintain, maintainRideDescriptor);
 
-        if (rideToShutDown.isSameRide(editedRide) && rideToShutDown.equals(editedRide)) {
+        if (rideToMaintain.isSameRide(editedRide) && rideToMaintain.equals(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
-        model.updateRide(rideToShutDown, editedRide);
+        model.updateRide(rideToMaintain, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         model.commitThanePark();
-        return new CommandResult(String.format(MESSAGE_SHUTDOWN_RIDE_SUCCESS, editedRide));
+        return new CommandResult(String.format(MESSAGE_MAINTAIN_RIDE_SUCCESS, editedRide));
     }
 
     /**
-     * Creates and returns a {@code Ride} with the details of {@code rideToOpen}
-     * edited with {@code shutdownRideDescriptor}.
+     * Creates and returns a {@code Ride} with the details of {@code rideToMaintain}
+     * edited with {@code maintainRideDescriptor}.
      */
-    private static Ride createUpdatedRide(Ride rideToOpen, UpdateRideDescriptor openRideDescriptor) {
-        assert rideToOpen != null;
+    private static Ride createUpdatedRide(Ride rideToMaintain,
+                                          MaintainCommand.UpdateRideDescriptor openRideDescriptor) {
+        assert rideToMaintain != null;
 
-        Name updatedName = openRideDescriptor.getName().orElse(rideToOpen.getName());
-        Maintenance updatedMaintenance =
-                openRideDescriptor.getMaintenance().orElse(rideToOpen.getDaysSinceMaintenance());
+        Name updatedName = openRideDescriptor.getName().orElse(rideToMaintain.getName());
+        Maintenance updatedMaintenance = new Maintenance(0);
         WaitTime updatedWaitTime = new WaitTime(0);
-        Zone updatedZone = openRideDescriptor.getZone().orElse(rideToOpen.getZone());
-        Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToOpen.getTags());
-        Status updatedStatus = Status.SHUTDOWN;
+        Zone updatedZone = openRideDescriptor.getZone().orElse(rideToMaintain.getZone());
+        Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToMaintain.getTags());
+        Status updatedStatus = Status.MAINTENANCE;
 
         return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags, updatedStatus);
     }
@@ -97,14 +97,14 @@ public class ShutDownCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ShutDownCommand)) {
+        if (!(other instanceof MaintainCommand)) {
             return false;
         }
 
         // state check
-        ShutDownCommand e = (ShutDownCommand) other;
+        MaintainCommand e = (MaintainCommand) other;
         return index.equals(e.index)
-                && shutdownRideDescriptor.equals(e.shutdownRideDescriptor);
+                && maintainRideDescriptor.equals(e.maintainRideDescriptor);
     }
 
     /**
@@ -125,7 +125,7 @@ public class ShutDownCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public UpdateRideDescriptor(UpdateRideDescriptor toCopy) {
+        public UpdateRideDescriptor(MaintainCommand.UpdateRideDescriptor toCopy) {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
@@ -200,12 +200,12 @@ public class ShutDownCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UpdateRideDescriptor)) {
+            if (!(other instanceof MaintainCommand.UpdateRideDescriptor)) {
                 return false;
             }
 
             // state check
-            UpdateRideDescriptor e = (UpdateRideDescriptor) other;
+            MaintainCommand.UpdateRideDescriptor e = (MaintainCommand.UpdateRideDescriptor) other;
 
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
@@ -216,4 +216,3 @@ public class ShutDownCommand extends Command {
         }
     }
 }
-

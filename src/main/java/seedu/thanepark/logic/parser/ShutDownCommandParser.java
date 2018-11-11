@@ -8,16 +8,14 @@ import seedu.thanepark.logic.commands.ShutDownCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new OpenCommand object
+ * Parses input arguments and creates a new ShutDownCommand object
  */
-
 public class ShutDownCommandParser implements Parser<ShutDownCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ShutDownCommand
      * and returns an ShutDownCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-
     @Override
     public ShutDownCommand parse(String args) throws ParseException {
         requireNonNull(args);
