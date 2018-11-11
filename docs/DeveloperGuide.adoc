@@ -489,25 +489,30 @@ and update the cards panel accordingly
 
 Imports and exports in Anakin are managed by a PortManager.
 
-PortManager will contain a `java.nio Path` that files will be exported to. By default it is the same folder that Anakin is located in.
-Exporting a `Deck` will convert it to an `XmlExportableDeck`
-Upon creation, Model will initialize a PortManager. When an ExportCommand or ImportCommand is executed, it will call the Model's importDeck or exportDeck method.
-
+Exporting a `Deck` will create an `XmlExportableDeck`, which is exported as a .xml file in the same folder as the Anakin.jar file. +
+Upon creation, Model will initialize a PortManager. When an ExportCommand or ImportCommand is executed, it will call the Model's importDeck or exportDeck method. +
+PortManager uses the `java.nio Path` package to navigate directories.
 
 ==== Design considerations
 
 * *Alternative 1 (current choice):* Have Model contain a PortManager class to manage imports and export.
-** Explanation: Commands pass arguments to Model, which passes arguments to its PortManager.
+** Explanation: Commands pass their arguments to Model, which passes arguments to the PortManager.
 In the case of ExportCommand, the `Deck` to be exported is passed from Command to Model to PortManager.
 PortManager returns a `String` of the export location, which is passed to Model, then passed to the Command for printing. +
 
-** Pros: Better modularity
+** Pros: Better modularity and Separation of Concerns
 ** Cons: Have to pass messages through many layers and methods.
 
 * *Alternative 2:* Have Model itself manage imports and exports
-
+** Explanation: Create methods in Model that directly handle conversion, imports, and exports.
 ** Pros: Less message passing between layers
 ** Cons: Worse modularity and Separation of Concerns.
+
+* *Alternative 3:* Use a 3rd party library to assist in managing imports/exports
+** Pros: Potentially more powerful functionality.
+** Pros: Good Separation of Concerns as the library is entirely modular.
+** Cons: Need to create methods to adapt data to be compatible with the library API.
+** Cons: Functionality is obscured. May be difficult to fix any unforseen errors.
 
 // end::importexportimplementation[]
 
@@ -749,12 +754,13 @@ b. Require developers to download those libraries manually (this creates extra w
 User: Student who uses flashcards heavily in their studies but finds trouble managing too many physical cards.
 
 * has a need to manage a significant number of <<flashcard, flashcards>>
-* prefer desktop apps over other types
+* prefers desktop over other media (i.e. mobile)
 * can type quickly
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage flashcards faster than a typical mouse/GUI driven app
+*Value proposition*: Manage flashcards faster than a typical mouse/GUI driven app. +
+Without any UI elements, the UI is extremely clean. Users will never accidentally click on something wrongly as there is never any functional response to mouse input.
 
 [[GetStartedProgramming]]
 [appendix]
@@ -786,7 +792,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user that types quickly |custom keyboard shortcuts | bind commands to my own aliases
 |=======================================================================
 
-
+//tag::usecases[]
+//tag::partialusecases[]
 [appendix]
 == Use Cases
 
@@ -854,6 +861,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+//end::partialusecases[]
 
 === Add a card to a deck
 
@@ -888,33 +896,10 @@ Use case ends
 
 *MSS*
 
-1. User requests to list decks.
-2. Anakin returns the list of decks.
-3. User requests to delete a card from a deck
-4. Anakin deletes the specified card from the deck
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The index specified for either the card or the deck does not exist
-+
-[none]
-** 3a1. Anakin displays error message
-+
-Use case resumes at step 3.
-
-*Alternate Use Case*
-
 1.  User selects a deck
 2.  Anakin displays deck details
 3.  User requests to delete a card.
-4. Anakin deletes the specified from the current deck
+4.  Anakin deletes the specified from the current deck
 +
 Use case ends.
 
@@ -975,14 +960,60 @@ Use case ends.
 +
 Use case ends.
 
+=== Export a deck
 
+*MSS*
+
+1. User requests to export a deck
+2. Anakin exports the deck to the same directory as the Anakin.jar file.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The deck does not exist at the index specified
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
+
+=== Import a deck
+
+*MSS*
+
+1. User requests to import a deck at a specified file location
+2. Anakin imports the deck
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The file does not exist at the location specified
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
++
+[none]
+* 1a. The file exists but has the wrong format
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
+
+//end:: usecases[]
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 . Should be usable on a laptop with average hardware
-. Internal state should be persistent
+. <<internalState,Internal state>> should be persistent
 . Internal state should be recoverable from system crashes
 .  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -996,15 +1027,18 @@ Use case ends.
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
+[[deck]] Deck::
+A collection of flashcards.
 
 [[flashcard]] Flashcard::
 A card containing a prompt on one side, and a small amount of information (the answer) on the other
 
-[[deck]] Deck::
-A collection of flashcards.
+[[internalState]] Internal State::
+The data of the application which includes decks, cards, and the order they are in but excludes session based information like Command History. +
+Maintained by Model and stored in Storage.
 
 [[markdown]] Markdown::
 A markup language with plain text formatting syntax.
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X

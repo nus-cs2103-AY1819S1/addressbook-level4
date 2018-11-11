@@ -37,7 +37,7 @@ occasional references to other related commands.
 
 To assist you, we have added sample use cases of each command in the document
 
-
+//tag::quickStart[]
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 Refer to <<Features>> for more details on the available commands.
-
+//end::quickStart[]
 [[Features]]
 == Features
 
@@ -83,7 +83,7 @@ Format: `list`
 
 
 === Navigating into a deck : `cd`
-Enters the deck identified by the index in the displayed deck list. +
+To enter a deck identified by the INDEX_OF_DECK in the visible deck list. +
 Format: `cd INDEX_OF_DECK`
 
 ****
@@ -343,27 +343,62 @@ Returns any decks containing `Bio`, `Chem`, or `Physics` in their name.
 Returns any cards containing `John` or `Snow` in their questions.
 // end::find[]
 
-// tag::export[]
+// tag::importexport[]
 === Export deck to xml file : `export`
-Creates an `xml` file containing the deck at INDEX_OF_DECK. +
+To create an `xml` file of the deck at INDEX_OF_DECK. +
 Format: `export INDEX_OF_DECK`
 
 ****
 * INDEX_OF_DECK must be a positive integer from 1 onwards and is based on the currently displayed list.
 * This operation is disabled when user navigates into a deck.
+* The xml file will be created in the same directory as the Anakin.jar file.
 ****
-// end::export[]
 
-// tag::import[]
+Example:
+
+* 1. First, display all the decks in Anakin using `list`. +
+
+image::exportScreenshot1.png[width="500"]
+
+* 2. Say you want to export "Geography" (the 3rd deck), simply enter the command: `export 3`. You should see the following message: +
+
+image::exportScreenshot2.png[width="500"]
+
+"Geography.xml" will be created in the same directory as the Anakin.jar file. +
+
+image::exportScreenshot3.png[width="300"]
+
 === Import deck from xml file : `import`
-Imports an deck from the `xml` file at the specified FILEPATH. +
+To import a deck from the `xml` file at the specified FILEPATH. +
 Format: `import FILEPATH`
 
 ****
-* FILEPATH must include the filename of the target file.
-* This operation is disabled when user navigates into a deck.
+* You must include the filename of the target file in `FILEPATH`.
+* This operation is disabled when you navigate into a deck.
+* The default base directory is the same directory as the Anakin.jar file.
 ****
-// end::import
+
+Examples:
+
+Say you want to import a deck called "Geography" and you have the `Geography.xml` file in the same directory as Anakin.jar. +
+
+image::exportScreenshot3.png[width="300"]
+
+* Simply  enter `import Geography.xml` +
+
+Before:
+
+image::importScreenshot1.png[width="500"]
+
+After:
+
+image::importScreenshot2.png[width="500"]
+
+Anakin imports the deck "My Deck" if it is in the same directory as the Anakin.jar file.
+* `import C:/Users/Admin/Desktop/My Deck2.xml` +
+Anakin imports the deck "My Deck2".
+
+// end::importexport[]
 
 === Listing entered commands : `history`
 
@@ -451,6 +486,7 @@ which is lexicographically closest to what is in the text box. If the command bo
 *Q*: Why is it called *Anakin*? +
 *A*: Because using CLI is as cool and mysterious as using the Force.
 
+//tag::cmdsummary[]
 == Command Summary
 
 A convenient cheat sheet of commands
@@ -479,10 +515,10 @@ You must be inside a deck to perform this operation.
 |`endreview` | Exits the review.
 |`classify DIFFICULTY` | Classifies the current card into one of the following categories: {‘easy’, ‘normal' , ‘hard’}
 |`sort` | Sorts the displayed list of decks by name. +
-When inside a deck, sorts the displayed list of cards by question.
+When you are inside a deck, sorts the displayed list of cards by question.
 //|`rank` | Sort the list of cards by performance
 |`find KEYWORD [MORE_KEYWORDS]...` | Finds decks with names that contain any of the given keywords. +
-When inside a deck, finds cards with questions that contain any of the given keywords.
+When you are inside a deck, finds cards with questions that contain any of the given keywords.
 |`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as Anakin)
 |`import FILEPATH` | Imports a deck from the `xml` file at the specified FILEPATH.
 |`history` | List all entered commands in reverse chronological order.
@@ -492,3 +528,4 @@ When inside a deck, finds cards with questions that contain any of the given key
 |`exit` | Exits the program.
 
 |=======================================================================
+//end::cmdsummary[]
