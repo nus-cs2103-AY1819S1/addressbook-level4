@@ -299,7 +299,7 @@ Below is the pseudo-code for Target Grade Calculation:
 ```
 CG <- CAP goal of user.
 TC <- total credit of completed and incomplete modules.
-PO <- total points achieved from completed modules.
+PO <- total points achieved from completed and adjusted modules.
 P <- CG * TC - PO // total points needed to achieve from incomplete modules.
 
 mc_remaining <- sum of module credit of all incomplete modules
