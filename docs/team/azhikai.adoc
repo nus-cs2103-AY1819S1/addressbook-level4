@@ -5,14 +5,14 @@
 
 == PROJECT: MeNUS
 ---
-This portfolio aims to provide a summary of my contribution as Team Leader for the project,
+This portfolio aims to provide a summary of my contribution as Team Lead for the project,
 https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
 
 == Overview
 
 *MeNUS* is a restaurant management desktop application targeting restaurant owners in the National University
-of Singapore (NUS). It is built to help them better manage core aspects of their restaurants  --  employees, menus,
-inventory, sales and reservations -- all from a single location!
+of Singapore (NUS). It is built to help them better manage core aspects of their restaurants  --  accounts (i.e. employees), menus,
+inventory, sales and reservations management -- all within a single application!
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). *MeNUS* also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX] and it
