@@ -99,10 +99,4 @@ class ShowLocationCommandTest {
         assertEquals(person, latestEvent.getSelectedPerson());
     }
 
-
-
-    @Test
-    void execute() {
-    }
-
 }
