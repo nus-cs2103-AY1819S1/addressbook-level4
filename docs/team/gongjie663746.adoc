@@ -1,0 +1,45 @@
+= gongjie663746 - Project Portfolio
+
+== PROJECT: JxMusic
+
+---
+
+== Overview
+
+JxMusic is for those who prefer to use a desktop app for listening to music. More importantly, JxMusic is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=gongjie663746
+* *Major enhancement*: *Storage* component of Jxmusic
+** What it does: Enable the app to save the Library’s Playlist information into JSON file, read from library to initialize library class, and scan all valid mp3 files in the /library folder.
+** Justification: It is important in this application because it allows the user to have their playlists information stored. Furthermore, it loads the library folder’s mp3 files and display them on the track panel.
+** Highlights: This enhancement takes the edge cases into considerations when the library folder is empty or does not exist, it can extract a default library from resource folder of the application.
+* *Other Contributions*:
+** Minor enhancements: Added Track List Command and Track Search Command, which allow users to navigate the all the tracks available in the library folder, and search tracks using keywords.
+** Contributions to project management：
+*** self-assigning issues. https://github.com[#40], https://github.com[#37]
+*** Contribute to the brainstorming. https://github.com[#24]
+** Evidence of helping others:
+*** Spotted bugs and edge cases on the track and playlist search command.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=features]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ReadLibrary]
+
+include::../DeveloperGuide.adoc[tag=Tracksearchandlist]
+
