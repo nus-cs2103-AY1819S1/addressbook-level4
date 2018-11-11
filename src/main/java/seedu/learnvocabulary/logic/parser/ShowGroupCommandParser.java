@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.learnvocabulary.logic.commands.ShowGroupCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
+import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 
 //
@@ -26,6 +27,9 @@ public class ShowGroupCommandParser implements Parser<ShowGroupCommand> {
         if (trimmedArgs.contains(" ")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowGroupCommand.MESSAGE_MULTI_GROUP));
+        }
+        if (!Tag.isValidTagName(trimmedArgs)) {
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new ShowGroupCommand(new TagContainsKeywordsPredicate(Arrays.asList(trimmedArgs)));
     }
