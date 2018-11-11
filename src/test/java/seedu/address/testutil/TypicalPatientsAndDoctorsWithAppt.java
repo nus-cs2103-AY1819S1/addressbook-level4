@@ -23,7 +23,7 @@ public class TypicalPatientsAndDoctorsWithAppt {
             .withAppointmentId(10000)
             .withMedicineName("Aspirin").build()))).build();
     public static final Appointment SECOND = new AppointmentBuilder().withAppointmentId(10001)
-            .withDoctor("George Best").withPatient("Benson Meier").withDateTime("2018-12-12 12:00")
+            .withDoctor("George Best").withPatient("Benson Meier").withDateTime("2018-10-12 12:00")
             .withComments("Flu check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
             .withAppointmentId(10001)

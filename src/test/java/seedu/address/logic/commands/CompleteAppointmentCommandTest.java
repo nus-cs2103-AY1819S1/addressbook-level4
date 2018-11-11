@@ -4,13 +4,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA_DOCTOR;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ALICE_PATIENT_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIONA_DOCTOR_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIRST;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.BENSON_PATIENT_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FOURTH;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.GEORGE_DOCTOR_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.SECOND;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt
         .getTypicalAddressBookWithPatientAndDoctorWithAppt;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -25,6 +27,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PatientBuilder;
+import seedu.address.testutil.PrescriptionBuilder;
 
 
 /**
@@ -37,19 +40,39 @@ public class CompleteAppointmentCommandTest {
 
     @Test
     public void execute_completeAppointment_success() {
-        Appointment editedAppointment = new AppointmentBuilder(FIRST).build();
-        Patient editedPatient = new PatientBuilder(ALICE_PATIENT).withAppointment(editedAppointment).build();
-        Doctor editedDoctor = new DoctorBuilder(FIONA_DOCTOR).withAppointment(editedAppointment).build();
+        Appointment expectedAppointment = new AppointmentBuilder().withAppointmentId(10001)
+                .withDoctor("George Best").withPatient("Benson Meier").withDateTime("2018-10-12 12:00")
+                .withComments("Flu check up")
+                .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
+                .withAppointmentId(10001)
+                .withMedicineName("Tamiflu").build()))).build();
+        Patient expectedPatient = new PatientBuilder().withName("Benson Meier")
+                .withAddress("311, Clementi Ave 2, #02-25")
+                .withEmail("johnd@example.com").withPhone("98765432")
+                .withRemark("")
+                .withTags("Patient", "friends")
+                .withMedicalHistory("", "having cold").build();
+        Doctor expectedDoctor = new DoctorBuilder()
+                .withName("George Best")
+                .withPhone("9482442")
+                .withEmail("anna@example.com")
+                .withAddress("4th street")
+                .withRemark("")
+                .withTags("Doctor").build();
+
+        expectedPatient.addUpcomingAppointment(expectedAppointment);
+        expectedDoctor.addUpcomingAppointment(expectedAppointment);
+        expectedDoctor.addUpcomingAppointment(FOURTH);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(ALICE_PATIENT_APPT, editedPatient);
-        expectedModel.updatePerson(FIONA_DOCTOR_APPT, editedDoctor);
-        expectedModel.updateAppointment(FIRST, editedAppointment);
-        expectedModel.completeAppointment(editedAppointment, editedPatient, editedDoctor);
+        expectedModel.updatePerson(BENSON_PATIENT_APPT, expectedPatient);
+        expectedModel.updatePerson(GEORGE_DOCTOR_APPT, expectedDoctor);
+        expectedModel.updateAppointment(SECOND, expectedAppointment);
+        expectedModel.completeAppointment(expectedAppointment, expectedPatient, expectedDoctor);
         expectedModel.commitAddressBook();
 
         CompleteAppointmentCommand completeAppointmentCommand =
-                new CompleteAppointmentCommand(FIRST.getAppointmentId());
+                new CompleteAppointmentCommand(SECOND.getAppointmentId());
 
         String expectedMessage = completeAppointmentCommand.MESSAGE_SUCCESS;
 
