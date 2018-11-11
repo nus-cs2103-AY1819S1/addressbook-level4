@@ -11,10 +11,12 @@ Here you can find details on my contributions to various Software Engineering pr
 
 == PROJECT: MeetingBook
 
-MeetingBook is a desktop scheduler application targeted at university students involved in multiple Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group contacts and assign meetings to such groups. MeetingBook is written by a team of 5 students from National University of Singapore's School of Computing. It is forked from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4] written by https://se-edu.github.io/[SE-EDU].
-//<Project Constraints><Purpose><Personalise><Summarise of contribution (My contribution includes)>
+MeetingBook is a desktop scheduler application developed in a course of 6 weeks under a module which aims to improve our proficiency in Software Engineering. MeetingBook is targeted at university students involved in multiple Co-Curricular Activities and Project-Based modules. MeetingBook is written by a team of 5 students from National University of Singapore's School of Computing. We modified a contact book, forked from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4] written by https://se-edu.github.io/[SE-EDU], to includes features such as grouping of contacts and assign meetings to such groups.
 
-=== Summary of contributions
+My contribution mainly includes the implementation of export and import features and  project management.
+
+
+== Summary of contributions
 
 * *Major enhancement*: added the ability to *export/import MeetingBook*
 ** What it does: allows the user to export/import XML version of MeetingBook.
@@ -29,9 +31,10 @@ MeetingBook is a desktop scheduler application targeted at university students i
 ** Project management:
 *** Setting up project management tools such as Coveralls, Travis, Codacy for the team repository
 *** Managed releases v1.1 - v1.3.1 (5 releases) on GitHub
+*** Setting up of RepoSense configuration for the repository
 
 ** Enhancements to existing features:
-*** refactoring of Address Book to MeetingBoo: https://github.com/CS2103-AY1819S1-W17-3/main/pull/157[#157]
+*** Refactoring of Address Book to MeetingBook: https://github.com/CS2103-AY1819S1-W17-3/main/pull/157[#157]
 ** Documentation:
 *** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/36[#36], https://github.com/CS2103-AY1819S1-W17-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-W17-3/main/pull/94[#94], https://github.com/CS2103-AY1819S1-W17-3/main/pull/141[#141], https://github.com/CS2103-AY1819S1-W17-3/main/pull/160[#160]
 ** Community:
@@ -46,9 +49,9 @@ MeetingBook is a desktop scheduler application targeted at university students i
 
 include::../UserGuide.adoc[tag=export]
 
-include::../UserGuide.adoc[tag=filepath]
-
 include::../UserGuide.adoc[tag=import]
+
+include::../UserGuide.adoc[tag=filepath]
 
 == Contributions to the Developer Guide
 
