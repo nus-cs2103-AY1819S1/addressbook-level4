@@ -456,7 +456,7 @@ Exception will be thrown if medicine to be deleted does not exist in appointment
 === Add Medical History Feature
 ==== Current Implementation
 The add medical history feature is facilitated by `AddMedicalHistoryCommand` and `AddMedicalHistoryCommandParser`. This
-command is implemented such that it is able to add `allergies` AND/OR `conditions` to `MedicalHistory` object for a specific
+command is implemented such that it is able to add `Allergy` AND/OR `Condition` to `MedicalHistory` object for a specific
 `Patient` specified by name.
 
 .Add Medical History Sequence Diagram
@@ -466,7 +466,7 @@ Step 1. The user types in `add-medical-history` in the command box followed by t
 c/subhealthy,hyperglycemia`
 
 [NOTE]
-For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
+For multiple inputs in the same field, use comma `,` to separate.
 You can only omit either ALLERGY parameter or CONDITION parameter.
 Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 
@@ -486,8 +486,8 @@ Exception will be thrown if inputs for both field are blank.
 === Delete Medical History Feature
 ==== Current Implementation
 The delete medical history feature is facilitated by `DeleteMedicalHistoryCommand` and
-`DeleteMedicalHistoryCommandParser`. This command is implemented such that it is able to delete `allergy` AND/OR
-`condition` from `MedicalHistory` object for a specific `Patient` specified by name.
+`DeleteMedicalHistoryCommandParser`. This command is implemented such that it is able to delete `Allergy` AND/OR
+`Condition` from `MedicalHistory` object for a specific `Patient` specified by name.
 
 .Delete Medical History Sequence Diagram
 image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
@@ -496,11 +496,11 @@ Step 1. The user types in `delete-medical-history` in the command box followed b
 al/penicillin,milk c/subhealthy,hyperglycemia`
 
 [NOTE]
-For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
+For multiple inputs in the same field, use comma `,` to separate.
 You can only omit either ALLERGY parameter or CONDITION parameter.
+Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 
-
-Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get deleted
+Step 2. Upon hitting enter, the `Allergy` AND/OR `Condition` of `MedicalHistory` will get deleted
 
 [WARNING]
 Exception will be thrown if inputs for both field are blank.

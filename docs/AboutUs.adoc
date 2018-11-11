@@ -38,7 +38,7 @@ Responsibilities: Looks after code quality, ensures adherence to coding standard
 
 === Yang Yafei
 image::YangYafei1998.png[width="150", align="left"]
-{empty}[http://github.com/YangYafei1998[github]]
+{empty}[http://github.com/YangYafei1998[github]] [<<yangyafei1998#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Ensure project deliverables are done on time and in the right format.
