@@ -79,7 +79,7 @@ public class ImageCommandTest {
 
     @Test
     public void execute_validFile_success() {
-        ImageCommand imageCommand = new ImageCommand(new Room(VALID_ROOM),
+        ImageCommand imageCommand = new ImageCommand(ALICE.getRoom(),
                 new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
 
         String expectedMessage = String.format(ImageCommand.MESSAGE_SUCCESS, ALICE);
