@@ -497,7 +497,7 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
 
-// tag::addressbook[]
+// tag::meetingbook[]
 === MeetingBook feature
 
 ==== Current Implementation
@@ -515,7 +515,7 @@ image::addressbookObject.png[width="350"]
 
 [NOTE]
 The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-// end::addressbook[]
+// end::meetingbook[]
 
 // tag::sortfind[]
 === Sort and Find feature

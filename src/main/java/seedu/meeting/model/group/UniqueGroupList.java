@@ -30,6 +30,7 @@ import seedu.meeting.model.shared.Title;
  *
  * {@author Derek-Hardy}
  */
+// @@author Derek-Hardy
 public class UniqueGroupList implements Iterable<Group> {
 
     private final ObservableList<Group> internalList = FXCollections.observableArrayList();
