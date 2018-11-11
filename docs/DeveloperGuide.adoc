@@ -546,7 +546,7 @@ who is the same person as the contact. By the use of a `Predicate` with this log
 The sequence diagram below shows a typical usage of the feature.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
-image::see-event-contacts-condensed_logic-model.PNG[Interactions between Logic and Model, width="800"]
+image::see-event-contacts-condensed_logic-model.png[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to see an event's contacts. +
 Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +

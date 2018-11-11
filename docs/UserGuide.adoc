@@ -310,7 +310,7 @@ Examples:
 * `generateLocation n/First Meeting d/2018-04-06 st/1600`
 
 // tag::addEvent[]
-=== Adding an event: `addEvent`
+=== Adding an event: `addEvent`, alias `ae`
 
 Adds an event in the system with information specified by the user.
 
@@ -382,7 +382,7 @@ image::add-event-no-address.PNG[Adding an event without an address]
 
 [[seeEventContacts]]
 //tag::seeEventContacts[]
-=== Viewing an event's contacts: `seeEventContacts`
+=== Viewing an event's contacts: `seeEventContacts`, alias `sec`
 
 Shows an event's contacts in the persons list. The information displayed in aligned with that in the UI
 when hovering over the event contact.
@@ -435,7 +435,7 @@ image::see-event-contacts-4.PNG[Event contact display after delete]
 
 [[addEventTag]]
 // tag::addEventTag[]
-=== Adding an event tag: `addEventTag`
+=== Adding an event tag: `addEventTag`, alias `aet`
 
 Adds an event tag specified by the user into the system.
 
@@ -461,7 +461,7 @@ image::add-event-tag_new-event-tag.PNG[Adding an event tag]
 // end::addEventTag[]
 
 // tag::deleteEvent[]
-=== Deleting an event: `deleteEvent`
+=== Deleting an event: `deleteEvent`, alias `de`
 
 Adds an event in the system with information specified by the user.
 
@@ -494,7 +494,7 @@ image::delete-event-after.PNG[Deleting an event]
 // end::deleteEvent[]
 
 //tag::editEvent[]
-=== Edit event address
+=== Edit event address: `editEventAddress`, alias `eea`
 Edits the address of the specified event in the address book.
 
 Format: `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS`
@@ -525,14 +525,14 @@ image::edit-address-after.PNG[Editing an event address]
 //end::editEvent[]
 
 // tag::listEvent[]
-=== List all events: `listEvent`
+=== List all events: `listEvent`, alias `lse`
 
 Shows a list of all events in the address book. +
 Format: `listEvent`
 // end::listEvent[]
 
 // tag::findEvent[]
-=== Find events by event tags: `findEvent`
+=== Find events by event tags: `findEvent`, alias `fe`
 
 Shows a list of all events in the address book which are tagged as the specified tags in the command.
 Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>> section. +

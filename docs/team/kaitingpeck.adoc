@@ -55,36 +55,34 @@ find all events tagged as that particular type easily.
 
 ** Project management:
 *** Set up Travis, Appveyor and auto-publishing of documentation
-*** Managed releases `v1.2` and `v1.4.1` (2 releases) on GitHub
+*** Managed releases `v1.2` and `v1.4.1` on GitHub
 
 ** Enhancements to existing features:
-*** Added the AddEvent functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/60[#60],
+*** Added the add event/delete event/view event contacts/edit event address functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/60[#60],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/83[#83],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/95[#95],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/119[#119],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/120[#120],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/121[#121],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130],
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138])
-*** Added the DeleteEvent functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/121[#121])
-*** Added the SeeEventContacts functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
-*** Added the EditEventAddress functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
-*** Added the AddEventTag functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138])
-*** Added the FindEvent functionality and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
+*** Added the add event tag/find event functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
 *** Added the command auto-completion feature (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
 *** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
 
 ** Documentation:
 *** Updated
-*** Updated user documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
+*** Updated documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/102[#102],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/141[#141],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/178[#178])
 *** Created initial UI Mockup of the product (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38])
-*** Additional updates to Developer guide with some use stories and use cases (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73])
-*** Set up documentation and maintained README page (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/1[#1],
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/8[#8])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
@@ -104,13 +102,13 @@ find all events tagged as that particular type easily.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=addEvent]
-include::../UserGuide.adoc[tag=editEvent]
+//include::../UserGuide.adoc[tag=editEvent]
 include::../UserGuide.adoc[tag=deleteEvent]
-include::../UserGuide.adoc[tag=seeEventContacts]
-include::../UserGuide.adoc[tag=addEventTag]
-include::../UserGuide.adoc[tag=listEvent]
-include::../UserGuide.adoc[tag=findEvent]
-include::../UserGuide.adoc[tag=autoComplete]
+//include::../UserGuide.adoc[tag=seeEventContacts]
+//include::../UserGuide.adoc[tag=addEventTag]
+//include::../UserGuide.adoc[tag=listEvent]
+//include::../UserGuide.adoc[tag=findEvent]
+//include::../UserGuide.adoc[tag=autoComplete]
 
 
 == Contributions to the Developer Guide
@@ -119,10 +117,10 @@ include::../UserGuide.adoc[tag=autoComplete]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=events]
-include::../DeveloperGuide.adoc[tag=seeEventContacts]
-include::../DeveloperGuide.adoc[tag=editEventAddress]
-include::../DeveloperGuide.adoc[tag=eventTags]
-include::../DeveloperGuide.adoc[tag=filterEvents]
-include::../DeveloperGuide.adoc[tag=autoComplete]
-include::../DeveloperGuide.adoc[tag=tab]
-include::../DeveloperGuide.adoc[tag=userStories]
+//include::../DeveloperGuide.adoc[tag=seeEventContacts]
+//include::../DeveloperGuide.adoc[tag=editEventAddress]
+//include::../DeveloperGuide.adoc[tag=eventTags]
+//include::../DeveloperGuide.adoc[tag=filterEvents]
+//include::../DeveloperGuide.adoc[tag=autoComplete]
+//include::../DeveloperGuide.adoc[tag=tab]
+//include::../DeveloperGuide.adoc[tag=userStories]
