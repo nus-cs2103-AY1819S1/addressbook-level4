@@ -581,6 +581,8 @@ public class ModelManager extends ComponentManager implements Model {
                 Files.copy(is, Paths.get("data", "ccabook.xsl"));
             } catch (IOException e) {
                 logger.warning("An error occurred copying the resource!");
+            } catch (NullPointerException e) {
+                logger.warning("Null pointer exception - no such path");
             }
 
         }

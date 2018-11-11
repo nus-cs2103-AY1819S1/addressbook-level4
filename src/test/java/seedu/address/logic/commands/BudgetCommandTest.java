@@ -36,29 +36,6 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_budget_success() {
-        model.initialiseBudgetBook();
-        Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
-        requireNonNull(ccaXslFilePath);
-
-        if (!Files.exists(ccaXslFilePath)) {
-
-            try {
-                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
-
-                File dir = new File("data");
-                dir.mkdirs();
-
-                Path p = Paths.get("data", "ccabook.xsl");
-
-                Files.copy(is, p);
-            } catch (IOException e) {
-                System.out.println("IO Error");
-            } catch (NullPointerException e) {
-                System.out.println("Null pointer Exception");
-            }
-
-        }
-
         expectedModel.initialiseBudgetBook();
         expectedModel.readXslFile();
 
@@ -71,16 +48,14 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_budgetSpecificCca_success() {
-        model.initialiseBudgetBook();
-        model.readXslFile();
-
-        expectedModel.initialiseBudgetBook();
-        expectedModel.readXslFile();
-
         model.addCca(BASKETBALL);
         model.commitBudgetBook();
         expectedModel.addCca(BASKETBALL);
         expectedModel.commitBudgetBook();
+
+        expectedModel.initialiseBudgetBook();
+        expectedModel.readXslFile();
+
         eventsCollectorRule = new EventsCollectorRule();
         assertCommandSuccess(new BudgetCommand(BASKETBALL.getName()), model, commandHistory,
             SHOWING_BUDGET_MESSAGE, expectedModel);
