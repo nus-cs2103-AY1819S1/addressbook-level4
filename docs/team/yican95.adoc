@@ -5,7 +5,7 @@
 
 == PROJECT: MeNUS
 
----
+This portfolio showcases my contributions for https://github.com/CS2103-AY1819S1-F10-4/main[MeNUS].
 
 == Overview
 
@@ -23,7 +23,8 @@ approximately 30 KLOC.
 * *Major enhancement*: Added *Menu Management* feature
 ** *What it does*: Allows the user to manage the menus with the various menu management commands.
 ** *Justification*: It can be messy and tedious to manage menus manually. This feature helps users to
-streamline the process of managing menus by allowing them to modify the menus with just a single command.
+streamline the process of managing menus by enabling them to modify the menus efficiently
+with just a single command.
 ** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands.
 It requires an in-depth analysis and understanding of *MeNUS* architecture to ensure that commands of each management
  feature is integrated properly together.
@@ -61,7 +62,7 @@ https://github.com/CS2103-AY1819S1-W16-1/main/issues/156[#156]
 == Contributions to the User Guide
 
 |===
-|_The following sections below showcase some of my contributions to the User Guide and
+|_The following sections below showcase extracts of my contributions to the User Guide and
 my ability to write documentation targeting end-users._
 |===
 
@@ -73,7 +74,8 @@ include::../UserGuide.adoc[tag=menuPart2]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections below showcase some of my contributions to the Developer Guide. It also showcase my ability to
+|_The following sections below showcase extracts of my contributions to the Developer Guide. It also showcase my
+ability to
 write technical documentation and the technical depth of my contributions to the project._
 |===
 
