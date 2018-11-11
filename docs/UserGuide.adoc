@@ -113,6 +113,12 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Navigate between the list pickers : `active / archive / assignment`
+
+Pick desired list within the system.
+
+Format: `active / archive / assignment`
+
 === Adding an employee: `add`
 
 Adds an employee into the system.
@@ -125,11 +131,12 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t A
 * To use this command, you must be logged in with "ADD_EMPLOYEE" permissions.
 * Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
 * The username cannot be "Admin", as that is reserved for the admin account.
+* The user is created with the default password of Pa55w0rd
 ****
 Examples:
 
-* `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
+* `add -n Joshua -s 15000 -e josh@gmail.com -p 81234567 -a 81 Joshua's Road  Singapore 123456`
+* `add -n Raynard -e rnardha@gmail.com -p 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
@@ -180,15 +187,49 @@ Examples:
 
 Adds an assignment into the system.
 
-Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
+Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -de DESCRIPTION`
 
 ****
 * To use this command, you must be logged in with "ADD_ASSIGNMENT" permissions.
 ****
 Examples:
 
-* `addassignment -an KRYPTONE -au Jhonny English -d Data encription application.`
-* `addassignment -n IRobot -au Tom Smith -d Autonomous robotic vacuum cleaner which has intelligent programming.`
+* `addassignment -an KRYPTONE -au Jhonny English -de Data encription application.`
+* `addassignment -n IRobot -au Tom Smith -de Autonomous robotic vacuum cleaner which has intelligent programming.`
+
+=== List all assignments :  `listassignments`
+
+Displays a list of assignments that are in the system.
+
+Format: `listassignments`
+
+=== Removing an assignment : `deleteassignmnet`
+
+Removes an assignment from the system.
+
+Format: `deleteassignment INDEX`
+
+****
+* To use this command, you must be logged in and have the "DELETE_ASSIGNMENT" permission.
+****
+
+Examples:
+
+* `deleteassignment 3`
+
+=== Edit assignment details : `editassignment`
+
+Changes assignment details (such as description).
+
+Format: `editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]`
+
+****
+* To use this command, you must be logged in and have the "EDIT_ASSIGNMENT" permission.
+* Edit the assignment at the specified INDEX. The index refers to the number shown in the displayed assignment list.
+The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
 
 === Apply for leave : `leaveapply`
 
@@ -370,8 +411,11 @@ Changes user password.
 
 Format: `passwd`
 
+* The password must contain at least 1 captial letter, one lowercase letter and one digit. It must also be at least 8 characters long.
+
 ****
 * You will be prompted for your current password, and then your new one.
+* The default password for all accounts is Pa55w0rd.
 ****
 
 [WARNING]
@@ -530,22 +574,6 @@ View income summary for the month.
 
 Format: `summary`
 
-=== Listing all assignments: `listassignment`
-
-Shows a list of all assignments in the system.
-
-Format: `listassignment`
-
-=== Removing an assignment: `deleteassignment`
-
-Removes an assignment from the system.
-
-Format: `deleteassignment INDEX`
-
-****
-* To use this command, you must be logged in with "DELETE_ASSIGNMENT" permissions.
-****
-
 == FAQ
 
 *Q*: What if I lose my password? +
@@ -564,6 +592,7 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
+ |List all assignments|listassignments|listassignments
  |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
  |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
@@ -602,4 +631,15 @@ Format: `deleteassignment INDEX`
  |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
+
 //end::commandsummary[]
+
+
+== Keyboard Shortcuts
+
+[width="100%",options="header"]
+|=========================================================
+|Command|Key
+|
+|=========================================================
+
