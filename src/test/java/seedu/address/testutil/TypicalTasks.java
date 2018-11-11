@@ -30,30 +30,30 @@ public class TypicalTasks {
             .withNextDayBreakPoint("13-10-19").withNextWeekBreakPoint("19-10-19").build();
     public static final Task A_TASK = new TaskBuilder().withName("Address CS2103 email")
             .withDescription("Reply to Damith").withPriorityValue("1")
-            .withDueDate("01-12-18")
+            .withDueDate("01-12-19")
             .withLabels("friends").build();
     public static final Task B_TASK = new TaskBuilder().withName("Build addressbook for tutorial")
             .withDescription("Press 'Build' in IntelliJ")
-            .withPriorityValue("2").withDueDate("02-12-18 1330")
+            .withPriorityValue("2").withDueDate("02-12-19 1330")
             .withLabels("owesMoney", "friends").withStatus(Status.IN_PROGRESS).build();
-    public static final Task C_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-18")
+    public static final Task C_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-19")
             .withPriorityValue("3").withDescription("Call number +6562353535")
             .withStatus(Status.IN_PROGRESS).build();
-    public static final Task D_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-18")
+    public static final Task D_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-19")
             .withPriorityValue("4").withDescription("Preferably before it").withLabels("friends").build();
-    public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
+    public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-19")
             .withPriorityValue("5").withDescription("Add more words")
             .withStatus(Status.COMPLETED).build();
     public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment")
-            .withDueDate("06-12-2018").withPriorityValue("6").withDescription("Missing spice and everything nice")
+            .withDueDate("06-12-2019").withPriorityValue("6").withDescription("Missing spice and everything nice")
             .withStatus(Status.IN_PROGRESS).build();
-    public static final Task G_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-18")
+    public static final Task G_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-19")
             .withPriorityValue("7").withDescription("Then enter grades into IVLE").build();
 
     // Manually added
-    public static final Task H_TASK = new TaskBuilder().withName("Hack Website").withDueDate("08-12-18 0900")
+    public static final Task H_TASK = new TaskBuilder().withName("Hack Website").withDueDate("08-12-19 0900")
             .withPriorityValue("8").withDescription("Step 2) ??? Step 3) PROFIT!!!").build();
-    public static final Task I_TASK = new TaskBuilder().withName("Investigate Murder").withDueDate("09-12-18")
+    public static final Task I_TASK = new TaskBuilder().withName("Investigate Murder").withDueDate("09-12-19")
             .withPriorityValue("9").withDescription("Destroy all evidence pointing to myself").build();
     public static final Task J_TASK = new TaskBuilder().withName("Do O Levels").withDueDate("10-10-12")
             .withPriorityValue("8").withDescription("Don't play MapleStory").build();

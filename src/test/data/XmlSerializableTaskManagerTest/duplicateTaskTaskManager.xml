@@ -14,7 +14,7 @@
     </achievements>
     <tasks>
         <name>Address CS2103 email</name>
-        <dueDate>01-12-18</dueDate>
+        <dueDate>01-12-19</dueDate>
         <priorityValue>3</priorityValue>
         <description>Reply to Damith</description>
         <status>IN PROGRESS</status>
@@ -24,7 +24,7 @@
     <!-- Person with same identity as Address CS2103 email -->
     <tasks>
         <name>Address CS2103 email</name>
-        <dueDate>01-12-18</dueDate>
+        <dueDate>01-12-19</dueDate>
         <priorityValue>3</priorityValue>
         <description>Reply to Damith</description>
         <status>IN PROGRESS</status>
