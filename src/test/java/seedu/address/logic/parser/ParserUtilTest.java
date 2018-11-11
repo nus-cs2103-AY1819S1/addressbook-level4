@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalModules.YEAR_ONE;
 import static seedu.address.testutil.TypicalModules.YEAR_THREE;
 import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,22 +62,22 @@ public class ParserUtilTest {
     public void validateNumOfArgs() throws Exception {
         String[] tokenize = {"a", "b", "c", "d"};
 
-        ParserUtil.argsWithBounds(tokenize, 4);
-        ParserUtil.argsWithBounds(tokenize, Integer.MIN_VALUE, 4);
-        ParserUtil.argsWithBounds(tokenize, 4, Integer.MAX_VALUE);
+        ParserUtil.argsWithBounds(tokenize, Collections.singleton(4));
+        ParserUtil.argsWithBounds(tokenize, Integer.MIN_VALUE, 4, "");
+        ParserUtil.argsWithBounds(tokenize, 4, Integer.MAX_VALUE, "");
 
         thrown.expect(ParseException.class);
-        ParserUtil.argsWithBounds(tokenize, 5, Integer.MAX_VALUE);
+        ParserUtil.argsWithBounds(tokenize, 5, Integer.MAX_VALUE, "");
 
         thrown.expect(ParseException.class);
-        ParserUtil.argsWithBounds(tokenize, Integer.MAX_VALUE, 3);
+        ParserUtil.argsWithBounds(tokenize, Integer.MAX_VALUE, 3, "");
 
         Set<Integer> allowedNumOfArgs = new HashSet<>();
         allowedNumOfArgs.add(2);
         allowedNumOfArgs.add(3);
 
         thrown.expect(ParseException.class);
-        ParserUtil.argsWithBounds(tokenize, allowedNumOfArgs);
+        ParserUtil.argsWithBounds(tokenize, allowedNumOfArgs, "");
     }
 
     @Test

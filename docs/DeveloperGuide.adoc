@@ -179,10 +179,20 @@ The `UI` component uses JavaFX UI 'DarkTheme' to draw different text, sizes, fon
 
 [[Design-Layout]]
 === UI component
-* The UI is seperated into 3 columns to clearly identify the different outputs from commands entered by the user.
-* First UI Column is for Modules that have already been completed
-* Second UI Column is for Modules whose grades have been calculated by the application
-* Third UI Column is for displaying summary statistics.
+* The bottom two thirds of the UI is seperated into 2 panels to clearly identify the different outputs from commands entered by the user.
+* The first panel on the left is for Modules that have already been completed; this is shown by the GREEN circles which
+surround the grades which indicate this grade is "set" and of no concern to the user anymore.
+* The second panel on the right is for Modules that have not yet been completed by the user; this is shown by the RED
+circles which surround the grades to indicate that this is a grade the user should be aware of. The red indicates an
+urgency towards that module as it's outcome will affect the users predicted CAP goal.
+* The top third of the UI is seperated into four distinct rows;
+.  The first row contains the title and drop down menu's for `File` and `Help` options.
+.  The second row is the command line and how the user interacts with the application. Notice there is no button for the
+user to click when they are ready to enter their command; it is expected the user is familiar with Command Line Interface
+and will know to use the `enter` button on their keyboard when ready to submit a command to the app.
+.  The third row is where replies from the application to the user will be displayed. When the commands become too big
+for the box, a scroll down option becomes available for the user to continue reading the message.
+.  The fourth row displays the summary of the users current CAP goal and their target CAP.
 
 [[Design-Logic]]
 === Logic component

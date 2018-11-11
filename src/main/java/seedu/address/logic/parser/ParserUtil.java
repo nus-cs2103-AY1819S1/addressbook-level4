@@ -87,10 +87,10 @@ public class ParserUtil {
      * @throws ParseException when the number of arguments is not equal to
      * {@code size}.
      */
-    public static void argsWithBounds(Object[] args, int size)
+    public static void argsWithBounds(Object[] args, Set<Integer> size)
             throws ParseException {
         requireNonNull(args);
-        argsWithBounds(args, size, size);
+        argsWithBounds(args, size, "");
     }
 
     /**
@@ -105,7 +105,7 @@ public class ParserUtil {
      * @throws ParseException when the number of arguments is not equal between
      * {@code min} and {@code max}.
      */
-    public static void argsWithBounds(Object[] args, int min, int max)
+    public static void argsWithBounds(Object[] args, int min, int max, String inputSuggestion)
             throws ParseException {
         requireNonNull(args);
 
@@ -114,7 +114,9 @@ public class ParserUtil {
                     + " Number of arguments should be more than or equal to "
                     + min
                     + " and less than or equal to "
-                    + max);
+                    + max
+                    + "\n"
+                    + inputSuggestion);
         }
     }
 
@@ -131,7 +133,7 @@ public class ParserUtil {
      * {@code allowedSize}
      */
     public static void argsWithBounds(Object[] args,
-            Set<Integer> allowedSize) throws ParseException {
+            Set<Integer> allowedSize, String inputSuggestion) throws ParseException {
         requireNonNull(args);
 
         if (!allowedSize.contains(args.length)) {
@@ -142,7 +144,9 @@ public class ParserUtil {
 
             throw parseException("Invalid number of arguments! "
                     + "Number of arguments should be "
-                    + allowedNumOfArgs);
+                    + allowedNumOfArgs
+                    + "\n"
+                    + inputSuggestion);
         }
     }
 

@@ -29,6 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * {@code EditModuleCommand}.
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
+
     /**
      * Message that informs that the command is in a wrong format and
      * prints the usage for edit command.
@@ -128,7 +129,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         // Arguments should be in name-value pair.
         // Name should be legal.
         // No duplicate name.
-        argsWithBounds(args, ALLOWED_ARG_SIZE);
+        argsWithBounds(args, ALLOWED_ARG_SIZE, EditModuleCommand.MESSAGE_USAGE);
         argsAreNameValuePair(args, MESSAGE_INVALID_FORMAT);
         validateName(args, NAME_TO_ARGUMENT_MAP, MESSAGE_INVALID_FORMAT);
 

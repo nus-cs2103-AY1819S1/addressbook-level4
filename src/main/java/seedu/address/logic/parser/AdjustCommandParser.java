@@ -16,6 +16,7 @@ import seedu.address.model.module.Year;
  * Parses input arguments and creates a new AdjustCommand object
  */
 public class AdjustCommandParser implements Parser<AdjustCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -23,7 +24,7 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        argsWithBounds(tokenizedArgs, Set.of(2, 4));
+        argsWithBounds(tokenizedArgs, Set.of(2, 4), AdjustCommand.MESSAGE_USAGE);
 
         int index = 0;
 

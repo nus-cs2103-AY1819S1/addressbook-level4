@@ -22,11 +22,13 @@ public class DeleteModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
-            + "Deletes the module identified by the module code, year, and "
-            + "semester.\n"
-            + "Parameters: -t MODULE_CODE [-e YEAR -z SEMESTER]\n"
-            + "Example: " + COMMAND_WORD + " -t CS2103 -e 4 -z 2";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the module identified by the module code, year, and"
+            + " semester."
+            + " \nParameters: -t MODULE_CODE [-e YEAR -z SEMESTER]"
+            + " \nOR c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER"
+            + " \nExample 1: " + COMMAND_WORD + " -t CS2103 -e 4 -z 2"
+            + " \nExample 2: " + COMMAND_WORD + " -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER";
 
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted Module: %1$s";
 

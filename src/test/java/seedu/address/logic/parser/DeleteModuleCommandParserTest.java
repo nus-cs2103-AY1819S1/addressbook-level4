@@ -52,7 +52,9 @@ public class DeleteModuleCommandParserTest {
     @Test
     public void parseInvalidNumOfArgumentFails() {
         String exceptionMsg = "Invalid number of arguments! Number of arguments"
-                + " should be 2, 4, 6";
+                + " should be 2, 4, 6"
+                + "\n"
+                + DeleteModuleCommand.MESSAGE_USAGE;
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser,
