@@ -19,7 +19,6 @@ import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.ui.Ui;
 import seedu.clinicio.ui.UiManager;
 
 /**
@@ -37,15 +36,6 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model = model;
         history = new CommandHistory();
         clinicIoParser = new ClinicIoParser();
-    }
-
-    //@@author iamjackslayer
-    /**
-     * Sets the ui manager. It is typically called after initialization of this class.
-     * @param uiManager
-     */
-    public void setUiManager(Ui uiManager) {
-        this.uiManager = (UiManager) uiManager;
     }
 
     @Override

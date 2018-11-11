@@ -52,13 +52,6 @@ public interface Model {
      */
     void switchTab(int index);
 
-    /**
-     * Add a ui upon which this model depends. There is only one ui.
-     * @param ui
-     */
-    void addUi(Ui ui);
-
-
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyClinicIo newData);
 

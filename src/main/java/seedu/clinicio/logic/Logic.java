@@ -26,13 +26,6 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    //@@author iamjackslayer
-    /**
-     * Sets the ui manager. It is typically called after initialization of this class.
-     * @param uiManager
-     */
-    void setUiManager(Ui uiManager);
-
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
