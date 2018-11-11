@@ -76,6 +76,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_PLAY = "play";
     public static final String VALID_TAG_UNUSED = "unused"; // do not use this tag when creating an event
     public static final String VALID_DURATION_1H = "1H";
+    public static final String VALID_DURATION_1H30M = "1H30M";
     public static final String VALID_DURATION_30M = "30M";
     public static final ReminderDurationList VALID_DURATION_LIST_1H = SampleSchedulerDataUtil.getReminderDurationList(
             3);
@@ -108,7 +109,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_SCHOOL = " " + PREFIX_TAG + VALID_TAG_SCHOOL;
     public static final String TAG_DESC_PLAY = " " + PREFIX_TAG + VALID_TAG_PLAY;
     public static final String REMINDER_DURATION_LIST_1H = " " + PREFIX_EVENT_REMINDER_DURATION + VALID_DURATION_1H;
+    public static final String REMINDER_DURATION_LIST_1H30M = " " + PREFIX_EVENT_REMINDER_DURATION
+            + VALID_DURATION_1H30M;
     public static final String REMINDER_DURATION_LIST_30M = " " + PREFIX_EVENT_REMINDER_DURATION + VALID_DURATION_30M;
+    public static final String REMINDER_DURATION_LIST_EMPTY = " " + PREFIX_EVENT_REMINDER_DURATION;
     // empty string not allowed in event names
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "  ";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
