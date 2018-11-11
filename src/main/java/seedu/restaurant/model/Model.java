@@ -76,17 +76,20 @@ public interface Model {
     SalesReport getSalesReport(Date date);
 
     /**
-     * Ranks the existing records' dates according to revenue in descending order.
+     * Ranks the existing records' dates according to revenue in descending order. This method guarantees that the
+     * ordering of the Map corresponds to the ranking.
      */
     Map<Date, Double> rankDateBasedOnRevenue();
 
     /**
      * Ranks the existing records' items according to revenue accumulated from past sales records in descending order.
+     * This method guarantees that the ordering of the Map corresponds to the ranking.
      */
     Map<ItemName, Double> rankItemBasedOnRevenue();
 
     /**
-     * Returns all dates, each associated with its total revenue for the day, in chronological order.
+     * Returns all dates, each associated with its total revenue for the day, in chronological order. This method
+     * guarantees that the ordering of the Map corresponds to the chronological order of the dates.
      */
     Map<Date, Double> getChronologicalSalesData();
 

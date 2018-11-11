@@ -41,6 +41,7 @@ public class DisplaySalesCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         SalesReport salesReport = model.getSalesReport(date);
         if (salesReport.getRecords().isEmpty()) {
             throw new CommandException(String.format(NO_SUCH_DATE_MESSAGE, date.toString()));
