@@ -383,7 +383,10 @@ Shorthand: `p`
 ****
 * InsuRen will add the image to the contact.
 * Only `.jpg` and `.png` files are accepted.
-* File location can be an absolute path (`/Users/john/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
+* Supports file location for any <<DeveloperGuide.adoc#mainstream-os,mainstream OS>>.
+** Windows: `C:/Users/John/Downloads/InsuRen/images/petertan.jpg`
+** Mac: `/Users/John/Downloads/Insuren/images/petertan.jpg`
+* File location can be an absolute path (`/Users/John/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
 * If the picture gets deleted or renamed, InsuRen will show the default user picture.
 ****
 
@@ -391,8 +394,10 @@ Examples:
 
 * `pic 2 l/john.jpg` +
 The second person in the list will now have image `john.jpg` in his contact.
-* `p 1 l//Users/john/Downloads/InsuRen/images/petertan.jpg` +
+* `pic 1 l//Users/John/Downloads/InsuRen/images/petertan.jpg` +
 The first person in the list will now have image `petertan.jpg` from the given path in his contact.
+* `p 3 l/C:/Users/John/Downloads/InsuRen/images/davidlee.png` +
+The third person in the list will now have image `davidlee.png` from the given path in his contact.
 
 // end::picture[]
 
@@ -469,6 +474,26 @@ Example:
 * `encrypt Pa$$w0rd` +
 All data will be encrypted. The next time the user opens InsuRen, InsuRen will prompt her for a password.
 // end::dataencryption[]
+
+// tag::picture-url[]
+=== Adding a picture from URL to contact `[coming in v2.0]`
+
+Adds a picture from a URL to a person in InsuRen. +
+Format: `​pic INDEX l/FILE_URL​`
+
+Shorthand: `p`
+
+****
+* InsuRen will add the image to the contact.
+* If the URL is broken after it is successfully added, InsuRen will show a picture indicating that the URL is broken.
+****
+
+Examples:
+
+* `pic 1 l/https://cs2103-ay1819s1-w13-1.github.io/main/images/denzelchung.png` +
+The first person in the list will now have image `denzelchung.png` from the `Github` webpage in his contact.
+
+// end::picture-url[]
 
 == FAQ
 
