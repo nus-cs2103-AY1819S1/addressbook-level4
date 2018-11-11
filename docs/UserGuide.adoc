@@ -25,6 +25,17 @@ The image shown below highlights the difference sections of OASIS's user interfa
 
 image::introToOASIS.png[width="900"]
 
+=== Symbols used in this guide
+[NOTE]
+====
+Denotes something that you may want to take note of.
+====
+[WARNING]
+====
+Denotes a warning for something critical.
+====
+
+// tag::quickstart-begin[]
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -35,6 +46,7 @@ image::introToOASIS.png[width="900"]
 image::Ui.png[width="790"]
 +
 .  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
+// end::quickstart-begin[]
 .  After you have logged in, you should be taken to the following screen:
 +
 image::UiLoggedin.PNG[width="790"]
@@ -79,6 +91,12 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Navigate between the list pickers : `active / archive / assignment`
+
+Pick desired list within the system.
+
+Format: `active / archive / assignment`
+
 === Adding an employee: `add`
 
 Adds an employee into the system.
@@ -91,11 +109,12 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t A
 * To use this command, you must be logged in with "ADD_EMPLOYEE" permissions.
 * Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
 * The username cannot be "Admin", as that is reserved for the admin account.
+* The user is created with the default password of Pa55w0rd
 ****
 Examples:
 
-* `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
+* `add -n Joshua -s 15000 -e josh@gmail.com -p 81234567 -a 81 Joshua's Road  Singapore 123456`
+* `add -n Raynard -e rnardha@gmail.com -p 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
@@ -146,15 +165,49 @@ Examples:
 
 Adds an assignment into the system.
 
-Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
+Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -de DESCRIPTION`
 
 ****
 * To use this command, you must be logged in with "ADD_ASSIGNMENT" permissions.
 ****
 Examples:
 
-* `addassignment -an KRYPTONE -au Jhonny English -d Data encription application.`
-* `addassignment -n IRobot -au Tom Smith -d Autonomous robotic vacuum cleaner which has intelligent programming.`
+* `addassignment -an KRYPTONE -au Jhonny English -de Data encription application.`
+* `addassignment -n IRobot -au Tom Smith -de Autonomous robotic vacuum cleaner which has intelligent programming.`
+
+=== List all assignments :  `listassignments`
+
+Displays a list of assignments that are in the system.
+
+Format: `listassignments`
+
+=== Removing an assignment : `deleteassignmnet`
+
+Removes an assignment from the system.
+
+Format: `deleteassignment INDEX`
+
+****
+* To use this command, you must be logged in and have the "DELETE_ASSIGNMENT" permission.
+****
+
+Examples:
+
+* `deleteassignment 3`
+
+=== Edit assignment details : `editassignment`
+
+Changes assignment details (such as description).
+
+Format: `editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]`
+
+****
+* To use this command, you must be logged in and have the "EDIT_ASSIGNMENT" permission.
+* Edit the assignment at the specified INDEX. The index refers to the number shown in the displayed assignment list.
+The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
 
 === Apply for leave : `leaveapply`
 
@@ -164,9 +217,18 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
-* You must specify at least 1 `DATE`. Your leave will be applied for all the dates specified after each `-da`.
-* If the `DATE` is of an illegal format, the command will be rejected.
+* Your leave will be applied for all the dates specified after each `-da`.
 ****
+
+[NOTE]
+====
+You must specify at least 1 `DATE`.
+====
+
+[WARNING]
+====
+If the `DATE` is of an illegal format, the command will be rejected.
+====
 
 Examples:
 
@@ -178,9 +240,10 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
-****
-* If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
-****
+[NOTE]
+====
+If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
+====
 
 === Approve a leave application : `leaveapprove`
 
@@ -190,9 +253,13 @@ Format: `leaveapprove [INDEX]`
 
 ****
 * Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been rejected can still be approved afterwards.
 ****
+
+[NOTE]
+====
+To use this command, you must have "APPROVE_LEAVE" permissions.
+====
 
 Examples:
 
@@ -206,9 +273,13 @@ Format: `leavereject [INDEX]`
 
 ****
 * Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
-* To use this command, you must have "APPROVE_LEAVE" permissions.
 * Note that leave applications that have already been approved can still be rejected afterwards.
 ****
+
+[NOTE]
+====
+To use this command, you must have "APPROVE_LEAVE" permissions.
+====
 
 Examples:
 
@@ -235,6 +306,7 @@ Examples:
 
 * `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
 
+// tag::myself[]
 === Edit details of the currently logged in user : `myself`
 
 Changes the details of the currently logged in user
@@ -251,6 +323,8 @@ Examples:
 
 * `myself -p 91234567 -e johndoe@example.com`
 * `myself -n James`
+
+// end::myself[]
 
 === Edit details : `edit`
 
@@ -305,18 +379,24 @@ Examples:
 * modifypermission 1 -a ADD_EMPLOYEE
 * modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
 
+// tag::passwd[]
 === Change password : `passwd`
 
 Changes user password.
 
 Format: `passwd`
 
+* The password must contain at least 1 captial letter, one lowercase letter and one digit. It must also be at least 8 characters long.
+
 ****
 * You will be prompted for your current password, and then your new one.
+* The default password for all accounts is Pa55w0rd.
 ****
 
 [WARNING]
 Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+
+// end::passwd[]
 
 === Undoing previous command : `undo`
 
@@ -473,22 +553,6 @@ View income summary for the month.
 
 Format: `summary`
 
-=== Listing all assignments: `listassignment`
-
-Shows a list of all assignments in the system.
-
-Format: `listassignment`
-
-=== Removing an assignment: `deleteassignment`
-
-Removes an assignment from the system.
-
-Format: `deleteassignment INDEX`
-
-****
-* To use this command, you must be logged in with "DELETE_ASSIGNMENT" permissions.
-****
-
 == FAQ
 
 *Q*: What if I lose my password? +
@@ -507,6 +571,7 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
+ |List all assignments|listassignments|listassignments
  |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
  |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
@@ -546,3 +611,10 @@ Format: `deleteassignment INDEX`
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 
+== Keyboard Shortcuts
+
+[width="100%",options="header"]
+|=========================================================
+|Command|Key
+|
+|=========================================================
