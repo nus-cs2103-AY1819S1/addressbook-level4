@@ -992,3 +992,20 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+
+=== Adding or removing a dependency
+
+. Adding a dependency when all tasks are listed
+.. Prerequisites: List all persons using the `list` command
+.. Test case: `dependency 1 2`
+... Dependency added between task at index 1 to task at index 2.
+Details of added dependency shown on screen. Timestamp in the status bar is updated.
+Number of dependencies field on the task card updated.
+
+. Deleting a dependency when all tasks are listed and dependency present
+.. Prerequisites: List all persons using the `list` command, dependency between `Task` at index 1
+and `Task` at index 2 *already exists*
+.. Test case: `dependency 1 2`
+... Dependency removed between `Task` at index 1 to `Task` at index 2.
+Details of removed dependency shown on screen. Timestamp in the status bar is updated.
+Number of dependencies field on the task card updated.
