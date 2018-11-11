@@ -84,7 +84,13 @@ public class InformationPanel extends UiPart<Region> {
                         setText(null);
                     } else {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        setText(item.format(formatter));
+                        final Text text = new Text(item.format(formatter));
+                        setGraphic(text);
+                        if (item.isBefore(LocalDateTime.now())) {
+                            text.setFill(Color.RED);
+                        } else {
+                            text.setFill(Color.WHITE);
+                        }
                     }
                 }
             };
@@ -156,7 +162,13 @@ public class InformationPanel extends UiPart<Region> {
                         setText(null);
                     } else {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        setText(item.format(formatter));
+                        final Text text = new Text(item.format(formatter));
+                        setGraphic(text);
+                        if (item.isBefore(LocalDateTime.now())) {
+                            text.setFill(Color.RED);
+                        } else {
+                            text.setFill(Color.WHITE);
+                        }
                     }
                 }
             };

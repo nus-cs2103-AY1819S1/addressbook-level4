@@ -17,30 +17,41 @@ public class TypicalPatientsAndDoctorsWithAppt {
 
     // Appointment objects
     public static final Appointment FIRST = new AppointmentBuilder().withAppointmentId(10000)
-            .withDoctor("Fiona Kunz").withPatient("Alice Pauline").withDateTime("2018-12-11 12:00")
+            .withDoctor("Fiona Kunz").withPatient("Alice Pauline").withDateTime("2018-10-11 12:00")
             .withComments("Heart check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
-                    .withAppointmentId(10000).withMedicineName("Aspirin").build()))).build();
+            .withAppointmentId(10000)
+            .withMedicineName("Aspirin").build()))).build();
     public static final Appointment SECOND = new AppointmentBuilder().withAppointmentId(10001)
-            .withDoctor("George Best").withPatient("Benson Meier").withDateTime("2018-12-12 12:00")
+            .withDoctor("George Best").withPatient("Benson Meier").withDateTime("2018-10-12 12:00")
             .withComments("Flu check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
-                    .withAppointmentId(10001).withMedicineName("Tamiflu").build()))).build();
+            .withAppointmentId(10001)
+            .withMedicineName("Tamiflu").build()))).build();
     public static final Appointment THIRD = new AppointmentBuilder().withAppointmentId(10002)
             .withDoctor("Fiona Kunz").withPatient("Carl Kurz").withDateTime("2018-12-13 12:00")
             .withComments("Flu check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
-                    .withAppointmentId(10002).withMedicineName("Tamiflu").build()))).build();
+            .withAppointmentId(10002)
+            .withMedicineName("Tamiflu").build()))).build();
     public static final Appointment FOURTH = new AppointmentBuilder().withAppointmentId(10003)
             .withDoctor("George Best").withPatient("Daniel Meier").withDateTime("2018-12-14 12:00")
             .withComments("Cough check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
-                    .withAppointmentId(10003).withMedicineName("Dextromethorphan").build()))).build();
+            .withAppointmentId(10003)
+            .withMedicineName("Dextromethorphan").build()))).build();
     public static final Appointment FIFTH = new AppointmentBuilder().withAppointmentId(10004)
             .withDoctor("Fiona Kunz").withPatient("Elle Meyer").withDateTime("2018-12-15 12:00")
             .withComments("Heart check up")
             .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
-                    .withAppointmentId(10004).withMedicineName("Aspirin").build()))).build();
+            .withAppointmentId(10004)
+            .withMedicineName("Aspirin").build()))).build();
+    public static final Appointment SIXTH = new AppointmentBuilder().withAppointmentId(10005)
+            .withDoctor("Helena Sophia").withPatient("Iona Porter").withDateTime("2018-12-16 12:00")
+            .withComments("Body check up")
+            .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
+            .withAppointmentId(10005)
+            .withMedicineName("Aspirin").build()))).build();
 
     // Persons objects
     public static final Patient ALICE_PATIENT_APPT = new PatientBuilder().withName("Alice Pauline")
@@ -98,6 +109,22 @@ public class TypicalPatientsAndDoctorsWithAppt {
             .withRemark("")
             .withTags("Doctor")
             .withAppointment(SECOND, FOURTH).build();
+    public static final Doctor HELENA_DOCTOR_APPT = new DoctorBuilder()
+            .withName("Helena Sophia")
+            .withPhone("95264283")
+            .withEmail("helena@example.com")
+            .withAddress("7th street")
+            .withRemark("")
+            .withTags("Doctor")
+            .withAppointment(SIXTH).build();
+    public static final Patient IONA_PATIENT_APPT = new PatientBuilder()
+            .withName("Iona Porter").withPhone("9482224")
+            .withEmail("iona@example.com")
+            .withAddress("24th ave")
+            .withRemark("")
+            .withTags("Patient")
+            .withMedicalHistory("", "")
+            .withAppointment(SIXTH).build();
 
     private TypicalPatientsAndDoctorsWithAppt() {} // prevents instantiation
 
@@ -119,6 +146,14 @@ public class TypicalPatientsAndDoctorsWithAppt {
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
         }
+        return ab;
+    }
+
+    public static AddressBook getSmallerAddressBookWithPatientAndDoctorWithAppt() {
+        AddressBook ab = new AddressBook();
+        ab.addPatient(IONA_PATIENT_APPT);
+        ab.addDoctor(HELENA_DOCTOR_APPT);
+        ab.addAppointment(SIXTH);
         return ab;
     }
 
