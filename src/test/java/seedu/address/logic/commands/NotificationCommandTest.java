@@ -143,6 +143,12 @@ public class NotificationCommandTest {
         assertTrue(model.getNotificationHandler().isWarningEnabled());
     }
 
+    /**
+     * Asserts that both {@code isTipEnabled} and {@code isWarningEnabled} of {@code model} and
+     * {@code expectedModel} are equal.
+     * @param expectedModel to test against
+     * @throws NoUserSelectedException
+     */
     public void assertBooleans(Model expectedModel) throws NoUserSelectedException {
         assertEquals(model.getNotificationHandler().isTipEnabled(),
                 expectedModel.getNotificationHandler().isTipEnabled());
