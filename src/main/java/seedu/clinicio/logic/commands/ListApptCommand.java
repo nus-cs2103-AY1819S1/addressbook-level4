@@ -4,7 +4,9 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
@@ -34,6 +36,7 @@ public class ListApptCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(
                 String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
                         model.getFilteredAppointmentList().size()));
