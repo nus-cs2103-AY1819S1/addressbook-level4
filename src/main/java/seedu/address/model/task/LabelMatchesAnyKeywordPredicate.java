@@ -14,11 +14,11 @@ import seedu.address.model.tag.Label;
 public class LabelMatchesAnyKeywordPredicate implements Predicate<Task> {
     private final Set<Label> keyLabels;
 
-    public LabelMatchesAnyKeywordPredicate(Set<Label> keywords) {
-        requireNonNull(keywords);
+    public LabelMatchesAnyKeywordPredicate(Set<Label> keyLabels) {
+        requireNonNull(keyLabels);
         // Standardises keyword toLowerCase such that the label predicate
         // is case-insensitive
-        this.keyLabels = keywords
+        this.keyLabels = keyLabels
             .parallelStream()
             .map(keyword -> new Label(keyword.labelName.toLowerCase()))
             .collect(Collectors.toSet());
