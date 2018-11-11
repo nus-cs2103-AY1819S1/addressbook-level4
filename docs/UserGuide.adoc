@@ -90,7 +90,7 @@ Shows all the commands in the application and how to use them.
 
 ==== Add a user : `addUser`
 
-Adds a new user to EventOrganiser. +
+Adds a new uniqiue user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 ****
@@ -100,6 +100,7 @@ Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTERE
 * Interests and tags must be alphanumeric.
 * Each interest and tag can only be one word long. For example, 'i/play tennis' will not be accepted and should be written as 2 separate interests ('i/play' and 'i/tennis').
 * <<Timetable>> download requires a valid nusmods link.
+* We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 ****
 
 Examples:
