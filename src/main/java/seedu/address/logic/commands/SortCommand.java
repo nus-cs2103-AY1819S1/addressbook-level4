@@ -26,7 +26,7 @@ public class SortCommand extends Command {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
 
-        model.sort(ModelManager.SortingType.ALPHABETICAL);
+        model.sort(ModelManager.SortingType.LEXICOGRAPHICAL);
         model.commitAnakin(COMMAND_WORD);
         if (model.isInsideDeck()) {
             return new CommandResult(MESSAGE_SUCCESS_2);
