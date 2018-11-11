@@ -40,8 +40,8 @@ public class SystemTestSetupHelper {
                                     Path saveFileLocationToDo) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(
-                () -> testApp = new TestApp(addressBook, toDoList, saveFileLocation, saveFileLocationToDo));
+            FxToolkit.setupApplication(() -> testApp =
+                new TestApp(addressBook, toDoList, saveFileLocation, saveFileLocationToDo));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }

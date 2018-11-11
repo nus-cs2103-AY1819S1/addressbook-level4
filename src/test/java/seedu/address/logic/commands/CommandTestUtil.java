@@ -91,7 +91,7 @@ public class CommandTestUtil {
     public static final String PRIORITY3 = "H";
 
     public static final String TITLE1_WITH_PREFIX = " " + PREFIX_TITLE + TITLE1;
-    public static final String DESCRIPTION1_WITH_PREFIX =  " " + PREFIX_DESCRIPTION + DESCRIPTION1;
+    public static final String DESCRIPTION1_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION1;
     public static final String PRIORITY1_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY1;
     public static final String TITLE2_WITH_PREFIX = " " + PREFIX_TITLE + TITLE2;
     public static final String DESCRIPTION2_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION2;

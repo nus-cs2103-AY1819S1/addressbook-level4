@@ -21,12 +21,9 @@ import static seedu.address.logic.commands.CommandTestUtil.TITLE2;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE2_WITH_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_ASSIGNMENT;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_ASSIGNMENT;
-import static seedu.address.testutil.TypicalTodoListEvents.ASSIGNMENT;
-import static seedu.address.testutil.TypicalTodoListEvents.MIDTERM;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.model.ModelToDo;
