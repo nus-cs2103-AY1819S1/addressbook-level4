@@ -15,7 +15,7 @@ endif::[]
 
 == Introduction
 
-LearnVocuabulary (LV) is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes. More importantly, LV is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). With LV you can make digital flash-cards of words you find troublesome, and discard them only after you have memorized the meaning. LV can fetch the words faster than searching it on the website. Enjoy!
+LearnVocuabulary is a desktop application for people who prefer to use an offline version of the dictionary for learning purposes. More importantly, LV is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). With LearnVocabulary you can make digital flash-cards of words you find troublesome, and discard them only after you have memorized the meaning. LV can fetch the words faster than searching it on the website. Enjoy!
 
 == Site Map
 

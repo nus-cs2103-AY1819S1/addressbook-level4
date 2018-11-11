@@ -120,7 +120,7 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)
+
      */
     private void assertCommandSuccess(Word toAdd) {
         assertCommandSuccess(WordUtil.getAddCommand(toAdd), toAdd);
@@ -135,6 +135,7 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         Model expectedModel = getModel();
         expectedModel.addWord(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

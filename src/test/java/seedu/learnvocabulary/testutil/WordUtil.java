@@ -34,6 +34,7 @@ public class WordUtil {
         word.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+
         return sb.toString();
     }
 

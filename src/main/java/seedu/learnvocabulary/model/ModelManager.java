@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedLearnVocabulary versionedLearnVocabulary;
     private final FilteredList<Word> filteredWords;
 
+
     /**
      * Initializes a ModelManager with the given LearnVocabulary and userPrefs.
      */
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedLearnVocabulary = new VersionedLearnVocabulary(learnVocabulary);
         filteredWords = new FilteredList<>(versionedLearnVocabulary.getWordList());
+
     }
 
     public ModelManager() {

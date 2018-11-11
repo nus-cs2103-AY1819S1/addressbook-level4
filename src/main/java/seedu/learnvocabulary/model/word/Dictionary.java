@@ -11,7 +11,11 @@ import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
  * Self-created Dictionary.com "API"
  */
 public class Dictionary {
-    public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet to learn about words.";
+    public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet.";
+    public static final String MESSAGE_CANNOT_BE_EMPTY = "Please don't leave the word blank.";
+
+    public static final String MESSAGE_INVALID_WORD = "Please ensure word is valid - "
+            + "no illegal characters and numbers are allowed.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
     public static final String NO_WORD_OF_THE_DAY =
@@ -56,7 +60,6 @@ public class Dictionary {
         wordOfTheDay = wordOfTheDay.replace(" | Dictionary.com", "");
         args = wordOfTheDay;
         this.invoke();
-        System.out.println(wordOfTheDay);
         return this;
     }
 
@@ -64,7 +67,18 @@ public class Dictionary {
      * Invoke the use of "learn", to parse definition and put it into a meaning object.
      */
     public Dictionary invoke() throws ParseException {
-        wordToLearn = args;
+        wordToLearn = args.trim();
+
+        if (wordToLearn.equals("")) {
+            throw new ParseException(MESSAGE_CANNOT_BE_EMPTY);
+        }
+
+        wordToLearn = convertWord(wordToLearn);
+
+        if (!isValidWord(wordToLearn)) {
+            throw new ParseException(MESSAGE_INVALID_WORD);
+        }
+
         if (!isConnectedToInternet()) {
             throw new ParseException(MESSAGE_NO_INTERNET);
         }
@@ -74,6 +88,14 @@ public class Dictionary {
             throw new ParseException(WORD_NOT_EXIST);
         }
         //Get description from document object.
+        definition = parseDefinition(doc);
+        return this;
+    }
+
+    /**
+     * Removes all of the redundant and unrelated items and only extract definition.
+     */
+    private String parseDefinition(Document doc) {
         definition = doc.select("meta[name=description]").get(0)
                 .attr("content");
         definition = definition.substring(definition.indexOf(" ") + 1);
@@ -81,8 +103,16 @@ public class Dictionary {
         definition = definition.replace("(", "");
         definition = definition.replace(")", "");
         definition = definition.replace(" See more.", "");
-        System.out.println(definition);
-        return this;
+        return definition;
+    }
+
+    /**
+     * Converts the word being learnt to a readable format.
+     * Eg: 'hello' and 'hEllO' both becomes 'Hello'.
+     */
+    public static String convertWord(String wordToLearn) {
+        wordToLearn = wordToLearn.toLowerCase();
+        return wordToLearn.substring(0, 1).toUpperCase() + wordToLearn.substring(1);
     }
 
     /**
@@ -98,6 +128,20 @@ public class Dictionary {
     }
 
     /**
+     * Checks if the word contains any invalid characters.
+     */
+    public static boolean isValidWord(String wordToLearn) {
+        char[] chars = wordToLearn.toCharArray();
+
+        for (char c : chars) {
+            if (!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    /**
      * Checks for Internet Connection, if its available.
      */
     public static Document isWordInOnlineDictionary(String wordToLearn) {
@@ -109,7 +153,7 @@ public class Dictionary {
     }
 
     /**
-     * Pulls the wordoftheday page into a document if availabe.
+     * Pulls the wordoftheday page into a document if available.
      */
     public static Document doesWordOfTheDayExist() {
         try {

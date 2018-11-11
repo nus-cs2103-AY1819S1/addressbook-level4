@@ -19,7 +19,6 @@ import seedu.learnvocabulary.model.word.Word;
  * The Browser Panel of the App.
  */
 public class BrowserPanel extends UiPart<Region> {
-    //Review russell
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL = "https://cs2103-ay1819s1-t10-3.github.io/main/WordSearchPage.html";
 
@@ -43,7 +42,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadWordPage(Word word) {
         String searchPage = SEARCH_PAGE_URL;
         loadPage(searchPage + "?name=" + word.getName().fullName
-                + "&meaning=" + word.getMeaning().fullMeaning);
+                + "&meaning=" + word.getMeaning().fullMeaning.replaceAll("%", "%25"));
     }
 
     public void loadPage(String url) {

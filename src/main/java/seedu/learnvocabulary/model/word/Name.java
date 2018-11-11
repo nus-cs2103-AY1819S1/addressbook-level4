@@ -25,9 +25,11 @@ public class Name {
      *
      * @param name A valid name.
      */
+
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
+        name = Dictionary.convertWord(name);
         fullName = name;
     }
 

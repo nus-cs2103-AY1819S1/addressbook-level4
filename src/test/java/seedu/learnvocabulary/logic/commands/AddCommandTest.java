@@ -45,6 +45,8 @@ public class AddCommandTest {
         ModelStubAcceptingWordAdded modelStub = new ModelStubAcceptingWordAdded();
         Word validWord = new WordBuilder().build();
         if (!validWord.getTags().isEmpty()) {
+            thrown.expect(CommandException.class);
+            thrown.expectMessage(AddCommand.MESSAGE_NO_GROUP);
             CommandResult commandResult = new AddCommand(validWord).execute(modelStub, commandHistory);
 
             assertEquals(String.format(AddCommand.MESSAGE_NO_GROUP, validWord), commandResult.feedbackToUser);

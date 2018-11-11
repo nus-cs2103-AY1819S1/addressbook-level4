@@ -30,7 +30,7 @@ public class LearnCommandParser implements Parser<LearnCommand> {
             Dictionary dictionary = new Dictionary(args).invoke();
             String wordToLearn = dictionary.getWordToLearn();
             String definition = dictionary.getDefinition();
-            Tag defaultTag = new Tag("toLearn");
+            Tag defaultTag = new Tag(Tag.DEFAULT_TAG);
             ArrayList<String> stringArrayList = new ArrayList<>(Collections.singleton(defaultTag.tagName));
 
             Name name = ParserUtil.parseName(wordToLearn);

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.learnvocabulary.model.LearnVocabulary;
+import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -22,26 +23,30 @@ public class TypicalWords {
             .withMeaning("a form of wrestling in Japan in which a contestant wins "
                     + "by forcing his opponent out of the ring or by causing him to touch"
                     + " the ground with any part of his body other than the soles of his feet, "
-                    + "contestants usually being men of great height and weight.").build();
+                    + "contestants usually being men of great height and weight.")
+            .withTags(Tag.DEFAULT_TAG).build();
     public static final Word DELIBERATE = new WordBuilder().withName("deliberate")
             .withMeaning("carefully weighed or considered; studied; intentional: "
-                    + "a deliberate lie.").build();
+                    + "a deliberate lie.").withTags(Tag.DEFAULT_TAG).build();
     public static final Word FIRE = new WordBuilder().withName("fire")
             .withMeaning("a state, process, or instance of combustion in which "
                     + "fuel or other material is ignited and combined with oxygen, "
-                    + "giving off light, heat, and flame.").build();
+                    + "giving off light, heat, and flame.").withTags(Tag.DEFAULT_TAG).build();
     public static final Word VOLCANO = new WordBuilder().withName("volcano")
             .withMeaning("a vent in the earth's crust through which lava, steam, "
                     + "ashes, etc., are expelled, either continuously or at irregular intervals.")
-            .withTags("toLearn").build();
+            .withTags(Tag.DEFAULT_TAG).build();
     public static final Word HURRICANE = new WordBuilder().withName("hurricane")
             .withMeaning("a violent, tropical, cyclonic storm of the western North Atlantic, "
-                    + "having wind speeds of or in excess of 72 miles per hour 32 m/sec.").build();
+                    + "having wind speeds of or in excess of 72 miles per hour 32 m/sec.")
+            .withTags(Tag.DEFAULT_TAG).build();
     public static final Word GLIDE = new WordBuilder().withName("glide")
             .withMeaning("to move smoothly and continuously along, as if "
-                    + "without effort or resistance, as a flying bird, a boat, or a skater.").build();
+                    + "without effort or resistance, as a flying bird, a boat, or a skater.")
+            .withTags(Tag.DEFAULT_TAG).build();
     public static final Word WEIGHT = new WordBuilder().withName("weight")
-            .withMeaning("the amount or quantity of heaviness or mass; amount a thing weighs.").build();
+            .withMeaning("the amount or quantity of heaviness or mass; amount a thing weighs.")
+            .withTags(Tag.DEFAULT_TAG).build();
 
     // Manually added
     public static final Word HI = new WordBuilder().withName("hi")

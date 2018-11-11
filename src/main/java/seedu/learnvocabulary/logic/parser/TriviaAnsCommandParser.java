@@ -24,7 +24,7 @@ public class TriviaAnsCommandParser implements Parser<TriviaAnsCommand> {
             return new TriviaAnsCommand(meaning.toString());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TriviaAnsCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TriviaAnsCommand.MESSAGE_USAGE, pe));
         }
     }
 }

@@ -26,6 +26,7 @@ import seedu.learnvocabulary.logic.commands.HistoryCommand;
 import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
@@ -81,6 +82,14 @@ public class LearnVocabularyParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_show() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        ShowCommand command = (ShowCommand) parser.parseCommand(
+                ShowCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new ShowCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

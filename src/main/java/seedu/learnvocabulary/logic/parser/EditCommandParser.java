@@ -40,6 +40,20 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+        boolean hasDuplicatePrefix = false;
+
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            hasDuplicatePrefix = argMultimap.hasDuplicatePrefix(PREFIX_NAME);
+        }
+
+        if (argMultimap.getValue(PREFIX_MEANING).isPresent()) {
+            hasDuplicatePrefix = hasDuplicatePrefix || argMultimap.hasDuplicatePrefix(PREFIX_MEANING);
+        }
+
+        if (hasDuplicatePrefix) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
         EditWordDescriptor editWordDescriptor = new EditWordDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editWordDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
