@@ -113,6 +113,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearTaskData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Level getLevel() {
             throw new AssertionError("This method should not be called.");
         }

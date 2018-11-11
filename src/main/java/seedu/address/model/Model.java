@@ -23,6 +23,11 @@ public interface Model {
     void resetData(ReadOnlyTaskManager newData);
 
     /**
+     * Clears existing tasks in the backing model.
+     */
+    void clearTaskData();
+
+    /**
      * Returns the TaskManager
      */
     ReadOnlyTaskManager getTaskManager();

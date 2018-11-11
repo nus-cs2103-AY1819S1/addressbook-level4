@@ -23,7 +23,6 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
                 .getDependency()
                 .getHashes()
                 .stream()
-                .peek(x -> System.out.println(x))
                 .map(hash -> model
                         .getTaskManager()
                         .getTaskList()
