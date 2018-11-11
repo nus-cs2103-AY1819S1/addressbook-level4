@@ -37,7 +37,7 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 Allows a user with `Delete_employee` permission to permanently remove archived employee from the application.
 
 *** Justification:
-This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management. 
+This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
 
 *** Highlights:
 
