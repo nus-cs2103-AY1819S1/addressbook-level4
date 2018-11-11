@@ -33,7 +33,6 @@ public class GroupdeleteCommand extends Command {
         if (!model.hasTag(toDelete)) {
             throw new CommandException(MESSAGE_NO_GROUP);
         }
-
         model.deleteGroup(toDelete);
         model.commitLearnVocabulary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));

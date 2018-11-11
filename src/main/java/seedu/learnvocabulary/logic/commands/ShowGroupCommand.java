@@ -25,6 +25,8 @@ public class ShowGroupCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Group %1$s has been shown";
 
+    public static final String MESSAGE_NO_GROUP = "The group typed has existed.";
+
     private final TagContainsKeywordsPredicate predicate;
 
     /**
@@ -49,9 +51,12 @@ public class ShowGroupCommand extends Command {
                 }
             }
             return new CommandResult(result);
+        } else if (!model.hasTag(new Tag(predicate.getTag()))) {
+            throw new CommandException(MESSAGE_NO_GROUP);
+        } else {
+            model.updateTag(predicate);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, predicate.getTag()));
         }
-        model.updateTag(predicate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, predicate.getTag()));
     }
 
     @Override

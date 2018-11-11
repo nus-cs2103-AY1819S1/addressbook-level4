@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.learnvocabulary.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -93,6 +95,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteGroup(Tag toDelete) {
         requireNonNull(toDelete);
+        ObservableList<Word> wordList = versionedLearnVocabulary.getWordList();
+        List<Word> deletedWord = new ArrayList<>();
+        for (Word word: wordList) {
+            if (word.getTags().contains(toDelete)) {
+                if (word.getTags().size() == 1) {
+                    deletedWord.add(word);
+                } else {
+                    Set<Tag> newTag = new HashSet<>();
+                    newTag.addAll(word.getTags());
+                    newTag.remove(toDelete);
+                    Word wordCopy = new Word(word.getName(), word.getMeaning(), newTag);
+                    updateWord(word, wordCopy);
+                }
+            }
+        }
+        for (Word word: deletedWord) {
+            deleteWord(word);
+        }
         versionedLearnVocabulary.deleteGroup(toDelete);
     }
 

@@ -69,7 +69,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         setWords(newData.getWordList());
         //@@author Harryqu123
         addedTag.clear();
-        addedTag.add(new Tag(Tag.DEFAULT_TAG));
+        addedTag.addAll(newData.getTags());
         //@@author
     }
 
@@ -118,20 +118,8 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     public void deleteGroup(Tag toDelete) {
         requireNonNull(toDelete);
-        final UniqueWordList wordsTemp = new UniqueWordList();
         if (addedTag.contains(toDelete)) {
             addedTag.remove(toDelete);
-        }
-        for (Word word:words) {
-            if (word.getTags().contains(toDelete)) {
-                word.deleteTags(toDelete);
-            }
-            if (word.getTags().isEmpty()) {
-                wordsTemp.add(word);
-            }
-        }
-        for (Word person: wordsTemp) {
-            words.remove(person);
         }
     }
 

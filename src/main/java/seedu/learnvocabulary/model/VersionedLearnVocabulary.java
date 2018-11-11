@@ -13,7 +13,6 @@ public class VersionedLearnVocabulary extends LearnVocabulary {
 
     public VersionedLearnVocabulary(ReadOnlyLearnVocabulary initialState) {
         super(initialState);
-
         learnVocabularyStateList = new ArrayList<>();
         learnVocabularyStateList.add(new LearnVocabulary(initialState));
         currentStatePointer = 0;
