@@ -3,11 +3,7 @@ package seedu.thanepark.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 
-import seedu.thanepark.commons.core.EventsCenter;
 import seedu.thanepark.commons.core.Messages;
-import seedu.thanepark.commons.core.index.Index;
-import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
-import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ride.RideContainsConditionPredicate;
@@ -35,11 +31,6 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredRideList(predicate);
-        if (model.getFilteredRideList().isEmpty()) {
-            EventsCenter.getInstance().post(new ShowHelpRequestEvent(true, ""));
-        } else {
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromOneBased(1)));
-        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_RIDES_LISTED_OVERVIEW, model.getFilteredRideList().size()));
     }
