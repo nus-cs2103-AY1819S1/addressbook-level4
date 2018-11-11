@@ -47,10 +47,10 @@ With this, you do not have to manually note down the change in level of medicine
 
 * *Other contributions*:
 ** Wrote the utilities for test cases for other team members to build their tests.
-** Spell-checked all documents to ensure consistency.
 ** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
 ** Configured <<config.json, config.json>> to allow Reposense to detect each member's works.
+** Edited the Structure of the Model Component in the Developer Guide.
 
 == Contributions to the User Guide
 

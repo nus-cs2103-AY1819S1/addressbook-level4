@@ -60,18 +60,6 @@ public class TypicalMedicines {
             .withSerialNumber("397380111")
             .withPricePerUnit("22").build();
 
-    // Manually added
-    public static final Medicine HALAVEN = new MedicineBuilder().withMedicineName("Halaven")
-            .withMinimumStockQuantity(233)
-            .withStock(2344)
-            .withSerialNumber("92470506")
-            .withPricePerUnit("12").build();
-    public static final Medicine IDAPROFEN = new MedicineBuilder().withMedicineName("Idaprofen")
-            .withMinimumStockQuantity(229)
-            .withStock(84821)
-            .withSerialNumber("213456743")
-            .withPricePerUnit("23").build();
-
     // Manually added - Medicine's details found in {@code CommandTestUtil}
     public static final Medicine PANADOL = new MedicineBuilder().withMedicineName(VALID_MEDICINE_NAME_PANADOL)
             .withStock(VALID_STOCK_PANADOL)
