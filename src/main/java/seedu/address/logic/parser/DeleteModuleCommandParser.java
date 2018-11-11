@@ -115,7 +115,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
         // Arguments should be in name-value pair.
         // Name should be legal.
         // No duplicate name.
-        argsWithBounds(args, ALLOWED_ARG_SIZE);
+        argsWithBounds(args, ALLOWED_ARG_SIZE, DeleteModuleCommand.MESSAGE_USAGE);
         argsAreNameValuePair(args, MESSAGE_INVALID_FORMAT);
         validateName(args, NAME_TO_ARGUMENT_MAP, MESSAGE_INVALID_FORMAT);
 

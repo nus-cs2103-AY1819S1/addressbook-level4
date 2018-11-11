@@ -25,8 +25,8 @@ public class AdjustCommand extends Command {
             + "\n"
             + MESSAGE_COMMAND_CODE_YEAR_SEM
             + "\n"
-            + "Adjust target grade of an incomplete module "
-            + "Parameters: CODE [YEAR SEM] GRADE "
+            + "Adjust target grade of an incomplete module \n"
+            + "Parameters: CODE [YEAR SEM] GRADE \n"
             + "Example: " + COMMAND_WORD + " CS2103 1 1 A+";
     public static final String MESSAGE_MULTIPLE_INSTANCE =
             "Multiple Instance of Module, please include Year and Semester\n"
