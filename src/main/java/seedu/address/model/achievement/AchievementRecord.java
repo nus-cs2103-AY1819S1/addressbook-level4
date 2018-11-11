@@ -24,7 +24,7 @@ import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
  */
 public class AchievementRecord {
 
-    private static final int MAX_INT_VALUE = 1000000000;
+    public static final int MAX_INT_VALUE = 1000000000;
 
     public static final int DISPLAY_ALL_TIME = 1;
     public static final int DISPLAY_TODAY = 2;
