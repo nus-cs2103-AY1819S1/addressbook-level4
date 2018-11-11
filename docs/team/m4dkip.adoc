@@ -6,7 +6,7 @@
 == PROJECT: MeNUS
 
 ---
-https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
+https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*]
 
 == Overview
 
