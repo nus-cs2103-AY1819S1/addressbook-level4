@@ -23,11 +23,11 @@ public class ListPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        
+
         if (!UserSession.isLogin()) {
             throw new CommandException(MESSAGE_NOT_LOGIN);
         }
-        
+
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
