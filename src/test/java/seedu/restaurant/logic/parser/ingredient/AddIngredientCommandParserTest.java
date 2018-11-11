@@ -33,6 +33,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 public class AddIngredientCommandParserTest {
     private AddIngredientCommandParser parser = new AddIngredientCommandParser();
 

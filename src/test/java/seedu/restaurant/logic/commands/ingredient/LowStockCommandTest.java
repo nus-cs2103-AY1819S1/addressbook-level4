@@ -16,6 +16,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.ingredient.Ingredient;
 
+//@@author rebstan97
 /**
  * Contains integration tests (interaction with the Model) and unit tests for LowStockCommand.
  */

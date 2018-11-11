@@ -93,6 +93,7 @@ public class StringUtil {
         }
     }
 
+    //@@author rebstan97
     /**
      * Returns true if {@code s} represents an unsigned integer inclusive of zero
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>

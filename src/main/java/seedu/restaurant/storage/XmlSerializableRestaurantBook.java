@@ -141,6 +141,7 @@ public class XmlSerializableRestaurantBook {
         }
     }
 
+    //@@author rebstan97
     /**
      * Converts this ingredient record into the model's {@code Ingredient} object.
      *

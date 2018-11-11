@@ -56,8 +56,6 @@ public class RecordCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(SalesRecord salesRecord) {
         return getDate().equals(salesRecord.getDate().toString())
-                && getItemName().equals(salesRecord.getName().toString())
-                && getQuantitySold().equals(salesRecord.getQuantitySold().toString())
-                && getPrice().equals(salesRecord.getPrice().toString());
+                && getItemName().equals(salesRecord.getName().toString());
     }
 }

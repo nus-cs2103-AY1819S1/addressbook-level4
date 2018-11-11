@@ -14,6 +14,7 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 /**
  * Contains integration tests (interaction with the Model) for {@code AddIngredientCommand}.
  */

@@ -12,6 +12,7 @@ import seedu.restaurant.logic.commands.ingredient.DeleteIngredientByNameCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientCommand;
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author rebstan97
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
  * outside of the DeleteIngredientCommand code. For example, inputs "1" and "1 abc" take the

@@ -2,10 +2,15 @@ package seedu.restaurant.logic.parser.ingredient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.restaurant.commons.util.StringUtil.isNonZeroUnsignedInteger;
+import static seedu.restaurant.logic.parser.ingredient.IngredientParserUtil.MESSAGE_NOT_INDEX_OR_NAME;
+import static seedu.restaurant.logic.parser.ingredient.IngredientParserUtil.parseIngredientName;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_MINIMUM;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_ORIGINAL_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_UNIT;
+import static seedu.restaurant.logic.parser.util.ParserUtil.parseIndex;
 
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientByIndexCommand;
@@ -32,17 +37,13 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
     public EditIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_UNIT,
-                        PREFIX_INGREDIENT_PRICE, PREFIX_INGREDIENT_MINIMUM);
+                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_ORIGINAL_NAME, PREFIX_INGREDIENT_NAME,
+                        PREFIX_INGREDIENT_UNIT, PREFIX_INGREDIENT_PRICE, PREFIX_INGREDIENT_MINIMUM);
 
-        String indexOrNameArg = argMultimap.getPreamble();
-
-        if (indexOrNameArg.trim().isEmpty()) {
+        if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditIngredientCommand.MESSAGE_USAGE));
         }
-
-        Object indexOrName = IngredientParserUtil.parseIndexOrIngredientName(indexOrNameArg);
 
         EditIngredientDescriptor editIngredientDescriptor = new EditIngredientDescriptor();
         setNameDescriptor(argMultimap, editIngredientDescriptor);
@@ -55,16 +56,19 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
         }
 
         EditIngredientCommand editCommand = null;
-        Index index;
-        IngredientName name;
 
-        if (indexOrName instanceof Index) {
-            index = (Index) indexOrName;
+        String trimmedIndex = argMultimap.getPreamble().trim();
+        if (!trimmedIndex.trim().isEmpty() && isNonZeroUnsignedInteger(trimmedIndex)) {
+            Index index = parseIndex(trimmedIndex);
             editCommand = new EditIngredientByIndexCommand(index, editIngredientDescriptor);
-        }
-        if (indexOrName instanceof IngredientName) {
-            name = (IngredientName) indexOrName;
+        } else {
+            String originalName = argMultimap.getValue(PREFIX_INGREDIENT_ORIGINAL_NAME).orElse("");
+            if (originalName.isEmpty()) {
+                throw new ParseException(MESSAGE_NOT_INDEX_OR_NAME + "\n" + EditIngredientCommand.MESSAGE_USAGE);
+            }
+            IngredientName name = parseIngredientName(originalName.trim());
             editCommand = new EditIngredientByNameCommand(name, editIngredientDescriptor);
+
         }
 
         return editCommand;

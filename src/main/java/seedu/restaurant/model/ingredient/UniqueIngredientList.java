@@ -15,6 +15,7 @@ import seedu.restaurant.model.ingredient.exceptions.DuplicateIngredientException
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotEnoughException;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author rebstan97
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
  * A ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such,
