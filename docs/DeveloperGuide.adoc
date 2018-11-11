@@ -789,7 +789,7 @@ keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParse
 `DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
 `DiscountItemCommand` object with `isAll` set to false.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`
+If the inputs are not valid, it will throw a `ParseException`
 
 The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount all
 items in the `UniqueItemList`. Otherwise, it will give the discount to the items specified by the index. The
