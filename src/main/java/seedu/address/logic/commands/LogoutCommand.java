@@ -23,13 +23,6 @@ public class LogoutCommand extends Command {
     protected static final String MESSAGE_NONE = "There is no account logged into.";
     private static final String MESSAGE_ERROR = "Error while attempting to logout.";
 
-    /**
-     * Creates a LogoutCommand to allow user to login to Google Account
-     */
-    public LogoutCommand() {
-
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);

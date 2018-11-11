@@ -53,7 +53,7 @@ public class PhotoHandler {
     private Map<String, MediaItem> imageMap = new HashMap<>();
     private Map<String, MediaItem> albumSpecificMap = new HashMap<>();
 
-    PhotoHandler(PhotosLibraryClient client, String email) {
+    public PhotoHandler(PhotosLibraryClient client, String email) {
         photosLibraryClient = client;
         user = email;
     }
@@ -280,11 +280,9 @@ public class PhotoHandler {
         File dir = new File(path);
 
         for (File file : Objects.requireNonNull(dir.listFiles())) {
-            if (file.isFile()) {
-                if (ImageIO.read(file) != null) {
-                    imageNames.add(file.getName());
-                    newItems.add(generateNewMediaImage(file.getName(), path));
-                }
+            if (file.isFile() && ImageIO.read(file) != null) {
+                imageNames.add(file.getName());
+                newItems.add(generateNewMediaImage(file.getName(), path));
             }
         }
 
@@ -303,11 +301,8 @@ public class PhotoHandler {
         String uploadToken;
 
         //Get upload token
-        UploadMediaItemRequest uploadRequest =
-                UploadMediaItemRequest.newBuilder()
-                        .setFileName(imageName)
-                        .setDataFile(new RandomAccessFile(pathName + "/" + imageName, "r"))
-                        .build();
+        UploadMediaItemRequest uploadRequest = UploadMediaItemRequest.newBuilder().setFileName(imageName)
+                .setDataFile(new RandomAccessFile(pathName + "/" + imageName, "r")).build();
         // Upload and capture the response
         UploadMediaItemResponse uploadResponse = photosLibraryClient.uploadMediaItem(uploadRequest);
         if (uploadResponse.getError().isPresent()) {
@@ -337,11 +332,8 @@ public class PhotoHandler {
 
         // if album could not be retrieved, just upload photo
         if (albumId.isEmpty()) {
-            BatchCreateMediaItemsRequest request =
-                    BatchCreateMediaItemsRequest.newBuilder()
-                            .addAllNewMediaItems(newItems)
-                            .build();
-            response = photosLibraryClient.batchCreateMediaItemsCallable().call(request);
+            response = photosLibraryClient.batchCreateMediaItemsCallable().call(
+                    BatchCreateMediaItemsRequest.newBuilder().addAllNewMediaItems(newItems).build());
         } else {
             response = photosLibraryClient.batchCreateMediaItems(albumId, newItems);
         }
@@ -385,16 +377,18 @@ public class PhotoHandler {
     public String getUniqueName(Map map, String title, String mimeType) {
         String newTitle = title;
         String titleWithoutExtension;
+        String extension;
 
         if (mimeType != null) {
             titleWithoutExtension = newTitle.replace(mimeType, "");
+            extension = mimeType;
         } else {
             titleWithoutExtension = title;
-            mimeType = "";
+            extension = "";
         }
         int i = 1;
         while (map.get(newTitle) != null) {
-            newTitle = titleWithoutExtension + " (" + i + ")" + mimeType;
+            newTitle = titleWithoutExtension + " (" + i + ")" + extension;
             i++;
         }
 

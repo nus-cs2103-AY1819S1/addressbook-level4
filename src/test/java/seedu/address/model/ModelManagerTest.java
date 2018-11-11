@@ -33,7 +33,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        UserPrefs userPrefs = new UserPrefs();
+        //UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
 
@@ -41,13 +41,13 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(modelManager == null);
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
         // different userPrefs -> returns true
-        UserPrefs differentUserPrefs = new UserPrefs();
+        //UserPrefs differentUserPrefs = new UserPrefs();
     }
 
     @Test

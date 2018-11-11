@@ -66,7 +66,7 @@ public class UserPrefs {
                 if (file.isFile()) {
                     String mimetype = new MimetypesFileTypeMap().getContentType(file);
                     // only list if is image
-                    if ((mimetype.split("/")[0]).equals("image")) {
+                    if ("image".equals(mimetype.split("/")[0]) && !"image/gif".equals(mimetype)) {
                         dirImageList.add(file.toPath());
                     }
                 }

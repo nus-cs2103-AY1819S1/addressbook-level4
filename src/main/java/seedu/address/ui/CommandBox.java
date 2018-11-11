@@ -2,8 +2,9 @@ package seedu.address.ui;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,13 +30,14 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    //private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private final UserPrefs prefs;
     private String startDir;
+    private Queue<String> dirListWithSearchPrefix = new LinkedList<>();
     private ListElementPointer historySnapshot;
 
     @FXML
@@ -129,7 +131,7 @@ public class CommandBox extends UiPart<Region> {
         String commandWord = getCommandWord(commandText.trim());
         if (commandWord.equals(CdCommand.COMMAND_WORD)) {
             String arguments = getArguments(commandText.trim());
-            if (arguments.equals("")) {
+            if ("".equals(arguments)) {
                 return;
             }
             searchDirectory(arguments);
@@ -174,15 +176,28 @@ public class CommandBox extends UiPart<Region> {
                 File checkDir = new File(startDir);
                 File[] fileList = checkDir.listFiles();
 
+                if (!dirListWithSearchPrefix.isEmpty()
+                        && dirListWithSearchPrefix.peek().equalsIgnoreCase(dir)) {
+                    dirListWithSearchPrefix.add(dirListWithSearchPrefix.poll());
+
+                    copyArgs.append(dirListWithSearchPrefix.peek());
+                    String newCommandText = "cd " + copyArgs + "/";
+                    replaceText(newCommandText);
+                    return;
+                }
+                dirListWithSearchPrefix.clear();
+
                 for (File file : fileList) {
-                    if (file.isDirectory()) {
-                        if (file.getName().toUpperCase().startsWith(dir.toUpperCase())) {
-                            copyArgs.append(file.getName());
-                            String newCommandText = "cd " + copyArgs + "/";
-                            replaceText(newCommandText);
-                            return;
-                        }
+                    if (file.isDirectory() && file.getName().toUpperCase().startsWith(dir.toUpperCase())) {
+                        dirListWithSearchPrefix.add(file.getName());
                     }
+                }
+
+                if (!dirListWithSearchPrefix.isEmpty()) {
+                    copyArgs.append(dirListWithSearchPrefix.peek());
+                    String newCommandText = "cd " + copyArgs + "/";
+                    replaceText(newCommandText);
+                    return;
                 }
             } else {
                 // checks if directory exists

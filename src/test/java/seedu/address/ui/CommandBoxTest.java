@@ -13,8 +13,8 @@ import javafx.scene.input.KeyCode;
 import seedu.address.MainApp;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.ApplyCommand;
 import seedu.address.logic.commands.CdCommand;
-import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -28,7 +28,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
     private static final String CD_COMMAND_THAT_SUCCEEDS = CdCommand.COMMAND_WORD;
     private static final String UNDO_COMMAND_THAT_FAILS = UndoCommand.COMMAND_WORD;
-    private static final String CONVERT_COMMAND_THAT_FAILS = ConvertCommand.COMMAND_WORD;
+    private static final String APPLY_COMMAND_THAT_FAILS = ApplyCommand.COMMAND_WORD;
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -143,27 +143,27 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void handleKeyPressWrongCommandWordWithTab() {
         // empty commandBox
-        assertInputHistory(KeyCode.TAB, "");
+        assertCompleteDirName(KeyCode.TAB, "");
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, "");
 
         // ls command
         commandBoxHandle.setText(COMMAND_THAT_SUCCEEDS + " ");
-        assertInputHistory(KeyCode.TAB, COMMAND_THAT_SUCCEEDS + " ");
+        assertCompleteDirName(KeyCode.TAB, COMMAND_THAT_SUCCEEDS + " ");
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_SUCCEEDS + " ");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS + " ");
 
         // undo command
         commandBoxHandle.setText(UNDO_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.TAB, UNDO_COMMAND_THAT_FAILS + " ");
+        assertCompleteDirName(KeyCode.TAB, UNDO_COMMAND_THAT_FAILS + " ");
         assertInputHistory(KeyCode.DOWN, UNDO_COMMAND_THAT_FAILS + " ");
         assertInputHistory(KeyCode.UP, UNDO_COMMAND_THAT_FAILS + " ");
 
         // convert command
-        commandBoxHandle.setText(CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.TAB, CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.DOWN, CONVERT_COMMAND_THAT_FAILS + " ");
-        assertInputHistory(KeyCode.UP, CONVERT_COMMAND_THAT_FAILS + " ");
+        commandBoxHandle.setText(APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.TAB, APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.DOWN, APPLY_COMMAND_THAT_FAILS + " ");
+        assertInputHistory(KeyCode.UP, APPLY_COMMAND_THAT_FAILS + " ");
     }
 
     @Test
@@ -172,14 +172,14 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // cd commands to get current directory with one input
         commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " test");
-        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
+        assertCompleteDirName(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
         assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
         assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
 
         if (os.contains("win")) {
             // cd commands to change drive on windows
             commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " C://Us");
-            assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
+            assertCompleteDirName(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
             assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
             assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
         }
@@ -188,9 +188,19 @@ public class CommandBoxTest extends GuiUnitTest {
         String expectedPath = MainApp.MAIN_PATH.toString() + "/src/";
 
         commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " " + testPath);
-        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+        assertCompleteDirName(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
         assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
         assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+    }
+
+    @Test
+    public void handleKeyPressWithMultipleTabs() {
+        // pressing tab multiple times loops through the list
+        commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " test");
+        assertCompleteDirName(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
+        //assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs20/");
+        //assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs30/");
+        assertCompleteDirName(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
     }
     //@@author
 
@@ -220,6 +230,14 @@ public class CommandBoxTest extends GuiUnitTest {
      * Pushes {@code keycode} and checks that the input in the {@code commandBox} equals to {@code expectedCommand}.
      */
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
+        guiRobot.push(keycode);
+        assertEquals(expectedCommand, commandBoxHandle.getInput());
+    }
+
+    /**
+     * Pushes {@code keycode} and checks that the input in the {@code commandBox} equals to {@code expectedCommand}.
+     */
+    private void assertCompleteDirName(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
         assertEquals(expectedCommand, commandBoxHandle.getInput());
     }

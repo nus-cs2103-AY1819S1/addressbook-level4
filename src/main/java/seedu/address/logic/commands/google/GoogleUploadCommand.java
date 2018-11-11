@@ -50,12 +50,9 @@ public class GoogleUploadCommand extends GoogleCommand {
                 message = model.getPhotoHandler().uploadImage(parameter, model.getCurrDirectory().toString());
                 return returnUploadMessage(message);
             }
+        } catch (ApiException ex) {
+            throw new CommandException(ex.getMessage());
         } catch (Exception ex) {
-
-            if (ex instanceof ApiException) {
-                throw new CommandException(ex.getMessage());
-            }
-
             if (parameter.isEmpty()) {
                 parameter = org;
             }
@@ -69,14 +66,15 @@ public class GoogleUploadCommand extends GoogleCommand {
      * @return result to return to display
      */
     public CommandResult returnUploadMessage(String uploaded) {
+        String message = uploaded;
         String allImages = "All images in directory";
         if (uploaded.isEmpty()) {
             return new CommandResult(String.format(MESSAGE_ALL_DUPLICATE, allImages));
         } else if (uploaded.substring(0, 4).equals(".all")) {
-            uploaded = uploaded.substring(4);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, uploaded));
+            message = uploaded.substring(4);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, message));
         } else {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE, uploaded));
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, message));
         }
     }
 

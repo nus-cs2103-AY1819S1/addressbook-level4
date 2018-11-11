@@ -7,9 +7,12 @@ import static seedu.address.logic.commands.LogoutCommand.MESSAGE_NONE;
 import static seedu.address.testutil.ModelGenerator.getDefaultModel;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -21,14 +24,20 @@ public class LogoutCommandTest {
     private String credentialPath = "./src/main/resources/user_credentials/StoredCredential";
 
     @Test
-    public void execute_command() {
+    public void executeSuccessCommand() throws IOException {
+        FileUtil.createIfMissing(Paths.get("./src/main/resources/user_credentials/StoredCredential").toFile());
         LogoutCommand logoutCommand = new LogoutCommand();
         File file = new File(credentialPath);
-        if (file.exists()) {
-            assertCommandSuccess(logoutCommand, model, commandHistory, MESSAGE_LOGGED_OUT, expectedModel);
-        } else {
-            assertCommandSuccess(logoutCommand, model, commandHistory, MESSAGE_NONE, expectedModel);
-        }
+        assertCommandSuccess(logoutCommand, model, commandHistory, MESSAGE_LOGGED_OUT, expectedModel);
         assertFalse(file.exists());
     }
+
+    @Test
+    public void executeFailCommand() {
+        LogoutCommand logoutCommand = new LogoutCommand();
+        File file = new File(credentialPath);
+        assertCommandSuccess(logoutCommand, model, commandHistory, MESSAGE_NONE, expectedModel);
+        assertFalse(file.exists());
+    }
+
 }

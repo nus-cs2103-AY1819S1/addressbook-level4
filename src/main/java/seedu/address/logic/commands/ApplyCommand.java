@@ -17,11 +17,11 @@ import seedu.address.model.transformation.Transformation;
 
 /**
  * @@author lancelotwillow
- * the class to execute the convert command that do the modification of the image
+ * the class to execute the apply command that do the modification of the image
  */
-public class ConvertCommand extends Command {
+public class ApplyCommand extends Command {
 
-    public static final String COMMAND_WORD = "convert";
+    public static final String COMMAND_WORD = "apply";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": do the operation to the image.\n"
             + "Parameters: operationName argument1 argument2 ...\n"
@@ -30,31 +30,31 @@ public class ConvertCommand extends Command {
             + ": do the raw operation to the image by passing the args directly to ImageMagick.\n"
             + "Parameters: argument1 argument2 ...\n"
             + "Example: " + COMMAND_WORD + " raw +noise gaussian";
-    //the path of the json file containing the arguments of the convert command
+    //the path of the json file containing the arguments of the apply command
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
             ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
-    private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(ApplyCommand.class);
 
     private Transformation transformation;
     private boolean isRaw;
 
 
     /**
-     * the constructor take the path of the JSON file of the detail of the convert operation
+     * the constructor take the path of the JSON file of the detail of the apply operation
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(Transformation transformation) {
+    public ApplyCommand(Transformation transformation) {
         this.transformation = transformation;
         this.isRaw = false;
     }
 
-    public ConvertCommand(String[] args) {
+    public ApplyCommand(String[] args) {
         this.transformation = new Transformation(Arrays.toString(args), args);
         this.isRaw = true;
     }
 
     /**
-     * build a new processbuilder and initialize witht the commands need to the convert command
+     * build a new processbuilder and initialize witht the commands need to the apply command
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
      * @return
@@ -77,7 +77,7 @@ public class ConvertCommand extends Command {
 
     @Override
     public boolean equals(Object object) {
-        ConvertCommand command = (ConvertCommand) object;
+        ApplyCommand command = (ApplyCommand) object;
         return command == this || transformation.equals(command.transformation);
     }
 }

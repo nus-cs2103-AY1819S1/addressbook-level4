@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.google.PhotoHandler;
 
 //@@author chivent
 public class LoginCommandTest {
@@ -21,5 +22,12 @@ public class LoginCommandTest {
         // success test would require a permanent set of stored google credentials, thus is insecure.
         LoginCommand loginCommand = new LoginCommand();
         assertCommandSuccess(loginCommand, model, commandHistory, MESSAGE_LAUNCHED, expectedModel);
+    }
+
+    @Test
+    public void executeCommandSuccess() {
+        model.setPhotoHandler(new PhotoHandler(null, "user"));
+        LoginCommand loginCommand = new LoginCommand();
+        assertCommandSuccess(loginCommand, model, commandHistory, "Logged in as user.", expectedModel);
     }
 }

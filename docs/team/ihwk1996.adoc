@@ -9,21 +9,23 @@
 
 == Overview
 
-Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price!
-
-Unlike them, Piconso offers the same features, in a much more simplified manner. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by photographers, designers, developers and more, and is very easy to pick up.
-
+Piconso is a robust yet simple image-editing tool. Catered towards power users, Piconso is a uses the Command Line Interface (CLI), while providing visual feedback through Graphical User Interface (GUI).
+Unlike other heavy image editors, Piconso has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
+In addition, Piconso is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous transformations*
-** What it does: allows the user to undo all previous transformations one at a time. Preceding undo transformations can be reversed by using the redo command.
+** What it does: allows the user to undo previous transformations one at a time. Preceding undone transformations can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in transformations and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement uses memoization ensure undo/redo commands are almost instant. Since transformations to images take significant time (especially large images) and that users typically want to quickly inspect the before and after of their transformation, it is necessary  for undo and redo to be fast. As such, after each transformation, the resulting transformed image is cached into a temporary folder. Undo and redo operations will shift a pointer leftwards or rightwards and read the selected image, instead of reapplying or reversing a transformation process which is time consuming.
+** Highlights: This enhancement uses memoization ensure undo/redo commands are almost instant. Since transformations to images take significant time (especially on large images) and that users typically want to quickly inspect the before and after of their transformation, it is necessary  for undo and redo to be fast. As such, after each transformation, the resulting transformed image is cached into a temporary folder. Undo and redo operations will shift a pointer leftwards or rightwards and read the selected image, instead of reapplying or reversing a transformation process which is time consuming.
 
-// * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added *the ability to undo/redo all transformations at once*
+** What it does: allows the user to undo all previous transformations swiftly with a single `undo-all` command. Likewise, all preceding undone transformations can be redone with a single `redo-all` command.
+** Justification: This feature provides the user with an extra layer of convenience. At times, the user might feel that he wants to revert back to the original state but has applied many transformations. It would be tedious to apply the undo command one by one, hence having command to undo all transformations would be handy. Similarly, if he feels that undoing all commands is a mistake, he can quickly revert back all transformations with the `redo-all` command.
+** Highlights: Similar the the undo/redo feature, undo-all/redo-all commands are also almost instant with the help of memoization.
 
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=ihwk1996[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ihwk1996[Project Code Dashboard]]
 
 
