@@ -366,6 +366,7 @@ public class ConnectToGoogleCalendar {
                     com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
                     instance.setStatus("cancelled");
                     service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+                    return true;
                 }
 
                 //delete multiple instances
