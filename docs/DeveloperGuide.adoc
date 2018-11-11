@@ -548,14 +548,14 @@ the ingredients used before deducting them from the ingredient list automaticall
 A `SalesRecord` is associated with 6 attributes - `Date`, `ItemName`, `QuantitySold`, `Price`, `Revenue` and
 `IngredientUsed`. The success of the auto-ingredient update mechanism is subjected to the following conditions: +
 
-[[condition]]
+[[criteria]]
 1) `ItemName` exists in the `Menu`.  +
 2) The required ingredients to make one unit of `ItemName` is specified in the `Menu`. +
 3) The required ingredients exist in the `Ingredient` list. +
 4) There are sufficient ingredients to make `QuantitySold` units of `ItemName` in the `Ingredient` list.
 
 [NOTE]
-If any of the above conditions is not satisfied, the sales will be recorded without updating the ingredient
+If any of the above conditions are not satisfied, sales volume will be recorded without updating the ingredient
 list.
 
 [NOTE]
@@ -569,72 +569,77 @@ Step 1. The user executes `record-sales d/11-01-2018 n/Fried Rice q/35 p/5.50` c
 `Fried Rice` on `11-01-2018`. A `SalesRecord` would be instantiated based on the command arguments given.
 
 Step 2. `RecordSalesCommand` will request for the item `Fried Rice` from `Menu`. This is done through the `Item findItem
-(Name)` method given in `Menu` component. This also checks if <<condition>> 1 is satisfied.
+(Name)` method given in `Menu` component. This also checks if <<criteria, condition 1>> is satisfied.
 
+[[required-ingredient]]
 Step 3. `RecordSalesCommand` then proceeds to request for the required ingredients to make a unit of `Fried Rice`
 from `Menu`. This is done through the `Map<IngredientName, Integer> getRequiredIngredients(Item)` method given
-in `Menu`. This also checks if <<condition>> 2 is satisfied.
+in `Menu`. This also checks if <<criteria, condition 2>> is satisfied.
 
 Step 4. With the required ingredients per unit data now at hand, `RecordSalesCommand` will compute the total
-ingredients used in making `35` units of `Fried Rice`. This is done by multiplying required ingredients per unit by the
-`35`. The `IngredientUsed` attribute in `SalesRecord` will then be updated.
+ingredients used in making `35` units of `Fried Rice`. The `IngredientUsed` attribute in `SalesRecord` will then be updated.
 
 Step 5. `RecordSalesCommand` will then pass the computed `IngredientUsed` to `Ingredient` component to request for
  an update of ingredients. This is done through the `void consumeIngredients(Map<IngredientName, Integer>)` method
- given in `Ingredient` component. This checks for <<condition>> 3 and 4.
+ given in `Ingredient` component. This checks for <<criteria, condition 3 & 4>>.
 
 Step 6. The `SalesRecord` is then finally added into `UniqueRecordList` via the `void addRecord(SalesRecord)`
 method given in `Sales` component of `Model`.
 
 [NOTE]
-An exception will be thrown in step 2, 3 or 5 should the conditions be violated. When this happens,
-`RecordSalesCommand` will proceed with step 6 instantly and omit the remaining steps.
+An exception will be thrown in step 2, 3 or 5 should the conditions be violated. In such scenario,
+`RecordSalesCommand` will jump to step 6 instantly and omit the remaining steps.
 
 The following activity diagram summarizes what happens when a user executes `record-sales` command:
 
 image::RecordSalesActivityDiagram.png[width="1000"]
 
 ==== Design Considerations
-===== Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales?
+**Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales record?**
 
 * **Alternative 1 (current choice):** `DeleteSalesCommand` does not update the ingredient list. That is, it does not
-"return" the ingredients which may or may not have been consumed during `record-sales`.
-** Pros: Remove the possibility of unwanted updates to the ingredient list. This advantage is apparent when deleting
+"return" the ingredients which may have been deducted during `record-sales`.
+** Pros: Remove the possibility of unwanted updates to the ingredient list. This is apparent when deleting
 an obsolete record. We do not want the ingredients to "magically appear" in the ingredient list.
-** Cons: If user accidentally recorded sales by mistake, deleting sales will not help him/her recover the consumed
-ingredients. Instead, user will have to rely on the `Undo` command.
+** Cons: If user accidentally recorded sales by mistake and triggered the update mechanism, deleting sales will not
+help him/her recover the deducted ingredients. Instead, user will have to rely on the `Undo` command.
 
-* **Alternative 2:** `DeleteSalesCommand` "returns" the consumed ingredients to the ingredient list.
+* **Alternative 2:** `DeleteSalesCommand` "returns" any deducted ingredients to the ingredient list.
 ** Pros: Resolves the issue stated in "Alternative 1 - Cons".
 ** Cons: Brings about the issue stated in "Alternative 1 - Pros".
 
-===== Aspect: Should the auto-ingredient update mechanism be incorporated when editing sales?
+**Aspect: Should the auto-ingredient update mechanism be incorporated when editing sales record?**
 
 * **Alternative 1 (current choice):** `EditSalesCommand` does not update the ingredient list. That is, it does not
-"correct" the ingredients which may or may not have been consumed during `record-sales`. Furthermore, the
-`IngredientUsed` attribute of the `SalesRecord` becomes invalid and hence removed permanently. There will be no
-re-computation of `IngredientUsed`.
-** Pros: Easy to implement. Avoids the implementation complexity as stated in "Alternative 2 - Cons"
-** Cons: If user accidentally made an error while recording sales, editing sales will not help him/her alter the
-ingredients consumed. What is consumed previously will stay as it is. Also, the `IngredientUsed` attribute will no
+"return" the ingredients which may have been deducted during `record-sales` and does not attempt to re-compute or
+re-deduct the ingredient used. Since the `IngredientUsed` attribute of the `SalesRecord` is now outdated, it will be
+removed permanently.
+** Pros: Easy to implement. Avoids the implementation complexity as stated in "Alternative 2 - Cons".
+** Cons: If user accidentally made an error when recording sales in the past, editing sales will not help him/her alter
+ the ingredients deducted. What was deducted previously will stay as it is. Also, the `IngredientUsed` attribute will no
 longer be available.
 
-* **Alternative 2:** `EditSalesCommand` "corrects" the consumed ingredients by re-computing the `IngredientUsed`
-attribute, "returning" the ingredients that were previously consumed and then passing the new `IngredientUsed` to the
-ingredient list to update it.
+* **Alternative 2:** `EditSalesCommand` "returns" the ingredients which may have been deducted, re-computes the
+`IngredientUsed` attribute and re-deduct the ingredients from the ingredient list. The `IngredientUsed` attribute of
+the `SalesRecord` will be updated.
+
 ** Pros: Resolves the issue stated in "Alternative 1 - Cons".
-** Cons: Must take time into consideration when re-computing the `IngredientUsed` since "required ingredients per
-unit" may get edited over time. Do we use the "required ingredients per unit" data present during record-sales, or do
- we use the data present during edit-sales? +
- If we use the former, then we would require a repository to store the history of the entire `Menu` whenever we
- record-sales. "Entire menu" so that data would be available should the `ItemName` gets edited in the future. This would
- take up a massive amount of memory space in the long run. Certainly not worth it just for an `edit-sales`. +
-If we use the latter, then it would not make much sense. Say a glass of orange juice takes 1 orange to make at the
-time of record-sales, and 3 oranges to make at the time of edit-sales. If the user edits the `QuantitySold` attribute
- from 1 to 10, he/she would certainly not want (3*10-1 = 29) oranges to be consumed from the ingredient list since it
- only took (1*10 = 10) oranges! Now what happens if the user wants to edit the `ItemName` "Orange Juice" to "Fruit
- Punch"? The ingredients required to make "Fruit Punch" might be available now, but we are not so sure if they were
- even available during `record-sales`!
+** Cons: Must take time into consideration when re-computing the `IngredientUsed` since <<required-ingredient,
+"required ingredients per unit">> may change over time.
+
+*** **Option 1**: Use `required ingredients per unit` data available **during record-sales in the past**.
+*** Implication: We would need a repository to save different versions of `Menu` in the past.
+The entire `Menu` must be saved whenever a sales record is added. This is so that if user were to edit the `ItemName`
+attribute of that particular sales record in the future, we would be able to retrieve the item's `required
+ingredients per unit` data (which might not even have been specified) at the time of `record-sales`. +
+ **This option would take up a massive amount of memory space in the long run.**
+
+*** **Option 2**: Use `required ingredients per unit` data available **during edit-sales at the present**. +
+*** Implication: Let us assume that a glass of orange juice takes 1 orange to make at the time of record-sales (past),
+and 3 oranges to make at the time of edit-sales (present). If the user edits the `QuantitySold` attribute from 1
+(past) to 10 (present), it would be illogical for (3*10-1*1 = 29) oranges to be deducted from the ingredient list since
+ it only took (1*10 = 10) oranges. +
+**This option is irrational**.
 // end::auto-ingredient-update[]
 
 // tag::displaySales[]
@@ -1786,9 +1791,9 @@ Use case resumes at step 2.
 +
 
 [none]
-* 2a. Some of the <<condition>> were not satisfied.
+* 2a. One or more of the <<criteria, criteria>> to update ingredient list were not satisfied.
 [none]
-** 2a1. App takes note of which condition was not satisfied, and appends a notification message after the success
+** 2a1. App takes note of which criteria were not satisfied, and appends a notification message after the success
 message.
 +
 Use case resumes at step 3.
@@ -1824,13 +1829,13 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the record list.
+* 1b. Index specified is invalid.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the record list.
+** 1b1. App returns a message telling user that the index specified is invalid.
 ** 1b2. User requests to edit sales record again.
 +
-Steps 1b1-1b2 are repeated until a valid record is entered.
+Steps 1b1-1b2 are repeated until a valid index is entered.
 +
 Use case resumes at step 2.
 
@@ -1892,13 +1897,13 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the record list.
+* 1b. Index specified is invalid.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the record list.
+** 1b1. App returns a message telling user that the index specified is invalid.
 ** 1b2. User requests to delete sales record again.
 +
-Steps 1b1-1b2 are repeated until a valid record is entered.
+Steps 1b1-1b2 are repeated until a valid index is entered.
 +
 Use case resumes at step 2.
 

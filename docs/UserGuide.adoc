@@ -853,6 +853,12 @@ will not be updated.
 the item and its required ingredients have been specified in the menu component.
 ====
 
+[TIP]
+====
+If you recorded a sales volume by mistake, you can use the `Undo` command to recover the deducted ingredients,
+provided that the ingredients have been deducted automatically.
+====
+
 [[display-sales]]
 ==== Display sales report: `display-sales` or `dis`
 
