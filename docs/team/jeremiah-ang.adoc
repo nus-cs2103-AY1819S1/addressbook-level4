@@ -42,6 +42,7 @@ in the transcript and updated on the UI.
 *** Added Sequence Diagrams for Target Grade and CAP Calculations
 *** Added Activity Diagram for Target Grade Calculations
 *** Updated User Guide for `goal` and `adjust` commands
+*** Added Manual Testing Guide for Target Grade and CAP Calculations
 ** Community:
 *** PRs reviewed (with non-trivial review comments): #76, #78, #102, #133, #135, #190, #216
 
