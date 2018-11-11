@@ -33,8 +33,8 @@ public class DependencyCommand extends Command {
     public static final String MESSAGE_CYCLIC_DEPENDENCY_FAILURE = "Dependency rejected as new dependency will "
             + "introduce a cyclic dependency";
     public static final String MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE = "Dependency rejected as "
-            + "dependant task cannot be completed while the dependee task is uncompleted. The introduction of this "
-            + "dependency will make the `COMPLETED` state of the dependant task invalid as it depends on a task that"
+            + "dependant task cannot be completed while the dependee task is uncompleted.\n The introduction of this "
+            + "dependency will make the COMPLETE state of the dependant task invalid as it will depend on a task that"
             + "is uncompleted";
     private final Index dependantIndex;
     private final Index dependeeIndex;
@@ -87,6 +87,8 @@ public class DependencyCommand extends Command {
         List<Task> lastShownList = model.getFilteredTaskList();
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
+
+        checkTaskDependencyAtIndexes(taskDependant, taskDependee);
 
         Task updatedTask;
         String message;
