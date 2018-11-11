@@ -6,7 +6,7 @@ import seedu.souschef.logic.History;
 import seedu.souschef.model.recipe.RecipeBuilder;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a recipe to the SousChef.
  */
 public class CreateRecipeBuildCommand extends Command {
 
@@ -30,7 +30,7 @@ public class CreateRecipeBuildCommand extends Command {
     public CommandResult execute(History history) {
         history.createRecipeBuilder(toAdd);
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
-                history.getContext().toString().toLowerCase(), toAdd));
+                history.getContextString(), toAdd));
     }
 
     @Override

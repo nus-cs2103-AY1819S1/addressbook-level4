@@ -6,6 +6,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.ClearCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
@@ -14,6 +15,7 @@ import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
 import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
@@ -41,7 +43,8 @@ public class MealPlannerParser {
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(Model mealPlannerModel, Model recipeModel, String userInput) throws ParseException {
+    public Command parseCommand(Model mealPlannerModel, Model recipeModel,
+                                String userInput, History history) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -56,13 +59,17 @@ public class MealPlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case PlanMealCommand.COMMAND_WORD:
-            return new PlanMealCommandParser().parseMealPlan(mealPlannerModel, recipeModel, arguments);
+            if (history.getContext().equals(Context.MEAL_PLAN)) {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            } else {
+                return new PlanMealCommandParser().parseMealPlan(mealPlannerModel, recipeModel, arguments);
+            }
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseMealPlan(mealPlannerModel, recipeModel, arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Day>(mealPlannerModel);
+            return new ListCommand(mealPlannerModel);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

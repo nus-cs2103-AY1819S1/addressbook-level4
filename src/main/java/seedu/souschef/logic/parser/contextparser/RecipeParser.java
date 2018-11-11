@@ -19,6 +19,7 @@ import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.logic.commands.SurpriseCommand;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
@@ -39,11 +40,11 @@ public class RecipeParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses user input from recipe within context into command for execution.
      *
-     * @param recipeModel
+     * @param recipeModel model data to be edited
      * @param userInput full user input string
-     * @param history
+     * @param history historical data from user input
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -61,19 +62,12 @@ public class RecipeParser {
             return new RecipeBuilderCommandParser().parseRecipe(recipeModel, arguments);
 
         case BuildRecipeInstructionCommand.COMMAND_WORD:
-            if (history.isBuildingRecipe()) {
-                return new RecipeBuilderCommandParser().parseInstruction(arguments);
-            }
-            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
+            isBuildingRecipe(history);
+            return new RecipeBuilderCommandParser().parseInstruction(arguments);
 
         case AddCommand.COMMAND_WORD_END:
-            if (history.isBuildingRecipe()) {
-                AddCommand command = new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel,
-                        history.buildRecipe());
-                history.clearRecipe();
-                return command;
-            }
-            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
+            isBuildingRecipe(history);
+            return new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel, history);
 
         case AddFavouriteCommand.COMMAND_WORD:
             return new AddFavouriteCommand<Recipe>(recipeModel, arguments);
@@ -88,13 +82,26 @@ public class RecipeParser {
             return new FindCommandParser().parseRecipe(recipeModel, arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand<Recipe>(recipeModel);
+            return new ListCommand(recipeModel);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(recipeModel, arguments);
 
+        case SurpriseCommand.COMMAND_WORD:
+            return new SurpriseCommand(recipeModel);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Check if recipe history contains incomplete recipe.
+     * @throws ParseException if history does not contains incomplete recipe.
+     */
+    private void isBuildingRecipe(History history) throws ParseException {
+        if (!history.isBuildingRecipe()) {
+            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
         }
     }
 }

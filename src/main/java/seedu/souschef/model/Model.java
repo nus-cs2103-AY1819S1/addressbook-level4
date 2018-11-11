@@ -14,11 +14,11 @@ public interface Model<T extends UniqueType> {
 
     Predicate<UniqueType> PREDICATE_SHOW_ALL = unused -> true;
 
-    /** Clears existing backing recipeModel and replaces with the provided new data. */
-    void resetData(ReadOnlyAppContent newData);
-
     /** Returns the AppContent */
     ReadOnlyAppContent getAppContent();
+
+    /** Raises an event to indicate the model has changed */
+    void indicateAppContentChanged();
 
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
@@ -64,7 +64,6 @@ public interface Model<T extends UniqueType> {
      * @param comparator
      */
     void sort(Comparator<T> comparator);
-
 
     /**
      * Returns true if the recipeModel has previous application content states to restore.

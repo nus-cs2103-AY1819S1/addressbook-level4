@@ -14,6 +14,7 @@ import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
+import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
 import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.AppContent;
@@ -54,7 +55,6 @@ public class StorageManager extends ComponentManager implements Storage {
         this.featureStorage = recipeStorage;
     }
 
-    //TODO: Constructor redundant
     public StorageManager(FeatureStorage featureStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.featureStorage = featureStorage;
@@ -95,8 +95,9 @@ public class StorageManager extends ComponentManager implements Storage {
         return listOfFeatureStorage;
     }
 
-    public void setMainFeatureStorage(FeatureStorage featureStorage) {
-        this.featureStorage = featureStorage;
+    @Subscribe
+    protected void handleSwitchFeatureStorageEvent(SwitchFeatureStorageEvent event) {
+        this.featureStorage = listOfFeatureStorage.get(event.context);
     }
 
     /**
@@ -130,7 +131,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException {
-        readFeature(Context.RECIPE, SampleDataUtil::getSampleAddressBook);
+        readFeature(Context.RECIPE, SampleDataUtil::getSampleRecipes);
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
         readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);

@@ -6,7 +6,7 @@ import java.util.Objects;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Represents an ingredient in the address book.
+ * Represents an ingredient in SousChef.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Ingredient extends IngredientPortion {

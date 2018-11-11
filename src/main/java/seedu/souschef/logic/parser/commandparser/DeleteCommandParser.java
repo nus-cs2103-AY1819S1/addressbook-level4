@@ -1,17 +1,21 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_MEALPLANNER_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
 import java.util.List;
 
+import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
+import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.logic.commands.DeleteCommand;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -31,16 +35,17 @@ public class DeleteCommandParser {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
+    public DeleteCommand<Recipe> parseRecipe(Model<Recipe> model, String args) throws ParseException {
         try {
             Index targetIndex = ParserUtil.parseIndex(args);
             requireNonNull(model);
             List<Recipe> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
+            EventsCenter.getInstance().post(new RecipeDeletedEvent(toDelete));
 
             return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {
@@ -93,31 +98,6 @@ public class DeleteCommandParser {
     }
 
     /**
-     *
-     * @param model
-     * @param args
-     * @return
-     * @throws ParseException
-     */
-    public DeleteCommand<Recipe> parseFavourites(Model model, String args) throws ParseException {
-        try {
-            Index targetIndex = ParserUtil.parseIndex(args);
-            requireNonNull(model);
-            List<Recipe> lastShownList = model.getFilteredList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE));
-            }
-            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
-
-            return new DeleteCommand<>(model, toDelete);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE), pe);
-        }
-    }
-
-    /**
      * Deletes a specified Day from the Meal Planner.
      * @param model mealPlannerModel
      * @param args userInput
@@ -135,6 +115,7 @@ public class DeleteCommandParser {
                     MESSAGE_DELETE_MEALPLANNER_USAGE));
             }
             Day toDelete = lastShownList.get(targetIndex.getZeroBased());
+            EventsCenter.getInstance().post(new MealPlanDeletedEvent(toDelete, Context.MEAL_PLAN));
 
             return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {

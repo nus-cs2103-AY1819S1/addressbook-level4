@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * A utility class for Recipe.

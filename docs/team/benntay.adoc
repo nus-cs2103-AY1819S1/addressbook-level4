@@ -32,11 +32,18 @@ Universal Commands.
 ** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[PR#65]
 
 * *Other contributions*:
-
+** General/Team Enhancements:
+*** Clean up code by decoupling Storage and Ui components from Logic component
+(https://github.com/CS2103-AY1819S1-W10-4/main/pull/243[PR#243]
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[PR#256]).
+** Documentation (see *Contributions to Developer Guide* for details):
+*** Update UI class diagram to reflect new generic classes.
+*** Documented and explained modularisation of UI component, including creating class diagrams to show new classes
+*** Documented and explained implementation of MealPlanner component.
 ** Enhancements to new features:
 *** Wrote additional tests for Meal Planner component to increase coverage.
 ** Community:
-*** PRs reviewed (mostly wth regards to UI component):
+*** PRs reviewed (mostly wth regards to the UI component):
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/83[#83],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/84[#84],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/56[#56]
@@ -80,3 +87,8 @@ include::../DeveloperGuide.adoc[tag=mealplanner]
 
 include::../DeveloperGuide.adoc[tag=uimodularisation]
 
+---
+
+=== Update UI Class Diagram
+
+image::UiClassDiagram.png[width="800"]

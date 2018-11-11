@@ -2,16 +2,24 @@ package seedu.souschef.model;
 
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
+import seedu.souschef.commons.events.model.RecipeDeletedEvent;
+import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
 /**
  * Represents the in-memory recipeModel of the application content data.
  */
@@ -21,7 +29,6 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Recipe> recipeModel;
     private final Model<HealthPlan> healthPlanModel;
     private final Model<Day> mealPlannerModel;
-    private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
     private final Model<CrossRecipe> crossRecipeModel;
     private final Model<Favourites> favouriteModel;
@@ -34,12 +41,12 @@ public class ModelSetCoordinator implements ModelSet {
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
         versionedAppContent = new VersionedAppContent(appContent);
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
-        tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
         crossRecipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getCrossRecipes());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
         mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
         favouriteModel = new ModelManager<>(versionedAppContent, versionedAppContent.getFavourites());
+        registerAsAnEventHandler(this);
     }
 
     public ModelSetCoordinator() {
@@ -83,11 +90,6 @@ public class ModelSetCoordinator implements ModelSet {
     }
 
     @Override
-    public Model<Tag> getTagModel() {
-        return tagModel;
-    }
-
-    @Override
     public Model<Ingredient> getIngredientModel() {
         return ingredientModel;
     }
@@ -107,4 +109,41 @@ public class ModelSetCoordinator implements ModelSet {
         return favouriteModel;
     }
 
+    @Subscribe
+    protected void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
+        Day toDelete = event.day;
+        healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<HealthPlan> healthPlanList = healthPlanModel.getFilteredList();
+
+        for (HealthPlan h : healthPlanList) {
+            if (h.getMealPlans().contains(toDelete)) {
+                h.getMealPlans().remove(toDelete);
+            }
+        }
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        healthPlanModel.indicateAppContentChanged();
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(event.context));
+    }
+
+    @Subscribe
+    protected void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
+        Recipe toDelete = event.recipe;
+        mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<Day> mealPlanlist = mealPlannerModel.getFilteredList();
+
+        for (Day d : mealPlanlist) {
+            for (Meal m : d.getMeals()) {
+                if (!m.isEmpty() && m.getRecipe().isSame(toDelete)) {
+                    m.setRecipe(null);
+                    if (d.isEmpty()) {
+                        mealPlannerModel.delete(d);
+                        EventsCenter.getInstance().post(new MealPlanDeletedEvent(d, Context.RECIPE));
+                    }
+                }
+            }
+        }
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
+        mealPlannerModel.indicateAppContentChanged();
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.RECIPE));
+    }
 }

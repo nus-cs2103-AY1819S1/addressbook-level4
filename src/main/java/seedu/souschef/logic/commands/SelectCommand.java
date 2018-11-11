@@ -14,7 +14,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Selects a recipe identified using it's displayed index from the address book.
+ * Selects a recipe identified using it's displayed index from the SousChef.
  */
 public class SelectCommand extends Command {
 
