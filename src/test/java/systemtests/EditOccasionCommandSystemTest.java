@@ -106,18 +106,6 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, editedOccasion);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------ */
-
-        /* Case: filtered occasion list, edit index within bounds of address book and occasion list -> edited */
-        /* TODO: fix bug
-        showOccasionsWithName(KEYWORD_MATCHING_CONCERT);
-        index = INDEX_FIRST_OCCASION;
-        assertTrue(index.getZeroBased() < getModel().getFilteredOccasionList().size());
-        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + " " + OCCASIONNAME_DESC_ONE;
-        occasionToEdit = getModel().getFilteredOccasionList().get(index.getZeroBased());
-        editedOccasion = new OccasionBuilder(occasionToEdit).withOccasionName(VALID_OCCASIONNAME_ONE).build();
-        assertCommandSuccess(command, index, editedOccasion);
-        */
-
         /* Case: filtered occasion list, edit index within bounds of address book but out of bounds of occasion list
          * -> rejected
          */
@@ -168,9 +156,6 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a occasion with new values same as another occasion's values but with different tags ->
         rejected */
         // TODO: fix bug.
-        //command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE
-        //        + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_SLEEP;
-        //assertCommandFailure(command, EditOccasionCommand.MESSAGE_DUPLICATE_OCCASION);
 
     }
 

@@ -33,15 +33,8 @@ public class ExportTxtCommand extends ExportCommand {
         requireNonNull(storage);
 
         if (!isValidTxtFile()) {
-            throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH));
+            throw new CommandException(String.format(MESSAGE_INVALID_TXT_FILE_PATH));
         }
-
-        /*
-        if (!Files.isWritable(Paths.get(exportedFilePath))) {
-            System.out.println(Files.isWritable(Paths.get(exportedFilePath)));
-            throw new CommandException(String.format(MESSAGE_FILE_PERMISSION_DENIED));
-        }
-        */
 
         try {
             Path tempPath = Paths.get("temp.xml");
