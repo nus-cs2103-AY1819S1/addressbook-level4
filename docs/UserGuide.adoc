@@ -476,6 +476,12 @@ Provides autocompletion for existing text. If there is an available autocompleti
 which is lexicographically closest to what is in the text box. If the command box is empty autocompletion will default to ``cd 1``. Unfortunately, this feature does not work with trailing or preceeding whitespace currently.
 
 // end::autocompletion[]
+// start::rank[]
+=== Rank : `rank`
+
+When in a deck, this command sorts all by a user's cummulative performance score on each card as determined by the Super Memo 2 algorithm. +
+Format: `rank`
+// end::rank[]
 
 
 == FAQ
@@ -516,7 +522,7 @@ You must be inside a deck to perform this operation.
 |`classify DIFFICULTY` | Classifies the current card into one of the following categories: {‘easy’, ‘normal' , ‘hard’}
 |`sort` | Sorts the displayed list of decks by name. +
 When you are inside a deck, sorts the displayed list of cards by question.
-//|`rank` | Sort the list of cards by performance
+|`rank` | Sort the list of cards by performance
 |`find KEYWORD [MORE_KEYWORDS]...` | Finds decks with names that contain any of the given keywords. +
 When you are inside a deck, finds cards with questions that contain any of the given keywords.
 |`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as Anakin)
