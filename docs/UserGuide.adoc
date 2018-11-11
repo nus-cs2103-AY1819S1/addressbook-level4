@@ -430,6 +430,8 @@ Format: `exit`: closes the application
 == Command Summary
 
 * *Help* : `help` +
+* *Ls* : `ls` +
+* *Cd* : `cd [DIRECTORY_NAME]` +
 * *open* : `open [INDEX 1-10]` +
 e.g. `open 1` +
 * *Next* : `next` +
@@ -442,8 +444,6 @@ e.g. `save exampleImage.jpg` +
 * *Undo All* : `undo-all` +
 * *Redo* : `redo` +
 * *Redo All* : `redo-all` +
-* *Ls* : `ls` +
-* *Cd* : `cd [DIRECTORY_NAME]` +
 * *Login* : `login` +
 * *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
 * *Download* : `g dl /i<IMAGE_NAME> OR g dl /a<ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +

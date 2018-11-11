@@ -206,7 +206,7 @@ the user's in, stored internally as `currDirectory` and implements the following
 * `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
 Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
-which are stored internally as `imageList`. This would facilitate the `select` feature in our application
+which are stored internally as `imageList`. This would facilitate the `open` feature in our application
 (refer to 3.2).
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
@@ -256,14 +256,14 @@ The implementation of the Open feature is largely similar to the `Cd Command`. I
 and contains the following operations:
 
  * `Model#getDirectoryImageList()` - Retrieves the stored list of images in UserPrefs.
- * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current selected images.
+ * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current image opened.
 
 The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
 batch. The `UserPrefs` class implements the following operation:
 
 * `UserPrefs#getCurrImageListBatch()` - Returns the current batch of images.
 
-The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
+The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the opened image and the
 `PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
 Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature. (refer to 3.5)
 
@@ -283,7 +283,7 @@ then retrieved and displayed on the GUI.
 
 image::OpenCommand2.png[width=500]
 
-. The user then executes `open 5` command to select the fifth image in the batch of 10 images. The fifth image
+. The user then executes `open 5` command to open the fifth image in the batch of 10 images. The fifth image
 is then retrieved similarly and displayed on the GUI.
 
 image::OpenCommand3.png[width=450]
@@ -294,13 +294,13 @@ The following sequence diagram shows how the open command works:
 image::OpenSequenceDiagram.png[width=800]
 
 ==== Design Considerations
-===== Aspect: How select executes
+===== Aspect: How open executes
 
 * *Alternative 1 (current choice)*: Open images within the BATCH_SIZE.
 ** Pros: Users work on a small size of images.
 ** Cons: Limited to the batch size.
 
-* *Alternative 2* : Select images within the `imageList` size.
+* *Alternative 2* : Open images within the `imageList` size.
 ** Pros: Easy to retrieve images anywhere in the list.
 ** Cons: Can be very messy if the `imageList` size is too large.
 // end::open[]
@@ -356,7 +356,7 @@ image::PrevSequenceDiagram.png[width=800]
 ** Pros: Easy to access current batch images.
 ** Cons: Efficiency might be lower for directories with many images.
 
-* *Alternative 2* : Separate images in batches and store in array.
+* *Alternative 2* : Store image batches in array.
 ** Pros: Fast to access next/previous batches.
 ** Cons: Harder to handle changes in a batch (e.g. image got deleted) within the array.
 // end::nextprev[]
@@ -383,7 +383,7 @@ These operations are exposed in the `Model` interface as `Model#updateCurrentPre
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
+. The user opens an image with the `open` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the opened image. The `currentStatePointer` pointing to that state.
 
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
@@ -502,7 +502,7 @@ Given below is an example usage scenario and how the transmission should behave 
 
 . Upon first running the app, the corresponding zip package of ImageMagick will be copied out of the jar and unzipped. A temp folder is also created.
 
-. The user selects an image with the `select` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
+. The user opens an image with the `open` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
 
 . The user enters the command `convert blur 0x8`. The entered command is parsed and the corresponding transformation is created.
 
@@ -543,25 +543,25 @@ Step 3. The validated new command will be stored in the json for in the PiconsoC
 
 ==== Design Considerations
 
- - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify. The image has to first be stored in a temp folder, and replaces any previous modified image when modified.
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify.
+ The image has to be stored in a temp folder first, and replaces any previous modified image when modified.
 
-<<<<<<< HEAD
- - As in the real life, combination of the transformations are commonly needed, thus we build create command
+ - Combination of the transformations are commonly needed in our daily lives, thus we implemented the create command.
 
 // tag::save[]
 
 === Save feature
 ==== Current Implementation
-The save command is to save the current preview image to the disk where the current image is selected,
-use enter the name of the image and the format of the name will be validated.
+The save command saves the current preview image to the same location it was opened in the local drive,
+User enters the name of the image and the format of the name will be validated.
 
 * `isFormatValid()` is to validate the format of the filename user enters
 
 Given is an example of how to use the command
 
-Step 1. parse the image name user enters, get the name and the format of the filename.
+. parse the image name user enters, get the name and the format of the filename.
 
-Step 2. check the format of the image, if the format is not supported, error will be thrown
+. check the format of the image, if the format is not supported, error will be thrown
 
 image::SaveCommand.png[width="800"]
 
