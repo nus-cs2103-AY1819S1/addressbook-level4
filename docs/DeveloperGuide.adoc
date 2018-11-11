@@ -424,7 +424,7 @@ An example usage scenario of the adding of events is as shown in the sequence di
 The diagram shows the interaction between the different components in the system when an event is added.
 The interaction between components is similar for the deletion of an event.
 
-image::add-event-component.png[Interactions between components, width="800"]
+image::add-event-component.png[Interactions between components]
 
 More specific interactions between `Logic` and `Model` are as shown in the diagram below.
 
