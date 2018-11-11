@@ -232,14 +232,15 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::UpdatedModelComponentClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="1366"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 As per the diagram above, `ModelManager` implements the `Model` interface, which:
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores a list of expenses.
+* stores a list of expenses of a single user.
+* stores encrypted lists of expenses of each users.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -247,9 +248,6 @@ As per the diagram above, `ModelManager` implements the `Model` interface, which
 To better adhere to the paradigms of OOP, we could store a `Tag` list in `Expense Tracker`, which `Expense` can
 reference. This allows `Expense Tracker` to only require one `Tag` object per unique `Tag`,
 instead of each `Expense` needing their own `Tag` object. This is planned to be implemented in future releases.
-An example of how such a model may look like is given below. +
- +
-image:BetterOopModelComponentClassDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -362,32 +360,74 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-//tag::useraccounts[]
+//tag::security[]
 
-=== User Accounts System
+=== Data Security
+The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.
+
 The user accounts system allows multiple users to use Expense Tracker on the same computer without interfering with each other's data. It also includes an optional password system that allows users to protect their Expense Tracker information from being viewed or altered by others.
+
+The encryption system ensures all expense data (excluding budget) is encrypted within the xml storage files.
 
 ==== Current Implementation
 On initialization, `MainApp` class loads all xml files within the data folder according to the path in `UserPrefs`. The data is loaded by `MainApp#initModelManager(Storage, UserPref)`.
 [NOTE]
 ====
-An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).
+The username value will be forced to match the name of the xml data filename (ignoring file extentions).
 ====
 
-This system is facilitated by newly added methods in the Model interface which now supports the following operations:
+This feature is facilitated by newly added methods in the Model interface which now supports the following operations:
 
-* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data into `Model`. Returns true if the password matches the user's password, else the user is not logged into and false is returned
+* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input `Username` and `Password` and loads the associated data into `Model`. Returns true if the `Password` matches the user's `Password`, else the user is not logged into and false is returned
 * `Model#unloadUserData()` -- Unselects the user in `Model`
-* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in `Model`
-* `Model#addUser(Username)` -- Adds a new user with the given Username to `Model`
+* `Model#isUserExists(Username)` -- Checks if a user with the input `Username` exists in `Model`
+* `Model#addUser(Username)` -- Adds a new user with the given `Username` to `Model`
 * `Model#hasSelectedUser()` -- Checks if a user is currently logged in in `Model`
+* `Model#setPassword(Password, String)` -- Changes the `Password` of the user that is currently logged in. Requires the new password as a `Password` object and as a plain text `String`.
+* `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
+* `Model#encryptString(String)` -- Encrypts the input String using the currently logged in user's encryption key
+* `Model#decryptString(String)` -- Decrypts the input String using the currently logged in user's encryption key.
+
+When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. i.e your method should look like this:
+
+.New method example
+[source,java]
+----
+@Override
+public void methodName() throws NoUserSelectedException {
+    requireUserSelected();
+    /*
+    Perform required operations here.
+    */
+}
+----
 
 The classes `Username` and `Password` have also been implemented and have the following noteworthy characteristics:
 
 * Two `Username` classes are equivalent if and only if the internal username String are equivalent (case-insensitive).
-* `Username` cannot be constructed with a String containing any of the following characters: _" > < : \ / | ? *_
-* When a `Password` class is constructed with plain text, the password is hashed before being stored as an internal String in the `Password` object
+* `Username` cannot be constructed with a String containing a white space or any of the following characters: _" > < : \ / | ? *_
+* When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal String in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
+
+Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
+
+* `EncryptionUtil#decryptString(String, String)` -- Decrypts a String with by using the input encryption key
+* `EncryptionUtil#encryptString(String, String)` -- Encrypts a String with by using the input encryption key
+* `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password String. Equivalent passwords will always map to equivalent keys.
+* `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an EncryptedExpense instance of the given Expense by encrypting its data using the given encryption key
+* `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an EncryptedExpenseTracker instance of the given ExpenseTracker by encrypting it using its encryption key. This is always called when saving users' data to storage.
+
+Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
+
+.Class diagram for `Enrypted` classes
+image::implementation/EncryptionClassDiagram.png[width="1024"]
+
+The following are other noteworthy details of the implementation for data encryption:
+
+* Users' expense data are encrypted using `AES` encryption with a 128-bit `MurmurHash` of their plain text password as the encryption key. These are not stored anywhere in the data files to ensure the security of their data.
+* The encrypted information are stored in new classes to ensure that encrypted data is not used before decryption.
+* The encrypted information has to be stored in the `Model` as the encryption key will only be known at runtime when a user logs in with his/her correct `Password`.
+* Each Encrypted class will know how to decrypt itself into its decrypted equivalent. e.g `EncryptedExpenseField#decrypt(String)` uses the input `String` as an encryption key to decrypt itself into a `ExpenseField`.
 
 Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
 
@@ -398,7 +438,7 @@ Below is an example usage scenario and how the User Account System behaves at ea
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
 
 .Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="800"]
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
 
 Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
@@ -406,7 +446,8 @@ Below is an example usage scenario and how the Sign Up and Login system behaves 
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
 . The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
-. The selected data in `Model` is switched to `john`'s and an `UserLoggedInEvent` is raised for `UI` to show `john`'s Expense Tracker data
+. `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty string is used as the password since `john`&#8217;s account has no password).
+. The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
 
 Below is the UML sequence diagram that shows how `SignUpCommand` works.
 
@@ -422,7 +463,8 @@ Below is an example usage scenario and how the Password system behaves at each s
 
 . The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
 . The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
-. The `Model#setPassword(Password)` changes `john`'s account password to `password2`
+. The `Model#setPassword(Password)` changes `john`&#8217;s account password to `password2`
+. `john`&#8217;s expense data gets encrypted using a new encryption key generated from the String `password2`. This also applies in future whenever it is saved to the data file.
 
 Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 
@@ -446,8 +488,8 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 ** Cons: External changes to the data files after initialization will not be reflected may be overwritten
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
-** Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user's data.
-// end::useraccounts[]
+** Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user's data.
+// end::security[]
 
 // tag::statistics[]
 === Statistics
