@@ -11,12 +11,12 @@ import javafx.scene.control.ListView;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.FavouritesPanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
-import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Panel containing the list of recipes.
  */
+
 public class FavouritesPanel extends GenericListPanel<Recipe> {
     private static final String FXML = "FavouritesPanel.fxml";
     @FXML
@@ -52,6 +52,7 @@ public class FavouritesPanel extends GenericListPanel<Recipe> {
      * Scrolls to the {@code Card} at the {@code index} and selects it.
      * To be used in handleJumpToListRequestEvent().
      */
+
     @Override
     protected void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -70,19 +71,18 @@ public class FavouritesPanel extends GenericListPanel<Recipe> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
      */
-    class FavouritesListViewCell extends ListViewCell<Favourites> {
+    class FavouritesListViewCell extends ListViewCell<Recipe> {
 
         @Override
-        protected void updateItem(Favourites favourites, boolean empty) {
+        protected void updateItem(Recipe favourites, boolean empty) {
             super.updateItem(favourites, empty);
 
             if (empty || favourites == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FavouritesCard(favourites, getIndex() + 1).getRoot());
+                setGraphic(new FavouritesCard(favourites,getIndex() + 1).getRoot());
             }
         }
     }
-
 }
