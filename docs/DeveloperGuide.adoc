@@ -629,8 +629,8 @@ The number of successful inserts and duplicated will be returned to display afte
 The following sequence diagram shows how the readImportContactsFile operation works:
 
 image::ImportContactsSequenceDiagram.PNG[width="800"]
-
 // end::importcontacts[]
+
 === Show Person's faculty location visually
 ==== Current Implementation
 
