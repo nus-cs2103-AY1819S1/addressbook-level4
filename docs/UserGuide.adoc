@@ -149,11 +149,11 @@ Examples:
 
 * `view-doctor n/Amanda Jane p/93726272`
 * `view-doctor n/Mary Jane`
+// end::viewdoctor[]
 
 === Listing all patients and doctors : `list`
 Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
-// end::viewdoctor[]
 
 // tag::filterpatient[]
 === Filtering patients from list : `filter-patient`
