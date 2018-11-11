@@ -325,14 +325,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Clear any display panel and show the region display panel
-     * @param displayRegion The display panel to show at the {@code displayPanelPlaceholder} 
+     * Clear any display panel and show the region display panel.
+     * @param displayRegion The display panel to show at the {@code displayPanelPlaceholder}.
      */
     private void showDisplayPanel(Region displayRegion) {
         displayPanelPlaceholder.getChildren().clear();
         displayPanelPlaceholder.getChildren().add(displayRegion);
     }
-    
+
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
         showDisplayPanel(analyticsDisplay.getRoot());
@@ -354,7 +354,6 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
-
 
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
