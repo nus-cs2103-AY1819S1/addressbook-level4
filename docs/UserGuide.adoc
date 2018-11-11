@@ -69,130 +69,162 @@ e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
 
 Format: `help`
 
+//tag::add[]
 === Adding a module: `c_add`
 
-Adds a `*particular*` module entry in the CAPTracker. +
+Adds a `*particular*` module entry to the _CAPTracker_.
+
 *Case 1:* +
-Add incomplete module (Not graded yet). +
+Add `incomplete` (not graded yet) module.
+
 _Format:_ +
 ----
-c_add -m CODE -y YEAR -s SEMESTER -c CREDIT
+ c_add -m CODE -y YEAR -s SEMESTER -c CREDIT
 ----
+
 *Case 2:* +
-Add completed module (With grade). +
+Add `completed` (already graded) module.
+
 _Format:_ +
 ----
-c_add -m CODE -y YEAR -s SEMESTER -c CREDIT -g GRADE
+ c_add -m CODE -y YEAR -s SEMESTER -c CREDIT -g GRADE
 ----
 
-****
-* Arguments must be in name-value pair format (E.g. `-name value`).
-* Illegal name or value is not allowed.
-* `CODE` has to be specified
-* `YEAR` has to be specified
-* `SEMESTER` has to be specified
-* `CREDIT` has to be specified
-* `GRADE` has to be specified if it is completed
-* Module should not exist in CAPTracker
-****
+*Examples*:
 
-Examples:
+Command: `c_add -m MA1521 -y 1 -s 2 -c 4 -grade A` +
+Adds a module with:
 
-* `c_edit -t CS2103 -g A+` +
-Change grade of CS2103 to A+.
-* `c_edit -t CS2103 -m CS2103T -c 2` +
-Change the module code and credit of CS2103 to CS2103T and 2 respectively.
-* `c_edit -t CS2103 -e 3 -z 2 -s 1` +
-Change the semester of CS2103 taken in year 3 semester 2 to 1. In this specific
-case, CS2103 was retaken and cap tracker has multiple entries of it.
+* Module code `MA1521`
+* Taken in year `1` semester `2`
+* Worth `4` module credits
+* Graded `A`
 
+Command: `c_add -m CFG1010 -y 1 -s 1 -c 2 -grade CS` +
+Adds a module with:
+
+* Module code `CFG1010`
+* Taken in year `1` semester `1`
+* Worth `2` module credits
+* Graded `CU`
+
+Command: `c_add -m CS2103 -y 2 -s 1 -c 4` +
+Adds a module with:
+
+* Module code `CFG1010`
+* Taken in year `2` semester `1`
+* Worth `4` module credits
+* Not completed yet
+
+IMPORTANT: - Arguments must be in name-value pair format (-name value) +
+- Illegal name or value is not allowed +
+- `CODE` has to be specified +
+- `YEAR` has to be specified +
+- `SEMESTER` has to be specified +
+- `CREDIT` has to be specified +
+- `GRADE` has to be specified if it is completed +
+- Module should not exist in CAPTracker
+//end::add[]
+
+//tag::edit[]
 === Editing a module : `c_edit`
 
-Edits fields of a `*particular*` module entry in the CAPTracker. +
+Edits fields of a `*particular*` module entry in the CAPTracker.
+
 *Case 1:* +
-`*Only one*` module entry have the specified target module code. +
+Only `one` module entry have the specified target module code.
+
 _Pretty Print Format:_ +
 ----
 c_edit -t TARGET_CODE
-    [-m NEW_CODE]
-    [-y NEW_YEAR]
+    [-m NEW_CODE    ]
+    [-y NEW_YEAR    ]
     [-s NEW_SEMESTER]
-    [-c NEW_CREDIT]
-    [-g NEW_GRADE]
+    [-c NEW_CREDIT  ]
+    [-g NEW_GRADE   ]
 ----
+
 *Case 2:* +
-`*More than one*` module entry in CAPTracker has the specified target module
-code. (E.g. Retook the module) +
+`Two or more` module entries has the specified target module code. (E.g. Retook
+the module)
+
 _Pretty Print Format:_ +
 ----
 c_edit -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
-    [-m NEW_CODE]
-    [-y NEW_YEAR]
+    [-m NEW_CODE    ]
+    [-y NEW_YEAR    ]
     [-s NEW_SEMESTER]
-    [-c NEW_CREDIT]
-    [-g NEW_GRADE]
+    [-c NEW_CREDIT  ]
+    [-g NEW_GRADE   ]
 ----
 
-****
-* Arguments must be in name-value pair format (E.g. `-name value`).
-* Illegal name or value is not allowed.
-* `TARGET_CODE` has to be specified.
-* `TARGET_YEAR` can be null if and only if `TARGET_SEMESTER` is null.
-* At least one of `NEW_CODE`, `NEW_YEAR`, `NEW_SEMESTER`, `NEW_CREDIT`, or
-`NEW_GRADE` has to be specified.
-* The targeted module entry should exist in the CAPTracker.
-* `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
-if there exist multiple entries with the same module `TARGET_CODE`.
-* The edit cannot lead to two module entries sharing the same module `Code`,
-`Year`, and `Semester`.
-****
+*Examples*:
 
-Examples:
+*Command*: `c_edit -t MA1521 -g A+` +
+Change grade of `MA1521` to `A+`.
 
-* `c_edit -t CS2103 -g A+` +
-Change grade of CS2103 to A+.
-* `c_edit -t CS2103 -m CS2103T -c 2` +
-Change the module code and credit of CS2103 to CS2103T and 2 respectively.
-* `c_edit -t CS2103 -e 3 -z 2 -s 1` +
-Change the semester of CS2103 taken in year 3 semester 2 to 1. In this specific
-case, CS2103 was retaken and cap tracker has multiple entries of it.
+*Command*: `c_edit -t CFG1010 -m ST2334 -c 4` +
+Change module credit to `4` and module code to `ST2334`.
 
+*Command*: `c_edit -t CFG1020 -e 2 -z 1 -g CS` +
+Change the grade of `CFG1020` taken in year `2` and semester `1` to 1. +
+In this specific case, `CFG1020` was retaken and there exist multiple entries
+of it.
 
+IMPORTANT: - Arguments must be in name-value pair format (E.g. `-name value`) +
+- Illegal name or value is not allowed +
+- `TARGET_CODE` has to be specified +
+- `TARGET_YEAR` is not specified if and only if `TARGET_SEMESTER` is also not
+specified +
+- At least one new value has to be specified +
+- The targeted module entry should exist in the CAPTracker +
+- `TARGET_YEAR` and `TARGET_SEMESTER` must be specified if there exist multiple
+entries with the same module `TARGET_CODE` +
+- The edit cannot lead to two module entries sharing the same module code,
+year, and semester
+//end::edit[]
+
+//tag::delete[]
 === Deleting a module : `c_delete`
 
-Deletes a `*particular*` module entry in the CAPTracker. +
+Deletes a `*particular*` module entry in the CAPTracker.
+
 *Case 1:* +
-`*Only one*` module entry have the specified target module code. +
+Only `one` module entry have the specified target module code.
+
 _Format:_ +
 ----
 c_delete -t TARGET_CODE
 ----
+
 *Case 2:* +
-`*More than one*` module entry in CAPTracker has the specified target module code. (E.g. Retook
-the module) +
+`Two or more` module entries has the specified target module code. (E.g. Retook
+the module)
+
 _Format:_ +
 ----
 c_delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
 ----
 
-****
-* Arguments must be in name-value pair format (E.g. `-name value`).
-* Illegal name or value is not allowed.
-* `TARGET_CODE` has to be specified.
-* `TARGET_YEAR` can be null if and only if `TARGET_SEMESTER` is null.
-* The targeted module entry should exist in the CAPTracker.
-* `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
-if there exist multiple entries with the same module `TARGET_CODE`.
-****
-
 Examples:
 
-* `c_delete -t CS2103` +
-Deletes the only CS2103 module.
-* `c_delete -t CS2103 -e 3 -z 2` +
-Deletes CS2103 taken in year 3 semester 2. In this specific case, CS2103 was
-retaken and cap tracker has multiple entries of it.
+*Command*: `c_delete -t CS2103` +
+Deletes the only `CS2103` module.
 
+*Command*: `c_delete -t CS2103 -e 3 -z 2` +
+Deletes `CS2103` taken in year `3` semester `2`. +
+In this specific case, `CS2103` was retaken and there exist multiple entries
+of it.
+
+IMPORTANT: - Arguments must be in name-value pair format (E.g. `-name value`) +
+- Illegal name or value is not allowed +
+- `TARGET_CODE` has to be specified +
+- `TARGET_YEAR` is not specified if and only if `TARGET_SEMESTER` is also not
+specified +
+- The targeted module entry should exist in the CAPTracker +
+- `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
+if there exist multiple entries with the same module `TARGET_CODE`.
+//end::delete[]
 
 //tag::commandgoal[]
 === Setting Cap Goal : `c_goal`
