@@ -14,7 +14,7 @@ public class ServicePrice {
     public final String price;
 
     /**
-     * Constructs a {@code PricePerUnit}.
+     * Constructs a {@code ServicePrice}.
      *
      * @param number A positive integer.
      */
