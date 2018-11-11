@@ -20,15 +20,15 @@ It is written in Java, and has about 10 kLoC.
 ** Designed and implemented the UI component based on AddressBook(Level 4)
 *** What it does: It creates a GUI for the product in which the entry for users to interact with the product consists.
 *** Justification: This feature functions importantly since the user-product interaction relies on it.
-It also provides users with the first impression nnd perception of this product.
+It also provides users with the first impression and perception of this product.
 *** Highlights: JavaFX was used to aid the implementation. The collocation of .java and .fxml file
 provides a good structure for the implementation of UI component.
 
 ** Implemented `stop`, `seek` and `playlist list` commands
 *** What it does: `stop` and `seek` command enables users to stop or seek the playing of tracks. `playlist list` command
 lists all playlists in current library.
-*** Justification: `stop` and `seek` command suppelment the playback feature of this product. `playlist list` command
-enhance the using of playlist management feature.
+*** Justification: `stop` and `seek` commands suppelment the playback feature of this product. `playlist list` command
+enhances the using of playlist management feature.
 *** Highlights: `seek` command takes in special consideration of edge case handling.
 
 * *Other contributions*:
@@ -57,7 +57,7 @@ https://github.com/CS2103-AY1819S1-T13-3/main/issues/29[#29]
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-The launch jar file and example commands in QuickStart were later implemented by https://github.com/hidingmode[David Choo]. +
+The launch of jar file and example commands in QuickStart were later revised by https://github.com/hidingmode[David Choo]. +
 The skeleton of `stop` and `seek` command was mainly written by https://github.com/hidingmode[David Choo].
 
 include::../UserGuide.adoc[tag=quickStart_yingnan]
