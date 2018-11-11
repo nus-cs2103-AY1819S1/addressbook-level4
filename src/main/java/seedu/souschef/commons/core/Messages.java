@@ -26,6 +26,7 @@ import seedu.souschef.logic.commands.FindCommand;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_EMPTY_RECIPE_LIST = "Recipe list is empty! No recipe to retrieve.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_INVALID_EMPTY_PLAN_INDEX = "Please enter an index!";
