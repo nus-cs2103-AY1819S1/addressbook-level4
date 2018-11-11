@@ -258,7 +258,8 @@ The "by-name-commands" depend on the following operation/classes:
 ** The `PersonFinderUtil#findPerson` method makes use of the `NameContainsAllKeywordsPredicate`, which is in contrast to the `NameContainsKeywordsPredicate` used in the `FindCommand`.
 ** When editing by name, we need a more specific filter, rather than a general one. Instead of finding a Person that contains at least one identifier term in their name, the Person found must contain *all* identifier terms in their name.
 
-Note: in the following section, the shorthand format `\_ByNameCommand` and `_Command` when used in the same context will refer to a similar type of command, e.g. `DeleteByNameCommand` and `DeleteCommand`, but `_` is general to refer to either `Delete` or `Edit`.
+[NOTE]
+In the following section, the shorthand format `\_ByNameCommand` and `_Command` when used in the same context will refer to a similar type of command, e.g. `DeleteByNameCommand` and `DeleteCommand`, but `_` is general to refer to either `Delete` or `Edit`.
 
 ==== Design Considerations
 ===== Aspect: Whether a `_ByNameCommand` should Extend the Regular `_Command`
