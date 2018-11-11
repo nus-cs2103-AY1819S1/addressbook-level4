@@ -13,7 +13,6 @@ import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.ui.Ui;
 
 /**
  * The API of the Model component.

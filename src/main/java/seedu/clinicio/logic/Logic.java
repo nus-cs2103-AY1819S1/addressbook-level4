@@ -11,7 +11,6 @@ import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
-import seedu.clinicio.ui.Ui;
 
 /**
  * API of the Logic component
