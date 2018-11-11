@@ -7,7 +7,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.recipe.Tag;
 
 
 /**
@@ -19,7 +18,6 @@ public interface ReadOnlyAppContent {
      * This list will not contain any duplicate recipes.
      */
     ObservableList<Recipe> getObservableRecipeList();
-    ObservableList<Tag> getObservableTagList();
 
     /**
      * Returns an unmodifiable view of the respective list.
