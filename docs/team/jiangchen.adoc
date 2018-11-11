@@ -67,7 +67,7 @@ To use `find` command, simply enter the command in correct format and the desire
 on the expense list panel. The diagram below illustrates the effect of `find` command.
 
 .Diagram to show the effect of find command
-image::FindCommandExampleDiagram.png[width="800"]
+image::FindCommandExampleDiagram.png[width="600"]
 
 include::../UserGuide.adoc[tag=find2]
 
@@ -78,7 +78,7 @@ edited command will be shown on the expense list panel. The diagram below illust
 the effect of `massedit` command.
 
 .Diagram to show the effect of massedit command
-image::MassEditCommandExampleDiagram.png[width="800"]
+image::MassEditCommandExampleDiagram.png[width="600"]
 
 include::../UserGuide.adoc[tag=massedit2]
 
