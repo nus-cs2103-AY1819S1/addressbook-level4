@@ -6,7 +6,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :stylesheet: default.css
-:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main
 :xrefstyle: short
 :experimental:
 ifdef::env-github[]
@@ -20,14 +20,16 @@ By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-Welcome to Car Park Finder's developer guide!
+Welcome to the Developer Guide for _Car Park Finder_!
 
-=== What is Car Park Finder
-Car Park Finder is an application to find HDB (Housing Development Board) car parks in Singapore. It allows you to
-work with a *Command Line Interface (CLI)* to display a list of car parks by typing. It enables the following:
+_Car Park Finder_ is an application to find Housing Development Board (HDB) car parks in Singapore. It allows the user to
+work with a *Command Line Interface (CLI)* to display a list of car parks just by simply typing.
+
+It enables the following:
 
 * Viewing of car park information through typing.
 * Searching and filtering by location and keywords.
+* Notification of a car park if the user chooses to.
 
 == Setting up
 This section describes the steps needed to set up the application.
@@ -37,7 +39,7 @@ This section describes the steps needed to set up the application.
 . *JDK `9`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+JDK `10` on Windows will fail to run tests in {sourceDir}/UsingGradle.html#Running-Tests[headless mode] due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
@@ -63,28 +65,29 @@ dialog first)
 (Mac/Linux: `./gradlew processResources`). It should finish
 with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedCarpark.java[`XmlAdaptedCarpark.java`]
-and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the
+. Open [underline]#link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedCarpark.java[`XmlAdaptedCarpark.java`]#
+and [underline]#link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`]# and check for any code errors
+.. Due to an ongoing [underline]#https://youtrack.jetbrains.com/issue/IDEA-189060[issue]# with some of the
 newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. kbd:[ALT + ENTER]
 and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well
-(e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
-and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors,
+(e.g. check [underline]#link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]#
+and [underline]#link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`]# for code errors,
 and if so, resolve it the same way)
 
 === Verifying the setup
 
 * Run the `seedu.parking.MainApp` and try a few commands
-* <<Testing,Run the tests>> to ensure they all pass.
+* [underline]#<<Testing, Run the tests>># to ensure they all pass.
 
 === Configurations to do before writing code
 Here are some tips to before writing code for an easier time.
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows [underline]#https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]#.
+IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -93,118 +96,133 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can look at how to [underline]#{sourceDir}/UsingCheckstyle.html[configure Intellij]# to check style-compliance as you write code.
 
 ==== Setting up CI
 
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+Set up Travis to perform Continuous Integration (CI) for your fork. See how to [underline]#{sourceDir}/UsingTravis.html[setup Travis]# to learn how.
 
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see [underline]#{sourceDir}/UsingCoveralls.html[using Coveralls]#).
 
 [NOTE]
 Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
 
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+Optionally, you can set up AppVeyor as a second CI (see [underline]#{sourceDir}/UsingAppVeyor.html[using AppVeyor]#).
 
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 == Design
-This section explains the design architecture and various components of the system.
+
+To understand the design architecture and how various components of the system works, please read through the entirety of
+[underline]#<<Design>>#.
 
 [[Design-Architecture]]
 === Architecture overview
 
-This section explains the design architecture used by the entire system.
-
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
-
+Instead of delving straight into the individual components, take a look at the overarching design architecture
+used by the entire system.
 
 .Architecture Diagram
+[[Architecture]]
 image::Architecture.png[width="600"]
 
-The *_architecture diagram_* given above explains the high-level design of the App,
- which contains 6 <<Architecture-Components,*`architecture components`*>> and
- adopts an <<Architecture-design,*`events-driven nature`*>>.
+[underline]#<<Architecture>># explains the high-level design of _Car Park Finder_,
+which contains six [underline]#<<Architecture-Components, `architecture components`>># and
+adopts an [underline]#<<Architecture-design, `events-driven nature`>>#.
 
 [[Architecture-Components]]
 === Architecture components
 
-This section will briefly introduce the function of each architecture components
+[underline]#<<architecttable>># below briefly introduce the function of each architecture components
 as well as common behaviours.
 
 .Architecture Components
+[[architecttable]]
+[cols=".^1,.^4", width="90%", options="header"]
 |===
 |Component |Main Function
 
-|<<Design-Main,*`Main`*>>
-|the starting point of the system, which encapsulates the other components.
+|[underline]#<<Design-Main, `Main`>>#
+|The starting point of the system, which encapsulates the other components.
 
-|<<Design-Commons,*`Commons`*>>
-|represents a collection of classes used by multiple components.
+|[underline]#<<Design-Commons, `Commons`>>#
+|Represent a collection of classes used by multiple components.
 
-|<<Design-Ui,*`User Interface`*>>
-|contains the user interface classes used by the application.
+|[underline]#<<Design-Ui, `User Interface`>>#
+|Contain the user interface classes used by the application.
 
-|<<Design-Logic,*`Logic`*>>
-|execute user commands, also known as the command executor.
+|[underline]#<<Design-Logic, `Logic`>>#
+|Execute user commands, also known as the command executor.
 
-|<<Design-Model,*`Model`*>>
-|holds the data of the application in-memory.
+|[underline]#<<Design-Model, `Model`>>#
+|Hold the data of the application in-memory.
 
-|<<Design-Storage,*`Storage`*>>
-|which allows reading and writing of data to the hard disk.
+|[underline]#<<Design-Storage, `Storage`>>#
+|Allow reading and writing of data to the hard disk.
 |===
 
 [NOTE]
-Each of the User Interface, Logic, Model, Storage Components also:
+====
+For User Interface, Logic, Model and Storage components, each of them:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Define its _API_ in an `interface` with the same name as the Component.
+* Expose its functionality using a `{Component Name}Manager` class.
+====
 
-For example, the `Logic` component (see the *_class diagram_* given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
+For example, the `Logic` component (see the [underline]#<<examplelogic>># below) defines it's API in the `Logic` interface
+and exposes its functionality using the `LogicManager` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+[[examplelogic]]
+image::LogicClassDiagram.png[width="700"]
 
 [[Architecture-design]]
 === Events-driven nature of the design
 
 This section explains the main nature of design adopted by the system.
 
-The *_sequence diagram_* below shows how the components interact when the user issues the command `find sengkang`.
+[underline]#<<sdquery>># below shows how the components interact when the user issues the command `query`.
 
-.Component interactions for `find sengkang` command (part 1)
-image::Sequence diagram - Find Carpark.png[width="800"]
-
-[NOTE]
-Note how the `Model` simply raises a `CarparkFinderChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
-
-The *_sequence diagram_* below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
-
-.Component interactions for `find sengkang` command (part 2)
-image::Sequence diagram - Find Carpark Event Handling.png[width="800"]
+.Component interactions for `query` command
+[[sdquery]]
+image::SDforQuery.png[width="700"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how the Event Driven approach helps us reduce direct coupling between components.
+Note how the `Model` simply raises a `CarparkFinderChangedEvent` when _Car Park Finder_ data are changed, instead of
+asking the `Storage` to save the updates to the hard disk.
+
+[underline]#<<sdqueryhandle>># below shows how the `EventsCenter` reacts to that event, which eventually results in
+the updates being saved to the hard disk and the status bar of the User Interface being updated to reflect the 'Last Updated' time.
+
+.Component interactions for `query` event handling
+[[sdqueryhandle]]
+image::SDforQueryEventHandling.png[width="700"]
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be
+coupled to either of them. This is an example of how the Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
 [[Design-Main]]
 === Main component
 
-The `Main` component consists of only one class, link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+The `Main` component consists of only one class, [underline]#link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]#.
+It is responsible for:
 
-* At app launch: initializes the components in the correct sequence, and connects them with one another.
+* At application launch: initializes the components in the correct sequence, and connects them with one another.
 * At shut down: shuts down the components and invokes cleanup methods where necessary.
 
 [[Design-Commons]]
 === Commons component
 
-The `Commons` component consists of classes used by multiple other components. Two of these classes play important roles at the architectural level.
+The `Commons` component consists of classes used by multiple other components. Two of these classes play important roles
+at the architectural level.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `EventsCenter` : This class (written using
+[underline]#https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library])# is used by components
+to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 [NOTE]
@@ -213,14 +231,15 @@ Classes used by multiple components are put in the seedu.carparkfinder.commons p
 [[Design-Ui]]
 === User interface component
 
-The `User Interface` (`UI`) component consists of a `MainWindow` that is made up of different parts.
+The `User Interface (UI)` component consists of a `MainWindow` that is made up of different parts.
 The base class
-link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework.
+[underline]#link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]# uses _JavaFx UI_ framework.
 
-Please refer to the *_class diagram_* below for more details on how they are connected.
+Please refer to [underline]#<<UIclass>># below for more details on how they are connected.
 
 .Structure of the User Interface component
-image::UiClassDiagram.png[width="800"]
+[[UIclass]]
+image::UiClassDiagram.png[width="700"]
 
 In general, this is the workflow of the `UI` component:
 
@@ -244,7 +263,7 @@ Please refer to the *_class diagram_* below for more details on how they are con
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="700"]
 
 In general, this is the workflow of the `Logic` component:
 
@@ -253,26 +272,25 @@ In general, this is the workflow of the `Logic` component:
 .  Pass the result of the command execution over to `Model`, which can affect it (e.g. adding a person) and/or raise events.
 .  Return the command execution by encapsulating the command as a `CommandResult` object which then is passed back to the `UI`.
 
-The *_sequence diagram_* below shows the interactions within the `Logic` component
-when `execute("delete 1")` is called.
+<<findlogic>> below shows the interactions within the `Logic` component
+when `execute("find Y9")` is called.
 
-.Sequence Diagram of of `execute("delete 1")
-image::DeletePersonSdForLogic.png[width="800"]
+.Sequence Diagram when executing `find Y9`
+[[findlogic]]
+image::FindSdForLogic.png[width="700"]
 
 [[Design-Model]]
 === Model component
 
-The `Model` component is managed by the `ModelManager` that stores the data of Car Park Finder.
+The `Model` component is managed by the `ModelManager` that stores the data of _Car Park Finder_.
 It does not depend on any of the three other components.
-link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`] is the base class.
+[underline]#link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]# is the base class.
 
-
-Please refer to the *_class diagram_* below for more details.
+Please refer to [underline]#<<modelclass>># below for more details.
 
 .Structure of the Model Component
-
-image::ModelClassDiagram.png[width="800"]
-
+[[modelclass]]
+image::ModelClassDiagram.png[width="700"]
 
 In general, this is the structure of the `Model` Component:
 
@@ -290,42 +308,44 @@ e.g. the UI can be bound to this list so that it automatically updates when data
 
 
 [NOTE]
-As a OOP model, we can store a `Tag` list in Car Park Finder, which `Carpark` can reference.
-This would allow Car Park Finder to only require one `Tag` object per unique `Tag`, instead of
-each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below.
- +
+As a OOP model, we can store a `Tag` list in _Car Park Finder_, which `Carpark` can reference.
+This would allow _Car Park Finder_ to only require one `Tag` object per unique `Tag`, instead of
+each `Carpark` needing their own `Tag` object. <<modelbetter>> is an example of how such a model may look like.
 
-.Use of Tag object
-image::ModelClassBetterOopDiagram.png[width="800"]
-
-
+.Unique tag object
+[[modelbetter]]
+image::ModelClassBetterOopDiagram.png[width="700"]
 
 [[Design-Storage]]
 === Storage component
 
-The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
-link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`] is the base class.
+The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of _Car Park Finder_.
+[underline]#link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]# is the base class.
 
-Please refer to the *_class diagram_* below for more details on how they are connected.
+Please refer to [underline]#<<storageclass>># below for more details on how they are connected.
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+[[storageclass]]
+image::StorageClassDiagram.png[width="700"]
 
 [[localcopy]]
 The `Storage` component can perform the following functions:
 
 * save `UserPref` objects in json format and read it back.
-* save the Car Park Finder data in xml format and read it back.
+* save the _Car Park Finder_ data in xml format and read it back.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+Implementation of features will be described here. This is not meant to be exhaustive, so only the noteworthy details
+will be mentioned.
 
 // tag::undoredo[]
 === Undo/Redo feature
-This section describes how the Undo/Redo feature is implemented for the car park finder.
 
-==== Current Implementation
+The `undo` command changes the car park finder state to before the previous undoable command was executed.
+On the other hand, the `Redo` command reverse the most recent `undo` changes.
+
+==== Overview
 
 The undo/redo mechanism is facilitated by `VersionedCarparkFinder`.
 It extends `CarparkFinder` with an undo/redo history, stored internally as an `carparkFinderStateList` and `currentStatePointer`.
@@ -341,42 +361,47 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedCarparkFinder` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
 
-The following diagram showcases the state at the start of the program.
+[underline]#<<undoredoact>># below showcases the state at the start of the program.
 
 .State and the start of the program
-image::UndoRedoActivityDiagramNew1.png[width="800"]
+[[undoredoact]]
+image::UndoRedoActivityDiagramNew1.png[width="700"]
 
 Step 2. The user executes `find sengkang` command to find list of car park which contain sengkang from the car park finder. The `find` command calls `Model#updateFilteredCarparkList()`, causing the modified state of the car park finder after the `find sengkang` command executes to be saved in the `carparkFinderStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
 
-The following diagram shows a new state is created after the command `find segkang` is ran.
+[underline]#<<undoredoact2>># below shows a new state is created after the command `find segkang` is ran.
 
 .State after running find command
-image::UndoRedoActivityDiagramNew2.png[width="800"]
+[[undoredoact2]]
+image::UndoRedoActivityDiagramNew2.png[width="700"]
 
 Step 3. The user executes `clear` to clear all entries. The `clear` command also calls `Model#commitCarparkFinder()`, causing another modified car park finder state to be saved into the `carparkFinderStateList`.
 
-The following diagram shows a new state is created after the command `clear` is ran.
+[underline]#<<undoredoact3>># below shows a new state is created after the command `clear` is ran.
 
 .State after running find then clear command
-image::UndoRedoActivityDiagramNew3.png[width="800"]
+[[undoredoact3]]
+image::UndoRedoActivityDiagramNew3.png[width="700"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitCarparkFinder()`, so the car park finder state will not be saved into the `carparkFinderStateList`.
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCarparkFinder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
 
-The following diagram shows a new state is created after the command `undo` is ran. The state pointer is moved.
+[underline]#<<undoredoact4>># below shows a new state is created after the command `undo` is ran. The state pointer is moved.
 
 .How the undo feature works in a diagram
-image::UndoRedoActivityDiagramNew4.png[width="800"]
+[[undoredoact4]]
+image::UndoRedoActivityDiagramNew4.png[width="700"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+[underline]#<<undoredo>># below shows how the undo operation works.
 
-.Sequence diagram of Undo/Redo feature
-image::Sequence Diagram - Undo.png[width="800"]
+.Sequence diagram of `undo` command
+[[undoredo]]
+image::UndoRedoSequenceDiagram.png[width="700"]
 
 The `redo` command does the opposite -- it calls `Model#redoCarparkFinder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
 
@@ -385,22 +410,25 @@ If the `currentStatePointer` is at index `carparkFinderStateList.size() - 1`, po
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitCarparkFinder()`, `Model#undoCarparkFinder()` or `Model#redoCarparkFinder()`. Thus, the `carparkFinderStateList` remains unchanged.
 
-The follow diagram showcases what happen when a command that does not modify the state is used.
+[underline]#<<undoredoact5>># below showcases what happen when a command that does not modify the state is used.
 
-.As the command does nothing, the state is not changed, but a new state is introduced
-image::UndoRedoActivityDiagramNew5.png[width="800"]
+.A new state is introduced
+[[undoredoact5]]
+image::UndoRedoActivityDiagramNew5.png[width="700"]
 
 Step 6. The user executes `clear`, which calls `Model#commitCarparkFinder()`. Since the `currentStatePointer` is not pointing at the end of the `carparkFinderStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `find sengkang` command. This is the behavior that most modern desktop applications follow.
 
-The following diagram showcases when a new command is used after an undo.
+[underline]#<<undoredoact6>># below showcases when a new command is used after an undo.
 
-.Deleting a state diagram after an undo
-image::UndoRedoActivityDiagramNew6.png[width="800"]
+.Deleting a state after an undo
+[[undoredoact6]]
+image::UndoRedoActivityDiagramNew6.png[width="700"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+[underline]#<<undoredodiagram>># below summarizes what happens when a user executes a new command:
 
-.Activity diagram of a sample command
-image::General new command.png[width="650"]
+.Executing a new command
+[[undoredodiagram]]
+image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -556,7 +584,7 @@ This means that it will only notify the current selected car park only, and not 
 ==== Example
 
 .Summary for executing a notify command
-image::zy_act.png[width="800", align="left"]
+image::zy_act.png[width="700", align="left"]
 
 ==== Design Considerations
 
@@ -597,7 +625,7 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` a
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings matches the name or address of a car park fully or partially.
 
 .How the find operation works
-image::seqdiagram-find.png[width="800", align="left"]
+image::seqdiagram-find.png[width="700", align="left"]
 
 The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
 
@@ -620,7 +648,7 @@ Step 4. The filtered list of car parks is returned to the GUI.
 The flow chart below describes the user interaction with the application and how it processes it.
 
 .Flow chart of the find operation.
-image::actdiagram-find.png[width="800", align="left"]
+image::actdiagram-find.png[width="700", align="left"]
 
 ==== Design Considerations
 
@@ -1870,66 +1898,78 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-- Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-- Should not have any noticeable sluggishness when holding list of car parks.
-- Should come with automated unit tests and be able to handle errors and exceptions.
-- Should be easy to use for novice that have never used a CLI before or never used an application
+Non-functional requirements specify the constraints under which system is developed and operated.
+
+[underline]#<<nfrtable>># below contains all of the Non-functional requirements for _Car Park Finder_
+in no particular order.
+
+.List of non-functional requirements
+[[nfrtable]]
+[cols=".^1", width="80%"]
+|===
+| Should work on any mainstream OS as long as it has Java `9` or higher installed.
+| Should not have any noticeable sluggishness when holding list of car parks.
+| Should come with automated unit tests and be able to handle errors and exceptions.
+| Should be easy to use for novice that have never used a CLI before or never used an application
 to search for locations of car parks.
-- Query should respond fast assuming no connection delays and the API is working.
-- The application is not expected to download an entire list of car parks in the country to work offline.
-- This application is not suppose to be used by drivers on the road.
-- The system should be easy and scalable in adding on features for future versions.
-- The car park data should be updated frequently while running to send notifications in real time.
-- Privacy details in the favourites list should not be seen or shared easily by others.
+| Query should respond fast assuming no connection delays and the API is working.
+| The application is not expected to download an entire list of car parks in the country to work offline.
+| This application is not suppose to be used by drivers on the road.
+| The system should be easy and scalable in adding on features for future versions.
+| The car park data should be updated frequently while running to send notifications in real time.
+| Privacy details in the favourites list should not be seen or shared easily by others.
+|===
 
 [appendix]
 == Glossary
 
-[[api]] API (Application Programming Interface)::
-Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
+If you do not understand a technical term used in this document, refer to [underline]#<<techtable>># below.
 
-[[autocomplete]]  Autocomplete::
-Provides suggestions while you type into the field.
+.Technical Terms
+[[techtable]]
+[cols="2,5", options="header"]
+|===
+| Term | Explanation
 
-[[flag]] Flag::
-A value that acts as a signal for a function or process.
+|*Application Programming Interface (API)*
+|Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
 
-[[JSON]] JSON (JavaScript Object Notation)::
-A file format that allows humans to easily read and write data for machines to process.
+|*Autocomplete*
+|Provides suggestions while you type into the field.
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+|*Cascading Style Sheets (CSS)*
+|A style sheet language used for describing the presentation of a document written in a markup language like HTML.
 
-[[private-contact-detail]] Favourites::
-A custom list of car parks that is meant to be viewed easily.
+|*Favourites*
+|A custom list of car parks that is meant to be viewed easily.
 
-[[ui]] UI (User Interface)::
-Allows the user to interact with the application through inputs and outputs of data.
+|*Flag*
+|Flag is a value that acts as a check for the filter feature.
 
-[appendix]
-== Product Survey
+|*Google Maps*
+|It is a online map service provided by Google.
 
-*Product Name*
+|*Hyper Text Markup Language (HTML)*
+|A standardized system for tagging text files to achieve font, colour, graphic, and hyperlink effects on World Wide Web pages.
 
-Author: ...
+|*Javascript (JS)*
+|A high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm.
 
-Pros:
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
 
-* ...
-* ...
+|*Marker*
+|This is should in the Google Maps to indicate the location of the car park. You can click on it to either zoom in or display more information.
 
-Cons:
-
-* ...
-* ...
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
 
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+Given below are instructions to test _Car Park Finder_ manually. These instructions only provide a starting point for
+testers to work on; testers are expected to do more *exploratory* testing.
 
 === Launch and Shutdown
 

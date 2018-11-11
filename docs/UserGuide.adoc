@@ -6,7 +6,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :stylesheet: default.css
-:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main
 :xrefstyle: short
 :experimental:
 ifdef::env-github[]
@@ -18,6 +18,8 @@ endif::[]
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
+
+Welcome to the User Guide for _Car Park Finder_!
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
 Housing & Development Board (HDB) car parks in Singapore. +
@@ -59,7 +61,7 @@ image::GUI.png[width="700"]
 The GUI for _Car Park Finder_ as shown in [underline]#<<GUI>># consist of six regions:
 
 [1] _Menu Bar_ {nbsp} {nbsp} {nbsp} {nbsp} {nbsp} [2] _Result Panel_ {nbsp} {nbsp} {nbsp} {nbsp} {nbsp} [3] _Google Map_ +
-[4] _Message Box_ {nbsp} {nbsp} [5] _Command Box_{nbsp} {nbsp} {nbsp} [6] _Footer Bar_
+[4] _Message Box_ {nbsp} {nbsp} [5] _Command Box_{nbsp} {nbsp} {nbsp} [6] _Status Bar_
 
 [IMPORTANT]
 ====
@@ -872,6 +874,7 @@ Include weather updates in the notifications by indicating on or off.
 weather off
 |===
 
+[appendix]
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
@@ -880,6 +883,7 @@ weather off
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.
 
+[appendix]
 == Glossary
 
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
@@ -912,6 +916,7 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
 
+[appendix]
 == Command Summary
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
 Refer to [underline]#<<generaltable>># for general commands and [underline]#<<managetable>># for car park management.
@@ -919,7 +924,7 @@ For more details on what each command does, please refer to [underline]#<<Featur
 
 .General Commands
 [[generaltable]]
-[cols="^.^2,^.^2,^.^2", width = 50%, options="header"]
+[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
 |===
 |Command |Format |Example
 
