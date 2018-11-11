@@ -40,7 +40,7 @@ public class ProfilePictureDirStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         try {
             return new ProfilePictureDirStorage(userPrefs.getProfilePicturePath(),
-                    userPrefs.getOutputProfilePicturePath()).readProfilePicture(file);
+                userPrefs.getOutputProfilePicturePath()).readProfilePicture(file);
         } catch (IOException e) {
             throw e;
         }

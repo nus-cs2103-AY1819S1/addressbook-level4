@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class ProfilePicture {
 
     public static final String PROFILE_PICTURE_VALIDATION_REGEX =
-            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
+        "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
     public static final String MESSAGE_PROFILE_PICTURE_CONSTRAINTS =
         "Profile picture should only be a .jpg file, and not empty";
 
