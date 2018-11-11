@@ -73,7 +73,7 @@ https://github.com/CS2103-AY1819S1-W17-3/main/pull/142[#142]
 === Contributions to the User Guide
 
 |===
-|_Shown below are my contributions to the User Guide. They demonstrates my ability to write documentation and manuals targeting end-users._
+|_Shown below are my contributions to the User Guide. They demonstrate my ability to write documentation and manuals targeting end-users._
 |===
 
 ==== Adding a new group: `addGroup`
@@ -135,7 +135,8 @@ The person should also be an existing member of the group.
 === Contributions to the Developer Guide
 
 |===
-|_Shown below are my contributions to the Developer Guide. They demonstrates my ability to write technical documentation and highlights the depth and technical details of my contributions to the software engineering project MeetingBook._
+|_Shown below are my contributions to the Developer Guide. They demonstrate my ability to write technical documentation
+ and highlight the depth and technical details of my contributions to the software engineering project MeetingBook._
 |===
 
 
