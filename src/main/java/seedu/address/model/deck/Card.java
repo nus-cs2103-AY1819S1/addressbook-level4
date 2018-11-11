@@ -40,7 +40,7 @@ public class Card {
 
     public Card(Question question, Answer answer, Performance performance, int timesReviewed, double reviewScore,
                 LocalDateTime nextReviewDate) {
-        requireAllNonNull(question, answer, performance, timesReviewed, reviewScore, nextReviewDate);
+        requireAllNonNull(question, answer);
         this.question = question;
         this.answer = answer;
         this.performance = performance;
@@ -114,9 +114,6 @@ public class Card {
     public LocalDateTime getNextReview() {
         return nextReviewDate;
     }
-    /**
-     * Returns true if 2 cards are the same, or have same question.
-     */
 
     /**
      * Returns true if 2 cards are the same, or have same question.

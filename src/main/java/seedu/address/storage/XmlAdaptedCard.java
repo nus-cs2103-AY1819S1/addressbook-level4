@@ -29,7 +29,7 @@ public class XmlAdaptedCard {
     @XmlElement
     private double reviewScore = 2.5;
     @XmlElement
-    private LocalDateTime nextReview = LocalDateTime.now();
+    private String nextReview = LocalDateTime.now().toString();
 
 
     /**
@@ -65,6 +65,7 @@ public class XmlAdaptedCard {
         performance = source.getPerformance().toString();
         timesReviewed = source.getTimesReviewed();
         reviewScore = source.getReviewScore();
+        nextReview = source.getNextReview().toString();
     }
 
     /**
@@ -97,6 +98,7 @@ public class XmlAdaptedCard {
         if (Performance.isValidPerformance(performance)) {
             cardPerformance = Performance.type(performance);
         }
+        LocalDateTime nextReview = LocalDateTime.now();
 
         return new Card(cardQuestion, cardAnswer, cardPerformance, timesReviewed, reviewScore, nextReview);
     }
