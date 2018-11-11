@@ -76,8 +76,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: redo editing the last calendar event in the list -> last calendar event edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updateCalendarEvent(
-                getModel().getFilteredAndSortedCalendarEventList().get(INDEX_FIRST_ELEMENT.getZeroBased()), editedCalendarEvent);
+        model.updateCalendarEvent(getModel().getFilteredAndSortedCalendarEventList()
+                                            .get(INDEX_FIRST_ELEMENT.getZeroBased()), editedCalendarEvent);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a calendar event with new values same as existing values -> edited */
@@ -112,7 +112,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_ELEMENT;
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + TAG_EMPTY;
-        CalendarEvent calendarEventToEdit = getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased());
+        CalendarEvent calendarEventToEdit =
+                getModel().getFilteredAndSortedCalendarEventList().get(index.getZeroBased());
         editedCalendarEvent = new CalendarEventBuilder(calendarEventToEdit).withTags().build();
         assertCommandSuccess(command, index, editedCalendarEvent);
 

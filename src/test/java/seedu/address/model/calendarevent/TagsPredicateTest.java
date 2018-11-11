@@ -1,14 +1,15 @@
 package seedu.address.model.calendarevent;
 
-import org.junit.Test;
-import seedu.address.testutil.CalendarEventBuilder;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import seedu.address.testutil.CalendarEventBuilder;
 
 public class TagsPredicateTest {
 

@@ -60,6 +60,7 @@ public class TypicalEvents {
         .withStart("2018-11-14 14:00")
         .withEnd("2018-11-14 16:00")
         .withDescription("Bring water bottle")
+        .withTags("interview")
         .withVenue("Mountain View").build();
 
     // Manually added

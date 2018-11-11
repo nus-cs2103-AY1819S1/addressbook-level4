@@ -62,14 +62,14 @@ public class FindEventCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_onlyDates_returnsFindCommand() {
+    public void parse_onlyValidDates_returnsFindCommand() {
         FindEventCommand expectedCommand1 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(new DateTime("2018-11-11 20:00"), null),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"from/11 nov 2018 20:00", expectedCommand1);
+        assertParseSuccess(parser, "from/11 nov 2018 20:00", expectedCommand1);
 
         FindEventCommand expectedCommand2 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -77,7 +77,7 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"before/11 nov 20:00", expectedCommand2);
+        assertParseSuccess(parser, "before/11 nov 20:00", expectedCommand2);
 
         FindEventCommand expectedCommand3 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -85,19 +85,19 @@ public class FindEventCommandParserTest {
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"from/10 nov 8pm before/11/11/18 20:00", expectedCommand3);
-        assertParseSuccess(parser,"   \n\t from/10 nov 8pm    \t before/11/11/18 20:00   \n", expectedCommand3);
+        assertParseSuccess(parser, "from/10 nov 8pm before/11/11/18 20:00", expectedCommand3);
+        assertParseSuccess(parser, "   \n\t from/10 nov 8pm    \t before/11/11/18 20:00   \n", expectedCommand3);
     }
 
     @Test
-    public void parse_validArgs_onlyTags_returnsFindCommand() {
+    public void parse_onlyValidTags_returnsFindCommand() {
         FindEventCommand expectedCommand1 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(null, null),
                         new TagsPredicate(Collections.singletonList("cs2103")));
 
-        assertParseSuccess(parser,"tag/cs2103", expectedCommand1);
+        assertParseSuccess(parser, "tag/cs2103", expectedCommand1);
 
         FindEventCommand expectedCommand2 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -105,9 +105,9 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, null),
                         new TagsPredicate(Arrays.asList("cs2103", "Lecture")));
 
-        assertParseSuccess(parser,"tag/cs2103 tag/Lecture", expectedCommand2);
+        assertParseSuccess(parser, "tag/cs2103 tag/Lecture", expectedCommand2);
 
-        assertParseSuccess(parser,"  \n  tag/cs2103  \n\t  tag/Lecture \t  ", expectedCommand2);
+        assertParseSuccess(parser, "  \n  tag/cs2103  \n\t  tag/Lecture \t  ", expectedCommand2);
     }
 
     @Test
@@ -130,7 +130,8 @@ public class FindEventCommandParserTest {
                         new FuzzySearchComparator(Arrays.asList("some", "keywords")),
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Arrays.asList("CS2103", "Lecture")));
-        assertParseSuccess(parser, "some keywords from/10 nov 8pm before/11 nov 8pm tag/CS2103 tag/Lecture", expectedFindEventCommand2);
+        assertParseSuccess(parser, "some keywords from/10 nov 8pm before/11 nov 8pm tag/CS2103 tag/Lecture",
+                                expectedFindEventCommand2);
 
     }
 

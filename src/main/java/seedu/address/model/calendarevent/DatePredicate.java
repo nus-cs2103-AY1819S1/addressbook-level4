@@ -7,8 +7,8 @@ import java.util.function.Predicate;
  * and before the {@code dateTo} (if any)
  */
 public class DatePredicate implements Predicate<CalendarEvent> {
-    public static final String MESSAGE_DATE_PREDICATE_CONSTRAINTS
-            = "'From' date & time must be chronologically earlier than 'Before' date & time";
+    public static final String MESSAGE_DATE_PREDICATE_CONSTRAINTS =
+            "'From' date & time must be chronologically earlier than 'Before' date & time";
     private final DateTime dateFrom;
     private final DateTime dateTo;
 

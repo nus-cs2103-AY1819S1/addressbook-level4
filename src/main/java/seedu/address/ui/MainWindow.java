@@ -42,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private CalendarDisplay calendarDisplay;
     private CalendarPanel calendarPanel;
     private TaskListPanel taskListPanel;
@@ -231,11 +230,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
-    }
-
-    // TODO remove method if not using browserPanel anymore
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

@@ -57,7 +57,8 @@ public class EditEventCommandTest {
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredAndSortedCalendarEventList().size());
-        CalendarEvent lastCalendarEvent = model.getFilteredAndSortedCalendarEventList().get(indexLastPerson.getZeroBased());
+        CalendarEvent lastCalendarEvent =
+                model.getFilteredAndSortedCalendarEventList().get(indexLastPerson.getZeroBased());
 
         CalendarEventBuilder personInList = new CalendarEventBuilder(lastCalendarEvent);
         CalendarEvent editedCalendarEvent =
@@ -119,7 +120,8 @@ public class EditEventCommandTest {
 
     @Test
     public void execute_duplicateCalendarEventUnfilteredList_failure() {
-        CalendarEvent firstCalendarEvent = model.getFilteredAndSortedCalendarEventList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        CalendarEvent firstCalendarEvent =
+                model.getFilteredAndSortedCalendarEventList().get(INDEX_FIRST_ELEMENT.getZeroBased());
         EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder(firstCalendarEvent).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_SECOND_ELEMENT, descriptor);
 
