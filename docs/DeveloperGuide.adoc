@@ -443,14 +443,18 @@ e: 'event' context
 
 The `switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
 
-
-The following code snippet shows what the `switch` command does upon execution:
 In addition to updating the context, the `switch` command also does the following:
 
 * Clear all predicates for volunteer, events and record lists.
 * Resets the state pointer (for undo/redo functions).
 * Raise a `ContextChangeEvent` to update the UI.
 
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram of switch command
+image::command_switch_sd.png[switch SD, 800]
+
+The following code snippet shows what the `switch` command does upon execution:
 ```Java
 public class SwitchCommand extends Command {
     //...
@@ -469,11 +473,6 @@ public class SwitchCommand extends Command {
     }
 }
 ```
-
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram of switch command
-image::command_switch_sd.png[switch SD, 800]
 
 ===== Design considerations
 ====== Aspect: How context is maintained
@@ -713,6 +712,11 @@ In addition to updating the context, the `manage` command also does the followin
 * Raise a `RecordChangeEvent` to set the selected event.
 * Raise a `ContextChangeEvent` to update the UI.
 
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram for manage command
+image::command_manage_sd.png[manage SD, 800]
+
 The following code snippet shows what the `manage` command does upon execution:
 
 ```Java
@@ -749,11 +753,6 @@ public class ManageCommand extends Command {
     //...
 }
 ```
-
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram for manage command
-image::command_manage_sd.png[manage SD, 800]
 
 ===== Design considerations
 ====== Aspect: Context switching
