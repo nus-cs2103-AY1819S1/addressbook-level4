@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Chai Jie Feng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,61 +9,62 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+EventsPlus+ is a desktop address book application catered for busy university students to
+manage their contacts, events, project meetings and ad-hoc events efficiently.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks
+such as coordinating location and date of ad-hoc events using a Command Line Interface (CLI)
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *import contacts function*
+** What it does: Allows the user to import contacts from external source (link:https://contacts.google.com/[google contacts]) into EventsPlus+.
+** Justification: Users should be able to easily import contacts from external source without having to go through the trouble of adding in 
+contacts 1 by 1.
+** Highlights: Users will be notified with the number of successful imported contacts. Failure of importing should be the caused by 
+bad formatting or missing mandatory fields. 
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-W13-2/main/pull/183[Functional code & Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.3` on GitHub
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+*** Updated documentation for the enhancements as above: (Pull requests  https://github.com/CS2103-AY1819S1-W13-2/main/pull/101[#101],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/185[#185],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/187[#187])
+*** Updated User Guide with initial planned features (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/4[#4])
+*** Updated author name for reposense (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/123[#123])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-2/main/pull/5[#5], 
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/9[#9], 
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130], 
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/172[#172]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-W12-4/main/issues/124[1],
+  https://github.com/CS2103-AY1819S1-W12-4/main/issues/115[2],
+  https://github.com/CS2103-AY1819S1-W12-4/main/issues/114[3])
+
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=undoredo]
-
+include::../UserGuide.adoc[tag=addEvent]
+include::../UserGuide.adoc[tag=addEventTag]
+include::../UserGuide.adoc[tag=deleteEvent]
+include::../UserGuide.adoc[tag=listEvent]
+include::../UserGuide.adoc[tag=findEvent]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=events]
+include::../DeveloperGuide.adoc[tag=eventTags]
+include::../DeveloperGuide.adoc[tag=autoComplete]
+include::../DeveloperGuide.adoc[tag=tab]
