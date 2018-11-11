@@ -37,10 +37,10 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
-** Documentation:
+** Design:
 *** Designed the mock-up of the <<UI, UI>>
 ** Community:
-*** Reviewd PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 *** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 

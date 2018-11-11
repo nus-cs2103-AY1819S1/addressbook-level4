@@ -543,18 +543,18 @@ The other PQMS commands roughly follow the same sequence as `Register` command b
 
 Given below is an example usage scenario of the PQMS.
 
-Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
+Step 1. Three patients visits the clinic, the user executes the `register` command for each patient. If these patients are not registered in CLInic's database they need to be added first.
 
 .Registering 3 patients
 image::PQMSPatientQueue.png[650, 250]
 
-Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
+Step 2. The doctor is ready for the next patient. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
 .Serve patient
 image::PQMSCurrentPatient.png[650, 250]
 
-Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
+Step 3. The user executes the `adddocument` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
