@@ -21,7 +21,7 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.recipe.XmlRecipeStorage;
 
-public class XmlAddressBookStorageTest {
+public class XmlRecipeStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
 
     @Rule
