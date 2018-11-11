@@ -141,7 +141,7 @@ public class GoogleCommandTests {
     @Test
     public void testGoogleRefreshFailure() {
         GoogleRefreshCommand command;
-        String msg = GoogleRefreshCommand.FAILURE_MESSAGE;
+        String msg = GoogleRefreshCommand.FAILURE_MESSAGE + "\n\n" + GoogleRefreshCommand.MESSAGE_USAGE;
 
         command = new GoogleRefreshCommand();
         assertCommandFailure(command, model, commandHistory, msg);

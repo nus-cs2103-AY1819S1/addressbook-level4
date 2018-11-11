@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T09-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -72,25 +72,9 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
-
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -99,7 +83,6 @@ When you are ready to start coding,
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
-
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -133,12 +116,11 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram1.png[width="800"]
 
-[discrete]
-==== Events-Driven nature of the design
-
+The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+.Structure of the UI Component
 image::UiClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -156,10 +138,9 @@ The `UI` component,
 * Binds itself to some images in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
-_{To be updated}_
-
 [[Design-Logic]]
 === Logic component
+.Structure of the Logic Component
 image::LogicClassDiagram1.png[width="800"]
 
 *API* :
@@ -170,10 +151,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. converting an image) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-_{To be updated}_
+Given below is the Sequence Diagram for interactions within the Logic component for the execute("cd") API call.
+
+.Interactions inside the Logic Component for the `cd` command
+image::LogicComponentClassDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
+
+.Structure of the Model Component
 image::ModelClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -184,18 +170,24 @@ The `Model`,
 * stores the `Canvas` for the current image.
 * does not depend on any of the other three components.
 
-_{To be updated}_
-
 [[Design-Storage]]
 === Storage component
-_{To be updated}_
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
 
 [[Design-Commons]]
-=== Commons component
-_{To be updated}_
+=== Common classes
+
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
-_{In Progress}_ +
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::cd[]
@@ -204,8 +196,8 @@ The Cd feature is implemented to allow users to access images in the different d
 This removes the restrictions of accessing only images from one particular folder.
 
 ==== Current Implementation
-The Cd mechanism is facilitated by the `ModelManager`. It contains the operations `Model#getCurrDirectory` and
-`Model#updateCurrDirectory(Path)` respectively.
+The Cd mechanism is facilitated by the `ModelManager`. It contains the operations `Model#getCurrDirectory()` and
+`Model#updateCurrDirectory(Path)`.
 
 The Model calls upon `UserPrefs` within the respective operations. The `UserPrefs` class contains the current directory
 the user's in, stored internally as `currDirectory` and implements the following operations:
@@ -214,7 +206,7 @@ the user's in, stored internally as `currDirectory` and implements the following
 * `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
 Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
-which are stored internally as `imageList`. This would facilitates the `Select` feature in our application
+which are stored internally as `imageList`. This would facilitate the `select` feature in our application
 (refer to 3.2).
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
@@ -225,15 +217,16 @@ Pressing tab again will display the next directory with the given prefix.
 
 Given below is an example usage scenario and how the cd mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
 `Model#getCurrDirectory()` and appends `Desktop` to the end of the current directory. It then checks if the new Path is
-a directory and calls `Model#updateCurrDirectory(Path)` and update the new Path in `UserPrefs` if the check returns true.
+a directory and calls `Model#updateCurrDirectory(Path)` and updates the new Path in `UserPrefs` if the check returns true.
 
 The following sequence diagram shows how the cd command works:
 
+.Sequence Diagram for CdCommand
 image::CdSequenceDiagram.png[width=800]
 
 [NOTE]
@@ -262,24 +255,24 @@ This command is further facilitated by the Next/Prev Command.
 The implementation of the Open feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
 and contains the following operations:
 
- * `Model#getDirectoryImageList()` -- Retrieves the stored list of images in UserPrefs.
- * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
+ * `Model#getDirectoryImageList()` - Retrieves the stored list of images in UserPrefs.
+ * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current selected images.
 
 The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
 batch. The `UserPrefs` class implements the following operation:
 
-* `UserPrefs#getCurrImageListBatch()` -- Returns the current batch of images.
+* `UserPrefs#getCurrImageListBatch()` - Returns the current batch of images.
 
 The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
-`PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` respectively within the `ModelManager`.
-Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature.
+`PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
+Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature. (refer to 3.5)
 
 Given below is an example usage scenario and how the open mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
 the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
@@ -297,6 +290,7 @@ image::OpenCommand3.png[width=450]
 
 The following sequence diagram shows how the open command works:
 
+.Sequence Diagram for OpenCommand
 image::OpenSequenceDiagram.png[width=800]
 
 ==== Design Considerations
@@ -314,44 +308,46 @@ image::OpenSequenceDiagram.png[width=800]
 // tag::nextprev[]
 === Next/Prev feature
 
-The Next Command retrieves the next 10 images in the image list.
+`NextCommand` retrieves the next 10 images in the image list (image list refers to images in the current directory).
 
-On the contrary, the Previous Command retrieves the previous 10 images in the image list.
+On the contrary, the `PrevCommand` retrieves the previous 10 images in the image list.
 
 ==== Current Implementation
-The implementation of the Next/Previous feature is also similar to the `Cd Command`. It is facilitated by the `ModelManager`
+The implementation of the Next/Previous feature is similar to the `CdCommand`. It is facilitated by the `ModelManager`
 and contains the operations: `Model#updateImageListNextBatch()` and `Model#updateImageListPrevBatch()`.
 
 The `Model` calls upon `UserPrefs` which stores and facilitates the retrieval of the current
 batch of images using the `currBatchPointer`. The `UserPrefs` class implements the following operation:
 
-* `UserPrefs#updateImageListNextBatch()` -- Adds the `currBatchPointer` by 10.
-* `UserPrefs#updateImageListPrevBatch()` -- Minus the `currBatchPointer` by 10.
+* `UserPrefs#updateImageListNextBatch()` - Adds the `currBatchPointer` by 10.
+* `UserPrefs#updateImageListPrevBatch()` - Minus the `currBatchPointer` by 10.
 
 Given below is an example usage scenario and how the next/previous mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
 the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
 
-Step 3. The user executes `next` command to retrieve the next 10 images within Desktop.
+. The user executes `next` command to retrieve the next 10 images within Desktop.
 
 image::NextPrevCommand2.png[width=800]
 
-Step 4. The user executes `prev` command to retrieve the previous 10 images within Desktop.
+. The user executes `prev` command to retrieve the previous 10 images within Desktop.
 
 image::NextPrevCommand3.png[width=800]
 
 The following sequence diagram shows how the next command works:
 
+.Sequence Diagram for NextCommand
 image::NextSequenceDiagram.png[width=800]
 
 The following sequence diagram shows how the prev command works:
 
+.Sequence Diagram for PrevCommand
 image::PrevSequenceDiagram.png[width=800]
 
 ===== Aspect: How next/previous executes
@@ -369,7 +365,7 @@ image::PrevSequenceDiagram.png[width=800]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo works on the `currentLayer` the user is working on. Each `Layer` contains a `PreviewImage` which facilitates the undo/redo mechanism.
+The `undo/redo` works on the `currentLayer` the user is working on. Each `Layer` contains a `PreviewImage` which facilitates the undo/redo mechanism.
 The mechanism works by caching the original image and transformed images in a temporary `cache` folder, and using `currentStatePointer` as a pointer together with `currentSize` as an indicator to manage the caching.
 Undoing and redoing will shift the `currentStatePointer` accordingly while each transformation commits the image by writing to the `cache` folder (purging redundant images if needed).
 
@@ -378,16 +374,16 @@ To work with multiple layers, each `Layer` has a single `PreviewImage` which is 
 
 Additionally, it implements the following operations:
 
-* `PreviewImage#commit()` -- Writes the newly transformed `BufferedImage` into the `cache` folder (purge redundant images if needed).
-* `PreviewImage#getImage()` -- Returns the current `BufferedImage` state of the `previewImage` by reading from the `cache` folder.
-* `PreviewImage#undo()` -- Shifts the `currentStatePointer` to the left, pointing to the previous state.
-* `PreviewImage#redo()` -- Shifts the `currentStatePointer` to the right, pointing to a previously undone state.
+* `PreviewImage#commit()` - Writes the newly transformed `BufferedImage` into the `cache` folder (purge redundant images if needed).
+* `PreviewImage#getImage()` - Returns the current `BufferedImage` state of the `previewImage` by reading from the `cache` folder.
+* `PreviewImage#undo()` - Shifts the `currentStatePointer` to the left, pointing to the previous state.
+* `PreviewImage#redo()` - Shifts the `currentStatePointer` to the right, pointing to a previously undone state.
 
 These operations are exposed in the `Model` interface as `Model#updateCurrentPreviewImage()`, `Model#undoPreviewImage()` and `Model#redoPreviewImage()`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
+. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
 
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
@@ -395,14 +391,15 @@ A `Canvas` can already be initialized, meaning this is an additional layer being
 
 image::undoRedo1.png[width="800"]
 
-Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
+. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
 
 [NOTE]
 If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
 
 image::undoRedo2.png[width="800"]
 
-Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
+. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
+
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -410,7 +407,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial state, then 
 image::undoRedo3.png[width="800"]
 
 
-Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
+. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
 image::undoRedo4.png[width="800"]
 
@@ -420,6 +417,7 @@ image::undoRedo4.png[width="800"]
 
 The following sequence diagram shows how the undo operation works:
 
+.Sequence Diagram for Undo/RedoCommand
 image::undoRedoSequenceDiagram.png[width="800"]
 
 The redo command does the opposite — it calls `Model#redoPreviewImage()`, which shifts the currentStatePointer once to the right, pointing to the previously undone state.
@@ -430,14 +428,17 @@ If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `Pre
 
 The following activity diagram summarizes what happens when a user executes a new transformation:
 
+.Activity Diagram for performing a new image transformation
 image::undoRedoActivityDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the undo command:
 
+.Activity Diagram for using `undoCommand`
 image::undoRedoActivityDiagram2.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the redo command:
 
+.Activity Diagram for using `redoCommand`
 image::undoRedoActivityDiagram3.png[width="800"]
 
 ==== Undo-all and Redo-all
@@ -453,6 +454,7 @@ The HistoryListPanel provides a view for the user to see the history of transfor
 Whenever a transformation is done or when a undo/redo command is executed, the `Model#refreshHistoryList()` is executed which refreshes the `HistoryListPanel` with a `HistoryUpdateEvent` containing the current layer's `PreviewImage's` list of transformations.
 A view of the panel is shown below:
 
+.Image of HistoryListPanel
 image::historyPanel.png[width="200"]
 
 
@@ -463,6 +465,7 @@ image::historyPanel.png[width="200"]
 * **Alternative 1 (current choice):** Saves each newly transformed image (including original).
 ** Pros: Easy to implement.
 ** Cons: Uses user's storage space for caching.
+
 * **Alternative 2:** Save only the command, and reverse/reapply transformation for each undo/redo.
 ** Pros: Will not need to use user's data storage.
 ** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like `blur` and `colorspace`.
@@ -472,245 +475,111 @@ image::historyPanel.png[width="200"]
 === Transmission feature
 ==== Current Implementation
 
-The transmission mechanism is facilitated by ImageMagick execute file.
-It is an execute file which can be use to do the processing to the target image with specified commands given.
-There is a ImageMaigcUtil class which will check, create, and run the imagemagick executable file,
-a convertCommand to apply the specified transformation to the image,
-a createConvertCommand to customise the transformation and store the command.
-Additionally, there is a demo given in the example command, which is able to do the blur, resize, contrast... on the target image just for demo testing.
-There are some main operations and processes in the class above.
+The transmission mechanism is facilitated by https://www.imagemagick.org/script/index.php[`ImageMagick`], an external API Library that helps process the target image by the specified commands given.
+The transmission feature mainly consists of:
+
+* `ImageMagicUtil`: A class which will check, create, and run the imageMagick executable file
+* `convertCommand`: Applies the specified transformation to the image
+* `createConvertCommand`: Allows users to define their own custom transformation set.
+
+The following describes main operations and processes contained in the classes above.
 
 ==== ImageMagicUtil:
 
-This class is used to provide the methods touching the ImageMagic package
+This class is used as a gateway to interact with the ImageMagick library.
 
-* `getImageMagickZipUrl()` -- get the Url of the ImageMagick zipped package inside the resource.
-* `getPlatform()` -- get the platform of the current OS.
-* `getExecuteImageMagick()` -- get the path to the execute file of the ImageMagic.
-* `parseArguments()` -- parse the argument from the operation.
-* `processImage()` -- process the specified transformation to the image.
-* `runProcessBuilder()` -- run the process builder with the arguments given
-* `copyOutside()` -- copy the ImageMagick outside and unzip
+* `getImageMagickZipUrl()` - Retrieves the Url of the ImageMagick zipped package inside the resource.
+* `getPlatform()` - Returns the platform of the current OS.
+* `getExecuteImageMagick()` - Returns the path to the execute file of the ImageMagick.
+* `parseArguments()` - Parses the argument from the operation.
+* `processImage()` - Processes the specified transformation to the image.
+* `runProcessBuilder()` - Runs the process builder with the arguments given
+* `copyOutside()` - Copies the ImageMagick package out of the jar and unzips it.
+
 // tag::convert[]
-==== ConvertCommand:
+==== ConvertCommand (convert):
 
-this command is exposed to the model as `Model#addTransformation()`, which is used to update the transformatioSet of the currentPreviewImage.
+This command is exposed to the model as `Model#addTransformation()`, which is used to update the `transformationSet` of the `currentPreviewImage`.
 
 Given below is an example usage scenario and how the transmission should behave at each step.
 
-Step 1. The first time run the app, the corresponding zipped package of the ImageMagick will be copied outside, and unzipped,
-a temp folder will also be created.
+. Upon first running the app, the corresponding zip package of ImageMagick will be copied out of the jar and unzipped. A temp folder is also created.
 
-Step 2. The user selects an image with the `select` command. the method `model.getPreviewImage()` will be called to get he bufferedImage of the current preview scene.
+. The user selects an image with the `select` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
 
-Step 3. The user enter the command which need processing to the image selected with arguments, for instance "blur 0x8" "resize 50%",
-the entered command will be parsed and the corresponding transformation will be created.
+. The user enters the command `convert blur 0x8`. The entered command is parsed and the corresponding transformation is created.
 
 [NOTE]
-If the input is invalid for the command enter, the processing of the image will not be done, and a reminder will be given to the user.
+If the arguments for a convert command are invalid, processing of the image will not be carried out, and an error message is shown instead.
 
-
-Step 4. the transformation will be added to the transformation set store in the preview image in the model.
+. The transformation is added to the transformation set stored in the preview image in the model.
 
 [NOTE]
-if the transformation Set got from the model is invalid, an error should be prompted
+An error is prompted if the transformation set gotten from the model is invalid.
 
-Step 5. An process builder will be built inside the method `processImage` which will take the image stored,
-the processing info stored in the transmission set, use the ImageMagic executable file to do the processing,
-then store the modified image in the temp folder created.
+. A process builder is built inside the method `processImage`, which will then take the image and
+the processing information stored in the transmission set, and use it with the ImageMagick executable file to carry out the actual image processing,
+The modified image in then stored in the temp folder created.
 
+. The output `bufferedImage` will be generated by the modified file stored in the temp folder, and the previous stored file will be removed.
 
-Step 6. The output bufferedImage will be generated by the modified file stored in the temp folder, and the stored file will be removed.
-
+.Sequence Diagram for ConvertCommand
 image::ConvertCommand.png[width="800"]
 
 // end::convert[]
 // tag::create[]
-==== CreateConvertCommand:
+==== CreateConvertCommand (create):
 
-This command is to create a customised command and store in the disk, will check the transformations specified by `checkValidation()` first.
+This command allows users to create a customised command (custom set of transformations) and store in the disk, All transformation sets will first be checked by `checkValidation()`.
 
 Given below is an example usage scenario and how the transmission should behave at each step.
 
-Step 1. The user enters the name of the customized, the transformations specified sequentially.
+. The user sequentially enters the transformations he wants to store, in the form of `create blurgray blur|0x8 colorspace|GRAY`.
 
-Step 2. The specified transformations will be parsed and checked by the templates store in the app.
+. The specified transformations are parsed and checked by the templates stored in the app.
 [NOTE]
-if the specified transformations has invalid name or arguments, error will be thrown and user will be reminded.
+If any of the specified transformations have an invalid name or argument, an error will be thrown.
 
-Step 3. The validated new command will be stored in the json for in the PiconsoCommands folder create when first time run the app.
+. If validation checks have passed, the specified transformations are stored as a new command in the a json file within the PiconsoCommands folder created upon first running the app.
+
 ==== Design Considerations
 
- - As the ImageMagic executable file is only able to handle the command line input and need the path of the image, we have to store the file in some tmp folder adn then, remove the modified image.
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify. The image has to first be stored in a temp folder, and replaces any previous modified image when modified.
 
- - As in the processing process, it could be slow, and it is for one image only, then, in the mass images processing, multiple threads might be needed.
+ - Processing transformations for a single image already incurs a long processing time. For any plans to allow mass image processing, it is recommended that multi-threading be implemented.
 // end::create[]
+
 // tag::save[]
-=== Save feature
+
+=== Save (save) feature
+
 ==== Current Implementation
-The save command is to save the current preview image to the disk where the current image is selected,
-use enter the name of the image and the format of the name will be validated.
+`SaveCommand` saves the current preview image in the currently opened directory by its original name.
 
-* `isFormatValid()` is to validate the format of the filename user enters
+* `isFormatValid()`: Validates the format of the file name user enters
 
-Given is an example of how to use the command
+Given below is an example of how to use the `save` command
 
-Step 1. parse the image name user enters, get the name and the format of the filename.
+. User enters `save a.png`. The image name is parsed and checked for a valid name format.
 
-Step 2. check whether the file exists or not, throw error is existing
+. If a file with the same name already exists, an error is thrown, else the argument (`a.png`) is checked for a valid image extension format.
 
-Step 3. check the format of the image, if the format is not supported, error will be thrown
+. If the format is not supported, an error is thrown, else the image is saved as `a.png` in the currently opened directory.
 
+.Sequence Diagram for SaveCommand
 image::SaveCommand.png[width="800"]
 // end::save[]
-// tag::google[]
-=== Google Features
-==== Overall Introduction
-The Google commands allow for access to https://developers.google.com/photos/library/guides/get-started-java[Google Photos] through a logged-in instance of the user, and are held up by two main components.
 
-* `PhotosLibraryClientFactory` - Initiates and carries out the login process. Produces a `PhotoHandler` instance, which handles matters related to Google commands.
-* `PhotoHandler` - Mainly consists of a `PhotoLibraryClient` instance and user's logged in state. Performs all explicit calls to Google Photos through the `PhotosLibraryClient` instance.
-** The `PhotoHandler` instance is later accessed through `Model#getPhotoHandler()` and `Model#setPhotoHandler()``.
-
-There are 5 main google-related commands, with the first two commands to login/logout a user, and the latter 3 being overloaded command types with `GoogleCommand` as the abstract parent class.
-
-* `LoginCommand` - Logs in user to their Google Account.
-* `LogoutCommand` - Logs a user out of their Google Account.
-* `GoogleLsCommand` - Returns the files from Google Photos.
-* `GoogleDlCommand` - Downloads the specified image(s) from Google Photos to the user's currently viewed local directory.
-* `GoogleUploadCommand` - Uploads the specified image(s) from the user's currently viewed local directory to Google Photos.
-
-To use Google Photos API in Piconso, we have connected and generated `client_credentials.json` via our own Google Account to enable usage of the API. It is suggested that you https://developers.google.com/photos/library/guides/get-started-java[configure] Piconso to use Google Photos Library API with your own account rather than the provided. +
-If you are not familiar with how Google Photos work, it would be advisable to first try out Google Photos as a consumer before proceeding.
-
-=== Login(login) Command
-
-==== Current Implementation
-The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you go through the examples/documentations in those links. +
-
-Below are some examples on how the login command will work.
-
-[NOTE]
-If connection to the internet is lost at any point during authentication with Google's server, login will fail and an error message will be sent to user as feedback.
-
-==== Scenario 1: Explicit `login` command executed, user not logged in yet.
-
-Step 1. The user executes a `login` command.
-
-Step 2. The login command calls `Model#getPhotoHandler()` and checks if a PhotoHandler instance already exists, if false, it calls `PhotoLibraryClientFactory#createClient()` to set up the requirements for log in and redirects the user to the browser.
-
-Step 3. The returned refresh token is stored, and PhotoLibraryClientFactory instance then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail() to instantiate a `PhotoHandler` instance
-
-Step 4. The `PhotoHandler` instance is set by model as `Model#photoLibrary`, and confirmation of login is sent to user.
-
-The following sequence diagram illustrates how the above steps work:
-
-.Sequence Diagram for Login Command
-image::LoginSequenceDiagram.png[width="2000"]
-
-WARNING: Currently, the user MUST go through with the login process once activated else Piconso will freeze. Suggestions are to implement asynchronous login in v1.4 or by v2.0
-
-==== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
-
-Step 1: Upon Piconso start up, `PhotoLibraryClientFactory#loginUserIfPossible()` is run by `ModelManager` +
-Step 2: The method checks for stored credentials (refresh token), and logs in the user if it exists via `PhotoLibraryClientFactory#createClient()`, else the log in process is skipped.
-
-In both scenarios, whenever a refresh token is found stored the user is logged in without having to face browser re-direct again. At no point in any scenario will we be storing a user's actual credentials. The only thing we will store is a refresh token that allows us to keep a user logged in, actual credentials are handled by Google OAuth +
-
-==== Logout (logout) Command
-The logout command works in a simple manner. It deletes the stored credential file if it exists, and does nothing if it does not. Upon deleting the file, the user will no longer have a refresh token to stay logged in, and thus is effectively logged out.
-
-=== GoogleLsCommand (list)
-
-[NOTE]
-For all Google Commands (excluding login and logout), they will be called by commands appended with a g (i.e `g ls`, `g dl image.png`). +
-
-Thus a `g` command will always be passed through a `GoogleCommandParser` before launching its respective command os launched.
-
-==== Current Implementation
-The GoogleLsCommand allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
-
-`g ls` -> Lists all photos in user's Google Photos, takes a longer amount of time depending on the number of images stored. +
-`g ls /a` -> Lists all albums in user's Google Photos. +
-`g ls <ALBUM_NAME>` -> Lists all photos in specified album from Google Photos.
-
-As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleLsCommand itself.
-
-==== Example: `g ls`, where user wants to list all albums in Google Photos.
-
-Step 1. The user executes a `g ls /a` command.
-
-Step 2. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleLsCommand. It is determined to be for listing albums, and `model.getPhotoHandler().returnAllAlbumsList()` is called.
-
-Step 3. Within that method, it makes a request to Google Photos, retrieves a list of `Album`s, and stores them in a `Map<String, Album>` with each key being the album name.
-
-Step 4. The entire list is converted into a String, and returned to the `CommandBox` ui as feedback to the user
-
-The following sequence diagram illustrates how the above steps work:
-
-.Sequence Diagram for GoogleLsCommand
-{IMAGE TO BE ADDED}
-
-The process is similar for the other 2 variants, except images or images from a specific album are retrieved instead. All retrieved results are always stored in their respective maps. i.e A Map for Albums, one for images, and another for images from a specific Album.
-
-==== Design Considerations
-* 1. Performance Issues
-** The larger the amount of pictures stored in Google Photos, the longer amount of time a `g ls` command will take.
-*** Current Solution: A fair warning of this issue is provided in the User Guide for users, and alternative command `g ls <ALBUM_NAME>` has been provided to encourage the user to input narrower searches
-*** Improved Solution (to be implemented in earliest v1.4): The current implementation makes it so that the list of photos/albums is re-retrieved upon every `ls` call. As it is not likely that the set of photos in Google Photos will constantly change, a better alternative, a `refresh` command can be implemented alongside the other commands, such that the list is only re-retrieved when a user refreshes.
-
-* 2. Duplicated Naming
-** Google Photos allows for multiples images and albums to be stored with the same name, making it difficult to list item names as names might overlap.
-*** Alternative 1 (Current): Before storing names of images/albums into the map, names are checked against the map for duplicates, and are appended with a suitable index if a file/album with the same name is found. This ensures that all files/albums are uniquely named.
-**** Con: If there are multiple images with the same name, the process of any `g ls` will take a much longer time to run.
-
-*** Alternative 2: Instead of storing the name of the image/album as the key inside the Map, the unique ID (that is retrieved together with the files from Google) can be used instead. This approach was however avoided for convenience of the user (ID too complicated to input)
-
-* 3. Album Traversal
-** Alternative 1: Treat the album as a category, thus `g ls <ALBUM_NAME>` acts as a filter that filters photos by category.
-*** Con: The command to download from an album needs to be extended such that users need to specify in which album the image to download is in.
-
-** Alternative 2: Handle the concept of albums like directories, such that a user can cd in and out of an album. This was avoided for fear of causing confusion in users (having to view both google and local directories concurrently).
-
-=== GoogleDlCommand (download)
-
-Step 1. The user executes a `g ls /a` command.
-
-Step 2. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleLsCommand. It is determined to be for listing albums, and `model.getPhotoHandler().returnAllAlbumsList()` is called.
-
-Step 3. Within that method, it makes a request to Google Photos, retrieves a list of `Album`s, and stores them in a `Map<String, Album>` with each key being the album name.
-
-Step 4. The entire list is converted into a String, and returned to the `CommandBox` ui as feedback to the user
-
-[NOTE]
-For all upload/download related commands, the amount of time taken to process the task varies with the number of images to upload/download.
-
-==== Current Implementation
-The GoogleDlCommand allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
-
-`g dl /i<IMAGE_NAME>`: Downloads specified image from Google Photos +
-`g dl /a<ALBUM_NAME>`: Downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-`g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: Downloads a specific photo from a specific album in Google Photos.
-
-As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleDlCommand itself.
-
-{To be updated}
-
-=== GoogleUploadCommand (upload)
-
-{to be updated}
-// end::google[]
 
 // tag::canvas[]
-== Canvas and Layer features
+== Implementation: Canvas and Layer features
 
 === General overview
 The `Canvas` and `Layer` classes serve as a layer of encapsulation for handling one or more instances of `PreviewImage`.
 This is in line with good defensive coding practices and separation of concerns.
 
 === Canvas (canvas) command
-Similar to the `google` set of commands, there are a set of overloaded command types inheriting from `CanvasCommand`
-, namely:
+There are a set of overloaded command types inheriting from `CanvasCommand`, namely:
 
 * `bgcolor` - Sets the background colour of the canvas.
 * `size` - Sets the height and the width of the canvas.
@@ -722,18 +591,18 @@ Layer order is preserved as it important for image composition.
 
 Canvas implements the following accessors and utility functions:
 
-* `getLayers` - returns an ordered list of layers which is guaranteed to be neither `null` or empty.
-* `getLayerNames` - returns a list of layer names in order.
-* `addLayer` - adds a given `PreviewImage` into the canvas on its own layer.
-* `getCurrentLayer` - returns the current instance of the layer that is being operated on.
-* `getCurrentLayerIndex` - returns the index of the current instance of the layer that is being operated on.
-* `setCurrentLayer` - sets the layer to be operated on.
-* `removeLayer` - removes a layer at a given index. The current layer and the last remaining layer in a canvas cannot be removed.
+* `getLayers()` - Returns an ordered list of layers which is guaranteed to be neither `null` or empty.
+* `getLayerNames()` - Returns a list of layer names in order.
+* `addLayer(PreviewImage, String)` - Adds a given `PreviewImage` into the canvas on its own layer.
+* `getCurrentLayer()` - Returns the current instance of the layer that is being operated on.
+* `getCurrentLayerIndex()` - Returns the index of the current instance of the layer that is being operated on.
+* `setCurrentLayer(Index)` - Sets the layer to be operated on.
+* `removeLayer(Index)` - Removes a layer at a given index. The current layer and the last remaining layer in a canvas cannot be removed.
 
 All of these functions are exposed through the `Model` interface.
 Implementations in `ModelManager` usually include a call to the corresponding accessor along with utility functions to manage the state of the UI.
 
-Beneath the hood `Canvas` manipulation is powered by ImageMagick.
+Beneath the hood, `Canvas` manipulation is powered by ImageMagick.
 All of the properties represented in `Canvas` are transformed into their respective flags or arguments in ImageMagick.
 For example, the `isCanvasAuto` property is transformed into the flag `-flatten` if false and `-layers merge` if true.
 
@@ -743,7 +612,7 @@ The `ProcessBuilder` is then passed to `ImageMagickUtils#runProcessBuilder` whic
 .Sequence Diagram for Canvas Command
 image::CanvasSequenceDiagram.png[width="2000"]
 
-The above diagram illustrates the process of parsing and executing of `canvas` commands.
+The above diagram illustrates the process of parsing and executing `canvas` commands.
 
 . The user executes any command beginning with `canvas`.
 
@@ -777,11 +646,11 @@ The following sub-commands inherit from `LayerCommand`:
 
 `Layer` implements a few key accessors and utility functions. Some of them include:
 
-* `addTranformation` - Adds a given transformation into its `PreviewImage`++'s++ `TransformationSet`.
-* `getName` - Gets the name of the layer.
-* `setHeight` - Sets the height of the layer.
-* `setWidth` - Sets the width of the layer.
-* `setPosition` - Sets the x and y coordinates of the layer.
+* `addTranformation(Transformation)` - Adds a given transformation into its `PreviewImage`++'s++ `TransformationSet`.
+* `getName()` - Gets the name of the layer.
+* `setHeight(int)` - Sets the height of the layer.
+* `setWidth(int)` - Sets the width of the layer.
+* `setPosition(int, int)` - Sets the x and y coordinates of the layer.
 
 The following image illustrates the coordinate system adopted in Piconso.
 
@@ -789,7 +658,6 @@ image::coords.png[width="2000"]
 
 The default anchor point is the top-left corner, this means that a `layer position -10x-10` command will set that layer's top left corner at `(-10, -10)`.
 It is possible to have negative co-ordinates although clipping will occur unless the canvas is set to auto-resize.
-
 
 .Sequence Diagram for Layer Command
 image::LayerSequenceDiagram.png[width="2000"]
@@ -806,20 +674,19 @@ The above diagram illustrates the process of parsing and executing of `canvas` c
 
 **Further manipulation of the `ProcessBuilder`**
 
-[.underline]#Alternatives#
-
-It is actually possible to nest `ImageMagick` commands which means that it is possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
+_Alternatives_
+* It is actually possible to nest `ImageMagick` commands which means that it is possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
 The resultant ImageMagick command will take the form :
 
  magick [overall canvas flags] {[canvas flag] (individual layer flags)} [overall canvas flags]
 
 Where blocks enclosed by `{ }` need to be repeated per layer.
 
-[.underline]#Evaluation#
+_Evaluation_
 
-This solution is the most straight-forward and results in no intermediate files which is usually desirable. However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
+* This solution is the most straight-forward and results in no intermediate files which is usually desirable. However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
 
-This results in a poor user experience and hence we have decided against it.
+* Con: This results in a poor user experience and hence we have decided against it.
 
 === Canvas and Layers in action
 
@@ -833,28 +700,258 @@ with the default height and width being that of the image selected.
 `Canvas#addLayer` is executed and the helper functions in `ModelManager` refreshes the UI.
 
 . The user swaps the order of the two layers to such that the original image is back on top:
-`Canvas#swapLayer` makes the magic happen by swapping the two entries in the list of layers.
+`Canvas#swapLayer` swaps the two entries in the list of layers.
 
 . While still on the original layer, the user moves it to the top left: `Layer#setPosition` moves the first layer out of the way.
 
-. The user changes decides to work on the second layer and enters `layer select 2`:
+. The user decides to work on the second layer and enters `layer select 2`:
 `Canvas#setCurrentLayer` changes the current layer to the given index and internally keeps track of the index as well.
 
-. A transformation is applied by the user to the current layer: `Canvas#addTransformation` appends the new Transformation to the current Layer's.
-Note that no image processing occurs until a new render is requested. The `Canvas` class provides mutators and accessors.
+. A transformation is applied by the user to the current layer: `Canvas#addTransformation` appends the new Transformation to the current Layer.
+Note that no image processing occurs until a new render is requested.
 
 . After a `canvas size 80x60`command: The new `Canvas#setSize` is applied upon the next render and it crops the image to a fraction of what it used to be.
-Remember that resizing and scaling is accomplished with the `apply resize` command!
+Remember that resizing and scaling is accomplished with the `apply resize` command.
 
-. Quickly realising his mistake, the user sets the canvas to fit his all of his layers: `Canvas#setCanvasAuto` toggles a boolean.
+. Realising his mistake, the user sets the canvas to fit his all of his layers: `Canvas#setCanvasAuto` toggles a boolean.
 
-. The user finishes his piece by filling in the default transparent background with a `canvas bgcolor ++#++707070` : a hex color code is accepted by `Canvas#setBackgroundColor`.
+. The user fills in the default transparent background with a `canvas bgcolor ++#++707070` : a hex color code is accepted by `Canvas#setBackgroundColor`.
 
-.Results of various commands. The black bounding rectangle indicate the canvas size.
+.Results of various commands. The black bounding rectangle indicates the canvas size.
 image::CanvasLayersDemo.png[width="2000"]
 
-
 // end::canvas[]
+
+// tag::google[]
+
+== Implementation: Google features
+=== Overall Introduction
+The Google commands allow for access to https://developers.google.com/photos/library/guides/get-started-java[Google Photos] through a logged-in instance of the user, and are held up by two main components.
+
+* `PhotosLibraryClientFactory` - Initiates and carries out the login process. Produces a `PhotoHandler` instance, which handles matters related to Google commands.
+* `PhotoHandler` - Mainly consists of a `PhotoLibraryClient` instance, the user's logged in state, and 3 maps for storing images, albums, and specific images from an album. Performs all explicit calls to Google Photos through the `PhotosLibraryClient` instance and parses results.
+** The `PhotoHandler` instance is later accessed through `Model#getPhotoHandler()` and `Model#setPhotoHandler()``.
+
+There are 6 main google-related commands. The first two commands login/logout a user, and the latter 4 are mostly overloaded command types with `GoogleCommand` as the abstract parent class.
+
+* `LoginCommand` - Logs in user to their Google Account.
+* `LogoutCommand` - Logs a user out of their Google Account.
+* `GoogleLsCommand` - Lists files in Google Photos.
+* `GoogleRefreshCommand` - Refreshes the displayed list from Google Photos.
+* `GoogleDlCommand` - Downloads the specified image(s) from Google Photos to the user's currently opened local directory.
+* `GoogleUploadCommand` - Uploads the specified image(s) from the user's currently opened local directory to Google Photos.
+
+We have connected and generated `client_credentials.json` via our own Google Account to enable usage of Google Photos API in Piconso. It is recommended that you https://developers.google.com/photos/library/guides/get-started-java[configure] Piconso to use Google Photos Library API with your own account rather than the provided. +
+
+If you are not familiar with how Google Photos works, it would be advisable to first try out Google Photos as a consumer before proceeding.
+
+=== Login (login) Command
+
+==== Current Implementation
+The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you first go through the examples/documentations in those links. +
+
+The following static methods of `PhotosLibraryClientFactory` will be involved:
+
+* `createClient()` - Creates a PhotoLibrary instance, contains calls to Google OAuth related methods.
+* `createPhotosLibraryClient(Credentials)` - Creates an instance of Google's PhotosLibraryClient using the provided credentials.
+* `getUserEmail(Credential)` - Retrieves the user's email from Google+.
+* `loginUserIfPossible()` - Logs in a user if a valid credential file can be found during start up.
+* `logoutUserIfPossible()` - Logs a user out if a credential file can be found.
+* `checkUserLogin()` - Checks if any users are currently logged in.
+
+Below are some examples on how the login command will work.
+
+[NOTE]
+If connection to the internet is lost at any point during authentication with Google's server, login will fail and an error message will be sent to user as feedback.
+
+==== Scenario 1: Explicit `login` command executed, user not logged in yet.
+
+. The user executes a `login` command.
+
+. The login command calls `Model#getPhotoHandler()` and checks if a PhotoHandler instance already exists. If not, it calls static method `PhotoLibraryClientFactory#createClient()` to set up the requirements for log in and redirects the user to the browser.
+
+This occurs asynchronously, and a user can close the redirect window and proceed as usual with the application if they have changed their mind.
+
+. User logs in through redirect window and a refresh token is returned and stored. PhotoLibraryClientFactory class then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail()` to instantiate a `PhotoHandler` instance
+
+. The `PhotoHandler` instance is set by model as `Model#photoLibrary`, and confirmation of login is sent to user.
+
+The following sequence diagram illustrates how the above steps work:
+
+.Sequence Diagram for LoginCommand
+image::LoginSequenceDiagram.png[width="1000"]
+
+==== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
+
+. Upon Piconso start up, `PhotoLibraryClientFactory#loginUserIfPossible()` is run by `ModelManager` +
+
+. The method checks for stored credentials (refresh token), and logs in user via `PhotoLibraryClientFactory#createClient()` if possible, else the log in process is skipped.
+
+In both scenarios, whenever a valid refresh token is found stored the user is logged in without having to face browser re-direct again. At no point in time will we be storing a user's actual credentials, but only a refresh token that allows us to keep a user logged in, actual credentials are handled by Google OAuth +
+
+==== Design Considerations
+*Asynchronous Login*: By default, as long as a user has not logged in after `login` command is launched, Piconso freezes and waits for user input.
+
+** _Current Solution_: An asynchronous approach has been implemented instead such that Piconso continues working as usual even if the user has not logged in. Once a user is logged in, Piconso will simply show feedback.
+** _Cons_: Google allows max 3 login requests to be made in an interval, hence the `login` command will stop redirecting after 3 consecutive logins made in a short period of time. While it is unlikely this will pose a problem for users, it would be advisable to display the redirect URL in the Piconso CLI during future development.
+
+==== Logout (logout) Command
+The logout command deletes the stored credential file (and any other login-related files) if it exists, and does nothing if it does not. Upon deleting the file, the user will no longer have a refresh token to stay logged in, and thus is effectively logged out.
+
+=== GoogleLsCommand (ls)
+
+[NOTE]
+For all Google-related Commands (excluding login and logout), their command word is appended with a g (i.e `g ls`). Thus all children of `GoogleCommand` are first passed through a `GoogleCommandParser` to determine its type.
+
+==== Current Implementation
+The `GoogleLsCommand` allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
+
+`g ls` -> Lists all photos in user's Google Photos, takes a longer amount of time depending on the number of images stored. +
+`g ls /a` -> Lists all albums in user's Google Photos. +
+`g ls <ALBUM_NAME>` -> Lists all photos in specified album from Google Photos.
+
+As such, parsing will be done twice. Once by `GoogleCommandParser`, and another within `GoogleLsCommand` itself.
+
+The following methods and components of `PhotoHandler` will be involved:
+
+* `imageMap` - Map<String, MediaItem> that contains the list of images retrieved from Google API call. Uses image names as keys.
+* `albumMap` - Map<String, Album> that contains the list of albums retrieved from Google API call. Uses album names as keys.
+* `specificAlbumMap` - Map<String, MediaItem> that contains the list of images from a specific album retrieved from Google API call. Uses image names as keys.
+
+* `getUniqueName(Map, String, String)` - Checks for existence of a name in the map. If it exists, append a sutiable index at the end of the name.
+* `refreshLists()` - Re-retrieves all images and albums from Google Photos and updates `imageMap` and `albumMap`
+* `returnAllAlbumsList()` - Calls `retrieveAllAlbumsFromGoogle()` and returns a `List` of Album names for easy display
+* `retrieveAllAlbumsFromGoogle()` - Makes a Google API call and retrieves all albums stored in Google Photos, storing it in `albumMap`.
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Example: First call for `g ls /a`, where user wants to list all albums in Google Photos.
+
+. The user executes a `g ls /a` command.
+
+. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleLsCommand. It is determined to be for listing albums, and `model.getPhotoHandler().returnAllAlbumsList()` is called.
+
+. Within that method, it makes a request to Google Photos, retrieves a `List<Album>`, and stores them in a `Map<String, Album>` within the PhotoHandler instance, with each key being the album name, any duplicate names are renamed.
+
+. The entire list is converted into a String, and returned to the `CommandBox` UI as feedback to the user
+
+The following activity diagram illustrates how the above steps work:
+
+.Activity Diagram for GoogleLsCommand
+image::GoogleLsActivityDiagram.png[width="1000"]
+
+The process is similar for the other 2 variants, except images or images from a specific album are retrieved instead. All retrieved results are always stored in their respective maps.
+
+==== Design Considerations
+*Performance Issues*: The larger the amount of pictures stored in Google Photos, the longer amount of time a `g ls` command takes.
+
+* _Alternative 1_: Re-retrieve the list of photos/albums upon every `ls` call
+** Pro: Displayed list of images/albums is always up-to-date.
+** Con: Each Google Photos API call takes a notable amount of time to execute. Constantly re-retrieving the list of images/albums causes multiples API calls and incurs heavy waiting time for users.
+
+* _Alternative 2 (Current)_: Adding a refresh command. As it is not likely that the set of photos in Google Photos will constantly change, the list of images/albums is retrieved and stored upon first `g ls` call and is only refreshed upon `g refresh`.
+** Pro: Shortens the waiting time for user on every `g ls` call
+** Con: More work on user's behalf to remember to refresh.
+
+*Duplicated Naming*: Google Photos allows for multiples images and albums to be stored with the same name, making it difficult to list item names as names might overlap.
+
+** _Alternative 1 (Current)_: Upon a retrieval of images/albums from Google, image/album names are checked for duplicates. Every duplicate will have a suitable index appended at the end of its original name to ensures that unique naming occurs.
+*** Con: If there are multiple images with the same name, the process of any `g ls` or `g refresh` will take a longer time to run.
+
+** _Alternative 2_: Instead of storing the name of the image/album as the key inside the Map, its unique ID (that is retrieved together with the files from Google) can be used instead.
+*** Con: The ID too complicated for a user to input and remember.
+
+*Album Traversal: How to display and use Albums from Google*
+
+* _Alternative 1_: Treat the album as a category, thus `g ls <ALBUM_NAME>` acts as a filter that filters photos by category.
+** Pro: Easy for users to understand and remember.
+** Con: The command to download from an album needs to be extended such that users need to specify which album the image to download is in i.e `g dl /a<Album> /i<image.png>`
+
+* _Alternative 2_: Handle the concept of albums like directories, such that a user can cd in and out of an album.
+** Con: Confusing for users to concurrently navigate and differentiate both google and local directories.
+
+==== GoogleRefreshCommand (refresh)
+The refresh command re-retrieves and stores the list of images/albums from Google Photos into respective maps in `Model#getPhotoHandler()`.
+
+=== GoogleDlCommand (dl)
+
+==== Current Implementation
+The GoogleDlCommand allows users to download their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
+
+`g dl /i<IMAGE_NAME>`: Downloads specified image from Google Photos +
+`g dl /a<ALBUM_NAME>`: Downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+`g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: Downloads a specific photo from a specific album in Google Photos.
+
+As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleDlCommand itself.
+
+The following components of `PhotoHandler` will be involved:
+
+* `downloadImage(String, String, String)` - Ensures the request is valid and calls saveImageInDir()` if true.
+* `saveImageInDir(MediaItem, String)` - Saves the image using the baseURL of the `MediaItem`
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Example: g dl /i<b.png>`
+
+[NOTE]
+For all upload/download related commands, the amount of time taken to process the task varies with the number of images to upload/download.
+
+. The user executes a `g dl /i<b.png>` command.
+
+. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleDlCommand. It is determined to be for downloading one image, and `model.getPhotoHandler().downloadImage()` is called.
+
+. Within that method, it makes a request to Google Photos with the image's respective ID, and successfully downloads the image into the user's local directory.
+[WARNING]
+If the local directory contains any image with the same name as the one to download, the image in the local directory will be replaced.
+
+. Feedback of success is sent to the user
+
+.Sequence Diagram for GoogleDlCommand
+image::GoogleDlSequenceDiagram.png[width="800"]
+
+The process is similar for the other 2 variants, except images or images from a specific album are downloaded instead.
+
+==== Design Considerations
+*Location of downloaded images*:
+
+* _Alternative 1 (Current)_: Download the image into user's currently opened local directory.
+** Pro: User is able to easily find the new downloaded photo
+** Con: Images with the same name WILL be replaced and it will be messy when multiple photos are downloaded
+
+* _Alternative 2 (Recommended for future)_: Images are downloaded into a specific directory which can be navigated to and fro via quick commands (i.e `jump to PicDir`, `jump back PicDir`)
+** Pro: Easier for user to retrieve and view downloaded photos. Photos with the same name can also be safely replaced as they are likely earlier versions downloaded from Google Photos.
+
+=== GoogleUploadCommand (ul)
+
+==== Current Implementation
+The GoogleUploadCommand allows users to upload their images onto Google Photos. Currently, it is overloaded with two types of commands the user can type
+
+`g ul <IMAGE_NAME>`: Uploads specified image from currently opened directory to Google Photos +
+`g ul all`: Uploads all images in currently open local directory.
+
+As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleUploadCommand itself.
+
+As the implementation of GoogleUploadCommand is mostly dependent on understanding of the upload aspects of Google Photos API, an example will not be given. Please refer to https://developers.google.com/photos/library/guides/upload-media[this link].
+
+The following components of `PhotoHandler` will be involved:
+
+* `uploadImage(String, String)` - Uploads the image from the current opened local directory.
+* `retrievePiconsoAlbum()` - Retrieves the ID of the Piconso Album in Google Photos. If it does not exist, command creates one.
+* `uploadMediaItemsToGoogle(List<NewMediaItem>)` - Highly Google Photos API based, returns a `NewMediaItem`
+* `generateNewMediaImage(String, String)` - Highly Google Photos API based, carries out actual upload to Google Photos with NewMediaItem.
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Design Considerations
+*Google Photos does not allow duplicate photos*: Illustrated in the diagram below
+
+* No renaming of photos after upload allowed.
+* If an image is uploaded as "a.png", but exists with the exact same bytes as "b.png" on Google Photos, the image will replace the old image as b.png instead.
+* If two images with the same bytes are sent for upload, only the first will be uploaded.
+
+.Illustrates when how Google Photos handles images
+
+image::uploadExplanation.png[width="800"]
+
+Currently the only measure taken has been to state this to the user. As this issue was only discovered in the later stages of development, it does not have a workaround yet. Though a lot of refactoring will be required,  switching from Google Photos to Google Drive might be a fix for the problem.
+// end::google[]
 
 == Documentation
 
