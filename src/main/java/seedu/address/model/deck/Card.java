@@ -9,6 +9,11 @@ import java.util.Objects;
  * Represents a Card inside a Deck.
  */
 public class Card {
+    /**
+     *  Each Card contains details required to implement SM2, a popular spaced repetition algorithm.
+     *  For more information, please refer to https://www.supermemo.com/english/ol/sm2.htm
+     *  As we are using a modified version of SM2, our implementation will differ from the site shown above.
+     */
 
     public static final double PERFORMANCE_MODERATING_FACTOR = -0.8;
     public static final int BIAS = 4;
@@ -16,6 +21,8 @@ public class Card {
     public static final double UPDATED_LINEAR_COEFFICIENT = 0.28;
     public static final double REVIEW_INTERVAL_COEFFICIENT = 6;
     public static final double DEFAULT_REVIEW_SCORE = 2.5;
+    public static final double REVIEW_SCORE_THRESHOLD = 15;
+
     private static final int CORRECT_THRESHOLD = 1;
 
     private final Performance performance;
@@ -63,13 +70,16 @@ public class Card {
      */
     public static Card classifyCard(Card card, Performance performance) {
         int performanceAsInt = performance.ordinal();
-        double scorePostUpdate = card.updateReviewScore(performanceAsInt);
+        // Cap the review Score threshold
+        double scorePostUpdate = Math.min(card.updateReviewScore(performanceAsInt), REVIEW_SCORE_THRESHOLD);
         LocalDateTime nextReviewDate = calculateNextReviewDate(card, performance);
         return new Card(card.question, card.answer, performance, card.timesReviewed + 1,
                 scorePostUpdate, nextReviewDate);
     }
     /**
-     *  Find out when the card needs to be reviewed again for optimal recall.
+     *  Find out when the card needs to be reviewed again for optimal recall. If the card was answered correctly,
+     *  the date for the next scheduled review is pushed back by an exponential factor. If it is answered wrongly, it
+     *  is scheduled the next day.
      */
     private static LocalDateTime calculateNextReviewDate(Card card, Performance performance) {
         double consecutiveCorrectAnswers = card.getConsecutiveCorrect();
@@ -77,14 +87,13 @@ public class Card {
         if (performance.isCorrect()) {
             addedDays = REVIEW_INTERVAL_COEFFICIENT * Math.pow(card.reviewScore, consecutiveCorrectAnswers - 1);
         }
-        System.out.println("addedDays " + addedDays);
-
-
         return card.nextReviewDate.plusDays((long) addedDays);
     }
 
     /**
-     * Update the review score based on how well the user has performed on this card.
+     * Toggle the review score using a quadratic factor based on how well the user has performed on this card.
+     * Performance is scaled to reflect that there are three tiers of performance instead
+     * of the conventional five tiered performance.
      */
     public double updateReviewScore(int performanceAsInt) {
         double scaledPerformance = performanceAsInt + BIAS;
@@ -96,6 +105,7 @@ public class Card {
     public Question getQuestion() {
         return question;
     }
+
     public double getReviewScore() {
         return reviewScore;
     }
@@ -112,8 +122,10 @@ public class Card {
     public int getTimesReviewed() {
         return timesReviewed;
     }
+
+    
     public int getConsecutiveCorrect() {
-        return (this.performance.ordinal() >= CORRECT_THRESHOLD) ? timesReviewed + 1 : 0;
+        return (this.performance.isCorrect()) ? timesReviewed + 1 : 0;
     }
     public LocalDateTime getNextReview() {
         return nextReviewDate;
