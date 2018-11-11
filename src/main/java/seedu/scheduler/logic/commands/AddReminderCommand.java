@@ -62,8 +62,7 @@ public class AddReminderCommand extends EditCommand {
 
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
-        Event eventToEdit;
-        eventToEdit = lastShownList.get(index.getZeroBased());
+        Event eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
         Boolean isChanged = reminderDurationListToEdit.addAll(durationsToAdd);
         editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);

@@ -19,9 +19,12 @@ import edu.emory.mathcs.backport.java.util.Collections;
  */
 public class ReminderDurationList {
 
+    public static final String DURATION_VALIDATION_REGEX = "((\\d+)M)?((\\d+)H)?((\\d+)S)?";
     public static final String EMPTY_VALUE = "NONE";
+    public static final String MESSAGE_DURATION_CONSTRAINTS = "Please enter xxHxxMxxS for reminder/ duration";
     public static final String NO_REMINDER_DISPLAY = "No Reminder";
     public static final String REMINDER_DISPLAY_SUFFIX = " before the start time";
+
     private Set<Duration> values = new HashSet<>();
 
 
@@ -55,8 +58,26 @@ public class ReminderDurationList {
         }
     }
 
+    /**
+     * Check if the input string is a valid duration
+     * @param testDuration
+     * @return
+     */
+    public static Boolean isValidDuration(String testDuration) {
+        return testDuration.matches(DURATION_VALIDATION_REGEX);
+
+    }
+
     public Set<Duration> get() {
         return values;
+    }
+
+    /**
+     * Get a copy of this ReminderDurationList object
+     * @return ReminderDurationList
+     */
+    public ReminderDurationList getCopy() {
+        return new ReminderDurationList(values);
     }
 
     /**
