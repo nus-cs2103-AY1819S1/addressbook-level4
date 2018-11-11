@@ -105,6 +105,8 @@ When you add new tasks with new tags (tags that have not been added to any exist
 these tags will be automatically added to default category [blue]`Others`. For detailed guide about category and tags,
 please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
+// tag::addrepeat[]
+
 === Adding a Recurring Task
 
 Adds copies of the same task to a specified day in the week, for a given number of weeks. +
@@ -131,7 +133,7 @@ Due to how the Date class was implemented, there is an unintended behavior. Any 
 will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
 1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
 
-
+// end::addrepeat[]
 
 === Editing a Task
 
@@ -244,12 +246,27 @@ Lists all tasks in the schedule planner. +
 [blue]`list`
 ====
 
+// tag::listoverdue[]
+
 === Viewing Overdue Tasks
 
 Shows a list all the overdue tasks. +
 ====
 [blue]`listoverdue`
 ====
+
+Example:
+====
+input: [blue]`listoverdue` on the date 11 Nov '18 (111118)
+
+output: Shows a list of tasks due on 10 Nov '18 (101118) and before.
+
+The following diagram contains screenshots of the task list before and after the command:
+
+image::beforeafterlistoverdue.png[width="800"]
+====
+
+// end::listoverdue[]
 
 // tag::listday[]
 === Viewing Tasks Due Today
