@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
+import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,6 +20,7 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.exceptions.InsufficientStockException;
 import seedu.address.model.person.CurrentPatient;
+import seedu.address.model.person.Patient;
 
 /**
  * Dispenses the medicine to the current patient. The amount to dispense will be deducted from the stock
@@ -57,11 +59,20 @@ public class DispenseMedicineCommand extends QueueCommand {
         if (!currentPatient.hasCurrentPatient()) {
             throw new CommandException(MESSAGE_CURRENT_PATIENT_NOT_FOUND);
         }
+        Patient patient = currentPatient.getPatient();
+
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
+        if (!model.hasPerson(patient)) {
+            currentPatient.finishServing();
+            EventsCenter.getInstance().post(new ShowPatientListEvent());
+            throw new CommandException(Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE);
+        }
 
         List<Medicine> lastShownList = model.getFilteredMedicineList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX,
+                patient.getName()));
         }
 
         Medicine medicine = lastShownList.get(index.getZeroBased());
@@ -79,7 +90,7 @@ public class DispenseMedicineCommand extends QueueCommand {
         try {
             model.dispenseMedicine(medicine, quantityToDispense);
             currentPatient.addMedicine(medicine, quantityToDispense);
-            model.commitAddressBook();
+            model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
             EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
             return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(),

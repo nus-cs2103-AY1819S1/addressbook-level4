@@ -46,6 +46,7 @@ public class DocumentContentAddCommandTest {
         currentPatient = new CurrentPatient(new ServedPatient(AMY));
         servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
+        model.addPerson(AMY);
     }
 
     @Test

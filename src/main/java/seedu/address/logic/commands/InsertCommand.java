@@ -18,9 +18,8 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
-
 /**
- * Registers a patient to the end of the current queue.
+ * Inserts a patient to the specified position in queue.
  */
 public class InsertCommand extends QueueCommand {
     public static final String COMMAND_WORD = "insert";

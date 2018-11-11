@@ -132,16 +132,17 @@ public class UniqueMedicineList implements Iterable<Medicine> {
                 .findFirst();
         toDispense.ifPresent(i -> {
             Medicine updatedMedicine = internalList.remove(i);
+            Medicine clonedMedicine = updatedMedicine.clone();
             try {
                 // Try to dispense medicine
-                updatedMedicine.dispense(quantityToDispense);
+                clonedMedicine.dispense(quantityToDispense);
             } catch (InsufficientStockException ise) {
                 // Catch exception if insufficient stock, but we want to throw it back up to the calling method.
                 throw ise;
             } finally {
                 // This executes whether there is an exception thrown or not.
                 // This line prevents the Medicine from disappearing from the list if there is insufficient stock.
-                internalList.add(i, updatedMedicine);
+                internalList.add(i, clonedMedicine);
             }
         });
         return internalList.get(toDispense.getAsInt());

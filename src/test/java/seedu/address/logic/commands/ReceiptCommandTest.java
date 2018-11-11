@@ -70,6 +70,7 @@ public class ReceiptCommandTest {
 
     @Test
     public void execute_receiptFileName_receiptGenerationSuccess() throws Exception {
+        model.addPerson(TypicalPersons.TYPO_IN_NAME_ALICE);
         servedPatientList = generateServedPatientList(TypicalPersons.TYPO_IN_NAME_ALICE,
                 TypicalPersons.BOB);
         ReceiptCommand receiptCommand = new ReceiptCommand(INDEX_FIRST_PERSON);

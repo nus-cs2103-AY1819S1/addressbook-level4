@@ -78,7 +78,6 @@ public class AddMedicalRecordCommand extends Command {
             model.updatePerson(patientToAddMedicalRecord, editedPatient);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             model.commitAddressBook();
-
             EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
             EventsCenter.getInstance().post(new ShowPatientListEvent());
 

@@ -113,10 +113,6 @@ public class QueueCommandTestUtil {
             CommandResult result = queueCommand.execute(actualModel, actualPatientQueue, actualCurrentPatient,
                     actualServedPatientList, actualCommandHistory);
 
-
-            System.out.println(expectedModel.getFilteredMedicineList());
-            System.out.println(actualModel.getFilteredMedicineList());
-
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedPatientQueue, actualPatientQueue);
             assertEquals(expectedCurrentPatient, actualCurrentPatient);
@@ -185,7 +181,7 @@ public class QueueCommandTestUtil {
      * @param patient the patient for whom the file is being generated for
      */
     public static String generateFileName(String fileType, Patient patient) {
-        return (fileType + FILE_NAME_DELIMITER + patient.toNameAndIc()
+        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + patient.toNameAndIc()
                 .replace("[", "_").replace("]", ""))
                 .replaceAll("\\s", "_")
                 .replaceAll("(_)+", "_");
