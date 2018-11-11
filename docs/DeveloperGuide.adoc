@@ -490,7 +490,7 @@ Model of the assignment has been created. `Assignment` will store information su
 
 The following diagram shows the class added to reflect the model `Assignment`:
 
-image::AssignmentModel.PNG[width="450"]
+image::AssignmentModel.png[width="450"]
 
 ===== Aspect: Storage
 Add `XmlSerializableAssignmentList` and `XmlAdaptAssignment` class to Storage component. `XmlAdaptAssignment` will then have the element for assignment name, assignment author and assignment description.
