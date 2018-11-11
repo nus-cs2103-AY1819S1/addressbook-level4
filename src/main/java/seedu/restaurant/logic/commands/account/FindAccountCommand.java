@@ -7,6 +7,7 @@ import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEven
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
+import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.UsernameContainsKeywordPredicate;
 
@@ -28,6 +29,7 @@ public class FindAccountCommand extends Command {
             + "Example: " + COMMAND_WORD + " root";
 
     public static final String MESSAGE_SUCCESS = "Listed %d accounts";
+    public static final String MESSAGE_ONE_KEYWORD_ONLY = "Multiple keywords are not allowed";
 
     private final UsernameContainsKeywordPredicate predicate;
 
@@ -36,9 +38,13 @@ public class FindAccountCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredAccountList(predicate);
+        try {
+            model.updateFilteredAccountList(predicate);
+        } catch (IllegalArgumentException ex) {
+            throw new CommandException(MESSAGE_ONE_KEYWORD_ONLY);
+        }
         EventsCenter.getInstance().post(new DisplayAccountListRequestEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredAccountList().size()));
     }
