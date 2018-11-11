@@ -53,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
+    private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -155,8 +156,8 @@ public class MainWindow extends UiPart<Stage> {
 
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
+        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
