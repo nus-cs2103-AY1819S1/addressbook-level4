@@ -21,6 +21,7 @@ public class ListMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+        model.switchTab(3);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

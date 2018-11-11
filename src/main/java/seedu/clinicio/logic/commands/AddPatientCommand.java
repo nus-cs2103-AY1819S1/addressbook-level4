@@ -2,6 +2,7 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -29,7 +30,6 @@ public class AddPatientCommand extends Command {
     public static final String COMMAND_WORD = "addpatient";
 
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the ClinicIO";
-    public static final String MESSAGE_NOT_LOGIN_AS_RECEPTIONIST = "You are not logged in as a receptionist";
     public static final String MESSAGE_NO_DOCTOR_FOUND = "The preferred doctor is not found.";
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the ClinicIO. "
@@ -65,7 +65,7 @@ public class AddPatientCommand extends Command {
         requireNonNull(model);
 
         if (!UserSession.isLoginAsReceptionist()) {
-            throw new CommandException(MESSAGE_NOT_LOGIN_AS_RECEPTIONIST);
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         } else if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
         } else if ((toAdd.getPreferredDoctor().isPresent())

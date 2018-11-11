@@ -3,10 +3,12 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 
 import java.util.List;
 
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
@@ -39,12 +41,15 @@ public class DeleteMedicineCommand extends Command {
         requireNonNull(model);
         List<Medicine> medicineList = model.getFilteredMedicineList();
 
-        if (targetIndex.getZeroBased() >= medicineList.size()) {
+        if (!UserSession.isLoginAsReceptionist()) {
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
+        } else if (targetIndex.getZeroBased() >= medicineList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
         }
 
         Medicine medicineToDelete = medicineList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
+        model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
     }

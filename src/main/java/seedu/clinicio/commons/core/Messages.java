@@ -16,4 +16,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX = "The medicine index provided is invalid";
     public static final String MESSAGE_MEDICINE_OVERVIEW = "%1$d medicine details listed!";
 
+    public static final String MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST = "You are not logged in as a receptionist";
+
 }

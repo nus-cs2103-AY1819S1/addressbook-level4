@@ -6,8 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_DUPLICATE_PATIENT;
-import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_NOT_LOGIN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
@@ -97,7 +97,7 @@ public class AddPatientCommandTest {
         ModelStub modelStub = new ModelStubWithPatient(validPatient);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_NOT_LOGIN_AS_RECEPTIONIST);
+        thrown.expectMessage(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         addCommand.execute(modelStub, commandHistory);
     }
 

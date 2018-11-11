@@ -33,6 +33,7 @@ public class FindMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredMedicineList(predicate);
+        model.switchTab(3);
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEDICINE_OVERVIEW, model.getFilteredMedicineList().size()));
     }
