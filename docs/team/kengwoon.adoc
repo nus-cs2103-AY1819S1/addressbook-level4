@@ -66,8 +66,8 @@ just a single command line as multiple keywords can be specified at once in any 
 
 * Other contributions:
 ** Documentation:
-*** Updated commands for team members and myself in the User Guide.
-*** Updated commands for myself in Developer Guide.
+*** Updated existing content in the User Guide: https://github.com[#65] https://github.com[#85]
+*** Documented implementation for my assigned commands in Developer Guide: https://github.com[#112]
 ** Community:
 *** Reviewed pull requests by team members at each milestone.
 
