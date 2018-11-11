@@ -283,6 +283,15 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_importContactsCommand_alias() throws Exception {
+        FileReader fileReader = new FileReaderBuilder().build();
+        ImportContactsCommand command = (ImportContactsCommand) parser.parseCommand(
+                FileReaderUtil.getImportCommandAlias(fileReader));
+
+        assertEquals(new ImportContactsCommand(fileReader), command);
+    }
+
+    @Test
     public void parseCommand_undoCommandWordAlias_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD_ALIAS) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD_ALIAS + " 3") instanceof UndoCommand);
