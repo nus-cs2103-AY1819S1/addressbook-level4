@@ -439,14 +439,22 @@ Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. T
 For deletion of event(s), the flow is similar.
 The sequence diagram for the deletion of event is shown below.
 
-image::delete-event_logic-model.png[Deleting an event]
+image::delete-event-condensed_logic-model.png[Deleting an event]
 
 Step 1. User enters command to delete an event based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `DeleteEventCommandParser`, which generates an `DeleteEventCommand` with an `EventDate` and `Index`. +
-Step 3. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
-Step 4. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
-Step 5. `DeleteEventCommand` calls `getEventToDelete` to retrieve the event based on its index in the list from step 4. +
-Step 6. The event is deleted from the system from the `Model` component. +
+Step 3. `DeleteEventCommand` <<gettingAnEvent, gets the event>>.
+Step 4. The event from step 3 is deleted from the system from the `Model` component. +
+
+[[gettingAnEvent]]
+Events are retrieved based on their date and index in the displayed events list, as shown in the diagram below.
+
+image::get-event.png[Getting an event]
+
+For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`.
+Step 1. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
+Step 2. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
+Step 3. `DeleteEventCommand` calls `getEvent` to retrieve the event based on its index in the list from step 2. +
 
 Upon adding/deletion of events in `Model`, `AddressBookChangedEvent`, `AddressBookEventChangedEvent` and `EventPanelDisplayChangedEvent`
 are triggered from the `Model` component.
@@ -528,6 +536,45 @@ before adding an event with that tag.
 and adding an event tag. This may violate the Single Responsibility Principle (SRP) for the `AddEventCommand` class.
 // end::events[]
 
+[[seeEventContacts]]
+//tag::seeEventContact[]
+=== See Event Contacts feature
+==== Current Implementation
+To obtain an event's contacts, comparisons are done using `Person#isSamePerson` to check if for each event contact, there exists a person in the system
+who is the same person as the contact. By the use of a `Predicate` with this logic, we then apply the filter on `filteredPersons` in `Model`.
+
+The sequence diagram below shows a typical usage of the feature.
+The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
+
+image::see-event-contact-condensed_logic-model.png[Interactions between Logic and Model]
+
+Step 1. User enters command to see an event's contacts. +
+Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
+Step 3. `SeeEventContactsCommand` <<gettingAnEvent, gets the event>>.
+Step 4. A `ExistingPersonInEventPredicate` is created based on the event's contacts from the event retrieved in Step 3. +
+Step 5. `SeeEventContactsCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` object generated in step 4. +
+
+==== Considerations
+The displayed person list shown using this feature is aligned with the contact information displayed in the UI when hovering over the event contact. +
+Namely, both the displayed person list and information displayed in the UI are obtained by checking if there is a same person as the person originally
+added into the event (using `Person#isSamePerson`) in the system. If there is, the information is shown; else, the person is regarded as
+having been deleted from the system. +
+More specific scenarios are as follows:
+
+* When an event contact is deleted from EventsPlus+, the `seeEventContacts` command would not display the person in the filtered list.
+Simultaneously, when hovering over the event contact, the user would see a message indicating that the person has been deleted from the system.
+This is so that users can still see the person as related to the event (when the event is first added),
+even when the person's contact details no longer exist in the address book.
+
+* When an event contact is edited in EventsPlus+, if the edited person is still the same person (using `Person#isSamePerson`) as the original person,
+`seeEventContacts` would display the edited person. When hovering over the contact, the edited person would also be displayed.
+
+* When an event contact is edited in EventsPlus+, if the edited person is no longer the same person (using `Person#isSamePerson`),
+`seeEventContacts` would not display the original nor edited person. When hovering over the contact, if there is no such person in the
+system who is the same person as the person originally added into EventsPlus+,
+the user would see a message indicating that the person has been deleted from the system.
+//end::seeEventContact[]
+
 [[EditEventAddress]]
 //tag::editEventAddress[]
 === Edit Event Address feature
@@ -538,18 +585,17 @@ This new `Event` replaces the old one in the address book in the `Model#updateEv
 from the internal list, and the new one set in its position.
 
 The overall flow between the `Logic` and `Model` component when editing an event address's tag is as follows.
+The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
-image::edit-event-address_logic-model.png[Interactions between Logic and Model]
+image::edit-event-address-condensed_logic-model.png[Interactions between Logic and Model]
 
 Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
 and the updated `EventAddress`. +
-Step 3. `EditEventAddressCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
-Step 4. `EditEventAddressCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
-Step 5. `EditEventAddressCommand` calls `getEventToEdit` to retrieve the event based on its index in the list from step 4.
-Step 6. A new event with all details (except `EventAddress`) duplicated from the old event is created. +
+Step 3. `EditEventAddressCommand` <<gettingAnEvent, gets the event>>.
+Step 4. A new event with all details (except `EventAddress`) duplicated from the old event in step 3 is created. +
 The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2. +
-Step 7. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
+Step 5. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
 
 ==== Considerations
 When editing an event, there are several possible values that can be updated, including the event's name, description, etc.
