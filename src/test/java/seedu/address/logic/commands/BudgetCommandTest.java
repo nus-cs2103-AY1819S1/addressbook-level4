@@ -48,9 +48,13 @@ public class BudgetCommandTest {
                 File dir = new File("data");
                 dir.mkdirs();
 
-                Files.copy(is, Paths.get("data", "ccabook.xsl"));
+                Path p = Paths.get("data", "ccabook.xsl");
+
+                Files.copy(is, p);
             } catch (IOException e) {
-                System.out.println("Error");
+                System.out.println("IO Error");
+            } catch (NullPointerException e) {
+                System.out.println("Null pointer Exception");
             }
 
         }
