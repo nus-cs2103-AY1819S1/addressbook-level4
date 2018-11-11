@@ -1,5 +1,6 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +13,12 @@ import seedu.address.testutil.Assert;
 public class ConditionTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void valid_condition() {
+        Condition condition = new Condition("healthy");
+        assertEquals(condition.getCondition(), "healthy");
+    }
 
     @Test
     public void constructor_null_throwsNullPointerException() {

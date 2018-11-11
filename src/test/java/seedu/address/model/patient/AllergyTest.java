@@ -1,5 +1,6 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -13,6 +14,11 @@ public class AllergyTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Test
+    public void valid_condition() {
+        Allergy allergy = new Allergy("egg");
+        assertEquals(allergy.getAllergy(), "egg");
+    }
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Allergy(null));

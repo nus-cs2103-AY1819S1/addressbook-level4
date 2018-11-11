@@ -43,14 +43,6 @@ public class XmlAdaptedMedicalHistory {
     }
 
 
-    public ArrayList<XmlAdaptedAllergy> getXmlAdaptedAllergies() {
-        return allergies;
-    }
-    public ArrayList<XmlAdaptedCondition> getXmlAdaptedConditions() {
-        return conditions;
-    }
-
-
     /**
      * Converts this jaxb-friendly adapted MedicalHistory object into the model's MedicalHistory object.
      *
