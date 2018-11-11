@@ -815,7 +815,7 @@ image::LeaveViewActivityDiagram.png[width="400"]
 *API:* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
 
 [NOTE]
-See <<LeaveApplication-DesignConsiderations-Listed, How leave applications are listed>> for further explanation of how the list of leave applications are retrieved and displayed.
+See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
 
 ===== Approving/rejecting leave applications
 ...
@@ -836,15 +836,15 @@ See <<LeaveApplication-DesignConsiderations-Listed, How leave applications are l
 
 [[LeaveApplication-DesignConsiderations-Listed]]
 ===== Aspect: How leave applications are listed
-* **Alternative 1 (current choice):** Saved only as a part of `Person`.
-** Pros: Easy to implement.
-** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
-* **Alternative 2:** Stored only as a part of `AddressBook`.
-** Pros: Easy to implement.
-** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
-* **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
-** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
-** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+* **Alternative 1 (current choice):** Leave applications are tagged with the user that applied for them (see link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationWithEmployee.java[`LeaveApplicationWithEmployee.java`]), and stored in a link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationList.java[`LeaveApplicationList.java`] in `AddressBook` in the Model Component. This additional tagging and storing into a list is done when the application is started where all leave applications are read from each `Person`, and also when any leave application is created or updated.
+** Pros: Leave applications stored are lightweight, as they are kept within the `Person` that applied for them, and do not have to contain fields that uniquely identify that `Person`.
+** Cons: This additional tagging, that only exists while the application is running, is slightly clumsy and not the best way to do it (see the <<LeaveApplication-DesignConsiderations-Listed-Note, note below Alternative 2>> for more details).
+* **Alternative 2:** Leave applications contain the unique identification fields of a `Person`.
+** Pros: Leave applications innately store who applied for them, so no additional processing is required when generating the list of leave applications.
+** Cons: Leave applications will have to be stored with 3 additional fields that are used to unique identify a `Person`. Also, if there are any updates to the `Person`, it must be ensured that their corresponding leave applications will also have to be updated correctly.
+[[LeaveApplication-DesignConsiderations-Listed-Note]]
+[NOTE]
+Alternative 2 is actually cleaner to implement and understand. However, Alternative 1 is currently implemented because a `Person` has 3 identification fields, which means that a lot of unnecessary information would have to be duplicated and stored. In future versions, we suggest that each `Person` be given a unique ID number that can be used to identify them. This would make it convenient for other entities, like `LeaveApplication`, to store which `Person` it is linked to, without too much overhead incurred.
 
 // end::leaveapplication[]
 
