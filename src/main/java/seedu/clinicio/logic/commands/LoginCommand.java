@@ -52,16 +52,16 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasStaff(toAuthenticate)) {
-            throw new CommandException(MESSAGE_NO_RECORD_FOUND);
-        } else if (UserSession.isLogin()) {
-            return new CommandResult(MESSAGE_LOGIN_ALREADY);
-        }
+//        if (!model.hasStaff(toAuthenticate)) {
+//            throw new CommandException(MESSAGE_NO_RECORD_FOUND);
+//        } else if (UserSession.isLogin()) {
+//            return new CommandResult(MESSAGE_LOGIN_ALREADY);
+//        }
 
-        boolean isAuthenticatedSuccess = model.checkStaffCredentials(toAuthenticate);
-        if (!isAuthenticatedSuccess) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
+//        boolean isAuthenticatedSuccess = model.checkStaffCredentials(toAuthenticate);
+//        if (!isAuthenticatedSuccess) {
+//            return new CommandResult(MESSAGE_FAILURE);
+//        }
 
         UserSession.create(toAuthenticate);
         EventsCenter.getInstance().post(new LoginSuccessEvent(toAuthenticate));
