@@ -42,6 +42,8 @@ Below is a list of main features of our application:
 ** What it does: allows the user to move through the list of images in the current directory.
 ** Justification: This feature is essential to the product because a user would need to have access to all the images in the current directory for image-editing.
 ** Highlights: This enhancement affects existing commands and implemented together with the select feature.
+* *Minor enhancement*: added the tab function to auto-complete directory name in current folder and iterate through the list of directories with the given user input.
+** Justification: This feature improves users' usability as users are no longer required to enter the full name to access the folders.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
 
