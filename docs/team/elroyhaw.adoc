@@ -56,11 +56,17 @@ https://github.com/CS2103-AY1819S1-T10-2/main/pull/126[#126])
 |===
 
 include::../UserGuide.adoc[tag=deletepatient]
+
 include::../UserGuide.adoc[tag=deletedoctor]
+
 include::../UserGuide.adoc[tag=viewpatient]
+
 include::../UserGuide.adoc[tag=viewdoctor]
+
 include::../UserGuide.adoc[tag=addappointment]
+
 include::../UserGuide.adoc[tag=deleteappointment]
+
 include::../UserGuide.adoc[tag=autocomplete]
 
 == Contributions to the Developer Guide
