@@ -249,7 +249,7 @@ Update your CAP goal to 4.5
 === Adjusting target goals: `adjust`
 
 [NOTE]
-Removal of adjustment will be made available in the following release. For now, delete and add the module without a grade again.
+Removal of adjustment will be made available in v1.5.
 
 Adjust the grade of an incomplete module +
 Format:

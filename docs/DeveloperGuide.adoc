@@ -614,26 +614,38 @@ Use case ends.
 +
 Use case ends
 
-=== Use case: [UC2] View grades needed to achieve CAP goal (based on previous grades)
+=== Use case: [UC2] View grades needed to achieve CAP goal
 
 *MSS*
 
-1. User enter CAP goal
-2. System displays target grades for ungraded modules
+1. User enters completed Modules
+2. User enters incomplete Modules
++
+Step 1-2 are repeated until user is satisfied.
+3. User enter CAP goal
+4. System calculated target grades
+5. System displays target grades for ungraded modules
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. CAP goal is invalid
-** 1a1. System shows an `Invalid CAP Goal` error message
+* 3a. CAP goal is invalid
+** 3a1. System shows an `Invalid CAP Goal` error message
 +
 Use case ends.
 
-* 2a. CAP goal is not achievable
-** 2a1. System shows an `Not achievable` error message
+* 4a. There are no incomplete Modules and current CAP is lesser than CAP Goal
+** 4a1. Go to step `5a`
 +
 Use case ends.
+
+* 5a. CAP goal is not achievable
+** 5a1. System inform that it is not achievable
++
+Use case ends.
+
+
 
 === Use case: [UC3] Updating target grades
 
@@ -650,7 +662,7 @@ Use case ends.
 *Extensions*
 
 * 2a. CAP goal is not achievable with new set of modules
-** 2a1. System shows an `Not achievable` error message
+** 2a1. System inform that it is not achievable
 +
 Use case ends.
 
@@ -674,6 +686,26 @@ Use case ends.
 3. System displays saved modules
 +
 Use case ends
+
+=== Use case: [UC6] Adjusting target grades
+
+*Pre-conditions:*
+
+* `[UC2]` completed
+* There are targets given to incomplete modules
+
+*MSS*
+
+1. User adjust target
+2. System recalculates target grades for remaining ungraded modules
+3. System displays new target grades for remaining ungraded modules
+
+*Extensions*
+
+* 2a. CAP goal is not achievable with new set of modules
+** 2a1. System inform that it is not achievable
++
+Use case ends.
 
 //end::usecase[]
 [appendix]
