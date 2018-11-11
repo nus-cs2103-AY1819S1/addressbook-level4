@@ -51,7 +51,7 @@ public class ImportCommandTest {
     private static final String VALID_PERSON_SCHOOL = "Computing";
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs(),
-            new HashSet<>());
+        new HashSet<>());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -124,11 +124,11 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+            new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Set<Entry> entries = new HashSet<>();
         entries.add(new Entry(2, new Date("20.06.2014"), new Amount(-400), new Remarks("Hockey Camp")));
         Cca newCca = new Cca(new CcaName("Hockey"), new Name("MrYanDao"), new Name("XiaoMing"), new Budget(500),
-                new Spent(300), new Outstanding(200), entries);
+            new Spent(300), new Outstanding(200), entries);
         expectedModel.addCca(newCca);
         expectedModel.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
         expectedModel.commitBudgetBook();
@@ -145,7 +145,7 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+            new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Index indexLastCca = Index.fromOneBased(model.getFilteredCcaList().size());
         Cca originalCca = model.getFilteredCcaList().get(indexLastCca.getZeroBased());
         Set<Entry> entries = new HashSet<>(originalCca.getEntries());

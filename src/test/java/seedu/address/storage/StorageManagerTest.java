@@ -146,13 +146,13 @@ public class StorageManagerTest {
     public void handleCalendarCreatedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called
         Storage storage = new StorageManager(new XmlAddressBookStorage(Paths.get("dummy")),
-                new XmlBudgetBookStorage(Paths.get("dummy")),
-                new JsonUserPrefsStorage(Paths.get("dummy")),
-                new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
-                new EmailDirStorage(Paths.get("dummy")),
-                new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
+            new XmlBudgetBookStorage(Paths.get("dummy")),
+            new JsonUserPrefsStorage(Paths.get("dummy")),
+            new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
+            new EmailDirStorage(Paths.get("dummy")),
+            new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
         storage.handleCalendarCreatedEvent(new CalendarCreatedEvent(TypicalCalendars.DEFAULT_CALENDAR,
-                DEFAULT_CALENDAR_NAME));
+            DEFAULT_CALENDAR_NAME));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -160,11 +160,11 @@ public class StorageManagerTest {
     public void handleLoadCalendarEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called
         Storage storage = new StorageManager(new XmlAddressBookStorage(Paths.get("dummy")),
-                new XmlBudgetBookStorage(Paths.get("dummy")),
-                new JsonUserPrefsStorage(Paths.get("dummy")),
-                new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
-                new EmailDirStorage(Paths.get("dummy")),
-                new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
+            new XmlBudgetBookStorage(Paths.get("dummy")),
+            new JsonUserPrefsStorage(Paths.get("dummy")),
+            new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
+            new EmailDirStorage(Paths.get("dummy")),
+            new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
         storage.handleLoadCalendarEvent(new LoadCalendarEvent(DEFAULT_CALENDAR_NAME));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof CalendarNotFoundEvent);
     }
@@ -173,13 +173,13 @@ public class StorageManagerTest {
     public void handleAllDayEventAddedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called
         Storage storage = new StorageManager(new XmlAddressBookStorage(Paths.get("dummy")),
-                new XmlBudgetBookStorage(Paths.get("dummy")),
-                new JsonUserPrefsStorage(Paths.get("dummy")),
-                new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
-                new EmailDirStorage(Paths.get("dummy")),
-                new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
+            new XmlBudgetBookStorage(Paths.get("dummy")),
+            new JsonUserPrefsStorage(Paths.get("dummy")),
+            new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
+            new EmailDirStorage(Paths.get("dummy")),
+            new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
         storage.handleAllDayEventAddedEvent(new AllDayEventAddedEvent(DEFAULT_YEAR, DEFAULT_MONTH,
-                VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP, TypicalCalendars.DEFAULT_CALENDAR));
+            VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP, TypicalCalendars.DEFAULT_CALENDAR));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -187,14 +187,14 @@ public class StorageManagerTest {
     public void handleCalendarEventAddedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called
         Storage storage = new StorageManager(new XmlAddressBookStorage(Paths.get("dummy")),
-                new XmlBudgetBookStorage(Paths.get("dummy")),
-                new JsonUserPrefsStorage(Paths.get("dummy")),
-                new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
-                new EmailDirStorage(Paths.get("dummy")),
-                new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
+            new XmlBudgetBookStorage(Paths.get("dummy")),
+            new JsonUserPrefsStorage(Paths.get("dummy")),
+            new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
+            new EmailDirStorage(Paths.get("dummy")),
+            new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
         storage.handleCalendarEventAddedEvent(new CalendarEventAddedEvent(DEFAULT_YEAR, DEFAULT_MONTH,
-                VALID_CALENDAR_DATE_1, VALID_SHOUR, VALID_SMIN, VALID_CALENDAR_DATE_2, VALID_EHOUR,
-                VALID_EMIN, VALID_CALENDAR_TITLE_OCAMP, TypicalCalendars.DEFAULT_CALENDAR));
+            VALID_CALENDAR_DATE_1, VALID_SHOUR, VALID_SMIN, VALID_CALENDAR_DATE_2, VALID_EHOUR,
+            VALID_EMIN, VALID_CALENDAR_TITLE_OCAMP, TypicalCalendars.DEFAULT_CALENDAR));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -202,14 +202,14 @@ public class StorageManagerTest {
     public void handleCalendarEventDeletedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the create method is called
         Storage storage = new StorageManager(new XmlAddressBookStorage(Paths.get("dummy")),
-                new XmlBudgetBookStorage(Paths.get("dummy")),
-                new JsonUserPrefsStorage(Paths.get("dummy")),
-                new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
-                new EmailDirStorage(Paths.get("dummy")),
-                new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
+            new XmlBudgetBookStorage(Paths.get("dummy")),
+            new JsonUserPrefsStorage(Paths.get("dummy")),
+            new IcsCalendarStorageExceptionThrowingStub(Paths.get("dummy")),
+            new EmailDirStorage(Paths.get("dummy")),
+            new ProfilePictureDirStorage((Paths.get("dummy")), Paths.get("dummy")));
         storage.handleCalendarEventDeletedEvent(new CalendarEventDeletedEvent(DEFAULT_YEAR, DEFAULT_MONTH,
-                VALID_CALENDAR_DATE_1, VALID_CALENDAR_DATE_2, VALID_CALENDAR_TITLE_OCAMP,
-                TypicalCalendars.DEFAULT_CALENDAR));
+            VALID_CALENDAR_DATE_1, VALID_CALENDAR_DATE_2, VALID_CALENDAR_TITLE_OCAMP,
+            TypicalCalendars.DEFAULT_CALENDAR));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 

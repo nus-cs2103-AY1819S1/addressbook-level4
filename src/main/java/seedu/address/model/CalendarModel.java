@@ -359,7 +359,9 @@ public class CalendarModel {
         return loadedCalendar;
     }
 
-    /** Updates Map:existingCalendar. */
+    /**
+     * Updates Map:existingCalendar.
+     */
     public void updateExistingCalendar(Year year, Month month) {
         requireNonNull(year);
         requireNonNull(month);
@@ -373,7 +375,9 @@ public class CalendarModel {
         }
     }
 
-    /** Removes a calendar from the Map:existingCalendar. */
+    /**
+     * Removes a calendar from the Map:existingCalendar.
+     */
     public void removeExistingCalendar(Year year, Month month) {
         requireNonNull(year);
         requireNonNull(month);

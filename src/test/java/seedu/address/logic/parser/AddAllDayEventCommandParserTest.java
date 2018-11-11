@@ -48,17 +48,17 @@ public class AddAllDayEventCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
                 + USER_INPUT_TITLE,
-                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+            new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
 
         // lower-case month
         assertParseSuccess(parser, LOWER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
                 + USER_INPUT_TITLE,
-                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+            new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
 
         // mix-case month
         assertParseSuccess(parser, MIX_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
                 + USER_INPUT_TITLE,
-                new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
+            new AddAllDayEventCommand(expectedMonth, expectedYear, expectedDate, expectedTitle));
     }
 
     @Test
@@ -67,65 +67,65 @@ public class AddAllDayEventCommandParserTest {
 
         // missing month prefix
         assertParseFailure(parser, VALID_STRING_JAN + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE + USER_INPUT_TITLE,
-                expectedMessage);
+            expectedMessage);
 
         // missing year prefix
         assertParseFailure(parser, UPPER_CASE_MONTH + " " + VALID_STRING_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, expectedMessage);
+            + USER_INPUT_TITLE, expectedMessage);
 
         // missing date prefix
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + " " + VALID_STRING_DATE_1
-                + USER_INPUT_TITLE, expectedMessage);
+            + USER_INPUT_TITLE, expectedMessage);
 
         // missing title prefix
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE + " "
-                + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
+            + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_STRING_JAN + " " + VALID_STRING_YEAR + " " + VALID_STRING_DATE_1
-                + " " + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
+            + " " + VALID_CALENDAR_TITLE_OCAMP, expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid month (More than 3 characters)
         assertParseFailure(parser, INVALID_MONTH_CHAR_NO + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE + USER_INPUT_TITLE,
-                Month.MESSAGE_MONTH_CONSTRAINTS);
+            Month.MESSAGE_MONTH_CONSTRAINTS);
 
         // invalid month (Not a valid month)
         assertParseFailure(parser, INVALID_MONTH_VALUE + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE + USER_INPUT_TITLE,
-                Month.MESSAGE_MONTH_CONSTRAINTS);
+            Month.MESSAGE_MONTH_CONSTRAINTS);
 
         // invalid year (Negative year)
         assertParseFailure(parser, UPPER_CASE_MONTH + INVALID_NEGATIVE_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
+            + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // invalid year (Less than 4 characters)
         assertParseFailure(parser, UPPER_CASE_MONTH + INVALID_YEAR_LESS_THAN_FOUR_DIGIT + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
+            + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // invalid year (More than 4 characters)
         assertParseFailure(parser, UPPER_CASE_MONTH + INVALID_YEAR_MORE_THAN_FOUR_DIGIT + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
+            + USER_INPUT_TITLE, Year.MESSAGE_YEAR_CONSTRAINTS);
 
         // invalid date (Greater than 31)
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + INVALID_DATE_MORE_THAN_31
-                + USER_INPUT_TITLE, ParserUtil.MESSAGE_DATE_CONSTRAINTS);
+            + USER_INPUT_TITLE, ParserUtil.MESSAGE_DATE_CONSTRAINTS);
 
         // invalid date (0)
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + INVALID_DATE_ZERO + USER_INPUT_TITLE,
-                ParserUtil.MESSAGE_DATE_CONSTRAINTS);
+            ParserUtil.MESSAGE_DATE_CONSTRAINTS);
 
         // invalid date (Negative date)
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + INVALID_DATE_NEGATIVE
-                + USER_INPUT_TITLE, ParserUtil.MESSAGE_DATE_CONSTRAINTS);
+            + USER_INPUT_TITLE, ParserUtil.MESSAGE_DATE_CONSTRAINTS);
 
         // empty title
         assertParseFailure(parser, UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE + INVALID_EMPTY_TITLE,
-                ParserUtil.MESSAGE_TITLE_CONSTRAINTS);
+            ParserUtil.MESSAGE_TITLE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + UPPER_CASE_MONTH + FOUR_DIGIT_YEAR + ONE_DIGIT_DATE
-                + USER_INPUT_TITLE, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAllDayEventCommand.MESSAGE_USAGE));
+            + USER_INPUT_TITLE, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAllDayEventCommand.MESSAGE_USAGE));
     }
 }

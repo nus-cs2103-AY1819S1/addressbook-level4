@@ -49,7 +49,7 @@ public class AddAllDayEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
-            getTypicalExistingEmails());
+        getTypicalExistingEmails());
 
 
     private void updateExistingCalendarsInModel(Year year, Month month) {
@@ -85,14 +85,14 @@ public class AddAllDayEventCommandTest {
         updateExistingCalendarsInModel(DEFAULT_YEAR, DEFAULT_MONTH);
         loadCalendarInModel(calendar, DEFAULT_CALENDAR_NAME);
         AddAllDayEventCommand addAllDayEventCommand =
-                new AddAllDayEventCommand(DEFAULT_MONTH, DEFAULT_YEAR, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(DEFAULT_MONTH, DEFAULT_YEAR, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_OCAMP);
 
         // Expected result
         String expectedMessage = String.format(AddAllDayEventCommand.MESSAGE_SUCCESS, VALID_CALENDAR_DATE_1 + "/"
-                + DEFAULT_MONTH + "/" + DEFAULT_YEAR + " - " + VALID_CALENDAR_TITLE_OCAMP);
+            + DEFAULT_MONTH + "/" + DEFAULT_YEAR + " - " + VALID_CALENDAR_TITLE_OCAMP);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         // Update expected model's existing calendars
         expectedModel.getCalendarModel().updateExistingCalendar(DEFAULT_YEAR, DEFAULT_MONTH);
         expectedModel.updateExistingCalendar();
@@ -106,13 +106,13 @@ public class AddAllDayEventCommandTest {
         updateExistingCalendarsInModel(CHRISTMAS_CALENDAR_YEAR, CHRISTMAS_CALENDAR_MONTH);
         loadCalendarInModel(calendar, CHRISTMAS_CALENDAR_NAME);
         AddAllDayEventCommand addAllDayEventCommand = new AddAllDayEventCommand(CHRISTMAS_CALENDAR_MONTH,
-                CHRISTMAS_CALENDAR_YEAR, CHRISTMAS_EVENT_DATE, CHRISTMAS_EVENT_TITLE);
+            CHRISTMAS_CALENDAR_YEAR, CHRISTMAS_EVENT_DATE, CHRISTMAS_EVENT_TITLE);
 
         // Expected result
         String expectedMessage = String.format(MESSAGE_EXISTING_EVENT, CHRISTMAS_CALENDAR_MONTH
-                + "-" + CHRISTMAS_CALENDAR_YEAR);
+            + "-" + CHRISTMAS_CALENDAR_YEAR);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         // Update expected model's existing calendars
         expectedModel.getCalendarModel().updateExistingCalendar(CHRISTMAS_CALENDAR_YEAR, CHRISTMAS_CALENDAR_MONTH);
         expectedModel.updateExistingCalendar();
@@ -123,7 +123,7 @@ public class AddAllDayEventCommandTest {
     @Test
     public void execute_notExistingCalendar_throwsCommandException() throws Exception {
         AddAllDayEventCommand addAllDayEventCommand = new AddAllDayEventCommand(VALID_MONTH_FEB, VALID_YEAR_2018,
-                VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP);
+            VALID_CALENDAR_DATE_1, VALID_CALENDAR_TITLE_OCAMP);
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_NOT_EXISTING_CALENDAR);
         addAllDayEventCommand.execute(model, commandHistory);
@@ -135,7 +135,7 @@ public class AddAllDayEventCommandTest {
         updateExistingCalendarsInModel(DEFAULT_YEAR, DEFAULT_MONTH);
         loadCalendarInModel(calendar, DEFAULT_CALENDAR_NAME);
         AddAllDayEventCommand addAllDayEventCommand = new AddAllDayEventCommand(DEFAULT_MONTH, DEFAULT_YEAR,
-                INVALID_CALENDAR_DATE, VALID_CALENDAR_TITLE_OCAMP);
+            INVALID_CALENDAR_DATE, VALID_CALENDAR_TITLE_OCAMP);
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(MESSAGE_NOT_VALID_DATE, DEFAULT_MONTH + " - " + DEFAULT_YEAR));
         addAllDayEventCommand.execute(model, commandHistory);
@@ -144,28 +144,28 @@ public class AddAllDayEventCommandTest {
     @Test
     public void equals() {
         AddAllDayEventCommand add1stJan2018OcampAllDayEventCommand =
-                new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add2ndJan2018OcampAllDayEventCommand =
-                new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_2,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_2,
+                VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stFeb2018OcampAllDayEventCommand =
-                new AddAllDayEventCommand(VALID_MONTH_FEB, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(VALID_MONTH_FEB, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stJan2017OcampAllDayEventCommand =
-                new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2017, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2017, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_OCAMP);
         AddAllDayEventCommand add1stJan2018HackathonAllDayEventCommand =
-                new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_HACK);
+            new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_HACK);
 
         // same object -> returns true
         assertTrue(add1stJan2018OcampAllDayEventCommand.equals(add1stJan2018OcampAllDayEventCommand));
 
         // same values -> returns true
         AddAllDayEventCommand add1stJan2018OcampAllDayEventCopy =
-                new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
-                        VALID_CALENDAR_TITLE_OCAMP);
+            new AddAllDayEventCommand(VALID_MONTH_JAN, VALID_YEAR_2018, VALID_CALENDAR_DATE_1,
+                VALID_CALENDAR_TITLE_OCAMP);
         assertTrue(add1stJan2018OcampAllDayEventCommand.equals(add1stJan2018OcampAllDayEventCopy));
 
         // different types -> returns false

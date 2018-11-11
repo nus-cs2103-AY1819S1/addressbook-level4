@@ -6,6 +6,7 @@ import jfxtras.icalendarfx.VCalendar;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 
 //@@author GilgameshTC
+
 /**
  * A handler for the {@code CalendarPanel} of the UI.
  */
