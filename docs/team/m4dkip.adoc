@@ -26,7 +26,7 @@ This feature enables a systematic and reliable way to manage reservations.
 management systems together. It required an in-depth analysis of the underlying *MeNUS* architecture.
 
 * *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster:
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41].
 
 * *Other contributions*:
 
@@ -38,13 +38,15 @@ https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
 ** Community:
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/211[#211],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/281[#281].
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/281[#281],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/293[#293].
 *** Reported bugs and suggestions for other teams in the class:
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144],
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147],
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162].
 ** Tools:
-*** Integrated a third party library (Natty) to the project https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250]
+*** Integrated a third party library (Natty) to the project
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250].
 
 == Contributions to the User Guide
 
