@@ -106,8 +106,7 @@ public class DeleteCommandParser {
             List<Day> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MESSAGE_DELETE_MEALPLANNER_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_MEALPLANNER_USAGE));
             }
             Day toDelete = lastShownList.get(targetIndex.getZeroBased());
 

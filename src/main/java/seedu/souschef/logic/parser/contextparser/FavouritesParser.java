@@ -45,17 +45,17 @@ public class FavouritesParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parseIngredient(model, arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parseIngredient(model, arguments);
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parseIngredient(model, arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parseIngredient(model, arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand(model);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand(model);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
