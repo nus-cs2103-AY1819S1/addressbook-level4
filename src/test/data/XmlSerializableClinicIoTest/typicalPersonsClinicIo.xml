@@ -67,4 +67,52 @@
         <name>Frank Tay</name>
         <password>$2a$08$y9vtjkky9/YxP3WRXtgb3.7ECtblD8c0YsNXX4CrM8p49XjwUkwh6</password>
     </staffs>
+    <appointments>
+        <date>2 10 2018</date>
+        <time>13 00</time>
+        <status>1</status>
+        <patient>
+            <name>Alex X</name>
+            <phone>91023456</phone>
+            <email>alex@example.com</email>
+            <address>Block 312, Alex Street 2</address>
+            <nric>S9951423J</nric>
+            <isQueuing>false</isQueuing>
+            <preferredDoctor>
+                <role>DOCTOR</role>
+                <name>Adam Bell</name>
+                <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+            </preferredDoctor>
+        </patient>
+        <type>1</type>
+        <assignedStaff>
+            <role>DOCTOR</role>
+            <name>Adam Bell</name>
+            <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+        </assignedStaff>
+    </appointments>
+    <appointments>
+        <date>3 10 2018</date>
+        <time>17 45</time>
+        <status>1</status>
+        <patient>
+            <name>Bryan James</name>
+            <phone>89087654</phone>
+            <email>bryan@example.com</email>
+            <address>Block 113, Bryan Street 4</address>
+            <nric>S9106823A</nric>
+            <isQueuing>false</isQueuing>
+            <preferredDoctor>
+                <role>DOCTOR</role>
+                <name>Adam Bell</name>
+                <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+            </preferredDoctor>
+        </patient>
+        <type>1</type>
+        <assignedStaff>
+            <role>DOCTOR</role>
+            <name>Adam Bell</name>
+            <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
+        </assignedStaff>
+    </appointments>
 </clinicio>
