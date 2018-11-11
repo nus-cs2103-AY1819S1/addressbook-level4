@@ -785,13 +785,13 @@ After sorting the menu, it will save the current state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `sort-menu` command:
 
-.SortMenu Activity Diagram
-image::SortMenuActivityDiagram.png[caption=""][width="650"]
+image::SortMenuActivityDiagram.png[width="650"]
+_SortMenu Activity diagram_
 
 The following sequence diagram shows how the `sort-menu` command works:
 
-.SortMenu Sequence Diagram
-image::SortMenuSequenceDiagram.png[caption=""][width="1000"]
+image::SortMenuSequenceDiagram.png[width="1000"]
+_SortMenu Sequence diagram_
 // end::menuPart2[]
 
 ==== `filter-menu` Command
