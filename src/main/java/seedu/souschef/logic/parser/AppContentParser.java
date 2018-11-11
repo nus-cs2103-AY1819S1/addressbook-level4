@@ -60,7 +60,7 @@ public class AppContentParser {
         case MEAL_PLAN:
             setFeatureStorage(storage, context);
             return new MealPlannerParser()
-                    .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
+                    .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, history);
         case FAVOURITES:
             setFeatureStorage(storage, context);
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
@@ -89,7 +89,7 @@ public class AppContentParser {
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
             setFeatureStorage(storage, Context.MEAL_PLAN);
             command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
-                    modelSet.getRecipeModel(), userInput);
+                    modelSet.getRecipeModel(), userInput, history);
         }
         // Add other cross context command and set ur storage here.
 
