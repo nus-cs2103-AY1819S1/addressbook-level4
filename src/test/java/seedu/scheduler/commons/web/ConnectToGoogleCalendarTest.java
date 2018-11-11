@@ -41,7 +41,9 @@ import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
 import com.google.api.services.calendar.model.Calendar;
+import com.google.api.services.calendar.model.Events;
 
+import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
@@ -356,15 +358,26 @@ public class ConnectToGoogleCalendarTest {
         /* Case: add a repeated eventSet -> added */
         validEvent = new EventBuilder(FRIDAY_LECTURE).build();
         enable();
-        //helperCommand(new AddCommand(validEvent), model, commandHistory);
-        assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
-                String.format(MESSAGE_SUCCESS, validEvent.getEventName()));
+        //added
+        helperCommand(new AddCommand(validEvent), model, commandHistory);
+        //verify whether added
+        String id = EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(validEvent);
+        com.google.api.services.calendar.Calendar service =
+                connectToGoogleCalendar.getCalendar();
+        Events events = connectToGoogleCalendar.getSingleEvents(service);
+        //prevent disable too early
+        sleep(500);
         disable();
-        sleep(5000);
-        //clean up
-        enable();
+        boolean found = false;
+        for (com.google.api.services.calendar.model.Event event : events.getItems()) {
+            if (event.getICalUID().equals(id)) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
         //close the google-enabled environment
-        disable();
+        sleep(5000);
     }
 
     @Test

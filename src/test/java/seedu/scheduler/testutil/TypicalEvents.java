@@ -210,7 +210,7 @@ public class TypicalEvents {
             .withEndDateTime(LocalDateTime.of(2018, 11, 30, 18, 0))
             .withDescription("CS2103 Description").withVenue("I3")
             .withRepeatType(RepeatType.WEEKLY)
-            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 13, 18, 1))
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
             .build();
 
     // monthly event
