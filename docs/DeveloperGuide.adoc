@@ -753,7 +753,7 @@ The item(s) must exist in the menu.
 * `add-required-ingredients` command --  Adds the required ingredients to the equivalent item in the menu. The item
 must exist in the menu.
 
-Each `Item` object consists of `Name` and `Price`.
+Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<IngredientName, Integer>`
 // end::menuPart1[]
 
 ==== `add-item` Command
