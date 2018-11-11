@@ -490,7 +490,7 @@ image::./ui_screenshots/viewall-example-2.png[width="600"]
 
 As seen in the diagram above, the response box at the top of the diagram will display the total number of rides,
 with a break down of the total number of rides of different statuses.
-The list box at the left of diagram will also be updated to show all the rides in ThanePark, regardless of status.
+The list box at the left of the diagram is also updated to show all the rides in ThanePark, regardless of status.
 |===
 // end::viewstatus[]
 
@@ -560,7 +560,7 @@ image::./ui_screenshots/find-example-3.png[width="600"]
 This section contains all commands that is related to accessing the system.
 
 [NOTE]
-All commands in this section have not been implemented. They will be implemented in v2.0.
+All commands in this section have not been implemented. They will be implemented in `v2.0`.
 
 ==== Signing up as a user
 Creates a new user profile to allow the user to access ThanePark. +
