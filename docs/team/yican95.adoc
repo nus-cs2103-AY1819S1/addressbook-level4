@@ -20,6 +20,8 @@ Restaurant owners interact with *MeNUS* using a Command Line Interface
 approximately 30 KLOC.
 
 == Summary of contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
+
 * *Major enhancement*: Added *Menu Management* feature
 ** *What it does*: Enables the user to manage the menus with the various menu management commands.
 ** *Justification*: It can be messy and tedious to manage menus manually. This feature helps users to
@@ -33,8 +35,6 @@ It requires an in-depth analysis and understanding of *MeNUS* architecture to en
 (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/214[#214])
 ** *What it does*: Plays the https://docs.oracle.com/javafx/2/api/javafx/animation/FadeTransition.html[FadeTransition]
 for a short duration when the user enters a command.
-
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
 
 * *Other contributions*:
 ** Project management:
@@ -74,9 +74,8 @@ include::../UserGuide.adoc[tag=menuPart2]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections below showcase extracts of my contributions to the Developer Guide. It also showcase my
-ability to
-write technical documentation and the technical depth of my contributions to the project._
+|_The following sections below showcase extracts of my contributions to the Developer Guide. They also showcase my
+ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=menuPart1]
