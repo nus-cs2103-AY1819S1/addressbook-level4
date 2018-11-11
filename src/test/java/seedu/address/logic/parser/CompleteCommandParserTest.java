@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.CompleteCommand;
 import seedu.address.logic.commands.CompleteIndexCommand;
 import seedu.address.logic.commands.CompleteLabelCommand;
+import seedu.address.model.tag.Label;
 import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
 
 /**
@@ -19,8 +20,10 @@ import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
  */
 public class CompleteCommandParserTest {
 
-    private static final LabelMatchesAnyKeywordPredicate LABEL_FRIENDS =
+    private static final LabelMatchesAnyKeywordPredicate PREDICATE_FRIENDS =
         new LabelMatchesAnyKeywordPredicate(createLabelsFromKeywords("friends"));
+    private static final LabelMatchesAnyKeywordPredicate PREDICATE_OWESMONEY_FRIENDS =
+        new LabelMatchesAnyKeywordPredicate(createLabelsFromKeywords("owesMoney", "friends"));
     private CompleteCommandParser parser = new CompleteCommandParser();
 
     @Test
@@ -30,11 +33,15 @@ public class CompleteCommandParserTest {
 
         // Arguments with leading whitepaces
         assertParseSuccess(parser, " 1", new CompleteIndexCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, " l/friends", new CompleteLabelCommand(LABEL_FRIENDS));
+        assertParseSuccess(parser, " l/friends", new CompleteLabelCommand(PREDICATE_FRIENDS));
 
         // Arguments with leading and trailing whitespaces
         assertParseSuccess(parser, "  1  ", new CompleteIndexCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, "  l/ friends  ", new CompleteLabelCommand(LABEL_FRIENDS));
+        assertParseSuccess(parser, "  l/ friends  ", new CompleteLabelCommand(PREDICATE_FRIENDS));
+
+        // Arguments with multiple labels
+        assertParseSuccess(parser, "  l/friends l/owesMoney ",
+            new CompleteLabelCommand(PREDICATE_OWESMONEY_FRIENDS));
 
     }
 
@@ -62,6 +69,12 @@ public class CompleteCommandParserTest {
         // Improper Label symbol
         assertParseFailure(parser, " l\\friends", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             CompleteCommand.MESSAGE_USAGE));
+
+        // Label is not alphanumeric
+        assertParseFailure(parser, " l/*", Label.MESSAGE_LABEL_CONSTRAINTS);
+
+        // Label is empty
+        assertParseFailure(parser, " l/", Label.MESSAGE_LABEL_CONSTRAINTS);
     }
 
 }
