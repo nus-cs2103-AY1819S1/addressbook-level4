@@ -132,6 +132,14 @@ Format: +
 
 ==== Add a recipe: `add` `cont` `end`
 Add new recipe. +
+Format: +
+`add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
+cont i/INSTRUCTION... [c/TIME] +
+cont... +
+end` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 [NOTE]
 ====
 Full set of commands `add` `cont` `end` should be performed for the addition of recipe to be completed.
@@ -162,18 +170,24 @@ and enter a new recipe details as desired.
 Recipes containing the same name, difficulty and cooktime are considered as duplicates and should not be allowed.
 ====
 ****
-
-Format: +
-`add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
-cont i/INSTRUCTION... [c/TIME] +
-cont... +
-end` +
- +
-INSTRUCTION: +
-`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+Examples: +
+[disc]
+* `add n/Chicken Rice d/2 c/45M` +
+`cont i/Clean and cut #chicken 1.2 kg.` +
+`cont i/Put the chicken in #boiled water 900 ml for 10 mins. c/10M` +
+`cont i/Remove the chicken and put #soy sauce 100 ml.` +
+`cont i/Cook for another 20 mins. c/20M` +
+`end` +
 
 ==== Edit a recipe: `edit`
 Edit new recipe. +
+Format: +
+`edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...` +
+or +
+`edit INDEX s/STEP i/INSTRUCTION [c/TIME]` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
 ****
 * Attributes included are to be edited on a replacement basis (not concatenation e.g. tags are being replaced and not
  added)
@@ -192,22 +206,20 @@ replace.)
 *** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using
 `#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
 ****
-Format: +
-`edit INDEX [n/NAME] [c/TIME] [d/DIFFICULTY] [t/TAG]...` +
-or +
-`edit INDEX s/STEP i/INSTRUCTION [c/TIME]` +
- +
-INSTRUCTION: +
-`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+Examples: +
+[disc]
+* `edit 1 c/20M t/Asian t/Staple` +
+* `edit 1 s/2 i/Pour #water 300 ml into the mix.` +
+
 
 ==== Display recipe details: `select`
 View a recipe and its details from the list. +
-****
-* `INDEX` should be as displayed in the list.
-* Common serving unit "gram" is being displayed.
-****
 Format: +
 `select INDEX`
+****
+* `INDEX` should be as displayed in the list.
+* All serving unit will be converted (approximately) to our common serving unit "gram" for display.
+****
 
 ==== Search recipes: `find`
 Show recipes related to the keyword(s).
@@ -216,57 +228,62 @@ dietary types (Vegetarian, Halal),
 ingredients (egg, broccoli),
 preparation time (30M, 1H40M)
 and difficulty (1, 2, ..., 5). +
+Format: +
+`find KEYWORD...`
 ****
 * `KEYWORD` is case insensitive.
 * The order of keywords does not matter.
 ****
-Format: +
-`find KEYWORD...`
+Examples: +
+[disc]
+* `find rice asian 3` +
+* `find korean kimchi staple` +
 
 ==== Delete recipe: `delete`
 Delete a recipe and its details from the list. +
+Format: +
+`delete INDEX`
 ****
 * `INDEX` should be as displayed in the list.
 ****
-Format: +
-`delete INDEX`
+
 
 ==== Activate cook-mode [coming in V2.0]: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
+Format: +
+`cook INDEX`
 ****
 * `INDEX` should be as displayed in the list.
 ****
-Format: +
-`cook INDEX`
 
 // end::recipeCommand[]
 
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +
+Format: +
+`favourite INDEX`
 ****
 * INDEX should be the index number of the recipe displayed
 ****
-Format: +
-`favourite INDEX`
 
 ==== Add to meal plan: `plan`
 Add a specified recipe to meal plan. +
+Format: +
+`plan INDEX DATE MEAL`
 ****
 * INDEX should be the index number of the recipe displayed
 * DATE should be entered in the format *yyyy-mm-dd*.
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
 ****
-Format: +
-`plan INDEX DATE MEAL`
 
 ==== Add to review [coming in V2.0]: `review`
 Add comment and rating to current recipe. +
+Format: +
+`review [COMMENT] RATING`
 ****
 * Local command on recipe page.
 * Rating must be between *1 to 5*.
 ****
-Format: +
-`review [COMMENT] RATING`
 
 // tag::ingredient[]
 === Ingredient Manager Commands (Only applicable in ingredient context)
