@@ -612,6 +612,10 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::PictureCommandActivityDiagram.png[width="500"]
 
+The following sequence diagram shows what happens when a user executes the `PictureCommand`:
+
+image::PictureCommandSequenceDiagram.png[width="500"]
+
 ==== Design Considerations
 
 ===== Aspect: How picture is stored
@@ -634,8 +638,8 @@ image::PictureCommandActivityDiagram.png[width="500"]
 
 ===== Aspect: Path validation
 
-* **Alternative 1 (current choice):** File location input from user is checked against a regular expression and `Files#exists()`.
-** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the regular expression checks for any ill-intended input as well as the file extension.
+* **Alternative 1 (current choice):** File location input from user is checked against `Files#exists()` and whether it ends with a `.png` or `.jpg`.
+** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the other checks for the file extension.
 ** Cons: Will have to check twice.
 * **Alternative 2:** Just do `Files#exists()`.
 ** Pros: Straightforward and simple.
@@ -706,6 +710,15 @@ Thus, all data that are being stored in `Storage` should be encrypted using a se
 When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
 
 // end::dataencryption[]
+
+// tag::addpictureurl[]
+=== [Proposed] Add Picture from URL
+
+The current implementation of the `pic` command in v1.4 only allows users to upload images that are available on their local drives.
+Giving users the option to upload images that is available on the internet would be much more convenient to the user.
+Users can simply go to their client's Facebook or other social media accounts to retrieve the image URL.
+
+// end::addpictureurl[]
 
 === Logging
 
@@ -1453,6 +1466,7 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 +
 Use case ends.
 
+// tag::picUseCase[]
 [discrete]
 === Use Case: Upload Picture of Client
 
@@ -1481,6 +1495,7 @@ Use case resumes from step 3.
 ** 5a1. InsuRen requests for the correct data.
 +
 Use case resumes from step 5.
+// end::picUseCase[]
 
 [discrete]
 === Use Case: List Frequently Contacted Clients
