@@ -776,17 +776,19 @@ A leave application is represented by a `LeaveApplication` model object, as foll
 image::LeaveApplicationModelDiagram.png[width="400"]
 *API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
 
-The following sequence diagram illustrates how an application for leave by an employee works:
+The following sequence diagrams illustrate how an application for leave by an employee works:
 
 .Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
 image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
+[NOTE]
+There are further interactions of the EventCenter reacting to the event raised, but they are ommitted.
 
-
+Zooming in to the Logic Component:
 
 .Interactions in the Logic Component when a `leaveapply -de family holiday -da 2018-11-11` command is issued
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
-
-
+[NOTE]
+There are further interactions within the Model component that are omitted in this diagram.
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
