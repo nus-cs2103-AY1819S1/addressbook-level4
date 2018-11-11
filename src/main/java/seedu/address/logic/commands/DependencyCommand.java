@@ -70,16 +70,6 @@ public class DependencyCommand extends Command {
     }
 
     /**
-     * Check if task at dependant index is completed and if task at dependee index is not completed
-     * (Refer to completed command for this check)
-     */
-    private void checkTaskDependencyAtIndexes(Task dependantTask, Task dependeeTask) throws CommandException {
-        if (dependantTask.isStatusCompleted() && !dependeeTask.isStatusCompleted()) {
-            throw new CommandException(MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE);
-        }
-    }
-
-    /**
      * Handle task dependency toggling by creating a new updated Task with the task dependency added or removed
      */
     private String handleTaskDependencyToggling(Model model, Index dependantIndex, Index dependeeIndex)
@@ -88,7 +78,7 @@ public class DependencyCommand extends Command {
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
 
-        checkTaskDependencyAtIndexes(taskDependant, taskDependee);
+        checkValidityOfTaskStatuses(taskDependant, taskDependee);
 
         Task updatedTask;
         String message;
@@ -107,6 +97,17 @@ public class DependencyCommand extends Command {
 
         return String.format(message, updatedTask.getName(), taskDependee.getName(),
                 dependantIndex.getOneBased(), dependeeIndex.getOneBased());
+    }
+
+    /**
+     * Check if dependant task is completed and if dependee task is not completed
+     * (Refer to completed command for this check)
+     */
+    private void checkValidityOfTaskStatuses(Task dependantTask, Task dependeeTask)
+            throws CommandException {
+        if (dependantTask.isStatusCompleted() && !dependeeTask.isStatusCompleted()) {
+            throw new CommandException(MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE);
+        }
     }
 
     /**
