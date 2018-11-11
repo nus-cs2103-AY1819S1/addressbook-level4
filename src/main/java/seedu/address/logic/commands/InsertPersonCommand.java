@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * A command that enables users to insert a person, bidirectionally, into either a module
@@ -73,6 +74,7 @@ public class InsertPersonCommand extends Command {
                                 moduleToReplace.makeShallowDuplicate(),
                                 personToReplace, moduleToReplace);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
 
         } else if (State.OCCASION_STATE == currState) {
@@ -98,6 +100,7 @@ public class InsertPersonCommand extends Command {
                                 occasionToReplace.makeShallowDuplicate(),
                                 personToReplace, occasionToReplace);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
 
         } else {

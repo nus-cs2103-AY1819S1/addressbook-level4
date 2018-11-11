@@ -16,18 +16,23 @@ public abstract class ExportCommand extends Command {
             + COMMAND_WORD + " --txt C:\\Users\\Anna\\desktop\\exported.txt (Windows)";
 
     public static final String MESSAGE_SUCCESS = "Export successfully to file path: %1$s";
-    public static final String MESSAGE_FAIL_READ_FILE = "Failed to read file path. Please recheck the validity "
-            + "of the file path and the permission to the file.";
+    public static final String MESSAGE_FAIL_READ_FILE = "Failed to read or write to file path. Please recheck "
+            + "the validity of the file path and the permission to the file.";
     public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED = "The file type you want to export as is "
             + "currently not supported; or the parameter format is wrong. \n"
             + "Current supported file type: XML and TXT \n"
             + "Parameter: \"--xml\" or \"--txt\"";
-    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. ";
-    public static final String MESSAGE_INVALID_FILE_PATH =
-            "File name can only contain alphanumeric and underscore. Please recheck.";
+    public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. "
+            + "It could be due to access denied. Please recheck the permission to the file. ";
+    public static final String MESSAGE_INVALID_TXT_FILE_PATH =
+            "File name should only contain alphanumeric and underscore and end with extension \'.txt\'."
+                    + " Please recheck.";
+    public static final String MESSAGE_INVALID_XML_FILE_PATH =
+            "File name should only contain alphanumeric and underscore and end with extension \'.xml\'."
+                    + " Please recheck.";
     public static final String MESSAGE_FILE_PERMISSION_DENIED = "Permission to write to file is denied.";
     public static final String WIN_FILE_PATH_REGEX =
-            "^(?:[a-zA-Z]\\:|\\\\[\\w\\.]+\\\\[\\w.$]+)*\\\\(?:[\\w]+\\\\)*\\w([\\w.])+$";
+            "^(?:[a-zA-Z]\\:|\\\\[\\w\\.]+\\\\[\\w.$]+)*(\\\\)*(?:[\\w]+\\\\)*\\w([\\w.])+$";
     public static final String MACOS_LINUX_FILE_PATH_REGEX =
             "^(\\/)*([\\w\\.]+\\/[\\w.$]+\\/)*(?:[\\w]+\\/)*\\w([\\w.])+$";
 

@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TheTracker (v1.3)
+== PROJECT: TheTracker (v1.4)
 
 ---
 
 == Overview
 
-The Tracker (v1.3) is a desktop application that helps NUS students to monitor contacts, modules and events.
+The Tracker (v1.4) is a desktop application that helps NUS students to monitor contacts, modules and events.
 
 == Summary of contributions
 

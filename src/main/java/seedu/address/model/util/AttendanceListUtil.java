@@ -9,6 +9,11 @@ import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.RefreshModuleBrowserEvent;
+import seedu.address.commons.events.ui.RefreshOccasionBrowserEvent;
+import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
@@ -26,6 +31,20 @@ import seedu.address.model.person.UniquePersonList;
  * @author alistair
  */
 public class AttendanceListUtil {
+    /**
+     * Posts correct event for refreshing current browser.
+     */
+    public static void postRefreshEvent(Model model) {
+        TypeUtil currType = model.getActiveType();
+        if (currType == TypeUtil.PERSON) {
+            EventsCenter.getInstance().post(new RefreshPersonBrowserEvent());
+        } else if (currType == TypeUtil.MODULE) {
+            EventsCenter.getInstance().post(new RefreshModuleBrowserEvent());
+        } else {
+            EventsCenter.getInstance().post(new RefreshOccasionBrowserEvent());
+        }
+    }
+
     //@@author waytan
     /**
      * Removes a person from the attendanceList of all associated Occasions.
@@ -84,6 +103,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Edits a module from the moduleList of all associated Persons.
@@ -124,6 +144,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Removes a occasion from the occasionList of all associated Persons.
@@ -144,6 +165,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Edits person from his associate modules.
@@ -166,6 +188,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Edits person from his associate occasion.
@@ -188,6 +211,7 @@ public class AttendanceListUtil {
         }
     }
 
+    //@@author alistairong
     /**
      * Removes said {@code person} from {@code module} attendance list in {@code model} and vice versa.
      * @param model The model to change.
@@ -199,6 +223,7 @@ public class AttendanceListUtil {
         removeModuleFromPerson(model, person).accept(module);
     }
 
+    //@@author alistairong
     /**
      * Removes said {@code person} from {@code occasion} attendance list in {@code model} and vice versa.
      * @param model The model to change.
@@ -274,6 +299,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Person and edits it in the specified Module in the model.
@@ -295,6 +321,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Person and edits it in the specified Occasion in the model.
@@ -316,6 +343,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
@@ -337,6 +365,7 @@ public class AttendanceListUtil {
         };
     }
 
+    //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
      * Returns a consumer that takes in a Occasion and removes it from the specified Person in the Model.
