@@ -18,24 +18,65 @@ By: `CS2103-AY1819S1-T09-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Piconso is for those who *prefer to use a desktop app for editing images*. More importantly, Piconso is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Piconso can edit your images faster than Photoshop. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Piconso is an image-editing desktop application that is *optimized for those who are familiar with Command Line Interface (CLI)*. If you can type fast, you may be able edit your images even faster than if you were on Photoshop!
+Even new users that are unfamiliar with CLI will be able to easily and quickly pick up image-editing with our simple to understand interface.  Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `piconso.jar` link:https://github.com/CS2103-AY1819S1-T09-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-
-image::Ui.png[width:800]
+.  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
 
 // tag::getting_started[]
 == Getting started
 
 Let's work through a simple project in Piconso from start to finish.
+
+We'll start with a scenario in which you would like to brighten an image and place a watermark on it.
+
+*Step 1*
+
+.Default Piconso view
+image::exampleStep0.png[width:600]
+
+Let's assume the image you would like to edit is located on your Desktop. Upon launching Piconso, it will always start at your home folder as listed on the bottom left of the application. i.e `/Users/Name`
+
+*Step 2*
+
+.After typing `ls`
+image::exampleStep1.png[width:600]
+Next, we'll type `ls` to see if the folder is relative to where you are now. `ls` lists all the folders and images located in `/Users/Desktop`
+
+*Step 3*
+
+.After typing `cd Desktop`
+image::exampleStep2.png[width:600]
+Type `cd Desktop` to move to that folder. `cd` and `ls` are common notations used in CLI-based commands for file navigation, so no need to worry if you're a new user! +
+
+Upon moving into the `Desktop` folder, you may notice that the bottom left area labelled *Image in directory batch* is showing a few images. These are the first 10 images in your `Desktop`, and they will be labelled with an index based on alphabetical order of their names.
+
+*Step 4*
+
+.After typing `open 1`
+image::exampleStep3.png[width:600]
+For this example we'll be selecting the second image for editing. We'll open it with `open 2`
+
+*Step 5*
+
+.After typing `apply contrast`
+image::exampleStep4.png[width:600]
+To increase the contrast of the image, type `apply contrast`.
+
+*Step 6*
+
+.After adding a layer`
+image::exampleStep5.png[width:600]
+After increasing the contrast of the image, we'll be adding our watermark (image 1) onto the image. Type `layer add 1`. The new image is complete!
+
+
+There are a range of `apply` commands we provide to cater many different transformations. We'll be explaining each of them in Section 4.6 below.
 // end::getting_started[]
-
-
 
 [[Features]]
 == Features

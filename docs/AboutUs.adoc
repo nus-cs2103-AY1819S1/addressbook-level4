@@ -4,9 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Piconso was developed by the CS2103-AY1819S1-T09-3. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -15,7 +13,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::j-lum.png[width="150", align="left"]
 {empty}[https://github.com/j-lum[github]] [<<j-lum#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Lead +
+Responsibilities: Layers, Canvas and UI
 
 '''
 
@@ -24,7 +23,7 @@ image::ihwk1996.png[width="150", align="left"]
 {empty}[http://github.com/ihwk1996[github]] [<<ihwk1996#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Model, Image State Management (undo, redo)
 
 '''
 
@@ -33,16 +32,7 @@ image::benedictcss.png[width="150", align="left"]
 {empty}[http://github.com/benedictcss[github]] [<<benedictcss#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Ong Kai Le
-image::chivent.png[width="150", align="left"]
-{empty}[http://github.com/chivent[github]] [<<chivent#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Storage, Project Management, Directory Navigation
 
 '''
 
@@ -51,6 +41,14 @@ image::lancelotwillow.png[width="150", align="left"]
 {empty}[http://github.com/lancelotwillow[github]] [<<lancelotwillow#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: ImageMagick (image transformation)
+
+'''
+=== Ong Kai Le
+image::chivent.png[width="150", align="left"]
+{empty}[http://github.com/chivent[github]] [<<chivent#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI, Google Connectivity
 
 '''
