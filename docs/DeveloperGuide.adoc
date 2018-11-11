@@ -616,7 +616,7 @@ image::DocumentClassDiagram.png[width="900"]
 As the formatter which directs how the documents are built from the `DocumentTemplate.html` template, the `Document`
 `abstract class` itself *cannot* be instantiated.  The `Document` `abstract class` has the following key features:
 
-* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the document was constructed from.
+* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the `Document` was constructed from.
 * has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
 * has the `formatInformation` `abstract method` which the extending classes have to implement.
 
@@ -696,14 +696,14 @@ is used to write the updated `string` into the `HTML` file, concluding the gener
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
-* **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
+* **Alternative 1 (current choice)**: Use an `abstract class` to implement `Document`. +
 ** Pros:
 *** Allows `inheriting` classes to use a standardised method to format common information while granting them the
 flexibility of structuring the contents unique to its document type by means of `abstract methods`.
 ** Cons:
 *** Prevents `inheriting` classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
 *** More computationally expensive than an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
-* **Alternative 2**: Using an `interface` to implement `Document`.
+* **Alternative 2**: Use an `interface` to implement `Document`.
 ** Pros:
 *** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
 ****
