@@ -206,18 +206,21 @@ the user's in, stored internally as `currDirectory` and implements the following
 * `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
 Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
-which are stored internally as `imageList`. This would facilitate the `select` feature in our application
+which are stored internally as `imageList`. This would facilitate the `open` feature in our application
 (refer to 3.2).
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
 function to auto-complete the directory name if it exists.
 
+[NOTE]
+Pressing tab again will display the next directory with the given prefix.
+
 Given below is an example usage scenario and how the cd mechanism behaves at each step.
 
-. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
 `Model#getCurrDirectory()` and appends `Desktop` to the end of the current directory. It then checks if the new Path is
 a directory and calls `Model#updateCurrDirectory(Path)` and updates the new Path in `UserPrefs` if the check returns true.
 
@@ -232,6 +235,8 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 `currDirectory`.
 
 ==== Design Considerations
+This section contains the considerations and alternatives we had when implementing the cd command.
+
 ===== Aspect: How cd executes
 
 * *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
@@ -243,63 +248,65 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 ** Cons: Does not update existing path if user deletes a directory.
 // end::cd[]
 
-// tag::select[]
-=== Select feature
-`SelectCommand` allow users to select from the currently viewed batch of 10 images within the directory for image-editing.
-This command is further facilitated by the `NextCommand`.
+// tag::open[]
+=== Open feature
+The Open Command allow users to open the images in a batch of 10 images within the directory for image-editing.
+This command is further facilitated by the Next/Prev Command.
 
 ==== Current Implementation
-The implementation of the Select feature is largely similar to `CdCommand`. It is facilitated by the following operations in `ModelManager`:
+The implementation of the Open feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the following operations:
 
  * `Model#getDirectoryImageList()` - Retrieves the stored list of images in UserPrefs.
- * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current selected images.
+ * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current image opened.
 
 The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
 batch. The `UserPrefs` class implements the following operation:
 
 * `UserPrefs#getCurrImageListBatch()` - Returns the current batch of images.
 
-The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
+The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the opened image and the
 `PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
 Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature. (refer to 3.5)
 
-Given below is an example usage scenario of how the select and next mechanism behaves at each step.
+Given below is an example usage scenario and how the open mechanism behaves at each step.
 
-. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
 the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
 
-. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
+Step 3. The user executes `open 1` command to open the first image in the first batch of 10 images. The open
 command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
 then retrieved and displayed on the GUI.
 
-image::SelectCommand2.png[width=500]
+image::OpenCommand2.png[width=500]
 
-. The user then executes `select 5` command to select the fifth image in the batch of 10 images. The fifth image
+Step 4. The user then executes `open 5` command to open the fifth image in the batch of 10 images. The fifth image
 is then retrieved similarly and displayed on the GUI.
 
-image::SelectCommand3.png[width=450]
+image::OpenCommand3.png[width=450]
 
-The following sequence diagram shows how the select command works:
+The following sequence diagram shows how the open command works:
 
-.Sequence Diagram for SelectCommand
-image::SelectSequenceDiagram.png[width=800]
+.Sequence Diagram for OpenCommand
+image::OpenSequenceDiagram.png[width=800]
 
 ==== Design Considerations
-===== Aspect: How select executes
+This section contains the considerations and alternatives we had when implementing the open command.
+===== Aspect: How open executes
 
-* *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
+* *Alternative 1 (current choice)*: Open images within the BATCH_SIZE.
 ** Pros: Users work on a small size of images.
 ** Cons: Limited to the batch size.
 
-* *Alternative 2* : Select images within the `imageList` size.
+* *Alternative 2* : Open images within the `imageList` size.
 ** Pros: Easy to retrieve images anywhere in the list.
 ** Cons: Can be very messy if the `imageList` size is too large.
-// end::select[]
+// end::open[]
 
 // tag::nextprev[]
 === Next/Prev feature
@@ -320,19 +327,19 @@ batch of images using the `currBatchPointer`. The `UserPrefs` class implements t
 
 Given below is an example usage scenario and how the next/previous mechanism behaves at each step.
 
-. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
 the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
 
-. The user executes `next` command to retrieve the next 10 images within Desktop.
+Step 3. The user executes `next` command to retrieve the next 10 images within Desktop.
 
 image::NextPrevCommand2.png[width=800]
 
-. The user executes `prev` command to retrieve the previous 10 images within Desktop.
+Step 4. The user executes `prev` command to retrieve the previous 10 images within Desktop.
 
 image::NextPrevCommand3.png[width=800]
 
@@ -346,13 +353,15 @@ The following sequence diagram shows how the prev command works:
 .Sequence Diagram for PrevCommand
 image::PrevSequenceDiagram.png[width=800]
 
-===== Aspect: How next/previous executes
+==== Design Considerations
+This section contains the considerations and alternatives we had when implementing the cd command.
 
+===== Aspect: How next/previous executes
 * *Alternative 1 (current choice)*: Keeps track of current batch with a pointer.
 ** Pros: Easy to access current batch images.
 ** Cons: Efficiency might be lower for directories with many images.
 
-* *Alternative 2* : Separate images in batches and store in array.
+* *Alternative 2* : Store image batches in array.
 ** Pros: Fast to access next/previous batches.
 ** Cons: Harder to handle changes in a batch (e.g. image got deleted) within the array.
 // end::nextprev[]
@@ -379,7 +388,7 @@ These operations are exposed in the `Model` interface as `Model#updateCurrentPre
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
+Step 1. The user opens an image with the `open` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the opened image. The `currentStatePointer` pointing to that state.
 
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
@@ -387,14 +396,14 @@ A `Canvas` can already be initialized, meaning this is an additional layer being
 
 image::undoRedo1.png[width="800"]
 
-. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
+Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
 
 [NOTE]
 If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
 
 image::undoRedo2.png[width="800"]
 
-. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
+Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
 
 
 [NOTE]
@@ -403,7 +412,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial state, then 
 image::undoRedo3.png[width="800"]
 
 
-. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
+Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
 image::undoRedo4.png[width="800"]
 
@@ -469,7 +478,6 @@ image::historyPanel.png[width="200"]
 
 // tag::apply[]
 
-// tag::convert[]
 === Transmission feature
 ==== Current Implementation
 
@@ -477,8 +485,8 @@ The transmission mechanism is facilitated by https://www.imagemagick.org/script/
 The transmission feature mainly consists of:
 
 * `ImageMagicUtil`: A class which will check, create, and run the imageMagick executable file
-* `convertCommand`: Applies the specified transformation to the image
-* `createConvertCommand`: Allows users to define their own custom transformation set.
+* `applyCommand`: Applies the specified transformation to the image
+* `createApplyCommand`: Allows users to define their own custom transformation set.
 
 The following describes main operations and processes contained in the classes above.
 
@@ -497,11 +505,11 @@ this command is exposed to the model as `Model#addTransformation()`, which is us
 
 Given below is an example usage scenario and how the transmission should behave at each step.
 
-. Upon first running the app, the corresponding zip package of ImageMagick will be copied out of the jar and unzipped. A temp folder is also created.
+Step 1. Upon first running the app, the corresponding zip package of ImageMagick will be copied out of the jar and unzipped. A temp folder is also created.
 
-. The user selects an image with the `select` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
+Step 2. The user opens an image with the `open` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
 
-. The user enters the command `convert blur 0x8`. The entered command is parsed and the corresponding transformation is created.
+Step 3. The user enters the command `apply blur 0x8`. The entered command is parsed and the corresponding transformation is created.
 
 [NOTE]
 If the input is invalid for the command enter, the processing of the image will not be started, and a reminder of how to use the command will be given to the user.
@@ -520,7 +528,8 @@ Step 6. The output bufferedImage will be generated by the modified file stored i
 
 image::ApplyCommand.png[width="800"]
 
-// end::convert[]
+// end::apply[]
+
 
 // tag::create[]
 ==== CreateApplyCommand:
@@ -529,9 +538,9 @@ This command allows users to create a customised command (custom set of transfor
 
 Given below is an example usage scenario and how the transmission should behave at each step.
 
-. The user sequentially enters the transformations he wants to store, in the form of `create blurgray blur|0x8 colorspace|GRAY`.
+Step 1. The user sequentially enters the transformations he wants to store, in the form of `create blurgray blur|0x8 colorspace|GRAY`.
 
-. The specified transformations are parsed and checked by the templates stored in the app.
+Step 2. The specified transformations are parsed and checked by the templates stored in the app.
 [NOTE]
 If any of the specified transformations have an invalid name or argument, an error will be thrown. If validation checks have passed, the specified transformations are stored as a new command in the a json file within the PiconsoCommands folder created upon first running the app.
 
@@ -540,17 +549,17 @@ Step 3. The validated new command will be stored in the json for in the PiconsoC
 
 ==== Design Considerations
 
- - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify. The image has to first be stored in a temp folder, and replaces any previous modified image when modified.
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify.
+ The image has to be stored in a temp folder first, and replaces any previous modified image when modified.
 
-<<<<<<< HEAD
- - As in the real life, combination of the transformations are commonly needed, thus we build create command
+ - Combination of the transformations are commonly needed in our daily lives, thus we implemented the create command.
 
 // tag::save[]
 
 === Save feature
 ==== Current Implementation
-The save command is to save the current preview image to the disk where the current image is selected,
-use enter the name of the image and the format of the name will be validated.
+The save command saves the current preview image to the same location it was opened in the local drive,
+User enters the name of the image and the format of the name will be validated.
 
 * `isFormatValid()` is to validate the format of the filename user enters
 
@@ -1156,23 +1165,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |photographer |edit an image |enhance an image
 
-|`* * *` |photographer |mass edit images |avoid repeating similar tasks
-
-|`* * *` |photographer |see detailed information about a photo |immidiately know what post-processing tools to apply
-
 |`* * *` |photographer |define my own set of transformations |avoid repetitive typing of commands
 
 |`* * *` |photographer |see the preview of the transformations before committing to disk |explore the effects of transformations
 
 |`* *` |photographer |be able to upload my photos to the cloud (Google Photos) |safely store and share my photos across devices
 
-|`* *` |web developer |generate static image assets |convert, compress and resize images to be ready for web deployment from raw images
-
 |`*` |web developer or photographer |add captions or watermarks to images |to protect my intellectual property
+
+|`*` |web developer |quickly recolor icons |easily use them in re-skinning my application
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1214,7 +1218,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User edits an image (from use case Editing an image)
-2.  Piconso displays transformations done on the right side pane
+2.  Piconso displays transformations done on the left side pane
 3.  User enters command to save the set of transformations
 4.  Piconso requests for a name for the set
 5.  User enters a name
@@ -1233,49 +1237,63 @@ Use case ends.
 Use case resumes at step 4.
 
 [discrete]
-=== Use case: Mass edit images
-
-*MSS*
-
-1.  User selects a range of images
-2.  User defines an optional alternate directory to save output
-3.  User applies a known set of transformations to the set of images
-4.  Output from step 3 is saved in directory defined in step 2 and user is notified
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Selected range is an empty set.
-+
-[none]
-** 1a1. Piconso shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
 === Use case: Add caption or watermark to image
 
 *MSS*
 
 1.  User opens an image
 2.  Piconso displays the image in the preview pane
-3.  User inputs caption or watermark text into input
-4.  Piconso displays the caption/watermark in the preview pane
+3.  User adds caption or watermark image through input
+4.  Piconso displays the caption/watermark in the preview pane atop the first layer.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Upload to Google Photos
 
-_{More to be added}_
+*MSS*
+
+1.  User request to login to Google Photos
+2.  Piconso redirects the user to a login browser page
+3.  User logs in through browser page
+4.  Piconso shows feedback message for success
+5.  User uploads a photo
+6.  Piconso contacts Google Photos and uploads the photo
+7.  Piconso shows feedback for successful upload
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User does not login through browser window.
++
+[none]
+** 3a1. User can resume on any use case not involving Google interaction.
+
+[none]
+* 3b. Piconso loses internet connection.
++
+[none]
+** 3b1. Piconso informs user of disconnection and suggests for them to try again.
++
+Use case resumes at step 1.
+
+[none]
+* 5a. An error occurs while uploading.
++
+[none]
+** 5a1. Piconso informs user of upload failure and suggests for them to try again.
++
+Use case resumes at step 5.
 
 [appendix]
-== Non Functional Requirements
 
-.  Export images in different formats and sizes.
-.  Have quick access to various filter options.
-.  View detailed information about images.
-.  Navigate directories efficiently.
+== Non Functional Requirements
+.  Should work on any mainstream OS as long as it has Java 9 or higher installed.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should have easy to understand and remember user commands.
+.  Allows users to navigate directories efficiently.
 
 [appendix]
 == Glossary
@@ -1287,6 +1305,3 @@ Images that are currently being viewed. For example, if there are 16 images in t
 Action that is performed on an image
 
 [appendix]
-== Instructions for Manual Testing
-
-_{To be updated}_

@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -35,6 +37,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private final UserPrefs prefs;
     private String startDir;
+    private Queue<String> dirListWithSearchPrefix = new LinkedList<>();
     private ListElementPointer historySnapshot;
 
     @FXML
@@ -173,13 +176,28 @@ public class CommandBox extends UiPart<Region> {
                 File checkDir = new File(startDir);
                 File[] fileList = checkDir.listFiles();
 
+                if (!dirListWithSearchPrefix.isEmpty()
+                        && dirListWithSearchPrefix.peek().equalsIgnoreCase(dir)) {
+                    dirListWithSearchPrefix.add(dirListWithSearchPrefix.poll());
+
+                    copyArgs.append(dirListWithSearchPrefix.peek());
+                    String newCommandText = "cd " + copyArgs + "/";
+                    replaceText(newCommandText);
+                    return;
+                }
+                dirListWithSearchPrefix.clear();
+
                 for (File file : fileList) {
                     if (file.isDirectory() && file.getName().toUpperCase().startsWith(dir.toUpperCase())) {
-                        copyArgs.append(file.getName());
-                        String newCommandText = "cd " + copyArgs + "/";
-                        replaceText(newCommandText);
-                        return;
+                        dirListWithSearchPrefix.add(file.getName());
                     }
+                }
+
+                if (!dirListWithSearchPrefix.isEmpty()) {
+                    copyArgs.append(dirListWithSearchPrefix.peek());
+                    String newCommandText = "cd " + copyArgs + "/";
+                    replaceText(newCommandText);
+                    return;
                 }
             } else {
                 // checks if directory exists
