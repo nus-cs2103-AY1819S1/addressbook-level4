@@ -22,7 +22,7 @@ import seedu.clinicio.ui.UiPart;
 /**
  * A ui for displaying statistics and visualizations.
  */
-public class AnalyticsDisplay extends UiPart<Region> {
+public class AnalyticsDisplayPanel extends UiPart<Region> {
 
     private static final String FXML = "Analytics.fxml";
 
@@ -55,7 +55,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
     private List<Tuple<Label, Label>> summaryLabels;
     private StatData allDataToDisplay;
 
-    public AnalyticsDisplay() {
+    public AnalyticsDisplayPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
 
