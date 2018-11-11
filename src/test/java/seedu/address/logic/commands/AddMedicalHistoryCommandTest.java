@@ -202,6 +202,7 @@ public class AddMedicalHistoryCommandTest {
                 AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO);
     }
 
+
     @Test
     public void equals() {
         ArrayList<Allergy> allergies = new ArrayList<>();

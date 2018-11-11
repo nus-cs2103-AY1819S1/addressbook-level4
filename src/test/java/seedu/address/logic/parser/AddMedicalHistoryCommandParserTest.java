@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ALLERGY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CONDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_1;
@@ -13,6 +15,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.model.patient.Allergy.MESSAGE_ALLERGY_CONSTRAINTS;
+import static seedu.address.model.patient.Condition.MESSAGE_CONDITION_CONSTRAINTS;
 
 import java.util.ArrayList;
 
@@ -89,6 +93,20 @@ public class AddMedicalHistoryCommandParserTest {
 
         // no name and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidAllergy_failure() {
+        assertParseFailure(parser, " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                + PREFIX_ALLERGY + INVALID_ALLERGY + " "
+                + PREFIX_CONDITION + VALID_CONDITION_1, MESSAGE_ALLERGY_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidCondition_failure() {
+        assertParseFailure(parser, " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                + PREFIX_ALLERGY + VALID_ALLERGY_1 + " "
+                + PREFIX_CONDITION + INVALID_CONDITION, MESSAGE_CONDITION_CONSTRAINTS);
     }
 
     @Test
