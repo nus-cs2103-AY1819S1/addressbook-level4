@@ -59,8 +59,5 @@ include::../DeveloperGuide.adoc[tag=addrepeat]
 include::../DeveloperGuide.adoc[tag=listoverdue]
 
 
-== PROJECT: PowerPointLabs
+== PROJECT:
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
