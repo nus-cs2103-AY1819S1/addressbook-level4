@@ -164,6 +164,30 @@ public class DeleteMedicalHistoryCommandTest {
     }
 
     @Test
+    public void execute_duplicateAllergyInput() {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        allergies.add(new Allergy(VALID_ALLERGY_TO_DELETE));
+        allergies.add(new Allergy(VALID_ALLERGY_TO_DELETE));
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, allergies, conditions);
+        assertCommandFailure(deleteMedicalHistoryCommand,
+                model, commandHistory, AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE_INPUT);
+    }
+
+    @Test
+    public void execute_duplicateConditionInput() {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        conditions.add(new Condition(VALID_CONDITION_TO_DELETE));
+        conditions.add(new Condition(VALID_CONDITION_TO_DELETE));
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, allergies, conditions);
+        assertCommandFailure(deleteMedicalHistoryCommand,
+                model, commandHistory, AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE_INPUT);
+    }
+
+    @Test
     public void equals() {
         ArrayList<Allergy> allergies = new ArrayList<>();
         ArrayList<Condition> conditions = new ArrayList<>();
