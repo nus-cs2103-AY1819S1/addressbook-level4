@@ -67,7 +67,7 @@ public class DeleteEventCommandTest {
 
     @Test
     public void execute_validDateAndIndexFilteredList_success() {
-        showEventAtDateAndIndex(model, INDEX_FIRST_EVENT, new EventDate(VALID_EVENT_DATE_MEETING));
+        showEventAtDateAndIndex(model, INDEX_SECOND_EVENT, new EventDate(VALID_EVENT_DATE_MEETING));
 
         Event eventToDelete = model.getFilteredEventListByDate().get(0).get(INDEX_FIRST_EVENT.getZeroBased());
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_MEETING),
@@ -181,7 +181,7 @@ public class DeleteEventCommandTest {
         // delete -> deletes second event in unfiltered event list / first event in filtered event list
         deleteEventCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all events
+        // undo -> reverts addressbook back to previous state and filtered event list to show all events
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
