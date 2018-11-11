@@ -62,6 +62,7 @@ public class SaveCommand extends Command {
                 }
             } else {
                 saveFile = model.getCurrentOriginalImage().toFile();
+                fileName = saveFile.getName();
                 String[] parts = saveFile.getName().split("\\.");
                 format = parts[parts.length - 1];
             }
