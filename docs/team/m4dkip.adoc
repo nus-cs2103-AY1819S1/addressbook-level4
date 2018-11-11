@@ -33,14 +33,16 @@ https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
 ** Project management:
 *** Managed the documentation for the project team.
 ** Documentation:
-*** Wrote feature descriptions in the User Guide and Developer Guide
-*** Helped teammates edit language and phrasing in the User Guide and Developer Guide
+*** Wrote feature descriptions in the User Guide and Developer Guide.
+*** Helped teammates edit language and phrasing in the User Guide and Developer Guide.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114]
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/211[#211],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/281[#281].
 *** Reported bugs and suggestions for other teams in the class:
-https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144]
-https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147]
-https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162]
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144],
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147],
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162].
 ** Tools:
 *** Integrated a third party library (Natty) to the project https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250]
 
