@@ -70,9 +70,11 @@ e.g. `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
 Format: `help`
 
 //tag::add[]
+
 === Adding a module: `add`
 
 Adds a `*particular*` module entry to the _CAPTracker_.
+
 
 *Case 1:* +
 Add `incomplete` (not graded yet) module.
@@ -207,6 +209,7 @@ delete -t TARGET_CODE -e TARGET_YEAR -z TARGET_SEMESTER
 ----
 
 Examples:
+
 
 *Command*: `delete -t CS2103` +
 Deletes the only `CS2103` module.
