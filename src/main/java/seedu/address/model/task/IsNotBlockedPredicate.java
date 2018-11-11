@@ -22,8 +22,8 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task task) {
-        return !task.isStatusCompleted() &&
-                task
+        return !task.isStatusCompleted()
+                && task
                 .getDependency()
                 .getHashes()
                 .stream()
