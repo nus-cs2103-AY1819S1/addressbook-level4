@@ -53,7 +53,7 @@ window.
 * *Code contributed*:
 [ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/main/java/seedu/address[Functional code] ]
 [ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/test/java[Test code] ]
-[ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ericyjw&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense] ]
+[ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ericyjw[RepoSense] ]
 
 * *Other contributions*:
 
