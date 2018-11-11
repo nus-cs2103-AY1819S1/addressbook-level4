@@ -216,6 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredGroups.setPredicate(predicate);
     }
 
+    // @@author betakuwe
     //=========== Sorted Person List Accessors ==============================================================
 
     @Override
@@ -228,6 +229,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(personPropertyComparator);
         sortedPersons.setComparator(personPropertyComparator.getComparator());
     }
+    // @@author
 
     @Override
     public ObservableList<Meeting> getFilteredMeetingList() {

@@ -9,6 +9,7 @@ import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.model.Model;
 import seedu.meeting.model.group.Group;
 
+// @@author betakuwe
 /**
  * Finds and lists all groups in MeetingBook whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.

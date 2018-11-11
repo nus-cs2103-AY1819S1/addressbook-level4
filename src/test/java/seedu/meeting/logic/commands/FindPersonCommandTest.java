@@ -27,6 +27,7 @@ import seedu.meeting.model.ModelManager;
 import seedu.meeting.model.UserPrefs;
 import seedu.meeting.model.person.util.PersonNameContainsKeywordsPredicate;
 
+// @@author betakuwe
 /**
  * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
  */

@@ -25,6 +25,7 @@ import seedu.meeting.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.meeting.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.meeting.model.person.util.PersonNameContainsKeywordsPredicate;
 
+// @@author betakuwe
 /**
  * Parses input arguments and creates a new FindPersonCommand object
  */

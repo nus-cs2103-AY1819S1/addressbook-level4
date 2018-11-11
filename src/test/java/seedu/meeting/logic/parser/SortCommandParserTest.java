@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.meeting.logic.commands.SortCommand;
 import seedu.meeting.model.person.util.PersonPropertyComparator;
 
+// @@author betakuwe
 public class SortCommandParserTest {
 
     private SortCommandParser parser = new SortCommandParser();
