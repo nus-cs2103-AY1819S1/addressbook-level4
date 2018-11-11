@@ -53,9 +53,6 @@ public class TypicalModules {
             .withModuleTitle("Quantitative Reasoning").withAcademicYear("1516")
             .withSemester("2")
             .withTags("Statistics").build();
-    public static final Module TYPICAL_MODULE_WITHOUT_TAGS = new ModuleBuilder().withModuleCode(VALID_MODULECODE_CS2100)
-            .withModuleTitle(VALID_MODULETITLE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
-            .withSemester(VALID_SEMESTER_CS2100).build();
 
     public static final String KEYWORD_MATCHING_MA1101R = "MA1101R"; // A keyword that matches MA1101R
 
@@ -82,5 +79,9 @@ public class TypicalModules {
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(TYPICAL_MODULE_ONE, TYPICAL_MODULE_TWO,
                 TYPICAL_MODULE_THREE, TYPICAL_MODULE_FOUR, TYPICAL_MODULE_FIVE, TYPICAL_MODULE_SIX));
+    }
+
+    public static List<Module> getOneTypicalModule() {
+        return new ArrayList<>(Arrays.asList(TYPICAL_MODULE_TWO));
     }
 }
