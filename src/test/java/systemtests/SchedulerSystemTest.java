@@ -104,7 +104,7 @@ public abstract class SchedulerSystemTest {
     }
 
     public TaskListPanelHandle getTaskListPanel() {
-        return mainWindowHandle.getTaskListPanel();
+        return mainWindowHandle.getToDoListPanel();
     }
 
     public CalendarDisplayHandle getCalendarDisplay() {

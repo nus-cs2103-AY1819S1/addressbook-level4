@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class MainWindowHandle extends StageHandle {
 
     private final CalendarPanelHandle calendarPanel;
-    private final TaskListPanelHandle taskListPanel;
+    private final TaskListPanelHandle toDoListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final CalendarDisplayHandle calendarDisplay;
@@ -16,7 +16,7 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
         calendarPanel = new CalendarPanelHandle(getChildNode(CalendarPanelHandle.CALENDAR_VIEW_ID));
-        taskListPanel = new TaskListPanelHandle(getChildNode(TaskListPanelHandle.TODOLIST_VIEW_ID));
+        toDoListPanel = new TaskListPanelHandle(getChildNode(TaskListPanelHandle.TODOLIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         calendarDisplay = new CalendarDisplayHandle(getChildNode(CalendarDisplayHandle.CALENDAR_DISPLAY_BOX_ID));
@@ -26,8 +26,8 @@ public class MainWindowHandle extends StageHandle {
         return calendarPanel;
     }
 
-    public TaskListPanelHandle getTaskListPanel() {
-        return taskListPanel;
+    public TaskListPanelHandle getToDoListPanel() {
+        return toDoListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
