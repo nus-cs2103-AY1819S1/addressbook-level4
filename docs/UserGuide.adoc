@@ -432,10 +432,10 @@ Examples:
 Edits the name of the 3rd ingredient to `thin fries`.
 
 * `edit-ingredient 4 u/1.5ml bottle p/1.20`  +
-Edits the unit type and price per unit of the 4th ingredient to be `1.5ml bottle` and `1.20` respectively.
+Edits the unit type and price per unit of the 4th ingredient to `1.5ml bottle` and `1.20` respectively.
 
 * `edit-ingredient on/ketchup n/tomato ketchup`  +
-Edits the name of `ketchup` to be `tomato ketchup`.
+Edits the name of `ketchup` to `tomato ketchup`.
 
 [[stockup]]
 ==== Stocking up an ingredient: `stockup`
