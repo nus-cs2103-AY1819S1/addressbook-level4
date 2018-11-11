@@ -27,19 +27,19 @@ Student Schedule Planner is a desktop application aims to help students save the
 
 This introduction briefly covers the main flow of the Developer Guide:
 
-*2. Setting up* : Walkthrough on the prequisites steps to setup the Developer Environment
+*1. Setting up* : Walkthrough on the prequisites steps to setup the Developer Environment
 
-*3. Design* : Overview on the structure of the project code, and how each component interacts with each other.
+*2. Design* : Overview on the structure of the project code, and how each component interacts with each other.
 
 
-*4. Implementation* : In-depth explanation on the implementation of the various features in the Schedule Planner, as
+*3. Implementation* : In-depth explanation on the implementation of the various features in the Schedule Planner, as
 well as the considerations behind the implementations
 
-*5. Documentation* : General guide on the documentation process of the project
+*4. Documentation* : General guide on the documentation process of the project
 
-*6. Testing* : Documentation for the coverage tests of the application and how to set up your testing environment.
+*5. Testing* : Documentation for the coverage tests of the application and how to set up your testing environment.
 
-*7. DevOps* : General processes used during development phase, and documentation on how to set it up.
+*6. DevOps* : General processes used during development phase, and documentation on how to set it up.
 
 
 == Setting up
