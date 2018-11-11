@@ -481,7 +481,7 @@ backing the search result panel.
 
 // end::FuzzySearch[]
 
-
+// tag:CalendarModel[]
 === Calendar Model
 ==== Implementation
 
@@ -510,8 +510,9 @@ Step 4: Then, `ParserUtil` checks that the input strings are valid, and initiali
 Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
 
 Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
+// end::CalendarModel[]
 
-
+// tag::CalendarDisplay[]
 === Calendar Display
 
 ==== Current Implementation
@@ -536,8 +537,11 @@ The user can:
 1. Double click on displayed events to open a dialog box containing the details of the event.
 
 2. Jump to the time period containing an event by selecting the event in the list of calendar events.
+// end::CalendarDisplay[]
 
+// tag::Navigation[]
 === Calendar Navigation Feature
+
 ==== Current Implementation
 
 The navigation features included are:
@@ -588,6 +592,7 @@ Step 3. `ChangePeriodCommand#executes` called with `EventIsInThisPeriodPredicate
 Step 4. `filteredCalendarEvents` is updated.
 
 Step 5. `CalendarPanel#filteredCalendarEventsListener` repopulates the calendar UI.
+// end::Navigation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
