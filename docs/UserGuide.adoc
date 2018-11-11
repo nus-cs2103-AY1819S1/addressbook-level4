@@ -772,7 +772,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify Hallper's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify Hallper's contacts (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
