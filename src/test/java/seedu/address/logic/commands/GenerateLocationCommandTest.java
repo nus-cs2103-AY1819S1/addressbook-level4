@@ -26,8 +26,8 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 class GenerateLocationCommandTest {
 
     final EventDate testEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
-    final Index nonExistentIndex = Index.fromOneBased(999);
     final Index existentIndex = Index.fromOneBased(1);
+    final Index nonExistentIndex = Index.fromOneBased(999);
 
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
