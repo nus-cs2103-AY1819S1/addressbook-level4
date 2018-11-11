@@ -72,16 +72,16 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_dispenseMedicine() throws Exception {
         DispenseMedicineCommand command = (DispenseMedicineCommand) parser.parseCommand(
-                DispenseMedicineCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " +
-                        PREFIX_AMOUNT_TO_DISPENSE + "123");
+                DispenseMedicineCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_AMOUNT_TO_DISPENSE + "123");
         assertEquals(command, new DispenseMedicineCommand(INDEX_FIRST_PERSON, new QuantityToDispense(123)));
     }
 
     @Test
     public void parseCommand_dispenseMedicineAlias() throws Exception {
         DispenseMedicineCommand command = (DispenseMedicineCommand) parser.parseCommand(
-                DispenseMedicineCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + " " +
-                        PREFIX_AMOUNT_TO_DISPENSE + "123");
+                DispenseMedicineCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_AMOUNT_TO_DISPENSE + "123");
         assertEquals(command, new DispenseMedicineCommand(INDEX_FIRST_PERSON, new QuantityToDispense(123)));
     }
 
@@ -209,14 +209,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_register() throws Exception {
         RegisterCommand command = (RegisterCommand) parser.parseCommand(
-                RegisterCommand.COMMAND_WORD +  " " + INDEX_FIRST_PERSON.getOneBased());
+                RegisterCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new RegisterCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_registerAlias() throws Exception {
         RegisterCommand command = (RegisterCommand) parser.parseCommand(
-                RegisterCommand.COMMAND_ALIAS +  " " + INDEX_FIRST_PERSON.getOneBased());
+                RegisterCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new RegisterCommand(INDEX_FIRST_PERSON), command);
     }
 
