@@ -1,30 +1,16 @@
 package seedu.scheduler.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA2101;
-import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA3220;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FLAG_ALL;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.scheduler.logic.commands.CommandTestUtil.getSampleRecurringEventAll;
-import static seedu.scheduler.logic.commands.CommandTestUtil.showEventAtIndex;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_ALL;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.model.util.SampleSchedulerDataUtil.getReminderDurationList;
 import static seedu.scheduler.testutil.TypicalEvents.getStudyWithJaneAllList;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
-import static seedu.scheduler.testutil.TypicalIndexes.INDEX_THIRD_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FOURTH_EVENT;
 
 import org.junit.Test;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
@@ -35,7 +21,6 @@ import seedu.scheduler.model.Scheduler;
 import seedu.scheduler.model.UserPrefs;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
-import seedu.scheduler.testutil.EditEventDescriptorBuilder;
 import seedu.scheduler.testutil.EventBuilder;
 
 public class AddReminderCommandTest {
@@ -158,6 +143,4 @@ public class AddReminderCommandTest {
             expectedModel.updateEvent(event, editedEvent);
         }
     }
-
-
 }

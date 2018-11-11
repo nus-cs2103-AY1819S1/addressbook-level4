@@ -108,11 +108,6 @@ public interface Model {
     void commitScheduler();
 
     /**
-     * Sync the ReminderDurationList with popUpManager
-     */
-    void syncWithPopUpManager(PopUpManager popUpManager, Storage storage);
-
-    /**
      * Returns true if a tag with the same identity as {@code tag} exists in the scheduler.
      */
     //boolean hasTag(Tag tag);

@@ -145,45 +145,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedScheduler.removeTag(tag);
     }
 
-
-    @Override
-    public void syncWithPopUpManager(PopUpManager popUpManager, Storage storage) {
-        HashMap durationsLeft = new HashMap<UUID, HashSet<Duration>>();
-        ArrayList<EventPopUpInfo> popUpArray = popUpManager.getArray();
-        for (EventPopUpInfo eventPopUpInfo : popUpArray) {
-            UUID key = eventPopUpInfo.getEventUid();
-            Set<Duration> set = (Set<Duration>) durationsLeft.get(key);
-            if (set == null) {
-                Set<Duration> newSet = new HashSet<>();
-                newSet.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, newSet);
-            } else {
-                set.add(eventPopUpInfo.getDuration());
-                durationsLeft.put(key, set);
-            }
-        }
-
-        ObservableList<Event> eventList = versionedScheduler.getEventList();
-        for (Event event : eventList) {
-            UUID eventUid = event.getEventUid();
-            HashSet<Duration> durationSet = (HashSet<Duration>) durationsLeft.get(eventUid);
-            ReminderDurationList reminderDurationList;
-            if (durationSet == null && !event.getReminderDurationList().isEmpty()) {
-                reminderDurationList = new ReminderDurationList();
-            } else if (durationSet != null && !durationSet.equals(event.getReminderDurationList())) {
-                reminderDurationList = new ReminderDurationList(durationSet);
-            } else {
-                continue;
-            }
-            Event editedEvent = new Event(event.getEventUid(), event.getEventSetUid(), event.getEventName(),
-                    event.getStartDateTime(), event.getEndDateTime(),
-                    event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
-                    event.getTags(), reminderDurationList);
-            versionedScheduler.updateEvent(event, editedEvent);
-            storage.handleSchedulerChangedEvent(new SchedulerChangedEvent(versionedScheduler));
-        }
-    }
-
     //=========== Filtered Event List Accessors =============================================================
 
     /**

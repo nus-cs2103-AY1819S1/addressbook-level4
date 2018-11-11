@@ -204,12 +204,6 @@ public class AddCommandTest {
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void syncWithPopUpManager(PopUpManager popUpManager, Storage storage) {
-            throw new AssertionError("This method should not be called.");
-        }
-
     }
 
     /**
