@@ -66,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void clearTaskData() {
         TaskManager taskManagerWithTasksCleared = new TaskManager();
         taskManagerWithTasksCleared.setAchievements(versionedTaskManager.getAchievementRecord());
+        taskManagerWithTasksCleared.setGameManager(versionedTaskManager.getGameManager());
         this.resetData(taskManagerWithTasksCleared);
     }
 
