@@ -774,6 +774,8 @@ A leave application is represented by a `LeaveApplication` model object, as foll
 
 .Structure of a leave application
 image::LeaveApplicationModelDiagram.png[width="400"]
+API: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
+
 
 The following sequence diagram illustrates how an application for leave by an employee works:
 
