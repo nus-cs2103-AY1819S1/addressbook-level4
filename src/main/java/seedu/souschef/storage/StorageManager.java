@@ -46,11 +46,13 @@ public class StorageManager extends ComponentManager implements Storage {
         FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         FeatureStorage mealPlanStorage = new XmlMealPlanStorage(userPrefs.getMealPlanPath());
+        FeatureStorage favouriteStorage = new XmlfavouriteStorage(userPrefs.getFavouritePath());
 
         listOfFeatureStorage.put(Context.RECIPE, recipeStorage);
         listOfFeatureStorage.put(Context.INGREDIENT, ingredientStorage);
         listOfFeatureStorage.put(Context.HEALTH_PLAN, healthPlanStorage);
         listOfFeatureStorage.put(Context.MEAL_PLAN, mealPlanStorage);
+        listOfFeatureStorage.put(Context.FAVOURITES, favouriteStorage);
         this.featureStorage = recipeStorage;
     }
 
@@ -133,6 +135,7 @@ public class StorageManager extends ComponentManager implements Storage {
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
         readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);
+        readFeature(Context.FAVOURITES, SampleDataUtil::getFavourites);
         featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
         return Optional.of(this.appContent);
@@ -157,6 +160,9 @@ public class StorageManager extends ComponentManager implements Storage {
             temp.saveFeature(appContent, filePath);
         } else if (this.featureStorage instanceof XmlMealPlanStorage) {
             XmlMealPlanStorage temp = new XmlMealPlanStorage(filePath);
+            temp.saveFeature(appContent, filePath);
+        } else if (this.featureStorage instanceof XmlFavouriteStorage) {
+            XmlFavouriteStorage temp = new XmlFeatureStorage(filePath);
             temp.saveFeature(appContent, filePath);
         }
     }
