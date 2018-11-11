@@ -101,7 +101,7 @@ Invalid: `Buddy!, CS2103:(, 25/12/2018`
 A *Person* has the following fields:
 
 ****
-* *Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
+* *Name* (compulsory) - One or more alphanumeric strings, with no limit on length. +
 Valid: `Ashwin Raj, Damith Rajapakse, Bob12345` +
 Invalid: `Ashwin Raj S/O Yadav, Damith C. Rajapakse, Bob12345!!!`
 
@@ -121,7 +121,7 @@ Valid: `NIL, Singapore, 123 Clementi Ave 999 S(654123)`
 A person will also have a *module list* and *occasion list*. These are comprised of modules and occasions that *are currently* in the address book. +
 These lists will be initialized as empty until modules or occasions are added.
 
-Warning: Persons with the same name are permitted as long as they differ in at least one other field.
+Warning: Persons with the same name are permitted as long as they have a different phone number or email address. +
 Use with caution, as they may be difficult to distinguish (e.g. in a module's registration list).
 
 === Module
@@ -152,7 +152,7 @@ Invalid: `Sem 1, 01, 1819/1`
 A module will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the module will appear in their module lists).
 
-Warning: Module with the same code are permitted as long as they differ in at least one other field.
+Warning: Modules with the same code are permitted as long as they have a different academic year or semester. +
 Use with caution, as they may be difficult to distinguish (e.g. in a person's module list).
 
 === Occasion
@@ -160,7 +160,7 @@ Use with caution, as they may be difficult to distinguish (e.g. in a person's mo
 An *Occasion* has the following features:
 
 ****
-* *Occasion Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
+* *Occasion Name* (compulsory) - One or more alphanumeric strings, with no limit on length. +
 Valid: `Project Discussion, CS2103 Exam, Recess Week` +
 Invalid: `Ad-hoc Work, Meeting**, Friend's Birthday`
 
@@ -176,7 +176,7 @@ Invalid: `John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)`
 An occasion will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the occasion will appear in their occasion lists).
 
-Warning: Occasions with the same name are permitted as long as they differ in at least one other field.
+Warning: Occasions with the same name are permitted as long as they have a different date.
 Use with caution, as they may be difficult to distinguish (e.g. in a person's occasion list).
 //end::types[]
 
