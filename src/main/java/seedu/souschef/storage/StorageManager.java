@@ -96,7 +96,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Subscribe
-    private void handleSwitchFeatureStorageEvent(SwitchFeatureStorageEvent event) {
+    protected void handleSwitchFeatureStorageEvent(SwitchFeatureStorageEvent event) {
         this.featureStorage = listOfFeatureStorage.get(event.context);
     }
 

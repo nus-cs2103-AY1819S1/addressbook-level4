@@ -110,7 +110,7 @@ public class ModelSetCoordinator implements ModelSet {
     }
 
     @Subscribe
-    private void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
+    protected void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
         Day toDelete = event.day;
         healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<HealthPlan> healthPlanList = healthPlanModel.getFilteredList();
@@ -126,7 +126,7 @@ public class ModelSetCoordinator implements ModelSet {
     }
 
     @Subscribe
-    private void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
+    protected void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
         Recipe toDelete = event.recipe;
         mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<Day> mealPlanlist = mealPlannerModel.getFilteredList();
