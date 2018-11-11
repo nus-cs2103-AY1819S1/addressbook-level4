@@ -21,10 +21,10 @@ import org.junit.ClassRule;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarPanelHandle;
-import guitests.guihandles.TaskListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TaskListPanelHandle;
 
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
