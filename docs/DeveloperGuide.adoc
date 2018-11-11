@@ -417,6 +417,9 @@ is required. This ensures that only authorized users are able to perform critica
 This is done by requiring a password before performing a critical action.
 
 ==== Current Implementation
+|===
+| _The following provide a walkthrough on how the authentication feature is implemented._
+|===
 The authentication mechanism is provided by the `Password` class. It implements the following operations that facilitates authentications:
 
 * `Password#isSamePassword(currentPass, providedPass)` -- Checks if both `providedPass` and `currentPass` are the same password after decryption.
@@ -473,6 +476,9 @@ The following activity diagram summarizes what happens when a user executes `del
 image::deleteActivityDiagram.png[width="650"]
 
 ==== Design Considerations
+|===
+|_The following aspects are considerations that our team had made before the implementation of this feature._
+|===
 
 ===== Aspect: How to authenticate users
 * *Alternative 1 (current choice)*: Require a password every time a critical command is executed
