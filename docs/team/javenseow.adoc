@@ -39,7 +39,7 @@ along with the tagged profile picture of the specified resident.
 ** Justification: This feature improves the product significantly because a user might want to find residents based on certain specifications.
 ** Highlights: This enhancement required manipulation of existing data fields of the residents since multiple specifications can be used as a search criteria
 
-* *Minor enhancement*: updated the data fields that were required for each resident.
+* *Minor enhancement*: Changed select command to show profile page.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -74,5 +74,8 @@ include::../UserGuide.adoc[tag=image]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=search]
+
 
 include::../DeveloperGuide.adoc[tag=image]
