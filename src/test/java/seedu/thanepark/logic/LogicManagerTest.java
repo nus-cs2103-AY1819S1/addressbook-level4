@@ -3,6 +3,9 @@ package seedu.thanepark.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.thanepark.logic.commands.ViewAllCommand.MESSAGE_SUCCESS;
+
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,6 +19,8 @@ import seedu.thanepark.logic.parser.exceptions.ParseException;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ModelManager;
 import seedu.thanepark.model.UserPrefs;
+import seedu.thanepark.model.ride.Ride;
+import seedu.thanepark.model.ride.Status;
 
 
 public class LogicManagerTest {
@@ -41,9 +46,22 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ViewAllCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ViewAllCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
+        List<Ride> expectedRides = model.getFilteredRideList();
+        int[] statusArray = new int[3];
+        statusArray[0] = (int) expectedRides.stream()
+                .filter(x -> x.getStatus() == Status.OPEN)
+                .count();
+        statusArray[1] = (int) expectedRides.stream()
+                .filter(x -> x.getStatus() == Status.SHUTDOWN)
+                .count();
+        statusArray[2] = (int) expectedRides.stream()
+                .filter(x -> x.getStatus() == Status.MAINTENANCE)
+                .count();
+        String viewAllCommand = ViewAllCommand.COMMAND_WORD;
+        String message = String.format(MESSAGE_SUCCESS,
+                model.getFilteredRideList().size(), statusArray[0], statusArray[1], statusArray[2]);
+        assertCommandSuccess(viewAllCommand, message, model);
+        assertHistoryCorrect(viewAllCommand);
     }
 
     @Test

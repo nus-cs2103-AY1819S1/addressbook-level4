@@ -66,7 +66,7 @@ public class UpdateRideDescriptorBuilder {
     /**
      * Sets the {@code Zone} of the {@code UpdateRideDescriptor} that we are building.
      */
-    public UpdateRideDescriptorBuilder withAddress(String address) {
+    public UpdateRideDescriptorBuilder withZone(String address) {
         descriptor.setZone(new Zone(address));
         return this;
     }
