@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 import com.oracle.tools.packager.UnsupportedPlatformException;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
