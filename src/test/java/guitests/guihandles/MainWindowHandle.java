@@ -13,6 +13,7 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final SidebarPanelHandle sidebarPanel;
+    private final ProgressBarPanelHandle progressBarPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -23,6 +24,7 @@ public class MainWindowHandle extends StageHandle {
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         sidebarPanel = new SidebarPanelHandle(getChildNode(SidebarPanelHandle.SIDEBAR_ID));
+        progressBarPanel = new ProgressBarPanelHandle(getChildNode(ProgressBarPanelHandle.PROGRESSBAR_ID));
     }
 
     public TaskListPanelHandle getTaskListPanel() {
@@ -47,5 +49,9 @@ public class MainWindowHandle extends StageHandle {
 
     public SidebarPanelHandle getSidebarPanel() {
         return sidebarPanel;
+    }
+
+    public ProgressBarPanelHandle getProgressBarPanel() {
+        return progressBarPanel;
     }
 }

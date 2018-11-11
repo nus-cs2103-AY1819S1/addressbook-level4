@@ -12,7 +12,6 @@
     <categories>
         <name>Others</name>
         <tags>Shopping</tags>
-        <tags>shitman</tags>
         <tags>GEH1034</tags>
     </categories>
     <categories>
@@ -202,36 +201,6 @@
         <venue>MPSH 1</venue>
         <tagged>ST2334</tagged>
         <tagged>Exam</tagged>
-    </tasks>
-    <tasks>
-        <name>test 1</name>
-        <date>031118</date>
-        <priority>1</priority>
-        <venue>d</venue>
-    </tasks>
-    <tasks>
-        <name>test 2</name>
-        <date>031118</date>
-        <priority>1</priority>
-        <venue>d</venue>
-    </tasks>
-    <tasks>
-        <name>test3</name>
-        <date>041118</date>
-        <priority>3</priority>
-        <venue>1</venue>
-    </tasks>
-    <tasks>
-        <name>test4</name>
-        <date>041118</date>
-        <priority>3</priority>
-        <venue>3</venue>
-    </tasks>
-    <tasks>
-        <name>test5</name>
-        <date>041118</date>
-        <priority>2</priority>
-        <venue>1</venue>
     </tasks>
     <tasks>
         <name>CS2103T Tutorial</name>
