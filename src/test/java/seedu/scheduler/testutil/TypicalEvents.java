@@ -414,4 +414,31 @@ public class TypicalEvents {
                 STUDY_WITH_JANE_DAY_TWO, STUDY_WITH_JANE_DAY_THREE, STUDY_WITH_JANE_DAY_FOUR));
     }
 
+    public static List<Event> getBirthdayAllList() {
+        return new ArrayList<>(Arrays.asList(JIM_BIRTHDAY_YEAR_ONE, JIM_BIRTHDAY_YEAR_TWO,
+                JIM_BIRTHDAY_YEAR_THREE));
+    }
+
+    /**
+     * Returns an {@code Scheduler} with all Study With Jane
+     */
+    public static Scheduler getSchedulerStudyWithJane() {
+        Scheduler scheduler = new Scheduler();
+        for (Event event : getStudyWithJaneAllList()) {
+            scheduler.addEvent(event);
+        }
+        return scheduler;
+    }
+
+    /**
+     * Returns an {@code Scheduler} with all JIM BIRTHDAY
+     */
+    public static Scheduler getSchedulerBirthday() {
+        Scheduler scheduler = new Scheduler();
+        for (Event event : getBirthdayAllList()) {
+            scheduler.addEvent(event);
+        }
+        return scheduler;
+    }
+
 }

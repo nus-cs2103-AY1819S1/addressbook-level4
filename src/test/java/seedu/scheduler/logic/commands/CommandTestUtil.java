@@ -214,16 +214,5 @@ public class CommandTestUtil {
         model.commitScheduler();
     }
 
-    /**
-     * Get a sample full set of recurring events {@code model}'s based on typical scheduler: Study with Jane
-     */
-    public static List<Event> getSampleRecurringEventAll(Model model) {
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(model.getScheduler().getEventList().get(2));
-        eventList.add(model.getScheduler().getEventList().get(3));
-        eventList.add(model.getScheduler().getEventList().get(4));
-        eventList.add(model.getScheduler().getEventList().get(5));
-        return eventList;
-    }
 
 }

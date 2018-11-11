@@ -44,11 +44,10 @@ public class PopUpManager {
     }
 
     /**
-     * Get an ArrayList of the popUpQueue
-     * @return ArrayList
+     * @return number of EventPopUpInfo in the queue
      */
-    public ArrayList<EventPopUpInfo> getArray() {
-        return new ArrayList(popUpQueue);
+    public int size () {
+        return popUpQueue.size();
     }
 
     /**
