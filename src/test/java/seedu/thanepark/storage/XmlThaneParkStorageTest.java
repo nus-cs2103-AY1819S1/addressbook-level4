@@ -30,12 +30,12 @@ public class XmlThaneParkStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readThanePark_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readThanePark(null);
     }
 
-    private java.util.Optional<ReadOnlyThanePark> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyThanePark> readThanePark(String filePath) throws Exception {
         return new XmlThaneParkStorage(Paths.get(filePath)).readThanePark(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,14 +47,14 @@ public class XmlThaneParkStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readThanePark("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatThanePark.xml");
+        readThanePark("NotXmlFormatThanePark.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,65 +62,65 @@ public class XmlThaneParkStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidRideThanePark_throwDataConversionException() throws Exception {
+    public void readThanePark_invalidRideThanePark_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidRideThanePark.xml");
+        readThanePark("invalidRideThanePark.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidRideThanePark_throwDataConversionException() throws Exception {
+    public void readThanePark_invalidAndValidRideThanePark_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidRideThanePark.xml");
+        readThanePark("invalidAndValidRideThanePark.xml");
     }
 
     @Test
     public void readAndSaveThanePark_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+        Path filePath = testFolder.getRoot().toPath().resolve("TempThanePark.xml");
         ThanePark original = getTypicalThanePark();
-        XmlThaneParkStorage xmlAddressBookStorage = new XmlThaneParkStorage(filePath);
+        XmlThaneParkStorage xmlThaneParkStorage = new XmlThaneParkStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveThanePark(original, filePath);
-        ReadOnlyThanePark readBack = xmlAddressBookStorage.readThanePark(filePath).get();
+        xmlThaneParkStorage.saveThanePark(original, filePath);
+        ReadOnlyThanePark readBack = xmlThaneParkStorage.readThanePark(filePath).get();
         assertEquals(original, new ThanePark(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addRide(HAUNTED);
         original.removeRide(ACCELERATOR);
-        xmlAddressBookStorage.saveThanePark(original, filePath);
-        readBack = xmlAddressBookStorage.readThanePark(filePath).get();
+        xmlThaneParkStorage.saveThanePark(original, filePath);
+        readBack = xmlThaneParkStorage.readThanePark(filePath).get();
         assertEquals(original, new ThanePark(readBack));
 
         //Save and read without specifying file path
         original.addRide(IDA);
-        xmlAddressBookStorage.saveThanePark(original); //file path not specified
-        readBack = xmlAddressBookStorage.readThanePark().get(); //file path not specified
+        xmlThaneParkStorage.saveThanePark(original); //file path not specified
+        readBack = xmlThaneParkStorage.readThanePark().get(); //file path not specified
         assertEquals(original, new ThanePark(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveThanePark_nullThanePark_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveThanePark(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code thanePark} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyThanePark addressBook, String filePath) {
+    private void saveThanePark(ReadOnlyThanePark thanePark, String filePath) {
         try {
             new XmlThaneParkStorage(Paths.get(filePath))
-                    .saveThanePark(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveThanePark(thanePark, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveThanePark_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new ThanePark(), null);
+        saveThanePark(new ThanePark(), null);
     }
 
 

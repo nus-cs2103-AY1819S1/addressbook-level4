@@ -43,7 +43,7 @@ public class ThaneParkTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyThanePark_replacesData() {
         ThanePark newData = getTypicalThanePark();
         thanePark.resetData(newData);
         assertEquals(newData, thanePark);
@@ -68,18 +68,18 @@ public class ThaneParkTest {
     }
 
     @Test
-    public void hasRide_rideNotInAddressBook_returnsFalse() {
+    public void hasRide_rideNotInThanePark_returnsFalse() {
         assertFalse(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasRide_rideInAddressBook_returnsTrue() {
+    public void hasRide_rideInThanePark_returnsTrue() {
         thanePark.addRide(ACCELERATOR);
         assertTrue(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasRide_rideWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasRide_rideWithSameIdentityFieldsInThanePark_returnsTrue() {
         thanePark.addRide(ACCELERATOR);
         Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();

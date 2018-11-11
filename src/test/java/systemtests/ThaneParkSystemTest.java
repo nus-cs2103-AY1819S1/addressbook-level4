@@ -179,7 +179,7 @@ public abstract class ThaneParkSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new ThanePark(expectedModel.getThanePark()), testApp.readStorageAddressBook());
+        assertEquals(new ThanePark(expectedModel.getThanePark()), testApp.readStorageThanePark());
         assertListMatching(getRideListPanel(), expectedModel.getFilteredRideList());
     }
 

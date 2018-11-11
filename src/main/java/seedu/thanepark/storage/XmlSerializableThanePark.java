@@ -46,15 +46,15 @@ public class XmlSerializableThanePark {
      * {@code XmlAdaptedRide}.
      */
     public ThanePark toModelType() throws IllegalValueException {
-        ThanePark addressBook = new ThanePark();
+        ThanePark thanePark = new ThanePark();
         for (XmlAdaptedRide p : rides) {
             Ride ride = p.toModelType();
-            if (addressBook.hasRide(ride)) {
+            if (thanePark.hasRide(ride)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RIDE);
             }
-            addressBook.addRide(ride);
+            thanePark.addRide(ride);
         }
-        return addressBook;
+        return thanePark;
     }
 
     @Override

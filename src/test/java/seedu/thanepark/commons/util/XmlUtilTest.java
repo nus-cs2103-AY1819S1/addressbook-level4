@@ -18,9 +18,9 @@ import seedu.thanepark.model.ThanePark;
 import seedu.thanepark.storage.XmlAdaptedRide;
 import seedu.thanepark.storage.XmlAdaptedTag;
 import seedu.thanepark.storage.XmlSerializableThanePark;
-import seedu.thanepark.testutil.AddressBookBuilder;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.TestUtil;
+import seedu.thanepark.testutil.ThaneParkBuilder;
 
 public class XmlUtilTest {
 
@@ -127,7 +127,7 @@ public class XmlUtilTest {
         XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableThanePark.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new ThanePark());
+        ThaneParkBuilder builder = new ThaneParkBuilder(new ThanePark());
         dataToWrite = new XmlSerializableThanePark(
                 builder.withRide(new RideBuilder().build()).build());
 

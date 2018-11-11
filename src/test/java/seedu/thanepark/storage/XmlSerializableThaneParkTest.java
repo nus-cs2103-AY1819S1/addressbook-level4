@@ -28,9 +28,9 @@ public class XmlSerializableThaneParkTest {
     public void toModelType_typicalRidesFile_success() throws Exception {
         XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(TYPICAL_RIDES_FILE,
                 XmlSerializableThanePark.class);
-        ThanePark addressBookFromFile = dataFromFile.toModelType();
-        ThanePark typicalRidesAddressBook = TypicalRides.getTypicalThanePark();
-        assertEquals(addressBookFromFile, typicalRidesAddressBook);
+        ThanePark thaneParkFromFile = dataFromFile.toModelType();
+        ThanePark typicalRidesThanePark = TypicalRides.getTypicalThanePark();
+        assertEquals(thaneParkFromFile, typicalRidesThanePark);
     }
 
     @Test
