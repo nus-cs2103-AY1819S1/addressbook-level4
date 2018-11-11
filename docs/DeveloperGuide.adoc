@@ -2237,23 +2237,6 @@ Co-Curricular Activity that residents can join within their respective halls.
 Junior Common Room Committee in charge of administrative duties within their respective halls.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
