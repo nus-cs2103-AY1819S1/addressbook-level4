@@ -320,10 +320,10 @@ image::SDTranscriptTargetCalculation.png[width="800"]
 
 And below the activity diagram to further illustrate several exceptional cases.
 
-.Activity Diagram of Target Grade Calculation
+.Activity Diagram of High level view of Target Grade Calculation
 image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
 
-.Activity Diagram of the actual Target Grade Calculation
+.Activity Diagram of Calculate New Target Grade
 image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
 
 // end::captargetcalculation[]
