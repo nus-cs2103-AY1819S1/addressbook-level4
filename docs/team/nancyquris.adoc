@@ -1,0 +1,81 @@
+= Liu Yingnan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JxMusic Player
+
+---
+
+== Overview
+
+JxMusic Player is a desktop music player application developed as a school project for the learning of Software
+Engineering principles. The project is built upon https://se-edu.github.io/addressbook-level4/[AddressBook(Level 4)].
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=nancyquris[*Code contributed*]
+* *Major enhancement*:
+** Designed and implemented the UI component based on AddressBook(Level 4)
+*** What it does: It creates a GUI for the product in which the entry for users to interact with the product consists.
+*** Justification: This feature functions importantly since the user-product interaction relies on it.
+It also provides users with the first impression nnd perception of this product.
+*** Highlights: JavaFX was used to aid the implementation. The collocation of .java and .fxml file
+provides a good structure for the implementation of UI component.
+
+** Implemented `stop`, `seek` and `playlist list` commands
+*** What it does: `stop` and `seek` command enables users to stop or seek the playing of tracks. `playlist list` command
+lists all playlists in current library.
+*** Justification: `stop` and `seek` command suppelment the playback feature of this product. `playlist list` command
+enhance the using of playlist management feature.
+*** Highlights: `seek` command takes in special consideration of edge case handling.
+
+* *Other contributions*:
+** Minor Enhancement:
+*** Implemented corresponding test cases to cover newly-implemented codes.
+
+** Project management:
+*** Tools
+**** Configured RepoSense.
+**** Configured Codacy.
+*** Issue Tracker Management +
+ Issues relevant to individual responsibility were assigned and handled.
+**** UI component: https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[#34],
+https://github.com/CS2103-AY1819S1-T13-3/main/issues/39[#39]
+**** Commands implemnented: https://github.com/CS2103-AY1819S1-T13-3/main/issues/22[#22],
+https://github.com/CS2103-AY1819S1-T13-3/main/issues/28[#28],
+https://github.com/CS2103-AY1819S1-T13-3/main/issues/29[#29]
+*** Configured and published https://cs2103-ay1819s1-t13-3.github.io/main/[project website]
+
+** Evidence of helping others:
+*** Testing of W10-4's product: https://github.com/CS2103-AY1819S1-W10-4/main/issues/185[#185]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+The launch jar file and example commands in QuickStart were later implemented by https://github.com/hidingmode[David Choo]. +
+The skeleton of `stop` and `seek` command was mainly written by https://github.com/hidingmode[David Choo].
+
+include::../UserGuide.adoc[tag=quickStart_yingnan]
+
+include::../UserGuide.adoc[tag=commandFormat]
+
+include::../UserGuide.adoc[tag=command_yingnan]
+
+include::../UserGuide.adoc[tag=commandSummary_yingnan]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=eventDrivenandUI]
+
+include::../DeveloperGuide.adoc[tag=playbackFeature_yingnan]
+
+include::../DeveloperGuide.adoc[tag=useCase_yingnan]

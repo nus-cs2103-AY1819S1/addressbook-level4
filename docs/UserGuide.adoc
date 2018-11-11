@@ -20,7 +20,7 @@ By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
 The JxMusic Player is a music platform that lets you add to, organize and play your digital audio collection on your computer. The player is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-
+// tag::quickStart_yingnan[]
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
@@ -44,13 +44,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles` to the JxMusic Player.
 * **`playlist play`**`p/playlist1` : plays the `playlist1`
 * *`exit`* : exits the app
-
 .  Refer to <<Features>> for details of each command.
 .  To add the new tracks to the library, add the mp3 files to the `library` folder.
 .  Restart the file so that your new tracks could be scanned and showed in UI.
 
+//end::quickStart_yingnan[]
+
 [[Features]]
 == Features
+
+// tag::commandFormat[]
 
 ====
 *Command Format*
@@ -58,6 +61,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `playlist new p/PLAYLIST`, `PLAYLIST` is a parameter which can be used as `playlist new p/playlist1`.
 * Items in square brackets are optional e.g `stepback [s/SECONDS]` can be used as `stepback` or as `stepback s/20`.
 ====
+
+// end::commandFormat[]
 
 === Viewing help : `help`
 
@@ -120,6 +125,7 @@ Examples:
 `play` +
 "Some Song" will continue playing from where it is paused.
 
+// tag::command_yingnan[]
 === Stopping a play : `stop`
 
 Stops the track from playing. +
@@ -168,6 +174,8 @@ The track seeks to the 1 min 40 sec point and starts from there.
 * `play t/Some Song` +
 `seek d/200000` +
 If `TIME` is longer than the song duration, the seek command fails.
+
+// end::command_yingnan[]
 
 === Listing all playlists : `playlist list`
 
@@ -502,8 +510,11 @@ eg. `step s/100`
 eg. `stepback s/100`
 * *Replay* : `replay`
 
+// tag::commandSummary_yingnan[]
 === Commands for aiding the use of playback commands
 * *Get duration* : `duration`
+
+// end::commandSummary_yingnan[]
 
 === Commands for controlling sequence of playback
 * *Skip to next track* : `next`

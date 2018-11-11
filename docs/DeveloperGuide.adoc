@@ -145,6 +145,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag:eventDrivenandUI[]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del 1`.
@@ -182,6 +183,8 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// tag:eventDrivenandUI[]
 
 [[Design-Logic]]
 === Logic component
@@ -428,6 +431,7 @@ image::PlayablePlaylistObjectDiagram3.png[width="800"]
 *** Slightly worse performance
 *** More complex implementation
 
+// tag::playbackFeature_yingnan[]
 ==== Pause
 `PauseCommand` is implemented to realize the pausing a playing entity.
 The playing could be resumed after pause and it will play from the time point at which the playing entity is paused.
@@ -498,13 +502,15 @@ exception while local tests pass)
 ** Con:
 *** `javafx` feature might be an obstacle when testing.
 
+// end::playbackFeature_yingnan[]
+
 // tag::playlistNew[]
 === Playlist Management feature
 ==== Current Implementation
 
-Playlist new - Creates a new playlist which is added to the library
-Playlist del - Deletes the playlist indexed displayed on the playlist panel from the library
-Playlist search - Searches through the library and displays the playlist/s that match the desired String/ sub-String
+Playlist new - Creates a new playlist which is added to the library +
+Playlist del - Deletes the playlist indexed displayed on the playlist panel from the library +
+Playlist search - Searches through the library and displays the playlist/s that match the desired String/ sub-String +
 Playlist list - Lists all playlists within the library
 
 The PlaylistNewCommand creates a new Playlist that is added to the Library object if it does not exists. It’s command phrase pattern is `playlist new p/playlist [t/track]...` where `playlist` denotes the name of the playlist and `track` denotes the name of the tracks.
@@ -805,6 +811,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+// tag::useCase_yingnan[]
 == Use Cases
 
 (For all use cases below, the *System* is the `JxMusic` and the *Actor* is the `user`, unless specified otherwise)
@@ -1103,6 +1110,8 @@ Use case ends.
 2.  System randomly reorders the sequence of tracks inside the playlist.
 +
 Use case ends.
+
+// end::useCase_yingnan[]
 
 [appendix]
 == Non Functional Requirements
