@@ -21,6 +21,7 @@ import org.junit.ClassRule;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.ProgressBarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.SidebarPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -36,6 +37,7 @@ import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.testutil.TypicalTasks;
 import ssp.scheduleplanner.ui.CommandBox;
+import ssp.scheduleplanner.ui.ProgressBarPanel;
 
 /**
  * A system test class for SchedulePlanner, which provides access to handles of GUI components and helper methods
@@ -105,6 +107,10 @@ public abstract class SchedulePlannerSystemTest {
 
     public SidebarPanelHandle getSidebarPanel() {
         return mainWindowHandle.getSidebarPanel();
+    }
+
+    public ProgressBarPanelHandle getProgressBarPanel() {
+        return mainWindowHandle.getProgressBarPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
