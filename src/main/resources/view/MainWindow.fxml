@@ -16,7 +16,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.control.ScrollPane?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -51,7 +51,7 @@
                         <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>
                 </StackPane>
-                
+
                 <VBox spacing="8.0" alignment="CENTER" fx:id="titleScreenPlaceHolder"
                   VBox.vgrow="ALWAYS">
                     <padding>
