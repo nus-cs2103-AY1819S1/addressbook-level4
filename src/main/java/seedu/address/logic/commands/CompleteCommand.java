@@ -37,10 +37,11 @@ public abstract class CompleteCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1\n"
         + "Parameters: l/LABEL\n"
         + "Example: " + COMMAND_WORD + " l/friends";
+    public static final String MESSAGE_UNFULFILLED_DEPENDENCIES =
+        "Cannot complete task(s) as there are unfulfilled dependencies";
 
     @Override
-    public CommandResult executePrimitive(Model model, CommandHistory history)
-        throws CommandException {
+    public CommandResult executePrimitive(Model model, CommandHistory history) throws CommandException {
 
         // Calculation of change in xp and level is inlined
         // as the viewing of the whole process as procedures that relies
@@ -75,8 +76,7 @@ public abstract class CompleteCommand extends Command {
      * @return {@code String} representation of completed tasks.
      * @throws CommandException
      */
-    private String completeTasks(Model model)
-        throws CommandException {
+    private String completeTasks(Model model) throws CommandException {
         // Creates a Runnable that reverts the filteredTaskList state to the
         // old filteredTaskList. (Runnable is created for readability)
         // Note: new ArrayList(...) is used here to create a shallow copy.
@@ -95,7 +95,6 @@ public abstract class CompleteCommand extends Command {
             throw ce;
         }
 
-
         return completedTasksOutput;
     }
 
@@ -105,12 +104,13 @@ public abstract class CompleteCommand extends Command {
      * If there are none, update the model's view of the filtered task list
      * and commit changes to the model.
      * Else, throw a command exception.
+     *
      * @param model model which has uncommitted states
      * @throws CommandException
      */
     private void processModelSideEffects(Model model) throws CommandException {
         if (model.hasInvalidDependencies()) {
-            throw new CommandException("Cannot complete task(s) as there are unfulfilled dependencies");
+            throw new CommandException(MESSAGE_UNFULFILLED_DEPENDENCIES);
         }
 
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);

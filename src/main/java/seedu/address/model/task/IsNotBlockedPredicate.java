@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 import seedu.address.model.Model;
 
 /**
- * Tests that a {@code Task} is not blocked. This means that it does not have a dependency.
+ * Tests that a {@code Task} is not blocked.
+ *
+ * This means that it does not have any uncompleted dependencies,
+ * and is not completed.
  */
 public class IsNotBlockedPredicate implements Predicate<Task> {
     private Model model;
@@ -19,7 +22,8 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task task) {
-        return task
+        return !task.isStatusCompleted()
+                && task
                 .getDependency()
                 .getHashes()
                 .stream()

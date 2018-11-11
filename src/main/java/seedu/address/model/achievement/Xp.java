@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Xp {
 
     public static final String MESSAGE_XP_CONSTRAINTS =
-            "Xp should have positive integer values.";
+            "Xp should have positive integer values below " + AchievementRecord.MAX_INT_VALUE;
     private final Integer xp;
 
     /**
@@ -35,7 +35,7 @@ public class Xp {
      * Returns true if a given integer is a valid xp.
      */
     public static boolean isValidXp(Integer test) {
-        return test instanceof Integer && test >= 0;
+        return test < AchievementRecord.MAX_INT_VALUE && test >= 0;
     }
 
     /**

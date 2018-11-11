@@ -16,8 +16,8 @@ public class DueDateIsBeforeEndOfWeekPredicate implements Predicate<Task> {
         date.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         date.set(Calendar.HOUR_OF_DAY, 23);
         date.set(Calendar.MINUTE, 59);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
+        date.set(Calendar.SECOND, 59);
+        date.set(Calendar.MILLISECOND, 999);
 
         return person.getDueDate().valueDate.before(date.getTime());
     }
