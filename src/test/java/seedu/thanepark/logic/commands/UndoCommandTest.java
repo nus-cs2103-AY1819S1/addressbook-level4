@@ -3,8 +3,8 @@ package seedu.thanepark.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.logic.commands.CommandTestUtil.deleteFirstRide;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -28,11 +28,11 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         //setup
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstRide(model);
+        deleteFirstRide(model);
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstRide(expectedModel);
+        deleteFirstRide(expectedModel);
 
         // multiple undoable states in model
         expectedModel.undoThanePark();
@@ -59,8 +59,8 @@ public class UndoCommandTest {
         assertEquals(expectedModel, model);
         total++;
 
-        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        new DeleteCommand(INDEX_FIRST_PERSON).execute(model, commandHistory);
+        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased());
+        new DeleteCommand(INDEX_FIRST_RIDE).execute(model, commandHistory);
         expectedModel.deleteRide(rideToDelete);
         expectedModel.commitThanePark();
         assertEquals(expectedModel, model);
@@ -70,7 +70,7 @@ public class UndoCommandTest {
         Ride editedRide = rideToDelete;
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(editedRide).build();
         expectedModel.updateRide(model.getFilteredRideList().get(0), editedRide);
-        new UpdateCommand(INDEX_FIRST_PERSON, descriptor).execute(model, commandHistory);
+        new UpdateCommand(INDEX_FIRST_RIDE, descriptor).execute(model, commandHistory);
         expectedModel.commitThanePark();
         assertEquals(expectedModel, model);
         total++;

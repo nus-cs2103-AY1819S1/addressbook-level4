@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and email
+        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and waitTime
          * -> added
          */
         toAdd = new RideBuilder(AMY).withName("Different")
@@ -93,7 +93,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty thanepark book -> added */
-        deleteAllPersons();
+        deleteAllRides();
         assertCommandSuccess(ACCELERATOR);
 
         /* Case: add a ride with tags, command with parameters in random order -> added */
@@ -115,13 +115,13 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the ride list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a ride card is selected --------------------------- */
 
         /* Case: selects first card in the ride list, add a ride -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectRide(Index.fromOneBased(1));
         assertCommandSuccess(CASTLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -135,7 +135,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: add a duplicate ride except with different email -> rejected */
+        /* Case: add a duplicate ride except with different waitTime -> rejected */
         toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
@@ -157,7 +157,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing email -> rejected */
+        /* Case: missing waitTime -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -166,7 +166,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + RideUtil.getPersonDetails(toAdd);
+        command = "adds " + RideUtil.getRideDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -179,7 +179,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
                 + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid waitTime -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + MAINTENANCE_DESC_AMY + INVALID_WAIT_TIME_DESC + ZONE_DESC_AMY;
         assertCommandFailure(command, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);

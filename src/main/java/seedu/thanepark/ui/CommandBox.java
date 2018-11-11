@@ -17,6 +17,8 @@ import seedu.thanepark.logic.Logic;
 import seedu.thanepark.logic.commands.CommandResult;
 import seedu.thanepark.logic.commands.SuggestCommand;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
+import seedu.thanepark.logic.matchers.PrefixMatcher;
+import seedu.thanepark.logic.parser.SuggestCommandParser;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 
 /**
@@ -122,16 +124,18 @@ public class CommandBox extends UiPart<Region> {
      * Suggests commands with the text in the box as arguments. Does not behave like an actual command.
      */
     private void suggestCommand() {
-        SuggestCommand suggestCommand = new SuggestCommand(commandTextField.getText().split(" ")[0]);
-        if (!suggestCommand.isPrefixValid()) {
-            return;
+        try {
+            SuggestCommandParser parser = new SuggestCommandParser(new PrefixMatcher());
+            SuggestCommand suggestCommand = parser.parse(commandTextField.getText().split(" ")[0]);
+            CommandResult commandResult = suggestCommand.execute(null, null);
+            if (!pendingText.isEmpty()) {
+                replaceText(pendingText);
+                pendingText = "";
+            }
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (ParseException e) {
+            logger.warning(e.getMessage());
         }
-        CommandResult commandResult = suggestCommand.execute(null, null);
-        if (!pendingText.isEmpty()) {
-            replaceText(pendingText);
-            pendingText = "";
-        }
-        raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
     }
 
     /**

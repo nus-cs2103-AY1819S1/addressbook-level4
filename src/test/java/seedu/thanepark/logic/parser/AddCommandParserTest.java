@@ -61,7 +61,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + MAINTENANCE_DESC_AMY + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_BOB
                 + ZONE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRide));
 
-        // multiple emails - last email accepted
+        // multiple waitTimes - last waitTime accepted
         assertParseSuccess(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_AMY + WAIT_TIME_DESC_BOB
                 + ZONE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRide));
 
@@ -102,7 +102,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + VALID_MAINTENANCE_BOB + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB,
                 expectedMessage);
 
-        // missing email prefix
+        // missing waitTime prefix
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + VALID_WAIT_TIME_BOB + ZONE_DESC_BOB,
                 expectedMessage);
 
@@ -125,7 +125,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_BOB + ZONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        // invalid email
+        // invalid waitTime
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + INVALID_WAIT_TIME_DESC + ZONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 

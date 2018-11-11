@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.logic.commands.CommandTestUtil.showRideAtIndex;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -32,8 +32,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RIDE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS, rideToDelete);
 
@@ -54,24 +54,24 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
 
-        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RIDE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS, rideToDelete);
 
         Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
         expectedModel.deleteRide(rideToDelete);
         expectedModel.commitThanePark();
-        showNoPerson(expectedModel);
+        showNoRide(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
 
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
@@ -84,8 +84,8 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RIDE);
         Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
         expectedModel.deleteRide(rideToDelete);
         expectedModel.commitThanePark();
@@ -93,7 +93,7 @@ public class DeleteCommandTest {
         // delete -> first ride deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
+        // undo -> reverts thanepark back to previous state and filtered ride list to showWithFilePath all rides
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -123,23 +123,23 @@ public class DeleteCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the ride object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+    public void executeUndoRedo_validIndexFilteredList_sameRideDeleted() throws Exception {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RIDE);
         Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_THIRD_PERSON);
-        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showRideAtIndex(model, INDEX_THIRD_RIDE);
+        Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased());
         expectedModel.deleteRide(rideToDelete);
         expectedModel.commitThanePark();
 
         // delete -> deletes second ride in unfiltered ride list / first ride in filtered ride list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
+        // undo -> reverts thanepark back to previous state and filtered ride list to showWithFilePath all rides
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(rideToDelete, model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(rideToDelete, model.getFilteredRideList().get(INDEX_FIRST_RIDE.getZeroBased()));
         // redo -> deletes same second ride in unfiltered ride list
         expectedModel.redoThanePark();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -147,14 +147,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_RIDE);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_RIDE);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_RIDE);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -170,7 +170,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to showWithFilePath no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoRide(Model model) {
         model.updateFilteredRideList(p -> false);
 
         assertTrue(model.getFilteredRideList().isEmpty());

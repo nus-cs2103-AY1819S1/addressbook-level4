@@ -333,7 +333,7 @@
     -fx-text-fill: blue;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #rideListPanel, #rideWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

@@ -22,13 +22,13 @@ public class RideUtil {
      * Returns an add command string for adding the {@code ride}.
      */
     public static String getAddCommand(Ride ride) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(ride);
+        return AddCommand.COMMAND_WORD + " " + getRideDetails(ride);
     }
 
     /**
      * Returns the part of command string for the given {@code ride}'s details.
      */
-    public static String getPersonDetails(Ride ride) {
+    public static String getRideDetails(Ride ride) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + ride.getName().fullName + " ");
         sb.append(PREFIX_MAINTENANCE + String.valueOf(ride.getDaysSinceMaintenance().getValue()) + " ");
@@ -43,13 +43,13 @@ public class RideUtil {
     /**
      * Returns the part of command string for the given {@code UpdateRideDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(UpdateRideDescriptor descriptor) {
+    public static String getEditRideDescriptorDetails(UpdateRideDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getMaintenance().ifPresent(
             phone -> sb.append(PREFIX_MAINTENANCE).append(phone.getValue()).append(" "));
         descriptor.getWaitTime().ifPresent(
-            email-> sb.append(PREFIX_WAITING_TIME).append(email.getValue()).append(" "));
+            waitTime-> sb.append(PREFIX_WAITING_TIME).append(waitTime.getValue()).append(" "));
         descriptor.getZone().ifPresent(address -> sb.append(PREFIX_ZONE).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
