@@ -12,7 +12,7 @@ https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*]
 
 *MeNUS* is an all-in-one restaurant management desktop app designed to help restaurant owners
 and managers streamline the process of managing restaurants within National University of Singapore (NUS).
-With this app, users can manage their menus, sales, and even reservations.
+With this app, users can manage their menus, sales, and even reservations!
 
 This portfolio showcases my contributions to this project.
 
@@ -24,6 +24,7 @@ This portfolio showcases my contributions to this project.
 This feature enables a systematic and reliable way to manage reservations.
 ** *Highlights*: This project required me to communicate with my teammates to integrate our different
 management systems together. It required an in-depth analysis of the underlying *MeNUS* architecture.
+** *Credits*: Dates are parsed using https://github.com/joestelmach/natty[Natty], a natural language date parser.
 
 * *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41].
@@ -45,7 +46,7 @@ https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144],
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147],
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162].
 ** Tools:
-*** Integrated a third party library (Natty) to the project
+*** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250].
 
 == Contributions to the User Guide
