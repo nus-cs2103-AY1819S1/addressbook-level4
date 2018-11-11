@@ -183,7 +183,7 @@ public class ExportCertCommand extends Command {
         contStream.showText(volunteerNameLine);
         contStream.newLine();
 
-        String volunteerIdLine = "Volunteer ID: " + volunteerId;
+        String volunteerIdLine = "Volunteer NRIC: " + volunteerId;
         contStream.showText(volunteerIdLine);
         contStream.newLine();
 
