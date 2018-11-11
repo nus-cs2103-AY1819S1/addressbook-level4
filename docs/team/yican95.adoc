@@ -78,10 +78,6 @@ include::../UserGuide.adoc[tag=menuPart2]
 ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=menuPart1]
-
-include::../DeveloperGuide.adoc[tag=menuPart2]
-
-include::../DeveloperGuide.adoc[tag=menuPart3]
+include::../DeveloperGuide.adoc[tag=menu]
 
 include::../DeveloperGuide.adoc[tag=ucmenu]
