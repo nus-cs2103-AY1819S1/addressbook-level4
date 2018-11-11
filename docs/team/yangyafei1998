@@ -1,0 +1,66 @@
+= Yang Yafei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthBook
+
+---
+
+== Overview
+
+HealthBook is for clinic receptionist who *prefer to use a desktop app for managing doctors and patients information and appointments*.
+It is *optimized for receptionist who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yangyafei1998[Functional code]
+
+* *Major enhancement*: added *the ability to add/delete MedicalHistory*
+** What it does: This allow the user to add and delete medical history for a certain patient in the HealthBook.
+** Justification: This feature enables the user to have knowledge of the medical history which contains allergy and condition of a patient.
+** Highlights: This enhancement is an essential feature for HealthBook. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing storage and model.
+** Credits: http://github.com/giamjuxian[giamjuxian] for the *Phone* part inside add-medical-history and delete-medical-history commands.
+
+* *Major enhancement*: added *the ability to filter doctors/patients*
+** What it does: This allow the user to filter doctors/patients in the HealthBook.
+** Justification: This feature enables the user to have a clear view of patients and doctors.
+
+* *Other contributions*:
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T16-1/main/issues/104, https://github.com/CS2103-AY1819S1-T16-1/main/issues/109)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addmedicalhistory]
+
+include::../UserGuide.adoc[tag=deletemedicalhistory]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addmedicalhistory]
+
+include::../DeveloperGuide.adoc[tag=deletemedicalhistory]
+
+include::../DeveloperGuide.adoc[tag=filterdoctor]
+
+include::../DeveloperGuide.adoc[tag=filterpatient]
+
