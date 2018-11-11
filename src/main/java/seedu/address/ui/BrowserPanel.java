@@ -32,8 +32,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String PROFILE_PAGE = "/ProfileWindow.html";
-    public static final String PICTURE_LINK = "/profile_picture/";
-    public static final String JPG = ".jpg";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -92,7 +90,8 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        //loadPersonPage(event.getNewSelection());
+        loadProfile(event.getNewSelection());
     }
 
     //@@author EatOrBeEaten
@@ -115,6 +114,7 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
     }
 
+    //@@author javenseow
     @Subscribe
     private void handleProfileViewEvent(ProfileViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -146,7 +146,6 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private String loadProfileHtml(Person person) {
         String htmlString = "";
-        //String pictureString = "";
         String tempString;
         try {
             InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
@@ -154,8 +153,6 @@ public class BrowserPanel extends UiPart<Region> {
             while ((tempString = reader.readLine()) != null) {
                 htmlString += tempString;
             }
-            //pictureString = MainApp.class
-            //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,7 +163,6 @@ public class BrowserPanel extends UiPart<Region> {
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        //htmlString = htmlString.replace("$profileURL", pictureString);
 
         return htmlString;
     }

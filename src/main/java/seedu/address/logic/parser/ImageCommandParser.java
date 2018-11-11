@@ -44,3 +44,4 @@ public class ImageCommandParser implements Parser<ImageCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
+
