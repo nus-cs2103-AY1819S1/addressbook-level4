@@ -14,6 +14,8 @@ import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
 import static seedu.scheduler.testutil.TypicalEvents.EXAM_CS2103;
 import static seedu.scheduler.testutil.TypicalEvents.EXAM_CS2103_UPDATED;
 import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.LOCAL_REPEAT_EVENT;
+import static seedu.scheduler.testutil.TypicalEvents.LOCAL_SINGLE_EVENT;
 import static seedu.scheduler.testutil.TypicalEvents.THURDSDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE_UPDATED;
@@ -420,14 +422,48 @@ public class ConnectToGoogleCalendarTest {
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
                         true, validEvent, 0, true, false));
+        sleep(1000);
         //-----------delete multiple upcoming repeating event in the EventSet--> pass -------
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
                         true, validEvent, 2, false, false));
+        sleep(1000);
         //-----------delete all repeating event in the EventSet-> pass -------
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
                         true, validEvent, 0, false, false));
+
+        sleep(1000);
+        //-----------delete an single Event not in Google Calender-> fail -------
+        Event eventNotOnGoogle = new EventBuilder(LOCAL_SINGLE_EVENT).build();
+        assertFalse(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, eventNotOnGoogle, 0, false, false));
+        sleep(1000);
+        //-----------delete a Repeat Event instance not in Google Calender-> fail -------
+        eventNotOnGoogle = new EventBuilder(LOCAL_REPEAT_EVENT).build();
+        assertFalse(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, eventNotOnGoogle, 0, true, false));
+        sleep(1000);
+        //-----------delete upcoming Repeat Event instances not in Google Calender-> fail -------
+        eventNotOnGoogle = new EventBuilder(LOCAL_REPEAT_EVENT).build();
+        assertFalse(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, eventNotOnGoogle, 1, false, false));
+        sleep(1000);
+        //-----------delete all Repeat Event instances not in Google Calender-> fail -------
+        eventNotOnGoogle = new EventBuilder(LOCAL_REPEAT_EVENT).build();
+        assertFalse(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, eventNotOnGoogle, 0, false, true));
+        sleep(1000);
+        //-----------delete an Event with invalid index-> fail -------
+        eventNotOnGoogle = new EventBuilder(LOCAL_REPEAT_EVENT).build();
+        assertFalse(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, eventNotOnGoogle, 999, false, true));
+        sleep(1000);
         disable();
         sleep(5000);
     }
@@ -518,4 +554,23 @@ public class ConnectToGoogleCalendarTest {
     }
 
 
+    @Test
+    public void getEvents() throws CommandException {
+        enable();
+        com.google.api.services.calendar.Calendar calendar =
+                connectToGoogleCalendar.getCalendar();
+        Events events = connectToGoogleCalendar.getEvents(calendar);
+        assertNotNull(events);
+        disable();
+    }
+
+    @Test
+    public void getSingleEvents() throws CommandException {
+        enable();
+        com.google.api.services.calendar.Calendar calendar =
+                connectToGoogleCalendar.getCalendar();
+        Events events = connectToGoogleCalendar.getSingleEvents(calendar);
+        assertNotNull(events);
+        disable();
+    }
 }

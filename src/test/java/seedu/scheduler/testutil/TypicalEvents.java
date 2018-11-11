@@ -91,6 +91,16 @@ public class TypicalEvents {
             .withDescription("Celebration")
             .withVenue("Home")
             .withRepeatType(RepeatType.NONE)
+            .withReminderDurationList(getReminderDurationList(1))
+            .build();
+    public static final Event LOCAL_SINGLE_EVENT = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .build();
+    public static final Event LOCAL_REPEAT_EVENT = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withRepeatType(RepeatType.DAILY)
             .build();
     public static final Event CHRISTMASEVE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
@@ -534,7 +544,8 @@ public class TypicalEvents {
             .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_PLAY)
             .withReminderDurationList(getReminderDurationList(3)).build();
 
-    private TypicalEvents() {} // prevents instantiation
+    private TypicalEvents() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code Scheduler} with all the typical events.

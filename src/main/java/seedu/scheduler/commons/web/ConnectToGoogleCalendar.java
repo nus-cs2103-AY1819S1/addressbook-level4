@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -716,11 +715,7 @@ public class ConnectToGoogleCalendar {
                     .setMaxResults(numberOfEventsToBeDownloaded) //set upper limit for number of events
                     .setTimeMin(now)//set the starting time
                     .execute();
-        } catch (UnknownHostException e) {
-            logger.info(MESSAGE_IO_ERROR);
-            return null;
         } catch (IOException e3) {
-            e3.printStackTrace();
             logger.info(MESSAGE_IO_ERROR);
             return null;
         }
@@ -735,7 +730,6 @@ public class ConnectToGoogleCalendar {
      * @return true if it is disabled
      */
     public Events getSingleEvents(Calendar service) {
-        //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
         //max 2500 by Google
         //default value is 250 if not specified
         int numberOfEventsToBeDownloaded = 999;
@@ -751,7 +745,6 @@ public class ConnectToGoogleCalendar {
                     .setSingleEvents(true)//not the repeated ones
                     .execute();
         } catch (IOException e) {
-            e.printStackTrace();
             logger.warning(MESSAGE_IO_ERROR);
             return null;
         }
