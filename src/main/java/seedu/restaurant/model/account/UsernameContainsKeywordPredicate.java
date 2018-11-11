@@ -7,7 +7,7 @@ import seedu.restaurant.commons.util.StringUtil;
 //@@author AZhiKai
 
 /**
- * Tests that a {@code Account}'s {@code Username} matches any of the keywords given.
+ * Tests that a {@code Account}'s {@code Username} contains the keyword given.
  */
 public class UsernameContainsKeywordPredicate implements Predicate<Account> {
 
