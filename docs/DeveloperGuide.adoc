@@ -526,6 +526,8 @@ The sequence diagram of MaxSchedule command is illustrated below.
 
 image::MaxScheduleDiagram.png[width="800"]
 
+As noted from the schedule component, MaxSchedule command passes a Time object into the schedule. This abstraction of Time/Day objects reduces the possibility of invalid input resulting from the user input in MaxSchedule command.
+
 // end::schedule[]
 
 // tag::timetable[]

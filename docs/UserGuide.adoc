@@ -69,6 +69,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can also search for other users using `suggestFriendsByInterests` and add them as your friend using `addFriend`, or remove them as a friend using `deleteFriend`.
 * You can populate your schedule using an NUSMODs link, and also manually add time slots into your schedule.
 
+// tag::scheduletimetable[]
 == Special Considerations
 
 === XML file
@@ -81,7 +82,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 * As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others. 
 
-// tag::scheduletimetable[]
 === Timetable
 Timetable download guide
 
