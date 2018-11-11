@@ -3,6 +3,9 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
@@ -10,6 +13,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.person.ContactContainsRoomPredicate;
+import seedu.address.model.person.ContactContainsTagPredicate;
+import seedu.address.model.person.Person;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
@@ -35,16 +41,26 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears address book -> cleared and no card selected */
-        //executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        //selectPerson(Index.fromOneBased(1));
-        //assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        //assertSelectedCardDeselected();
-
         /* Case: filters the person list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD + " all");
+        assertSelectedCardUnchanged();
+
+        //@@author kengwoon
+        /* Case: clear specific cca -> cleared person(s) associated with cca */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        assertSpecificCommandSuccess(ClearCommand.COMMAND_WORD + " soccer");
+        assertSelectedCardUnchanged();
+
+        /* Case: clear specific room -> cleared person(s) associated with room */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        assertSpecificCommandSuccess(ClearCommand.COMMAND_WORD + " E321");
+        assertSelectedCardUnchanged();
+
+        /* Case: clear specific cca & room -> cleared person(s) associated with cca & room */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        assertSpecificCommandSuccess(ClearCommand.COMMAND_WORD + " soccer" + " E321");
         assertSelectedCardUnchanged();
 
         /* Case: clear empty address book -> cleared */
@@ -75,10 +91,44 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
+
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
+    }
+
+    //@@author kengwoon
+    /**
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays {@code ClearCommand#MESSAGE_CLEAR_SPECIFIC_SUCCESS} and the model related components equal to an
+     * empty model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the command box has the default style class and the status bar's sync status changes.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertSpecificCommandSuccess(String command) {
+        String trimmedArgs = command.trim();
+        String[] nameKeywords = trimmedArgs.split("\\s+");
+
+        List<String> keywords = new ArrayList<>();
+        for (int i = 1; i < nameKeywords.length; i++) {
+            keywords.add(nameKeywords[i]);
+        }
+
+        Model expectedModel = getModel();
+        List<Person> toClear = new ArrayList<>();
+        ContactContainsTagPredicate predicateTag = new ContactContainsTagPredicate(keywords);
+        ContactContainsRoomPredicate predicateRoom = new ContactContainsRoomPredicate(keywords);
+        for (Person p : expectedModel.getFilteredPersonList()) {
+            if (predicateRoom.test(p) || predicateTag.test(p)) {
+                toClear.add(p);
+            }
+        }
+        expectedModel.clearMultiplePersons(toClear);
+        assertCommandSuccess(command, String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, keywords),
+                                expectedModel);
     }
 
     /**

@@ -168,7 +168,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     //@@author kengwoon
-    // ================ Export and Import methods =========================
+    // ================ Export methods =========================
     @Override
     @Subscribe
     public void handleExportAddressBookEvent(ExportAddressBookEvent event) {

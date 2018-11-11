@@ -174,18 +174,18 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author kengwoon
     @Override
     public void clearMultiplePersons(List<Person> target) {
-        for (Person p : target) {
-            deletePerson(p);
-        }
+        versionedAddressBook.removeMultiplePersons(target);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     //@@author kengwoon
     @Override
-    public void removeTagsFromPersons(List<Person> target, List<Person> original) {
-        for (int i = 0; i < target.size(); i++) {
-            updatePerson(original.get(i), target.get(i));
-        }
+    public void removeTagsFromPersons(List<Person> editedPersons, List<Person> targets) {
+        requireAllNonNull(editedPersons, targets);
+
+        versionedAddressBook.updateMultiplePersons(editedPersons, targets);
+        updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
@@ -200,6 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addMultiplePersons(List<Person> personList) {
         versionedAddressBook.addMultiplePersons(personList);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
@@ -207,6 +208,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void addCca(Cca cca) {
         versionedBudgetBook.addCca(cca);
         updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        indicateBudgetBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void addMultipleCcas(List<Cca> ccaList) {
+        versionedBudgetBook.addMultipleCcas(ccaList);
         indicateBudgetBookChanged();
     }
 
@@ -223,6 +231,15 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedCca);
 
         versionedBudgetBook.updateCca(target, editedCca);
+        indicateBudgetBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
+        for (int i = 0; i < target.size(); i++) {
+            updateCca(target.get(i), editedCca.get(i));
+        }
         indicateBudgetBookChanged();
     }
 

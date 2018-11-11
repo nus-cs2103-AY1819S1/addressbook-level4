@@ -109,6 +109,11 @@ public interface Model {
     void addCca(Cca cca);
 
     /**
+     * Adds the given Ccas in list.
+     */
+    void addMultipleCcas(List<Cca> ccaList);
+
+    /**
      * Adds the given persons in list.
      * {@code personList} must not contain persons already exist in the address book.
      */
@@ -128,6 +133,12 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updateCca(Cca target, Cca editedCca);
+
+    /**
+     * Replaces the given Ccas {@code target} with {@code editedCca}.
+     * The person identity of {@code editedPerson} must not be the same as another existing Cca in the budget book.
+     */
+    void updateMultipleCcas(List<Cca> target, List<Cca> editedCca);
 
     /**
      * Replaces the given persons {@code target} with {@code editedPerson}.

@@ -112,6 +112,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addMultipleCcas(List<Cca> ccaList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,6 +198,11 @@ public class AddCommandTest {
 
         @Override
         public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
             throw new AssertionError("This method should not be called.");
         }
 

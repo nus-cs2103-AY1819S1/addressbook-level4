@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ccabook>
+    <ccas>
+        <name>Hockey</name>
+        <head>MrYanDao</head>
+        <viceHead>XiaoMing</viceHead>
+        <budget>500</budget>
+        <spent>300</spent>
+        <outstanding>200</outstanding>
+        <transaction>
+            <entryNum>2</entryNum>
+            <date>20.06.2014</date>
+            <amount>-400</amount>
+            <log>Hockey Camp</log>
+        </transaction>
+        <transaction>
+            <entryNum>3</entryNum>
+            <date>12.07.2014</date>
+            <amount>200</amount>
+            <log>Fund Raising</log>
+        </transaction>
+        <transaction>
+            <entryNum>1</entryNum>
+            <date>13.12.2013</date>
+            <amount>-100</amount>
+            <log>Purchase of Equipments</log>
+        </transaction>
+    </ccas>
+</ccabook>
