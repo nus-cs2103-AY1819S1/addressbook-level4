@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ApplyCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
