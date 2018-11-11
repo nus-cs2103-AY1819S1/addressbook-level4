@@ -550,7 +550,7 @@ image::see-event-contact-condensed_logic-model.png[Interactions between Logic an
 
 Step 1. User enters command to see an event's contacts. +
 Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
-Step 3. `SeeEventContactsCommand` <<gettingAnEvent, gets the event>>.
+Step 3. `SeeEventContactsCommand` <<gettingAnEvent, gets the event>>. +
 Step 4. A `ExistingPersonInEventPredicate` is created based on the event's contacts from the event retrieved in Step 3. +
 Step 5. `SeeEventContactsCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` object generated in step 4. +
 
