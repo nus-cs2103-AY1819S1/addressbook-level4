@@ -47,8 +47,8 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         return versionedAppContent;
     }
 
-    /** Raises an event to indicate the recipeModel has changed */
-    private void indicateAppContentChanged() {
+    /** Raises an event to indicate the model has changed */
+    public void indicateAppContentChanged() {
         raise(new AppContentChangedEvent(versionedAppContent));
     }
 
