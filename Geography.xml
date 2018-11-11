@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deck>
+    <name>Geography</name>
+    <cards>
+        <question>Rivers</question>
+        <answer>a</answer>
+        <performance>NORMAL</performance>
+        <timesReviewed>0</timesReviewed>
+    </cards>
+    <cards>
+        <question>What are Coasts?</question>
+        <answer>a</answer>
+        <performance>NORMAL</performance>
+        <timesReviewed>0</timesReviewed>
+    </cards>
+    <cards>
+        <question>What is Foiliage?</question>
+        <answer>a</answer>
+        <performance>NORMAL</performance>
+        <timesReviewed>0</timesReviewed>
+    </cards>
+    <cards>
+        <question>How many continents are there?</question>
+        <answer>a</answer>
+        <performance>NORMAL</performance>
+        <timesReviewed>0</timesReviewed>
+    </cards>
+</deck>
