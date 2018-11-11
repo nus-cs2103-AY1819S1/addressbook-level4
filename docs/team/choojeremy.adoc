@@ -54,7 +54,7 @@ The following section shows all the other minor enhancements done for the projec
 *** Converted the parser to use `-` instead of `/` to read arguments, similar to the command line in modern day operating systems.
 
 ** Community:
-*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1], https://github.com/nus-cs2103-AY1819S1/forum/issues/146[2])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1] https://github.com/CS2103-AY1819S1-F10-2/main/issues/173[2] https://github.com/CS2103-AY1819S1-F10-2/main/issues/174[3])
 
 ** Tools:
