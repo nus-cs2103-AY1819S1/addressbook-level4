@@ -362,7 +362,7 @@ image::ViewDoctorSequenceDiagram.png[width="600"]
 
 Step 1. The user types in `view-patient` or `view-doctor` in the command box followed by the parameters `n/John Doe`
 
-Step 2. Upon hitting enter, information of `Patient` or `Doctor` will be reflected on the main information panel 
+Step 2. Upon hitting enter, information of `Patient` or `Doctor` will be reflected on the main information panel
 
 // tag::filterperson[]
 === Filter Patient and Filter Doctor Feature
