@@ -41,6 +41,7 @@ import seedu.clinicio.logic.commands.ExportPatientsCommand;
 import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.FindMedicineCommand;
+import seedu.clinicio.logic.commands.FindPatientCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListApptCommand;
@@ -60,6 +61,7 @@ import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.medicine.MedicineNameContainsKeywordsPredicate;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.patient.PatientNameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
@@ -159,6 +161,14 @@ public class ClinicIoParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findPatient() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
+                FindPatientCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindPatientCommand(new PatientNameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
