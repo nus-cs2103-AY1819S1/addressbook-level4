@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import org.assertj.core.internal.bytebuddy.TypeCache;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
