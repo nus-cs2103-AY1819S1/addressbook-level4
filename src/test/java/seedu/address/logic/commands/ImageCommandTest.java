@@ -50,7 +50,7 @@ public class ImageCommandTest {
     @Test
     public void execute_invalidFile_throwsCommandException() {
         ImageCommand imageCommand = new ImageCommand(new Room(VALID_ROOM),
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + INVALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + INVALID_IMAGE));
 
         String expectedMessage = ImageCommand.FILE_PATH_ERROR;
 
@@ -60,7 +60,7 @@ public class ImageCommandTest {
     @Test
     public void execute_invalidResident_throwsCommandException() {
         ImageCommand imageCommand = new ImageCommand(new Room(INVALID_ROOM),
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
 
         String expectedMessage = ImageCommand.MESSAGE_NO_SUCH_PERSON;
 
@@ -70,7 +70,7 @@ public class ImageCommandTest {
     @Test
     public void execute_noSuchFile_throwsCommandException() {
         ImageCommand imageCommand = new ImageCommand(new Room(VALID_ROOM),
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + "NoSuchFile.jpg"));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + "NoSuchFile.jpg"));
 
         String expectedMessage = ImageCommand.INVALID_IMAGE_ERROR;
 
@@ -80,15 +80,15 @@ public class ImageCommandTest {
     @Test
     public void execute_validFile_success() {
         ImageCommand imageCommand = new ImageCommand(ALICE.getRoom(),
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
 
         String expectedMessage = String.format(ImageCommand.MESSAGE_SUCCESS, ALICE);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+            new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Person editedPerson = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail(),
-                ALICE.getRoom(), ALICE.getSchool(),
-                new ProfilePicture(Paths.get(VALID_ROOM.toLowerCase() + ".jpg")), ALICE.getTags());
+            ALICE.getRoom(), ALICE.getSchool(),
+            new ProfilePicture(Paths.get(VALID_ROOM.toLowerCase() + ".jpg")), ALICE.getTags());
 
         expectedModel.updatePerson(ALICE, editedPerson);
         expectedModel.commitAddressBook();
@@ -101,16 +101,16 @@ public class ImageCommandTest {
         Room aliceRoom = ALICE.getRoom();
         Room bobRoom = BOB.getRoom();
         ImageCommand imageAliceCommand = new ImageCommand(aliceRoom,
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
         ImageCommand imageBobCommand = new ImageCommand(bobRoom,
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
 
         // same object -> returns true
         assertTrue(imageAliceCommand.equals(imageAliceCommand));
 
         // same values -> returns true
         ImageCommand imageAliceCommandCopy = new ImageCommand(aliceRoom,
-                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+            new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
         assertTrue(imageAliceCommand.equals(imageAliceCommandCopy));
 
         // different types -> returns false

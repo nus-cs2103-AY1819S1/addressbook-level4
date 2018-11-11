@@ -24,7 +24,7 @@ Hallper is a desktop app for the JCRC that allows *for better and faster managem
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `Hallper.jar` link:{repoURL}/releases[here].
+.  Download the latest `Hallper.jar` https://github.com/CS2103-AY1819S1-W16-1/main/releases[here].
 
 .  Copy the file to the folder you want to use as the home folder for your Hallper.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -214,27 +214,6 @@ Deletes the 2nd resident in Hallper.
 `delete 1` +
 Deletes the 1st resident in the results of the `find` command.
 
-==== Deleting a transaction entry : `delete_trans`
-
-Deletes the specified transaction entry from the specified CCA from Hallper. +
-Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
-
-****
-* Deletes the specific transaction entry from the CCA with the specified name.
-* The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
-****
-
-[NOTE]
-====
-* The CCA specifed must exist in the Hallper.
-* The transaction entry number must exist for the specified CCA.
-====
-
-Examples:
-
-* `delete_cca c/netball trans/1`
-* `delete_cca c/Basketball F trans/3`
-
 // tag::import[]
 ==== Importing residents information : `import`
 
@@ -252,17 +231,17 @@ Format: `import f/FILEPATH`
 File format examples for importable `.xml` files are as shown below:
 
 image::AddressBookExample.png[width="790"]
-_Figure 4.1.10.1: Resident information example. Multiple `persons` can be specified._
+_Figure 4.1.9.1: Resident information example. Multiple `persons` can be specified._
 
 image::CCAListExample.png[width="790"]
-_Figure 4.1.10.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
+_Figure 4.1.9.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
 specified for multiple `cca`._
 
 image::BudgetBookExample.png[width="790"]
-_Figure 4.1.10.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
+_Figure 4.1.9.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
 
 image::TransactionsExample.png[width="790"]
-_Figure 4.1.10.4: Transaction information example. Multiple `transaction` can be specified._
+_Figure 4.1.9.4: Transaction information example. Multiple `transaction` can be specified._
 
 Example:
 
@@ -273,6 +252,30 @@ Imports `data.xml` file to be read and for Hallper to be updated accordingly.
 
 === Viewing Hallper
 This section lists features related to viewing all or specific contacts in Hallper.
+
+==== Listing all persons : `list`
+
+Shows a list of all persons in Hallper. +
+Format: `list`
+
+==== Locating persons by name: `find`
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::search[]
 ==== Searching all persons under specified tag : `search`
@@ -304,31 +307,6 @@ Searches Hallper and lists all residents that are in `basketball`.
 Searches Hallper and lists all residents that are staying in room `A123`.
 * `search basketball A123 Soc` +
 // end::search[]
-
-==== Locating persons by name: `find`
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-==== Listing all persons : `list`
-
-Shows a list of all persons in Hallper. +
-Format: `list`
-image::list.png[width="790"]
 
 ==== Selecting a person: `select`
 
@@ -582,7 +560,7 @@ This section lists features related to CCA budget management in Hallper.
 ==== Adding a cca: `create`
 
 Adds a CCA to Hallper. +
-Format: `create n/NAME_OF_CCA budget/500`
+Format: `create n/NAME_OF_CCA budget/ALLOCATED_BUDGET`
 
 [TIP]
 ====
@@ -613,8 +591,8 @@ Format: `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS`
 Examples:
 
 * `add_trans c/Basketball date/31.01.2018 amount/-200 remarks/Competition Fee` +
-Adds a transaction entry to `Basketball`. The date, amount and remarks of the transaction entry are `31.01
-.2018`, `-200` and `Competition Fee` respectively.
+Adds a transaction entry to `Basketball`. The date, amount and remarks of the transaction entry are `31.01.2018`,
+ `-200` and `Competition Fee` respectively.
 
 ==== Deleting a cca : `delete_cca`
 
@@ -666,7 +644,8 @@ Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEA
 
 ****
 * At least one of the optional fields must be provided.
-* When `trans/` is included, at least one of the fields in the transaction entry must be provided.
+* When `trans/` is included, at least one of the fields in the transaction entry must be provided. The transaction
+fields are `date`, `amount` and `remarks`.
 * Existing values will be updated to the input values.
 ****
 
@@ -694,17 +673,21 @@ respectively.
 Opens up a Budget Book in a new window. +
 Format: `budget [c/CCA_NAME]`
 
-
-.Budget Window with a blank screen
 image::BudgetWindowEmpty.png[width="500"]
+_Figure 4.5.6.1: Budget Window with a blank screen_
 
-.Budget Window showing the transaction history of Softball
+
 image::BudgetWindowCca.png[width=500"]
+_Figure 4.5.6.2: Budget Window showing the transaction history of Softball_
+
 ****
 * `budget` shows the list of CCAs existing in Hallper.
 * If `c/` is used, the new window will open up, showing the transaction information of the CCA specified.
 * Otherwise, the new window will open up and show a blank screen until a CCA is selected from the CCA panel.
 ****
+
+image::BudgetWindowCcaPanel.png[width=500"]
+_Figure 4.5.6.3: CCA panel of the Budget Window._
 
 [NOTE]
 ====
@@ -857,17 +840,19 @@ e.g. `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee A
 e.g. `view_calendar month/Oct year/2018`
 
 ===== Budget and CCA
-* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
-e.g. `add_transaction soccer 500 debit James`
-* *Budget* : `budget`
-* *Create CCA Budget* : `create n/CCA bud/BUDGET` +
-e.g. `create Basketball 500`
-* *Delete CCA* : `delete_cca CCA` +
-e.g. `delete_cca basketball`
-* *Modify CCA* : `modify_cca CCA BUDGET` +
-e.g. `modify_cca basketball 500`
-* *View CCA* : `view_cca CCA` +
-e.g. `view_cca basketball`
+* *Add CCA* : `create n/CCA bud/BUDGET` +
+e.g. `create n/Basketball budget/500`
+* *Add Transaction* : `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS` +
+e.g. `add_trans c/Basketball date/31.01.2018 amount/-200 remarks/Competition Fee`
+* *Delete CCA* : `delete_cca c/CCA` +
+e.g. `delete_cca c/basketball`
+* *Delete Transaction* : `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER` +
+e.g. `delete_trans c/netball trans/1`
+* *Update CCA Details* : `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEAD] [budget/BUDGET]
+[trans/ENTRY_NUMBER] [date/DATE] [amount/AMOUNT] [remarks/REMARKS]` +
+e.g. `update c/track n/Track F h/Alice vh/June Ong budget/500 trans/1 date/28.02.2018 amount/100 remarks/Fund Raising`
+* *View CCAs' budget* : `budget [c/CCA_NAME]` +
+e.g. `budget c/basketball`
 
 ===== Miscellaneous
 * *Exit* : `exit`
