@@ -21,19 +21,17 @@ public class DeleteCcaCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete_cca() {
-        // Ensures that there is such CCA
-        addCca(SOFTBALL);
-
-        /* Case: delete the basketball in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first cca in the list, command with leading spaces and trailing spaces -> deleted */
+        Cca toBeDeleted = getModel().getFilteredCcaList().get(0);
         Model expectedModel = getModel();
         String command =
-            "     " + DeleteCcaCommand.COMMAND_WORD + "      " + PREFIX_TAG + SOFTBALL.getCcaName() + "   ";
-        Cca deletedCca = removeCca(expectedModel, SOFTBALL.getName());
+            "     " + DeleteCcaCommand.COMMAND_WORD + "      " + PREFIX_TAG + toBeDeleted.getCcaName() + "   ";
+        Cca deletedCca = removeCca(expectedModel, toBeDeleted.getName());
         String expectedResultMessage = String.format(MESSAGE_DELETE_CCA_SUCCESS, deletedCca);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Undo delete */
-        addCca(SOFTBALL);
+        addCca(toBeDeleted);
 
         /* Case: invalid cca -> rejected */
         try {
@@ -70,6 +68,13 @@ public class DeleteCcaCommandSystemTest extends AddressBookSystemTest {
         return targetCca;
     }
 
+    /**
+     * Assert success when the command of the correct format is entered to delete a CCA.
+     *
+     * @param command a valid command
+     * @param expectedModel the expected model after the cca is deleted
+     * @param expectedResultMessage the expected message displayed after the cca is deleted
+     */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -77,6 +82,11 @@ public class DeleteCcaCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
     }
 
+    /**
+     * Assert failure when the command enter is incorrect.
+     * @param command the invalid command to delete a cca
+     * @param expectedResultMessage the expected message when the command fail
+     */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
 
