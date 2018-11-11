@@ -497,7 +497,7 @@ Examples:
 Deletes the 2nd item in the menu.
 * `fi Cheese` +
 `dii 1 ei/3` +
-Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
+Deletes 1st item, 2nd item and 3rd item in the results of the `find-item` command.
 
 ==== Deleting an item by name: `delete-item-name` or `din`
 
@@ -517,7 +517,7 @@ Examples:
 Deletes the `Apple Juice` item in the menu.
 * `fi Cheese` +
 `din Cheese Fries` +
-Deletes `Cheese Fries` item in the results of the `find` command.
+Deletes `Cheese Fries` item in the results of the `find-item` command.
 //end::menuPart1[]
 
 ==== Listing all items in the menu : `list-items` or `li`
@@ -548,7 +548,7 @@ Examples:
 Selects the 2nd item in the menu.
 * `fi Burger` +
 `si 1` +
-Selects the 1st item in the results of the `find` command.
+Selects the 1st item in the results of the `find-item` command.
 
 ==== Locating items by name: `find-item` or `fi`
 
@@ -633,7 +633,7 @@ Examples:
 Give the 2nd item in the menu a 20% discount.
 * `fi Cheese` +
 `dci 1 dp/0` +
-Revert the 1st item in the results of the `find` command to original price.
+Revert the 1st item in the results of the `find-item` command to original price.
 * `li` +
 `dci 1 ei/3 dp/50` +
 Give the 1st item to the 3rd item in the menu a 50% discount.
@@ -669,7 +669,7 @@ Examples:
 Add/Update the recipe of the 1st item to be `Some Recipe`.
 * `fi Cheese` +
 `ri 1 r/Other Recipe` +
-Add/Update the recipe of the 1st item in the results of the `find` command to be `Other Recipe`.
+Add/Update the recipe of the 1st item in the results of the `find-item` command to be `Other Recipe`.
 
 [[add-required-ingredient]]
 ==== Adding required ingredients: `add-required-ingredients` or `ari`
@@ -692,7 +692,7 @@ Examples:
 Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
-Add/Update the recipe of the 1st item in the results of the `find` command.
+Add/Update the recipe of the 1st item in the results of the `find-item` command.
 
 //tag::reservations[]
 === Reservations Management
