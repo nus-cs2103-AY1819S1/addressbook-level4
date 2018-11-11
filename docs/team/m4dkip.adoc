@@ -16,7 +16,7 @@ With this app, users can manage their menus, sales, and even reservations.
 
 This portfolio showcases my contributions to this project.
 
-== Summary of contributions
+== Summary of Contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=m4dkip[RepoSense]
 * *Major enhancement*: Added the *Reservation Management* feature
 ** *What it does*: Allows the user to manage a Reservations List using various commands
