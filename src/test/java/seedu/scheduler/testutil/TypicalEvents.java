@@ -126,7 +126,7 @@ public class TypicalEvents {
     public static final Event EXAM_CS2103 = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
-            .withEventName("CS2103 Exam")
+            .withEventName("CS2103 Examination")
             .withStartDateTime(LocalDateTime.of(2018, 12, 5, 17, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 5, 19, 0))
             .withDescription("MCQ+Essay")
