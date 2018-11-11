@@ -171,7 +171,7 @@ public class DeleteMedicineCommandTest {
         assertFalse(deleteFirstMedicineCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstMedicineCommand.equals(null));
+        assertFalse(deleteFirstMedicineCommand == null);
 
         // different medicine -> returns false
         assertFalse(deleteFirstMedicineCommand.equals(deleteSecondMedicineCommand));

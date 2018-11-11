@@ -55,7 +55,7 @@ public class FindMedicineCommandTest {
         assertFalse(findFirstMedicineCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstMedicineCommand.equals(null));
+        assertFalse(findFirstMedicineCommand == null);
 
         // different medicine -> returns false
         assertFalse(findFirstMedicineCommand.equals(findSecondMedicineCommand));

@@ -98,7 +98,7 @@ public class AddMedicineCommandTest {
         assertFalse(addOracortCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addOracortCommand.equals(null));
+        assertFalse(addOracortCommand == null);
 
         // different person -> returns false
         assertFalse(addOracortCommand.equals(addParacetamolCommand));
@@ -428,7 +428,7 @@ public class AddMedicineCommandTest {
      * A Model stub that always accept the medicine being added.
      */
     private class ModelStubAcceptingMedicineAdded extends ModelStub {
-        final ArrayList<Medicine> medicinesAdded = new ArrayList<>();
+        private final ArrayList<Medicine> medicinesAdded = new ArrayList<>();
 
         @Override
         public boolean hasMedicine(Medicine medicine) {

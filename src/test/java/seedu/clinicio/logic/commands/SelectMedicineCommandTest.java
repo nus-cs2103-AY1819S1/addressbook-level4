@@ -91,7 +91,7 @@ public class SelectMedicineCommandTest {
         assertFalse(selectFirstMedicineCommand.equals(1));
 
         // null -> returns false
-        assertFalse(selectFirstMedicineCommand.equals(null));
+        assertFalse(selectFirstMedicineCommand == null);
 
         // different medicine -> returns false
         assertFalse(selectFirstMedicineCommand.equals(selectSecondMedicineCommand));
