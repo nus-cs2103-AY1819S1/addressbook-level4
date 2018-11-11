@@ -32,13 +32,15 @@ public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
 
         Index personIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_PERSONINDEX).get());
 
-        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) {
+        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)
+                && !arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) {
             Index moduleIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_MODULEINDEX).get());
             ModuleDescriptor dummyModuleDescriptor = new ModuleDescriptor();
             Module dummyModule = new Module(dummyModuleDescriptor);
             return new InsertPersonCommand(personIndex, moduleIndex, dummyModule);
 
-        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) {
+        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)
+                && !arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) {
             Index occasionIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_OCCASIONINDEX).get());
             OccasionDescriptor dummyOccasionDescriptor = new OccasionDescriptor();
             Occasion dummyOccasion = new Occasion(dummyOccasionDescriptor);
