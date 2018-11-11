@@ -97,6 +97,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         // Converts argument string to tokenize argument array.
         String[] args = ParserUtil.tokenize(argsInString);
 
+
         // Size of argument should be 8 or 10.
         // Arguments should be in name-value pair.
         // Name should be legal.

@@ -19,6 +19,9 @@ public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     /**
+=======
+      /**
+>>>>>>> 4244ffa13e14b7776e5c856ae11b0ce18b734e39
      * Usage of <b>add</b>.
      * <p>
      * Provides the description and syntax of <b>add</b>.
