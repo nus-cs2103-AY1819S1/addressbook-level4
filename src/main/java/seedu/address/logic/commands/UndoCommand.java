@@ -8,6 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
@@ -30,6 +31,7 @@ public class UndoCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
+        AttendanceListUtil.postClearEvent(model);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
