@@ -39,7 +39,7 @@ public class Date extends ExpenseField {
      */
     public Date() {
         super("");
-        this.fullDate = LocalDateTime.now();
+        fullDate = LocalDateTime.now();
     }
 
     /**
@@ -65,7 +65,7 @@ public class Date extends ExpenseField {
      *
      */
     public LocalDateTime getFullDate() {
-        return this.fullDate;
+        return fullDate;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Date extends ExpenseField {
      * @param day the int representing the day of the month to be set
      */
     public void setFullDate(int year, int month, int day) {
-        this.fullDate = LocalDateTime.of(year, month, day, 0, 0);
+        fullDate = LocalDateTime.of(year, month, day, 0, 0);
 
     }
 
@@ -126,9 +126,9 @@ public class Date extends ExpenseField {
 
         Date otherDate = (Date) other;
         return
-            this.fullDate.getDayOfMonth() == otherDate.fullDate.getDayOfMonth()
-            && this.fullDate.getMonthValue() == otherDate.fullDate.getMonthValue()
-            && this.fullDate.getYear() == otherDate.fullDate.getYear();
+            fullDate.getDayOfMonth() == otherDate.fullDate.getDayOfMonth()
+            && fullDate.getMonthValue() == otherDate.fullDate.getMonthValue()
+            && fullDate.getYear() == otherDate.fullDate.getYear();
     }
 
     /**
