@@ -34,7 +34,7 @@ public class SaveCommandTest {
                 fail();
             }
             file.delete();
-        } catch (CommandException e){
+        } catch (CommandException e) {
             if (e.getMessage() != null) {
                 throw e;
             }
