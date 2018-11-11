@@ -30,7 +30,20 @@ This guide does not assume any prior technical knowledge. Check the <<FAQ>> sect
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
-Go to the <<Installation Guide>> to get started on install ClinicIO.
+As a doctor, you will be able to do the following:
+
+* View patient record
+* Enter patient additional medical information.
+
+As a receptionist, you will be able to do the following:
+
+* Manage patient record
+* Manage clinic queue
+* Manage medicine inventory in the clinic
+* Manage future patient appointment
+* View statistics and export data.
+
+Head to the <<Installation Guide>> to get started on install ClinicIO.
 
 == Installation Guide
 
@@ -221,7 +234,7 @@ You can login to ClinicIO. +
 Format: `login r/ROLE n/NAME pass/PASSWORD` +
 
 [WARNING]
-Do not use this feature if you are already logged in. +
+If you have already logged in, you cannot login again. +
 
 ****
 * Roles available to login: Doctor and Receptionist
@@ -288,10 +301,25 @@ Examples:
 * `addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 alrg/Dairy Products`
 * `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure med/Chlorothiazide`
 
-==== Listing all patients : `listpatient` `[coming in v2.0]`
+==== Deleting a patient : `deletepatient` `[coming in v2.0]`
 
-You can view a list of all patients in the clinic record. +
-Format: `listpatient`
+You can delete the specified patient from the clinic record. +
+Format: `deletepatient INDEX`
+
+****
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`deletepatient 2` +
+Deletes the 2nd patient in the clinic record.
+* `find Betsy` +
+`deletepatient 1` +
+Deletes the 1st patient in the results of the `find` command.
 
 ==== Editing a patient : `editpatient` `[coming in v2.0]`
 
@@ -316,9 +344,12 @@ Edits the phone number and email address of the 1st patient to be `91234567` and
 * `editpatient 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-==== Locating patients by name: `findpatient` `[coming in v2.0]`
+==== Locating patients by name: `findpatient`
 
 You can find patients whose names contain any of the given keywords. +
+
+include::UserGuide.adoc[tag=login]
+
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -336,25 +367,13 @@ Returns `john` and `John Doe`
 * `findpatient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-==== Deleting a patient : `deletepatient` `[coming in v2.0]`
+==== Listing all patients : `listpatient`
 
-You can delete the specified patient from the clinic record. +
-Format: `deletepatient INDEX`
+You can view a list of all patients in the clinic record. +
 
-****
-* Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+include::UserGuide.adoc[tag=loginUser]
 
-Examples:
-
-* `list` +
-`deletepatient 2` +
-Deletes the 2nd patient in the clinic record.
-* `find Betsy` +
-`deletepatient 1` +
-Deletes the 1st patient in the results of the `find` command.
+Format: `listpatient`
 
 ==== Selecting a patient : `selectpatient` `[coming in v2.0]`
 
@@ -639,11 +658,12 @@ Cancels the 4th appointment in the list.
 
 This section is designed to help you answer any issues that are frequently asked by others.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
+[qanda]
+How do I transfer my data to another Computer?::
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
 
-*Q*: How to save data in ClinicIO? +
-*A*: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
+How to save data in ClinicIO?::
+There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
 
 == Command Summary
 
