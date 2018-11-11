@@ -880,7 +880,7 @@ Displays the sales report dated 30-09-2018.
 The following is an example of what you will see if the sales report is generated and displayed correctly:
 
 image::display-sales-pic.png[width="465"]
-
+_Figure 5.6.2.1: Sales Report_
 
 ==== Deleting a sales record: `delete-sales` or `des`
 
@@ -954,6 +954,7 @@ Format: `chart-sales` or `cs`
 The following is an example of what you will see if the sales chart is generated and displayed correctly:
 
 image::chart-sales-pic.png[width="550"]
+_Figure 5.6.5.1: Sales Chart of revenue against date_
 
 [[rank-date]]
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
@@ -974,6 +975,7 @@ Section 5.6.2, “Display sales report">> for more information.
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-date-pic.png[width="325"]
+_Figure 5.6.6.1: Ranking of dates by revenue_
 
 [[rank-item]]
 ==== Ranking items according to total revenue: `rank-item` or `rai`
@@ -994,6 +996,7 @@ in v2.0. See <<check-history, Section 5.7.6, “Checking item sales history">> f
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-item-pic.png[width="325"]
+_Figure 5.6.7.1: Ranking of items by revenue_
 
 ==== Selecting a sales record : `select-sales` or `ss`
 

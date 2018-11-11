@@ -546,7 +546,8 @@ the ingredients used before deducting them from the ingredient list automaticall
 ==== Current Implementation
 
 A `SalesRecord` is associated with 6 attributes - `Date`, `ItemName`, `QuantitySold`, `Price`, `Revenue` and
-`IngredientUsed`. The success of the auto-ingredient update mechanism is subjected to the following conditions: +
+`IngredientUsed`. +
+**The success of the auto-ingredient update mechanism is subjected to the following conditions:** +
 
 [[criteria]]
 1) `ItemName` exists in the `Menu`.  +
@@ -593,6 +594,8 @@ An exception will be thrown in step 2, 3 or 5 should the conditions be violated.
 The following activity diagram summarizes what happens when a user executes `record-sales` command:
 
 image::RecordSalesActivityDiagram.png[width="1000"]
+_Figure 4.4.1.1: Activity Diagram for `record-sales` command_
+
 
 ==== Design Considerations
 **Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales record?**
@@ -628,18 +631,18 @@ the `SalesRecord` will be updated.
 unit` of an item may change over time.
 
 *** **Option 1**: Use `required ingredients per unit` data available **during record-sales in the past**. +
-Analysis: We would need a repository to save different versions of `Menu` in the past.
+**Analysis**: We would need a repository to save different versions of `Menu` in the past.
 The entire `Menu` must be saved whenever a sales record is added. This is so that if user were to edit the `ItemName`
 attribute of that particular sales record in the future, we would be able to retrieve the item's `required
 ingredients per unit` data (which might not even have been specified) at the time of `record-sales`. +
-Verdict: **This option would take up a massive amount of memory space in the long run.**
+**Verdict**: **This option would take up a massive amount of memory space in the long run.**
 
 *** **Option 2**: Use `required ingredients per unit` data available **during edit-sales at the present**. +
-Analysis: Let us assume that a glass of orange juice takes 1 orange to make at the time of record-sales (past),
+**Analysis**: Let us assume that a glass of orange juice takes 1 orange to make at the time of record-sales (past),
 and 3 oranges to make at the time of edit-sales (present). If the user edits the `QuantitySold` attribute from 1
 (past) to 10 (present), it would be illogical for (3*10-1*1 = 29) oranges to be deducted from the ingredient list since
  it only took (1*10 = 10) oranges. +
-Verdict: **This option is irrational**.
+**Verdict**: **This option is irrational**.
 // end::auto-ingredient-update[]
 
 // tag::displaySales[]
@@ -656,10 +659,12 @@ The following sequence diagram illustrates how the display sales report operatio
 `display-sales 25-12-2017`:
 
 image::DisplaySalesSequenceDiagram.png[width="1300"]
+_Figure 4.5.1.1: Sequence Diagram for `display-sales` command_
 
 The sequence diagram for the "Parse Command" reference frame above is shown below:
 
 image::DisplaySalesSequenceDiagramRef.png[width="580"]
+_Figure 4.5.1.2: Sequence Diagram for "Parse Command" reference frame_
 
 Given below is an example usage scenario and how the display sales report operation behaves at each step.
 
