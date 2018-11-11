@@ -3,7 +3,6 @@ package seedu.scheduler.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,21 +26,20 @@ public class PostponeReminderCommand extends EditCommand {
             + ": Postpone all reminders of the event identified by the index number by the duration entered\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h ";
+            + "Optional Flags (Only one at a time):\n"
+            + "-u: for all upcoming events\n" + "-a: for all repeating events\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h -a";
 
-    public static final String MESSAGE_DO_NOT_SUPPORT_RECURRING = COMMAND_WORD
-            + " current do not support recurring events. Coming in v2.0";
-    public static final String MESSAGE_EVENT_HAVE_NO_REMINDERS = "The selected event does not have "
-            + "reminders to postpone";
+    public static final String MESSAGE_EMPTY_REMINDER_ENTERED = "Warning: no postpone duration is entered";
     public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone all reminders for Event: %1$s";
     public static final String MESSAGE_MULTIPLE_POSTPONE_DURATION = "Please enter only 1 duration to postpone.";
 
     private static final Logger logger = LogsCenter.getLogger(PostponeReminderCommand.class);
 
-    private final Duration durationToPostpone;
+    private final ReminderDurationList durationToPostpone;
 
 
-    public PostponeReminderCommand(Index index, Duration durationToPostpone, Flag... flags) {
+    public PostponeReminderCommand(Index index, ReminderDurationList durationToPostpone, Flag... flags) {
         super(index, new EditCommand.EditEventDescriptor(), flags);
         this.durationToPostpone = durationToPostpone;
 
@@ -57,24 +55,21 @@ public class PostponeReminderCommand extends EditCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        if (flags.length > 0) {
-            logger.info(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            throw new CommandException(MESSAGE_DO_NOT_SUPPORT_RECURRING);
-        }
-
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
         Event eventToEdit;
         eventToEdit = lastShownList.get(index.getZeroBased());
-        ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList();
-        if (reminderDurationListToEdit.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_EVENT_HAVE_NO_REMINDERS, eventToEdit.getEventName()));
-        } else {
-            reminderDurationListToEdit.postpone(durationToPostpone);
-            editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
-            super.execute(model, history);
-            return new CommandResult(String.format(MESSAGE_POSTPONE_REMINDER_SUCCESS, eventToEdit.getEventName()));
+        ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList().getCopy();
+
+        if (!durationToPostpone.isSingleValue()) { //Multiple durations already eliminated by this step
+            throw new CommandException(MESSAGE_EMPTY_REMINDER_ENTERED);
         }
+
+        reminderDurationListToEdit.postpone(durationToPostpone.getArray().get(0));
+        editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
+        super.execute(model, history);
+
+        return new CommandResult(String.format(MESSAGE_POSTPONE_REMINDER_SUCCESS, eventToEdit.getEventName()));
 
     }
 }
