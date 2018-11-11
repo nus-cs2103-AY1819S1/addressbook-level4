@@ -23,8 +23,6 @@ public class Card {
     public static final double DEFAULT_REVIEW_SCORE = 2.5;
     public static final double REVIEW_SCORE_THRESHOLD = 15;
 
-    private static final int CORRECT_THRESHOLD = 1;
-
     private final Performance performance;
     private final int timesReviewed;
     private LocalDateTime nextReviewDate;
