@@ -24,8 +24,8 @@ public class FavouriteCommandParserTest {
     public void parse_allFieldsPresent_success() {
         EventDate expectedEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
 
-        assertParseSuccess(parser, EVENT_DATE_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT
-                , new FavouriteCommand(expectedEventDate, INDEX_FIRST_EVENT));
+        assertParseSuccess(parser, EVENT_DATE_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT,
+                new FavouriteCommand(expectedEventDate, INDEX_FIRST_EVENT));
     }
 
     @Test
