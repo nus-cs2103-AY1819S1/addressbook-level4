@@ -45,6 +45,7 @@ Perhaps something can be done using another approach, but it is up to you to dec
 Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
 read whatever is in this block.
 
+[[user-interface]]
 === A Quick Look at MeNUS
 
 *MeNUS*’s user interface is split into a few sections. These sections are highlighted in the image below.
@@ -798,15 +799,17 @@ Selects the 7th reservation in the reservations list.
 // tag::salesmanagement[]
 === Sales Management
 
-The following are sales-related commands to help you with financial tracking and analysis.
+The following are sales-related commands to help you with financial tracking and analysis. The terms **"sales record"**
+and **"record list"** will be used frequently under this section so it is advisable to first understand their
+definition in the <<sales-record, glossary>> before proceeding.
 
+[[record-sales]]
 ==== Recording sales volume of an item: `record-sales` or `rs`
 
 Records the sales volume of an item within a specific day into the record list. +
 Format: `record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` or `rs d/DATE n/ITEM_NAME q/QUANTITY_SOLD
 p/ITEM_PRICE` +
 
-[NOTE]
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
@@ -814,12 +817,10 @@ p/ITEM_PRICE` +
 * ITEM_NAME is case insensitive. "Cheesy Pasta" and "cheesy pasta" are regarded as the same item.
 ****
 
-[[sales-record]]
-[NOTE]
-====
-A *sales record* is created whenever you record the sales volume of an item. +
-The *record list* keeps all sales records you have recorded.
-====
+Examples:
+
+* `record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
+* `rs d/25-09-2018 n/Fried Rice q/35 p/5.50`
 
 [[auto-ingredient-update]]
 **Auto-ingredient update mechanism**
@@ -843,15 +844,11 @@ will not be updated.
 
 [NOTE]
 ====
-[[ingredients-used]]MeNUS will remember the name and quantity of ingredients you used as long as the item and
-its required ingredients have been specified in the menu component.
+[[ingredients-used]]**Ingredient used**: MeNUS will remember the name and quantity of ingredients you used as long as
+the item and its required ingredients have been specified in the menu component.
 ====
 
-Examples:
-
-* `record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
-* `rs d/25-09-2018 n/Fried Rice q/35 p/5.50`
-
+[[display-sales]]
 ==== Display sales report: `display-sales` or `dis`
 
 Generate and display the sales report for a specific day. +
@@ -860,7 +857,7 @@ Format: `display-sales DATE` or `dis DATE`
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
-* There must be at least one <<sales-record, sales record>> associated with the specified DATE.
+* There must be at least one sales record associated with the specified DATE.
 ****
 
 Examples:
@@ -887,8 +884,8 @@ Format: `delete-sales ITEM_INDEX` or `des ITEM_INDEX`
 
 [NOTE]
 ====
-Deleting a sales record will not undo the effect of <<auto-ingredient-update>> which may or may not have happened
-during recording.
+Deleting a sales record will not undo the effect of <<auto-ingredient-update, "Auto-ingredient update">> which may or
+ may not have happened during recording.
 ====
 
 Examples:
@@ -912,12 +909,13 @@ Format: `edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_
 
 [WARNING]
 ====
-Editing a sales record will permanently delete the <<ingredients-used>> data.
+Editing a sales record will permanently delete its <<ingredients-used, "Ingredient used">> data.
 ====
 
 [NOTE]
 ====
-Editing a sales record will not update the ingredient list.
+Editing a sales record will **not** update the ingredient list. See <<auto-ingredient-update, Auto-ingredient
+update>> for more information.
 ====
 
 Examples:
@@ -930,6 +928,7 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
 
+[[chart-sales]]
 ==== Display sales chart of date and revenue: `chart-sales` or `cs`
 
 Generates and displays the sales chart of revenue against date. +
@@ -944,27 +943,41 @@ The following is an example of what you will see if the sales chart is generated
 
 image::chart-sales-pic.png[width="550"]
 
+[[rank-date]]
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
 
-Ranks and displays all existing records' dates based on the total revenue. +
+Ranks and displays all existing dates in the record list based on the total revenue. +
 Format: `rank-date` or `rad`
 
 ****
 * Record list must not be empty.
 ****
 
+[TIP]
+====
+You can generate the sales report of a specific date to get a more detailed analysis. See <<display-sales,
+Section 5.6.2, “Display sales report">> for more information.
+====
+
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-date-pic.png[width="325"]
 
+[[rank-item]]
 ==== Ranking items according to total revenue: `rank-item` or `rai`
 
-Ranks and displays the items based on their total revenue accumulated in past sales records. +
+Ranks and displays all items according to their total revenue accumulated in past sales records. +
 Format: `rank-item` or `rai`
 
 ****
 * Record list must not be empty.
 ****
+
+[TIP]
+====
+You can check the sales history of a specific item to get a more detailed analysis. This feature will be available
+in v2.0. See <<check-history, Section 5.7.6, “Checking item sales history">> for more information.
+====
 
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
@@ -1039,8 +1052,22 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
+==== Auto-compute sales profit
+Automatically determines the cost incurred in each sales record and computes its profit. The concept of profit
+will be extended to the following features: +
+ 1) <<display-sales, Section 5.6.2, “Display sales report">> - Include a profit column in the sales report +
+ 2) <<chart-sales, Section 5.6.5, “Display sales chart">> - Display sales chart of date and profit +
+ 3) <<rank-date, Section 5.6.6, “Ranking dates">> - Rank dates by profit +
+ 4) <<rank-item, Section 5.6.7, “Ranking items">> - Rank items by profit
+
+[NOTE]
+====
+A negative profit denotes a loss.
+====
+
+[[check-history]]
 ==== Checking item sales history `[coming in v2.0]`
-Generates the item sales report that consists of all records associated with that item. +
+Generates the item sales report that consists of all past records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
 
 Examples:
@@ -1049,7 +1076,7 @@ Examples:
 * `ch n/Fried Rice`
 
 ==== Exporting sales report `[coming in v2.0]`
-Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
+Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be more
 detailed than that displayed in app. +
 Format: `export-sales DATE` or `es DATE`
 
@@ -1165,3 +1192,17 @@ contains the data of your previous *MeNUS* folder.
 [[gui]] GUI::
 *Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,
 rather than using only text via the command line.
+
+[[sales-record]] Sales record::
+A *sales record* is created whenever you <<record-sales, record the sales volume of an item>>. It is represented by a
+single entry in the <<record-list, record list>>. It comprises 6 different attributes, namely +
+1) `Date` of which the item was sold +
+2) `Name` of the item +
+3) `Quantity` of the item sold +
+4) `Price` per item +
+5) `Total revenue` earned +
+6) `Ingredient used` to make the amount of item as specified by the quantity sold. +
+
+[[record-list]] Record list::
+The *record list* contains all the <<sales-record, sales records>> you have recorded till date. It is shown under the
+`List of data` section of the sales component in MeNUS's <<user-interface, user interface>>.
