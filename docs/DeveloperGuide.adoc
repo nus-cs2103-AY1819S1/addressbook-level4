@@ -1052,6 +1052,25 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Show Word Of The Day - Todays random, special word from Dictionary.com
+
+*MSS*
+
+1.  User inputs command (word).
+2.  The word of the day will be queried online.
+3.  The word and its meaning will be displayed.
+4.  User can choose to learn the word by using the `learn` command
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no internet connection, error message will be displayed.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
