@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SWITCH;
@@ -33,8 +34,8 @@ public class CommandTestUtil {
 
     public static final int VALID_EVENTID_E1 = 1;
     public static final int VALID_EVENTID_E2 = 2;
-    public static final int VALID_VOLUNTEERID_V1 = 1;
-    public static final int VALID_VOLUNTEERID_V2 = 2;
+    public static final String VALID_VOLUNTEERID_V1 = "S1234567A";
+    public static final String VALID_VOLUNTEERID_V2 = "F9876543A";
     public static final String VALID_HOUR_H1 = "1";
     public static final String VALID_HOUR_H2 = "2";
     public static final String VALID_REMARK_R1 = "Emcee";
@@ -42,6 +43,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_ID_AMY = "S9595959A";
+    public static final String VALID_ID_BOB = "S9383064D";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_GENDER_AMY = "f";
@@ -83,6 +86,8 @@ public class CommandTestUtil {
     public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
     public static final String BIRTHDAY_DESC_AMY = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_AMY;
     public static final String BIRTHDAY_DESC_BOB = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_BOB;
+    public static final String ID_DESC_AMY = " " + PREFIX_ID + VALID_ID_AMY;
+    public static final String ID_DESC_BOB = " " + PREFIX_ID + VALID_ID_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -95,6 +100,7 @@ public class CommandTestUtil {
     // only 'male' or 'female' is allowed
     public static final String INVALID_BIRTHDAY_DESC = " " + PREFIX_BIRTHDAY + "11-12-19913";
     //only 4 digits in year
+    public static final String INVALID_ID_DESC = " " + PREFIX_ID + "Z0524245A"; // only allowed to start with s,t,g or f
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

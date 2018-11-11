@@ -31,32 +31,32 @@ import seedu.address.model.volunteer.VolunteerId;
 public class SampleDataUtil {
     public static Volunteer[] getSampleVolunteers() {
         return new Volunteer[]{
-            new Volunteer(new Name("Alex Yeoh"), new Gender("m"),
+            new Volunteer(new Name("Alex Yeoh"), new VolunteerId("S9647345A"), new Gender("m"),
                     new Birthday("02-10-1996"), new Phone("87438807"),
                     new Email("alexyeoh@example.com"),
                     new Address("Blk 30 Geylang Street 29, #06-40"),
                     getTagSet("student")),
-            new Volunteer(new Name("Bernice Yu"), new Gender("f"),
+            new Volunteer(new Name("Bernice Yu"), new VolunteerId("S9518076J"), new Gender("f"),
                     new Birthday("15-03-1995"), new Phone("99272758"),
                     new Email("berniceyu@example.com"),
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     getTagSet("student", "driver")),
-            new Volunteer(new Name("Charlotte Oliveiro"), new Gender("f"),
+            new Volunteer(new Name("Charlotte Oliveiro"), new VolunteerId("F9273073E"), new Gender("f"),
                     new Birthday("17-09-1992"), new Phone("93210283"),
                     new Email("charlotte@example.com"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     getTagSet("adult")),
-            new Volunteer(new Name("David Li"), new Gender("m"),
-                    new Birthday("28-04-1994"), new Phone("91031282"),
+            new Volunteer(new Name("David Li"), new VolunteerId("G0213905C"), new Gender("m"),
+                    new Birthday("28-04-2002"), new Phone("91031282"),
                     new Email("lidavid@example.com"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     getTagSet("student")),
-            new Volunteer(new Name("Irfan Ibrahim"), new Gender("m"),
+            new Volunteer(new Name("Irfan Ibrahim"), new VolunteerId("T0069459I"), new Gender("m"),
                     new Birthday("10-12-2000"), new Phone("92492021"),
                     new Email("irfan@example.com"),
                     new Address("Blk 47 Tampines Street 20, #17-35"),
                     getTagSet("student")),
-            new Volunteer(new Name("Roy Balakrishnan"), new Gender("m"),
+            new Volunteer(new Name("Roy Balakrishnan"), new VolunteerId("F8457737E"), new Gender("m"),
                     new Birthday("01-01-1984"), new Phone("92624417"),
                     new Email("royb@example.com"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"),
@@ -79,8 +79,8 @@ public class SampleDataUtil {
 
     public static Record[] getSampleRecord() {
         return new Record[]{
-            new Record(new EventId(1), new VolunteerId(1), new Hour("1"), new Remark("Emcee")),
-            new Record(new EventId(2), new VolunteerId(1), new Hour("1"), new Remark("Delivery Man"))
+            new Record(new EventId(1), new VolunteerId("S1234567A"), new Hour("1"), new Remark("Emcee")),
+            new Record(new EventId(2), new VolunteerId("S1234567A"), new Hour("1"), new Remark("Delivery Man"))
         };
     }
 

@@ -28,6 +28,8 @@ public class VolunteerPanel extends UiPart<Region> {
     @FXML
     private Label numOfVolunteersLabel;
     @FXML
+    private Label volunteerIdLabel;
+    @FXML
     private Label volunteerGenderLabel;
     @FXML
     private Label volunteerBirthdayLabel;
@@ -49,6 +51,7 @@ public class VolunteerPanel extends UiPart<Region> {
 
     private void setLabelText(Volunteer volunteer) {
         volunteerNameLabel.setText(volunteer.getName().fullName);
+        volunteerIdLabel.setText(volunteer.getVolunteerId().id);
         volunteerGenderLabel.setText(GenderUtil.getFriendlyGenderFromVolunteerGender(volunteer.getGender()));
         volunteerBirthdayLabel.setText(BirthdayUtil.getFriendlyDateFromVolunteerBirthday(volunteer.getBirthday()));
         volunteerPhoneLabel.setText(volunteer.getPhone().value);
@@ -69,6 +72,7 @@ public class VolunteerPanel extends UiPart<Region> {
      */
     public void clearDetails() {
         volunteerNameLabel.setText("");
+        volunteerIdLabel.setText("");
         volunteerGenderLabel.setText("");
         volunteerBirthdayLabel.setText("");
         volunteerPhoneLabel.setText("");

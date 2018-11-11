@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -108,30 +107,6 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateVolunteerUnfilteredList_failure() {
-        Volunteer firstVolunteer = model.getFilteredVolunteerList().get(INDEX_FIRST_VOLUNTEER.getZeroBased());
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(firstVolunteer).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_VOLUNTEER, descriptor);
-
-        assertCommandFailure(editCommand, model, commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
-    }
-
-    @Test
-    public void execute_duplicateVolunteerFilteredList_failure() {
-        showVolunteerAtIndex(model, INDEX_FIRST_VOLUNTEER);
-
-        // edit volunteer in filtered list into a duplicate in address book
-        Volunteer volunteerInList = model.getAddressBook().getVolunteerList()
-                .get(INDEX_SECOND_VOLUNTEER.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_VOLUNTEER,
-                new EditVolunteerDescriptorBuilder(volunteerInList).build());
-
-        assertCommandFailure(editCommand, model, commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
-    }
-
-    @Test
     public void execute_invalidVolunteerIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredVolunteerList().size() + 1);
         EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder()
@@ -198,40 +173,6 @@ public class EditCommandTest {
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
-
-    /**
-     * 1. Edits a {@code Volunteer} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited volunteer in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the volunteer object regardless of indexing.
-     */
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_sameVolunteerEdited() throws Exception {
-        Volunteer editedVolunteer = new VolunteerBuilder().build();
-        EditVolunteerDescriptor descriptor = new EditVolunteerDescriptorBuilder(editedVolunteer).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_VOLUNTEER, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        showVolunteerAtIndex(model, INDEX_SECOND_VOLUNTEER);
-        Volunteer volunteerToEdit = model.getFilteredVolunteerList().get(INDEX_FIRST_VOLUNTEER.getZeroBased());
-        expectedModel.updateVolunteer(volunteerToEdit, editedVolunteer);
-        expectedModel.commitAddressBook();
-
-        // edit -> edits second volunteer in unfiltered volunteer list / first volunteer in filtered volunteer list
-        editCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered volunteer list to show all volunteers
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory,
-                UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredVolunteerList().get(INDEX_FIRST_VOLUNTEER.getZeroBased()), volunteerToEdit);
-        // redo -> edits same second volunteer in unfiltered volunteer list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory,
-                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

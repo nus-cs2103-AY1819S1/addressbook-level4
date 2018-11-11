@@ -16,14 +16,14 @@ public class RecordContainsVolunteerIdPredicate implements Predicate<Record> {
 
     @Override
     public boolean test(Record record) {
-        return record.getVolunteerId().id == volunteerId.id;
+        return record.getVolunteerId().id.equals(volunteerId.id);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecordContainsVolunteerIdPredicate // instanceof handles nulls
-                && volunteerId == ((RecordContainsVolunteerIdPredicate) other).volunteerId); // state check
+                && volunteerId.equals(((RecordContainsVolunteerIdPredicate) other).volunteerId)); // state check
     }
 
 }

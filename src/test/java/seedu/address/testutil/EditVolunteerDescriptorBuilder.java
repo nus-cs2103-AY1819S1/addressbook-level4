@@ -35,7 +35,6 @@ public class EditVolunteerDescriptorBuilder {
     public EditVolunteerDescriptorBuilder(Volunteer volunteer) {
         descriptor = new EditVolunteerDescriptor();
 
-        descriptor.setVolunteerId(volunteer.getVolunteerId());
         descriptor.setName(volunteer.getName());
         descriptor.setGender(volunteer.getGender());
         descriptor.setBirthday(volunteer.getBirthday());

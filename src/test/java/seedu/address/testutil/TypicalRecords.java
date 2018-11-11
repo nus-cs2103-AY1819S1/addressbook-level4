@@ -13,17 +13,17 @@ import seedu.address.model.record.Record;
 public class TypicalRecords {
 
     public static final Record R1 = new RecordBuilder().withEventId(1)
-            .withVolunteerId(1)
+            .withVolunteerId("S1234567A")
             .withHour("1")
             .withRemark("Emcee").build();
 
     public static final Record R2 = new RecordBuilder().withEventId(2)
-            .withVolunteerId(2)
+            .withVolunteerId("T0123456Z")
             .withHour("2")
             .withRemark("Delivery man").build();
 
     public static final Record R3 = new RecordBuilder().withEventId(2)
-            .withVolunteerId(1)
+            .withVolunteerId("F9876543A")
             .withHour("2")
             .withRemark("Food delivery").build();
 

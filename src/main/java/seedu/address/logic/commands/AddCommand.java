@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -26,6 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a volunteer to the application. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_ID + "NRIC "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_BIRTHDAY + "BIRTHDAY "
             + PREFIX_PHONE + "PHONE "
@@ -34,6 +36,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
+            + PREFIX_ID + "S8512345A"
             + PREFIX_GENDER + "m "
             + PREFIX_BIRTHDAY + "01-10-1985 "
             + PREFIX_PHONE + "98765432 "

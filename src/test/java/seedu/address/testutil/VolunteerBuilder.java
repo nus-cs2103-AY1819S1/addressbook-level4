@@ -18,8 +18,8 @@ import seedu.address.model.volunteer.VolunteerId;
  * A utility class to help with building Person objects.
  */
 public class VolunteerBuilder {
-    public static final int DEFAULT_VOLUNTEERID = 1;
     public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_VOLUNTEERID = "S9383064D";
     public static final String DEFAULT_GENDER = "f";
     public static final String DEFAULT_BIRTHDAY = "01-02-1993";
     public static final String DEFAULT_PHONE = "85355255";
@@ -36,8 +36,8 @@ public class VolunteerBuilder {
     private Set<Tag> tags;
 
     public VolunteerBuilder() {
-        volunteerId = new VolunteerId(DEFAULT_VOLUNTEERID);
         name = new Name(DEFAULT_NAME);
+        volunteerId = new VolunteerId(DEFAULT_VOLUNTEERID);
         gender = new Gender(DEFAULT_GENDER);
         birthday = new Birthday(DEFAULT_BIRTHDAY);
         phone = new Phone(DEFAULT_PHONE);
@@ -51,8 +51,8 @@ public class VolunteerBuilder {
      * Initializes the VolunteerBuilder with the data of {@code volunteerToCopy}.
      */
     public VolunteerBuilder(Volunteer volunteerToCopy) {
-        volunteerId = volunteerToCopy.getVolunteerId();
         name = volunteerToCopy.getName();
+        volunteerId = volunteerToCopy.getVolunteerId();
         gender = volunteerToCopy.getGender();
         birthday = volunteerToCopy.getBirthday();
         phone = volunteerToCopy.getPhone();
@@ -64,7 +64,7 @@ public class VolunteerBuilder {
     /**
      * Sets the {@code VolunteerId} of the {@code Volunteer} that we are building.
      */
-    public VolunteerBuilder withVolunteerId(int volunteerId) {
+    public VolunteerBuilder withVolunteerId(String volunteerId) {
         this.volunteerId = new VolunteerId(volunteerId);
         return this;
     }
@@ -126,7 +126,7 @@ public class VolunteerBuilder {
     }
 
     public Volunteer build() {
-        return new Volunteer(name, gender, birthday, phone, email, address, tags);
+        return new Volunteer(name, volunteerId, gender, birthday, phone, email, address, tags);
     }
 
 }

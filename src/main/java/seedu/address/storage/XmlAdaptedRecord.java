@@ -21,7 +21,7 @@ public class XmlAdaptedRecord {
     @XmlElement(required = true)
     private int eventId;
     @XmlElement(required = true)
-    private int volunteerId;
+    private String volunteerId;
     @XmlElement(required = true)
     private String hour;
     @XmlElement(required = true)
@@ -37,7 +37,7 @@ public class XmlAdaptedRecord {
     /**
      * Constructs an {@code XmlAdaptedRecord} with the given record details.
      */
-    public XmlAdaptedRecord(int eventId, int volunteerId, String hour, String remark) {
+    public XmlAdaptedRecord(int eventId, String volunteerId, String hour, String remark) {
         this.eventId = eventId;
         this.volunteerId = volunteerId;
         this.hour = hour;
@@ -68,7 +68,7 @@ public class XmlAdaptedRecord {
         final EventId modelEventId = new EventId(eventId);
 
         if (!VolunteerId.isValidId(volunteerId)) {
-            throw new IllegalValueException(VolunteerId.MESSAGE_NAME_CONSTRAINTS);
+            throw new IllegalValueException(VolunteerId.MESSAGE_ID_CONSTRAINTS);
         }
         final VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 

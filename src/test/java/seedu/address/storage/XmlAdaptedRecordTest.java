@@ -16,12 +16,12 @@ import seedu.address.testutil.Assert;
 
 public class XmlAdaptedRecordTest {
     private static final int INVALID_EVENTID = -1;
-    private static final int INVALID_VOLUNTEERID = -1;
+    private static final String INVALID_VOLUNTEERID = "Z12345678";
     private static final String INVALID_HOUR = "1abc";
     private static final String INVALID_REMARK = " ";
 
     private static final int VALID_EVENTID = R2.getEventId().id;
-    private static final int VALID_VOLUNTEERID = R2.getVolunteerId().id;
+    private static final String VALID_VOLUNTEERID = R2.getVolunteerId().id;
     private static final String VALID_HOUR = R2.getHour().toString();
     private static final String VALID_REMARK = R2.getRemark().toString();
 
@@ -43,7 +43,7 @@ public class XmlAdaptedRecordTest {
     public void toModelType_invalidVolunteerId_throwsIllegalValueException() {
         XmlAdaptedRecord record =
                 new XmlAdaptedRecord(VALID_EVENTID, INVALID_VOLUNTEERID, VALID_HOUR, VALID_REMARK);
-        String expectedMessage = VolunteerId.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = VolunteerId.MESSAGE_ID_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
 

@@ -3,6 +3,7 @@
     <!-- Volunteer with invalid email field -->
     <volunteers>
         <name>Hans Muster</name>
+        <volunteerId isPrivate="false">S8712345A</volunteerId>
         <gender isPrivate="false">m</gender>
         <birthday iPrivate="false">22-05-1987</birthday>
         <phone isPrivate="false">9482424</phone>

@@ -28,9 +28,9 @@ public class XmlAdaptedVolunteer {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Volunteer's %s field is missing!";
 
     @XmlElement(required = true)
-    private int volunteerId;
-    @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String volunteerId;
     @XmlElement(required = true)
     private String gender;
     @XmlElement(required = true)
@@ -55,27 +55,10 @@ public class XmlAdaptedVolunteer {
     /**
      * Constructs an {@code XmlAdaptedVolunteer} with the given volunteer details.
      */
-    public XmlAdaptedVolunteer(String name, String gender, String birthday, String phone, String email,
-                            String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedVolunteer(String name, String volunteerId, String gender, String birthday,
+                               String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-
-    }
-
-    /**
-     * Constructs an {@code XmlAdaptedVolunteer} with the given volunteer details.
-     */
-    public XmlAdaptedVolunteer(int volunteerId, String name, String gender, String birthday, String phone,
-                            String email, String address, List<XmlAdaptedTag> tagged) {
         this.volunteerId = volunteerId;
-        this.name = name;
         this.gender = gender;
         this.birthday = birthday;
         this.phone = phone;
@@ -84,6 +67,7 @@ public class XmlAdaptedVolunteer {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+
     }
 
     /**
@@ -92,8 +76,8 @@ public class XmlAdaptedVolunteer {
      * @param source future changes to this will not affect the created XmlAdaptedVolunteer
      */
     public XmlAdaptedVolunteer(Volunteer source) {
-        volunteerId = source.getVolunteerId().id;
         name = source.getName().fullName;
+        volunteerId = source.getVolunteerId().id;
         gender = source.getGender().value;
         birthday = source.getBirthday().value;
         phone = source.getPhone().value;
@@ -114,15 +98,6 @@ public class XmlAdaptedVolunteer {
         for (XmlAdaptedTag tag : tagged) {
             volunteerTags.add(tag.toModelType());
         }
-        if (volunteerId == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    VolunteerId.class.getSimpleName()));
-        }
-        if (!VolunteerId.isValidId(volunteerId)) {
-            throw new IllegalValueException(VolunteerId.MESSAGE_NAME_CONSTRAINTS);
-        }
-        VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Name.class.getSimpleName()));
@@ -131,6 +106,15 @@ public class XmlAdaptedVolunteer {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (volunteerId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VolunteerId.class.getSimpleName()));
+        }
+        if (!VolunteerId.isValidId(volunteerId)) {
+            throw new IllegalValueException(VolunteerId.MESSAGE_ID_CONSTRAINTS);
+        }
+        VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -146,9 +130,6 @@ public class XmlAdaptedVolunteer {
                     Birthday.class.getSimpleName()));
         }
         if (!Birthday.isValidBirthday(birthday)) {
-            throw new IllegalValueException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
-        }
-        if (!Birthday.isLessThanOrEqualToValidBirthday(birthday)) {
             throw new IllegalValueException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
         }
         final Birthday modelBirthday = new Birthday(birthday);
@@ -181,7 +162,7 @@ public class XmlAdaptedVolunteer {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(volunteerTags);
-        return new Volunteer(modelVolunteerId, modelName, modelGender, modelBirthday, modelPhone,
+        return new Volunteer(modelName, modelVolunteerId, modelGender, modelBirthday, modelPhone,
                 modelEmail, modelAddress, modelTags);
     }
 
@@ -197,6 +178,7 @@ public class XmlAdaptedVolunteer {
 
         XmlAdaptedVolunteer otherVolunteer = (XmlAdaptedVolunteer) other;
         return Objects.equals(name, otherVolunteer.name)
+                && Objects.equals(volunteerId, otherVolunteer.volunteerId)
                 && Objects.equals(gender, otherVolunteer.gender)
                 && Objects.equals(birthday, otherVolunteer.birthday)
                 && Objects.equals(phone, otherVolunteer.phone)

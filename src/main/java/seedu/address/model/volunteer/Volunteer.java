@@ -14,8 +14,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Volunteer {
-    // Used to keep track of current max Id in the system
-    private static int maxId = 0;
 
     // Identity fields
     private final VolunteerId volunteerId;
@@ -32,66 +30,18 @@ public class Volunteer {
     /**
      * Used when creating new Volunteer. Every field must be present and not null.
      */
-    public Volunteer(Name name, Gender gender, Birthday birthday, Phone phone, Email email,
+    public Volunteer(Name name, VolunteerId volunteerId, Gender gender, Birthday birthday, Phone phone, Email email,
                      Address address, Set<Tag> tags) {
         requireAllNonNull(name, gender, birthday, phone, email, address, tags);
 
-        incrementMaxId();
-        this.volunteerId = new VolunteerId(maxId);
-
         this.name = name;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Used when loading data from XML and editing Volunteer.
-     * Every field must be present and not null.
-     */
-    public Volunteer(VolunteerId volunteerId, Name name, Gender gender, Birthday birthday,
-                     Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(volunteerId, name, phone, email, address, tags);
-
-        if (isVolunteerIdGreaterThanMaxId(volunteerId.id)) {
-            replaceMaxIdWithVolunteerId(volunteerId.id);
-        }
         this.volunteerId = volunteerId;
-        this.name = name;
-        this.gender = gender;
         this.birthday = birthday;
+        this.gender = gender;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-    }
-
-    /**
-     * Increments the current maxId by 1.
-     */
-    private void incrementMaxId() {
-        maxId += 1;
-    }
-
-    /**
-     * Checks if volunteer id is greater than current max id.
-     *
-     * @param volunteerId event id from an existing volunteer.
-     */
-    private boolean isVolunteerIdGreaterThanMaxId(int volunteerId) {
-        return volunteerId > maxId;
-    }
-
-    /**
-     * Replaces max id with volunteer id.
-     *
-     * @param volunteerId event id from an existing volunteer.
-     */
-    private void replaceMaxIdWithVolunteerId(int volunteerId) {
-        maxId = volunteerId;
     }
 
     public VolunteerId getVolunteerId() {
@@ -134,13 +84,13 @@ public class Volunteer {
      * Returns true if both volunteers of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two volunteers.
      */
-    public boolean isSameVolunteer(seedu.address.model.volunteer.Volunteer otherVolunteer) {
+    public boolean isSameVolunteer(Volunteer otherVolunteer) {
         if (otherVolunteer == this) {
             return true;
         }
 
         return otherVolunteer != null
-                && otherVolunteer.getName().equals(getName())
+                && (otherVolunteer.getVolunteerId().toString()).equals(getVolunteerId().toString())
                 && (otherVolunteer.getPhone().equals(getPhone()) || otherVolunteer.getEmail().equals(getEmail()));
     }
 
@@ -158,8 +108,9 @@ public class Volunteer {
             return false;
         }
 
-        seedu.address.model.volunteer.Volunteer otherVolunteer = (seedu.address.model.volunteer.Volunteer) other;
+        Volunteer otherVolunteer = (Volunteer) other;
         return otherVolunteer.getName().equals(getName())
+                && otherVolunteer.getVolunteerId().equals(getVolunteerId())
                 && otherVolunteer.getGender().equals(getGender())
                 && otherVolunteer.getBirthday().equals(getBirthday())
                 && otherVolunteer.getPhone().equals(getPhone())
@@ -171,13 +122,15 @@ public class Volunteer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, birthday, phone, email, address, tags);
+        return Objects.hash(name, volunteerId, gender, birthday, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" VolunteerId: ")
+                .append(getVolunteerId())
                 .append(" Gender: ")
                 .append(getGender())
                 .append(" Birthday: ")

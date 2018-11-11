@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -18,24 +17,24 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_GENDER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DRIVER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BIRTHDAY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VOLUNTEERS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VOLUNTEER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VOLUNTEER;
-import static seedu.address.testutil.TypicalVolunteers.AMY;
 import static seedu.address.testutil.TypicalVolunteers.BOB;
 import static seedu.address.testutil.TypicalVolunteers.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.VolunteerBuilder.DEFAULT_VOLUNTEERID;
 
 import org.junit.Test;
 
@@ -69,9 +68,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_VOLUNTEER;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + GENDER_DESC_BOB + " " + BIRTHDAY_DESC_BOB + " " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  "
-                + ADDRESS_DESC_BOB + " " + TAG_DESC_DRIVER + " ";
-        Volunteer editedVolunteer = new VolunteerBuilder(BOB).withTags(VALID_TAG_DRIVER).build();
+                + GENDER_DESC_BOB + " " + BIRTHDAY_DESC_BOB + " " + PHONE_DESC_BOB + " "
+                + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_DRIVER + " ";
+        Volunteer editedVolunteer = new VolunteerBuilder(BOB).withTags(VALID_TAG_DRIVER)
+                .withVolunteerId(DEFAULT_VOLUNTEERID).build();
         assertCommandSuccess(command, index, editedVolunteer);
 
         /* Case: undo editing the last volunteer in the list -> last volunteer restored */
@@ -92,27 +92,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a volunteer with new values same as another volunteer's values
-            but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getVolunteerList().contains(BOB));
-        index = INDEX_SECOND_VOLUNTEER;
-        assertNotEquals(getModel().getFilteredVolunteerList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + GENDER_DESC_BOB
-                + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        editedVolunteer = new VolunteerBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedVolunteer);
-
-        /* Case: edit a volunteer with new values same as another volunteer's values but with different phone and email
-         * -> edited
-         */
-        index = INDEX_SECOND_VOLUNTEER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
-                + BIRTHDAY_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        editedVolunteer = new VolunteerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        assertCommandSuccess(command, index, editedVolunteer);
-
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_VOLUNTEER;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
@@ -128,7 +107,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredVolunteerList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         volunteerToEdit = getModel().getFilteredVolunteerList().get(index.getZeroBased());
-        editedVolunteer = new VolunteerBuilder(volunteerToEdit).withName(VALID_NAME_BOB).build();
+        editedVolunteer = new VolunteerBuilder(volunteerToEdit).withName(VALID_NAME_BOB)
+                .withVolunteerId(volunteerToEdit.getVolunteerId().id).build();
         assertCommandSuccess(command, index, editedVolunteer);
 
         /* Case: filtered volunteer list, edit index within bounds of address book but out of bounds of volunteer list
@@ -147,12 +127,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllVolunteers();
         index = INDEX_FIRST_VOLUNTEER;
         selectVolunteer(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + GENDER_DESC_AMY
-                + BIRTHDAY_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
+                + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_DRIVER + TAG_DESC_STUDENT;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new volunteer's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, BOB, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -205,56 +185,63 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_VOLUNTEER.getOneBased()
                         + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        /* Case: edit a volunteer with new values same as another volunteer's values -> rejected */
+        /* Case: edit a volunteer with new values same as another volunteer's values -> edited */
         executeCommand(VolunteerUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getVolunteerList().contains(BOB));
         index = INDEX_FIRST_VOLUNTEER;
-        assertFalse(getModel().getFilteredVolunteerList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredVolunteerList().get(index.getOneBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        assertCommandSuccess(command, index, BOB, index);
 
         /* Case: edit a volunteer with new values same as another volunteer's values
-            but with different tags -> rejected */
+            but with different tags -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withTags(VALID_TAG_DRIVER).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
 
         /* Case: edit a volunteer with new values same as another volunteer's values
-            but with different address -> rejected */
+            but with different address -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withAddress(VALID_ADDRESS_AMY).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
 
         /* Case: edit a volunteer with new values same as another volunteer's values
-            but with different gender -> rejected */
+            but with different gender -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_AMY
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withGender(VALID_GENDER_AMY).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
 
         /* Case: edit a volunteer with new values same as another volunteer's values
-            but with different birthday -> rejected */
+            but with different birthday -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withBirthday(VALID_BIRTHDAY_AMY).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
+
         /* Case: edit a volunteer with new values same as another volunteer's values
             but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withPhone(VALID_PHONE_AMY).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
 
         /* Case: edit a volunteer with new values same as another volunteer's values
             but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + GENDER_DESC_BOB
                 + BIRTHDAY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT + TAG_DESC_DRIVER;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_VOLUNTEER);
+        editedVolunteer = new VolunteerBuilder(BOB).withEmail(VALID_EMAIL_AMY).build();
+        assertCommandSuccess(command, index, editedVolunteer, index);
     }
 
     /**

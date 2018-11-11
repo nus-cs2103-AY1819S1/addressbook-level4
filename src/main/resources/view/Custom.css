@@ -323,6 +323,10 @@
     -fx-font-family: "Open Sans"
 }
 
+.volunteer-details {
+    -fx-padding: 20 0 0 0;
+}
+
 .table-view {
     -fx-control-inner-background: -card-2-;
     -fx-background-color: transparent;

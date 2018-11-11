@@ -43,6 +43,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the volunteer identified "
             + "by the index number used in the displayed volunteer list. "
+            + "NRIC numbers are not editable. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -106,8 +107,8 @@ public class EditCommand extends Command {
                                                    EditVolunteerDescriptor editVolunteerDescriptor) {
         assert volunteerToEdit != null;
 
-        VolunteerId volunteerId = volunteerToEdit.getVolunteerId();
         Name updatedName = editVolunteerDescriptor.getName().orElse(volunteerToEdit.getName());
+        VolunteerId updatedVolunteerId = volunteerToEdit.getVolunteerId();
         Gender updatedGender = editVolunteerDescriptor.getGender().orElse(volunteerToEdit.getGender());
         Birthday updatedBirthday = editVolunteerDescriptor.getBirthday().orElse(volunteerToEdit.getBirthday());
         Phone updatedPhone = editVolunteerDescriptor.getPhone().orElse(volunteerToEdit.getPhone());
@@ -115,7 +116,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editVolunteerDescriptor.getAddress().orElse(volunteerToEdit.getAddress());
         Set<Tag> updatedTags = editVolunteerDescriptor.getTags().orElse(volunteerToEdit.getTags());
 
-        return new Volunteer(volunteerId, updatedName, updatedGender, updatedBirthday,
+        return new Volunteer(updatedName, updatedVolunteerId, updatedGender, updatedBirthday,
                 updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
@@ -142,7 +143,6 @@ public class EditCommand extends Command {
      * corresponding field value of the volunteer.
      */
     public static class EditVolunteerDescriptor {
-        private VolunteerId volunteerId;
         private Name name;
         private Gender gender;
         private Birthday birthday;
@@ -158,7 +158,6 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditVolunteerDescriptor(EditVolunteerDescriptor toCopy) {
-            setVolunteerId(toCopy.volunteerId);
             setName(toCopy.name);
             setGender(toCopy.gender);
             setBirthday(toCopy.birthday);
@@ -173,10 +172,6 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, gender, birthday, phone, email, address, tags);
-        }
-
-        public void setVolunteerId(VolunteerId volunteerId) {
-            this.volunteerId = volunteerId;
         }
 
         public void setName(Name name) {
