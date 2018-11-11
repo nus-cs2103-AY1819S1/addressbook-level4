@@ -461,6 +461,7 @@ image::registercommand.png[width="600"]
 `reg 1` +
 Registers the 1st patient in the resulting list of the `find` command.
 
+// end::pqms[]
 ==== Listing all patients in Waiting Queue: `queue`
 
 Need to know who is in the queue? Use the queue command! +
@@ -491,7 +492,6 @@ image::afterremove.png[width="600"]
 * `rem 3` +
 Removes the 2nd patient in the queue.
 
-// end::pqms[]
 ==== Inserting a patient to Waiting Queue: `insert`
 
 A patient needs to be inserted into a certain position? Insert him into any position! +
