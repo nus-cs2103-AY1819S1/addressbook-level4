@@ -179,7 +179,7 @@ Any arguments beyond the 2nd position will be discarded and ignored.
 
 [WARNING]
 Information provided in the short help only shows the rough syntax of commands. For full information,
-do refer to this User Guide.
+do refer to this User Guide. Also note that `help` will cause the currently selected `Ride` to be deselected.
 
 |===
 a|

@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
 import seedu.thanepark.commons.events.ui.RidePanelSelectionChangedEvent;
+import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.ui.exceptions.AccessibilityException;
 
@@ -49,6 +50,13 @@ public class RideListPanel extends UiPart<Region> {
     }
 
     /**
+     * Unselects current {@code RideCard}.
+     */
+    private void unselect() {
+        Platform.runLater(() -> rideListView.getSelectionModel().clearSelection());
+    }
+
+    /**
      * Scrolls to the {@code RideCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
@@ -56,6 +64,12 @@ public class RideListPanel extends UiPart<Region> {
             rideListView.scrollTo(index);
             rideListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+
+    @Subscribe
+    private void handleShowHelpRequestEvent(ShowHelpRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        unselect();
     }
 
     @Subscribe
