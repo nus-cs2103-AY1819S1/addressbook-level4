@@ -141,16 +141,9 @@ public class DependencyCommand extends Command {
     public static Task createDependantTask(Task dependantTask, Task dependeeTask) {
         assert dependantTask != null;
         assert dependeeTask != null;
-        return new Task(
-                dependantTask.getName(),
-                dependantTask.getDueDate(),
-                dependantTask.getPriorityValue(),
-                dependantTask.getDescription(),
-                dependantTask.getLabels(),
-                dependantTask.getStatus(),
-                dependantTask.getDependency().addDependency(dependeeTask)
-        );
+        return dependantTask.concatDependency()
     }
+
     /**
      * Returns a {@code Task} with the dependency removed.
      * @param dependantTask An immutable task passed to have its attributes copied
@@ -159,15 +152,7 @@ public class DependencyCommand extends Command {
     public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
         assert dependantTask != null;
         assert dependeeTask != null;
-        return new Task(
-                dependantTask.getName(),
-                dependantTask.getDueDate(),
-                dependantTask.getPriorityValue(),
-                dependantTask.getDescription(),
-                dependantTask.getLabels(),
-                dependantTask.getStatus(),
-                dependantTask.getDependency().removeDependency(dependeeTask)
-        );
+        return dependantTask.spliceDependency(dependeeTask);
     }
 
 

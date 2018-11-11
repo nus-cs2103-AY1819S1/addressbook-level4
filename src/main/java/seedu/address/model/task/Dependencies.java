@@ -40,7 +40,7 @@ public class Dependencies {
      * @param task
      * @return new dependencies object with the additional dependee task's hashcode
      */
-    public Dependencies addDependency(Task task) {
+    public Dependencies concatDependency(Task task) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.add(Integer.toString(task.hashCode()));
         return new Dependencies(newValue);
@@ -51,7 +51,7 @@ public class Dependencies {
      * @param task task to remove dependency to
      * @return new dependencies object without hashcode of given task
      */
-    public Dependencies removeDependency(Task task) {
+    public Dependencies spliceDependency(Task task) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(Integer.toString(task.hashCode()));
         return new Dependencies(newValue);

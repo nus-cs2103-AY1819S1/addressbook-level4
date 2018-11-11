@@ -45,12 +45,12 @@ public class DependenciesTest {
 
     @Test
     public void addDependency_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Dependencies().addDependency(null));
+        assertThrows(NullPointerException.class, () -> new Dependencies().concatDependency(null));
     }
 
     @Test
     public void removeDependency_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Dependencies().removeDependency(null));
+        assertThrows(NullPointerException.class, () -> new Dependencies().spliceDependency(null));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DependenciesTest {
         sampleSet.add(Integer.toString(sampleTaskOutsideDependency.hashCode()));
         Dependencies expectedDependency = new Dependencies(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, sampleDependencies.addDependency(sampleTaskOutsideDependency));
+        assertEquals(expectedDependency, sampleDependencies.concatDependency(sampleTaskOutsideDependency));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class DependenciesTest {
         sampleSet.remove(Integer.toString(sampleTaskInDependency.hashCode()));
         Dependencies expectedDependency = new Dependencies(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, sampleDependencies.removeDependency(sampleTaskInDependency));
+        assertEquals(expectedDependency, sampleDependencies.spliceDependency(sampleTaskInDependency));
     }
 
     @Test

@@ -137,6 +137,36 @@ public class Task {
     }
 
     /**
+     * Returns a new Task object with the specified dependee task removed [Non-mutating]
+     */
+    public Task spliceDependency(Task dependeeTask) {
+        return new Task(
+                this.name,
+                this.dueDate,
+                this.priorityValue,
+                this.description,
+                this.labels,
+                this.status,
+                this.dependency.spliceDependency(dependeeTask)
+        );
+    }
+
+    /**
+     * Returns a new Task object with the specified dependee task added [Non-mutating]
+     */
+    public Task concatDependency(Task dependeeTask) {
+        return new Task(
+                this.name,
+                this.dueDate,
+                this.priorityValue,
+                this.description,
+                this.labels,
+                this.status,
+                this.dependency.concatDependency(dependeeTask)
+        );
+    }
+
+    /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two tasks.
      */

@@ -165,7 +165,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 dependantTask.getDescription(),
                 dependantTask.getLabels(),
                 dependantTask.getStatus(),
-                dependantTask.getDependency().removeDependency(dependeeTask)
+                dependantTask.getDependency().spliceDependency(dependeeTask)
         );
     }
 
