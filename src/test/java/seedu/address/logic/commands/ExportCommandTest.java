@@ -41,11 +41,7 @@ public class ExportCommandTest {
         File produced = new File(EXPORTED_FILE_NAME);
         File expected = EXPECTED_FILE_NAME.toFile();
         boolean isTwoEqual = compareFiles(produced, expected);
-        try {
-            assertTrue(isTwoEqual);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        assertTrue(isTwoEqual);
     }
 
     /**
