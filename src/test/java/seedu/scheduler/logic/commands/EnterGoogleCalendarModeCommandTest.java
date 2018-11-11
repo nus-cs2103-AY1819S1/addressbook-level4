@@ -24,7 +24,7 @@ public class EnterGoogleCalendarModeCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void executeEnterGoogleCalendarModeCommand_valid_empty_success() throws Exception {
+    public void executeEnterGoogleCalendarModeCommandValidEmptySuccess() throws Exception {
         //Set status to before initialization
         disable();
         //Prepare the command expectation
@@ -41,7 +41,7 @@ public class EnterGoogleCalendarModeCommandTest {
     }
 
     @Test
-    public void executeEnterGoogleCalendarModeCommand_valid_non_repeat_event_success() {
+    public void executeEnterGoogleCalendarModeCommandValidnonRepeatEventSuccess() {
         //Set status to before initialization
         disable();
         //Prepare the command
@@ -69,7 +69,7 @@ public class EnterGoogleCalendarModeCommandTest {
     }
 
     @Test
-    public void executeEnterGoogleCalendarModeCommand_valid_repeat_event_success() {
+    public void executeEnterGoogleCalendarModeCommandValidRepeatEventSuccess() {
         //Set status to before initialization
         disable();
         //Prepare the command
@@ -97,7 +97,7 @@ public class EnterGoogleCalendarModeCommandTest {
     }
 
     @Test
-    public void executeEnterGoogleCalendarModeCommand_twice_invalid_failure() {
+    public void executeEnterGoogleCalendarModeCommandTwiceFailure() {
         //Set status to after initialization
         enable();
         EnterGoogleCalendarModeCommand
