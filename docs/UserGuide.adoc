@@ -195,10 +195,10 @@ retaken and cap tracker has multiple entries of it.
 
 
 //tag::commandgoal[]
-=== Setting Cap Goal : `c_goal`
+=== Setting Cap Goal : `goal`
 
 Set the CAP goal you want to achieve. +
-Format: `c_goal CAP_GOAL`
+Format: `goal CAP_GOAL`
 
 ****
 * Sets and updates the CAP goal.
@@ -206,9 +206,31 @@ Format: `c_goal CAP_GOAL`
 
 Examples:
 
-* `c_goal 4.5` +
+* `goal 4.5` +
 Update your CAP goal to 4.5
 //end::commandgoal[]
+//tag::commandadjust[]
+
+=== Adjusting target goals: `adjust`
+
+[NOTE]
+Removal of adjustment will be made available in the following release. For now, delete and add the module without a grade again.
+
+Adjust the grade of an incomplete module +
+Format:
+
+* *Module code is unique*: `adjust MODULE_CODE GRADE`
+* *Otherwise*: `adjust MODULE_CODE YEAR SEM GRADE`
+
+Examples:
+
+* `adjust CS2103 A` +
+Adjusts the grade with module code CS2103 to have grade A
+
+* `adjust CS2103 1 1 A` +
+Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
+
+//end::commandadjust[]
 
 === Undoing commands : `c_undo`
 
@@ -224,24 +246,6 @@ Format: `c_redo`
 
 Exits the program. +
 Format: `exit`
-
-//tag::commandadjust[]
-=== Adjusting target goals: `c_adjust`
-
-Adjust the grade of an incomplete module +
-Format:
-
-* Module code is unique: `c_adjust MODULE_CODE GRADE`
-* Otherwise: `c_adjust MODULE_CODE YEAR SEM GRADE`
-
-Examples:
-
-* `c_adjust CS2103 A` +
-Adjusts the grade with module code CS2103 to have grade A
-
-* `c_adjust CS2103 1 1 A` +
-Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
-//end::commandadjust[]
 
 === Saving the data
 
