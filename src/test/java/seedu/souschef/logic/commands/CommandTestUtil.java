@@ -31,8 +31,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BEE = "Bee Hoon";
     public static final String VALID_DIFFICULTY_5 = "5";
     public static final String VALID_DIFFICULTY_1 = "1";
-    public static final String VALID_COOKTIME_AMY = "20M";
-    public static final String VALID_COOKTIME_BOB = "24M";
+    public static final String VALID_COOKTIME_MIN = "20M";
+    public static final String VALID_COOKTIME_HR = "1H45M";
     public static final String VALID_TAG_STAPLE = "staple";
     public static final String VALID_TAG_SPICY = "spicy";
 
@@ -40,8 +40,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BEE;
     public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_5;
     public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_1;
-    public static final String COOKTIME_DESC_AMY = " " + PREFIX_COOKTIME + VALID_COOKTIME_AMY;
-    public static final String COOKTIME_DESC_BOB = " " + PREFIX_COOKTIME + VALID_COOKTIME_BOB;
+    public static final String COOKTIME_DESC_AMY = " " + PREFIX_COOKTIME + VALID_COOKTIME_MIN;
+    public static final String COOKTIME_DESC_BOB = " " + PREFIX_COOKTIME + VALID_COOKTIME_HR;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_SPICY;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_STAPLE;
 
@@ -58,10 +58,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMERICA)
-                .withDifficulty(VALID_DIFFICULTY_5).withCooktime(VALID_COOKTIME_AMY)
+                .withDifficulty(VALID_DIFFICULTY_5).withCooktime(VALID_COOKTIME_MIN)
                 .withTags(VALID_TAG_SPICY).build();
         DESC_BOB = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE)
-                .withDifficulty(VALID_DIFFICULTY_1).withCooktime(VALID_COOKTIME_BOB)
+                .withDifficulty(VALID_DIFFICULTY_1).withCooktime(VALID_COOKTIME_HR)
                 .withTags(VALID_TAG_STAPLE, VALID_TAG_SPICY).build();
     }
 

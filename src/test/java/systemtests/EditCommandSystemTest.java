@@ -24,7 +24,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + DIFFICULTY_DESC_BOB + " " + COOKTIME_DESC_BOB + "  " + ADDRESS_DESC_BOB +
                 " " + TAG_DESC_HUSBAND + " ";
-        Recipe editedRecipe = new RecipeBuilder(BOB).withTags(VALID_TAG_STAPLE).build();
+        Recipe editedRecipe = new RecipeBuilder(BEE).withTags(VALID_TAG_STAPLE).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: undo editing the last recipe in the list -> last recipe restored *//**//*
@@ -43,17 +43,17 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
         + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        assertCommandSuccess(command, index, BEE);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but with different name ->
         edited *//**//*
-        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
+        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BEE));
         index = INDEX_SECOND_RECIPE;
-        assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), BEE);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
         + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRecipe = new RecipeBuilder(BOB).withName(VALID_NAME_AMERICA).build();
+        editedRecipe = new RecipeBuilder(BEE).withName(VALID_NAME_AMERICA).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but
@@ -64,8 +64,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
         + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRecipe = new RecipeBuilder(BOB).withDifficulty(VALID_DIFFICULTY_5)
-        .withCooktime(VALID_COOKTIME_AMY).build();
+        editedRecipe = new RecipeBuilder(BEE).withDifficulty(VALID_DIFFICULTY_5)
+        .withCooktime(VALID_COOKTIME_MIN).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: clear tags -> cleared *//**//*
@@ -110,7 +110,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new recipe's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, AMERICA, index);
 
         *//**//* --------------------------------- Performing invalid edit operation
         -------------------------------------- *//**//*
@@ -160,10 +160,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values -> rejected *//**//*
-        executeCommand(RecipeUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
+        executeCommand(RecipeUtil.getAddCommand(BEE));
+        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BEE));
         index = INDEX_FIRST_RECIPE;
-        assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(BEE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
         + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;

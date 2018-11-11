@@ -29,7 +29,7 @@ public class EditRecipeDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withCooktime(VALID_COOKTIME_BOB).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withCooktime(VALID_COOKTIME_HR).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
