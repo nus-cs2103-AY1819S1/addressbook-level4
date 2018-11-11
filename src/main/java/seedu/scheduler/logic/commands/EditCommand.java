@@ -60,6 +60,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_SINGLE_EVENT_FAIL = "Repeat type and Repeat until date time fields "
+            + "can only be edited for repeated events with options (-a or -u).";
     public static final String MESSAGE_INTERNET_ERROR = "Only local changes,"
             + "no effects on your Google Calender.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -170,8 +172,6 @@ public class EditCommand extends Command {
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Venue updatedVenue = editEventDescriptor.getVenue().orElse(eventToEdit.getVenue());
         RepeatType updatedRepeatType = editEventDescriptor.getRepeatType().orElse(eventToEdit.getRepeatType());
-        DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
-                .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
         ReminderDurationList updatedReminderDurationList =
                 editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
@@ -180,12 +180,8 @@ public class EditCommand extends Command {
             throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
         }
 
-        if (!Event.isValidEventDateTime(updatedEndDateTime, updatedRepeatUntilDateTime)) {
-            throw new ParseException(Event.MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS);
-        }
-
         return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
-                updatedDescription, updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags,
+                updatedDescription, updatedVenue, updatedRepeatType, updatedEndDateTime, updatedTags,
                 updatedReminderDurationList);
     }
 

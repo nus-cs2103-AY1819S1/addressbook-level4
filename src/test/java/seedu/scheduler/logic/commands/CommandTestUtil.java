@@ -36,10 +36,10 @@ import seedu.scheduler.testutil.EditEventDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-    public static final UUID VALID_EVENT_UID_CS2103 = UUID.randomUUID();
+    public static final UUID VALID_EVENT_UID_CS2103 = UUID.fromString(("8319-1bae658a-4b83-c457-aef6b77e"));
     public static final UUID VALID_EVENT_UID_MA2101 = UUID.fromString("1bae658a-c457-4b83-8319-d45f8e61027d");
     public static final UUID VALID_EVENT_UID_MA3220 = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd4");
-    public static final UUID VALID_EVENT_UUID_CS2103 = UUID.randomUUID();
+    public static final UUID VALID_EVENT_UUID_CS2103 = UUID.fromString(("4b83-aef6b77e-4b83-4de4-1bae658a"));
     public static final UUID VALID_EVENT_UUID_MA2101 = UUID.fromString("1bae658a-c457-4b83-8319-d45f8e61028d");
     public static final UUID VALID_EVENT_UUID_MA3220 = UUID.fromString("aef6b77e-20a7-4de4-8402-343fbd475fd3");
     public static final String VALID_EVENT_NAME_CS2103 = "CS2103";
@@ -57,7 +57,7 @@ public class CommandTestUtil {
             1, 1, 2);
     public static final LocalDateTime VALID_END_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
             2, 2, 3);
-    public static final String VALID_DESCRIPTION_CS2103 = "CS2103 Description";
+    public static final String VALID_DESCRIPTION_CS2103 = "CS2103";
     public static final String VALID_DESCRIPTION_MA2101 = "MA2101";
     public static final String VALID_DESCRIPTION_MA3220 = "MA3220";
     public static final String VALID_VENUE_CS2103 = "I3";
@@ -109,6 +109,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_PLAY = " " + PREFIX_TAG + VALID_TAG_PLAY;
     public static final String REMINDER_DURATION_LIST_1H = " " + PREFIX_EVENT_REMINDER_DURATION + VALID_DURATION_1H;
     public static final String REMINDER_DURATION_LIST_30M = " " + PREFIX_EVENT_REMINDER_DURATION + VALID_DURATION_30M;
+
     // empty string not allowed in event names
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "  ";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -117,10 +118,6 @@ public class CommandTestUtil {
 
     public static final String VALID_FLAG_ALL = " " + FLAG_ALL;
     public static final String VALID_FLAG_UPCOMING = " " + FLAG_UPCOMING;
-
-    public static final String POSTFIX_ALL = " -a";
-    public static final String POSTFIX_UPCOMING = " -u";
-    public static final String POSTFIX_INVALID = " -i";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

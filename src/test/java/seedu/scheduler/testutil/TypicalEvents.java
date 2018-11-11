@@ -1,19 +1,26 @@
 package seedu.scheduler.testutil;
 
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_SCHOOL;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA3220;
 import static seedu.scheduler.model.util.SampleSchedulerDataUtil.getReminderDurationList;
@@ -46,9 +53,9 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a629"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633")));
     public static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a635"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a636"),
@@ -59,7 +66,8 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a641"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a642"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a643"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a644")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a644"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a645")));
 
     // single event
     public static final Event DISCUSSION_WITH_JACK = new EventBuilder()
@@ -182,19 +190,6 @@ public class TypicalEvents {
             .build();
 
     // weekly event
-
-    public static final Event CS2103_LECTURE = new EventBuilder()
-            .withEventUid(UUID.randomUUID())
-            .withEventSetUid(UUID.randomUUID())
-            .withEventName("CS2103")
-            .withStartDateTime(LocalDateTime.of(2018, 8, 17, 16, 0))
-            .withEndDateTime(LocalDateTime.of(2018, 8, 17, 18, 0))
-            .withDescription("CS2103 Description").withVenue("I3")
-            .withRepeatType(RepeatType.WEEKLY)
-            .withRepeatUntilDateTime(LocalDateTime.of(2018, 11, 16, 18, 1))
-            .build();
-
-    // monthly event
     public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
 
             .withEventUid(CONSTANT_EVENTUID.get(4))
@@ -354,7 +349,7 @@ public class TypicalEvents {
             JIM_BIRTHDAY_YEAR_TWO, JIM_BIRTHDAY_YEAR_THREE);
 
     // Manually added
-    public static final Event AD_HOC_WORK = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(7))
+    public static final Event AD_HOC_WORK = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(8))
             .withEventSetUid(CONSTANT_EVENTSETUID.get(8))
             .withEventName("Ad hoc work").withStartDateTime(LocalDateTime.of(2018, 12, 12, 0, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 12, 1, 0))
@@ -371,7 +366,7 @@ public class TypicalEvents {
 
     // Manually added - Event's details found in {@code CommandTestUtil}
     public static final Event MA2101_JANUARY_1_2018_YEARLY = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(9))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(10))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(9))
             .withEventName(VALID_EVENT_NAME_MA2101).withStartDateTime(VALID_START_DATETIME_MA2101)
             .withEndDateTime(VALID_END_DATETIME_MA2101).withDescription(VALID_DESCRIPTION_MA2101)
             .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
@@ -379,11 +374,19 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(3)).build();
 
     public static final Event MA3220_JANUARY_1_2019_SINGLE = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(10))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(11))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(10))
             .withEventName(VALID_EVENT_NAME_MA3220).withStartDateTime(VALID_START_DATETIME_MA3220)
             .withEndDateTime(VALID_END_DATETIME_MA3220).withDescription(VALID_DESCRIPTION_MA3220)
             .withVenue(VALID_VENUE_MA3220).withRepeatType(VALID_REPEAT_TYPE_MA3220)
             .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_PLAY)
+            .withReminderDurationList(getReminderDurationList(3)).build();
+
+    public static final Event CS2103_WEEKLY = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(11))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(11))
+            .withEventName(VALID_EVENT_NAME_CS2103).withStartDateTime(VALID_START_DATETIME_CS2103)
+            .withEndDateTime(VALID_END_DATETIME_CS2103).withDescription(VALID_DESCRIPTION_CS2103)
+            .withVenue(VALID_VENUE_CS2103).withRepeatType(VALID_REPEAT_TYPE_CS2103)
+            .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_CS2103)
             .withReminderDurationList(getReminderDurationList(3)).build();
 
     private TypicalEvents() {} // prevents instantiation

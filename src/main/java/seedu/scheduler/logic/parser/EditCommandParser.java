@@ -56,16 +56,12 @@ public class EditCommandParser implements Parser<EditCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-
-        /*
         if (flags.size() == 0
                 && (argMultimap.getValue(PREFIX_REPEAT_TYPE).isPresent()
                 || argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent())) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_SINGLE_EVENT_FAIL));
         }
-        */
-
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
