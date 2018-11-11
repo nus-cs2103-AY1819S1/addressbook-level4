@@ -46,6 +46,8 @@
 
 include::../UserGuide.adoc[tag=picture]
 
+include::../UserGuide.adoc[tag=picture-url]
+
 == Contributions to the Developer Guide
 
 |===
@@ -55,5 +57,9 @@ include::../UserGuide.adoc[tag=picture]
 include::../DeveloperGuide.adoc[tag=addpicture]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
+
+include::../DeveloperGuide.adoc[tag=addpictureurl]
+
+include::../DeveloperGuide.adoc[tag=picUseCase]
 
 include::../DeveloperGuide.adoc[tag=nfr]
