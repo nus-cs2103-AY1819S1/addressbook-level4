@@ -24,24 +24,7 @@ public class EnterGoogleCalendarModeCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void executeEnterGoogleCalendarModeCommandValidEmptySuccess() throws Exception {
-        //Set status to before initialization
-        disable();
-        //Prepare the command expectation
-        EnterGoogleCalendarModeCommand
-                enterGoogleCalendarModeCommand = new EnterGoogleCalendarModeCommand();
-        String expectedMessage = String.format(EnterGoogleCalendarModeCommand.MESSAGE_NO_EVENTS);
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
-        //clear the Google Calender to have empty calendar
-        helperCommand(new ClearCommand(), model, commandHistory);
-        expectedModel.commitScheduler();
-        assertCommandSuccess(enterGoogleCalendarModeCommand,
-                model, commandHistory, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void executeEnterGoogleCalendarModeCommandValidnonRepeatEventSuccess() {
+    public void executeEnterGoogleCalendarModeCommandValidNonRepeatEventSuccess() {
         //Set status to before initialization
         disable();
         //Prepare the command
@@ -102,11 +85,9 @@ public class EnterGoogleCalendarModeCommandTest {
         enable();
         EnterGoogleCalendarModeCommand
                 enterGoogleCalendarModeCommand = new EnterGoogleCalendarModeCommand();
-        String expectedMessage = String.format(
-                EnterGoogleCalendarModeCommand.MESSAGE_REJECT_SECOND_INITIALIZE);
+        String expectedMessage =
+                EnterGoogleCalendarModeCommand.MESSAGE_REJECT_SECOND_INITIALIZE;
         Model model = new ModelManager();
-        //clear the Google Calender
-        helperCommand(new ClearCommand(), model, commandHistory);
 
         assertCommandFailure(enterGoogleCalendarModeCommand,
                 model, commandHistory, expectedMessage);

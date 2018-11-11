@@ -374,7 +374,7 @@ public class ConnectToGoogleCalendarTest {
         helperCommand(new AddCommand(validEvent), model, commandHistory);
         //Prevent triggering Google's limit
         disable();
-        sleep(5000);
+        sleep(1000);
         enable();
         //execute the delete command
         assertTrue(
@@ -389,7 +389,7 @@ public class ConnectToGoogleCalendarTest {
         enable();
         helperCommand(new AddCommand(validEvent), model, commandHistory);
         disable();
-        sleep(5000);
+        sleep(1000);
         enable();
         assertTrue(
                 connectToGoogleCalendar.deleteEventOnGoogleCal(
