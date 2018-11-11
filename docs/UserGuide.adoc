@@ -378,6 +378,59 @@ The address field is set to "TBD".
 image::add-event-no-address.PNG[Adding an event without an address]
 // end::addEvent[]
 
+[[seeEventContacts]]
+//tag::seeEventContacts[]
+=== Viewing an event's contacts: `seeEventContacts`
+
+Shows an event's contacts in the persons list. The information displayed in aligned with that in the UI
+when hovering over the event contact.
+
+Format: `seeEventContacts d/DATE(YYYY-MM-DD) i/EVENT_INDEX`
+
+[TIP]
+====
+* Event dates should be in the format YYYY-MM-DD
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `seeEventContacts d/2018-04-01 i/1` will refer to this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `seeEventContacts d/2018-10-18 i/2` will refer to this event.
+* When a person is deleted or no longer exists in the system, he/she will not appear in the displayed persons list.
+Also, when hovering over the event contact in the UI, a message indicating that this person no longer exists in EventsPlus+ is displayed.
+* If a person has been edited such that it still has the same identity as the original person added as an event contact into
+the event, the updated details (which is the latest information of the edited person) is shown, both in the persons list
+and when hovering over the event contact.
+====
+
+Example:
+
+* `seeEventContacts d/2018-04-01 i/1`
+
+image::see-event-contacts-1.PNG[Event contact display]
+
+* `edit 1 p/12345678` +
+ `seeEventContacts d/2018-04-01 i/1`
+ The phone number of the person is edited, but is still the same person as the originally-added event contact.
+ Hence, the system will show the edited event contact.
+
+image::see-event-contacts-2.PNG[Event contact display after edit]
+
+* `edit 1 n/Alex Lim` +
+ `seeEventContacts d/2018-04-01 i/1`
+ The edited is a different person from the originally-added event contact.
+ There is no existing person in the system who is the same as the originally-added event contact.
+ No persons are shown.
+
+image::see-event-contacts-3.PNG[Event contact display after edit]
+
+* `delete 1` +
+ `seeEventContacts d/2018-04-01 i/1`
+As `Alex` has been deleted, no persons are shown.
+
+image::see-event-contacts-4.PNG[Event contact display after delete]
+
+//end::seeEventContacts[]
+
 [[addEventTag]]
 // tag::addEventTag[]
 === Adding an event tag: `addEventTag`
@@ -752,8 +805,9 @@ Examples:
 | *Suggest Location* | `generateLocation n/EVENT_NAME d/EVENT_DATE st/EVENT_START_TIME` | `generateLocation n/First Meeting d/2018-01-14 st/1330`
 | *Add Event* | `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 | `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
+| *View an Event's Contacts* | `seeEventContacts d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `seeEventContacts d/2018-10-18 i/1`
 | *Delete Event* | `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` | `deleteEvent d/2018-10-18 i/1`
-| *Edit Event Address* | `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS` +
+| *Edit Event Address* | `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS`
 | `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
 | *Add Event Tag* | `addEventTag EVENT_TAG [t/EVENT_TAG...]` | `addEventTag t/Lecture t/Dinner`
 | *List Events* | `listEvent` |
