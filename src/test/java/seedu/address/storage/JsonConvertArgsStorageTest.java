@@ -63,7 +63,7 @@ public class JsonConvertArgsStorageTest {
             List<String> args = JsonConvertArgsStorage.retrieveCommandArguments(file);
             assertEquals(args, sampleArgs);
         } catch (IOException e) {
-            if (!(e.getMessage().length() > 0)) {
+            if (e.getMessage().length() <= 0) {
                 fail();
             }
         }

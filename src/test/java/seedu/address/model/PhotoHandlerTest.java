@@ -1,11 +1,13 @@
 package seedu.address.model;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.model.google.PhotoHandler.PICONSO_ALBUM;
 import static seedu.address.model.google.PhotoHandler.UPLOAD_FORMAT;
-import static seedu.address.model.google.PhotoHandler.WRONG_PATH;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,20 +21,21 @@ import org.junit.Test;
 import com.google.photos.library.v1.proto.Album;
 import com.google.photos.library.v1.proto.MediaItem;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.google.PhotoHandler;
 
 //@@author chivent
 
 /**
- * Test for {@code PhotoHandler}, most functions cannot be tested due to a lack of a google account.
+ * Test for {@code PhotoHandler}, most functions cannot be tested for success due to a lack of a google account.
  */
 public class PhotoHandlerTest {
 
     private String user = "user";
     private String extension = ".png";
-    private String dummyImage = "fake.png";
+    private String dummyName = "fake.png";
     private PhotoHandler photoHandler;
-    private Map<String, String> dummyMap = new HashMap();
+    private Map<String, String> dummyMap = new HashMap<>();
     private Map<String, Album> albumMap = new HashMap<>();
     private Map<String, MediaItem> imageMap = new HashMap<>();
 
@@ -52,10 +55,36 @@ public class PhotoHandlerTest {
     }
 
     @Test
+    public void returnAllImagesListWithRetrieval() {
+        // test images cannot be retrieved without photoHandler
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllImagesList();
+        } catch (NullPointerException nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+    }
+
+    @Test
     public void returnAllImagesList() {
         ArrayList<String> imageNames = new ArrayList<>();
         imageNames.addAll(imageMap.keySet());
         assertEquals(imageNames, photoHandler.returnAllImagesList());
+    }
+
+    @Test
+    public void returnAllAlbumsWithRetrieval() {
+        // test images cannot be retrieved without photoHandler
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllAlbumsList();
+        } catch (NullPointerException nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
     }
 
     @Test
@@ -66,29 +95,122 @@ public class PhotoHandlerTest {
     }
 
     @Test
+    public void returnAllImagesInAlbum() {
+        // test images cannot be retrieved without map
+        Exception ex = null;
+        PhotoHandler emptyPhotoHandler = new PhotoHandler(null, "user");
+        try {
+            emptyPhotoHandler.returnAllImagesinAlbum("album");
+        } catch (Exception nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+
+        // test images cannot be retrieved without photoHandler
+        try {
+            photoHandler.returnAllImagesinAlbum("Album 1");
+        } catch (Exception nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+    }
+
+    @Test
+    public void refreshImageExceptions() {
+        // test images cannot be retrieved without photoHandler
+        Exception ex = null;
+        try {
+            photoHandler.refreshLists();
+        } catch (Exception nullPtr) {
+            ex = nullPtr;
+        }
+        assertNotNull(ex);
+    }
+
+    @Test
     public void uploadImageExceptions() {
+        Exception compare;
+
         //InvalidPath
         try {
-            photoHandler.uploadImage(dummyImage, "/sda/");
+            photoHandler.uploadImage(dummyName, "/sda/");
         } catch (Exception ex) {
-            assertEquals(String.format(WRONG_PATH, dummyImage), ex.getMessage());
+            assertEquals("fake.png does not exist in folder!", ex.getMessage());
         }
 
+        compare = null;
         // no PhotoLibraryClientInstance
         try {
             Path path = Paths.get("src", "test", "resources", "testimgs");
             photoHandler.uploadImage("test2.png", path.toString());
         } catch (Exception ex) {
-            assertTrue(ex instanceof NullPointerException);
+            compare = ex;
         }
+        assertTrue(compare instanceof NullPointerException);
 
+        compare = null;
         //Upload all images no PhotoLibraryClientInstance
         try {
             Path path = Paths.get("src", "test", "resources", "testimgs");
             photoHandler.uploadAll(path.toString());
         } catch (Exception ex) {
-            assertTrue(ex instanceof NullPointerException);
+            compare = ex;
         }
+        assertTrue(compare instanceof NullPointerException);
+    }
+
+    @Test
+    public void downloadImageExceptions() throws IOException, CommandException {
+        Exception compare = null;
+
+        //-------------Dl one image -----------------
+        // Fails to download
+        try {
+            photoHandler.downloadImage("item.png", "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof MalformedURLException);
+
+        // Invalid download
+        try {
+            photoHandler.downloadImage(dummyName, "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof NullPointerException);
+
+        //------------ Dl Album ----------------------
+        //Album - Invalid download
+        try {
+            photoHandler.downloadWholeAlbum(dummyName, "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof NullPointerException);
+
+        // ---------- Dl Image from Album -------------
+        //Image from Album - Invalid image
+        try {
+            photoHandler.downloadAlbumImage("Album 1", dummyName, "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof NullPointerException);
+        //Image from Album - Invalid album
+        try {
+            photoHandler.downloadAlbumImage(dummyName, "item.png", "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof NullPointerException);
+        //Image from Album - Invalid album and image
+        try {
+            photoHandler.downloadAlbumImage(dummyName, dummyName, "/sda/");
+        } catch (Exception ex) {
+            compare = ex;
+        }
+        assertTrue(compare instanceof NullPointerException);
     }
 
     @Test
@@ -168,16 +290,24 @@ public class PhotoHandlerTest {
      */
     private void imageSetup() {
         String mimeType = "image/png";
-        MediaItem mediaItem = MediaItem.newBuilder().setFilename("item.png").setMimeType(mimeType).build();
+        MediaItem mediaItem = MediaItem.newBuilder().setFilename("item.png")
+                .setMimeType(mimeType)
+                .build();
         imageMap.put(mediaItem.getFilename(), mediaItem);
 
-        mediaItem = MediaItem.newBuilder().setFilename("item 2.png").setMimeType(mimeType).build();
+        mediaItem = MediaItem.newBuilder().setFilename("item 2.png")
+                .setMimeType(mimeType)
+                .build();
         imageMap.put(mediaItem.getFilename(), mediaItem);
 
-        mediaItem = MediaItem.newBuilder().setFilename("item 3 (1).png").setMimeType(mimeType).build();
+        mediaItem = MediaItem.newBuilder().setFilename("item 3 (1).png")
+                .setMimeType(mimeType)
+                .build();
         imageMap.put(mediaItem.getFilename(), mediaItem);
 
-        mediaItem = MediaItem.newBuilder().setFilename("item 3.png").setMimeType(mimeType).build();
+        mediaItem = MediaItem.newBuilder().setFilename("item 3.png")
+                .setMimeType(mimeType)
+                .build();
         imageMap.put(mediaItem.getFilename(), mediaItem);
     }
 }

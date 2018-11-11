@@ -85,23 +85,21 @@ public class PhotosLibraryClientFactory {
         String clientSecret = clientSecrets.getDetails().getClientSecret();
         String clientId = clientSecrets.getDetails().getClientId();
 
-        if (!TEST_FILE.exists()) {
+        // TODO: v2.0 develop a more intuitive way of avoiding this issue
+        // Currently BLOCKER.TXT is created because Google automatically creates a blank credential file when login,
+        // is launched even if user does not actually login. This causes our app to always redirect to google login
+        // whenever a blank credential file is found on start up.
+        try {
+            FileUtil.createIfMissing(BLOCKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            // TODO: v2.0 develop a more intuitive way of avoiding this issue
-            // Currently BLOCKER.TXT is created because Google automatically creates a blank credential file when login,
-            // is launched even if user does not actually login. This causes our app to always redirect to google login
-            // whenever a blank credential file is found on start up.
-            try {
-                FileUtil.createIfMissing(BLOCKER);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (!TEST_FILE.exists()) {
             //google standard authorization flow
-            GoogleAuthorizationCodeFlow flow =
-                    new GoogleAuthorizationCodeFlow.Builder(
-                            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-                            SCOPE_LIST).setDataStoreFactory(
-                            dataStoreFactory).build();
+            GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY,
+                    clientSecrets, SCOPE_LIST).setDataStoreFactory(dataStoreFactory).build();
 
             // Credential is a google construct that wraps the access token and helps you to refresh periodically
             // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
@@ -109,16 +107,14 @@ public class PhotosLibraryClientFactory {
                     new LocalServerReceiver()).authorize("user");
 
             //UserCredentials is a specific credential type that stores user specific credentials
-            UserCredentials userCredentials = UserCredentials.newBuilder()
-                    .setClientId(clientId)
-                    .setClientSecret(clientSecret)
-                    .setRefreshToken(credential.getRefreshToken())
-                    .build();
+            UserCredentials userCredentials = UserCredentials.newBuilder().setClientId(clientId)
+                    .setClientSecret(clientSecret).setRefreshToken(credential.getRefreshToken()).build();
 
             credentialFile.close();
             FileUtil.deleteIfAvaliable(BLOCKER);
             return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
         } else {
+            FileUtil.deleteIfAvaliable(BLOCKER);
             return null;
         }
     }
@@ -130,9 +126,8 @@ public class PhotosLibraryClientFactory {
      * @return PhotosLibraryClient new PhotosLibraryClient instance
      */
     private static PhotosLibraryClient createPhotosLibraryClient(Credentials credentials) throws IOException {
-        PhotosLibrarySettings libSettings =
-                PhotosLibrarySettings.newBuilder()
-                        .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
+        PhotosLibrarySettings libSettings = PhotosLibrarySettings.newBuilder()
+                .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
         return PhotosLibraryClient.initialize(libSettings);
     }
 
@@ -143,9 +138,8 @@ public class PhotosLibraryClientFactory {
      * @return a String of user email
      */
     private static String getUserEmail(Credential credential) throws GeneralSecurityException, IOException {
-        Plus plus = new Plus.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential)
-                .setApplicationName("Piconso").build();
+        Plus plus = new Plus.Builder(GoogleNetHttpTransport.newTrustedTransport(),
+                JacksonFactory.getDefaultInstance(), credential).setApplicationName("Piconso").build();
 
         List<Person.Emails> emails = plus.people().get("me").execute().getEmails();
 
@@ -159,10 +153,7 @@ public class PhotosLibraryClientFactory {
      * @return a PhotoHandler instance if user has storedCredentials, else null
      */
     public static PhotoHandler loginUserIfPossible() throws IOException, GeneralSecurityException {
-        if (checkUserLogin()) {
-            return createClient();
-        }
-        return null;
+        return checkUserLogin() ? createClient() : null;
     }
 
     /**

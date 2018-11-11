@@ -53,7 +53,7 @@ public class PhotoHandler {
     private Map<String, MediaItem> imageMap = new HashMap<>();
     private Map<String, MediaItem> albumSpecificMap = new HashMap<>();
 
-    PhotoHandler(PhotosLibraryClient client, String email) {
+    public PhotoHandler(PhotosLibraryClient client, String email) {
         photosLibraryClient = client;
         user = email;
     }
@@ -301,11 +301,8 @@ public class PhotoHandler {
         String uploadToken;
 
         //Get upload token
-        UploadMediaItemRequest uploadRequest =
-                UploadMediaItemRequest.newBuilder()
-                        .setFileName(imageName)
-                        .setDataFile(new RandomAccessFile(pathName + "/" + imageName, "r"))
-                        .build();
+        UploadMediaItemRequest uploadRequest = UploadMediaItemRequest.newBuilder().setFileName(imageName)
+                .setDataFile(new RandomAccessFile(pathName + "/" + imageName, "r")).build();
         // Upload and capture the response
         UploadMediaItemResponse uploadResponse = photosLibraryClient.uploadMediaItem(uploadRequest);
         if (uploadResponse.getError().isPresent()) {
@@ -335,11 +332,8 @@ public class PhotoHandler {
 
         // if album could not be retrieved, just upload photo
         if (albumId.isEmpty()) {
-            BatchCreateMediaItemsRequest request =
-                    BatchCreateMediaItemsRequest.newBuilder()
-                            .addAllNewMediaItems(newItems)
-                            .build();
-            response = photosLibraryClient.batchCreateMediaItemsCallable().call(request);
+            response = photosLibraryClient.batchCreateMediaItemsCallable().call(
+                    BatchCreateMediaItemsRequest.newBuilder().addAllNewMediaItems(newItems).build());
         } else {
             response = photosLibraryClient.batchCreateMediaItems(albumId, newItems);
         }
