@@ -162,7 +162,6 @@ Format: `clear`
 This section contains all commands related to managing commands.
 
 // tag::help[]
-
 ==== Viewing help: `help`
 
 Display short summary of important commands. A summarized help
@@ -199,7 +198,6 @@ image::ui_screenshots/help-example-3.png[width="600"]
 // end::help[]
 
 // tag::autocomplete1[]
-
 ==== Suggesting commands: `{tab}`
 
 Displays suggested list of commands when kbd:[TAB] is pressed. +
@@ -287,7 +285,6 @@ kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command
 // end::autocomplete2[]
 
 // tag::history[]
-
 ==== Viewing history of previous commands: `history`
 
 Display previous user inputs during this session. Does not include the executed `history` itself. +
@@ -377,25 +374,51 @@ Exits the ThanePark application. +
 Format: `exit`
 
 // tag::viewstatus[]
-=== View information on the list of rides
+=== View information of rides
 
-This section contains all commands related to viewing list on rides.
-
-==== Viewing all available rides: `viewall`
-
-Display all available rides in a list.
-
-Format: `viewall`
+This section contains all commands related to both viewing information of specific rides
+and viewing different lists of rides.
 
 ==== Viewing detailed information of a specific ride: `view`
 
 Display all available information about a single ride on the list of displayed rides.
-`index` field specifies the index of the ride that the user wants to view.
+The `index` field specifies the index of the ride that the user wants to view.
 
 Format: `view <index>`
 
 [NOTE]
-The range of `index` should be between one and one million.
+`index` should be a positive integer that is not larger than the size of the displayed list.
+
+|===
+a|
+Example 1: `view 4`
+
+Note how the information within the red box changes when `view 4` is executed.
+
+.Before executing `view 4`
+image::./ui_screenshots/view-example-1.png[width="600"]
+
+.After executing `view 4`
+image::./ui_screenshots/view-example-2.png[width="600"]
+
+When `view 4` is executed, the display shows the name, status, days since last maintenance and waiting time for  the selected ride.
+
+a|
+Example 2: `view 17`
+
+Note how the information within the red box at the top changes when `view 17` is executed.
+
+.Before executing `view 17`
+image::./ui_screenshots/view-example-3.png[width="600"]
+
+The red box at the bottom of the diagram above shows the last ride, with an index of *16*.
+If you want to view a ride with an index larger than the list, an error message will be shown.
+
+.After executing `view 17`
+image::./ui_screenshots/view-example-4.png[width="600"]
+
+The red box in the diagram above shows the error message when you try to enter an index that is not in the list,
+|===
 
 ==== Viewing rides by their status: `viewstatus`
 
@@ -406,6 +429,59 @@ Format: `viewstatus <status>`
 [NOTE]
 There are only three statuses that are valid, namely open, shutdown and maintenance.
 
+|===
+a|
+Example 1: `viewstatus open`
+
+Note how the information within the red boxes changes when the `viewstatus open` command is executed.
+
+.Before executing `viewstatus open`
+image::./ui_screenshots/viewstatus-example-1.png[width="600"]
+
+In the diagram above, note that the list of rides in the red box at the left contains rides with different statuses.
+
+.After executing `viewstatus open`
+image::./ui_screenshots/viewstatus-example-2.png[width="600"]
+
+As seen in the diagram above, once `viewstatus open` is executed, the list of rides in the box at the left only contains rides that are open.
+In addition, the response box at the top of the diagram displays the total number of rides that are open.
+
+a|
+Example 2: `viewstatus MainTenaNce`
+
+`viewstatus MainTenaNce` command accepts inputs with mixed cases in the status field.
+
+.Before executing `viewstatus MainTenaNce` command
+image::./ui_screenshots/viewstatus-example-3.png[width="600"]
+
+.After executing `viewstatus MainTenaNce` command
+image::./ui_screenshots/viewstatus-example-4.png[width="600"]
+
+As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`. 
+|===
+
+==== Viewing all available rides: `viewall`
+
+Display all available rides in a list.
+
+Format: `viewall`
+
+|===
+a|
+Example: `viewall`
+
+Note how the information within the red boxes changes when the `viewall` command is executed.
+
+.Before executing `viewall`
+image::./ui_screenshots/viewall-example-1.png[width="600"]
+
+.After executing `viewall`
+image::./ui_screenshots/viewall-example-2.png[width="600"]
+
+As seen in the diagram above, the response box at the top of the diagram will display the total number of rides,
+with a break down of the total number of rides of different statuses.
+The list box at the left of diagram will also be updated to show all the rides in ThanePark, regardless of status.
+|===
 // end::viewstatus[]
 
 // tag::filter[]
@@ -436,6 +512,7 @@ Filters attractions with waiting time less than 500 and maintenance of more than
 The result should be as follows:
 
 image::./ui_screenshots/filter-example-2.png[width="600"]
+|===
 
 ==== Finding a particular attraction: `find`
 
@@ -465,6 +542,7 @@ Finds and displays the list of attractions with addresses that contain the word 
 and "popular"
 
 image::./ui_screenshots/find-example-3.png[width="600"]
+|===
 // end::filter[]
 
 === See commands to be implemented in v2.0
