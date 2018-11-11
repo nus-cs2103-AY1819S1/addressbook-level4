@@ -37,7 +37,6 @@ import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.testutil.TypicalTasks;
 import ssp.scheduleplanner.ui.CommandBox;
-import ssp.scheduleplanner.ui.ProgressBarPanel;
 
 /**
  * A system test class for SchedulePlanner, which provides access to handles of GUI components and helper methods
