@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
+import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.exceptions.DataConversionException;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
@@ -38,6 +40,7 @@ public class FirstDayCommand extends Command {
     public static final int WEEKS_IN_SEMESTER = 17;
     public static final String DEFAULT_MONDAY_DATE = "010118";
 
+    private static final Logger logger = LogsCenter.getLogger(FirstDayCommand.class);
     private static final Path PATH = Paths.get("rangeofweek.xml");
     private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
@@ -215,6 +218,8 @@ public class FirstDayCommand extends Command {
         File checkFileExist = new File("rangeofweek.xml");
         if (!checkFileExist.exists()) {
             try {
+                logger.info("rangeofweek.xml data file not found. "
+                        + "Will be starting with a default rangeofweek.xml");
                 checkFileExist.createNewFile();
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             } catch (java.io.IOException e) {
@@ -231,6 +236,8 @@ public class FirstDayCommand extends Command {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (range.returnSize() != WEEKS_IN_SEMESTER) {
+                logger.warning("rangeofweek.xml data entries different from expected academic number of weeks. "
+                        + "Will be starting with a default rangeofweek.xml");
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
         } catch (DataConversionException e) {
@@ -248,6 +255,8 @@ public class FirstDayCommand extends Command {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (!range.checkIfValidDateOrRangeFromStorage()) {
+                logger.warning("rangeofweek.xml data contains invalid date or date range. "
+                        + "Will be starting with a default rangeofweek.xml");
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
         } catch (DataConversionException e) {
@@ -265,6 +274,8 @@ public class FirstDayCommand extends Command {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
             if (!range.checkIfNullValueFromStorage()) {
+                logger.warning("rangeofweek.xml data file contains null value. "
+                        + "Will be starting with a default rangeofweek.xml");
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
         } catch (DataConversionException e) {
@@ -282,6 +293,8 @@ public class FirstDayCommand extends Command {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
         } catch (DataConversionException e) {
+            logger.warning("rangeofweek.xml data file unable to convert. "
+                    + "Will be starting with a default rangeofweek.xml");
             saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
