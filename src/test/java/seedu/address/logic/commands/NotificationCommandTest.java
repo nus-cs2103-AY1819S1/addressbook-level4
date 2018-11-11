@@ -48,10 +48,7 @@ public class NotificationCommandTest {
         descriptor.setToggle(NotificationCommand.OPTION_OFF);
         NotificationCommand notificationCommand = new NotificationCommand(descriptor);
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(model.getNotificationHandler().isTipEnabled(),
-                expectedModel.getNotificationHandler().isTipEnabled());
-        assertEquals(model.getNotificationHandler().isWarningEnabled(),
-                expectedModel.getNotificationHandler().isWarningEnabled());
+        assertBooleans(expectedModel);
 
         assertFalse(model.getNotificationHandler().isTipEnabled());
         assertFalse(model.getNotificationHandler().isWarningEnabled());
@@ -65,10 +62,7 @@ public class NotificationCommandTest {
         notificationCommand = new NotificationCommand(descriptor);
 
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(model.getNotificationHandler().isTipEnabled(),
-                expectedModel.getNotificationHandler().isTipEnabled());
-        assertEquals(model.getNotificationHandler().isWarningEnabled(),
-                expectedModel.getNotificationHandler().isWarningEnabled());
+        assertBooleans(expectedModel);
         assertTrue(model.getNotificationHandler().isTipEnabled());
         assertTrue(model.getNotificationHandler().isWarningEnabled());
     }
@@ -147,5 +141,12 @@ public class NotificationCommandTest {
 
         assertTrue(model.getNotificationHandler().isTipEnabled());
         assertTrue(model.getNotificationHandler().isWarningEnabled());
+    }
+
+    public void assertBooleans(Model expectedModel) throws NoUserSelectedException {
+        assertEquals(model.getNotificationHandler().isTipEnabled(),
+                expectedModel.getNotificationHandler().isTipEnabled());
+        assertEquals(model.getNotificationHandler().isWarningEnabled(),
+                expectedModel.getNotificationHandler().isWarningEnabled());
     }
 }

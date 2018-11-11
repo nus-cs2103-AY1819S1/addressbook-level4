@@ -597,11 +597,12 @@ The UI has been redesigned to implement the following UI elements required for E
 * Notifications Panel
 * Categories Panel
 
-Animations has been incorporated into the UI elements for a better user experience.
+Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of `BudgetPanel`,
+which is the most extensive.
 
-==== Budget Panel
+*Budget Panel*
 
-The `totalBudget` panel consists of 4 UI elements:
+The `Budget` panel consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
@@ -609,7 +610,7 @@ The `totalBudget` panel consists of 4 UI elements:
 *	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
-Given below is an example scenario of how `BudgetPanel` is updated:
+Given below are the steps of an example scenario of how `BudgetPanel` is updated:
 
 . The user launches the application and signs up for a new account. The `MainWindow` creates a new `BudgetPanel`, which elements are initialized as follows:
 * `BudgetPanel#expenseDisplay` is green and set to "$0.00".
@@ -621,7 +622,7 @@ expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to t
 [NOTE]
 If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
 
-. The `UpdateBudgetPanelEvent` event is handled by `BudgetPanel#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
+. The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
 . `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
 
@@ -629,15 +630,14 @@ If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
 [NOTE]
 If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
 
-
-. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
 With this information, the amount to increment `BudgetPanel#expenseDisplay` by in each `KeyFrame` can be calculated.
  `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
 [NOTE]
 `BudgetPanel#addTextAnimationKeyFrames()` handles the incrementing animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
 
 . For each `KeyFrame`, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to `BudgetPanel#alterTextSize()`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
-different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be scaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
 
 . `Timeline#playFromStart()` is called to execute the animation.
 
@@ -655,15 +655,11 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ==== Design Considerations
 ===== Aspect: Choosing which library to use for animation implementation
 
-* **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes
+* **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-<<<<<<< HEAD
+
 ** Cons: Animations tricks and effects will require manual tweaking for the intended effect.
 * **Alternative 2:** Use the `Transition` class
-=======
-** Cons: Animations tricks and effects will require manual tweaking for the intented effect.
-* **Alternative 2:** Use `Transition` class
->>>>>>> 044d97d69fd3a15871ceb1e3661f88a7122ad76a
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
 
@@ -672,7 +668,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ** Pros: Allows the implementation of separate text color changing and animation.
 ** Cons: Difficult to keep both text objects centralized in relation to the `budgetBar`, especially if `currentExpenses` or `budgetCap` are large numbers.
 
-* **Alternative 2:** Use one `Text` object to display both `currentExpenses` and `budgetCap`
+* **Alternative 2:** Use one `Text` object to display both `currentExpenses` and `budgetCap`.
 ** Pros: Easy to centralize the `Text` object with `budgetbar`.
 ** Cons: Implementation of animation was messy and tedious. `JavaFX` also does not support multiple colors for a single `Text` object.
 
@@ -700,18 +696,15 @@ The Notification System is comprised of the following classes:
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
 * `NotificationHandler` - Handles the storage and creation of `Notification` objects.
 * `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
+* `Tips` - Reads and stores `Tip` objects in a list.
 
-Given below is an example scenario of how the Notification System functions:
+Given below are the steps of an example scenario of how the Notification System functions:
 
-. The user launches the application for the first time. A new `NotificationHandler` is instantiated.
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` is instantiated, and a call
+to `JsonTipsStorage#readTips` is made to read a list of `Tip` objects from a JSON file.
 
-<<<<<<< HEAD
 . A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
 been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
-=======
-. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
->>>>>>> 044d97d69fd3a15871ceb1e3661f88a7122ad76a
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
@@ -726,9 +719,8 @@ the new `Notification`.
 Given below is an example scenario of how `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
 
-.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+. A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
 extracted parameters `warning` and `off`. A `NotificationCommand` is returned to `LogicManager`.
-
 [NOTE]
 The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
@@ -739,10 +731,19 @@ The `n/` suffix and parameter can be omitted. In this case, all types of notific
  to `true`.
  If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead.
 
+The following sequence diagram shows the process of executing a `NotificationCommand`:
+
+image::implementation/NotificationCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
-===== Aspect: How to Store Notifications
+===== Aspect: Storing of Tips
+* **Alternative 1:** Code the tips as a list of `String` object in a class.
+** Pros: Easy to implement.
+** Cons: Changes to the list might impact the base code and testing results.
 
-
+* **Alternative 2 (Current Choice):** Read a set of predetermined tips from a JSON file.
+** Pros: Allows for easy configuration of tips that will not impact the base code.
+** Cons: More tedious to implement, as the given `JsonUtil` does not have a method to read an array from a JSON file.
 
 // end::userinterfaceredesign[]
 

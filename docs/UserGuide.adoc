@@ -46,7 +46,7 @@ Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == User Interface
-After logging in, the interface appear as such:
+After logging in, the interface will display as such:
 
 .User interface
 image::userguide/ui.png[width="790"]
@@ -81,7 +81,7 @@ Each expense has an index number next to the expense name. These are relevant to
 
 
 ==== Statistics Panel mode
-In Statistics Panel mode, the Left Panel contains an upper and lower sections, similar to what is shown below:
+In Statistics Panel mode, the Left Panel contains upper and lower sections, similar to what is shown below:
 
 .Left Panel in Statistics Panel mode
 image::userguide/statisticsPanel.png[width="790"]
@@ -92,7 +92,7 @@ The type of statistics shown can be changed via the `stats` command.
 
  See <<StatsCommand, `stats`>> command for more details.
 
-The lower section four of the category budgets that have been set using the `setCategoryBudget` command.
+The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
 
  See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
