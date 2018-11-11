@@ -58,7 +58,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             return parseFileFromArgs((args));
         }
     }
-    
+    /**
+     * Parses the selected csv file pointed to by the user's input.
+     */
     private ImportCommand parseFileFromArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE_LOCATION);
