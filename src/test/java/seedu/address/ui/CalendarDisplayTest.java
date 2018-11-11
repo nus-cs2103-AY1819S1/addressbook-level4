@@ -61,23 +61,6 @@ public class CalendarDisplayTest extends GuiUnitTest {
     } */
 
     /**
-     * Test changing the calendar view
-     */
-    @Test
-    public void calendarDisplay_toggleView() {
-        initUi(TYPICAL_CALENDAR_EVENTS);
-        assertCalendarDisplaysWeeklyView(calendarDisplayHandle);
-
-        // change from weekly to daily
-        guiRobot.push(KeyCode.T);
-        assertCalendarDisplaysDailyView(calendarDisplayHandle);
-
-        // change from daily to weekly
-        guiRobot.push(KeyCode.T);
-        assertTrue(calendarDisplayHandle.isWeeklyView());
-    }
-
-    /**
      * Test navigation
      */
     @Test
@@ -97,29 +80,6 @@ public class CalendarDisplayTest extends GuiUnitTest {
         // go to previous week again
         guiRobot.push(KeyCode.LEFT);
         assertCalendarDisplaysAsExpected(calendarDisplayHandle, initialDisplayTime.minusWeeks(1));
-    }
-
-    @Test
-    public void calendarDisplay_displayNextAndPreviousDay() {
-        initUi(TYPICAL_CALENDAR_EVENTS);
-        assertCalendarDisplaysWeeklyView(calendarDisplayHandle);
-        LocalDateTime initialDisplayTime = calendarDisplayHandle.getDisplayedLocalDateTime();
-
-        // change to daily view
-        guiRobot.push(KeyCode.T);
-        assertCalendarDisplaysDailyView(calendarDisplayHandle);
-
-        // go to next day
-        guiRobot.push(KeyCode.RIGHT);
-        assertCalendarDisplaysAsExpected(calendarDisplayHandle, initialDisplayTime.plusDays(1));
-
-        // go to prev day
-        guiRobot.push(KeyCode.LEFT);
-        assertCalendarDisplaysAsExpected(calendarDisplayHandle, initialDisplayTime);
-
-        // go to prev day again
-        guiRobot.push(KeyCode.LEFT);
-        assertCalendarDisplaysAsExpected(calendarDisplayHandle, initialDisplayTime.minusDays(1));
     }
 
     @Test
@@ -143,10 +103,6 @@ public class CalendarDisplayTest extends GuiUnitTest {
 
     public void assertCalendarDisplaysWeeklyView(CalendarDisplayHandle calendarDisplayHandle) {
         assertTrue(calendarDisplayHandle.isWeeklyView());
-    }
-
-    public void assertCalendarDisplaysDailyView(CalendarDisplayHandle calendarDisplayHandle) {
-        assertTrue(calendarDisplayHandle.isDailyView());
     }
 
     public void assertCalendarDisplaysAsExpected(CalendarDisplayHandle calendarDisplayHandle,

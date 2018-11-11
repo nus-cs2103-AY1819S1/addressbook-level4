@@ -12,13 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.commons.core.LogsCenter;
@@ -34,6 +31,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
 public class CalendarDisplay extends UiPart<Region> {
     private static final String FXML = "CalendarDisplay.fxml";
     private static final String CSS = "view/ModifiedAgenda.css";
+    private static final String STYLE_CLASS = "group18"; // style class for agenda appointments
     private final Logger logger = LogsCenter.getLogger(CalendarDisplay.class);
 
     private ObservableList<CalendarEvent> calendarEventList;
@@ -59,14 +57,13 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     /**
-     * Starts up the internal Agenda Object
-     * Disables unwanted inbuilt functions of agenda
-     * Adds agenda control into the scene
+     * Starts up the internal Agenda Object.
+     * Disables unwanted inbuilt functions of agenda.
+     * Adds the agenda Control into the scene.
      */
     private void initAgenda() {
         agenda = new Agenda();
-
-        appointmentGroup = new Agenda.AppointmentGroupImpl().withStyleClass("group18");
+        appointmentGroup = new Agenda.AppointmentGroupImpl().withStyleClass(STYLE_CLASS);
 
         // this actionCallBack is called when the user double clicks on an appointment in the display
         // Opens a dialog containing the details of the clicked event
@@ -105,12 +102,12 @@ public class CalendarDisplay extends UiPart<Region> {
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {
         // populate the calendar
+        // setting the appointment group applies the correct CSS to it
         calendarEventList.forEach((calendarEvent -> calendarEvent.setAppointmentGroup(appointmentGroup)));
         agenda.appointments().addAll(calendarEventList);
 
         // push the changes to agenda
         calendarEventList.addListener(this::forwardChanges);
-        // calendarEventList.addListener();
     }
 
     /**
@@ -139,38 +136,19 @@ public class CalendarDisplay extends UiPart<Region> {
     private void setControls() {
         calendarDisplayBox.addEventFilter(KEY_PRESSED, event -> {
             switch (event.getCode()) {
-            case T: // toggle between day and week view
-                logger.info("Toggle Pressed.");
-                toggleSkin();
-                agenda.requestFocus();
-                break;
             case LEFT:
                 logger.info("LEFT arrow Pressed.");
-                viewPrevious();
+                displayPreviousWeek();
                 indicateCalendarDisplayTimeChanged();
                 break;
             case RIGHT:
                 logger.info("RIGHT arrow Pressed.");
-                viewNext();
+                displayNextWeek();
                 indicateCalendarDisplayTimeChanged();
                 break;
             default:
             }
         });
-    }
-
-    /**
-     * Consumes the arrow key events, preventing focus tranfering from the calendar display
-     * to other UI components
-     */
-    @FXML
-    private void handleKeyPress(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.UP
-            || keyEvent.getCode() == KeyCode.DOWN
-            || keyEvent.getCode() == KeyCode.LEFT
-            || keyEvent.getCode() == KeyCode.RIGHT) {
-            keyEvent.consume();
-        }
     }
 
     /**
@@ -205,62 +183,15 @@ public class CalendarDisplay extends UiPart<Region> {
      */
     public void setDisplayedDateTime(LocalDateTime newLocalDateTime) {
         currentDateTime = newLocalDateTime;
+
+        /* if user jumps to this LocalDateTime, scrolls away, and jumps back to the same
+        time, agenda will not center the display again. So must perturb the display time slightly
+        before setting it to the actual target
+         */
+        agenda.setDisplayedLocalDateTime(currentDateTime.plusSeconds(1));
+
         agenda.setDisplayedLocalDateTime(currentDateTime);
         indicateCalendarDisplayTimeChanged();
-    }
-
-    // ================= Control related methods ===================================
-
-    /**
-     * Displays the agenda for previous week or day, depending on current skin
-     */
-    public void viewPrevious() {
-        if (isDayView()) {
-            displayPreviousDay();
-        } else if (isWeekView()) {
-            displayPreviousWeek();
-        }
-    }
-
-    /**
-     * Displays the agenda for next week or day, depending on current skin
-     */
-    public void viewNext() {
-        if (isDayView()) {
-            displayNextDay();
-        } else if (isWeekView()) {
-            displayNextWeek();
-        }
-    }
-
-    /**
-     * Toggles between Daily and Weekly view
-     */
-    public void toggleSkin() {
-        if (isDayView()) {
-            setViewToWeekView();
-        } else if (isWeekView()) {
-            setViewToDayView();
-        }
-    }
-
-    /**
-     * Methods for getting and setting the type of view.
-     */
-    public boolean isDayView() {
-        return agenda.getSkin() instanceof AgendaDaySkin;
-    }
-
-    public boolean isWeekView() {
-        return agenda.getSkin() instanceof AgendaWeekSkin;
-    }
-
-    public void setViewToWeekView() {
-        agenda.setSkin(new AgendaWeekSkin(agenda));
-    }
-
-    public void setViewToDayView() {
-        agenda.setSkin(new AgendaDaySkin(agenda));
     }
 
     /**
@@ -272,13 +203,5 @@ public class CalendarDisplay extends UiPart<Region> {
 
     public void displayPreviousWeek() {
         setDisplayedDateTime(currentDateTime.minusWeeks(1));
-    }
-
-    public void displayNextDay() {
-        setDisplayedDateTime(currentDateTime.plusDays(1));
-    }
-
-    public void displayPreviousDay() {
-        setDisplayedDateTime(currentDateTime.minusDays(1));
     }
 }

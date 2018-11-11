@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.Node;
-import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.model.calendarevent.CalendarEvent;
@@ -43,10 +42,6 @@ public class CalendarDisplayHandle extends NodeHandle<Node> {
             }
         }
         return calendarEvents;
-    }
-
-    public boolean isDailyView() {
-        return agenda.getSkin() instanceof AgendaDaySkin;
     }
 
     public boolean isWeeklyView() {
