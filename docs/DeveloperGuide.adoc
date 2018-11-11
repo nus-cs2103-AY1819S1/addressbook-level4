@@ -997,15 +997,29 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a dependency when all tasks are listed
 .. Prerequisites: List all persons using the `list` command
-.. Test case: `dependency 1 2`
-... Dependency added between task at index 1 to task at index 2.
+.. Test case: `dependency 1 2` +
+Expected: Dependency added between task at index 1 to task at index 2.
 Details of added dependency shown on screen. Timestamp in the status bar is updated.
 Number of dependencies field on the task card updated.
+.. Test case: `dependency 0 0` +
+   Expected: No dependency added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect dependency commands to try: `dependency`, `dependency x 1` (where x is larger than the list size), adding a
+dependency that will cause a cyclic dependency +
+   Expected: Similar to previous.
 
 . Deleting a dependency when all tasks are listed and dependency present
 .. Prerequisites: List all persons using the `list` command, dependency between `Task` at index 1
 and `Task` at index 2 *already exists*
-.. Test case: `dependency 1 2`
-... Dependency removed between `Task` at index 1 to `Task` at index 2.
+.. Test case: `dependency 1 2` +
+Expected: Dependency removed between `Task` at index 1 to `Task` at index 2.
 Details of removed dependency shown on screen. Timestamp in the status bar is updated.
 Number of dependencies field on the task card updated.
+.. Other incorrect dependency commands to try: `dependency`, `dependency x 1` (where x is larger than the list size), adding a
+dependency that will cause a cyclic dependency +
+   Expected: Similar to previous.
+=== List topological order of tasks
+. List topological order of tasks
+.. Prerequisites: -
+.. Test case: `topoorder` +
+Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
+constraints.
