@@ -30,9 +30,8 @@ This section explains how to setup TheTracker on your computer, and lists a few 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 
-image::UI_v1.3_Persons.png[width="790"]
-image::UI_v1.3_Modules.png[width="790"]
-image::UI_v1.3_Occasions.png[width="790"]
+image::UI_v1.4_Persons.png[width="790"]
+
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
