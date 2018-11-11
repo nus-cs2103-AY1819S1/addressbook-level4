@@ -25,7 +25,7 @@ public class ShowGroupCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Group %1$s has been shown";
 
-    public static final String MESSAGE_NO_GROUP = "The group typed has existed.";
+    public static final String MESSAGE_NO_GROUP = "The group typed does not existed.";
 
     public static final String MESSAGE_MULTI_GROUP = "Only one group can be shown once.";
     private final TagContainsKeywordsPredicate predicate;
