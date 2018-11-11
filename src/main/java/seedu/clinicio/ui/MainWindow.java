@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
-    
+
     @FXML
     private StackPane displayPanelPlaceholder;
 
@@ -162,7 +162,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         setUpTab();
-        
+
         analyticsDisplay = new AnalyticsDisplay();
         PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
@@ -225,7 +225,7 @@ public class MainWindow extends UiPart<Stage> {
         titleScreenPlaceHolder.setVisible(true);
         titleScreenPlaceHolder.setManaged(true);
     }
-    
+
     /**
      * Display the inner parts.
      */
@@ -238,7 +238,7 @@ public class MainWindow extends UiPart<Stage> {
         titleScreenPlaceHolder.setVisible(false);
         titleScreenPlaceHolder.setManaged(false);
     }
-    
+
     //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
