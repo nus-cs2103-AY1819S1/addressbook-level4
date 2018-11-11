@@ -31,6 +31,45 @@ public class DependencyGraph {
         }
     }
 
+    //===================== Graph Transformations ===================================
+    /**
+     * Invert the edges in the graph
+     */
+    public void invertGraph() {
+        Map<String, Set<String>> newAgencyList = new HashMap<>();
+        for (String node: adjacencyList.keySet()) {
+            newAgencyList.put(node, new HashSet<>());
+        }
+        for (Map.Entry<String, Set<String>> entry: adjacencyList.entrySet()) {
+            String node = entry.getKey();
+            Set<String> edges = entry.getValue();
+            for (String otherNode: edges) {
+                newAgencyList.get(otherNode).add(node);
+            }
+        }
+        adjacencyList = newAgencyList;
+    }
+
+    /**
+     * Prunes away tasks where the dependency is completed.
+     */
+    public void pruneCompletedTasks() {
+        for (Task task: this.taskList) {
+            if (task.isStatusCompleted()) {
+                String hash = Integer.toString(task.hashCode());
+                //Prune away task dependencies of tasks where the dependee is completed
+                for (Set<String> set: adjacencyList.values()) {
+                    if (set.contains(hash)) {
+                        set.remove(hash);
+                    }
+                }
+                //Remove the task dependency itself from consideration
+                adjacencyList.remove(hash);
+            }
+        }
+    }
+
+    //=================== Graph Operations ====================================
     /**
      * Updates graph and returns true if the update Task will result in a cycle in the graph
      */
@@ -59,7 +98,7 @@ public class DependencyGraph {
     }
 
     /**
-     * Returns topological sort of the graph
+     * Returns topological sort of the graph (with completed Tasks removed)
      * @return list of hashes of tasks sorted by topological order
      */
     public List<String> topologicalSort() {
@@ -75,54 +114,6 @@ public class DependencyGraph {
             }
         }
         return visited;
-    }
-
-    /**
-     * Return the inverted pruned graph (with their hashcodes as string)
-     * @return
-     */
-    public Map<String, Set<String>> getPrunedInvertedGraph() {
-        pruneCompletedTasks();
-        invertGraph();
-        return this.adjacencyList;
-    }
-
-    /**
-     * Invert the edges in a graph
-     */
-    public void invertGraph() {
-        Map<String, Set<String>> newAgencyList = new HashMap<>();
-        for (String node: adjacencyList.keySet()) {
-            newAgencyList.put(node, new HashSet<>());
-        }
-        for (Map.Entry<String, Set<String>> entry: adjacencyList.entrySet()) {
-            String node = entry.getKey();
-            Set<String> edges = entry.getValue();
-            for (String otherNode: edges) {
-                newAgencyList.get(otherNode).add(node);
-            }
-        }
-        adjacencyList = newAgencyList;
-    }
-
-    /**
-     * Prunes away tasks where the dependency is completed.
-     * Used in topological sort as we do not want tasks that are completed to be considered in topological sort
-     */
-    public void pruneCompletedTasks() {
-        for (Task task: this.taskList) {
-            if (task.isStatusCompleted()) {
-                String hash = Integer.toString(task.hashCode());
-                //Prune away task dependencies of tasks where the dependee is completed
-                for (Set<String> set: adjacencyList.values()) {
-                    if (set.contains(hash)) {
-                        set.remove(hash);
-                    }
-                }
-                //Remove the task dependency itself from consideration
-                adjacencyList.remove(hash);
-            }
-        }
     }
 
     /**
@@ -151,6 +142,16 @@ public class DependencyGraph {
         }
         stack.remove(node);
         return false;
+    }
+
+    //===================== Getter methods ==============================
+    /**
+     * Return the inverted pruned graph (with their hashcodes as string)
+     */
+    public Map<String, Set<String>> getPrunedInvertedGraph() {
+        pruneCompletedTasks();
+        invertGraph();
+        return this.adjacencyList;
     }
 
 }

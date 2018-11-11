@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.TaskManager;
 
 /**
  * Clears the task manager.
@@ -18,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult executePrimitive(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new TaskManager());
+        model.clearTaskData();
         model.commitTaskManager();
         return new CommandResult(MESSAGE_SUCCESS);
     }

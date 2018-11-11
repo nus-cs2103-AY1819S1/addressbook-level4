@@ -75,7 +75,7 @@ Select Editor > Code Style > Java
 
 Click on the Imports tab to set the order
 
-For Class count to use import with '*' and Names count to use static import with '*': Set to 999 to prevent IntelliJ from contracting the import statements
+For Class count to use import with '\*' and Names count to use static import with '*': Set to 999 to prevent IntelliJ from contracting the import statements
 
 For Import Layout: The order is import static all other imports, import java.*, import javax.*, import org.*, import com.*, import all other imports. Add a <blank line> between each import
 
@@ -108,6 +108,26 @@ Get some sense of the overall design by reading Section 2.1, “Architecture”.
 Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
 == Design
+// tag::command[]
+===== Command Component
+Command is refactored to be implemented using a https://en.wikipedia.org/wiki/Template_method_pattern[template method pattern].
+ The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
+ method to update the status of tasks to overdue if their due date is past current time.
+
+
+The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
+Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+abstract method in command.
+
+Simplified class diagram for the command component:
+
+image::CommandComponentClassDiagram.png[width="1200"]
+// end::command[]
+
+== Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -186,21 +206,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-=== Command Component
-Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
-and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
-The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
-Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
-The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
-abstract method in command.
-
-Simplified class diagram for the command component:
-
-image::CommandComponentClassDiagram.png[width="1200"]
-
-== Implementation
-This section describes some noteworthy details on how certain features are implemented.
-
 // tag::achievements[]
 === Achievement mechanism
 
@@ -434,25 +439,31 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+The dependency mechanism is facilitated by an embedded `Dependencies` object. This object internally represents dependencies with
 a hashset that contains the hashcode of the object that the task is dependent upon.
+
+Sequence Diagram of the dependencies command
 
 image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 ==== Design Considerations
 ===== Aspect: Modelling of the embedded dependency object.
 
-* ** Alternative 1(current choice):** Add a new string of the hashcode into the hashset.
-** Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
-Easy to reform the dependency graph.
-** Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+* ** Alternative 1(current choice):** Dependencies specified by unique hashcodes of tasks
+** Pros:
+*** Simple to implement.
+*** There is no task creation propogation when task dependency is added. (refer to alternative 2).
+*** Easy to reform the dependency graph.
+** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
 finding details of the dependee task given its hashcode.
 
-* ** Alternative 2: **Add (a reference to) the dependant Task object into the hashset.
-** Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+* ** Alternative 2: **Dependencies specified by (references to) the Tasks objects themselves
+** Pros:
+*** It allows an easy reference to the task object.
+*** Allows for the implementation of a real-time dependency graph, which is referenced
 to rather than recreated every time a topological sort or a cyclical check is needed.
 ** Cons: Introduces unnecessary complications.
-*** When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+*** [Assumption: *In storage*, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
 as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.
 *** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
@@ -467,18 +478,21 @@ so useful functions can be implemented such as cyclic and topological sort.
 ===== Aspect: Real-time graph or graph instantiated on function call.
 * **Alternative 1(current choice):** Graph is only instantiated when needed.
 ** Pros: Graph does not have to be updated or maintained.
-** Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won't
+** Cons: Slight increase in latency, but mitigated by the fact that a typical user won't
 have an extremely large amount of tasks.
 * ** Alternative 2:** Graph created on start-up and maintained during run-time.
 *** Pros: Slightly faster speed for dependency related commands.
-*** Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time
+*** Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
+benefit being a slightly shorter run-time
 
-===== Aspect: Task dependency modelled as a graph
+===== Aspect: Task dependencies modelled with a graph
 * **Alternative 1(current choice):** Using a graph.
-** Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+** Pros:
+*** With a graph, major problems with task dependency can be identified. The biggest problem is
 cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
 depend on each other.
-A topological sort can also be performed on the graph to order tasks by the number of dependencies.
+
+*** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
 // end::dependency[]
 // start::time[]
@@ -798,42 +812,6 @@ my progress and evaluate how I am doing.
 == Use cases
 Only features that require more than a few steps to implement will be shown.
 
-=== Use case: Display Welcome Screen
-==== MSS
-.  User logs in successfully
-.  Application fetches QOTD and shows it.
-.  Application then displays **10** tasks sorted by ascending deadline.
-
-Use case ends.
-
-==== Extensions
-
-* 3a. There are less than **10** tasks available
-** 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
-
-Use case ends.
-
-* 3b. There are multiple tasks with the same deadline.
-** 3b1. Tie will be broken by the lexicographic order of Task name
-** 3b2. If multiple tasks have the same lexicographic order, the outputted task will be
-non-deterministic
-
-Use case ends.
-
-=== Use case: Display Motivational Quote (MQ) on task completion
-==== MSS
-. User marks task as complete.
-. Application shows MQ.
-
-Use case ends.
-
-==== Extensions
-
-* 1a. User marks multiple tasks as complete.
-** 1a1. Application still shows only one MQ.
-
-Use case ends.
-
 === Use case: List Task
 ==== MSS
 . User requests to list tasks, fulfilling a (potentially empty) set of criteria.
@@ -914,19 +892,6 @@ Use case resumes at step 1 in MSS.
 
 Use case resumes at step 1 in MSS.
 
-=== Use case: Viewing Command History
-==== MSS
-. User requests to view command history.
-. Application displays command history.
-
-Use case ends.
-
-==== Extensions
-* 1a. Command history is empty.
-** 1a1. Application informs user that there is no command history.
-
-Use case ends.
-
 === Use case: Undoing Last Command
 ==== MSS
 . User requests undoing last command.
@@ -977,28 +942,6 @@ pre-completed state and no points are earned.
 
 * 2a. User earns enough points to level up
 ** 2a1. Application displays a congratulatory message, current points, and points earned to user.
-
-=== Use case: Display Statistics
-==== MSS
-. User requests for statistics.
-. Application fetches data and displays statistics.
-
-==== Extensions
-* 2a. There are no statistics.
-** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
-
-Use case ends.
-
-=== Use case: Failing to complete task
-==== MSS
-. User fails to complete tasks on time
-. Application displays points lost and current current points to user.
-
-==== Extensions
-* 2a. User loses enough points that it level down.
-    * 2a1. Application displays a warning message, current points, and points lost to user.
-
-Use case ends.
 
 [appendix]
 == Non-functional requirements

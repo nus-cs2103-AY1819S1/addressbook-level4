@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
- * Lists tasks in topological order in CLI
+ * Lists tasks in topological order in CLI to helper user decide which tasks to prioritise.
  */
 public class ShowTopologicalOrderCommand extends Command {
     public static final String COMMAND_WORD = "topoorder";
@@ -29,7 +29,7 @@ public class ShowTopologicalOrderCommand extends Command {
 
         List<Task> order = model.getTopologicalOrder();
         for (Task task:order) {
-            sb.append(task.getName());
+            sb.append(task);
             sb.append("\n");
         }
         return new CommandResult(sb.toString());

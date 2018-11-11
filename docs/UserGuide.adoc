@@ -38,6 +38,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add`**`n/Do CS2103 tutorial t/02-12-18 1330 p/5 d/Do it for Jelena l/tutorial` : adds a task named `Do 2103 tutorial` to the task manager.
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`exit`* : exits the app
+* *`dependency 1 2`* : adds a dependency between 1st task show in current list and 2nd task shown in current list, where
+1st task is dependent on the second task.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -53,6 +55,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PRIORITY_VALUE`, `p/PRIORITY_VALUE n/NAME` is also acceptable.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
+
+=== Note on command execution
+[TODO] Add if check status is still done at this stage.
 
 === System Commands
 ==== Viewing help: `help`
@@ -90,7 +95,7 @@ Format:
 
 `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
-Date Format: `dd-MM-yy` or `dd-MM-yy HHmm`. A missing `HHmm` field will cause time to
+Date Format: `dd-MM-yy` or `dd-MM-yy HHmm` or `dd-MM-yyyy` or `dd-MM-yyyy HHmm`. A missing `HHmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
 
 On task creation, the task's `INDEX` is shown as such:
@@ -133,7 +138,7 @@ Format:
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)
+Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists, or removed if it does not.
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
@@ -151,19 +156,63 @@ Format:
 [%hardbreaks]
 Completes task(s) in the task manager
 Format: `complete INDEX` or `complete t/LABEL`
-+Example:
++Examples:
 `complete 1`
 `complete l/urgent`
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
 * Completion via label is case-insensitive
+* You are unable to complete tasks if they have unfulfilled dependencies.
 * You can complete multiple tasks at once through the use of the format complete `l/LABEL`
 * Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
 * On completion of tasks that leads to a level-up, the levelling up would be reported.
+
+===== Extended Examples
+
+_WatchOver utilises a sophisticated dependency checking feature to reduce the
+amount of accidental completion of tasks. For example, you need to `finish your tutorial` before
+you can `submit tutorial`. In order to better understand this feature, below are some
+extended examples to showcase dependency checking with `Complete`._
+
+Premise, there are 5 tasks, where `Task X` is dependent on `Task Y`, `Task Y`
+is dependent of `Task Z`, and `Task A` is dependent on `Task X`.
+`Task Z` is already completed.
+
+        add n/Task X t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task Y t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task Z t/02-12-18 1330 p/5 d/X l/setOne
+        add n/Task A t/02-12-18 1330 p/5 d/X l/setTwo
+        add n/Task B t/02-12-18 1330 p/5 d/X l/setTwo
+        dependency 1 2
+        dependency 2 3
+        complete 3
+        dependency 4 1
+
+_Task X is referred to via index 1,
+Task Y is referred to via index 2,
+Task Z is referred to via index 3,
+Task A is referred to via index 4,
+Task B is referred to via index 5_
+
+[%hardbreaks]
++Example:
+`complete 2`
+Explanation: The completion of `Task Y` is valid as all its dependencies are completed.
++Example:
+`complete l/setOne`
+Explanation: Order of tasks completed in a batch completion does not matter as long as there are no unfulfilled dependencies after all tasks are completed.
+
+-Example:
+`complete 1`
+Explanation: `Task X` is dependent on `Task Y` which is not completed yet.
+-Example:
+`complete l/setTwo`
+Explanation: `Task A` is dependent on `Task X` which will not be completed after the batch completion.
 // end::complete-usage[]
+
 ==== Listing Tasks: `list`
 // tag::list-usage[]
 [%hardbreaks]
@@ -235,7 +284,32 @@ Selects the 1st task in the results of the `find` command.
 // tag::topoorder[]
 ==== Listing Tasks by topological order: `topoorder`
 [%hardbreaks]
-Shows a list of uncompleted tasks by their topological order. (In the CLI window).
+Shows a list of uncompleted tasks by their topological order in the CLI window.
+
+It defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints.
+
+Example:
+
+* `topoorder`
+
+[NOTE]
+====
+Topological order is a linear ordering of vertices such that for every vertex u to vertex v,
+u comes before v in the ordering. (Source: https://en.wikipedia.org/wiki/Topological_sorting[wikipedia])
+
+In the context of our application, it is a linear ordering of `Task` s such that if `Task` A is dependent to `Task` B,
+B comes before A in the ordering.
+====
+
+[NOTE]
+====
+image::TopologicalOrdering.png[width="300"]
+_Diagram of a possible dependency graph_
+
+A topological order of this graph is: [A, B, C]
+====
+
 // end::topoorder[]
 
 === Gamification
@@ -342,10 +416,13 @@ Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 
 ** *Achievements* : `achievements TIME_SPAN`
 
+** *Topological order* : `topoorder`
+
+
 // tag::complete-2.0[]
-==== Completing a Task: `complete`
 == Features to be included by v2.0
-* `Complete` displays a organic random congratulatory message upon task completion.
+
+=== `Complete` displays a organic random congratulatory message upon task completion.
 ** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
 * Completed Tasks should be automatically hidden from view.
 // end::complete-2.0[]

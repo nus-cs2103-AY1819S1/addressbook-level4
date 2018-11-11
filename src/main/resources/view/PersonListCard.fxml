@@ -29,13 +29,7 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="dueDate" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="remainingTime" styleClass="cell_small_label" text="\$remainingTime" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="priorityValue" styleClass="cell_small_label" text="\$email" />
       <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
-      <Label fx:id="hash" styleClass="cell_small_label" text="\$hash" />
-      <Label fx:id="dependency" styleClass="cell_small_label" text="\$dependency" />
-      <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" text="\$earliestTimeOfChildren" />
     </VBox>
   </GridPane>
 </HBox>
