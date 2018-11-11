@@ -78,7 +78,7 @@ public class OccasionListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (isListSelected()) {
             int index = occasionListView.getSelectionModel().getSelectedIndex();
-            occasionListView.getSelectionModel().clearAndSelect(0);
+            occasionListView.getSelectionModel().clearSelection();
             occasionListView.getSelectionModel().clearAndSelect(index);
             Occasion currOccasion = occasionListView.getSelectionModel().getSelectedItem();
             raise(new OccasionBrowserChangeEvent(currOccasion));

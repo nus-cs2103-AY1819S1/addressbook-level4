@@ -80,7 +80,7 @@ public class ModuleListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (isListSelected()) {
             int index = moduleListView.getSelectionModel().getSelectedIndex();
-            moduleListView.getSelectionModel().clearAndSelect(0);
+            moduleListView.getSelectionModel().clearSelection();
             moduleListView.getSelectionModel().clearAndSelect(index);
             Module currModule = moduleListView.getSelectionModel().getSelectedItem();
             raise(new ModuleBrowserChangeEvent(currModule));
