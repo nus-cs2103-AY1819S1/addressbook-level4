@@ -1,6 +1,7 @@
 package seedu.clinicio.commons.core;
 
 import seedu.clinicio.commons.events.BaseEvent;
+import seedu.clinicio.ui.Ui;
 
 /**
  * Base class for *Manager classes

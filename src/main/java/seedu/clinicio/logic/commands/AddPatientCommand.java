@@ -61,11 +61,11 @@ public class AddPatientCommand extends Command {
             throws CommandException {
         requireNonNull(model);
 
-        if (!UserSession.isLogin()) {
-            throw new CommandException(MESSAGE_NOT_LOGIN);
-        } else if (model.hasPatient(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
-        }
+//        if (!UserSession.isLogin()) {
+//            throw new CommandException(MESSAGE_NOT_LOGIN);
+//        } else if (model.hasPatient(toAdd)) {
+//            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+//        }
 
         model.addPatient(toAdd);
         model.commitClinicIo();

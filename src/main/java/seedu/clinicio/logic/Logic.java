@@ -10,6 +10,7 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.ui.Ui;
 
 /**
  * API of the Logic component
@@ -23,6 +24,13 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    //@@author iamjackslayer
+    /**
+     * Sets the ui manager. It is typically called after initialization of this class.
+     * @param uiManager
+     */
+    void setUiManager(Ui uiManager);
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -56,7 +58,7 @@ public class EnqueueCommand extends Command {
 
         model.enqueue((Patient) patientToEnqueue);
         model.updateQueue(model.PREDICATE_SHOW_ALL_PATIENTS);
-        model.switchTab(2);
+        EventsCenter.getInstance().post(new SwitchTabEvent(2));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_ENQUEUE_PATIENT_SUCCESS, patientToEnqueue.getName()));
     }

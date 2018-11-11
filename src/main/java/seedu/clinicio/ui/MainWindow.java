@@ -25,6 +25,7 @@ import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
@@ -198,6 +199,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void switchTab(int index) {
         tabLists.getSelectionModel().select(index);
+    }
+
+    /**
+     * Subscribes to the event when tab is switched.
+     * @param switchTabEvent the event when tab is switched.
+     */
+    @Subscribe
+    public void handleSwitchTabEvent(SwitchTabEvent switchTabEvent) {
+        switchTab(switchTabEvent.getTabIndex());
     }
 
     void hide() {

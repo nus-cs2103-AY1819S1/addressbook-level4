@@ -5,8 +5,10 @@ import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -60,8 +62,7 @@ public class DequeueCommand extends Command {
 
         // This line ensures Observer of the list gets updated on UI.
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
-        model.switchTab(2);
+        EventsCenter.getInstance().post(new SwitchTabEvent(2));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DEQUEUE_PATIENT_SUCCESS, patientToDequeue.getName()));
     }

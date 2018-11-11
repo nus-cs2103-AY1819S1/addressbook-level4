@@ -10,6 +10,8 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
+import seedu.clinicio.model.patient.Nric;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 
 /**
@@ -55,7 +57,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd); //Patient.buildFromPerson(toAdd));
+        model.addPerson(new Patient(toAdd, new Nric("G1216422Q"), null, null, null)); //Patient.buildFromPerson(toAdd));
         model.switchTab(0);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
