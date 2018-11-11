@@ -424,11 +424,11 @@ An example usage scenario of the adding of events is as shown in the sequence di
 The diagram shows the interaction between the different components in the system when an event is added.
 The interaction between components is similar for the deletion of an event.
 
-image::add-event-component.png[Interactions between components]
+image::add-event-component.png[Interactions between components, width="800"]
 
 More specific interactions between `Logic` and `Model` are as shown in the diagram below.
 
-image::add-event_logic-model.png[Interactions between Logic and Model]
+image::add-event_logic-model.png[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to add an event +
 Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>`. The latter specifies the contact indices to add into the event. +
@@ -439,7 +439,7 @@ Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. T
 For deletion of event(s), the flow is similar.
 The sequence diagram for the deletion of event is shown below.
 
-image::delete-event-condensed_logic-model.png[Deleting an event]
+image::delete-event-condensed_logic-model.png[Deleting an event, width="800"]
 
 Step 1. User enters command to delete an event based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `DeleteEventCommandParser`, which generates an `DeleteEventCommand` with an `EventDate` and `Index`. +
@@ -449,7 +449,7 @@ Step 4. The event from step 3 is deleted from the system from the `Model` compon
 [[gettingAnEvent]]
 Events are retrieved based on their date and index in the displayed events list, as shown in the diagram below.
 
-image::get-event.png[Getting an event]
+image::get-event.png[Getting an event, width="800"]
 
 For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`.
 Step 1. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
@@ -465,7 +465,7 @@ The raised events are handled by:
 
 For instance, when an `Event` is added (or deleted), the event triggers are handled as follows.
 
-image::add-event_event-trigger.png[Handling of triggered events]
+image::add-event_event-trigger.png[Handling of triggered events, width="800"]
 
 ===== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
@@ -490,7 +490,7 @@ we make use of a listener on the `filteredEvents` list in `Model`.
 *** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
 *** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
 
-image::ui-display-ad.png[Refresh of Tab Panel on Event Change]
+image::ui-display-ad.png[Refresh of Tab Panel on Event Change, width="800"]
 
 ** *Cons:* There is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs.
 However, this overhead is still acceptable given the current scale of the `AddressBook`.
@@ -546,7 +546,7 @@ who is the same person as the contact. By the use of a `Predicate` with this log
 The sequence diagram below shows a typical usage of the feature.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
-image::see-event-contacts-condensed_logic-model.PNG[Interactions between Logic and Model]
+image::see-event-contacts-condensed_logic-model.PNG[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to see an event's contacts. +
 Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
@@ -587,7 +587,7 @@ from the internal list, and the new one set in its position.
 The overall flow between the `Logic` and `Model` component when editing an event address's tag is as follows.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
-image::edit-event-address-condensed_logic-model.png[Interactions between Logic and Model]
+image::edit-event-address-condensed_logic-model.png[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
@@ -615,7 +615,7 @@ to keep an `ObservableList<Tag>` in `ModelManager`, rather than a `FilteredList`
 
 An event tag specified by the user is added in the system as depicted in the sequence diagram below.
 
-image::add-event-tag_logic-model.png[Interactions between Logic and Model]
+image::add-event-tag_logic-model.png[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to add an event tag. +
 Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` object. +
@@ -632,7 +632,7 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
 all events which have at least one tag matching at least one of the keywords provided by the user.
 
-image::find-event_logic-model.png[Interactions between Logic and Model]
+image::find-event_logic-model.png[Interactions between Logic and Model, width="800"]
 
 Step 1. User enters command to find events with certain tags. +
 Step 2. `AddressBookParser` calls `FindEventCommandParser`, which generates an `FindEventCommand` with an `EventTagMatchesKeywordsPredicate`. +
@@ -641,14 +641,14 @@ Step 3. `FindEventCommand` calls `Model#updateFilteredEventList` to filter the d
 Similar to the other event-related commands, the list-filtering is done in `Model`, and
 the change is propagated to the `UI` component by triggering an event. The details of the event triggers are as follows.
 
-image::find-event_event-triggers.png[Handling of triggered events]
+image::find-event_event-triggers.png[Handling of triggered events, width="800"]
 
 [[listEvent]]
 ==== Listing of all events
 ===== Current Implementation
 To list all events, we make use of a `Predicate` which is always true (the `PREDICATE_LIST_ALL_EVENTS` constant).
 
-image::list-event_logic-model.png[Interactions between Logic and Model]
+image::list-event_logic-model.png[Interactions between Logic and Model, width="800"]
 
 The `UI` components are updated using a similar flow (by event triggers) to the <<findEvent, find event>> feature. +
 *Note:* The inclusion of the `EventDisplayPanelChangedEvent` is required in `Model#updateFilteredEventList`
@@ -666,7 +666,7 @@ presses the `Tab` key, a check is run against the internal list of command words
 and the input is auto-completed to the nearest command word containing the current user input, if any.
 The following activity diagram outlines the typical usage of this feature.
 
-image::autocomplete-ad.png[Auto-complete command activity diagram]
+image::autocomplete-ad.png[Auto-complete command activity diagram, width="800"]
 
 ==== Aspect: Computing the nearest valid command word
 * **Alternative 1 (current choice):** Each time the `Tab` key is pressed,
@@ -694,7 +694,7 @@ leaf nodes are the valid command words.
 ==== Current implementation
 `UI` component consists of a `TabPanel` which stores all the `Tab` objects in the `UI` as follows.
 
-image::tabPanel.png[Tab Panel basic class diagram]
+image::tabPanel.png[Tab Panel basic class diagram, width="800"]
 
 * **Alternative 1 (current choice):** `TabPanel` to store all `Tab` objects.
 ** *Pros:* New tabs can be added easily as a class, and initialized in `TabPanel`.
