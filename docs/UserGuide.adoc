@@ -1079,11 +1079,11 @@ Examples:
 ==== Exporting sales report `[coming in v2.0]`
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be more
 detailed than that displayed in app. +
-Format: `export-sales DATE` or `es DATE`
+Format: `export-sales DATE` or `exs DATE`
 
 ==== Exporting sales chart `[coming in v2.0]`
 Exports the sales chart into a pdf file. +
-Format: `export-chart` or `ec`
+Format: `export-chart` or `exc`
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
