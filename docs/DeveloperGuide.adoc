@@ -258,33 +258,51 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Current Implementation
 
-This section explains the implementation of the components associated with the login feature.
+The primary goal of this section is to explain the implementation of the
+login/logout feature and the changes that were made on other components of Event Organiser,
+namely, the EditUser Command, and the DeleteUser Command, to ensure cohesiveness of the
+entire application.
 
 image::LoginFeature_SequenceDiagram_includes_Logic_Model.png[width="800"]
 
-After the execute() method of the login command is called,  the login command authenticates the user.
-A commandException will be thrown in the following 2 scenarios:
+When the execute() method of the login command is called,  the login command authenticates
+the user i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+A CommandException will be thrown in the following 2 scenarios:
 
-* When the user does not exist.
+* When the user does not exist in Event Organiser.
 
-* When there is already a user that has been logged in.
+* When there is already a user that is logged in.
 
-On the other hand, after the execute() method of the log out command is called,
-a commandException will be thrown when there isn't any user that is logged in.
+On the other hand, when the execute() method of the log out command is called,
+a CommandException will be thrown when there isn't any user that is logged in.
 
 image::LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png[width="800"]
 
-After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.
+After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
+to update the UI.
 
-For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.
+For example, if the user, Alex Yeoh, wants to login to his account, the following image is
+what he will see before he logs in.
 
 image::LoginFeatureBeforeLogin.png[width="300"]
 
-After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
-of the user's name from white to green as shown in the image below. The user's name will remain in green as long as he is logged in. After he logs out,
-the colour of his name will revert back to white as shown in the image above.
+Once Alex Yeoh successfully logs in, the UI will automatically be updated. A successful
+log in is indicated by the change in colour of the user's name from white to green
+as shown in the image below. The user's name will remain in green as long as he is logged in.
+After he logs out,the colour of his name will revert back to white as shown in the image above.
 
 image::LoginFeatureAfterLogin.png[width="300"]
+
+
+image::LoginFeature_ClassDiagram_Model_1.png[width="800"]
+
+image::LoginFeature_ClassDiagram_Model_2.png[width="800"]
+
+image::LoginFeature_ClassDiagram_Model_3.png[width="800"]
+
+image::LoginFeature_ClassDiagram_Model_4.png[width="800"]
+
+image::LoginFeature_ClassDiagram_Logic_1.png[width="800"]
 
 ==== Design Considerations
 
@@ -301,6 +319,15 @@ image::LoginFeatureAfterLogin.png[width="300"]
 * **Alternative 3** : implement "login" via select command
 ** Pros: Easy to implement
 ** Cons: No security at all
+
+==== EditUser Command and DeleteUser Command
+To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
+Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
+two commands.
+
+For
+users must be logged in to edit or delete his/her user account.
+
 // end::login/logout[]
 
 ////
