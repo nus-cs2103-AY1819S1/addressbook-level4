@@ -4,8 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
