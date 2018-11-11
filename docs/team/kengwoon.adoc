@@ -5,16 +5,13 @@
 
 == PROJECT: Hallper
 
----
-
-_{#To be edited#}_
 
 == Introduction
 
 The purpose of this portfolio is to document my role in and contributions to the project Hallper.
 
 *About Hallper:* Hallper is a desktop administration application used by Junior Common Room Committee (JCRC) members of
-the halls of NUS that facilitates management of hall residents and events. Our team of 5 computer science students
+the halls of NUS that facilitates management of hall residents and events. Our team of five undergraduate computer science students
 decided to create Hallper by building upon the existing AddressBook Level 4 application to improve management
 activities for JCRC members. The user interacts with Hallper using a Command Line Interface (CLI), and Hallper
 information is displayed using a Graphic User Interface (GUI) created with JavaFX. The application is written in Java
@@ -57,12 +54,12 @@ through the residents one by one to remove the target CCAs.
 later using the import feature.
 
 * *Minor enhancement 2:* improved the ability to *clear* residents from Hallper
-** What it does: This feature allows the user to clear residents associated with the specified CCAs or room number, or
-to clear the entire database.
+** What it does: This feature allows the user to clear residents associated with the specified CCA and/or room
+number, or to clear the entire database.
 ** Justification: This feature expands the functions of the existing clear command by allowing more flexible clearing
 options. The original clear command only allowed for clearing the entire database.
-** Highlights: This enhancement allows the user to clear residents under multiple keywords (ROOM, CCA) using just a
-single command line as multiple keywords can be specified at once in any order.
+** Highlights: This enhancement allows the user to clear residents under multiple keywords (CCA, room number) using
+just a single command line as multiple keywords can be specified at once in any order.
 
 * Code contributed:
 {empty}[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kengwoon[Project Code Dashboard]]
@@ -107,9 +104,3 @@ include::../DeveloperGuide.adoc[tag=erase]
 include::../DeveloperGuide.adoc[tag=export]
 
 include::../DeveloperGuide.adoc[tag=import]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

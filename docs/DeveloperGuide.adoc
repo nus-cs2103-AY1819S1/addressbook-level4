@@ -646,6 +646,7 @@ The following sequence diagram shows how the clear operation works:
 
 image::ClearCommandSequenceDiagram.png[width="800"]
 
+
 The following activity diagram summarizes what happens when a user executes the clear command:
 
 image::ClearCommandActivityDiagram.png[width="650"]
@@ -701,6 +702,7 @@ with the new persons list.
 The following sequence diagram shows how the erase operation works:
 
 image::EraseCommandSequenceDiagram.png[width="800"]
+
 
 The following activity diagram summarizes what happens when a user executes the erase command:
 
@@ -763,6 +765,7 @@ The following sequence diagram shows how the import operation works:
 
 image::ImportCommandSequenceDiagram.png[width="800"]
 
+
 The following activity diagram summarizes what happens when a user executes the import command:
 
 image::ImportCommandActivityDiagram.png[width="650"]
@@ -813,6 +816,7 @@ storage data to the specified path.
 The following sequence diagram shows how the export operation works:
 
 image::ExportCommandSequenceDiagram.png[width="800"]
+
 
 The following activity diagram summarizes what happens when a user executes the export command:
 
