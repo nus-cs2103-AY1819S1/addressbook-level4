@@ -294,7 +294,7 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.YEARLY)
             .withRepeatUntilDateTime(LocalDateTime.of(2020, 2, 29, 1, 0))
             .withTags("Celebration")
-            .withReminderDurationList(getReminderDurationList(1, 2))
+            .withReminderDurationList(getReminderDurationList(0))
             .build();
     public static final Event JIM_BIRTHDAY_YEAR_ONE = new EventBuilder()
             .withEventUid(CONSTANT_EVENTUID.get(7))

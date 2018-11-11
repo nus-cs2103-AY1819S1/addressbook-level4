@@ -6,16 +6,23 @@ import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FLAG_ALL;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.scheduler.logic.commands.CommandTestUtil.getSampleRecurringEventAll;
 import static seedu.scheduler.logic.commands.CommandTestUtil.showEventAtIndex;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_ALL;
 import static seedu.scheduler.model.util.SampleSchedulerDataUtil.getReminderDurationList;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_THIRD_EVENT;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FOURTH_EVENT;
 
 import org.junit.Test;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.CommandHistory;
@@ -54,5 +61,45 @@ public class AddReminderCommandTest {
 
         assertCommandSuccess(addReminderCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+/**
+    @Test
+    public void execute_addRepeatedReminder_unfilteredList_success() { // no change to the model
+        Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+
+        ReminderDurationList durationsToAdd = getReminderDurationList(0);
+
+        AddReminderCommand addReminderCommand = new AddReminderCommand(INDEX_FIRST_EVENT, durationsToAdd);
+        String expectedMessage = String.format(AddReminderCommand.MESSAGE_ADD_REMINDER_SUCCESS,
+                firstEvent.getEventName());
+
+        Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
+        expectedModel.commitScheduler();
+
+        assertCommandSuccess(addReminderCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+**/
+    @Test
+    public void execute_addRepeatedAndNewReminder_unfilteredList_success() { // no 1 to the model
+        Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        ReminderDurationList durationsToAdd = getReminderDurationList(1, 3);
+        ReminderDurationList actualDurationsToAdd = getReminderDurationList(3);
+
+        EventBuilder eventInList = new EventBuilder(firstEvent);
+        ReminderDurationList addedReminderDurationList = firstEvent.getReminderDurationList().getCopy();
+        addedReminderDurationList.addAll(actualDurationsToAdd);
+        Event editedEvent = eventInList.withReminderDurationList(addedReminderDurationList).build();
+
+        AddReminderCommand addReminderCommand = new AddReminderCommand(INDEX_FIRST_EVENT, durationsToAdd);
+
+        String expectedMessage = String.format(AddReminderCommand.MESSAGE_ADD_REMINDER_SUCCESS,
+                firstEvent.getEventName());
+
+        Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
+        expectedModel.updateEvent(firstEvent, editedEvent);
+        expectedModel.commitScheduler();
+
+        assertCommandSuccess(addReminderCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
 
 }
