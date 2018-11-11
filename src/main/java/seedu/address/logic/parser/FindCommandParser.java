@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,21 +63,23 @@ public class FindCommandParser implements Parser<FindEventCommand> {
 
         String keywords = argMultimap.getPreamble();
         String trimmedKeywords = keywords.trim();
+        List<String> nameKeywords = Collections.emptyList();
 
-        // Throws exception if no keywords are provided & and there are no
-        // valid 'from' date/time, 'before' date/time or tags
-        if (trimmedKeywords.isEmpty()
-                && !argMultimap.getValue(PREFIX_FROM).isPresent()
+        if (trimmedKeywords.isEmpty()) {
+            // Throws exception if no keywords are provided & and there are no
+            // valid 'from' date/time, 'before' date/time or tags
+            if (!argMultimap.getValue(PREFIX_FROM).isPresent()
                 && !argMultimap.getValue(PREFIX_BEFORE).isPresent()
                 && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+            }
+        } else {
+            // Collects trimmed list of keywords
+            nameKeywords = Arrays.stream(trimmedKeywords.split("\\s+"))
+                    .filter(tag -> !tag.isEmpty())
+                    .collect(Collectors.toList());
         }
-
-        // Collects trimmed list of keywords
-        List<String> nameKeywords = Arrays.stream(trimmedKeywords.split("\\s+"))
-                                        .filter(tag -> !tag.isEmpty())
-                                        .collect(Collectors.toList());
 
         return new FindEventCommand(new FuzzySearchFilterPredicate(nameKeywords),
             new FuzzySearchComparator(nameKeywords),

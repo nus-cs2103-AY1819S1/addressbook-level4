@@ -27,6 +27,41 @@ public class FindEventCommandParserTest {
     }
 
     @Test
+    public void parse_invalidDates_throwsParseException() {
+        // empty from or before date/time
+        assertParseFailure(parser, "from/",
+                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
+
+        assertParseFailure(parser, "before/",
+                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
+
+        assertParseFailure(parser, "from/11 nov 8pm before/",
+                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
+
+        assertParseFailure(parser, "before/11 nov 8pm from/",
+                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
+
+        // from date/time is chronologically after the before date/time
+        assertParseFailure(parser, "from/11 nov 8pm before/10/11/18 20:00",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
+    }
+
+    @Test
+    public void parse_invalidTags_throwsParseException() {
+        assertParseFailure(parser, "tag/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "from/20 nov 8pm before/21 nov 8pm tag/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "some keywords tag/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "some keywords tag/CS2103 tag/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_onlyDates_returnsFindCommand() {
         FindEventCommand expectedCommand1 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -34,7 +69,7 @@ public class FindEventCommandParserTest {
                         new DatePredicate(new DateTime("2018-11-11 20:00"), null),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"  from/11 nov 2018 20:00   ", expectedCommand1);
+        assertParseSuccess(parser,"from/11 nov 2018 20:00", expectedCommand1);
 
         FindEventCommand expectedCommand2 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -42,7 +77,7 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"  before/11 nov 20:00   ", expectedCommand2);
+        assertParseSuccess(parser,"before/11 nov 20:00", expectedCommand2);
 
         FindEventCommand expectedCommand3 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -50,27 +85,8 @@ public class FindEventCommandParserTest {
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser,"  from/10 nov 8pm     before/11/11/18 20:00   ", expectedCommand3);
-    }
-
-    @Test
-    public void parse_invalidDates_throwsParseException() {
-        // empty from or before date/time
-        assertParseFailure(parser, "  from/   ",
-                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
-
-        assertParseFailure(parser, "  before/   ",
-                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
-
-        assertParseFailure(parser, "  from/11 nov 8pm before/   ",
-                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
-
-        assertParseFailure(parser, "  before/11 nov 8pm from/   ",
-                String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
-
-        // from date/time is chronologically after the before date/time
-        assertParseFailure(parser, "  from/11 nov 8pm     before/10/11/18 20:00   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
+        assertParseSuccess(parser,"from/10 nov 8pm before/11/11/18 20:00", expectedCommand3);
+        assertParseSuccess(parser,"   \n\t from/10 nov 8pm    \t before/11/11/18 20:00   \n", expectedCommand3);
     }
 
     @Test
@@ -81,7 +97,7 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, null),
                         new TagsPredicate(Collections.singletonList("cs2103")));
 
-        assertParseSuccess(parser,"  tag/cs2103    ", expectedCommand1);
+        assertParseSuccess(parser,"tag/cs2103", expectedCommand1);
 
         FindEventCommand expectedCommand2 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -89,22 +105,9 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, null),
                         new TagsPredicate(Arrays.asList("cs2103", "Lecture")));
 
-        assertParseSuccess(parser,"  tag/cs2103   tag/Lecture ", expectedCommand2);
-    }
+        assertParseSuccess(parser,"tag/cs2103 tag/Lecture", expectedCommand2);
 
-    @Test
-    public void parse_invalidTags_throwsParseException() {
-        assertParseFailure(parser, "  tag/   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
-
-        assertParseFailure(parser, "  from/20 nov 8pm before/21 nov 8pm tag/   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
-
-        assertParseFailure(parser, "  some keywords tag/   ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
-
-        assertParseFailure(parser, "  some keywords tag/CS2103 tag/  ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+        assertParseSuccess(parser,"  \n  tag/cs2103  \n\t  tag/Lecture \t  ", expectedCommand2);
     }
 
     @Test
