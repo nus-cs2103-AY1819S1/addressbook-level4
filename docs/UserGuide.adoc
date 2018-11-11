@@ -66,6 +66,7 @@ Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 Examples:
 
 * `register-patient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+// end::registerpatient[]
 
 // tag::registerdoctor[]
 === Registering a doctor: `register-doctor`
@@ -79,6 +80,7 @@ Please ensure login is done before proceeding back to the HealthBook.
 Examples:
 
 * `register-doctor n/Mary Jane p/98765432 e/maryj@example.com a/John street, block 123, #01-01`
+// end::registerdoctor[]
 
 // tag::deletepatient[]
 === Deleting a patient: `delete-patient`
@@ -92,6 +94,7 @@ Examples:
 
 * `delete-patient n/Jane Doe`
 * `delete-patient n/John Doe p/98264293`
+// end::deletepatient[]
 
 // tag::deletedoctor[]
 === Deleting a doctor: `delete-doctor`
@@ -105,6 +108,7 @@ Examples:
 
 * `delete-doctor n/Amanda Jane`
 * `delete-doctor n/Mary Jane p/94726274`
+// end::deletedoctor[]
 
 // tag::viewpatient[]
 === Viewing a patient: `view-patient`
@@ -125,6 +129,7 @@ Examples:
 
 * `view-patient n/John Doe`
 * `view-patient n/Jane Doe p/93726273`
+// end::viewpatient[]
 
 // tag::viewdoctor[]
 === Viewing a doctor: `view-doctor`
@@ -144,6 +149,7 @@ Examples:
 
 * `view-doctor n/Amanda Jane p/93726272`
 * `view-doctor n/Mary Jane`
+// end::viewdoctor[]
 
 === Listing all patients and doctors : `list`
 Shows a list of all patients and doctors in the HealthBook. +
@@ -153,11 +159,13 @@ Format: `list`
 === Filtering patients from list : `filter-patient`
 Shows a list of all patients in the Healthbook. +
 Format: `filter-patient`
+// end::filterpatient[]
 
 // tag::filterdoctor[]
 === Filtering doctors from list : `filter-doctor`
 Shows a list of all doctors in the Healthbook. +
 Format: `filter-doctor`
+// end::filterdoctor[]
 
 // tag::addappointment[]
 === Booking an appointment: `add-appointment`
@@ -175,6 +183,7 @@ Examples:
 
 * `add-appointment np/Jane Doe pp/92937272 nd/Amanda Jane pd/94827284 d/2018-12-12 13:00`
 * `add-appointment np/John Doe nd/Mary Jane d/2018-10-17 15:00`
+// end::addappointment[]
 
 // tag::deleteappointment[]
 === Deleting an appointment `delete-appointment`
@@ -184,6 +193,7 @@ Format: `delete-appointment APPOINTMENT_ID`
 Examples:
 
 * `delete-appointment 10001`
+// end::deleteappointment[]
 
 // tag::completeappointment[]
 === Completing an appointment `complete-appointment`
@@ -193,6 +203,7 @@ Format: `complete-appointment APPOINTMENT_ID`
 Examples:
 
 * `complete-appointment 10001`
+// end::completeappointment[]
 
 // tag::addprescription[]
 === Adding prescriptions to a patient's appointment: `add-prescription`
@@ -209,6 +220,7 @@ Examples:
 * There cannot be a duplicate of drug name for that particular appointment.
 * Drug that patient is allergic to cannot be added
 ****
+// end::addprescription[]
 
 // tag::deleteprescription[]
 === Deleting prescriptions of a patient's appointment: `delete-prescription`
@@ -218,6 +230,7 @@ Format: `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME`
 Examples:
 
 * `delete-prescription 10001 pn/Paracetamol`
+// end::deleteprescription[]
 
 // tag::addmedicalhistory[]
 === Adding medical condition or allergy to patient: `add-medical-history`
@@ -238,6 +251,7 @@ Examples:
 * Duplicated allergy or condition is not allowed.
 * Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
+// end::addmedicalhistory[]
 
 // tag::deletemedicalhistory[]
 === Deleting medical condition or allergy to patient: `delete-medical-history`
@@ -255,6 +269,7 @@ Examples:
 * Input allergy or condition must exist in the HealthBook.
 * Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
+// end::deletemedicalhistory[]
 
 // tag::remark[]
 === Adding remark to patient : `remark`
@@ -269,6 +284,7 @@ Examples:
 
 * `remark n/John Doe r/Has chronic heart disease`
 * `remark n/Amanda Jane p/84739294 r/`
+// end::remark[]
 
 === Listing entered commands : `history`
 
@@ -299,6 +315,7 @@ There is no need to save manually.
 === Tab to autocomplete commands
 
 In the command box, user can type the first few characters of the command and tab to autocomplete it.
+// end::autocomplete[]
 
 === Remind patient on their upcoming appointment `[coming soon in v2.0]`
 Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
