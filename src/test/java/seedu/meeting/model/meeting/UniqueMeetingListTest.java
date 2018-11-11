@@ -98,7 +98,7 @@ public class UniqueMeetingListTest {
         assertTrue(uniqueMeetingList.equals(duplicateUniqueMeetingList));
 
         // null -> return false
-        assertFalse(uniqueMeetingList.equals(null));
+        assertFalse(uniqueMeetingList == null);
 
         // Different object types -> return false
         assertFalse(uniqueMeetingList.equals(1));
