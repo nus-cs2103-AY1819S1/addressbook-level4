@@ -3,7 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import com.google.common.io.Files;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,7 +43,10 @@ public class ExportXmlCommand extends ExportCommand {
         */
 
         try {
-            storage.saveAddressBook(model.getAddressBook(), Paths.get(exportedFilePath));
+            Path tempPath = Paths.get("temp.xml");
+            storage.saveAddressBook(model.getAddressBook(), tempPath);
+            Files.copy(tempPath.toFile(), Paths.get(exportedFilePath).toFile());
+            tempPath.toFile().delete();
         } catch (IOException e) {
             throw new CommandException(String.format(MESSAGE_FAIL_READ_FILE));
         }

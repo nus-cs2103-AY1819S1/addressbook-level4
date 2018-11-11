@@ -17,10 +17,11 @@ public abstract class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Export successfully to file path: %1$s";
     public static final String MESSAGE_FAIL_READ_FILE = "Failed to read file path. Please recheck the validity "
-            + "of the file path";
+            + "of the file path and the permission to the file.";
     public static final String MESSAGE_FILE_TYPE_NOT_SUPPORTED = "The file type you want to export as is "
-            + "currently not supported. \n"
-            + "Current supported file type: XML and TXT";
+            + "currently not supported; or the parameter format is wrong. \n"
+            + "Current supported file type: XML and TXT \n"
+            + "Parameter: \"--xml\" or \"--txt\"";
     public static final String MESSAGE_FAIL_XML_TXT_CONVERSION = "Failed to export the user data as a txt file. ";
     public static final String MESSAGE_INVALID_FILE_PATH =
             "File name can only contain alphanumeric and underscore. Please recheck.";
