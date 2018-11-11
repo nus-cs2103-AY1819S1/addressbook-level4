@@ -126,12 +126,6 @@ public class ConnectToGoogleCalendarTest {
         //Test whether returns Disabled
         assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
         assertTrue(ConnectToGoogleCalendar.checkStatus("Disabled"));
-
-        //Try to read a non-readable file
-        String path = "./invalid/NotExist.txt";
-        final File file = new File(path);
-        //We force an exception
-        assertFalse(ConnectToGoogleCalendar.checkStatus("Enabled"));
     }
 
     @Test
@@ -338,12 +332,10 @@ public class ConnectToGoogleCalendarTest {
     @Test
     public void netIsAvailable() {
         //assumption: Google is always online -> true
-        //assertTrue(ConnectToGoogleCalendar.netIsAvailable("http://www.google.com"));
+        assertTrue(ConnectToGoogleCalendar.netIsAvailable("http://www.google.com"));
         //Invalid URL -> false
-        //assertFalse(ConnectToGoogleCalendar.netIsAvailable("NoUrlWillFail"));
-        //disable();
-        boolean t = true;
-        assertTrue(t);
+        assertFalse(ConnectToGoogleCalendar.netIsAvailable("NoUrlWillFail"));
+        disable();
     }
 
     @Test

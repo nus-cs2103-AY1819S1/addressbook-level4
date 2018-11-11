@@ -59,6 +59,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         }
 
         //Get the Google Calendar service object
+        logger.info("Getting a calendar service");
         Calendar service = connectToGoogleCalendar.getCalendar();
 
         //Get events from a specified calendar
