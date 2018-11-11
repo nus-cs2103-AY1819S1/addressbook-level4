@@ -436,34 +436,41 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 === Medicine Records System
 
 ==== Current Implementation
-The medicine records system is used to manage the medicine inventory in the clinic. The `addMedicine` Command
-creates a new medicine entry in the inventory. `editMedicine` Command updates the stock level of the specified medicine. In addition, whenever the
-`receipt` Command is called, the records will update the stock automatically by subtracting the number of each medicine issued to the patient.
+The medicine records system is used to manage the medicine inventory in the clinic. The _Medicine_ class and the properties
+of the medicine are stored under the Model package. The list of medicines currently tracked in the clinic is located in the AddressBook class.
+
+Click <<link, here>> for the list of commands related to the medicine class.
 
 Given below is an example of how the medicine class is used:
 
-Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
+Scenario 1. The clinic orders a new medicine that they do not currently have in their store.
+ The user uses the `addMedicine` command to add the new medicine into the records.
 
-Scenario 2. A new shipment of medicine has arrived. The user uses `restock` command
-to update the new stock levels of exiting medicine.
+Scenario 2. There is a wrong entry of one of the serial number of the medicine. The user types
+`editmedicine` to correct the serial number.
+
+// code snippet
 
 Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
 During payment a `receipt` command is executed by the user to fetch the prices
 for the medicine that is allocated, in addition, the stock level of the medicine is updated.
 
-Scenario 4. The user needs to check for the stock level of every medicine. The user executes the `checkStock` command
+Scenario 4. The user needs to check for the stock level of every medicine.
+The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
+
+// sequence diagram for checkstock
 
 ==== Design Considerations
 
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Consistent format with the list with patients.
+** Pros: Many useful methods to manipulate data.
 ** Cons: Need to search through the list to find a medicine.
 * **Alternative 2:** Stores the medicine in a hash map.
 ** Pros: Quick reference for object given index.
-** Cons: Difficult to sort the medicine.
+** Cons: Many commands need to change to list to use the method and change back, more complex.
 //end::medicine[]
 
 // tag::pqms[]

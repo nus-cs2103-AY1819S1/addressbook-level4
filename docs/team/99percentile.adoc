@@ -45,7 +45,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 
 * *Other contributions*:
 ** Wrote the utilities for test cases for other team members to build their tests.
-** Proof-read all code to adhere to standard Java writing style.
+** Spell-checked all documents to ensure consistency.
 ** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
 ** Created the trailer for our project release.
