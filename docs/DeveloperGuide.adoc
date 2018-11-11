@@ -637,8 +637,8 @@ Step 9. When user launch the application,`MainApp` will create a `FirstDayComman
 methods `fdc#createDefaultFileIfNotExist`, `fdc#createDefaultFileIfUnableConvert`, `fdc#createDefaultFileIfDiffSize`,
 `fdc#createDefaultFileIfNull` and `fdc#createDefaultFileIfInvalidDateOrRange`.
 
-If it is the first time the user launch the application or if user deleted `rangeofweek.xml` or modified the file
-content until some content are invalid, the application will create a default `rangeofweek.xml`.
+If it is the first time the user launches the application or if user deleted `rangeofweek.xml` or invalidated data in
+`rangeofweek.xml`, the application will record the log message and create a default `rangeofweek.xml`.
 
 The following code snippet shows that with the extra layer of data verification and rectification, the user do not need
  to worry when they accidentally invalidated the storage file.
@@ -1597,7 +1597,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No academic calendar data is generated. Error details shown in status message. Status bar remains the same.
 .. Test case: `firstday 130818` +
    Expected: Academic calendar data is generated and saved. Details shown in status message to inform user. After
-   relaunch the application, the application title will be appended with current week's description.
+   relaunching the application, the application title will be appended with current week's description.
 
 2. View tasks due today/this week
 
