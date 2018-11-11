@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<scheduler>
     <!-- Valid Event -->
     <events>
         <eventSetUid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</eventSetUid>
@@ -26,4 +26,4 @@
         <repeatUntilDateTime>2018-10-11 01:00:00</repeatUntilDateTime>
         <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
     </events>
-</addressbook>
+</scheduler>
