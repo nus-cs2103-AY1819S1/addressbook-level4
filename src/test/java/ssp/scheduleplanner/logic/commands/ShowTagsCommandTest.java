@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.commons.events.ui.ShowTagsRequestEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
@@ -19,11 +20,15 @@ import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.CategoryBuilder;
+import ssp.scheduleplanner.ui.testutil.EventsCollectorRule;
 
 public class ShowTagsCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -52,6 +57,9 @@ public class ShowTagsCommandTest {
 
         CommandResult result = new ShowTagsCommand("Modules").execute(modelStub, commandHistory);
         assertEquals(result.feedbackToUser, ShowTagsCommand.MESSAGE_SUCCESS);
+
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowTagsRequestEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
