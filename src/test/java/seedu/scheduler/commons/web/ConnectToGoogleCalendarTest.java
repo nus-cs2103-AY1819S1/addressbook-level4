@@ -454,14 +454,14 @@ public class ConnectToGoogleCalendarTest {
         enable();
         helperCommand(new AddCommand(targetEvent), model, commandHistory);
         disable();
-        sleep(5000);
+        sleep(2000);
         enable();
         //execute the edit command
         assertTrue(
                 connectToGoogleCalendar.updateSingleGoogleEvent(
                         true, targetEvent, editedEvent, 0));
         disable();
-        sleep(10000);
+        sleep(2000);
 
         //----------edit single repeat event instance-> ok ---------------
         targetEvent = new EventBuilder(WEDNESDAY_LECTURE).build();
@@ -469,12 +469,12 @@ public class ConnectToGoogleCalendarTest {
 
         enable();
         helperCommand(new AddCommand(targetEvent), model, commandHistory);
-        sleep(10000);
+        sleep(2000);
         assertTrue(
                 connectToGoogleCalendar.updateSingleGoogleEvent(
                         true, targetEvent, editedEventOne, 1));
         disable();
-        sleep(10000);
+        sleep(2000);
 
         //----------edit upcoming repeat event instances-> ok ---------------
         //case: Second Instance is selected
@@ -489,7 +489,7 @@ public class ConnectToGoogleCalendarTest {
                         editedList,
                         instanceIndex, instanceIndex));
         disable();
-        sleep(10000);
+        sleep(2000);
         //case: First Instance is selected
         instanceIndex = 0;
         enable();
@@ -499,7 +499,7 @@ public class ConnectToGoogleCalendarTest {
                         editedList,
                         instanceIndex, instanceIndex));
         disable();
-        sleep(10000);
+        sleep(2000);
         //----------edit all repeat event instances-> ok ---------------
         editedList = WEDNESDAY_LECTURE_UPDATED2;
         //case: Second Instance is selected
@@ -512,7 +512,7 @@ public class ConnectToGoogleCalendarTest {
                         editedList,
                         instanceIndex, effectRangeStartingIndex));
         disable();
-        sleep(10000);
+        sleep(2000);
         //case: First Instance is selected
         instanceIndex = 0;
         enable();
@@ -522,7 +522,7 @@ public class ConnectToGoogleCalendarTest {
                         editedList,
                         instanceIndex, effectRangeStartingIndex));
         disable();
-        sleep(10000);
+        sleep(2000);
     }
 
 
