@@ -50,8 +50,6 @@ include::../UserGuide.adoc[tag=editByName]
 
 include::../UserGuide.adoc[tag=deleteByName]
 
-include::../UserGuide.adoc[tag=dataencryption]
-
 == Contributions to the Developer Guide
 
 |===
