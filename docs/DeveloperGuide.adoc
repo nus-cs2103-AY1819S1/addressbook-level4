@@ -212,6 +212,9 @@ which are stored internally as `imageList`. This would facilitate the `select` f
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
 function to auto-complete the directory name if it exists.
 
+[NOTE]
+Pressing tab again will display the next directory with the given prefix.
+
 Given below is an example usage scenario and how the cd mechanism behaves at each step.
 
 . The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
@@ -243,13 +246,14 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 ** Cons: Does not update existing path if user deletes a directory.
 // end::cd[]
 
-// tag::select[]
-=== Select feature
-`SelectCommand` allow users to select from the currently viewed batch of 10 images within the directory for image-editing.
-This command is further facilitated by the `NextCommand`.
+// tag::open[]
+=== Open feature
+The Open Command allow users to open the images in a batch of 10 images within the directory for image-editing.
+This command is further facilitated by the Next/Prev Command.
 
 ==== Current Implementation
-The implementation of the Select feature is largely similar to `CdCommand`. It is facilitated by the following operations in `ModelManager`:
+The implementation of the Open feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the following operations:
 
  * `Model#getDirectoryImageList()` - Retrieves the stored list of images in UserPrefs.
  * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current selected images.
@@ -263,7 +267,7 @@ The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of
 `PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
 Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature. (refer to 3.5)
 
-Given below is an example usage scenario of how the select and next mechanism behaves at each step.
+Given below is an example usage scenario and how the open mechanism behaves at each step.
 
 . The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
@@ -273,33 +277,33 @@ the `imageList` with all the images within Desktop.
 
 image::SelectCommand1.png[width=800]
 
-. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
+. The user executes `open 1` command to open the first image in the first batch of 10 images. The open
 command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
 then retrieved and displayed on the GUI.
 
-image::SelectCommand2.png[width=500]
+image::OpenCommand2.png[width=500]
 
-. The user then executes `select 5` command to select the fifth image in the batch of 10 images. The fifth image
+. The user then executes `open 5` command to select the fifth image in the batch of 10 images. The fifth image
 is then retrieved similarly and displayed on the GUI.
 
-image::SelectCommand3.png[width=450]
+image::OpenCommand3.png[width=450]
 
-The following sequence diagram shows how the select command works:
+The following sequence diagram shows how the open command works:
 
-.Sequence Diagram for SelectCommand
-image::SelectSequenceDiagram.png[width=800]
+.Sequence Diagram for OpenCommand
+image::OpenSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 ===== Aspect: How select executes
 
-* *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
+* *Alternative 1 (current choice)*: Open images within the BATCH_SIZE.
 ** Pros: Users work on a small size of images.
 ** Cons: Limited to the batch size.
 
 * *Alternative 2* : Select images within the `imageList` size.
 ** Pros: Easy to retrieve images anywhere in the list.
 ** Cons: Can be very messy if the `imageList` size is too large.
-// end::select[]
+// end::open[]
 
 // tag::nextprev[]
 === Next/Prev feature
