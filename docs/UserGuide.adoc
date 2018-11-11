@@ -207,7 +207,7 @@ Example:
 [blue]`archive 1` +
 Task with index 1 is removed from the task list.
 
-image::archiveTask.png[width="400"]
+image::archiveTask.png[width="600"]
 ====
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
@@ -234,13 +234,13 @@ We are continuing from example listed in <<Archiving a Task>>. +
 Step 1: [blue]`archive 1` +
 Below is the screenshot of task list that will appear on screen after step 1.
 
-image::archiveTask.png[width="400"]
+image::archiveTask.png[width="600"]
 
 Step 2: [blue]`listarchived`
 
 Below is the screenshot of archived task list that will appear on screen after step 2.
 
-image::listArchive.png[width="400"]
+image::listArchive.png[width="600"]
 
 ====
 // end::listarchived[]
@@ -296,24 +296,27 @@ Example:
 The following diagram illustrates that when you used `listweek` command on the date `021118`, you will only see tasks
 until `041118` which is the closest Sunday.
 
-image::ListWeekCommand_UG_Before_After.png[width="500"]
+image::ListWeekCommand_UG_Before_After.png[width="600"]
 ====
 // end::listweek[]
 
+// tag::listmonth[]
 === Viewing Tasks Due This Month
 
-Shows a list of tasks that are due from current date till the end of the current Month. +
+Shows a list of tasks  due from current date, till the end of the current Month. +
 ====
 [blue]`listmonth`
 ====
 
 Example:
 ====
-input: [blue]`listmonth` on the date 021118 +
-output: Shows a list of tasks from 021118 to end of the month which is 301118.
+[blue]`listmonth` (on the date 021118) +
 
-image::ListMonth_Before_After.png[width="400"]
+image::ListMonth_Before_After.png[width="600"]
+
+Tasks from 021118 to end of the month (301118) are listed.
 ====
+// end::listmonth[]
 
 //tag::sorting[]
 === Sorting Tasks by Deadline Date and Priority
@@ -361,30 +364,58 @@ same tasks. +
 You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
 [blue]`CS3230` or [blue]`CS5229`.
 
-
-=== Filtering Tasks by Tag
-Filters and lists tasks with tags matching those entered by the user. User may input more than 1 tag. +
+// tag::filtertags[]
+=== Filtering Tasks by Tags (Inclusive)
+Filters tasks with tags matching ANY of those entered by the user.
+You can include multiple tags when using [blue]`filter`. For example, [blue]`filter tutorial quiz project`
+will return tasks with tags matching at least one of user-input tags.
 ====
 [blue]`filter TAG [TAG2] ...`
 ====
 Example:
 ====
-- [blue]`filter lecture` +
-output: All tasks with the tag [blue]`tutorial` are listed.
+- [blue]`filter tutorial` +
 
--  [blue]`filter lecture 2100` +
-output: All tasks with the tag either [blue]`tutorial`, [blue]`2100`, or both [blue]`tutorial` and [blue]`2100`, are
-listed.
+image::b-a filter tutorial.png[width="600"]
 
-image::Filter_Before_After.png[width="400"]
+Tasks with the tag [blue]`tutorial` are listed.
+
+- [blue]`filter tutorial cs2100` +
+
+image::b-a filter tutorial cs2100.png[width="600"]
+
+Tasks with either [blue]`tutorial`, [blue]`2100` tags, or both, are listed.
 ====
 
+[TIP]
 The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
 
+=== Filtering Tasks by Tags (Exclusive)
+Filters tasks with tags matching ALL of those entered by the user.
+You can include multiple tags when using [blue]`filterstrict`. For example, [blue]`filterstrict tutorial quiz project`
+will return tasks with tags matching ALL user-input tags.
+====
+[blue]`filterstrict TAG [TAG2] ...`
+====
+Example:
+====
+- [blue]`filterstrict tutorial` +
+
+image::b-a filterstrict tutorial.png[width="600"]
+
+Tasks with the tag [blue]`tutorial` are listed.
+
+-  [blue]`filterstrict tutorial geh1034` +
+
+image::b-a filterstrict tut geh.png[width="600"]
+
+Tasks with both [blue]`tutorial` and [blue]`2100` tags are listed.
+
+====
 
 [TIP]
-You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial quiz project`
-will return all tasks with tag matching with at least one of the provided tags in input.
+The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
+// end::filtertags[]
 
 // tag::firstday[]
 === Generating Academic Calendar
@@ -407,7 +438,7 @@ The following diagram illustrates when you used `firstday` command with the date
 and launch the application within `121118` to `181118` (Week 13 for
 NUS academic year 18/19 semester 1), the application title will be appended with "Week 13".
 
-image::FirstDayCommand_UG_Before_After.png[width="500"]
+image::FirstDayCommand_UG_Before_After.png[width="600"]
 ====
 
 [NOTE]
@@ -449,7 +480,6 @@ Category name can contain space. For example, [blue]`Steam`, [blue]`Steam2`,
 Duplicated categories are not allowed in schedule planner. In other words, all
 categories must have different names.
 
-
 //end::addingcat[]
 
 //tag::addingtag[]
@@ -463,7 +493,7 @@ Example:
 ====
 [blue]`addtag c/Steam shopping list t/Overwatch`
 
-image::addtag.png[width="400"]
+image::addtag.png[width="600"]
 ====
 Duplicated tags are not allowed under same category. +
 For instance, in above example, you cannot add another tag [blue]`Overwatch`
@@ -484,7 +514,7 @@ Example:
 ====
 [blue]`clearcat c/Modules`
 
-image::clearcat.png[width="400"]
+image::clearcat.png[width="600"]
 ====
 When a category is cleared, tags saved in other categories are not affected.
 For instance, in above example, if you have tag [blue]`CS2105` in category [blue]`Others`
@@ -506,7 +536,7 @@ Example:
 ====
 [blue]`removecat c/Steam shopping list`
 
-image::removecat.png[width="400"]
+image::removecat.png[width="600"]
 ====
 [WARNING]
 Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available is to delete
@@ -525,7 +555,7 @@ Example:
 ====
 [blue]`editcat c/Steam shopping list c/Reading list`
 
-image::editcat.png[width="400"]
+image::editcat.png[width="600"]
 ====
 [WARNING]
 Default categories [blue]`Modules` and [blue]`Others` cannot be renamed.
@@ -549,7 +579,7 @@ Example:
 ====
 [blue]`tags c/Modules`
 
-image::Before-after-showtags.png[width="400]
+image::Before-after-showtags.png[width="600]
 ====
 // end::showtags[]
 // tag::progressbar[]
@@ -568,7 +598,7 @@ Example:
 
 The diagram below contains the screenshots of what you will see after each of the commands entered above.
 
-image::before-after-progresstoday.png[width="400"]
+image::before-after-progresstoday.png[width="600"]
 ====
 
 === Displaying This Week's Progress
@@ -585,7 +615,7 @@ Example:
 
 The diagram below contains the screenshots of what you will see after each of the commands entered above.
 
-image::before-after-progressweek.png[width="400"]
+image::before-after-progressweek.png[width="600"]
 ====
 // end::progressbar[]
 
@@ -616,7 +646,6 @@ Undoable commands: those commands that modify the schedule planner's content (`a
 
 [TIP]
 Use the `history` command to decide if you want to undo the previous _undoable_ command.
-
 
 
 === Redoing the Previous Undo Command
@@ -658,16 +687,19 @@ There is no need to save manually.
 
 
 == Command Summary
+
 * *Viewing Help* :
 ====
 [blue]`help` +
 ====
+
 * *Adding Tasks* :
 ====
 [blue]`add n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 Example: +
 [blue]`add n/do tutorial p/1 t/cs2100 d/121019 v/home` +
 ====
+
 * *Adding Recurring Tasks* :
 ====
 [blue]`repeat r/REPEATS i/INTERVAL n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
@@ -678,28 +710,37 @@ Example: +
 ====
 
 * **Editing a Task** :
-
 ====
 [blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL]t/[TAGS]... d/[DEADLINE]` +
 
 Example: +
 [blue]`edit 3 p/1 d/121019` +
 ====
-* **Finding Tasks by Name** :
 
+* **Finding Tasks by Name** :
 ====
 [blue]`find NAME` +
 
 Example: +
 [blue]`find tutorial` +
 ====
-* **Filter Tasks by Tag** :
+
+* **Filter Tasks by Tags (Inclusive)** :
 ====
-[blue]`filter TAG ...` +
+[blue]`filter TAG1 [TAG2]...` +
 
 Example: +
-[blue]`filter tutorial`
+[blue]`filter tutorial ...`
 ====
+
+* **Filter Tasks by Tags (Exclusive)** :
+====
+[blue]`filterstrict TAG1 [TAG2]...` +
+
+Example: +
+[blue]`filterstrict tutorial ...`
+====
+
 * **Deleting Tasks** :
 ====
 [blue]`delete INDEX` +
@@ -707,14 +748,15 @@ Example: +
 Example: +
 [blue]`delete 1` +
 ====
-* **Archiving Tasks** :
 
+* **Archiving Tasks** :
 ====
 [blue]`archive INDEX` +
 
 Example: +
 [blue]`archive 1` +
 ====
+
 * **Viewing Archived Tasks** :
 ====
 [blue]`listarchived` +
@@ -728,6 +770,12 @@ Example: +
 ====
 [blue]`listweek`
 ====
+
+* **Viewing Tasks Due This Month** :
+====
+[blue]`listmonth`
+====
+
 * **Generating Academic Calendar Weeks** :
 ====
 [blue]`firstday DDMMYY`
