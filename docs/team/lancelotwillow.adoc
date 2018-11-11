@@ -54,19 +54,15 @@ https://github.com/CS2103-AY1819S1-T09-3/main/pull/177[#177]
 *** Integrated a third party library (ImageMagic) to the project (https://github.com[#42])
 
 == Contributions to the User Guide
-=== Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 include::../UserGuide.adoc[tag=apply]
-include::../UserGuide.adoc[tag=save]
-include::../UserGuide.adoc[tag=create]
 
 == Contributions to the Developer Guide
 
-=== Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 include::../DeveloperGuide.adoc[tag=apply]
-
-include::../DeveloperGuide.adoc[tag=create]
-
-include::../DeveloperGuide.adoc[tag=save]
 
