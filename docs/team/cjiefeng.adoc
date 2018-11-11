@@ -24,7 +24,7 @@ contacts 1 by 1.
 ** Highlights: Users will be notified with the number of successful imported contacts. Failure of importing should be the caused by 
 bad formatting or missing mandatory fields. 
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-W13-2/main/pull/183[Functional code & Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=cjiefeng[Functional code & Test code]]
 
 * *Other contributions*:
 
