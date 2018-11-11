@@ -23,11 +23,11 @@ public class ApplyCommand extends Command {
 
     public static final String COMMAND_WORD = "apply";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": do the operation to the image.\n"
+            + ": Apply a transformation to the image.\n"
             + "Parameters: operationName argument1 argument2 ...\n"
             + "Example: " + COMMAND_WORD + " blur 1x8";
     public static final String MESSAGE_USAGE_RAW = COMMAND_WORD
-            + ": do the raw operation to the image by passing the args directly to ImageMagick.\n"
+            + ": Apply a transformation to the image by passing the values directly to ImageMagick.\n"
             + "Parameters: argument1 argument2 ...\n"
             + "Example: " + COMMAND_WORD + " raw +noise gaussian";
     //the path of the json file containing the arguments of the apply command
@@ -72,7 +72,7 @@ public class ApplyCommand extends Command {
         } catch (Exception e) {
             throw new CommandException(isRaw ? "Invalid operation!" : e.getMessage());
         }
-        return new CommandResult("process is done");
+        return new CommandResult("Transformation applied!");
     }
 
     @Override

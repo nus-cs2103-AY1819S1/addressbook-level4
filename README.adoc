@@ -7,7 +7,7 @@ https://ci.appveyor.com/project/benedictcss/main[image:https://ci.appveyor.com/a
 https://coveralls.io/github/CS2103-AY1819S1-T09-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T09-3/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/6e5a3a4804ff4ce08fa5d3358ed0d67a[link="https://app.codacy.com/app/lancelotwillow/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-T09-3/main&utm_campaign=Badge_Grade_Dashboard"]
 
-Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price! +
+Piconso is an CLI-based (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, coupled with a steep learning curve, and sometimes even a steep price! +
 
 Unlike them, Piconso offers the same features, in a much more simplified manner. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by
 photographers, designers, developers and more, and is very easy to pick up.
@@ -24,16 +24,15 @@ endif::[]
 
 Above shows the UI layout
 
-* Shows original image and rendered preview.
-* Shows first 10 images in current directory.
-* Shows history of transformations performed.
-* Command console and cin for input of commands.
+* *Upper left column*: Shows history of transformations performed on current layer.
+* *Lower left column*: Shows first 10 images in current directory.
+* *Middle*: Shows original image and rendered preview.
+* *Right column*: Layers currently used.
+* *Bottom*: Command output console and input for commands.
 
 == Features
-
 * Several traditional image-editing features such as crop, blur etc.
 * Capability to define own custom transformation set.
-* Mass editing several images at once
 * Direct access to images on Google Photos (download and upload).
 * A wide range of edit text-commands that remove the need for a mouse.
 
