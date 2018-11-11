@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -21,6 +20,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Prescription;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Allergy;
+import seedu.address.model.patient.Condition;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
@@ -96,8 +97,8 @@ public class InformationPanel extends UiPart<Region> {
         });
     }
 
-    private void setConnections(ObservableList<String> allergiesList,
-                                ObservableList<String> conditionsList,
+    private void setConnections(ObservableList<Allergy> allergiesList,
+                                ObservableList<Condition> conditionsList,
                                 ObservableList<Appointment> upcomingAppointmentList,
                                 ObservableList<Appointment> pastAppointmentList) {
 
@@ -193,13 +194,13 @@ public class InformationPanel extends UiPart<Region> {
      * Loads a patient's information on the panel.
      */
     private void loadPatientInformation(Patient patient) {
-        Iterator<String> allergiesItr = patient.getMedicalHistory().getAllergies().iterator();
-        Iterator<String> conditionsItr = patient.getMedicalHistory().getConditions().iterator();
+        Iterator<Allergy> allergiesItr = patient.getMedicalHistory().getAllergies().iterator();
+        Iterator<Condition> conditionsItr = patient.getMedicalHistory().getConditions().iterator();
         Iterator<Appointment> upcomingAppointmentItr = patient.getUpcomingAppointments().iterator();
         Iterator<Appointment> pastAppointmentItr = patient.getPastAppointments().iterator();
 
-        ObservableList<String> allergiesList = FXCollections.observableArrayList();
-        ObservableList<String> conditionsList = FXCollections.observableArrayList();
+        ObservableList<Allergy> allergiesList = FXCollections.observableArrayList();
+        ObservableList<Condition> conditionsList = FXCollections.observableArrayList();
         ObservableList<Appointment> upcomingAppointmentList = FXCollections.observableArrayList();
         ObservableList<Appointment> pastAppointmentList = FXCollections.observableArrayList();
 

@@ -369,11 +369,12 @@ command is implemented such that it is able to add `allergies` AND/OR `condition
 image::AddMedicalHistorySequenceDiagram.png[width="600"]
 
 Step 1. The user types in `add-medical-history` in the command box followed by the parameter `n/John Doe al/penicillin,milk
-c/sub-healthy,hyperglycemia`
+c/subhealthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
 You can only omit either ALLERGY parameter or CONDITION parameter.
+Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 
 Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get added
 
@@ -381,9 +382,10 @@ Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHisto
 Exception will be thrown if inputs for both field are blank.
 
 ==== Design Consideration
-===== Aspect: Support different types of input
-* Alternative 1 (Current choice): `AddMedicalHistoryCommand` allow user to fill in one or more allergies and conditions
-(separated by comma). It is also supported to leave EITHER field blank.
+===== Aspect: The way to model MedicalHistory
+* Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
+`AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
+* Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
 === Delete Medical History Feature
 ==== Current Implementation
@@ -395,7 +397,7 @@ The delete medical history feature is facilitated by `DeleteMedicalHistoryComman
 image::DeleteMedicalHistorySequenceDiagram.png[width="600"]
 
 Step 1. The user types in `delete-medical-history` in the command box followed by the parameter `n/John Doe
-al/penicillin,milk c/sub-healthy,hyperglycemia`
+al/penicillin,milk c/subhealthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
@@ -408,10 +410,10 @@ Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHisto
 Exception will be thrown if inputs for both field are blank.
 Exception will be thrown if given input is not in the original medical history.
 
-==== Design Consideration
-===== Aspect: Support different types of input
-* Alternative 1 (Current choice): `DeleteMedicalHistoryCommand` allow user to fill in one or more allergies and
-conditions (separated by comma). It is also supported to leave EITHER field blank.
+===== Aspect: The way to model MedicalHistory
+* Alternative 1 (Current choice): Model `Allergy` and `Condition` as classes.
+`AddMedicalHistoryCommand` contains ArrayLists of `Allergy` and `Condition`.
+* Alternative 2 : Treat allergy and condition as Strings. `AddMedicalHistoryCommand` contains two ArrayLists of String.
 
 === Filter Patient and Filter Doctor Feature
 ===== Current Implementation

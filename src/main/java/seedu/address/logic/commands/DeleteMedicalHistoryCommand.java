@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.calendar.GoogleCalendar;
@@ -17,6 +16,8 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Allergy;
+import seedu.address.model.patient.Condition;
 import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
@@ -54,17 +55,18 @@ public class DeleteMedicalHistoryCommand extends Command {
 
     private final Name name;
     private final Phone phone;
-    private String allergy;
-    private String condition;
+    private final ArrayList<Allergy> allergies;
+    private final ArrayList<Condition> conditions;
 
     /**
      * Creates an DeleteMedicalHistoryCommand for the specified {@code Person}
      */
-    public DeleteMedicalHistoryCommand(Name name, Phone phone, String allergy, String condition) {
+    public DeleteMedicalHistoryCommand(Name name, Phone phone,
+                                       ArrayList<Allergy> allergies, ArrayList<Condition> conditions) {
         requireNonNull(name);
         this.name = name;
-        this.condition = condition;
-        this.allergy = allergy;
+        this.conditions = conditions;
+        this.allergies = allergies;
         this.phone = phone;
     }
 
@@ -102,28 +104,26 @@ public class DeleteMedicalHistoryCommand extends Command {
         }
         Patient patientToEdit = (Patient) personToEdit;
         MedicalHistory editedMedicalHistory = new MedicalHistory(patientToEdit.getMedicalHistory());
-        if (allergy.equals("") && condition.equals("")) {
+        if (allergies.size() == 0 && conditions.size() == 0) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
         }
-        if (!(allergy.equals(""))) {
-            ArrayList<String> allergiesToDelete = new ArrayList<>(Arrays.asList(allergy.split(",")));
-            for (int index = 0; index < allergiesToDelete.size(); index++) {
-                if (editedMedicalHistory.getAllergies().contains(allergiesToDelete.get(index))) {
-                    editedMedicalHistory.getAllergies().remove(allergiesToDelete.get(index));
+        if (allergies.size() != 0) {
+            for (int index = 0; index < allergies.size(); index++) {
+                if (editedMedicalHistory.getAllergies().contains(allergies.get(index))) {
+                    editedMedicalHistory.getAllergies().remove(allergies.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY
-                            + allergiesToDelete.get(index));
+                            + allergies.get(index));
                 }
             }
         }
-        if (!(condition.equals(""))) {
-            ArrayList<String> conditionsToDelete = new ArrayList<>(Arrays.asList(condition.split(",")));
-            for (int index = 0; index < conditionsToDelete.size(); index++) {
-                if (editedMedicalHistory.getConditions().contains(conditionsToDelete.get(index))) {
-                    editedMedicalHistory.getConditions().remove(conditionsToDelete.get(index));
+        if (conditions.size() != 0) {
+            for (int index = 0; index < conditions.size(); index++) {
+                if (editedMedicalHistory.getConditions().contains(conditions.get(index))) {
+                    editedMedicalHistory.getConditions().remove(conditions.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION
-                            + conditionsToDelete.get(index));
+                            + conditions.get(index));
                 }
             }
         }
@@ -147,7 +147,24 @@ public class DeleteMedicalHistoryCommand extends Command {
             return false;
         } else {
             DeleteMedicalHistoryCommand r = (DeleteMedicalHistoryCommand) o;
-            return name.equals(r.name) && allergy.equals(r.allergy) && condition.equals(r.condition);
+            if (!name.equals(r.name)) {
+                return false;
+            }
+            if (allergies.size() != r.allergies.size() || conditions.size() != r.conditions.size()) {
+                return false;
+            }
+            for (int i = 0; i < allergies.size(); i++) {
+                if (!(allergies.get(i).equals(r.allergies.get(i)))) {
+                    return false;
+                }
+            }
+            for (int i = 0; i < conditions.size(); i++) {
+                if (!(conditions.get(i).equals(r.conditions.get(i)))) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
     }
