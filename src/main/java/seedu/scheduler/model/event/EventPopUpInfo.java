@@ -107,6 +107,7 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
         return ((this == other) || (
                 other instanceof EventPopUpInfo
                         && this.eventUid.equals(((EventPopUpInfo) other).getEventUid())
+                        && this.startDateTime.equals(((EventPopUpInfo) other).getStartDateTime())
                         && this.duration.equals(((EventPopUpInfo) other).getDuration())));
     }
 }
