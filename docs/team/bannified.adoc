@@ -84,6 +84,14 @@ has to be safe and well-tested.
 *** Add age option (for dueDate) when adding a Wish (Pull requests https://github.com/CS2103-AY1819S1-T16-1/main/pull/74[#74])
 *** Application-wide refactoring to suit our desired WishBook product (Pull requests https://github.com/CS2103-AY1819S1-T16-1/main/pull/12[#12])
 
+** Community:
+*** PR reviewed (with non-trivial comments): https://github.com/CS2103-AY1819S1-T16-1/main/pull/1[#1],
+https://github.com/CS2103-AY1819S1-T16-1/main/pull/7[#7],
+https://github.com/CS2103-AY1819S1-T16-1/main/pull/55[#55]
+*** Reported bugs for other teams https://github.com/CS2103-AY1819S1-W12-2/main/issues/103[1],
+https://github.com/CS2103-AY1819S1-W12-2/main/issues/105[2],
+https://github.com/CS2103-AY1819S1-W12-2/main/issues/109[3]
+
 == Contributions to the User Guide
 
 
