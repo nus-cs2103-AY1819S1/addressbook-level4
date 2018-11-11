@@ -9,68 +9,63 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Tooltip?>
+
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
-    <GridPane>
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" spacing="16.0">
-            <padding>
-                <Insets top="16" right="16" bottom="16" left="16" />
-            </padding>
-            <Text fx:id="name" styleClass="patient-details-title" />
-            <Text fx:id="nric" styleClass="patient-details-text" />
-            <Text fx:id="phone" styleClass="patient-details-text" />
-            <Text fx:id="email" styleClass="patient-details-text" />
-            <Text fx:id="address" styleClass="patient-details-text" />
-            <Text fx:id="preferredDoctor" styleClass="patient-details-text" />
-            <TabPane fx:id="patientTabLists" id="patientTabLists" tabClosingPolicy="UNAVAILABLE">
-                <Tab fx:id="medProbTab">
-                    <tooltip>
-                        <Tooltip text="Medical Problems"/>
-                    </tooltip>
-                    <graphic>
-                        <ImageView>
-                            <Image url="@/images/stethoscope.png" />
-                        </ImageView>
-                    </graphic>
-                    <VBox>
-                        <TableView fx:id="medProbTableView"/>
-                    </VBox>
-                </Tab>
-                <Tab fx:id="medTab">
-                    <tooltip>
-                        <Tooltip text="Medications"/>
-                    </tooltip>
-                    <graphic>
-                        <ImageView>
-                            <Image url="@/images/medicine.png" />
-                        </ImageView>
-                    </graphic>
-                    <VBox>
-                        <TableView fx:id="medTableView"/>
-                    </VBox>
-                </Tab>
-                <Tab fx:id="alrgTab">
-                    <tooltip>
-                        <Tooltip text="Allergies"/>
-                    </tooltip>
-                    <graphic>
-                        <ImageView>
-                            <Image url="@/images/allergy.png" />
-                        </ImageView>
-                    </graphic>
-                    <VBox>
-                        <TableView fx:id="alrgTableView"/>
-                    </VBox>
-                </Tab>
-            </TabPane>
-        </VBox>
-    </GridPane>
+    <VBox alignment="CENTER_LEFT" spacing="16.0">
+        <padding>
+          <Insets top="16" right="16" bottom="16" left="16"/>
+        </padding>
+        <Text fx:id="name" styleClass="patient-details-title"/>
+        <Text fx:id="nric" styleClass="patient-details-text"/>
+        <Text fx:id="phone" styleClass="patient-details-text"/>
+        <Text fx:id="email" styleClass="patient-details-text"/>
+        <Text fx:id="address" styleClass="patient-details-text"/>
+        <Text fx:id="preferredDoctor" styleClass="patient-details-text"/>
+        <TabPane fx:id="patientTabLists" id="patientTabLists" tabClosingPolicy="UNAVAILABLE">
+            <Tab fx:id="medProbTab">
+              <tooltip>
+                <Tooltip text="Medical Problems"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/stethoscope.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <TableView fx:id="medProbTableView"/>
+              </VBox>
+            </Tab>
+            <Tab fx:id="medTab">
+              <tooltip>
+                <Tooltip text="Medications"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/medicine.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <TableView fx:id="medTableView"/>
+              </VBox>
+            </Tab>
+            <Tab fx:id="alrgTab">
+              <tooltip>
+                <Tooltip text="Allergies"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/allergy.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <TableView fx:id="alrgTableView"/>
+              </VBox>
+            </Tab>
+        </TabPane>
+    </VBox>
 </StackPane>
