@@ -811,10 +811,10 @@ Format: `record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` or `rs d/
 p/ITEM_PRICE` +
 
 ****
-* DATE must be written in the DD-MM-YYYY format.
-* DATE must exist in the calendar.
-* Both DATE and ITEM_NAME cannot be same as another record in the record list.
-* ITEM_NAME is case insensitive. "Cheesy Pasta" and "cheesy pasta" are regarded as the same item.
+* `DATE` must be written in the DD-MM-YYYY format.
+* `DATE` must exist in the calendar.
+* Both `DATE` and `ITEM_NAME` cannot be same as another record in the record list.
+* `ITEM_NAME` is case insensitive. "Cheesy Pasta" and "cheesy pasta" are regarded as the same item.
 ****
 
 Examples:
@@ -855,9 +855,9 @@ Generate and display the sales report for a specific day. +
 Format: `display-sales DATE` or `dis DATE`
 
 ****
-* DATE must be written in the DD-MM-YYYY format.
-* DATE must exist in the calendar.
-* There must be at least one sales record associated with the specified DATE.
+* `DATE` must be written in the DD-MM-YYYY format.
+* `DATE` must exist in the calendar.
+* There must be at least one sales record associated with the specified `DATE`.
 ****
 
 Examples:
@@ -878,8 +878,8 @@ Format: `delete-sales INDEX` or `des INDEX`
 
 ****
 * Deletes the record at the specified `INDEX`.
-* The item index refers to the index number shown in the record list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `INDEX` refers to the index number shown in the record list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
 [NOTE]
@@ -901,8 +901,9 @@ Format: `edit-sales INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE
 [n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE]`
 
 ****
-* Edits the record at the specified `INDEX`. The index refers to the index number shown in the record list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Edits the record at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the record list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -990,8 +991,8 @@ Format: `select-sales INDEX` or `ss INDEX`
 
 ****
 * Loads the record list and selects the record at the specified `INDEX`.
-* The index refers to the index number shown in the displayed record list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* `INDEX` refers to the index number shown in the displayed record list.
+* `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
