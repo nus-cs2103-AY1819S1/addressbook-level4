@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
-import java.time.Duration;
 import java.util.Set;
 
 import com.google.common.collect.Iterables;

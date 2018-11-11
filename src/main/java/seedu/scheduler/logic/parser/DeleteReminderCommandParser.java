@@ -9,7 +9,6 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import seedu.scheduler.commons.core.index.Index;
-import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.commands.DeleteReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.ReminderDurationList;

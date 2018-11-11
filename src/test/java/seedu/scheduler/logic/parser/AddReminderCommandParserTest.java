@@ -23,9 +23,10 @@ import seedu.scheduler.model.event.ReminderDurationList;
 
 public class AddReminderCommandParserTest {
 
-    private AddReminderCommandParser parser = new AddReminderCommandParser();
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE);
+
+    private AddReminderCommandParser parser = new AddReminderCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -73,7 +74,7 @@ public class AddReminderCommandParserTest {
     }
 
     @Test
-    public void parse_multipleReminders_singleEvent_success() {
+    public void parse_multipleReminderSingleEvent_success() {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M + REMINDER_DURATION_LIST_1H;
 
@@ -83,7 +84,7 @@ public class AddReminderCommandParserTest {
     }
 
     @Test
-    public void parse_singleReminders_allEvent_success() {
+    public void parse_singleRemindersAllEvent_success() {
         Index targetIndex = INDEX_FIFTH_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M + VALID_FLAG_ALL;
 
@@ -94,7 +95,7 @@ public class AddReminderCommandParserTest {
     }
 
     @Test
-    public void parse_multipleReminders_upcomingEvent_success() {
+    public void parse_multipleRemindersUpcomingEvent_success() {
         Index targetIndex = INDEX_FIFTH_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M
                 + REMINDER_DURATION_LIST_1H30M + VALID_FLAG_UPCOMING;
@@ -106,7 +107,7 @@ public class AddReminderCommandParserTest {
     }
 
     @Test
-    public void parse_emptyReminders_upcomingEvent_success() {
+    public void parse_emptyRemindersUpcomingEvent_success() {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_EMPTY;
 

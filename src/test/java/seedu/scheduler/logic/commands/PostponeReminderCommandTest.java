@@ -63,7 +63,7 @@ public class PostponeReminderCommandTest {
     }
 
     @Test
-    public void execute_postponeForSingleEvent_NoExceed_success() {
+    public void execute_postponeForSingleEventNoExceed_success() {
         Index index = INDEX_SECOND_EVENT; //30M
         Event firstEvent = model.getFilteredEventList().get(index.getZeroBased());
         ReminderDurationList durationsToPostpone = getReminderDurationList(0); //15M --> 30-15 = 15M
@@ -81,7 +81,7 @@ public class PostponeReminderCommandTest {
     }
 
     @Test
-    public void execute_postponeForSingleEvent_AllExceed_success() {
+    public void execute_postponeForSingleEventAllExceed_success() {
         Index index = INDEX_SECOND_EVENT; //15M, 30M, 1H
         Event firstEvent = model.getFilteredEventList().get(index.getZeroBased());
         ReminderDurationList durationsToPostpone = getReminderDurationList(2); //1H30M --> All become 0
@@ -99,12 +99,12 @@ public class PostponeReminderCommandTest {
     }
 
     @Test
-    public void execute_postponeForSingleEvent_SomeExceed_success() {
+    public void execute_postponeForSingleEventSomeExceed_success() {
         Index index = INDEX_FIRST_EVENT; //15M, 1H30M
         Event firstEvent = model.getFilteredEventList().get(index.getZeroBased());
         ReminderDurationList durationsToPostpone = getReminderDurationList(3); //1H -> 0S, 30M
         EventBuilder eventInList = new EventBuilder(firstEvent);
-        Event editedEvent = eventInList.withReminderDurationList(getReminderDurationList(1,4)).build();
+        Event editedEvent = eventInList.withReminderDurationList(getReminderDurationList(1, 4)).build();
         PostponeReminderCommand postponeReminderCommand = new PostponeReminderCommand(index, durationsToPostpone);
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
@@ -148,7 +148,7 @@ public class PostponeReminderCommandTest {
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         String expectedMessage = String.format(PostponeReminderCommand.MESSAGE_POSTPONE_REMINDER_SUCCESS,
                 firstEvent.getEventName());
-        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(2,4);
+        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(2, 4);
         postponeRemindersToEvents(eventsToEdit, expectedModel, durationsAfterPostpone);
         expectedModel.commitScheduler();
 
@@ -170,7 +170,13 @@ public class PostponeReminderCommandTest {
                 Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
-    private void postponeRemindersToEvents( List<Event> events, Model expectedModel,
+    /**
+     * Replace all reminder list of all events in the list and update the model accordingly
+     * @param events
+     * @param expectedModel
+     * @param durationsAfterPostpone
+     */
+    private void postponeRemindersToEvents(List<Event> events, Model expectedModel,
                                            ReminderDurationList durationsAfterPostpone) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);

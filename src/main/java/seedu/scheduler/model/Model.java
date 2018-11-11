@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.tag.Tag;
-import seedu.scheduler.storage.Storage;
 
 /**
  * The API of the Model component.

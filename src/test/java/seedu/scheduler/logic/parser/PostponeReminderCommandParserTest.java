@@ -22,12 +22,12 @@ import seedu.scheduler.model.event.ReminderDurationList;
 
 public class PostponeReminderCommandParserTest {
 
-    private  PostponeReminderCommandParser parser = new PostponeReminderCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PostponeReminderCommand.MESSAGE_USAGE);
     private static final String MESSAGE_MULTIPLE_POSTPONE_DURATION =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PostponeReminderCommand.MESSAGE_MULTIPLE_POSTPONE_DURATION);
+
+    private PostponeReminderCommandParser parser = new PostponeReminderCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -69,14 +69,14 @@ public class PostponeReminderCommandParserTest {
     }
 
     @Test
-    public void parse_multipleReminders_singleEvent_failure() {
+    public void parse_multipleRemindersSingleEvent_failure() {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M + REMINDER_DURATION_LIST_1H;
         assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_POSTPONE_DURATION);
     }
 
     @Test
-    public void parse_singleReminders_allEvent_success() {
+    public void parse_singleRemindersAllEvent_success() {
         Index targetIndex = INDEX_FIFTH_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M + VALID_FLAG_ALL;
 
@@ -87,7 +87,7 @@ public class PostponeReminderCommandParserTest {
     }
 
     @Test
-    public void parse_singleReminders_upcomingEvent_success() {
+    public void parse_singleRemindersUpcomingEvent_success() {
         Index targetIndex = INDEX_FIFTH_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_30M + VALID_FLAG_UPCOMING;
 
@@ -98,7 +98,7 @@ public class PostponeReminderCommandParserTest {
     }
 
     @Test
-    public void parse_emptyReminders_upcomingEvent_success() {
+    public void parse_emptyRemindersUpcomingEvent_success() {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + REMINDER_DURATION_LIST_EMPTY;
 

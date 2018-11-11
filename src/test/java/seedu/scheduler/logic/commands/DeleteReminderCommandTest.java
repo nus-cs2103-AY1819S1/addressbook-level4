@@ -121,7 +121,7 @@ public class DeleteReminderCommandTest {
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         String expectedMessage = String.format(DeleteReminderCommand.MESSAGE_DELETE_REMINDER_SUCCESS,
                 firstEvent.getEventName());
-        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(1,4);
+        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(1, 4);
         deleteRemindersToEvents(eventsToEdit, expectedModel, actualDurationsToDelete);
         expectedModel.commitScheduler();
 
@@ -138,7 +138,8 @@ public class DeleteReminderCommandTest {
         DeleteReminderCommand deleteReminderCommand = new DeleteReminderCommand(outOfBoundIndex,
                 durationsToDelete, FLAG_UPCOMING);
 
-        assertCommandFailure(deleteReminderCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteReminderCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -151,8 +152,14 @@ public class DeleteReminderCommandTest {
         assertCommandFailure(deleteReminderCommand, model, commandHistory,
                 DeleteReminderCommand.MESSAGE_EMPTY_REMINDER_ENTERED);
     }
-
-    private void deleteRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToDelete) {
+    /**
+     * Delete reminders to all events in the list and update the model accordingly
+     * @param events
+     * @param expectedModel
+     * @param durationsToDelete
+     */
+    private void deleteRemindersToEvents(List<Event> events, Model expectedModel,
+                                          ReminderDurationList durationsToDelete) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);
             ReminderDurationList addedReminderDurationList = event.getReminderDurationList().getCopy();

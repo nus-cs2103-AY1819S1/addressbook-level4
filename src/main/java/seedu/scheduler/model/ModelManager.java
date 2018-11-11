@@ -3,13 +3,7 @@ package seedu.scheduler.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,10 +14,8 @@ import seedu.scheduler.commons.core.ComponentManager;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.events.model.SchedulerChangedEvent;
 import seedu.scheduler.model.event.Event;
-import seedu.scheduler.model.event.EventPopUpInfo;
-import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.tag.Tag;
-import seedu.scheduler.storage.Storage;
+
 
 /**
  * Represents the in-memory model of the scheduler data.

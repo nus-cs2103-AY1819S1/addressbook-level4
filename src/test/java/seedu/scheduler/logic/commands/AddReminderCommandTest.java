@@ -10,8 +10,10 @@ import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FOURTH_EVENT;
 
-import org.junit.Test;
 import java.util.List;
+
+import org.junit.Test;
+
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.CommandHistory;
@@ -29,7 +31,7 @@ public class AddReminderCommandTest {
     private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
 
     @Test
-    public void execute_addNewReminder_unfilteredList_success() {
+    public void execute_addNewReminderUnfilteredList_success() {
         Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
         ReminderDurationList durationsToAdd = getReminderDurationList(3);
@@ -51,7 +53,7 @@ public class AddReminderCommandTest {
     }
 
     @Test
-    public void execute_addRepeatedReminder_unfilteredList_success() { // no change to the model
+    public void execute_addRepeatedReminderUnfilteredList_success() { // no change to the model
         Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
         ReminderDurationList durationsToAdd = getReminderDurationList(0);
@@ -67,7 +69,7 @@ public class AddReminderCommandTest {
     }
 
     @Test
-    public void execute_addRepeatedAndNewReminder_unfilteredList_success() {
+    public void execute_addRepeatedAndNewReminderUnfilteredList_success() {
         Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
         ReminderDurationList durationsToAdd = getReminderDurationList(1, 2); // 2 is already inside the list
         ReminderDurationList actualDurationsToAdd = getReminderDurationList(1);
@@ -116,7 +118,7 @@ public class AddReminderCommandTest {
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         String expectedMessage = String.format(AddReminderCommand.MESSAGE_ADD_REMINDER_SUCCESS,
                 firstEvent.getEventName());
-        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(1,4);
+        List<Event> eventsToEdit = getStudyWithJaneAllList().subList(1, 4);
         addRemindersToEvents(eventsToEdit, expectedModel, durationsToAdd);
         expectedModel.commitScheduler();
 
@@ -144,7 +146,13 @@ public class AddReminderCommandTest {
                 AddReminderCommand.MESSAGE_EMPTY_REMINDER_ENTERED);
     }
 
-    private void addRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToAdd) {
+    /**
+     * Add reminders to all events in the list and update the model accordingly
+     * @param events
+     * @param expectedModel
+     * @param durationsToAdd
+     */
+    private void addRemindersToEvents(List<Event> events, Model expectedModel, ReminderDurationList durationsToAdd) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);
             ReminderDurationList addedReminderDurationList = event.getReminderDurationList().getCopy();
