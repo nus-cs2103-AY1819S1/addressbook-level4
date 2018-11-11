@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.Set;
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Person} matches any of the {@code Person} found in {@contacts}.
+ */
 public class ExistingPersonInEventPredicate implements Predicate<Person> {
     private final Set<Person> contacts;
 

@@ -28,7 +28,8 @@ public class SeeEventContactsCommandParser implements Parser<SeeEventContactsCom
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SeeEventContactsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SeeEventContactsCommand.MESSAGE_USAGE));
         }
 
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
