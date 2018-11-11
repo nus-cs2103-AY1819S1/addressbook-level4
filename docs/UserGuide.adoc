@@ -115,6 +115,7 @@ Example:
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
 
+====
 
 === View help : `help`
 
