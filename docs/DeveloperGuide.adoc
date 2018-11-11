@@ -800,7 +800,10 @@ Given below is an example usage scenario and how the leave application mechanism
 3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<25-storage-component, Storage>> component.
 
 ===== Viewing leave applications
-...
+Employees can view their leave applications using the `leavelist` command. The following activity diagram summarizes how the command is executed, depending on what permissions the user has:
+
+.How the leave application list displayed is filtered currently
+image::LeaveViewActivityDiagram.png[width="600"]
 
 ===== Approving/rejecting leave applications
 ...
