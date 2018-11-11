@@ -3,7 +3,9 @@ package seedu.clinicio.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.patient.PatientNameContainsKeywordsPredicate;
 
@@ -20,6 +22,8 @@ public class FindPatientCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alex benny chen";
 
+    public static final String MESSAGE_NOT_LOGIN = "You are not login. Please login before viewing.";
+
     private final PatientNameContainsKeywordsPredicate predicate;
 
     public FindPatientCommand(PatientNameContainsKeywordsPredicate predicate) {
@@ -29,6 +33,11 @@ public class FindPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+
+        if (!UserSession.isLogin()) {
+            throw new CommandException(MESSAGE_NOT_LOGIN);
+        }
+
         model.updateFilteredPatientList(predicate);
         model.switchTab(0);
         return new CommandResult(

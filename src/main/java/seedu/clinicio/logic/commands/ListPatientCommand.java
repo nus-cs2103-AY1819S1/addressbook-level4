@@ -29,6 +29,7 @@ public class ListPatientCommand extends Command {
         }
 
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+        model.switchTab(0);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
