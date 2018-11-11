@@ -29,7 +29,7 @@ methodology.
 
 * This guide offers advice for troubleshooting some common issues.
 
-*MeNUS* is an open-source project, should any developers be interested to contribute, see the
+*MeNUS* is an open-source project. If you are interested in contributing, see the
 link:{repoURL}/docs/AboutUs.adoc[`Contact Us`] page for more information.
 
 === Legends
@@ -120,16 +120,15 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=== Using Git with Sourcetree
-We use Git with Sourcetree for distributed source control. See <<UsingGit#, UsingGit.adoc>> if you find any difficulty
-when using Git with Sourcetree.
-
 ==== Getting started with coding
 
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+
+=== Using Git with Sourcetree
+We use Git with Sourcetree for distributed source control. See <<UsingGit#, UsingGit.adoc>> if you find any difficulty
+when using Git with Sourcetree.
 
 == Design
 
@@ -389,7 +388,7 @@ invoke the aforementioned operations:
 * `Command#LoginCommand()` -- Invokes `Model#getAccount(Account)`.
 * `Command#RegisterCommand()` -- Invokes `Model#addAccount(Account)`.
 * `Command#DeregisterCommand()` -- Invokes `Model#removeAccount(Account)`.
-* `Command#EditCommand()` -- Invokes `Model#updateAccount(Account, Account)`.
+* `Command#ChangePasswordCommand()` -- Invokes `Model#updateAccount(Account, Account)`.
 
 Described below are example usage scenarios and how each of the command and its respective operations behaves at each
 step which involves two components, `Logic` which is responsible for parsing the user input and `Model` which is
@@ -399,18 +398,18 @@ responsible for manipulating the list, if necessary. Both components are extende
 The following sequence diagram shows how the `register` command works:
 
 [NOTE]
-The `deregister` command works the same way by checking if the account exists before calling `Model#removeAccount
-(Account)`.
+The `deregister` command works the same way by checking if the account exists before calling `Model#removeAccount(Account)`
 
 image::RegisterSequenceDiagram.png[width="800"]
 _Figure 4.2.1.1: Sequence diagram to illustrate component interactions for the `register` command_
 
 [NOTE]
-We assume the user is already logged in
-[NOTE]
-If the username already exists, a warning message will be shown to the user to select another username
+====
+** We assume the user is already logged in
+** If the username already exists, a warning message will be shown to the user to select another username
+====
 
-Step 1. The user executes `register id/azhikai pw/1122qq` command to create a new user account.
+Step 1. The user executes `register id/azhikai pw/1122qq n/Ang Zhi Kai` command to create a new user account.
 
 Step 2. `LogicManager` invokes the `RestaurantBookParser#parseCommand()` method which takes in the user input
 as arguments.
@@ -418,8 +417,8 @@ as arguments.
 Step 3. When the command is parsed, the `Command#RegisterCommand` will be created which is returned to the
 `LogicManager`.
 
-Step 4. `LogicManager` invokes the `execute()` method of the `Command#RegisterCommand`, `rc` which is instantiated in
-Step 3. The `Model` component will be involved as the `Command#RegisterCommand` invokes a request to add the account
+Step 4. `LogicManager` invokes the `execute()` method of the `Command#RegisterCommand()`, `rc` which is instantiated in
+Step 3. The `Model` component will be involved as the `Command#RegisterCommand()` invokes a request to add the account
 into the storage by calling `Model#addAccount(Account)`.
 
 Step 5: The new account is added into the storage. Then, a `CommandResult` is generated and returned to
@@ -439,13 +438,13 @@ Step 1. The user executes `login id/azhikai pw/1122qq` command to login to an ex
 Step 2. `LogicManager` invokes the `RestaurantBookParser#parseCommand()` method which takes in the user input
 as arguments.
 
-Step 3. When the command is parsed, the `Command#LoginCommand` will be created which is returned to the
+Step 3. When the command is parsed, the `Command#LoginCommand()` will be created which is returned to the
 `LogicManager`.
 
-Step 4. `LogicManager` invokes the `execute()` method of the `Command#LoginCommand` which is instantiated in Step 3.
-The `Model` component will be involved as the `Command#LoginCommand` invokes a request to retrieve an account based
-on the username. If it exists, the account will be retrieved and the password hash will be compared. If it matches,
-then the credential is valid and the user is authenticated.
+Step 4. `LogicManager` invokes the `execute()` method of the `Command#LoginCommand()`, `lc` which is instantiated in
+Step 3. The `Model` component will be involved as the `Command#LoginCommand()` invokes a request to retrieve an account
+based on the username. If it exists, the account will be retrieved and the password hash will be compared. If it
+matches, then the credential is valid and the user is authenticated.
 
 ==== Design Considerations
 ===== Aspect: How account password is salted and hashed
@@ -466,17 +465,20 @@ system can tolerate, given the other tasks the system must otherwise fulfill.
 ==== Current Implementation
 
 [NOTE]
-If a privileged command is executed when a session is not set, an error will be shown. The only commands that can
-be executed without a session being set are `help`, `login` and `exit`. Any other commands are considered privileged
+====
+If a privileged command is executed when a session is not set, an error will be shown. Any other commands are considered privileged
+For more information on which commands are guest-executable, see the <<UserGuide#Commands, UserGuide.adoc>> for more
+information
+====
 
-The user session is facilitated by `UserSession` which stores the authentication state of the application.
-This is triggered by raising a `Login` and `Logout` event upon executing either the `Command#LoginCommand()` or
-`Command#LogoutCommand()`. +
+The application's user session state is facilitated by `UserSession`. This is triggered by raising a `Login` and
+`Logout` event upon executing the `Command#LoginCommand()` or `Command#LogoutCommand()` respectively. +
 
 Additionally, it implements the following static operations:
 
-* `UserSession#login()` -- Set a login session.
-* `UserSession#logout()` -- Removes the existing login session.
+* `UserSession#create(Account)` -- Set a user session.
+* `UserSession#destroy()` -- Removes the existing user session.
+* `UserSession#update(Account)` -- Updates the existing user session.
 * `UserSession#isAuthenticated()` -- Checks if there is an existing login session.
 
 Given below is an example usage scenario and how the user session mechanism behaves at each step.
@@ -484,7 +486,7 @@ Given below is an example usage scenario and how the user session mechanism beha
 The following activity diagram summarizes what happens when a user logs in or out:
 
 image::UserSessionActivityDiagram.png[width="650"]
-_Figure 4.2.1.3: Activity diagram to illustrate the user session_
+_Figure 4.3.1.1: Activity diagram to illustrate the user session_
 
 The following code snippet demonstrates how these static methods are implemented:
 
@@ -526,7 +528,7 @@ public static void update(Account acc) {
 ===== Aspect: How user session is handled
 
 * **Alternative 1 (current choice):** Use static flags and methods.
-** Pros: Easy to implement.
+** Pros: Easy to implement, given the constraints.
 ** Cons: Can only support one user at any time. If another user wants to login, the current logged in user must log out.
 In addition, since it is a global class object, test cases may be affected when testing both guest and privileged
 commands which requires user to be logged out and logged in respectively.
