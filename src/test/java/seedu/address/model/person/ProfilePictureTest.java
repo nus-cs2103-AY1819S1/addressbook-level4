@@ -27,7 +27,7 @@ public class ProfilePictureTest {
     @Test
     public void isValidRoom() {
         // null room
-        Assert.assertThrows(NullPointerException.class, () ->ProfilePicture.isValidProfilePicture(null));
+        Assert.assertThrows(NullPointerException.class, () -> ProfilePicture.isValidProfilePicture(null));
 
         // invalid profile picture
         assertFalse(ProfilePicture.isValidProfilePicture(Paths.get(""))); // empty path
