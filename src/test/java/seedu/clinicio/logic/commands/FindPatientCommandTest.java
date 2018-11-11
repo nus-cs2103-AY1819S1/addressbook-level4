@@ -4,16 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.clinicio.commons.core.Messages.MESSAGE_MEDICINE_OVERVIEW;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
-import static seedu.clinicio.testutil.TypicalPersons.FRANK;
-import static seedu.clinicio.testutil.TypicalPersons.ORACORT;
-import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
-import static seedu.clinicio.testutil.TypicalPersons.VENTOLIN;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
 import java.util.Arrays;
