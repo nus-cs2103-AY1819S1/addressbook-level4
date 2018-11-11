@@ -184,7 +184,7 @@ Sieves out all the patients who have `yu` in their names.
 image::FindEx1.png[width="650"]
 // end::patientfirsthalf[]
 
-// tag::patientsecondhalf[]
+
 ==== Listing all patients: `list`
 Need to list all patients in the database? +
 Do this easily with the `list` command. +
@@ -216,6 +216,7 @@ Deletes the 1st patient in the resulting list of the `find` command.
 .Before and after executing the `find Bryan` and `d 1` command
 image::delete-command-example.png[width="650]
 
+// tag::patientsecondhalf[]
 ==== Selecting a patient: `select`
 
 Selects a patient to view his profile. +
