@@ -7,6 +7,7 @@ import seedu.meeting.logic.commands.AddGroupCommand;
 import seedu.meeting.logic.commands.DeleteGroupCommand;
 import seedu.meeting.model.group.Group;
 
+// @@author Derek-Hardy
 /**
  * A utility class for Group.
  */
