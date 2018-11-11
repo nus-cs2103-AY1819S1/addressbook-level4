@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -57,7 +56,6 @@ public class FindEventCommand extends Command {
         model.updateFilteredCalendarEventList(titlePredicate, tagsPredicate, datePredicate);
         model.sortFilteredCalendarEventList(fuzzySearchComparator);
 
-        EventsCenter.getInstance().post(new RefreshCalendarPanelEvent());
         EventsCenter.getInstance().post(new SwitchToSearchTabEvent());
 
         return new CommandResult(

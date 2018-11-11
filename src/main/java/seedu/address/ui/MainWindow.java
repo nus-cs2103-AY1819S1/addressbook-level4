@@ -19,11 +19,10 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.SwitchTabEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
+import seedu.address.commons.events.ui.ToggleTabEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -85,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(prefs);
 
         // TODO refactor switchtab to belong to the calendar panel
-        setAccelerator(() -> handleSwitchTab(new SwitchTabEvent()), new KeyCodeCombination(KeyCode.TAB,
+        setAccelerator(() -> handleToggleTab(new ToggleTabEvent()), new KeyCodeCombination(KeyCode.TAB,
             KeyCombination.SHIFT_ANY, KeyCombination.CONTROL_DOWN));
         registerAsAnEventHandler(this);
 
@@ -177,15 +176,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    // TODO: remove if not needed anymore
-    /**
-     * Refreshes the calendar event panel
-     */
-    @FXML
-    public void refreshCalendarPanel() {
-        calendarPanelPlaceholder.getChildren().add(new CalendarPanel(logic.getFilteredCalendarEventList()).getRoot());
-    }
-
     /**
      * Switches to the tab for the task list panel (if it is not already open)
      */
@@ -239,11 +229,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleRefreshCalendarPanelEvent(RefreshCalendarPanelEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    }
-
-    @Subscribe
     private void handleSwitchToTasksTabEvent(SwitchToTasksTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showTaskListPanel();
@@ -256,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleSwitchTab(SwitchTabEvent event) {
+    private void handleToggleTab(ToggleTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchPanel();
     }
