@@ -17,6 +17,9 @@ public interface Model<T extends UniqueType> {
     /** Returns the AppContent */
     ReadOnlyAppContent getAppContent();
 
+    /** Raises an event to indicate the model has changed */
+    void indicateAppContentChanged();
+
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
      */
