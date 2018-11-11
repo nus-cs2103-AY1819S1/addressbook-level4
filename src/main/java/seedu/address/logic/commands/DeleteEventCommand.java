@@ -48,6 +48,11 @@ public class DeleteEventCommand extends Command {
         List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
         Event eventToDelete = getEventToDelete(listToRemoveFrom);
 
+        // reset favourite to null if deleted event is the favourite
+        if (model.isFavourite(eventToDelete)) {
+            model.updateFavourite( (String) null);
+        }
+
         model.deleteEvent(eventToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));

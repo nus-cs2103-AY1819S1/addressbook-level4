@@ -72,15 +72,6 @@ auto-completed is the nearest word containing the current input as a prefix.
 
 Format: `help`
 
-=== Enable/Disable notifications: `notification`, `n`
-
-Format: `notification disable`
-
-[NOTE]
-====
-Notifications are initially enabled
-====
-
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +

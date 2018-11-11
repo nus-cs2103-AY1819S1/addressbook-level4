@@ -29,6 +29,8 @@ public class UndoCommand extends Command {
         model.undoAddressBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        //model.updateNotificationPref(ModelManager.getNotificationPref());
+        //model.updateFavouriteEvent(AddressBook.getFavouriteEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

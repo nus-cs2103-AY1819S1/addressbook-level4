@@ -27,4 +27,29 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate event tags.
      */
     ObservableList<Tag> getEventTagList();
+
+    /**
+     * Returns notification preference.
+     */
+    boolean getNotificationPref();
+
+    /**
+     * Updates notification preference.
+     */
+    void updateNotificationPref(boolean set);
+
+    /**
+     * Updates favourite.
+     */
+    void updateFavourite(String favourite);
+
+    /**
+     * Returns favourite String.
+     */
+    String getFavourite();
+
+    /**
+     * Checks if the event is the currently favourite event
+     */
+    boolean isFavourite(Event event);
 }

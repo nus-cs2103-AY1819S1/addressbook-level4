@@ -221,6 +221,41 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateNotificationPref(boolean set) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFavourite(String favourite) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFavourite(Event favourite) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getNotificationPref() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getFavourite() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFavourite(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void indicateTabPanelSelectionChangedEvent() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

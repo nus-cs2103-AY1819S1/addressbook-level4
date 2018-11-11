@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 
 /**
  * Enable / disable notifications
@@ -19,7 +18,8 @@ public class NotificationCommand extends Command {
             + "Parameters: enable/disable\n"
             + "Example: " + COMMAND_WORD + " enable";
 
-    private String messageNotificationSuccess;
+    public static final String MESSAGE_NOTIFICATION_ENABLED_SUCCESS = "Notification: Enabled";
+    public static final String MESSAGE_NOTIFICATION_DISABLED_SUCCESS = "Notification: Disabled";
 
     private final boolean set;
 
@@ -27,20 +27,23 @@ public class NotificationCommand extends Command {
         this.set = set;
     }
 
-    public String getMessageNotificationSuccess() {
-        return messageNotificationSuccess;
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        model.updateNotificationPref(set);
+        model.commitAddressBook();
+
+        if (set) {
+            return new CommandResult(String.format(MESSAGE_NOTIFICATION_ENABLED_SUCCESS));
+        } else {
+            return new CommandResult(String.format(MESSAGE_NOTIFICATION_DISABLED_SUCCESS));
+        }
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        ModelManager.updateNotificationPref(set);
+    public boolean equals(Object other) {
+        return other == this
+                || ((other instanceof NotificationCommand)
+                && (this.set == ( (NotificationCommand) other).set));
 
-        if (set) {
-            messageNotificationSuccess = "Notification:" + " enabled";
-        } else {
-            messageNotificationSuccess = "Notification:" + " disabled";
-        }
-
-        return new CommandResult(String.format(messageNotificationSuccess));
     }
 }

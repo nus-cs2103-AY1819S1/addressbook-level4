@@ -21,6 +21,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
 import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
+import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.filereader.FileReader;
@@ -31,11 +32,8 @@ import seedu.address.model.tag.Tag;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager extends ComponentManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private static boolean notificationPref;
-    private static String favouriteEvent;
-
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
@@ -63,20 +61,35 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public static boolean getNotificationPref() {
-        return notificationPref;
+    public boolean getNotificationPref() {
+        return versionedAddressBook.getNotificationPref();
     }
 
-    public static void updateNotificationPref(boolean set) {
-        notificationPref = set;
+    @Override
+    public void updateNotificationPref(boolean set) {
+        versionedAddressBook.setNotificationPref(set);
+        indicateAddressBookChanged();
     }
 
-    public static String getFavouriteEvent() {
-        return favouriteEvent;
+    public String getFavourite() {
+        return versionedAddressBook.getFavourite();
     }
 
-    public static void updateFavourite(String newEvent) {
-        favouriteEvent = newEvent;
+    @Override
+    public void updateFavourite(String favourite) {
+        versionedAddressBook.updateFavourite(favourite);
+    }
+
+    /**
+     * Formats event details into a String to be saved as "favourite" in versionedAddressBook.
+     */
+    @Override
+    public void updateFavourite(Event favouriteEvent) {
+        versionedAddressBook.updateFavourite("Event Name: " + favouriteEvent.getEventName()
+                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
+                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
+                + "\nEvent Details: " + favouriteEvent.getEventDescription());
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -110,6 +123,11 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateEventPanelDisplayChanged() {
         raise(new EventPanelDisplayChangedEvent());
+    }
+
+    @Override
+    public void indicateTabPanelSelectionChangedEvent() {
+        raise (new TabPanelSelectionChangedEvent());
     }
 
     @Override
@@ -340,4 +358,8 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredEvents.equals(other.filteredEvents);
     }
 
+    @Override
+    public boolean isFavourite(Event event) {
+        return versionedAddressBook.isFavourite(event);
+    }
 }
