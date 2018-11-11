@@ -25,6 +25,7 @@ public class Canvas {
     private Layer currentLayer;
     private Index currentLayerIndex;
     private Boolean isCanvasAuto;
+    private int layerNameCounts;
     private int height;
     private int width;
 
@@ -38,6 +39,7 @@ public class Canvas {
         height = initial.getImage().getHeight();
         width = initial.getImage().getWidth();
         addLayer(initial);
+        layerNameCounts = 1;
         currentLayerIndex = Index.fromZeroBased(0);
         currentLayer = layers.get(currentLayerIndex.getZeroBased());
         isCanvasAuto = false;
@@ -68,8 +70,13 @@ public class Canvas {
         layers.add(new Layer(i, name));
     }
 
+    /**
+     * Adds a layer without a specified name
+     * @param i
+     */
     public void addLayer(PreviewImage i) {
-        layers.add(new Layer(i, String.format(LAYER_NAME, layers.size() + 1)));
+        layerNameCounts++;
+        layers.add(new Layer(i, String.format(LAYER_NAME, layerNameCounts)));
     }
 
     public Layer getCurrentLayer() {
@@ -124,6 +131,12 @@ public class Canvas {
      */
     public void swapLayer(Index to, Index from) throws IllegalOperationException {
         if (!to.equals(from)) {
+            if (currentLayerIndex.getZeroBased() == to.getZeroBased()) {
+                currentLayerIndex = Index.fromZeroBased(from.getZeroBased());
+            } else if (currentLayerIndex.getZeroBased() == from.getZeroBased()) {
+                currentLayerIndex = Index.fromZeroBased(to.getZeroBased());
+            }
+
             Collections.swap(layers, to.getZeroBased(), from.getZeroBased());
         } else {
             throw new IllegalOperationException("Invalid indexes provided!");

@@ -64,9 +64,10 @@ public class Messages {
             + CanvasSizeCommand.MESSAGE_USAGE;
 
     /* Error messages for create convert command */
-    public static final String MESSAGE_INVALID_OPERATION_ARGUMENTS = "the arguments entered is not valid\n"
-            + "please check the argument of each transformation\n"
-            + "see more details: " + CreateApplyCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_INVALID_OPERATION_ARGUMENTS = "Some of the arguments entered may be invalid, "
+            + "please check the arguments of each transformation entered\n"
+            + "\nYou may refer to User Guide (type `help`) Section 4.8 for more details on argument values."
+            + "\n\n Standard Format: " + CreateApplyCommand.MESSAGE_USAGE;
 
     /* Error message for save command*/
     public static final String MESSAGE_DUPLICATED_IMAGE = "Image with the same name already exists in this directory!\n"

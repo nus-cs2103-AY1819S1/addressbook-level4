@@ -83,7 +83,7 @@ public class JsonConvertArgsStorageTest {
     @Test
     public void assertRetrieveOperationTemplateSuccessfully() throws IOException {
         URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/blur.json");
-        List<String> sampleTemplate = Arrays.asList("radius(0-99) x sigma(0-99)");
+        List<String> sampleTemplate = Arrays.asList("radius(0-99)xsigma(0-99)");
         List<String> template = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, "blur", "arg");
         assertEquals(template, sampleTemplate);
     }

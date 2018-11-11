@@ -31,5 +31,7 @@ public class TransformationSet {
     public LinkedList<Transformation> getTransformations() {
         return transformations;
     }
-
+    public void setTransformations(LinkedList<Transformation> list) {
+        transformations = list;
+    }
 }
