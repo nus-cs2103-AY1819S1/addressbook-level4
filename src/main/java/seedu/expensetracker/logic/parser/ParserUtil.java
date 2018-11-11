@@ -80,18 +80,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String expensetracker} into an {@code Cost}.
+     * Parses a {@code String cost} into an {@code Cost}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code expensetracker} is invalid.
      */
-    public static Cost parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Cost.isValidCost(trimmedAddress)) {
+    public static Cost parseCost(String cost) throws ParseException {
+        requireNonNull(cost);
+        String trimmedCost = cost.trim();
+        if (!Cost.isValidCost(trimmedCost)) {
             throw new ParseException(Cost.MESSAGE_COST_CONSTRAINTS);
         }
-        return new Cost(trimmedAddress);
+        return new Cost(trimmedCost);
     }
 
     /**

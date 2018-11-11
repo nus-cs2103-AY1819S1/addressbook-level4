@@ -28,11 +28,11 @@ public class ModelUtil {
     /**
      * An extension of the {@code ModelManager} where developers can pass in the time instead of checking against
      * system clock. Class of a model with a test user that is already logged in with username TEST_USERNAME.
-     * The expensetracker book is empty. TotalBudget cap is $28 with $10 current expenses
+     * The expense tracker is empty. TotalBudget cap is $28 with $10 current expenses
      */
 
     /**
-     * Creates a model with a test user that is already logged in with username TEST_USERNAME. The expensetracker book is
+     * Creates a model with a test user that is already logged in with username TEST_USERNAME. The Expense Tracker is
      * empty. TotalBudget cap is $28 with $0 current expenses
      * @return a model logged in with a test user
      */

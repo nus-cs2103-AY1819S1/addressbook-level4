@@ -108,26 +108,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parseCost_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseCost((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_COST));
+    public void parseCost_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseCost(INVALID_COST));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
+    public void parseCost_validValueWithoutWhitespace_returnsAddress() throws Exception {
         Cost expectedCost = new Cost(VALID_COST);
-        assertEquals(expectedCost, ParserUtil.parseAddress(VALID_COST));
+        assertEquals(expectedCost, ParserUtil.parseCost(VALID_COST));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
+    public void parseCost_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
         Cost expectedCost = new Cost(VALID_COST);
-        assertEquals(expectedCost, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(expectedCost, ParserUtil.parseCost(addressWithWhitespace));
     }
 
 

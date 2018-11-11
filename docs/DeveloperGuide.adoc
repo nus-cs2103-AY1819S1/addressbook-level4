@@ -1480,22 +1480,22 @@ Use case ends
 
 1. User keys in command to login to an account.
 2. User also enters password of account.
-2. Expense Tracker logs user into account.
+3. Expense Tracker logs user into account.
 +
 Use case ends
 
 *Extensions*
 
-* 2a.Expense Tracker detects error in the entered data.
+* 3a.Expense Tracker detects error in the entered data.
     ** 2a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 2a.Expense Tracker detects that specified user does not exist.
+* 3a.Expense Tracker detects that specified user does not exist.
     ** 2a1. Expense Tracker informs user that user does not exist
     ** Use case ends.
 
-* 2a. Expense Tracker detects that the password is incorrect.
-** 2a1. Expense tracker informs the user that the entered password is incorrect.
+* 3a. Expense Tracker detects that the password is incorrect.
+** 3a1. Expense tracker informs the user that the entered password is incorrect.
 ** Use case ends
 
 [discrete]

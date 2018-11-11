@@ -130,7 +130,7 @@ public class EditExpenseDescriptor {
             editExpenseDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            editExpenseDescriptor.setCost(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_COST).get()));
+            editExpenseDescriptor.setCost(ParserUtil.parseCost(argMultimap.getValue(PREFIX_COST).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editExpenseDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));

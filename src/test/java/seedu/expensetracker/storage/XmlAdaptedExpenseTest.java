@@ -58,7 +58,7 @@ public class XmlAdaptedExpenseTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelType_nullCost_throwsIllegalValueException() {
         XmlAdaptedExpense expense = new XmlAdaptedExpense(VALID_NAME, VALID_CATEGORY, null, VALID_DATE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
