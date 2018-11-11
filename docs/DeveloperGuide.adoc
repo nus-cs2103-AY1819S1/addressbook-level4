@@ -1120,3 +1120,49 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No word is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+//tag::learn[]
+=== Learning a word
+. Learning a word from Dictionary.com
+
+.. Prerequisites: Ensure Internet Connection is established.
+.. Test case: `learn potato` +
+   Expected: The word `potato` is added to LearnVocabulary, together with its definition and a default tag `toLearn`. Details of the learnt word shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `learn !potato` +
+   Expected: No word is learnt. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect learn commands to try: `learn`, `learn x`, `learn 1`, `learn notarealword` +
+   Expected: Similar to previous.
+//end::learn[]
+
+//tag::basic[]
+=== Showing a word
+. Showing a word from LearnVocabulary's list.
+
+.. Prerequisites: List all words using the `list` command. Multiple words in the list.
+.. Test case: `show potato` +
+   Expected: The word `potato` is filtered and returned inside LearnVocabulary, together with its definition and tags attached to it. Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `show potato gravy happy` +
+   Expected: The words `potato`, `gravy`, `happy` are filtered and returned inside LearnVocabulary, together with their definitions and tags attached to it. Details of the words are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `show` +
+   Expected: No word is shown. Error details shown in the status message. Status bar remains the same. Display remains the same.
+.. Other incorrect learn commands to try: `show 1`, `show x`, `show !potato`, `show notarealword` +
+   Expected: Similar to previous. Except now, filtered list is empty.
+   
+=== Adding a word
+. Adding a word to LearnVocabulary's list.
+
+.. Prerequisites: Word must not have been added to LearnVocabulary.
+.. Test case: `add n/potato m/type of starch` +
+   Expected: The word `potato` is added inside LearnVocabulary, together with its definition and default tag `toLearn` attached to it. Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/potato` +
+   Expected: The word potato will not be added inside LearnVocabulary, because meaning field is missing. Error details shown in the status message. Status bar remains the same. Display remains the same.
+
+=== Editing a word
+. Editing a word in LearnVocabulary's list.
+
+.. Prerequisites: List must be non-empty.
+.. Test case: `edit 1 m/something lightweight` +
+   Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit n/potato t/` +
+   Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same. 
+//end::basic[]
