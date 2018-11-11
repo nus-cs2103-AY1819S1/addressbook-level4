@@ -17,8 +17,10 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.clinicio.commons.core.Config;
@@ -76,6 +78,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane queuePanelPlaceholder;
 
     @FXML
+    private VBox titleScreenPlaceHolder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -96,8 +101,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab appointmentTab;
 
-    @FXML
-    private ImageView titleImage;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -218,7 +221,8 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanelPlaceholder.setVisible(false);
         queuePanelPlaceholder.setVisible(false);
         splitPane.setVisible(false);
-        titleImage.setVisible(true);
+        titleScreenPlaceHolder.setVisible(true);
+        titleScreenPlaceHolder.setManaged(true);
     }
     
     /**
@@ -230,7 +234,8 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanelPlaceholder.setVisible(true);
         queuePanelPlaceholder.setVisible(true);
         splitPane.setVisible(true);
-        titleImage.setVisible(false);
+        titleScreenPlaceHolder.setVisible(false);
+        titleScreenPlaceHolder.setManaged(false);
     }
     
     //@@author iamjackslayer
