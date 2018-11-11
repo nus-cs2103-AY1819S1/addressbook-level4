@@ -3,6 +3,8 @@ package seedu.souschef.model.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
 
+import seedu.souschef.commons.util.StringUtil;
+
 /**
  * Represents a Recipe's name in the application content.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -13,7 +15,7 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the recipe's name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
@@ -28,7 +30,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        fullName = name;
+        fullName = StringUtil.toCamelCase(name);
     }
 
     /**
@@ -36,6 +38,15 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given object matches the Name class fulName attribute without case sensitivity.
+     */
+    public boolean isSame(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equalsIgnoreCase(((Name) other).fullName)); // state check
     }
 
 

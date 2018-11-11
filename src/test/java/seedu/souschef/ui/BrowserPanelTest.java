@@ -3,7 +3,7 @@ package seedu.souschef.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.souschef.testutil.EventsUtil.postNow;
-import static seedu.souschef.testutil.TypicalRecipes.ALICE;
+import static seedu.souschef.testutil.TypicalRecipes.APPLE;
 import static seedu.souschef.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.souschef.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -24,7 +24,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new RecipePanelSelectionChangedEvent(ALICE);
+        selectionChangedEventStub = new RecipePanelSelectionChangedEvent(APPLE);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a recipe
         postNow(selectionChangedEventStub);
-        URL expectedRecipeUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedRecipeUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + APPLE.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedRecipeUrl, browserPanelHandle.getLoadedUrl());

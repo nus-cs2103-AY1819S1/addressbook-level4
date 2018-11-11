@@ -33,7 +33,7 @@ public class RecipeCard extends GenericCard<Recipe> {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
-        duration.setText("Duration: " + recipe.getCookTime().getDisplayableCookTime());
+        duration.setText("Duration: " + recipe.getCookTime().toString());
         difficulty.setText("Difficulty: " + recipe.getDifficulty().toString());
         recipe.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

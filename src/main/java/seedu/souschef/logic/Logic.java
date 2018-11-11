@@ -11,7 +11,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.ui.Ui;
 
 /**
  * API of the Logic component
@@ -32,27 +31,18 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of ingredients */
     ObservableList<Ingredient> getFilteredIngredientList();
 
-    /** Returns an unmodifiable view of the filtered list of inventory recipes */
+    /** Returns an unmodifiable view of the filtered list of cross recipes */
     ObservableList<CrossRecipe> getFilteredCrossRecipeList();
 
-    /**
-     * returns unmodifiable view of filtered lists of healthplans
-     */
+    /** Returns unmodifiable view of filtered lists of health plans */
     ObservableList<HealthPlan> getFilteredHealthPlanList();
 
-    /**
-     * Returns an unmodifiable view of the lists of mealPlans
-     */
+    /** Returns an unmodifiable view of the lists of mealPlans */
     ObservableList<Day> getMealPlanList();
 
-    /**
-     * Returns an unmodifiable view of the filtered lists of favourite
-     */
+    /** Returns an unmodifiable view of the filtered lists of favourite */
     ObservableList<Favourites> getFilteredFavouritesList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
-
-    /** Sets the Ui attribute of logic */
-    void setUi(Ui ui);
 }

@@ -50,11 +50,10 @@ public class StorageManager extends ComponentManager implements Storage {
         listOfFeatureStorage.put(Context.RECIPE, recipeStorage);
         listOfFeatureStorage.put(Context.INGREDIENT, ingredientStorage);
         listOfFeatureStorage.put(Context.HEALTH_PLAN, healthPlanStorage);
-        listOfFeatureStorage.put(Context.MEAL_PLANNER, mealPlanStorage);
+        listOfFeatureStorage.put(Context.MEAL_PLAN, mealPlanStorage);
         this.featureStorage = recipeStorage;
     }
 
-    //TODO: Constructor redundant
     public StorageManager(FeatureStorage featureStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.featureStorage = featureStorage;
@@ -130,10 +129,10 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException {
-        readFeature(Context.RECIPE, SampleDataUtil::getSampleAddressBook);
+        readFeature(Context.RECIPE, SampleDataUtil::getSampleRecipes);
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
-        readFeature(Context.MEAL_PLANNER, SampleDataUtil::getSampleDays);
+        readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);
         featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
         return Optional.of(this.appContent);

@@ -14,7 +14,6 @@ import java.util.Set;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.ingredient.IngredientPortion;
-import seedu.souschef.model.tag.Tag;
 
 /**
  * Represents a Recipe in the application content.
@@ -99,7 +98,7 @@ public class Recipe extends UniqueType {
         }
 
         return otherRecipe != null
-                && otherRecipe.getName().equals(getName())
+                && otherRecipe.getName().isSame(getName())
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty());
     }

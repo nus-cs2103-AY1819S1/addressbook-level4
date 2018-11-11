@@ -8,17 +8,16 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Lists all recipes in the address book to the user.
+ * Lists all contents in the list to the user.
  */
 public class ListCommand<T extends UniqueType> extends Command {
-
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all %1$s.";
 
-    private final Model model;
+    private final Model<T> model;
 
-    public ListCommand(Model model) {
+    public ListCommand(Model<T> model) {
         this.model = model;
     }
 
@@ -26,6 +25,6 @@ public class ListCommand<T extends UniqueType> extends Command {
     public CommandResult execute(History history) {
         requireNonNull(model);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getKeyword()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getContextString()));
     }
 }

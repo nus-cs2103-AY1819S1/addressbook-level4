@@ -9,7 +9,7 @@ import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- * Comparator class for Recipe which compares Recipe objects by Number of optional ingredients in it.
+ * Comparator class for CrossRecipe to compare objects by number of matched ingredients in it.
  */
 public class CrossSortComparator implements Comparator<CrossRecipe> {
     private Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap;

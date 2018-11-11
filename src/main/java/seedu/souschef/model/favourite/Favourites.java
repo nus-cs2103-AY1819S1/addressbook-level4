@@ -18,7 +18,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Represents a Recipe in the application content.

@@ -1,4 +1,4 @@
-package seedu.souschef.model.tag;
+package seedu.souschef.model.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;

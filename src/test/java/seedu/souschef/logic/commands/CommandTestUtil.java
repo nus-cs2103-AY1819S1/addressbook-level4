@@ -18,8 +18,8 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
 
 /**
@@ -31,8 +31,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_DIFFICULTY_AMY = "5";
     public static final String VALID_DIFFICULTY_BOB = "1";
-    public static final String VALID_COOKTIME_AMY = "PT20M";
-    public static final String VALID_COOKTIME_BOB = "PT24M";
+    public static final String VALID_COOKTIME_AMY = "20M";
+    public static final String VALID_COOKTIME_BOB = "24M";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -122,7 +122,7 @@ public class CommandTestUtil {
 
         Recipe recipe = model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().fullName.split("\\s+");
-        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new RecipeContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredList().size());
     }

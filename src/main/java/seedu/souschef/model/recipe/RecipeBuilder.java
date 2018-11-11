@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import seedu.souschef.model.tag.Tag;
-
 /**
  * A utility class to help with building Recipe objects.
  */
@@ -53,7 +51,6 @@ public class RecipeBuilder {
      * Build a actual instance of a recipe from the builder.
      */
     public Recipe build() {
-        // Clear after build
         return new Recipe(name, difficulty, cookTime, instructions, tags);
     }
 

@@ -10,7 +10,6 @@ import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
-import seedu.souschef.model.planner.exceptions.MealRecipeNotFoundException;
 import seedu.souschef.model.recipe.Recipe;
 
 
@@ -18,7 +17,6 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new SelectCommand object
  */
 public class SelectCommandParser {
-
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.
@@ -39,16 +37,28 @@ public class SelectCommandParser {
      * for the Meal Planner and returns a SelectCommand object for execution.
      * @throws ParseException
      */
-    public SelectCommand parseMealRecipe(Model mealPlannerModel,
-        Model recipeModel, String args) throws ParseException, MealRecipeNotFoundException {
+    public SelectCommand parseMealPlan(Model mealPlannerModel,
+                                       Model recipeModel, String args) throws ParseException {
 
         String[] arguments = args.split("\\s+");
+
+        if (arguments.length != 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SelectCommand.MEALPLANNER_MESSAGE_USAGE));
+        }
+
         List<Recipe> recipeList = recipeModel.getFilteredList();
         List<Day> mealPlannerList = mealPlannerModel.getFilteredList();
         int mealPlanListIndex = Integer.parseInt(arguments[0]) - 1;
 
         if ((mealPlanListIndex < 0) || mealPlanListIndex >= mealPlannerList.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SelectCommand.MEALPLANNER_MESSAGE_USAGE));
+        }
+
+        if (mealPlannerList.get(mealPlanListIndex).getMeal(arguments[1]).isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SelectCommand.MEALPLANNER_MESSAGE_USAGE));
         }
 
         Recipe targetRecipe = mealPlannerList.get(mealPlanListIndex).getMeal(arguments[1]).getRecipe();

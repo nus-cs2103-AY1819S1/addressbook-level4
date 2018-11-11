@@ -3,46 +3,73 @@
     <recipes>
         <name>Hans Muster</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Ruth Mueller</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Heinz Kurz</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Cornelia Meier</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Werner Meyer</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Lydia Kunz</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Anna Best</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Stefan Meier</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
     <recipes>
         <name>Martin Mueller</name>
         <difficulty>5</difficulty>
-        <cooktime>PT34M</cooktime>
+        <cooktime>34M</cooktime>
+        <instructions>
+            <instruction>Preheat oven.</instruction>
+        </instructions>
     </recipes>
 </souschef>

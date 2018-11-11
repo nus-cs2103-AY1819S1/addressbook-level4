@@ -40,8 +40,8 @@ public class XmlUtilTest {
 
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_DIFFICULTY = "5";
-    private static final String VALID_COOKTIME = "PT23M";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_COOKTIME = "23M";
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("asian"));
     private static final List<XmlAdaptedInstruction> VALID_INSTRUCTION = Collections
             .singletonList(new XmlAdaptedInstruction(new Instruction("Preheat oven.")));
 

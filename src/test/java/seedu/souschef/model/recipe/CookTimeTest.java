@@ -25,16 +25,15 @@ public class CookTimeTest {
         assertFalse(CookTime.isValidCookTime(" ")); // spaces only
 
         // missing parts
-        assertFalse(CookTime.isValidCookTime("P20M")); // missing local part
+        assertFalse(CookTime.isValidCookTime("20")); // missing local part
         assertFalse(CookTime.isValidCookTime("30A")); // missing '@' symbol
-        assertFalse(CookTime.isValidCookTime("PT")); // missing domain name
 
         // invalid parts
-        assertFalse(CookTime.isValidCookTime("PT20MH")); // invalid domain name
+        assertFalse(CookTime.isValidCookTime("20MH")); // invalid domain name
 
         // valid cook time
-        assertTrue(CookTime.isValidCookTime("PT20M"));
-        assertTrue(CookTime.isValidCookTime("PT1H20M"));
-        assertTrue(CookTime.isValidCookTime("PT30M20S"));
+        assertTrue(CookTime.isValidCookTime("20M"));
+        assertTrue(CookTime.isValidCookTime("1H20M"));
+        assertTrue(CookTime.isValidCookTime("30M20S"));
     }
 }

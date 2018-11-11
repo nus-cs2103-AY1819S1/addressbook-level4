@@ -3,12 +3,12 @@ package seedu.souschef.logic.parser.contextparser;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.CrossFindCommand;
+import seedu.souschef.logic.commands.CrossListCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
@@ -18,7 +18,6 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.CrossRecipe;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Parses user input.
@@ -50,18 +49,11 @@ public class CrossParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case CrossFindCommand.COMMAND_WORD:
-
             return new CrossFindCommandParser().parse(crossRecipeModel, ingredientModel, arguments);
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(crossRecipeModel, arguments);
         case ListCommand.COMMAND_WORD:
-            crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
-            List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
-            for (CrossRecipe crossRecipe : crossRecipeList) {
-                Recipe recipe = crossRecipe.getRecipe();
-                crossRecipeModel.update(crossRecipe, new CrossRecipe(recipe, recipe.getIngredients()));
-            }
-            return new ListCommand<CrossRecipe>(crossRecipeModel);
+            return new CrossListCommand(crossRecipeModel);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

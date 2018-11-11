@@ -10,7 +10,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 import seedu.souschef.model.util.SampleDataUtil;
 
 /**
@@ -20,7 +20,7 @@ public class RecipeBuilder {
 
     public static final String DEFAULT_NAME = "Pandan Chicken";
     public static final String DEFAULT_DIFFICULTY = "5";
-    public static final String DEFAULT_COOKTIME = "PT23M";
+    public static final String DEFAULT_COOKTIME = "23M";
     public static final String DEFAULT_INSTRUCTION = "Pre-heat oven.";
 
     private Name name;

@@ -24,9 +24,14 @@ public class PlanMealCommandParser {
      * and returns an PlanMealCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public PlanMealCommand parsePlan(Model mealPlannerModel, Model recipeModel, String args) throws ParseException {
+    public PlanMealCommand parseMealPlan(Model mealPlannerModel, Model recipeModel, String args) throws ParseException {
         try {
             String[] arguments = args.split("\\s+");
+
+            if (arguments.length != 3) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
+            }
+
             List<Recipe> recipeList = recipeModel.getFilteredList();
             List<Day> mealPlannerList = mealPlannerModel.getFilteredList();
             int listIndex = Integer.parseInt(arguments[0]) - 1;
