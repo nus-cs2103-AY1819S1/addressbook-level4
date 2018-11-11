@@ -49,9 +49,9 @@ Follow the steps below to get started with CLInic.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
 
-.Prototype of UI
+.CLInic's UI
 //tag::UI[]
-image::Ui.png[width="790"]
+image::UiActual.png[width="790"]
 //end::UI[]
 +
 
@@ -437,7 +437,8 @@ the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
 
-Registers a patient to the back of the Waiting Queue. +
+A patients needs to see the doctor? Better get him into the queue using the
+register command! +
 Alias: `reg` +
 Format: `register INDEX`
 
@@ -461,13 +462,13 @@ Registers the 1st patient in the resulting list of the `find` command.
 
 ==== Listing all patients in Waiting Queue: `queue`
 
-Lists all patients in the Waiting queue. +
+Need to know who is in the queue? Use the queue command! +
 Alias: `q` +
 Format: `queue`
 
 ==== Removing a patient from Waiting Queue: `remove`
 
-Removes a patient from the Waiting Queue if he leaves before being served. +
+Patient can't wait for his turn and left the clinic? Time to remove him from the queue! +
 Alias: `rem` +
 Format: `remove INDEX`
 
@@ -489,9 +490,10 @@ image::afterremove.png[width="600"]
 * `rem 3` +
 Removes the 2nd patient in the queue.
 
+// end::pqms[]
 ==== Inserting a patient to Waiting Queue: `insert`
 
-Inserts a patient into the specified position in the Waiting Queue. +
+A patient needs to be inserted into a certain position? Insert him into any position! +
 Alias: `ins` +
 Format: `insert INDEX p/POSITION`
 
@@ -518,10 +520,11 @@ image::afterinsert.png[width="600"]
 * `ins 3 p/5` +
 Inserts the 3rd patient into the 5th position in the patient queue.
 
+// tag::pqms2[]
 [[serve]]
 ==== Serving the first patient in Waiting queue: `serve`
 
-Serves the first patient in the Waiting queue. The patient being served is now the Current Patient. +
+Doctor is finally ready to the serve the next patient? Use the serve command!
 Alias: `ser` +
 Format: `serve`
 
@@ -538,7 +541,7 @@ image::afterserve.png[width="600"]
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
 
-Adds document contents to the Current Patient. +
+Patient has a bad headache? Patient needs 5 days mc? Better write them down! +
 Alias: `ad` +
 Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 
@@ -567,15 +570,17 @@ image::afteradddocument.png[width="600"]
 * `ad r/Ng Teng Fong Hospital` +
 Adds referral to the Current Patient.
 
+// end::pqms2[]
 ==== Displaying document contents for Current Patient: `displaydocuments`
 
 Displays document contents for the Current Patient. +
 Alias: `dd`
 Format: `displaydocuments`
 
+// tag::pqms3[]
 ==== Dispensing medicine to Current Patient: `dispensemedicine`
 
-Dispenses the specified quantity of medicine to the Current Patient. +
+An apple a day certainly is not enough! Time to get give the patient some medicine!  +
 Alias: `dm` +
 Format `dispensemedicine MEDICINE_INDEX amt/AMOUNT`
 
@@ -600,7 +605,7 @@ image::afterdispensemedicine.png[width="600"]
 [[finish]]
 ==== Finishing service of the Current Patient: `finish`
 
-Transfers the Current Patient to the Served Patient Queue. +
+Looks like we are done with the patient! +
 Format: `finish`
 
 [TIP]
@@ -612,7 +617,7 @@ Format: `finish`
 
 ==== Removing patient from Served Patient Queue: `payment`
 
-Removes a patient from the Served Patient Queue when the patient completes payment. +
+Done with all document processing? Patient can now make his payment and leave. Goodbye! +
 Alias: `pay` +
 Format: `payment INDEX`
 
@@ -634,7 +639,7 @@ image::afterpayment.png[width="600"]
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
 
-// end::pqms[]
+// end::pqms3[]
 
 // tag::document[]
 === Document Generation
@@ -642,50 +647,58 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::mc[]
 ==== Generating medical certificate: `mc`
 
-Generates a medical certificate for the Served Patient. +
+Clinic staff can use this command to generate a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
 * `mc 1` +
 Generates a medical certificate for the 1st patient in the Served Patient Queue.
+
+.Generating a medical certificate for patient `Alex Yeoh`.
+image::mc_fig.png[width="600"]
 // end::mc[]
 
+// tag::receipt[]
 ==== Generating receipt: `receipt`
 
-Generates a receipt for the Served Patient. +
+Clinic staff can use this command to generate a receipt for the Served Patient. +
 Alias: `rec` +
 Format: `receipt INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a receipt for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
 * `receipt 5` +
 Generates a receipt for the 5th patient in the Served Patient Queue.
 
+.Generating a receipt for patient `Alex Yeoh`.
+image::receipt_fig.png[width="600"]
+// end::receipt[]
+
 // tag::refer[]
 ==== Generating referral letter: `refer`
 
-Generates a referral letter for the Served Patient. +
+Clinic staff can use this command to generate a referral letter for the Served Patient. +
 Alias: `ref` +
 
 Format: `refer INDEX`
 
-[TIP]
-.Pro tip(s):
-Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+[WARNING]
+The patient's `INDEX` in the Served Patient Queue *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
 
 * `refer 7` +
 Generates a referral letter for the 7th patient in the Served Patient Queue.
+
+.Generating a referral letter for patient `Alex Yeoh`.
+image::refer_fig.png[width="600"]
 // end::refer[]
 // end::document[]
 
@@ -813,6 +826,7 @@ There is no need to save manually.
 |findmedicine |`fm`  |`findmedicine SERIAL_NUMBER` |`findmedicine 1001`
 |checkstock |`cs`  |`checkctock` |`checkStock`
 |=======================================================================
+// end::table[]
 
 === Queue Management
 
@@ -830,7 +844,6 @@ There is no need to save manually.
 |finish |- |`finish` |`finish`
 |payment |`pay`  |`payment INDEX` |`payment 6`
 |=======================================================================
-// end::table[]
 
 === Document Generation
 
