@@ -10,39 +10,55 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
  This project portfolio summarizes the contributions that I have to the project.
 
 == Summary of contributions
-* *Major enhancement*: Added *the ability to delete employees and add them to the archive list*
-** Behaviour:
-Allows a user with `Department Manager` permissions to delete an employee and it will be automatically added to the `archivelist` which can be viewed at a later time.
-
-** Justification:
-We want the Users to have the option of deleting an employee from the system but keeping his/her information incase of future need for it.
-
-*** Having the `archivelist` achieves that for us, an employee will remain in the system even after being deleted from the `archivelist`.
-
-*** Our users will also be able to permanently delete employee information if they choose to by deleting them from the `archivelist`.
-
-*** Lastly, if there is a need to restore the employee back to the `activelist` a user with the right permissions can restore the employee from the `archivelist` to the `activelist`.
-
-** Highlights:
-
-
-* *Minor enhancement*:
-
-
 * *Code contributed*:
 ** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Functional code]]
 
+* *Major enhancement*: Added *the ability to archive and restore employees*
+** Added *the ability to delete active employees and archive them*
+*** Behaviour:
+Allows a user with `Delete_employee` permission to delete an active employee and send it to the archive list.
+
+*** Justification:
+This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
+
+*** Highlights:
+
+** Added *the ability to restore employees*
+*** Behaviour:
+Allows a user with `Restore_employee` permission to restore an archived employee and send it to the active list.
+
+*** Justification:
+This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
+
+*** Highlights:
+
+** Added *the ability to permanently delete archived employees*
+*** Behaviour:
+Allows a user with `Delete_employee` permission to permanently remove archived employee from the application.
+
+*** Justification:
+This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management. 
+
+*** Highlights:
+
 * *Other contributions*:
+** Minor enhancements:
+*** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
+
 ** Project management:
 *** Managed releases v1.1 - v1.2 on GitHub
+
 ** Enhancements to existing features:
 *** Updated the GUI color scheme for every `Person` card (Pull requests https://github.com[#1])
 *** Updated the GUI to show a `ListPicker` to toggle between active and archive list. (Pull requests)
+
 ** Documentation:
 *** Input initial contents of User Guide: https://github.com[#1]
 *** Updated class diagrams for `UI` and `Model` component in the Developer Guide.
+
 ** Community:
 *** `Listpicker` menu feature that I added was adopted by several other class mates ()
+
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
