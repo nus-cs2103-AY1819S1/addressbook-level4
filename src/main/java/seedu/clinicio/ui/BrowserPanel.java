@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.clinicio.MainApp;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.model.person.Person;
 
 /**
@@ -65,7 +65,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }

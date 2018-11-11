@@ -194,6 +194,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    @Override
+    public void deletePatient(Patient target) {
+        versionedClinicIo.removePatient(target);
+        indicateClinicIoChanged();
+    }
+
     //@@author gingivitiss
     @Override
     public void deleteAppointment(Appointment target) {

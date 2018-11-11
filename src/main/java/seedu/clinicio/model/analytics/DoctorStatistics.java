@@ -111,7 +111,7 @@ public class DoctorStatistics extends Statistics {
         List<Tuple<String, Integer>> preferencesDataPoints = preferencesPerDoctorCount();
 
         statData.addVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR, false,
-            "Number of patient preferences for each doctor", "Number of patients", "Doctor",
+            "Number of patient preferences for each doctor", "Doctor", "Number of patients",
             Arrays.asList(preferencesDataPoints), Arrays.asList(""));
     }
 
@@ -120,8 +120,8 @@ public class DoctorStatistics extends Statistics {
      */
     public void plotConsultationsPerDoctorCount() {
         statData.addVisualization("doctorConsultations", ChartType.HORIZONTAL_BAR, false,
-            "Number of consultations for each doctor", "Number of consultations", "Doctor", Arrays.asList
-            (getConsultationsPerDoctorCount()), Arrays.asList(""));
+            "Number of consultations for each doctor", "Doctor", "Number of consultations",
+            Arrays.asList(getConsultationsPerDoctorCount()), Arrays.asList(""));
     }
 
     /**
