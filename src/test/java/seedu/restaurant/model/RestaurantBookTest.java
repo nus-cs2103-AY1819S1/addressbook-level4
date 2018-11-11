@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_BURGER;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_CHEESE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_PAX_BILLY;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_UNIT_BROCCOLI;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBookWithItemOnly;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ADMIN;
@@ -38,6 +39,7 @@ import seedu.restaurant.logic.commands.menu.SortMenuCommand.SortMethod;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.exceptions.DuplicateAccountException;
 import seedu.restaurant.model.ingredient.Ingredient;
+import seedu.restaurant.model.ingredient.exceptions.DuplicateIngredientException;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.exceptions.DuplicateItemException;
 import seedu.restaurant.model.reservation.Reservation;
@@ -47,6 +49,7 @@ import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.RestaurantBookBuilder;
 import seedu.restaurant.testutil.account.AccountBuilder;
+import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
@@ -329,6 +332,7 @@ public class RestaurantBookTest {
         assertEquals(sortedByPrice, restaurantBookWithItems);
     }
 
+    //@@author m4dkip
     // Reservation Management
     @Test
     public void resetData_withDuplicateReservations_throwsDuplicateReservationException() {
@@ -380,6 +384,59 @@ public class RestaurantBookTest {
         restaurantBook.getReservationList().remove(0);
     }
 
+    //@@author rebstan97
+    // Ingredient Management
+    @Test
+    public void resetData_withDuplicateIngredients_throwsDuplicateIngredientException() {
+        // Two ingredients with the same identity fields
+        Ingredient editedAvocado = new IngredientBuilder(AVOCADO)
+                .withUnit(VALID_UNIT_BROCCOLI)
+                .build();
+        List<Account> newAccounts = Arrays.asList(DEMO_ADMIN, DEMO_ONE);
+        List<Item> newItems = Arrays.asList(APPLE_JUICE);
+        List<Reservation> newReservations = Arrays.asList(ANDREW);
+        List<SalesRecord> newRecords = Arrays.asList(RECORD_DEFAULT, RECORD_ONE);
+        List<Ingredient> newIngredients = Arrays.asList(AVOCADO, editedAvocado);
+        RestaurantBookStub newData = new RestaurantBookStub(newAccounts, newItems, newReservations,
+                newRecords, newIngredients);
+
+        thrown.expect(DuplicateIngredientException.class);
+        restaurantBook.resetData(newData);
+    }
+
+    @Test
+    public void hasIngredient_nullIngredient_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        restaurantBook.hasIngredient(null);
+    }
+
+    @Test
+    public void hasIngredient_ingredientNotInRestaurantBook_returnsFalse() {
+        assertFalse(restaurantBook.hasIngredient(AVOCADO));
+    }
+
+    @Test
+    public void hasIngredient_ingredientInRestaurantBook_returnsTrue() {
+        restaurantBook.addIngredient(AVOCADO);
+        assertTrue(restaurantBook.hasIngredient(AVOCADO));
+    }
+
+    @Test
+    public void hasIngredient_ingredientWithSameIdentityFieldsInRestaurantBook_returnsTrue() {
+        restaurantBook.addIngredient(AVOCADO);
+        Ingredient editedAvocado = new IngredientBuilder(AVOCADO)
+                .withUnit(VALID_UNIT_BROCCOLI)
+                .build();
+        assertTrue(restaurantBook.hasIngredient(editedAvocado));
+    }
+
+    @Test
+    public void getIngredientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        restaurantBook.getIngredientList().remove(0);
+    }
+
+    //@@author
     @Test
     public void equals() {
         restaurantBookWithItems = new RestaurantBookBuilder().withItem(BURGER).withItem(FRIES).build();
