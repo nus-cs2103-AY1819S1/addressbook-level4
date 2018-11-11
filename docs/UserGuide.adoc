@@ -35,14 +35,14 @@ The following *3* legends will be used throughout the documentation which you ma
 contain important details:
 
 [NOTE]
-Just for your info, do not be alarmed!
+Just for your info, do not be alarmed
 
 [TIP]
-Perhaps something can be done using another approach, but it is up to you to decide.
+Perhaps something can be done using another approach, but it is up to you to decide
 
 [WARNING]
 Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
-read whatever is in this block.
+read whatever is in this block
 
 === A Quick Look at MeNUS
 
