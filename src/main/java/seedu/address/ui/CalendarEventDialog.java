@@ -16,10 +16,11 @@ import seedu.address.model.calendarevent.CalendarEvent;
  * A pop-up dialog to display the information of a {@code CalendarEvent} to the user.
  */
 public class CalendarEventDialog extends UiPart<Region> {
-    private static final String FXML = "CalendarEventDialog.fxml";
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
-    private CalendarEvent calendarEvent;
+    private static final String FXML = "CalendarEventDialog.fxml";
+
+    public final CalendarEvent calendarEvent;
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     @FXML
     private Label title;
@@ -37,10 +38,6 @@ public class CalendarEventDialog extends UiPart<Region> {
         super(FXML);
         this.calendarEvent = calendarEvent;
         fillLabels();
-    }
-
-    public CalendarEvent getCalendarEvent() {
-        return calendarEvent;
     }
 
     /**
@@ -85,6 +82,6 @@ public class CalendarEventDialog extends UiPart<Region> {
 
         // state check
         CalendarEventDialog dialog = (CalendarEventDialog) other;
-        return calendarEvent.equals(dialog.getCalendarEvent());
+        return calendarEvent.equals(dialog.calendarEvent);
     }
 }
