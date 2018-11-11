@@ -17,7 +17,7 @@ It is *optimized for receptionist who prefer to work with a Command Line Interfa
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yangyafei1998[Functional code]
 
 * *Major enhancement*: added *the ability to add/delete MedicalHistory*
-** What it does: This allow the user to add and delete medical history for a certain patient in the HealthBook.
+** What it does: This allows the user to add/delete medical history for a certain patient in the HealthBook.
 ** Justification: This feature enables the user to have knowledge of the medical history which contains allergy and condition of a patient.
 ** Highlights: This enhancement is an essential feature for HealthBook. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing storage and model.
 ** Credits: http://github.com/giamjuxian[giamjuxian] for the *Phone* part inside add-medical-history and delete-medical-history commands.
@@ -31,12 +31,6 @@ It is *optimized for receptionist who prefer to work with a Command Line Interfa
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T16-1/main/issues/104, https://github.com/CS2103-AY1819S1-T16-1/main/issues/109)
 
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 
 == Contributions to the User Guide
 
