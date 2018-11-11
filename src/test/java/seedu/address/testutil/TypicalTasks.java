@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_IN_PROGR
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import seedu.address.model.TaskManager;
@@ -26,6 +27,7 @@ import seedu.address.model.task.Task;
  */
 public class TypicalTasks {
 
+    //Vanilla typical tasks
     public static final AchievementRecord ACHIEVEMENT = new AchievementRecordBuilder()
             .withNextDayBreakPoint("13-10-19").withNextWeekBreakPoint("19-10-19").build();
     public static final Task A_TASK = new TaskBuilder().withName("Address CS2103 email")
@@ -73,6 +75,18 @@ public class TypicalTasks {
             .withLabels(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND)
             .build();
 
+    //Dependent typical tasks
+    public static final Task D3_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-19")
+        .withPriorityValue("3").withDescription("Call number +6562353535").withLabels("friends")
+        .withStatus(Status.IN_PROGRESS).build();
+    public static final Task D2_TASK = new TaskBuilder().withName("Build addressbook for tutorial")
+        .withDescription("Press 'Build' in IntelliJ")
+        .withPriorityValue("2").withDueDate("02-12-19 1330")
+        .withLabels("owesMoney", "friends").withStatus(Status.IN_PROGRESS).build();
+    public static final Task D1_TASK = new TaskBuilder().withName("Address CS2103 email")
+        .withDescription("Reply to Damith").withPriorityValue("1")
+        .withDueDate("01-12-19").withLabels("owesMoney").withDependency(D3_TASK).build();
+
     public static final String KEYWORD_MATCHING_TUTORIAL = "tutorial"; // A keyword that matches tutorial
 
     private TypicalTasks() {
@@ -82,15 +96,46 @@ public class TypicalTasks {
      * Returns an {@code TaskManager} with all the typical tasks.
      */
     public static TaskManager getTypicalTaskManager() {
+        return getTaskManagerWithGivenTasks(getTypicalTasks());
+    }
+
+    /**
+     * Returns an {@code TaskManager} with all the typical dependent tasks.
+     */
+    public static TaskManager getTypicalDependentTaskManager() {
+        return getTaskManagerWithGivenTasks(getTypicalDependentTasks());
+    }
+
+    /**
+     * Helper method to generate a TaskManager for testing with a supplied collection of Tasks
+     *
+     * @param tasks A Collection of tasks to build the Task Manager with
+     * @return A Task Manager with an accompanying achievement record
+     */
+    private static TaskManager getTaskManagerWithGivenTasks(Collection<Task> tasks) {
         TaskManager tm = new TaskManager();
         tm.setAchievements(ACHIEVEMENT);
-        for (Task task : getTypicalTasks()) {
+        for (Task task : tasks) {
             tm.addTask(task);
         }
         return tm;
     }
 
+    /**
+     * Default typical tasks without dependencies.
+     *
+     * @return List of typical tasks (No dependencies)
+     */
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(A_TASK, B_TASK, C_TASK, D_TASK, E_TASK, F_TASK, G_TASK));
+    }
+
+    /**
+     * Typical tasks created to specifically test for dependencies.
+     *
+     * @return List of typical tasks (No dependencies)
+     */
+    public static List<Task> getTypicalDependentTasks() {
+        return new ArrayList<>(Arrays.asList(D1_TASK, D2_TASK, D3_TASK));
     }
 }
