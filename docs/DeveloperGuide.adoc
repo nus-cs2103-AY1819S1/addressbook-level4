@@ -1117,22 +1117,87 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Save money for a wish
+=== Use case: Move amount between wishes
 
 *MSS*
 
-1.  *Actor* enters [underline]#X# amount of money to be saved.
-2.  *System* transfers [underline]#X# from the bank to the wish that has the earliest due date.
+1.  *Actor* specifies the origin wish index, the destination wish index, and amount to move.
+2.  *System* moves specified amount from origin wish to destination wish.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. *Actor* specifies a wish to allocate the money to.
+* 1a. *System* has no recorded wishes.
 +
 [none]
-** 1a1. *System* adds [underline]#X# to the specified wish.
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments.
++
+[none]
+** 1b1. *System* shows Move command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1c. *Actor* enters the same index for origin wish and destination wish.
++
+[none]
+** 1c1. *System* shows Move command usage.
+** 1c2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1d. The amount to move is greater than the existing saved amount in the origin wish.
++
+[none]
+** 1d1. *System* reports that saved amount of wish cannot become negative.
++
+Use case ends.
+
+* 1e. The amount moved to destination wish exceeds the amount needed to fulfil the wish.
++
+[none]
+** 1e1. *System* moves to destination wish the required amount needed to fulfil it.
+** 1e2. *System* moves the excess amount to unused funds.
++
+Use case ends.
+
+* 1f. *Actor* specifies unused funds as the origin wish.
++
+[none]
+** 1f1. *System* moves amount from unused funds to the destination wish.
++
+Use case ends.
+
+* 1g. *Actor* specifies unused funds as the destination wish.
++
+[none]
+** 1g1. *System* moves amount from origin wish to unused funds.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save money for a wish
+
+*MSS*
+
+1.  *Actor* enters [underline]#X# amount of money to be saved.
+2.  *System* transfers [underline]#X# to the wish with the specified index.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* specifies to allocate the money to unused funds.
++
+[none]
+** 1a1. *System* adds [underline]#X# to unused funds.
 +
 Use case ends.
 
@@ -1147,6 +1212,21 @@ Use case ends.
 +
 [none]
 ** 1c1. *Actor* is prompted to enter a valid value.
++
+Use case ends.
+
+* 1d. *Actor* enters an amount of money that causes the wish's saved amount to exceed the amount needed to fulfil the wish.
++
+[none]
+** 1d1. *System* adds the required amount to fulfil the saved amount of the wish at the specified index.
+** 1d2. *System* adds the excess amount to unused funds.
++
+Use case ends.
+
+* 1e. *Actor* enters an amount that causes the wish's resulting saved amount to become negative.
++
+[none]
+** 1e1. *Actor* is prompted to enter a valid value.
 +
 Use case ends.
 
