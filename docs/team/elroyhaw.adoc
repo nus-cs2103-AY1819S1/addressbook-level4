@@ -20,7 +20,7 @@ It is *optimized for receptionist who prefer to work with a Command Line Interfa
 ** Highlights: This enhancement is the primary purpose of the HealthBook. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required integration with Google calendar commands.
 ** Credits: http://github.com/giamjuxian[giamjuxian] for the Google calendar integration
 
-* *Minor enhancement*: 
+* *Minor enhancement*:
 ** Added autocomplete commands on tab feature
 ** Added commands to view patients/doctors
 ** Added commands to delete patients/doctors
