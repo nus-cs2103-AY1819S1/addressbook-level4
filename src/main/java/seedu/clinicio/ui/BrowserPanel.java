@@ -12,7 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.clinicio.MainApp;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.person.Person;
 
 /**

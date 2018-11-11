@@ -52,6 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
+    private AppointmentDisplay appointmentDisplay;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -147,6 +148,8 @@ public class MainWindow extends UiPart<Stage> {
 
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+        appointmentDisplay = new AppointmentDisplay();
+        browserPlaceholder.getChildren().add(appointmentDisplay.getRoot());
 
         personTab.setText("Persons");
         personTab.setContent(personListPanelPlaceholder);
