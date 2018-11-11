@@ -1167,6 +1167,47 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same.
 //end::basic[]
 
+//tag::group[]
+=== Create a word group (Manual Testing)
+. Create a new empty word group.
+
+.. Test case: `groupadd test` +
+   Expected: If the group test has not been created, then "test" will be created as a new word group. Otherwise some exception is handled and the user will see "The group typed has existed"
+.. Test case: 'groupadd ' +
+   Expected: Some exception is handled and the user will see "please type in the group".
+.. Test case: `groupadd stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+.. Test case: `groupadd groupa groupb` +
+   Expected: Some exception is handled and the user will see "Only one group can be created once".
+  
+
+=== Delete a word group (Manual Testing)
+. Delete a word group with all the word inside.
+
+.. Test case: `groupdelete test` +
+   Expected: If the group test do exist, then group "test" and all the word inside will be deleted. Otherwise some exception is handled and the user will see "The group typed does not exist."
+.. Test case: 'groupdelete ' +
+   Expected: Some exception is handled and the user will see "please type in the group".
+.. Test case: 'groupdelete toLearn test' +
+   Expected: Some exception is handled and the user will see "Only one group can be deleted once.".
+.. Test case: `groupdelete stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+
+=== Show a word group or all the word group name (Manual Testing)
+. Show a word group or all the word group name.
+
+.. Test case: `showgroup test` +
+   Expected: If the group test do exist, then all the words inside test group will be filtered and shown. Otherwise some exception is handled and the user will see "The group typed does not exist."
+.. Test case: 'showgroup ' +
+   Expected: All the existed word group will be shown.
+.. Test case: 'showgroup toLearn test' +
+   Expected: Some exception is handled and the user will see "Only one group can be shown once.".
+.. Test case: `showgroup stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+
+
+//end::group[]
+
 === Trivia
 . Starting the trivia
 .. Prerequisites: Empty vocabulary list.
