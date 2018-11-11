@@ -31,8 +31,8 @@ See below for more details on contributions made for the duration of 10 weeks.
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jjlee050[My Codes]
 
 * *Major enhancement*:
-** Added *Patient Management* feature
-*** What it does: This feature allows the user to manage 
+** Added *Patient Management* feature (Main Enhancement)
+*** What it does: This feature provide a centralised patient database for the user to manage the clinic patients record.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
