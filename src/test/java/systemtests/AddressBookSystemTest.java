@@ -45,6 +45,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.cca.Cca;
 import seedu.address.storage.Storage;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
@@ -353,5 +354,12 @@ public abstract class AddressBookSystemTest {
      */
     protected Storage getStorage() {
         return testApp.getStorage();
+    }
+
+    /**
+     * Saves a new Cca to the current model.
+     */
+    protected void addCca(Cca cca) {
+        testApp.addCcaToTestModel(cca);
     }
 }
