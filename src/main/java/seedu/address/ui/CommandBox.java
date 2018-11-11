@@ -100,6 +100,14 @@ public class CommandBox extends UiPart<Region> {
             }
             break;
 
+        case A:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("add ");
+            }
+            break;
+
         case Q:
             keyEvent.consume();
             if (keyEvent.isControlDown()) {

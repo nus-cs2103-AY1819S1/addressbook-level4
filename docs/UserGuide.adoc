@@ -56,8 +56,9 @@ e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all employees.
-* **`add`**`-n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
-* **`find`**`J*` : finds all employees where any of their names start with J.
+* *`add -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000`* : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
+* *`find J*`* : finds all employees where any of their names start with J.
+* *`delete 1`* : Deletes employee at the first location on the current displayed list.
 * *`exit`* : exits the app
 
 .  Refer to <<Commands>> for details of each command.
@@ -72,6 +73,29 @@ e.g. typing help and pressing Enter will open the help window.
 * Items in square brackets are optional e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `-t TAG...` can be used as `{nbsp}` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
 * Parameters can be in any order e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
+
+// tag::autocomplete[]
+*Command Auto Complete*
+
+OASIS has provided you with a command auto complete feature to aid you with the usage of commands. With this functionality, you no longer have to memorise any commands!
+
+When you type commands into the command box, a drop down list of possible commands will appear, as shown in the screenshot below.
+
+image::autoCompleteDropDownList.png[width=300]
+
+When the drop down list is shown, you can do the following:
+
+* Use `↑` and `↓` to navigate through the list
+* Press kbd:[Enter] to select the highlighted option
+
+After selecting the command, you will see that the command will be displayed in the command box.
+
+image::autoCompleteFinished.png[width=150]
+
+If you wish to see a list of all commands, simply type kbd:[Space] into an empty command box. You should see the list as shown in the screenshot.
+
+image::autoCompleteDropDownListAllCommand.png[width=300]
+// end::autocomplete[]
 ====
 
 === Viewing help : `help`
@@ -120,6 +144,7 @@ Examples:
 Shows a list of all employees in the system. +
 Format: `list`
 
+//tag::viewpermission[]
 === View all the permissions that an employee has : `viewpermission`
 
 Displays all the permissions that an employee has been assigned.
@@ -133,16 +158,17 @@ Format: viewpermission INDEX
 Examples:
 
 * viewpermission 2
-
+//end::viewpermission[]
 === Removing an employee from my department: `delete`
 
-Removes an employee from the system.
+Removes an employee from the current displayed list.
 
 Format: `delete INDEX`
 
 ****
 * To use this command, you must be logged in and have the "DELETE_EMPLOYEE" permission.
-* All deleted employees will be stored in the archive, when employee in archive is deleted again it will be taken out of archive.
+* Delete employees from the active list will be moved to archive list.
+* Deleted employees from the archive list will be deleted from the system.
 ****
 
 Examples:
@@ -342,9 +368,11 @@ Examples:
 * `edit 1 -p 91234567 -e johndoe@example.com`
 * `edit 2 -n James`
 
+//tag::modifypermission[]
+
 === Modify permissions of an emplyee : `modifypermission`
 
-Modifies the permissions of an employee.
+This command allows you to modify the permissions of an employee.
 
 Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...`
 
@@ -358,7 +386,7 @@ The following is the list of Permissions available.
 |ADD_EMPLOYEE|Allows the user to add employee
 |DELETE_EMPLOYEE|Allows the user to delete employee
 |EDIT_EMPLOYEE|Allows the user to edit information of an employee
-|VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
+|VIEW_EMPLOYEE_LEAVE|Allows user to view other employee's applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
 |ADD_ASSIGNMENT|Allows user to add assignments into OASIS
 |DELETE_ASSIGNMENT|Allows user to delete assignments
@@ -376,6 +404,7 @@ Examples:
 
 * modifypermission 1 -a ADD_EMPLOYEE
 * modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
+//end::modifypermission[]
 
 // tag::passwd[]
 === Change password : `passwd`
@@ -507,6 +536,10 @@ Displays the list of employees removed from the system. To delete an employee fr
 
 Format: `archive`
 
+****
+* Replaces current view on the left panel to the archive list.
+****
+
 === Restoring employee to active list: `restore`
 
 Restores an employee to active list from the archived list.
@@ -514,7 +547,7 @@ Restores an employee to active list from the archived list.
 Format: `restore INDEX`
 
 ****
-* All restored employees will be taken back to the active list.
+* Restored employee will be moved back to the active list.
 ****
 
 Examples:
@@ -554,7 +587,7 @@ Format: `summary`
 
 *Q*: Is it possible for me to change my username? +
 *A*: No, the username assigned to you is fixed.
-
+//tag::commandsummary[]
 == Command Summary
 
 === Commands that do not require permissions
@@ -605,6 +638,9 @@ Format: `summary`
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 
+//end::commandsummary[]
+
+
 == Keyboard Shortcuts
 
 [width="100%",options="header"]
@@ -612,3 +648,4 @@ Format: `summary`
 |Command|Key
 |
 |=========================================================
+
