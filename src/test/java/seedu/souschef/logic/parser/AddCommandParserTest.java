@@ -10,7 +10,7 @@ public class AddCommandParserTest {
 
     /*@Test
     public void parse_allFieldsPresent_success() {
-        Recipe expectedRecipe = new RecipeBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Recipe expectedRecipe = new RecipeBuilder(BEE).withTags(VALID_TAG_SPICY).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
@@ -33,7 +33,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(model, expectedRecipe));
 
         // multiple tags - all accepted
-        Recipe expectedRecipeMultipleTags = new RecipeBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Recipe expectedRecipeMultipleTags = new RecipeBuilder(BEE).withTags(VALID_TAG_SPICY, VALID_TAG_STAPLE)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(model, expectedRecipeMultipleTags));
@@ -42,7 +42,7 @@ public class AddCommandParserTest {
     /*@Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Recipe expectedRecipe = new RecipeBuilder(AMY).withTags().build();
+        Recipe expectedRecipe = new RecipeBuilder(AMERICA).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(model, expectedRecipe));
     }*/
@@ -52,15 +52,15 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_BEE + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_DIFFICULTY_BOB + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_DIFFICULTY_1 + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + DIFFICULTY_DESC_BOB + VALID_COOKTIME_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + DIFFICULTY_DESC_BOB + VALID_COOKTIME_HR + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing address prefix
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_DIFFICULTY_BOB + VALID_COOKTIME_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, VALID_NAME_BEE + VALID_DIFFICULTY_1 + VALID_COOKTIME_HR + VALID_ADDRESS_BOB,
                 expectedMessage);
     }*/
 
@@ -92,7 +92,7 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
+                + INVALID_TAG_DESC + VALID_TAG_SPICY, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB + INVALID_ADDRESS_DESC,

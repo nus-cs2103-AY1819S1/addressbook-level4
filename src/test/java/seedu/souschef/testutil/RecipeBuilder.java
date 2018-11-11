@@ -90,6 +90,15 @@ public class RecipeBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code instructions} into a {@code List<Instruction>} and set it to the {@code Recipe}
+     * that we are building.
+     */
+    public RecipeBuilder withInstruction(Instruction instructions) {
+        this.instructions = SampleDataUtil.getInstructionList(instructions);
+        return this;
+    }
+
     public Recipe build() {
         return new Recipe(name, difficulty, cookTime, instructions, tags);
     }
