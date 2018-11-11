@@ -513,6 +513,7 @@ As manipulating bit strings may be complicated, getter, setter and merger method
 
 ===== Aspect: Schedule Update
 
+
 As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.
 
 ===== Aspect: MaxSchedule Command
