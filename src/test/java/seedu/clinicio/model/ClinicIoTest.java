@@ -18,8 +18,8 @@ import static seedu.clinicio.testutil.Assert.assertThrows;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
-import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
-import static seedu.clinicio.testutil.TypicalPersons.BENSON_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.BRYAN_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CHLORPHENIRAMINE;
 import static seedu.clinicio.testutil.TypicalPersons.ORACORT;
@@ -97,7 +97,7 @@ public class ClinicIoTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
+        List<Appointment> newAppointments = Arrays.asList(BRYAN_APPT, ALEX_APPT);
         List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
@@ -124,7 +124,7 @@ public class ClinicIoTest {
     @Test
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
-        List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
+        List<Appointment> newAppointments = Arrays.asList(BRYAN_APPT, ALEX_APPT);
         List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Person> newPersons = Arrays.asList(ALICE);
@@ -139,8 +139,8 @@ public class ClinicIoTest {
     @Test
     public void resetData_withDuplicateAppointments_throwsDuplicateAppointmentException() {
         //Two appointments with the same identity fields
-        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(ALEX).build();
-        List<Appointment> newAppointments = Arrays.asList(AMY_APPT, editedAmy);
+        Appointment editedAmy = new AppointmentBuilder(ALEX_APPT).withPatient(ALEX).build();
+        List<Appointment> newAppointments = Arrays.asList(ALEX_APPT, editedAmy);
         List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
@@ -155,7 +155,7 @@ public class ClinicIoTest {
         //Two appointments with clashing slots
         Appointment clashingAppt = new AppointmentBuilder(CARL_APPT)
                 .withTime(13, 30).build();
-        List<Appointment> newAppointments = Arrays.asList(AMY_APPT, clashingAppt);
+        List<Appointment> newAppointments = Arrays.asList(ALEX_APPT, clashingAppt);
         List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM);
@@ -169,7 +169,7 @@ public class ClinicIoTest {
     @Test
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         //Two medicines with the same identity fields
-        List<Appointment> newAppointments = Arrays.asList(AMY_APPT);
+        List<Appointment> newAppointments = Arrays.asList(ALEX_APPT);
         Medicine editedMedicine = new MedicineBuilder(PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
                 .build();
         List<Medicine> newMedicines = Arrays.asList(editedMedicine, PARACETAMOL, VENTOLIN, CHLORPHENIRAMINE, ORACORT);
@@ -237,7 +237,7 @@ public class ClinicIoTest {
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
-        assertFalse(clinicIo.hasAppointment(AMY_APPT));
+        assertFalse(clinicIo.hasAppointment(ALEX_APPT));
     }
 
     //@@author aaronseahyh
@@ -269,8 +269,8 @@ public class ClinicIoTest {
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
-        clinicIo.addAppointment(AMY_APPT);
-        assertTrue(clinicIo.hasAppointment(AMY_APPT));
+        clinicIo.addAppointment(ALEX_APPT);
+        assertTrue(clinicIo.hasAppointment(ALEX_APPT));
     }
 
     //@@author aaronseahyh
@@ -309,21 +309,21 @@ public class ClinicIoTest {
     //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        clinicIo.addAppointment(AMY_APPT);
-        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(13, 00).build();
+        clinicIo.addAppointment(ALEX_APPT);
+        Appointment editedAmy = new AppointmentBuilder(ALEX_APPT).withTime(13, 00).build();
         assertTrue(clinicIo.hasAppointment(editedAmy));
     }
 
     @Test
     public void hasAppointment_appointmentWithDifferentIdentityFieldsInClinicIo_returnsFalse() {
-        clinicIo.addAppointment(AMY_APPT);
-        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(12, 00).build();
+        clinicIo.addAppointment(ALEX_APPT);
+        Appointment editedAmy = new AppointmentBuilder(ALEX_APPT).withTime(12, 00).build();
         assertFalse(clinicIo.hasAppointment(editedAmy));
     }
 
     @Test
     public void hasAppointmentClash_appointmentWithSameTimingsInClinicIo_returnsTrue() {
-        clinicIo.addAppointment(AMY_APPT);
+        clinicIo.addAppointment(ALEX_APPT);
         Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
         assertTrue(clinicIo.hasAppointmentClash(newAppt));
     }

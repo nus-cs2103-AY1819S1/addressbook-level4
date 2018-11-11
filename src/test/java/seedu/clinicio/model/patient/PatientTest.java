@@ -12,7 +12,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
-import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 import static seedu.clinicio.testutil.TypicalPersons.CANDY;
@@ -68,24 +68,24 @@ public class PatientTest {
 
         // same name, different appointment -> returns false
         /*Patient editedAlexWithAppointment = new PatientBuilder(ALEX)
-                .withAppointment(AMY_APPT).build();
+                .withAppointment(ALEX_APPT).build();
         Patient editedAlexWithAnotherAppointment = new PatientBuilder(ALEX)
-                .withAppointment(BENSON_APPT).build();
+                .withAppointment(BRYAN_APPT).build();
         assertFalse(editedAlexWithAppointment.isSamePatient(editedAlexWithAnotherAppointment));*/
 
         // same name, one with appointment, one without -> returns false
         // TODO: Add back later
-        /*editedAlexWithAppointment = new PatientBuilder(ALEX).withAppointment(AMY_APPT).build();
+        /*editedAlexWithAppointment = new PatientBuilder(ALEX).withAppointment(ALEX_APPT).build();
         Patient editedAlexWithoutAppointment = new PatientBuilder(ALEX).build();
         assertFalse(editedAlexWithAppointment.isSamePatient(editedAlexWithoutAppointment));*/
 
         // same name, same appointment, different attributes -> returns true
         /*Patient editedAlexWithAppointmentAndAmyAddress = new PatientBuilder(ALEX)
-                .withAppointment(AMY_APPT)
+                .withAppointment(ALEX_APPT)
                 .withAddress(VALID_ADDRESS_AMY)
                 .build();
         Patient editedAlexWithAppointmentAndBobAddress = new PatientBuilder(ALEX)
-                .withAppointment(AMY_APPT)
+                .withAppointment(ALEX_APPT)
                 .withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(editedAlexWithAppointmentAndAmyAddress
@@ -160,9 +160,9 @@ public class PatientTest {
 
         // different appointment -> returns false
         /*Patient editedAlexWithAppointment = new PatientBuilder(ALEX)
-                .withAppointment(AMY_APPT).build();
+                .withAppointment(ALEX_APPT).build();
         Patient editedAlexWithAnotherAppointment = new PatientBuilder(ALEX)
-                .withAppointment(BENSON_APPT).build();
+                .withAppointment(BRYAN_APPT).build();
         assertFalse(editedAlexWithAppointment.equals(editedAlexWithAnotherAppointment));*/
     }
 
@@ -184,7 +184,7 @@ public class PatientTest {
 
         // patient with an appointment -> returns true
         Patient amyAsPatientWithAppointment = ALEX;
-        amyAsPatientWithAppointment.setAppointment(AMY_APPT);
+        amyAsPatientWithAppointment.setAppointment(ALEX_APPT);
         assertTrue(amyAsPatientWithAppointment.hasAppointment());
     }
 }

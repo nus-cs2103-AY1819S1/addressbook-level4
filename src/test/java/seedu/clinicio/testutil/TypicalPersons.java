@@ -170,9 +170,9 @@ public class TypicalPersons {
 
 
     // Appointments
-    public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+    public static final Appointment ALEX_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(13, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
-    public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
+    public static final Appointment BRYAN_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
             .withTime(17, 45).withType(1).withPatient(BRYAN).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(18, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
@@ -241,7 +241,7 @@ public class TypicalPersons {
     }
 
     public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
+        return new ArrayList<>(Arrays.asList(ALEX_APPT, BRYAN_APPT, CARL_APPT));
     }
 
     public static List<Medicine> getTypicalMedicines() {

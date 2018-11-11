@@ -22,7 +22,7 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TIME_AMY;
 import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX_APPT;
 
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class AddApptCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Appointment expectedAppt = new AppointmentBuilder(AMY_APPT).build();
+        Appointment expectedAppt = new AppointmentBuilder(ALEX_APPT).build();
         //expectedAppt.setAssignedStaff(null);
 
         // whitespace only preamble
