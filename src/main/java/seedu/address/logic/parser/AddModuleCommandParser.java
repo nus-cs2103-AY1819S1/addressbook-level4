@@ -38,7 +38,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
     public static final String MESSAGE_INVALID_FORMAT =
             ParserUtil.MESSAGE_INVALID_FORMAT
                     + "\n"
-                    + DeleteModuleCommand.MESSAGE_USAGE;
+                    + AddModuleCommand.MESSAGE_USAGE;
 
     /**
      * Immutable map that maps string argument to edit argument enum.
