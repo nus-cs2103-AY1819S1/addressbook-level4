@@ -10,6 +10,7 @@ import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarEventDialogHandle;
 import guitests.guihandles.CalendarPanelHandle;
+import guitests.guihandles.DescriptionDisplayHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.ToDoListEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
@@ -60,6 +61,14 @@ public class GuiTestAssert {
         assertEquals(expectedCalendarEvent.getDescriptionObject().value, actualDialog.getDescription());
         assertEquals(expectedCalendarEvent.getVenue().value, actualDialog.getVenue());
         assertEquals(expectedCalendarEvent.getStartLocalDateTime().toString(), actualDialog.getDateTimeString());
+    }
+
+    /**
+     * Asserts that {@code descriptionDisplayHandle} displays the details of {@code toDoListEvent}.
+     */
+    public static void assertDescriptionDisplayDisplaysToDoListEvent(ToDoListEvent expectedToDoListEvent,
+                                                         DescriptionDisplayHandle descriptionDisplayHandle) {
+        assertEquals(expectedToDoListEvent.getDescription().value, descriptionDisplayHandle.getDescription());
     }
 
     /**
