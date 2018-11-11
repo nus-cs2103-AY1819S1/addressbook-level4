@@ -658,11 +658,12 @@ Cancels the 4th appointment in the list.
 
 This section is designed to help you answer any issues that are frequently asked by others.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
+[qanda]
+How do I transfer my data to another Computer?::
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
 
-*Q*: How to save data in ClinicIO? +
-*A*: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
+How to save data in ClinicIO?::
+There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
 
 == Command Summary
 
