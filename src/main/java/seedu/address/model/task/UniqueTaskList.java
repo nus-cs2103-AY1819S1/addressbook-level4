@@ -86,9 +86,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return new task with dependency updated
      */
     private Task createUpdatedHashReferenceTask(Task taskToEdit, String oldHash, String newHash) {
-        return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
-                taskToEdit.getDescription(), taskToEdit.getLabels(), taskToEdit.getStatus(),
-                taskToEdit.getDependency().updateHash(oldHash, newHash));
+        return taskToEdit.updateHash(oldHash, newHash);
     }
 
     /**
@@ -109,6 +107,16 @@ public class UniqueTaskList implements Iterable<Task> {
             }
         }
     }
+
+    /**
+     * Returns a {@code Task} with the dependency removed.
+     * @param dependantTask An immutable task passed to have its attributes copied
+     * @return A new immutable task similar to dependantTask but without dependency to dependee
+     */
+    public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
+        return dependeeTask.spliceDependency(dependeeTask);
+    }
+
 
     public void setTasks(UniqueTaskList replacement) {
         requireNonNull(replacement);
@@ -150,15 +158,6 @@ public class UniqueTaskList implements Iterable<Task> {
         return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
                 taskToEdit.getDescription(), taskToEdit.getLabels(), Status.OVERDUE,
                 taskToEdit.getDependency());
-    }
-
-    /**
-     * Returns a {@code Task} with the dependency removed.
-     * @param dependantTask An immutable task passed to have its attributes copied
-     * @return A new immutable task similar to dependantTask but without dependency to dependee
-     */
-    public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
-        return dependeeTask.spliceDependency(dependeeTask);
     }
 
     /**
