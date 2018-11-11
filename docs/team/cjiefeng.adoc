@@ -19,10 +19,10 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 * *Major enhancement*: added *import contacts function*
 ** What it does: Allows the user to import contacts from external source (link:https://contacts.google.com/[google contacts]) into EventsPlus+.
-** Justification: Users should be able to easily import contacts from external source without having to go through the trouble of adding in 
+** Justification: Users should be able to easily import contacts from external source without having to go through the trouble of adding in
 contacts 1 by 1.
-** Highlights: Users will be notified with the number of successful imported contacts. Failure of importing should be the caused by 
-bad formatting or missing mandatory fields. 
+** Highlights: Users will be notified with the number of successful imported contacts. Failure of importing should be the caused by
+bad formatting or missing mandatory fields.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=cjiefeng[Functional code & Test code]]
 
@@ -39,9 +39,9 @@ bad formatting or missing mandatory fields.
 *** Updated author name for reposense (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/123[#123])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-2/main/pull/5[#5], 
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/9[#9], 
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130], 
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-2/main/pull/5[#5],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/9[#9],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/172[#172]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-W12-4/main/issues/124[1],
   https://github.com/CS2103-AY1819S1-W12-4/main/issues/115[2],
