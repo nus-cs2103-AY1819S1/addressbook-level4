@@ -15,6 +15,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Tooltip?>
 
+<?import javafx.scene.control.skin.TableHeaderRow?>
+<?import javafx.scene.control.TableCell?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ListView?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
     <VBox alignment="CENTER_LEFT" spacing="16.0">
         <padding>
@@ -37,7 +41,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <TableView fx:id="medProbTableView"/>
+                <ListView fx:id="medProbListView"/>
               </VBox>
             </Tab>
             <Tab fx:id="medTab">
@@ -50,7 +54,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <TableView fx:id="medTableView"/>
+                <ListView fx:id="medListView"/>
               </VBox>
             </Tab>
             <Tab fx:id="alrgTab">
@@ -63,7 +67,7 @@
                 </ImageView>
               </graphic>
               <VBox>
-                <TableView fx:id="alrgTableView"/>
+                <ListView fx:id="alrgListView"/>
               </VBox>
             </Tab>
         </TabPane>
