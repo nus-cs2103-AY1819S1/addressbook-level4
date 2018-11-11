@@ -799,7 +799,7 @@ Given below is an example usage scenario and how the leave application mechanism
 
 2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the `Model` will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
-3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<25-storage-component, Storage>> component.
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
 
 ===== Viewing leave applications
 Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
@@ -815,7 +815,7 @@ image::LeaveViewActivityDiagram.png[width="400"]
 *API:* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
 
 [NOTE]
-See <<leaveapplicationlisted, How a leave applications are listed>> for further explanation of how the list of leave applications are retrieved and displayed.
+See <<LeaveApplication-DesignConsiderations-Listed, How leave applications are listed>> for further explanation of how the list of leave applications are retrieved and displayed.
 
 ===== Approving/rejecting leave applications
 ...
@@ -834,7 +834,7 @@ See <<leaveapplicationlisted, How a leave applications are listed>> for further 
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
 // end::leaveapplicationstored[]
 
-// tag::leaveapplicationlisted[]
+[[LeaveApplication-DesignConsiderations-Listed]]
 ===== Aspect: How leave applications are listed
 * **Alternative 1 (current choice):** Saved only as a part of `Person`.
 ** Pros: Easy to implement.
@@ -845,7 +845,7 @@ See <<leaveapplicationlisted, How a leave applications are listed>> for further 
 * **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
-// end::leaveapplicationlisted[]
+
 // end::leaveapplication[]
 
 === Logging
