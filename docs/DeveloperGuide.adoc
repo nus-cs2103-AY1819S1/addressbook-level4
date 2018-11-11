@@ -287,8 +287,22 @@ Classes used by multiple components are in the `ssp.scheduleplanner.commons` pac
 
 This section elaborates on how certain features are implemented.
 
+// tag::addrepeat[]
+
+=== Add Recurring Tasks
+
+The Add Repeat feature allows the user to add recurring tasks of a specified number of repeats and a specified interval between each repeat.
+
+==== Current Implementation
+
+The following sequence diagram shows how the add repeat operation works:
+
+image::AddRepeatSequenceDiagram.png[width="800"]
+
+// end::addrepeat[]
+
 // tag::undoredo[]
-=== Undo/Redo commands
+=== Undo/Redo Commands
 
 The Undo/Redo feature allows the user to revert the schedule planner to an earlier state when 'undo' is called, or a
 later state when 'redo' is called.
@@ -435,10 +449,10 @@ according to the predicate.
 
 `listweek` further implements the following operations:
 
-* `numDaysTillSunday(dateName)` -- It compute the number of days from current date until closest Sunday (exclusive of
+* numDaysTillSunday(dateName) -- It compute the number of days from current date until closest Sunday (exclusive of
 Sunday) using `dateName`. `dateName` is the name of the current day.
 
-* `appendDateList(dateList, numDaysTillSunday(dateName))` -- It generates sequential `DDMMYY` values
+* appendDateList(dateList, numDaysTillSunday(dateName)) -- It generates sequential `DDMMYY` values
 based on the result of `numDaysTillSunday(dateName)` and inserts them into `dateList` . `dateList` is a `List<String>`
 object.
 
@@ -484,8 +498,10 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks2[]
 
+
 //tag::archive[]
 === Archive Task
+
 The Archive Task feature allows user to archive completed tasks. The archived tasks are hidden from task list,
 can only be viewed through command `listarchived`. For implementation details
 regarding listing archived tasks, please refer to <<List Archived Tasks>>.
@@ -1225,7 +1241,7 @@ Step 9. The same is done for this week's progress bar but the lists are filtered
 
 The following sequence diagram shows how the progress bar mechanism works:
 
-image::ProgressBarSequenceDiagram.png[width="400"]
+image::ProgressBarSequenceDiagram.png[width="700"]
 
 ==== Design Considerations
 
@@ -1493,10 +1509,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |redo my command |correct my accidental "undo"
 
 |`* *` |student |add and view subtasks under each task |know specifically what tasks requires
-E.g CS2103T Project +
--Write User guide +
--Review Pull Requests +
--Peer Evaluation
+E.g CS2103T Project -Write User guide -Review Pull Requests -Peer Evaluation
 
 |`*` |student |add my tasks that are non-school related |have a schedule mixed with both school and non-school related tasks
 

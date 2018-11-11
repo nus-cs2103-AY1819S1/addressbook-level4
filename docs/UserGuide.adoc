@@ -105,6 +105,8 @@ When you add new tasks with new tags (tags that have not been added to any exist
 these tags will be automatically added to default category [blue]`Others`. For detailed guide about category and tags,
 please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
+// tag::addrepeat[]
+
 === Adding a Recurring Task
 
 Adds copies of the same task to a specified day in the week, for a given number of weeks. +
@@ -113,10 +115,14 @@ Adds copies of the same task to a specified day in the week, for a given number 
 ====
 Example: +
 ====
-Input: [blue]`add r/3 i/7 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
+Input: [blue]`repeat r/4 i/7 n/CS2103T Tutorial p/3 t/Tutorial d/111018 v/COM1-0210`
 
-Outcome: Adds 3 tasks named [blue]`Lecture` with priority level [blue]`3`,
-tag [blue]`CS3241`, venue at [blue]`mpsh1`, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
+Outcome: Adds 3 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
+tag [blue]`Tutorial`, venue at [blue]`COM1-0210`, and deadlines on the 11th October 2018, 18th October 2018, 25th October 2018, and 1st November 2018.
+
+The diagram below contains screenshots of the task list before and after the above command was entered:
+
+image::beforeafteraddrepeat.png[width="800"]
 ====
 The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the `add` command.
 
@@ -131,7 +137,7 @@ Due to how the Date class was implemented, there is an unintended behavior. Any 
 will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
 1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
 
-
+// end::addrepeat[]
 
 === Editing a Task
 
@@ -246,12 +252,27 @@ Lists all tasks in the schedule planner. +
 [blue]`list`
 ====
 
+// tag::listoverdue[]
+
 === Viewing Overdue Tasks
 
 Shows a list all the overdue tasks. +
 ====
 [blue]`listoverdue`
 ====
+
+Example:
+====
+input: [blue]`listoverdue` on the date 11 Nov '18 (111118)
+
+output: Shows a list of tasks due on 10 Nov '18 (101118) and before.
+
+The following diagram contains screenshots of the task list before and after the command above was entered:
+
+image::beforeafterlistoverdue.png[width="800"]
+====
+
+// end::listoverdue[]
 
 // tag::listday[]
 === Viewing Tasks Due Today
@@ -390,7 +411,7 @@ image::FirstDayCommand_UG_Before_After.png[width="500"]
 ====
 
 [NOTE]
-There would not be any visible changes upon using the command. The reflection would only occurs after relaunching the
+There would not be any visible changes upon using the command. The reflection would only occur after relaunching the
 application.
 
 [blue]`DDMMYY` refers to the date format of day, month and year. It must complies the following three rules in
