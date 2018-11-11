@@ -550,18 +550,32 @@ Due to the nature of a multi-line add command where the `Recipe` is incomplete t
   becomes a dominant choice.
 
 ===== Alternatives:
-Adding of incomplete recipe to the model and edit that recipe with the subsequent commands.
-Pros - Make use of existing add and edit command without the need of additional implementation.
+Adding of incomplete recipe to the model and edit that recipe with the subsequent commands. +
+Pros - Make use of existing add and edit command without the need of additional implementation. +
 Cons - Model contains incomplete recipe that violates the validity of recipe data. This might be exploited and in the
  process the application can be filled with incomplete recipes.
 
 ==== All-field Recipe Search
 The all-field recipe search matches keywords with details of `Recipe`.
 Each keyword goes through the matching process against the `Name`, `Tag`, `Difficulty`, `CookTime` and even
-`Ingredient` from each `Instruction` of every recipe.
+`IngredientPortion` from each `Instruction` of every recipe.
 Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
 
+
 ===== Current Implementation
+The following recipe class diagram shows the data structure of `Recipe` to support searching:
+
+image::recipe_class_diagram.png[width="1000"]
+
+Other than the basic `Recipe` details accessible via the `getters()`, nested attribute such as `IngredientPortion`
+can post difficulty for the search function since `Recipe` and `IngredientPortion` is not associated initially. To
+allow direct access to all `IngredientPortion` of that recipe, a `tabulateIngredients()` method is added. This method
+stores all
+`IngredientPortion` in the `HashMap` of `ingredients`
+ attribute by searching through all `Instruction`. As `Recipe` is immutable, the generating of the `ingredients` is
+ done in the constructor of `Recipe` (i.e. `tabulateIngredients()` is called in the constructor). This allow the
+ direct accessing all attributes required for the search to completed.
+
 To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in a predicate to
 filter away recipes that does not meet the requirement.
 
@@ -572,7 +586,7 @@ word, and `Ingredient` for any matching `IngredientDefinition`. All keywords mus
 
 The following code snippet shows how the predict determines each recipe: +
 
-include::../src/main/java/seedu/souschef/model/recipe/RecipeContainsKeywordsPredicate.java[lines=20..34]
+include::../src/main/java/seedu/souschef/model/recipe/RecipeContainsKeywordsPredicate.java[lines=19..33]
 
 The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
 
@@ -585,7 +599,14 @@ to use its getter and perform matching with its keywords. Hence, a filter via pr
 ===== Alternatives:
 Tag saving recipes that uses it. +
 Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
-Cons - Bi-directional association, increase difficulty in maintaining data integrity
+Cons - Bi-directional association, increase difficulty in maintaining data integrity +
+
+Saving IngredientPortion directly in recipe instead of individual instruction. +
+Pros - Remove the need to search through the initial every instruction to gather the ingredients for every new
+instance of recipe. Speed up the recipe add and read process. +
+Cons - Since ingredients are aggregated from instruction, by allowing IngredientPortion to be a direct attribute of
+recipe imply a possibility of mismatch between the ingredients in the instruction and the ingredients in the recipe.
+(e.g. User entering ingredients that are not used by any instruction)
 // end::recipeManagement[]
 
 
