@@ -87,20 +87,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *MeNUS* consists of five main components: account, menu, ingredient, sales and reservations management.
 
 === Accounts
+image:account.png[]
 * You can create accounts for your employees to manage the system on your behalf.
 
 === Menus
+image:menu.png[]
 * You can manage the menu by adding, editing or remove items from the menu.
 
 === Ingredients
-* You can keep track of the ingredient availability in your restaurant.
+image:ingredient.png[]
+You can keep track of the ingredient availability in your restaurant.
 
 === Sales
-* The built-in Sales Management component in MeNUS provides you with the tools you will need to keep track of
-  financial records efficiently. Several analytical features are also incorporated to assist you in
-  financial decision-making and devising marketing strategies.
+image:sales.png[float=left]
+The built-in Sales Management component in MeNUS provides you with the tools you will need to keep track of financial
+ records efficiently. Several analytical features are also incorporated to assist you in financial decision-making
+ and devising marketing strategies.
 
 === Reservations
+image:reservation.png[]
 * You can keep track of customer reservations on the system.
 
 [[Features]]
