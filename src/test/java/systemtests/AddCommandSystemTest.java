@@ -36,7 +36,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         *//**//* Case: add a recipe with all fields same as another recipe in the address book except name -> added
         *//**//*
-        toAdd = new RecipeBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new RecipeBuilder(AMY).withName(VALID_NAME_BEE).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -44,7 +44,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         *//**//* Case: add a recipe with all fields same as another recipe in the address book except phone and email
          * -> added
          *//**//*
-        toAdd = new RecipeBuilder(AMY).withDifficulty(VALID_DIFFICULTY_BOB).withCooktime(VALID_COOKTIME_BOB).build();
+        toAdd = new RecipeBuilder(AMY).withDifficulty(VALID_DIFFICULTY_1).withCooktime(VALID_COOKTIME_BOB).build();
         command = RecipeUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: add a duplicate recipe except with different phone -> rejected *//**//*
-        toAdd = new RecipeBuilder(HOON).withDifficulty(VALID_DIFFICULTY_BOB).build();
+        toAdd = new RecipeBuilder(HOON).withDifficulty(VALID_DIFFICULTY_1).build();
         command = RecipeUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 

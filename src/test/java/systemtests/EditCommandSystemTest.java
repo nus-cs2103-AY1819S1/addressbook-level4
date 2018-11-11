@@ -24,7 +24,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + DIFFICULTY_DESC_BOB + " " + COOKTIME_DESC_BOB + "  " + ADDRESS_DESC_BOB +
                 " " + TAG_DESC_HUSBAND + " ";
-        Recipe editedRecipe = new RecipeBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Recipe editedRecipe = new RecipeBuilder(BOB).withTags(VALID_TAG_STAPLE).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: undo editing the last recipe in the list -> last recipe restored *//**//*
@@ -53,7 +53,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
         + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRecipe = new RecipeBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedRecipe = new RecipeBuilder(BOB).withName(VALID_NAME_AMERICA).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but
@@ -64,7 +64,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
         + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRecipe = new RecipeBuilder(BOB).withDifficulty(VALID_DIFFICULTY_AMY)
+        editedRecipe = new RecipeBuilder(BOB).withDifficulty(VALID_DIFFICULTY_5)
         .withCooktime(VALID_COOKTIME_AMY).build();
         assertCommandSuccess(command, index, editedRecipe);
 
@@ -84,7 +84,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         recipeToEdit = getModel().getFilteredList().get(index.getZeroBased());
-        editedRecipe = new RecipeBuilder(recipeToEdit).withName(VALID_NAME_BOB).build();
+        editedRecipe = new RecipeBuilder(recipeToEdit).withName(VALID_NAME_BEE).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: filtered recipe list, edit index within bounds of address book but out of bounds of recipe list

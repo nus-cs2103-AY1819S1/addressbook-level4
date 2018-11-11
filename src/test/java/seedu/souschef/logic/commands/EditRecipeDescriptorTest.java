@@ -21,11 +21,11 @@ public class EditRecipeDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BEE).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withDifficulty(VALID_DIFFICULTY_BOB).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withDifficulty(VALID_DIFFICULTY_1).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
@@ -37,7 +37,7 @@ public class EditRecipeDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_STAPLE).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }*/
 }

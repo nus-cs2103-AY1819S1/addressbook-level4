@@ -1,7 +1,7 @@
 package seedu.souschef.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_STAPLE;
 import static seedu.souschef.testutil.TypicalRecipes.APPLE;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
@@ -55,7 +55,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(APPLE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(APPLE).withTags(VALID_TAG_STAPLE)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(APPLE, editedAlice);
         AppContentStub newData = new AppContentStub(newRecipes);
@@ -84,7 +84,7 @@ public class AddressBookTest {
     //    @Test
     //    public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
     //        addressBook.addRecipe(APPLE);
-    //        Recipe editedAlice = new RecipeBuilder(APPLE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    //        Recipe editedAlice = new RecipeBuilder(APPLE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STAPLE)
     //                .build();
     //        assertTrue(addressBook.hasRecipe(editedAlice));
     //    }
