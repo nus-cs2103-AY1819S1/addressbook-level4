@@ -18,7 +18,7 @@ import seedu.address.model.Model;
  */
 
 public class CanvasAutoResizeCommand extends CanvasCommand {
-    public static final String TYPE = COMMAND_WORD + " auto";
+    public static final String TYPE = COMMAND_WORD + " auto-resize";
 
     public static final String MESSAGE_USAGE = "Usage of canvas auto-resize: "
             + "\n- " + TYPE + " [ON/OFF]: " + "Turns auto-resize on or off."

@@ -41,7 +41,7 @@ public class HistoryListPanel extends UiPart<Region> {
 
     public HistoryListPanel() {
         super(FXML);
-        historyTitle.setText("Transformation History");
+        historyTitle.setText("History of current layer");
         historyListView.setItems(items);
         historyListView.setCellFactory(listView -> new HistoryListPanel.HistoryListViewCell());
         registerAsAnEventHandler(this);

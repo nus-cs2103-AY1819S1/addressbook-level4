@@ -21,15 +21,15 @@ public class CreateApplyCommand extends Command {
 
     public static final String COMMAND_WORD = "create";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": add a new command, customised yourself.\n"
-            + "Parameters: name operation|argument1|argument2\n"
+            + ": Adds a new custom command.\n"
+            + "Parameters: name operation|argument1|argument2 ...\n"
             + "Example: " + COMMAND_WORD + " blurgray blur|0x8 colorspace|GRAY";
     private List<Transformation> cmds;
     private String name;
 
     public CreateApplyCommand(String name, List<Transformation> cmds) {
         if (cmds.isEmpty()) {
-            throw new IllegalArgumentException("nothing inside the command arguments");
+            throw new IllegalArgumentException("Empty parameters! Please provide transformations to store.");
         } else {
             this.cmds = cmds;
             this.name = name;
@@ -83,7 +83,7 @@ public class CreateApplyCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
         }
-        return new CommandResult("successfully create " + name);
+        return new CommandResult("Successfully created " + name);
     }
 
     @Override

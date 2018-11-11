@@ -276,24 +276,6 @@ public class ModelManager extends ComponentManager implements Model {
             logger.severe(e.getMessage());
         }
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return userPrefs.equals(other.userPrefs);
-    }
-
     //=========== Update UserPrefs ==========================================================================
 
     // @@author benedictcss
@@ -390,12 +372,6 @@ public class ModelManager extends ComponentManager implements Model {
         return canvas;
     }
 
-    /*
-    public void saveCanvas(String fileName) throws IOException, InterruptedException, UnsupportedPlatformException {
-        ImageMagickUtil.saveCanvas(canvas, userPrefs.getCurrDirectory(), fileName);
-    }
-    */
-
     public void setCurrentLayer(Index i) {
         canvas.setCurrentLayer(i);
         refreshLayerList();
@@ -434,4 +410,22 @@ public class ModelManager extends ComponentManager implements Model {
                 new LayerUpdateEvent(
                         canvas.getLayerNames(), canvas.getCurrentLayerIndex()));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return userPrefs.equals(other.userPrefs);
+    }
+
 }

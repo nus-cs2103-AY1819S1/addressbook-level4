@@ -194,7 +194,17 @@ public class PreviewImage {
         return transformationSet;
     }
 
+    /**
+     * Adds a transformation to the image
+     * @param t
+     */
     public void addTransformation(Transformation t) {
+        if (currentIndex != transformationSet.getTransformations().size()) {
+            LinkedList linkedList = new LinkedList<>(
+                    transformationSet.getTransformations().subList(0, currentIndex));
+            transformationSet.setTransformations(linkedList);
+        }
+
         transformationSet.addTransformations(t);
     }
 
