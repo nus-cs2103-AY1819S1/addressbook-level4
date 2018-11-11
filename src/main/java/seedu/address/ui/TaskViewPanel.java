@@ -137,6 +137,8 @@ public class TaskViewPanel extends UiPart<Region> {
     }
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        //Try catch clause used here as both complete and dependency has several intermediate states of the task
+        //manager that might trigger this event and throw and exception.
         try {
             earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.displayedTask.get()).value);
         } catch (Exception e) {
