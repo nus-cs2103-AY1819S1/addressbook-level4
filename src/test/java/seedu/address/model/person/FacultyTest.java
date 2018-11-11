@@ -10,12 +10,12 @@ import seedu.address.testutil.Assert;
 class FacultyTest {
 
     @Test
-    public void constructor_requireNonNullError_ExceptionThrownTest() {
+    public void constructor_requireNonNullError_exceptionThrownTest() {
         Assert.assertThrows(NullPointerException.class, () -> new Faculty(null));
     }
 
     @Test
-    public void constructor_emptySpaceInput_ExceptionThrownTest() {
+    public void constructor_emptySpaceInput_exceptionThrownTest() {
         String invalidFaculty = " ";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Faculty(invalidFaculty));
     }
