@@ -607,30 +607,32 @@ Hence, all the tabs and their methods are contained in this class.
 ** *Cons:* Does not abide by SoC and SRP principle, since this one class would have to change for many reasons.
 // end::tab[]
 
-// tag::importcontacts[]
+// tag::importContacts[]
 === Import Contacts
 ==== Current Implementation
 
-`ModelManager` now implements `readImportContactsFile` and it calls on `VersionedAddressBook`. +
-`VersionAddressBook` is being called so that undo redo can work on import contacts command. +
-`VersionAddressBook` extends `AddressBook` and it implements `readImportContactsFile`. +
-`AddressBook` will call `readImportContactsFile` on `FileReader`. +
-`FileReader` will read the provided CSV file, breaking the first line into Arrays of Strings. +
+When `FileReader` is created, it will read the provided CSV file, breaking the first line into Arrays of Strings. +
 `FileReader` then take note of the index of mandatory fields:
 
 * Name
 * Email
 * Phone Number
+* Address
+* Faculty
 
-For each of the following lines until end of file, `Person` is created using index saved for each mandatory fields. +
+`ModelManager` now implements `importContacts` and it calls on `VersionedAddressBook`. +
+`VersionAddressBook` is being called so that undo redo can work on import contacts command. +
+`VersionAddressBook` extends `AddressBook` and it implements `importContacts`. +
+`importContacts` will get the list of contacts from `FileReader` and the index all all mandatory fields. +
+For each of the contact in contact list, `Person` is created using index saved for each mandatory fields. +
 Returned `Person` objects are then inserted into `UniquePersonsList` with validation. +
-The number of successful inserts and duplicated will be returned to display after reading EOF. +
+The number of successful inserts will be displayed. +
 
-The following sequence diagram shows how the readImportContactsFile operation works:
+The following sequence diagram shows how the importContactsCommand operation works:
 
 image::ImportContactsSequenceDiagram.PNG[width="800"]
+// end::importContacts[]
 
-// end::importcontacts[]
 === Show Person's faculty location visually
 ==== Current Implementation
 

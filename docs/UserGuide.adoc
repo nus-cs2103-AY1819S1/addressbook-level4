@@ -465,6 +465,7 @@ Shows all the events tagged as `lecture` or `class`
 image::find-event-lecture-class.PNG[Finding an event]
 // end::findEvent[]
 
+// tag::importContacts[]
 === Import Contacts: `importContacts`, alias `ic`
 
 Import contacts from a specified csv file. +
@@ -485,6 +486,7 @@ Examples:
 
 * `importContacts file/~/Downloads/google.csv` +
   Imports all contacts from root/Downloads/google.csv into application address book
+// end::importContacts[]
 
 === Notifications: `notification`
 
