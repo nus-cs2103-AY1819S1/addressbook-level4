@@ -1,9 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
 
 import java.util.Arrays;
@@ -50,14 +48,6 @@ public class ShowGroupCommandTest {
 
         // different word -> returns false
         assertFalse(showFirstCommand.equals(showSecondCommand));
-    }
-    @Test
-    public void execute_randomKeywords_zeroWordFound() {
-        TagContainsKeywordsPredicate predicate = preparePredicate("abc");
-        ShowGroupCommand command = new ShowGroupCommand(predicate);
-        expectedModel.updateTag(predicate);
-        assertCommandSuccess(command, model, commandHistory, "Group abc has been shown", expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredWordList());
     }
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
