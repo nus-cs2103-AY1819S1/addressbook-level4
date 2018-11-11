@@ -68,9 +68,7 @@ public class GenerateLocationCommand extends Command {
 
         String meetingPlaceId = EmbedGoogleMaps.getMeetingPlaceId();
         EventsCenter.getInstance().post(new RandomMeetingLocationGeneratedEvent(meetingPlaceId));
-        return new CommandResult(MESSAGE_SUCCESS + meetingLocationEventName.toString()
-                + "! Use editEventLocation to"
-                + " change the location of your event if you are happy with this :)");
+        return new CommandResult(createFinalSuccessMessage(meetingLocationEventName.toString()));
     }
 
     /**
@@ -105,5 +103,11 @@ public class GenerateLocationCommand extends Command {
                 || (other instanceof GenerateLocationCommand // instanceof handles nulls
                 && meetingLocationEventDate.equals(((GenerateLocationCommand) other).meetingLocationEventDate)
                 && meetingLocationEventIndex.equals(((GenerateLocationCommand) other).meetingLocationEventIndex));
+    }
+
+    public String createFinalSuccessMessage(String eventName) {
+        return MESSAGE_SUCCESS + eventName
+                + "! Use editEventLocation to"
+                + " change the location of your event if you are happy with this :)";
     }
 }
