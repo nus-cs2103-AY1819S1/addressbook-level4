@@ -40,7 +40,7 @@ public class FindAccountCommand extends Command {
         requireNonNull(model);
         model.updateFilteredAccountList(predicate);
         EventsCenter.getInstance().post(new DisplayAccountListRequestEvent());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredItemList().size()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredAccountList().size()));
     }
 
     @Override
