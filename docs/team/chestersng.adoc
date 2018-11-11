@@ -34,6 +34,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 
 ** Project management:
 *** Took on the role of *Team Lead*
+*** Designed the mock-up of the https://cs2103-ay1819s1-w16-4.github.io/main/images/Ui.png[UI]
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
@@ -42,17 +43,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 ** Community:
 *** Reviewd PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 *** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
-//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-[[UI]]
-== Contributions to the UI Design
-
-|===
-|_Given below is the mock-up of the GUI that I designed. It showcases my ability to visualise an end-product._
-|===
-
-.Mockup of CLInic UI
-image::Ui.png[width="500"]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F11-3/main/issues/193[1], https://github.com/CS2103-AY1819S1-F11-3/main/issues/176[2], https://github.com/CS2103-AY1819S1-F11-3/main/issues/180[3])
 
 == Contributions to the User Guide
 
