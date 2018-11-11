@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -82,6 +83,34 @@ public class GsonUtil {
         return saveAsList();
     }
 
+    /**
+     * Adds in the parking lots details and convert to a list.
+     * @return A List containing all the car parks information.
+     */
+    private static List<List<String>> saveAsList() {
+        List<List<String>> str = new ArrayList<>();
+
+        for (CarparkJson list : carparkList) {
+            for (String[] data : parkingData) {
+                if (list.getNumber().equals(data[0])) {
+                    list.addOn(data[1], data[2]);
+                    break;
+                } else if (list.getJsonData() == null) {
+                    list.addOn("0", "0");
+                }
+            }
+            String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
+            list.getJsonData().add(Objects.requireNonNullElse(value, "000000"));
+            str.add(list.getJsonData());
+        }
+
+        return str;
+    }
+
+    /**
+     * Gets the selected car park lots and returns it in a List.
+     * @throws IOException if unable to connect to URL.
+     */
     public static List<String> getSelectedCarparkInfo(String carparkNum) throws IOException {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
@@ -133,38 +162,10 @@ public class GsonUtil {
     }
 
     /**
-     * Adds in the parking lots details and convert to a list.
-     * @return A List containing all the car parks information.
-     */
-    private static List<List<String>> saveAsList() {
-        List<List<String>> str = new ArrayList<>();
-
-        for (CarparkJson list : carparkList) {
-            for (String[] data : parkingData) {
-                if (list.getNumber().equals(data[0])) {
-                    list.addOn(data[1], data[2]);
-                    break;
-                } else if (list.getJsonData() == null) {
-                    list.addOn("0", "0");
-                }
-            }
-            String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
-            if (value == null) {
-                list.getJsonData().add("000000");
-            } else {
-                list.getJsonData().add(value);
-            }
-            str.add(list.getJsonData());
-        }
-
-        return str;
-    }
-
-    /**
      * Gets the list of car park lots and sets it in the set.
      * @throws IOException if unable to connect to URL.
      */
-    private static void getCarparkAvailability() throws IOException {
+    public static void getCarparkAvailability() throws IOException {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
@@ -211,7 +212,7 @@ public class GsonUtil {
      * Get list of car park information without available lots information.
      * @throws IOException if unable to connect to URL.
      */
-    private static void getCarparkData() throws IOException {
+    public static void getCarparkData() throws IOException {
         String urlHalf = "https://data.gov.sg/api/action/datastore_search?"
                 + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2000&offset=";
 
@@ -261,7 +262,7 @@ public class GsonUtil {
      * If postal code is default, we will not display it or check against it.
      * @throws IOException if unable to open file.
      */
-    private static void loadCarparkPostalCode() throws IOException {
+    public static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
         InputStream in = MainApp.class.getResourceAsStream("/docs/script/postalcodeData.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -281,7 +282,7 @@ public class GsonUtil {
      * @return A string of our postal code.
      * @throws IOException if unable to connect to URL.
      */
-    static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
+    private static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
         String url = "https://developers.onemap.sg/privateapi/commonsvc/revgeocodexy?location="
                 + xcoord + "," + ycoord
                 + "&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIxNDIsInVzZXJfaWQiOjIxNDIsImVtYWlsIj"
