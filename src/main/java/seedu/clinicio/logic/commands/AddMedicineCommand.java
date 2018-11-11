@@ -3,6 +3,7 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_EFFECTIVE_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_LETHAL_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
@@ -10,6 +11,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -56,11 +58,14 @@ public class AddMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasMedicine(toAddMedicine)) {
+        if (!UserSession.isLoginAsReceptionist()) {
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
+        } else if (model.hasMedicine(toAddMedicine)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
         model.addMedicine(toAddMedicine);
+        model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddMedicine));
     }

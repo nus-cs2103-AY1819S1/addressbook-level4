@@ -4,11 +4,13 @@ package seedu.clinicio.logic.commands;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
@@ -35,6 +37,8 @@ public class AddMedicineCommandIntegrationTest {
     public void execute_newMedicine_success() {
         Medicine validMedicine = new MedicineBuilder().build();
 
+        UserSession.create(ALAN);
+
         Model expectedModel = new ModelManager(model.getClinicIo(), new UserPrefs());
         expectedModel.addMedicine(validMedicine);
         expectedModel.commitClinicIo();
@@ -45,6 +49,7 @@ public class AddMedicineCommandIntegrationTest {
 
     @Test
     public void execute_duplicateMedicine_throwsCommandException() {
+        UserSession.create(ALAN);
         Medicine medicineInList = model.getClinicIo().getMedicineList().get(0);
         assertCommandFailure(new AddMedicineCommand(medicineInList), model, commandHistory,
                 analytics, AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
