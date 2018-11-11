@@ -27,7 +27,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported to %1$s.";
     public static final String MESSAGE_NO_WRITE_PERMISSION = "Permission to write to %1$s denied. Please enter a "
-            + "different destination path.";
+        + "different destination path.";
 
     private final Path path;
 

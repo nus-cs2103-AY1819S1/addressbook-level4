@@ -16,6 +16,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
+
 /**
  * A utility class to help with building net.fortuna.ical4j.model.Calendar objects.
  */
@@ -128,7 +129,7 @@ public class CalendarBuilder {
      * Creates a customized VEvent to be put inside the default calendar.
      */
     public VEvent createEvent(Year year, Month month, int startDate, int startHour, int startMin,
-                               int endDate, int endHour, int endMin, String uid, String title) {
+                              int endDate, int endHour, int endMin, String uid, String title) {
         // ----- Create event -----
         // Start Date
         java.util.Calendar sDate = new GregorianCalendar();

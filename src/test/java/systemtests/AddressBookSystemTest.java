@@ -219,6 +219,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the calendar loaded in Calendar Panl remains unchanged.
+     *
      * @see CalendarPanelHandle#isCalendarChanged()
      */
     protected void assertCalendarUnchanged() {

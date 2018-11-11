@@ -43,7 +43,9 @@ public class CalendarPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    /** Method to load a default calendar into the border pane. */
+    /**
+     * Method to load a default calendar into the border pane.
+     */
     private void loadDefaultCalendar() {
         ICalendarAgenda iCalendarAgenda = new ICalendarAgenda();
         borderPane.setCenter(iCalendarAgenda);
@@ -54,7 +56,9 @@ public class CalendarPanel extends UiPart<Region> {
         setUpBorderPane(iCalendarAgenda);
     }
 
-    /** Sets up the border pane with button and styling. */
+    /**
+     * Sets up the border pane with button and styling.
+     */
     private void setUpBorderPane(ICalendarAgenda agenda) {
         // Set the border pane background to white
         String style = "-fx-background-color: rgba(255, 255, 255, 1);";

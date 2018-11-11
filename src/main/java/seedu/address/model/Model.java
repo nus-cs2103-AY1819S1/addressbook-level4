@@ -63,10 +63,16 @@ public interface Model {
     boolean hasPerson(Person person);
 
     //@@author ericyjw
+
     /**
      * Returns true if a person with the same name as {@code person} exists in the address book.
      */
     boolean hasPerson(Name person);
+
+    /**
+     * Initialise the budget book.
+     */
+    void initialiseBudgetBook();
 
     /**
      * Returns true if a CCA with the same CCA name as {@code Cca} exists in the budget book.
@@ -84,6 +90,7 @@ public interface Model {
     boolean hasCca(Person toAdd);
 
     //@@author
+
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -133,6 +140,7 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     //@@author ericyjw
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -178,6 +186,7 @@ public interface Model {
     void updateFilteredCcaList(Predicate<Cca> predicate);
 
     //@@author
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -204,6 +213,7 @@ public interface Model {
     void commitAddressBook();
 
     //@@author ericyjw
+
     /**
      * Saves the current budget book state for undo/redo.
      */
@@ -215,6 +225,7 @@ public interface Model {
     ObservableList<Cca> getFilteredCcaList();
 
     //@@author
+
     /**
      * Saves the email to the EmailModel.
      */
@@ -319,9 +330,11 @@ public interface Model {
     void handleEmailLoadedEvent(EmailLoadedEvent e);
 
     //@@author ericyjw
+
     /**
      * Deletes an existing CCA in the CCA list.
      */
     void deleteCca(Cca ccaToDelete);
 
+    void readXslFile();
 }

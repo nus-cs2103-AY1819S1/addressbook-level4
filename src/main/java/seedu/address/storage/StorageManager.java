@@ -78,7 +78,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public StorageManager makeCopyOf() {
         return new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
-                emailStorage, profilePictureStorage);
+            emailStorage, profilePictureStorage);
     }
 
     // ================ UserPrefs methods ==============================

@@ -29,7 +29,7 @@ public class CreateCalendarCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
-            getTypicalExistingEmails());
+        getTypicalExistingEmails());
 
     @Test
     public void constructor_nullMonth_throwsNullPointerException() {
@@ -48,9 +48,9 @@ public class CreateCalendarCommandTest {
         CreateCalendarCommand createCalendarCommand = new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
 
         String expectedMessage = String.format(CreateCalendarCommand.MESSAGE_SUCCESS, VALID_MONTH_JAN + "-"
-                + VALID_YEAR_2018 + ".ics");
+            + VALID_YEAR_2018 + ".ics");
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         expectedModel.createCalendar(VALID_YEAR_2018, VALID_MONTH_JAN);
 
         assertCommandSuccess(createCalendarCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -68,18 +68,18 @@ public class CreateCalendarCommandTest {
     @Test
     public void equals() {
         CreateCalendarCommand createJan2018CalendarCommand =
-                new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
+            new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
         CreateCalendarCommand createFeb2018CalendarCommand =
-                new CreateCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2018);
+            new CreateCalendarCommand(VALID_MONTH_FEB, VALID_YEAR_2018);
         CreateCalendarCommand createJan2017CalendarCommand =
-                new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2017);
+            new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2017);
 
         // same object -> returns true
         assertTrue(createJan2018CalendarCommand.equals(createJan2018CalendarCommand));
 
         // same values -> returns true
         CreateCalendarCommand createJan2018CalendarCommandCopy =
-                new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
+            new CreateCalendarCommand(VALID_MONTH_JAN, VALID_YEAR_2018);
         assertTrue(createJan2018CalendarCommand.equals(createJan2018CalendarCommandCopy));
 
         // different types -> returns false

@@ -85,12 +85,11 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 
+    //@@author ericyjw
     /**
      * Saves the current version of the Budget Book to the hard disk.
      * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     *
-     * @author ericyjw
      */
     void handleBudgetBookChangedEvent(BudgetBookChangedEvent bbce);
 

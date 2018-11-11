@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import seedu.address.model.person.Room;
 //@@author javenseow
+
 /**
  * Represents a storage for Profile Picture.
  */
@@ -24,8 +25,9 @@ public interface ProfilePictureStorage {
 
     /**
      * Saves the profile picture to local directory.
-     * @param  image cannot be null.
-     * @param  number cannot be null.
+     *
+     * @param image cannot be null.
+     * @param number cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveProfilePicture(BufferedImage image, Room number) throws IOException;

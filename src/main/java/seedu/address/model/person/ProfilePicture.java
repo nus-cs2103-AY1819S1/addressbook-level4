@@ -15,7 +15,7 @@ public class ProfilePicture {
     public static final String PROFILE_PICTURE_VALIDATION_REGEX =
             "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
     public static final String MESSAGE_PROFILE_PICTURE_CONSTRAINTS =
-            "Profile picture should only be a .jpg file, and not empty";
+        "Profile picture should only be a .jpg file, and not empty";
 
     public final Path filePath;
 

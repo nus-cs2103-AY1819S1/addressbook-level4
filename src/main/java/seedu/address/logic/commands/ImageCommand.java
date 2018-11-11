@@ -44,8 +44,8 @@ public class ImageCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Uploads a profile picture to the resident of "
             + "the specified room.\n"
-            + "Parameters: r/ROOM f/FILEPATH "
-            + "Example: " + COMMAND_WORD + " r/A123 f/C://Users/Documents/FILENAME.jpg";
+        + "Parameters: r/ROOM f/FILEPATH "
+        + "Example: " + COMMAND_WORD + " r/A123 f/C://Users/Documents/FILENAME.jpg";
 
     public static final String MESSAGE_SUCCESS = "Profile picture uploaded for %1$s";
     public static final String INVALID_IMAGE_ERROR = "The image provided is invalid";

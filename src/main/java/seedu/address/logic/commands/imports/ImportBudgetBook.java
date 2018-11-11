@@ -20,11 +20,11 @@ import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Entry;
 
 //@@author kengwoon
+
 /**
  * Imports XML file as budgetbook to update database.
  */
 public class ImportBudgetBook {
-
 
 
     private static final String HEADER = "ccas";
@@ -45,7 +45,6 @@ public class ImportBudgetBook {
     private Model model;
     private List<Cca> ccaList;
     private Set<Entry> entries;
-
 
 
     public ImportBudgetBook(Document doc, Model model) {
@@ -73,11 +72,11 @@ public class ImportBudgetBook {
                 Name head = new Name(element.getElementsByTagName(HEAD).item(INDEX).getTextContent());
                 Name viceHead = new Name(element.getElementsByTagName(VICEHEAD).item(INDEX).getTextContent());
                 Budget budget = new Budget(Integer.parseInt(element.getElementsByTagName(BUDGET)
-                                                                    .item(INDEX).getTextContent()));
+                    .item(INDEX).getTextContent()));
                 Spent spent = new Spent(Integer.parseInt(element.getElementsByTagName(SPENT)
-                                                                    .item(INDEX).getTextContent()));
+                    .item(INDEX).getTextContent()));
                 Outstanding outstanding = new Outstanding(Integer.parseInt(element.getElementsByTagName(OUTSTANDING)
-                                                                                    .item(INDEX).getTextContent()));
+                    .item(INDEX).getTextContent()));
                 NodeList transactionsList = element.getElementsByTagName(TRANSACTION_HEADER);
                 for (int j = 0; j < transactionsList.getLength(); j++) {
                     Node trans = transactionsList.item(j);
@@ -85,7 +84,7 @@ public class ImportBudgetBook {
                         Element transElement = (Element) trans;
 
                         String entryNum = transElement.getElementsByTagName(ENTRY_NUM)
-                                                                        .item(INDEX).getTextContent();
+                            .item(INDEX).getTextContent();
                         String date = transElement.getElementsByTagName(DATE).item(INDEX).getTextContent();
                         String amount = transElement.getElementsByTagName(AMOUNT).item(INDEX).getTextContent();
                         String log = transElement.getElementsByTagName(REMARKS).item(INDEX).getTextContent();

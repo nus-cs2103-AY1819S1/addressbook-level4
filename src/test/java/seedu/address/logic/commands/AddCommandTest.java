@@ -159,6 +159,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void initialiseBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCca(CcaName ccaName) {
             return false;
         }
@@ -367,6 +372,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteCca(Cca ccaToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void readXslFile() {
             throw new AssertionError("This method should not be called.");
         }
     }
