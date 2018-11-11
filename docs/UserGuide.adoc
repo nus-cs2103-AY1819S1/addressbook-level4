@@ -114,11 +114,12 @@ Example:
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
+
 ====
 
-Shows all the commands in the application and how to use them.
-
 === View help : `help`
+
+Shows all the commands in the application and how to use them.
 
 === User Commands
 
@@ -178,14 +179,14 @@ Format: `listUser`
 
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
-Finds users with any matching name, phone number, email, address, interest, tag. +
+Finds users with matching name, phone number, email, address, interest, tag. +
 Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
-* Any combination of the above prefixes and keywords (let's call them conditions for now) is valid. Eg. `findUser e/[EMAIL] a/[ADDRESS]` searches based on the email and address conditions.
+* Any combination of the above prefixes and keywords (let's call them conditions for now) is valid. Eg. `findUser e/EMAIL a/ADDRESS` searches based on the email and address conditions.
 * The order of the conditions does not matter.
-* The search is based on CONDITION 1 AND CONDITION 2 AND ... . For example, `findUser n/John i/dance` will search for users that have both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), `findUser i/tennis i/soccer` will search for users that have both interest 'tennis' and interest 'soccer'.
+* The search is based on CONDITION 1 AND CONDITION 2 AND ... . For example, `findUser n/John i/dance` will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), `findUser i/tennis i/soccer` will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.
 * The search for all attributes is not case sensitive. For example, `findUser n/john` will search for all users with the name 'John'.
 * Substrings or superstrings of any attribute will not be matched e.g. phone number `87438807` will not match `874388070`, and likewise, name `Ale` will not match `Alex`.
 ****
