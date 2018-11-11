@@ -20,7 +20,7 @@ public class DependencyGraph {
 
     public DependencyGraph(List<Task> taskList) {
         this.taskList = taskList;
-        for (Task task: taskList) {
+        for (Task task : taskList) {
             String hash = Integer.toString(task.hashCode());
             Set<String> edges = task.getDependencies().getHashes();
             adjacencyList.put(hash, edges);
@@ -32,18 +32,19 @@ public class DependencyGraph {
     }
 
     //===================== Graph Transformations ===================================
+
     /**
      * Invert the edges in the graph
      */
     public void invertGraph() {
         Map<String, Set<String>> newAgencyList = new HashMap<>();
-        for (String node: adjacencyList.keySet()) {
+        for (String node : adjacencyList.keySet()) {
             newAgencyList.put(node, new HashSet<>());
         }
-        for (Map.Entry<String, Set<String>> entry: adjacencyList.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : adjacencyList.entrySet()) {
             String node = entry.getKey();
             Set<String> edges = entry.getValue();
-            for (String otherNode: edges) {
+            for (String otherNode : edges) {
                 newAgencyList.get(otherNode).add(node);
             }
         }
@@ -54,11 +55,11 @@ public class DependencyGraph {
      * Prunes away tasks where the dependency is completed.
      */
     public void pruneCompletedTasks() {
-        for (Task task: this.taskList) {
+        for (Task task : this.taskList) {
             if (task.isStatusCompleted()) {
                 String hash = Integer.toString(task.hashCode());
                 //Prune away task dependencies of tasks where the dependee is completed
-                for (Set<String> set: adjacencyList.values()) {
+                for (Set<String> set : adjacencyList.values()) {
                     if (set.contains(hash)) {
                         set.remove(hash);
                     }
@@ -70,6 +71,7 @@ public class DependencyGraph {
     }
 
     //=================== Graph Operations ====================================
+
     /**
      * Updates graph and returns true if the update Task will result in a cycle in the graph
      */
@@ -88,7 +90,7 @@ public class DependencyGraph {
         Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
         Set<String> stack = new HashSet<>();
         List<String> visited = new ArrayList<>();
-        for (String node: adjacencyList.keySet()) {
+        for (String node : adjacencyList.keySet()) {
             if (unvisited.contains(node)) {
                 if (depthFirstSearch(node, unvisited, visited, stack, adjacencyList)) {
                     return true;
@@ -100,6 +102,7 @@ public class DependencyGraph {
 
     /**
      * Returns topological sort of the graph (with completed Tasks removed)
+     *
      * @return list of hashes of tasks sorted by topological order
      */
     public List<String> topologicalSort() {
@@ -107,7 +110,7 @@ public class DependencyGraph {
         Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
         Set<String> stack = new HashSet<>();
         List<String> visited = new ArrayList<>();
-        for (String node: adjacencyList.keySet()) {
+        for (String node : adjacencyList.keySet()) {
             if (unvisited.contains(node)) {
                 if (depthFirstSearch(node, unvisited, visited, stack, adjacencyList)) {
                     throw new GraphCycleException();
@@ -119,9 +122,10 @@ public class DependencyGraph {
 
     /**
      * Performs dfs on graph to check for cycles
-     * @param node next node to check
-     * @param unvisited set of unvisited nodes
-     * @param stack set of nodes in current path. Used to check cycles
+     *
+     * @param node          next node to check
+     * @param unvisited     set of unvisited nodes
+     * @param stack         set of nodes in current path. Used to check cycles
      * @param adjacencyList
      * @return true is there is a cycle
      */
@@ -134,7 +138,7 @@ public class DependencyGraph {
         unvisited.remove(node);
         stack.add(node);
         Set<String> edges = adjacencyList.getOrDefault(node, new HashSet<String>());
-        for (String nextNode: edges) {
+        for (String nextNode : edges) {
             if (depthFirstSearch(nextNode, unvisited, visited, stack, adjacencyList)) {
                 return true;
             }
@@ -147,6 +151,7 @@ public class DependencyGraph {
     }
 
     //===================== Getter methods ==============================
+
     /**
      * Return the inverted pruned graph (with their hashcodes as string)
      */

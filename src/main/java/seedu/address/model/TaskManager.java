@@ -36,8 +36,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         tasks = new UniqueTaskList();
         achievements = new AchievementRecord();
         gameManager = new GameManager();
@@ -95,25 +94,25 @@ public class TaskManager implements ReadOnlyTaskManager {
 
         // Stream of completed tasks
         Stream<Task> allUncompleted =
-            this.getTaskList().stream().filter(isCompleteTask.negate());
+                this.getTaskList().stream().filter(isCompleteTask.negate());
 
         // Checks if any of the uncompleted tasks are dependencies of
         // completed tasks. Returns true if yes.
         return
-            allUncompleted.anyMatch(uncompletedTask -> {
-                // allCompleted is deliberated created each time
-                // as calling anyMatch on it closes the stream.
-                // As such, we cannot create and reuse one single
-                // instance of the stream.
-                Stream<Task> allCompleted =
-                    this.getTaskList()
-                        .stream()
-                        .filter(isCompleteTask);
-                return
-                    allCompleted
-                        .anyMatch(completedTask ->
-                            completedTask.isDependentOn(uncompletedTask));
-            });
+                allUncompleted.anyMatch(uncompletedTask -> {
+                    // allCompleted is deliberated created each time
+                    // as calling anyMatch on it closes the stream.
+                    // As such, we cannot create and reuse one single
+                    // instance of the stream.
+                    Stream<Task> allCompleted =
+                            this.getTaskList()
+                                    .stream()
+                                    .filter(isCompleteTask);
+                    return
+                            allCompleted
+                                    .anyMatch(completedTask ->
+                                            completedTask.isDependentOn(uncompletedTask));
+                });
     }
 
     //// task-level operations
@@ -254,25 +253,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Returns the earliest time among all the dependencies of a task
+     * Returns the earliest DueDate among tasks that are dependent on a given task
+     * Tasks dependent on given task includes tasks that beyond direct dependencies.
+     * i.e. for a graph A <- B <- C,
      *
-     * @return
-     */
-    public Map<Task, DueDate> getEarliestDependentTime() {
-        DependencyGraph dg = new DependencyGraph(this.getTaskList());
-
-        Map<Task, Set<Task>> graph = getGraphOfTasksFromGraphOfHash(dg.getPrunedInvertedGraph());
-        HashMap<Task, DueDate> result = new HashMap<>();
-        for (Task task: graph.keySet()) {
-            if (!result.containsKey(task)) {
-                getEarliestDependentTimeHelper(graph, result, task);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Returns the earliest DueDate among tasks that are dependent on a task
      * @return earliest DueDate
      */
     public DueDate getEarliestDependentTimeForNode(Task node) {
@@ -287,9 +271,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Helper performs a dfs on the inverted dependency graph to find the earliest time of a task dependant among all
      * its dependencies
+     *
      * @param graph graph of all nodes in graph, mapped to the items that they are dependent on
-     * @param memo memo stores intermediate results to prevent repeated computation
-     * @param node node to find earliest dependent time of
+     * @param memo  memo stores intermediate results to prevent repeated computation
+     * @param node  node to find earliest dependent time of
      * @return earliest DueDate
      */
     public DueDate getEarliestDependentTimeHelper(Map<Task, Set<Task>> graph, Map<Task, DueDate> memo, Task node) {
@@ -297,7 +282,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             return memo.get(node);
         }
         DueDate earliestDate = node.getDueDate();
-        for (Task dependee: graph.get(node)) {
+        for (Task dependee : graph.get(node)) {
             DueDate consideredDate = getEarliestDependentTimeHelper(graph, memo, dependee);
             if (consideredDate.compareTo(earliestDate) < 0) {
                 earliestDate = consideredDate;
@@ -310,16 +295,16 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public Map<Task, Set<Task>> getGraphOfTasksFromGraphOfHash(Map<String, Set<String>> preGraph) {
         HashMap<String, Task> tasks = new HashMap<>();
-        for (Task task: this.getTaskList()) {
+        for (Task task : this.getTaskList()) {
             tasks.put(Integer.toString(task.hashCode()), task);
         }
         HashMap<Task, Set<Task>> result = new HashMap<>();
-        for (Map.Entry<String, Set<String>> entry: preGraph.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : preGraph.entrySet()) {
             String hash = entry.getKey();
             Set<String> dependencies = entry.getValue();
 
             Set<Task> newDependencies = new HashSet<>();
-            for (String dependency: dependencies) {
+            for (String dependency : dependencies) {
                 newDependencies.add(tasks.get(dependency));
             }
             result.put(tasks.get(hash), newDependencies);
@@ -349,9 +334,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TaskManager // instanceof handles nulls
-            && tasks.equals(((TaskManager) other).tasks)
-            && achievements.equals(((TaskManager) other).achievements));
+                || (other instanceof TaskManager // instanceof handles nulls
+                && tasks.equals(((TaskManager) other).tasks)
+                && achievements.equals(((TaskManager) other).achievements));
     }
 
     @Override

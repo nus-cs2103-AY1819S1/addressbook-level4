@@ -22,6 +22,7 @@ public class DependenciesTest {
     private Task sampleTaskOutsideDependency;
     private String sampleHash1;
     private String sampleHash2;
+
     @Before
     public void setUp() {
         sampleHash1 = "12345";
