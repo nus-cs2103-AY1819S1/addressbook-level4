@@ -19,7 +19,7 @@ LearnVocuabulary is a desktop application for people who prefer to use an offlin
 
 * *Minor enhancement*: Added the meaning class and updated the word class to accept the meaning attribute.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]]
 
 * *Other contributions*:
 
