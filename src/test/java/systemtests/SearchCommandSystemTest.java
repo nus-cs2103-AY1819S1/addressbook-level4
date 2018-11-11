@@ -45,12 +45,6 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: search multiple persons in hallper, 2 keywords -> 2 persons found*/
-        command = SearchCommand.COMMAND_WORD + " soc biz";
-        ModelHelper.setFilteredList(expectedModel, FIONA, DANIEL);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: search multiple persons in hallper, 2 keywords in reversed order -> 2 persons found */
         command = SearchCommand.COMMAND_WORD + " biz soc";
         assertCommandSuccess(command, expectedModel);
