@@ -66,6 +66,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author rebstan97
     /**
      * Returns an {@code RestaurantBook} with {@code Ingredient} objects only.
      */

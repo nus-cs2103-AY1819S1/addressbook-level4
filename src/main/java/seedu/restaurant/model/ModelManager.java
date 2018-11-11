@@ -205,6 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Ingredients ===============================================================================
 
+    //@@author rebstan97
     @Override
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);

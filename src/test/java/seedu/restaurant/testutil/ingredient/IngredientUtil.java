@@ -9,6 +9,7 @@ import seedu.restaurant.logic.commands.ingredient.AddIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngredientDescriptor;
 import seedu.restaurant.model.ingredient.Ingredient;
 
+//@@author rebstan97
 /**
  * A utility class for Ingredient.
  */

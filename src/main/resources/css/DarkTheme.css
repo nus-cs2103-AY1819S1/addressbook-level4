@@ -24,6 +24,7 @@
     -fx-opacity: 0.9;
 }
 
+/* @@author rebstan97 */
 .label-panel-grey {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -44,6 +45,7 @@
     -fx-opacity: 0.9;
 }
 
+/* @@author */
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
