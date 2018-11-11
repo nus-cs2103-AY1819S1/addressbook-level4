@@ -48,7 +48,7 @@ read whatever is in this block.
 
 *MeNUS*’s user interface is split into a few sections. These sections are highlighted in the image below.
 
-image::UserInterfaceHighlight.png[width="790"]
+image::UserInterfaceHighlight.png[width="1000"]
 
 Let's get started!
 // end::intro[]
