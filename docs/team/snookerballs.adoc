@@ -73,18 +73,18 @@ implementation of a new command. The challenge mainly revolved around manipulati
 were stored, read and retrieved.
 
 * *Minor enhancement*:
-. Other Minor Animations such as GUI fade-in upon login.
-. Complete Overhaul of CSS.
-. Added color to Tags
+. Other Minor Animations such as GUI fade-in upon login:
+. Complete Overhaul of CSS: https://github.com/CS2103-AY1819S1-T12-1/main/pull/42[#42], https://github.com/CS2103-AY1819S1-T12-1/main/pull/113[#113]
+. Added color to Tags: https://github.com/CS2103-AY1819S1-T12-1/main/pull/6[#6]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jaime&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Reposense Compilation]
 
 * *Other contributions*:
 
 ** Documentation:
-*** Updated the `Notification` compoenent section of the User Guide
-*** Updated the `Use Case` and `User Interface` component section of the Developer Guide
-*** Made changes to the Developer Guide. Improved language and edited diagrams:
+*** Updated the `Notification` component section of the User Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187]
+*** Updated the `Use Case`, `User Stories` and `User Interface` component section of the Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
+*** Made changes to the Developer Guide. Improved language and edited diagrams: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
 
 
 ** Community:

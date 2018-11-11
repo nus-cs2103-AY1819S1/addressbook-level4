@@ -111,6 +111,9 @@ This is the portion highlighted by the green box.
 The Notifications Panel is where any automated notifications will appear. These include warnings about your expenditure and
 saving tips that you should consider.
 
+[NOTE]
+The Notification Panel will only display a maximum of 10 notifications. If the Notification Panel is full, the oldest notification will be replaced by the newest notification.
+
 You can toggle notifications on and off with the `notification` command.
  See <<NotificationCommand, `notification`>> command for more details.
 
@@ -594,10 +597,30 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 
 Toggles the ability of `Expense Tracker` to send notifications.
 
-There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
-To toggle both, omit `n/NOTIFICATION_TYPE`.
+There are two types of notification to toggle:
 
-There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is a required parameter.
+ . Warning - Referenced by `warning` as the `NOTIFICATION_TYPE` parameter. These notifications will be sent when you are over
+ or about to go over your budget.
+
+As shown below, Tip type Notifications can be indicated by exclamation mark image displayed along with the notification:
+
+.Example of a Warning Type Notification
+image::userguide/warningExample.png[width="790"]
+
+ . Tip - Referenced by typing `tip` as the `NOTIFICATION_TYPE` parameter. These notifications are saving tips that will be sent
+ when you log onto an account on a new day.
+
+As shown below, Tip type Notifications can be indicated by light bulb image displayed along with the notification:
+
+.Example of a Tip Type Notification
+image::userguide/tipExample.png[width="790"]
+
+
+
+
+There are two toggle options, `on` and `off`, which can be indicated by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter.
+
+'TOGGLE_OPTION` is a required parameter. `NOTIFICATION_TYPE` can be omitted.
 
 Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
 
