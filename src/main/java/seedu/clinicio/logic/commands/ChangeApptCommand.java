@@ -5,8 +5,10 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.List;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -48,6 +50,7 @@ public class ChangeApptCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
