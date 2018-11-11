@@ -282,6 +282,18 @@ specification. Scroll down to the bottom of these lists to find your new module;
 it may not appear without you scrolling if there are already a number of mdoules
 entered!
 
+*Q*: Why does my CAP goal say 'Impossible'?
+*A*: Whether or not the users CAP goal is achievable is based on the grades of
+completed modules and the number of incomplete modules the user has entered. If
+the completed modules do not have suffient grades to meet the CAP goal, try to
+add some modules you are planning to take; it may be that you need an A+ is four
+other modules before your CAP goal can be achieved.
+
+ <>
+v1.0, 2018-04-11
+:toc:
+:imagesdir: assets/images
+:homepage: http://asciidoctor.org
 == Command Summary
 
 * *Add* +
