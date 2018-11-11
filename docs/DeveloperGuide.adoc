@@ -104,7 +104,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::AnakinUIClassDiagram.png[width="800"]
+image::AnakinUIClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -206,7 +206,7 @@ The user executes `newcard q/Hello? a/World` to add a new card with question "He
 
 The following sequence diagram shows how the `newcard` operation works:
 
-image::NewcardSequenceDiagram.png[width="790", align="left"]
+image::Newcard Sequence Diagram.png[width="790", align="left"]
 
 ==== Design consideration
 
@@ -229,8 +229,8 @@ image::NewcardSequenceDiagram.png[width="790", align="left"]
 
 * Deck-level operations (`newdeck`, `editdeck`, `deldeck`, `exportdeck`, `importdeck`)
  are disabled when user is inside a deck.
-* These commands are blocked while executing commands (in Logic component) by
-checking the state of Anakin through Model interface.
+* These commands will be blocked in Logic component
+by checking the state of the application through Model interface.
 
 ==== Design consideration
 
@@ -238,9 +238,9 @@ checking the state of Anakin through Model interface.
 Logic component
 
 ** Pros:
-*** Reduce possible bugs caused by executing deck-level commands while inside
-a deck.
-*** Model component handles less invalid commands.
+*** Reduce possible bugs caused by having each methods check the state of the application before
+execution.
+*** Model component does not have to handle invalid commands.
 *** Exceptions are thrown and handled inside Logic components instead of being passed
 from Model to Logic.
 ** Cons: Increase coupling between Logic and Model component.
@@ -249,52 +249,9 @@ from Model to Logic.
 
 ** Pros: Lower degree of dependency between Logic and Model (aka low coupling), thus
 make the process of maintenance, integration and testing easier.
-** Cons: Model has to check for invalid commands according to its
-state
+** Cons: Model component has to check for invalid commands according to its state for all commands.
 
 // end::handleinvalidcommands[]
-
-// tag::deckleveloperations[]
-
-=== Deck-level operations
-
-==== Current implementation
-
-Deck-level operations are supported in Anakin class:
-
-* Anakin#addDeck(Deck deck) - Add a deck.
-* Anakin#removeDeck(Deck key) - Delete a deck with specified key.
-* Anakin#updateDeck(Deck target, Deck editedDeck) - Update the information of a card inside the current deck.
-
-These operations are exposed in the Model interface as: Model#addDeck(Deck deck), Model#deleteDeck(Deck deck), Model#updateDeck(Deck target, Deck editedDeck) respectively.
-
-Given below is an example usage scenario and how these operations are executed in Model.
-
-The user executes `newdeck n/My First Deck` to add a new deck with the name `My First Deck`.
-
-****
-. The `newdeck` command calls Model#addDeck(Deck deck), or ModelManager#addDeck.
-. ModelManager, which implements Model interface, will call Anakin#addDeck method.
-. Anakin#addDeck will call method addDeck(Card toAdd).
-. UniqueDeckList#add will throw DuplicateDeckException if the card already exist in the list. Otherwise, it will add the deck to its internal ObservableList<Deck>.
-****
-
-The following sequence diagram shows how the `newdeck` operation works:
-
-image::NewDeck.png[width="790", align="left"]
-
-==== Design consideration
-
-* *Alternative 1 (current choice):* Implement the logic of deck-level operations in Anakin class.
-
-** Pros: Easy to implement and debug as all logic related with executing commands are implemented in Anakin.
-** Cons: Deck class is not informed, or notified when its UniqueCardList is modified. This might result in unexpected behaviors if a card-level command is executed and the person in charge of Deck class assumes that the UniqueCardList is unmodified.
-
-* *Alternative 2:* Implement the logic of deck-level operations together with card level operations.
-
-** Pros: The responsibility of each class is clear, only a Deck can modify its list of cards.
-** Cons: The logic for executing deck-level and card-level commands are implemented at different places. We must ensure that the implementation of each command is correct.
-// end::deckleveloperations[]
 
 // tag::deckreview[]
 === Deck Review Implementation
@@ -336,33 +293,55 @@ Given below is an example usage scenario and how the deck review mechanism behav
 Step 1. The user launches the application and he already has a deck of cards that he wants to review. He executes
 `review 1` command to review the first deck on the list.
 
-The `review` command calls `Model#getIntoDeck(Deck deck)` and subsequently `Model#startReview()`, which updates the
-`isReviewingDeck` boolean in `Anakin` to true. Also, the command calls `Model#getFilteredCardList()` and
-`Model#getIndexOfCurrentCard()` to retrieve the `Card` object of the last reviewed card. Thereafter, it posts a
-`StartReviewRequestEvent(Card card)` with the EventsCenter. `MainWindow`, on the UI side, subscribes to this event
-and switches `DeckEditScreen` with `DeckReviewScreen` by reordering the nodes in `mainAreaPlaceholder`, which is a
-JavaFX StackPane.
+****
+. The `review` command calls `Model#getIntoDeck(Deck deck)`.
+. It then calls `Model#startReview()` which updates the `isReviewingDeck` boolean in `Anakin` to true.
+. It also calls `Model#getFilteredCardList()` and `Model#getIndexOfCurrentCard()` to retrieve the `Card`
+object of the last reviewed card.
+. Thereafter, it posts a `StartReviewRequestEvent(Card card)` with the EventsCenter.
+. `MainWindow`, on the UI side, subscribes to this event and switches `DeckEditScreen` with `DeckReviewScreen` by
+reordering the nodes in `mainAreaPlaceholder`, which is a JavaFX StackPane.
+****
+
+The following sequence diagram shows how the review operation works:
+
+image::ReviewSequenceDiagram.png[]
 
 Step 2. The user sees the question displayed on the first card and comes up with his own answer. To verify his
-answer, he executes the `flipcard` command. The command posts a `FlipCardRequestEvent` with EventsCenter and
-`DeckReviewScreen` is notified of the event and switches the card with the question with the other card displaying
-the answer. This is also achieved by reordering the nodes in a StackPane but this time in `reviewAreaPlaceholder`. As
-a result, the user is presented with the answer to the question.
+answer, he executes the `flipcard` command.
 
-Step 3. The user wants to go to the next card and executes `nextcard` command. This calls `Model#getFilteredCardList
-()` and `Model#getIndexOfCurrentCard()` and increments the index by one. The command reassigns the index a value of 0
-if the incremented index is equals to the size of the list of cards. This is to ensure that calling `nextcard` on the
-last card of the deck will loop back to the first card. Using the `Card` object found at the new index, the command
-posts a `ReviewNextCardEvent` using EventsCenter and notifies `DeckReviewScreen` of the event. `DeckReviewScreen`
-uses the `Card` object to create question and answer `DeckReviewCard`s and replaces the currently displayed cards
-with these two new ones.
+****
+. The `flipcard` command posts a `FlipCardRequestEvent` with EventsCenter.
+. `DeckReviewScreen` is notified of the event and switches the card with the question with the other card displaying
+the answer. This is also achieved by reordering the nodes in a StackPane but this time in `reviewAreaPlaceholder`. As
+ a result, the user is presented with the answer to the question.
+****
+
+Step 3. The user wants to go to the next card and executes `nextcard` command.
+
+****
+. The `nextcard` command calls `Model#getFilteredCardList()` and `Model#getIndexOfCurrentCard()` and increments the index by one.
+. If the incremented index is equal to the size of the card list, it reassigns the index a value of 0. This is to
+ensure that calling `nextcard` on the last card of the deck will loop back to the first card.
+. Using the `Card` object found at the new index, the command posts a `ReviewNextCardEvent` using EventsCenter.
+. `DeckReviewScreen` is subscribed to the event and uses the `Card` object to create question and answer
+`DeckReviewCard`s and replaces the currently displayed cards with these two new ones.
+****
 
 Step 4. If the user wants to go back to review a previous card, he executes `prevcard` command. The explanation
 of the process is similar to Step 3.
 
-Step 5. When the user is done, he executes `endreview` to quit review mode. The command posts a
-`EndReviewRequestEvent` using EventsCenter and notifies `MainWindow`. `MainWindow` switches the `DeckEditScreen` back
- to the front by reordering the nodes in `mainAreaPlaceholder` and the user is able to edit his decks again.
+Step 5. When the user is done, he executes `endreview` to quit review mode.
+
+****
+. The `endreview` command posts a `EndReviewRequestEvent` using EventsCenter.
+. `MainWindow` is subscribed to the event and switches the `DeckEditScreen` back to the front by reordering the nodes
+ in `mainAreaPlaceholder` and the user is able to edit his decks again.
+****
+
+The following activity diagram summarizes what happens when a user enters deck review mode.
+
+image::ReviewActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -374,6 +353,15 @@ Step 5. When the user is done, he executes `endreview` to quit review mode. The 
 * **Alternative 2:** Store `currentCardIndex` in `Anakin`
 ** Pros: Convenient access to field by exposing method in `Model`
 ** Cons: Field is not required by many operations in `Anakin` and its use case is specific to deck reviews.
+
+===== Aspect: Iterating through cards during review
+
+* **Alternative 1 (current choice):** Post events for UI to change the currently reviewed card.
+** Pros: Logic of iterating cards is decoupled from UI.
+** Cons: Limited scalability as adding new functionality require adding more events and event handlers.
+* **Alternative 2:** Implement a ListElementPointer for the list of cards similar to command history.
+** Pros: Able to easily implement more functionality such as keyboard shortcuts for iterating cards.
+** Cons: Still requires events to trigger changes in UI.
 
 // end::deckreview[]
 
@@ -409,7 +397,7 @@ Step 4. The user continues reviewing the rest of the cards in the deck.
 Step 5. Card A is shown to the user more regularly when he reviews the same deck in the future.
 
 // tag::uichanges[]
-=== UI implementation
+=== UI Implementation
 
 ==== Previous implementation (v1.2)
 
@@ -462,8 +450,9 @@ to subsequent and previous cards in the deck. See Deck Review Implementation for
 
 ==== Problem with the old design
 
-The UI (MainWindow) constructs the cards panel by obtaining an `ObservableList` of cards from Model,
+The UI (MainWindow) constructs the displayed cards panel by obtaining an `ObservableList` of cards from Model,
 this list is assigned when UI starts, and will never be re-assigned.
+
 The UI "observes" the list and updates when it is modified.
 
 This approach works well for the deck list because Anakin contains only 1 list of decks.
@@ -481,7 +470,7 @@ reference to is actually not changed, but it is the wrong card list.
 `displayedCards` list is cleared and the new deck's list of cards is copy to the `displayedCards` list
 ** Pros: The structure of Model and UI component needs not be changed
 ** Cons: Need to keep a copy of the current card list, copying the whole list of cards
- for each `cd` operation has bad effect on performance
+ for each `cd` operation might affect performance
 
 * *Alternative 2:* Model component raises an event when its current card list's reference is changed
 
