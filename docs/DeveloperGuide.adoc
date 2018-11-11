@@ -728,7 +728,7 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 `equals()` method difficult to implement.
 // end::deleteingredient[]
 
-// tag::menuPart1[]
+// tag::menu[]
 === Menu Management feature
 Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
@@ -754,59 +754,53 @@ The item(s) must exist in the menu.
 must exist in the menu.
 
 Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<IngredientName, Integer>`
-// end::menuPart1[]
 
-==== `add-item` Command
-The `add-item` command is facilitated by `AddItemCommand` and `AddItemCommandParser`. The command takes in
-user input for `Name`, `Price` and `Tag`(optional).
-
-The `AddItemCommandParser` will parse the user input and checks if the input is valid.
-It will then construct an `Item` object.
-[NOTE]
-If the input is not valid, it will throw a `ParseException`.
-
-The `AddItemCommand` will indirectly call the `UniqueItemList#add(Item toAdd)` and the adds the item.
-After adding the item, it will save the current state for undo/redo.
-
-// tag::menuPart2[]
 ==== `sort-menu` Command
 The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
 user input for the sorting method.
 [NOTE]
 Currently only sort by name or price.
 
-The `SortMenuCommandParser` will parse the user input and checks if the input is valid.
+The `SortMenuCommandParser` will parse the user input and checks if the input is valid. If the input is valid, it
+constructs an `SortMenuCommand` object.
 [NOTE]
 If the input is not valid, it will throw a `ParseException`.
 
-The `SortMenuCommand` will indirectly call the `UniqueItemList#sortItemsByName()` or
+The `SortMenuCommand` object will indirectly call the `UniqueItemList#sortItemsByName()` or
 `UniqueItemList#sortItemsByPrice()` and the sorts the menu.
 After sorting the menu, it will save the current state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `sort-menu` command:
 
 image::SortMenuActivityDiagram.png[width="650"]
-_Figure 4.7.3.1: SortMenu Activity diagram_
+_SortMenu Activity diagram_
 
 The following sequence diagram shows how the `sort-menu` command works:
 
 image::SortMenuSequenceDiagram.png[width="1000"]
-_Figure 4.7.3.2: SortMenu Sequence diagram_
-// end::menuPart2[]
+_SortMenu Sequence diagram_
 
-==== `filter-menu` Command
-The `filter-menu` command is facilitated by `FilterMenuCommand` and `FilterMenuCommandParser`. The command takes in
-user input for the keywords.
+==== `discount-item` Command
+The `discount-item` command is facilitated by `DiscountItemCommand` and `DiscountItemCommandParser`. The command
+takes in user input for discount percentage and index or the keyword `all`.
 
-The `FilterMenuCommandParser` will parse the user input and checks if the input is valid and constructs an
-`TagContainsKeywordsPredicate` object.
+The `DiscountItemCommandParser` will parse the user input and checks if the input is valid. It will check if the
+keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParser` will construct an
+`DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
+`DiscountItemCommand` object with `isAll` set to false.
 [NOTE]
 If the input is not valid, it will throw a `ParseException`.
 
-The `FilterMenuCommand` will directly call the `ModelManager#updateFilteredItemList(Predicate<Item> predicate)` and
-set the predicate for `ModelManger#filteredItems`.
+The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount all
+items in the `UniqueItemList`. Otherwise, it will give the discount to the items specified by the index. The
+`DiscountItemCommand` object indirectly call `UniqueItemList#setItem(Item target, Item editedItem)` to give the
+discount the `Item`. It will then save the current state for undo/redo.
 
-// tag::menuPart3[]
+The following activity diagram summarizes what happens when a user executes `discount-item` command:
+
+image::DiscountItemActivityDiagram.png[width="650"]
+_DiscountItem Activity diagram_
+
 ==== Design Considerations
 
 ===== Aspect: How `Price` is parsed
@@ -818,7 +812,7 @@ set the predicate for `ModelManger#filteredItems`.
 ** Pros: Able to display the different currencies.
 ** Cons: Harder to parse as currencies have different decimal places. Additional checks need to be implemented
 to check if the currency symbol and price entered are valid.
-// end::menuPart3[]
+// end::menu[]
 
 //tag::reservations[]
 === Reservations feature
@@ -1553,6 +1547,7 @@ Use case ends.
 Steps 3a1-3a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 4.
+// end::ucmenu[]
 
 [discrete]
 === Use case: UC303 - Edit item from menu
@@ -1633,7 +1628,6 @@ Use case resumes at step 4.
 Steps 3b1-3b2 are repeated until a valid percentage is entered.
 +
 Use case resumes at step 4.
-// end::ucmenu[]
 
 [discrete]
 === Use case: UC401 - Add reservation
