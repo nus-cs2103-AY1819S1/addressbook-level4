@@ -49,7 +49,7 @@ public class ImportCommandTest {
     public void execute_import_success() throws ParseException, CommandException {
         setUp();
         File file = CORRECT_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Expected persons being added to expectedModel
@@ -81,7 +81,7 @@ public class ImportCommandTest {
     public void execute_import_duplicates() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Populate the test model with an Alex entry, a duplicate of which is in the CSV under test
@@ -110,7 +110,7 @@ public class ImportCommandTest {
     public void execute_import_unique() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_NEGATIVE_CSV.toFile();
-        ImportCommand command = parser.parseFileFromFileBrowser(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Populate the test model with an Alex entry, an (apparent) duplicate of which is in the CSV under test.

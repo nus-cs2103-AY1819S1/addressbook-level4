@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,10 +34,7 @@ public class ExportCommandTest {
         commandHistory = new CommandHistory();
     }
 
-    //@Test
-    /**
-     * Current test is disabled until future updates
-     */
+    @Test
     public void execute_export_success() throws CommandException, IOException {
         setUp();
         CommandResult result = exportCommand.execute(model, commandHistory);
