@@ -82,6 +82,21 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code reviewScore} of the {@code Card} that we are building
+     */
+    public CardBuilder withReviewScore(int reviewScore) {
+        this.reviewScore = reviewScore;
+        return this;
+    }
+    /**
+     * Sets the {@code nextReviewDate} of the {@code Card} that we are building
+     */
+    public CardBuilder withNextReviewDate(LocalDateTime nextReviewDate) {
+        this.nextReview = nextReviewDate;
+        return this;
+    }
+
     public Card build() {
         return new Card(question, answer, performance, timesReviewed, reviewScore, nextReview);
     }

@@ -123,7 +123,6 @@ public class Card {
         return timesReviewed;
     }
 
-    
     public int getConsecutiveCorrect() {
         return (this.performance.isCorrect()) ? timesReviewed + 1 : 0;
     }
