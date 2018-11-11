@@ -3,56 +3,62 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+[discrete]
 == PROJECT: ThanePark
+:sectnums:
 
 ---
 
 == Overview
 
-ThanePark is a desktop application for theme park management. The application is optimized for keyboard-oriented users and retains user-friendly graphics that informs users of their decisions in a glance.
+The purpose of this portfolio is to document my contributions to the software engineering module(CS2103T) project,
+ThanePark.
+
+ThanePark is a desktop application for theme park management. The application is optimized for keyboard-oriented users
+and retains user-friendly graphics that informs users of their decisions in a glance.
+Theme park operators can interact with it by using a Command Line Interface(CLI). It also has a Graphical User Interface
+(GUI) created with JavaFX.
+ThanePark is mostly written in Java and has about ten thousands of code.
+
+My part in the project is to implement `open` and `shutdown` commands so that operators can open and close the rides
+easily.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to open/shutdown rides*
-** What it does: allows the user to open/shutdown all rides one at a time.
-** Justification: This feature improves the product significantly because a user can open/shutdown rides in commands.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to open and shutdown rides in ThanePark*
+** What it does: allows the user to open and shutdown rides easily.
+** Justification: This feature improves the product significantly because a user can open/shutdown rides with a single
+   command.
+** Highlights: This enhancement introduces a new enum class, `Status`. It allows the user to know whether the rides are
+   in `open`, `shutdown`, or `maintenance` status.
+** Credits: The `open` and `shutdown` features are based on the way `update` feature works, with the help of
+   `UpdateRideDescriptor`.
 
-* *Minor enhancement*: Refactor add,delete and update commands.
+* *Minor enhancement*: Refactor `add`, `delete` and `update` commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+   _{give links to collated code files}_
 
 * *Other contributions*:
 
-** Project management:
-***
-** Enhancements to existing features:
-*** Refactor add,delete and update commands.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide
-** Community:
-** Tools:
-
-_{you can add/remove categories in the list above}_
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+ end-users._
 |===
+
+include::../UserGuide.adoc[tag=manage]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+ documentation and the technical depth of my contributions to the project._
 |===
 
-
-
-== PROJECT:
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=open]
