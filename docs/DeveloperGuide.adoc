@@ -1,4 +1,4 @@
-= OASIS - Developer Guide
+= = image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -662,50 +662,42 @@ Step 4. The system lists the assignments.
 // end::assignment[]
 
 // tag::archive[]
-=== View deleted employee archive feature
+=== View deleted employee archive
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
 
 ==== Proposed implementation
-The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
+The view deleted employee archive feature is facilitated by `VersionedArchiveList` and `UniquePersonList.
 
-Given below is an example usage scenario and how the UniqueArchiveList behaves at each step.
+Given below is an example usage scenario and how the `VersionedArchiveList` and `UniquePersonList` behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state and an empty `UniqueArchiveList` is maintained.
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` will be initialized with the initial archive list state and an empty `UniquePersonList` is maintained.
 
-Step 2. The user executes delete 3 command to delete the 3rd person in the address book. The Person object from the `UniquePersonList` will be transferred to the `UniqueArchiveList` and now the `UniqueArchiveList` will store all the deleted persons details.
+Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person's data.
 
-Step 3a.1 The user views `UniqueArchiveList` and executes delete 1 command to delete the 1st person in the archive list.
+Step 3. The user executes archive command to view the `UniquePersonList` in `VersionedArchiveList`.
 
-Step 3a.2 The selected Person object in the `UniqueArchiveList` will be permanently deleted from the storage.
-
-Step 3b.1 The user views `UniqueArchiveList` and execute restore 1 command to restored 1st person in the archive list to the address book.
-
-Step 3a.1 The selected Person object in the `UniqueArchiveList` will be transferred back to `UniquePersonList`.
+Step 4. OASIS shows delete person in step 2 in the archive list
 
 The following activity diagram summarizes what happens when a user executes remove and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
 
-===== Aspect: Model
-Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueArchiveList` will store 0 or more `Person` objects.
+The following sequence diagram shows how the archive operation works:
 
-The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
+
+===== Aspect: Model
+Added a `VersionedArchiveList` object. `UniquePersonList` in `VersionedArchiveList` will store 0 or more `Person` objects.
+
+The following diagram shows the class `VersionedArchiveList` added to reflect the changes in the Model component:
 
 image::modelChangeJosh.PNG[width="350]
 
 ===== Aspect: Storage
-Added a `XmlSerializableArchiveList` object to Storage component.
+Added `ArchiveListStorage` interface, `XmlArchiveListStorage` and `XmlSerializableArchiveList` classes to Storage component.
 
-The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
+The following diagram shows the interface and classes added to the Storage component:
 
 image::storageModelChangeJosh.PNG[width="350]
-
-===== Aspect: UI
-Added a `ArchiveDisplay` object to `MainWindow` of UI component.
-
-The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
-
-image::uiModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
@@ -721,7 +713,7 @@ image::uiModelChangeJosh.PNG[width="350]
 * **Alternative 1 (current choice):** Use a list to store the archived employee objects.
 ** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
 ** Cons: We must maintain a separate list for archived objects.
-* **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive[]
@@ -1601,9 +1593,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system
+.  Employee login to the system
 .  Oasis shows home page and displays list of employees
-.  Manager executes delete command on a selected employee
+.  Employee executes delete command on a selected employee
 .  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
@@ -1619,11 +1611,24 @@ Use case ends.
 +
 Use case ends.
 
+* 2b. Employee moves to archive list.
++
+** 2b1. OASIS shows archive list.
+** 2b2. Employee executes delete command on a selected employee
+** 2b3. Oasis deletes the employee from the system and shows success message.
++
+Use case ends.
+
 * 3a. The chosen employee is invalid.
 +
 ** 3a1. OASIS shows an error message.
 +
-Use case resumes at step 4.
+
+* 3b. Employee does not have required permissions.
++
+** 3a1. OASIS shows an error message.
++
+Use case ends.
 
 [discrete]
 === Use case: Apply for leave
