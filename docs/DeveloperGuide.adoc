@@ -398,7 +398,7 @@ Aspect: How to implement ToDoList Logic
 
 Aspect: How to implement ToDoList Storage
 
-* **Alternative 1 (current choice):** Modify the curernt `Storage`and `StorageManager`.
+* **Alternative 1 (current choice):** Modify the curernt `Storage` and `StorageManager`.
 
 ** Pros: Can be easilly implement.
 
