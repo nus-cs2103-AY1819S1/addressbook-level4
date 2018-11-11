@@ -44,7 +44,7 @@ public class RecipeContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_RecipeContainsKeywords_returnsTrue() {
+    public void test_recipeContainsKeywords_returnsTrue() {
         // One keyword matching name
         RecipeContainsKeywordsPredicate predicate =
                 new RecipeContainsKeywordsPredicate(Collections.singletonList("Curry"));
@@ -76,7 +76,7 @@ public class RecipeContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_RecipeDoesNotContainKeywords_returnsFalse() {
+    public void test_recipeDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         RecipeContainsKeywordsPredicate predicate = new RecipeContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new RecipeBuilder().withName("Orange Cake").build()));
