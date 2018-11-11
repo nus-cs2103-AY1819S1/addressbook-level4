@@ -367,7 +367,7 @@ With this binding, whenever `commandTextField` is updated, it will display a dro
 
 ** Pros: Can view ALL possible commands.
 
-** Cons: There is a slight delay before the drop down list appear. Can potentially slow down user's who type fast.
+** Cons: There is a slight delay before the drop down list appear. Can potentially slow down users who type fast.
 
 * Alternative 2: Immediately place predicted command as text into `commandTextField`.
 
@@ -478,7 +478,7 @@ This feature allows the user to indicate what permission to add and remove based
 
 ====== Aspect: Logic
 
-To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which can be used to retrieve the `index` of the targeted employee.
+To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which is used to retrieve the `index` of the targeted employee.
 
 All the keywords is then added to either `permissionToAdd:Set<Permission>` or `permissionToRemove:Set<Permission>` depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
 
@@ -506,7 +506,7 @@ image::modifyPermissionSequenceDiagram.png[width="350]
 
 ** Pros: Easy to implement.
 
-** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 command if they wish to both add and remove permission.
+** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 
 ==== View Permissions of employee
 
@@ -524,7 +524,7 @@ To process this command, `ViewPermissionCommandParser` simply utilise `ParserUti
 
 The index will then be used to create a `ViewPermissionCommand`.
 
-When `ViewPermissionCommand` is executed, it will retrieve the targeted employee from the `Model`, and print out the list of permission that the employee possess.
+When `ViewPermissionCommand` is executed, it will retrieve the targeted employee from the `Model`, and print out the list of permission that the employee possesses.
 
 The following is a sequence diagram that visualizes how this operation works.
 
@@ -532,7 +532,7 @@ image::viewPermissionSequenceDiagram.png[width="350]
 
 ===== Design Considerations
 
-* Alternative 1 (Current Implementation): Display permissions as the result of a command.
+* Alternative 1 (Current Implementation): Display permissions in the command box result text field.
 
 ** Pros: Easy to implement.
 
