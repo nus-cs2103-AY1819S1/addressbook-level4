@@ -492,33 +492,12 @@ it does not need to be loaded into storage. A new `QueueCommand` abstract class 
 The following code snippet shows how the `QueueCommand` is implemented:
 
 ```Java
-/**
- * Represents a command with hidden internal logic and the ability to be executed.
- */
 public abstract class QueueCommand extends Command {
 
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
-     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         throw new CommandException(Messages.MESSAGE_WRONG_EXECUTE_COMMAND);
     }
 
-    /**
-     * Executes the command and returns the result message.
-     * This version of execute is used because there are more arguments needed for the queue commands.
-     *
-     * @param model {@code Model} which the command should opreate on.
-     * @param patientQueue {@code patientQueue} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution
-     */
     public abstract CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                             ServedPatientList servedPatientList, CommandHistory history) throws CommandException;
 
@@ -529,7 +508,6 @@ One of the `QueueCommands` is the `RegisterCommand`, the follow code snippet sho
 of the PQMS.
 
 ```Java
-@Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);

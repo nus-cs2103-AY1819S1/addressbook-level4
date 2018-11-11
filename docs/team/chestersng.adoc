@@ -52,7 +52,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 |===
 
 .Mockup of CLInic UI
-image::Ui.png[width="750"]
+image::Ui.png[width="600"]
 
 == Contributions to the User Guide
 
