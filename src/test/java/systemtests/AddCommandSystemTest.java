@@ -90,12 +90,12 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         toAdd = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).withTags().build();
         assertCommandSuccess(toAdd);
 
-        /* Case: add a repeated event -> added */
+        /* Case: add a repeated event -> added
         toAdd = new EventBuilder(CS2103_LECTURE).build();
         command = AddCommand.COMMAND_WORD + REPEAT_UNTIL_DATETIME_DESC_CS2103 + START_DATETIME_DESC_CS2103
                 + VENUE_DESC_CS2103 + REPEAT_TYPE_DESC_CS2103 + END_DATETIME_DESC_CS2103
                 + DESCRIPTION_DESC_CS2103 + EVENT_NAME_DESC_CS2103;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd);*/
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
