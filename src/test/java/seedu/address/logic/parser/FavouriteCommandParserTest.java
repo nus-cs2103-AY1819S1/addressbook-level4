@@ -28,7 +28,7 @@ public class FavouriteCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_Failure() {
+    public void parse_compulsoryFieldMissing_failure() {
 
         // missing event index
         assertParseFailure(parser, EVENT_DATE_DESC_DOCTORAPPT,
@@ -40,13 +40,14 @@ public class FavouriteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_Failure() {
+    public void parse_invalidValue_failure() {
 
         // invalid event index
         assertParseFailure(parser, EVENT_DATE_DESC_DOCTORAPPT + INVALID_EVENT_CONTACT_INDEX, MESSAGE_INVALID_INDEX);
 
         // invalid event date
-        assertParseFailure(parser, INVALID_EVENT_DATE_DESC + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT, EventDate.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EVENT_DATE_DESC +
+                EVENT_CONTACT_INDEX_DESC_DOCTORAPPT, EventDate.MESSAGE_DATE_CONSTRAINTS);
 
     }
 

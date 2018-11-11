@@ -233,7 +233,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFavourite(Event favourite)  {
+        public void updateFavourite(Event favourite) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -248,7 +248,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isFavourite(Event event)   {
+        public boolean isFavourite(Event event) {
             throw new AssertionError("This method should not be called.");
         }
 

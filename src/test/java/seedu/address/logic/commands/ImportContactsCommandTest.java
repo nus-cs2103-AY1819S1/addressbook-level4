@@ -204,7 +204,7 @@ public class ImportContactsCommandTest {
         }
 
         @Override
-        public void indicateTabPanelSelectionChangedEvent()    {
+        public void indicateTabPanelSelectionChangedEvent() {
             throw new AssertionError("This method should not be called.");
         }
     }
