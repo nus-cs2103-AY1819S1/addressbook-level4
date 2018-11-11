@@ -63,6 +63,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void clearTaskData() {
+        TaskManager taskManagerWithTasksCleared = new TaskManager();
+        taskManagerWithTasksCleared.setAchievements(versionedTaskManager.getAchievementRecord());
+        this.resetData(taskManagerWithTasksCleared);
+    }
+
+    @Override
     public ReadOnlyTaskManager getTaskManager() {
         return versionedTaskManager;
     }
