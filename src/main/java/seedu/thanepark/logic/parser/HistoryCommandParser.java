@@ -12,7 +12,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the HistoryCommand
-     * and returns an HistoryCommand object for execution.
+     * and returns a HistoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
