@@ -85,7 +85,7 @@ public class CardBuilder {
     /**
      * Sets the {@code reviewScore} of the {@code Card} that we are building
      */
-    public CardBuilder withReviewScore(int reviewScore) {
+    public CardBuilder withReviewScore(double reviewScore) {
         this.reviewScore = reviewScore;
         return this;
     }

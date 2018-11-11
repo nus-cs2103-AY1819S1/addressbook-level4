@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
-import static seedu.address.testutil.TypicalDecks.DECK_A;
-import static seedu.address.testutil.TypicalDecks.DECK_B;
+//import static seedu.address.testutil.TypicalDecks.DECK_A;
+//import static seedu.address.testutil.TypicalDecks.DECK_B;
 
 import java.util.List;
 
@@ -20,19 +20,6 @@ import seedu.address.testutil.AnakinBuilder;
 public class PerformanceSortCommandTest {
 
     private final CommandHistory commandHistory = new CommandHistory();
-
-    @Test
-    public void execute_sortDeckList() throws Exception {
-//        Anakin expectedAnakin = new AnakinBuilder().withDeck(DECK_A).withDeck(DECK_B).build();
-//        List<Deck> expectedDeckList = expectedAnakin.getDeckList();
-//        ModelManager model = new ModelManager(new AnakinBuilder().withDeck(DECK_B).withDeck(DECK_A).build(),
-//                new UserPrefs());
-//        List<Deck> deckList = model.getAnakin().getDeckList();
-//
-//        SortCommand command = new SortCommand();
-//        command.execute(model, commandHistory);
-//        assertEquals(expectedDeckList, deckList);
-    }
 
     @Test
     public void execute_sortCardList() throws Exception {
