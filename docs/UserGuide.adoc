@@ -335,7 +335,7 @@ comes back from the future.
 
 [TIP]
 If under the unlikely circumstances, the increased xp or number of tasks completed is expected to exceed 1000000000,
-these fields will no long be updated.
+these fields will no longer be updated.
 
 // end::achievements-usage[]
 
