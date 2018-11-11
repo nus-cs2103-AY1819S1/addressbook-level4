@@ -771,6 +771,7 @@ In OASIS, an employee can make a leave application by specifying a description, 
 ==== Current Implementation
 
 A leave application is represented by a `LeaveApplication` model object, as follows:
+
 .Structure of a leave application
 image::LeaveApplicationModelDiagram.png[width="400"]
 
@@ -779,8 +780,10 @@ The following sequence diagram illustrates how an application for leave by an em
 .Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
 image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
 
+
 .Interactions in the Logic Component when a `leaveapply -de family holiday -da 2018-11-11` command is issued
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
+
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
