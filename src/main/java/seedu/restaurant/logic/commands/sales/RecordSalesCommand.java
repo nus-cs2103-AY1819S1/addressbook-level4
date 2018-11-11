@@ -41,7 +41,7 @@ public class RecordSalesCommand extends Command {
             + "Parameters: "
             + PREFIX_DATE + "DATE (must be in DD-MM-YYYY format) "
             + PREFIX_ITEM_NAME + "ITEM_NAME "
-            + PREFIX_QUANTITY_SOLD + "QUANTITY SOLD "
+            + PREFIX_QUANTITY_SOLD + "QUANTITY_SOLD "
             + PREFIX_ITEM_PRICE + "ITEM_PRICE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "25-09-2018 "

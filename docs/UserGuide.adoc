@@ -801,7 +801,7 @@ Selects the 7th reservation in the reservations list.
 
 The following are sales-related commands to help you with financial tracking and analysis. The terms **"sales record"**
 and **"record list"** will be used frequently under this section so it is advisable to first understand their
-definition in the <<sales-record, glossary>> before proceeding.
+definition in the <<sales-record, glossary>>.
 
 [[record-sales]]
 ==== Recording sales volume of an item: `record-sales` or `rs`
@@ -828,13 +828,13 @@ Examples:
 `record-sales` also determines all the ingredients you used and automatically deducts them from the ingredient
 list, subjected to the following conditions: +
 1) The item exists in the menu. +
-See <<add-item>> for more information. +
+See <<add-item, Section 5.4.1, “Adding an item to the menu">> for more information. +
 2) The required ingredients to make one unit of `ITEM_NAME` is specified. +
-See <<add-required-ingredient>> for more information. +
+See <<add-required-ingredient, Section 5.4.14, “Add required ingredients">> for more information. +
 3) All required ingredients exist in the ingredient list. +
-See <<add-ingredient>> for more information. +
+See <<add-ingredient, Section 5.3.1, “Adding an ingredient">> for more information. +
 4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. +
-See <<stockup>> for more information.
+See <<stockup, Section 5.3.6, “Stocking up an ingredient">> for more information.
 
 [NOTE]
 ====
@@ -874,10 +874,10 @@ image::display-sales-pic.png[width="465"]
 ==== Deleting a sales record: `delete-sales` or `des`
 
 Deletes the sales record identified by the index. +
-Format: `delete-sales ITEM_INDEX` or `des ITEM_INDEX`
+Format: `delete-sales INDEX` or `des INDEX`
 
 ****
-* Deletes the record at the specified `ITEM_INDEX`.
+* Deletes the record at the specified `INDEX`.
 * The item index refers to the index number shown in the record list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -897,8 +897,8 @@ Deletes the 2nd record from the record list.
 ==== Editing a sales record: `edit-sales` or `es`
 
 Edits the sales record identified by the index. +
-Format: `edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]` or `es ITEM_INDEX [d/DATE]
-[n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]`
+Format: `edit-sales INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE]` or `es INDEX [d/DATE]
+[n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE]`
 
 ****
 * Edits the record at the specified `INDEX`. The index refers to the index number shown in the record list.
@@ -1052,7 +1052,7 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
-==== Auto-compute sales profit
+==== Auto-compute sales profit `[coming in v2.0]`
 Automatically determines the cost incurred in each sales record and computes its profit. The concept of profit
 will be extended to the following features: +
  1) <<display-sales, Section 5.6.2, “Display sales report">> - Include a profit column in the sales report +
@@ -1176,10 +1176,10 @@ contains the data of your previous *MeNUS* folder.
 |*Select reservation* |`select-reservation INDEX` |`select-reservation 1`
 |*List reservation* |`list-reservations` |`list-reservations`
 |*Sort reservation* |`sort-reservations` |`sort-reservations`
-|*Record sales volume* |`record-sales d/DATE n/ITEM_NAME q/QUANTITY SOLD p/ITEM_PRICE` |`record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
+|*Record sales volume* |`record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` |`record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
 |*Display sales report* |`display-sales DATE` |`display-sales 25-09-2018`
-|*Edit sales record* |`edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]` |`edit-sales 3 n/Fried Omelet p/7.99`
-|*Delete sales record* |`delete-sales ITEM_INDEX` |`delete-sales 2`
+|*Edit sales record* |`edit-sales INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE]` |`edit-sales 3 n/Fried Omelet p/7.99`
+|*Delete sales record* |`delete-sales INDEX` |`delete-sales 2`
 |*Display sales chart* |`chart-sales` |`chart-sales`
 |*Rank items by total revenue* |`rank-item` |`rank-item`
 |*Rank dates by total revenue* |`rank-date` | `rank-date`
@@ -1195,7 +1195,7 @@ rather than using only text via the command line.
 
 [[sales-record]] Sales record::
 A *sales record* is created whenever you <<record-sales, record the sales volume of an item>>. It is represented by a
-single entry in the <<record-list, record list>>. It comprises 6 different attributes, namely +
+single entry in the record list. It comprises 6 different attributes, namely +
 1) `Date` of which the item was sold +
 2) `Name` of the item +
 3) `Quantity` of the item sold +
@@ -1204,5 +1204,5 @@ single entry in the <<record-list, record list>>. It comprises 6 different attri
 6) `Ingredient used` to make the amount of item as specified by the quantity sold. +
 
 [[record-list]] Record list::
-The *record list* contains all the <<sales-record, sales records>> you have recorded till date. It is shown under the
+The *record list* contains all the sales records you have recorded till date. It is shown under the
 `List of data` section of the sales component in MeNUS's <<user-interface, user interface>>.
