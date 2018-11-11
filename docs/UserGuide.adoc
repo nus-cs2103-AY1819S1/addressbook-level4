@@ -282,7 +282,7 @@ image::addmedicalrecord-example-2.png[width="650"]
 
 [[medicine]]
 // tag::addmedicine[]
-=== Medicine Inventory Management
+=== Medicine Records System
 
 ==== Adding a medicine: `addmedicine`
 
@@ -306,7 +306,7 @@ Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, 
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
 
-See below for a pictorial guide on how to add aspirin to the records:
+See below for a pictorial guide on how to add _aspirin_ to the records:
 
 .Guide to the `addmedicine` command
 image::AddMedicine.png[width="650"]
@@ -364,7 +364,7 @@ Format: `liststock`
 
 ==== Finding details of a medicine: `findmedicine`
 
-Forgot the serial number of a medicine? +
+Need the price of a medicine urgently? +
 Use `findmedicine` to search for
 the details of a medicine from its medicine name! +
 Alias: `fm` +
@@ -372,7 +372,7 @@ Format: `findmedicine MEDICINE_NAME`
 
 [TIP]
 You can enter more than one name to get the results of all medicines with the names entered. +
-See the third example below.
+Refer to the third example below.
 
 Example:
 
@@ -380,12 +380,12 @@ Example:
 Finds the details of the medicines with the name _panadol_.
 * `fm chlorpheniramine` +
 Finds the details of the medicines with the name _chlorpheniramine_.
-* `fm telfast panadol`
+* `fm telfast panadol` +
 Finds the details of all medicines with the name _telfast_ or _panadol_.
 
-See below for a pictorial guide on how to find chlorpheniramine in the records:
+See below for a pictorial guide on how to find _panadol_ and _dermasone_ in CLInic:
 
-.Guide to the `checkstock` command
+.Guide to the `findmedicine` command
 image::FindMedicine.png[width="650"]
 
 // end::findmedicine[]
@@ -399,12 +399,13 @@ Alias: `cs` +
 Format: `checkstock`
 
 [NOTE]
-Medicines that are low in supply are those whose stock level is equal to or lower than their minimum stock quantity.
+Medicines that are low in supply are defined as
+those whose stock levels are equal to or lower than their minimum stock quantities.
 
-See below for a pictorial guide on how to use checkstock:
+See below for a pictorial guide on how to use `checkstock`:
 
 .Guide to the `checkstock` command
-image::CheckStock.png["width=650"]
+image::CheckStock.png[width="650"]
 
 // end::checkstock[]
 
