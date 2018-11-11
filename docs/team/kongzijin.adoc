@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TheTracker (v1.3)
+== PROJECT: TheTracker (v1.4)
 
 ---
 
 == Overview
 
-The Tracker (v1.3) is a desktop application that helps NUS students to monitor contacts, modules and events.
+The Tracker (v1.4) is a desktop application that helps NUS students to monitor contacts, modules and events.
 
 == Summary of contributions
 
@@ -19,8 +19,6 @@ The Tracker (v1.3) is a desktop application that helps NUS students to monitor c
 similar way of how he edit a person in his address book.
 ** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
 ** Credits: This enhancement required the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
-
-* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kongzijin[Link to Code Contributions]
 
 * *Minor enhancement*: Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
 
