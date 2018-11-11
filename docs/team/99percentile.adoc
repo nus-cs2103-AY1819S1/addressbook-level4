@@ -12,33 +12,35 @@ as part of my university education.
 
 // write clearly this is to showcase contributions
 This project portfolio serves to document my contributions to this project. You can see my contributions to
-the <<Summary of Contributions, project>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
+the <<Summary of Contributions, project>>, <<Contributions to the User Guide, user guide>> and <<Contributions to the Developer Guide, developer guide>> below.
 
 CLInic is a desktop application made for clinics who wish to automate their daily operations.
 CLI in CLInic is an acronym for Command Line Interface, which is the primary method to use the application.
 Unlike traditional address books, the doctor or clinic receptionist can easily `add`, `edit` or `find` the information of
-patient or medicine by entering one simple line in the command box.
+patient or medicine by entering just one simple line in the command box.
 
 // list of main features
-Example of the main features includes:
+This is what CLInic has to offer:
 
 . Efficient management of patient and medicine information.
 . Realistic model of a clinic's daily operation and commands to manipulate data.
-. Customised receipts, medical certificates and referral letters for different clinics.
+. Customised receipts, medical certificates and referral letters for clinics.
+
+Want to make your clinic more organised? Download https://github.com/CS2103-AY1819S1-W16-4/main/releases[CLInic] and try it now for *FREE*!
 
 == Summary of Contributions
 //preface to this section to inform reader purpose of this section
-In this section, you can find the major and minor enhancement that I created for CLInic,
+In this section, you can find the major and minor enhancement that I made for CLInic,
 as well as my contributions to the project.
 
-* *Major enhancement*: Implementation of *medical records* in CLInic.
-** What it does: The clinic can automate the tracking of medical stocks.
-** Justification: The medical stocks are tracked and there are useful commands that can organise or find the information of a medicine.
-With this, you do not have to manually keep track of the change in stocks every time a medicine is dispensed.
+* *Major enhancement*: Implementation of *medicine records system* in CLInic.
+** What it does: It allows the clinic receptionist to automate the tracking of the amount of medicines.
+** Justification: The amount of medicines is tracked and there are useful commands that can organise or find the information of a medicine.
+With this, you do not have to manually note down the change in level of medicine every time a medicine is dispensed or restocked.
 ** Highlights: With the `checkstock` command, you can easily list out all medical stocks that are low in stock in just 2 seconds!
 
 * *Minor enhancement*:
-** Rephrased output messages to make it more user friendly.
+** Rephrased output messages to make it more comprehensible.
 
 * *Code contributed*:
 ** Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=99percentile[here] to see what I wrote!
@@ -48,7 +50,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 ** Spell-checked all documents to ensure consistency.
 ** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
-** Created the trailer for our project release.
+** Configured <<config.json, config.json>> to allow Reposense to detect each member's works.
 
 == Contributions to the User Guide
 

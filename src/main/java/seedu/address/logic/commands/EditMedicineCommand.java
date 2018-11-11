@@ -81,20 +81,19 @@ public class EditMedicineCommand extends Command {
         Medicine medicineToEdit = lastShownList.get(index.getZeroBased());
         Medicine editedMedicine = createEditedMedicine(medicineToEdit, medicineDescriptor);
 
-        if (!medicineToEdit.isSameMedicine(editedMedicine) && model.hasMedicine(editedMedicine)) {
+        if (!medicineToEdit.isSameMedicine(editedMedicine)
+                && model.hasMedicine(editedMedicine)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        // changes both medicine name and serial number
-        assertMedicineNameAndSerialNumberChanged(model, editedMedicine);
-
-        // only the serial number changed
-        // assert serial number changed
-        assertOnlySerialNumberChanged(model, editedMedicine);
-
-        // only the medicine name changed
-        // assert medicine name changed
-        assertOnlyMedicineNameChanged(model, editedMedicine);
+        /* The following three methods checks if the new medicine name or
+        new serial number that is entered used by other medicines in CLInic.
+        If so, they throw an error specifying which of the two is duplicated.
+        This is done as the medicine name and serial number are unique to a medicine.
+        */
+        checkBothNewMedicineNameAndSerialNumberAlreadyExisting(model, editedMedicine);
+        checkNewSerialNumberAlreadyExisting(model, editedMedicine);
+        checkNewMedicineNameAlreadyExisting(model, editedMedicine);
 
         model.updateMedicine(medicineToEdit, editedMedicine);
         model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
@@ -106,13 +105,11 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that medicine name has changed when user tries to change the medicine name, and the medicine name
-     * already exists in the records.
-     * @param model
-     * @param editedMedicine
-     * @throws CommandException
+     * Asserts that medicine name has changed when user tries to change the medicine name,
+     * and the medicine name already exists in the records.
      */
-    private void assertOnlyMedicineNameChanged(Model model, Medicine editedMedicine) throws CommandException {
+    private void checkNewMedicineNameAlreadyExisting(Model model, Medicine editedMedicine)
+            throws CommandException {
         if (model.hasMedicineName(editedMedicine)
                 && medicineDescriptor.isMedicineNameChanged()) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
@@ -120,13 +117,11 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that serial number has changed when user tries to change the serial number, and the serial number
-     * already exists in the records.
-     * @param model
-     * @param editedMedicine
-     * @throws CommandException
+     * Asserts that serial number has changed when user tries to change the serial number,
+     * and the serial number already exists in the records.
      */
-    private void assertOnlySerialNumberChanged(Model model, Medicine editedMedicine) throws CommandException {
+    private void checkNewSerialNumberAlreadyExisting(Model model, Medicine editedMedicine)
+            throws CommandException {
         if (model.hasSerialNumber(editedMedicine)
                 && medicineDescriptor.isSerialNumberChanged()) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
@@ -134,13 +129,10 @@ public class EditMedicineCommand extends Command {
     }
 
     /**
-     * Asserts that both the medicine name and serial number have changed when user tries to change the both of them,
-     * and both parameters already exists in the records.
-     * @param model
-     * @param editedMedicine
-     * @throws CommandException
+     * Asserts that both the medicine name and serial number have changed when user tries to
+     * change the both of them, and both parameters already exists in the records.
      */
-    private void assertMedicineNameAndSerialNumberChanged(Model model, Medicine editedMedicine)
+    private void checkBothNewMedicineNameAndSerialNumberAlreadyExisting(Model model, Medicine editedMedicine)
             throws CommandException {
         if (model.hasMedicineName(editedMedicine)
                 && model.hasSerialNumber(editedMedicine)
