@@ -237,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
                     firstPerson.getOccasionList().asUnmodifiableObservableList());
         } else { // Means that there are no modules within the addressbook.
             personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
-                                                        new UniqueOccasionList().asUnmodifiableObservableList());
+                    new UniqueOccasionList().asUnmodifiableObservableList());
         }
 
         if (logic.getFilteredModuleList().size() > 0) {

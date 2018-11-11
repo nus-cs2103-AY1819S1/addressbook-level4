@@ -143,7 +143,12 @@ public class Person {
         Email newEmail = this.email.makeDeepDuplicate();
         Address newAddress = this.address.makeDeepDuplicate();
         Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
-        UniqueOccasionList newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        UniqueOccasionList newUniqueOccasionList;
+        if (this.occasionList != null) {
+            newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        } else {
+            newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        }
         UniqueModuleList newUniqueModuleList = this.moduleList.makeDeepDuplicate();
         return new Person(newName, newPhone, newEmail, newAddress, newTag,
                             newUniqueOccasionList.asUnmodifiableObservableList(),

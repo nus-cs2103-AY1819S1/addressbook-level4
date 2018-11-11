@@ -44,7 +44,7 @@ public class OccasionDate {
      */
     public OccasionDate makeDeepDuplicate() {
         if (this.fullOccasionDate.equals("")) {
-            return new OccasionDate("");
+            return new OccasionDate();
         }
         OccasionDate newDate = new OccasionDate(new String(fullOccasionDate));
         return newDate;
