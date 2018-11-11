@@ -2,8 +2,6 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.commons.exceptions.TooRichException;
-
 
 /**
  * Represents a Expense's cost in the expense tracker.

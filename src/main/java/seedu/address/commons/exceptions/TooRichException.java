@@ -10,6 +10,6 @@ public class TooRichException extends ParseException {
     public static final String TOO_RICH_EXCEPTION_MESSAGE = "Are you sure you are richer than Bill Gates?";
 
     public TooRichException () {
-        super(TOO_RICH_EXCEPTION_MESSAGE );
+        super(TOO_RICH_EXCEPTION_MESSAGE);
     }
 }
