@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
+import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.JumpToRecordListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -50,7 +52,7 @@ public class RecordSalesCommand extends Command {
     public static final String MESSAGE_RECORD_SALES_SUCCESS = "Sales volume recorded: %1$s";
     public static final String MESSAGE_DUPLICATE_SALES_RECORD = "Sales record of \"%1$s\" already exists on the same "
             + "date.";
-    public static final String MESSAGE_ITEM_NOT_FOUND = "However, the item does not exist in the menu section. "
+    public static final String MESSAGE_ITEM_NOT_FOUND = "However, the item does not exist in the menu list. "
             + "Please add the item into the menu and specify the ingredients it requires to enable auto-ingredient "
             + "update.";
     public static final String MESSAGE_REQUIRED_INGREDIENTS_NOT_FOUND = "However, the ingredients required to make "
@@ -58,9 +60,9 @@ public class RecordSalesCommand extends Command {
             + "update.";
     public static final String MESSAGE_INGREDIENT_NOT_FOUND = "However, some ingredient(s) required to make this item"
             + " were not found in the ingredient list. Please add the ingredient(s) to enable auto-ingredient update.";
-    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, some ingredient(s) in the ingredient section"
-            + " fall short of that required to make the amount of item specified in the quantity sold field. Please "
-            + "stockup your ingredients to enable the auto-ingredient update.";
+    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, some ingredient(s) in the ingredient list"
+            + " is insufficient to make the amount of item specified in the quantity sold field. Please stock up your "
+            + "ingredients to enable the auto-ingredient update.";
     public static final String MESSAGE_INGREDIENT_UPDATE_SUCCESS = "Ingredient list has been updated.";
 
     private SalesRecord toAdd;
@@ -98,6 +100,8 @@ public class RecordSalesCommand extends Command {
         model.addRecord(toAdd); // record will be added even if one of the four exceptions above was caught
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayRecordListRequestEvent());
+        EventsCenter.getInstance().post(new JumpToRecordListRequestEvent(
+                Index.fromOneBased(model.getFilteredRecordList().size()))); // display the newly added record
         return new CommandResult(String.format(MESSAGE_RECORD_SALES_SUCCESS, toAdd) + "\n"
                 + ingredientsUpdateStatus);
     }
