@@ -1682,14 +1682,14 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
-.. Test case `addFriend 1,2`
-   Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is not currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.
+.. Test case `addFriend 2`
+   Expected: "Bernice Yu" is added to "Alex Yeoh" friend list.
 
 === Delete a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
-.. Test case `deleteFriend 1,2`
-   Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteFriend 2`
+   Expected: "Bernice Yu" is deleted from "Alex Yeoh" friend list.
 
 === Add an event
 .. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
@@ -1728,21 +1728,6 @@ to which the event organiser has added a poll "Meeting Date" at poll index 1. In
    Expected: The user "Charlotte Oliveiro" is added to the voter list of the option "12 December"
    The most popular options list updates to include "12 December"
 
-////
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-////
 === Saving data
 
 . Dealing with missing/corrupted data files

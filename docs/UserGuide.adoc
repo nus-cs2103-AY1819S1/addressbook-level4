@@ -91,7 +91,7 @@ Shows all the commands in the application and how to use them.
 ==== Add a user : `addUser`
 
 Adds a new user to EventOrganiser. +
-Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST]... [tt/TIMETABLE] [t/TAG]...`
 
 ****
 * INTEREST refers to the things that the user is interested in, such as hobbies.
@@ -144,7 +144,7 @@ Format: `listUser`
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]...`
+Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
@@ -169,6 +169,8 @@ Format: `deleteUser `
 ****
 * There must be a user that is currently logged in and this is the user that is intended to be deleted.
 * The events organised by this user will also be deleted.
+* After the user is deleted, no other user in the Event Organiser will be currently logged-in.
+* After the user is deleted, if the deleted user is in the friend list of another user, the other user's friend list will be updated to show that the deleted user is no longer in the list.
 ****
 
 // end::yaofeng(finduser)[]
@@ -196,15 +198,16 @@ Selects the 1st user in the results of the `find` command.
 ==== Edit a user : `editUser`
 
 Edits the currently logged-in user in the Event Organiser. +
-Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
+Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD] [i/INTEREST]... [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
 
 ****
 * At least one of the optional fields must be provided.
 * There must be a user that is currently logged in and this is the user that is intended to be edited.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
-* You can remove all the user's tags by typing `t/` without specifying any tags after it.
+* When editing interests/tags, the existing interests/tags of the user will be removed (adding of tags is not cumulative). Hence if you want to add new interests/tags on top of the existing ones, you have to include the existing ones in the edit command.
+* Due to what is mentioned above, you can remove all the user's interests/tags by typing `i/` or `t/` without specifying any interests/tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
+* After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user's friend list will be updated to show the updated version of the edited user.
 * <<Timetable>> download requires a valid nusmods link
 ****
 
