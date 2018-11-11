@@ -194,7 +194,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged <br>
      * - a file with the {@code volunteer}'s name exists.
      */
-    public static void assertExportCommandSuccess(Command command, Model model, CommandHistory actualCommandHistory,
+    public static void assertExportCommandSuccess(ExportCertCommand command, Model model, CommandHistory actualCommandHistory,
                                             String expectedMessage, Volunteer volunteer) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
@@ -203,7 +203,7 @@ public class CommandTestUtil {
             assertEquals(expectedCommandHistory, actualCommandHistory);
 
             // For now we just check if the exported file exists
-            File file = new File(ExportCertCommand.getCurrentSavePath() + volunteer.getName() + "_"
+            File file = new File(command.getCurrentSavePath() + volunteer.getName() + "_"
                     + volunteer.getVolunteerId() + ".pdf");
             assertTrue(file.exists());
         } catch (CommandException ce) {
