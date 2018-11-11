@@ -1,7 +1,6 @@
 package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 //@@author iamjackslayer
