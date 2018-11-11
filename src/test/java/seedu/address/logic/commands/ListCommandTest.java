@@ -186,8 +186,12 @@ public class ListCommandTest {
         Task newTask = DependencyCommand.createDependantTask(dependantTask, completedDependeeTask);
         model.updateTask(dependantTask, newTask);
 
+        // Remove completed tasks from filtered tasks
+        expectedModel.updateFilteredTaskList(t -> !t.isStatusCompleted());
+
         // Dependant is shown because it's dependee is completed
-        assertCommandSuccess(command, model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 5);;
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
     }
 }
