@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -81,6 +82,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private SplitPane splitPane;
+
+    @FXML
     private TabPane tabLists;
 
     @FXML
@@ -91,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab appointmentTab;
+    
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -153,15 +158,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        setUpTab();
 
-        //browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
-
         PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-        displayPanelPlaceholder.setVisible(false);
         
+        checkUserSession();
         setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -204,6 +206,27 @@ public class MainWindow extends UiPart<Stage> {
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
     }
 
+    /**
+     * Check if user is login and display accordingly
+     */
+    private void checkUserSession() {
+        if (!UserSession.isLogin()) {
+            displayPanelPlaceholder.setVisible(false);
+            patientListPanelPlaceholder.setVisible(false);
+            appointmentListPanelPlaceholder.setVisible(false);
+            queuePanelPlaceholder.setVisible(false);
+            tabLists.getTabs().clear();
+            splitPane.setVisible(false);
+        } else {
+            displayPanelPlaceholder.setVisible(true);
+            patientListPanelPlaceholder.setVisible(true);
+            appointmentListPanelPlaceholder.setVisible(true);
+            queuePanelPlaceholder.setVisible(true);
+            setUpTab();
+            splitPane.setVisible(true);
+        }
+    }
+    
     //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
@@ -292,12 +315,12 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent));
-        displayPanelPlaceholder.setVisible(true);
+        checkUserSession();
     }
 
     @Subscribe
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
-        displayPanelPlaceholder.setVisible(false);
+        checkUserSession();
     }
 }
