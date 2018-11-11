@@ -6,12 +6,12 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
+import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.testutil.sales.ReportBuilder;
 
@@ -39,7 +39,7 @@ public class SalesReportTest {
 
         SalesRecord record1 = new RecordBuilder(RECORD_DEFAULT).withDate(VALID_DATE_RECORD_TWO).build();
         SalesRecord record2 = new RecordBuilder(RECORD_ONE).withDate(VALID_DATE_RECORD_TWO).build();
-        ObservableList<SalesRecord> records = FXCollections.observableArrayList(record1, record2);
+        List<SalesRecord> records = List.of(record1, record2);
         SalesReport differentReport = new ReportBuilder(new Date(VALID_DATE_RECORD_TWO), records).build();
 
         // different report -> returns false

@@ -3,8 +3,8 @@ package seedu.restaurant.testutil.sales;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.List;
+
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
@@ -15,12 +15,11 @@ import seedu.restaurant.model.sales.SalesReport;
  */
 public class ReportBuilder {
     private static final String DEFAULT_REPORT_DATE = "02-02-2018";
-    private static final ObservableList<SalesRecord> DEFAULT_REPORT_RECORDS =
-            FXCollections.observableArrayList(RECORD_ONE,
-                    new RecordBuilder(RECORD_DEFAULT).withDate(RECORD_ONE.getDate().toString()).build());
+    private static final List<SalesRecord> DEFAULT_REPORT_RECORDS = List.of(RECORD_ONE,
+            new RecordBuilder(RECORD_DEFAULT).withDate(RECORD_ONE.getDate().toString()).build());
 
     private Date date;
-    private ObservableList<SalesRecord> records;
+    private List<SalesRecord> records;
     private double totalRevenue;
 
     /**
@@ -44,7 +43,7 @@ public class ReportBuilder {
     /**
      * Initializes the ReportBuilder with the given {@code date} and {@code records}.
      */
-    public ReportBuilder(Date date, ObservableList<SalesRecord> records) {
+    public ReportBuilder(Date date, List<SalesRecord> records) {
         this.date = date;
         this.records = records;
         computeTotalRevenue();
@@ -70,9 +69,9 @@ public class ReportBuilder {
     }
 
     /**
-     * Sets the {@code ObservableList<SalesRecord>} of the {@code SalesReport} that we are building.
+     * Sets the {@code List<SalesRecord>} of the {@code SalesReport} that we are building.
      */
-    public ReportBuilder withRecords(ObservableList<SalesRecord> records) {
+    public ReportBuilder withRecords(List<SalesRecord> records) {
         this.records = records;
         return this;
     }

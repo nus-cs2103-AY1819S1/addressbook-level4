@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import org.antlr.runtime.EarlyExitException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 

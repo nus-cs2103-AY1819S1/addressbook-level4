@@ -5,8 +5,6 @@ import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.collections.ObservableList;
-
 //@@author HyperionNKJ
 /**
  * Represents a sales report of a specific date in the sales book.
