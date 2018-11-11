@@ -66,7 +66,7 @@ I also extensively tested and reported bugs along with a comprehensive reproduct
 
 ** Documentation:
 
-I wrote a quick start guide to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application.
+I wrote a tutorial to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application. This light-hearted tutorial also serves to show that our application is relevant and solves problems that the reader can relate to.
 
 I also contributed multiple new illustrations to the developer's guide to help future contributors visualise what each command does.
 The illustrations are included in my contributions below.
@@ -76,11 +76,17 @@ The illustrations are included in my contributions below.
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
 |===
 
+include::../UserGuide.adoc[tag=getting_started1]
+
+The tutorial is truncated to account for the page limit.
+
+=== User guide command documentation
+---
 include::../UserGuide.adoc[tag=canvas]
-include::../UserGuide.adoc[tag=layer]
 
 == Contributions to the Developer Guide
 
@@ -88,5 +94,5 @@ include::../UserGuide.adoc[tag=layer]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=canvas]
+include::../DeveloperGuide.adoc[tag=layer]
 

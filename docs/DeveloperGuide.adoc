@@ -635,7 +635,9 @@ Storing arguments directly in a `List<T>` where T is a custom type that implemen
 [.underline]#Evaluation#
 
 While insertion of new layers and properties will be extremely easy, modifying or removal of existing properties will involve searching through the entire list. As a result, this method is extremely hard to grok and performs poorly upon update or deletion of existing properties.
+// end::canvas[]
 
+// tag::layer[]
 === Layer (layer) commands
 
 The `layer` command follows a similar pattern as the `canvas` command.
@@ -658,7 +660,7 @@ The following sub-commands inherit from `LayerCommand`:
 
 The following image illustrates the coordinate system adopted in Piconso.
 
-image::coords.png[width="2000"]
+image::coords.png[width="300"]
 
 The default anchor point is the top-left corner, this means that a `layer position -10x-10` command will set that layer's top left corner at `(-10, -10)`.
 It is possible to have negative co-ordinates although clipping will occur unless the canvas is set to auto-resize.
@@ -721,10 +723,10 @@ Remember that resizing and scaling is accomplished with the `apply resize` comma
 
 . The user fills in the default transparent background with a `canvas bgcolor ++#++707070` : a hex color code is accepted by `Canvas#setBackgroundColor`.
 
-.Results of various commands. The black bounding rectangle indicates the canvas size.
+.Results of various commands in sequence. The black bounding rectangle indicates the canvas size.
 image::CanvasLayersDemo.png[width="2000"]
 
-// end::canvas[]
+// end::layer[]
 
 // tag::google[]
 

@@ -28,55 +28,123 @@ Even new users that are unfamiliar with CLI will be able to easily and quickly p
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
 
-// tag::getting_started[]
+// tag::getting_started1[]
 == Getting started
 
 Let's work through a simple project in Piconso from start to finish.
+In this tutorial, you will learn how to create some of the dankest memes starting from a blank template.
 
-We'll start with a scenario in which you would like to brighten an image and place a watermark on it.
+If you ever get stuck with a command, pop down to the Features section for reference!
 
-*Step 1*
+.The Piconso team know how it feels.
 
-.Default Piconso view
-image::exampleStep0.png[width:600]
-
-Let's assume the image you would like to edit is located on your Desktop. Upon launching Piconso, it will always start at your home folder as listed on the bottom left of the application. i.e `/Users/Name`
-
-*Step 2*
-
-.After typing `ls`
-image::exampleStep1.png[width:600]
-Next, we'll type `ls` to see if the folder is relative to where you are now. `ls` lists all the folders and images located in `/Users/Desktop`
-
-*Step 3*
-
-.After typing `cd Desktop`
-image::exampleStep2.png[width:600]
-Type `cd Desktop` to move to that folder. `cd` and `ls` are common notations used in CLI-based commands for file navigation, so no need to worry if you're a new user! +
-
-Upon moving into the `Desktop` folder, you may notice that the bottom left area labelled *Image in directory batch* is showing a few images. These are the first 10 images in your `Desktop`, and they will be labelled with an index based on alphabetical order of their names.
-
-*Step 4*
-
-.After typing `open 1`
-image::exampleStep3.png[width:600]
-For this example we'll be selecting the second image for editing. We'll open it with `open 2`
-
-*Step 5*
-
-.After typing `apply contrast`
-image::exampleStep4.png[width:600]
-To increase the contrast of the image, type `apply contrast`.
-
-*Step 6*
-
-.After adding a layer`
-image::exampleStep5.png[width:600]
-After increasing the contrast of the image, we'll be adding our watermark (image 1) onto the image. Type `layer add 1`. The new image is complete!
+image::tutorial/before-after.png[width:2000]
 
 
-There are a range of `apply` commands we provide to cater many different transformations. We'll be explaining each of them in Section 4.6 below.
-// end::getting_started[]
+**Ready to start your Piconso journey?**
+
+. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started!
+. Unzip the files into somewhere easy to access, like your Pictures folder.
+. Start Piconso!
+. Use the `cd` and `ls` commands to get to the folder with your unzipped assets.
+You can use the `TAB` key to auto-complete pesky folder names! If everything went well, you should see all your images show up in the Image Panel.
+
+.Images and their corresponding indexes are showing up!
+image::tutorial/step 1.png[width:2000]
+
+[start=5]
+. See the number below the base image? That's the __index__ of the image. It might be different depending on your folder's content. If you don't see it within the first ten images, use the `next` and `prev` command to navigate!
+. Open the image simply by typing `open [index]`. __(Substitute index with the number you noted down just now)__
+. You should see the base template in all its glory.
+
+// end::getting_started1[]
+
+// tag::getting_started2[]
+
+.Ready to rumble.
+image::tutorial/step 2.png[width:2000]
+
+[start=8]
+. Now we can start layering the other images on top of the base image. Let's start by adding the coveralls logo.
+We do that by using the `layer add` command. The logo is at index 3 for us so we enter `layer add 3`.
+
+.Not exactly where we want it but it's a start.
+image::tutorial/step 3.png[width:2000]
+
+[start=9]
+. The logo is a bit too big for our liking so let's resize it a bit. Start by selecting the layer that the logo is on with a quick `layer select 2`.
+. Follow up with `apply resize 70%` and put Coveralls down a peg or two.
+
+.Why don't you pick on someone your own **SIZE** huh? Get it? Size?
+image::tutorial/step 4.png[width:2000]
+
+[start=11]
+. The logo isn't where we want it so let's move it right to the balloon.
+Hit it with a `layer position 295x50`.
+
+.And that's for rejecting my pull request!
+image::tutorial/step 5.png[width:2000]
+
+[start=12]
+. Repeat steps 8 - 11 to place `regret.png` somewhere on the pink monster. Remember to select the new layer before you start to resize and reposition! __(Psst. resize for 60% and move it to (5, 450) if you don't feel like experimenting.)__
+
+.Do androids dream of 100% code coverage?
+image::tutorial/step 6.png[width:2000]
+
+[start=13]
+. Let's save our work before we **DEEP FRY** the living daylights out of it! You can do that by typing `save arrangement.png` or if you're feeling adventurous just `save` will overwrite your current file irreversibly.
+. Open our file again, refer to step 5 and 6 if you need help.
+. Now we can begin to use some of the more advanced features in Piconso! We add some noise to the image with `apply raw +noise gaussian`.
+. Feel free to repeat the step 15 a few times to get the desired amount of noise! We did it five times to be sure. If you ever go overboard, use the `undo` command to ... undo the previous command. But face it, you're going to `redo` it anyway.
+
+.Noisy indeed.
+image::tutorial/step 7.png[width:2000]
+
+[start=17]
+. Now we bump the contrast up, **way __way__** up with `apply raw -contrast-stretch 15%`.
+. Brightness and saturation gets the same boost with `apply raw -modulate 120,120`.
+. Apply the finishing touches with an unsharp mask! `apply raw -unsharp 0x05`. Now the meme is starting to take shape!
+
+.New and improved image, now with 500% more noise, 120% more brightness, 120% more saturation!
+image::tutorial/step 8.png[width:2000]
+
+[start=20]
+. We are almost done! Repeat steps 8 - 11 again to slap some of the emojis on.
+You can use the `apply rotate [degree]` command to spice the meme up a bit. If you're short on time, we've provided the exact resize and new positions:
+
+ For the crying emoji:
+    layer position 125x330
+    apply resize 20%
+    apply rotate 75
+
+ For the 2 OK emojis:
+    apply resize 10%
+    layer position 270x390
+    apply rotate 80
+
+.You're finna gonna yeet this image.
+image::tutorial/step 9.png[width:2000]
+
+[start=21]
+. Save the image again (`save lit_meme.png`) and we're ready to upload our image!
+. Login with the aptly named `login` command. Don't worry, Piconso will never store your password in any shape or form!
+. Upload the file with `g ul <lit_meme.png>`. You should see a confirmation message when the upload is complete.
+. `logout` when you're done! Congrats, you have just went from to a Piconso-certified meme hero!
+
+Before we let you go, wonder how we made the very first image you saw? Try this before you go!
+
+[start=25]
+. Add the base image back in, the base image will take up all the canvas space but don't worry.
+. Select the layer which the original image is on and move it out of the way
+
+ layer select 5
+ layer position -450x0
+
+[start=28]
+. Use `canvas auto-resize on` to expand the canvas to show both of them.
+. Remove the background color of the canvas with `canvas bgcolor none` or change it to something you like!
+
+// end::getting_started2[]
 
 [[Features]]
 == Features
@@ -211,7 +279,7 @@ on the canvas
 Format2: `apply raw [arg1] [arg2]`: pass the arguments entered directly to ImageMagick
 
 [WARNING]
-this format is for whom knows how to use ImageMagick, the effect for the arguments cannot be ensured.
+**Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
 
 // end::convert[]
 // tag::create[]
@@ -303,6 +371,10 @@ Example:
 === Canvas operations : `canvas`
 
 ==== Changing the size of the canvas: `canvas size`
+You can change the size of the canvas to with this command. Remember that the effects of `canvas auto-resize` takes precedence!
+If `canvas auto-resize` is `off`, cropping might potentially occur.
+
+
 Format: `canvas size (NEW_SIZE)`
 
 [NOTE]
@@ -316,6 +388,9 @@ Examples:
 * `canvas size` - Prints the current size.
 
 ==== Changing the background color of the canvas: `canvas bgcolor`
+You can change the background color of the canvas with this command. This is only visible if the canvas is larger than all the images placed on it.
+See the examples for the formats that your colors can take.
+
 Format: `canvas bgcolor (NEW_COLOR)`
 
 [NOTE]
@@ -332,9 +407,12 @@ Examples:
 * `canvas bgcolor` - Prints the background colour.
 
 ==== Allowing the canvas to auto-resize: `canvas auto-resize [ON|OFF]`
+This command allows you to turns the auto-resize for the canvas on or off.
+When auto-resize is on, it can potentially override the size manually specified with the `canvas size` command.
+When `on`, the canvas expands as required to ensure that no clipping occurs.
+
 Format : canvas auto-resize [ON|OFF]
 
-Turns on/off the auto-resize for the canvas.
 [NOTE]
 ====
 New canvases default to having auto-resize off.
@@ -352,37 +430,43 @@ Examples:
 === Layer operations : `layer`
 
 ==== Adding a new layer: `layer add [INDEX] (LAYER_NAME)`
+You can select the image at the provided index and add it to the current canvas with this command.
+
 [NOTE]
 ====
 If the optional parameter LAYER_NAME is not provided, one will be automatically generated.
 ====
-Selects the image at the provided index and adds it to the current canvas at the very top.
 
 Examples:
 
 * `layer add 4` - Adds the image at index 4 to the canvas.
-* `layer add 1 background layer` - Adds the image at index 1 to the canvas as a layer named `backround layer`.
 
 ==== Removing a layer: `layer remove [INDEX]`
+
+This command allows you to permanently removes a layer from canvas.
+
 [WARNING]
 ====
 This operation is not reversible! Be careful when removing layers!
 ====
 
-Permanently removes a layer from canvas.
-
 ==== Selecting a layer to work on: `layer select [INDEX]`
-Selects a layer to that all `convert` operations will work on.
+This command allows you to a layer to that all `apply` and `layer position` operations will work on.
+The index of a layer is displayed before its name in the Layers panel.
+
+Examples:
+
+* `layer select 2` : Selects the layer at index 2.
 
 ==== Swapping the order of two layers: `layer swap [TO_INDEX] [FROM_INDEX]`
-Changes the order of any two distinct layers.
+You can change the order of any two distinct layers with this command. The lower the index, the further behind it will be.
 
 Examples:
 
 * `layer swap 1 2` : Changes the order of layer 1 and layer 2.
 
 ==== Positioning a layer: `layer position [POSITION]`
-Sets the x and y co-ordinates of the current layer.
+This command allows you to set the x and y co-ordinates of the current layer.
 (0,0) is defined to be the top left of the screen.
 
 Examples:
@@ -485,6 +569,14 @@ e.g. `save exampleImage.jpg` +
 * *Undo All* : `undo-all` +
 * *Redo* : `redo` +
 * *Redo All* : `redo-all` +
+* *Canvas auto-resize* : `canvas auto-resize [on/off]`
+* *Background color* : `canvas bgcolor [color]`
+* *Canvas size* : `canvas size (heightxwidth)`
+* *Add layer* : `layer add [INDEX]`
+* *Delete layer* : `layer delete [INDEX]`
+* *Reposition layer* : `layer position [newXxnewY]`
+* *Select layer* : `layer select [INDEX]`
+* *Swap the order of two layers* : `layer swap [INDEX 1] [INDEX 2]`
 * *Login* : `login` +
 * *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
 * *Download* : `g dl /i<IMAGE_NAME> OR g dl /a<ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +

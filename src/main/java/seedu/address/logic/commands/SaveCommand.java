@@ -8,7 +8,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.oracle.tools.packager.UnsupportedPlatformException;
+
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,6 +27,7 @@ public class SaveCommand extends Command {
             + ": save the current preview image with the name specified.\n"
             + "Parameters: fileName\n"
             + "Example: " + COMMAND_WORD + " modified.png";
+    public static final String OUTPUT_FAILURE = "Saving file as %s failed!";
     private String fileName;
     private String format;
     private boolean originalFile;
@@ -66,10 +70,13 @@ public class SaveCommand extends Command {
                 String[] parts = saveFile.getName().split("\\.");
                 format = parts[parts.length - 1];
             }
-            BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
+            BufferedImage savedImage = ImageMagickUtil.processCanvas(model.getCanvas());
+            fileName = saveFile.getName();
             ImageIO.write(savedImage, format, saveFile);
-        } catch (IOException e) {
+        } catch (UnsupportedPlatformException e) {
             throw new CommandException(e.getMessage());
+        } catch (IOException | InterruptedException e) {
+            throw new CommandException(String.format(OUTPUT_FAILURE, fileName));
         }
         model.updateEntireImageList();
         return new CommandResult(String.format("%s successfully saved!", fileName));
