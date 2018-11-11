@@ -3,6 +3,7 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_EFFECTIVE_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_LETHAL_DOSAGE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
@@ -42,7 +43,6 @@ public class AddMedicineCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the medicine inventory";
-    public static final String MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST = "You are not logged in as a receptionist";
 
     private final Medicine toAddMedicine;
 
