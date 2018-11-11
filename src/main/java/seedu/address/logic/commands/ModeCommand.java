@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.game.GameMode;
 
 /**
  * Changes the game mode.
@@ -29,7 +30,7 @@ public class ModeCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + DECREASING_MODE + " " + EXTREME_MODE;
 
     public static final String MESSAGE_MODE_CHANGE_SUCCESS = "Game mode successfully changed!";
-    public static final String MESSAGE_CURRENT_MODE = "You are currently using the %s mode!";
+    public static final String MESSAGE_CURRENT_MODE = "You are currently using the %s mode! \n%s";
 
     private final String newGameModeName;
     private final String newGameDifficultyName;
@@ -54,9 +55,10 @@ public class ModeCommand extends Command {
         requireNonNull(model);
 
         if (newGameModeName == null && newGameDifficultyName == null) {
-            String modeName = model.getTaskManager().getGameManager().getGameMode().getClass().getSimpleName();
+            GameMode gameMode = model.getTaskManager().getGameManager().getGameMode();
+            String modeName = gameMode.getClass().getSimpleName();
             String shortName = modeName.split("Mode")[0];
-            return new CommandResult(String.format(MESSAGE_CURRENT_MODE, shortName));
+            return new CommandResult(String.format(MESSAGE_CURRENT_MODE, shortName, gameMode.getDescription()));
         } else if (newGameDifficultyName == null) {
             model.updateGameMode(newGameModeName);
         } else {

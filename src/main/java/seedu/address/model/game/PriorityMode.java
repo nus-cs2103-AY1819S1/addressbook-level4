@@ -59,4 +59,10 @@ public class PriorityMode extends GameMode {
     public int getHighXp() {
         return completedMultiplier;
     }
+
+    @Override
+    public String getDescription() {
+        return String.format("Completing a task will earn you %d times the priority value as xp, or %d times the xp "
+                + "if the task is overdue.", completedMultiplier, overdueMultiplier);
+    }
 }

@@ -114,4 +114,11 @@ public class IncreasingMode extends GameMode {
     public int getHighXp() {
         return boostedXp;
     }
+
+    @Override
+    public String getDescription() {
+        return String.format("Completing tasks will give you a base amount of %d xp, increasing to %d xp gradually "
+                        + "beginning %d days before the due \ndate, to reflect increasing urgency.",
+                initialXp, boostedXp, daysBefore);
+    }
 }

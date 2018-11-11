@@ -115,4 +115,11 @@ public class DecreasingMode extends GameMode {
     public int getHighXp() {
         return completedXp;
     }
+
+    @Override
+    public String getDescription() {
+        return String.format("Completing tasks at least %d days before they are due will earn you %d xp, "
+                + "decreasing gradually \ntill %d xp for a task completed just on time.",
+                daysBefore, completedXp, overdueXp);
+    }
 }

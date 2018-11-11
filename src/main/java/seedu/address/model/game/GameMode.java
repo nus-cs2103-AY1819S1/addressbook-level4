@@ -80,4 +80,6 @@ public abstract class GameMode {
     abstract public int getLowXp();
 
     abstract public int getHighXp();
+
+    abstract public String getDescription();
 }
