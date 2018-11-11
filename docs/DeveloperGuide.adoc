@@ -827,6 +827,16 @@ Use case ends.
 
 Use case ends.
 
+=== Use case: Viewing Command History
+==== MSS
+. User requests to view command history.
+. Application displays command history.
+ Use case ends.
+==== Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no command history.
+ Use case ends.
+
 === Use case: Add task
 ==== MSS
 . User requests to add a task in the list
@@ -993,4 +1003,3 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
