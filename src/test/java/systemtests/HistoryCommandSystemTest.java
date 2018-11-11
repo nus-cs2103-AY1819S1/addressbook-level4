@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
@@ -39,14 +39,14 @@ public class HistoryCommandSystemTest extends ThaneParkSystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the history window is open the UI updates correctly for a command execution
-        executeCommand(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HistoryCommand.MESSAGE_HISTORY_WINDOW, getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredRideList());
+        assertListMatching(getRideListPanel(), getModel().getFilteredRideList());
         // assert that the status bar too is updated correctly while the history window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

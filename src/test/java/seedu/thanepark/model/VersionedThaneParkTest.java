@@ -18,9 +18,9 @@ import seedu.thanepark.testutil.AddressBookBuilder;
 
 public class VersionedThaneParkTest {
 
-    private final ReadOnlyThanePark addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyThanePark addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyThanePark addressBookWithCastle = new AddressBookBuilder().withPerson(CASTLE).build();
+    private final ReadOnlyThanePark addressBookWithAmy = new AddressBookBuilder().withRide(AMY).build();
+    private final ReadOnlyThanePark addressBookWithBob = new AddressBookBuilder().withRide(BOB).build();
+    private final ReadOnlyThanePark addressBookWithCastle = new AddressBookBuilder().withRide(CASTLE).build();
     private final ReadOnlyThanePark emptyAddressBook = new AddressBookBuilder().build();
 
     @Test

@@ -23,31 +23,31 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRide_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasRide(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasRide_rideNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasRide_rideInAddressBook_returnsTrue() {
         modelManager.addRide(ACCELERATOR);
         assertTrue(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRideList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredRideList().remove(0);
     }
 
     @Test
     public void equals() {
-        ThanePark addressBook = new AddressBookBuilder().withPerson(ACCELERATOR).withPerson(BIG).build();
+        ThanePark addressBook = new AddressBookBuilder().withRide(ACCELERATOR).withRide(BIG).build();
         ThanePark differentAddressBook = new ThanePark();
         UserPrefs userPrefs = new UserPrefs();
 

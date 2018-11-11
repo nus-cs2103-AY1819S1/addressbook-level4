@@ -18,7 +18,7 @@ import seedu.thanepark.model.ride.Ride;
 @XmlRootElement(name = "thanepark")
 public class XmlSerializableThanePark {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate ride(s).";
+    public static final String MESSAGE_DUPLICATE_RIDE = "Rides list contains duplicate ride(s).";
 
     @XmlElement
     private List<XmlAdaptedRide> rides;
@@ -50,7 +50,7 @@ public class XmlSerializableThanePark {
         for (XmlAdaptedRide p : rides) {
             Ride ride = p.toModelType();
             if (addressBook.hasRide(ride)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RIDE);
             }
             addressBook.addRide(ride);
         }

@@ -29,9 +29,9 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_RIDE;
 
 import org.junit.Test;
 
@@ -136,7 +136,7 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_RIDE;
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_AMY;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
@@ -149,14 +149,14 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_RIDE;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // name with symbols
-        targetIndex = INDEX_FIRST_PERSON;
+        targetIndex = INDEX_FIRST_RIDE;
         userInput = targetIndex.getOneBased() + VALID_NAME_SYMBOLS;
         descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_JESSIE).build();
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
@@ -190,7 +190,7 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_RIDE;
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY + WAIT_TIME_DESC_AMY
                 + TAG_DESC_FRIEND + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY + WAIT_TIME_DESC_AMY + TAG_DESC_FRIEND
                 + MAINTENANCE_DESC_BOB + ZONE_DESC_BOB + WAIT_TIME_DESC_BOB + TAG_DESC_HUSBAND;
@@ -207,7 +207,7 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_RIDE;
         String userInput = targetIndex.getOneBased() + INVALID_MAINTENANCE_DESC + MAINTENANCE_DESC_BOB;
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).build();
@@ -227,7 +227,7 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_RIDE;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withTags().build();

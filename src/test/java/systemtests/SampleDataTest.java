@@ -46,6 +46,6 @@ public class SampleDataTest extends ThaneParkSystemTest {
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
         Ride[] expectedList = SampleDataUtil.getSampleRides();
-        assertListMatching(getPersonListPanel(), expectedList);
+        assertListMatching(getRideListPanel(), expectedList);
     }
 }

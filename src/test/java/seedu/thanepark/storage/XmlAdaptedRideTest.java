@@ -35,87 +35,87 @@ public class XmlAdaptedRideTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedRide person = new XmlAdaptedRide(BIG);
-        assertEquals(BIG, person.toModelType());
+    public void toModelType_validRideDetails_returnsRide() throws Exception {
+        XmlAdaptedRide ride = new XmlAdaptedRide(BIG);
+        assertEquals(BIG, ride.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedRide person =
+        XmlAdaptedRide ride =
                 new XmlAdaptedRide(INVALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_validNameWithSymbols() throws Exception {
-        XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME_WITH_SYMBOLS, VALID_MAINTENANCE, VALID_WAIT_TIME,
+        XmlAdaptedRide ride = new XmlAdaptedRide(VALID_NAME_WITH_SYMBOLS, VALID_MAINTENANCE, VALID_WAIT_TIME,
                 VALID_ADDRESS, VALID_TAGS);
-        assertEquals(RACHEL, person.toModelType());
+        assertEquals(RACHEL, ride.toModelType());
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedRide person = new XmlAdaptedRide(null,
+        XmlAdaptedRide ride = new XmlAdaptedRide(null,
                 VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_invalidMaintenance_throwsIllegalValueException() {
-        XmlAdaptedRide person =
+        XmlAdaptedRide ride =
                 new XmlAdaptedRide(VALID_NAME, INVALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_nullMaintenance_throwsIllegalValueException() {
-        XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME, null, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedRide ride = new XmlAdaptedRide(VALID_NAME, null, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Maintenance.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        XmlAdaptedRide person =
+        XmlAdaptedRide ride =
                 new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, null, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedRide ride = new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, WaitTime.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        XmlAdaptedRide person =
+        XmlAdaptedRide ride =
                 new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, INVALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Zone.MESSAGE_ZONE_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME,
+        XmlAdaptedRide ride = new XmlAdaptedRide(VALID_NAME,
                 VALID_MAINTENANCE, VALID_WAIT_TIME, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Zone.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
-        XmlAdaptedRide person =
+        XmlAdaptedRide ride =
                 new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, invalidTags);
-        Assert.assertThrows(IllegalValueException.class, person::toModelType);
+        Assert.assertThrows(IllegalValueException.class, ride::toModelType);
     }
 
 }

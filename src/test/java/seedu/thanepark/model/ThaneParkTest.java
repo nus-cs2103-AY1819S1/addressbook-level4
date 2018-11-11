@@ -50,7 +50,7 @@ public class ThaneParkTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateRides_throwsDuplicateRideException() {
         // Two rides with the same identity fields
         Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -62,24 +62,24 @@ public class ThaneParkTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRide_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         thanePark.hasRide(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasRide_rideNotInAddressBook_returnsFalse() {
         assertFalse(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasRide_rideInAddressBook_returnsTrue() {
         thanePark.addRide(ACCELERATOR);
         assertTrue(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasRide_rideWithSameIdentityFieldsInAddressBook_returnsTrue() {
         thanePark.addRide(ACCELERATOR);
         Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -87,7 +87,7 @@ public class ThaneParkTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getRideList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         thanePark.getRideList().remove(0);
     }

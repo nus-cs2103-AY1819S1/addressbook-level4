@@ -28,9 +28,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validThanePark.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRideField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRideField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validRide.xml");
+    private static final Path MISSING_RIDE_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRideField.xml");
+    private static final Path INVALID_RIDE_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRideField.xml");
+    private static final Path VALID_RIDE_FILE = TEST_DATA_FOLDER.resolve("validRide.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempThanePark.xml");
 
     private static final String INVALID_MAINTENANCE = "9482asf424";
@@ -75,30 +75,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedRide actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
-        XmlAdaptedRide expectedPerson = new XmlAdaptedRide(
+    public void xmlAdaptedRideFromFile_fileWithMissingRideField_validResult() throws Exception {
+        XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
+                MISSING_RIDE_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
+        XmlAdaptedRide expectedRide = new XmlAdaptedRide(
                 null, VALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRide, actualRide);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedRide actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
-        XmlAdaptedRide expectedPerson = new XmlAdaptedRide(
+    public void xmlAdaptedRideFromFile_fileWithInvalidRideField_validResult() throws Exception {
+        XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
+                INVALID_RIDE_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
+        XmlAdaptedRide expectedRide = new XmlAdaptedRide(
                 VALID_NAME, INVALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRide, actualRide);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedRide actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedRideWithRootElement.class);
-        XmlAdaptedRide expectedPerson = new XmlAdaptedRide(
+    public void xmlAdaptedRideFromFile_fileWithValidRide_validResult() throws Exception {
+        XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
+                VALID_RIDE_FILE, XmlAdaptedRideWithRootElement.class);
+        XmlAdaptedRide expectedRide = new XmlAdaptedRide(
                 VALID_NAME, VALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRide, actualRide);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new ThanePark());
         dataToWrite = new XmlSerializableThanePark(
-                builder.withPerson(new RideBuilder().build()).build());
+                builder.withRide(new RideBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableThanePark.class);

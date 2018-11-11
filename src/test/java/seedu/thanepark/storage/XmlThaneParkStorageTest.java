@@ -62,19 +62,19 @@ public class XmlThaneParkStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidRideThanePark_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readAddressBook("invalidRideThanePark.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidAndValidRideThanePark_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readAddressBook("invalidAndValidRideThanePark.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveThanePark_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         ThanePark original = getTypicalThanePark();
         XmlThaneParkStorage xmlAddressBookStorage = new XmlThaneParkStorage(filePath);

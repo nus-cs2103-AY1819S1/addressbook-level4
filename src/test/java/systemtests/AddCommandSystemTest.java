@@ -93,7 +93,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty thanepark book -> added */
-        deleteAllPersons();
+        deleteAllRides();
         assertCommandSuccess(ACCELERATOR);
 
         /* Case: add a ride with tags, command with parameters in random order -> added */
@@ -115,13 +115,13 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the ride list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a ride card is selected --------------------------- */
 
         /* Case: selects first card in the ride list, add a ride -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectRide(Index.fromOneBased(1));
         assertCommandSuccess(CASTLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -166,7 +166,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + RideUtil.getPersonDetails(toAdd);
+        command = "adds " + RideUtil.getRideDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */

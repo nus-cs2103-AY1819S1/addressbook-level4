@@ -6,7 +6,7 @@ import seedu.thanepark.model.ride.Ride;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ThanePark ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code ThanePark ab = new AddressBookBuilder().withRide("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
@@ -23,7 +23,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Ride} to the {@code ThanePark} that we are building.
      */
-    public AddressBookBuilder withPerson(Ride ride) {
+    public AddressBookBuilder withRide(Ride ride) {
         addressBook.addRide(ride);
         return this;
     }

@@ -122,7 +122,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to showWithFilePath only the ride at the given {@code targetIndex} in the
      * {@code model}'s thanepark book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showRideAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRideList().size());
 
         Ride ride = model.getFilteredRideList().get(targetIndex.getZeroBased());
@@ -135,7 +135,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first ride in {@code model}'s filtered list from {@code model}'s thanepark book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstRide(Model model) {
         Ride firstRide = model.getFilteredRideList().get(0);
         model.deleteRide(firstRide);
         model.commitThanePark();

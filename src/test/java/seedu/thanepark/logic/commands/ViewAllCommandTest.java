@@ -1,9 +1,9 @@
 package seedu.thanepark.logic.commands;
 
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.thanepark.logic.commands.CommandTestUtil.showRideAtIndex;
 import static seedu.thanepark.logic.commands.ViewAllCommand.MESSAGE_SUCCESS;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import java.util.List;
@@ -67,7 +67,7 @@ public class ViewAllCommandTest {
                 .count();
         String expectedMessage = String.format(MESSAGE_SUCCESS,
                 expectedModel.getFilteredRideList().size(), statusArray[0], statusArray[1], statusArray[2]);
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
         assertCommandSuccess(new ViewAllCommand(), model, commandHistory,
                 expectedMessage, expectedModel);
     }

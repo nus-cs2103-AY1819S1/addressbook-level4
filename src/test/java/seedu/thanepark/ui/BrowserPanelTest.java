@@ -12,19 +12,19 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 
-import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.thanepark.commons.events.ui.RidePanelSelectionChangedEvent;
 import seedu.thanepark.ui.browser.BrowserPanel;
 import seedu.thanepark.ui.browser.HelpWindow;
 
 public class BrowserPanelTest extends GuiUnitTest {
-    private PersonPanelSelectionChangedEvent selectionChangedEventStub;
+    private RidePanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(ACCELERATOR);
+        selectionChangedEventStub = new RidePanelSelectionChangedEvent(ACCELERATOR);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
