@@ -73,28 +73,32 @@ public class LogicManager extends ComponentManager implements Logic {
             return command.execute(model, history);
         } finally {
             history.add(commandText);
-            if (command instanceof AddCommand
-                    || command instanceof AddMedicineCommand
-                    || command instanceof CheckStockCommand
-                    || command instanceof FindMedicineCommand
-                    || command instanceof HelpCommand
-                    || command instanceof HistoryCommand
-                    || command instanceof ListCommand
-                    || command instanceof ListStockCommand
-                    || command instanceof RestockCommand) {
-                raise(new ShowDefaultBrowserEvent());
-            }
-            if (command instanceof QueueCommand) {
-                raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
-            }
-            if (command instanceof DisplayQueueCommand
-                    || command instanceof RegisterCommand
-                    || command instanceof DisplayServedPatientsCommand
-                    || command instanceof InsertCommand
-                    || command instanceof RemoveCommand
-                    || command instanceof FinishCommand) {
-                raise(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
-            }
+            raiseEvents(command);
+        }
+    }
+
+    private void raiseEvents(Command command) {
+        if (command instanceof AddCommand
+                || command instanceof AddMedicineCommand
+                || command instanceof CheckStockCommand
+                || command instanceof FindMedicineCommand
+                || command instanceof HelpCommand
+                || command instanceof HistoryCommand
+                || command instanceof ListCommand
+                || command instanceof ListStockCommand
+                || command instanceof RestockCommand) {
+            raise(new ShowDefaultBrowserEvent());
+        }
+        if (command instanceof QueueCommand) {
+            raise(new QueueUpdatedEvent(patientQueue, servedPatientList, currentPatient));
+        }
+        if (command instanceof DisplayQueueCommand
+                || command instanceof RegisterCommand
+                || command instanceof DisplayServedPatientsCommand
+                || command instanceof InsertCommand
+                || command instanceof RemoveCommand
+                || command instanceof FinishCommand) {
+            raise(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
         }
     }
 

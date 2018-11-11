@@ -52,19 +52,17 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 |===
 
 .Mockup of CLInic UI
-image::UI.png[width="750"]
+image::Ui.png[width="750"]
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are part of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are part of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. My full contribution can be viewed here: https://cs2103-ay1819s1-w16-4.github.io/main/UserGuide.html#pqms[PQMS Section 3.3]_
 |===
 
 include::../UserGuide.adoc[tag=pqms]
 include::../UserGuide.adoc[tag=pqms2]
-include::../UserGuide.adoc[tag=pqms3]
-
 
 == Contributions to the Developer Guide
 
