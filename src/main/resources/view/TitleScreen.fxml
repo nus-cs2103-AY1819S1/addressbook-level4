@@ -7,7 +7,6 @@
 <?import javafx.scene.image.Image?>
 
 <VBox spacing="16.0" alignment="BOTTOM_CENTER" xmlns:fx="http://javafx.com/fxml">
-
   <Text styleClass="title-screen-header" text="ClinicIO"/>
   <ImageView fx:id="titleImage">
     <Image url="@/images/clinicio_256.png"/>

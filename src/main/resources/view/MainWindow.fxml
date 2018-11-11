@@ -50,10 +50,10 @@
                     </padding>
                 </StackPane>
                 
-                <VBox spacing="16.0" alignment="BOTTOM_CENTER" fx:id="titleScreenPlaceHolder"
+                <VBox spacing="8.0" alignment="CENTER" fx:id="titleScreenPlaceHolder"
                   VBox.vgrow="ALWAYS">
                     <padding>
-                        <Insets top="16" right="16" bottom="16" left="16"/>
+                        <Insets top="8" right="8" bottom="8" left="8"/>
                     </padding>
                 </VBox>
 

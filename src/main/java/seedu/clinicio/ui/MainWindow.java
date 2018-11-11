@@ -230,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setVisible(false);
         titleScreenPlaceHolder.setVisible(true);
         titleScreenPlaceHolder.setManaged(true);
+        statusbarPlaceholder.setVisible(false);
     }
 
     /**
@@ -243,6 +244,7 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setVisible(true);
         titleScreenPlaceHolder.setVisible(false);
         titleScreenPlaceHolder.setManaged(false);
+        statusbarPlaceholder.setVisible(true);
     }
 
     //@@author iamjackslayer
