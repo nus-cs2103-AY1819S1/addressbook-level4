@@ -97,7 +97,8 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
     private CompleteCommand parseLabel(ArgumentMultimap argMultiMap) throws ParseException {
 
         List<String> labelArg = argMultiMap.getAllValues(PREFIX_LABEL);
-        Set<Label> parsedLabels = ParserUtil.parseLabels(labelArg); // throws ParseException
+        // throws ParseException, used as a guard against invalid labels
+        Set<Label> parsedLabels = ParserUtil.parseLabels(labelArg);
 
         return new CompleteLabelCommand(new LabelMatchesKeywordPredicate(parsedLabels));
     }
