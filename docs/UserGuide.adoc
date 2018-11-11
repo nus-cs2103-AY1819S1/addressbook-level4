@@ -28,7 +28,7 @@ Even new users that are unfamiliar with CLI will be able to easily and quickly p
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
 
-// tag::getting_started[]
+// tag::getting_started1[]
 == Getting started
 
 Let's work through a simple project in Piconso from start to finish.
@@ -43,19 +43,23 @@ image::tutorial/before-after.png[width:2000]
 
 **Ready to start your Piconso journey?**
 
-. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial.zip[here] to get a zip file with all the assets you need to get started!
+. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started!
 . Unzip the files into somewhere easy to access, like your Pictures folder.
 . Start Piconso!
 . Use the `cd` and `ls` commands to get to the folder with your unzipped assets.
 You can use the `TAB` key to auto-complete pesky folder names! If everything went well, you should see all your images show up in the Image Panel.
 
-.Images and index are showing up!
+.Images and their corresponding indexes are showing up!
 image::tutorial/step 1.png[width:2000]
 
 [start=5]
 . See the number below the base image? That's the __index__ of the image. It might be different depending on your folder's content. If you don't see it within the first ten images, use the `next` and `prev` command to navigate!
 . Open the image simply by typing `open [index]`. __(Substitute index with the number you noted down just now)__
 . You should see the base template in all its glory.
+
+// end::getting_started1[]
+
+// tag::getting_started2[]
 
 .Ready to rumble.
 image::tutorial/step 2.png[width:2000]
@@ -140,10 +144,7 @@ Before we let you go, wonder how we made the very first image you saw? Try this 
 . Use `canvas auto-resize on` to expand the canvas to show both of them.
 . Remove the background color of the canvas with `canvas bgcolor none` or change it to something you like!
 
-
-
-
-// end::getting_started[]
+// end::getting_started2[]
 
 [[Features]]
 == Features
