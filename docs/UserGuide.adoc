@@ -136,6 +136,8 @@ Format:
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists,
 or removed if it does not.
+
+For a dependency of a task A on task B, A is defined as the dependent task while task B is defined as the dependee task
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
