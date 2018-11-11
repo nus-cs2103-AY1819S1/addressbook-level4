@@ -34,7 +34,6 @@ import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.storage.ImageReadingExceptionEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
-import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -225,8 +224,6 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to directory."));
         try {
             saveEmail(event.data);
-            raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
-            raise(new EmailViewEvent(event.data));
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

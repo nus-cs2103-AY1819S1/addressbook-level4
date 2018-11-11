@@ -504,6 +504,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void saveComposedEmailWithoutDisplay(Email email) {
+        emailModel.saveComposedEmail(email);
+        indicateEmailSavedWithoutDisplay();
+    }
+
+    @Override
     public void deleteEmail(String fileName) {
         emailModel.removeFromExistingEmails(fileName);
         raise(new EmailDeleteEvent(fileName));
@@ -518,8 +524,17 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Raises an event to indicate that a new email has been saved to EmailModel.
      */
+    private void indicateEmailSavedWithoutDisplay() {
+        raise(new EmailSavedEvent(emailModel));
+    }
+
+    /**
+     * Raises an event to indicate that a new email has been saved to EmailModel, and displays it on the BrowserPanel.
+     */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
+        raise(new ToggleBrowserPlaceholderEvent(ToggleBrowserPlaceholderEvent.BROWSER_PANEL));
+        raise(new EmailViewEvent(emailModel));
     }
 
     @Override
