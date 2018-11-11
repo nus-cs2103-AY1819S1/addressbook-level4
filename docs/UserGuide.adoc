@@ -447,7 +447,8 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 
 ****
 * ITEM_NAME and ITEM_PRICE must be provided.
-* An item can have any number of tags (including 0)
+* An item can have any number of tags (including 0).
+* ITEM_NAME should only contain alphanumeric characters and spaces, and it should not be blank.
 * ITEM_PRICE should only contain numbers, at most 2 decimal place and smaller than or equals to 2,147,483,647.
 * You cannot add items with the same name.
 ****
@@ -463,8 +464,8 @@ Edits an existing item in the menu. +
 Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...`
 
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The
-index *must be a positive integer* 1, 2, 3, ...
+* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
