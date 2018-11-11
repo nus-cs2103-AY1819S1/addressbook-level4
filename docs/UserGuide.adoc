@@ -203,7 +203,7 @@ Deletes the loan with that has been indexed at position 1.
 // tag::setpass[]
 === Change the password of the app: `setpass`
 
-Change the current password of the app to `NEW_PASSWORD`. This allows you to use a different password in the event that the old password was compromised. Simply following the example screenshot below: +
+This command changes the current password of the app. This allows you to use a different password in the event that the old password was compromised. Simply follow the example screenshot below: +
 
 image::setpassExample.png[width="650"]
 

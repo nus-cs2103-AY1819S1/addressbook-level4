@@ -481,6 +481,9 @@ image::deleteActivityDiagram.png[width="650"]
 |===
 
 ===== Aspect: How to authenticate users
+
+To ensure that only authorised users can execute elevated commands, we had to consider different alternatives on how to authenticate the user.
+
 * *Alternative 1 (current choice)*: Require a password every time a critical command is executed
 
 ** Pros:
@@ -490,7 +493,7 @@ image::deleteActivityDiagram.png[width="650"]
 ** Cons:
 .. Might be inconvenient to perform multiple critical commands as repeated typing of password is required.
 
-* *Alternative 2*: A login page to authenticate each user
+* *Alternative 2*: A login page to authenticate users
 
 ** Pros:
 .. Customized to each staff
@@ -503,6 +506,9 @@ image::deleteActivityDiagram.png[width="650"]
 .. If a staff did not log out, non-authorized users will be able to execute critical commands, making the app's data vulnerable.
 
 ===== Aspect: Method of encryption
+
+To ensure that the app's password is properly encrypted, we had to consider between storing the password locally, and storing the password online.
+
 * *Alternative 1 (current choice)*: Generate a salt to encrypt password, and store the salt locally
 
 ** Pros:

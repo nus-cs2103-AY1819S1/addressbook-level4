@@ -26,29 +26,31 @@ a free inventory management software with all the features required for a bicycl
 |===
 * *Major enhancement*: Added an authentication feature to improve the integrity of the app's data.
 ** What it does:
-**** Allow users to set password and change password for the app, so that critical comments that affects statistical integrity (Transaction summery & Tax-filing) cannot be performed by unauthorised personnel. Password stored is also encrypted to prevent hackers from retrieving the password.
+**** Allow users to set password and change the password of the app, such that critical comments that affects statistical integrity (Transaction summery & Tax-filing) cannot be performed by unauthorised personnel. Password is also encrypted to prevent hackers from retrieving the raw password.
 ** Justification:
-**** This feature improves the product significantly because now, only authorized users are able use the critical commands (E.g. `delete` command) to delete loans. Without this, the data from the summary report may be incorrect, affecting tax-filling, revenue management.
+**** This feature improves the product significantly because now, only authorized users are able use the critical commands (e.g. `delete` command) to delete loans. Without this, the data from the summary report may be tempered with, affecting tax-filling, revenue management.
 ** Highlights:
 *** Allow users to change the password of the app, ensuring that the same password is not used for a long time.
 *** Encrypt password using randomly generated salts to provide a higher level of encryption. This ensures that hackers will not be able to reverse engineer the password. Used code by http://www.appsdeveloperblog.com/encrypt-user-password-example-java/[Sergey Kargopolov].
-*** Arguments of commands that requires a password no longer appears in the command history.
+*** Arguments of commands that requires a password do not appear in the command history.
 *** Existing commands was modified to require a password input. (E.g. `delete`)
 
 * *Minor enhancement*:
-** Create NRIC class to manage Singapore issued NRIC. Also include a checksum validation to ensure validity of NRIC. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36]]
+** Create `Nric` class to manage Singapore issued NRIC. Also include a checksum validation to ensure validity of NRIC. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36]]
 ** Allow searching for loans of specific date. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/158[#158]]
 ** Using tags to notify users on the status of loans. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163]]
+
+** Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[RepoSense]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub.
-*** Team Leader of the project, making critical decisions regarding the direction of the product.
-*** Added badges to show CI status, code quality and type of licence for the master branch [https://github.com/CS2103-AY1819S1-F10-2/main/pull/2[#2]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/32[#32]]
-*** Enforced Git discipline across the team, ensuring stability of the master branch
-*** Ensured code quality through reviews on Github
-**** Reviewed 37 of 90 Pull Requests not created by myself
+*** Team Leader of the project, making critical decisions regarding the direction of the project.
+*** Added badges to show CI status, code quality and type of licence for the master branch. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/2[#2]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/32[#32]]
+*** Enforced Git discipline across the team, ensuring stability of the master branch.
+*** Ensured code quality through reviews on Github.
+**** Reviewed 37 of 90 Pull Requests not created by myself.
 **** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
 
 ** Project Enhancement:
@@ -62,11 +64,9 @@ a free inventory management software with all the features required for a bicycl
 *** Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/23[#23]]
 **** Ensures that all code that was pushed adhere to coding standards, and does not break existing code.
 **** Automatic deployment of website with Netlify to ensure that team's web page is always up to date.
-*** Set up https://cs2103-ay1819s1-f10-2.github.io/main/[team website]
+*** Set up https://cs2103-ay1819s1-f10-2.github.io/main/[team website].
 *** Set up slack notification and web hook for team
-**** Provides notification to developers on any updates to the repository
-
-** Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[RepoSense]
+**** Provides notification to developers on any updates to the repository.
 
 == Contributions to the User Guide
 |===
