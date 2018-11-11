@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -316,12 +317,19 @@ public class RemovePersonCommandTest {
         private UniquePersonList personList = new UniquePersonList();
         private UniqueOccasionList occasionList = new UniqueOccasionList();
         private UniqueModuleList moduleList = new UniqueModuleList();
+        private TypeUtil activeType;
 
         ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
             requireAllNonNull(person, occasion, module);
             this.personList.add(person);
             this.occasionList.add(occasion);
             this.moduleList.add(module);
+            activeType = PERSON;
+        }
+
+        @Override
+        public TypeUtil getActiveType() {
+            return activeType;
         }
 
         @Override

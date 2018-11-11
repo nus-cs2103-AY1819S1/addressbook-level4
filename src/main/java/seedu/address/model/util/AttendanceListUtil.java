@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.RefreshModuleBrowserEvent;
+import seedu.address.commons.events.ui.RefreshOccasionBrowserEvent;
+import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
@@ -25,6 +30,20 @@ import seedu.address.model.person.UniquePersonList;
  * @author alistair
  */
 public class AttendanceListUtil {
+    /**
+     * Posts correct event for refreshing current browser.
+     */
+    public static void postRefreshEvent(Model model) {
+        TypeUtil currType = model.getActiveType();
+        if (currType == TypeUtil.PERSON) {
+            EventsCenter.getInstance().post(new RefreshPersonBrowserEvent());
+        } else if (currType == TypeUtil.MODULE) {
+            EventsCenter.getInstance().post(new RefreshModuleBrowserEvent());
+        } else {
+            EventsCenter.getInstance().post(new RefreshOccasionBrowserEvent());
+        }
+    }
+
     //@@author waytan
     /**
      * Removes a person from the attendanceList of all associated Occasions.

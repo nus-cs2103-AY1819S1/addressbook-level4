@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.OccasionBrowserChangeEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
@@ -52,8 +53,14 @@ public class OccasionBrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleModulePanelSelectionChangedEvent(OccasionPanelSelectionChangedEvent event) {
+    private void handleOccasionPanelSelectionChangedEvent(OccasionPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadTable(event.getNewSelection().getAttendanceList().asUnmodifiableObservableList());
+    }
+
+    @Subscribe
+    private void handleOccasionBrowserChangeEvent(OccasionBrowserChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadTable(event.getCurrSelection().getAttendanceList().asUnmodifiableObservableList());
     }
 }

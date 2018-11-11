@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.function.Predicate;
 
@@ -317,12 +318,14 @@ public class InsertPersonCommandTest {
         private UniquePersonList personList = new UniquePersonList();
         private UniqueOccasionList occasionList = new UniqueOccasionList();
         private UniqueModuleList moduleList = new UniqueModuleList();
+        private TypeUtil activeType;
 
         ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
             requireAllNonNull(person, occasion, module);
             this.personList.add(person);
             this.occasionList.add(occasion);
             this.moduleList.add(module);
+            activeType = PERSON;
         }
 
         @Override
@@ -343,6 +346,11 @@ public class InsertPersonCommandTest {
             moduleToInsertDeep.getStudents().add(personToInsertShallow);
             updatePerson(personToReplace, personToInsertDeep);
             updateModule(moduleToReplace, moduleToInsertDeep);
+        }
+
+        @Override
+        public TypeUtil getActiveType() {
+            return activeType;
         }
 
         @Override

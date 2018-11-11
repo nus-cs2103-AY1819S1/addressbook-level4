@@ -12,7 +12,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToOccasionListRequestEvent;
+import seedu.address.commons.events.ui.OccasionBrowserChangeEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RefreshOccasionBrowserEvent;
 import seedu.address.model.occasion.Occasion;
 
 /**
@@ -65,6 +67,22 @@ public class OccasionListPanel extends UiPart<Region> {
                         raise(new OccasionPanelSelectionChangedEvent(newValue));
                     }
                 });
+    }
+
+    private boolean isListSelected() {
+        return occasionListView.getSelectionModel().getSelectedIndex() > -1;
+    }
+
+    @Subscribe
+    private void handleOccasionBrowserChangeEvent(RefreshOccasionBrowserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (isListSelected()) {
+            int index = occasionListView.getSelectionModel().getSelectedIndex();
+            occasionListView.getSelectionModel().clearAndSelect(0);
+            occasionListView.getSelectionModel().clearAndSelect(index);
+            Occasion currOccasion = occasionListView.getSelectionModel().getSelectedItem();
+            raise(new OccasionBrowserChangeEvent(currOccasion));
+        }
     }
 
     /**
