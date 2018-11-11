@@ -69,6 +69,7 @@ e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
 
 Format: `help`
 
+//tag::add[]
 === Adding a module: `c_add`
 
 Adds a `*particular*` module entry in the CAPTracker. +
@@ -95,17 +96,9 @@ c_add -m CODE -y YEAR -s SEMESTER -c CREDIT -g GRADE
 * `GRADE` has to be specified if it is completed
 * Module should not exist in CAPTracker
 ****
+//end::add[]
 
-Examples:
-
-* `c_edit -t CS2103 -g A+` +
-Change grade of CS2103 to A+.
-* `c_edit -t CS2103 -m CS2103T -c 2` +
-Change the module code and credit of CS2103 to CS2103T and 2 respectively.
-* `c_edit -t CS2103 -e 3 -z 2 -s 1` +
-Change the semester of CS2103 taken in year 3 semester 2 to 1. In this specific
-case, CS2103 was retaken and cap tracker has multiple entries of it.
-
+//tag::edit[]
 === Editing a module : `c_edit`
 
 Edits fields of a `*particular*` module entry in the CAPTracker. +
@@ -156,8 +149,9 @@ Change the module code and credit of CS2103 to CS2103T and 2 respectively.
 * `c_edit -t CS2103 -e 3 -z 2 -s 1` +
 Change the semester of CS2103 taken in year 3 semester 2 to 1. In this specific
 case, CS2103 was retaken and cap tracker has multiple entries of it.
+//end::edit[]
 
-
+//tag::delete[]
 === Deleting a module : `c_delete`
 
 Deletes a `*particular*` module entry in the CAPTracker. +
@@ -192,6 +186,7 @@ Deletes the only CS2103 module.
 * `c_delete -t CS2103 -e 3 -z 2` +
 Deletes CS2103 taken in year 3 semester 2. In this specific case, CS2103 was
 retaken and cap tracker has multiple entries of it.
+//end::delete[]
 
 
 //tag::commandgoal[]
