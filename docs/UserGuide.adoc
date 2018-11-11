@@ -605,7 +605,7 @@ Format: `summary`
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 
-== Keyboard Shortcuts
+=== Keyboard Shortcuts
 
 [width="100%",options="header"]
 |=========================================================
