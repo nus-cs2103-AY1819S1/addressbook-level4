@@ -34,6 +34,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
+//@@author waytan
 /**
  * Contains integration tests (interaction with the Model, InsertPerson, UndoCommand and RedoCommand)
  * and unit tests for {@code DeleteCommand}.
@@ -42,7 +43,9 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    Module DUMMY_MODULE = ST2131;
 
+    //@@author
     @Test
     public void execute_validIndexUnfilteredPersonList_success() {
         model.setActiveType(PERSON);
@@ -58,6 +61,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    //@@author waytan
     @Test
     public void execute_validIndexUnfilteredModuleList_success() {
         model.setActiveType(MODULE);
@@ -88,6 +92,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    //@@author
     @Test
     public void execute_invalidIndexUnfilteredPersonList_throwsCommandException() {
         model.setActiveType(PERSON);
@@ -98,6 +103,7 @@ public class DeleteCommandTest {
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author waytan
     @Test
     public void execute_invalidIndexUnfilteredModuleList_throwsCommandException() {
         model.setActiveType(MODULE);
@@ -118,6 +124,7 @@ public class DeleteCommandTest {
                 Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
     }
 
+    //@@author
     @Test
     public void execute_validIndexFilteredPersonList_success() {
         model.setActiveType(PERSON);
@@ -136,6 +143,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    //@@author waytan
     @Test
     public void execute_validIndexFilteredModuleList_success() {
         model.setActiveType(MODULE);
@@ -172,6 +180,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    //@@author
     @Test
     public void execute_invalidIndexFilteredPersonList_throwsCommandException() {
         model.setActiveType(PERSON);
@@ -187,6 +196,7 @@ public class DeleteCommandTest {
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author waytan
     @Test
     public void execute_invalidIndexFilteredModuleList_throwsCommandException() {
         model.setActiveType(MODULE);
@@ -217,6 +227,7 @@ public class DeleteCommandTest {
                 Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
     }
 
+    //@@author
     @Test
     public void executeUndoRedo_validIndexUnfilteredPersonList_success() throws Exception {
         model.setActiveType(PERSON);
@@ -238,6 +249,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    //@@author waytan
     @Test
     public void executeUndoRedo_validIndexUnfilteredModuleList_success() throws Exception {
         model.setActiveType(MODULE);
@@ -280,6 +292,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    //@@author
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredPersonList_failure() {
         model.setActiveType(PERSON);
@@ -295,6 +308,7 @@ public class DeleteCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
+    //@@author waytan
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredModuleList_failure() {
         model.setActiveType(MODULE);
@@ -431,7 +445,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_MODULE, ST2131); //dummy module used as indicator of insert 'type'
+                INDEX_FIRST_MODULE, DUMMY_MODULE);
         insertPersonIntoModuleCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredModuleList().get(INDEX_FIRST_MODULE.getOneBased()).getStudents(),
@@ -451,7 +465,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_SECOND_PERSON,
-                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+                INDEX_FIRST_OCCASION, OCCASION_ONE);
         insertPersonIntoOccasionCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredOccasionList()
@@ -472,7 +486,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_MODULE, ST2131); //dummy module used as indicator of insert 'type'
+                INDEX_FIRST_MODULE, DUMMY_MODULE);
         insertPersonIntoModuleCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getModuleList(),
@@ -492,7 +506,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+                INDEX_FIRST_OCCASION, OCCASION_ONE);
         insertPersonIntoOccasionCommand.execute(model, commandHistory);
         deleteCommand.execute(model, commandHistory);
         assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getOccasionList(),

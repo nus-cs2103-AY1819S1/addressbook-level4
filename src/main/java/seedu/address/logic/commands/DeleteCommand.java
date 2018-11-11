@@ -21,7 +21,7 @@ import seedu.address.model.util.AttendanceListUtil;
  * Deletes an entry identified using its displayed index in the active list.
  */
 public class DeleteCommand extends Command {
-
+    //@@author waytan
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -110,6 +110,7 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_OCCASION_SUCCESS, occasionToDelete));
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

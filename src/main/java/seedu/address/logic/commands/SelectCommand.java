@@ -41,6 +41,7 @@ public class SelectCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    //@@author waytan
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
