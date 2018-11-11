@@ -218,9 +218,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Relevant fields in {@code AchievementRecord}, such as xp, level, number of tasks completed and the time-based
      * achievement fields are updated accordingly.
      */
-    public void addXp(Integer xp) {
-        requireNonNull(xp);
-
+    public void addXp(int xp) {
         achievements.incrementAchievementsWithNewXp(xp);
     }
 
