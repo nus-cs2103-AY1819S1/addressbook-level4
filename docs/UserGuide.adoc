@@ -33,7 +33,7 @@ JxMusic is for those who *prefer to use a desktop app for listening to music*. M
     - Then run `java -jar jxmusic.jar`
 .  The GUI should appear in a few seconds.
 +
-image::Ui latest.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -47,26 +47,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 .  To add the new tracks to the library, add the mp3 files to the `library` folder.
 .  Restart the file so that your new tracks could be scanned and showed in UI.
-
-****
-List of currently working commands as of v1.3
-
-* `help`
-* `playlist list`
-* `playlist search`
-* `playlist new`
-* `playlist del`
-* `track list`
-* `track search`
-* `play t/`
-* `play p/`
-* `pause`
-* `play`
-* `stop`
-* `clear`
-* `exit`
-
-****
 
 [[Features]]
 == Features
@@ -149,7 +129,16 @@ Examples:
 * `play t/Some Song` +
 `stop` +
 `play` +
-The playlist stops playing and replays from the first track.
+"Some song" stops playing and replays from the beginning.
+
+=== Getting the duration of current playing/paused/stopped track: `duration`
+
+Displays the duration of current playing/paused/stopped track. +
+Format: `duration`
+
+* `play t/Some Song` +
+`duration` +
+The duration of the "Some Song" is displayed on `ResultDisplay` pane.
 
 === Seeking time point : `seek`
 
@@ -158,7 +147,7 @@ Format: `seek d/TIME`
 
 ****
 * `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the
-time point. Only unsigend integers are alloewed as time inputs.
+time point. Only unsigend integers are allowed as time inputs.
 * Examples of valid `TIME`:
 ** `10` (10 sec)
 ** `1 59` (1 min 59 sec)
@@ -181,7 +170,7 @@ If `TIME` is longer than the song duration, the seek command fails.
 
 === Listing all playlists : `playlist list`
 
-Shows a list of all playlists in the library. +
+Shows the list of all playlists in the library. +
 Format: `playlist list`
 
 === Searching for a playlist : `playlist search`
@@ -503,6 +492,9 @@ eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
 eg. `stepback s/100`
 * *Replay* : `replay`
+
+=== Commands for aiding the use of playback commands
+* *Get duration* : `duration`
 
 === Commands for controlling sequence of playback
 * *Skip to next track* : `next`
