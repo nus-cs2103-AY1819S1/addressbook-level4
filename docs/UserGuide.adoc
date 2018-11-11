@@ -82,6 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Dates are all specified in `dd-MM-yyyy` format (e.g. `01-01-2019`, and Times are all specified in 24-hr `HH:mm` format (e.g. `13:30` is 1pm).
 ====
 
+
 Shows all the commands in the application and how to use them.
 
 === View help : `help`
