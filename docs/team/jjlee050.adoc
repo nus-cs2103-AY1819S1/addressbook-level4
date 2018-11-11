@@ -22,9 +22,9 @@ listen to teammates feedback for improvements. Furthermore, I am also in charge 
 defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.
 
 As a developer, I am in charge of the UI component of this program. This involves understanding
-how UI is managed in this project and to ensure that the UI component of this project is well maintained.  
+how UI is managed in this project and to ensure that the UI component of this project is well maintained.
 
-See below for more details on my contributions for the duration of 10 weeks.  
+See below for more details on my contributions for the duration of 10 weeks.
 
 == 2. Summary of contributions
 
@@ -45,7 +45,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: 
+* *Minor enhancement*:
 ** Alter the UI to provide a more beautiful UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
 
 * *Other contributions*:
