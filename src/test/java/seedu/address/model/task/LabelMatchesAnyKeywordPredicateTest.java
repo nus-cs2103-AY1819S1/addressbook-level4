@@ -102,6 +102,4 @@ public class LabelMatchesAnyKeywordPredicateTest {
         LabelMatchesAnyKeywordPredicate predicate = new LabelMatchesAnyKeywordPredicate(createLabelsFromKeywords(""));
     }
 
-
-
 }
