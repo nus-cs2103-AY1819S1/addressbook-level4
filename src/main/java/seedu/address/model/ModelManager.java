@@ -13,12 +13,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Performance;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 
 /**
  * Represents the in-memory model of Anakin data.
  */
 public class ModelManager extends ComponentManager implements Model {
+    public enum SortingType {
+        PERFORMANCE, ALPHABETICAL
+    }
     public static final Logger LOGGER = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAnakin versionedAnakin;
@@ -63,12 +67,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void sort() {
-        versionedAnakin.sort();
-        if (isInsideDeck()) {
-            updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        } else {
-            updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+    public void sort(SortingType type) {
+        if (type == SortingType.ALPHABETICAL) {
+            versionedAnakin.sort(SortingType.ALPHABETICAL);
+
+            if (isInsideDeck()) {
+                updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+            } else {
+                updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+            }
+        } else if (type == SortingType.ALPHABETICAL) {
+            if (isInsideDeck()) {
+                updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+            }
         }
         indicateAnakinChanged();
     }

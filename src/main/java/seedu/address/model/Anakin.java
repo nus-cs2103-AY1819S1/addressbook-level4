@@ -96,12 +96,16 @@ public class Anakin implements ReadOnlyAnakin {
     /**
      * Sort the current list of decks/cards in alphabetical order.
      */
-    public void sort() {
-        if (isInsideDeck()) {
-            cards.sort();
-            updateDisplayedCards();
-        } else {
-            decks.sort();
+    public void sort(ModelManager.SortingType type) {
+        if (type == ModelManager.SortingType.ALPHABETICAL) {
+            if (isInsideDeck()) {
+                cards.sort();
+                updateDisplayedCards();
+            } else {
+                decks.sort();
+            }
+        } else if (type == ModelManager.SortingType.PERFORMANCE) {
+            cards.perfsort();
         }
     }
 
