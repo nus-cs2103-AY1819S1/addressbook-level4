@@ -47,6 +47,7 @@ public class CancelApptCommand extends Command {
 
         //save changes to ClinicIO
         model.commitClinicIo();
+        model.switchTab(1);
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, targetAppointment));
     }
 
