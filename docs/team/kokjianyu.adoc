@@ -11,15 +11,13 @@ This portfolio serves as a summary to showcase my contribution towards https://g
 
 == Overview
 
-Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
-
-Office Assistance Specialized Integration System (OASIS) is an all-in-one HR management tool targeted at Small and Medium enterprises to simplify HR related task for both employees and managers of the company.
+Office Assistance Specialized Integration System (OASIS) is an all-in-one HR management tool targeted at Small and Medium enterprises to simplify task such as employee management, project management and leave applications
 
 == Summary of contributions
 
 The following section shows my code contribution for OASIS.
 
-=== Major Enhancement: Added ability to control the commands each employee can perform through usage of Permissions.
+==== Major Enhancement: Added ability to control the commands each employee can perform through usage of Permissions.
 
 ** What it does: 
 *** Ensures that commands are executed only by employees with the permission required for it.
@@ -31,32 +29,30 @@ authorization. Usage of permission allows the admins to easily ensure that previ
 Therefore, implementation was challenging as it requires in-depth knowledge of the different components.
 *** This feature is coded to be simple to use and extensible. New permissions can be added simply into `Permission` enum class, and any new Command class only need to 1 line of code to utilise this enhancement.
 
-=== Minor Enhancement: Added ability to modify the permissions granted to an employee
+==== Minor Enhancement: Added ability to modify the permissions granted to an employee
 
 ** What it does: 
 *** Modify the permissions of the employee.
 ** Justification: 
-*** Allows for easy modification of permission.
-** Highlights: 
-*** There are many different ways this functionality could have been implemented. Therefore, I spent quite some time to research how this functionality had been done on existing system, and have also created and tested many different prototypes for this functionality before finally deciding on the current implementation.
+*** Allows upper management of company to easily control the permission given to an employee.
 
-=== Minor Enhancement: Added ability to view the permissions granted to an employee
+==== Minor Enhancement: Added ability to view the permissions granted to an employee
 
 ** What it does: 
 *** Display the list of permissions that an employee have.
 ** Justification: 
-*** Users want to know the permissions that have been assigned to an employee. This enhancement
+*** Users might need to know the permissions that have been assigned to an employee. This enhancement
 give them a method to check it easily.
 
-=== Minor Enhancement: Added Command Auto-Complete feature
+==== Minor Enhancement: Added Command Auto-Complete feature
 
 ** What it does: 
 *** When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
 ** Justification: 
 *** Users might find it hard to memorize commands in OASIS. Having this enhancement will make it easier for them to find the commands they want to execute.
 
-=== Others
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+==== Others
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kokjianyu&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[All Code]]
 
 * *Other contributions*:
 
@@ -69,8 +65,6 @@ give them a method to check it easily.
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T10-3/main/issues/137[1], https://github.com/CS2103-AY1819S1-T10-3/main/issues/136[2], https://github.com/CS2103-AY1819S1-T10-3/main/issues/134[3], https://github.com/CS2103-AY1819S1-T10-3/main/issues/135[4],
 https://github.com/CS2103-AY1819S1-T10-3/main/issues/133[5],
 https://github.com/CS2103-AY1819S1-T10-3/main/issues/141[6])
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -97,9 +91,3 @@ include::../DeveloperGuide.adoc[tag=permission]
 
 include::../DeveloperGuide.adoc[tag=commandautocomplete]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
