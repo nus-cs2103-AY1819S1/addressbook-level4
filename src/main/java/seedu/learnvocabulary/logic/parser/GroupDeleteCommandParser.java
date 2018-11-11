@@ -18,6 +18,9 @@ public class GroupDeleteCommandParser<T extends Command> implements Parser<Group
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupdeleteCommand.MESSAGE_USAGE));
         }
+        if (!Tag.isValidTagName(userInput.trim())) {
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
         Tag tag = new Tag(userInput.trim());
         return new GroupdeleteCommand(tag);
     }
