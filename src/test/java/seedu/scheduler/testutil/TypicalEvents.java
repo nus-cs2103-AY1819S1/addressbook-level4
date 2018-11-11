@@ -212,6 +212,16 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.WEEKLY)
             .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
             .build();
+    public static final Event THURDSDAY_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS0000")
+            .withStartDateTime(LocalDateTime.of(2018, 11, 29, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 29, 18, 0))
+            .withDescription("CS0000 Description").withVenue("LT16")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
 
     // monthly event
     public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
