@@ -700,18 +700,18 @@ Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DA
 
 [NOTE]
 ====
-* We use natural language processing to parse the date and time values.
+* We use natural language processing to parse the date and time values
 * For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
 ====
 
 [WARNING]
 ====
-* Try to avoid ambiguous language as it might be interpreted incorrectly.
+* Try to avoid ambiguous language as it might be interpreted incorrectly
 * For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
 * If you want to be sure, we recommend using these formats:
 ** `DATE`: `DD-MM-YYYY`
 ** `TIME`: `HH:MM`
-* Dates that have already passed will be rejected.
+* Dates that have already passed will be rejected
 ====
 
 Examples:
