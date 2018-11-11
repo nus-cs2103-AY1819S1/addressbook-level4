@@ -7,8 +7,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.commons.core.Messages.MESSAGE_MEDICINE_OVERVIEW;
 import static seedu.clinicio.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
 import static seedu.clinicio.testutil.TypicalPersons.ORACORT;
+import static seedu.clinicio.testutil.TypicalPersons.PARACETAMOL;
 import static seedu.clinicio.testutil.TypicalPersons.VENTOLIN;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 

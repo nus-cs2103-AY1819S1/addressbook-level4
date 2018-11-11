@@ -98,8 +98,8 @@ public class SelectMedicineCommandTest {
     }
 
     /**
-     * Executes a {@code SelectMedicineCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
-     * is raised with the correct index.
+     * Executes a {@code SelectMedicineCommand} with the given {@code index},
+     * and checks that {@code JumpToListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectMedicineCommand selectMedicineCommand = new SelectMedicineCommand(index);

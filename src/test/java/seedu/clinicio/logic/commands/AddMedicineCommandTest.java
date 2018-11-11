@@ -38,6 +38,7 @@ import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.MedicineBuilder;
+import seedu.clinicio.ui.Ui;
 
 public class AddMedicineCommandTest {
 
@@ -107,6 +108,17 @@ public class AddMedicineCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public void addUi(Ui ui) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void switchTab(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -174,7 +186,7 @@ public class AddMedicineCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getAllPatientsInQueue() {
+        public ObservableList<Patient> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -242,6 +254,11 @@ public class AddMedicineCommandTest {
 
         @Override
         public void enqueueIntoPreferenceQueue(Person patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateQueue(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

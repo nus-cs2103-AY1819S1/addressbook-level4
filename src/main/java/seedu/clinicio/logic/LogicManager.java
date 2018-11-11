@@ -72,7 +72,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredMedicineList();
     }
 
-    public ObservableList<Person> getAllPatientsInQueue() {
+    public ObservableList<Patient> getAllPatientsInQueue() {
         return model.getAllPatientsInQueue();
     }
 
