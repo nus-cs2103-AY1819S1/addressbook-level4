@@ -89,8 +89,18 @@ public class TypicalEvents {
             .withStartDateTime(LocalDateTime.of(2018, 12, 25, 1, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 25, 23, 0))
             .withDescription("Celebration").withVenue("Home")
-            .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 25, 23, 30))
+            .withRepeatType(RepeatType.NONE)
             .build();
+    public static final Event CHRISTMASEVE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("ChristmasEve")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 24, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 24, 23, 0))
+            .withDescription("Go Home").withVenue("Home")
+            .withRepeatType(RepeatType.NONE)
+            .build();
+
 
 
     // daily event

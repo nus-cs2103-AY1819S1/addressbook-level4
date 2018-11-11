@@ -11,9 +11,9 @@ import static seedu.scheduler.logic.commands.AddCommand.MESSAGE_SUCCESS;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
+import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
 import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
-import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -45,7 +45,6 @@ import com.google.api.services.calendar.model.Calendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
-import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
@@ -375,25 +374,26 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void deleteOnGoogleCal() throws InterruptedException {
+    public void deleteOnGoogleCal() throws InterruptedException, CommandException {
         //set up the google-enabled environment
         enable();
         //-----------delete single non-repeating event -> pass -------
         //Fresh Start
         helperCommand(new ClearCommand(), model, commandHistory);
         //Add a new event on Google Cal
-        Event validEvent = new EventBuilder(CHRISTMAS).build();
+        Event validEvent = new EventBuilder(CHRISTMASEVE).build();
         helperCommand(new AddCommand(validEvent), model, commandHistory);
         //Prevent triggering Google's limit
         disable();
         sleep(3000);
         enable();
         //execute the delete command
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EVENT);
+        final ConnectToGoogleCalendar connectToGoogleCalendar =
+                new ConnectToGoogleCalendar();
+        assertTrue(
+                connectToGoogleCalendar.deleteEventOnGoogleCal(
+                        true, validEvent, 0, true));
         //check
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS,
-                validEvent.getEventName());
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage);
         //close the google-enabled environment
         disable();
     }
