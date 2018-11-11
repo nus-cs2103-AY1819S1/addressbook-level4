@@ -711,6 +711,7 @@ Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DA
 * If you want to be sure, we recommend using these formats:
 ** `DATE`: `DD-MM-YYYY`
 ** `TIME`: `HH:MM`
+* Dates that have already passed will be rejected.
 ====
 
 Examples:
