@@ -34,6 +34,11 @@ public class ListCommandParser implements Parser<ListCommand> {
         case ListCommand.COMMAND_PARAM_MEETING_SHORT:
             listCommandType = ListCommand.ListCommandType.MEETING;
             break;
+        case "":
+        case ListCommand.COMMAND_PARAM_ALL:
+        case ListCommand.COMMAND_PARAM_ALL_SHORT:
+            listCommandType = ListCommand.ListCommandType.ALL;
+            break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
