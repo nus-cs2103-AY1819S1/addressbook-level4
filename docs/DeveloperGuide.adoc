@@ -1147,7 +1147,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No word is shown. Error details shown in the status message. Status bar remains the same. Display remains the same.
 .. Other incorrect learn commands to try: `show 1`, `show x`, `show !potato`, `show notarealword` +
    Expected: Similar to previous. Except now, filtered list is empty.
-   
+
 === Adding a word
 . Adding a word to LearnVocabulary's list.
 
@@ -1164,5 +1164,5 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit 1 m/something lightweight` +
    Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". Details of the word is shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `edit n/potato t/` +
-   Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same. 
+   Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same.
 //end::basic[]
