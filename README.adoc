@@ -25,7 +25,7 @@ Hallper provides the following features to improve the experience of JCRC member
 * Filtering through contacts quickly
 * Profile view of contacts
 * Budget allocation and management
-* Mass emailing to multiple contacts
+* Compose emails to multiple contacts
 * Calendar to update monthly events
 
 == Site Map
