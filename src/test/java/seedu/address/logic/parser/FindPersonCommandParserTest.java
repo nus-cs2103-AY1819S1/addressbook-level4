@@ -12,6 +12,8 @@ import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonModuleCodeContainsKeywordsPredicate;
+import seedu.address.model.person.PersonOccasionNameContainsKeywordsPredicate;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
 public class FindPersonCommandParserTest {
@@ -48,5 +50,15 @@ public class FindPersonCommandParserTest {
                 new AddressContainsKeywordsPredicate(Arrays.asList("wall", "michegan")));
         assertParseSuccess(parser, " a/wall michegan", expectedFindPersonCommand);
         assertParseSuccess(parser, " a/ \n wall \n \t michegan  \t", expectedFindPersonCommand);
+
+        expectedFindPersonCommand = new FindPersonCommand(
+                new PersonModuleCodeContainsKeywordsPredicate(Arrays.asList("cs2103", "cs2103t")));
+        assertParseSuccess(parser, " mc/cs2103 cs2103t", expectedFindPersonCommand);
+        assertParseSuccess(parser, " mc/ \n cs2103 \n \t cs2103t  \t", expectedFindPersonCommand);
+
+        expectedFindPersonCommand = new FindPersonCommand(
+                new PersonOccasionNameContainsKeywordsPredicate(Arrays.asList("project", "meeting")));
+        assertParseSuccess(parser, " on/project meeting", expectedFindPersonCommand);
+        assertParseSuccess(parser, " on/ \n project \n \t meeting  \t", expectedFindPersonCommand);
     }
 }

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import seedu.address.model.person.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.PersonModuleCodeContainsKeywordsPredicate;
+import seedu.address.model.person.PersonOccasionNameContainsKeywordsPredicate;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
 /**
@@ -30,9 +32,9 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
     public FindPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_MODULECODE);
-        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MODULECODE)
-                || !argMultimap.getPreamble().isEmpty()) {
+                        PREFIX_MODULECODE, PREFIX_OCCASIONNAME);
+        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MODULECODE,
+                PREFIX_OCCASIONNAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
         }
 
@@ -48,10 +50,14 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
         } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             String[] addressKeyWords = argMultimap.getValue(PREFIX_ADDRESS).get().trim().split("\\s+");
             return new FindPersonCommand(new AddressContainsKeywordsPredicate(Arrays.asList(addressKeyWords)));
-        } else {
+        } else if (argMultimap.getValue(PREFIX_MODULECODE).isPresent()) {
             String[] moduleCodeKeyWords = argMultimap.getValue(PREFIX_MODULECODE).get().trim().split("\\s+");
             return new FindPersonCommand(
                     new PersonModuleCodeContainsKeywordsPredicate(Arrays.asList(moduleCodeKeyWords)));
+        } else {
+            String[] occasionNameKeyWords = argMultimap.getValue(PREFIX_OCCASIONNAME).get().trim().split("\\s+");
+            return new FindPersonCommand(new PersonOccasionNameContainsKeywordsPredicate(Arrays
+                    .asList(occasionNameKeyWords)));
         }
 
     }

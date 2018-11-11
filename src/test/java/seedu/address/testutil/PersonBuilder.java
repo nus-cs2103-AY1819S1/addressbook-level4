@@ -120,8 +120,9 @@ public class PersonBuilder {
      * Sets the occasion list using {@code occasionList}.
      */
     public PersonBuilder withOccasionList(List<Occasion> occasionList) {
+        this.occasionList = new UniqueOccasionList();
         for (Occasion occasion : occasionList) {
-            occasionList.add(occasion);
+            this.occasionList.add(occasion);
         }
         return this;
     }
