@@ -66,7 +66,7 @@ public class TypicalRides {
     private TypicalRides() {} // prevents instantiation
 
     /**
-     * Returns an {@code ThanePark} with all the typical persons.
+     * Returns an {@code ThanePark} with all the typical rides.
      */
     public static ThanePark getTypicalThanePark() {
         ThanePark ab = new ThanePark();

@@ -28,7 +28,7 @@ public interface Storage extends ThaneParkStorage, UserPrefsStorage {
     Optional<ReadOnlyThanePark> readThanePark() throws DataConversionException, IOException;
 
     @Override
-    void saveThanePark(ReadOnlyThanePark addressBook) throws IOException;
+    void saveThanePark(ReadOnlyThanePark thanePark) throws IOException;
 
     /**
      * Saves the current version of the Zone Book to the hard disk.

@@ -2,7 +2,7 @@ package seedu.thanepark.logic.commands;
 
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.thanepark.logic.commands.CommandTestUtil.deleteFirstRide;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Before;
@@ -22,13 +22,13 @@ public class RedoCommandTest {
     @Before
     public void setUp() {
         // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstRide(model);
+        deleteFirstRide(model);
         model.undoThanePark();
         model.undoThanePark();
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstRide(expectedModel);
+        deleteFirstRide(expectedModel);
         expectedModel.undoThanePark();
         expectedModel.undoThanePark();
     }

@@ -6,8 +6,8 @@ import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.thanepark.logic.commands.DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS;
 import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
-import static seedu.thanepark.testutil.TestUtil.getPerson;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TestUtil.getRide;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
@@ -33,15 +33,15 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: delete the first ride in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Ride deletedRide = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_RIDE.getOneBased() + "       ";
+        Ride deletedRide = removeRide(expectedModel, INDEX_FIRST_RIDE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RIDE_SUCCESS, deletedRide);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last ride in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastRideIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastRideIndex);
 
         /* Case: undo deleting the last ride in the list -> last ride restored */
         command = UndoCommand.COMMAND_WORD;
@@ -50,26 +50,26 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: redo deleting the last ride in the list -> last ride deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeRide(modelBeforeDeletingLast, lastRideIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle ride in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleRideIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleRideIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered ride list, delete index within bounds of thanepark book and ride list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
-        Index index = INDEX_FIRST_PERSON;
+        showRidesWithName(KEYWORD_MATCHING_THE);
+        Index index = INDEX_FIRST_RIDE;
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered ride list, delete index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         int invalidIndex = getModel().getThanePark().getRideList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
@@ -77,13 +77,13 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
         /* --------------------- Performing delete operation while a ride card is selected ------------------------ */
 
         /* Case: delete the selected ride -> ride list panel selects the ride before the deleted ride */
-        showAllPersons();
+        showAllRides();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectRide(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedRide = removePerson(expectedModel, selectedIndex);
+        deletedRide = removeRide(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_RIDE_SUCCESS, deletedRide);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -117,8 +117,8 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
      * Removes the {@code Ride} at the specified {@code index} in {@code model}'s thanepark book.
      * @return the removed ride
      */
-    private Ride removePerson(Model model, Index index) {
-        Ride targetRide = getPerson(model, index);
+    private Ride removeRide(Model model, Index index) {
+        Ride targetRide = getRide(model, index);
         model.deleteRide(targetRide);
         return targetRide;
     }
@@ -130,7 +130,7 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) throws IOException {
         Model expectedModel = getModel();
-        Ride deletedRide = removePerson(expectedModel, toDelete);
+        Ride deletedRide = removeRide(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RIDE_SUCCESS, deletedRide);
 
         assertCommandSuccess(

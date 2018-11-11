@@ -6,12 +6,12 @@ import seedu.thanepark.model.ride.Ride;
 /**
  * Represents a selection change in the Ride List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class RidePanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Ride newSelection;
 
-    public PersonPanelSelectionChangedEvent(Ride newSelection) {
+    public RidePanelSelectionChangedEvent(Ride newSelection) {
         this.newSelection = newSelection;
     }
 

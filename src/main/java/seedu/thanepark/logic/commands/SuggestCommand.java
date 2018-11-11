@@ -2,8 +2,6 @@ package seedu.thanepark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-
 import seedu.thanepark.commons.core.EventsCenter;
 import seedu.thanepark.commons.events.ui.SuggestCommandEvent;
 import seedu.thanepark.logic.CommandHistory;
@@ -20,17 +18,11 @@ public class SuggestCommand extends Command {
     private final String[] suggestions;
 
     /**
-     * Creates a SuggestCommand to suggest all prefix matches commands.
-     * @param prefix
+     * Creates a SuggestCommand to suggest all matching commands.
      */
-    public SuggestCommand(String prefix) {
-        requireNonNull(prefix);
-        if (!prefix.matches("[a-zA-Z]+")) {
-            suggestions = new String[0];
-            return;
-        }
-        suggestions = Arrays.stream(AllCommandWords.COMMAND_WORDS).filter(s
-            -> s.matches("^" + prefix + ".*")).toArray(String[]::new);
+    public SuggestCommand(String[] suggestions) {
+        requireNonNull(suggestions);
+        this.suggestions = suggestions;
     }
 
     /**
@@ -40,14 +32,6 @@ public class SuggestCommand extends Command {
      */
     public static String combineCommandWords(String... commandWords) {
         return String.join(", ", commandWords);
-    }
-
-    /**
-     * A prefix with no match is invalid.
-     * @return
-     */
-    public boolean isPrefixValid() {
-        return suggestions.length > 0;
     }
 
     @Override
