@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -47,6 +49,7 @@ public class CancelApptCommand extends Command {
 
         //save changes to ClinicIO
         model.commitClinicIo();
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, targetAppointment));
     }
 
