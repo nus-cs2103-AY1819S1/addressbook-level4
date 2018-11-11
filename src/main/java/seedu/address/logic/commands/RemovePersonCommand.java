@@ -67,6 +67,7 @@ public class RemovePersonCommand extends Command {
 
             AttendanceListUtil.delinkPersonModule(model, personToRemove, moduleToRemove);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_REMOVE_FROM_MODULE);
 
         } else if (currType == TypeUtil.OCCASION) {
@@ -87,6 +88,7 @@ public class RemovePersonCommand extends Command {
 
             AttendanceListUtil.delinkPersonOccasion(model, personToRemove, occasionToRemove);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_REMOVE_FROM_OCCASION);
 
         } else {

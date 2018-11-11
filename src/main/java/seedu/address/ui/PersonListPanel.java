@@ -12,7 +12,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
+import seedu.address.commons.events.ui.PersonBrowserChangeEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -65,6 +67,22 @@ public class PersonListPanel extends UiPart<Region> {
                         raise(new PersonPanelSelectionChangedEvent(newValue));
                     }
                 });
+    }
+
+    private boolean isListSelected() {
+        return personListView.getSelectionModel().getSelectedIndex() > -1;
+    }
+
+    @Subscribe
+    private void handleRefreshBrowserEvent(RefreshPersonBrowserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (isListSelected()) {
+            int index = personListView.getSelectionModel().getSelectedIndex();
+            personListView.getSelectionModel().clearSelection();
+            personListView.getSelectionModel().clearAndSelect(index);
+            Person currPerson = personListView.getSelectionModel().getSelectedItem();
+            raise(new PersonBrowserChangeEvent(currPerson));
+        }
     }
 
     /**

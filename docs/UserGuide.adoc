@@ -202,7 +202,7 @@ Opens this user guide in a separate window.
 Format: `help`
 
 // tag::add[]
-=== Adding an entry: `add[]`
+=== Adding an entry: `add`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -305,7 +305,7 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // end::select[]
 
 // tag::edit[]
-=== Editing an entry : `edit[]`
+=== Editing an entry : `edit`
 
 Edits an existing person, module or occasion in TheTracker. +
 It can be used to add optional field that is not specified in the add command.
@@ -518,20 +518,17 @@ You can use the up & down arrows to find your intended command in the drop-down 
 A command to allow the user to export data from TheTracker to a specified location.
 
 ==== Exporting data to xml file
+
+Export data to a xml file.
+
 Format: +
 `export --xml [FILEPATH]`
 
-This command:
-****
-* Export data to xml file.
-* The xml file will be stored in [FILEPATH] if the export succeeds.
-****
 ****
 *Command Format*
 
 * Use a single whitespace to divide `--xml` and `[FILEPATH]`.
-* `[FILEPATH]` should be a valid file path.
-* `[FILEPATH]` should not contain any whitespace.
+* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
 ****
 
 Examples: +
@@ -540,21 +537,17 @@ Examples: +
 * For Windows users: `export --xml C:\Users\Anna\desktop\exported.xml`
 
 ==== Exporting data to txt file
+
+Export data to a txt file.
+
 Format: +
 `export --txt [FILEPATH]`
-
-This command:
-****
-* Export data to txt file with predefined style and layout.
-* The txt file will be stored in [FILEPATH] if the export succeeds.
-****
 
 ****
 *Command Format*
 
 * Use a single whitespace to divide `--txt` and `[FILEPATH]`.
-* `[FILEPATH]` should be a valid file path.
-* `[FILEPATH]` should not contain any whitespace.
+* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
 ****
 
 Examples: +
