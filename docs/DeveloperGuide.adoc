@@ -847,6 +847,17 @@ Shown below is how information like `referralContent` and `noteContent` are form
 
 [WARNING]
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
+
+==== Design Considerations
+
+===== Aspect: Implementation of `adddocument`, `MedicalCertificate` and `ReferralLetter` Commands
+
+* **Alternative 1 (current choice):** Issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
+** Pros: No need for an extra parameter to key in issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
+** Cons: There may be more than one doctor working in a clinic.
+* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the 'adddocument' command for the issuing doctor to key in his/her name.
+** Pros: Different doctors can sign off the medical certificates and referral letters.
+** Cons: Slightly more typing is necessary when executing the `adddocument` command.
 // end::referralletter[]
 
 // tag::applicationgui[]
