@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULEINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * A command that enables users to insert a person, bidirectionally, into either a module
@@ -75,9 +73,8 @@ public class InsertPersonCommand extends Command {
                                 personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
                                 personToReplace, moduleToReplace);
-            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
 
         } else if (State.OCCASION_STATE == currState) {
@@ -102,9 +99,8 @@ public class InsertPersonCommand extends Command {
                                 personToReplace.makeShallowDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace, occasionToReplace);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
             model.commitAddressBook();
+            AttendanceListUtil.postRefreshEvent(model);
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
 
         } else {

@@ -269,15 +269,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::supportforocassionandmodule[]
-=== Features supporting Person, Module and Occasion
-Our application is an extension of address book application. Besides
+TheTracker is an extension of address book application. Besides
 supporting basic address book features for `Person`, we also intended to
-make those features be available for `Module` and `Occasion`. This makes this
-application(TheTracker) to be able to track the modules a person takes, as
-well as the Occasions they participate in.
-
-==== Current Design plan
-We are storing persons, modules and occasions individually. And command are also entity-specific.
+make those features be available for `Module` and `Occasion`. This makes
+TheTracker to be able to track the modules a person takes, as
+well as the occasions he participates in.
 // end::supportforocassionandmodule[]
 
 // tag::find[]
@@ -334,12 +330,62 @@ the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
 // end::select[]
 
 // tag::edit[]
-=== Edit Feature
-The following sequence diagram shows how the `editPerson` operation works:
-`editPerson 6 p/91234567 e/johndoe@example.com`
+=== Edit Person/Module/Occasion Feature
+`edit` is a basic feature for `TheTracker`. +
+It supports editing of `Person`, `Module` and `Occasion` by command `editperson`,
+`editmodule` and `editoccasion` respectively.
+
+==== Current Implementation
+The following section will use `EditPersonCommand` as an example to explain the implementation.
+`EditModuleCommand` and `EditOccasionCommand` use the same mechanism. +
+
+`EditPersonCommand` extends the `Command` class and uses inheritance to facilitate implementation.
+It's mechanism is facilitated by `VersionAddressBook`. In addition, it implements the following operations:
+
+* `VersionedAddressBook#commit()`: Saves the current book state in the command history
+* `VersionedAddressBook#updatePerson(target, editedPerson)`: Update the targetedPerson with edited fields
+* `ModelManager#updateFilteredPersonList(Predicate<Person> predicate)`:
+Returns an unmodifiable view of the list of Person backed by the internal list of VersionedAddressBook
+
+These operations are exposed in the Model interface as
+Model#commitAddressBook(), Model#updatePerson(target, editedPerson) and Model#updateFilteredPersonList(Predicate<Person> predicate) respectively.
+
+Provided below is a usage scenario instance. It illustrates how the edit mechanism behaves at each step.
+
+Step 1: The user launches TheTracker for the first time. The
+`VersionedAddressBook` will be initialised with the initial address book
+state, which the `currentStatePointer` is currently pointing to.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2: The user executes `editperson 6 p/91234567 e/johndoe@example.com` command to edit the person who is of index 7 in the list and
+changes his phone number to 91234567 and email address to johndoe@example.com. The `editperson` command calls `Model#commitAddressBook()`, causing the modified
+state of addressBook after the `editperson 6 p/91234567 e/johndoe@example.com` command executes to be saved in the `addressBookStateList`, and the
+`currentStatePointer` is shifted to the newly inserted address book state.
+
+image::EditPersonCommand1StateListDiagram.png[width="800"]
+
+The following sequence diagram shows how the `editperson` operation works:
+`editperson 6 p/91234567 e/johndoe@example.com`
 
 image::EditPersonSequenceDiagram.png[width="800"]
- `editModule` and `editOccasion` works in a similar way as `editPerson`
+ `editmodule` and `editoccasion` works in a similar way as `editperson`
+
+==== Design Considerations
+===== Aspect: How editperson/editmodule/editoccasion executes
+* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally inrelevant to each other
+**Pros:
+*** Implementation is easy to understand
+**Cons:
+*** Lack of the essence of polymorphism, which is a key feature in OOP
+* **Alternative 2 :** Let `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand`
+inherits from `EditCommand`, then use `TypeUtil` to detect the kind of entity that is going to be edited
+** Pros:
+*** A good utilisation of polymorphism
+** Cons:
+*** `Person`, `Module`, `Occasion` are three relatively independent entity, it could be hard to handle when using
+polymorphism and put everything together
+
 // end::edit[]
 
 // tag::undoredo[]
@@ -361,7 +407,7 @@ undone state.
 These operations are exposed in the Model interface as
 Model#commitAddressBook(), Model#undoAddressBook() and Model#redoAddressBook() respectively.
 
-Provided below is an usage scenario instance. It illustrates how the
+Provided below is a usage scenario instance. It illustrates how the
 undo/redo mechanism behaves at each step.
 
 Step 1: The user launches TheTracker for the first time. The
@@ -371,7 +417,7 @@ state, which the `currentStatePointer` is currently pointing to.
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2: The user executes `add n/David...` command to add a person called
-David in his TheTracker. The `find` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `find David...` command
+David in his TheTracker. The `add` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `add David...` command
 executes to be saved in the `addressBookStateList`, and the
 `currentStatePointer` is shifted to the newly inserted address book state.
 
@@ -461,6 +507,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::history[]
 === History feature
+History feature allows the user to review all the commands he has typed in.
 The following sequence diagram shows how the `history` operation works:
 
 image::HistoryCommandSequenceDiagram.png[width="800"]
@@ -480,6 +527,69 @@ While checking, the feature will try to give a regex match of the command and al
 
 // end::autocomplete[]
 
+// tag::export[]
+=== Export
+Export is a feature to enhance the functionality of TheTracker.
+TheTracker (v1.4) supports exporting user data to xml file and txt file.
+
+==== Current Implementation
+`ExportXmlCommand` and `ExportTxtCommand` are both inherited from `ExportCommand`, which inherits from `Command` class
+
+In order to a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
+In order to reduce redundant code in commands that are not directly dependent on `Storage`, `setStorage(Storage storage)` is
+designed to be a non-abstract method. Only `ExportCommand` overrides this method.
+
+Both `ExportXmlCommand` and `ExportTxtCommand` inherits from `ExportCommand`.
+
+===== For ExportXmlCommand
+The following sequence diagram shows how the `ExportXmlCommand` works.
+
+image::EditXmlCommandSequenceDiagram.png[width="800"]
+
+===== For ExportTxtCommand
+`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`. +
+This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. +
+The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
+then, the method `parse()` of `XmlToTxtUtil` will parse the xml file to a txt file with defaulted style and layout
+and stored in the `exportedFilePath` specified by the user.
+
+==== Design Considerations
+===== Aspect: The role of exported file type
+* **As a parameter (current implementation):**
+** Format: `export --xml [FILEPATH]` and `export --txt [FILEPATH]`
+** Pros:
+*** Can utilise polymorphism
+*** Can avoid unnecessary repetition of code
+** Cons:
+*** Not consistent with the format of other command (command + parameterPrefix + parameter)
+
+* **As a part of command :**
+** Format: `exportxml fp/[FILEPATH]` and `exporttxt fp/[FILEPATH]`
+** Pros:
+*** Can keep consistent with the format of other command (command + parameterPrefix + parameter)
+** Cons:
+*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent command, which does not utilise polymorphism
+*** Have unnecessary repetition of code
+
+===== Aspect: The Location of valid filepath check
+* **Check in `ExportCommand` (current implementation) :**
+** Pros:
+*** As only export commands are directly related to external file path that the user types in, which needs to check validation,
+checking in `ExportCommand` and its subclasses can avoid unnecessary checking.
+*** Easy to implement and clear to understand
+** Cons:
+*** Can only check the validation of external file path that the user types in
+
+* **Check in `AddressBookStorage` :**
+** Pros:
+*** Can check the validation of all the file paths occurred in `Storage` component of this project
+** Cons:
+*** Have unnecessary checking of the validation of file paths
+// end::export[]
+
+// tag::import[]
+=== Import (Coming in v 2.0)
+// end::import[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

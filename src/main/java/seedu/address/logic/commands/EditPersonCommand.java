@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -69,6 +70,9 @@ public class EditPersonCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        AttendanceListUtil.editPersonFromAssociateModules(model, personToEdit, editedPerson);
+        AttendanceListUtil.editPersonFromAssociateOccasions(model, personToEdit, editedPerson);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

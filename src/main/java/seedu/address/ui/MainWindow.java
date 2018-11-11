@@ -233,11 +233,10 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         if (logic.getFilteredPersonList().size() > 0) {
             Person firstPerson = logic.getFilteredPersonList().get(0);
-            personBrowserPanel = new PersonBrowserPanel(firstPerson.getModuleList().asUnmodifiableObservableList(),
-                    firstPerson.getOccasionList().asUnmodifiableObservableList());
+            personBrowserPanel = new PersonBrowserPanel(firstPerson);
         } else { // Means that there are no modules within the addressbook.
             personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
-                                                        new UniqueOccasionList().asUnmodifiableObservableList());
+                    new UniqueOccasionList().asUnmodifiableObservableList());
         }
 
         if (logic.getFilteredModuleList().size() > 0) {

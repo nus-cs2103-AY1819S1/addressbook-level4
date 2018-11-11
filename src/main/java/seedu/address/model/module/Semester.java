@@ -40,6 +40,9 @@ public class Semester {
      * Makes an identical deep copy of this Semester.
      */
     public Semester makeDeepDuplicate() {
+        if (semesterNumber.equals("")) {
+            return new Semester();
+        }
         Semester newSemester = new Semester(new String(semesterNumber));
         return newSemester;
     }

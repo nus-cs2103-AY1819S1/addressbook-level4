@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandPersonTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandPersonTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_NAME_BOB;
@@ -11,9 +12,13 @@ import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_HUSBA
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandPersonTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersonsAddressBook;
+import static seedu.address.testutil.TypicalModules.ST2131;
+import static seedu.address.testutil.TypicalOccasions.OCCASION_ONE;
 
 import org.junit.Test;
 
@@ -31,12 +36,12 @@ import seedu.address.testutil.PersonDescriptorBuilder;
 
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
+ * Contains integration tests (interaction with the Model, InsertPerson, UndoCommand and RedoCommand) and
  * unit tests for EditPersonCommand.
  */
 public class EditPersonCommandTest {
 
-    private Model model = new ModelManager(getTypicalPersonsAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -224,6 +229,49 @@ public class EditPersonCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    /**
+     * Tests whether persons are properly edited in their associated modules.
+     * 1. Inserts a {@code Person} into a {@code Module}
+     * 2. Edits the person.
+     * 3. The module should have the person after editing in its list.
+     */
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_personEditedInModule() throws Exception {
+        Person editedPerson = new PersonBuilder().build();
+        PersonDescriptor descriptor = new PersonDescriptorBuilder(editedPerson).build();
+
+        EditPersonCommand editPersonCommand = new EditPersonCommand(INDEX_FIRST_PERSON, descriptor);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        InsertPersonCommand insertPersonIntoModuleCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_PERSON, ST2131); //dummy module used as indicator of insert 'type'
+        insertPersonIntoModuleCommand.execute(model, commandHistory);
+        editPersonCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredModuleList().get(INDEX_SECOND_MODULE.getOneBased()).getStudents(),
+                model.getFilteredModuleList().get(INDEX_SECOND_MODULE.getOneBased()).getStudents());
+    }
+    /**
+     * Tests whether persons are properly edited in their associated occasions.
+     * 1. Inserts a {@code Person} into an {@code Occasion}
+     * 2. Edits the person.
+     * 3. The occasion should have the person after editing in its list.
+     */
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_personRemovedFromOccasion() throws Exception {
+        Person editedPerson = new PersonBuilder().build();
+        PersonDescriptor descriptor = new PersonDescriptorBuilder(editedPerson).build();
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_SECOND_PERSON, descriptor);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_SECOND_PERSON,
+                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+        insertPersonIntoOccasionCommand.execute(model, commandHistory);
+        editCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredOccasionList()
+                        .get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList(),
+                model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getOneBased()).getAttendanceList());
+    }
+
 
     @Test
     public void equals() {

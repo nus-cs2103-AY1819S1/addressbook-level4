@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ModuleBrowserChangeEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
@@ -54,5 +55,11 @@ public class ModuleBrowserPanel extends UiPart<Region> {
     private void handleModulePanelSelectionChangedEvent(ModulePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadTable(event.getNewSelection().getStudents().asUnmodifiableObservableList());
+    }
+
+    @Subscribe
+    private void handleModuleBrowserChangeEvent(ModuleBrowserChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadTable(event.getCurrSelection().getStudents().asUnmodifiableObservableList());
     }
 }

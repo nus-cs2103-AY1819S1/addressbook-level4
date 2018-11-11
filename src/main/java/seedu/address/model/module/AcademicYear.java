@@ -26,7 +26,7 @@ public class AcademicYear {
      * Empty constructor.
      */
     public AcademicYear() {
-        yearNumber = 0001;
+        yearNumber = 1718;
         isEmptyYear = true;
     }
 

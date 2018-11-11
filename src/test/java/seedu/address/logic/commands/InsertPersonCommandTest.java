@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.function.Predicate;
 
@@ -317,12 +318,14 @@ public class InsertPersonCommandTest {
         private UniquePersonList personList = new UniquePersonList();
         private UniqueOccasionList occasionList = new UniqueOccasionList();
         private UniqueModuleList moduleList = new UniqueModuleList();
+        private TypeUtil activeType;
 
         ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
             requireAllNonNull(person, occasion, module);
             this.personList.add(person);
             this.occasionList.add(occasion);
             this.moduleList.add(module);
+            activeType = PERSON;
         }
 
         @Override
@@ -331,8 +334,8 @@ public class InsertPersonCommandTest {
                                         Person personToReplace, Occasion occasionToReplace) {
             personToInsertDeep.getOccasionList().add(occasionToInsertShallow);
             occasionToInsertDeep.getAttendanceList().add(personToInsertShallow);
-            updatePerson(personToInsertDeep, personToReplace);
-            updateOccasion(occasionToInsertDeep, occasionToReplace);
+            updatePerson(personToReplace, personToInsertDeep);
+            updateOccasion(occasionToReplace, occasionToInsertDeep);
         }
 
         @Override
@@ -341,29 +344,34 @@ public class InsertPersonCommandTest {
                                         Person personToReplace, Module moduleToReplace) {
             personToInsertDeep.getModuleList().add(moduleToInsertShallow);
             moduleToInsertDeep.getStudents().add(personToInsertShallow);
-            updatePerson(personToInsertDeep, personToReplace);
-            updateModule(moduleToInsertDeep, moduleToReplace);
+            updatePerson(personToReplace, personToInsertDeep);
+            updateModule(moduleToReplace, moduleToInsertDeep);
+        }
+
+        @Override
+        public TypeUtil getActiveType() {
+            return activeType;
         }
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
             requireNonNull(editedPerson);
 
-            personList.setPerson(editedPerson, target);
+            personList.setPerson(target, editedPerson);
         }
 
         @Override
         public void updateModule(Module target, Module editedModule) {
             requireNonNull(editedModule);
 
-            moduleList.setModule(editedModule, target);
+            moduleList.setModule(target, editedModule);
         }
 
         @Override
         public void updateOccasion(Occasion target, Occasion editedOccasion) {
             requireNonNull(editedOccasion);
 
-            occasionList.setOccasion(editedOccasion, target);
+            occasionList.setOccasion(target, editedOccasion);
         }
 
         @Override

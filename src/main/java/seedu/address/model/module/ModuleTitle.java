@@ -50,6 +50,9 @@ public class ModuleTitle {
      * Makes an identical deep copy of this ModuleTitle.
      */
     public ModuleTitle makeDeepDuplicate() {
+        if (fullModuleTitle.equals("")) {
+            return new ModuleTitle();
+        }
         ModuleTitle newTitle = new ModuleTitle(new String(fullModuleTitle));
         return newTitle;
     }

@@ -12,10 +12,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.PersonBrowserChangeEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 
 /**
  * The person browser panel for when the UI switches to the persons tab.
@@ -43,20 +45,39 @@ public class PersonBrowserPanel extends UiPart<Region> {
     @FXML
     private TableColumn<Module, String> moduleTitleStringTableColumn;
 
+    private Person currSelectedPerson = new Person(new PersonDescriptor());
+
+    public PersonBrowserPanel(Person currPerson) {
+        super(FXML);
+
+        currSelectedPerson = currPerson;
+        getRoot().setOnKeyPressed(Event::consume);
+        loadTable(currPerson.getModuleList().asUnmodifiableObservableList(),
+                currPerson.getOccasionList().asUnmodifiableObservableList());
+        registerAsAnEventHandler(this);
+    }
+
     public PersonBrowserPanel(ObservableList<Module> moduleList, ObservableList<Occasion> occasionList) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
-
         loadTable(moduleList, occasionList);
         registerAsAnEventHandler(this);
     }
 
     private void loadTable(ObservableList<Module> moduleList, ObservableList<Occasion> occasionList) {
-        occasionTableView.setItems(occasionList);
-        moduleTableView.setItems(moduleList);
+        loadModuleTable(moduleList);
+        loadOccasionTable(occasionList);
         setCellFactories();
+    }
+
+    private void loadModuleTable(ObservableList<Module> moduleList) {
+        moduleTableView.setItems(moduleList);
+    }
+
+    private void loadOccasionTable(ObservableList<Occasion> occasionList) {
+        occasionTableView.setItems(occasionList);
     }
 
     private void setCellFactories() {
@@ -66,10 +87,18 @@ public class PersonBrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleModulePanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        Person nextPersonSelected = event.getNewSelection();
-        loadTable(nextPersonSelected.getModuleList().asUnmodifiableObservableList(),
-                    nextPersonSelected.getOccasionList().asUnmodifiableObservableList());
+        currSelectedPerson = event.getNewSelection();
+        loadTable(currSelectedPerson.getModuleList().asUnmodifiableObservableList(),
+                currSelectedPerson.getOccasionList().asUnmodifiableObservableList());
+    }
+
+    @Subscribe
+    private void handlePersonBrowserChangeEvent(PersonBrowserChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Person currPersonSelected = event.getCurrSelection();
+        loadTable(currPersonSelected.getModuleList().asUnmodifiableObservableList(),
+                    currPersonSelected.getOccasionList().asUnmodifiableObservableList());
     }
 }
