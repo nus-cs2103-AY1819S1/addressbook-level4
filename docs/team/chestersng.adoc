@@ -51,16 +51,20 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 |_Given below is the mock-up of the GUI that I designed. It showcases my ability to visualise an end-product._
 |===
 
-include::../UserGuide.adoc[tag=UI]
+.Mockup of CLInic UI
+image::UI.png[width="750"]
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are part of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=pqms]
+include::../UserGuide.adoc[tag=pqms2]
+include::../UserGuide.adoc[tag=pqms3]
+
 
 == Contributions to the Developer Guide
 
