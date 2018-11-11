@@ -294,7 +294,7 @@ After he logs out,the colour of his name will revert back to white as shown in t
 image::LoginFeatureAfterLogin.png[width="300"]
 
 
-image::LoginFeature_ClassDiagram_Model_1.png[width="800"]
+image::LoginFeature_ClassDiagram_Model_1.png[width="800", margin-bottom="0"]
 
 image::LoginFeature_ClassDiagram_Model_2.png[width="800"]
 
