@@ -51,6 +51,6 @@ image::gongjie663746.png[width="150", align="left"]
 {empty}[http://github.com/Gongjie663746[github]] [<<gongjie663746#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Storage refactoring
+Responsibilities: Storage and command implementation
 
 '''
