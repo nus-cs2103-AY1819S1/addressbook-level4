@@ -700,14 +700,23 @@ The `n/` parameter can be omitted. In this case, all types of notifications will
 
 // tag::budget[]
 
-=== Budget
-==== Current Implementation
+=== Budgeting
+
 The budget feature allows the user to set a budget for their expenses.
-If the user's total expenses exceeds their budget, a warning will be shown to the user.
 
-The current implementation for budget tracking is described as below.
+Available spending is defined as the total amount of expenses you can add before you exceed your budget.
 
-===== Setting a Budget
+If the user's spending exceeds their available spending for the budget, a warning like the image below will be shown
+ to the user.
+
+.Warning that is shown when a user adds an expense which results in the user exceeding the budget.
+image::Overbudget.JPG[width="790"]
+
+
+
+The current implementation for budgeting and its related features are described below.
+
+==== Setting a Budget
 
 Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget
 
@@ -725,22 +734,41 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 . The budget is then updated.
 
 
-===== Setting a recurring Budget
+==== Setting a recurring Budget
 
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
-where the
-current expenses will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
-Expense Tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
-nothing will be done.
+when the
+available spending will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
+Expense Tracker will track the set recurrence time against the time now. If it exceeds, available spending will be
+reset, else nothing will be done.
+
+===== Setting the recurrence frequency
 
 * Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
-be set to `currentTime` + `recurrenceFrequency`.
-* If it has already been set, the timing will be updated on the next occurrence time
+be set to `currentTime` + `recurrenceFrequency`. This is shown in the code snippet below.
+```
+public void setRecurrenceFrequency(long seconds) {
+        this.numberOfSecondsToRecurAgain = seconds;
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
+    }
+```
+* If it has already been set, the timing will be updated on the next occurrence time. This is shown in the code
+snippet below.
+```
+if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+        this.previousRecurrence = LocalDateTime.now();
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
+        // rest of the implementation
+    {
+```
 
-Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.
+Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.
 
 .Sequence diagram of a user setting a recurrence frequency.
 image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
+
+Steps of the command execution are as follows:
 
 . User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
 
@@ -764,11 +792,40 @@ returned to
 . `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
 method to update the time when the next expenses of `totalBudget` is reset.
 
-===== Setting a Budget by Category
+===== Resetting available spending.
+
+Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
+of available spending resetting is given below.
+
+.Sequence diagram of a user setting a recurrence frequency.
+image::implementation/RecurrenceFrequencySequenceDiagram.png[width="900"]
+
+Execution steps of resetting available spending are as follows:
+
+. User logs in
+
+. `login` command executes in the `Logic`, which calls `Logic#execute()` to execute the command on the `Model`
+
+. `Model` calls `Model#checkBudgetRestart()`, which in turn calls `TotalBudget#checkBudgetRetart()` to check if the
+available spending is to be reset.
+
+. `TotalBudget#checkBudgetRestart()` either return `NOT_SET` or `SPENDING_RESET`, which will add their respective
+notifications. It will also return `DO_NOTHING`, which will results in `Model` to continue its execution.
+
+
+==== Setting a Budget by Category
 
 An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
-If the user's total expenses for a Category exceeds their Category Budget, a warning will be shown to the user.
+If the user's expenses for a `Category` exceeds the available spending for their `CategoryBudget`, a warning will be
+shown
+ to the user.
+
+Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a `CategoryBudget`.
+
+.Sequence diagram of a user setting `CategoryBudget`.
+image::implementation/SetCategoryBudgetSequenceDiagram.png[width="900"]
 
 
 . User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
@@ -786,22 +843,38 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
  is created and returned to `LogicManager`.
 
 . `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
-method to add a `Budget` to a `Category`.
+method to add a `CategoryBudget`.
 
-===== Notification center (Proposed)
-There is an area for the app to display notifications and additional information to the users beside the usual
-area below the command box. This is particularly useful to the *Budget* feature as budgets should not obstruct the
-usage of Expense Tracker, but rather provide helpful information. For example, if a user exceeds his total budget
- after
- adding an expense, a warning would be displayed in the *Notification center* instead of the area below the command
- box, replacing the success message of adding an expense and confusing the user.
+===== Setting budgets for different time frames (Proposed)
+Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
+This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
+the budget for this week, he could potentially spend lesser to make up for his overspending. This allows for expense
+tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.
 
-==== Alternatives considered
-Recurrence check was initially implemented via events. Every time `ModelManager#loadUserData()` is called, an event
-will be sent to `EventBus` to be dispatched to an event handler implemented in `Budget`. However, after heavy
-consideration, the recurrence check should only be called whenever `loadUserData()` is called, and never anywhere
-else. Therefore, it should be more closely coupled with `loadUserData()` instead of being an event that can be posted
- from anywhere inside the application.
+.Diagram of a weekly budget
+image::budgetOfTheWeek.PNG[width="800"]
+
+.Diagram of a monthly budget.
+image::budgetOfTheMonth.png[width="800"]
+
+The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
+the
+user still has available spending for the month.
+
+==== Design Considerations
+
+This section provides alternative design patterns that we have considered for features relating to budgeting.
+
+===== Aspect: How recurrence is checked
+
+* **Alternative 1 (current choice):** Calling of method when the user logs in
+** Pros: Closely coupled with logging in.
+** Cons: Encapsulation sacrificed due to close coupling with other classes and methods.
+* **Alternative 2:** Dispatching an event every time the user logs in
+** Pros: Easy to implement
+** Cons: Possible for other implementations to cause a recurrence check. As the recurrence check is closely tied to
+logging in, this should not be possible
+
 
 // end::budget[]
 
