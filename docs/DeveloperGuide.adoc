@@ -263,7 +263,9 @@ login/logout feature and the changes that were made on other components of Event
 namely, the EditUser Command, and the DeleteUser Command, to ensure cohesiveness of the
 entire application.
 
-image::LoginFeature_SequenceDiagram_includes_Logic_Model.png[width="800"]
+image::LoginFeature_SequenceDiagram_includes_Logic.png[width="800"]
+
+image::LoginFeature_SequenceDiagram_includes_Model.png[width="800"]
 
 When the execute() method of the login command is called,  the login command authenticates
 the user i.e. checks that the user that is trying to logging actually exists in Event Organiser.
@@ -276,7 +278,7 @@ A CommandException will be thrown in the following 2 scenarios:
 On the other hand, when the execute() method of the log out command is called,
 a CommandException will be thrown when there isn't any user that is logged in.
 
-image::LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png[width="800"]
+image::LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png[width="800"]
 
 After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
 to update the UI.
@@ -296,7 +298,7 @@ image::LoginFeatureAfterLogin.png[width="300"]
 
 image::LoginFeature_ClassDiagram_Model_1.png[width="800", margin-bottom="0"]
 
-image::LoginFeature_ClassDiagram_Model_2.png[width="800"]
+image::LoginFeature_ClassDiagram_Model_2.png[width="800", margin-top="0"]
 
 image::LoginFeature_ClassDiagram_Model_3.png[width="800"]
 
