@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Edits the details of an existing occasion in the address book.
@@ -73,6 +74,7 @@ public class EditOccasionCommand extends Command {
 
         Occasion occasionToEdit = lastShownList.get(index.getZeroBased());
         Occasion editedOccasion = createEditedOccasion(occasionToEdit, editOccasionDescriptor);
+        AttendanceListUtil.editOccasionFromAssociatedPersons(model, occasionToEdit, editedOccasion);
 
         if (!occasionToEdit.isSameOccasion(editedOccasion) && model.hasOccasion(editedOccasion)) {
             throw new CommandException(MESSAGE_DUPLICATE_OCCASION);

@@ -29,25 +29,11 @@ public class ExportCommandParserTest {
     }
 
     @Test
-    public void parse_inconsistentArgs_failure() {
-        // want to export xml file but file path extension is not xml
-        assertParseFailure(parser, "--xml exported.txt",
-                String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
-
-        // want to export txt file but file path extension is not txt
-        assertParseFailure(parser, "--txt exported.xml",
-                String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
-
-        // the file type the user want to export is not supported
-        assertParseFailure(parser, "--pdf exported.pdf",
-                String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
-    }
-
-    @Test
     public void parse_validXmlFileExport_success() {
         String userInput = "--xml exported.xml";
         String path = "exported.xml";
-        ExportXmlCommand expectedCommand = new ExportXmlCommand(ParserUtil.parseFilePath(path));
+        ExportXmlCommand expectedCommand =
+                new ExportXmlCommand(ParserUtil.parseFilePath(path), ExportCommand.FileType.XML);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -55,7 +41,8 @@ public class ExportCommandParserTest {
     public void parse_validTxtFileExport_success() {
         String userInput = "--txt exported.txt";
         String path = "exported.txt";
-        ExportTxtCommand expectedCommand = new ExportTxtCommand(ParserUtil.parseFilePath(path));
+        ExportTxtCommand expectedCommand =
+                new ExportTxtCommand(ParserUtil.parseFilePath(path), ExportCommand.FileType.TXT);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

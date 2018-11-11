@@ -1,5 +1,12 @@
 package seedu.address.logic;
 
+import static junit.framework.TestCase.assertTrue;
+
+import java.util.Arrays;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.logic.commands.AddPersonCommand;
@@ -24,15 +31,11 @@ import seedu.address.logic.commands.RemovePersonCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
-/**
- * Provides basic logic of giving complete command suggestions.
- *
- * @author alistair
- */
-public class AutoComplete {
-
-    private final String[] allCommands = {AddPersonCommand.COMMAND_WORD, AddModuleCommand.COMMAND_WORD,
+public class AutoCompleteTest {
+    private AutoComplete autoCompleter;
+    private String[] allCommands = {AddPersonCommand.COMMAND_WORD, AddModuleCommand.COMMAND_WORD,
         AddOccasionCommand.COMMAND_WORD, EditPersonCommand.COMMAND_WORD, EditModuleCommand.COMMAND_WORD,
         EditOccasionCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
         ClearCommand.COMMAND_WORD, FindPersonCommand.COMMAND_WORD, FindModuleCommand.COMMAND_WORD,
@@ -41,20 +44,14 @@ public class AutoComplete {
         HelpCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD, ExportCommand.COMMAND_WORD,
         InsertPersonCommand.COMMAND_WORD, RemovePersonCommand.COMMAND_WORD};
 
-    private String[] suggestionsList;
-    private Model model;
-
-    public AutoComplete(Model model) {
-        this.model = model;
-        suggestionsList = allCommands;
+    @Before
+    public void setUp() {
+        Model model = new ModelManager();
+        autoCompleter = new AutoComplete(model);
     }
 
-    /**
-     * Getter to return list of suggestions for autocomplete.
-     * @return array of strings of suggestions.
-     */
-    public String[] getSuggestionsList() {
-        return suggestionsList;
+    @Test
+    public void equals() {
+        assertTrue(Arrays.equals(autoCompleter.getSuggestionsList(), allCommands));
     }
-
 }

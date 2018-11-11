@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.DESC_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.DESC_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_TWO;
@@ -11,9 +12,11 @@ import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_STU
 import static seedu.address.logic.commands.CommandOccasionTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.showOccasionAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
-import static seedu.address.testutil.TypicalOccasions.getTypicalOccasionsAddressBook;
+import static seedu.address.testutil.TypicalOccasions.OCCASION_ONE;
 
 import org.junit.Test;
 
@@ -36,7 +39,7 @@ import seedu.address.testutil.OccasionDescriptorBuilder;
  */
 public class EditOccasionCommandTest {
 
-    private Model model = new ModelManager(getTypicalOccasionsAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -232,6 +235,28 @@ public class EditOccasionCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    /**
+     * Tests whether occasions are properly removed from their associated persons.
+     * 1. Inserts a {@code Person} into a {@code Occasion}
+     * 2. Edits the occasion.
+     * 3. The person should have the occasion after editing in its list.
+     */
+    @Test
+    public void executeInsertPerson_validIndexFilteredList_occasionRemovedFromPerson() throws Exception {
+        Occasion editedOccasion = new OccasionBuilder().build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder(editedOccasion).build();
+
+        EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION, descriptor);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        InsertPersonCommand insertPersonIntoOccasionCommand = new InsertPersonCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_OCCASION, OCCASION_ONE); //dummy occasion used as indicator of insert 'type'
+        insertPersonIntoOccasionCommand.execute(model, commandHistory);
+        editOccasionCommand.execute(model, commandHistory);
+        assertEquals(expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getOccasionList(),
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getOneBased()).getOccasionList());
+    }
+
 
     @Test
     public void equals() {
