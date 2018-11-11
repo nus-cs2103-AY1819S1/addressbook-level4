@@ -188,6 +188,18 @@
     -fx-background-color: #21777B;
 }
 
+/** Title Screen */
+.title-screen-header {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+
+.title-screen-subtitle {
+    -fx-font-size: 21px;
+    -fx-font-style: italic;
+}
+
+
 /** Patient Details */
 .patient-details-title {
     -fx-text-size: 21px;
