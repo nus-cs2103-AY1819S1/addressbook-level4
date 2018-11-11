@@ -47,6 +47,7 @@ public class EnterGoogleCalendarModeCommandTest {
         //Hence for not as long as the model has been added with a new event
         //We consider it as success
         //TODO: Ensure all GoogleEvent properties are matched perfectly with Local Event
+        disable();
         assertNotEquals(model, expectedModel);
     }
 
@@ -75,6 +76,7 @@ public class EnterGoogleCalendarModeCommandTest {
         //Hence for not as long as the model has been added with a new event
         //We consider it as success
         //TODO: Ensure all GoogleEvent properties are matched perfectly with Local Event
+        disable();
         assertNotEquals(model, expectedModel);
     }
 
