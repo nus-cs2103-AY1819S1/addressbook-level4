@@ -41,7 +41,7 @@ along with the tagged profile picture of the specified resident.
 
 * *Minor enhancement*: Changed select command to show profile page.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:  https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=javenseow[Code]
 
 * *Other contributions*:
 
