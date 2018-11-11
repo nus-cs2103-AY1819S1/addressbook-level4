@@ -22,17 +22,23 @@ public class SaveCommandTest {
     public void saveImageSuccessfully() throws CommandException {
         String fileName = "test.jpg";
         SaveCommand command = new SaveCommand();
-        command.execute(model, new CommandHistory());
-        command = new SaveCommand(fileName);
-        File file = new File(model.getCurrDirectory().toString() + "/" + fileName);
-        if (file.exists()) {
+        try {
+            command.execute(model, new CommandHistory());
+            command = new SaveCommand(fileName);
+            File file = new File(model.getCurrDirectory().toString() + "/" + fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+            command.execute(model, new CommandHistory());
+            if (!file.exists()) {
+                fail();
+            }
             file.delete();
+        } catch (CommandException e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
         }
-        command.execute(model, new CommandHistory());
-        if (!file.exists()) {
-            fail();
-        }
-        file.delete();
     }
 
     @Test
@@ -43,8 +49,14 @@ public class SaveCommandTest {
         if (file.exists()) {
             file.delete();
         }
-        command.execute(model, new CommandHistory());
-        assertCommandFailure(command, model, new CommandHistory(), Messages.MESSAGE_DUPLICATED_IMAGE);
-        file.delete();
+        try {
+            command.execute(model, new CommandHistory());
+            assertCommandFailure(command, model, new CommandHistory(), Messages.MESSAGE_DUPLICATED_IMAGE);
+            file.delete();
+        } catch (CommandException e) {
+            if (e.getMessage() != null) {
+                throw e;
+            }
+        }
     }
 }

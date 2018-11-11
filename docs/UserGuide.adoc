@@ -28,7 +28,7 @@ Even new users that are unfamiliar with CLI will be able to easily and quickly p
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
 
-// tag::getting_started[]
+// tag::getting_started1[]
 == Getting started
 
 Let's work through a simple project in Piconso from start to finish.
@@ -39,21 +39,26 @@ If you ever get stuck with a command, pop down to the Features section for refer
 .The Piconso team knows how it feels.
 image::tutorial/before-after.png[width:2000]
 
-Ready to start your Piconso journey?
 
-. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial.zip[here] to get a zip file with all the assets you need to get started!
+**Ready to start your Piconso journey?**
+
+. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started!
 . Unzip the files into somewhere easy to access, like your Pictures folder.
 . Start Piconso!
 . Use the `cd` and `ls` commands to get to the folder with your unzipped assets. Your current file location is as noted on the bottom right of the application.
 You can use the `TAB` key to auto-complete pesky folder names! If everything goes well, you should be able to see all the images show up in the Image Panel on the lower left.
 
-.Images and index are showing up!
+.Images and their corresponding indexes are showing up!
 image::tutorial/step 1.png[width:2000]
 
 [start=5]
-. See the number below the base image? It might be different depending on your folder's content. If you don't see it within the first ten images, use the `next` and `prev` command to navigate!
+. See the number below the base image? That's the __index__ of the image. It might be different depending on your folder's content. If you don't see it within the first ten images, use the `next` and `prev` command to navigate!
 . Open the image simply by typing `open [index]`. __(Substitute index with the number you noted down just now)__
 . You should see the base template in all its glory.
+
+// end::getting_started1[]
+
+// tag::getting_started2[]
 
 .Ready to rumble.
 image::tutorial/step 2.png[width:2000]
@@ -86,7 +91,7 @@ image::tutorial/step 5.png[width:2000]
 image::tutorial/step 6.png[width:2000]
 
 [start=13]
-. Let's save our work before **DEEP FRY** the living daylights out of it! You can do that by typing `save arrangement.png` or if you're feeling adventurous just `save` will overwrite your original file irreversibly.
+. Let's save our work before we **DEEP FRY** the living daylights out of it! You can do that by typing `save arrangement.png` or if you're feeling adventurous just `save` will overwrite your current file irreversibly.
 . Open our file again, refer to step 5 and 6 if you need help.
 . Now we can begin to use some of the more advanced features in Piconso! We add some noise to the image with `apply raw +noise gaussian`.
 . Feel free to repeat the step 15 a few times to get the desired amount of noise! We did it five times to be sure. If you ever go overboard, use the `undo` command to ... undo the previous command. But face it, you're going to `redo` it anyway.
@@ -95,7 +100,7 @@ image::tutorial/step 6.png[width:2000]
 image::tutorial/step 7.png[width:2000]
 
 [start=17]
-. Now we bump the contrast up, **way** __way__ up with `apply raw -contrast-stretch 15%`.
+. Now we bump the contrast up, **way __way__** up with `apply raw -contrast-stretch 15%`.
 . Brightness and saturation gets the same boost with `apply raw -modulate 120,120`.
 . Apply the finishing touches with an unsharp mask! `apply raw -unsharp 0x05`. Now the meme is starting to take shape!
 
@@ -138,10 +143,7 @@ Before we let you go, wonder how we made the very first image you saw? Try this 
 . Use `canvas auto-resize on` to expand the canvas to show both of them.
 . Remove the background color of the canvas with `canvas bgcolor none` or change it to something you like!
 
-
-
-
-// end::getting_started[]
+// end::getting_started2[]
 
 [[Features]]
 == Features
@@ -273,6 +275,10 @@ As all the images will be resized to the canvas when displayed, the resize comma
 
 Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
 
+[WARNING]
+**Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
+
+
 // end::convert[]
 // tag::create[]
 
@@ -355,7 +361,8 @@ Example:
 === Canvas operations : `canvas`
 
 ==== Changes the size of the canvas: `canvas size`
-Format: `canvas size (NEW_SIZE)`
+Format: `canvas size (NEW_SIZE)` -> You can change the size of the canvas to with this command. Remember that the effects of `canvas auto-resize` takes precedence! +
+If `canvas auto-resize` is `off`, cropping might potentially occur.
 
 [NOTE]
 ====
@@ -368,7 +375,8 @@ Examples:
 * `canvas size` - Prints the current size.
 
 ==== Changes the background color of the canvas: `canvas bgcolor`
-Format: `canvas bgcolor (NEW_COLOR)`
+Format: `canvas bgcolor (NEW_COLOR)` -> You can change the background color of the canvas with this command. This is only visible if the canvas is larger than all the images placed on it.
+See the examples for the formats that your colors can take.
 
 [NOTE]
 ====
@@ -384,7 +392,11 @@ Examples:
 * `canvas bgcolor` - Prints the background colour.
 
 ==== Allowing the canvas to auto-resize: `canvas auto-resize [ON|OFF]`
-Format : `canvas auto-resize [ON|OFF]` -> Turns on/off the auto-resize for the canvas.
+Format : `canvas auto-resize [ON|OFF]` -> This command allows you to turns the auto-resize for the canvas on or off.
+
+
+When auto-resize is on, it can potentially override the size manually specified with the `canvas size` command.
+When `on`, the canvas expands as required to ensure that no clipping occurs.
 
 [NOTE]
 ====
@@ -402,7 +414,7 @@ Examples:
 === Layer operations : `layer`
 
 ==== Adds a new layer: `layer add [INDEX] (LAYER_NAME)`
-Format : `layer add [INDEX] (LAYER_NAME)` -> Selects the image at the provided index and adds it to the current canvas at the very top.
+Format : `layer add [INDEX] (LAYER_NAME)` -> You can select the image at the provided index and add it to the current canvas with this command.
 
 [NOTE]
 ====
@@ -412,27 +424,32 @@ If the optional parameter LAYER_NAME is not provided, a name will be automatical
 Examples:
 
 * `layer add 4` - Adds the image at index 4 to the canvas.
-* `layer add 1 background layer` - Adds the image at index 1 to the canvas as a layer named `backround layer`.
 
 ==== Removes a layer: `layer remove [INDEX]`
-Format : `layer remove [INDEX]` -> Permanently removes a layer from canvas.
+Format : `layer remove [INDEX]` -> This command allows you to permanently removes a layer from canvas.
+
 [WARNING]
 ====
 This operation is not reversible! Be careful when removing layers!
 ====
 
 ==== Selects a layer to work on: `layer select [INDEX]`
-Format : `layer select [INDEX]` -> Selects a layer to that all `convert` operations will work on.
+Format : `layer select [INDEX]` -> This command allows you to a layer to that all `apply` and `layer position` operations will work on. The index of a layer is displayed before its name in the Layers panel.
+
+Examples:
+
+* `layer select 2` : Selects the layer at index 2.
 
 ==== Swaps the order of two layers: `layer swap [TO_INDEX] [FROM_INDEX]`
-Format : `layer swap [TO_INDEX] [FROM_INDEX]` -> Changes the order of any two distinct layers.
+Format : `layer swap [TO_INDEX] [FROM_INDEX]` -> You can change the order of any two distinct layers with this command. The lower the index, the further behind it will be.
 
 Examples:
 
 * `layer swap 1 2` - Changes the order of layer 1 and layer 2.
 
+
 ==== Positions a layer: `layer position [POSITION]`
-Format : `layer position [POSITION]` -> Sets the x and y co-ordinates of the current layer, (0,0) is defined to be the top left of the screen.
+Format : `layer position [POSITION]` -> This command allows you to set the x and y co-ordinates of the current layer. (0,0) is defined to be the top left of the screen.
 
 Examples:
 

@@ -56,5 +56,13 @@ public class CreateApplyCommandTest {
         list.add(transformation3);
         command = new CreateApplyCommand("newOperation", list);
         assertCommandFailure(command, null, new CommandHistory(), Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
+        try {
+            new CreateApplyCommand("newOperation", new ArrayList<>());
+        } catch (IllegalArgumentException e) {
+            if (!e.getMessage().contains("Empty")) {
+                fail();
+            }
+        }
+
     }
 }
