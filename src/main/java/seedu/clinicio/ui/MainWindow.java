@@ -324,6 +324,10 @@ public class MainWindow extends UiPart<Stage> {
         return patientListPanel;
     }
 
+    /**
+     * Clear any display panel and show the region display panel
+     * @param displayRegion The display panel to show at the {@code displayPanelPlaceholder} 
+     */
     private void showDisplayPanel(Region displayRegion) {
         displayPanelPlaceholder.getChildren().clear();
         displayPanelPlaceholder.getChildren().add(displayRegion);
