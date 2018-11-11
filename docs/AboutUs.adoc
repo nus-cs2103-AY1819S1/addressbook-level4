@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::harryqu123.png[width="150", align="left"]
 {empty}[https://github.com/Harryqu123[github]][<<harryqu123#, portfolio>>]
 
-In charge of: Deliverables and deadlines + 
+In charge of: Deliverables and deadlines +
 Responsibilities: Ensure things are not done at last minute.
 '''
 
