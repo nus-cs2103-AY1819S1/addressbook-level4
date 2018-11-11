@@ -3,6 +3,7 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import java.util.List;
 
@@ -45,6 +46,8 @@ public class DeleteMedicineCommand extends Command {
 
         Medicine medicineToDelete = medicineList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
+        model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+        model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
     }

@@ -450,12 +450,17 @@ public class AddMedicineCommandTest {
             requireNonNull(medicine);
             return this.medicine.isSameMedicine(medicine);
         }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
+        }
     }
 
     /**
      * A Model stub that always accept the medicine being added.
      */
-    private class ModelStubAcceptingMedicineAdded extends ModelStub {
+    private class ModelStubAcceptingMedicineAdded extends AddMedicineCommandTest.ModelStub {
         private final ArrayList<Medicine> medicinesAdded = new ArrayList<>();
 
         @Override
@@ -478,6 +483,11 @@ public class AddMedicineCommandTest {
         @Override
         public ReadOnlyClinicIo getClinicIo() {
             return new ClinicIo();
+        }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
         }
     }
 

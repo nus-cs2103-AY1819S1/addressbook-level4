@@ -9,6 +9,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
@@ -65,6 +66,8 @@ public class AddMedicineCommand extends Command {
         }
 
         model.addMedicine(toAddMedicine);
+        model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+        model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddMedicine));
     }
