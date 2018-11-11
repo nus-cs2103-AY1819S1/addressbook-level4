@@ -3,6 +3,7 @@ package seedu.restaurant.commons.events.ui.sales;
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.sales.SalesReport;
 
+//@@author HyperionNKJ
 /**
  * An event requesting to display the sales report of a specified date
  */

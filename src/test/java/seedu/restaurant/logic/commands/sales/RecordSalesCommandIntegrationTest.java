@@ -23,6 +23,7 @@ import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 /**
  * Contains integration tests (interaction with the Model) for {@code RecordSalesCommand}.
  */

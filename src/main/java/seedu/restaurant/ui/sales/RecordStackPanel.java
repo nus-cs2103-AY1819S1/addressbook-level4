@@ -12,6 +12,7 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Stack panel to display each sales record's details
  */

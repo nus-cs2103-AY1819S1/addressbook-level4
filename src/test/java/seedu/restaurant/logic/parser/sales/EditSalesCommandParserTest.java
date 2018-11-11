@@ -38,6 +38,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
+//@@author HyperionNKJ
 public class EditSalesCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =

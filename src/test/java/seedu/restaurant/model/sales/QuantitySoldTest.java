@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.restaurant.testutil.Assert;
 
+//@@author HyperionNKJ
 class QuantitySoldTest {
 
     @Test
