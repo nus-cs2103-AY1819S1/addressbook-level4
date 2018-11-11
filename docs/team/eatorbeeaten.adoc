@@ -16,7 +16,11 @@ Hallper's interface is created with JavaFX, and the other components are written
 
 Some of its main features are:
 
-* wewer
+* Convenient management of multiple contacts
+* Profile view of contacts
+* Budget allocation and management
+* Composition of emails to multiple contacts
+* Calendar to update monthly events
 
 == 2. Summary of contributions
 
