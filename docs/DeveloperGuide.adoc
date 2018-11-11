@@ -452,6 +452,8 @@ Scenario 4. The user needs to check for the stock level of every medicine.
 The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
 
+.Filter medicines that are low in supply
+image::checkstockfilter.png[width="800"]
 
 ==== Design Considerations
 // preface
