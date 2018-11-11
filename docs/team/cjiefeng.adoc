@@ -53,18 +53,11 @@ bad formatting or missing mandatory fields.
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag=addEvent]
-include::../UserGuide.adoc[tag=addEventTag]
-include::../UserGuide.adoc[tag=deleteEvent]
-include::../UserGuide.adoc[tag=listEvent]
-include::../UserGuide.adoc[tag=findEvent]
+include::../UserGuide.adoc[tag=importContacts]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-include::../DeveloperGuide.adoc[tag=events]
-include::../DeveloperGuide.adoc[tag=eventTags]
-include::../DeveloperGuide.adoc[tag=autoComplete]
-include::../DeveloperGuide.adoc[tag=tab]
+include::../DeveloperGuide.adoc[tag=importContacts]
