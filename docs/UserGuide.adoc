@@ -49,7 +49,7 @@ image::tutorial/before-after.png[width:2000]
 . Use the `cd` and `ls` commands to get to the folder with your unzipped assets.
 You can use the `TAB` key to auto-complete pesky folder names! If everything went well, you should see all your images show up in the Image Panel.
 
-.Images and index are showing up!
+.Images and their corresponding indexes are showing up!
 image::tutorial/step 1.png[width:2000]
 
 [start=5]
