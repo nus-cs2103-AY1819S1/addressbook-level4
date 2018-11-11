@@ -39,7 +39,7 @@ https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[PR#256]).
 ** Documentation (see *Contributions to Developer Guide* for details):
 *** Update UI class diagram to reflect new generic classes.
 *** Documented and explained modularisation of UI component, including creating class diagrams to show new classes
-*** Documented and explained implementation of MealPlanner component
+*** Documented and explained implementation of MealPlanner component.
 ** Enhancements to new features:
 *** Wrote additional tests for Meal Planner component to increase coverage.
 ** Community:
