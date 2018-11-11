@@ -715,17 +715,19 @@ Step 1. The user launches the application. `ModelManager` will be initialized wi
 without filter.
 
 Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
-parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
-parses the command to determine the list type, and the command executes the following steps:
+parameters are `person`, `meeting`, `group` and `all`, or their shorthand equivalent `p`, `m`, `g` and `a`.
+`ListCommandParser` parses the command to determine the list type, and the command executes the following steps:
 
 * Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
 `PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
 
-* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+* Step 2.2. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
 `PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
 
-* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+* Step 2.3. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
 `PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+* Step 2.4. If the parameter is `all` / `a` / empty, steps 2.1., 2.2. and 2.3. will be executed.
 
 [NOTE]
 List will remain unchanged if it does not have any filters applied before executing `list` command.
