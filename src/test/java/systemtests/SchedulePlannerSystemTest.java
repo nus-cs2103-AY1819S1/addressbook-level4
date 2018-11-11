@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,6 +21,7 @@ import org.junit.ClassRule;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.ProgressBarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.SidebarPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -65,7 +65,6 @@ public abstract class SchedulePlannerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getSidebarPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -109,6 +108,10 @@ public abstract class SchedulePlannerSystemTest {
         return mainWindowHandle.getSidebarPanel();
     }
 
+    public ProgressBarPanelHandle getProgressBarPanel() {
+        return mainWindowHandle.getProgressBarPanel();
+    }
+
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
@@ -129,7 +132,6 @@ public abstract class SchedulePlannerSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getSidebarPanel());
     }
 
     /**
@@ -190,42 +192,26 @@ public abstract class SchedulePlannerSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected task.
-     * @see SidebarPanelHandle#isUrlChanged()
+     * Asserts that the previously selected card is now deselected
      */
     protected void assertSelectedCardDeselected() {
-        //assertFalse(getSidebarPanel().isUrlChanged());
         assertFalse(getTaskListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the task in the task list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see SidebarPanelHandle#isUrlChanged()
+     * Asserts that only the card at {@code expectedSelectedCardIndex} is selected.
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getTaskListPanel().navigateToCard(getTaskListPanel().getSelectedCardIndex());
-        String selectedCardName = getTaskListPanel().getHandleToSelectedCard().getName();
-        /*URL expectedUrl;
-        try {
-            expectedUrl = new URL(SidebarPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getSidebarPanel().getLoadedUrl());
-*/
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getTaskListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the task list panel remain unchanged.
-     * @see SidebarPanelHandle#isUrlChanged()
+     * Asserts that the selected card in the task list panel remain unchanged.
      * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        //assertFalse(getSidebarPanel().isUrlChanged());
         assertFalse(getTaskListPanel().isSelectedTaskCardChanged());
     }
 
@@ -271,7 +257,6 @@ public abstract class SchedulePlannerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getTaskListPanel(), getModel().getFilteredTaskList());
-        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getSidebarPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
