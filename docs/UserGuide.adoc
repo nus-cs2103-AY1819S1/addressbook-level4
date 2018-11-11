@@ -117,9 +117,6 @@ Example:
 
 ====
 
-=== View help : `help`
-
-
 Shows all the commands in the application and how to use them.
 
 === User Commands
