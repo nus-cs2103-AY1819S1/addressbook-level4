@@ -37,6 +37,6 @@ public enum Performance {
         }
     }
     public boolean isCorrect() {
-        return this.ordinal() > (Performance.values().length / 2);
+        return this.ordinal() >= (Performance.values().length / 2);
     }
 }
