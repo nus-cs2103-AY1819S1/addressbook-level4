@@ -30,7 +30,7 @@ public class ExportCommandTest {
     private Model model;
     private CommandHistory commandHistory;
     private ExportCommand exportCommand = new ExportCommand(EXPORTED_FILE_NAME);
-    
+
     @Before
     public void macOnly() {
         org.junit.Assume.assumeFalse(isWindows());
@@ -39,7 +39,7 @@ public class ExportCommandTest {
     public static boolean isWindows() {
         return (OS.indexOf("win") >= 0);
     }
-    
+
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
