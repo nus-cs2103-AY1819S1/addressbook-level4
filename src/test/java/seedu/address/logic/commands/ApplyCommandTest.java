@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -23,6 +25,20 @@ public class ApplyCommandTest {
         ImageMagickUtil.copyOutside(new UserPrefs(), System.getProperty("os.name").toLowerCase());
         Transformation transformation = new Transformation("blur", "0x8");
         ApplyCommand command = new ApplyCommand(transformation);
+        try {
+            command.execute(model, new CommandHistory());
+        } catch (CommandException e) {
+            if (!(e.getMessage() == null || e.getMessage().equals(""))) {
+                fail();
+            }
+        }
+    }
+
+    @Test
+    public void assertExecuteRawSuccessfully() throws InterruptedException, IOException {
+        ImageMagickUtil.copyOutside(new UserPrefs(), System.getProperty("os.name").toLowerCase());
+        String[] args = List.of("-blur", "0x8").toArray(new String[0]);
+        ApplyCommand command = new ApplyCommand(args);
         try {
             command.execute(model, new CommandHistory());
         } catch (CommandException e) {
