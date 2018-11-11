@@ -12,25 +12,26 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.FavouritesPanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.model.favourite.Favourites;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Panel containing the list of recipes.
  */
-public class FavouritesPanel extends GenericListPanel<Favourites> {
+public class FavouritesPanel extends GenericListPanel<Recipe> {
     private static final String FXML = "FavouritesPanel.fxml";
     @FXML
-    protected ListView<Favourites> favouritesListView;
+    protected ListView<Recipe> favouritesListView;
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
 
-    public FavouritesPanel(ObservableList<Favourites> recipeList) {
+    public FavouritesPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
         setConnections(recipeList);
         registerAsAnEventHandler(this);
     }
 
     @Override
-    protected void setConnections(ObservableList<Favourites> recipeList) {
+    protected void setConnections(ObservableList<Recipe> recipeList) {
         favouritesListView.setItems(recipeList);
         favouritesListView.setCellFactory(listView -> new FavouritesListViewCell());
         setEventHandlerForSelectionChangeEvent();

@@ -5,11 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import seedu.souschef.model.favourite.Favourites;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class FavouritesCard extends GenericCard<Favourites> {
+public class FavouritesCard extends GenericCard<Recipe> {
 
     private static final String FXML = "FavouritesCard.fxml";
 
