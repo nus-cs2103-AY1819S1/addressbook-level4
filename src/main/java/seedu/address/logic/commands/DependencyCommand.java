@@ -73,7 +73,7 @@ public class DependencyCommand extends Command {
      * Check if task at dependant index is completed and if task at dependee index is not completed
      * (Refer to completed command for this check)
      */
-    private String checkTaskDependencyAtIndexes(Task dependantTask, Task dependeeTask) throws CommandException {
+    private void checkTaskDependencyAtIndexes(Task dependantTask, Task dependeeTask) throws CommandException {
         if (dependantTask.isStatusCompleted() && !dependeeTask.isStatusCompleted()) {
             throw new CommandException(MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE);
         }
