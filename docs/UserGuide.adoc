@@ -301,7 +301,7 @@ Selecting the account does not render any data on the detailed panel due to the 
 ====
 
 ****
-* The index refers to the index number shown in the displayed item list.
+* The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -316,21 +316,20 @@ Selects the 1st account in the results of the `find-account` command.
 
 ==== Locating account by username: `find-account` or `fa`
 
-Finds account whose username contain any of the given keywords. +
+Finds account whose username contains the keyword. +
 Format: `find-account KEYWORD` or `fa KEYWORD`
 
 ****
-* The search is case insensitive. e.g `root` will match `Root`
-* Only the username is searched.
-* Only full words will be matched e.g. `roo` will not match `root`
+* The search is case insensitive. e.g `Root` will match `root`
+* Only the username is searched
+* Only one keyword is allowed since `username` does not contain spaces
+* Full keyword is not necessary; e.g. `roo` and `root` will match `root`
 ****
 
 Examples:
 
-* `find-account root` +
-Returns `root`
-* `fa root azhikai rebstan97` +
-Returns any account having username `root`, `azhikai`, or `rebstan97`
+* `find-account root` or `fa root` +
+Return any accounts whose username contains the string `root`
 
 ==== List user accounts: `list-accounts` or `la`
 
@@ -1120,6 +1119,7 @@ contains the data of your previous *MeNUS* folder.
 |*Create account* |`register/reg id/USERNAME pw/PASSWORD n/FULL_NAME` |`register/reg id/azhikai pw/1122qq n/Ang Zhi Kai`
 |*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
+|*Find account* |`find-account/fa` |`find-account/fa root`
 |*List accounts* |`list-accounts/la` |`list-accounts/la`
 |*Add ingredient* |`add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod fish t/kilogram p/20 m/1`
 |*List ingredient* |`list-ingredients` |`list-ingredients`
