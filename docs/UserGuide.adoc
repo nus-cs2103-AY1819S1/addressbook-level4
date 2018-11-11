@@ -442,12 +442,14 @@ The input argument is case-insensitive i.e. "accelerator" and "Accelerator" shou
 * `find z/ sci-fi` +
 Finds and displays the list of attractions with zones that contain the word "sci-fi".
 The list of results should look like this:
+
 image::./ui_screenshots/find-example-2.png[width="600"]
 
 * `find zone sci-fi t/popular tag rollerCoaster` +
 Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
 and "popular".
 The list of results should look like this:
+
 image::./ui_screenshots/find-example-3.png[width="600"]
 |===
 
@@ -475,6 +477,10 @@ The list of results should look like this:
 
 image::./ui_screenshots/filter-example-2.png[width="600"]
 |===
+
+[NOTE]
+If a ride is selected, a `find` or `filter` is performed, the ride panel will still show the ride that was previously
+selected. Future versions will allow you to see the first ride selected or show the short help menu if no rides are found.
 // end::filter[]
 
 === See commands to be implemented in v2.0
