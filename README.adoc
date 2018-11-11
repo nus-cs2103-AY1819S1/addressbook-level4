@@ -21,6 +21,12 @@ while also noting those in charge of key events.
 ** Are sociable and wish to stay in contact with his/her NUS peers
 ** Want a multi-utility academic tool, to record grades, modules and peers
 ** Are looking for a minimalistic scheduler/planner
+* Some common features include:
+** Ability to add friends, modules, and occasions without full details.
+** Editing their details and having them updated on the fly.
+** Easy swapping of lists on interface.
+** Adding and removing friends from modules and occasions that you have.
+** Having a command suggestions drop down menu to aid in command typing.
 
 == Site Map
 
