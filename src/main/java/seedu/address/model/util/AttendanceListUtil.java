@@ -9,6 +9,9 @@ import java.util.ListIterator;
 import java.util.function.Consumer;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ModuleBrowserChangeEvent;
+import seedu.address.commons.events.ui.OccasionBrowserChangeEvent;
+import seedu.address.commons.events.ui.PersonBrowserChangeEvent;
 import seedu.address.commons.events.ui.RefreshModuleBrowserEvent;
 import seedu.address.commons.events.ui.RefreshOccasionBrowserEvent;
 import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
@@ -41,6 +44,20 @@ public class AttendanceListUtil {
             EventsCenter.getInstance().post(new RefreshModuleBrowserEvent());
         } else {
             EventsCenter.getInstance().post(new RefreshOccasionBrowserEvent());
+        }
+    }
+
+    /**
+     * Posts correct event for clearing current browser.
+     */
+    public static void postClearEvent(Model model) {
+        TypeUtil currType = model.getActiveType();
+        if (currType == TypeUtil.PERSON) {
+            EventsCenter.getInstance().post(new PersonBrowserChangeEvent(new Person(new PersonDescriptor())));
+        } else if (currType == TypeUtil.MODULE) {
+            EventsCenter.getInstance().post(new ModuleBrowserChangeEvent(new Module(new ModuleDescriptor())));
+        } else {
+            EventsCenter.getInstance().post(new OccasionBrowserChangeEvent(new Occasion(new OccasionDescriptor())));
         }
     }
 
