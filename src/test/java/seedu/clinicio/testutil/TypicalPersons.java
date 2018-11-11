@@ -144,19 +144,24 @@ public class TypicalPersons {
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
             .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
-    public static final Patient ALEX_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
+    public static final Patient ALEX_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_ALEX)
+            .withNric(VALID_NRIC_ALEX)
             .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
             .withPreferredDoctor(ADAM).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
             .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
-    public static final Patient BRYAN_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
+    public static final Patient BRYAN_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_BRYAN)
+            .withNric(VALID_NRIC_BRYAN)
             .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
             .withPreferredDoctor(ADAM).build();
     public static final Patient DANNY = new PatientBuilder().withName("Danny Shaw").withNric("S9741314I")
             .withPhone("90192910").withEmail("ds@live.com").withAddress("780, Woodlands Ave 12, #12-683")
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
     //Not inside ClinicIO
     public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
             .withNric(VALID_NRIC_CANDY).build();
@@ -193,7 +198,8 @@ public class TypicalPersons {
             .withLethalDosage(VALID_LETHALDOSAGE_PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
             .withMedicineQuantity(VALID_QUANTITY_PARACETAMOL).build();
     public static final Medicine CHLORPHENIRAMINE = new MedicineBuilder()
-            .withMedicineName(VALID_MEDICINENAME_CHLORPHENIRAMINE).withMedicineType(VALID_MEDICINETYPE_CHLORPHENIRAMINE)
+            .withMedicineName(VALID_MEDICINENAME_CHLORPHENIRAMINE)
+            .withMedicineType(VALID_MEDICINETYPE_CHLORPHENIRAMINE)
             .withEffectiveDosage(VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE)
             .withLethalDosage(VALID_LETHALDOSAGE_CHLORPHENIRAMINE).withMedicinePrice(VALID_PRICE_CHLORPHENIRAMINE)
             .withMedicineQuantity(VALID_QUANTITY_CHLORPHENIRAMINE).build();

@@ -11,8 +11,8 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.ALEX_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 import static seedu.clinicio.testutil.TypicalPersons.CANDY;

@@ -28,7 +28,7 @@ public class ListAllApptTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAllApptCommand(), model, commandHistory, ListAllApptCommand.MESSAGE_SUCCESS, expectedModel,
-                analytics);
+        assertCommandSuccess(new ListAllApptCommand(), model, commandHistory,
+                ListAllApptCommand.MESSAGE_SUCCESS, expectedModel, analytics);
     }
 }

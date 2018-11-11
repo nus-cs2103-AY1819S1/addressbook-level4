@@ -16,12 +16,12 @@ import org.junit.Test;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.logic.CommandHistory;
-import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ModelManager;
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 
 public class CancelApptCommandTest {
     private Model model = new ModelManager(getTypicalClinicIo(), new UserPrefs());
@@ -157,7 +157,8 @@ public class CancelApptCommandTest {
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel,
                 analytics);
 
-        assertNotEquals(appointmentToCancel, model.getFilteredAppointmentList().get(INDEX_FIRST_PATIENT.getZeroBased()));
+        assertNotEquals(appointmentToCancel, model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_PATIENT.getZeroBased()));
 
         // redo -> deletes same appointment in unfiltered appointment list
         expectedModel.redoClinicIo();
@@ -167,8 +168,8 @@ public class CancelApptCommandTest {
 
     @Test
     public void equals() {
-        CancelApptCommand cancelApptFirstCommand = new  CancelApptCommand(INDEX_FIRST_PATIENT);
-        CancelApptCommand cancelApptSecondCommand = new  CancelApptCommand(INDEX_SECOND_PATIENT);
+        CancelApptCommand cancelApptFirstCommand = new CancelApptCommand(INDEX_FIRST_PATIENT);
+        CancelApptCommand cancelApptSecondCommand = new CancelApptCommand(INDEX_SECOND_PATIENT);
 
         // same object -> returns true
         assertTrue(cancelApptFirstCommand.equals(cancelApptFirstCommand));

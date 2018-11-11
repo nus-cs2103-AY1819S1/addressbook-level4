@@ -50,7 +50,7 @@ public class ListApptCommandTest {
         String[] secondDate = {"2", "10", "2018"};
 
         AppointmentContainsDatePredicate firstPredicate =
-                new  AppointmentContainsDatePredicate(firstDate);
+                new AppointmentContainsDatePredicate(firstDate);
         AppointmentContainsDatePredicate secondPredicate =
                 new AppointmentContainsDatePredicate(secondDate);
 

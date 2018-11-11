@@ -9,7 +9,7 @@ import seedu.clinicio.model.Model;
 /**
  * Lists all appointments.
  */
-public class ListAllApptCommand extends Command{
+public class ListAllApptCommand extends Command {
 
     public static final String COMMAND_WORD = "listallappt";
 
