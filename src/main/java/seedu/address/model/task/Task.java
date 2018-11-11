@@ -25,7 +25,7 @@ public class Task {
     // Data fields
     private final Description description;
     private final Set<Label> labels = new HashSet<>();
-    private final Dependencies dependency;
+    private final Dependencies dependencies;
 
     /**
      * Every field must be present and not null.
@@ -39,7 +39,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = Status.IN_PROGRESS;
-        this.dependency = new Dependencies();
+        this.dependencies = new Dependencies();
     }
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
@@ -51,7 +51,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = status;
-        this.dependency = dependency;
+        this.dependencies = dependency;
     }
 
     public Name getName() {
@@ -82,8 +82,8 @@ public class Task {
         return this.status;
     }
 
-    public Dependencies getDependency() {
-        return this.dependency;
+    public Dependencies getDependencies() {
+        return this.dependencies;
     }
 
     public boolean isStatusCompleted() {
@@ -147,7 +147,7 @@ public class Task {
                 this.description,
                 this.labels,
                 this.status,
-                this.dependency.spliceDependency(dependeeTask)
+                this.dependencies.spliceDependency(dependeeTask)
         );
     }
 
@@ -162,12 +162,12 @@ public class Task {
                 this.description,
                 this.labels,
                 this.status,
-                this.dependency.concatDependency(dependeeTask)
+                this.dependencies.concatDependency(dependeeTask)
         );
     }
 
     /**
-     * Returns a new Task object with the specified dependency updated [Non-mutating]
+     * Returns a new Task object with the specified dependencies updated [Non-mutating]
      */
     public Task updateHash(String oldHash, String newHash) {
         return new Task(
@@ -177,7 +177,7 @@ public class Task {
                 this.description,
                 this.labels,
                 this.status,
-                this.dependency.updateHash(oldHash, newHash)
+                this.dependencies.updateHash(oldHash, newHash)
         );
     }
 
@@ -197,7 +197,7 @@ public class Task {
     }
 
     public boolean isDependentOn(Task otherTask) {
-        return dependency.containsDependency(otherTask);
+        return dependencies.containsDependency(otherTask);
     }
 
     /**

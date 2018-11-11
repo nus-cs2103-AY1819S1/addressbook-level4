@@ -57,6 +57,7 @@ public class DependencyCommand extends Command {
 
     /**
      * Check if indexes are past list boundaries. Throws command exception if they are past boundaries.
+     *
      * @throws CommandException if indexes are past list boundaries
      */
     private void checkIndexesPastCurrentBounds(Model model, Index dependantIndex, Index dependeeIndex)
@@ -120,6 +121,7 @@ public class DependencyCommand extends Command {
 
     /**
      * Handle dependency addition
+     *
      * @throws CommandException
      */
     private Task handleDependencyAddition(Task taskDependant, Task taskDependee, Model model) throws CommandException {
@@ -135,6 +137,7 @@ public class DependencyCommand extends Command {
 
     /**
      * Returns a {@code Task} with the additional dependency added.
+     *
      * @param dependantTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependantTask but with additional dependency
      */
@@ -146,6 +149,7 @@ public class DependencyCommand extends Command {
 
     /**
      * Returns a {@code Task} with the dependency removed.
+     *
      * @param dependantTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */

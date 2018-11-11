@@ -15,7 +15,7 @@
     </achievements>
     <tasks>
         <name>Address CS2103 email</name>
-        <dueDate>01-12-18</dueDate>
+        <dueDate>01-12-19</dueDate>
         <priorityValue>1</priorityValue>
         <description>Reply to Damith</description>
         <labelled>friends</labelled>
@@ -23,7 +23,7 @@
     </tasks>
     <tasks>
         <name>Build addressbook for tutorial</name>
-        <dueDate>02-12-18 1330</dueDate>
+        <dueDate>02-12-19 1330</dueDate>
         <priorityValue>2</priorityValue>
         <description>Press 'Build' in IntelliJ</description>
         <labelled>owesMoney</labelled>
@@ -32,14 +32,14 @@
     </tasks>
     <tasks>
         <name>Cancel medical appointment</name>
-        <dueDate>03-12-18</dueDate>
+        <dueDate>03-12-19</dueDate>
         <priorityValue>3</priorityValue>
         <description>Call number +6562353535</description>
         <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Do CS2106 tutorial</name>
-        <dueDate>04-12-18</dueDate>
+        <dueDate>04-12-19</dueDate>
         <priorityValue>4</priorityValue>
         <description>Preferably before it</description>
         <labelled>friends</labelled>
@@ -47,21 +47,21 @@
     </tasks>
     <tasks>
         <name>Edit research report</name>
-        <dueDate>05-12-18</dueDate>
+        <dueDate>05-12-19</dueDate>
         <priorityValue>5</priorityValue>
         <description>Add more words</description>
         <status>COMPLETED</status>
     </tasks>
     <tasks>
         <name>Find suitable reagents for experiment</name>
-        <dueDate>06-12-2018</dueDate>
+        <dueDate>06-12-2019</dueDate>
         <priorityValue>6</priorityValue>
         <description>Missing spice and everything nice</description>
         <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Grade assignments</name>
-        <dueDate>07-12-18</dueDate>
+        <dueDate>07-12-19</dueDate>
         <priorityValue>7</priorityValue>
         <description>Then enter grades into IVLE</description>
         <status>IN PROGRESS</status>

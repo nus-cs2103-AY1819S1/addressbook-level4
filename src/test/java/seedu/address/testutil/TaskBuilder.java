@@ -19,7 +19,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Address CS2103 email";
-    public static final String DEFAULT_DUEDATE = "20-12-18";
+    public static final String DEFAULT_DUEDATE = "20-12-19";
     public static final String DEFAULT_PRIORITY_VALUE = "2"; // Setting to 1 clashes with A_TASK
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
@@ -51,7 +51,7 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         labels = new HashSet<>(taskToCopy.getLabels());
         status = taskToCopy.getStatus();
-        dependencies = new Dependencies(taskToCopy.getDependency().getHashes());
+        dependencies = new Dependencies(taskToCopy.getDependencies().getHashes());
     }
 
     /**

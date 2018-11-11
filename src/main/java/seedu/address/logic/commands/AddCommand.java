@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Do CS2103 tutorial "
-            + PREFIX_DUE_DATE + "02-12-18 1330 "
+            + PREFIX_DUE_DATE + "02-12-19 1330 "
             + PREFIX_PRIORITY_VALUE + "5 "
             + PREFIX_DESCRIPTION + "Do it for Jelena "
             + PREFIX_LABEL + "tutorial ";
