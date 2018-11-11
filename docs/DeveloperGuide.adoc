@@ -370,6 +370,22 @@ The following sequence diagram shows how the `editperson` operation works:
 
 image::EditPersonSequenceDiagram.png[width="800"]
  `editmodule` and `editoccasion` works in a similar way as `editperson`
+
+==== Design Considerations
+===== Aspect: How editperson/editmodule/editoccasion executes
+* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally inrelevant to each other
+**Pros:
+*** Implementation is easy to understand
+**Cons:
+*** Lack of the essence of polymorphism, which is a key feature in OOP
+* **Alternative 2 :** Let `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand`
+inherits from `EditCommand`, then use `TypeUtil` to detect the kind of entity that is going to be edited
+** Pros:
+*** A good utilisation of polymorphism
+** Cons:
+*** `Person`, `Module`, `Occasion` are three relatively independent entity, it could be hard to handle when using
+polymorphism and put everything together
+
 // end::edit[]
 
 // tag::undoredo[]
@@ -491,6 +507,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::history[]
 === History feature
+History feature allows the user to review all the commands he has typed in.
 The following sequence diagram shows how the `history` operation works:
 
 image::HistoryCommandSequenceDiagram.png[width="800"]
@@ -510,6 +527,69 @@ While checking, the feature will try to give a regex match of the command and al
 
 // end::autocomplete[]
 
+// tag::export[]
+=== Export
+Export is a feature to enhance the functionality of TheTracker.
+TheTracker (v1.4) supports exporting user data to xml file and txt file.
+
+==== Current Implementation
+`ExportXmlCommand` and `ExportTxtCommand` are both inherited from `ExportCommand`, which inherits from `Command` class
+
+In order to a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
+In order to reduce redundant code in commands that are not directly dependent on `Storage`, `setStorage(Storage storage)` is
+designed to be a non-abstract method. Only `ExportCommand` overrides this method.
+
+Both `ExportXmlCommand` and `ExportTxtCommand` inherits from `ExportCommand`.
+
+===== For ExportXmlCommand
+The following sequence diagram shows how the `ExportXmlCommand` works.
+
+image::EditXmlCommandSequenceDiagram.png[width="800"]
+
+===== For ExportTxtCommand
+`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`. +
+This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. +
+The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
+then, the method `parse()` of `XmlToTxtUtil` will parse the xml file to a txt file with defaulted style and layout
+and stored in the `exportedFilePath` specified by the user.
+
+==== Design Considerations
+===== Aspect: The role of exported file type
+* **As a parameter (current implementation):**
+** Format: `export --xml [FILEPATH]` and `export --txt [FILEPATH]`
+** Pros:
+*** Can utilise polymorphism
+*** Can avoid unnecessary repetition of code
+** Cons:
+*** Not consistent with the format of other command (command + parameterPrefix + parameter)
+
+* **As a part of command :**
+** Format: `exportxml fp/[FILEPATH]` and `exporttxt fp/[FILEPATH]`
+** Pros:
+*** Can keep consistent with the format of other command (command + parameterPrefix + parameter)
+** Cons:
+*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent command, which does not utilise polymorphism
+*** Have unnecessary repetition of code
+
+===== Aspect: The Location of valid filepath check
+* **Check in `ExportCommand` (current implementation) :**
+** Pros:
+*** As only export commands are directly related to external file path that the user types in, which needs to check validation,
+checking in `ExportCommand` and its subclasses can avoid unnecessary checking.
+*** Easy to implement and clear to understand
+** Cons:
+*** Can only check the validation of external file path that the user types in
+
+* **Check in `AddressBookStorage` :**
+** Pros:
+*** Can check the validation of all the file paths occurred in `Storage` component of this project
+** Cons:
+*** Have unnecessary checking of the validation of file paths
+// end::export[]
+
+// tag::import[]
+=== Import (Coming in v 2.0)
+// end::import[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

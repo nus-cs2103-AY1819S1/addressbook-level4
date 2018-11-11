@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -43,9 +44,9 @@ public class ExportXmlCommandTest {
     public void setUp() {
         dirPath = testFolder.getRoot().getPath() + File.separator;;
         AddressBookStorage addressBookStorage =
-                new XmlAddressBookStorage(ParserUtil.parseFilePath(dirPath + "addressbook.xml"));
+                new XmlAddressBookStorage(Paths.get(dirPath + "addressbook.xml"));
         UserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(ParserUtil.parseFilePath(dirPath + "preference.json"));
+                new JsonUserPrefsStorage(Paths.get(dirPath + "preference.json"));
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
         model = new ModelManager(TypicalPersons.getTypicalPersonsAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
@@ -54,18 +55,34 @@ public class ExportXmlCommandTest {
     @Test
     public void execute_validFilePath_success() {
         String filePath = dirPath + "validExport.xml";
-        ExportXmlCommand exportXmlCommand = new ExportXmlCommand(ParserUtil.parseFilePath(filePath));
+        ExportXmlCommand exportXmlCommand =
+                new ExportXmlCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.XML);
         exportXmlCommand.setStorage(storage);
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, filePath);
 
         assertCommandSuccess(exportXmlCommand, model, commandHistory, expectedMessage,
-                ParserUtil.parseFilePath(filePath));
+                Paths.get(filePath));
     }
 
     @Test
     public void execute_invalidFilePath_throwsCommandException() {
+        // filePath contains invalid character "-"
+        String filePath = dirPath + "/desktop/fakefolder/invalid-Export.xml";
+        ExportXmlCommand exportXmlCommand =
+                new ExportXmlCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.XML);
+        exportXmlCommand.setStorage(storage);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_INVALID_FILE_PATH);
+
+        assertCommandFailure(exportXmlCommand, model, commandHistory, expectedMessage, filePath);
+    }
+
+
+    @Test
+    public void execute_readFileFailure_throwsCommandException() {
+        // filePath contains invalid character \0
         String filePath = "/desktop/fakefolder/invalidExport.xml\0";
-        ExportXmlCommand exportXmlCommand = new ExportXmlCommand(ParserUtil.parseFilePath(filePath));
+        ExportXmlCommand exportXmlCommand =
+                new ExportXmlCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.XML);
         exportXmlCommand.setStorage(storage);
         String expectedMessage = String.format(ExportCommand.MESSAGE_FAIL_READ_FILE);
 

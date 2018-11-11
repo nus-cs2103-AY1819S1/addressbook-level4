@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import com.google.common.io.Files;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,11 +18,13 @@ import seedu.address.storage.Storage;
  */
 public class ExportXmlCommand extends ExportCommand {
 
-    protected Path exportedFilePath;
+    private String exportedFilePath;
+    private FileType fileType;
 
-    public ExportXmlCommand(Path filePath) {
+    public ExportXmlCommand(String filePath, FileType fileType) {
         super(filePath);
         this.exportedFilePath = filePath;
+        this.fileType = fileType;
     }
 
     @Override
@@ -27,8 +32,21 @@ public class ExportXmlCommand extends ExportCommand {
         requireNonNull(model);
         requireNonNull(storage);
 
+        if (!isValidXmlFile()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH));
+        }
+
+        /*
+        if (!Files.isWritable(Paths.get(exportedFilePath))) {
+            throw new CommandException(String.format(MESSAGE_FILE_PERMISSION_DENIED));
+        }
+        */
+
         try {
-            storage.saveAddressBook(model.getAddressBook(), exportedFilePath);
+            Path tempPath = Paths.get("temp.xml");
+            storage.saveAddressBook(model.getAddressBook(), tempPath);
+            Files.copy(tempPath.toFile(), Paths.get(exportedFilePath).toFile());
+            tempPath.toFile().delete();
         } catch (IOException e) {
             throw new CommandException(String.format(MESSAGE_FAIL_READ_FILE));
         }
@@ -37,6 +55,10 @@ public class ExportXmlCommand extends ExportCommand {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    private boolean isValidXmlFile() {
+        return isValidFilePath() && exportedFilePath.endsWith(".xml");
     }
 
     @Override
