@@ -69,8 +69,8 @@ public class InsertPersonCommand extends Command {
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
-                                personToReplace.makeDeepDuplicate(),
-                                moduleToReplace.makeDeepDuplicate(),
+                                personToReplace.makeShallowDuplicate(),
+                                moduleToReplace.makeShallowDuplicate(),
                                 personToReplace, moduleToReplace);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
@@ -95,7 +95,7 @@ public class InsertPersonCommand extends Command {
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace.makeShallowDuplicate(),
-                                occasionToReplace.makeDeepDuplicate(),
+                                occasionToReplace.makeShallowDuplicate(),
                                 personToReplace, occasionToReplace);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);

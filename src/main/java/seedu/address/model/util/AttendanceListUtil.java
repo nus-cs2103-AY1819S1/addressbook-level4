@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
@@ -85,7 +86,7 @@ public class AttendanceListUtil {
 
     //Reused from teammate @waytan with minor modifications
     /**
-     * Removes a module from the moduleList of all associated Persons.
+     * Edits a module from the moduleList of all associated Persons.
      */
     public static void editModuleFromAssociatedPersons(Model model, Module moduleToEdit, Module editedModule) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -280,7 +281,8 @@ public class AttendanceListUtil {
     private static Consumer<Person> editPersonFromModule(Model model, Module module, Person editedPerson) {
         return person -> {
             ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
-            List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+            List<Person> updatedPersons = module.getStudents().asNormalList().stream()
+                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
@@ -300,7 +302,8 @@ public class AttendanceListUtil {
     private static Consumer<Person> editPersonFromOccasion(Model model, Occasion occasion, Person editedPerson) {
         return person -> {
             OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
-            List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
+            List<Person> updatedPersons = occasion.getAttendanceList().asNormalList().stream()
+                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
@@ -320,8 +323,9 @@ public class AttendanceListUtil {
     private static Consumer<Module> editModuleFromPerson(Model model, Person person, Module editModule) {
         return module -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
-            int indexOfModuleToEdit = updatedModules.indexOf(editModule);
+            List<Module> updatedModules = person.getModuleList().asNormalList().stream()
+                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            int indexOfModuleToEdit = updatedModules.indexOf(module);
             if (indexOfModuleToEdit != -1) {
                 updatedModules.remove(module);
                 updatedModules.add(indexOfModuleToEdit, editModule);
@@ -340,8 +344,9 @@ public class AttendanceListUtil {
     private static Consumer<Occasion> editOccasionFromPerson(Model model, Person person, Occasion editOccasion) {
         return occasion -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
-            List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
-            int indexOfOccasionToEdit = updatedOccasions.indexOf(editOccasion);
+            List<Occasion> updatedOccasions = person.getOccasionList().asNormalList().stream()
+                    .map(value -> value.makeShallowDuplicate()).collect(Collectors.toList());
+            int indexOfOccasionToEdit = updatedOccasions.indexOf(occasion);
             if (indexOfOccasionToEdit != -1) {
                 updatedOccasions.remove(occasion);
                 updatedOccasions.add(indexOfOccasionToEdit, editOccasion);

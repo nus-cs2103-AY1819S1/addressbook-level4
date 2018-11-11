@@ -203,6 +203,7 @@ Opens this user guide in a separate window.
 Format: `help`
 
 // tag::add[]
+
 === Adding an entry: `add`
 
 [TIP]
@@ -265,6 +266,7 @@ Example: +
 * Occasion Name must be specified to create an occasion. The length of Occasion Name should be between 3 - 30.
 * If not entered, Occasion Date, Occasion Location and Tags are empty.
 ====
+
 // end::add[]
 
 // tag::list[]
@@ -369,6 +371,7 @@ Occasion Date, Occasion Location and Tag respectively of the Occasion which is s
 
 // end::edit[]
 
+
 // tag::find[]
 === Locating entries: `find`
 
@@ -409,7 +412,7 @@ Example:
 
 * `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion loc/SoC`
 
-// end:find[]
+// end::find[]
 
 // tag::delete[]
 === Deleting an entry: `delete`
