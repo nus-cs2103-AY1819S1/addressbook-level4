@@ -780,7 +780,7 @@ A leave applications consists of a description, a status (`PENDING`, `APPROVED`,
 During creation, the `LeaveApplication` constructor removes duplicate dates, and orders all the dates in ascending order.
 
 ===== Applying for leave
-The following sequence diagrams illustrate how an application for leave by an employee works.
+This section describes and illustrates how an application for leave by a user works in OASIS.
 
 The user issues a `leaveapply` command, which includes a description and one or more dates, in the command box UI. The Logic Manager in the Logic Component is then called upon to execute the command. The Model is then updated with the changes, and finally the EventsCenter is notified of this, and it goes on to ask the Storage Component to update the stored file data. This component-level interaction is depicted as follows:
 
@@ -796,6 +796,7 @@ image::LeaveApplicationSequenceDiagram.png[width="1000"]
 [NOTE]
 There are further interactions within the Model component, and beyond, that are omitted in this diagram.
 
+[[LeaveApplication-Apply-Usage]]
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
 1. The user executes the `leaveapply -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
@@ -820,8 +821,17 @@ image::LeaveViewActivityDiagram.png[width="400"]
 [NOTE]
 See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
 
-===== Approving/rejecting leave applications
-Users with the required permissions can approve or reject leave applications made by other users.
+===== Approving or rejecting leave applications
+Users with the required permissions can approve or reject leave applications made by other users. Given below is an example usage scenario of when a user issues a `leaveapprove 3` command:
+
+1. The user executes the `leaveapprove 3` command (the index specified in the command is based on what is displayed when the user issues a `leavelist` command).
+
+2. The corresponding `LeaveApplicationWithEmployee` is retrieved from the list. For more details about `LeaveApplicationWithEmployee`, see <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">>.
+
+3. Internally, a duplicate `Person` is created, with the original leave application being replaced with a copy of itself with an `APPROVED` status. The original `Person` in the `Model` will then be replaced with that new `Person`, similar to what happens when <<LeaveApplication-Apply-Usage, applying for leave>>.
+
+[NOTE]
+The `leaveapprove` and `leavereject` commands behave is nearly identical fashion, with the only difference being what the status that the specified `LeaveApplication` is changed to (either `APPROVED` or `REJECTED`).
 
 ==== Design Considerations
 // tag::leaveapplicationstored[]
