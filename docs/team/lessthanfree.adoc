@@ -1,4 +1,4 @@
-= David Goh - Project Portfolio
+= David Goh Zhi Wei - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -29,23 +29,24 @@ Anakin's codebase draws from https://se-edu.github.io/[SE-EDU]'s AddressBook Lev
 ** _Justification:_ This feature improves the product significantly because a user can share decks across devices or even with other users.
 ** _Highlights:_ This enhancement has a major effect on user experience. It required an in-depth analysis of design alternatives.
 
-* *Minor enhancement*: added the ability to *navigate into a deck*
+* *Major enhancement*: added the ability to *navigate into a deck* (Pull request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/62[#62])
 ** _What it does:_ allows users to select and enter a deck object.
 ** _Justification:_ The UI would be too cluttered if every deck displayed all the cards it contained. Instead we opted to have cards of each hidden until the user enters a deck. Only then will a user be able to see the cards of that deck.
-** _Highlights:_ Subsequent card level operations implemented by other team members rely on the framework provided by this feature as card creation, editing and deletion actions are only available from inside a deck.
+** _Highlights:_ Provides the necessary framework for separation of deck and card operations. Subsequent card level operations implemented by other team members rely on the framework provided by this feature as card creation, editing and deletion actions are only available if the user has navigated inside a deck.
 
 * *Minor enhancement*: added a list command for decks that clears the current filters and displays all decks in Anakin.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lessthanfree&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional code tracked by Reposense]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lessthanfree&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional code tracked by Reposense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed release `v1.3` - `v1.3.1` on GitHub
+*** Managed release `v1.3` - `v1.3.1` on GitHub. (https://github.com/CS2103-AY1819S1-T09-2/main/releases/tag/v1.3[v1.3], https://github.com/CS2103-AY1819S1-T09-2/main/releases/tag/v1.3.1[v1.3.1])
 *** Fixed project-wide formatting issues across over 200 files: https://github.com/CS2103-AY1819S1-T09-2/main/pull/147/files[#147]
 ** Enhancements to existing features:
-*** Wrote several additional tests for existing features to increase coverage from 80% to 86% (Pull Requests: https://github.com/CS2103-AY1819S1-T09-2/main/pull/140[#140],
-    https://github.com/CS2103-AY1819S1-T09-2/main/pull/144[#144])
+*** Wrote tests for existing features to increase coverage from 67% to 73% (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/93[#93])
+*** Subsequently enhanced several existing tests to help bring overall coverage to 90% (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/125[#125], https://github.com/CS2103-AY1819S1-T09-2/main/pull/140[#140],
+    https://github.com/CS2103-AY1819S1-T09-2/main/pull/144[#144], https://github.com/CS2103-AY1819S1-T09-2/main/pull/256[#256])
 ** Documentation:
 *** Created and maintained User Guide throughout development: https://github.com/CS2103-AY1819S1-T09-2/main/pull/11[#11],  https://github.com/CS2103-AY1819S1-T09-2/main/pull/30/[#30],  https://github.com/CS2103-AY1819S1-T09-2/main/pull/87/[#87],
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/180[#180]
@@ -68,6 +69,7 @@ include::../UserGuide.adoc[tag=importexport]
 
 include::../UserGuide.adoc[tag=cmdsummary]
 
+
 === Contributions to the Developer Guide
 
 |===
@@ -77,3 +79,5 @@ include::../UserGuide.adoc[tag=cmdsummary]
 include::../DeveloperGuide.adoc[tag=logic]
 
 include::../DeveloperGuide.adoc[tag=importexportimplementation]
+
+include::../DeveloperGuide.adoc[tag=partialusecases]
