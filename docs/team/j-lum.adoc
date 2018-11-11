@@ -80,9 +80,13 @@ The illustrations are included in my contributions below.
 They showcase my ability to write comprehensive but simple documentation that addresses the needs of users._
 |===
 
-include::../UserGuide.adoc[tag=getting_started]
+include::../UserGuide.adoc[tag=getting_started1]
+
+The tutorial is truncated to account for the page limit.
+
+=== User guide command documentation
+---
 include::../UserGuide.adoc[tag=canvas]
-include::../UserGuide.adoc[tag=layer]
 
 == Contributions to the Developer Guide
 
@@ -90,5 +94,5 @@ include::../UserGuide.adoc[tag=layer]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=canvas]
+include::../DeveloperGuide.adoc[tag=layer]
 
