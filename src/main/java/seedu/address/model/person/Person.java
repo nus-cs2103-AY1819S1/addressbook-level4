@@ -216,7 +216,8 @@ public class Person {
      */
     public void addFriendInList(Person otherPerson) throws CommandException {
         if (hasFriendInList(otherPerson)) {
-            throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
+            throw new CommandException(String.format(Messages.MESSAGE_ALREADY_FRIENDS,
+                    otherPerson.getName(), this.getName()));
         } else {
             friends.add(new Friend(otherPerson));
         }
@@ -230,7 +231,8 @@ public class Person {
         if (hasFriendInList(otherPerson)) {
             friends.remove(new Friend(otherPerson));
         } else {
-            throw new CommandException(Messages.MESSAGE_NOT_FRIENDS);
+            throw new CommandException(String.format(Messages.MESSAGE_NOT_FRIENDS,
+                    otherPerson.getName(), this.getName()));
         }
     }
 
