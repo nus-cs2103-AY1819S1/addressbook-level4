@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -19,6 +20,7 @@ import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Controller for a sales report window
  */
@@ -52,6 +54,7 @@ public class SalesReportWindow extends UiPart<Stage> {
      */
     public SalesReportWindow(Stage root, SalesReport salesReport) {
         super(FXML, root);
+        assert !salesReport.getRecords().isEmpty();
         root.setTitle(salesReport.toString());
         this.salesReport = salesReport;
     }
@@ -80,7 +83,7 @@ public class SalesReportWindow extends UiPart<Stage> {
         quantitySold.setCellValueFactory(new PropertyValueFactory<>("quantitySold"));
         initializePriceColumn();
         initializeRevenueColumn();
-        recordsTable.setItems(salesReport.getRecords());
+        recordsTable.setItems(FXCollections.observableArrayList(salesReport.getRecords()));
         totalRevenue.setText(String.format(totalRevenueMessage,
                 currencyFormatter.format(salesReport.getTotalRevenue())));
     }

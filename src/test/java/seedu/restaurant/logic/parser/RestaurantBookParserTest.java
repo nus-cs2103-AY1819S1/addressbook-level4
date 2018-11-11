@@ -39,6 +39,7 @@ import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
 import seedu.restaurant.logic.commands.account.DeregisterCommand;
+import seedu.restaurant.logic.commands.account.FindAccountCommand;
 import seedu.restaurant.logic.commands.account.ListAccountsCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
 import seedu.restaurant.logic.commands.account.LogoutCommand;
@@ -55,6 +56,7 @@ import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngr
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
 import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
+import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
@@ -176,6 +178,7 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS + " 3") instanceof UndoCommand);
     }
 
+    //@@author HyperionNKJ
     @Test
     public void parseCommand_recordSales() throws Exception {
         SalesRecord record = new RecordBuilder().build();
@@ -260,6 +263,7 @@ public class RestaurantBookParserTest {
                 SelectSalesCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
         assertEquals(new SelectSalesCommand(INDEX_FIRST), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
@@ -275,6 +279,7 @@ public class RestaurantBookParserTest {
         parser.parseCommand("unknownCommand");
     }
 
+    //@@author AZhiKai
     @Test
     public void parseCommand_register() throws ParseException {
         Account account = new AccountBuilder().build();
@@ -336,6 +341,14 @@ public class RestaurantBookParserTest {
     }
 
     @Test
+    public void parseCommand_findAccounts() throws Exception {
+        assertTrue(parser.parseCommand(FindAccountCommand.COMMAND_WORD + " demo")
+                instanceof FindAccountCommand);
+        assertTrue(parser.parseCommand(FindAccountCommand.COMMAND_ALIAS + " demo")
+                instanceof FindAccountCommand);
+    }
+
+    @Test
     public void parseCommand_changePassword() throws ParseException {
         Account account = new AccountBuilder().build();
         EditAccountDescriptor descriptor = new EditAccountDescriptorBuilder(account).build();
@@ -370,17 +383,6 @@ public class RestaurantBookParserTest {
         assertNotEquals(commandOne, commandTwo);
     }
 
-    @Test
-    public void parseCommand_addIngredient() throws Exception {
-        Ingredient ingredient = new IngredientBuilder().build();
-        AddIngredientCommand command =
-                (AddIngredientCommand) parser.parseCommand(IngredientUtil.getAddIngredientCommand(ingredient));
-        assertEquals(new AddIngredientCommand(ingredient), command);
-        command = (AddIngredientCommand) parser.parseCommand(AddIngredientCommand.COMMAND_ALIAS
-                + " " + IngredientUtil.getIngredientDetails(ingredient));
-        assertEquals(new AddIngredientCommand(ingredient), command);
-    }
-
     //@@author rebstan97
     @Test
     public void parseCommand_listIngredients() throws Exception {
@@ -390,6 +392,17 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_ALIAS) instanceof ListIngredientsCommand);
         assertTrue(parser
                 .parseCommand(ListIngredientsCommand.COMMAND_ALIAS + " 3") instanceof ListIngredientsCommand);
+    }
+
+    @Test
+    public void parseCommand_addIngredient() throws Exception {
+        Ingredient ingredient = new IngredientBuilder().build();
+        AddIngredientCommand command =
+                (AddIngredientCommand) parser.parseCommand(IngredientUtil.getAddIngredientCommand(ingredient));
+        assertEquals(new AddIngredientCommand(ingredient), command);
+        command = (AddIngredientCommand) parser.parseCommand(AddIngredientCommand.COMMAND_ALIAS
+                + " " + IngredientUtil.getIngredientDetails(ingredient));
+        assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
     @Test
@@ -438,13 +451,13 @@ public class RestaurantBookParserTest {
 
         // full command name, edit by name
         command = (EditIngredientByNameCommand) parser.parseCommand(
-                EditIngredientByNameCommand.COMMAND_WORD + " " + "Chicken Thigh"
+                EditIngredientByNameCommand.COMMAND_WORD + " " + "on/Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
 
         // command alias, edit by name
         command = (EditIngredientByNameCommand) parser.parseCommand(
-                EditIngredientByNameCommand.COMMAND_ALIAS + " " + "Chicken Thigh"
+                EditIngredientByNameCommand.COMMAND_ALIAS + " " + "on/Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
     }
@@ -457,6 +470,32 @@ public class RestaurantBookParserTest {
         command = (SelectIngredientCommand) parser.parseCommand(
                 SelectIngredientCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
         assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_stockUp() throws Exception {
+        // full command name, one ingredient
+        StockUpCommand command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10");
+        Map<IngredientName, Integer> hashMap = new HashMap<>();
+        hashMap.put(new IngredientName("Chicken Thigh"), 10);
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // command alias, one ingredient
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10");
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // full command name, multiple ingredients
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10 n/Apple nu/80");
+        hashMap.put(new IngredientName("Apple"), 80);
+        assertEquals(new StockUpCommand(hashMap), command);
+
+        // command alias, multiple ingredients
+        command = (StockUpCommand) parser.parseCommand(
+                StockUpCommand.COMMAND_WORD + " " + "n/Chicken Thigh nu/10 n/Apple nu/80");
+        assertEquals(new StockUpCommand(hashMap), command);
     }
 
     //@@author yican95

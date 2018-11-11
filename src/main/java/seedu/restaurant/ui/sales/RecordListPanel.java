@@ -16,6 +16,7 @@ import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Panel containing the list of sales records.
  */
@@ -56,7 +57,15 @@ public class RecordListPanel extends UiPart<Region> {
         Platform.runLater(() -> {
             recordListView.scrollTo(index);
             recordListView.getSelectionModel().clearAndSelect(index);
+            raise(new RecordPanelSelectionChangedEvent(recordListView.getItems().get(index)));
         });
+    }
+
+    @FXML
+    private void handleMouseClick() {
+        SalesRecord record = recordListView.getSelectionModel().getSelectedItem();
+        logger.fine("Selection in record list panel changed to : '" + record + "'");
+        raise(new RecordPanelSelectionChangedEvent(record));
     }
 
     @Subscribe

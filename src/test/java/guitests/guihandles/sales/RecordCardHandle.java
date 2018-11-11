@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Provides a handle to an item card in the item list panel.
  */
@@ -56,8 +57,6 @@ public class RecordCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(SalesRecord salesRecord) {
         return getDate().equals(salesRecord.getDate().toString())
-                && getItemName().equals(salesRecord.getName().toString())
-                && getQuantitySold().equals(salesRecord.getQuantitySold().toString())
-                && getPrice().equals(salesRecord.getPrice().toString());
+                && getItemName().equals(salesRecord.getName().toString());
     }
 }

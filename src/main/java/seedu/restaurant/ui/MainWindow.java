@@ -68,7 +68,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private AccountListPanel accountListPanel;
     private RecordListPanel recordListPanel;
@@ -99,7 +98,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane dataListPanelPlaceholder;
 
     @FXML
-    private StackPane detailedDataPanelPlaceholder;
+    private StackPane detailPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -185,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        detailedDataPanelPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailPanelPlaceholder.getChildren().add(browserPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -217,7 +216,7 @@ public class MainWindow extends UiPart<Stage> {
         dataListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
-        ftStackPanel = getFadeTransition(Duration.millis(150), detailedDataPanelPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), detailPanelPlaceholder);
     }
 
     //@@author yican95
@@ -298,7 +297,7 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the list panel to the given region
      */
     private void switchList(Region region) {
-        detailedDataPanelPlaceholder.getChildren().clear();
+        detailPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().add(region);
         ftListPanel.play();
@@ -310,8 +309,8 @@ public class MainWindow extends UiPart<Stage> {
      * @param node to set to the panel.
      */
     private void setPanel(Node node) {
-        detailedDataPanelPlaceholder.getChildren().clear();
-        detailedDataPanelPlaceholder.getChildren().add(node);
+        detailPanelPlaceholder.getChildren().clear();
+        detailPanelPlaceholder.getChildren().add(node);
         ftStackPanel.play();
     }
 
@@ -407,6 +406,7 @@ public class MainWindow extends UiPart<Stage> {
         //setPanel(browserPanel.getRoot());
     }
 
+    //@@author HyperionNKJ
     @Subscribe
     private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -433,12 +433,14 @@ public class MainWindow extends UiPart<Stage> {
         handleSwitchToMenu();
     }
 
+    //@@author rebstan97
     @Subscribe
     private void handleDisplayIngredientListEvent(DisplayIngredientListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToIngredient();
     }
 
+    //@@author HyperionNKJ
     @Subscribe
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

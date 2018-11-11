@@ -68,24 +68,25 @@ public class ModelManagerTest {
     private RestaurantBook restaurantBookWithItems = null;
 
     @Test
-    public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredRecordList().remove(0);
-    }
-
-    @Test
     public void getFilteredAccountList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredAccountList().remove(0);
     }
 
     //@@author yican95
+
     @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredItemList().remove(0);
     }
 
+    //@@author HyperionNKJ
+    @Test
+    public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredRecordList().remove(0);
+    }
 
     @Test
     public void hasRecord_nullRecord_throwsNullPointerException() {
@@ -200,6 +201,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasAccount(account));
     }
 
+    //@@author rebstan97
     @Test
     public void hasIngredient_nullIngredient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);

@@ -6,6 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_MINIMUM;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_ORIGINAL_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ITEM_NAME;
@@ -23,7 +24,6 @@ import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +40,7 @@ import seedu.restaurant.logic.commands.sales.EditSalesCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
-import seedu.restaurant.model.account.AccountContainsKeywordsPredicate;
+import seedu.restaurant.model.account.UsernameContainsKeywordPredicate;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.menu.Item;
@@ -63,6 +63,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    //@@author HyperionNKJ
     /**
      * For sales records
      */
@@ -135,8 +136,8 @@ public class CommandTestUtil {
     public static final String VALID_PRICE_BROCCOLI = "6.50";
     public static final int VALID_MINIMUM_APPLE = 3;
     public static final int VALID_MINIMUM_BROCCOLI = 5;
-    public static final int VALID_NUMUNITS_APPLE = 10;
-    public static final int VALID_NUMUNITS_BROCCOLI = 28;
+    public static final int VALID_NUM_UNITS_APPLE = 10;
+    public static final int VALID_NUM_UNITS_BROCCOLI = 28;
 
     public static final String INGREDIENT_NAME_DESC_APPLE = " " + PREFIX_INGREDIENT_NAME + VALID_NAME_APPLE;
     public static final String INGREDIENT_NAME_DESC_BROCCOLI = " " + PREFIX_INGREDIENT_NAME + VALID_NAME_BROCCOLI;
@@ -147,6 +148,10 @@ public class CommandTestUtil {
     public static final String INGREDIENT_MINIMUM_DESC_APPLE = " " + PREFIX_INGREDIENT_MINIMUM + VALID_MINIMUM_APPLE;
     public static final String INGREDIENT_MINIMUM_DESC_BROCCOLI = " " + PREFIX_INGREDIENT_MINIMUM
             + VALID_MINIMUM_BROCCOLI;
+    public static final String INGREDIENT_ORIGINAL_NAME_DESC_APPLE =
+            " " + PREFIX_INGREDIENT_ORIGINAL_NAME + VALID_NAME_APPLE;
+    public static final String INGREDIENT_ORIGINAL_NAME_DESC_BROCCOLI =
+            " " + PREFIX_INGREDIENT_ORIGINAL_NAME + VALID_NAME_BROCCOLI;
 
     public static final String INVALID_INGREDIENT_NAME_DESC = " " + PREFIX_INGREDIENT_NAME + "Chicken&"; // '&' not
     // allowed in ingredient names
@@ -156,6 +161,9 @@ public class CommandTestUtil {
     // places not allowed for ingredient prices
     public static final String INVALID_INGREDIENT_MINIMUM_DESC = " " + PREFIX_INGREDIENT_MINIMUM + "2.0"; // decimal
     // place not allowed for ingredient minimums
+    public static final String INVALID_INGREDIENT_ORIGINAL_NAME_DESC =
+            " " + PREFIX_INGREDIENT_ORIGINAL_NAME + "Chicken+"; //
+    // '+' not allowed for ingredient names
 
     /**
      * For menu
@@ -382,9 +390,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAccountList().size());
 
         Account account = model.getFilteredAccountList().get(targetIndex.getZeroBased());
-        final String[] splitAccount = account.getUsername().toString().split("\\s+");
-        model.updateFilteredAccountList(
-                new AccountContainsKeywordsPredicate(Collections.singletonList(splitAccount[0])));
+        model.updateFilteredAccountList(new UsernameContainsKeywordPredicate(account.getUsername().toString()));
 
         assertEquals(1, model.getFilteredAccountList().size());
     }

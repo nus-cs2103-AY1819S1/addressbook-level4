@@ -166,6 +166,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     //// sales record-level operation
 
+    //@@author HyperionNKJ
     /**
      * Replaces the contents of the record list with {@code records}. {@code records} must not contain duplicate
      * records.
@@ -287,6 +288,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     //// ingredient-level operations
 
+    //@@author rebstan97
     /**
      * Replaces the contents of the ingredient list with {@code ingredients}. {@code ingredients} must not contain
      * duplicate ingredients.

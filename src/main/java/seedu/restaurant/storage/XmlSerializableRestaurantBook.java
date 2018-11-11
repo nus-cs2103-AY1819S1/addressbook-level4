@@ -91,6 +91,8 @@ public class XmlSerializableRestaurantBook {
         return restaurantBook;
     }
 
+
+    //@@author HyperionNKJ
     /**
      * Converts this restaurantbook's record list into the model's {@code RestaurantBook} object.
      *
@@ -141,6 +143,7 @@ public class XmlSerializableRestaurantBook {
         }
     }
 
+    //@@author rebstan97
     /**
      * Converts this ingredient record into the model's {@code Ingredient} object.
      *
