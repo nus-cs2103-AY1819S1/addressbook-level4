@@ -261,12 +261,12 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         /* Case: Editing repeat type without flag */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EVENT.getOneBased()
                         + REPEAT_TYPE_DESC_MA3220,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_SINGLE_EVENT_FAIL));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_REPEAT_EVENT_FAIL));
 
         /* Case: Editing repeat until without flag */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EVENT.getOneBased()
                         + REPEAT_UNTIL_DATETIME_DESC_MA3220,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_SINGLE_EVENT_FAIL));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_REPEAT_EVENT_FAIL));
     }
 
     /**
