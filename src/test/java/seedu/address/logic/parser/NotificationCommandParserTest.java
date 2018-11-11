@@ -26,7 +26,8 @@ public class NotificationCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser,PREAMBLE_WHITESPACE + INVALID_NOTIFICATION_PARAMETER, String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotificationCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + INVALID_NOTIFICATION_PARAMETER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotificationCommand.MESSAGE_USAGE));
     }
 
 }

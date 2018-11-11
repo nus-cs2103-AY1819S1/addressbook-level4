@@ -233,6 +233,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFavourite(Event favourite)  {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean getNotificationPref() {
             throw new AssertionError("This method should not be called.");
         }
@@ -243,17 +248,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFavourite(Event favourite)  {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean isFavourite(Event event)   {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void indicateTabPanelSelectionChangedEvent()    {
+        public void indicateTabPanelSelectionChangedEvent() {
             throw new AssertionError("This method should not be called.");
         }
     }

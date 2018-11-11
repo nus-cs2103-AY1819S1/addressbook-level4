@@ -184,6 +184,11 @@ public class ImportContactsCommandTest {
         }
 
         @Override
+        public void updateFavourite(Event favourite) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean getNotificationPref() {
             throw new AssertionError("This method should not be called.");
         }
@@ -194,12 +199,7 @@ public class ImportContactsCommandTest {
         }
 
         @Override
-        public void updateFavourite(Event favourite)  {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean isFavourite(Event event)   {
+        public boolean isFavourite(Event event) {
             throw new AssertionError("This method should not be called.");
         }
 
