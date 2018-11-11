@@ -607,7 +607,7 @@ Hence, all the tabs and their methods are contained in this class.
 ** *Cons:* Does not abide by SoC and SRP principle, since this one class would have to change for many reasons.
 // end::tab[]
 
-// tag::importcontacts[]
+// tag::importContacts[]
 === Import Contacts
 ==== Current Implementation
 
@@ -629,7 +629,7 @@ The number of successful inserts and duplicated will be returned to display afte
 The following sequence diagram shows how the readImportContactsFile operation works:
 
 image::ImportContactsSequenceDiagram.PNG[width="800"]
-// end::importcontacts[]
+// end::importContacts[]
 
 === Show Person's faculty location visually
 ==== Current Implementation
