@@ -34,7 +34,6 @@ public class BudgetCommandTest {
 
         assertCommandSuccess(c, model, commandHistory, SHOWING_BUDGET_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowBudgetViewEvent);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
@@ -51,7 +50,6 @@ public class BudgetCommandTest {
         assertCommandSuccess(new BudgetCommand(BASKETBALL.getName()), model, commandHistory,
             SHOWING_BUDGET_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowBudgetViewEvent);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
