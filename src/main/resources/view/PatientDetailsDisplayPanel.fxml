@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
 <?import javafx.scene.layout.GridPane?>
@@ -8,17 +7,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.ColumnConstraints?>
 
+<?import javafx.scene.text.Text?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
     <GridPane>
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+        <VBox alignment="CENTER" GridPane.columnIndex="0" spacing="16.0">
             <padding>
-                <Insets top="15" right="15" bottom="15" left="15" />
+                <Insets top="16" right="16" bottom="16" left="16" />
             </padding>
-            <Label fx:id="name" styleClass="patient-details-title" />
-            <Label fx:id="nric" styleClass="patient-details-label" />
+            <Text fx:id="name" styleClass="patient-details-title" />
+            <Text fx:id="nric" styleClass="patient-details-text" />
+            <Text fx:id="phone" styleClass="patient-details-text" />
+            <Text fx:id="email" styleClass="patient-details-text" />
+            <Text fx:id="address" styleClass="patient-details-text" />
         </VBox>
     </GridPane>
 </StackPane>
