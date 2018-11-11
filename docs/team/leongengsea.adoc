@@ -1,4 +1,6 @@
 = Leong Eng Sea - Project Portfolio
+:toc:
+:toc-title:
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
