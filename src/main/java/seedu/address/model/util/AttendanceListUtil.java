@@ -61,6 +61,10 @@ public class AttendanceListUtil {
                     .filter(person -> person.isSamePerson(personToDelete))
                     .findFirst()
                     .ifPresent(removePersonFromOccasion(model, occasion));
+            assert occasion.getAttendanceList()
+                    .asNormalList()
+                    .stream()
+                    .noneMatch(person -> person.isSamePerson(personToDelete));
         }
     }
 
@@ -80,6 +84,10 @@ public class AttendanceListUtil {
                     .filter(person -> person.isSamePerson(personToDelete))
                     .findFirst()
                     .ifPresent(removePersonFromModule(model, module));
+            assert module.getStudents()
+                    .asNormalList()
+                    .stream()
+                    .noneMatch(person -> person.isSamePerson(personToDelete));
         }
     }
 
@@ -99,6 +107,10 @@ public class AttendanceListUtil {
                     .filter(module -> module.isSameModule(moduleToDelete))
                     .findFirst()
                     .ifPresent(removeModuleFromPerson(model, person));
+            assert person.getModuleList()
+                    .asNormalList()
+                    .stream()
+                    .noneMatch(module -> module.isSameModule(moduleToDelete));
         }
     }
 
@@ -140,6 +152,10 @@ public class AttendanceListUtil {
                     .filter(occasion -> occasion.isSameOccasion(occasionToDelete))
                     .findFirst()
                     .ifPresent(removeOccasionFromPerson(model, person));
+            assert person.getOccasionList()
+                    .asNormalList()
+                    .stream()
+                    .noneMatch(occasion -> occasion.isSameOccasion(occasionToDelete));
         }
     }
 
