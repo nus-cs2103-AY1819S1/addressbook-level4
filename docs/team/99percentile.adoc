@@ -20,11 +20,11 @@ Unlike traditional address books, the doctor or clinic receptionist can easily `
 patient or medicine by entering one simple line in the command box.
 
 // list of main features
-Example of the main features includes:
+This is what CLInic offers:
 
 . Efficient management of patient and medicine information.
 . Realistic model of a clinic's daily operation and commands to manipulate data.
-. Customised receipts, medical certificates and referral letters for different clinics.
+. Customised receipts, medical certificates and referral letters for clinics.
 
 == Summary of Contributions
 //preface to this section to inform reader purpose of this section
@@ -38,7 +38,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 ** Highlights: With the `checkstock` command, you can easily list out all medical stocks that are low in stock in just 2 seconds!
 
 * *Minor enhancement*:
-** Rephrased output messages to make it more user friendly.
+** Rephrased output messages to make it more comprehensive.
 
 * *Code contributed*:
 ** Click https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=99percentile[here] to see what I wrote!
@@ -48,7 +48,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 ** Spell-checked all documents to ensure consistency.
 ** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
-** Created the trailer for our project release.
+** Configured <<link, config.json>> to allow Reposense to detect each member's works.
 
 == Contributions to the User Guide
 
