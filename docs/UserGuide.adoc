@@ -20,11 +20,10 @@ By: `Team CS2103-AY1819S1-F10-4`      Since: `Sep 2018`      Licence: `M
 
 // tag::intro[]
 == Welcome to MeNUS
-link:{repoURL}[MeNUS] empowers you to improve the Management(M) and efficiency(e) of your restaurants in NUS.
+link:{repoURL}[MeNUS] empowers you to improve the **m**anagement and its **e**fficiency of your restaurants in **NUS**.
 
-As long as you feel like your restaurants are using too many complex and expensive systems,
+As long as you feel that your restaurants are using too many complex and expensive systems,
 link:{repoURL}[MeNUS] is here to help you and it is the only restaurant management system you will ever need!
-
 
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
@@ -133,17 +132,19 @@ Do read our short explanation about Command Format below so that the subsequent 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `deregister id/USERNAME`, `USERNAME` is a
+parameter which can be used as `deregister id/azhikai`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Pizza t/Italian` or as `n/Pizza`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as
+`{nbsp}` (i.e. 0 times), `t/Italian`, `t/Italian t/Wednesday` etc.
+* Parameters can be in any order e.g. if the command specifies `id/USERNAME pw/PASSWORD`, `pw/PASSWORD id/azhikai`
+is also acceptable.
 ====
 
-As this is a management system, all but the following commands cannot be executed without first being authenticated.
+As this is a management system, only the following commands can be executed without being authenticated (i.e. as guest):
+
 ====
-. `help`
-. `login`
-. `exit`
+`help`, `login`, `select-item`, `find-item`, `filter-menu`, `list-items`, `today-special`, `exit`
 ====
 
 === General
@@ -256,7 +257,8 @@ Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME` or `reg id/USERNAME pw/PA
 
 [NOTE]
 ====
-This command will be improved in the future to include name and role. See <<Register-Improvement>>
+This command will be improved in the future to include name and role. See <<Register-Improvement>, Section 5.7.1,
+“Improving registration [coming in v2.0]”>>
 for more information
 ====
 
@@ -282,8 +284,8 @@ Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
 [NOTE]
 ====
-This command will only be able to be executed by a highly privileged user in the future. See <<User-Role>>
-for more information
+This command will only be able to be executed by a highly privileged user in the future. See <<User-Role>,
+Section 5.7.2, “Creating user role [coming in v2.0]”>> for more information
 ====
 
 Examples:
