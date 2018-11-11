@@ -17,11 +17,11 @@ Allows a user with `Department Manager` permissions to delete an employee and it
 ** Justification:
 We want the Users to have the option of deleting an employee from the system but keeping his/her information incase of future need for it.
 
-Having the `archivelist` achieves that for us, an employee will remain in the system even after being deleted from the `archivelist`.
+*** Having the `archivelist` achieves that for us, an employee will remain in the system even after being deleted from the `archivelist`.
 
-Our users will also be able to permanently delete employee information if they choose to by deleting them from the `archivelist`.
+*** Our users will also be able to permanently delete employee information if they choose to by deleting them from the `archivelist`.
 
-Lastly, if there is a need to restore the employee back to the `activelist` a user with the right permissions can restore the employee from the `archivelist` to the `activelist`.
+*** Lastly, if there is a need to restore the employee back to the `activelist` a user with the right permissions can restore the employee from the `archivelist` to the `activelist`.
 
 ** Highlights:
 
