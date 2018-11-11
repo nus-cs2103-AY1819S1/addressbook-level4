@@ -422,7 +422,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 ==== Current Implementation
 
 The `add` command allows the user to add new events to the scheduler. Add Command is facilitated by the `AddCommand` class.
-The format of this command is `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/RECURRING_TYPE] [ru/RECURRING_UNTIL_DATETIME] [t/TAG]…​`.
+The format of this command is `add n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/RECURRING_TYPE] [ru/RECURRING_UNTIL_DATETIME] [t/TAG]…​`.
 
 The command uses Natty, a natural language date parser written in Java to parse `DateTime` given by the user. When given a user inputted string, Natty will parse the string into a `LocalDateTime` class.
 
@@ -468,6 +468,65 @@ image::AddCommandActivityDiagram.png[width="650"]
 ** Pros: Users will always be assured of correct `DateTime` being parsed if they provide the correct input.
 ** Cons: Reduce the flexibility as users have to conform to a standard format.
 // end::add[]
+
+// tag::edit[]
+=== Edit Command
+==== Current Implementation
+
+The `edit` command allows users to add edit existing events in the scheduler. Edit Command is facilitated by the `AddCommand` class.
+The format of this command is `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]…​ [re/REMINDER_TIME]…​ [-a | -u]`
+
+`EditCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `EditCommandParser` and `RepeatEventGenerator`.
+The `EditCommandParser` parses the user input and `RepeatEventGenerator` generates repeating events (if any). The `Model` component is responsible for updating the internal event list with the generated event(s).
+
+Given below is the execution flow of `Edit Command`.
+
+1. When the user inputs a command, `LogicManager` will call the `parseCommand` method in `SchedulerParser` with the user input as arguments.
+2. If the user input is valid and contains the keyword `edit`, `EditCommandParser` will be instantiated.
+3. `SchedulerParser` will then call the `parse` method of `EditCommandParser`.
+4. `EditCommandParser` parses the user input with the respective parsing methods.
+5. `EditCommand` will be instantiated with details of the edited event.
+6. `generateAllRepeatedEvents` method in `RepeatEventGenerator` is invoked to generate edited event(s) if user is trying to edit a set of repeating events with options `-a` or `-u`.
+7. `LogicManager` will then proceed to call the `execute()` method of `EditCommand`.
+8. `Model` Component will then find the targeted event(s) in internal list according to the parsed option type (no option or `-a` or `-u`).
+9. `Model` Component will replace the targeted event(s) with the edited event(s).
+
+The following sequence diagram demonstrates how the add operation works:
+
+image::EditCommandSequenceDiagram.png[width="800"]
+image::EditCommandSequenceDiagram2.png[width="800"]
+
+To find the targeted event(s) in `Model`(determined by the parsed option), we filter the internal event list using certain predicates.
+
+The following code blocks shows the predicate used for `-a` and `-u` respectively.
+
+[source,java]
+----
+versionedScheduler.updateEvents(target, editedEvents,
+    event -> event.getEventSetUid().equals(target.getEventSetUid()));
+----
+
+[source,java]
+----
+versionedScheduler.updateEvents(target, editedEvents, event ->
+    event.getEventSetUid().equals(target.getEventSetUid())
+    && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
+----
+
+==== Design Considerations
+
+===== Aspect: Generation of edited events
+
+* **Alternative 1 (current choice):** Generating edited events based on first instance of event.
+** Pros: For `-a` option, we can generate all the repeating events starting from the first event in repeating event set even when the user targets the second event in the repeating event set.
++
+E.g. In a set of events: `event A1, event A2 eventA3`, when we input the command `edit 2 rt/weekly -a`, we can check whether `event A1` has the same day of week as `eventA2`. If yes, we generate new events starting from `eventA1` else, start from `eventA2`.
+** Cons: New Events generated will always be based on the first event. So, when edit the `eventA2` *only* first then edit the *whole set (all)* of events starting from the `eventA2`, the subsequent events generated will be based on `eventA1` which overrides any changes that were made individually to `eventA2`.
+* **Alternative 2:** Generating edited events based on selected event and delete previous events.
+** Pros: Do not need to be know what is in the model before generating events.
+** Cons: Events generated may not be as intuitive to users because the if we start editing a repeated event from the second event in a set, the first event will always be deleted.
+// end::edit[]
+
 
 
 // tag::Pop-up Alert[]
