@@ -44,8 +44,7 @@ public class ExportCertCommand extends Command {
 
     private static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Certs"
             + File.separator;
-    private static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + File.separator + "Desktop"
-            + File.separator;
+    private static final String PDF_ALT_SAVE_PATH = System.getProperty("user.dir") + File.separator;
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
 
     private final Index index;
@@ -66,8 +65,8 @@ public class ExportCertCommand extends Command {
                 exportDir.mkdir();
                 logger.info("Creating a new folder 'Certs' in user's current working directory.");
             } catch (SecurityException se) {
-                logger.warning("Couldn't create a relative export path next to jar file. "
-                        + "Defaulting to user's Desktop.");
+                logger.warning("Couldn't create a 'Certs' folder next to jar file. "
+                        + "Exporting certs straight to the current working directory instead.");
                 currentSavePath = PDF_ALT_SAVE_PATH;
             }
         }
