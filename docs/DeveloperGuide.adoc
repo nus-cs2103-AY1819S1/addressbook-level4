@@ -1532,19 +1532,14 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  A user should only be allowed to perform the tasks that he has the credentials to perform based on his login credentials
 .  Passwords should be salted and hashed
-.  The system will be reliable and not crash frequently
+.  The system should crash no more than 1 time a month.
 .  The system should stay responsive even when there are updates to the GUI
-
-_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -1577,7 +1572,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the login screen which prompts for a username and password.
 
 . Saving window preferences
 
