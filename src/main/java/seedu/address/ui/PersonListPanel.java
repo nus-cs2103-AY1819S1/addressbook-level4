@@ -78,7 +78,7 @@ public class PersonListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (isListSelected()) {
             int index = personListView.getSelectionModel().getSelectedIndex();
-            personListView.getSelectionModel().clearAndSelect(0);
+            personListView.getSelectionModel().clearSelection();
             personListView.getSelectionModel().clearAndSelect(index);
             Person currPerson = personListView.getSelectionModel().getSelectedItem();
             raise(new PersonBrowserChangeEvent(currPerson));
