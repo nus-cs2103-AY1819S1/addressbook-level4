@@ -3,6 +3,7 @@ package seedu.meeting.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.meeting.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -289,6 +290,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         if (equals(imported)) {
             return;
         }
+        ArrayList<Person> personsToRemove = new ArrayList<>();
         if (imported instanceof MeetingBook) {
             MeetingBook importedBook = (MeetingBook) imported;
             Iterator<Person> personItr = importedBook.persons.iterator();
@@ -300,6 +302,11 @@ public class MeetingBook implements ReadOnlyMeetingBook {
                     if (overwrite) {
                         Person samePerson = getPersonByName(importPerson.getName());
                         updatePerson(samePerson, importPerson);
+                    } else {
+                        Person currentPerson = getPersonByName(importPerson.getName());
+                        if (!currentPerson.equals(importPerson)) {
+                            personsToRemove.add(importPerson);
+                        }
                     }
                 }
             }
@@ -307,16 +314,9 @@ public class MeetingBook implements ReadOnlyMeetingBook {
             Iterator<Group> groupItr = importedBook.groups.iterator();
             while (groupItr.hasNext()) {
                 Group importGroup = groupItr.next();
-                List<Person> importGroupPersons = importGroup.getMembersView();
-                for (Person p: importGroupPersons) {
-                    for (Person p1 : persons.asUnmodifiableObservableList()) {
-                        if (!p1.equals(p)) {
-                            importGroup.removeMemberNoGroups(p);
-                            break;
-                        }
-                        if (importGroupPersons.isEmpty()) {
-                            break;
-                        }
+                for (Person p: personsToRemove) {
+                    if (importGroup.hasMember(p)) {
+                        importGroup.removeMemberNoGroups(p);
                     }
                 }
                 if (!hasGroup(importGroup)) {
