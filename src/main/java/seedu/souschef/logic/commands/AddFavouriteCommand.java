@@ -9,7 +9,6 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -36,12 +35,10 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
         requireNonNull(model);
         Recipe recipe = model.getAppContent().getObservableRecipeList().get(Integer.parseInt(argument.trim()) - 1);
         logger.info(recipe.getName().fullName);
-        Favourites favourite = new Favourites(recipe.getName(),
-                recipe.getDifficulty(), recipe.getCookTime(), recipe.getTags());
-
-        model.add(favourite);
+        model.add(recipe);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 history.getContextString()));
     }
 }
+
