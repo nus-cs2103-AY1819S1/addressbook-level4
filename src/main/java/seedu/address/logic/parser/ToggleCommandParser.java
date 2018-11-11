@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ToggleCommand object
  */
-public class ToggleCommandParser implements  Parser<ToggleCommand> {
+public class ToggleCommandParser implements Parser<ToggleCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ToggleCommand
      * and returns a ToggleCommand object for execution.
@@ -19,7 +19,7 @@ public class ToggleCommandParser implements  Parser<ToggleCommand> {
 
         if (args.equals("")) {
             return new ToggleCommand();
-        }   else {
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ToggleCommand.MESSAGE_USAGE));
         }
     }

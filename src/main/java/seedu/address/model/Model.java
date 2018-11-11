@@ -168,5 +168,5 @@ public interface Model {
      */
     boolean isFavourite(Event event);
 
-    void indicateTabPanelSelectionChangedEvent() ;
+    void indicateTabPanelSelectionChangedEvent();
 }

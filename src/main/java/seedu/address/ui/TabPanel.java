@@ -16,8 +16,8 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
+import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -141,13 +141,14 @@ public class TabPanel extends UiPart<Region> {
 
         // select adjacent tab
         for (int i = 0; i < tabList.size(); i++) {
-            if(tabList.get(i) == curr) {
-                Tab newTab = tabList.get((i+1) % tabList.size());
+            if (tabList.get(i) == curr) {
+                Tab newTab = tabList.get((i + 1) % tabList.size());
                 selectionModel.select(newTab);
             }
         }
     }
 
+    @Subscribe
     private void handleEventPanelDisplayChangedEvent(EventPanelDisplayChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 

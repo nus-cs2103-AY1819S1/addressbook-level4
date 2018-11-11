@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 
 /**
  * Enable / disable notifications
@@ -44,7 +43,7 @@ public class NotificationCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || ((other instanceof NotificationCommand)
-                && (this.set == ((NotificationCommand)other).set));
+                && (this.set == ( (NotificationCommand) other).set));
 
     }
 }
