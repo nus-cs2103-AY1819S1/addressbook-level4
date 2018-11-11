@@ -179,7 +179,7 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 [NOTE]
 ====
-You must specify at least 1 `DATE`. 
+You must specify at least 1 `DATE`.
 ====
 
 [WARNING]
