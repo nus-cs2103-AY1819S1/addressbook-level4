@@ -64,7 +64,11 @@ A word can have any number of tags provided the groups of the tags are already c
 Examples:
 
 * `add n/levitate m/to float or fly t/Test`
+* `add n/levitate m/to float or fly t/Test t/RealTest` (Each tag is contained in their own prefix `t/`)
 * `add n/levitate m/to float or fly` (toLearn tag will be attached to word by default)
+
+[NOTE]
+Group (tag) must already exist (been created) by user. The only default tag that has no need to be created is the "toLearn" tag.
 
 // end::basic[]
 
@@ -115,8 +119,14 @@ Edits the meaning of the first word to `diabloic magic or art`.
 * `edit 1 t/darkarts` +
 Edits the tag of the first word to `darkarts`, replacing every other tag.
 
+* `edit 1 t/darkarts t/magical` +
+Edits the tag of the first word to `darkarts` and `magical`, replacing every other tag.
+
 * `edit 1 t/` +
 Fails to remove all tags as there must be at least one tag attached to every word.
+
+[NOTE]
+Group (tag) must already exist (been created) by user. The only default tag that has no need to be created is the "toLearn" tag.
 
 // end::basic[]
 
