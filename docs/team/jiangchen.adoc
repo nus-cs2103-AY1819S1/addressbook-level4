@@ -9,13 +9,19 @@
 
 This portfolio aims to document my role and contribution to the *ExpenseTracker*.
 
-This project is CS2103T team project. The main purpose of this project is to morph
-AddressBook - Level 4,a given desktop application, into a new application.
 ExpenseTracker is a desktop application used for tracking user's expenses.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 It is written in Java, and has about 20 kLoC.
 
-My contribution to the project included
+This project is CS2103T team project. The main purpose of this project is to morph
+AddressBook - Level 4,a given desktop application, into a new application.
+
+Some of its main features are:
+
+. Setting a budget for expenses.
+. Multiple user accounts.
+. Categorization of expenses.
+. Statistics for expenses.
 
 == Summary of contributions
 
