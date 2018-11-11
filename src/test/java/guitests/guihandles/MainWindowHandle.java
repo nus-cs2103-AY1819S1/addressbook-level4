@@ -26,7 +26,9 @@ public class MainWindowHandle extends StageHandle {
         return calendarPanel;
     }
 
-    public TaskListPanelHandle getTaskListPanel() { return taskListPanel; }
+    public TaskListPanelHandle getTaskListPanel() {
+        return taskListPanel;
+    }
 
     public ResultDisplayHandle getResultDisplay() {
         return resultDisplay;

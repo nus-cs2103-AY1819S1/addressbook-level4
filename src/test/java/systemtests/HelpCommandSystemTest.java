@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarEventListMatching;
 
 import org.junit.Test;
 
@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.testutil.GuiTestAssert;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -42,7 +41,7 @@ public class HelpCommandSystemTest extends SchedulerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        GuiTestAssert.assertCalendarListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar

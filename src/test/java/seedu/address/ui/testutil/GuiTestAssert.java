@@ -14,7 +14,6 @@ import guitests.guihandles.TaskListPanelHandle;
 import guitests.guihandles.ToDoListEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.todolist.ToDoListEvent;
-import seedu.address.ui.TaskListPanel;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -67,12 +66,49 @@ public class GuiTestAssert {
      * correctly and
      * in the correct order.
      */
-    public static void assertCalendarListMatching(CalendarPanelHandle calendarPanelHandle,
-                                                  CalendarEvent... calendarEvents) {
+    public static void assertCalendarEventListMatching(CalendarPanelHandle calendarPanelHandle,
+                                                       CalendarEvent... calendarEvents) {
         for (int i = 0; i < calendarEvents.length; i++) {
             calendarPanelHandle.navigateToCard(i);
             assertCardDisplaysPerson(calendarEvents[i], calendarPanelHandle.getPersonCardHandle(i));
         }
+    }
+
+    /**
+     * Asserts that the list in {@code calendarPanelHandle} displays the details of {@code calendarEvents}
+     * correctly and
+     * in the correct order.
+     */
+    public static void assertCalendarEventListMatching(CalendarPanelHandle calendarPanelHandle,
+                                                       List<CalendarEvent> calendarEvents) {
+        assertCalendarEventListMatching(calendarPanelHandle, calendarEvents.toArray(new CalendarEvent[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents}
+     * correctly and
+     * in the correct order.
+     */
+    public static void assertCalendarListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
+                                                             List<CalendarEvent> calendarEvents) {
+
+        assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), calendarEvents.size());
+        assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(calendarEvents));
+    }
+
+    /**
+     * Asserts the size of the list in {@code calendarPanelHandle} equals to {@code size}.
+     */
+    public static void assertCalendarListSize(CalendarPanelHandle calendarPanelHandle, int size) {
+        int numberOfPeople = calendarPanelHandle.getListSize();
+        assertEquals(size, numberOfPeople);
+    }
+
+    /**
+     * Asserts the message shown in {@code resultDisplayHandle} equals to {@code expected}.
+     */
+    public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
+        assertEquals(expected, resultDisplayHandle.getText());
     }
 
     /**
@@ -86,16 +122,6 @@ public class GuiTestAssert {
             taskListPanelHandle.navigateToCard(i);
             assertCardDisplaysToDo(toDoListEvents[i], taskListPanelHandle.getToDoListCardHandle(i));
         }
-    }
-
-    /**
-     * Asserts that the list in {@code calendarPanelHandle} displays the details of {@code calendarEvents}
-     * correctly and
-     * in the correct order.
-     */
-    public static void assertCalendarListMatching(CalendarPanelHandle calendarPanelHandle,
-                                                  List<CalendarEvent> calendarEvents) {
-        assertCalendarListMatching(calendarPanelHandle, calendarEvents.toArray(new CalendarEvent[0]));
     }
 
     /**
@@ -113,31 +139,11 @@ public class GuiTestAssert {
      * correctly and
      * in the correct order.
      */
-    public static void assertCalendarListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
-                                                             List<CalendarEvent> calendarEvents) {
-
-        assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), calendarEvents.size());
-        assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(calendarEvents));
-    }
-
-    /**
-     * Asserts that the list in {@code calendarDisplayHandle} displays the details of {@code calendarEvents}
-     * correctly and
-     * in the correct order.
-     */
     public static void assertToDoListMatchingIgnoreOrder(CalendarDisplayHandle calendarDisplayHandle,
                                                              List<ToDoListEvent> toDoListEvents) {
 
         assertEquals(calendarDisplayHandle.getDisplayedCalendarEvents().size(), toDoListEvents.size());
         assertTrue(calendarDisplayHandle.getDisplayedCalendarEvents().containsAll(toDoListEvents));
-    }
-
-    /**
-     * Asserts the size of the list in {@code calendarPanelHandle} equals to {@code size}.
-     */
-    public static void assertCalendarListSize(CalendarPanelHandle calendarPanelHandle, int size) {
-        int numberOfPeople = calendarPanelHandle.getListSize();
-        assertEquals(size, numberOfPeople);
     }
 
     /**
@@ -148,10 +154,4 @@ public class GuiTestAssert {
         assertEquals(size, numberOfTask);
     }
 
-    /**
-     * Asserts the message shown in {@code resultDisplayHandle} equals to {@code expected}.
-     */
-    public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
-        assertEquals(expected, resultDisplayHandle.getText());
-    }
 }

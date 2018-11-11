@@ -3,10 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarEventListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatchingIgnoreOrder;
 import static seedu.address.ui.testutil.GuiTestAssert.assertToDoListMatching;
-import static seedu.address.ui.testutil.GuiTestAssert.assertToDoListMatchingIgnoreOrder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +13,6 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import guitests.guihandles.TaskListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,6 +21,7 @@ import org.junit.ClassRule;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarPanelHandle;
+import guitests.guihandles.TaskListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
@@ -41,7 +40,6 @@ import seedu.address.model.ToDoList;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
-import seedu.address.ui.testutil.GuiTestAssert;
 
 
 /**
@@ -105,7 +103,9 @@ public abstract class SchedulerSystemTest {
         return mainWindowHandle.getCalendarPanel();
     }
 
-    public TaskListPanelHandle getTaskListPanel() { return mainWindowHandle.getTaskListPanel(); }
+    public TaskListPanelHandle getTaskListPanel() {
+        return mainWindowHandle.getTaskListPanel();
+    }
 
     public CalendarDisplayHandle getCalendarDisplay() {
         return mainWindowHandle.getCalendarDisplay();
@@ -174,7 +174,7 @@ public abstract class SchedulerSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
-        assertCalendarListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
         assertCalendarListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
     }
 
@@ -263,7 +263,7 @@ public abstract class SchedulerSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertCalendarListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
     }
 
     /**
