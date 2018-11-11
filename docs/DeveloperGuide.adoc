@@ -388,7 +388,7 @@ This feature is facilitated by newly added methods in the Model interface which 
 * `Model#encryptString(String)` -- Encrypts the input String using the currently logged in user's encryption key
 * `Model#decryptString(String)` -- Decrypts the input String using the currently logged in user's encryption key.
 
-When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. i.e your method should look like this:
+When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
 .New method example
 [source,java]
@@ -411,11 +411,11 @@ The classes `Username` and `Password` have also been implemented and have the fo
 
 Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
 
-* `EncryptionUtil#decryptString(String, String)` -- Decrypts a String with by using the input encryption key
-* `EncryptionUtil#encryptString(String, String)` -- Encrypts a String with by using the input encryption key
-* `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password String. Equivalent passwords will always map to equivalent keys.
-* `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an EncryptedExpense instance of the given Expense by encrypting its data using the given encryption key
-* `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an EncryptedExpenseTracker instance of the given ExpenseTracker by encrypting it using its encryption key. This is always called when saving users' data to storage.
+* `EncryptionUtil#decryptString(String, String)` -- Decrypts a `String` with by using the input encryption key
+* `EncryptionUtil#encryptString(String, String)` -- Encrypts a `String` with by using the input encryption key
+* `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password `String`. Equivalent passwords will always map to equivalent keys.
+* `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an `EncryptedExpense` instance of the given `Expense` by encrypting its data using the given encryption key
+* `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an `EncryptedExpenseTracker` instance of the given `ExpenseTracker` by encrypting it using its encryption key. This is always called when sending users' data to `Storage` for saving.
 
 Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
 
@@ -425,8 +425,8 @@ image::implementation/EncryptionClassDiagram.png[width="1024"]
 The following are other noteworthy details of the implementation for data encryption:
 
 * Users' expense data are encrypted using `AES` encryption with a 128-bit `MurmurHash` of their plain text password as the encryption key. These are not stored anywhere in the data files to ensure the security of their data.
-* The encrypted information are stored in new classes to ensure that encrypted data is not used before decryption.
-* The encrypted information has to be stored in the `Model` as the encryption key will only be known at runtime when a user logs in with his/her correct `Password`.
+* The encrypted information is stored in new classes to ensure that encrypted data is not used before decryption.
+* The encrypted information has to be stored in `Model` as the encryption key will only be known at runtime when a user logs in with his/her correct `Password`.
 * Each Encrypted class will know how to decrypt itself into its decrypted equivalent. e.g `EncryptedExpenseField#decrypt(String)` uses the input `String` as an encryption key to decrypt itself into a `ExpenseField`.
 
 Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
@@ -463,7 +463,7 @@ Below is an example usage scenario and how the Password system behaves at each s
 
 . The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
 . The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
-. The `Model#setPassword(Password)` changes `john`&#8217;s account password to `password2`
+. The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
 . `john`&#8217;s expense data gets encrypted using a new encryption key generated from the String `password2`. This also applies in future whenever it is saved to the data file.
 
 Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
@@ -895,7 +895,7 @@ Execution steps of resetting available spending are as follows:
 
 . User logs in
 
-. `login` command executes in the `Logic`, which calls `Logic#execute()` to execute the command on the `Model`
+. `login` command executes in the `Logic`, which calls `Logic#execute()` to execute the command on `Model`
 
 . `Model` calls `Model#checkBudgetRestart()`, which in turn calls `TotalBudget#checkBudgetRetart()` to check if the
 available spending is to be reset.
