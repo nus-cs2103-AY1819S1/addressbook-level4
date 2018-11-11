@@ -19,9 +19,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         for (String aKeyword : keywords) {
             String newKeyword = aKeyword.toLowerCase()
                                         .replace('_', '.').replace("*", ".*");
-            newKeyword = ".*" + newKeyword + ".*";
-            if (person.getName().fullName.toLowerCase().matches(newKeyword)) {
-                return true;
+            String[] nameParts = person.getName().fullName.toLowerCase().split("\\W");
+            for (String s : nameParts) {
+                if (s.matches(newKeyword)) {
+                    return true;
+                }
             }
         }
         return false;

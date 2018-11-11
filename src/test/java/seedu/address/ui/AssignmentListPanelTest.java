@@ -1,11 +1,21 @@
 package seedu.address.ui;
 
+import static java.time.Duration.ofMillis;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalAssignment.getTypicalAssignments;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ASSIGNMENT;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysAssignment;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
+import guitests.guihandles.AssignmentCardHandle;
 import guitests.guihandles.AssignmentListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +30,8 @@ public class AssignmentListPanelTest extends GuiUnitTest {
     private static final ObservableList<Assignment> TYPICAL_ASSIGNMENTS =
             FXCollections.observableList(getTypicalAssignments());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_ASSIGNMENT, 1);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -28,7 +39,7 @@ public class AssignmentListPanelTest extends GuiUnitTest {
 
     private AssignmentListPanelHandle assignmentListPanelHandle;
 
-    /*@Test
+    @Ignore @Test
     public void display() {
         initUi(TYPICAL_ASSIGNMENTS);
 
@@ -42,35 +53,35 @@ public class AssignmentListPanelTest extends GuiUnitTest {
         }
     }
 
-    @Test
+    @Ignore @Test
     public void handleJumpToListRequestEvent() {
         initUi(TYPICAL_ASSIGNMENTS);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
         AssignmentCardHandle expectedAssignment =
-                assignmentListPanelHandle.getAssignmentCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+                assignmentListPanelHandle.getAssignmentCardHandle(INDEX_SECOND_ASSIGNMENT.getZeroBased());
         AssignmentCardHandle selectedAssignment = assignmentListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedAssignment, selectedAssignment);
-    }*/
+    }
 
     /**
      * Verifies that creating and deleting large number of assignments in {@code AssignmentListPanel} requires
      * lesser than {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
-    /*@Test
+    @Test
     public void performanceTest() throws Exception {
         ObservableList<Assignment> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
-    }*/
+        }, "Creation and deletion of assignment cards exceeded time limit");
+    }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * Returns a list of assignments containing {@code assignmentCount} assignments that is used to populate the
+     * {@code AssignmentListPanel}.
      */
     private ObservableList<Assignment> createBackingList(int assignmentCount) throws Exception {
         Path xmlFile = createXmlFileWithAssignments(assignmentCount);

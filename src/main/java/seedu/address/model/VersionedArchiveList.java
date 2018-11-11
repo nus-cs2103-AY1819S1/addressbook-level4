@@ -77,7 +77,7 @@ public class VersionedArchiveList extends ArchiveList {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedArchiveList)) {
             return false;
         }
 

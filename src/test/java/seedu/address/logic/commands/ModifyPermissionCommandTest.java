@@ -69,7 +69,7 @@ public class ModifyPermissionCommandTest {
     public void execute_addPermission_success() {
         Set<Permission> toAdd = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
-        toAdd.add(Permission.VIEW_PROJECT);
+        toAdd.add(Permission.ADD_ASSIGNMENT);
         Set<Permission> toRemove = new HashSet<>();
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
 
@@ -92,7 +92,7 @@ public class ModifyPermissionCommandTest {
     @Test
     public void execute_addPermission_failure() {
         Set<Permission> toAdd = new HashSet<>();
-        toAdd.add(Permission.REMOVE_EMPLOYEE);
+        toAdd.add(Permission.DELETE_EMPLOYEE);
         Set<Permission> toRemove = new HashSet<>();
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
 
@@ -111,7 +111,7 @@ public class ModifyPermissionCommandTest {
     public void execute_removePermission_success() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
-        toRemove.add(Permission.REMOVE_EMPLOYEE);
+        toRemove.add(Permission.DELETE_EMPLOYEE);
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -153,7 +153,7 @@ public class ModifyPermissionCommandTest {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
         toAdd.add(Permission.ADD_EMPLOYEE);
-        toRemove.add(Permission.REMOVE_EMPLOYEE);
+        toRemove.add(Permission.DELETE_EMPLOYEE);
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -176,7 +176,7 @@ public class ModifyPermissionCommandTest {
     public void execute_addAndRemovePermission_failure() {
         Set<Permission> toAdd = new HashSet<>();
         Set<Permission> toRemove = new HashSet<>();
-        toAdd.add(Permission.REMOVE_EMPLOYEE);
+        toAdd.add(Permission.DELETE_EMPLOYEE);
         toRemove.add(Permission.ADD_EMPLOYEE);
         ModifyPermissionCommand command = new ModifyPermissionCommand(INDEX_FIRST_PERSON, toAdd, toRemove);
 

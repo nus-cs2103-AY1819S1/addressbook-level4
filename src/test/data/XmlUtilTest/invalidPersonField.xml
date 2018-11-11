@@ -8,5 +8,8 @@
     <salary>10000</salary>
     <project>friends</project>
     <username>Hans Muster</username>
-    <password>Hans1234</password>
+    <password>
+        <salt>7xmmUZgCxkagQC3A68vRHUXC9Pf3s3sswhaWTpJQiM5mROP56ZuHLDqP+ipYf35U6EP170zMx5K+CPEeSZpucrUKLn6y12F7m22zGhSiA4IZrwfEp7btwCK0Ku1sfCw7Ar0IPjpqxXCNWc5q9Q9asqI8f/wP2L90HGWoDHk3zAEQaRUClJK1bDbFkd+fOyXqsH3rRbs+e+Ih/u0x29DN3ZUidvvaWFeIrtQtHv4TwfMRuKFUVqeG5gN0NIabFxkUceD8cQpSWyAMamHwX7Pf1+Hn/q1Yegua8n9dg6GEeTF/ScNnDeJ43fwJCWYthCuIwQciqj6ncC/QKkCmNLY7pw==</salt>
+        <password>Vy/ivMdZjFbJn5uu9H334qIPFKLVh9TWHMfI9Y/oozQ=</password>
+    </password>
 </person>

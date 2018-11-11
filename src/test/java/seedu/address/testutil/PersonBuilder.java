@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +90,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code projects} into a {@code Set<Project>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withProjects(Set<Project> projects) {
+        this.projects = projects;
+        return this;
+    }
+
+    /**
      * Sets the {@code Salary} of the {@code Person} that we are building.
      */
     public PersonBuilder withSalary(String salary) {
@@ -134,6 +143,28 @@ public class PersonBuilder {
      */
     public PersonBuilder withPassword(String password) {
         this.password = new Password(password);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Password} of the {@code Person} that we are building, along with it's salt.
+     */
+    public PersonBuilder withPassword(String password, String salt) {
+        this.password = new Password(password, salt);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Password} of the {@code Person} that we are building, using a specific
+     * Password object
+     */
+    public PersonBuilder withPassword(Password p) {
+        if (p.plaintext != null) {
+            String salt = Base64.getEncoder().encodeToString(p.salt);
+            this.password = new Password(p.plaintext, salt);
+        } else {
+            this.password = new Password(p.salt, p.hash);
+        }
         return this;
     }
 

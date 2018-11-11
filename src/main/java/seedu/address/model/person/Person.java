@@ -140,6 +140,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
+                && otherPerson.getUsername().equals(getUsername())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -166,7 +167,7 @@ public class Person {
                 && otherPerson.getProjects().equals(getProjects())
                 && otherPerson.getProfilePic().equals(getProfilePic())
                 && otherPerson.getUsername().equals(getUsername())
-                && otherPerson.getPassword().equals(getPassword())
+                && otherPerson.getPassword().isSamePassword(getPassword())
                 && otherPerson.getLeaveApplications().equals(getLeaveApplications());
     }
 

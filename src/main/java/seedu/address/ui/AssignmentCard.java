@@ -26,7 +26,7 @@ public class AssignmentCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label assignmentName;
     @FXML
     private Label author;
     @FXML
@@ -38,9 +38,9 @@ public class AssignmentCard extends UiPart<Region> {
         super(FXML);
         this.assignment = assignment;
         id.setText(displayedIndex + ". ");
-        name.setText(assignment.getProjectName().fullProjectName);
-        author.setText(assignment.getAuthor().fullName);
-        description.setText(assignment.getDescription().value);
+        assignmentName.setText(assignment.getProjectName().fullProjectName);
+        author.setText("Author: " + assignment.getAuthor().fullName);
+        description.setText("Description: " + assignment.getDescription().value);
     }
 
     @Override

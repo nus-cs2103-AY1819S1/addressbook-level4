@@ -10,5 +10,6 @@
     <HBox spacing="10" alignment="center">
         <Button fx:id="activeList" text="Active" />
         <Button fx:id="archiveList" text="Archive" />
+        <Button fx:id="assignmentList" text="Assignment" />
     </HBox>
 </StackPane>

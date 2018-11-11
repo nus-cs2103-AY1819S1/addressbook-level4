@@ -7,7 +7,10 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
         <username>Hans Muster</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>oKTMtpZsYKce5ukv4lb9ou92OQPm6QTW8usuEfRsyG55/PzWyZV7mSyIC1KYXT4MYRJN1aIq91pVMRrtKib+J5o4EbsqfkmBDjbj1jx6n7y+K21MLL8xm42axUAvr0LpSh/Xq0+SWsTD1HFiSZkFyejaCmfcUVLavvc+/aSrV/ZqH0X66Ch25A4xBUIsxuErseVXQWaFS2Urml3sw0dRi1iYsSUCzCeetQavDl1IHtNXWiaMVhaEd6MxBAtDBS1zQnUOwyx/W67pLtKRFbnRLBlOvJX0twJ/PReYTzsF/MVDjkbNO0w/yT9GY4JB4OP2R2hY1UeouhfIqZ9ZW6o7VA==</salt>
+            <password>ILVD+WZJNROFHNFv2iGmoAGj3rY+EAH5sdo2Lj2MV+Q=</password>
+        </password>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>

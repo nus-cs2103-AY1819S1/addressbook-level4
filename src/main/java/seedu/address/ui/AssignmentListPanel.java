@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.AssignmentPanelSelectionChangeEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 
 /**
@@ -25,10 +26,15 @@ public class AssignmentListPanel extends UiPart<Region> {
     @FXML
     private ListView<Assignment> assignmentListView;
 
+    private ObservableList<Person> activeList;
+
+    private ObservableList<Person> archiveList;
+
     public AssignmentListPanel(ObservableList<Assignment> assignmentList) {
         super(FXML);
         setConnections(assignmentList);
         registerAsAnEventHandler(this);
+
     }
 
     private void setConnections(ObservableList<Assignment> assignmentList) {

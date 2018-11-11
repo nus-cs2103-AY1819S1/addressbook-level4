@@ -10,7 +10,7 @@ import seedu.address.model.project.Assignment;
 public class AssignmentCardHandle extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";
-    private static final String PROJECT_NAME_FIELD_ID = "#name";
+    private static final String PROJECT_NAME_FIELD_ID = "#assignmentName";
     private static final String AUTHOR_FIELD_ID = "#author";
     private static final String DESCRIPTION_FIELD_ID = "#description";
 

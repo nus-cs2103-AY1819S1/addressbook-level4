@@ -10,8 +10,11 @@ public class JumpToListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
 
-    public JumpToListRequestEvent(Index targetIndex) {
+    public final int listPicker;
+
+    public JumpToListRequestEvent(Index targetIndex, int listPicker) {
         this.targetIndex = targetIndex.getZeroBased();
+        this.listPicker = listPicker;
     }
 
     @Override

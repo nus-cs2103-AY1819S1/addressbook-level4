@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -24,6 +25,7 @@ import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.Project;
 import seedu.address.testutil.AssignmentBuilder;
 
 public class AddAssignmentCommandTest {
@@ -101,6 +103,26 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public int getState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setState(int state) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean alreadyContainsUsername(String username, Person ignore) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetArchive(ReadOnlyArchiveList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -128,6 +150,16 @@ public class AddAssignmentCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFromArchive(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -162,6 +194,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public void updateArchivedPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -187,7 +224,17 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public void updateFilteredAssignmentListForPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,12 +244,27 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public boolean canRedoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void undoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void undoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,6 +290,11 @@ public class AddAssignmentCommandTest {
 
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsAssignment(Set<Project> newAssignment, Assignment ignore) {
             throw new AssertionError("This method should not be called.");
         }
 

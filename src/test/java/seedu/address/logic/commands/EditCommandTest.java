@@ -55,7 +55,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         String originalUsername = model.getFilteredPersonList().get(0).getUsername().username;
-        String originalPassword = model.getFilteredPersonList().get(0).getPassword().password;
+        String originalPassword = model.getFilteredPersonList().get(0).getPassword().plaintext;
         editedPerson = new PersonBuilder(editedPerson).withUsername(originalUsername)
                 .withPassword(originalPassword).build();
 
@@ -117,23 +117,35 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.updatePerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicatePersonUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withUsername(secondPerson.getUsername().username)
+            .withPassword(secondPerson.getPassword().plaintext)
+            .withLeaveApplications(secondPerson.getLeaveApplications()).build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
+            model.getArchiveList(), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()), editedPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicatePersonFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
@@ -141,7 +153,19 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInList).withUsername(firstPerson.getUsername().username)
+            .withPassword(firstPerson.getPassword().plaintext)
+            .withLeaveApplications(firstPerson.getLeaveApplications()).build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
+            model.getArchiveList(), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -174,7 +198,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder().withUsername(personToEdit.getUsername().username)
-                .withPassword(personToEdit.getPassword().password).build();
+                .withPassword(personToEdit.getPassword().plaintext).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
@@ -221,7 +245,7 @@ public class EditCommandTest {
 
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder().withUsername(personToEdit.getUsername().username)
-                .withPassword(personToEdit.getPassword().password)
+                .withPassword(personToEdit.getPassword().plaintext)
                 .withLeaveApplications(personToEdit.getLeaveApplications())
                 .build();
 

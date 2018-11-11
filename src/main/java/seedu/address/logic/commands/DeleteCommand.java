@@ -30,28 +30,50 @@ public class DeleteCommand extends Command {
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
-        requiredPermission.addPermissions(Permission.REMOVE_EMPLOYEE);
+        requiredPermission.addPermissions(Permission.DELETE_EMPLOYEE);
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        int state = model.getState();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (state == 1) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
+                throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
+            }
+
+            model.deletePerson(personToDelete);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        } else if (state == 2) {
+            List<Person> lastShownList = model.getArchivedPersonList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
+                throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
+            }
+
+            model.deleteFromArchive(personToDelete);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        } else {
+            return null;
         }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
-            throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
-        }
-
-        model.deletePerson(personToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     @Override

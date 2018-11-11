@@ -11,7 +11,7 @@ import seedu.address.model.project.ProjectName;
 public class AssignmentBuilder {
     public static final String DEFAULT_ASSIGNMENT_NAME = "OASIS";
     public static final String DEFAULT_AUTHOR = "Amy Bee";
-    public static final String DEFAULT_DESCRIPTION = "Project Management System for every company.";
+    public static final String DEFAULT_DESCRIPTION = "Project Management System for all.";
 
     private ProjectName pName;
     private Name author;
