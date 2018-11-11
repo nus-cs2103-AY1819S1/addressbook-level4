@@ -17,21 +17,21 @@ inventory, sales and reservations -- all from a single location!
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). *MeNUS* also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX] and it
 is written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
-approximately 25 KLoC.
+approximately 30 KLoC.
 
 It is cross-platform supported and can be used on both Windows-based and Unix-based platforms.
 
 == Summary of Contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
 * *Major enhancement*: Added the *user management* feature
-** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system on his
+** *What it does*: Allows the restaurant owner to create an account for each of his employee to manage the system on his
  behalf.
-** *Justification*: This feature introduces the security layer by ensuring that only authorised employees are able to
-execute certain commands, depending on their level of privilege.
-** *Highlights*: This enhancement affects existing commands such that certain commands require the user to be
-authenticated, otherwise it will not be executed. It required an in-depth analysis and understanding of the `Logic`,
-`Model` and `Storage` components. The implementation too was challenging as it required modifications to existing
-commands.
+** *Justification*: This feature implements a security layer by ensuring that only authorised employees are able to
+execute commands based on their level of privilege. In addition, it provides accountability as executed commands
+can be traced back to the respective user.
+** *Highlights*: This enhancement affects existing commands as certain commands will only be executed if the user is
+authorised to do so. It required an in-depth analysis and understanding of the `Logic`,`Model` and `Storage`
+components. Also, the implementation was challenging as it required modifications to existing commands.
 ** *Credits*: Passwords are secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
 
 * *Other contributions*:
@@ -39,7 +39,7 @@ commands.
 *** Added side navigation bar to allow access to the different components of the application with a click of a mouse
 or trackpad, in addition to doing so via the CLI.
 *** https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a different product.
-** Project Management:
+** Project management:
 *** Team Lead; responsible for overall project coordination.
 *** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls, RepoSense and Discord automatic notifications
 using Webhook.
@@ -49,9 +49,9 @@ using Webhook.
 *** Configured deployment of static pages to GitHub Pages and Netlify.
 ** Documentation:
 *** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
+*** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 *** Morphed the existing contents of the User Guide and Developer Guide with respect to
 the morphed code base.
-*** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 ** Community:
 *** http://bit.ly/azhikai-contribution[Contributed] more than 40 PRs.
 *** http://bit.ly/azhikai-PR-review[Reviewed] more than 70 PRs with non-trivial review comments.
