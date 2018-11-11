@@ -6,7 +6,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.AdjustCommand;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.testutil.TypicalModules;
 
 public class AdjustCommandParserTest {
@@ -46,6 +49,27 @@ public class AdjustCommandParserTest {
         AdjustCommand expectedCommand = new AdjustCommand(
                 expectedModule.getCode(), null, null, expectedModule.getGrade());
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void assertInvalidYearFailure() {
+        String expectedMessage = Year.MESSAGE_YEAR_CONSTRAINTS;
+        String userInput = "cs4234 10 1 A";
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void assertInvalidSemesterFailure() {
+        String expectedMessage = Semester.MESSAGE_SEMESTER_CONSTRAINTS;
+        String userInput = "cs4234 1 10 A";
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void assertInvalidGradeFailure() {
+        String expectedMessage = Grade.MESSAGE_GRADE_CONSTRAINTS;
+        String userInput = "cs4234 1 1 G";
+        assertParseFailure(parser, userInput, expectedMessage);
     }
 
 
