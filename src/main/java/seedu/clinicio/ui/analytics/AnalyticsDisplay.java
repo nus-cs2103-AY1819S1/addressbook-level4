@@ -92,6 +92,9 @@ public class AnalyticsDisplay extends UiPart<Region> {
         chartPane.getChildren().clear();
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         CircularList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
+        allVisualizationData.reset();
+        handleNextVisualization();
+        handleNextVisualization();
         Plot.plotChart(allVisualizationData.getNext(), chartPane);
     }
 

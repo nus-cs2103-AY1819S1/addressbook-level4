@@ -76,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane queuePanelPlaceholder;
 
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -181,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
 
         browserPlaceholder.setAlignment(Pos.TOP_CENTER);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -276,12 +277,14 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        browserPanel.setVisible(false);
         analyticsDisplay.setVisible(true);
+        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        browserPanel.setVisible(false);
     }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        browserPlaceholder.getChildren().remove(analyticsDisplay);
         analyticsDisplay.setVisible(false);
         browserPanel.setVisible(true);
     }
