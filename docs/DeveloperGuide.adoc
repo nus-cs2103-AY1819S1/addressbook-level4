@@ -718,7 +718,7 @@ image::storageModelChangeJosh.PNG[width="350]
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive[]
 
-// tag::login[]
+// tag::login-begin[]
 === Login/Logout feature
 ==== Current Implementation
 
@@ -774,14 +774,15 @@ The login screen needs to be displayed to the user in some fashion.
 * **Alternative 1 (current choice):** Create a login screen before initializing other UI elements on the fly.
 ** Pros: One single window. Clear to the user which window to focus on. Most applications work this way, so it should be familiar to the majority of our users.
 ** Cons: Harder to implement. Need to take into account other possible UI elements, preload only those that are required, and ensure that tests stay supported.
-* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup up. Once the user has logged in, the login window will close and the main window will pop up.
+* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup. Once the user has logged in, the login window will close and the main window will pop up.
 ** Pros: Far easier to implement. Login system abstracted away from other functionality.
 ** Cons: It will be hard to maintain the same window size as the login window, if the user resizes it. More coupling would be required to maintain the same window size. Very odd and unfamiliar to most users. No application today opens a login window, then on successful login, closes that login window and opens a new one, meant for the user to use. This can cause a lot of user confusion. They may think that:
 *** The new window is representing error message, it should not have opened.
 *** The application had an error and unexpectedly shutdown.
 *** The new window is from another application that the user has running on his computer.
 *** They did something wrong (perhaps they pressed the button to close the window instead?)
-*** The developers are idiots.
+
+// end::login-begin[]
 
 ===== Aspect: UI Elements to build the login system
 
@@ -793,6 +794,8 @@ When OASIS boots up, the login screen needs to be displayed. The UI elements use
 * **Alternative 2:** Build the window from scratch to show login UI elements.
 ** Pros: Nicer, the UI elements are built for login
 ** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might as well go with Alternative 1.
+
+// tag::login-middle[]
 
 ===== Aspect: How the UI and Logic elements should communicate.
 
@@ -889,7 +892,7 @@ When checking if 2 Passwords are the same, it is better to call `isSamePassword`
 * **Alternative 3: (current choice):** Apply a salt + hash to all passwords
 ** Pros: Full security suite. Ensures that we aren't storing our user's passwords, so if the database is compromised, our user's passwords aren't easily broken.
 ** Cons: Very hard to implement. Testing becomes significantly harder because calling `.equals` on Passwords that are the same may return false due to differences in salt.
-// end::login[]
+// end::login-middle[]
 
 // tag::leaveapplication[]
 === Leave Application

@@ -75,6 +75,6 @@ include::../UserGuide.adoc[tag=passwd]
 |_The next section serves to showcase my additions to the Developer Guide. They act as an exhibit to show my capability in writing good technical documentation, along with the technical depth of my contributions._
 |===
 
-include::../DeveloperGuide.adoc[tag=login]
+include::../DeveloperGuide.adoc[tag=login-begin]
 
-// include::../DeveloperGuide.adoc[tag=da/taencryption]
+include::../DeveloperGuide.adoc[tag=login-middle]
