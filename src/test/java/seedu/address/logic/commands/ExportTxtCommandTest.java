@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -67,17 +68,15 @@ public class ExportTxtCommandTest {
         ExportTxtCommand exportTxtCommand =
                 new ExportTxtCommand(ParserUtil.parseFilePath(filePath), ExportCommand.FileType.TXT);
         exportTxtCommand.setStorage(storage);
-        String expectedMessage = String.format(ExportCommand.MESSAGE_INVALID_FILE_PATH);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_INVALID_TXT_FILE_PATH);
 
         assertCommandFailure(exportTxtCommand, model, commandHistory, expectedMessage, filePath);
     }
 
-
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
-     * - the {@code actualCommandHistory} remains unchanged. <br>
-     * - the user date stored in {@code model} matches the data stores at {@code filePath}
+     * Executes {@code command} and in addition, <br>
+     * 1. Asserts the result message matches {@code expectedMessage} <br>
+     * 2. Asserts the {@code actualCommandHistory} remains unchanged. <br>
      */
     public void assertCommandSuccess(ExportTxtCommand command, Model actualModel, CommandHistory actualCommandHistory,
                                      String expectedMessage) {
@@ -92,10 +91,10 @@ public class ExportTxtCommandTest {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - user data is not saved at {@code filePath}
+     * Executes {@code command} and in addition, <br>
+     * 1. Asserts a {@code CommandException} is thrown <br>
+     * 2. Asserts the CommandException message matches {@code expectedMessage} <br>
+     * 3. Asserts user data is not saved at {@code filePath}
      */
     public void assertCommandFailure(ExportTxtCommand command, Model actualModel, CommandHistory actualCommandHistory,
                                      String expectedMessage, String filePath) {
@@ -109,4 +108,27 @@ public class ExportTxtCommandTest {
         }
     }
 
+    @Test
+    public void equals() {
+        String filePath1 = dirPath + "testEqual1.txt";
+        String filePath2 = dirPath + "testEqual2.txt";
+        ExportTxtCommand commandOne = new ExportTxtCommand(filePath1, ExportCommand.FileType.TXT);
+        ExportTxtCommand commandTwo = new ExportTxtCommand(filePath1, ExportCommand.FileType.TXT);
+        ExportTxtCommand commandThree = commandOne;
+        ExportTxtCommand commandFour = new ExportTxtCommand(filePath2, ExportCommand.FileType.TXT);
+        ExportXmlCommand commandFive = new ExportXmlCommand(filePath1, ExportCommand.FileType.XML);
+
+        // exactly the same command
+        assertTrue(commandOne.equals(commandThree));
+
+        // same object type with same file path
+        assertTrue(commandOne.equals(commandTwo));
+
+        // same object type with different file path
+        assertFalse(commandOne.equals(commandFour));
+
+        // different object type with same file path
+        assertFalse(commandOne.equals(commandFive));
+
+    }
 }
