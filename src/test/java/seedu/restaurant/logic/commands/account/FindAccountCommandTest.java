@@ -3,7 +3,9 @@ package seedu.restaurant.logic.commands.account;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.restaurant.logic.commands.account.FindAccountCommand.MESSAGE_ONE_KEYWORD_ONLY;
 import static seedu.restaurant.logic.commands.account.FindAccountCommand.MESSAGE_SUCCESS;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ADMIN;
@@ -86,10 +88,10 @@ public class FindAccountCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
+    public void execute_zeroKeywords_failure() {
         UsernameContainsKeywordPredicate predicate = preparePredicate("");
-        expectedModel.updateFilteredAccountList(predicate);
+        FindAccountCommand command = new FindAccountCommand(predicate);
+        assertCommandFailure(command, model, commandHistory, MESSAGE_ONE_KEYWORD_ONLY);
     }
 
     /**
