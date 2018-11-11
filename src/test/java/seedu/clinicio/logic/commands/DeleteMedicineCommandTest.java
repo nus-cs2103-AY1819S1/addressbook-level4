@@ -18,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
+
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.core.index.Index;
@@ -35,12 +36,12 @@ import seedu.clinicio.model.medicine.Medicine;
  */
 public class DeleteMedicineCommandTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     private Model model = new ModelManager(getTypicalClinicIo(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private Analytics analytics = new Analytics();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
