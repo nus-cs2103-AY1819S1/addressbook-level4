@@ -70,18 +70,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void sort(SortingType type) {
-        if (type == SortingType.ALPHABETICAL) {
-            versionedAnakin.sort(SortingType.ALPHABETICAL);
 
-            if (isInsideDeck()) {
-                updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-            } else {
-                updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
-            }
-        } else if (type == SortingType.ALPHABETICAL) {
-            if (isInsideDeck()) {
-                updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-            }
+        if (type == SortingType.ALPHABETICAL && isInsideDeck()) {
+            LOGGER.info("Execute Alphabetical Card Sort");
+            versionedAnakin.sort(SortingType.ALPHABETICAL);
+            updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        } else if (type == SortingType.ALPHABETICAL && !isInsideDeck()) {
+            LOGGER.info("Execute Alphabetical Deck Sort");
+            versionedAnakin.sort(SortingType.ALPHABETICAL);
+            updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        } else if (type == SortingType.PERFORMANCE && isInsideDeck()) {
+            LOGGER.info("Execute Performance card sort ");
+            versionedAnakin.sort(SortingType.PERFORMANCE);
+            updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         }
         indicateAnakinChanged();
     }
