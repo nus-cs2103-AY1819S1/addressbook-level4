@@ -105,6 +105,13 @@ public class EditMedicineCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine));
     }
 
+    /**
+     * Asserts that medicine name has changed when user tries to change the medicine name, and the medicine name
+     * already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
     private void assertOnlyMedicineNameChanged(Model model, Medicine editedMedicine) throws CommandException {
         if (model.hasMedicineName(editedMedicine)
                 && medicineDescriptor.isMedicineNameChanged()) {
@@ -112,6 +119,13 @@ public class EditMedicineCommand extends Command {
         }
     }
 
+    /**
+     * Asserts that serial number has changed when user tries to change the serial number, and the serial number
+     * already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
     private void assertOnlySerialNumberChanged(Model model, Medicine editedMedicine) throws CommandException {
         if (model.hasSerialNumber(editedMedicine)
                 && medicineDescriptor.isSerialNumberChanged()) {
@@ -119,7 +133,15 @@ public class EditMedicineCommand extends Command {
         }
     }
 
-    private void assertMedicineNameAndSerialNumberChanged(Model model, Medicine editedMedicine) throws CommandException {
+    /**
+     * Asserts that both the medicine name and serial number have changed when user tries to change the both of them,
+     * and both parameters already exists in the records.
+     * @param model
+     * @param editedMedicine
+     * @throws CommandException
+     */
+    private void assertMedicineNameAndSerialNumberChanged(Model model, Medicine editedMedicine)
+            throws CommandException {
         if (model.hasMedicineName(editedMedicine)
                 && model.hasSerialNumber(editedMedicine)
                 && medicineDescriptor.isMedicineNameChanged()
