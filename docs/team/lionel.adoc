@@ -17,12 +17,20 @@ The image below shows the main layout of our application:
 
 image::UI.png[width="800"]
 
+WishBook aims to promote responsible saving and spending among users, by helping them be more prudent with their income
+and encouraging regular, incremental savings to attain their wishes. The source code of WishBook can be found
+https://github.com/CS2103-AY1819S1-T16-1/main[here].
+
 Being in charge of the Logic Component and documentation, I was tasked with implementing new commands, while also making sure
 that all changes made by our team were consistently documented in our User Guide and Developer Guide.
 This project portfolio consists of the contributions I have made to WishBook over the semester.
 
 
 == Summary of contributions
+|===
+|_Given below are the contributions I have made to WishBook's development. Major components were delegated to each member
+of the team, and I was tasked with the Logic component._
+|===
 
 === Major Enhancements
 * *Move Command*: added Move Command
@@ -63,7 +71,7 @@ The money inside the UnusedFunds can later be redistributed to other wishes, via
 https://github.com/CS2103-AY1819S1-T16-1/main/issues/61[#61]
 https://github.com/CS2103-AY1819S1-T16-1/main/issues/created_by/lionelat[#90]
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lionelat[Project Code DashBoard Link]
 
 == Contributions to the User Guide
 
