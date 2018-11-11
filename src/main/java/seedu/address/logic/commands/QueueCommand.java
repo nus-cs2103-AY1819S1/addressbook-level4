@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,7 +22,7 @@ public abstract class QueueCommand extends Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException("Queue Command should not call this version of execute");
+        throw new CommandException(Messages.MESSAGE_WRONG_EXECUTE_COMMAND);
     }
 
     /**
