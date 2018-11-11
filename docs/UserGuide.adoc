@@ -419,6 +419,7 @@ on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_U
 * Existing values will be updated to the input values.
 * Alternatively, edits the ingredient with the specified `ORIGINAL_INGREDIENT_NAME`.
 * If both `INDEX` and `ORIGINAL_INGREDIENT_NAME` are specified and valid, the edit will be done according to `INDEX`.
+====
 
 [WARNING]
 ====
