@@ -24,8 +24,8 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code CompleteLabelCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand, Dependencies)
+ * and unit tests for {@code CompleteLabelCommand}.
  */
 public class CompleteLabelCommandTest {
 
@@ -151,9 +151,11 @@ public class CompleteLabelCommandTest {
     }
 
     /**
-     * @param predicate
-     * @param model
-     * @param keywords
+     * Wrapper method for the assertion of success of the CompleteLabelCommand
+     *
+     * @param predicate predicate to be used for the actual model
+     * @param model a reference model to be used for both the expected and actual model
+     * @param keywords {@code Strings} representing labels for the expected model
      */
     private void assertCompleteLabelCommandSuccess(Predicate<Task> predicate, Model model, String... keywords) {
         // Creating expected data
@@ -177,6 +179,8 @@ public class CompleteLabelCommandTest {
     /**
      * Helper method for more complicated batch completion on {@code Label} match.
      *
+     * @param model model to apply side effects and to read data from.
+     * @param labelStrings {@code Strings} represent the labels to be checked for a match
      * @return an Expected-Model Expected-String pair
      */
     private Pair<Model, Set<String>> produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
@@ -185,7 +189,33 @@ public class CompleteLabelCommandTest {
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         int oldXp = expectedModel.getXpValue();
         StringBuilder completedTasksOutput = new StringBuilder();
+        completeTasksUpdateModelAndProcessCompleteTasksOutput(expectedModel, completedTasksOutput, labelStrings);
 
+        // get change in xp
+        int newXp = expectedModel.getXpValue();
+        int xpChange = newXp - oldXp;
+
+        expectedModel.commitTaskManager();
+
+        String expectedMessage = String.format(
+            CompleteCommand.MESSAGE_SUCCESS,
+            xpChange,
+            completedTasksOutput.toString().trim());
+
+        Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage);
+
+        return new Pair<>(expectedModel, expectedTokens);
+    }
+
+    /**
+     * Completes the tasks to complete in the model and updating the changes via side effects
+     *
+     * @param expectedModel model to update and fetch tasks to complete from
+     * @param completedTasksOutput a StringBuilder to allow the updating of output through sideeffects
+     * @param labelStrings {@String} representation of labels to complete
+     */
+    private void completeTasksUpdateModelAndProcessCompleteTasksOutput(
+        ModelManager expectedModel, StringBuilder completedTasksOutput, String... labelStrings) {
         // Updates the model with completable tasks that fulfils the predicate completed and append
         // each of their String representation to expectedMessage
         expectedModel
@@ -211,21 +241,6 @@ public class CompleteLabelCommandTest {
                 expectedModel.updateTaskStatus(taskToComplete, completedTask);
                 completedTasksOutput.append(completedTask.toString() + "\n");
             });
-
-        // get change in xp
-        int newXp = expectedModel.getXpValue();
-        int xpChange = newXp - oldXp;
-
-        expectedModel.commitTaskManager();
-
-        String expectedMessage = String.format(
-            CompleteCommand.MESSAGE_SUCCESS,
-            xpChange,
-            completedTasksOutput.toString().trim());
-
-        Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage);
-
-        return new Pair<>(expectedModel, expectedTokens);
     }
 
 }
