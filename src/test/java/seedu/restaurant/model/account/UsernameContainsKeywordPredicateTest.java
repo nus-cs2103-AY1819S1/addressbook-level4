@@ -67,12 +67,23 @@ public class UsernameContainsKeywordPredicateTest {
         // Non-matching keyword
         UsernameContainsKeywordPredicate predicate = new UsernameContainsKeywordPredicate("zhikai");
         assertFalse(predicate.test(new AccountBuilder().withUsername("root").build()));
+
+        // Non-matching keyword with symbols
+        predicate = new UsernameContainsKeywordPredicate("kai^");
+        assertFalse(predicate.test(new AccountBuilder().withUsername("zhikai").build()));
     }
 
     @Test
     public void test_emptyKeyword_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         UsernameContainsKeywordPredicate predicate = new UsernameContainsKeywordPredicate("");
+        predicate.test(new AccountBuilder().withUsername("root").build());
+    }
+
+    @Test
+    public void test_spaceOnlyKeyword_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        UsernameContainsKeywordPredicate predicate = new UsernameContainsKeywordPredicate(" ");
         predicate.test(new AccountBuilder().withUsername("root").build());
     }
 
