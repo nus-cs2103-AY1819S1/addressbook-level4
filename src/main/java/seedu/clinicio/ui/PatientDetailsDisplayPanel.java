@@ -2,10 +2,10 @@ package seedu.clinicio.ui;
 
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.google.common.eventbus.Subscribe;
 
-import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 
@@ -78,7 +78,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
             address.setText("Address: " + patient.getAddress().toString());
             preferredDoctor.setText("Preferred Doctor: " + patient
                     .getPreferredDoctor().map(doctor -> doctor.getName().fullName).orElse("None"));
-            
+
             setAllListView(patient);
         });
     }
@@ -102,7 +102,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
     }
 
     /**
-     * Add list into the list view. 
+     * Add list into the list view.
      * @param listView The selected list view to add items in.
      * @param itemsList The valid list of strings.
      */
@@ -114,7 +114,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
         itemsList.forEach(item -> listView.getItems().add(item));
 
     }
-    
+
     /**
      * Clear all the items in all list views.
      */
@@ -123,7 +123,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
         medListView.getItems().clear();
         alrgListView.getItems().clear();
     }
-    
+
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
