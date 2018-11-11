@@ -66,13 +66,16 @@ public class SaveCommand extends Command {
                 }
             } else {
                 saveFile = model.getCurrentOriginalImage().toFile();
+                fileName = saveFile.getName();
                 String[] parts = saveFile.getName().split("\\.");
                 format = parts[parts.length - 1];
             }
             BufferedImage savedImage = ImageMagickUtil.processCanvas(model.getCanvas());
             fileName = saveFile.getName();
             ImageIO.write(savedImage, format, saveFile);
-        } catch (IOException | InterruptedException | UnsupportedPlatformException e) {
+        } catch (UnsupportedPlatformException e) {
+            throw new CommandException(e.getMessage());
+        } catch (IOException | InterruptedException e) {
             throw new CommandException(String.format(OUTPUT_FAILURE, fileName));
         }
         model.updateEntireImageList();
