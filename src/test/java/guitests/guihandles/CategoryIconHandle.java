@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.budget.CategoryBudget;
+import seedu.expensetracker.model.budget.CategoryBudget;
 
 //@@author Snookerballs
 /**

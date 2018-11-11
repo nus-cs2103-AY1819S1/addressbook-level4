@@ -1,9 +1,9 @@
 package guitests.guihandles;
 
-import static seedu.address.testutil.EventsUtil.postNow;
+import static seedu.expensetracker.testutil.EventsUtil.postNow;
 
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.expensetracker.commons.events.ui.SwapLeftPanelEvent;
 
 /**
  * Provides a handle for {@code MainWindow}.
