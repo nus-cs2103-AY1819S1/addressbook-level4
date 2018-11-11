@@ -607,7 +607,11 @@ image::PictureCommand3StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
-image::PictureCommandActivityDiagram.png[width="500"]
+image::PictureCommandActivityDiagram.png[width="400"]
+
+The following sequence diagram shows what happens when a user executes the `PictureCommand`:
+
+image::PictureCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -631,8 +635,8 @@ image::PictureCommandActivityDiagram.png[width="500"]
 
 ===== Aspect: Path validation
 
-* **Alternative 1 (current choice):** File location input from user is checked against a regular expression and `Files#exists()`.
-** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the regular expression checks for any ill-intended input as well as the file extension.
+* **Alternative 1 (current choice):** File location input from user is checked against `Files#exists()` and whether it ends with a `.png` or `.jpg`.
+** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the other checks for the file extension.
 ** Cons: Will have to check twice.
 * **Alternative 2:** Just do `Files#exists()`.
 ** Pros: Straightforward and simple.
@@ -703,6 +707,15 @@ Thus, all data that are being stored in `Storage` should be encrypted using a se
 When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
 
 // end::dataencryption[]
+
+// tag::addpictureurl[]
+=== [Proposed] Add Picture from URL
+
+The current implementation of the `pic` command in v1.4 only allows users to upload images that are available on their local drives.
+Giving users the option to upload images that is available on the internet would be much more convenient to the user.
+Users can simply go to their client's Facebook or other social media accounts to retrieve the image URL.
+
+// end::addpictureurl[]
 
 === Logging
 
@@ -1173,6 +1186,7 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 +
 Use case ends.
 
+// tag::picUseCase[]
 [discrete]
 === Use Case: Upload Picture of Client
 
@@ -1201,6 +1215,7 @@ Use case resumes from step 3.
 ** 5a1. InsuRen requests for the correct data.
 +
 Use case resumes from step 5.
+// end::picUseCase[]
 
 [discrete]
 === Use Case: List Frequently Contacted Clients
@@ -1280,13 +1295,19 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  InsuRen should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  InsuRen should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  InsuRen should be able to hold up to 1000 clients' contact without a noticeable sluggishness in performance for typical usage.
 .  InsuRen should process a user command in 1 second or less, without any noticeable delay.
+.  InsuRen should display a clear and concise error message to provide feedback to the user when an invalid input is received.
 .  All data entries are backed-up regularly.
+.  All data entries are stored in a xml file.
 .  A user should be able to learn and use the product without any form of training.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The UI should be responsive to changes.
 .  The product should be self-explanatory and intuitive such that an insurance agent is able to adapt to it within the first 10 minutes of using the product for the first time.
 .  When the program crashes, all data up till the point of crash will still be available upon relaunch of the program.
+.  The system should work by running on the JAR file without any installation.
+.  The system should work even if the user does not have any internet connection.
+.  The JAR file should be small in size (< 50 MB).
 // end::nfr[]
 
 [appendix]
