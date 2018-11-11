@@ -37,6 +37,10 @@
                     </Menu>
                 </MenuBar>
 
+                <ImageView fx:id="titleImage">
+                    <Image url="@/images/clinicio.png" />
+                </ImageView>
+                
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
                     <TabPane fx:id="tabLists" side="LEFT">
                         <Tab fx:id="patientTab">

@@ -14,6 +14,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -23,7 +24,6 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
 import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
@@ -95,7 +95,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab appointmentTab;
-    
+
+    @FXML
+    private ImageView titleImage;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -158,12 +160,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
+        setUpTab();
+        
         analyticsDisplay = new AnalyticsDisplay();
         PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-        
-        checkUserSession();
+
+        hideInnerParts();
         setUpListPanel();
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -207,24 +210,27 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Check if user is login and display accordingly
+     * Hide the inner parts.
      */
-    private void checkUserSession() {
-        if (!UserSession.isLogin()) {
-            displayPanelPlaceholder.setVisible(false);
-            patientListPanelPlaceholder.setVisible(false);
-            appointmentListPanelPlaceholder.setVisible(false);
-            queuePanelPlaceholder.setVisible(false);
-            tabLists.getTabs().clear();
-            splitPane.setVisible(false);
-        } else {
-            displayPanelPlaceholder.setVisible(true);
-            patientListPanelPlaceholder.setVisible(true);
-            appointmentListPanelPlaceholder.setVisible(true);
-            queuePanelPlaceholder.setVisible(true);
-            setUpTab();
-            splitPane.setVisible(true);
-        }
+    private void hideInnerParts() {
+        displayPanelPlaceholder.setVisible(false);
+        patientListPanelPlaceholder.setVisible(false);
+        appointmentListPanelPlaceholder.setVisible(false);
+        queuePanelPlaceholder.setVisible(false);
+        splitPane.setVisible(false);
+        titleImage.setVisible(true);
+    }
+    
+    /**
+     * Display the inner parts.
+     */
+    private void showInnerParts() {
+        displayPanelPlaceholder.setVisible(true);
+        patientListPanelPlaceholder.setVisible(true);
+        appointmentListPanelPlaceholder.setVisible(true);
+        queuePanelPlaceholder.setVisible(true);
+        splitPane.setVisible(true);
+        titleImage.setVisible(false);
     }
     
     //@@author iamjackslayer
@@ -315,12 +321,12 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent));
-        checkUserSession();
+        showInnerParts();
     }
 
     @Subscribe
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
-        checkUserSession();
+        hideInnerParts();
     }
 }

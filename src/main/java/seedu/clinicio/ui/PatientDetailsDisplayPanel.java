@@ -25,13 +25,19 @@ public class PatientDetailsDisplayPanel extends UiPart<Region>  {
     @FXML
     private Label name;
     
+    @FXML
+    private Label nric;
+    
     public PatientDetailsDisplayPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
     }
 
     public void displayPatient(Patient patient) {
-        Platform.runLater(() -> name.setText(patient.getName().toString()));
+        Platform.runLater(() -> {
+            name.setText(patient.getName().toString());
+            nric.setText(patient.getNric().toString());
+        });
     }
     
     @Subscribe

@@ -3,6 +3,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
-    <Label fx:id="name" styleClass="patient-details-title" text="Label" />
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15" />
+            </padding>
+            <Label fx:id="name" styleClass="patient-details-title" />
+            <Label fx:id="nric" styleClass="patient-details-label" />
+        </VBox>
+    </GridPane>
 </StackPane>
