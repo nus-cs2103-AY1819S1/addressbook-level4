@@ -2,7 +2,6 @@ package seedu.scheduler.logic.commands;
 
 import static org.junit.Assert.assertNotEquals;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.scheduler.logic.commands.CommandTestUtil.disable;
 import static seedu.scheduler.logic.commands.CommandTestUtil.enable;
 import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
