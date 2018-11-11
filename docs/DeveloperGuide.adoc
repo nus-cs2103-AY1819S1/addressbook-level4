@@ -648,7 +648,7 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 === Auto-incremented event ID
 
 The auto-incremented event ID field is used by the `Record` class to identify unique events. An integer ID field is used because
-identifying unique events based on multiple String fields would be computationally inefficient.
+the alternative method of identifying unique events based on multiple `Event` attribute fields would be computationally inefficient.
 
 ===== Current implementation
 
@@ -658,17 +658,53 @@ keeps track of the highest ID in the system. Additionally, it implements two dif
 * `Event(Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, does not yet exist in the system (e.g. adding a new event).
+This constructor is used when working with an event that does not yet exist in the system (e.g. adding a new event).
 +
-It increments the current highest event ID in the system and assigns that value to the new event that is created.
+It increments the current highest event ID in the system and assigns that value to the new event that is created. This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+// Used to keep track of current highest event ID in the system
+private static int maxId = 0;
+
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        incrementMaxId();
+        this.eventId = new EventId(maxId);
+        ...
+}
+
+// Increments the current highest event ID by 1
+private void incrementMaxId() {
+    maxId += 1;
+}
+```
 
 * `Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, already exists in the system (e.g. loading data from XML file or editing an existing event).
+This constructor is used when working with an event that already exists in the system (e.g. loading data from XML file or editing an existing event).
 +
-It checks whether the ID of the event being initialised is greater than the current highest ID in the system. If it is, replace the value of
-the highest ID with the event ID and creates the event. If it isn't, skip to the creation of the event.
+It checks whether the ID of the event being initialised is greater than the current highest ID in the system.
+If this condition is true, the current highest event ID value will be replaced by the ID of the event being initialised.
+This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+// Used to keep track of current highest event ID in the system
+private static int maxId = 0;
+
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        if (isEventIdGreaterThanMaxId(eventId.id)) {
+            replaceMaxIdWithEventId(eventId.id);
+        }
+        ...
+}
+
+// Replaces current highest event ID with the ID of the event being initialised
+private void replaceMaxIdWithEventId(int eventId) {
+    maxId = eventId;
+}
+```
 
 ===== Design considerations
 ====== Aspect: How event ID is generated
