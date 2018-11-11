@@ -1,8 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
@@ -90,5 +94,32 @@ public class ImageCommandTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(imageCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        Room aliceRoom = ALICE.getRoom();
+        Room bobRoom = BOB.getRoom();
+        ImageCommand imageAliceCommand = new ImageCommand(aliceRoom,
+                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+        ImageCommand imageBobCommand = new ImageCommand(bobRoom,
+                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+
+        // same object -> returns true
+        assertTrue(imageAliceCommand.equals(imageAliceCommand));
+
+        // same values -> returns true
+        ImageCommand imageAliceCommandCopy = new ImageCommand(aliceRoom,
+                new File(IMAGE_COMMAND_TEST_DATA_FOLDER + VALID_IMAGE));
+        assertTrue(imageAliceCommand.equals(imageAliceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(imageAliceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(imageAliceCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(imageAliceCommand.equals(imageBobCommand));
     }
 }
