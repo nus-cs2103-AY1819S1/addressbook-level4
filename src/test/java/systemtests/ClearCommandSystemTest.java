@@ -38,13 +38,13 @@ public class ClearCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: selects first card in ride list and clears thanepark book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original thanepark book
-        selectPerson(Index.fromOneBased(1));
+        selectRide(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
         /* Case: filters the ride list before clearing -> entire thanepark book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original thanepark book
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

@@ -95,6 +95,7 @@ Example: if the command specifies n/name p/zone, p/zone n/name is also acceptabl
 
 This section contains all commands related to managing attractions.
 
+// tag::manage[]
 ==== Adding attractions: `add`
 
 Add an attraction by name with the information. +
@@ -113,13 +114,11 @@ Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
 
 ====
-
 * Deletes the ride at the specified index.
 
 * The index refers to the index number shown in the list of displayed rides.
 
 * The index must be a positive integer 1, 2, 3, …​
-
 ====
 
 Examples:
@@ -147,10 +146,14 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
+
+// end::manage[]
+
 ==== Closing attraction for maintenance: `maintain`
 
 Closes the ride for maintenance. Display statistics for the ride on that day. +
 Format: `maintain <index>`
+
 
 ==== Clearing all entries : `clear`
 
@@ -178,7 +181,7 @@ Any arguments beyond the 2nd position will be discarded and ignored.
 
 [WARNING]
 Information provided in the short help only shows the rough syntax of commands. For full information,
-do refer to this User Guide.
+do refer to this User Guide. Also note that `help` will cause the currently selected `Ride` to be deselected.
 
 |===
 a|
@@ -238,7 +241,14 @@ Extended usage of suggesting commands:
 * No visible change is reflected.
 
 |kbd:[TAB] a|
-* `CommandBox` starts with a complete command word a|
+* `CommandBox` starts with a complete command word
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word
+* *Only 1* command word match to first prefix in `CommandBox` a|
 * Strip all text behind command word in `CommandBox`.
 * Command in `CommandBox` will not be executed.
 * Command word will be shown in result panel.

@@ -32,9 +32,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlThaneParkStorage addressBookStorage = new XmlThaneParkStorage(getTempFilePath("ab"));
+        XmlThaneParkStorage thaneParkStorage = new XmlThaneParkStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(thaneParkStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -57,7 +57,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void thaneParkReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlThaneParkStorage} class.
@@ -70,12 +70,12 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getThaneParkFilePath() {
         assertNotNull(storageManager.getThaneParkFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleThaneParkChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlThaneParkStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveThanePark(ReadOnlyThanePark addressBook, Path filePath) throws IOException {
+        public void saveThanePark(ReadOnlyThanePark thanePark, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

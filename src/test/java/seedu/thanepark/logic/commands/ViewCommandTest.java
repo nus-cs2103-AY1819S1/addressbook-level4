@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.logic.commands.CommandTestUtil.showRideAtIndex;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Rule;
@@ -36,11 +36,11 @@ public class ViewCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredRideList().size());
+        Index lastRideIndex = Index.fromOneBased(model.getFilteredRideList().size());
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(INDEX_FIRST_RIDE);
+        assertExecutionSuccess(INDEX_THIRD_RIDE);
+        assertExecutionSuccess(lastRideIndex);
     }
 
     @Test
@@ -52,16 +52,16 @@ public class ViewCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
+        showRideAtIndex(expectedModel, INDEX_FIRST_RIDE);
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_RIDE);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
+        showRideAtIndex(expectedModel, INDEX_FIRST_RIDE);
 
         Index outOfBoundsIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
@@ -72,14 +72,14 @@ public class ViewCommandTest {
 
     @Test
     public void equals() {
-        ViewCommand selectFirstCommand = new ViewCommand(INDEX_FIRST_PERSON);
+        ViewCommand selectFirstCommand = new ViewCommand(INDEX_FIRST_RIDE);
         ViewCommand selectSecondCommand = new ViewCommand(INDEX_SECOND_RIDE);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        ViewCommand selectFirstCommandCopy = new ViewCommand(INDEX_FIRST_PERSON);
+        ViewCommand selectFirstCommandCopy = new ViewCommand(INDEX_FIRST_RIDE);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -99,7 +99,7 @@ public class ViewCommandTest {
     private void assertExecutionSuccess(Index index) {
         ViewCommand viewCommand = new ViewCommand(index);
         String expectedName = expectedModel.getFilteredRideList().get(index.getZeroBased()).getName().fullName;
-        String expectedMessage = String.format(ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS, expectedName,
+        String expectedMessage = String.format(ViewCommand.MESSAGE_SELECT_RIDE_SUCCESS, expectedName,
                 index.getOneBased());
 
         assertCommandSuccess(viewCommand, model, commandHistory, expectedMessage, expectedModel);

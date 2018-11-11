@@ -16,10 +16,10 @@ public class RideListPanelHandle extends NodeHandle<ListView<Ride>> {
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Ride> lastRememberedSelectedPersonCard;
+    private Optional<Ride> lastRememberedSelectedRideCard;
 
-    public RideListPanelHandle(ListView<Ride> personListPanelNode) {
-        super(personListPanelNode);
+    public RideListPanelHandle(ListView<Ride> rideListPanelNode) {
+        super(rideListPanelNode);
     }
 
     /**
@@ -127,28 +127,28 @@ public class RideListPanelHandle extends NodeHandle<ListView<Ride>> {
     /**
      * Remembers the selected {@code RideCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedRideCard() {
         List<Ride> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedRideCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedRideCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code RideCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedRideCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedRideCardChanged() {
         List<Ride> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedRideCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedRideCard.isPresent()
+                    || !lastRememberedSelectedRideCard.get().equals(selectedItems.get(0));
         }
     }
 

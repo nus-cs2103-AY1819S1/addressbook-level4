@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedThanePark extends ThanePark {
 
-    private final List<ReadOnlyThanePark> addressBookStateList;
+    private final List<ReadOnlyThanePark> thaneParkStateList;
     private int currentStatePointer;
 
     public VersionedThanePark(ReadOnlyThanePark initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new ThanePark(initialState));
+        thaneParkStateList = new ArrayList<>();
+        thaneParkStateList.add(new ThanePark(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,12 +25,12 @@ public class VersionedThanePark extends ThanePark {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new ThanePark(this));
+        thaneParkStateList.add(new ThanePark(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        thaneParkStateList.subList(currentStatePointer + 1, thaneParkStateList.size()).clear();
     }
 
     /**
@@ -41,7 +41,7 @@ public class VersionedThanePark extends ThanePark {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(thaneParkStateList.get(currentStatePointer));
     }
 
     /**
@@ -52,7 +52,7 @@ public class VersionedThanePark extends ThanePark {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(thaneParkStateList.get(currentStatePointer));
     }
 
     /**
@@ -66,7 +66,7 @@ public class VersionedThanePark extends ThanePark {
      * Returns true if {@code redo()} has thanepark book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < thaneParkStateList.size() - 1;
     }
 
     @Override
@@ -81,12 +81,12 @@ public class VersionedThanePark extends ThanePark {
             return false;
         }
 
-        VersionedThanePark otherVersionedAddressBook = (VersionedThanePark) other;
+        VersionedThanePark otherVersionedthanePark = (VersionedThanePark) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedthanePark)
+                && thaneParkStateList.equals(otherVersionedthanePark.thaneParkStateList)
+                && currentStatePointer == otherVersionedthanePark.currentStatePointer;
     }
 
     /**
@@ -94,7 +94,7 @@ public class VersionedThanePark extends ThanePark {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of thaneParkState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedThanePark extends ThanePark {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of thaneParkState list, unable to redo.");
         }
     }
 }

@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.thanepark.commons.core.LogsCenter;
-import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.thanepark.commons.events.ui.RidePanelSelectionChangedEvent;
 import seedu.thanepark.commons.util.FilePathToUrl;
 import seedu.thanepark.commons.util.RidePageGenerator;
 import seedu.thanepark.model.ride.Ride;
@@ -82,7 +82,7 @@ public class BrowserPanel extends BrowserRelatedUiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleRidePanelSelectionChangedEvent(RidePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadRidePage(event.getNewSelection());
     }

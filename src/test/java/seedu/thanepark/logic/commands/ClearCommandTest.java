@@ -16,7 +16,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyThanePark_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitThanePark();
@@ -25,7 +25,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyThanePark_success() {
         Model model = new ModelManager(getTypicalThanePark(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalThanePark(), new UserPrefs());
         expectedModel.resetData(new ThanePark());

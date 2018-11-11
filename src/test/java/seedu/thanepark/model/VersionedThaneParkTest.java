@@ -14,285 +14,285 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.thanepark.testutil.AddressBookBuilder;
+import seedu.thanepark.testutil.ThaneParkBuilder;
 
 public class VersionedThaneParkTest {
 
-    private final ReadOnlyThanePark addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyThanePark addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyThanePark addressBookWithCastle = new AddressBookBuilder().withPerson(CASTLE).build();
-    private final ReadOnlyThanePark emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyThanePark thaneParkWithAmy = new ThaneParkBuilder().withRide(AMY).build();
+    private final ReadOnlyThanePark thaneParkWithBob = new ThaneParkBuilder().withRide(BOB).build();
+    private final ReadOnlyThanePark thaneParkWithCastle = new ThaneParkBuilder().withRide(CASTLE).build();
+    private final ReadOnlyThanePark emptyThanePark = new ThaneParkBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleThanePark_noStatesRemovedCurrentStateSaved() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(emptyThanePark);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedThanePark.commit();
+        assertThaneParkListStatus(versionedThanePark,
+                Collections.singletonList(emptyThanePark),
+                emptyThanePark,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleThaneParkPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        versionedThanePark.commit();
+        assertThaneParkListStatus(versionedThanePark,
+                Arrays.asList(emptyThanePark, thaneParkWithAmy, thaneParkWithBob),
+                thaneParkWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void commit_multipleThaneParkPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 2);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        versionedThanePark.commit();
+        assertThaneParkListStatus(versionedThanePark,
+                Collections.singletonList(emptyThanePark),
+                emptyThanePark,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleThaneParkPointerAtEndOfStateList_returnsTrue() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedThanePark.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canUndo_multipleThaneParkPointerAtStartOfStateList_returnsTrue() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 1);
 
-        assertTrue(versionedAddressBook.canUndo());
+        assertTrue(versionedThanePark.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleThanePark_returnsFalse() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(emptyThanePark);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedThanePark.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canUndo_multipleThaneParkPointerAtStartOfStateList_returnsFalse() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 2);
 
-        assertFalse(versionedAddressBook.canUndo());
+        assertFalse(versionedThanePark.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void canRedo_multipleThaneParkPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 1);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedThanePark.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void canRedo_multipleThaneParkPointerAtStartOfStateList_returnsTrue() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 2);
 
-        assertTrue(versionedAddressBook.canRedo());
+        assertTrue(versionedThanePark.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleThanePark_returnsFalse() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(emptyThanePark);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedThanePark.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleThaneParkPointerAtEndOfStateList_returnsFalse() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
 
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedThanePark.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleThaneParkPointerAtEndOfStateList_success() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedThanePark.undo();
+        assertThaneParkListStatus(versionedThanePark,
+                Collections.singletonList(emptyThanePark),
+                thaneParkWithAmy,
+                Collections.singletonList(thaneParkWithBob));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void undo_multipleThaneParkPointerNotAtStartOfStateList_success() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 1);
 
-        versionedAddressBook.undo();
-        assertAddressBookListStatus(versionedAddressBook,
+        versionedThanePark.undo();
+        assertThaneParkListStatus(versionedThanePark,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                emptyThanePark,
+                Arrays.asList(thaneParkWithAmy, thaneParkWithBob));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleThanePark_throwsNoUndoableStateException() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(emptyThanePark);
 
-        assertThrows(VersionedThanePark.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedThanePark.NoUndoableStateException.class, versionedThanePark::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void undo_multipleThaneParkPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 2);
 
-        assertThrows(VersionedThanePark.NoUndoableStateException.class, versionedAddressBook::undo);
+        assertThrows(VersionedThanePark.NoUndoableStateException.class, versionedThanePark::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
+    public void redo_multipleThaneParkPointerNotAtEndOfStateList_success() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 1);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
+        versionedThanePark.redo();
+        assertThaneParkListStatus(versionedThanePark,
+                Arrays.asList(emptyThanePark, thaneParkWithAmy),
+                thaneParkWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
+    public void redo_multipleThaneParkPointerAtStartOfStateList_success() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 2);
 
-        versionedAddressBook.redo();
-        assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        versionedThanePark.redo();
+        assertThaneParkListStatus(versionedThanePark,
+                Collections.singletonList(emptyThanePark),
+                thaneParkWithAmy,
+                Collections.singletonList(thaneParkWithBob));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleThanePark_throwsNoRedoableStateException() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(emptyThanePark);
 
-        assertThrows(VersionedThanePark.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedThanePark.NoRedoableStateException.class, versionedThanePark::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleThaneParkPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedThanePark versionedThanePark = prepareThaneParkList(
+                emptyThanePark, thaneParkWithAmy, thaneParkWithBob);
 
-        assertThrows(VersionedThanePark.NoRedoableStateException.class, versionedAddressBook::redo);
+        assertThrows(VersionedThanePark.NoRedoableStateException.class, versionedThanePark::redo);
     }
 
     @Test
     public void equals() {
-        VersionedThanePark versionedAddressBook = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedThanePark versionedThanePark = prepareThaneParkList(thaneParkWithAmy, thaneParkWithBob);
 
         // same values -> returns true
-        VersionedThanePark copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
-        assertTrue(versionedAddressBook.equals(copy));
+        VersionedThanePark copy = prepareThaneParkList(thaneParkWithAmy, thaneParkWithBob);
+        assertTrue(versionedThanePark.equals(copy));
 
         // same object -> returns true
-        assertTrue(versionedAddressBook.equals(versionedAddressBook));
+        assertTrue(versionedThanePark.equals(versionedThanePark));
 
         // null -> returns false
-        assertFalse(versionedAddressBook.equals(null));
+        assertFalse(versionedThanePark.equals(null));
 
         // different types -> returns false
-        assertFalse(versionedAddressBook.equals(1));
+        assertFalse(versionedThanePark.equals(1));
 
         // different state list -> returns false
-        VersionedThanePark differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCastle);
-        assertFalse(versionedAddressBook.equals(differentAddressBookList));
+        VersionedThanePark differentThaneParkList = prepareThaneParkList(thaneParkWithBob, thaneParkWithCastle);
+        assertFalse(versionedThanePark.equals(differentThaneParkList));
 
         // different current pointer index -> returns false
-        VersionedThanePark differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
-        assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
+        VersionedThanePark differentCurrentStatePointer = prepareThaneParkList(
+                thaneParkWithAmy, thaneParkWithBob);
+        shiftCurrentStatePointerLeftwards(versionedThanePark, 1);
+        assertFalse(versionedThanePark.equals(differentCurrentStatePointer));
     }
 
     /**
-     * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * Asserts that {@code versionedThanePark} is currently pointing at {@code expectedCurrentState},
+     * states before {@code versionedThanePark#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
+     * and states after {@code versionedThanePark#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedThanePark versionedAddressBook,
+    private void assertThaneParkListStatus(VersionedThanePark versionedThanePark,
                                              List<ReadOnlyThanePark> expectedStatesBeforePointer,
                                              ReadOnlyThanePark expectedCurrentState,
                                              List<ReadOnlyThanePark> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new ThanePark(versionedAddressBook), expectedCurrentState);
+        assertEquals(new ThanePark(versionedThanePark), expectedCurrentState);
 
         // shift pointer to start of state list
-        while (versionedAddressBook.canUndo()) {
-            versionedAddressBook.undo();
+        while (versionedThanePark.canUndo()) {
+            versionedThanePark.undo();
         }
 
         // check states before pointer are correct
-        for (ReadOnlyThanePark expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new ThanePark(versionedAddressBook));
-            versionedAddressBook.redo();
+        for (ReadOnlyThanePark expectedThanePark : expectedStatesBeforePointer) {
+            assertEquals(expectedThanePark, new ThanePark(versionedThanePark));
+            versionedThanePark.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyThanePark expectedAddressBook : expectedStatesAfterPointer) {
-            versionedAddressBook.redo();
-            assertEquals(expectedAddressBook, new ThanePark(versionedAddressBook));
+        for (ReadOnlyThanePark expectedThanePark : expectedStatesAfterPointer) {
+            versionedThanePark.redo();
+            assertEquals(expectedThanePark, new ThanePark(versionedThanePark));
         }
 
         // check that there are no more states after pointer
-        assertFalse(versionedAddressBook.canRedo());
+        assertFalse(versionedThanePark.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> versionedAddressBook.undo());
+        expectedStatesAfterPointer.forEach(unused -> versionedThanePark.undo());
     }
 
     /**
-     * Creates and returns a {@code VersionedThanePark} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedThanePark} with the {@code thaneParkStates} added into it, and the
      * {@code VersionedThanePark#currentStatePointer} at the end of list.
      */
-    private VersionedThanePark prepareAddressBookList(ReadOnlyThanePark... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedThanePark prepareThaneParkList(ReadOnlyThanePark... thaneParkStates) {
+        assertFalse(thaneParkStates.length == 0);
 
-        VersionedThanePark versionedAddressBook = new VersionedThanePark(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedAddressBook.resetData(addressBookStates[i]);
-            versionedAddressBook.commit();
+        VersionedThanePark versionedThanePark = new VersionedThanePark(thaneParkStates[0]);
+        for (int i = 1; i < thaneParkStates.length; i++) {
+            versionedThanePark.resetData(thaneParkStates[i]);
+            versionedThanePark.commit();
         }
 
-        return versionedAddressBook;
+        return versionedThanePark;
     }
 
     /**
-     * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
+     * Shifts the {@code versionedThanePark#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedThanePark versionedAddressBook, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedThanePark versionedThanePark, int count) {
         for (int i = 0; i < count; i++) {
-            versionedAddressBook.undo();
+            versionedThanePark.undo();
         }
     }
 }

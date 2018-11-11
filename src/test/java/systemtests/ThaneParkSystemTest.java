@@ -103,8 +103,8 @@ public abstract class ThaneParkSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public RideListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public RideListPanelHandle getRideListPanel() {
+        return mainWindowHandle.getRideListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,17 +139,17 @@ public abstract class ThaneParkSystemTest {
     }
 
     /**
-     * Displays all persons in the thanepark book.
+     * Displays all rides in the thanepark book.
      */
-    protected void showAllPersons() {
+    protected void showAllRides() {
         executeCommand(ViewAllCommand.COMMAND_WORD);
         assertEquals(getModel().getThanePark().getRideList().size(), getModel().getFilteredRideList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all rides with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showRidesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredRideList().size() < getModel().getThanePark().getRideList().size());
     }
@@ -157,15 +157,15 @@ public abstract class ThaneParkSystemTest {
     /**
      * Selects the ride at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectRide(Index index) {
         executeCommand(ViewCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getRideListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the thanepark book.
+     * Deletes all rides in the thanepark book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllRides() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getThanePark().getRideList().size());
     }
@@ -173,14 +173,14 @@ public abstract class ThaneParkSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same ride objects as {@code expectedModel}
-     * and the ride list panel displays the persons in the model correctly.
+     * and the ride list panel displays the rides in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new ThanePark(expectedModel.getThanePark()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredRideList());
+        assertEquals(new ThanePark(expectedModel.getThanePark()), testApp.readStorageThanePark());
+        assertListMatching(getRideListPanel(), expectedModel.getFilteredRideList());
     }
 
     /**
@@ -192,7 +192,7 @@ public abstract class ThaneParkSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getRideListPanel().rememberSelectedRideCard();
     }
 
     /**
@@ -202,33 +202,33 @@ public abstract class ThaneParkSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getRideListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the ride in the ride list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see RideListPanelHandle#isSelectedPersonCardChanged()
+     * @see RideListPanelHandle#isSelectedRideCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws IOException {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+        getRideListPanel().navigateToCard(getRideListPanel().getSelectedCardIndex());
         //TODO: Check that the ride information displays the correct name
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        String selectedCardName = getRideListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl = BrowserPanel.RIDE_PAGE_PATH.filePathToUrl();
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getRideListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the ride list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see RideListPanelHandle#isSelectedPersonCardChanged()
+     * @see RideListPanelHandle#isSelectedRideCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getRideListPanel().isSelectedRideCardChanged());
     }
 
     /**
@@ -272,7 +272,7 @@ public abstract class ThaneParkSystemTest {
     private void assertApplicationStartingStateIsCorrect() throws IOException {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredRideList());
+        assertListMatching(getRideListPanel(), getModel().getFilteredRideList());
         assertEquals(HelpWindow.SHORT_HELP_FILE_PATH.filePathToUrl(), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

@@ -11,7 +11,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the HelpCommand
-     * and returns an HelpCommand object for execution.
+     * and returns a HelpCommand object for execution.
      */
     @Override
     public HelpCommand parse(String args) {
