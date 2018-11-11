@@ -776,6 +776,9 @@ image::LeaveApplicationModelDiagram.png[width="400"]
 *API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
 A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
 
+[NOTE]
+During creation, the `LeaveApplication` constructor removes duplicate dates, and orders all the dates in ascending order.
+
 ===== Applying for leave
 The following sequence diagrams illustrate how an application for leave by an employee works.
 
@@ -795,11 +798,11 @@ There are further interactions within the Model component, and beyond, that are 
 
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
-1. The user executes the `leave add -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
+1. The user executes the `leaveapply -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
 
 2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the `Model` will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
-3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedPerson`] object, which is then added into the link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedLeaveApplication`] object, which is then added into the link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
 
 ===== Viewing leave applications
 Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
@@ -818,7 +821,7 @@ image::LeaveViewActivityDiagram.png[width="400"]
 See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
 
 ===== Approving/rejecting leave applications
-...
+Users with the required permissions can approve or reject leave applications made by other users.
 
 ==== Design Considerations
 // tag::leaveapplicationstored[]
