@@ -110,8 +110,8 @@ public class Task {
         if (this.status != Status.IN_PROGRESS || this.isOverdue()) {
             return "------";
         }
-        long timeMiliseconds = this.dueDate.timeToDueDate();
-        return millisecondsToString(timeMiliseconds);
+        long timeMilliseconds = this.dueDate.timeToDueDate();
+        return millisecondsToString(timeMilliseconds);
     }
 
     /**
@@ -184,8 +184,6 @@ public class Task {
         //status's string is used because status is an Enum, so each enum has a unique hashcode
         return Objects.hash(name, dueDate, priorityValue, description, labels, status.toString());
     }
-
-
 
     @Override
     public String toString() {
