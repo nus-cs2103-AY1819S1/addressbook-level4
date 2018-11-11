@@ -19,7 +19,7 @@ import edu.emory.mathcs.backport.java.util.Collections;
  */
 public class ReminderDurationList {
 
-    public static final String DURATION_VALIDATION_REGEX = "((\\d+)M)?((\\d+)H)?((\\d+)S)?";
+    public static final String DURATION_VALIDATION_REGEX = "((\\d+)H)?((\\d+)M)?((\\d+)S)?";
     public static final String EMPTY_VALUE = "NONE";
     public static final String MESSAGE_DURATION_CONSTRAINTS = "Please enter xxHxxMxxS for reminder/ duration";
     public static final String NO_REMINDER_DISPLAY = "No Reminder";

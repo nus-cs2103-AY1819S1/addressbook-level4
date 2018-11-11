@@ -179,7 +179,7 @@ public class PopUpManager {
      */
     private Boolean isUpcomingEvent(EventPopUpInfo event, Event target) {
         return (event.getEventSetUid().equals(target.getEventSetUid())
-                        && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+                        && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
     }
 
     /**

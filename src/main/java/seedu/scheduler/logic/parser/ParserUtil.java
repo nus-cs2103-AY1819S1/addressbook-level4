@@ -183,15 +183,14 @@ public class ParserUtil {
         requireNonNull(reminderDuration);
         String parseDuration = reminderDuration.trim();
         parseDuration.replace(" ", "");
-        parseDuration = "PT".concat(parseDuration.replace("d", "D"));
         parseDuration = parseDuration.replace("h", "H");
-        parseDuration = parseDuration.replace("min", "m").toUpperCase();
+        parseDuration = parseDuration.replace("min", "m");
         parseDuration = parseDuration.replace("sec", "s").toUpperCase();
 
         if (!ReminderDurationList.isValidDuration(parseDuration)) {
             throw new ParseException(ReminderDurationList.MESSAGE_DURATION_CONSTRAINTS);
         }
-        Duration duration = Duration.parse(parseDuration);
+        Duration duration = Duration.parse("PT" + parseDuration);
         return duration;
     }
 
