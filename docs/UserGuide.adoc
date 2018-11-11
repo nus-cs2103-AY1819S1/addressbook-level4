@@ -83,7 +83,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 
-
 Shows all the commands in the application and how to use them.
 
 === View help : `help`
