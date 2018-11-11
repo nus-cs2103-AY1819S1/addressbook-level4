@@ -188,6 +188,14 @@
     -fx-background-color: #21777B;
 }
 
+#patientTabLists {
+    -fx-border-width: 0px;
+}
+
+#patientTabLists .tab-header-area{
+    -fx-border-width: 0px;
+}
+
 /** Title Screen */
 .title-screen-header {
     -fx-font-size: 42px;

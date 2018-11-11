@@ -38,6 +38,9 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
 
     @FXML
     private Text address;
+    
+    @FXML
+    private Text preferredDoctor;
 
     public PatientDetailsDisplayPanel() {
         super(FXML);
@@ -55,6 +58,8 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
             phone.setText("Phone: " + patient.getPhone().toString());
             email.setText("Email: " + patient.getEmail().toString());
             address.setText("Address: " + patient.getAddress().toString());
+            preferredDoctor.setText("Preferred Doctor: " + patient
+                    .getPreferredDoctor().map(doctor -> doctor.getName().fullName).orElse("None"));
         });
     }
 
