@@ -4,19 +4,11 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-JxMusic(AddressBook - Level 4) was developed by the CS2103-AY1819S1-T13-3 https://github.com/orgs/CS2103-AY1819S1-T13-3/teams/developers[developers team]. +
+JxMusic was developed by the CS2103-AY1819S1-T13-3 https://github.com/orgs/CS2103-AY1819S1-T13-3/teams/developers[developers team]. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
-
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
 
 === David Choo
 image::hidingmode.png[width="150", align="left"]
@@ -38,10 +30,10 @@ Responsibilities: ___
 
 === Liu Yingnan
 image::nancyquris.png[width="150", align="left"]
-{empty}[http://github.com/NancyQuris[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/NancyQuris[github]] [<<nancyquris#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI refactoring
+Responsibilities: UI and command implementation
 
 '''
 
