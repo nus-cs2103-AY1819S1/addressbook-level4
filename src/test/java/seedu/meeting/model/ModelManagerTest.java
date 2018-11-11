@@ -182,7 +182,7 @@ public class ModelManagerTest {
         modelManager.cancelMeeting(editedGroup);
 
         List<Group> listWithMeetings =
-            modelManager.getGroupList().stream().filter(g -> g.getMeeting() != null).collect(Collectors.toList());
+            modelManager.getGroupList().stream().filter(Group::hasMeeting).collect(Collectors.toList());
         assertTrue(listWithMeetings.isEmpty());
         assertTrue(modelManager.getFilteredMeetingList().isEmpty());
     }
