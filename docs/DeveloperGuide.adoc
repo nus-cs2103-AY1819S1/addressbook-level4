@@ -444,7 +444,7 @@ Step 3. The `Model` component will be involved as the `Command#LoginCommand()` i
 based on the username. If it exists, the account will be retrieved and the password hash will be compared. If it
 matches, then the credential is valid and the user is authenticated.
 
-The following activity diagram summarizes how passwords are processed during the login and registration process:
+The following activity diagrams summarize how password is processed during the login and registration process:
 
 image::PasswordLoginActivityDiagram.png[width="650"]
 _Figure 4.2.1.3: Activity diagram to illustrate how password is processed for the `login` command_
@@ -478,7 +478,7 @@ For more information on which commands are guest-executable, see the <<UserGuide
 information
 ====
 
-The application's user session state is facilitated by `UserSession`. This is triggered by raising a `Login` and
+The application's user session state is facilitated by `UserSession`. This is triggered by raising a `Login` or
 `Logout` event upon executing the `Command#LoginCommand()` or `Command#LogoutCommand()` respectively. +
 
 Additionally, it implements the following static operations:
@@ -488,7 +488,7 @@ Additionally, it implements the following static operations:
 * `UserSession#update(Account)` -- Updates the existing user session.
 * `UserSession#isAuthenticated()` -- Checks if there is an existing login session.
 
-The following activity diagram summarizes what happens when a user logs in or out:
+The following activity diagram summarizes how the user session is modified when a user logs in or out:
 
 image::UserSessionActivityDiagram.png[width="650"]
 _Figure 4.3.1.1: Activity diagram to illustrate the user session_
