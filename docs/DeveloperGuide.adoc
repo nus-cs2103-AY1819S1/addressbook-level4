@@ -493,6 +493,11 @@ Step 3b. The word with all letters being parsed will be checked against LearnVoc
 
 Step 4. The word will have a "toLearn" tag attached and be added to LearnVocabulary after ensuring that there are no duplicates.
 
+[NOTE]
+Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
+So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`. +
+Tags will not be added as a whole if any of them do not exist.
+
 ===== Edit command improvements
 When editing an existing word in LearnVocabulary, there cannot be empty tags for any words provided.
 
@@ -501,6 +506,11 @@ Given below is an example usage scenario and how the edit mechanism behaves at e
 Step 1. The user types in `edit 1 t/` which shows the user wanting to clear all tags from existing word.
 
 Step 2. The command box outputs that it is not possible, at least one tag must be attached to the word.
+
+[NOTE]
+Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
+So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`.
+Tags will not be added as a whole if any of them do not exist.
 
 ===== Show feature
 The `show` command is an improvement in leaps and bounds ahead of the `find` command, but it exists as a separate command on its own due to its nature.
@@ -1109,20 +1119,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a word
-
-. Deleting a word while all words are listed
-
-.. Prerequisites: List all words using the `list` command. Multiple words in the list.
-.. Test case: `delete 1` +
-   Expected: First word is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No word is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
 //tag::learn[]
-=== Learning a word
+=== Learning a word (Manual Testing)
 . Learning a word from Dictionary.com
 
 .. Prerequisites: Ensure Internet Connection is established.
@@ -1135,7 +1133,7 @@ These instructions only provide a starting point for testers to work on; testers
 //end::learn[]
 
 //tag::basic[]
-=== Showing a word
+=== Showing a word (Manual Testing)
 . Showing a word from LearnVocabulary's list.
 
 .. Prerequisites: List all words using the `list` command. Multiple words in the list.
@@ -1148,7 +1146,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect learn commands to try: `show 1`, `show x`, `show !potato`, `show notarealword` +
    Expected: Similar to previous. Except now, filtered list is empty.
 
-=== Adding a word
+=== Adding a word (Manual Testing)
 . Adding a word to LearnVocabulary's list.
 
 .. Prerequisites: Word must not have been added to LearnVocabulary.
@@ -1157,12 +1155,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add n/potato` +
    Expected: The word potato will not be added inside LearnVocabulary, because meaning field is missing. Error details shown in the status message. Status bar remains the same. Display remains the same.
 
-=== Editing a word
+=== Editing a word (Manual Testing)
 . Editing a word in LearnVocabulary's list.
 
 .. Prerequisites: List must be non-empty.
 .. Test case: `edit 1 m/something lightweight` +
    Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit 1 m/something lightweight t/light t/weight` +
+   Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". It's tags (should they already been created in groupadd), will attach 2 tags `light` and `weight` to the word. Details of the word is shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `edit n/potato t/` +
    Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same.
 //end::basic[]
