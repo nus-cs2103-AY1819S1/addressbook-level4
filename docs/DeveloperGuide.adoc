@@ -594,7 +594,7 @@ image::DependencyCommandSequenceDiagram.png[width="1200"]
 *** There is no task creation propogation when task dependency is added. (refer to alternative 2).
 *** Easy to reform the dependency graph.
 ** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
-finding details of the dependee task given its hashcode.
+finding reference of the dependee task given its hashcode.
 
 * ** Alternative 2: **Dependencies specified by (references to) the Tasks objects themselves
 ** Pros:
@@ -602,11 +602,12 @@ finding details of the dependee task given its hashcode.
 *** Allows for the implementation of a real-time dependency graph, which is referenced
 to rather than recreated every time a topological sort or a cyclical check is needed.
 ** Cons: Introduces unnecessary complications.
-*** [Assumption: *In storage*, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
-as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.
-*** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
+*** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph to the edited task needs to be reinstantiated.
 i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
-other tasks that depends on A has to be recreated.
+other tasks that depends on A has to be recreated as the dependencies is updated.
+*** [Assumption: *In storage*, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
+as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.
+
 
 === Modelling Dependency Validity
 ==== Current Implementation
