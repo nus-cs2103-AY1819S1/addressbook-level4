@@ -293,14 +293,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        browserPlaceholder.getChildren().remove(analyticsDisplay);
         analyticsDisplay.setVisible(false);
         browserPanel.setVisible(true);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        browserPlaceholder.getChildren().remove(analyticsDisplay);
         analyticsDisplay.setVisible(false);
         browserPanel.setVisible(true);
     }
