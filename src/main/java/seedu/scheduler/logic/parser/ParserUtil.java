@@ -202,10 +202,9 @@ public class ParserUtil {
         requireNonNull(reminderDurations);
         ReminderDurationList reminderDurationList = new ReminderDurationList();
         for (String reminderDuration : reminderDurations) {
-            if (reminderDuration.equals(EMPTY_STRING)) {
-                return reminderDurationList;
+            if (!reminderDuration.equals(EMPTY_STRING)) {
+                reminderDurationList.add(parseReminderDuration(reminderDuration));
             }
-            reminderDurationList.add(parseReminderDuration(reminderDuration));
         }
         return reminderDurationList;
     }

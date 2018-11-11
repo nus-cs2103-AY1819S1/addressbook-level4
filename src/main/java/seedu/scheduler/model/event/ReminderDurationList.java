@@ -73,6 +73,16 @@ public class ReminderDurationList {
     }
 
     /**
+     * Get sorted Array of the set
+     * @return sorted Array of the set
+     */
+    public ArrayList<Duration> getArray() {
+        ArrayList<Duration> array = new ArrayList<>(values);
+        Collections.sort(array);
+        return array;
+    }
+
+    /**
      * Get a copy of this ReminderDurationList object
      * @return ReminderDurationList
      */

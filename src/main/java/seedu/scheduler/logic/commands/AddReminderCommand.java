@@ -29,12 +29,12 @@ public class AddReminderCommand extends EditCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
             + "Optional Flags (Only one at a time):\n"
-            + "-u: for all upcoming events\n" + "-a: for all repeating events"
+            + "-u: for all upcoming events\n" + "-a: for all repeating events\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
             + PREFIX_EVENT_REMINDER_DURATION + "30m -a";
 
-
     public static final String MESSAGE_ADD_REMINDER_SUCCESS = "Add non-repeated reminders to Event: %1$s";
+    public static final String MESSAGE_EMPTY_REMINDER_ENTERED = "Warning: no reminder is entered";
     private static final Logger logger = LogsCenter.getLogger(AddReminderCommand.class);
 
     private final ReminderDurationList durationsToAdd;
@@ -52,6 +52,10 @@ public class AddReminderCommand extends EditCommand {
         if (index.getZeroBased() >= lastShownList.size()) {
             logger.info(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        if (durationsToAdd.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_REMINDER_ENTERED);
         }
 
         //Set up event to be edited and edited event according to user input

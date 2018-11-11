@@ -144,6 +144,17 @@ public class DeleteReminderCommandTest {
         assertCommandFailure(deleteReminderCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void execute_deleteEmptyReminder_failure() {
+        Index index = INDEX_FIRST_EVENT;
+        ReminderDurationList durationsToDelete = getReminderDurationList();
+        DeleteReminderCommand deleteReminderCommand = new DeleteReminderCommand(index,
+                durationsToDelete, FLAG_UPCOMING);
+
+        assertCommandFailure(deleteReminderCommand, model, commandHistory,
+                DeleteReminderCommand.MESSAGE_EMPTY_REMINDER_ENTERED);
+    }
+
     public void deleteRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToDelete) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);

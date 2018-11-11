@@ -13,6 +13,7 @@ import seedu.scheduler.commons.core.index.Index;
 
 import seedu.scheduler.logic.commands.PostponeReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
+import seedu.scheduler.model.event.ReminderDurationList;
 
 /**
  * Parses input arguments and creates a new PostponeReminderCommand object
@@ -48,9 +49,8 @@ public class PostponeReminderCommandParser implements Parser<PostponeReminderCom
                     PostponeReminderCommand.MESSAGE_MULTIPLE_POSTPONE_DURATION));
         }
 
-        Duration durationToPostpone = ParserUtil.parseReminderDuration(
-            argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION).get(0));
-
+        ReminderDurationList durationToPostpone = ParserUtil.parseReminderDurations(
+            argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
         return new PostponeReminderCommand(index, durationToPostpone, Iterables.toArray(flags, Flag.class));
     }

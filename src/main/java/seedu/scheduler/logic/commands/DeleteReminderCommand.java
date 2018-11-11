@@ -27,10 +27,14 @@ public class DeleteReminderCommand extends EditCommand {
             + ": Delete Reminders of the event identified by the index number used in the displayed event list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]...\n"
+            + "Optional Flags (Only one at a time):\n"
+            + "-u: for all upcoming events\n" + "-a: for all repeating events\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h "
-            + PREFIX_EVENT_REMINDER_DURATION + "30m ";
+            + PREFIX_EVENT_REMINDER_DURATION + "30m -a";
 
     public static final String MESSAGE_DELETE_REMINDER_SUCCESS = "Remove all present reminders from Event: %1$s";
+    public static final String MESSAGE_EMPTY_REMINDER_ENTERED = "Warning: no reminder is entered";
+
 
     private static final Logger logger = LogsCenter.getLogger(DeleteReminderCommand.class);
 
@@ -50,6 +54,10 @@ public class DeleteReminderCommand extends EditCommand {
         if (index.getZeroBased() >= lastShownList.size()) {
             logger.info(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        if (durationsToDelete.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_REMINDER_ENTERED);
         }
 
         //Set up event to be edited and edited event according to user input

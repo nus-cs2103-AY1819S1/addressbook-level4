@@ -134,6 +134,16 @@ public class AddReminderCommandTest {
         assertCommandFailure(addReminderCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void execute_addEmptyReminder_failure() {
+        Index index = INDEX_FIRST_EVENT;
+        ReminderDurationList durationsToAdd = getReminderDurationList();
+        AddReminderCommand addReminderCommand = new AddReminderCommand(index, durationsToAdd, FLAG_UPCOMING);
+
+        assertCommandFailure(addReminderCommand, model, commandHistory,
+                AddReminderCommand.MESSAGE_EMPTY_REMINDER_ENTERED);
+    }
+
     public void addRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToAdd) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);

@@ -28,19 +28,19 @@ public class PostponeReminderCommand extends EditCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]\n"
             + "Optional Flags (Only one at a time):\n"
-            + "-u: for all upcoming events\n" + "-a: for all repeating events"
+            + "-u: for all upcoming events\n" + "-a: for all repeating events\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EVENT_REMINDER_DURATION + "1h -a";
 
-
+    public static final String MESSAGE_EMPTY_REMINDER_ENTERED = "Warning: no postpone duration is entered";
     public static final String MESSAGE_POSTPONE_REMINDER_SUCCESS = "Postpone all reminders for Event: %1$s";
     public static final String MESSAGE_MULTIPLE_POSTPONE_DURATION = "Please enter only 1 duration to postpone.";
 
     private static final Logger logger = LogsCenter.getLogger(PostponeReminderCommand.class);
 
-    private final Duration durationToPostpone;
+    private final ReminderDurationList durationToPostpone;
 
 
-    public PostponeReminderCommand(Index index, Duration durationToPostpone, Flag... flags) {
+    public PostponeReminderCommand(Index index, ReminderDurationList durationToPostpone, Flag... flags) {
         super(index, new EditCommand.EditEventDescriptor(), flags);
         this.durationToPostpone = durationToPostpone;
 
@@ -62,7 +62,11 @@ public class PostponeReminderCommand extends EditCommand {
         eventToEdit = lastShownList.get(index.getZeroBased());
         ReminderDurationList reminderDurationListToEdit = eventToEdit.getReminderDurationList().getCopy();
 
-        reminderDurationListToEdit.postpone(durationToPostpone);
+        if (!durationToPostpone.isSingleValue()) { //Multiple durations already eliminated by this step
+            throw new CommandException(MESSAGE_EMPTY_REMINDER_ENTERED);
+        }
+
+        reminderDurationListToEdit.postpone(durationToPostpone.getArray().get(0));
         editEventDescriptor.setReminderDurationList(reminderDurationListToEdit);
         super.execute(model, history);
 
