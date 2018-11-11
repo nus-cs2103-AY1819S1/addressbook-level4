@@ -17,6 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
@@ -30,6 +31,7 @@ import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
 import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
+import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.logic.Logic;
@@ -59,6 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
+    private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
 
     @FXML
     private StackPane displayPanelPlaceholder;
@@ -167,15 +170,12 @@ public class MainWindow extends UiPart<Stage> {
         setUpTab();
 
         analyticsDisplay = new AnalyticsDisplay();
-        PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
-        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
 
         TitleScreen titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
-        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-        displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         hideInnerParts();
         setUpListPanel();
@@ -324,22 +324,25 @@ public class MainWindow extends UiPart<Stage> {
         return patientListPanel;
     }
 
+    private void showDisplayPanel(Region displayRegion) {
+        displayPanelPlaceholder.getChildren().clear();
+        displayPanelPlaceholder.getChildren().add(displayRegion);
+    }
+    
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        analyticsDisplay.setVisible(true);
-        browserPanel.setVisible(false);
+        showDisplayPanel(analyticsDisplay.getRoot());
     }
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
+        // Display appointment display panel
+        showDisplayPanel(patientDetailsDisplayPanel.getRoot());
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
+        showDisplayPanel(patientDetailsDisplayPanel.getRoot());
     }
 
     @Subscribe
