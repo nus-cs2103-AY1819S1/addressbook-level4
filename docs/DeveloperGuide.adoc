@@ -253,6 +253,79 @@ Classes used by multiple components are in the `seedu.jxmusic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== ReadLibrary
+==== Current Implementation
+The `readLibrary` is a part of `JsonLibraryStorage`. It reads the Json file as well as the library folder when initialising the `library` class. It calls the following operations:
+
+* `JsonFileStorage.loadDataFromFile(filepath)` - deserialize the Json file and create `library` class.
+* `Trackscanner.scan(libraryDir)` - scan through the library folder and fill all the valid mp3 files into a set of tracks.
+
+No matter whether the Json file exists, `trackscanner` will run first to make sure the `library` class contains the tracks set. Then if the file path exists, it will deserialize the json file to initialize library’s playlist information. The deserializer and serializer are programmed with `Gson` library. +
+
+The `trackscanner` navigates to the library folder and extracts the mp3 files and add them to the set of tracks. However there are cases that the user does not have a library folder in the same directory as the app. To ensure the tracks contained inside the playlist to be valid and navigable, we put a library folder containing default tracks inside the resources folder.
+Hence, the program first extracts the library folder from the jar file and copy it to the directory. There are two methods that the app copies library to the directory:
+
+* Case 1: If the MainApp is run using jar file, `trackscanner` will internally run the unzip command to unzip the jar file. (Warning: This only works if the jar file is opened using Terminal);
+* Case 2: If the MainApp is run using IDE, `trackscanner` will copy the library folder from resources to the directory;
+
+.Activity of trackscanner
+image::TrackScannerActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+* Aspect: How `readLibrary` executes to access mp3 files in library folder.
+** Alternate 1: (Current choice): Read the Json file from data folder and scan the tracks from library folder at the same time.
+*** Pros:
+**** Enables the library to initialise with all the available tracks in library folder
+*** Cons:
+**** The track treeset in the library class will not update again after initialisation.
+
+** Alternate 2: Do not scan the tracks in `readLibrary`, scan the library each time the user search for tracks in the library folder.
+*** Pros:
+**** Lead to the files’ latest status inside the library folder
+
+==== Future Enhancements
+
+When the user double clicks the jar file it cannot run because the unzipping of jar file is done using `process.exec`, which requires the user to run the jar file using terminal. This needs to be addressed in future development.
+
+=== Track search and Track list
+==== Current Implementation
+The `tracklist` and `tracksearch` commands are implemented to view and filter tracks in the library.
+
+* `Command.TrackListCommand` - list all the tracks inside the library
+* `Command.TrackSearchCommand` - search the desired tracks from library whose name contains any of the argument keywords.
+
+.Sequence of track list command
+image::TrackListCommandSequenceDiagram.png[width="800"]
+
+.Sequence of track search command
+image::TrackSearchCommandSequenceDiagram.png[width="800"]
+
+
+==== Design Considerations
+* Aspect: Searching multiple keywords.
+** Alternative 1 (Current Choice): Combines each search results by each keywords separated by space.
+*** Pros:
+**** Find tracks that match with any of the keywords
+*** Cons:
+**** Spaces are not included in the keywords.
+** Alternative 2: consider words as one part of the desired track and show results of the search.
+*** Pros:
+**** Show more precise results
+
+* Aspect: Tracks listed display
+** Alternative 1 (Currently Choice): List the tracks in a new panel separate from playlist panel.
+*** Pros:
+**** Tracks are more clearly shown.
+** Alternative 2: Show the tracks in the message box
+*** Pros:
+**** Easier to implement.
+*** Cons:
+**** Takes up the message box and hence the success message or failing message cannot be seen.
+
+==== Future Enhancements
+Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
+
 // tag::playlistNew[]
 === Playlist Management feature
 ==== Current Implementation
