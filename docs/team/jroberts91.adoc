@@ -38,8 +38,7 @@ Lastly, if there is a need to restore the employee back to the `activelist` a us
 
 
 ==== Code contributed:
-** [https://github.com[Functional code]]
-** [https://github.com[Test code]]
+** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Functional code]]
 
 ==== *Other contributions*:
 ** Project management:
