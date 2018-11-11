@@ -7,6 +7,7 @@ import seedu.restaurant.model.ingredient.IngredientPrice;
 import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 
+//@@author rebstan97
 /**
  * A utility class to help with building EditIngredientDescriptor objects.
  */

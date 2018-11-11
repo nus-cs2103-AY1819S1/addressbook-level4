@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.ui.UiPart;
 
+//@@author rebstan97
 /**
  * The Ingredient Stack Panel of the App.
  */

@@ -3,20 +3,21 @@ package seedu.restaurant.model.ingredient;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author rebstan97
 /**
  * Represents the number of available units of an Ingredient.
  * Guarantees: immutable; is valid as declared in {@link #isValidNumUnits(String) and  {@link #isValidNumUnits(int)}}
  */
 public class NumUnits {
 
-    public static final String MESSAGE_NUMUNITS_CONSTRAINTS =
+    public static final String MESSAGE_NUM_UNITS_CONSTRAINTS =
             "Number of units should only contain numeric characters, and it should not be blank";
 
     /*
      * The first character of the price must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NUMUNITS_VALIDATION_REGEX = "^\\d+$";
+    public static final String NUM_UNITS_VALIDATION_REGEX = "^\\d+$";
 
     private final int numberOfUnits;
 
@@ -27,7 +28,7 @@ public class NumUnits {
      */
     public NumUnits(int numUnits) {
         requireNonNull(numUnits);
-        checkArgument(isValidNumUnits(numUnits), MESSAGE_NUMUNITS_CONSTRAINTS);
+        checkArgument(isValidNumUnits(numUnits), MESSAGE_NUM_UNITS_CONSTRAINTS);
         numberOfUnits = numUnits;
     }
 
@@ -42,7 +43,7 @@ public class NumUnits {
      * Returns true if a given string is a valid number of available units.
      */
     public static boolean isValidNumUnits(String test) {
-        return test.matches(NUMUNITS_VALIDATION_REGEX);
+        return test.matches(NUM_UNITS_VALIDATION_REGEX);
     }
 
     /**

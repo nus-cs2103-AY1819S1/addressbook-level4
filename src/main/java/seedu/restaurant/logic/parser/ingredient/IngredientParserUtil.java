@@ -16,7 +16,7 @@ import seedu.restaurant.model.ingredient.NumUnits;
  * Contains utility methods used for parsing strings ingredient-related classes.
  */
 public class IngredientParserUtil {
-    public static final String MESSAGE_NOT_INDEX_OR_NAME = "A valid index or ingredient name must be entered.";
+    public static final String MESSAGE_NOT_INDEX_OR_NAME = "A valid index or ingredient name must be entered!";
 
     // This class should not be instantiated.
     private IngredientParserUtil() {
@@ -110,7 +110,7 @@ public class IngredientParserUtil {
         requireNonNull(numUnits);
         String trimmedNumUnits = numUnits.trim();
         if (!StringUtil.isUnsignedInteger(trimmedNumUnits)) {
-            throw new ParseException(NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS);
+            throw new ParseException(NumUnits.MESSAGE_NUM_UNITS_CONSTRAINTS);
         }
         return new NumUnits(parseInt(trimmedNumUnits));
     }

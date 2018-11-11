@@ -18,6 +18,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author rebstan97
 /**
  * Stocks up an ingredient in the restaurant book.
  */

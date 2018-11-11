@@ -317,21 +317,20 @@ Selects the 1st account in the results of the `find-account` command.
 
 ==== Locating account by username: `find-account` or `fa`
 
-Finds account whose username contain any of the given keywords. +
+Finds account whose username contains the keyword. +
 Format: `find-account KEYWORD` or `fa KEYWORD`
 
 ****
-* The search is case insensitive. e.g `root` will match `Root`
+* The search is case insensitive. e.g `Root` will match `root`
 * Only the username is searched
-* Only full words will be matched e.g. `roo` will not match `root`
+* Only one keyword is allowed since `username` does not contain spaces
+* Full keyword is not necessary; e.g. `roo` and `root` will match `root`
 ****
 
 Examples:
 
-* `find-account root` +
-Returns `root`
-* `fa root azhikai rebstan97` +
-Returns any account having username `root`, `azhikai`, or `rebstan97`
+* `find-account root` or `fa root` +
+Return any accounts whose username contains the string `root`
 
 ==== List user accounts: `list-accounts` or `la`
 
@@ -398,13 +397,14 @@ Deletes the ingredient `cod fish` from the ingredient list.
 ==== Editing an ingredient: `edit-ingredient` or `edit-ing`
 
 Edits an ingredient in the ingredient list. +
-Format: `edit-ingredient INDEX [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or `edit-ingredient NAME [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]`
+Format: `edit-ingredient INDEX [n/INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT]
+[m/MINIMUM]` or `edit-ingredient on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]`
 
 [NOTE]
 ====
 * Edits the ingredient at the specified `INDEX`. The index refers to the index number shown in the displayed ingredient list. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* Alternatively, edits the ingredient with the specified `NAME`.
+* Alternatively, edits the ingredient with the specified `ORIGNAL_INGREDIENT_NAME`.
 ====
 
 [WARNING]
@@ -1120,11 +1120,13 @@ contains the data of your previous *MeNUS* folder.
 |*Create account* |`register/reg id/USERNAME pw/PASSWORD n/FULL_NAME` |`register/reg id/azhikai pw/1122qq n/Ang Zhi Kai`
 |*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
+|*Find account* |`find-account/fa` |`find-account/fa root`
 |*List accounts* |`list-accounts/la` |`list-accounts/la`
 |*Add ingredient* |`add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod fish t/kilogram p/20 m/1`
 |*List ingredient* |`list-ingredients` |`list-ingredients`
 |*List ingredient with low stock count* |`low-stock` |`low-stock`
-|*Edit ingredient* |`edit-ingredient INDEX [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` or `edit-ingredient NAME [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` |`edit-ingredient 3 n/thin fries` or `edit-ingredient ketchup n/tomato ketchup`
+|*Edit ingredient* |`edit-ingredient [INDEX] [on/ORIGINAL_INGREDIENT_NAME] [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_UNIT] [m/MINIMUM]` |`edit-ingredient 3 n/thin fries` or
+`edit-ingredient on/ketchup n/tomato ketchup`
 |*Delete ingredient* |`delete-ingredient INDEX` or `delete-ingredient NAME` |`delete-ingredient 1` or `delete-ingredient cod fish`
 |*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
