@@ -1,4 +1,4 @@
-package seedu.meeting.model.meeting.exception;
+package seedu.meeting.model.meeting.exceptions;
 
 // @@author jeffreyooi
 /**
