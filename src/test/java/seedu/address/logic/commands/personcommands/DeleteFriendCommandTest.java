@@ -34,9 +34,11 @@ public class DeleteFriendCommandTest {
     public void executeValidIndexUnfilteredListDeleteNotYetFriendsFailure() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
         model.setCurrentUser(personToEdit);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_THIRD.getZeroBased());
         DeleteFriendCommand deleteFriendCommand = new DeleteFriendCommand(Index.fromZeroBased(
                 INDEX_THIRD.getZeroBased()));
-        assertCommandFailure(deleteFriendCommand, model, commandHistory, Messages.MESSAGE_NOT_FRIENDS);
+        assertCommandFailure(deleteFriendCommand, model, commandHistory,
+                String.format(Messages.MESSAGE_NOT_FRIENDS, personToDelete.getName(), personToEdit.getName()));
     }
 
     @Test

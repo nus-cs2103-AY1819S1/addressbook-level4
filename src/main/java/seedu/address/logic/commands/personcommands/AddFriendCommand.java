@@ -54,7 +54,8 @@ public class AddFriendCommand extends Command {
             throw new CommandException(Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
         }
         if (personToEdit.hasFriendInList(friendToAdd)) {
-            throw new CommandException(Messages.MESSAGE_ALREADY_FRIENDS);
+            throw new CommandException(String.format(Messages.MESSAGE_ALREADY_FRIENDS,
+                    friendToAdd.getName(), personToEdit.getName()));
         }
 
         model.removeCurrentUser();

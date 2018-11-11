@@ -43,12 +43,15 @@ public class Schedule {
 
     public Schedule() {
         value = new int[DAY][HOUR];
+        assert (value != null);
     }
 
     public Schedule(String schedule) {
         requireNonNull(schedule);
 
         value = new int[DAY][HOUR];
+        assert (value != null);
+        assert (isValidSchedule(schedule));
 
         for (int i = 0, counter = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
@@ -71,6 +74,7 @@ public class Schedule {
     public boolean getTimeDay(Slot slot) {
         // day Monday
         // time 0800
+        assert (slot != null);
         return value[slot.getDay().getNumberRepresentation()]
             [slot.getTime().getNumberRepresentation()] == 1 ? true : false;
     }
@@ -84,6 +88,7 @@ public class Schedule {
     public void setTimeDay(Slot slot, boolean isoccupied) throws ParseException {
         // day Monday
         // time 0800
+        assert (slot != null);
         value[slot.getDay().getNumberRepresentation()]
             [slot.getTime().getNumberRepresentation()] = isoccupied ? 1 : 0;
     }

@@ -54,7 +54,8 @@ public class DeleteFriendCommand extends Command {
             throw new CommandException(Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
         }
         if (!personToEdit.hasFriendInList(friendToDelete)) {
-            throw new CommandException(Messages.MESSAGE_NOT_FRIENDS);
+            throw new CommandException(String.format(Messages.MESSAGE_NOT_FRIENDS,
+                    friendToDelete.getName(), personToEdit.getName()));
         }
 
         model.removeCurrentUser();

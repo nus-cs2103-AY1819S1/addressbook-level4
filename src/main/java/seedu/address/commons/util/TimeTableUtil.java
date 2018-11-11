@@ -7,13 +7,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Lesson;
 import seedu.address.model.person.TimeTable;
-
 
 
 /**
@@ -52,6 +53,7 @@ public class TimeTableUtil {
     private static final String REGEX_GET_SEPARATER = "\\?";
     private static final String REGEX_MODULE_SEPARATER = "&";
 
+    private static final Logger logger = LogsCenter.getLogger(TimeTableUtil.class);
 
     /**
      * Parse links from the share command of Nusmods
@@ -70,7 +72,7 @@ public class TimeTableUtil {
      * @throws ParseException
      */
     public static String parseShortUrl(String urlString) throws ParseException {
-
+        logger.info("NusMods TimeTable shortlink: " + urlString);
         try {
             URL url = new URL(urlString);
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
@@ -113,14 +115,15 @@ public class TimeTableUtil {
      */
     public static TimeTable parseLongUrl(String urlString) throws ParseException {
 
+        logger.info("NusMods TimeTable longlink: " + urlString);
+
         // variables
         ArrayList<Lesson> lessonList = new ArrayList<>();
 
-
         // split url into /../../../
         String[] parts = urlString.split(REGEX_SLASH);
+        assert (parts.length == 6);
 
-        // get semster from url
         String semster = parts[SEMSTER_INDEX];
 
         // get each modules from url and remove share?
@@ -138,6 +141,7 @@ public class TimeTableUtil {
         }
 
         TimeTable timetable = new TimeTable(lessonList);
+        logger.info("NusMods TimeTable download is successful.");
         return timetable;
     }
 
@@ -162,6 +166,8 @@ public class TimeTableUtil {
             String[] temp = moduleChosenSlot.split(REGEX_COLON);
             moduleChosenSlotMap.put(temp[0], temp[1]);
         }
+
+        assert (semster.split(REGEX_DASH).length == 2);
         // Get Semester number
         int semsterNumber = Integer.parseInt(semster.split(REGEX_DASH)[1]);
 
@@ -192,10 +198,13 @@ public class TimeTableUtil {
      * @throws ParseException
      */
     public static ArrayList<Lesson> obtainModuleInfoFromApi(String moduleCode, int semNum) throws ParseException {
+
         LocalDate currentDate = LocalDate.now();
+
         String acadYear;
 
-        // Calculate current academic year (works as if 9 Nov 2018)
+        // Calculate current academic year
+        // Correct as of 9/11/2018
         acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
         //if (currentDate.getMonthValue() <= 6) {
         //    acadYear = (currentDate.getYear() - 1) + "-" + (currentDate.getYear());
