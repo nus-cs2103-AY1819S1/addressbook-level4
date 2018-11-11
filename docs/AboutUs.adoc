@@ -54,9 +54,9 @@ Responsibilities: Archive (Archive, Restore)
 
 '''
 
-=== Jian Yu
+=== Kok Jian Yu
 image::kokjianyu.png[width="150", align="left"]
-{empty}[http://github.com/KokJianYu[github]]
+{empty}[http://github.com/KokJianYu[github]][http://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/team/kokjianyu.adoc[portfolio]]
 
 Role: Developer +
 Responsibilities: Permissions (Adding, Removing, Ensuring user has valid permissions)
