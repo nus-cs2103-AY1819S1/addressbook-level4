@@ -144,16 +144,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
-    @Test
-    public void fuzzyMatchScore_invalidInputs_() {
-        assertExceptionThrownFuzzy(IllegalArgumentException.class,"random sentence", "",
-                Optional.of("Word parameter cannot be empty"));
-
-        assertExceptionThrownFuzzy(IllegalArgumentException.class,"", "word",
-                Optional.of("Sentence parameter cannot be empty"));
-    }
-
-        //---------------- Tests for getDetails --------------------------------------
+    //---------------- Tests for getDetails --------------------------------------
 
     /*
      * Equivalence Partitions: null, valid throwable object
