@@ -1086,6 +1086,15 @@ Format: `export-sales DATE` or `es DATE`
 Exports the sales chart into a pdf file. +
 Format: `export-chart` or `ec`
 
+==== Checking item sales history `[coming in v2.0]`
+Generates the item sales report that consists of all records associated with that item. +
+Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
+
+Examples:
+
+* `check-history n/Fried Rice`
+* `ch n/Fried Rice`
+
 ==== Showing history of past stock ups and consumption `[coming in v2.0]`
 
 Shows the history of past ingredient stock ups or consumption. +
@@ -1098,15 +1107,6 @@ Examples:
 * `vh stockup consumption`
 
 // tag::menuv2[]
-==== Checking item sales history `[coming in v2.0]`
-Generates the item sales report that consists of all records associated with that item. +
-Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
-
-Examples:
-
-* `check-history n/Fried Rice`
-* `ch n/Fried Rice`
-
 ==== Exporting menu `[coming in v2.0]`
 
 Exports the menu to a particular file path. +
@@ -1168,6 +1168,7 @@ fish u/kilogram p/20 m/1`
 |*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
 |*Select ingredient* |`select-ingredient INDEX` |`select-ingredient 3`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
+|*List items* |`list-items` |`list-items`
 |*Edit item* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item* |`delete-item INDEX` |`delete-item 3`
 |*Select item* |`select-item INDEX` |`select-item 3`
@@ -1175,8 +1176,11 @@ fish u/kilogram p/20 m/1`
 |*List items* |`list-items` |`list-items`
 |*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
 |*Sort menu* |`sort-menu` |`sort-menu NAME`
+|*Clear menu* |`clear-menu` |`clear-menu`
 |*Discount item* |`discount-item INDEX d/PERCENTAGE` |`discount-item 2 d/20`
 |*Today's special* |`today-special` |`today-special`
+|*Add/Update item recipe* |`recipe-item` |`recipe-item 1 r/Some Recipe`
+|*Add required ingredients* |`add-required-ingredients` |`add-required-ingredients 1 n/Apple nu/3`
 |*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
 |*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`
