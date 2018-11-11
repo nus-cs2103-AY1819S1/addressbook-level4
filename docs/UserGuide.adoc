@@ -13,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W10-3/main
+:repoURL: https://github.com/CS2103-AY1819S1-W10-3/main/
 
 By: `Team W10-3`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -69,6 +69,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can also search for other users using `suggestFriendsByInterests` and add them as your friend using `addFriend`, or remove them as a friend using `deleteFriend`.
 * You can populate your schedule using an NUSMODs link, and also manually add time slots into your schedule.
 
+// tag::scheduletimetable[]
+== Special Considerations
+
+=== XML file
+
+* We store all of the EventOrganiser data under data/addressbook.xml
+* This file is to be stored securely on the computer. No user is allowed to read or edit the xml file using a text editor.
+
+=== User Uniqueness
+
+* We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
+* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others. 
+
+=== Timetable
+Timetable download guide
+
+To be referenced by any commands that use `tt/` prefix.
+Format `Command tt/ http://modsn.com/XXXX...`
+
+Example:
+* http://modsn.us/eDmp1 +
+* http://modsn.us/H4v8s
+
+****
+* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
+* Note that the timetable download may take a while regardless if the link is valid or not.
+* Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
+* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
+* If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
+* If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
+****
+// end::scheduletimetable[]
+
 [[Features]]
 == Features
 
@@ -91,7 +125,7 @@ Shows all the commands in the application and how to use them.
 
 ==== Add a user : `addUser`
 
-Adds a new user to EventOrganiser. +
+Adds a new uniqiue user to EventOrganiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 ****
@@ -101,6 +135,7 @@ Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTERE
 * Interests and tags must be alphanumeric.
 * Each interest and tag can only be one word long. For example, 'i/play tennis' will not be accepted and should be written as 2 separate interests ('i/play' and 'i/tennis').
 * <<Timetable>> download requires a valid nusmods link.
+* <<User Uniqueness>> property must be satisified.
 ****
 
 Examples:
@@ -207,6 +242,7 @@ Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
 * <<Timetable>> download requires a valid nusmods link
+* <<User Uniqueness>> property must be satisified.
 ****
 
 Examples:
@@ -217,28 +253,6 @@ Edits the phone number and email address of the user `Alex Yeoh` to be `91234567
 * `login n/Alex Yeoh pass/password` +
 `editUser n/Betsy Crower t/` +
 Edits the name of the user `Alex Yeoh`to be `Betsy Crower` and clears all existing tags.
-
-// tag::scheduletimetable[]
-==== Timetable
-Timetable download guide
-
-To be referenced by any commands that use `tt/` prefix.
-Format `Command tt/ http://modsn.com/XXXX...`
-
-Example:
-* http://modsn.us/eDmp1
-* http://modsn.us/H4v8s
-
-****
-* Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
-* Note that the timetable download may take a while regardless if the link is valid or not.
-* Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
-* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
-* If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
-* If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
-* If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
-****
-// end::scheduletimetable[]
 
 // tag::addDeleteFriend[]
 
