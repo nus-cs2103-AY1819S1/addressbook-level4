@@ -29,6 +29,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         if (tokens[0].equals("--txt") && exportedFilePath.toString().endsWith(".txt")) {
             return new ExportTxtCommand(exportedFilePath);
         }
-        throw new ParseException(String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
+        throw new ParseException(String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH,
+                exportedFilePath));
     }
 }

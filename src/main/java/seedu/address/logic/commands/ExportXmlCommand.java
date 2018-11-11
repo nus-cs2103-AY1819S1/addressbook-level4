@@ -32,7 +32,7 @@ public class ExportXmlCommand extends ExportCommand {
         } catch (IOException e) {
             throw new CommandException(String.format(MESSAGE_FAIL_READ_FILE));
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exportedFilePath));
     }
 
     public void setStorage(Storage storage) {

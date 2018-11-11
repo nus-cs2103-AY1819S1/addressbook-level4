@@ -72,6 +72,8 @@ public class Person {
         this.phone = personDescriptor.getPhone().orElse(new Phone());
         this.email = personDescriptor.getEmail().orElse(new Email());
         this.address = personDescriptor.getAddress().orElse(new Address());
+        this.occasionList = personDescriptor.getOccasionList().orElse(new UniqueOccasionList());
+        this.moduleList = personDescriptor.getModuleList().orElse(new UniqueModuleList());
         this.tags.addAll(personDescriptor.getTags().orElse(new HashSet<Tag>()));
     }
 
