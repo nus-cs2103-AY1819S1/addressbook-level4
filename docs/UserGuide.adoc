@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Note on Task fields
-A task has various fields. Some of these fields can be edited directly, while the rest are _derived_ from the  fields
+A task has various fields. Some of these fields can be edited directly, while the rest are _derived_ from the fields
 that can be edited.
 
 ==== Editable fields
