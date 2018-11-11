@@ -1,19 +1,19 @@
 = Car Park Finder - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :stylesheet: default.css
-:xrefstyle: full
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:xrefstyle: short
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:experimental:
 :repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
 By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
@@ -497,7 +497,7 @@ Step 8. Finally an `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fet
 Please refer to the _Sequence Diagram_ below for the `query` operation.
 
 .Interactions for query operation
-image::zy_seq.png[width="800", align="left"]
+image::zy_seq.png[width="700", align="left"]
 
 [NOTE]
 For more details on the internal workings of `Model` please refer to `undo`.

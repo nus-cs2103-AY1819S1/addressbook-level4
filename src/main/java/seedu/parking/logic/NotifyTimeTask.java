@@ -1,9 +1,13 @@
 package seedu.parking.logic;
 
+import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_DOWN_CHANGE;
 import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_ERROR;
 import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_ERROR_CARPARK;
-import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_SUCCESS;
+import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_ERROR_NODATA;
+import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_NO_CHANGE;
+import static seedu.parking.logic.commands.NotifyCommand.MESSAGE_UP_CHANGE;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
@@ -12,6 +16,7 @@ import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
 import seedu.parking.commons.core.index.Index;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
+import seedu.parking.commons.events.ui.JumpToListRequestEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
 import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
@@ -27,12 +32,10 @@ import seedu.parking.ui.CarparkListPanel;
  * A class to handle timer task but checking if its running or not.
  */
 public class NotifyTimeTask extends TimerTask {
-    private boolean isRunning;
     private Model model;
     private int targetTime;
 
     public NotifyTimeTask(Model model, int targetTime) {
-        isRunning = false;
         this.model = model;
         this.targetTime = targetTime;
     }
@@ -55,7 +58,7 @@ public class NotifyTimeTask extends TimerTask {
             }
 
             CarparkNumber selectedNumber = CarparkListPanel.getSelectedCarpark().getCarparkNumber();
-
+            int oldValue = Integer.parseInt(CarparkListPanel.getSelectedCarpark().getLotsAvailable().value);
             List<String> updateData = new ArrayList<>(GsonUtil.getSelectedCarparkInfo(
                     selectedNumber.toString()));
 
@@ -69,20 +72,41 @@ public class NotifyTimeTask extends TimerTask {
             //        + updateData.get(2));
 
             if (CarparkListPanel.getTimeInterval() > 0) {
-                EventsCenter.getInstance().post(new NewResultAvailableEvent(
-                        String.format(MESSAGE_SUCCESS, selectedNumber.toString(), targetTime)));
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(notifyIndex));
+
+                int newValue = Integer.parseInt(updateData.get(1));
+                int diffValue = newValue - oldValue;
+
+                if (diffValue == 0) {
+                    EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                            String.format(MESSAGE_NO_CHANGE, selectedNumber.toString(), newValue, targetTime)));
+                } else if (diffValue > 0) {
+                    EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                            String.format(MESSAGE_UP_CHANGE, selectedNumber.toString(), newValue, Math.abs(diffValue),
+                                    targetTime)));
+                } else {
+                    EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                            String.format(MESSAGE_DOWN_CHANGE, selectedNumber.toString(), newValue, Math.abs(diffValue),
+                                    targetTime)));
+                }
             }
         } catch (CommandException e) {
             cancel();
-            EventsCenter.getInstance().post(new DataFetchExceptionEvent(e));
+            if (CarparkListPanel.getTimeInterval() > 0) {
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(e));
+            }
+        } catch (IOException e) {
+            cancel();
+            if (CarparkListPanel.getTimeInterval() > 0) {
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                        new CommandException(MESSAGE_ERROR_CARPARK)));
+            }
         } catch (Exception e) {
             cancel();
-            EventsCenter.getInstance().post(new DataFetchExceptionEvent(
-                    new CommandException(MESSAGE_ERROR_CARPARK)));
+            if (CarparkListPanel.getTimeInterval() > 0) {
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                        new CommandException(MESSAGE_ERROR_NODATA)));
+            }
         }
-    }
-
-    public boolean hasStarted() {
-        return isRunning;
     }
 }

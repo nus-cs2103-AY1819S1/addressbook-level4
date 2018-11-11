@@ -1,9 +1,11 @@
 = Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
 :toc: macro
-:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
+:imagesDir: ../images
 :stylesDir: ../stylesheets
 :stylesheet: zhuanyu.css
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:xrefstyle: short
 
 toc::[]
 
@@ -23,9 +25,9 @@ I am currently a developer for _Car Park Finder_, a team project to be completed
 === Overview
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
-HDB (Housing Development Board) car parks in Singapore. +
+Housing & Development Board (HDB) car parks in Singapore. +
 
-Our application allows you to view vital information such as lots availability for each car park, so that you can
+Our application allows you to view vital information such as parking lots availability for each car park, so that you can
 plan ahead of your trip.
 
 If you use the computer frequently and commute by driving, why not try out
@@ -68,21 +70,22 @@ added *the ability to undo/redo previous commands*
 *** Integrated a third party library (Gson) to the project (https://github.com[#42])
 *** Integrated two new Github plugin (AppVeyor & Coveralls) to the team repo
 
-== Contributions to the User Guide
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation
-targeting end-users._
-|===
+== User Guide Contributions
+_For my main contributions to the User Guide, they consist of the sections documenting Query and Notify commands.
+They showcase my ability to write documentation targeting end-users in a clear and concise manner._
+
+'''
 
 include::../UserGuide.adoc[tag=query]
 
 include::../UserGuide.adoc[tag=notify]
 
-== Contributions to the Developer Guide
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
-documentation and the technical depth of my contributions to the project._
-|===
+== Developer Guide Contributions
+_For my main contributions to the Developer Guide, they consist of the sections documenting Query, Notify and Weather commands.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project in
+a clear and concise manner._
+
+'''
 
 include::../DeveloperGuide.adoc[tag=query]
 

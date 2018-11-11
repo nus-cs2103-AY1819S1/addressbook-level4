@@ -14,6 +14,8 @@ import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
 import seedu.parking.commons.events.ui.ListCarparkRequestEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
+import seedu.parking.commons.events.ui.TimeIntervalChangeEvent;
 import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
@@ -31,7 +33,6 @@ import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
-import seedu.parking.ui.CarparkListPanel;
 
 /**
  * Queries when to get the car park information from the API.
@@ -39,12 +40,11 @@ import seedu.parking.ui.CarparkListPanel;
 public class QueryCommand extends Command {
 
     public static final String COMMAND_WORD = "query";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates all the car park information in Car Park Finder.\n"
-            + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "%1$d Car parks updated";
-    private static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
+    public static final String MESSAGE_SUCCESS = "%1$d car parks updated";
+    private static final String MESSAGE_LOADING = "Loading... please wait...";
+    private static final String MESSAGE_ERROR_CARPARK = "Unable to retrieve car park information from data.gov.sg\n"
+            + "Please check your internet connection and try again";
 
     private final Logger logger = LogsCenter.getLogger(QueryCommand.class);
 
@@ -67,30 +67,24 @@ public class QueryCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
 
         Callable<Boolean> task = () -> {
             try {
+                EventsCenter.getInstance().post(new TimeIntervalChangeEvent(0));
+                EventsCenter.getInstance().post(new NoSelectionRequestEvent());
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
                 model.updateFilteredCarparkList(unused -> false);
-                logger.info("thi is a test1" );
                 List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
                 List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
-                logger.info("thi is a test11" );
                 model.loadCarpark(allCarparks);
-                logger.info("thi is a test111" );
                 model.commitCarparkFinder();
-                logger.info("thi is a test2" );
                 int updated = model.compareCarparkFinder();
-                logger.info("thi is a test3" );
                 EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
-                logger.info("thi is a test4" );
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
             } catch (Exception e) {
-                logger.info("thi is a test" );
-                e.printStackTrace();
                 model.updateFilteredCarparkList(unused -> true);
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
                         new CommandException(MESSAGE_ERROR_CARPARK)));
@@ -101,6 +95,6 @@ public class QueryCommand extends Command {
         threadExecutor.submit(task);
 
         EventsCenter.getInstance().post(new ListCarparkRequestEvent());
-        return new CommandResult("Loading...please wait...");
+        return new CommandResult(MESSAGE_LOADING);
     }
 }

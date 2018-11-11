@@ -7,7 +7,7 @@
 
 ---
 
-image::yurou2.jpg[width="150", align="left"]
+image::yuroutang.png[width="150", align="left"]
 
 My name is Tang Yurou, a Year 2 Computer Science student at NUS School of Computing.
 This is the portfolio of the project my team and I worked on for CS2103T
