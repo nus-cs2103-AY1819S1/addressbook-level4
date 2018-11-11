@@ -311,6 +311,10 @@ for every incomplete Module m:
     accumulated_points <- accumulated_points + (credits(m) * target(m))
 
 ```
+
+This sequence diagram shows the interaction of the different classes involved
+in the process of creating a new Module with updated target grade
+
 .Sequence Diagram of Target Grade calculation
 image::SDTranscriptTargetCalculation.png[width="800"]
 
@@ -882,7 +886,7 @@ with link:https://gradecalc.info/sg/nus/cumulative_gpa_calc.pl[This URL]
 .. Observe the Target Grades of CS4234 and CS4226
 +
 |===
-*Expected*: both modules should have grade NIL
+|*Expected*: both modules should have grade NIL
 |===
 
 . Target Grade should update upon modifying the list of modules
