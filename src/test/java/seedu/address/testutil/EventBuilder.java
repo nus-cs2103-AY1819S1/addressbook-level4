@@ -33,7 +33,7 @@ public class EventBuilder {
     private Person organiser;
     private Set<Tag> tags;
     private ArrayList<AbstractPoll> polls;
-    private UniquePersonList personList;
+    private UniquePersonList participantList;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -45,7 +45,7 @@ public class EventBuilder {
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
-        personList = new UniquePersonList();
+        participantList = new UniquePersonList();
         date = LocalDate.of(2018, 1, 1);
         startTime = LocalTime.of(12, 00);
         endTime = LocalTime.of(13, 30);
@@ -60,7 +60,7 @@ public class EventBuilder {
         organiser = eventToCopy.getOrganiser();
         tags = new HashSet<>(eventToCopy.getTags());
         polls = new ArrayList<>(eventToCopy.getPolls());
-        personList = eventToCopy.getParticipantList();
+        participantList = eventToCopy.getParticipantList();
         startTime = eventToCopy.getStartTime();
         endTime = eventToCopy.getEndTime();
         date = eventToCopy.getDate();
@@ -95,6 +95,7 @@ public class EventBuilder {
      */
     public EventBuilder withOrganiser(Person person) {
         this.organiser = person;
+        this.participantList.add(person);
         return this;
     }
 
@@ -110,7 +111,7 @@ public class EventBuilder {
      * Adds one person as a participant to the event.
      */
     public EventBuilder withParticipant() {
-        personList.add(ALICE);
+        participantList.add(ALICE);
         return this;
     }
 
@@ -123,7 +124,7 @@ public class EventBuilder {
         event.setTime(startTime, endTime);
         event.setOrganiser(organiser);
         event.setPolls(polls);
-        event.setParticipantList(personList);
+        event.setParticipantList(participantList);
         return event;
     }
 }

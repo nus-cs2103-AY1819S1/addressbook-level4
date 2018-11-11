@@ -223,6 +223,7 @@ public class ModelManager extends ComponentManager implements Model {
         name.ifPresent(eventName -> currentEvent.setName(eventName));
         location.ifPresent(eventLocation -> currentEvent.setLocation(eventLocation));
         tags.ifPresent(eventTags -> currentEvent.setTags(eventTags));
+        versionedAddressBook.updateEvent(currentEvent, currentEvent);
         indicateAddressBookChanged();
     }
 

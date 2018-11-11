@@ -73,7 +73,7 @@ public class VoteCommandTest {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         model.setCurrentUser(ALICE);
         EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withParticipant().withOrganiser(ALICE);
+        eventBuilder.withOrganiser(ALICE);
         Event event = eventBuilder.withPoll().build();
         model.setSelectedEvent(event);
         String expectedMessage = Messages.MESSAGE_NO_SUCH_OPTION;

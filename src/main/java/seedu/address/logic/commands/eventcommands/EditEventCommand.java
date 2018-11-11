@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Optional;
 import java.util.Set;
@@ -60,7 +59,7 @@ public class EditEventCommand extends Command {
             }
             model.editEvent(name, location, tags);
             Event event = model.getSelectedEvent();
-            model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+            model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, event));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);

@@ -459,10 +459,11 @@ image::AddPollDisplay.png[width="800"]
 // tag::KengJi(3)[]
 ==== Create a new time-based poll for an event : `addTimePoll`
 Sets up a new time-based poll for the event with the specified name after all users have joined. +
-Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR``
+Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`
 
 ****
-* This is a special type of poll which generates poll options based on the given date range and the schedules of the participants who have joined the event.s
+* This is a special type of poll which generates poll options based on the given date range and the schedules of the
+participants who have joined the event.
 * The date with prefix `d1` represents the start of the given date range and `d2` represents the end of the date range.
 * The start date must not be after the end date, and the given dates must not be more than 30 days apart.
 * The time poll does not automatically update if a new user joins the event, and should be created only after all users have joined.
