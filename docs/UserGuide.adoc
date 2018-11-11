@@ -231,7 +231,7 @@ Updates the panel displaying the list of volunteers to display the list of event
 The following figure shows the expected panel before and after entering the `switch` command.
 
 .Panel display changing from volunteers to events
-image::command_switch.png[switch, 350]
+image::command_switch.png[switch, 400]
 //end::command-switch[]
 
 [[command-overview]]
@@ -549,7 +549,7 @@ Example(s):
 See the figures below for a step by step guide.
 
 .Execute `switch -e`
-image::command_switch.png[switch execution, 350]
+image::command_switch.png[switch execution, 400]
 
 .`manage 1` targets the event at index 1
 image::command_record_manage_eventIndex.png[switch execution, 200]
