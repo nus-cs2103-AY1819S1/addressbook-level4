@@ -17,10 +17,6 @@ import seedu.address.model.module.Year;
  */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
-    public static final String INPUT_SUGGESTION = "\nInput order: c_add MODULE_CODE YEAR SEMESTER CREDIT GRADE"
-            + "\nExample 1: c_add CS2103 2 1 A+"
-            + "\nIf you haven't taken the module before, you can omit the grade:"
-            + " Example 2: c_add CS2103 2 1 ";
     /**
      * Parses the given {@code String} of arguments in the context of the AddModuleCommand
      * and returns an AddModuleCommand object for execution.
@@ -28,7 +24,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      */
     public AddModuleCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        argsWithBounds(tokenizedArgs, 4, 5, INPUT_SUGGESTION);
+        argsWithBounds(tokenizedArgs, 4, 5, AddModuleCommand.MESSAGE_USAGE);
 
         int index = 0;
 

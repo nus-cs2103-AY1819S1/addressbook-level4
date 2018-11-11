@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.EditModuleCommandParser.INPUT_SUGGESTION;
 import static seedu.address.testutil.TypicalModules.DATA_STRUCTURES;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 
@@ -54,7 +53,7 @@ public class EditModuleCommandParserTest {
         String exceptionMsg = "Invalid number of arguments!"
                 + " Number of arguments should be 4, 6, 8, 10, 12, 14, 16"
                 + "\n"
-                + INPUT_SUGGESTION;
+                + EditModuleCommand.MESSAGE_USAGE;
 
         assertParseFailure(parser, "", exceptionMsg);
         assertParseFailure(parser, "-t CS1231", exceptionMsg);

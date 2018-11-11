@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.AdjustCommandParser.INPUT_SUGGESTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -54,7 +53,7 @@ public class AdjustCommandParserTest {
     public void assertWrongNumberArgumentParseFailure() {
         String expectedMessage = "Invalid number of arguments! Number of arguments should be 2, 4"
                 + "\n"
-                + INPUT_SUGGESTION;
+                + AdjustCommand.MESSAGE_USAGE;
         String userInput = "1 1 1";
         assertParseFailure(parser, userInput, expectedMessage);
 
