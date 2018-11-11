@@ -799,7 +799,7 @@ Given below is an example usage scenario and how the leave application mechanism
 
 2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the `Model` will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
-3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedPerson`] object, which is then added into the link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
 
 ===== Viewing leave applications
 Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
@@ -842,6 +842,7 @@ See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How
 * **Alternative 2:** Leave applications contain the unique identification fields of a `Person`.
 ** Pros: Leave applications innately store who applied for them, so no additional processing is required when generating the list of leave applications.
 ** Cons: Leave applications will have to be stored with 3 additional fields that are used to unique identify a `Person`. Also, if there are any updates to the `Person`, it must be ensured that their corresponding leave applications will also have to be updated correctly.
+
 [[LeaveApplication-DesignConsiderations-Listed-Note]]
 [NOTE]
 Alternative 2 is actually cleaner to implement and understand. However, Alternative 1 is currently implemented because a `Person` has 3 identification fields, which means that a lot of unnecessary information would have to be duplicated and stored. In future versions, we suggest that each `Person` be given a unique ID number that can be used to identify them. This would make it convenient for other entities, like `LeaveApplication`, to store which `Person` it is linked to, without too much overhead incurred.
