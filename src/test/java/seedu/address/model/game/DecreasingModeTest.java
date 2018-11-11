@@ -54,7 +54,7 @@ public class DecreasingModeTest {
     }
 
     private Date createDate(int day) {
-        return new GregorianCalendar(2018, Calendar.JANUARY, day).getTime();
+        return new GregorianCalendar(2019, Calendar.JANUARY, day).getTime();
     }
 
     @Test
@@ -67,15 +67,15 @@ public class DecreasingModeTest {
     public void appraiseXpChange() {
 
         //Create three versions of one task with different statuses
-        Task inProgressTask = tb.withDueDate("09-01-18 0000")
+        Task inProgressTask = tb.withDueDate("09-01-19 0000")
                 .withStatus(Status.IN_PROGRESS)
                 .build();
 
-        Task overdueTask = tb.withDueDate("09-01-18 0000")
+        Task overdueTask = tb.withDueDate("09-01-19 0000")
                 .withStatus(Status.OVERDUE)
                 .build();
 
-        Task completedTask = tb.withDueDate("09-01-18 0000")
+        Task completedTask = tb.withDueDate("09-01-19 0000")
                 .withStatus(Status.COMPLETED)
                 .build();
 
