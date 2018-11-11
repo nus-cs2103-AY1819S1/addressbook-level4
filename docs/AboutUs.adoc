@@ -17,7 +17,7 @@ Responsibilities: Volunteer Management Feature
 
 === Sem Jing Han
 image::kratious.png[width="150", align="left"]
-{empty}[http://github.com/kratious[github]] [<<semjinghan#, portfolio>>]
+{empty}[http://github.com/kratious[github]] [<<kratious#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Event Management Feature
@@ -26,7 +26,7 @@ Responsibilities: Event Management Feature
 
 === Amabel Yeo
 image::imarbles.png[width="150", align="left"]
-{empty}[https://github.com/iMarbles[github]] [<<amabelyeo#, portfolio>>]
+{empty}[https://github.com/iMarbles[github]] [<<imarbles#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Assignment of Volunteers Feature
@@ -35,7 +35,7 @@ Responsibilities: Assignment of Volunteers Feature
 
 === Thangavel Sharan
 image::sharan8.png[width="150", align="left"]
-{empty}[https://github.com/sharan8[github]] [<<thangavelsharan#, portfolio>>]
+{empty}[https://github.com/sharan8[github]] [<<sharan8#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Statistics Feature
@@ -44,7 +44,7 @@ Responsibilities: Statistics Feature
 
 === Ngoh Wen Jun
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[https://github.com/Scrubbius[github]] [<<ngohwenjun#, portfolio>>]
+{empty}[https://github.com/Scrubbius[github]] [<<scrubbius#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data Management Feature
