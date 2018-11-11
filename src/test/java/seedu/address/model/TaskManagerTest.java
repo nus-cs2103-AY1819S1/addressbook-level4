@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.game.GameManager;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
@@ -112,6 +113,11 @@ public class TaskManagerTest {
 
         @Override
         public AchievementRecord getAchievementRecord() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GameManager getGameManager() {
             throw new AssertionError("This method should not be called.");
         }
 

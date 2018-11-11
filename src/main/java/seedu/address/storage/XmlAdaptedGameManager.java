@@ -48,8 +48,8 @@ public class XmlAdaptedGameManager {
     public GameManager toModelType() throws IllegalValueException {
         // If game type is null, return new GameManager
         if (gameMode == null) {
-            throw new RuntimeException("gameMode is null");
-            //return new GameManager();
+            // If GameManager does not exist in storage, create new one.
+            return new GameManager();
         }
 
         int periodInt = Integer.parseInt(period);

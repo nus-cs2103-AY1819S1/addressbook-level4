@@ -20,6 +20,26 @@ public class GameModeTest {
         int appraiseXpChange(Task taskFrom, Task taskTo) {
             return 0;
         }
+
+        @Override
+        GameMode copy() {
+            return null;
+        }
+
+        @Override
+        public int getPeriod() {
+            return 0;
+        }
+
+        @Override
+        public int getLowXp() {
+            return 0;
+        }
+
+        @Override
+        public int getHighXp() {
+            return 0;
+        }
     }
 
     @Before
