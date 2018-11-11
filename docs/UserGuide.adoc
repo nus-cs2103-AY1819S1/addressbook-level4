@@ -378,7 +378,7 @@ Format: `low-stock`
 
 [NOTE]
 ====
-* An ingredient is low in stock count when the number of units available is less than its minimum threshold
+An ingredient is low in stock count when the number of units available is less than its minimum threshold
 ====
 
 [[delete-ingredient]]
@@ -423,7 +423,7 @@ on/ORIGINAL_INGREDIENT_NAME [n/NEW_INGREDIENT_NAME] [u/UNIT_TYPE] [p/PRICE_PER_U
 
 [WARNING]
 ====
-* At least one of the optional fields must be provided!
+At least one of the optional fields must be provided!
 ====
 
 Examples:
@@ -446,6 +446,7 @@ Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
 [WARNING]
 ====
 * `NUMBER_OF_UNITS` for an ingredient must follow the `INGREDIENT_NAME` for that particular ingredient
+* If the same ingredient is specified more than once, the last `NUMBER_OF_UNITS` will supercede.
 ====
 
 Examples:
