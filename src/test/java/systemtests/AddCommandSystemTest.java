@@ -2,21 +2,28 @@ package systemtests;
 
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 //import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
 import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
@@ -97,7 +104,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         command = AddCommand.COMMAND_WORD + REPEAT_UNTIL_DATETIME_DESC_CS2103 + START_DATETIME_DESC_CS2103
                 + VENUE_DESC_CS2103 + REPEAT_TYPE_DESC_CS2103 + END_DATETIME_DESC_CS2103
                 + DESCRIPTION_DESC_CS2103 + EVENT_NAME_DESC_CS2103;
-        assertCommandSuccess(command, toAdd);*/
+        assertCommandSuccess(command, toAdd);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 

@@ -274,6 +274,7 @@ public class CommandTestUtil {
         }
     }
 
+    /**
      * Get a sample full set of recurring events {@code model}'s based on typical scheduler: Study with Jane
      */
     public static List<Event> getSampleRecurringEventAll(Model model) {
