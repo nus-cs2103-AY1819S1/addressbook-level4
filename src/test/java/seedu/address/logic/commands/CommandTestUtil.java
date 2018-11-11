@@ -194,8 +194,9 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged <br>
      * - a file with the {@code volunteer}'s name exists.
      */
-    public static void assertExportCommandSuccess(ExportCertCommand command, Model model, CommandHistory actualCommandHistory,
-                                            String expectedMessage, Volunteer volunteer) {
+    public static void assertExportCommandSuccess(ExportCertCommand command, Model model,
+                                                  CommandHistory actualCommandHistory, String expectedMessage,
+                                                  Volunteer volunteer) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(model, actualCommandHistory);
