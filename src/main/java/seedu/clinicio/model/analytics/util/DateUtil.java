@@ -1,39 +1,38 @@
-package seedu.clinicio.model.analytics;
+package seedu.clinicio.model.analytics.util;
 
 import static java.lang.Math.toIntExact;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
+import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
 
 //@@author arsalanc-v2
 
 /**
- * Contains date and time utility methods for computing occurrences and retrieving date and time values.
+ * Contains utility methods for computing occurrences and retrieving date values.
+ * Lists of tuples are used instead of maps to preserve ordering.
  */
-public class DateTimeUtil {
+public class DateUtil {
 
     /**
      * @return a list of the number of dates that occur in various time periods.
      */
     public static List<Integer> todayWeekMonthYear(List<Date> dates) {
-        return Arrays.asList(today(dates), currentWeek(dates), currentMonth(dates), currentYear(dates));
+        return Arrays.asList(todayCount(dates), currentWeekCount(dates), currentMonthCount(dates),
+            currentYearCount(dates));
     }
 
     /**
-     * @return the number of dates that match today's real life date.
+     * @return the number of dates that match todayCount's real life date.
      */
-    public static int today(List<Date> dates) {
+    public static int todayCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).isEqual(todayDate))
@@ -45,7 +44,7 @@ public class DateTimeUtil {
     /**
      * @return the number of dates occurring in the current real life week.
      */
-    public static int currentWeek(List<Date> dates) {
+    public static int currentWeekCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> isCurrentWeek(date))
@@ -57,7 +56,7 @@ public class DateTimeUtil {
     /**
      * @return the number of dates occurring in the current real life month.
      */
-    public static int currentMonth(List<Date> dates) {
+    public static int currentMonthCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).getMonth().equals(todayDate.getMonth()))
@@ -69,7 +68,7 @@ public class DateTimeUtil {
     /**
      * @return the number of dates occurring in the current real life year.
      */
-    public static int currentYear(List<Date> dates) {
+    public static int currentYearCount(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
         long numberOfMatchingDates = dates.stream()
             .filter(date -> getLocalDate(date).getYear() == todayDate.getYear())
@@ -79,52 +78,99 @@ public class DateTimeUtil {
     }
 
     /**
+     * @return the number of dates that match each of the 7 days, in totality.
+     */
+    public static List<Tuple<String, Integer>> eachDayCount(List<Date> dates) {
+        List<Tuple<String, Integer>> daysCount = new ArrayList<>();
+        for (DayOfWeek dayOfWeek : getDaysOfWeek()) {
+            long count = dates.stream()
+                .map(date -> getDayFromDate(date))
+                .filter(day-> dayOfWeek.equals(day))
+                .count();
+
+            Tuple<String, Integer> tuple = new Tuple<>(dayOfWeek.name(), toIntExact(count));
+        }
+        return daysCount;
+    }
+
+    /**
      * @return the number of dates that match each date in the current week.
      * Returns {@code Date} for flexibility as the day of the week can be derived from it.
      */
-    public static Map<Date, Integer> eachDateOfCurrentWeekCount(List<Date> dates) {
-        Map<Date, Integer> currentWeekCount = new HashMap<>();
+    public static List<Tuple<Date, Integer>> eachDateOfCurrentWeekCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> currentWeekCount = new ArrayList<>();
         for (Date currentWeekDate : getCurrentWeekDates()) {
-            currentWeekCount.put(currentWeekDate, 0);
+            int dateCount = 0;
             for (Date date : dates) {
                 if (currentWeekDate.equals(date)) {
-                    currentWeekCount.replace(currentWeekDate, currentWeekCount.get(currentWeekDate) + 1);
+                    dateCount++;
                 }
             }
+            Tuple<Date, Integer> tuple = new Tuple<>(currentWeekDate, dateCount);
+            currentWeekCount.add(tuple);
         }
 
         return currentWeekCount;
     }
 
     /**
-     * @return the number of dates that match each day in the next week.
+     * @return the number of dates that match each date in the next week, in order.
      * Returns {@code Date} for flexibility as the day of the week can be derived from it.
+     * Useful for categorical plots.
      */
-    public static Map<Date, Integer> eachDateOfNextWeekCount(List<Date> dates) {
-        Map<Date, Integer> nextWeekCount = new HashMap<>();
+    public static List<Tuple<Date, Integer>> eachDateOfNextWeekCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> nextWeekCount = new ArrayList<>();
         for (Date nextWeekDate : getNextWeekDates()) {
-            nextWeekCount.put(nextWeekDate, 0);
+            int dateCount = 0;
             for (Date date : dates) {
                 if (nextWeekDate.equals(date)) {
-                    nextWeekCount.replace(nextWeekDate, nextWeekCount.get(nextWeekDate) + 1);
+                    dateCount++;
                 }
             }
+            Tuple<Date, Integer> tuple = new Tuple<>(nextWeekDate, dateCount);
+            nextWeekCount.add(tuple);
         }
 
         return nextWeekCount;
     }
 
     /**
-     * @return A Map of the number of dates that occur for each month of the current year.
+     * @return A Tuple of the number of dates that occur for each month of the current year, in order of
+     * earliest to latest date.
+     * Useful for categorical plots over the months of a year.
      */
-    public static Map<String, Integer> eachMonthOfCurrentYear(List<Date> dates) {
-        LocalDate todayDate = LocalDate.now();
+    public static List<Tuple<String, Integer>> eachMonthOfCurrentYearCount(List<Date> dates) {
+        List<Tuple<String, Integer>> monthCounts = new ArrayList<>();
+        for (Month month : getMonthsOfYear()) {
+            long count = dates.stream()
+                .map(date -> getLocalDate(date))
+                .filter(localDate -> localDate.getMonth().equals(month))
+                .count();
 
-        return dates.stream()
-            .map(date -> getLocalDate(date))
-            .filter(localDate -> localDate.getYear() == todayDate.getYear())
-            .map(localDate -> localDate.getMonth().toString())
-            .collect(groupingBy(Function.identity(), summingInt(date -> 1)));
+            monthCounts.add(new Tuple<String, Integer>(month.name(), toIntExact(count)));
+        }
+
+        return monthCounts;
+    }
+
+    /**
+     * @return the number of dates that match each date in the current year.
+     * Useful for continuous plots over the course of a year.
+     */
+    public static List<Tuple<Date, Integer>> eachDateOfCurrentYearCount(List<Date> dates) {
+        List<Tuple<Date, Integer>> yearDateCounts = new ArrayList<>();
+        for (Date date : getCurrentYearDates()) {
+            int dateCount = 0;
+            for (Date providedDate : dates) {
+                if (date.equals(providedDate)) {
+                    dateCount++;
+                }
+            }
+            Tuple<Date, Integer> tuple = new Tuple<>(date, dateCount);
+            yearDateCounts.add(tuple);
+        }
+
+        return yearDateCounts;
     }
 
     /**
@@ -177,9 +223,49 @@ public class DateTimeUtil {
         return thisWeekDates;
     }
 
+    /**
+     * @return A list of each date in the current year.
+     */
+    public static List<Date> getCurrentYearDates() {
+        LocalDate today = LocalDate.now();
+        // iterate from first date of the year to the last
+        LocalDate startDate = today.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate lastDateOfYear = today.with(TemporalAdjusters.lastDayOfYear());
+
+        List<Date> currentYearDates = new ArrayList<>();
+
+        // ! .isAfter used instead of .before for inclusivity of the endDate
+        while (!startDate.isAfter(lastDateOfYear)) {
+            currentYearDates.add(getDate(startDate));
+            startDate = startDate.plusDays(1);
+        }
+
+        return currentYearDates;
+    }
 
     /**
-     * @return A list of each date in the next week.
+     * @return a list of the first date of each month in the current year.
+     */
+    public static List<Date> getFirstDatesOfCurrentYear() {
+        LocalDate today = LocalDate.now();
+        // iterate from first date of the first month to the first date of the last month
+        LocalDate startDate = today.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate endDate = today.with(TemporalAdjusters.lastDayOfYear()).with(TemporalAdjusters.firstDayOfMonth());
+
+        List<Date> firstDates = new ArrayList<>();
+
+        // ! .isAfter used instead of .before for inclusivity of the endDate
+        while (!startDate.isAfter(endDate)) {
+            firstDates.add(getDate(startDate));
+            startDate = startDate.with(TemporalAdjusters.firstDayOfNextMonth());
+        }
+
+        return firstDates;
+    }
+
+
+    /**
+     * @return A list of each date in the next week in order of earliest to latest date.
      */
     public static List<Date> getNextWeekDates() {
         List<Date> nextWeekDates = new ArrayList<>();
@@ -193,10 +279,17 @@ public class DateTimeUtil {
     }
 
     /**
-     * @return a list of each {@code DayOfWeek}
+     * @return a list of each {@code DayOfWeek}.
      */
     public static List<DayOfWeek> getDaysOfWeek() {
         return Arrays.asList(DayOfWeek.values());
+    }
+
+    /**
+     * @return a list of each month.
+     */
+    public static List<Month> getMonthsOfYear() {
+        return Arrays.asList(Month.values());
     }
 
     /**
