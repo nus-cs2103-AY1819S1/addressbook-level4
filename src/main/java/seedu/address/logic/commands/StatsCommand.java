@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
 
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
@@ -73,9 +75,17 @@ public class StatsCommand extends Command {
      * These are the parameters which the user can set based on what they want to see
      * in the chart
      */
+    private final Logger logger = Logger.getLogger("Statistics Logger");
     private int periodAmount;
     private StatsPeriod period;
     private StatsMode mode;
+
+    /**
+     * Constructs a {@code StatsCommand} object with the set of default parameters.
+     */
+    public StatsCommand() {
+        this(7, "d", "t");
+    }
 
     /**
      * Constructs a {@code StatsCommand} object with parameters after checking whether parameters are valid.
@@ -106,13 +116,6 @@ public class StatsCommand extends Command {
     }
 
     /**
-     * Constructs a {@code StatsCommand} object with the set of default parameters.
-     */
-    public StatsCommand() {
-        this(7, "d", "t");
-    }
-
-    /**
      * Executes the relevant steps to display statistics, which can be broken down into two steps.
      * The first step is to call the {@code Model} API to update properties related to statistics like
      * the mode, period and periodAmount.
@@ -127,9 +130,13 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
         model.updateExpenseStatsPredicate(getStatsPredicate());
-        model.updateStatsMode(this.mode);
-        model.updateStatsPeriod(this.period);
-        model.updatePeriodAmount(this.periodAmount);
+        model.updateStatsMode(mode);
+        model.updateStatsPeriod(period);
+        model.updatePeriodAmount(periodAmount);
+        logger.log(Level.INFO,
+                "Showing statistics with periodAmount of " + periodAmount
+                + " in a period of " + period
+                + " in " + mode + " mode.");
         EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
         EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
@@ -141,10 +148,10 @@ public class StatsCommand extends Command {
      */
     private Predicate<Expense> getStatsPredicate() {
         LocalDateTime date;
-        if (this.period == StatsPeriod.DAY) {
-            date = LocalDateTime.now().minusDays((long) this.periodAmount);
+        if (period == StatsPeriod.DAY) {
+            date = LocalDateTime.now().minusDays((long) periodAmount);
         } else {
-            date = LocalDateTime.now().minusDays((long) this.periodAmount);
+            date = LocalDateTime.now().minusDays((long) periodAmount);
         }
         return e -> e.getDate().getFullDate().isAfter(date);
     }

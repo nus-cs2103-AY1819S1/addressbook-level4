@@ -9,9 +9,9 @@
 
 == Overview
 
-This portfolio aims to document the contributions made by *Jonathan Tan Jit Ming* to the *ExpenseTracker*.
+This portfolio aims to document the contributions made by *Jonathan Tan Jit Ming* to the *Expense Tracker*.
 
-*ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
+*Expense Tracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
 (GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.
 
@@ -24,6 +24,7 @@ Some of its main features are:
 
 == Summary of contributions
 
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jonathantjm
 * *Major enhancement*: added *the ability for statistics of expenditures to be shown.*
 ** What it does: displays statistics of a user's expenditure by time and category in the form of a bar chart or pie chart.
 ** Justification: This is a core feature as it allows the user to be informed about their spending patterns over a period

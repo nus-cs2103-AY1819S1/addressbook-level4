@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.exceptions.NegativeValueParseException;
+import seedu.address.commons.exceptions.TooRichException;
 import seedu.address.logic.commands.SetBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.TotalBudget;
@@ -26,6 +27,9 @@ public class SetBudgetCommandParser implements Parser<SetBudgetCommand> {
             TotalBudget totalBudget = new TotalBudget(userInput.trim());
             if (totalBudget.getBudgetCap() <= 0) {
                 throw new NegativeValueParseException();
+            }
+            if (totalBudget.getBudgetCap() > 99999999999999999999999.00) {
+                throw new TooRichException();
             }
             return new SetBudgetCommand(totalBudget);
         } catch (IllegalArgumentException iae) {

@@ -10,8 +10,6 @@ import seedu.address.logic.commands.StatsCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
-
 //@author jonathantjm
 
 /**
@@ -33,11 +31,11 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PERIOD_AMOUNT, PREFIX_PERIOD, PREFIX_MODE);
-
         if (!arePrefixesPresent(argMultimap, PREFIX_PERIOD_AMOUNT, PREFIX_PERIOD, PREFIX_MODE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
+
         int periodAmount;
         try {
             periodAmount = Integer.parseInt(argMultimap.getValue(PREFIX_PERIOD_AMOUNT).get());
@@ -49,9 +47,9 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                     )
             );
         }
+
         String mode = argMultimap.getValue(PREFIX_MODE).get();
         String period = argMultimap.getValue(PREFIX_PERIOD).get();
-
         try {
             return new StatsCommand(periodAmount, period, mode);
         } catch (IllegalArgumentException iae) {
