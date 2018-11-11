@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 
 public class LayerSelectCommand extends LayerCommand {
     public static final String TYPE = COMMAND_WORD + " select";
-    public static final String MESSAGE_USAGE = "Usage of layer position: "
+    public static final String MESSAGE_USAGE = "Usage of layer select: "
             + "\n- " + TYPE + " [INDEX]: " + "Selects a layer to work on."
             + "\n\tExample: " + TYPE + " 2, selects the layer with index 2 to work on.";
 
