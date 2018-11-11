@@ -413,7 +413,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 // tag::viewarangeoftasks[]
 
-=== View tasks due today/this week
+=== View Tasks Due Today/this Week
 
 In order to enable users to better monitor their tasks in the schedule planner, Two variations of
  `list` command were added.
