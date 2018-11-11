@@ -61,11 +61,11 @@ public class RecipeParser {
             return new RecipeBuilderCommandParser().parseRecipe(recipeModel, arguments);
 
         case BuildRecipeInstructionCommand.COMMAND_WORD:
-            isBuildingRecipe(history);
+            validateBuildingRecipe(history);
             return new RecipeBuilderCommandParser().parseInstruction(arguments);
 
         case AddCommand.COMMAND_WORD_END:
-            isBuildingRecipe(history);
+            validateBuildingRecipe(history);
             return new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel, history);
 
         case AddFavouriteCommand.COMMAND_WORD:
@@ -95,7 +95,7 @@ public class RecipeParser {
      * Check if recipe history contains incomplete recipe.
      * @throws ParseException if history does not contains incomplete recipe.
      */
-    private void isBuildingRecipe(History history) throws ParseException {
+    private void validateBuildingRecipe(History history) throws ParseException {
         if (!history.isBuildingRecipe()) {
             throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
         }
