@@ -18,7 +18,8 @@ By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-JxMusic is for those who *prefer to use a desktop app for listening to music*. More importantly, JxMusic is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, JxMusci can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+The JxMusic Player is a music platform that lets you add to, organize and play your digital audio collection on your computer. The player is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
 
 == Quick Start
 
