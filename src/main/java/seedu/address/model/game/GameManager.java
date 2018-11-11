@@ -24,7 +24,7 @@ public class GameManager {
     }
 
     public void replace(GameManager other) {
-        this.gameMode = other.getGameMode();
+        this.gameMode = other.getGameMode().copy();
     }
 
     /**
@@ -36,7 +36,7 @@ public class GameManager {
     }
 
     public GameMode getGameMode() {
-        return this.gameMode;
+        return this.gameMode.copy();
     }
 
     /**

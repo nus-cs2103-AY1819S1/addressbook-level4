@@ -11,19 +11,6 @@ import seedu.address.model.task.Task;
  * before the deadline, measured in days.
  */
 public class DecreasingMode extends GameMode {
-
-    public int getDaysBefore() {
-        return daysBefore;
-    }
-
-    public int getOverdueXp() {
-        return overdueXp;
-    }
-
-    public int getCompletedXp() {
-        return completedXp;
-    }
-
     private int daysBefore;
     private int overdueXp;
     private int completedXp;
@@ -112,5 +99,20 @@ public class DecreasingMode extends GameMode {
     @Override
     public DecreasingMode copy() {
         return new DecreasingMode(daysBefore, overdueXp, completedXp);
+    }
+
+    @Override
+    public int getPeriod() {
+        return daysBefore;
+    }
+
+    @Override
+    public int getLowXp() {
+        return overdueXp;
+    }
+
+    @Override
+    public int getHighXp() {
+        return completedXp;
     }
 }

@@ -9,15 +9,6 @@ import seedu.address.model.task.Task;
  * A GameMode awarding XP based on the user-defined priority value.
  */
 public class PriorityMode extends GameMode {
-
-    public int getOverdueMultiplier() {
-        return overdueMultiplier;
-    }
-
-    public int getCompletedMultiplier() {
-        return completedMultiplier;
-    }
-
     private int overdueMultiplier;
     private int completedMultiplier;
 
@@ -28,6 +19,10 @@ public class PriorityMode extends GameMode {
     public PriorityMode(int overdueMultiplier, int completedMultiplier) {
         this.overdueMultiplier = overdueMultiplier;
         this.completedMultiplier = completedMultiplier;
+    }
+
+    public PriorityMode(int period, int overdueMultiplier, int completedMultiplier) {
+        this(overdueMultiplier, completedMultiplier);
     }
 
     @Override
@@ -47,5 +42,21 @@ public class PriorityMode extends GameMode {
     @Override
     public PriorityMode copy() {
         return new PriorityMode(overdueMultiplier, completedMultiplier);
+    }
+
+    @Override
+    public int getPeriod() {
+        // Priority mode does not use period, so an arbitrary value is returned.
+        return -1;
+    }
+
+    @Override
+    public int getLowXp() {
+        return overdueMultiplier;
+    }
+
+    @Override
+    public int getHighXp() {
+        return completedMultiplier;
     }
 }

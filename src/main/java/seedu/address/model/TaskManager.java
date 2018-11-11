@@ -80,6 +80,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
         setTasks(newData.getTaskList());
         setAchievements(newData.getAchievementRecord());
+        setGameManager(newData.getGameManager());
     }
 
     //// task list related operation(s)

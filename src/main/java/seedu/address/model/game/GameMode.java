@@ -74,4 +74,10 @@ public abstract class GameMode {
     abstract int appraiseXpChange(Task taskFrom, Task taskTo);
 
     abstract GameMode copy();
+
+    abstract public int getPeriod();
+
+    abstract public int getLowXp();
+
+    abstract public int getHighXp();
 }

@@ -8,15 +8,6 @@ import seedu.address.model.task.Task;
  * A game mode where all completed tasks give the same XP.
  */
 public class FlatMode extends GameMode {
-
-    public int getOverdueXp() {
-        return overdueXp;
-    }
-
-    public int getCompletedXp() {
-        return completedXp;
-    }
-
     private int overdueXp;
     private int completedXp;
 
@@ -34,6 +25,10 @@ public class FlatMode extends GameMode {
     public FlatMode(int overdueXp, int completedXp) {
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
+    }
+
+    public FlatMode(int period, int overdueXp, int completedXp) {
+        this(overdueXp, completedXp);
     }
 
     @Override
@@ -60,5 +55,21 @@ public class FlatMode extends GameMode {
     @Override
     public FlatMode copy() {
         return new FlatMode(overdueXp, completedXp);
+    }
+
+    @Override
+    public int getPeriod() {
+        // Priority mode does not use period, so an arbitrary value is returned.
+        return -1;
+    }
+
+    @Override
+    public int getLowXp() {
+        return overdueXp;
+    }
+
+    @Override
+    public int getHighXp() {
+        return completedXp;
     }
 }

@@ -13,19 +13,6 @@ import seedu.address.model.task.Task;
 public class IncreasingMode extends GameMode {
 
     private int daysBefore;
-
-    public int getDaysBefore() {
-        return daysBefore;
-    }
-
-    public int getInitialXp() {
-        return initialXp;
-    }
-
-    public int getBoostedXp() {
-        return boostedXp;
-    }
-
     private int initialXp;
     private int boostedXp;
 
@@ -111,5 +98,20 @@ public class IncreasingMode extends GameMode {
 
     public IncreasingMode copy() {
         return new IncreasingMode(daysBefore, initialXp, boostedXp);
+    }
+
+    @Override
+    public int getPeriod() {
+        return daysBefore;
+    }
+
+    @Override
+    public int getLowXp() {
+        return initialXp;
+    }
+
+    @Override
+    public int getHighXp() {
+        return boostedXp;
     }
 }
