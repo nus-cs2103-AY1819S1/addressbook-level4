@@ -303,7 +303,7 @@ Step 3: The `ShowDescriptionCommandParser` parsers out the strings for the index
 
 Step 4: Then, `ParserUtil` checks that the input index is valid.
 
-Step 5: Following that, the corresponding description of `ToDoListEvent` will be showed and displayed on th a popup window.
+Step 5: Following that, the corresponding description of `ToDoListEvent` will be showed and displayed by `DescriptionDisplay`.
 
 The following sequece diagram shows how the add todo operation works:
 
