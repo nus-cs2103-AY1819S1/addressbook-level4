@@ -149,6 +149,7 @@ address, or home address in lexicographical order or numerical order.
 ****
 
 Examples: +
+
 * `sort name`: Sorts the list of persons by name in lexicographical order.
 * `sort phone`: Sorts the list of persons by phone number in numerical order.
 * `sort email`: Sorts the list of persons by email address in lexicographical order.
