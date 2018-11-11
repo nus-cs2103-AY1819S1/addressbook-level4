@@ -70,7 +70,7 @@ public class EditEventAddressCommand extends Command {
         requireNonNull(model);
         List<List<Event>> lastShownList = model.getFilteredEventListByDate();
         List<Event> targetDateList = getTargetDateList(lastShownList);
-        Event eventToEdit = getEventToEdit(targetDateList);
+        Event eventToEdit = getEventFromDateList(targetDateList);
 
         Event editedEvent = createEditedEvent(eventToEdit, newAddress);
 
@@ -90,17 +90,17 @@ public class EditEventAddressCommand extends Command {
     }
 
     /**
-     * Returns the {@code Event} object from {@code listToRemoveFrom} to be deleted, based on
+     * Returns the {@code Event} object from {@code eventList}, based on
      * {@code targetIndex}, if it exists
      * @throws CommandException if such an event based on {@code targetIndex} does not exist in
-     * {@code listToRemoveFrom}
+     * {@code eventList}
      */
-    public Event getEventToEdit(List<Event> listToRemoveFrom) throws CommandException {
-        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
+    public Event getEventFromDateList(List<Event> eventList) throws CommandException {
+        if (targetIndex.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        return listToRemoveFrom.get(targetIndex.getZeroBased());
+        return eventList.get(targetIndex.getZeroBased());
     }
 
     /**

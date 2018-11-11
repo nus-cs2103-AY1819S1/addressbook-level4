@@ -60,17 +60,17 @@ public class SeeEventContactsCommand extends Command {
     }
 
     /**
-     * Returns the {@code Event} object from {@code listToRemoveFrom} to be deleted, based on
+     * Returns the {@code Event} object from {@code eventList}, based on
      * {@code targetIndex}, if it exists
      * @throws CommandException if such an event based on {@code targetIndex} does not exist in
-     * {@code listToRemoveFrom}
+     * {@code eventList}
      */
-    private Event getEventFromDateList(List<Event> listToRemoveFrom) throws CommandException {
-        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
+    private Event getEventFromDateList(List<Event> eventList) throws CommandException {
+        if (targetIndex.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        return listToRemoveFrom.get(targetIndex.getZeroBased());
+        return eventList.get(targetIndex.getZeroBased());
     }
 
     /**
