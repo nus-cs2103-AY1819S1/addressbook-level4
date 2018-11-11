@@ -20,7 +20,7 @@ and operators interacts with it using a Command Line Interface (CLI), and it has
 with JavaFX. It is written in Java and has about 10 kLoc. +
 
 My role in the project is to manage the tests and storage in the application. I have also added and enhanced a couple of
-features, namely `Filter` and `Find`.
+features, namely `filter` and `find`.
 
 
 == Summary of Contributions
@@ -29,9 +29,9 @@ features, namely `Filter` and `Find`.
 
 ** What it does: This feature allows users to filter entries based on the conditions that they can input.
 
-** Justification: This feature significantly improves the application because now, users don't need to know the exact number
-or name of the ride that they want. They can simple specify a range and then the application will provide a list of entries
-that is within the range specified.
+** Justification: This feature significantly improves the application as it offers users the ability to look for the rides
+ that they need and do not need to go through each ride in the list that fits their requirements. They can simple specify
+ a range and then the application will provide a list of entries that is within the range specified.
 
 ** Highlights: This enhancement introduces a new predicate class, `RideContainsConditionPredicate`, to allow
 users to input a range of values to compare values with the existing data.The attributes of the rides that contains numeric
@@ -44,18 +44,31 @@ compare the values with the `Maintenance` and `WaitTime` of a ride class.
 
 * *Minor enhancement*: `Find` can parse "address" and "tags" in addition to "a/" and "t/".
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=keenlok[Functional code]]
 
 * *Other contributions*:
 
-** Enhancements to existing features: Find can now search tags and addresses in addition to the names of the rides
+** Enhancements to the Project:
 
-** Project management: Reviewed Pull Requests(PR) on github.
+*** Find can now search tags and addresses in addition to the names of the rides
+*** Refactored `Address Book` to `Thane Park` in the code.
 
-** Refactored `Address Book` to `Thane Park` in the code.
+** Project management: Reviewed Pull Requests(PR) on github with code:
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/34[#34]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/39[#39]],
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/42[#42]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/47[#47]],
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/55[#55]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/74[#74]],
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/77[#77]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/96[#96]],
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/102[#102]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/105[#105]],
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pull/108[#108]]
+
+** Documentation:
+
+*** Updated the user guide for the `filter` and `find` features
+*** Updated the developer guide for the implementation of the `filter` feature with sequence and activity diagrams of how
+the `filter` command works.
+*** Updated personal portfolio page
 
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -73,10 +86,3 @@ include::../UserGuide.adoc[tag=filter]
 |===
 
 include::../DeveloperGuide.adoc[tag=filter]
-
-
-//== PROJECT: PowerPointLabs
-//
-//---
-//
-//_{Optionally, you may include other projects in your portfolio.}_
