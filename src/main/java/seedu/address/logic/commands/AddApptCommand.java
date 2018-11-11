@@ -65,7 +65,7 @@ public class AddApptCommand extends Command {
         if (!isNotDuplicateDateTime(appt.getDate_time(), patientToUpdate)) {
             throw new CommandException(MESSAGE_DUPLICATE_DATE_TIME);
         }
-
+      
         Person updatedPatient = addApptForPerson(patientToUpdate, appt);
 
         model.updatePerson(patientToUpdate, updatedPatient);
