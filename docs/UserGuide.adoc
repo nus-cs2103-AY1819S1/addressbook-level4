@@ -73,7 +73,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === XML file
 
-* We store all of the eventorgansiser data under data/addressbook.xml
+* We store all of the EventOrganiser data under data/addressbook.xml
 * This file is to be stored securely on the computer. No user is allowed to open the xml file using a text editor.
 
 === User Uniqueness
