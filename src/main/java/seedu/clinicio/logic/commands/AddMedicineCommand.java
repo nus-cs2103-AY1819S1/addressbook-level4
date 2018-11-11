@@ -10,6 +10,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_PRICE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_QUANTITY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICINE_TYPE;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -41,6 +42,7 @@ public class AddMedicineCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the medicine inventory";
+    public static final String MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST = "You are not logged in as a receptionist";
 
     private final Medicine toAddMedicine;
 
@@ -56,7 +58,9 @@ public class AddMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasMedicine(toAddMedicine)) {
+        if (!UserSession.isLoginAsReceptionist()) {
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
+        } else if (model.hasMedicine(toAddMedicine)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 

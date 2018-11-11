@@ -7,10 +7,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.logic.commands.AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE;
+import static seedu.clinicio.logic.commands.AddMedicineCommand.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_ORACORT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_PARACETAMOL;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_ORACORT;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_PARACETAMOL;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +25,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
@@ -57,6 +61,9 @@ public class AddMedicineCommandTest {
 
     @Test
     public void execute_medicineAcceptedByModel_addSuccessful() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         ModelStubAcceptingMedicineAdded modelStub = new ModelStubAcceptingMedicineAdded();
         Medicine validMedicine = new MedicineBuilder().build();
 
@@ -69,12 +76,28 @@ public class AddMedicineCommandTest {
 
     @Test
     public void execute_duplicateMedicine_throwsCommandException() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Medicine validMedicine = new MedicineBuilder().build();
         AddMedicineCommand addMedicineCommand = new AddMedicineCommand(validMedicine);
         ModelStub modelStub = new ModelStubWithMedicine(validMedicine);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
+        thrown.expectMessage(MESSAGE_DUPLICATE_MEDICINE);
+        addMedicineCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_staffNotLogin_throwsCommandException() throws Exception {
+        UserSession.destroy();
+
+        Medicine validMedicine = new MedicineBuilder().build();
+        AddMedicineCommand addMedicineCommand = new AddMedicineCommand(validMedicine);
+        ModelStub modelStub = new ModelStubWithMedicine(validMedicine);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         addMedicineCommand.execute(modelStub, commandHistory);
     }
 
