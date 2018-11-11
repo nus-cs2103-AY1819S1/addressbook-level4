@@ -21,7 +21,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -125,7 +124,8 @@ public class XmlAdaptedEvent {
     }
 
     /**
-     * Provides reference to the person list of the event organiser.
+     * Provides reference to the person list of the event organiser to XmlAdaptedEvent,
+     * XmlAdaptedPollEntry and XmlPersonIndex.
      */
     public static void setPersonList(ObservableList<Person> organiserPersonList) {
         personList = organiserPersonList;
@@ -146,7 +146,8 @@ public class XmlAdaptedEvent {
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EventName.class.getSimpleName()));
         }
         if (!EventName.isValidEventName(name)) {
             throw new IllegalValueException(EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
@@ -184,7 +185,7 @@ public class XmlAdaptedEvent {
 
         final ArrayList<AbstractPoll> modelPolls = new ArrayList<>();
         for (XmlAdaptedPoll poll : polls) {
-            modelPolls.add(poll.toModelType(personList));
+            modelPolls.add(poll.toModelType());
         }
         event.setPolls(modelPolls);
 
