@@ -165,7 +165,7 @@ public class Event {
     /**
      * Adds a new person to the event.
      */
-    public void addPerson(Person person) throws DuplicatePersonException {
+    public void addParticipant(Person person) throws DuplicatePersonException {
         participantList.add(person);
     }
 
@@ -325,27 +325,19 @@ public class Event {
     }
 
     /**
-     * Returns true if both events of the same name share their location, organiser and date.
+     * Returns true if both events of the same name share their location, organiser and tags.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
             return true;
         }
-        //need to make sure this works
-
-        //datesAreEqual if both events have dates or both events do not have dates
-        boolean datesAreEqual = (otherEvent.getDate().isPresent()
-                && getDate().isPresent()
-                && otherEvent.getDate().get().equals(getDate().get()))
-                || (!otherEvent.getDate().isPresent()
-                && !getDate().isPresent());
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getOrganiser().equals(getOrganiser())
-                && datesAreEqual;
+                && otherEvent.getTags().equals(getTags());
     }
 
     /**

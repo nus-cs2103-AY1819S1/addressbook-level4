@@ -146,7 +146,7 @@ public class XmlAdaptedEvent {
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName()));
         }
         if (!EventName.isValidEventName(name)) {
             throw new IllegalValueException(EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
@@ -167,6 +167,8 @@ public class XmlAdaptedEvent {
         if (organiserIndex != -1) {
             final Person modelOrganiser = personList.get(Integer.valueOf(organiser));
             event.setOrganiser(modelOrganiser);
+        } else {
+            logger.info("Organiser index cannot be found in the person list");
         }
 
         if (!date.isEmpty()) {
@@ -187,16 +189,16 @@ public class XmlAdaptedEvent {
         event.setPolls(modelPolls);
 
         final ArrayList<Person> modelPersonList = new ArrayList<>();
-
         for (XmlPersonIndex personIndex : participants) {
             try {
                 Person modelPerson = personIndex.toModelType();
                 modelPersonList.add(modelPerson);
             } catch (PersonNotFoundException e) {
-                logger.info("Person not added to participants list.");
+                logger.info("Person cannot be found in person list and was not added to participants list.");
             }
         }
         event.setParticipantList(modelPersonList);
+
         return event;
     }
 
@@ -213,6 +215,12 @@ public class XmlAdaptedEvent {
         XmlAdaptedEvent otherEvent = (XmlAdaptedEvent) other;
         return Objects.equals(name, otherEvent.name)
                 && Objects.equals(address, otherEvent.address)
+                && Objects.equals(organiser, otherEvent.organiser)
+                && Objects.equals(date, otherEvent.date)
+                && Objects.equals(startTime, otherEvent.startTime)
+                && Objects.equals(endTime, otherEvent.endTime)
+                && participants.equals(otherEvent.participants)
+                && polls.equals(otherEvent.polls)
                 && tagged.equals(otherEvent.tagged);
     }
 }
