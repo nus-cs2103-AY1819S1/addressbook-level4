@@ -141,7 +141,7 @@ public class Person {
         Email newEmail = this.email.makeDeepDuplicate();
         Address newAddress = this.address.makeDeepDuplicate();
         Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
-        UniqueOccasionList  newUniqueOccasionList;
+        UniqueOccasionList newUniqueOccasionList;
         if (this.occasionList != null) {
             newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
         } else {

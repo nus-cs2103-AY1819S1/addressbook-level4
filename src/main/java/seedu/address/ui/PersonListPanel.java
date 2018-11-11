@@ -20,9 +20,6 @@ import seedu.address.model.person.Person;
  */
 public class PersonListPanel extends UiPart<Region> {
 
-    public static int CURRENTLY_SELECTED_INDEX;
-    public static Person CURRENTLY_SELECTED_PERSON;
-
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
@@ -34,7 +31,6 @@ public class PersonListPanel extends UiPart<Region> {
         setConnections(personList);
 
         registerAsAnEventHandler(this);
-        CURRENTLY_SELECTED_PERSON = personList.get(0);
     }
 
     /**
@@ -75,8 +71,6 @@ public class PersonListPanel extends UiPart<Region> {
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
-        CURRENTLY_SELECTED_INDEX = index;
-        CURRENTLY_SELECTED_PERSON = personListView.getItems().get(index);
         Platform.runLater(() -> {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);

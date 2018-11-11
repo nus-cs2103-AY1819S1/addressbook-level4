@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULEINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
