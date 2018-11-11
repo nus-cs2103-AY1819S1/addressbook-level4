@@ -528,7 +528,7 @@ Examples:
 Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
 
 ==== Find event by a time interval: `findEventByTime`
-Finds events based on a date, start and end time. +
+Finds events held on a specific date, and is held between a start and end time. +
 Format: `findEvent d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 
 ****
@@ -709,7 +709,7 @@ e.g. `vote i/1 o/Play games`
 e.g. `findEvent d/12-12-2018 on/Alex Yeoh` +
 e.g. `findEvent a/SoC Canteen`
 
-* *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
+* *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE` +
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
 
 * *List Events* : `listEvent` +
