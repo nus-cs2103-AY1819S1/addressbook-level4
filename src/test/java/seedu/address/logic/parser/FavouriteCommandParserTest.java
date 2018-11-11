@@ -24,7 +24,8 @@ public class FavouriteCommandParserTest {
     public void parse_allFieldsPresent_success() {
         EventDate expectedEventDate = new EventDate(VALID_EVENT_DATE_DOCTORAPPT);
 
-        assertParseSuccess(parser, " d/2018-09-01 i/1", new FavouriteCommand(expectedEventDate, INDEX_FIRST_EVENT));
+        assertParseSuccess(parser, EVENT_DATE_DESC_DOCTORAPPT + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT
+                , new FavouriteCommand(expectedEventDate, INDEX_FIRST_EVENT));
     }
 
     @Test
@@ -46,8 +47,8 @@ public class FavouriteCommandParserTest {
         assertParseFailure(parser, EVENT_DATE_DESC_DOCTORAPPT + INVALID_EVENT_CONTACT_INDEX, MESSAGE_INVALID_INDEX);
 
         // invalid event date
-        assertParseFailure(parser, INVALID_EVENT_DATE_DESC +
-                EVENT_CONTACT_INDEX_DESC_DOCTORAPPT, EventDate.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EVENT_DATE_DESC
+                + EVENT_CONTACT_INDEX_DESC_DOCTORAPPT, EventDate.MESSAGE_DATE_CONSTRAINTS);
 
     }
 
