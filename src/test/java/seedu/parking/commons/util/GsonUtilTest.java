@@ -17,7 +17,6 @@ public class GsonUtilTest {
     @Test
     public void fetchCarparkTest() {
         try {
-            GsonUtil.loadCarparkPostalCode();
             assertNotNull(fetchAllCarparkInfo());
         } catch (Exception e) {
             e.printStackTrace();

@@ -165,7 +165,7 @@ public class GsonUtil {
      * Gets the list of car park lots and sets it in the set.
      * @throws IOException if unable to connect to URL.
      */
-    public static void getCarparkAvailability() throws IOException {
+    private static void getCarparkAvailability() throws IOException {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
@@ -212,7 +212,7 @@ public class GsonUtil {
      * Get list of car park information without available lots information.
      * @throws IOException if unable to connect to URL.
      */
-    public static void getCarparkData() throws IOException {
+    private static void getCarparkData() throws IOException {
         String urlHalf = "https://data.gov.sg/api/action/datastore_search?"
                 + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2000&offset=";
 
@@ -262,7 +262,7 @@ public class GsonUtil {
      * If postal code is default, we will not display it or check against it.
      * @throws IOException if unable to open file.
      */
-    public static void loadCarparkPostalCode() throws IOException {
+    private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
         InputStream in = MainApp.class.getResourceAsStream("/docs/script/postalcodeData.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
