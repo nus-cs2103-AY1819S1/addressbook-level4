@@ -9,124 +9,73 @@
 
 == Overview
 
-This Personal Project Portfolio details the contributions which I have made to the Student Schedule Planner(SSP)
-project. It also outlines skills which I have picked up, as well as any relevant experiences from other projects
-I have worked on.
-
-Student Schedule Planner (SSP) is a desktop application, created by a team comprised of teamates Chen Shin, Lin Xu,
-Park Sang Jun, Xiao Yilin, as well as myself, Thaddeus. It is a planner customised for university students, and it aims
- to help university students manage their time effectively.
-
-SSP incorporates various features that streamline the creation, organisation, and finding of tasks. In addition, it
-allows the user to keep track of the current academic week, and has a progress tracking feature, which displays the
-user's progress.
-
-Instead of utilising a conventional Graphical User Interface(GUI). SSP is optimised for users who prefer typing out
-their commands. This application has the potential to be much faster than regular planner applications, especially for
-users who are proficient in typing.
-
-This project started out with
+Student Schedule Planner (SSP) is a desktop application aimed at helping students manage their schedules
+effectively. SSP is optimised for users who prefer to type in commands, instead of using a Graphical
+User Interface(GUI). Given efficient typing, this application will be much faster than regular to-do
+applications.
 
 == Summary of contributions
 
-In total, I contributed approximately 1500+ lines of code, in both features and documentation. The features I
-implemented were `listmonth`, `filter`, and `filterstrict`.
+* *Major enhancement*: added *the ability to filter tasks according to their tags*
+** What it does: Allows the user to filter their tasks with respect to their tags. The filter
+command is inclusive, which means that given 2 or more tags to filter, tasks with any, some, or all of the specified
+tags will be listed.
 
-I also aided in refactoring major parts of the codebase, morphing the original "Address Book (Level 4)" code to suit
-our new SSP application. This included changing "addressbook" and "person" references in the code to
-"scheduleplanner" and "task" references respectively, as well as various other forms of refactoring.
+** Justification: This feature improves the product significantly because a user can filter out tasks with a certain
+tag, expediting the search process, and the app should provide a convenient way to list all these tasks.
 
-The features I implemented are as follows:
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+ analysis of design alternatives. The implementation was challenging as it required the filter to be able to search
+ for more than 1 tag in the tasks, which may contain more than 1 tag.
+** Credits: Code from FindCommand was referenced in the implementation of FilterCommand
 
-=== Major enhancements:
+* *Major enhancement*: added *the ability to list the remaining number of tasks in the current month*
+** What it does: Allows the user to list and view all the remaining tasks in the current month, in chronological
+order. This feature takes into account leap years.
 
-1. Ability to *list remaining number of tasks in the current month*
+** Justification: This feature improves the product significantly because a user can now narrow the scope of the list
+ to the current month, making it easier to manage his/her tasks. The app should provide a convenient way to list
+ tasks within common time periods.
 
-** _What it does:_ This feature allows the user to list all remaining tasks in the current month, in chronological
-   order. This feature takes into account leap years.
+** Highlights: This enhancement does not affect existing commands and commands to be added in future. It required an
+in-depth analysis of design alternatives. The implementation was challenging as it had to factor in the variations of
+ total days in February during leap years.
+** Credits: Code from ListWeekCommand was referenced in the implementation of ListMonthCommand
 
-** _Justification:_ This feature improves the product significantly because the user can narrow the scope of the list
-    to the current month, making it easier to manage tasks within this period. This provides a convenient way to list
-    tasks that occur in commonly used time frames(day, week, month).
+* *Minor enhancement*:
 
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. It required an
-   in-depth analysis of design alternatives. The implementation was challenging as it had to factor in the variations
-    of days between months, and in February during leap years.
-
-** _Credits:_ Code from ListWeekCommand was referenced in the implementation of ListMonthCommand
-
-2. Ability to *filter tasks inclusively according to tags*
-
-** _What it does:_ This feature allows the user to filter tasks inclusively by their tags. This means that given 2 or
-more tags as user-input, tasks with ANY of the specified tags will be listed. This includes any number of tags.
-
-** _Justification:_ This feature improves the product significantly because the user can filter out tasks with certain
-tags, expediting the search process, and reducing the time needed to find a specific task, or tasks belonging to the
-same category.
-
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. The
-implementation was challenging, as it required the filter feature to be able to search for more multiple tags. This
-was made complicated by the fact that each task may contain multiple tags
-
-** _Credits:_ Code from FindCommand was referenced in the implementation of FilterCommand
-
-3. Ability to *filter tasks exclusively according to tags*
-
-** _What it does:_ This feature allows the user to filter tasks exclusively by their tags. This means that given 2 or
-more tags to filter, only tasks with ALL of the specified tags will be listed.
-
-** _Justification:_ This feature improves the product significantly because the user can now narrow the scope of the
-filter function, further expediting the search process. This feature caters to users who prefer a more strict filter
-mechanic.
-
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. The
-implementation made small tweaks to the filter predicate such that, only tasks containing tags that match all
-user-input tags will be displayed. It resulted in a logic error when no tags were provided, allowing all tasks to be
-listed instead of returning an error. This logic error was resolved.
-
-** _Credits:_ Code from FilterCommand was referenced in the implementation of FilterCommand
-
-
-=== Minor enhancements:
-
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=thaddeuslzy[RepoSense]
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3.1` (1 release) on GitHub
-
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-*** Did cosmetic tweaks to existing contents of the Developer Guide:
-
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
+_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
+
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=listmonth]
+include::../UserGuide.adoc[tag=undoredo]
 
-include::../UserGuide.adoc[tag=filtertags]
-
-include::../UserGuide.adoc[tag=]
-
-include::../UserGuide.adoc[tag=]
+include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -134,16 +83,13 @@ include::../UserGuide.adoc[tag=]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=listmonth]
+include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=filtertags]
-
-include::../DeveloperGuide.adoc[tag=]
-
-include::../DeveloperGuide.adoc[tag=]
-
+include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs
 
 ---
+
+_{Optionally, you may include other projects in your portfolio.}_
