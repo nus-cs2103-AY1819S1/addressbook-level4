@@ -304,6 +304,9 @@ Example:
 input: [blue]`find tutorial` +
 output: All tasks with "tutorial" in their names are listed.
 ====
+[NOTE]
+The keyword must be whole word. +
+E.g for finding "tutorial", "tutorial" must be used, "tut" or other variations would not be allowed.
 
 The search is case insensitive. For example, [blue]`apples` and  [blue]`Apples` both return the same tasks.
 
