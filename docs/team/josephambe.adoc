@@ -54,7 +54,7 @@ and provide useful information that prevents the user from constantly having
 to refer back to the User Guide.
 ** Documentation:
 *** Updated the Developer Guide #2.2, #2.3,
-*** Updated the User Guide on #3.11
+*** Updated the User Guide on #3.11, 4.FAQ.
 ** Community:
 *** PR’s reviewed with non-trivial comments, and suggestions.
 *** Contributed to discussions on the Slack Channel
@@ -69,7 +69,11 @@ to refer back to the User Guide.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+
+*Initial Quick Start Image*:
+
+image::Ui.png[width="790"]
+
 === Understanding the User Interface
 Understanding the User Interface can be tricky - what do all the different colours mean? How do I
 know what has been saved or not? Where can I see new modules I've added?
@@ -91,12 +95,16 @@ As I am focused on the UI design of the product, there is a limited amount of in
 
 Part of my User Guide, which reminds users the format in which to type out commands, is integrated in the UI. This means that the user doesn’t have to keep switching back and forth between the User Guide and the product; they can receive the same information in real time when they need it.
 
+== FAQ
+include::../UserGuide.adoc[tag=ambersFAQ]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=architecture]
 
 [[Design-Ui]]
 === UI component
@@ -132,4 +140,12 @@ and will know to use the `enter` button on their keyboard when ready to submit a
 .  The third row is where replies from the application to the user will be displayed. When the commands become too big
 for the box, a scroll down option becomes available for the user to continue reading the message.
 .  The fourth row displays the summary of the users current CAP goal and their target CAP.
+
+The following was not pushed to Git by me, but I contributed to the final outcome
+through team discussions during meetings and by sending my own User Stories, Value
+ Proposition, and Target User Profile via Slack and email to members of the team.
+
+include::../DeveloperGuide.adoc[tag=value]
+include::../DeveloperGuide.adoc[tag=targetUser]
+include::../DeveloperGuide.adoc[tag=userStories]
 
