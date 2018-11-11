@@ -194,6 +194,7 @@ and will know to use the `enter` button on their keyboard when ready to submit a
 for the box, a scroll down option becomes available for the user to continue reading the message.
 .  The fourth row displays the summary of the users current CAP goal and their target CAP.
 
+//tag::designlogic[]
 [[Design-Logic]]
 === Logic component
 
@@ -214,6 +215,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `delete -t CS1231` Command
 image::DeleteModuleForLogic.png[width="800"]
+//end::designlogic[]
 
 [[Design-Model]]
 //tag::designmodel[]
