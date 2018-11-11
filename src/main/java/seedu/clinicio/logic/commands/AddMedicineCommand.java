@@ -66,7 +66,6 @@ public class AddMedicineCommand extends Command {
         }
 
         model.addMedicine(toAddMedicine);
-        model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
         model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddMedicine));

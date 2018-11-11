@@ -46,7 +46,6 @@ public class DeleteMedicineCommand extends Command {
 
         Medicine medicineToDelete = medicineList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
-        model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
         model.switchTab(3);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
