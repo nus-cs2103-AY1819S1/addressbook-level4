@@ -32,16 +32,16 @@ class PriceTest {
         assertFalse(Price.isValidPrice("$6")); // contains non-number
         assertFalse(Price.isValidPrice("SGD6")); // contains alphabets
         assertFalse(Price.isValidPrice("Six Dollars")); // contains alphabets
-        assertFalse(Price.isValidPrice("6.23.50")); // not a float
+        assertFalse(Price.isValidPrice("6.23.50")); // not a double
         assertFalse(Price.isValidPrice("-6.2")); // negative
         assertFalse(Price.isValidPrice("-$55")); // negative and contains non-number
         assertFalse(Price.isValidPrice("0")); // non-positive
 
         // valid price
-        assertTrue(Price.isValidPrice(".5")); // valid float
-        assertTrue(Price.isValidPrice("0.50")); // valid float
-        assertTrue(Price.isValidPrice("10.99")); // valid float
-        assertTrue(Price.isValidPrice("60")); // valid float
-        assertTrue(Price.isValidPrice("60.000000")); // valid float
+        assertTrue(Price.isValidPrice(".5")); // valid double
+        assertTrue(Price.isValidPrice("0.50")); // valid double
+        assertTrue(Price.isValidPrice("10.99")); // valid double
+        assertTrue(Price.isValidPrice("60")); // valid double
+        assertTrue(Price.isValidPrice("60.000000")); // valid double
     }
 }
