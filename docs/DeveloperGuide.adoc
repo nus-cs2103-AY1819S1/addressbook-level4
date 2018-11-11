@@ -477,7 +477,7 @@ Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
 ** Cons: As the number of commands increases over time, there will not be 
 enough key combination to accommodate all the commands. 
 
-sdf
+
 // tag::keyboardshortcuts[]
 
 
