@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.simplejavamail.email.Email;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -146,5 +148,9 @@ public class TestApp extends MainApp {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void saveComposedEmailWithoutDisplay(Email email) {
+        model.saveComposedEmailWithoutDisplay(email);
     }
 }

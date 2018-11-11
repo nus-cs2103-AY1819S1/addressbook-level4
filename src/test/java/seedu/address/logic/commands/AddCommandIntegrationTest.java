@@ -4,8 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +33,7 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-            new HashSet<>());
+            model.getExistingEmails());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

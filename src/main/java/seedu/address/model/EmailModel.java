@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -24,7 +27,8 @@ public class EmailModel {
     }
 
     public EmailModel(Set<String> emailNamesSet) {
-        existingEmails = new HashSet<>();
+        this();
+        requireNonNull(emailNamesSet);
         existingEmails.addAll(emailNamesSet);
     }
 
@@ -33,6 +37,7 @@ public class EmailModel {
      * @param email The email to be saved.
      */
     public void saveEmail(Email email) {
+        requireNonNull(email);
         this.email = email;
         savePreview();
     }
@@ -58,12 +63,14 @@ public class EmailModel {
      * @param email the newly composed email.
      */
     public void saveComposedEmail(Email email) {
+        requireNonNull(email);
+        assert !hasEmail(email.getSubject());
         saveEmail(email);
         addToExistingEmails(email.getSubject());
     }
 
     public Set<String> getExistingEmails() {
-        return existingEmails;
+        return Collections.unmodifiableSet(existingEmails);
     }
 
     public Email getEmail() {
@@ -74,7 +81,11 @@ public class EmailModel {
         return preview;
     }
 
+    /**
+     * Returns true if an email with the same subject as {@code fileName} exists in the EmailModel.
+     */
     public boolean hasEmail(String fileName) {
+        requireNonNull(fileName);
         return existingEmails.contains(fileName + emlExtension);
     }
 
@@ -84,6 +95,13 @@ public class EmailModel {
 
     public void removeFromExistingEmails(String fileName) {
         existingEmails.remove(fileName + emlExtension);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof EmailModel
+            && existingEmails.equals(((EmailModel) other).existingEmails));
     }
 
 }
