@@ -11,7 +11,6 @@ import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
-import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 
