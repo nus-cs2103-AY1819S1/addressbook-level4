@@ -1147,13 +1147,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Update of xp and number of tasks completed on task completion
 
 .. Test case: `complete 1` +
-Expected: Xp value on the achievement panel increases by amount reported by complete
-command message(determined by game mode).Tasks completed increases by 1.
+Expected: Xp value on the achievement panel increases, tasks completed increases by 1. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.
 
 .. Test case: `complete l/tutorial` +
-Expected: Xp value on the achievement panel increases by amount reported by complete
-command message(determined by game mode). Tasks completed increases by the number of
-tasks completed by the batch complete command (as specified in the complete command message).
+Expected: Xp value on the achievement panel increases. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.
+Tasks completed increases by the number of tasks completed by the batch complete command (as specified in the
+complete command message).
 
 . Update of level on task completion
 .. Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:
@@ -1162,9 +1163,9 @@ tasks completed by the batch complete command (as specified in the complete comm
 `<xpValueByDay>0</xpValueByDay>` +
 `<xpValueByWeek>0</xpValueByWeek>` +
 .. Test case: `complete 1` +
-Expected: Xp value on the achievement panel increases by amount reported by complete
-command message(determined by game mode). Tasks completed increases by 1. And level increases to level reported by
-complete command message(determined by game mode).
+Expected: Xp value on the achievement panel increases, and level increases with xp(as the minimum xp of level 2 is 500).
+The actual amount of xp value awarded is determined by the current game mode and reported by complete command message.
+The level will always match the updated xp.
 
 . Update of achievement information on undo/redo of complete command.
 .. Test case: `complete 1` `undo` `redo` +
