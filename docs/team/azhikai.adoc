@@ -27,48 +27,35 @@ It is cross-platform supported and can be used on both Windows-based and Unix-ba
 ** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system on his
  behalf.
 ** *Justification*: This feature introduces the security layer by ensuring that only authorised employees are able to
- execute certain sets of commands, depending on their level of privilege.
+execute certain commands, depending on their level of privilege.
 ** *Highlights*: This enhancement affects existing commands such that certain commands require the user to be
 authenticated, otherwise it will not be executed. It required an in-depth analysis and understanding of the `Logic`,
 `Model` and `Storage` components. The implementation too was challenging as it required modifications to existing
 commands.
-** *Credits*: Account password is secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
+** *Credits*: Passwords are secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
 
-* *Minor enhancement*: Added side navigation bar to allow access to the different components of the application with
-a click of a mouse or trackpad.
-** Navigation can also be done via CLI if user does not possess a mouse or trackpad.
+* *Minor enhancement #1*: Added side navigation bar to allow access to the different components of the application with
+a click of a mouse or trackpad, in addition to doing so via the CLI.
+
+* *Minor enhancement #2*: https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a
+different product.
 
 * *Other contributions*:
 ** Project Management:
 *** Team Lead; responsible for overall project coordination.
-*** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls and RepoSense.
-*** Maintained issue tracker, milestone, pull request approval and merger.
-*** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3`, `v1.3.1`, `v1.4` (6 releases) on GitHub.
+*** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls, RepoSense and Discord automatic notifications
+using Webhook.
+*** Maintained issue tracker, milestone, project board and merging of pull requests (PRs).
+*** Managed https://github.com/CS2103-AY1819S1-F10-4/main/releases[releases] `v1.1`, `v1.2`, `v1.2.1`, `v1.3`,
+`v1.3.1`, `v1.4` (6 releases) on GitHub.
 *** Configured deployment of static pages to GitHub Pages and Netlify.
-*** Morphed the project through refactoring and removing obsolete code:
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[#256].
-*** Practiced good pull request (PR) hygiene by ensuring positive coverage.
 ** Documentation:
-*** Morphed the existing contents (UML and Sequence diagrams) of the User Guide and Developer Guide with respect to
-the morphed source code.
+*** Morphed the existing contents of the User Guide and Developer Guide with respect to
+the morphed code base.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 ** Community:
-*** https://github.com/CS2103-AY1819S1-F10-4/main/pulls/AZhiKai[Merged] more than 40 PRs.
-*** Reviewed more than 70 PRs with non-trivial review comments:
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/42[#42],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/44[#44],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/50[#50],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/51[#51],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/52[#52],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/53[#53],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/83[#83],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/84[#84],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/91[#91],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/92[#92],
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/136[#136]
+*** http://bit.ly/azhikai-contribution[Contributed] more than 40 PRs.
+*** http://bit.ly/azhikai-PR-review[Reviewed] more than 70 PRs with non-trivial review comments.
 *** Contributed to forum discussions using GitHub's Issue Tracker:
 https://github.com/nus-cs2103-AY1819S1/forum/issues/7[#7],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/20[#20],
@@ -86,6 +73,10 @@ https://github.com/CS2103-AY1819S1-W14-2/main/issues/130[#130]
 *** Integrated a third party library (bcrypt) to the project:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/38[#38],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/70[#70]
+** Others:
+*** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
+*** Practiced good PR hygiene by ensuring no loss of code coverage.
+*** Conducted weekly face-to-face meeting.
 
 == Contributions to the User Guide
 
