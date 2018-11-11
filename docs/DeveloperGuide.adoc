@@ -586,7 +586,7 @@ he/she may find it not so intuitive if next time he/she runs the app, the task c
 ** Pros: This implementation may be more user-friendly comparing with Alternative 1.
 ** Cons: The feature would be hard to test for testers.
 
-
+// tag::listmonth[]
 
 === List Tasks by Month
 
@@ -648,7 +648,7 @@ image::ListMonthSequenceDiagram.png[]
 E.g list 130818 200918 to view all tasks between the two dates.
 ** Pros: It allows viewing for different ranges.
 ** Cons: It would be inconvenient to enter two date(s) each time the command is used.
-// end::viewarangeoftasks2[]
+// end::listmonth[]
 
 // tag::generateacademiccalendar[]
 === Generate Academic Calendar Weeks
@@ -804,6 +804,7 @@ description for each weeks.
 // end::generateacademiccalendar[]
 
 // tag::filtertags[]
+
 === Filter by Tags (`filter` and `filterstrict`)
 
 The `filter` & `filterstrict` commands allow the user to filter tasks in the schedule planner according to their tags.
