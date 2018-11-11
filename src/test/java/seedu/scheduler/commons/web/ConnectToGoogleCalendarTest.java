@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.scheduler.logic.commands.AddCommand.MESSAGE_SUCCESS;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.scheduler.logic.commands.CommandTestUtil.disable;
+import static seedu.scheduler.logic.commands.CommandTestUtil.enable;
 import static seedu.scheduler.logic.commands.CommandTestUtil.helperCommand;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMAS;
 import static seedu.scheduler.testutil.TypicalEvents.CHRISTMASEVE;
@@ -24,13 +26,10 @@ import static seedu.scheduler.testutil.TypicalEvents.WEDNESDAY_LECTURE_UPDATED_O
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Collections;
 import java.util.List;
 
@@ -80,32 +79,6 @@ public class ConnectToGoogleCalendarTest {
     private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
-
-    /**
-     * Enables the test environment
-     */
-    private void enable() {
-        File file = new File("./tokens/mode.txt");
-        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-            String contents = "Enabled";
-            writer.write(contents);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Disables the test environment
-     */
-    private void disable() {
-        File file = new File("./tokens/mode.txt");
-        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-            String contents = "Disabled";
-            writer.write(contents);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void isGoogleCalendarEnabled() throws CommandException {
@@ -360,7 +333,6 @@ public class ConnectToGoogleCalendarTest {
         /* Case: add a single event -> added */
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
                 String.format(MESSAGE_SUCCESS, validEvent.getEventName()));
-        //helperCommand(new AddCommand(validEvent), model, commandHistory);
         disable();
         //Prevent triggering Google's limit
         sleep(5000);

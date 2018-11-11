@@ -93,6 +93,17 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.NONE)
             .withReminderDurationList(getReminderDurationList(1))
             .build();
+    public static final Event AFTER_CHRISTMAS = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("After Christmas")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 26, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 26, 23, 0))
+            .withDescription("Celebration")
+            .withVenue("Home")
+            .withRepeatType(RepeatType.NONE)
+            .withReminderDurationList(getReminderDurationList(1))
+            .build();
     public static final Event LOCAL_SINGLE_EVENT = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
@@ -232,6 +243,16 @@ public class TypicalEvents {
             .build();
 
     // weekly event
+    public static final Event SATURDAY_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS9999")
+            .withStartDateTime(LocalDateTime.of(2018, 11, 30, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 30, 18, 0))
+            .withDescription("CS9999 Description").withVenue("LT99")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
     public static final Event FRIDAY_LECTURE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())

@@ -14,6 +14,11 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_VENUE;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -234,6 +239,32 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
         } catch (CommandException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Enables the Google Calendar Feature for the test environment
+     */
+    public static void enable() {
+        File file = new File("./tokens/mode.txt");
+        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+            String contents = "Enabled";
+            writer.write(contents);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Disables the Google Calendar Feature for the test environment
+     */
+    public static void disable() {
+        File file = new File("./tokens/mode.txt");
+        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+            String contents = "Disabled";
+            writer.write(contents);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

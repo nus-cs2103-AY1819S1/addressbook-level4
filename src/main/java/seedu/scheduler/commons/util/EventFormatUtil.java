@@ -16,6 +16,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import seedu.scheduler.commons.core.LogsCenter;
+import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.parser.ParserUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.Description;
@@ -31,7 +32,10 @@ import seedu.scheduler.ui.UiManager;
  * A class for converting the format between Google Event and local Event.
  */
 public class EventFormatUtil {
+    public static final String MESSAGE_INVALID_EVENT_ERROR =
+            "Invalid Event Format from Google Calendar";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
+
 
     /**
      * Returns the eventUid in Google Calendar Format.
@@ -69,7 +73,8 @@ public class EventFormatUtil {
     public List<Event> convertGoogleListToLocalList(
             List<com.google.api.services.calendar.model.Event> listOfGoogleEvents,
             HashMap<String, RepeatType> googleiCalAndRepeatType,
-            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTIme) {
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTIme)
+            throws CommandException {
 
         List<Event> eventsToAddToLocal = new ArrayList<>();
         BiMap<String, com.google.api.services.calendar.model.Event> eventsToAddToLocalRemoveRuplicate;
@@ -134,7 +139,8 @@ public class EventFormatUtil {
     public Event convertGeventToLocalEvent(
             com.google.api.services.calendar.model.Event googleEvent,
             HashMap<String, RepeatType> googleiCalAndRepeatType,
-            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime) {
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime)
+            throws CommandException {
 
         DateTime start = googleEvent.getStart().getDateTime();
         if (start == null) {
@@ -171,6 +177,9 @@ public class EventFormatUtil {
         seedu.scheduler.model.event.DateTime
                 repeatUntilDateTime = null;
         ReminderDurationList reminderDurationList = new ReminderDurationList();
+        if (newEventname == null) {
+            throw new CommandException(MESSAGE_INVALID_EVENT_ERROR);
+        }
         try {
             eventName = ParserUtil.parseEventName(newEventname);
             startDateTime = ParserUtil.parseDateTime(newEventStartDate + " " + newEventStartTime);
@@ -179,6 +188,7 @@ public class EventFormatUtil {
             venue = ParserUtil.parseVenue(newVenue);
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new CommandException(MESSAGE_INVALID_EVENT_ERROR);
         }
 
         Reminders reminder = googleEvent.getReminders();
