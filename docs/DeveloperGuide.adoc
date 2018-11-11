@@ -1,4 +1,4 @@
-= = image:DeveloperGuideHeader.png[width="900"]
+= image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
