@@ -21,6 +21,7 @@ import seedu.address.model.event.EventDate;
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteEvent";
+    public static final String COMMAND_WORD_ALIAS = "de";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the date and index number used in the displayed event list.\n"

@@ -30,6 +30,7 @@ import seedu.address.model.tag.Tag;
 public class EditEventAddressCommand extends Command {
 
     public static final String COMMAND_WORD = "editEventAddress";
+    public static final String COMMAND_WORD_ALIAS = "eea";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the address of the event identified "

@@ -22,6 +22,7 @@ import seedu.address.model.person.ExistingPersonInEventPredicate;
 public class SeeEventContactsCommand extends Command {
 
     public static final String COMMAND_WORD = "seeEventContacts";
+    public static final String COMMAND_WORD_ALIAS = "sec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the event contacts of the "

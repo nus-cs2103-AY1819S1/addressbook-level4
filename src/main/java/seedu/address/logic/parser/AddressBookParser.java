@@ -89,6 +89,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case FindEventCommand.COMMAND_WORD:
+        case FindEventCommand.COMMAND_WORD_ALIAS:
             return new FindEventCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -96,18 +97,23 @@ public class AddressBookParser {
             return new ListCommand();
 
         case AddEventCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD_ALIAS:
             return new AddEventCommandParser().parse(arguments);
 
         case SeeEventContactsCommand.COMMAND_WORD:
+        case SeeEventContactsCommand.COMMAND_WORD_ALIAS:
             return new SeeEventContactsCommandParser().parse(arguments);
 
         case EditEventAddressCommand.COMMAND_WORD:
+        case EditEventAddressCommand.COMMAND_WORD_ALIAS:
             return new EditEventAddressCommandParser().parse(arguments);
 
         case DeleteEventCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD_ALIAS:
             return new DeleteEventCommandParser().parse(arguments);
 
         case AddEventTagCommand.COMMAND_WORD:
+        case AddEventTagCommand.COMMAND_WORD_ALIAS:
             return new AddEventTagCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
@@ -142,6 +148,7 @@ public class AddressBookParser {
             return new FavouriteCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
+        case ListEventCommand.COMMAND_WORD_ALIAS:
             return new ListEventCommand();
 
         case GenerateLocationCommand.COMMAND_WORD:
