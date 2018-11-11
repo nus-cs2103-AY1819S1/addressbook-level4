@@ -34,13 +34,14 @@ This section’s purpose is to summarise my contributions for the duration of th
 
 * *Major enhancement*:
 ** Added *Patient Management* feature (Main Enhancement)
-*** What it does: This feature provide a centralised patient database for the user to manage the clinic patients record.
+*** What it does: This feature provide a centralised patient for the user to manage the clinic patients record.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-*** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+*** Highlights: This enhancement is integrated alongside with queue, appointment and data commands to provide a cohesive system.
+It requires an in-depth understanding of ClinicIO's architecture.
 
 ** Added *User Authentication* feature
 *** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
-*** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+*** Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
