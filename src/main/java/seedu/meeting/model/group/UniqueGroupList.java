@@ -5,6 +5,7 @@ import static seedu.meeting.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -120,20 +121,26 @@ public class UniqueGroupList implements Iterable<Group> {
      * Sets meeting field of {@code group} in the group list to {@code meeting}.
      */
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
-        internalList.stream().filter(group::isSameGroup).findAny()
-                .ifPresentOrElse((g) -> g.setMeeting(meeting), () -> {
-                    throw new GroupNotFoundException();
-                });
+        Optional<Group> target = internalList.stream().filter(group::isSameGroup).findAny();
+        if (!target.isPresent()) {
+            throw new GroupNotFoundException();
+        }
+        Group editedGroup = new Group(target.get());
+        editedGroup.setMeeting(meeting);
+        setGroup(target.get(), editedGroup);
     }
 
     /**
      * Resets meeting field of {@code group} in the group list to an empty optional.
      */
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
-        internalList.stream().filter(group::isSameGroup).findAny()
-                .ifPresentOrElse(Group::cancelMeeting, () -> {
-                    throw new GroupNotFoundException();
-                });
+        Optional<Group> target = internalList.stream().filter(group::isSameGroup).findAny();
+        if (!target.isPresent()) {
+            throw new GroupNotFoundException();
+        }
+        Group editedGroup = new Group(target.get());
+        editedGroup.cancelMeeting();
+        setGroup(target.get(), editedGroup);
     }
 
     // @@author jeffreyooi

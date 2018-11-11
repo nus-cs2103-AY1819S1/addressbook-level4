@@ -125,6 +125,18 @@ public class Group {
         this.members.setPersons(members);
     }
 
+    // @@author jeffreyooi
+    /**
+     * Copy constructor
+     */
+    public Group(Group toCopy) {
+        this.title = toCopy.getTitle();
+        this.description = Optional.ofNullable(toCopy.getDescription());
+        this.meeting = Optional.ofNullable(toCopy.getMeeting());
+        this.members = new UniquePersonList();
+        this.members.setPersons(toCopy.getMembers());
+    }
+    // @@author
 
     public Title getTitle() {
         return title;
