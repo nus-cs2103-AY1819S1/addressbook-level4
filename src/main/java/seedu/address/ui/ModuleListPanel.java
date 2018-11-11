@@ -12,7 +12,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToModuleListRequestEvent;
+import seedu.address.commons.events.ui.ModuleBrowserChangeEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RefreshModuleBrowserEvent;
 import seedu.address.model.module.Module;
 
 /**
@@ -67,6 +69,22 @@ public class ModuleListPanel extends UiPart<Region> {
                         raise(new ModulePanelSelectionChangedEvent(newValue));
                     }
                 });
+    }
+
+    private boolean isListSelected() {
+        return moduleListView.getSelectionModel().getSelectedIndex() > -1;
+    }
+
+    @Subscribe
+    private void handleModuleBrowserChangeEvent(RefreshModuleBrowserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (isListSelected()) {
+            int index = moduleListView.getSelectionModel().getSelectedIndex();
+            moduleListView.getSelectionModel().clearAndSelect(0);
+            moduleListView.getSelectionModel().clearAndSelect(index);
+            Module currModule = moduleListView.getSelectionModel().getSelectedItem();
+            raise(new ModuleBrowserChangeEvent(currModule));
+        }
     }
 
     /**
