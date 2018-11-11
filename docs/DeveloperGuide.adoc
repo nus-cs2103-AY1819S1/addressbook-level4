@@ -510,6 +510,54 @@ A list of filtered rides would be returned.
 
 // end::viewstatus[]
 
+// tag::open[]
+=== Open/Shutdown Feature
+This section documents how open/shutdown features are implemented and how they work. Note that `open` and `shutdown`
+features are very similar to each other.
+
+==== Current Implementation
+
+The `OpenActivityDiagram` below show the execution flow of `OpenCommand`:
+
+.Activity Diagram of `OpenCommand`
+image::OpenActivityDiagram.png[width="800"]
+
+The following sequence diagram will show how the open/shutdown feature works: +
+
+.Sequence Diagram for the Open Feature
+image::OpenSequenceDiagram.png[width="800"]
+
+
+As seen in the diagram above, the `open` function is implemented with the help of `OpenCommand` and
+`UpdateRideDescriptor` class. When the `ThaneParkParser` parses the user input and finds the open command word `open`,
+it calls a new `OpenCommandParser` to parse the arguments from the user input.
+
+Next, the `OpenCommandParser` will parse the arguments from the user input into an `index` and
+return a new `OpenCommand` with the `index` as the parameter.
+
+Finally, the `LogicManager` will execute the `open` command, and the `index` will be used to find the `ride` from the
+list.
+After that, the `open` command will change the status of the ride to `Open` by utilising the `UpdateRideDescriptor`
+class.
+
+
+==== Design Considerations
+
+===== Aspect: Data structure to support open/shutdown commands
+* **Alternative 1(Current choice):** Change the status of the ride inside the `open` command and include the
+    `UpdateRideDescriptor` in the `open` command as well.
+** Pros: This would be easier to implement as `UpdateRideDescriptor` class no need to abstracted out from the
+   `openCommand` class.
+
+** Cons: `UpdateRideDescriptor` will modify the status of rides inside the `openCommand` class which will make the
+   `openCommand` class less cohesive.
+
+* **Alternative 2:** Abstracting `UpdateRideDescriptor` into a separate class and modify the status of rides in the
+    separate class instead of `openCommand` class.
+** Pros: The `openCommand` will be more cohesive.
+** Cons: More classes would need to be implemented to modify the status of rides.
+// end::open[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
