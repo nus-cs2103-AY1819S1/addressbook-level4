@@ -3,7 +3,6 @@ package seedu.clinicio.logic.commands;
 //@@author aaronseahyh
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import java.util.List;
 
