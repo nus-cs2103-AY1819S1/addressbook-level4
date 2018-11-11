@@ -1523,9 +1523,9 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until item name that does not exist in the menu is entered.
 +
 Use case resumes at step 2.
-// end::ucmenu[]
+
 [discrete]
-=== Use case: UC302 - Delete item from menu
+=== Use case: UC302 - Delete item by index from menu
 
 *MSS*
 
@@ -1633,31 +1633,7 @@ Use case resumes at step 4.
 Steps 3b1-3b2 are repeated until a valid percentage is entered.
 +
 Use case resumes at step 4.
-
-[discrete]
-=== Use case: UC305 - Export menu
-
-*MSS*
-
-1.  User requests to export menu.
-2.  App export the menu.
-3.  App returns a success message confirming the menu has been exported.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Invalid file path given for the command.
-+
-[none]
-** 1a1. App shows an error message that file path is invalid.
-** 1a2. User requests to export menu again.
-+
-Steps 1a1-1a2 are repeated until invalid file path is entered.
-+
-Use case resumes at step 2.
-
+// end::ucmenu[]
 
 [discrete]
 === Use case: UC401 - Add reservation
