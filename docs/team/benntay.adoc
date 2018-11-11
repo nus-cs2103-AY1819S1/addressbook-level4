@@ -32,7 +32,10 @@ Universal Commands.
 ** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[PR#65]
 
 * *Other contributions*:
-
+** General/Team Enhancements:
+*** Clean up code by decoupling Storage and Ui components from Logic component
+(https://github.com/CS2103-AY1819S1-W10-4/main/pull/243[PR#243]
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[PR#256]).
 ** Enhancements to new features:
 *** Wrote additional tests for Meal Planner component to increase coverage.
 ** Community:
