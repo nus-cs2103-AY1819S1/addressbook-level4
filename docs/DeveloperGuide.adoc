@@ -392,7 +392,7 @@ Permission system is used to ensure that each user are only able to perform comm
 ===== Aspect: Model
 Model of a person have been changed to reflect the permission that each user possesses.
 
-The following diagram highlights the class added to reflect the changes to the model for `Person`.
+The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
 
 image::permissionPersonModel.png[width="750"]
 
@@ -407,6 +407,8 @@ As of v1.4, `PresetPermission` only contains the following: `Admin`, `Manager` a
 
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
+
+The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
 
 image::permissionStorage.png[width="350]
 
@@ -426,15 +428,15 @@ public AddCommand(Person person) {
 ----
 <1> The method to assign permission to a command
 
-Before any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object.
+When any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object, before performing the command.
 
 Given below is an example scenario of how commands will be executed.
 
-Step 1. The user enters a command `Delete 1` into the CLI.
+Step 1. The user enters a command `delete 1` into the CLI.
 
 Step 2. The system retrieves current user's `PermissionSet`
 
-Step 3. The system compares user's `PermissionSet` with `Delete` command's `requiredPermission`.
+Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requiredPermission`.
 
 * Two different cases
 
