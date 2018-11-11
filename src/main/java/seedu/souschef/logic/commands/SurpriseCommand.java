@@ -10,6 +10,7 @@ import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.logic.History;
+import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -35,7 +36,7 @@ public class SurpriseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(History history) {
+    public CommandResult execute (History history) throws CommandException{
         requireNonNull(model);
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
@@ -43,7 +44,7 @@ public class SurpriseCommand extends Command {
         setRandomIndex();
 
         if (filteredRecipeList.isEmpty()) {
-            System.out.println(Messages.MESSAGE_EMPTY_RECIPE_LIST);
+            throw new CommandException(Messages.MESSAGE_EMPTY_RECIPE_LIST);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent((randomIndex)));
