@@ -168,8 +168,8 @@ public class SampleDataUtil {
 
     public static Record[] getSampleRecord() {
         return new Record[]{
-            new Record(new EventId(1), new VolunteerId("S1234567A"), new Hour("1"), new Remark("Emcee")),
-            new Record(new EventId(2), new VolunteerId("S1234567A"), new Hour("1"), new Remark("Delivery Man"))
+            new Record(new EventId(1), new VolunteerId("S9647345A"), new Hour("1"), new Remark("Emcee")),
+            new Record(new EventId(2), new VolunteerId("S9647345A"), new Hour("1"), new Remark("Delivery Man"))
         };
     }
 
