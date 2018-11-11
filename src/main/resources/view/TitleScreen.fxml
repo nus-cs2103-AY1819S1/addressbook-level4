@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox spacing="16.0" alignment="BOTTOM_CENTER" xmlns:fx="http://javafx.com/fxml">
+
+  <Text styleClass="title-screen-header" text="ClinicIO"/>
+  <ImageView fx:id="titleImage">
+    <Image url="@/images/clinicio_256.png"/>
+  </ImageView>
+  <Text style="italic" styleClass="title-screen-subtitle" text="Type `login` to get started."/>
+</VBox>

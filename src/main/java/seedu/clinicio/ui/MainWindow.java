@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
-
+    
     @FXML
     private StackPane displayPanelPlaceholder;
 
@@ -166,6 +166,9 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay = new AnalyticsDisplay();
         PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+
+        TitleScreen titleScreen = new TitleScreen();
+        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
         hideInnerParts();
         setUpListPanel();
