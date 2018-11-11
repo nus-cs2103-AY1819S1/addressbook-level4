@@ -15,11 +15,11 @@ import seedu.clinicio.model.Model;
 public class ListPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "listpatient";
-    
+
     public static final String MESSAGE_SUCCESS = "Listed all patients";
 
     public static final String MESSAGE_NOT_LOGIN = "You are not login. Please login before viewing.";
-    
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

@@ -59,7 +59,7 @@ public class AddPatientCommandTest {
         UserSession.destroy();
         UserSession.create(ALAN);
     }
-    
+
     @Test
     public void constructor_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
