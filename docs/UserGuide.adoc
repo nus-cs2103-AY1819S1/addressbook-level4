@@ -102,11 +102,12 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t A
 * To use this command, you must be logged in with "ADD_EMPLOYEE" permissions.
 * Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
 * The username cannot be "Admin", as that is reserved for the admin account.
+* The user is created with the default password of Pa55w0rd
 ****
 Examples:
 
-* `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
+* `add -n Joshua -s 15000 -e josh@gmail.com -p 81234567 -a 81 Joshua's Road  Singapore 123456`
+* `add -n Raynard -e rnardha@gmail.com -p 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
@@ -343,8 +344,11 @@ Changes user password.
 
 Format: `passwd`
 
+* The password must contain at least 1 captial letter, one lowercase letter and one digit. It must also be at least 8 characters long.
+
 ****
 * You will be prompted for your current password, and then your new one.
+* The default password for all accounts is Pa55w0rd.
 ****
 
 [WARNING]
