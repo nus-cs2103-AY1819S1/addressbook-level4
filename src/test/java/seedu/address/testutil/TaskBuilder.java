@@ -106,7 +106,7 @@ public class TaskBuilder {
      * Sets the {@code Dependecy} of the {@code Task} that we are building.
      */
     public TaskBuilder withDependency(Task task) {
-        this.dependencies = this.dependencies.addDependency(task);
+        this.dependencies = this.dependencies.concatDependency(task);
         return this;
     }
 

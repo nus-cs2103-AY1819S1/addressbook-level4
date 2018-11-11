@@ -64,7 +64,7 @@ public class GameModeTest {
         assertThrows(XpEvaluationException.class, () -> bgm.checkValidTasks(base, diffDueDate));
 
         // Tasks have different priority value
-        Task diffPriorityValue = new TaskBuilder().withPriorityValue("897654327")
+        Task diffPriorityValue = new TaskBuilder().withPriorityValue("8976")
                 .withStatus(Status.COMPLETED)
                 .build();
         assertThrows(XpEvaluationException.class, () -> bgm.checkValidTasks(base, diffPriorityValue));

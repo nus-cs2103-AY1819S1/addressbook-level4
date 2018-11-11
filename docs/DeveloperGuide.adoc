@@ -495,7 +495,6 @@ depend on each other.
 *** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
 // end::dependency[]
-// start::time[]
 
 // tag::time_implementation[]
 === Monitoring time
@@ -508,6 +507,7 @@ accurate to the minute.
 A check on whether any of the tasks are overdue is done before the execution of every command.
 // end::time_implementation[]
 
+// tag::time[]
 ===== Design Considerations
 ====== Aspect: Implementing the check on whether a task is overdue
 * **Alternative 1 (current choice):** Run a check before the execution of every command

@@ -29,14 +29,29 @@ public class PriorityMode extends GameMode {
     int appraiseXpChange(Task taskFrom, Task taskTo) {
 
         String rawPriorityValue = taskFrom.getPriorityValue().value;
-        int priorityValue = Integer.parseInt(rawPriorityValue);
 
-        if (taskFrom.isStatusOverdue()) {
-            return priorityValue * overdueMultiplier;
+        int priorityValue;
+
+        try {
+            priorityValue = Integer.valueOf(rawPriorityValue);
+        } catch (NumberFormatException n) {
+            priorityValue = Integer.MAX_VALUE;
         }
 
-        // If not overdue, task is completed before deadline
-        return priorityValue * completedMultiplier;
+        int xpAward;
+
+        try {
+            if (taskFrom.isStatusOverdue()) {
+                xpAward = Math.multiplyExact(priorityValue, overdueMultiplier);
+            } else {
+                // If not overdue, task is completed before deadline
+                xpAward = Math.multiplyExact(priorityValue, completedMultiplier);
+            }
+        } catch (ArithmeticException a) {
+            xpAward = Integer.MAX_VALUE;
+        }
+
+        return xpAward;
     }
 
     @Override

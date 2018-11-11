@@ -138,7 +138,8 @@ Format:
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists, or removed if it does not.
+Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists,
+or removed if it does not.
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
@@ -148,6 +149,25 @@ Format:
 -Example:
 `dependency 1`
 `dependency a b`
+
+
+[NOTE]
+====
+There are several cases when a dependency cannot be created:
+
+1) If the dependency introduces a cyclic dependency
+
+A cyclic dependency is defined as a path from a task back to the task itself.
+
+image::CyclicDependency.png[width="300"]
+
+In the diagram above, an additional dependency from `Task` A to `Task` C will introduce a cycle and hence will be rejected by the Task Manager.
+
+2) If a dependency is added from a COMPLETED task to an IN-PROGRESS or OVERDUE task
+
+The dependency will violate the notion of a completed task as tasks can only be completed if all the tasks that it depends
+on are completed.
+====
 // end::dependency[]
 
 
@@ -332,6 +352,11 @@ Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all
 Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
 comes back from the future.
+
+[TIP]
+If under the unlikely circumstances, the increased xp or number of tasks completed is expected to exceed 1000000000,
+these fields will no longer be updated.
+
 // end::achievements-usage[]
 
 // tag::gamemode-usage[]

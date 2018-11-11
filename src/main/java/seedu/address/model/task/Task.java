@@ -110,8 +110,8 @@ public class Task {
         if (this.status != Status.IN_PROGRESS || this.isOverdue()) {
             return "------";
         }
-        long timeMiliseconds = this.dueDate.timeToDueDate();
-        return millisecondsToString(timeMiliseconds);
+        long timeMilliseconds = this.dueDate.timeToDueDate();
+        return millisecondsToString(timeMilliseconds);
     }
 
     /**
@@ -134,6 +134,51 @@ public class Task {
         timeMilliseconds -= minutes * minuteInMs;
         long seconds = TimeUnit.MILLISECONDS.toSeconds(timeMilliseconds);
         return String.format("%d day(s) %d hour(s) %d minute(s) %d second(s)", days, hours, minutes, seconds);
+    }
+
+    /**
+     * Returns a new Task object with the specified dependee task removed [Non-mutating]
+     */
+    public Task spliceDependency(Task dependeeTask) {
+        return new Task(
+                this.name,
+                this.dueDate,
+                this.priorityValue,
+                this.description,
+                this.labels,
+                this.status,
+                this.dependency.spliceDependency(dependeeTask)
+        );
+    }
+
+    /**
+     * Returns a new Task object with the specified dependee task added [Non-mutating]
+     */
+    public Task concatDependency(Task dependeeTask) {
+        return new Task(
+                this.name,
+                this.dueDate,
+                this.priorityValue,
+                this.description,
+                this.labels,
+                this.status,
+                this.dependency.concatDependency(dependeeTask)
+        );
+    }
+
+    /**
+     * Returns a new Task object with the specified dependency updated [Non-mutating]
+     */
+    public Task updateHash(String oldHash, String newHash) {
+        return new Task(
+                this.name,
+                this.dueDate,
+                this.priorityValue,
+                this.description,
+                this.labels,
+                this.status,
+                this.dependency.updateHash(oldHash, newHash)
+        );
     }
 
     /**
@@ -184,8 +229,6 @@ public class Task {
         //status's string is used because status is an Enum, so each enum has a unique hashcode
         return Objects.hash(name, dueDate, priorityValue, description, labels, status.toString());
     }
-
-
 
     @Override
     public String toString() {

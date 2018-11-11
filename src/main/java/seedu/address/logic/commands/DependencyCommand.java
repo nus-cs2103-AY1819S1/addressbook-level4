@@ -32,6 +32,10 @@ public class DependencyCommand extends Command {
             + "i.e. " + COMMAND_WORD + " %3$s %4$s";
     public static final String MESSAGE_CYCLIC_DEPENDENCY_FAILURE = "Dependency rejected as new dependency will "
             + "introduce a cyclic dependency";
+    public static final String MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE = "Dependency rejected as "
+            + "dependant task cannot be completed while the dependee task is uncompleted.\n The introduction of this "
+            + "dependency will make the COMPLETE state of the dependant task invalid as it will depend on a task that"
+            + "is uncompleted";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
@@ -74,6 +78,8 @@ public class DependencyCommand extends Command {
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
 
+        checkValidityOfTaskStatuses(taskDependant, taskDependee);
+
         Task updatedTask;
         String message;
         //Toggle dependency
@@ -91,6 +97,17 @@ public class DependencyCommand extends Command {
 
         return String.format(message, updatedTask.getName(), taskDependee.getName(),
                 dependantIndex.getOneBased(), dependeeIndex.getOneBased());
+    }
+
+    /**
+     * Check if dependant task is completed and if dependee task is not completed
+     * (Refer to completed command for this check)
+     */
+    private void checkValidityOfTaskStatuses(Task dependantTask, Task dependeeTask)
+            throws CommandException {
+        if (dependantTask.isStatusCompleted() && !dependeeTask.isStatusCompleted()) {
+            throw new CommandException(MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE);
+        }
     }
 
     /**
@@ -122,31 +139,20 @@ public class DependencyCommand extends Command {
      * @return A new immutable task similar to dependantTask but with additional dependency
      */
     public static Task createDependantTask(Task dependantTask, Task dependeeTask) {
-        return new Task(
-                dependantTask.getName(),
-                dependantTask.getDueDate(),
-                dependantTask.getPriorityValue(),
-                dependantTask.getDescription(),
-                dependantTask.getLabels(),
-                dependantTask.getStatus(),
-                dependantTask.getDependency().addDependency(dependeeTask)
-        );
+        assert dependantTask != null;
+        assert dependeeTask != null;
+        return dependantTask.concatDependency(dependeeTask);
     }
+
     /**
      * Returns a {@code Task} with the dependency removed.
      * @param dependantTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */
     public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
-        return new Task(
-                dependantTask.getName(),
-                dependantTask.getDueDate(),
-                dependantTask.getPriorityValue(),
-                dependantTask.getDescription(),
-                dependantTask.getLabels(),
-                dependantTask.getStatus(),
-                dependantTask.getDependency().removeDependency(dependeeTask)
-        );
+        assert dependantTask != null;
+        assert dependeeTask != null;
+        return dependantTask.spliceDependency(dependeeTask);
     }
 
 
