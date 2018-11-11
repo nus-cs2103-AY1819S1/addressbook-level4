@@ -35,6 +35,7 @@ import seedu.address.model.ModelToDo;
 import seedu.address.model.Scheduler;
 import seedu.address.model.ToDoList;
 import seedu.address.testutil.TypicalEvents;
+import seedu.address.testutil.TypicalToDoEvents;
 import seedu.address.ui.CommandBox;
 
 
@@ -61,7 +62,8 @@ public abstract class SchedulerSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(
+            this::getInitialData, this::getInitialDataToDo, getDataFileLocation(), getDataFileLocationToDo());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         assertApplicationStartingStateIsCorrect();
@@ -80,11 +82,18 @@ public abstract class SchedulerSystemTest {
         return TypicalEvents.getTypicalScheduler();
     }
 
+    protected ToDoList getInitialDataToDo() {
+        return TypicalToDoEvents.getTypicalToDoList();
+    }
+
     /**
      * Returns the directory of the data file.
      */
     protected Path getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
+    }
+    protected Path getDataFileLocationToDo() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING_TODO;
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -251,6 +260,7 @@ public abstract class SchedulerSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertCalendarEventListMatching(getCalendarEventListPanel(),
                                         getModel().getFilteredAndSortedCalendarEventList());
+        assertToDoListMatching(getTaskListPanel(), getModelToDo().getFilteredToDoListEventList());
     }
 
     /**
