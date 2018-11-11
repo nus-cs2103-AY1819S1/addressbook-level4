@@ -94,7 +94,7 @@ _Format:_ +
 
 *Examples*:
 
-Command: `add -m MA1521 -y 1 -s 2 -c 4 -grade A` +
+Command: `add -m MA1521 -y 1 -s 2 -c 4 -g A` +
 Adds a module with:
 
 * Module code `MA1521`
@@ -102,7 +102,7 @@ Adds a module with:
 * Worth `4` module credits
 * Graded `A`
 
-Command: `add -m CFG1010 -y 1 -s 1 -c 2 -grade CS` +
+Command: `add -m CFG1010 -y 1 -s 1 -c 2 -g CS` +
 Adds a module with:
 
 * Module code `CFG1010`
@@ -267,16 +267,6 @@ Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 
 //end::commandadjust[]
 
-=== Undoing commands : `undo`
-
-Reverts changes made by the last command given. +
-Format: `undo`
-
-=== Redoing commands : `redo`
-
-Reverts changes made by the undo command. +
-Format: `redo`
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -322,10 +312,10 @@ e.g. `add -m CS2103 -y 2 -s 1 -c 4 -g A+`
 [-s SEMESTER]
 [-c CREDIT]
 [-g GRADE]` +
-e.g. `edit -t CS2103 -grade A+`
+e.g. `edit -t CS2103 -g A+`
 * *Delete* : +
 `delete -t MODULE_CODE [-e TARGET_YEAR -z TARGET_SEMESTER]` +
-e.g. `delete CS2103`
+e.g. `delete -t CS2103`
 * *Goal* : `goal CAP_GOAL` +
 e.g. `goal 4.5`
 * *Adjust* : `adjust MODULE_CODE GRADE` +
@@ -333,7 +323,5 @@ e.g. `adjust CS2103 A` +
 or +
 `adjust MODULE_CODE YEAR SEM GRADE` +
 e.g. `adjust CS2103 1 1 A`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Help* : `help`
 * *Exit* : `exit`
