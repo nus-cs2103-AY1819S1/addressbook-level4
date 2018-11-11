@@ -60,6 +60,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Opens the User Guide in a new window.
+
 Format: `help`
 
 === Adding: `add`
@@ -237,19 +239,36 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the calendar. +
 Format: `clear`
 
-=== Interact with the Calendar Display
+=== Using the Calendar Display
 
-1. Double click on displayed events to open a dialog box containing the details of the event.
+==== Manual navigation:
 
-2. Jump to the time period containing an event by selecting the event in the list of calendar events.
+Navigating the calendar to viewing the events:
 
-The user can navigate the calendar display using the `arrow keys` and `T` key.
+* kbd:[&larr;]: Display previous week
+* kbd:[&rarr;]: Display next week
+* kbd:[&darr;]: Scroll up to events earlier in the day
+* kbd:[&uarr;]: Scroll down to events later in the day
 
-1. The user can toggle between weekly view and daily view using `T` key.
+[NOTE]
+====
+Scrolling with the mouse wheel is also possible.
+====
 
-2. The user can view the next / previous day or week using `left` and `right` arrows keys.
+[NOTE]
+====
+The calendar display msut be in focus in order to navigate with the arrow keys.
+====
 
-3. The user can scroll up and down using `up` and `down` arrow keys, or using the mouse scroll wheel.
+==== Automatic Navigation:
+
+When selecting an event, either by `select` command or clicking in the list of calendar events,
+the calendar display will navigate to that event and attempt to centralize it in the display.
+
+==== Viewing Event Details
+
+The compact display of the calendar does not allow all the information of the event to be displayed.
+To view full details of an event, double click on it to open a dialog box containing the details of the event.
 
 
 === Exiting the program : `exit`
@@ -273,13 +292,19 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous U-Schedule folder.
 
+*Q*: Why is the calendar display not responding to the arrow keys? +
+*A*: The calendar display must be in focus in order for it to receive the arrow key events. Try clicking on the calendar display. If a blue highlight is present around the edges, the calendar display is in focus and will now receive the key presses.
+
+*Q*: The date time parser is parsing dates unexpectedly! +
+*A*: The Natural Language Parser we used tries its best to parse a datetime out of any input. Hence, there are some inputs which even humans would not consider a valid date, but the parser would still try to find a best fit. Most of the time, if a human can understand the input, the parser will parse the input correctly.
+
 == Command Summary
 
 * *Add* `add event t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tag/TAG]...` +
 e.g. `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tag/lecture`
 * *Add* `add todo t/TITLE d/DESCRIPTION p/{H/M/L}` +
 e.g. `add todo t/CS2103 Assignment d/Version Control p/L`
-* *Clear* : `clear`
+* *Clear* : `clear calendar`
 * *Delete* : `delete {event/todo} INDEX` +
 e.g. `delete event 3`
 * *Edit* : `edit event INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tag/TAG]...` +
@@ -295,3 +320,4 @@ e.g.`select event 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Calendar navigation* : kbd:[&uarr;] kbd:[&darr;] kbd:[&larr;] kbd:[&rarr;]
