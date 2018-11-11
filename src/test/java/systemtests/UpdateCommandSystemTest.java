@@ -95,7 +95,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         editedRide = new RideBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRide);
 
-        /* Case: edit a ride with new values same as another ride's values but with different phone and email
+        /* Case: edit a ride with new values same as another ride's values but with different phone and waitTime
          * -> edited
          */
         index = INDEX_SECOND_RIDE;
@@ -225,7 +225,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
                 + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: edit a ride with new values same as another ride's values but with different email -> rejected */
+        /* Case: edit a ride with new values same as another ride's values but with different waitTime -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + WAIT_TIME_DESC_AMY
                 + ZONE_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;

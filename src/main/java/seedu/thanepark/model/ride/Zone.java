@@ -32,7 +32,7 @@ public class Zone {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid zone.
      */
     public static boolean isValidZone(String test) {
         return test.matches(ZONE_VALIDATION_REGEX);

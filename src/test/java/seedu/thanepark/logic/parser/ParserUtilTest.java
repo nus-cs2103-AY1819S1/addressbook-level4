@@ -133,26 +133,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
+    public void parseWaitingTime_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseWaitingTime((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
+    public void parseWaitingTime_invalidValue_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseWaitingTime(INVALID_WAIT_TIME));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
+    public void parseWaitingTime_validValueWithoutWhitespace_returnsWaitingTime() throws Exception {
         WaitTime expectedWaitTime = new WaitTime(VALID_WAIT_TIME);
         assertEquals(expectedWaitTime, ParserUtil.parseWaitingTime(VALID_WAIT_TIME));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_WAIT_TIME + WHITESPACE;
+    public void parseWaitingTime_validValueWithWhitespace_returnsTrimmedWaitingTime() throws Exception {
+        String waitTimeWithWhitespace = WHITESPACE + VALID_WAIT_TIME + WHITESPACE;
         WaitTime expectedWaitTime = new WaitTime(VALID_WAIT_TIME);
-        assertEquals(expectedWaitTime, ParserUtil.parseWaitingTime(emailWithWhitespace));
+        assertEquals(expectedWaitTime, ParserUtil.parseWaitingTime(waitTimeWithWhitespace));
     }
 
     @Test

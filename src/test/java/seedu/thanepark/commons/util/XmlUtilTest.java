@@ -37,7 +37,7 @@ public class XmlUtilTest {
 
     private static final String VALID_NAME = "Haunted Mansion";
     private static final String VALID_MAINTENANCE = "9482424";
-    private static final String VALID_EMAIL = "13";
+    private static final String VALID_WAIT_TIME = "13";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
@@ -79,7 +79,7 @@ public class XmlUtilTest {
         XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
                 MISSING_RIDE_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
         XmlAdaptedRide expectedRide = new XmlAdaptedRide(
-                null, VALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRide, actualRide);
     }
 
@@ -88,7 +88,7 @@ public class XmlUtilTest {
         XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
                 INVALID_RIDE_FIELD_FILE, XmlAdaptedRideWithRootElement.class);
         XmlAdaptedRide expectedRide = new XmlAdaptedRide(
-                VALID_NAME, INVALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRide, actualRide);
     }
 
@@ -97,7 +97,7 @@ public class XmlUtilTest {
         XmlAdaptedRide actualRide = XmlUtil.getDataFromFile(
                 VALID_RIDE_FILE, XmlAdaptedRideWithRootElement.class);
         XmlAdaptedRide expectedRide = new XmlAdaptedRide(
-                VALID_NAME, VALID_MAINTENANCE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRide, actualRide);
     }
 

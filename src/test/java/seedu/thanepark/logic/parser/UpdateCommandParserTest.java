@@ -89,14 +89,14 @@ public class UpdateCommandParserTest {
         // invalid maintenance
         assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
-        // invalid email
+        // invalid waitTime
         assertParseFailure(parser, "1" + INVALID_WAIT_TIME_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
         // invalid thanepark
         assertParseFailure(parser, "1" + INVALID_ZONE_DESC, Zone.MESSAGE_ZONE_CONSTRAINTS);
         // invalid tag
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // invalid maintenance followed by valid email
+        // invalid maintenance followed by valid waitTime
         assertParseFailure(parser, "1" + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
@@ -168,7 +168,7 @@ public class UpdateCommandParserTest {
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
+        // waitTime
         userInput = targetIndex.getOneBased() + WAIT_TIME_DESC_AMY;
         descriptor = new UpdateRideDescriptorBuilder().withWaitTime(VALID_WAIT_TIME_AMY).build();
         expectedCommand = new UpdateCommand(targetIndex, descriptor);

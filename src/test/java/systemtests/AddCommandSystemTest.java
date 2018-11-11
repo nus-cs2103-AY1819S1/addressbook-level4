@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and email
+        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and waitTime
          * -> added
          */
         toAdd = new RideBuilder(AMY).withName("Different")
@@ -135,7 +135,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: add a duplicate ride except with different email -> rejected */
+        /* Case: add a duplicate ride except with different waitTime -> rejected */
         toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
@@ -157,7 +157,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing email -> rejected */
+        /* Case: missing waitTime -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -179,7 +179,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
                 + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid waitTime -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + MAINTENANCE_DESC_AMY + INVALID_WAIT_TIME_DESC + ZONE_DESC_AMY;
         assertCommandFailure(command, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);

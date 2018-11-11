@@ -22,7 +22,7 @@ public class XmlAdaptedRideTest {
     private static final String INVALID_NAME = "!@#$%^&*()";
     private static final String INVALID_MAINTENANCE = "+651234";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_WAIT_TIME = "-123";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME_WITH_SYMBOLS = "R@chel";
@@ -79,15 +79,15 @@ public class XmlAdaptedRideTest {
     }
 
     @Test
-    public void toModelType_invalidEmail_throwsIllegalValueException() {
+    public void toModelType_invalidWaitingTime_throwsIllegalValueException() {
         XmlAdaptedRide ride =
-                new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, INVALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullWaitingTime_throwsIllegalValueException() {
         XmlAdaptedRide ride = new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, WaitTime.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, ride::toModelType);

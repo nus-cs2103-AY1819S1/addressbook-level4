@@ -49,7 +49,7 @@ public class RideUtil {
         descriptor.getMaintenance().ifPresent(
             phone -> sb.append(PREFIX_MAINTENANCE).append(phone.getValue()).append(" "));
         descriptor.getWaitTime().ifPresent(
-            email-> sb.append(PREFIX_WAITING_TIME).append(email.getValue()).append(" "));
+            waitTime-> sb.append(PREFIX_WAITING_TIME).append(waitTime.getValue()).append(" "));
         descriptor.getZone().ifPresent(address -> sb.append(PREFIX_ZONE).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
