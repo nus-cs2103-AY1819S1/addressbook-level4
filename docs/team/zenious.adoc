@@ -25,7 +25,8 @@ My contribution mainly includes the implementation of export and import features
 
 * *Minor enhancement*: Implementation of `filepath` command . This allow user of MeetingBook to view or change the storage location of MeetingBook.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zenious[code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zenious[code]][https://github.com/CS2103-AY1819S1-W17-3/main/pulls?q=is%3Apr+author%3Azenious[Pull Requests]]
+
 * *Other contributions*:
 
 ** Project management:
