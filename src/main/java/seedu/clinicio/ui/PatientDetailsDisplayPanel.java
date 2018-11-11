@@ -109,7 +109,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
     private void setItemsInList(ListView<String> listView, List<String> itemsList) {
         // Add the no content message if there is nothing in the items list.
         if (itemsList.isEmpty()) {
-            itemsList.add("Nothing.");
+            itemsList.add("No items found.");
         }
         itemsList.forEach(item -> listView.getItems().add(item));
 
