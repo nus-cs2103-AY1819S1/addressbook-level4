@@ -154,7 +154,7 @@ public abstract class CompleteCommand extends Command {
             toComplete.getDescription(),
             toComplete.getLabels(),
             Status.COMPLETED,
-            toComplete.getDependency());
+            toComplete.getDependencies());
     }
 
 }

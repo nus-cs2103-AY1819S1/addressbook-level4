@@ -140,13 +140,13 @@ public class CompleteLabelCommandTest {
      */
     private Task simpleCompleteTask(Task taskToComplete) {
         return new Task(// returns a completed task.
-            taskToComplete.getName(),
-            taskToComplete.getDueDate(),
-            taskToComplete.getPriorityValue(),
-            taskToComplete.getDescription(),
-            taskToComplete.getLabels(),
-            Status.COMPLETED,
-            taskToComplete.getDependency()
+                taskToComplete.getName(),
+                taskToComplete.getDueDate(),
+                taskToComplete.getPriorityValue(),
+                taskToComplete.getDescription(),
+                taskToComplete.getLabels(),
+                Status.COMPLETED,
+                taskToComplete.getDependencies()
         );
     }
 

@@ -28,7 +28,7 @@ public class ShowTopologicalOrderCommand extends Command {
         sb.append(RESULT_HEADER);
 
         List<Task> order = model.getTopologicalOrder();
-        for (Task task:order) {
+        for (Task task : order) {
             sb.append(task);
             sb.append("\n");
         }

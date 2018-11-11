@@ -71,7 +71,9 @@ that can be edited.
 * Remaining time: the time remaining, from the current time, until the Due Date of the task.
 * Status: the current status of the task, depending on whether it has been completed or not.
 It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
-* Effective Due Date:
+* Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
+
+
 
 === System Commands
 ==== Viewing help: `help`
@@ -154,6 +156,8 @@ Format:
 [%hardbreaks]
 Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists,
 or removed if it does not.
+
+For a dependency of a task A on task B, A is defined as the dependent task while task B is defined as the dependee task
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 

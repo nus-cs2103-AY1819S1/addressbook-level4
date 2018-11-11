@@ -114,10 +114,10 @@ public class EditCommand extends Command {
                 updatedStatus = Status.IN_PROGRESS;
             }
         }
-        Dependencies dependency = editTaskDescriptor.getDependency().orElse(taskToEdit.getDependency());
+        Dependencies dependencies = editTaskDescriptor.getDependencies().orElse(taskToEdit.getDependencies());
 
         return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
-                updatedStatus, dependency);
+                updatedStatus, dependencies);
     }
 
 
@@ -152,7 +152,7 @@ public class EditCommand extends Command {
         private Description description;
         private Set<Label> labels;
         private Status status;
-        private Dependencies dependency;
+        private Dependencies dependencies;
 
         public EditTaskDescriptor() {}
 
@@ -167,7 +167,7 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setLabels(toCopy.labels);
             setStatus(toCopy.status);
-            setDependency(toCopy.dependency);
+            setDependencies(toCopy.dependencies);
         }
 
         /**
@@ -234,12 +234,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setDependency(Dependencies dependency) {
-            this.dependency = dependency;
+        public void setDependencies(Dependencies dependencies) {
+            this.dependencies = dependencies;
         }
 
-        public Optional<Dependencies> getDependency() {
-            return Optional.ofNullable(dependency);
+        public Optional<Dependencies> getDependencies() {
+            return Optional.ofNullable(dependencies);
         }
 
         @Override

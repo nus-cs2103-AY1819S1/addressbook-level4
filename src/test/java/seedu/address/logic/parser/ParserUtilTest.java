@@ -32,7 +32,7 @@ public class ParserUtilTest {
     private static final String INVALID_LABEL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_DUEDATE = "05-05-18";
+    private static final String VALID_DUEDATE = "05-05-19";
     private static final String VALID_DESCRIPTION = "Description of Task R";
     private static final String VALID_PRIORITY_VALUE = "8";
     private static final String VALID_LABEL_1 = "friend";
