@@ -95,8 +95,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can keep track of the ingredient availability in your restaurant.
 
 === Sales
-* The built-in Sales Management System (SMS) in MeNUS provides you with the tools you will need to keep track of
-  financial records conveniently and efficiently. Several analytical features were also incorporated to assist you in
+* The built-in Sales Management component in MeNUS provides you with the tools you will need to keep track of
+  financial records efficiently. Several analytical features are also incorporated to assist you in
   financial decision-making and devising marketing strategies.
 
 === Reservations
@@ -798,7 +798,7 @@ Selects the 7th reservation in the reservations list.
 // tag::salesmanagement[]
 === Sales Management
 
-The following are Sales-related commands to help you with financial tracking and analysis.
+The following are sales-related commands to help you with financial tracking and analysis.
 
 ==== Recording sales volume of an item: `record-sales` or `rs`
 
@@ -806,42 +806,45 @@ Records the sales volume of an item within a specific day into the record list. 
 Format: `record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` or `rs d/DATE n/ITEM_NAME q/QUANTITY_SOLD
 p/ITEM_PRICE` +
 
+[NOTE]
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
 * Both DATE and ITEM_NAME cannot be same as another record in the record list.
+* ITEM_NAME is case insensitive. "Cheesy Pasta" and "cheesy pasta" are regarded as the same item.
 ****
 
+[[sales-record]]
 [NOTE]
 ====
 A *sales record* is created whenever you record the sales volume of an item. +
-The *record list* holds all sales records you have recorded.
+The *record list* keeps all sales records you have recorded.
 ====
 
-
 [[auto-ingredient-update]]
-===== Auto-ingredient update mechanism:
+**Auto-ingredient update mechanism**
+
 `record-sales` also determines all the ingredients you used and automatically deducts them from the ingredient
 list, subjected to the following conditions: +
 1) The item exists in the menu. +
-Refer to <<add-item>> for more information. +
+See <<add-item>> for more information. +
 2) The required ingredients to make one unit of `ITEM_NAME` is specified. +
-Refer to <<add-required-ingredient>> for more information. +
+See <<add-required-ingredient>> for more information. +
 3) All required ingredients exist in the ingredient list. +
-Refer to <<add-ingredient>> for more information. +
+See <<add-ingredient>> for more information. +
 4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. +
-Refer to <<stockup>> for more information.
+See <<stockup>> for more information.
 
 [NOTE]
 ====
 Sales volume will still be recorded even if some of the above conditions are not met. However, ingredient list
-would not be updated.
+will not be updated.
 ====
 
 [NOTE]
 ====
 [[ingredients-used]]MeNUS will remember the name and quantity of ingredients you used as long as the item and
-its required ingredients have been specified in the menu section.
+its required ingredients have been specified in the menu component.
 ====
 
 Examples:
@@ -857,7 +860,7 @@ Format: `display-sales DATE` or `dis DATE`
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
-* There must be at least one sales volume record associated with the specified DATE.
+* There must be at least one <<sales-record, sales record>> associated with the specified DATE.
 ****
 
 Examples:
