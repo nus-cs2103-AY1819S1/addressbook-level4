@@ -14,7 +14,7 @@ It is *optimized for receptionist who prefer to work with a Command Line Interfa
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to add and delete appointments*
+* *Major enhancement*: added the ability to add and delete appointments
 ** What it does: This allows the user to add new appointments and remove existing appointments that are done in the HealthBook.
 ** Justification: This feature enables the user to keep track of the upcoming and past appointments in the HealthBook, and updates the doctors' calendars at the same time.
 ** Highlights: This enhancement is the primary purpose of the HealthBook. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required integration with Google calendar commands.
