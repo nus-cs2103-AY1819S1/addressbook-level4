@@ -100,4 +100,12 @@ public class DispenseMedicineCommand extends QueueCommand {
         }
 
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DispenseMedicineCommand // instanceof handles nulls
+                && index.equals(((DispenseMedicineCommand) other).index)
+                && quantityToDispense.equals(((DispenseMedicineCommand) other).quantityToDispense));
+    }
 }

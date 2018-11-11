@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT_TO_DISPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DispenseMedicineCommand;
 import seedu.address.logic.commands.DisplayServedPatientsCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -29,9 +31,11 @@ import seedu.address.logic.commands.MedicalCertificateCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReferralLetterCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -63,6 +67,22 @@ public class AddressBookParserTest {
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_dispenseMedicine() throws Exception {
+        DispenseMedicineCommand command = (DispenseMedicineCommand) parser.parseCommand(
+                DispenseMedicineCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " +
+                        PREFIX_AMOUNT_TO_DISPENSE + "123");
+        assertEquals(command, new DispenseMedicineCommand(INDEX_FIRST_PERSON, new QuantityToDispense(123)));
+    }
+
+    @Test
+    public void parseCommand_dispenseMedicineAlias() throws Exception {
+        DispenseMedicineCommand command = (DispenseMedicineCommand) parser.parseCommand(
+                DispenseMedicineCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + " " +
+                        PREFIX_AMOUNT_TO_DISPENSE + "123");
+        assertEquals(command, new DispenseMedicineCommand(INDEX_FIRST_PERSON, new QuantityToDispense(123)));
     }
 
     @Test
@@ -184,6 +204,20 @@ public class AddressBookParserTest {
         MedicalCertificateCommand command = (MedicalCertificateCommand) parser.parseCommand(
                 MedicalCertificateCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new MedicalCertificateCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_register() throws Exception {
+        RegisterCommand command = (RegisterCommand) parser.parseCommand(
+                RegisterCommand.COMMAND_WORD +  " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new RegisterCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_registerAlias() throws Exception {
+        RegisterCommand command = (RegisterCommand) parser.parseCommand(
+                RegisterCommand.COMMAND_ALIAS +  " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new RegisterCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
