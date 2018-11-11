@@ -3,30 +3,40 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: LoanBook
-This portfolio page serves to showcases my contributions to the project, [https://github.com/CS2103-AY1819S1-F10-2/main[LoanBook]]. My resume and full portfolio can be found [https://weineng.io[here]].
+== Overview
+This portfolio page collates and document my contributions towards the development of the project. It serves to showcase the technical knowledge I have learned throughout the course in CS2103T. My resume and full portfolio can be found [https://weineng.io[here]].
 
-== Overview of LoanBook
+== LoanBook -- The all-in-one app to manage your bicycle rental business!
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Physical management of bicycle loans using pen and paper is hard to organise, unfriendly to the environment and extremely slow.
+Coupled with the rising competition from bicycle sharing companies such as ofo and MoBike, it is more important than ever for bicycle rental companies
+to streamline their process and be more efficient to stay competitive. Introducing LoanBook,
+a free inventory management software with all the features required for a bicycle rental businesses to be more efficient. By parsing commands typed by users, a mouse is no longer required to use the app. Compared to a Graphical User Interface (GUI) or the traditional pen and paper, fast typists will find that LoanBook allows user to manage bicycle loans much faster.
+
+*Noteworthy features includes*:
+
+* Managing bicycles statuses
+* Summary report for loan in a given period
+* Email reminding feature to remind users about their pending loan, with future plans for e-receipts
+* Authentication to ensure integrity of the application's data
 
 == Summary of contributions
-
-This section provides a brief summary on the contributions of major and minor enhancement I made for the project.
-
-* *Major enhancement*: Added a password feature to improve the integrity of the app's data.
+|===
+|_This section provides a brief summary on the contributions I made for the project._
+|===
+* *Major enhancement*: Added an authentication feature to improve the integrity of the app's data.
 ** What it does:
-**** Allow user to set password and change password for the app, so that critical comments that affects statistical integrity (Transaction summery & Tax-filing) cannot be performed by unauthorised personnel. Password stored is also encrypted to prevent hackers from retrieving the password.
+**** Allow users to set password and change password for the app, so that critical comments that affects statistical integrity (Transaction summery & Tax-filing) cannot be performed by unauthorised personnel. Password stored is also encrypted to prevent hackers from retrieving the password.
 ** Justification:
 **** This feature improves the product significantly because now, only authorized users are able use the critical commands (E.g. `delete` command) to delete loans. Without this, the data from the summary report may be incorrect, affecting tax-filling, revenue management.
 ** Highlights:
 *** Allow users to change the password of the app, ensuring that the same password is not used for a long time.
-*** Encryption using randomly generated salts provide a higher level of encryption as hackers will not be able to reverse engineer the password. Used existing code by http://www.appsdeveloperblog.com/encrypt-user-password-example-java/[Sergey Kargopolov].
-*** Inputs of commands requiring password no longer appears in the command history.
+*** Encrypt password using randomly generated salts to provide a higher level of encryption. This ensures that hackers will not be able to reverse engineer the password. Used code by http://www.appsdeveloperblog.com/encrypt-user-password-example-java/[Sergey Kargopolov].
+*** Arguments of commands that requires a password no longer appears in the command history.
 *** Existing commands was modified to require a password input. (E.g. `delete`)
 
 * *Minor enhancement*:
-** Create NRIC class to store Singapore issued NRIC. Also include a checksum validation to ensure correct NRIC. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36]]
+** Create NRIC class to manage Singapore issued NRIC. Also include a checksum validation to ensure validity of NRIC. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36]]
 ** Allow searching for loans of specific date. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/158[#158]]
 ** Using tags to notify users on the status of loans. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163]]
 
@@ -34,39 +44,43 @@ This section provides a brief summary on the contributions of major and minor en
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub.
+*** Team Leader of the project, making critical decisions regarding the direction of the product.
 *** Added badges to show CI status, code quality and type of licence for the master branch [https://github.com/CS2103-AY1819S1-F10-2/main/pull/2[#2]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/32[#32]]
-** Enhancements to existing features:
+*** Enforced Git discipline across the team, ensuring stability of the master branch
+*** Ensured code quality through reviews on Github
+**** Reviewed 37 of 90 Pull Requests not created by myself
+**** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
+
+** Project Enhancement:
 *** Add colour to tags [https://github.com/CS2103-AY1819S1-F10-2/main/pull/90[#90]]
+*** Performed surgical refactoring from the original AddressBook-4 to fit requirements [https://github.com/CS2103-AY1819S1-F10-2/main/pull/146[#146]]
 ** Documentation:
 *** Maintained the issue tracker
 *** Changed the gradle build script to display team name: [https://github.com/CS2103-AY1819S1-F10-2/main/pull/1[#1]]
-** Community:
-*** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
 
 ** Tools:
 *** Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/23[#23]]
 **** Ensures that all code that was pushed adhere to coding standards, and does not break existing code.
 **** Automatic deployment of website with Netlify to ensure that team's web page is always up to date.
-*** Set up [https://cs2103-ay1819s1-f10-2.github.io/main/[team website]]
-*** Set up slack notification and web hook for team.
-**** This provides notification to developers on any updates to the repository.
+*** Set up https://cs2103-ay1819s1-f10-2.github.io/main/[team website]
+*** Set up slack notification and web hook for team
+**** Provides notification to developers on any updates to the repository
 
-* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[Code contributed]
+** Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[RepoSense]
 
 == Contributions to the User Guide
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections provides an insight on my ability to write documentations targeting end-users to guide them on the usage of the different features of the app._
 |===
-
-include::../UserGuide.adoc[tag=searchcommand]
 
 include::../UserGuide.adoc[tag=setpass]
+
+include::../UserGuide.adoc[tag=searchcommand]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following section showcase my ability to write technical documentations to provide future developers with insights on how the application was developed. It also showcase the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=adminauthentication]
