@@ -144,7 +144,7 @@ public class AddReminderCommandTest {
                 AddReminderCommand.MESSAGE_EMPTY_REMINDER_ENTERED);
     }
 
-    public void addRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToAdd) {
+    private void addRemindersToEvents( List<Event> events, Model expectedModel, ReminderDurationList durationsToAdd) {
         for (Event event : events) {
             EventBuilder eventInList = new EventBuilder(event);
             ReminderDurationList addedReminderDurationList = event.getReminderDurationList().getCopy();
