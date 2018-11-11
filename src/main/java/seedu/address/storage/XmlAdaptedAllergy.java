@@ -1,5 +1,8 @@
 package seedu.address.storage;
 
+import static seedu.address.model.patient.Allergy.MESSAGE_ALLERGY_CONSTRAINTS;
+import static seedu.address.model.patient.Allergy.isValidAllergy;
+
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -28,7 +31,7 @@ public class XmlAdaptedAllergy {
      * The argument is String.
      */
     public XmlAdaptedAllergy(String allergy) {
-        allergy = allergy;
+        this.allergy = allergy;
     }
 
     /**
@@ -51,8 +54,8 @@ public class XmlAdaptedAllergy {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Allergy toModelType() throws IllegalValueException {
-        if (!Allergy.isValidAllergy(allergy)) {
-            throw new IllegalValueException(Allergy.MESSAGE_ALLERGY_CONSTRAINTS);
+        if (!isValidAllergy(allergy)) {
+            throw new IllegalValueException(MESSAGE_ALLERGY_CONSTRAINTS);
         }
         return new Allergy(allergy);
 

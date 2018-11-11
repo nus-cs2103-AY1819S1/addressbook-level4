@@ -42,4 +42,5 @@ public class ConditionTest {
         assertTrue(Condition.isValidCondition("Cough")); // with capital letters
         assertTrue(Condition.isValidCondition("Cannot sleep well before meeting")); // long names
     }
+
 }

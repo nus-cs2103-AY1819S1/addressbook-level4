@@ -3,8 +3,6 @@ package seedu.address.model.patient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.ArrayList;
-
 /**
  * Represents an Allergy in Patient's Medical History
  */
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 public class Allergy {
 
     public static final String MESSAGE_ALLERGY_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Allergy should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /**
      * the first character of the allergy must not be a whitespace,
@@ -44,17 +42,6 @@ public class Allergy {
         return test.matches(ALLERGY_VALIDATION_REGEX);
     }
 
-    /**
-     * Returns array of allergy given array of string
-     */
-    public static ArrayList<Allergy> toAllergyArray (ArrayList<String> stringAllergies) {
-        ArrayList<Allergy> allergies = new ArrayList<>();
-        for (int i = 0; i < stringAllergies.size(); i++) {
-            Allergy allergy = new Allergy(stringAllergies.get(i).trim());
-            allergies.add(allergy);
-        }
-        return allergies;
-    }
 
     @Override
     public String toString() {

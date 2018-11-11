@@ -210,6 +210,9 @@ Examples:
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
 Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
+[NOTE]
+Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
+
 Examples:
 
 * `add-medical-history n/John Doe al/penicillin,milk c/subhealthy,hyperglycemia`

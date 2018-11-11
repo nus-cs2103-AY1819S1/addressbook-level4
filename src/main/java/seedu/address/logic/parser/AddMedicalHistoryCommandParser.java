@@ -5,8 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.model.patient.Allergy.toAllergyArray;
-import static seedu.address.model.patient.Condition.toConditionArray;
+import static seedu.address.model.patient.Allergy.MESSAGE_ALLERGY_CONSTRAINTS;
+import static seedu.address.model.patient.Allergy.isValidAllergy;
+import static seedu.address.model.patient.Condition.MESSAGE_CONDITION_CONSTRAINTS;
+import static seedu.address.model.patient.Condition.isValidCondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,12 +52,25 @@ public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryC
         Phone phone = null;
         if (arePrefixesPresent(argMultimap, PREFIX_ALLERGY)) {
             allergyString = argMultimap.getValue(PREFIX_ALLERGY).get();
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
-
+            ArrayList<String> stringAllergies = new ArrayList<>(Arrays.asList(allergyString.split(",")));
+            for (int i = 0; i < stringAllergies.size(); i++) {
+                if (!isValidAllergy(stringAllergies.get(i).trim())) {
+                    throw new ParseException(MESSAGE_ALLERGY_CONSTRAINTS);
+                }
+                Allergy allergy = new Allergy(stringAllergies.get(i).trim());
+                allergies.add(allergy);
+            }
         }
         if (arePrefixesPresent(argMultimap, PREFIX_CONDITION)) {
             conditionString = argMultimap.getValue(PREFIX_CONDITION).get();
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
+            ArrayList<String> stringConditions = new ArrayList<>(Arrays.asList(conditionString.split(",")));
+            for (int i = 0; i < stringConditions.size(); i++) {
+                if (!isValidCondition(stringConditions.get(i).trim())) {
+                    throw new ParseException(MESSAGE_CONDITION_CONSTRAINTS);
+                }
+                Condition condition = new Condition(stringConditions.get(i).trim());
+                conditions.add(condition);
+            }
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {

@@ -374,6 +374,7 @@ c/subhealthy,hyperglycemia`
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
 You can only omit either ALLERGY parameter or CONDITION parameter.
+Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 
 Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get added
 

@@ -1,10 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.patient.Allergy.toAllergyArray;
-import static seedu.address.model.patient.Condition.toConditionArray;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -137,14 +133,14 @@ public class PatientBuilder {
         if (allergyString.equals("") && conditionString.equals("")) {
             this.medicalHistory = new MedicalHistory();
         } else if (!(allergyString.equals("")) && conditionString.equals("")) {
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
+            allergies.add(new Allergy(allergyString));
             this.medicalHistory.setAllergies(allergies);
         } else if ((allergyString.equals("")) && !(conditionString.equals(""))) {
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
+            conditions.add(new Condition(conditionString));
             this.medicalHistory.setConditions(conditions);
         } else {
-            allergies = toAllergyArray(new ArrayList<>(Arrays.asList(allergyString.split(","))));
-            conditions = toConditionArray(new ArrayList<>(Arrays.asList(conditionString.split(","))));
+            allergies.add(new Allergy(allergyString));
+            conditions.add(new Condition(conditionString));
             this.medicalHistory.setAllergies(allergies);
             this.medicalHistory.setConditions(conditions);
         }

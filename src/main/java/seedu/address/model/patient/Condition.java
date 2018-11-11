@@ -3,8 +3,6 @@ package seedu.address.model.patient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.ArrayList;
-
 /**
  * Represents Condition of a inside MedicalHistory of a Patient
  * Guarantees:
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 public class Condition {
 
     public static final String MESSAGE_CONDITION_CONSTRAINTS =
-            "Conditions should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Condition should only contain alphanumeric characters and spaces, and it should not be blank";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -43,17 +41,7 @@ public class Condition {
         return test.matches(CONDITION_VALIDATION_REGEX);
     }
 
-    /**
-     * Returns array of condition given array of string
-     */
-    public static ArrayList<Condition> toConditionArray (ArrayList<String> stringConditions) {
-        ArrayList<Condition> conditions = new ArrayList<>();
-        for (int i = 0; i < stringConditions.size(); i++) {
-            Condition condition = new Condition(stringConditions.get(i).trim());
-            conditions.add(condition);
-        }
-        return conditions;
-    }
+
     @Override
     public String toString() {
         return condition;
