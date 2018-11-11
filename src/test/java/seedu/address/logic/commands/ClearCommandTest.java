@@ -8,7 +8,6 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.TaskManager;
 import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -28,7 +27,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalTaskManager(), new UserPrefs());
-        expectedModel.resetData(new TaskManager());
+        expectedModel.clearTaskData();
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
