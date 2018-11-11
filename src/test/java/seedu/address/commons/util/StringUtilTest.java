@@ -73,6 +73,13 @@ public class StringUtilTest {
         StringUtil.containsWordIgnoreCase(sentence, word);
     }
 
+    private void assertExceptionThrownFuzzy(Class<? extends Throwable> exceptionClass, String sentence, String word,
+                                       Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.fuzzyMatchScore(sentence, word);
+    }
+
     @Test
     public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
         assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "  ",
@@ -137,7 +144,16 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
-    //---------------- Tests for getDetails --------------------------------------
+    @Test
+    public void fuzzyMatchScore_invalidInputs_() {
+        assertExceptionThrownFuzzy(IllegalArgumentException.class,"random sentence", "",
+                Optional.of("Word parameter cannot be empty"));
+
+        assertExceptionThrownFuzzy(IllegalArgumentException.class,"", "word",
+                Optional.of("Sentence parameter cannot be empty"));
+    }
+
+        //---------------- Tests for getDetails --------------------------------------
 
     /*
      * Equivalence Partitions: null, valid throwable object

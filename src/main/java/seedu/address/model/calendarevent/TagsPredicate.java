@@ -17,8 +17,8 @@ public class TagsPredicate implements Predicate<CalendarEvent> {
 
     @Override
     public boolean test(CalendarEvent calendarEvent) {
-        return tags.stream()
-            .allMatch(tag -> StringUtil.containsIgnoreCase(calendarEvent.getTagStrings(), tag));
+        return !hasTags()
+                || tags.stream().allMatch(tag -> StringUtil.containsIgnoreCase(calendarEvent.getTagStrings(), tag));
     }
 
     @Override
@@ -28,6 +28,9 @@ public class TagsPredicate implements Predicate<CalendarEvent> {
             && tags.equals(((TagsPredicate) other).tags)); // state check
     }
 
+    /**
+     * Returns whether {@code TagsPredicate} has any {@code tags}
+     */
     public boolean hasTags() {
         return !tags.isEmpty();
     }

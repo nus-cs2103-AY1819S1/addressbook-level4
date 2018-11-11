@@ -138,7 +138,7 @@ public class FindEventCommandTest {
      */
     private TagsPredicate prepareTagsPredicate(String userInput) {
         if (userInput.isEmpty()) {
-            return new TagsPredicate(new ArrayList<>());
+            return new TagsPredicate(Collections.emptyList());
         } else {
             return new TagsPredicate(Arrays.asList(userInput.split("\\s+")));
         }

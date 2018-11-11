@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -31,10 +31,10 @@ public class FindEventCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose titles match any of "
         + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
         + "Optionally filters the search between the specified dates and times (using natural language parsing).\n"
-        + "Also optionally filters the search by the specified tags (case-insensitive).\n"
-        + "Parameters: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]... [" + PREFIX_FROM + " DATE/TIME] ["
-        + PREFIX_TO + " DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
-        + "Example: " + COMMAND_WORD + "project tutorial exam " + PREFIX_TAG + " ma3220 " + PREFIX_TAG + " cs2103";
+        + "Also optionally filters the search by all the specified tags (case-insensitive).\n"
+        + "Parameters: " + COMMAND_WORD + " [KEYWORD OTHER_KEYWORD ...] [" + PREFIX_FROM + " DATE/TIME] ["
+        + PREFIX_BEFORE + " DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
+        + "Example: " + COMMAND_WORD + "project tutorial exam " + PREFIX_FROM + " monday " + PREFIX_TAG + " cs2103";
 
     private final FuzzySearchFilterPredicate titlePredicate;
     private final FuzzySearchComparator fuzzySearchComparator;

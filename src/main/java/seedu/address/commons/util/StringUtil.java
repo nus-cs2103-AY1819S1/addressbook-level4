@@ -125,6 +125,7 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         preppedWord = preppedWord.toLowerCase();
 
+        checkArgument(!sentence.isEmpty(), "Sentence parameter cannot be empty");
         String preppedSentence = sentence.toLowerCase();
 
         int score = Integer.max(computePartialRatio(preppedSentence, preppedWord),
