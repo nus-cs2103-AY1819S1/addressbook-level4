@@ -2,10 +2,20 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_DUPLICATE_PATIENT;
+import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_NOT_LOGIN_AS_RECEPTIONIST;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -15,19 +25,24 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 
+import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ReadOnlyClinicIo;
 import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.medicine.Medicine;
+import seedu.clinicio.model.medicine.MedicineQuantity;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.PatientBuilder;
+import seedu.clinicio.ui.Ui;
 
 public class AddPatientCommandTest {
 
@@ -44,10 +59,13 @@ public class AddPatientCommandTest {
         new AddPatientCommand(null);
     }
 
-    /*@Test
+    @Test
     public void execute_patientAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
+
+        UserSession.destroy();
+        UserSession.create(ALAN);
 
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
 
@@ -58,6 +76,9 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+
         Patient validPatient = new PatientBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
         ModelStub modelStub = new ModelStubWithPatient(validPatient);
@@ -65,12 +86,25 @@ public class AddPatientCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_DUPLICATE_PATIENT);
         addCommand.execute(modelStub, commandHistory);
-    }*/
+    }
+
+    @Test
+    public void execute_staffNotLogin_throwsCommandException() throws Exception {
+        UserSession.destroy();
+
+        Patient validPatient = new PatientBuilder().build();
+        AddPatientCommand addCommand = new AddPatientCommand(validPatient);
+        ModelStub modelStub = new ModelStubWithPatient(validPatient);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NOT_LOGIN_AS_RECEPTIONIST);
+        addCommand.execute(modelStub, commandHistory);
+    }
 
     @Test
     public void equals() {
-        Patient alex = new PatientBuilder().withName("Alex").withNric("S1234567A").build();
-        Patient bryan = new PatientBuilder().withName("Bryan").withNric("S8901631D").build();
+        Patient alex = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX).build();
+        Patient bryan = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN).build();
         AddPatientCommand addAlexCommand = new AddPatientCommand(alex);
         AddPatientCommand addBryanCommand = new AddPatientCommand(bryan);
 
@@ -95,6 +129,27 @@ public class AddPatientCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        //@@author iamjackslayer
+        @Override
+        public void updateQueue(Predicate<Patient> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Patient> getAllPatientsInQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUi(Ui ui) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void switchTab(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -147,6 +202,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public void deletePatient(Patient target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -158,11 +218,6 @@ public class AddPatientCommandTest {
 
         @Override
         public ObservableList<Patient> getFilteredPatientList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -338,6 +393,43 @@ public class AddPatientCommandTest {
         public void requestAnalyticsDisplay(StatisticType statisticType) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //@@author aaronseahyh
+        @Override
+        public boolean hasMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author aaronseahyh
+        @Override
+        public void deleteMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author aaronseahyh
+        @Override
+        public void addMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author aaronseahyh
+        @Override
+        public void updateMedicineQuantity(Medicine medicine, MedicineQuantity newQuantity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author aaronseahyh
+        @Override
+        public ObservableList<Medicine> getFilteredMedicineList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author aaronseahyh
+        @Override
+        public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -355,6 +447,11 @@ public class AddPatientCommandTest {
         public boolean hasPatient(Patient patient) {
             requireNonNull(patient);
             return this.patient.isSamePatient(patient);
+        }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
         }
     }
 
@@ -384,6 +481,11 @@ public class AddPatientCommandTest {
         @Override
         public ReadOnlyClinicIo getClinicIo() {
             return new ClinicIo();
+        }
+
+        @Override
+        public void switchTab(int index) {
+            // do nothing since it is ui change.
         }
     }
 

@@ -25,7 +25,7 @@ public class XmlAdaptedAppointment {
     @XmlElement(required = true)
     private int status;
     @XmlElement(required = true)
-    private XmlAdaptedPerson patient;
+    private XmlAdaptedPatient patient;
 
     @XmlElement
     private int type;
@@ -41,7 +41,7 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs an {@code XmlAdaptedAppointment} with the given appointment details.
      */
-    public XmlAdaptedAppointment(String date, String time, XmlAdaptedPerson patient,
+    public XmlAdaptedAppointment(String date, String time, XmlAdaptedPatient patient,
                                  int status, int type, XmlAdaptedStaff staff) {
         this.date = date;
         this.time = time;
@@ -70,7 +70,7 @@ public class XmlAdaptedAppointment {
 
         time = String.valueOf(hour) + " " + String.valueOf(min);
 
-        patient = new XmlAdaptedPerson(source.getPatient());
+        patient = new XmlAdaptedPatient(source.getPatient());
 
         status = source.getAppointmentStatus();
         type = source.getAppointmentType();
@@ -110,7 +110,7 @@ public class XmlAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
 
-        Patient modelPatient = Patient.buildFromPerson(patient.toModelType());
+        Patient modelPatient = patient.toModelType();
 
         return new Appointment(Date.newDate(date), Time.newTime(time), modelPatient, type);
     }

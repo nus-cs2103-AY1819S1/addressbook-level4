@@ -97,7 +97,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
-        UserSession.destorySession();
+        UserSession.destroy();
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent,
                 "You have logged out successfully"));
         setUserSessionStatus(USER_SESSION_STATUS_INITIAL);
