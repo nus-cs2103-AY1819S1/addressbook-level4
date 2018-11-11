@@ -5,6 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 
 /**
  * Represents a list of available tips.
@@ -12,6 +16,7 @@ import java.util.Random;
 //@@Snookerballs
 public class Tips {
     public static final Tip DEFAULT_TIP = new Tip("No Tips!", "There are no tips!");
+    private static final Logger LOGGER = LogsCenter.getLogger(Tips.class);
 
     private List<Tip> tips;
 
@@ -42,11 +47,13 @@ public class Tips {
      */
     public Tip getRandomTip() {
         if (tips.size() == 0) {
+            LOGGER.info("No Tips Detected: Sending default tip.");
             return DEFAULT_TIP;
         }
 
         Random rand = new Random();
         int index = rand.nextInt(tips.size());
+        LOGGER.info("Tip:" + tips.get(index));
         return tips.get(index);
     }
 

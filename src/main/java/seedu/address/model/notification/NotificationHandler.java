@@ -28,16 +28,14 @@ public class NotificationHandler implements Iterable<Notification> {
     private boolean isWarningEnabled;
     private ObservableList<Notification> internalList = FXCollections.observableArrayList();
 
-    public NotificationHandler() {
-        lastTipSentOn = DEFAULT_LOCAL_DATE_TIME;
-        isTipEnabled = true;
-        isWarningEnabled = true;
-    }
-
     public NotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
         this.lastTipSentOn = date;
         this.isTipEnabled = isTipEnabled;
         this.isWarningEnabled = isWarningEnabled;
+    }
+
+    public NotificationHandler() {
+        this(DEFAULT_LOCAL_DATE_TIME, true, true);
     }
 
     public NotificationHandler(List<Notification> internalList) {
@@ -56,9 +54,8 @@ public class NotificationHandler implements Iterable<Notification> {
         this.internalList.setAll(list);
     }
 
-
     /**
-     * Checks if a tip notification should be sent for that day
+     * Checks if a {@code TipNotification} should be sent out for that day
      * @return true if a tip should be sent,false if otherwise.
      */
     public boolean isTimeToSendTip() {
@@ -76,7 +73,7 @@ public class NotificationHandler implements Iterable<Notification> {
      * @return true if a warning should be sent,false if otherwise.
      */
     public boolean isTimeToSendWarning(Budget budget) {
-        return isWarningEnabled && budget.getBudgetPercentage() > WARNING_NOTIFICATION_TRESHOLD;
+        return isWarningEnabled && budget.getBudgetRatio() > WARNING_NOTIFICATION_TRESHOLD;
     }
 
     /**
@@ -155,14 +152,15 @@ public class NotificationHandler implements Iterable<Notification> {
      * @param isTipEnabled to set
      * @param isWarningEnabled to set
      */
-    public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
+    public void modifyNotificationHandlerWithoutList(LocalDateTime date, boolean isTipEnabled,
+                                                     boolean isWarningEnabled) {
         this.lastTipSentOn = date;
         this.isTipEnabled = isTipEnabled;
         this.isWarningEnabled = isWarningEnabled;
     }
 
     /**
-     * Reset list
+     * Reset list to a new list
      */
     public void clearList() {
         internalList = FXCollections.observableArrayList();

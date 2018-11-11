@@ -154,6 +154,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        Title title = new Title();
+        titlePlaceholder.getChildren().add(title.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -203,9 +205,6 @@ public class MainWindow extends UiPart<Stage> {
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getExpenseTrackerDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        Title title = new Title();
-        titlePlaceholder.getChildren().add(title.getRoot());
 
         BudgetPanel budgetpanel = new BudgetPanel(logic.getMaximumBudget());
         budgetPanelPlaceholder.getChildren().add(budgetpanel.getRoot());
@@ -266,9 +265,8 @@ public class MainWindow extends UiPart<Stage> {
     private void hideLoggedInUi() {
         splitPane.setManaged(false);
         splitPane.setVisible(false);
-        getPrimaryStage().setHeight(200);
-        getPrimaryStage().setMaxHeight(200);
-        getPrimaryStage().setMinHeight(200);
+        getPrimaryStage().setMaxHeight(250);
+        getPrimaryStage().setMinHeight(250);
         statusbarPlaceholder.setManaged(false);
     }
 

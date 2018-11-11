@@ -17,7 +17,7 @@ public abstract class Notification {
     protected NotificationType type;
 
     /**
-     * The different types of notifications
+     * Represents the different types of notifications
      */
     public enum NotificationType {
         WARNING, TIP
@@ -48,8 +48,16 @@ public abstract class Notification {
         return body;
     }
 
+    /**
+     * Returns true if two Notification objects are equal, false otherwise.
+     * @param otherNotification to compare with
+     */
     public boolean isSameNotification(Notification otherNotification) {
         return (otherNotification.header.equals(header)) && (otherNotification.body.equals(body));
+    }
+
+    public NotificationType getNotificationType() {
+        return type;
     }
 
     @Override
@@ -58,10 +66,6 @@ public abstract class Notification {
         builder.append(getHeader())
                 .append(getBody());
         return builder.toString();
-    }
-
-    public NotificationType getNotificationType() {
-        return type;
     }
 
     @Override

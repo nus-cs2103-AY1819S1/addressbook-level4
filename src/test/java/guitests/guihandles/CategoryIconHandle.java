@@ -11,16 +11,17 @@ import seedu.address.model.budget.CategoryBudget;
 public class CategoryIconHandle extends NodeHandle<Node> {
     public static final String CATEGORIES_ICON_ID = "#categoriesIcon";
     private static final String CATEGORY_NAME_FIELD_ID = "#categoryName";
-    private static final String CATEGORY_BUDGET_CAP_ID = "#categoryBudgetCap";
+    private static final String CATEGORY_BUDGET_CAP_ID = "#categoryPercentage";
+    private static final String SUFFIX = "%";
 
     private final Label categoryName;
-    private final Label categoryBudgetCap;
+    private final Label categoryPercentage;
 
 
     public CategoryIconHandle(Node node) {
         super(node);
 
-        categoryBudgetCap = getChildNode(CATEGORY_BUDGET_CAP_ID);
+        categoryPercentage = getChildNode(CATEGORY_BUDGET_CAP_ID);
         categoryName = getChildNode(CATEGORY_NAME_FIELD_ID);
     }
 
@@ -28,9 +29,9 @@ public class CategoryIconHandle extends NodeHandle<Node> {
         return categoryName.getText();
     }
 
-    public double getCategoryBudgetCap() {
-        return Double.parseDouble(categoryBudgetCap.getText().substring(0,
-                categoryBudgetCap.getText().length() - 1));
+    public double getCategoryPercentage() {
+        return Double.parseDouble(categoryPercentage.getText().substring(0,
+                categoryPercentage.getText().length() - 1)) / 100;
     }
     /**
      * Returns true if the information in this object matches the information in the {@code budget} object
@@ -39,16 +40,7 @@ public class CategoryIconHandle extends NodeHandle<Node> {
      */
     public boolean equals(CategoryBudget budget) {
         return categoryName.getText().equals(budget.toString())
-                && categoryBudgetCap.getText().equals(budget.getBudgetPercentage() + "%");
+                && categoryPercentage.getText().equals(String.format("%.2f", budget.getBudgetRatio()) + SUFFIX);
     }
 
-    /**
-     * Converts the {@code CategoryIconHandle} to a {@code CategoryBudget} object.
-     * @return {@code this} as a {@code CategoryBudget} object.
-     */
-    public CategoryBudget toBudget() {
-        return new CategoryBudget(categoryName.getText(),
-                String.format("%.2f", Double.parseDouble(categoryBudgetCap.getText().substring(0,
-                        categoryBudgetCap.getText().length() - 1))));
-    }
 }

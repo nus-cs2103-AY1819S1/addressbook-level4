@@ -586,7 +586,8 @@ A `CommandResult` is then created and returned to `LogicManager`.
 
 // end::massedit[]
 
-// tag::UserInterfaceRedesign[]
+// tag::userinterfaceredesign[]
+
 === User Interface Redesign
 
 The UI has been redesigned to implement the following UI elements required for Expense Tracker:
@@ -596,18 +597,20 @@ The UI has been redesigned to implement the following UI elements required for E
 * Notifications Panel
 * Categories Panel
 
-Animations will also be incorporated into the UI elements for a better user experience.
+Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of `BudgetPanel`,
+which is the most extensive.
 
-==== Budget Panel
+*Budget Panel*
 
-The `totalBudget` panel consists of 3 UI elements:
+The `Budget` panel consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
+*   `BudgetPanel#percentageDisplay` - A `TextFlow` objects that manages `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay`.
 *	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
-Given below is an example scenario of how `BudgetPanel` is updated:
+Given below are the steps of an example scenario of how `BudgetPanel` is updated:
 
 . The user launches the application and signs up for a new account. The `MainWindow` creates a new `BudgetPanel`, which elements are initialized as follows:
 * `BudgetPanel#expenseDisplay` is green and set to "$0.00".
@@ -619,7 +622,7 @@ expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to t
 [NOTE]
 If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
 
-. The `UpdateBudgetPanelEvent` event is handled by `BudgetPanel#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
+. The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
 . `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
 
@@ -627,10 +630,14 @@ If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
 [NOTE]
 If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
 
-. A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects. With this information, the amount to increment `BudgetPanel#expenseDisplay` by each `KeyFrame` can be calculated.
- `BudgetPanel#updateExpenseDisplay()` is called to increment `BudgetPanel#expenseDisplay`.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
+With this information, the amount to increment `BudgetPanel#expenseDisplay` by in each `KeyFrame` can be calculated.
+ `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
 [NOTE]
-`BudgetPanel#incrementKeyFrames()` handles the animation for both `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+`BudgetPanel#addTextAnimationKeyFrames()` handles the incrementing animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+
+. For each `KeyFrame`, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to `BudgetPanel#alterTextSize()`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
 
 . `Timeline#playFromStart()` is called to execute the animation.
 
@@ -645,37 +652,66 @@ The following sequence diagram shows the process of updating the `BudgetPanel` U
 .Sequence diagram of the `BudgetPanel` update
 image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
-===== Design Considerations
-====== Aspect: Which library to implement animation
+==== Design Considerations
+===== Aspect: Choosing which library to use for animation implementation
 
-* **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes
+* **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-** Cons: Animations tricks and effects will require manual tweaking for the intented effect.
-* **Alternative 2:** Use `Transition` class
+
+** Cons: Animations tricks and effects will require manual tweaking for the intended effect.
+* **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
 
-==== Notification System
-The Notification System is comprised of 3 features:
-* `Notification` - An abstract method that consists of a `header`, `type` and `body`. There are two types of `Notification`,
+===== Aspect: Implementation of `Text` elements
+* **Alternative 1 (Initial Choice):** Use two `Label` objects; one to display `currentExpenses` and another to display `budgetCap`.
+** Pros: Allows the implementation of separate text color changing and animation.
+** Cons: Difficult to keep both text objects centralized in relation to the `budgetBar`, especially if `currentExpenses` or `budgetCap` are large numbers.
+
+* **Alternative 2:** Use one `Text` object to display both `currentExpenses` and `budgetCap`.
+** Pros: Easy to centralize the `Text` object with `budgetbar`.
+** Cons: Implementation of animation was messy and tedious. `JavaFX` also does not support multiple colors for a single `Text` object.
+
+* **Alternative 3 (Current Choice):** Wrap two `Text` objects in a `TextFlow` object
+** Pros: Easy to centralize the `Text` objects by taking advantage of the properties of `TextFlow`. Allows the implementation of separate text color changing and animation.
+** Cons: Does not solve the issue of decentralization when `currentExpenses` or `budgetCap` are large numbers.
+
+===== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
+* **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain height.
+** Pros: -
+** Cons: Difficult to adjust the fonts of both `Text` objects such that the final font size is neither too large nor too short.
+
+* **Alternative 2: ** Manipulate the scale of the `TextFlow` object such that it always maintains a predetermined width.
+** Pros: A solution that is simple and easy to implement.
+** Cons: In the case of very large numbers, the `TextFlow` object is shrunk down to a point where the text in non-legible. However,
+we assume that the average user who is seriously using `ExpenseTracker` will not set  `currentExpenses` or `budgetCap` to such large numbers.
+
+=== Notification System
+The Notification System is comprised of the following classes:
+
+* `Notification` - An abstract class that consists of a `header`, `type` and `body`. There are two types of `Notification`,
 `TipNotification` and `WarningNotification`.
-* `NotificationPanel` `and NotificationCard` - Lists the notifications that have been sent to the user.
-* `NotificationHandler` - Handles the storing and logic of notifications.
+* `NotificationPanel` `and NotificationCard` - UI elements that displays the list the notifications that have been sent to the user.
+* `NotificationHandler` - Manages the list of notifications.
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
+* `NotificationHandler` - Handles the storage and creation of `Notification` objects.
+* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
+* `Tips` - Reads and stores `Tip` objects in a list.
 
-Given below is an example scenario of how the Notification System functions:
+Given below are the steps of an example scenario of how the Notification System functions:
 
-. The user launches the application for the first time. A new `NotificationHandler` is instantiated.
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` is instantiated, and a call
+to `JsonTipsStorage#readTips` is made to read a list of `Tip` objects from a JSON file.
 
-. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
+been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning` to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning()` to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
 [NOTE]
-The same procedure is carried out if the user execute an `edit` command.
+The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
@@ -683,20 +719,33 @@ the new `Notification`.
 Given below is an example scenario of how `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
 
-.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+. A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
 extracted parameters `warning` and `off`. A `NotificationCommand` is returned to `LogicManager`.
 [NOTE]
-The `n/` parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
 . `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
 `NotificationPanel#isWarningEnabled` to `false`.
 [NOTE]
- If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications` would be called to set `NotificationHandler#isTipEnabled`
+ If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications()` would be called to set `NotificationHandler#isTipEnabled`
  to `true`.
- If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
+ If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead.
 
+The following sequence diagram shows the process of executing a `NotificationCommand`:
 
-// end::userInterfaceRedesign[]
+image::implementation/NotificationCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Storing of Tips
+* **Alternative 1:** Code the tips as a list of `String` object in a class.
+** Pros: Easy to implement.
+** Cons: Changes to the list might impact the base code and testing results.
+
+* **Alternative 2 (Current Choice):** Read a set of predetermined tips from a JSON file.
+** Pros: Allows for easy configuration of tips that will not impact the base code.
+** Cons: More tedious to implement, as the given `JsonUtil` does not have a method to read an array from a JSON file.
+
+// end::userinterfaceredesign[]
 
 // tag::budget[]
 
@@ -1130,49 +1179,65 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |new user who might forget how to use commands |be notified of the correct usage of commands that I format wrongly |correct my mistake quickly and easily.
+
 |`* * *` |user who wants to track their expenses |add a new expense |have the app keep track of my expenses
 
-|`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
+|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
+over my budget
 
-|`* * *` |clumsy user |edit inaccurately added expenditure |have an accurate recording of my expenditures and budget
+|`* * *` |user who want to group expenditures of different categories together |add tags to an expense | find specific expenses in a later date.
+
+|`* * *` |user who wants more information about their spending habits |search for recorded expenses by category, date or cost | reflect and learn from my past experiences.
+
+|`* * *` |user who wants more information about their spending habits | have a visual representation of the statistical information about my spending habits | reflect and learn from my past experience.
+
+|`* * *` |user who has trouble with overspending | have clear visual warnings or indicators when I am about to spend over my budget| better manage my spending and keep within my current budget.
 
 |`* * *` |user |have my expenditures saved after closing the app |keep track of my expenditures without having to key in my information again
 
+|`* * *` |clumsy typer |delete inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`* * *` |clumsy typer |edit inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`* * *` |user who shares their computer with others | have my own login account | keep my expenditure information separate from other users'.
+
 |`* * *` |user |exit the application with a keyboard command | exit the application conveniently without reaching for my mouse/touchpad
 
-|`* * *` |user |search by date, category, tag and cost |find my expenses more easily
+|`* * *` |user who has a problem with overspending|view my expenses over a certain period of time |learn from my past endeavours and better manage my budget
 
-|`* * *` |forgetful user |receive a notification about my budget when the application boots up |be reminded of how
-much I have spent and can spend.
+|`* * *` |user who wants to save money |separate my expenses into different categories| see where am I spending more money on and where my expenses go and cut them accordingly
 
-|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
-over my total budget
+|`* * *` |user who is worried about privacy |remove all expenditure information from the application| comfortable knowing that my information has been completely erased.
 
-|`* * *` |user who has a limited budget|see how much I have spent in each category of expense |have a clearer understanding of
-where I am spending my money
+|`* * *` |clumsy user | be able to undo or redo my commands |easily fix my mistakes.
 
-|`* * *` |user who is keeping a monthly budget|be able to have reminders of how much I have spent during the month |better keep within my budget
+|`* *` |user who wants their expenditure information to be private | secure my account with a password | ensure that no one can easily access my private information.
 
-|`* * *` |user who has a limited budget|view my expenses over a certain period of time |learn from my past endeavours and better manage my total budget
+|`* *` |user who has been using the application for a long time | look at statistical information from past months | reflect and learn from my past experience.
 
-|`* * *` |user who has a limited budget|see my expnses based on their category |learn what I spend my money on and better manage by budget
+|`* *` |user who has a monthly allowance |set my budget based on my monthly allowance | use the application with greater convienience.
 
-|`* * *` |user who wants to save money |separate my expenses into different categories|see where am I spending more money on and where my expenses go and cut them accordingly
+|`* *` |clumsy typer |edit multiple incorrect expenditures that require the same type of edit |have an accurate recording of my expenditures and budget
 
-|`* * *`| user who shares a computer |add new account/log in to own account |use the application on the same computer as someone else
+|`* *` |user who spends too much in certain categories of expenses |set a budget for specific expenses | be aware of how much I am spending in a specific cate
 
-|`* * *`| user who shares a computer |have my account protected by a password |ensure that no other user can modify my financial information through the application
+|`* *` |advanced user |use short-form versions of commands | use the application with greater efficiency.
 
-|`* *`| user who shares a computer |encrypt my financial information |so that other users of the computer cannot simply view my
-financial information by opening the data files
+|`* *` |user who wants their expenditure information to be private |be able to encrypt my data | so that I can protect my private information from anyone who opens the data file.
 
-|`* *` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
+|`* *` |user who does not know much about saving money |to be provided tips on how to save money |better manage my expenses in the future.
 
-|`* *` |forgetful user |search with partial keywords |search without remembering the exact keywords
+|`*` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
 
-|`* *` |careless user |edit multiple expenses after filtering |save time when I make mny mistakes when adding expenses
+|`*` |advanced user |encrypt and decrypt strings | edit the data file directly.
 
-|`* *` |advanced user |encrypt and decrypt strings |edit the encrypted data file directly
+|`*` |user that works in public areas |have secret categories for my expenses that only show when I want to| so that I can protect my private information.
+
+|`*` |clumsy typer |delete multiple inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`*` |user that often uses iBanking |be able to open iBanking within the application| so that I can reference my expenditure information when keying in my expenditures.
+
 |=======================================================================
 
 [appendix]
@@ -1181,198 +1246,459 @@ financial information by opening the data files
 (For all use cases below, the *System* is `Expense Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+
 === Use case: Add expenditure
-
-
 *MSS*
 
-
-1. User adds expenditure record
-2. Once validated, ExpenseTracker shows success message and details of the expenditure
-3. If expenditure causes `totalBudget` to be below a certain threshold, show a warning message to the user
+1. User keys in command to add a given expenditure.
+2. Expense Tracker adds specified expenditure.
+3. ExpenseTracker displays a success message.
 +
 Use case ends.
 
-*Exceptions*
+*Extensions*
 
-[none]
-* 2a. Invalid data given
-+
-[none]
-** 2a1.Error message shown
-+
-Use case ends.
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user has gone over budget.
+    ** 1b1. Expense Tracker sends warning to the user.
+    ** Use Case ends.
+
+* 1c.Expense Tracker detects that the user has nearly gone budget.
+    ** 1b1. Expense Tracker sends warning to the user that they have almost gone over budget.
+    ** Use Case ends.
 
 [discrete]
+
 === Use case: Delete expenditure
 
 *MSS*
 
 1. User keys in command to delete a given expenditure.
-2. Once deleted successfully, Expense Tracker shows a success message.
-3. The deleted expenditure is deleted from the UI
-4. The delete expenditure is deleted from the text file database.
+2. Expense Tracker deletes specified expenditure.
+3. Expense Tracker displays a success message.
 +
 Use case ends
-
-
-*Exceptions*
-[none]
-* 2a. Expenditure does not exist.
-[none]
-** 2a1. Error message shown to the user.
-+
-Use case ends
-
-[discrete]
-=== Use case: Set `totalBudget`
-
-*MSS*
-
-1. User requests to set `totalBudget`
-2. Expense tracker prompts user to key in `totalBudget`
-3. User keys in `totalBudget` value
-4. Expense tracker prompts and updates budgets
-+
-Use case ends
-[none]
-*Extensions*
-[none]
-* 2a. Budget is already set
-[none]
-** 2a1. Expense tracker prompts user the previously set `totalBudget` and asks if user wants to continue
-** 2a2. User confirmed that he/she wants to continue
-+
-Use case resumes step 2
-
-[discrete]
-=== Use case: View monthly expenditure
-
-*MSS*
-
-1. User requests to view monthly expenditure
-2. Expense tracker prompts user to key in month
-3. User keys in month
-4. Expense tracker prompts and shows the expenditure for the month
-+
-Use case ends
-
-[discrete]
-=== Use case: Log in
-
-*MSS*
-
-1. User requests to log in to Expense Tracker
-2. Expense tracker prompts user to enter username
-3. User enters username
-4. Expense tracker prompts user to enter password
-5. User enters password
-6. User is successfully logged in
-+
-Use case ends
-
-*Exceptions*
-[none]
-* 4a. The username keyed in by the user does not exist
-[none]
-** 4a1. Expense tracker prompts the user that the username does not exist
-+
-Use case ends
-[none]
-* 6a. The password keyed in by the user is incorrect
-[none]
-** 6a1. Expense tracker prompts the user that the password is incorrect.
-*
-Use case ends
-
-[discrete]
-=== Use case: Logout
-
-*MSS*
-
-1. User requests to logout of Expense Tracker
-2. Expense trackers shows success message and logs user out of account
-3. Use case ends
 
 *Extensions*
-[none]
-* 2a. User is not logged in
-[none]
-** 2a1. Expense tracker prompts user that they are not yet logged in
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker cannot find specified expenditure.
+    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Edit expenditure
+
+*MSS*
+
+1. User keys in command to edit a given expenditure.
+2. Expense Tracker edits the specified information of the specified expenditure.
+3. Expense Tracker displays a success message.
 +
 Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker cannot find specified expenditure.
+    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Mass edit expenditure
+
+*MSS*
+
+1. User keys in command to find specific expenses from the list of all expenses.
+2. Expense Tracker displays the specified expenses.
+3. User keys in command to perform a mass edit on the list of expenses.
+4. Expense Tracker mass edits the specified information of the specified expenditure.
++
+Use case ends
+
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 3a.Expense Tracker detects error in the entered data.
+    ** 3a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 3a.Expense Tracker cannot find specified expenditures.
+    ** 3a1. Expense Tracker informs user that it cannot find the specified expenditures.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set budget
+
+*MSS*
+
+1. User keys in command to set a budget cap.
+2. Expense Tracker updates the current budget cap.
+3. Expense tracker displays a success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set a recurring budget
+
+*MSS*
+
+1. User key in command to set a monthly recurring budget.
+2. Expense Tracker sets the specified budget to reoccur after the specified time.
+3. User logs into the account on a new day.
+4. Expense Tracker detects that the specified period of time has passed.
+5. Expense Tracker resets the budget.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 4a.Expense Tracker detects that the specified period of time has not passed.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set a category budget
+
+*MSS*
+
+1. User key in command to set a budget for a specific category.
+2. Expense Tracker sets the specified budget to the specified category.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Signup for an account
+
+*MSS*
+
+1. User keys in command to signup for an account.
+2. Expense Tracker creates a new account with the specified username.
++
+Use case ends
+
+*Exceptions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker that an account of that username already exists.
+    ** 1a1. Expense Tracker informs user that the username has been taken.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Login without password
+
+*MSS*
+
+1. User keys in command to login to an account.
+2. Expense Tracker logs user into account.
++
+Use case ends
+
+*Exceptions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker detects that specified user does not exist.
+    ** 1a1. Expense Tracker informs user that user does not exist
+    ** Use case ends.
+
+* 1a. Expense Tracker detects that the account is password-protected.
+** 1a1. Expense tracker informs the user that a password is required.
+** Use case ends
+
+[discrete]
+
+=== Use case: Login without password
+
+*MSS*
+
+1. User keys in command to login to an account.
+2. Expense Tracker logs user into account.
++
+Use case ends
+
+*Exceptions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker detects that specified user does not exist.
+    ** 1a1. Expense Tracker informs user that user does not exist
+    ** Use case ends.
+
+* 1a. Expense Tracker detects that the account is password-protected.
+** 1a1. Expense tracker informs the user that a password is required.
+** Use case ends
+
+[discrete]
+
+=== Use case: Login with password
+
+*MSS*
+
+1. User keys in command to login to an account.
+2. User also enters password of account.
+2. Expense Tracker logs user into account.
++
+Use case ends
+
+*Extensions*
+
+* 2a.Expense Tracker detects error in the entered data.
+    ** 2a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 2a.Expense Tracker detects that specified user does not exist.
+    ** 2a1. Expense Tracker informs user that user does not exist
+    ** Use case ends.
+
+* 2a. Expense Tracker detects that the password is incorrect.
+** 2a1. Expense tracker informs the user that the entered password is incorrect.
+** Use case ends
+
+[discrete]
+
+=== Use case: Set password
+
+*MSS*
+
+1. User keys in command to set a password.
+2. Expense Tracker sets the password for the account that is currently logged into to the specified password
+3. Expense Tracker displays a success message
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+
+* 1a.Expense Tracker detects that the user is not logged in.
+    ** 1a1. Expense Tracker informs user that they need to log into an account.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Clear
 
 *MSS*
 
-1. User requests to clear his recorded expenses and `totalBudget`
-2. Expense trackers shows a confirmation message
-3. Expense tracker deletes all information about the current user’s `totalBudget` and expenses
+1. User keys in command to clear information from an account.
+2. Expense tracker deletes all information about the current user’s expenses.
+3. Expense Tracker displays a success message.
 +
 Use case ends
 
 [discrete]
-=== Use Case: Filter
+
+=== Use Case: Find Expenses
+*MSS*
+
+1. User keys in command to find specific expenses from the list of all expenses.
+2. Expense Tracker displays the specified expenses.
+3. Expense Tracker displays a success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Toggle Notification
 
 *MSS*
 
-1. Expense tracker has already shown the lists of expenditures
-2. User requests to filter by some predefined field
-3. Expense tracker filters out expenditures not applicable to the filter
+1. User keys in command to toggle on or off automated notifications.
+2. Expense Tracker toggles automated notifications to the specified status.
+3. Expense Tracker displays a success message.
 +
 Use case ends
 
-[discrete]
-=== Use case: Notification On
+*Extensions*
 
-*MSS*
-
-1. User keys in the command to turn on notifications
-2. Expense tracker already has a `totalBudget` set.
-3. Add expenses until the `totalBudget` has been exceeded
-4. Expense tracker will detect that the `totalBudget` has been exceeded
-5. Expense tracker will show a visible notification to alert the user that the `totalBudget` has been exceeded
-+
-Use case ends
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
 
 [discrete]
-=== Use case: Notification Off
 
-*MSS*
-
-1. User keys in command to turn off notifications
-2. Notifications no longer show whenever the set `totalBudget` has been exceeded.
-3. Any notification that is currently showing will be hidden from the user.
-+
-Use case ends
-
-[discrete]
-=== Use case: Set recurring expenditure
-
-*MSS*
-
-1. User key in command to set recurring expenses for an expense that was already keyed in
-2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
-3. User keys in the index of the expenditure to set as recurring expense and the frequency
-4. Expense tracker adds the expense automatically every time the set amount of time passes.
-+
-Use case ends
-
-[discrete]
 === Use case: View statistics
 
 *MSS*
 
-1. User keys in command to view the information and statistics of his weekly/monthly/yearly `totalBudget`
-2. Programs loads a window consisting of visual information displaying the relevant information
+1. User keys in command to view the statistics of his expenditure information from a specified period of time.
+2. Expense Tracker displays the statistics of the specified information.
+3. Expense Tracker displays success message.
 +
 Use case ends
 
-_{More to be added}_
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Open Help Window
+*MSS*
+
+1. User keys in command to open Help Window.
+2. Expense Tracker opens a Help Window.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that a Help window has already been open.
+    ** Use case resumes from step 3.
+
+[discrete]
+
+=== Use case: Redo Command
+*MSS*
+
+1. User keys in command to redo an undone command.
+2. Expense Tracker redoes the undone command.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that are no commands to redo.
+    ** 1a1. Expense Tracker informs user that are no commands to redo.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Undo Command
+*MSS*
+
+1. User keys in command to undo a previous command.
+2. Expense Tracker undoes previous command.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that are no commands to undo.
+    ** 1a1. Expense Tracker informs user that are no commands to undo.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: List
+*MSS*
+
+1. User keys in command to list expenses.
+2. Expense Tracker displays the list of all recorded expenses.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Encrypt
+*MSS*
+
+1. User keys in command to encrypt a specified string.
+2. Expense Tracker encrypts the specified string with the user's encryption key.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Decrypt
+*MSS*
+
+1. User keys in command to decrypt a specified encrypted string.
+2. Expense Tracker decrypts the specified string with the user's encryption key.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Exit Expense Tracker
+*MSS*
+
+1. User keys in command to exit out of Expense Tracker.
+2. Expense Tracker shuts down.
++
+Use case ends
+
+[discrete]
 
 [appendix]
+
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.

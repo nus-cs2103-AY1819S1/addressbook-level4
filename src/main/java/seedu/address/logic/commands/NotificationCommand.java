@@ -19,7 +19,7 @@ public class NotificationCommand extends Command {
     public static final String COMMAND_WORD = "notification";
     public static final String COMMAND_ALIAS = "n";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles notification messages. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles notification messages."
             + "Parameters: "
             + PREFIX_NOTIFICATION_TYPE + "[NOTIFICATION TYPE] "
             + PREFIX_TOGGLE + "on/off \n"
@@ -27,7 +27,7 @@ public class NotificationCommand extends Command {
             + PREFIX_NOTIFICATION_TYPE + "warning "
             + PREFIX_TOGGLE + "off";
 
-    public static final String MESSAGE_SUCCESS = "Notification Successfully Toggled";
+    public static final String MESSAGE_SUCCESS = "Notifications successfully toggled %1$s.";
 
     public static final String OPTION_ON = "on";
     public static final String OPTION_OFF = "off";
@@ -46,10 +46,14 @@ public class NotificationCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
-        boolean toggleOption = false;
+
+        boolean toggleOption;
+        String option;
         if (descriptor.getToggle().get().equals(OPTION_ON)) {
+            option = OPTION_ON;
             toggleOption = true;
         } else {
+            option = OPTION_OFF;
             toggleOption = false;
         }
 
@@ -59,7 +63,7 @@ public class NotificationCommand extends Command {
             model.toggleBothNotification(toggleOption);
         }
         model.commitExpenseTracker();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, option));
     }
 
     /**

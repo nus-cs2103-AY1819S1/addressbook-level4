@@ -142,10 +142,14 @@ public class Budget {
     }
 
     /**
-    * Calculates and returns the percentage of budget used
-    * @return the percentage of budget that has been used
+    * Calculates and returns the {@code currentExpenses} to {@code budgetCap} ratio
+    * @return the {@code currentExpenses} to {@code budgetCap} ratio
     */
-    public double getBudgetPercentage() {
+    public double getBudgetRatio() {
+        if (budgetCap == 0) {
+            LOGGER.info("Budget Cap is 0.");
+            return 0;
+        }
         LOGGER.info("current Expenses" + currentExpenses / budgetCap);
         return currentExpenses / budgetCap;
     }

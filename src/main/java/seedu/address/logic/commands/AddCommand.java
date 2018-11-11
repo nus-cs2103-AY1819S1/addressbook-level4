@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
+import seedu.address.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -61,11 +62,11 @@ public class AddCommand extends Command {
         boolean withinBudget = model.addExpense(toAdd);
         model.addWarningNotification();
         model.commitExpenseTracker();
+        EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         if (!withinBudget) {
             model.addGeneralNotification(new GeneralNotification("Exceeding Budget!",
-                "Adding this expense has "
-                + "caused your budget to exceed!"));
+                "Your budget has exceeded for that category!"));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -24,6 +25,8 @@ public class CategoriesPanelTest extends GuiUnitTest {
 
     @Test
     public void addCategoryBudget_valid() {
+        DecimalFormat df = new DecimalFormat("#.##");
+
         //Adding 1 Category
         CATEGORY_BUDGETS.add(new CategoryBudget("Cat", "10.00"));
         CATEGORY_BUDGETS.add(new CategoryBudget("Cat2", "10.00"));
@@ -31,7 +34,8 @@ public class CategoriesPanelTest extends GuiUnitTest {
         Iterator<CategoryBudget> iterator = CATEGORY_BUDGETS.iterator();
         while (iterator.hasNext()) {
             CategoryBudget budget = iterator.next();
-            assertEquals(budget, categoriesPanelHandle.getCategoryIconHandle(budget).toBudget());
+            assertEquals(df.format(budget.getBudgetRatio()),
+                    df.format(categoriesPanelHandle.getCategoryIconHandle(budget).getCategoryPercentage()));
         }
         assertEquals(categoriesPanelHandle.size(), 2);
 
@@ -46,7 +50,8 @@ public class CategoriesPanelTest extends GuiUnitTest {
         int counter = 0;
         while (iterator.hasNext() && counter < 3) {
             CategoryBudget budget = iterator.next();
-            assertEquals(budget, categoriesPanelHandle.getCategoryIconHandle(budget).toBudget());
+            assertEquals(df.format(budget.getBudgetRatio()),
+                    df.format(categoriesPanelHandle.getCategoryIconHandle(budget).getCategoryPercentage()));
             counter++;
         }
         assertEquals(categoriesPanelHandle.size(), 4);
@@ -57,7 +62,6 @@ public class CategoriesPanelTest extends GuiUnitTest {
         iterator = CATEGORY_BUDGETS.iterator();
         while (iterator.hasNext()) {
             CategoryBudget budget = iterator.next();
-            assertEquals(budget, categoriesPanelHandle.getCategoryIconHandle(budget).toBudget());
         }
         assertEquals(categoriesPanelHandle.size(), 0);
     }

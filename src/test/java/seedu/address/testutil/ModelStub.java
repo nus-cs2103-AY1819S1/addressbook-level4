@@ -239,7 +239,7 @@ public class ModelStub implements Model {
     @Override
     public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
             throws NoUserSelectedException {
-        throw new AssertionError("modifyNotificationHandler should not be called.");
+        throw new AssertionError("modifyNotificationHandlerWithoutList should not be called.");
     }
 
     @Override

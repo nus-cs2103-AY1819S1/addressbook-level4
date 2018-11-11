@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
+import seedu.address.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -104,6 +105,7 @@ public class MassEditCommand extends Command {
 
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
+        EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
         return new CommandResult(MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS);
     }
 
