@@ -43,6 +43,7 @@ import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SeeEventContactsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -257,6 +258,14 @@ public class AddressBookParserTest {
                 DeleteEventCommand.COMMAND_WORD
                         + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
         assertEquals(new DeleteEventCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_seeEventContacts() throws Exception {
+        SeeEventContactsCommand command = (SeeEventContactsCommand) parser.parseCommand(
+                SeeEventContactsCommand.COMMAND_WORD
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_FIRST_INDEX_DESC);
+        assertEquals(new SeeEventContactsCommand(new EventDate(VALID_EVENT_DATE_DOCTORAPPT), INDEX_FIRST_EVENT), command);
     }
 
     @Test
