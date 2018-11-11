@@ -87,9 +87,9 @@ public class Card {
      * Update the review score based on how well the user has performed on this card.
      */
     public double updateReviewScore(int performanceAsInt) {
-        performanceAsInt = performanceAsInt + BIAS;
-        return PERFORMANCE_MODERATING_FACTOR + UPDATED_LINEAR_COEFFICIENT * performanceAsInt
-                + UPDATED_SQUARED_COEFFICIENT * performanceAsInt * performanceAsInt;
+        double scaledPerformance = performanceAsInt + BIAS;
+        return PERFORMANCE_MODERATING_FACTOR + UPDATED_LINEAR_COEFFICIENT * scaledPerformance
+                + UPDATED_SQUARED_COEFFICIENT * scaledPerformance * scaledPerformance;
 
     }
 

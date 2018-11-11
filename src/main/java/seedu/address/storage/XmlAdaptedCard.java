@@ -28,8 +28,7 @@ public class XmlAdaptedCard {
     private int timesReviewed = 0;
     @XmlElement
     private double reviewScore = 2.5;
-    @XmlElement
-    private String nextReview = LocalDateTime.now().toString();
+
 
 
     /**
@@ -65,7 +64,6 @@ public class XmlAdaptedCard {
         performance = source.getPerformance().toString();
         timesReviewed = source.getTimesReviewed();
         reviewScore = source.getReviewScore();
-        nextReview = source.getNextReview().toString();
     }
 
     /**
