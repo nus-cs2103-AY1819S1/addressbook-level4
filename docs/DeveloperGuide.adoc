@@ -780,11 +780,13 @@ with the cleared persons list.
 The following sequence diagram shows how the clear operation works:
 
 image::ClearCommandSequenceDiagram.png[width="800"]
+_Figure 4.5.1.1: Sequence diagram of clear command on specified keywords._
 
 
 The following activity diagram summarizes what happens when a user executes the clear command:
 
 image::ClearCommandActivityDiagram.png[width="650"]
+_Figure 4.5.1.2: Activity diagram showing different path flows of clear command._
 
 ==== Design Considerations
 
@@ -837,11 +839,13 @@ with the new persons list.
 The following sequence diagram shows how the erase operation works:
 
 image::EraseCommandSequenceDiagram.png[width="800"]
+_Figure 4.6.1.1: Sequence diagram of erase command on specified keywords._
 
 
 The following activity diagram summarizes what happens when a user executes the erase command:
 
 image::EraseCommandActivityDiagram.png[width="650"]
+_Figure 4.6.1.2: Activity diagram showing different path flows of erase command._
 
 ==== Design Considerations
 ===== Aspect: Algorithm to identify persons associated with CCAs to be erased
@@ -899,11 +903,13 @@ with the new contacts.
 The following sequence diagram shows how the import operation works:
 
 image::ImportCommandSequenceDiagram.png[width="800"]
+_Figure 4.7.1.1: Sequence diagram of import command._
 
 
 The following activity diagram summarizes what happens when a user executes the import command:
 
 image::ImportCommandActivityDiagram.png[width="650"]
+_Figure 4.7.1.2: Activity diagram showing different path flows of import command._
 
 ==== Design Considerations
 
@@ -951,11 +957,13 @@ storage data to the specified path.
 The following sequence diagram shows how the export operation works:
 
 image::ExportCommandSequenceDiagram.png[width="800"]
+_Figure 4.8.1.1: Sequence diagram of export command._
 
 
 The following activity diagram summarizes what happens when a user executes the export command:
 
 image::ExportCommandActivityDiagram.png[width="650"]
+_Figure 4.8.1.2: Activity diagram showing different path flows of export command._
 
 ==== Design Considerations
 
