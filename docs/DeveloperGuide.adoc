@@ -522,6 +522,7 @@ This is what the exported PDF certificate will look like:
 [.thumb]
 image::CurrentVolunteerCert.png[width="500"]
 
+// tag::exportcert-sharan-ppp[]
 ===== Implementation
 
 The following activity diagram shows us the control flow of the `exportcert` feature. Analysing this diagram would be a good way to understand the intended functionality of this feature.
@@ -667,7 +668,7 @@ image::command_exportcert_sd_2.png[exportcert SD, 800]
 |*Cons*| Causes a low level of cohesion by packaging different functionalities within `ExportCertCommand`. The functionality to export PDFs also remains unabstracted, and thus extending the functionality to create e.g. event report PDFs would require repetition of the PDF generation code.
 |===
 +
-
+// end::exportcert-sharan-ppp[]
 
 ====== Aspect: Choice of additional details for identifying volunteer from certificate
 

@@ -78,7 +78,7 @@ social welfare organisations that I have worked with in the past.
 end-users._
 |===
 
-include::../UserGuide.adoc[tag=exportcert]
+include::../UserGuide.adoc[tag=exportcert-sharan-ppp]
 
 == Contributions to the Developer Guide
 
@@ -87,4 +87,4 @@ include::../UserGuide.adoc[tag=exportcert]
 documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=exportcert]
+include::../DeveloperGuide.adoc[tag=exportcert-sharan-ppp]
