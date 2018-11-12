@@ -100,6 +100,7 @@ When you are ready to start coding,
 
 == Design
 
+// tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -138,6 +139,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+// end::architecture[]
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -160,6 +162,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -177,7 +180,9 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+// end::uicomponent[]
 
+// tag::logicomponent[]
 [[Design-Logic]]
 === Logic component
 
@@ -197,7 +202,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `delete-patient n/John Doe` Command
 image::DeletePersonSdForLogic.png[width="800"]
+// end::logicomponent[]
 
+// tag::calendarcomponent[]
 [[Design-Calendar]]
 === Calendar component
 
@@ -212,8 +219,9 @@ The `Calendar`,
 
 * uses Google Calendar API to access the users Google calendar to read and write information to their calendar.
 * stores the OAuth of users google calendar data in tokens folder.
+// end::calendarcomponent[]
 
-
+// tag::modelcomponent[]
 [[Design-Model]]
 === Model component
 
@@ -228,7 +236,9 @@ The `Model`,
 * stores the HealthBook data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+// end::modelcomponent[]
 
+// tag::storagecomponent[]
 [[Design-Storage]]
 === Storage component
 
@@ -241,6 +251,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the HealthBook data in xml format and read it back.
+// end::storagecomponent[]
 
 [[Design-Commons]]
 === Common classes
