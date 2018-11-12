@@ -508,7 +508,8 @@ This is only possible when in the 'volunteer' context. The information included 
 * Date of export
 * Volunteer name
 * Volunteer ID
-* List of events involved in - Event name, hours contributed, event start and event end dates
+* List of events involved in - Event name, event ID, hours contributed, event start and event end dates
+* Total hours contributed across all events
 
 Currently, the certificate will be exported to either of these two locations:
 
