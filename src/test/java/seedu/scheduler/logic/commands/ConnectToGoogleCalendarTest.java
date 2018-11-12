@@ -1,4 +1,4 @@
-package seedu.scheduler.commons.web;
+package seedu.scheduler.logic.commands;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
@@ -54,8 +54,6 @@ import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.logic.CommandHistory;
-import seedu.scheduler.logic.commands.AddCommand;
-import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;

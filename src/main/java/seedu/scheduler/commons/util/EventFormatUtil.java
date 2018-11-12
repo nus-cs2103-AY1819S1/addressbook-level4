@@ -64,11 +64,14 @@ public class EventFormatUtil {
     }
 
     /**
-     * Convert a List Google Event format to a list of Event in local Format.
+     * Converts a List Google Event format to a list of Event in local Format.
+     * @param listOfGoogleEvents a list of Googl Event
+     * @param googleiCalAndRepeatType a map storing GoogleICalId and its RepeatType
+     * @param googleiCalAndRepeatUntilTIme a map storing GoogleICalId and its dRepeatUntilTIme
      *
-     * @param listOfGoogleEvents A list of Google event.
+     * @return
      *
-     * @return A list of local Event.
+     * @throws CommandException
      */
     public List<Event> convertGoogleListToLocalList(
             List<com.google.api.services.calendar.model.Event> listOfGoogleEvents,
@@ -79,8 +82,7 @@ public class EventFormatUtil {
         List<Event> eventsToAddToLocal = new ArrayList<>();
         BiMap<String, com.google.api.services.calendar.model.Event> eventsToAddToLocalRemoveRuplicate;
         eventsToAddToLocalRemoveRuplicate = HashBiMap.create();
-        Collections.sort(listOfGoogleEvents,
-                Comparator.comparing(a -> String.valueOf(a.getStart().getDateTime().getValue())));
+        listOfGoogleEvents.sort(Comparator.comparing(a -> String.valueOf(a.getStart().getDateTime().getValue())));
         Collections.reverse(listOfGoogleEvents); //so that the earlier event is put to the set later
         for (com.google.api.services.calendar.model.Event googleEvent : listOfGoogleEvents) {
             eventsToAddToLocalRemoveRuplicate.put(googleEvent.getICalUID(), googleEvent);
@@ -90,7 +92,7 @@ public class EventFormatUtil {
             if (!googleEvent.getStatus().equals("confirmed")) {
                 continue;
             }
-            Event newEvent = convertGeventToLocalEvent(
+            Event newEvent = convertGoogleEventToLocalEvent(
                     googleEvent, googleiCalAndRepeatType, googleiCalAndRepeatUntilTIme);
             eventsToAddToLocal.add(newEvent);
         }
@@ -129,16 +131,21 @@ public class EventFormatUtil {
                 + "+08:00";
     }
 
+
     /**
-     * Convert the Google Event format to local Format.
+     * Converts the Google Event format to local Format.
      *
-     * @param googleEvent The Google event.
+     * @param googleEvent                  a Google Event object
+     * @param googleICalAndRepeatType      a map storing iCalId and its RepeatType
+     * @param googleiCalAndRepeatUntilTime a map storing iCalId and its RepeatUntilDateTime
      *
-     * @return Event   The local Event.
+     * @return the converted Local Event
+     *
+     * @throws CommandException if any
      */
-    public Event convertGeventToLocalEvent(
+    private Event convertGoogleEventToLocalEvent(
             com.google.api.services.calendar.model.Event googleEvent,
-            HashMap<String, RepeatType> googleiCalAndRepeatType,
+            HashMap<String, RepeatType> googleICalAndRepeatType,
             HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime)
             throws CommandException {
 
@@ -147,51 +154,106 @@ public class EventFormatUtil {
             //if no time, only date
             start = googleEvent.getStart().getDate();
         }
-        String newEventname = googleEvent.getSummary(); //Summary==title in GoogleAPI
+        //Converts the startDateTime
+        //Location is designed by Google
+        int yearMonthDateStartPosition = 0;
+        int yearMonthDateEndPosition = 10;
+        int hourMinStartPosition = 11;
+        int hourMinDateEndPosition = 19;
+        //Multiple output cannot refactor to a single method
+        String convertedEventName = convertEventNameToLocalFormat(googleEvent);
+        String convertedEventStart = String.valueOf(start); //eg:2018-10-16T22:30:00.000+08:00
+        String convertedEventStartDate =
+                convertedEventStart.substring(yearMonthDateStartPosition, yearMonthDateEndPosition); //2018-10-16
+        String convertedEventStartTime =
+                convertedEventStart.substring(hourMinStartPosition, hourMinDateEndPosition)//22:30:00
+                        .replaceAll(":", ""); //223000
 
-        //TODO:Simply the string processing code (OOP possible here)
-        String newEventStart = String.valueOf(start); //eg:2018-10-16T22:30:00.000+08:00
-        //TODO:Try not to use the migc number 0,10,11,19. Use other ways of string processing
-        String newEventStartDate = newEventStart.substring(0, 10); //2018-10-16
-        String newEventStartTime = newEventStart.substring(11, 19); //22:30:00
-        newEventStartTime = newEventStartTime.replaceAll(":", ""); //223000
-
+        //Converts the endDateTime
         DateTime end = googleEvent.getEnd().getDateTime();
-        if (end == null) {
-            //if no time, only date
-            start = googleEvent.getEnd().getDate();
-        }
-        String newEventEnd = String.valueOf(end);
-        String newEventEndDate = newEventEnd.substring(0, 10);
-        String newEventEndTime = newEventEnd.substring(11, 19);
-        newEventEndTime = newEventEndTime.replaceAll(":", "");
-        String newDescription = googleEvent.getDescription() == null ? "" : googleEvent.getDescription();
-        String newVenue = googleEvent.getLocation() == null ? "" : googleEvent.getLocation();
+        String convertedEventEnd = String.valueOf(end);
+        String convertedEventEndDate =
+                convertedEventEnd.substring(yearMonthDateStartPosition, yearMonthDateEndPosition);
+        String convertedEventEndTime = convertedEventEnd.substring(hourMinStartPosition, hourMinDateEndPosition);
+        convertedEventEndTime = convertedEventEndTime.replaceAll(":", "");
+        String convertedDescription = googleEvent.getDescription() == null ? "" : googleEvent.getDescription();
+        String convertedVenue = googleEvent.getLocation() == null ? "" : googleEvent.getLocation();
 
+        //Converts other attributes
+        //declaration
         EventName eventName = null;
         seedu.scheduler.model.event.DateTime startDateTime = null;
         seedu.scheduler.model.event.DateTime endDateTime = null;
         Description description = null;
         Venue venue = null;
 
-        seedu.scheduler.model.event.DateTime
-                repeatUntilDateTime = null;
+        //Converts repeatUntilDateTime
         ReminderDurationList reminderDurationList = new ReminderDurationList();
-        if (newEventname == null) {
+        if (convertedEventName == null) {
             throw new CommandException(MESSAGE_INVALID_EVENT_ERROR);
         }
         try {
-            eventName = ParserUtil.parseEventName(newEventname);
-            startDateTime = ParserUtil.parseDateTime(newEventStartDate + " " + newEventStartTime);
-            endDateTime = ParserUtil.parseDateTime(newEventEndDate + " " + newEventEndTime);
-            description = ParserUtil.parseDescription(newDescription);
-            venue = ParserUtil.parseVenue(newVenue);
+            eventName = convertsEventNameToLocalFormat(convertedEventName);
+            startDateTime = convertTargetDateTimeToLocalFormat(convertedEventStartDate, convertedEventStartTime);
+            endDateTime = convertTargetDateTimeToLocalFormat(convertedEventEndDate, convertedEventEndTime);
+            description = convertDescriptionToLocalFormat(convertedDescription);
+            venue = convertVenueToLocalFormat(convertedVenue);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new CommandException(MESSAGE_INVALID_EVENT_ERROR);
         }
 
+        //Converts reminders
         Reminders reminder = googleEvent.getReminders();
+        convertsReminderToLocalFormat(reminderDurationList, reminder);
+
+        //Converts repeatUntilDateTime
+        seedu.scheduler.model.event.DateTime repeatUntilDateTime;
+        repeatUntilDateTime =
+                convertsRepeatUntilDaTimeToLocalFormat(googleEvent, googleiCalAndRepeatUntilTime, endDateTime);
+
+        //Converts repeatType
+        RepeatType repeatType;
+        repeatType = convertsRepeatTypeToLocalFormat(googleEvent, googleICalAndRepeatType);
+
+        //dummy tags
+        Set<Tag> tags = Collections.emptySet();
+        return new Event(eventName, startDateTime, endDateTime,
+                description,
+                venue,
+                repeatType,
+                repeatUntilDateTime,
+                tags, reminderDurationList);
+    }
+
+    private String convertEventNameToLocalFormat(com.google.api.services.calendar.model.Event googleEvent) {
+        return googleEvent.getSummary();
+    }
+
+    private Venue convertVenueToLocalFormat(String convertedVenue) {
+        return ParserUtil.parseVenue(convertedVenue);
+    }
+
+    private Description convertDescriptionToLocalFormat(String convertedDescription) {
+        return ParserUtil.parseDescription(convertedDescription);
+    }
+
+    private seedu.scheduler.model.event.DateTime convertTargetDateTimeToLocalFormat(String convertedEventStartDate,
+                                                                                    String convertedEventStartTime)
+            throws ParseException {
+        return ParserUtil.parseDateTime(convertedEventStartDate + " " + convertedEventStartTime);
+    }
+
+    private EventName convertsEventNameToLocalFormat(String convertedEventName) throws ParseException {
+        return ParserUtil.parseEventName(convertedEventName);
+    }
+
+    /**
+     * Converts a Reminder List To LocalFormat
+     * @param reminderDurationList a list of reminders
+     * @param reminder reminder from Google
+     */
+    private void convertsReminderToLocalFormat(ReminderDurationList reminderDurationList, Reminders reminder) {
         if (reminder.getUseDefault()) {
             reminderDurationList.add(Duration.ofMinutes(30));
         } else if (reminder.getOverrides() == null) {
@@ -202,27 +264,45 @@ public class EventFormatUtil {
                 reminderDurationList.add(Duration.ofMinutes(eventReminder.getMinutes()));
             }
         }
-        Set<Tag> tags = Collections.emptySet();
+    }
 
+    /**
+     * Converts a RepeatType To LocalFormat
+     * @param googleEvent a Google Event
+     * @param googleICalAndRepeatType a map storing iCalId and its RepeatType
+     *
+     * @return local RepeatType
+     */
+    private RepeatType convertsRepeatTypeToLocalFormat(com.google.api.services.calendar.model.Event googleEvent,
+                                                       HashMap<String, RepeatType> googleICalAndRepeatType) {
+        RepeatType repeatType;
+        if (googleICalAndRepeatType.get(googleEvent.getICalUID()) == null) {
+            repeatType = RepeatType.NONE;
+        } else {
+            repeatType = googleICalAndRepeatType.get(googleEvent.getICalUID());
+        }
+        return repeatType;
+    }
+
+    /**
+     * Converts a RepeatUntilDateTime To LocalFormat
+     * @param googleEvent a Google Event
+     * @param googleiCalAndRepeatUntilTime a map storing iCalId and its RepeatUntilDaTime
+     * @param endDateTime localendDateTime
+     *
+     * @return local RepeatUntilDaTime
+     */
+    private seedu.scheduler.model.event.DateTime convertsRepeatUntilDaTimeToLocalFormat(
+            com.google.api.services.calendar.model.Event googleEvent,
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime,
+            seedu.scheduler.model.event.DateTime endDateTime) {
+        seedu.scheduler.model.event.DateTime repeatUntilDateTime;
         if (googleiCalAndRepeatUntilTime.get(googleEvent.getICalUID()) == null) {
             repeatUntilDateTime = endDateTime;
         } else {
             repeatUntilDateTime = googleiCalAndRepeatUntilTime.get(googleEvent.getICalUID());
         }
-
-        RepeatType repeatType = null;
-        if (googleiCalAndRepeatType.get(googleEvent.getICalUID()) == null) {
-            repeatType = RepeatType.NONE;
-        } else {
-            repeatType = googleiCalAndRepeatType.get(googleEvent.getICalUID());
-        }
-
-        return new Event(eventName, startDateTime, endDateTime,
-                description,
-                venue,
-                repeatType,
-                repeatUntilDateTime,
-                tags, reminderDurationList);
+        return repeatUntilDateTime;
     }
 
     /**
@@ -234,14 +314,12 @@ public class EventFormatUtil {
      * @return The relative index of the event to be deleted to the first recurring event.
      */
     public static int calculateInstanceIndex(List<Event> lastShownList, Event eventToDelete) {
+        //Start from -1 is because encounter first instance will make it increment by 1
+        //which is zero. We are using zero-based index.
         int counter = -1;
         List<Event> lastShownListSorted = new ArrayList<>();
-        for (Event event : lastShownList) {
-            lastShownListSorted.add(event);
-        }
-        Collections.sort(lastShownListSorted, (
-                a, b) -> a.getStartDateTime()
-                .compareTo(b.getStartDateTime()));
+        lastShownListSorted.addAll(lastShownList);
+        lastShownListSorted.sort(Comparator.comparing(Event::getStartDateTime));
 
         for (Event event : lastShownListSorted) {
             if (event.getEventSetUid().equals(eventToDelete.getEventSetUid())) {

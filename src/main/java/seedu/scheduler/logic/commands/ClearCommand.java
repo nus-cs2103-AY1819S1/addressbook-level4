@@ -2,7 +2,6 @@ package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
