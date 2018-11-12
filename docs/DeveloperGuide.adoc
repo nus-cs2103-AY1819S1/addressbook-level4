@@ -760,7 +760,7 @@ This section documents the considerations that were carefully studied for implem
 
 ===== Aspect: Data restored from employee
 * **Alternative 1 (current choice):** All data from the time when the employee was deleted will be restored when the employee object is restored.
-** Pros: Employee being restored wont lose any important information and saves the hassle of having to key in all the employee’s information again.
+** Pros: Employee being restored wont lose any important information and skips the task of having to key in all the employee’s information again.
 ** Cons: Employee may have changed job scopes and permissions assigned may be different, this could lead to big problems if employees have permissions they are not supposed to have.
 * **Alternative 2:** Only certain information like name and phone number will be restored when employee is restored.
 ** Pros: More efficient memory usage, don’t have to store other information about the employee.  Restored employees will not have the same permissions they had before which could save potential problems of employees having permissions they are not supposed to have.
