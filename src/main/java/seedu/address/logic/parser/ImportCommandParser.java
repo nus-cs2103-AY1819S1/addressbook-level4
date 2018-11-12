@@ -29,7 +29,7 @@ import seedu.address.model.tag.Tag;
  * Directs user to choose a file, then reads from the file.
  * Prepares a list of Persons to add to the address book.
  */
-public class ImportCommandPreparer {
+public class ImportCommandParser implements Parser<ImportCommand> {
 
     private static final int NAME_FIELD = 0;
     private static final int PHONE_FIELD = 1;
@@ -41,26 +41,27 @@ public class ImportCommandPreparer {
     private ArrayList<Person> persons;
 
     /**
-     * Creates a new ImportCommandPreparer with an empty ArrayList of Persons to be added.
+     * Creates a new ImportCommandParser with an empty ArrayList of Persons to be added.
      */
-    public ImportCommandPreparer() {
+    public ImportCommandParser() {
         persons = new ArrayList<>();
     }
 
     /**
      * Starts the import process by directing users to choose a file.
      */
-    public ImportCommand init(String args) throws ParseException {
-        File inputFile;
+    @Override
+    public ImportCommand parse(String args) throws ParseException {
         if (args.isEmpty()) {
-            inputFile = getFileFromFileBrowser();
+            return parseFile(getFileFromFileBrowser());
         } else {
-            inputFile = getFileFromUserInput(args);
+            return parseFile(getFileFromArgs(args));
         }
-        return parseFile(inputFile);
     }
-
-    private File getFileFromUserInput(String args) throws ParseException {
+    /**
+     * Parses the selected csv file pointed to by the user's input.
+     */
+    private File getFileFromArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE_LOCATION);
         if (!argMultimap.getValue(PREFIX_FILE_LOCATION).isPresent()) {

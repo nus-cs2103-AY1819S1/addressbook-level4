@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ImportCommandPreparer;
+import seedu.address.logic.parser.ImportCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -38,7 +38,7 @@ public class ImportCommandTest {
 
     private Model model;
     private CommandHistory commandHistory;
-    private ImportCommandPreparer preparer = new ImportCommandPreparer();
+    private ImportCommandParser parser = new ImportCommandParser();
 
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -49,7 +49,7 @@ public class ImportCommandTest {
     public void execute_import_success() throws ParseException, CommandException {
         setUp();
         File file = CORRECT_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Expected persons being added to expectedModel
@@ -81,7 +81,7 @@ public class ImportCommandTest {
     public void execute_import_duplicates() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Populate the test model with an Alex entry, a duplicate of which is in the CSV under test
@@ -110,7 +110,7 @@ public class ImportCommandTest {
     public void execute_import_unique() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_NEGATIVE_CSV.toFile();
-        ImportCommand command = preparer.parseFile(file);
+        ImportCommand command = parser.parseFile(file);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         //Populate the test model with an Alex entry, an (apparent) duplicate of which is in the CSV under test.

@@ -18,7 +18,7 @@ By: `Team W13-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-InsuRen is for insurance salesman who *prefer to use a desktop app for managing contacts*. It can help to *manage one’s network of clients in an organized, efficient and intuitive manner.* More importantly, InsuRen is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsuRen can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+InsuRen is for insurance salesmen who *prefer to use a desktop app for managing contacts*. It can help to *manage one’s network of clients in an organized, efficient and intuitive manner.* More importantly, InsuRen is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsuRen can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -267,6 +267,7 @@ Format: `exit`
 
 Shorthand: `q`
 
+// tag::import[]
 === Mass import contacts: `import`
 
 Import contacts from a csv file.
@@ -299,7 +300,8 @@ Example (user provides a file path):
 ** `import l/AddressbookCorrect.csv` (relative pathing).
 * Regardless which method is used, InsuRen will load contacts from the given csv file.
 * Each contact's Name, Phone, Email, Address, Meeting and Tag(s) fields must be keyed in the csv in that order.
-* All fields are optional, and can be left blank, except for Name.
+* All fields are optional, except for Name. Contacts with no Address, Phone etc. must have those fields left BLANK. Ie. the
+corresponding Excel cell MUST have nothing in it.
 * Any invalid entries (contacts with no name) will be ignored.
 * Examples of properly formatted csv files are shown below.
 
@@ -307,11 +309,13 @@ Example (user provides a file path):
 image::import-acceptable-csv.png[width="790"]
 +
 image::import-acceptable-csv2.png[width="790"]
+// end::import[]
 
+// tag::export[]
 === Export contact list: `export`
 
 Exports the current contact list into a csv file whose name is given as the second argument. The export file
- can be found in the root directory of the project. +
+ can be found in the root directory of the project/application. +
 Format: `export DESTINATION_FILE_NAME.csv`
 
 Shorthand: `x`
@@ -327,7 +331,9 @@ Example:
 InsuRen contacts are exported to `28Nov.csv`
 +
 image::exportedCsv.png[width="790"]
+// end::export[]
 
+// tag::schedule[]
 === Add meeting time: `schedule`
 
 Add a meeting at the input date and time with a specified person. +
@@ -348,7 +354,9 @@ Example:
 
 * `schedule 1 m/12/03/19 0930` +
 InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the first entry.
+// end::schedule[]
 
+// tag::meetings[]
 === View meeting timings: `meetings`
 
 Displays the details of the meeting at the input date and time. +
@@ -366,12 +374,15 @@ Example:
 
 * `meetings 23/02/18` +
 InsuRen displays meetings scheduled on 23rd February, 2018.
+// end::meetings[]
 
+// tag::notifs[]
 === Notifications for expiring plans `[coming in v2.0]`
 
 InsuRen entries have an optional field for date of plan expiry. You will automatically be notified of clients
 with plans expiring within a month from the day when InsuRen is initialized. +
 No additional search queries are needed.
+// end::notifs[]
 
 // tag::picture[]
 === Adding a picture to contact: `pic`
@@ -384,7 +395,10 @@ Shorthand: `p`
 ****
 * InsuRen will add the image to the contact.
 * Only `.jpg` and `.png` files are accepted.
-* File location can be an absolute path (`/Users/john/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
+* Supports file location for any <<DeveloperGuide.adoc#mainstream-os,mainstream OS>>.
+** Windows: `C:/Users/John/Downloads/InsuRen/images/petertan.jpg`
+** Mac: `/Users/John/Downloads/Insuren/images/petertan.jpg`
+* File location can be an absolute path (`/Users/John/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
 * If the picture gets deleted or renamed, InsuRen will show the default user picture.
 ****
 
@@ -392,8 +406,10 @@ Examples:
 
 * `pic 2 l/john.jpg` +
 The second person in the list will now have image `john.jpg` in his contact.
-* `p 1 l//Users/john/Downloads/InsuRen/images/petertan.jpg` +
+* `pic 1 l//Users/John/Downloads/InsuRen/images/petertan.jpg` +
 The first person in the list will now have image `petertan.jpg` from the given path in his contact.
+* `p 3 l/C:/Users/John/Downloads/InsuRen/images/davidlee.png` +
+The third person in the list will now have image `davidlee.png` from the given path in his contact.
 
 // end::picture[]
 
@@ -471,10 +487,33 @@ Example:
 All data will be encrypted. The next time the user opens InsuRen, InsuRen will prompt her for a password.
 // end::dataencryption[]
 
+// tag::picture-url[]
+=== Adding a picture from URL to contact `[coming in v2.0]`
+
+Adds a picture from a URL to a person in InsuRen. +
+Format: `​pic INDEX l/FILE_URL​`
+
+Shorthand: `p`
+
+****
+* InsuRen will add the image to the contact.
+* If the URL is broken after it is successfully added, InsuRen will show a picture indicating that the URL is broken.
+****
+
+Examples:
+
+* `pic 1 l/https://cs2103-ay1819s1-w13-1.github.io/main/images/denzelchung.png` +
+The first person in the list will now have image `denzelchung.png` from the `Github` webpage in his contact.
+
+// end::picture-url[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InsuRen folder.
+
+Alternatively, use the export command to get your current contact list and save it in portable storage (email, thumbdrive). Install InsuRen on the other computer
+and import the abovementioned csv file into your new computer's copy of InsuRen.
 
 == Command Summary
 
@@ -497,7 +536,7 @@ e.g.`select 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Import contacts* : `import` or `import l/FILE_PATH`
-* *Export email addresses* : `export DESTINATION_DIRECTORY`
+* *Export contacts* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
 * *Meetings* : `meetings [DD/MM/YY]`
 * *Add picture* : `​pic INDEX l/FILE_LOCATION`

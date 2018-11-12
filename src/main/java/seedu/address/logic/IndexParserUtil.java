@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class IndexParserUtil {
 
     /**
-     * Attempts to parse an index from the provided string.
+     * Attempts to parseFileFromArgs an index from the provided string.
      * @param string The preamble of the command typed.
      * @return An Optional of the index if the specified index is valid, an empty optional otherwise
      */
