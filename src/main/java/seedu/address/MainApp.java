@@ -71,7 +71,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-        model.setClearEnabled();
+        //model.setClearEnabled();
 
         logic = new LogicManager(model);
 
