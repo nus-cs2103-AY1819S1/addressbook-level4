@@ -136,6 +136,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.joinGroup(person, group);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         indicateMeetingBookChanged();
     }
 
@@ -143,6 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.leaveGroup(person, group);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         indicateMeetingBookChanged();
     }
 
