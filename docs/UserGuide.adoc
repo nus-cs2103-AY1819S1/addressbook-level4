@@ -584,6 +584,7 @@ Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGA
 
 ****
 * All names of event, location, organiser and participant names must match exactly.
+* Only one of each attribute can be searched (last argument of each tag is used).
 ****
 
 Examples:
