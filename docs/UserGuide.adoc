@@ -56,7 +56,9 @@ The bar at the top of the window allows you to access `Help` or `About`. The `Ab
 [WARNING]
 You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`. +
 Additionally, note that you may not enter more than 250 characters inside the `CommandBox`.
-Any character past the 250th will be forcefully truncated. This is to guard against abuse.
+Any character past the 250th will be forcefully truncated. This is to guard against abuse. +
+The ride list also does not support any text longer than 22 characters. Excess characters will be truncated and +
+replaced by `...`.
 
 
 Congratulations! You have successfully set up ThanePark!

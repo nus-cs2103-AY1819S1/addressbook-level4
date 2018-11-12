@@ -13,7 +13,8 @@ import seedu.thanepark.ui.exceptions.AccessibilityException;
  * An UI component that displays information of a {@code Ride}.
  */
 public class RideCard extends UiPart<Region> {
-
+    private static final int CHARACTER_LIMIT = 22;
+    private static final String TRUNCATED_CHARACTERS = "%1$s...";
     private static final String FXML = "RideListCard.fxml";
 
     /**
@@ -43,13 +44,13 @@ public class RideCard extends UiPart<Region> {
         super(FXML);
         this.ride = ride;
         id.setText(displayedIndex + ". ");
-        name.setText(ride.getName().fullName);
+        name.setText(getTruncatedString(ride.getName().fullName));
 
-        ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        ride.getTags().forEach(tag -> tags.getChildren().add(getTruncatedLabel(tag.tagName)));
 
-        rideInfo.getChildren().add(new Label(ride.getZone().value));
-        rideInfo.getChildren().add(new Label(ride.getDaysSinceMaintenance().toString()));
-        rideInfo.getChildren().add(new Label(ride.getWaitingTime().toString()));
+        rideInfo.getChildren().add(getTruncatedLabel(ride.getZone().value));
+        rideInfo.getChildren().add(getTruncatedLabel(ride.getDaysSinceMaintenance().toString()));
+        rideInfo.getChildren().add(getTruncatedLabel(ride.getWaitingTime().toString()));
 
         statusString.setText(ride.getStatus().name());
         if (ride.getStatus().equals(Status.OPEN)) {
@@ -62,6 +63,26 @@ public class RideCard extends UiPart<Region> {
             //error
             throw new AccessibilityException(String.format("Status of %1s is unknown.", ride.getName().fullName));
         }
+    }
+
+    /**
+     * Returns a label with a truncated string to fit UI requirements.
+     */
+    private Label getTruncatedLabel(String toBeTruncated) {
+        return new Label(getTruncatedString(toBeTruncated));
+    }
+
+    /**
+     * Returns a truncated string to fit UI requirements.
+     */
+    private String getTruncatedString(String toBeTruncated) {
+        final String content;
+        if (toBeTruncated.length() < CHARACTER_LIMIT) {
+            content = toBeTruncated;
+        } else {
+            content = String.format(TRUNCATED_CHARACTERS, toBeTruncated.substring(0, CHARACTER_LIMIT));
+        }
+        return content;
     }
 
     @Override
