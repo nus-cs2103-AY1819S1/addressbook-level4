@@ -4,7 +4,6 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.Person;
 
 //@@author javenseow
-
 /**
  * Indicates a request to view a person's profile.
  */

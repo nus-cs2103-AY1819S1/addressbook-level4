@@ -19,7 +19,10 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop app for the JCRC that allows *for better and faster management of residents' contacts*. More importantly, Hallper is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Hallper can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Hallper is a desktop application for the Junior Common Room Committee(JCRC) that allows *for better and faster management of residents' contacts*.
+More importantly, Hallper is *optimized for those who prefer to work using their keyboards*.
+If you can type fast, Hallper can get your contact management tasks done faster than most apps.
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -27,7 +30,7 @@ Hallper is a desktop app for the JCRC that allows *for better and faster managem
 .  Download the latest `Hallper.jar` https://github.com/CS2103-AY1819S1-W16-1/main/releases[here].
 
 .  Copy the file to the folder you want to use as the home folder for your Hallper.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The Hallper main window should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -37,9 +40,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
 == Command Examples
 Here are some commands that you can try out with:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com r/A110 s/FoS t/basketball` : adds a contact named `John Doe` to Hallper.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all residents
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com r/A110 s/FoS t/basketball` : adds a resident named `John Doe` to Hallper.
+* **`delete`**`3` : deletes the 3rd resident shown in the current list
 * *`exit`* : exits the app
 
 Refer to <<Features>> for details of each command.
@@ -58,15 +61,15 @@ Refer to <<Features>> for details of each command.
 ====
 
 === Updating Hallper
-This section lists features related to updating contacts in Hallper.
+This section lists features related to updating residents in Hallper.
 
-==== Adding a person: `add`
+==== Adding a resident: `add`
 
-Adds a person to Hallper. +
+Adds a resident to Hallper. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROOM NUMBER s/SCHOOL [c/CCA]...`
 
 [TIP]
-A person can have any number of CCAs (including 0)
+A resident can have any number of CCAs (including 0)
 
 Examples:
 
@@ -74,13 +77,12 @@ Examples:
 * `add n/Betsy Crowe c/Soccer e/betsycrowe@example.com p/1234567 r/B213 s/Business`
 
 // tag::image[]
-==== Adds a picture to resident detail : `image`
+==== Adding a picture to resident detail : `image`
 
 Saves a copy of the image of resident staying in the specified room to Hallper. +
 Format: `image r/ROOM f/FILEPATH`
 
 ****
-* Allow for the upload of the profile picture of resident.
 * ROOM is not case-sensitive.
 * The image must be in *`.jpg`*.
 ****
@@ -89,9 +91,6 @@ Example:
 
 * `image r/a123 f/C:/user/images/e0000000.jpg` +
 Uploads the profile picture (in *`.jpg`*) of the resident living in room `A123` into Hallper.
-
-* `image r/B111 f/C:/user/images/e0000000.jpg` +
-Uploads the profile picture (in *`.jpg`*) of the resident living in room `B111` into Hallper.
 
 // end::image[]
 
@@ -157,7 +156,7 @@ Edits the name of the 2nd resident to be `Betsy Crower` and clears all existing 
 
 // tag::erase[]
 
-==== Erasing specified CCAs : `erase`
+==== Erasing specified ccas : `erase`
 
 Erases all specified CCA(s) from all residents from Hallper. +
 Format: `erase CCA...`
@@ -178,9 +177,9 @@ Erases `basketball` and `netball` from residents associated with these CCAs.
 // end::erase[]
 
 // tag::export[]
-==== Exporting contact information: `export`
+==== Exporting residents' information: `export`
 
-Exports file containing existing residents information in Hallper. +
+Exports file containing existing residents' information in Hallper. +
 Formate: `export dst/PATH fn/FILENAME`
 
 ****
@@ -221,26 +220,24 @@ Imports file containing Hallper-related information and updates Hallper accordin
 Format: `import f/FILEPATH`
 
 ****
-* Allows for the mass upload of resident(s) information.
-* Allows for the mass upload of CCA(s) list.
-* Allows for the mass upload of budget book information.
-* Allows for the mass upload of CCA transaction(s).
+* Allows for the mass upload of resident or CCA information.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
 File format examples for importable `.xml` files are as shown below:
 
-image::AddressBookExample.png[width="790"]
+image::AddressBookExample.png[width="400"]
 _Figure 4.1.9.1: Resident information example. Multiple `persons` can be specified._
 
-image::CCAListExample.png[width="790"]
+
+image::CCAListExample.png[width="400"]
 _Figure 4.1.9.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
 specified for multiple `cca`._
 
-image::BudgetBookExample.png[width="790"]
+image::BudgetBookExample.png[width="400"]
 _Figure 4.1.9.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
 
-image::TransactionsExample.png[width="790"]
+image::TransactionsExample.png[width="400"]
 _Figure 4.1.9.4: Transaction information example. Multiple `transaction` can be specified._
 
 Example:
@@ -251,15 +248,10 @@ Imports `data.xml` file to be read and for Hallper to be updated accordingly.
 // end::import[]
 
 === Viewing Hallper
-This section lists features related to viewing all or specific contacts in Hallper.
+This section lists features related to viewing all or specific residents s in Hallper.
 
-==== Listing all persons : `list`
-
-Shows a list of all persons in Hallper. +
-Format: `list`
-
-==== Locating persons by name: `find`
-Finds persons whose names contain any of the given keywords. +
+==== Locating residents by name: `find`
+Finds residents whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -267,7 +259,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* residents matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -275,12 +267,20 @@ Examples:
 * `find John` +
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Returns any resident having names `Betsy`, `Tim`, or `John`
+
+==== Listing all residents : `list`
+
+Shows a list of all residents in Hallper. +
+Format: `list`
+
+image::list.png[width="790"]
+_Figure 4.2.2.1: Result after executing `list`._
 
 // tag::search[]
-==== Searching all persons under specified tag : `search`
+==== Searching all residents under specified tag : `search`
 
-Shows a list of all persons in the Hallper that are associated with the specified keyword. +
+Shows a list of all residents in the Hallper that are associated with the specified keyword. +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 ****
 * KEYWORD can be ROOM, CCA or SCHOOL.
@@ -290,13 +290,13 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 Searches Hallper and lists all residents that are in `basketball`, staying in room `A123` or studying in `SoC`
- as seen in Figure 4.2.1.1 and Figure 4.2.1.2.
+in the resident List Panel as seen in Figure 4.2.1.1 and Figure 4.2.1.2.
 
-image::SearchExample.png[width="790"]
-_Figure 4.2.1.1: Screen before running search on Hallper._
+image::SearchExample.png[width="600"]
+_Figure 4.2.3.1: Screen before running `search` on Hallper._
 
-image::SearchExample2.png[width="790"]
-_Figure 4.2.1.2: Screen after running search on Hallper._
+image::SearchExample2.png[width="600"]
+_Figure 4.2.3.2: Screen after running `search` on Hallper._
 
 * `search SoC` +
 Searches Hallper and lists all residents that are studying in `SoC`.
@@ -308,28 +308,69 @@ Searches Hallper and lists all residents that are staying in room `A123`.
 * `search basketball A123 Soc` +
 // end::search[]
 
-==== Selecting a person: `select`
+==== Selecting a resident: `select`
 
-Selects the person identified by the index number used in the displayed person list.
+Selects the resident identified by the index number used in the displayed resident list.
 Format: `select INDEX`
 
-* Selects the person and loads the profile page of the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the resident and loads the profile page of the resident at the specified `INDEX`.
+* The index refers to the index number shown in the displayed resident list.
 * The index *must be a positive integer*, `1, 2, 3, ...`
 
 Examples:
 
+The screens for Hallper before and after executing the `select` command are shown below in Figure 4.2.4.1 and
+Figure 4.2.4.2 respectively:
+
+image::SearchExample.png[width="790"]
+_Figure 4.2.4.1: Screen before running `select` on Hallper._
+
+image::Select Example.png[width="790"]
+_Figure 4.2.4.2: Screen after running `select` on Hallper._
+
 * `list` +
 `select 2` +
-Selects the 2nd person in Hallper.
+Selects the 2nd resident in Hallper and opens his/her profile page.
 
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st resident in the results of the `find` command and opens his/her profile page.
 
 // tag::email[]
 === Email
 This section lists features related to email in Hallper.
+
+==== Composing an email to currently listed residents: `compose_email_list`
+Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
+Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
+
+****
+* FROM must be a valid email address. E.g. johndoe@example.com
+* SUBJECT has no word limit.
+* CONTENT has no word limit.
+* `<br>` can be used in CONTENT for new line.
+****
+
+[TIP]
+====
+CONTENT is written in HTML. Users who know HTML can use it to format the CONTENT.
+====
+
+Example:
+
+* `list`
++
+image::list.png[width="790"]
+_Figure 4.3.1.1: Result after executing `list`._
++
+{empty} +
+`compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
+Composes an email from `johndoe@example.com` to currently listed residents with subject
+`Meeting this Friday` and email body `Dear All<br><br>There's a meeting this friday.<br><br>John Doe` and saves
+it as a *`.eml`* file.
++
+image::compose_email_list.png[width="790"]
+_Figure 4.3.1.2: Result after executing `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`._
 
 ==== Composing an email to selected indexes: `compose_email_index`
 Composes a *`.eml`* file that can be used to send emails to residents specified by index. +
@@ -353,47 +394,17 @@ Example:
 
 * `list`
 +
-.Result after executing `list`
 image::list.png[width="790"]
+_Figure 4.3.2.1: Result after executing `list`._
++
 {empty} +
 `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday
 content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
 Composes an email from `johndoe@example.com` to residents at indexes 1, 3, and 5 with subject
 `Meeting this Friday` and email body `Dear All<br><br>There's a meeting this friday.<br><br>John Doe` and saves it as a *`.eml`* file.
 +
-.Result after executing `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`
 image::compose_email_index.png[width="790"]
-
-==== Composing an email to currently listed residents: `compose_email_list`
-Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
-Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
-
-****
-* FROM must be a valid email address. E.g. johndoe@example.com
-* SUBJECT has no word limit.
-* CONTENT has no word limit.
-* `<br>` can be used in CONTENT for new line.
-****
-
-[TIP]
-====
-CONTENT is written in HTML. Users who know HTML can use it to format the CONTENT.
-====
-
-Example:
-
-* `list`
-+
-.Result after executing `list`
-image::list.png[width="790"]
-{empty} +
-`compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
-Composes an email from `johndoe@example.com` to currently listed residents with subject
-`Meeting this Friday` and email body `Dear All<br><br>There's a meeting this friday.<br><br>John Doe` and saves
-it as a *`.eml`* file.
-+
-.Result after executing `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`
-image::compose_email_list.png[width="790"]
+_Figure 4.3.2.2: Result after executing `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`._
 
 ==== Deleting an email : `delete_email`
 
@@ -406,13 +417,20 @@ Format: `delete_email SUBJECT`
 
 Examples:
 
-* `delete_email Meeting on Friday` +
-Deletes the email with the subject `Meeting on Friday`.
+* `delete_email Meeting` +
+Deletes the email with the subject `Meeting`.
+
+image::delete_email.png[width="790"]+
+_Figure 4.3.3.1: Result after executing `delete_email Meeting`._
 
 ==== Listing all emails : `list_emails`
 
 Displays a list of all emails in Hallper. +
 Format: `list_emails`
+
+image:list_emails.png[width="790"]
+_Figure 4.3.4.1: Result after executing `list_emails`._
+
 
 ==== Viewing an email : `view_email`
 
@@ -428,12 +446,17 @@ Examples:
 * `view_email Meeting on Friday` +
 Displays the email with the subject `Meeting on Friday`.
 +
-.Result after executing `view_email Meeting on Friday`
 image::view_email.png[width="790"]
+_Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
+
 // end::email[]
 
+// tag::calendarIntro[]
 === Calendar
 This section lists features related to managing the calendar in Hallper.
+// end::calendarIntro[]
+
+// tag::calendarAddEvent[]
 
 ==== Adding all day event into calendar : `add_all_day_event`
 
@@ -450,15 +473,17 @@ Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 
 Example:
 
-Before executing command
+Before executing command:
 
-image::add_all_day_event_diagram_before.png[width="790"]
+image::add_all_day_event_diagram_before.png[width="700"]
+_Figure 4.4.1.1: Screen before running `add_all_day_event` on Hallper._
 
 * `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
 
-image::add_all_day_event_diagram_after.png[width="790"]
-
+image::add_all_day_event_diagram_after.png[width="700"]
+_Figure 4.4.1.2: Screen after running `add_all_day_event` on Hallper._
+// end::calendarAddEvent[]
 
 ==== Adding event into calendar : `add_event`
 
@@ -477,15 +502,19 @@ edate/DD ehour/HH emin/mm title/NAME OF EVENT`
 
 Example:
 
-Before executing command
+Before executing command:
 
-image::add_event_diagram_before.png[width="790"]
+image::add_event_diagram_before.png[width="700"]
+_Figure 4.4.2.1: Screen before running `add_event` on Hallper._
 
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
 
-image::add_event_diagram_after.png[width="790"]
+image::add_event_diagram_after.png[width="700"]
+_Figure 4.4.2.2: Screen after running `add_event` on Hallper._
+
+// tag::calendarCreate[]
 
 ==== Creating calendar : `create_calendar`
 
@@ -503,8 +532,9 @@ Example:
 * `create_calendar month/Feb year/2018` +
 Creates a calendar for the month of `Feb` and year `2018` and
 saves it as a *`.ics`* file.
+// end::calendarCreate[]
 
-==== Delete event from calendar : `delete_event`
+==== Deleting event from calendar : `delete_event`
 
 Deletes an event from the calendar. +
 Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
@@ -520,20 +550,23 @@ Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
 
 Example:
 
-Before executing command +
+Before executing command: +
 
-image::delete_event_diagram_before.png[width="790"]
+image::delete_event_diagram_before.png[width="700"]
+_Figure 4.4.4.1: Screen before running `delete_event` on Hallper._
 
 * Deleting a non-existing event (Title is case sensitive) +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
 
-image::delete_event_diagram_after_invalid.png[width="790"]
+image::delete_event_diagram_after_invalid.png[width="700"]
+_Figure 4.4.4.2: Screen after running `delete_event` with a non-existing event in Hallper._
 
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
 
-image::delete_event_diagram_after_valid.png[width="790"]
+image::delete_event_diagram_after_valid.png[width="700"]
+_Figure 4.4.4.3: Screen after running `delete_event` with an existing event in Hallper._
 
 ==== Viewing calendar : `view_calendar`
 
@@ -551,7 +584,7 @@ Example:
 * `view_calendar month/Oct year/2018` +
 Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
 
-image::calendar_view_diagram.png[width="790"]
+image::calendar_view_diagram.png[width="700"]
 
 
 === Budget and CCA
@@ -667,6 +700,7 @@ and updates the date, amount and remarks of the 1st transaction entry to `28.02.
 respectively.
 
 // tag::budget[]
+
 ==== Viewing all the ccas' budget : `budget`
 
 Opens up a Budget Book in a new window. +
@@ -756,7 +790,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify Hallper's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify Hallper's residents (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -792,7 +826,7 @@ other information.
 
 == Command Summary
 
-===== Updating Hallper
+=== Updating Hallper
 * *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOCK r/ROOM NUMBER s/SCHOOL [c/CCA]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com b/C r/420 s/School of Computing c/Basketball`
 * *Clear* : `clear KEYWORD [MORE_KEYWORDS]` +
@@ -808,7 +842,7 @@ e.g. `erase basketball`
 * *Import* : `import f/FILEPATH`
 * *Image* : `image r/ROOM f/FILEPATH`
 
-===== Viewing Hallper
+=== Viewing Hallper
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -817,7 +851,7 @@ e.g. `search basketball A123`
 * *Select* : `select INDEX` +
 e.g. `select 1`
 
-===== Email
+=== Email
 * *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
 e.g. `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday content/Hey there's a meeting this friday.`
 * *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +
@@ -826,7 +860,7 @@ e.g. `compose_email_list from/johndoe@example.com subject/Meeting this Friday co
 * *View Email* : `view_email SUBJECT` +
 e.g. `view_email Meeting this Friday`
 
-===== Calendar
+=== Calendar
 * *Add All Day Event* : `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT` +
 e.g. `add_all_day_event month/Oct year/2018 date/08 title/Hall open day`
 * *Add Event* : `add_event month/MMM year/YYYY sdate/DD shour/HH smin/mm edate/DD ehour/HH emin/mm title/NAME OF EVENT` +
@@ -838,7 +872,7 @@ e.g. `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee A
 * *View Calendar* : `view_calendar month/MMM year/YYYY` +
 e.g. `view_calendar month/Oct year/2018`
 
-===== Budget and CCA
+=== Budget and CCA
 * *Add CCA* : `create n/CCA bud/BUDGET` +
 e.g. `create n/Basketball budget/500`
 * *Add Transaction* : `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS` +
@@ -853,7 +887,7 @@ e.g. `update c/track n/Track F h/Alice vh/June Ong budget/500 trans/1 date/28.02
 * *View CCAs' budget* : `budget [c/CCA_NAME]` +
 e.g. `budget c/basketball`
 
-===== Miscellaneous
+=== Miscellaneous
 * *Exit* : `exit`
 * *Help* : `help`
 * *History* : `history`
