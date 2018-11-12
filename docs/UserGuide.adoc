@@ -48,27 +48,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format* +
- -- Some commands have (an) alias(es), which you can also use to execute the command e.g. to add an event to the scheduler, you can type either `add n/Interview at Jane Street` or `a n/Interview at Jane Street`. +
- -- Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/EVENT_NAME`, `EVENT_NAME` is a parameter which can be used as `add n/Interview at Jane Street`. +
- -- Items in square brackets are optional e.g `n/EVENT_NAME [t/TAG]` can be used as `n/Interview at Jane Street t/serious` or as `n/Interview at Jane Street`. +
- -- Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/priority.low`, `t/fun t/serious` etc. +
- -- Parameters can be in any order e.g. if the command specifies `n/EVENT_NAME v/VENUE`, `v/VENUE n/EVENT_NAME` is also acceptable.
+ -- Some commands have (an) alias(es), which you can also use to execute the command e.g. to add an event to the
+scheduler, you can type either `add n/Interview at Jane Street` or `a n/Interview at Jane Street`. +
+ -- Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/EVENT_NAME`, `EVENT_NAME` is a
+parameter which can be used as `add n/Interview at Jane Street`. +
+ -- Items in square brackets are optional e.g `n/EVENT_NAME [t/TAG]` can be used as `n/Interview at Jane Street
+t/serious` or as `n/Interview at Jane Street`. +
+ -- Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
+(i.e. 0 times), `t/priority.low`, `t/fun t/serious` etc. +
+ -- Parameters can be in any order e.g. if the command specifies `n/EVENT_NAME v/VENUE`, `v/VENUE n/EVENT_NAME` is also
+acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help` +
 Aliases: `hel` OR `he` OR `h` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 // tag::add[]
 === Adding an event : `add`
 
 Adds an event to the scheduler. +
-Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]…` +
-// end::add[]
+Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]… ` +
 Aliases: `ad` OR `a` in place of `add` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 // tag::add[]
 [TIP]
@@ -189,22 +194,40 @@ Examples::
 
 :sectnums:
 
+// tag::addTag[]
+=== [Partial Implementation] Adding a tag : `addTag` [by v2.0]
+This is the command format for adding tags.
+
+*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any
+bugs/problems as well :)
+
+_It will be FULLY implemented by v2.0._
+// end::addTag[]
+
+=== Listing all events : `list`
+
+Shows a list of all events in the scheduler. +
+Format: `list` +
+Aliases: `lis` OR `li` OR `l` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 // tag::edit[]
 === Editing an event : `edit`
 
 Edits existing events in the scheduler. +
-Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [re/REMINDER_TIME]... [-a | -u]` +
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [re/REMINDER_TIME]... [-a | -u]` +
 // end::edit[]
 Aliases: `edi` OR `ed` in place of `edit` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 // tag::edit[]
 [TIP]
 Only one option can exists at any one time. Either `-a` or `-u`.
 
 ****
-* Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.
@@ -216,7 +239,8 @@ Only one option can exists at any one time. Either `-a` or `-u`.
 ****
 // end::edit[]
 
-The supported formats of date, time and reminder times are identical to that of <<Adding an event : `add`, Adding an event>>. +
+The supported formats of date, time and reminder times are identical to that of
+<<Adding an event : `add`, Adding an event>>. +
 Refer to <<Date and time formats>> and <<Reminder time format>>.
 
 [NOTE]
@@ -239,7 +263,8 @@ Examples:
 
 // end::edit[]
 * `edit 1 n/Study with John d/Study for Mathematics exam` +
-Edits the event name and description of the 1st event to be `Study with John` and `Study for Mathematics exam` respectively.
+Edits the event name and description of the 1st event to be `Study with John` and `Study for Mathematics exam`
+respectively.
 // tag::edit[]
 * `edit 2 n/Play t/ -a` +
 Edits all the repeating event's name of the 2nd event to be `Play` and clears all existing tags.
@@ -296,14 +321,15 @@ _Coming in V1.4: Command format can be typed case-insensitive_
 Finds events whose event names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]` +
 Aliases: `fin` OR `fi` OR `f` in place of `find` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 ****
 * The search is case insensitive. e.g `work` will match `Work`
 * The order of the keywords does not matter. e.g. `Work Hard` will match `Hard Work`
 * Only the event name is searched.
 * Only full words will be matched e.g. `Work` will not match `Works`
-* Events matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hard Work` will return `Work Smart`, `Play Hard`
+* Events matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hard Work` will return `Work Smart`,
+`Play Hard`
 ****
 
 Examples:
@@ -320,7 +346,7 @@ Deletes the specified event from the scheduler. +
 Format: `delete INDEX [-a | -u]` +
 // end::delete[]
 Aliases: `delet` OR `dele` OR `del` OR `de` or `d` in place of `delete` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
@@ -363,6 +389,10 @@ Deletes the 3rd event and its repeating events from the scheduler. +
 Deletes the 4th event and its upcoming events from the scheduler. +
 // end::delete[]
 
+Selects the event identified by the index number used in the displayed event list. +
+Format: `select INDEX` +
+Aliases: `selec` OR `sele` OR `sel` OR `se` OR `s` in place of `select` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 === Reminder Operations: `addReminder` `deleteReminder` `postponeReminder`
 Customised commands to add, delete reminders incrementally, and postpone all reminders for the event. +
@@ -468,11 +498,12 @@ Reminders displayed become: 0S. Reminders will pop up right at the start time.
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history` +
 Aliases: `histor` OR `histo` OR `hist` OR `his` OR `hi` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
 ====
 
 // tag::undoredo[]
@@ -486,7 +517,7 @@ Current version only supports the local changes, Google Calendar is NOT undoable
 Restores the scheduler to the state before the previous _undoable_ command was executed. +
 Format: `undo` +
 Aliases: `und` OR `un` OR `u` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
@@ -519,7 +550,7 @@ Current version only supports the local changes, Google Calendar is NOT redoable
 Reverses the most recent `undo` command. +
 Format: `redo` +
 Aliases: `red` OR `re` OR `r` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 Examples:
 
@@ -549,14 +580,36 @@ The current version does not sync this command with Google Calendar.
 Clears all entries from the scheduler. +
 Format: `clear` +
 Aliases: `clea` OR `cle` OR `cl` OR `c` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit` +
 Aliases: `exi` OR `ex` OR `e` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+_Coming in V2.0: Command format can be typed case-insensitive_
+
+=== Pop Up Feature
+A window will pop up if you have set reminder for an event. +
+Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 11:30 (+-1min) if the app is open. +
+Format: it is currently integrated with <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. For the
+correct format for time, please refer to <<Reminder time format>>
+
+[NOTE]
+====
+When you use a command that involves many changes of reminder time (add/edit/undo/redo), please give a few seconds for
+the system to sync before you close the app.
+====
+
+****
+* If you have not set any reminder for the event, it will display as "No Reminder".
+* When you open the app, it will NOT pop up past reminders since the last time you close the app.
+* When the reminder pops up, the reminder time displayed for the event will NOT change instantaneously. It will refresh
+the next time the app is opened.
+* When you add/edit pop up times, only the future ones will be added. +
+Eg. you add a reminder that is supposed to pop up an hour ago, it will reflect in the display but will not pop up as
+past reminders/in the future.
+****
 
 === Saving the data
 
@@ -570,7 +623,7 @@ Format: `getGCEvents`
 [NOTE]
 ====
 For now, those events downloaded from Google are not compatible with local commands:edit, delete.
-They will be suppported in v1.4.
+They will be suppported in v2.0.
 ====
 
 [NOTE]
@@ -599,28 +652,30 @@ Step 4:
 - A success message appears after the completion of addition of events.
 ****
 
-=== Post Events to Google Calendar : `postGCEvents` `[coming in v1.4]`
+=== Post Events to Google Calendar : `postGCEvents` `[coming in v2.0]`
 
 Post events from your local scheduler and merge your local events with Google Calendar events (login is required). +
 Format: `postGCEvents`
 
+// tag::autoCompletion[]
 === Auto-Completion of Commands
-As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain (or _certain combinations_ of) alphabetical characters.
+As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain
+(or _certain combinations_ of) alphabetical characters.
 
 _Note: It even works for command aliases!_
+// end::autoCompletion[]
 
+// tag::commandAliasing[]
+=== Command Aliasing
+As you may have also already noticed, most commands support aliases
+// end::commandAliasing[]
 
-=== [Partial Implementation] Adding a tag : `addTag` [by v1.4]
-This is the command format for adding tags.
-
-*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any bugs/problems as well :)
-
-_It will be FULLY implemented by v1.4._
-
-
-=== Case-Insensitive Invoking of Commands `[coming in v1.4]`
+// tag:: caseSensitive[]
+=== Case-Insensitive Invoking of Commands `[coming in v2.0]`
 Commands can be invoked in case-insensitive format. For example, typing `hElP` can invoke the `help` command. +
-Only applicable to these commands: `add`, `clear`, `delete`, `edit`, `exit`, `find`, `help`, `history`, `list`, `redo`, `select` and `undo`
+Only applicable to these commands: `add`, `clear`, `delete`, `edit`, `exit`, `find`, `help`, `history`, `list`, `redo`,
+`select` and `undo`
+// end:: caseSensitive[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -631,14 +686,17 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous iScheduler folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous iScheduler folder.
 
 == Command Summary
 
-* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
+* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE]
+[rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
 e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/monthly t/ad-hoc`
 
-* *Edit event* `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG] [-a | -u]...` +
+* *Edit event* `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DAETIME] [t/TAG] [-a | -u]...` +
 e.g. `edit 1 n/Study with John d/Study for Mathematics exam` +
 
 * *Find event* `add event KEYWORD [MORE_KEYWORDS]` +
