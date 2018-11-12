@@ -24,7 +24,8 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 . *JDK `9`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a
+https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
@@ -37,7 +38,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project
+dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the JDK
@@ -45,12 +47,19 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedWish.java[`XmlAdaptedWish.java`] and link:{repoURL}/src/main/java/seedu/url/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/url/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/url/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedWish.java[`XmlAdaptedWish.java`] and
+link:{repoURL}/src/main/java/seedu/url/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of
+IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER],
+and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well
+(e.g. check link:{repoURL}/src/test/java/seedu/url/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
+and link:{repoURL}/src/test/java/seedu/url/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so,
+resolve it the same way)
 
 === Verifying the setup
 
@@ -247,6 +256,8 @@ Classes used by multiple components are in the `seedu.wishbook.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::implementationmodel[]
+
 === Model
 ==== Wish Model
 A wish is uniquely identified by its Universal Unique Identifier (UUID) which is generated randomly only once for a
@@ -293,6 +304,7 @@ attribute that is affected by multiple commands.
 when the wish is created.
 ** Pros: The attribute maps to a real entity. It can be an additional information presented to the user about a wish.
 ** Cons: There might be collisions in `CreatedTime` if the the system time is incorrect.
+// end::implementationmodel[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -435,25 +447,30 @@ If there was some error saving the current state of the `WishTransaction` to the
 
 The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
 is facilitated mainly by the `ModelManager` which implements `Model`.
-It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their respective data structures.
+It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their
+respective data structures.
 After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the latest WishBook.
 The UI is also prompted to refresh through a `WishBookChangedEvent`.
 
 Given below is an example usage scenario and how an AddCommand is carried out.
 
-Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200d`, and the current date is 2nd October 2017 (2/10/2017).
+Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200d`, and the current
+date is 2nd October 2017 (2/10/2017).
 
 [NOTE]
 * The Date format should be `dd/mm/yyyy` where the specified date should be a valid date in the future.
-* If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
+* If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the
+format should be `<years>y<months>m<days>d`.
 * If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.
 
 The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
 `Date` attribute which follows `d/` in the command will be discussed below.
 
 The computation of wish expiry date is handled internally in the `ParserUtil` class,
-which is able to take days, months, and years as input to generate a proper `Date` with the current date that the user executes the command.
-Internally, `ParserUtil#parseDate()` converts the input date specified, and adds it to the current date to get the desired `Date`.
+which is able to take days, months, and years as input to generate a proper `Date` with the current date that the user
+executes the command.
+Internally, `ParserUtil#parseDate()` converts the input date specified, and adds it to the current date to get the
+desired `Date`.
 
 The resultant wish will have the following properties:
 
@@ -557,8 +574,10 @@ image::SaveCommandSequenceDiagram.png[width="800"]
 ** Pros: Easy to implement.
 ** Cons: More methods needed when needing to move funds from `unusedFunds` to other wishes.
 * **Alternative 2:** Store it as a pseudo wish with index 0.
-** Pros: It can be treated as another `wish`, hence existing methods can be used without needing to create much more new ones.
-** Cons: Requires dealing with an extra wish that has to be hidden on the `WishListPanel` and displayed separately on the UI.
+** Pros: It can be treated as another `wish`, hence existing methods can be used without needing to create much
+more new ones.
+** Cons: Requires dealing with an extra wish that has to be hidden on the `WishListPanel` and displayed separately
+on the UI.
 We must remember to skip this wish in methods that involve displaying the WishList.
 
 // end::save[]
@@ -568,28 +587,27 @@ We must remember to skip this wish in methods that involve displaying the WishLi
 
 ==== Current Implementation
 
-The find mechanism is supported by `FindCommandParser`. It implements `Parser` that contains the following operations.
+The find mechanism is supported by `FindCommandParser`. It implements `Parser` that implements the following operations:
 
 * `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is
-found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
+found. It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an `ArgumentMultimap`. Keywords of
+the same prefix are then grouped using `ArgumentMultimap#getAllValues()`.
 
 The find mechanism is also facilitated by `FindCommand`. It extends `Command` and implements the
-following operations.
+following operation:
 
 * `FindCommand#execute()` -- Executes the command by updating the current `FilteredSortedWishList` with the
 `WishContainsKeywordPredicate`.
 
-The predicate `WishContainsKeywordsPredicate`, takes in a three lists for the keywords of the following attributes:
+The predicate `WishContainsKeywordsPredicate`, takes in three lists of the keywords for the following attributes:
 
-1. Name
-2. Tags
-3. Remark
+* Name
+* Tags
+* Remark
 
 and also the `isExactMatch` argument. The result of the predicate is determined by checking
 whether a `Wish` contains the given keywords at their corresponding attributes. The match threshold
 is dictated by the value of `isExactMatch`.
-
-_{TO-DO: Sequence Diagram here}_
 
 ==== Example
 
@@ -597,21 +615,19 @@ Given below is an example usage scenario and how the Find mechanism behaves at e
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user executes `find n/iphone n/tablet` command to get all wishes whose name contains the
+Step 2. The user executes `find n/wat n/apple t/impor` command to get all wishes whose name contains the
 keywords 'iphone' or 'tablet'.
 
 Step 3. The `FindCommandParser#parse()` is called and the `WishContainsKeywordPredicate` is constructed with
 the arguments of the find command.
 
 Step 4. `FindCommand#execute()` is then called.
-[NOTE]
-If a command fails its execution, `FindCommand#execute()` will not be called, so the state will not be saved.
 
-Step 5. The entire list of wishes is filtered by the predicate `NameContainsKeywordsPredicate`.
+Step 5. The entire list of wishes is filtered by the predicate `WishContainsKeywordsPredicate`.
 
 Step 6. The filtered list of wishes is returned to the GUI.
 
-_{TO-DO: Flow Chart Diagram}_
+image::FindCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -629,24 +645,25 @@ following chosen wish attributes: `Name`, `Tags` or `Remark`.
 ** Cons: Command might be slightly slower as every keyword has to be checked against all chosen attributes of the
 wish.
 ** Cons: User has less control over the results returned.
-// end::find[]
 
-==== Aspect: Default threshold for match without the `EXACT_MATCH` flag
-* **Alternative 1 (Current choice):** Keywords appended to different prefixes are grouped with a logical AND
-keywords appended to the same prefixes are grouped with a logical OR before being matched against a `Wish`.
+==== Aspect: Default threshold for match without the exact match flag
+* **Alternative 1 (Current choice):** Keywords appended to different prefixes are grouped with a logical AND and
+keywords appended to the same prefixes are grouped with a logical OR when being matched against a `Wish`.
 ** Pros: A more intuitive way to find wishes.
 ** Cons: Can be restrictive in some situations.
 
-* **Alternative 2:** Keywords appended to different prefixes are grouped with a logical OR
-keywords appended to the same prefixes are grouped with a logical OR before being matched against a `Wish`.
+* **Alternative 2:** Keywords appended to different prefixes are grouped with a logical OR and
+keywords appended to the same prefixes are grouped with a logical OR when being matched against a `Wish`.
 ** Pros: Search results will be more inclusive.
 ** Cons: Very slim chance for such a use case.
+// end::find[]
 
 // tag::savingsNotifications[]
 === [Proposed] Savings Notifications
 ==== Justification
 Some users may have many wishes, all of which have a different targeted date of completion and different price.
-It may thus be difficult for users to keep track of how much they need to consistently save to fulfil their various wishes on time.
+It may thus be difficult for users to keep track of how much they need to consistently save to fulfil their various
+wishes on time.
 This Savings Notification feature will allow users to opt for daily/weekly/monthly notifications for each specific wish,
 reminding them of the amount that they need to save at the beginning of the chosen time period.
 This will help users to consistently save towards their wishes.
@@ -1302,7 +1319,7 @@ Use case ends.
 * 1a. *System* has no recorded wishes.
 +
 [none]
-** 1a1. *Actor* is prompted to add a wish.
+** 1a1. *System* shows dialog notifying *Actor* that no relevant results can be found.
 +
 Use case ends.
 
@@ -1318,6 +1335,13 @@ Use case ends.
 +
 [none]
 ** 1c1. *System* shows dialog notifying *Actor* that no relevant results can be found.
++
+Use case ends.
+
+* 1d. *Actor* enters empty prefixes for arguments.
++
+[none]
+** 1c1. *System* shows all wishes in the WishBook.
 +
 Use case ends.
 

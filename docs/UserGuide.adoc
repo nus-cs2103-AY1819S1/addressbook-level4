@@ -154,7 +154,7 @@ Format: `history -c`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
 box.
 ====
-
+// tag::savingsHistory[]
 === View your saving history: `history -s`
 
 Shows a history of savings you have allocated, from newest to oldest. +
@@ -167,6 +167,7 @@ no longer be tracked.)
 ====
 // end::savingsHistory[]
 
+// tag::find[]
 === Locate your wish with speed and precision: `find`
 
 Find wishes which match the given search keywords. +
@@ -178,7 +179,7 @@ Format: `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]...`
 attribute corresponding to the prefix contain *any* one of the keywords.
 * Searching with keywords of *different prefixes* will return only wishes that
 match will *all* the keywords of the different prefixes.
-* Using the `-e` flag returns wishes whose corresponding attributes contain *all*
+* Using the exact match flag, `-e` returns wishes whose corresponding attributes contain *all*
 the keywords.
 * The search is case insensitive. e.g. watch will match Watch.
 ****
@@ -200,7 +201,7 @@ Returns any wish whose name contains _watch_, and whose tags contains _broke wis
 * `find n/wat n/balloon t/important` +
 Returns any wish whose name contains _wat_ or _balloon_, and whose tags contains
 _important_.
-
+// end::find[]
 === Delete a wish : `delete`
 
 Deletes the specified wish from the list. +
