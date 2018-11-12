@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Clears the address book.
@@ -20,6 +21,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.resetData(new AddressBook());
         model.commitAddressBook();
+        AttendanceListUtil.postClearEvent(model);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

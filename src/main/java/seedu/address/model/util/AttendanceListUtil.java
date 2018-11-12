@@ -9,6 +9,9 @@ import java.util.ListIterator;
 import java.util.function.Consumer;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ModuleBrowserChangeEvent;
+import seedu.address.commons.events.ui.OccasionBrowserChangeEvent;
+import seedu.address.commons.events.ui.PersonBrowserChangeEvent;
 import seedu.address.commons.events.ui.RefreshModuleBrowserEvent;
 import seedu.address.commons.events.ui.RefreshOccasionBrowserEvent;
 import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
@@ -41,6 +44,20 @@ public class AttendanceListUtil {
             EventsCenter.getInstance().post(new RefreshModuleBrowserEvent());
         } else {
             EventsCenter.getInstance().post(new RefreshOccasionBrowserEvent());
+        }
+    }
+
+    /**
+     * Posts correct event for clearing current browser.
+     */
+    public static void postClearEvent(Model model) {
+        TypeUtil currType = model.getActiveType();
+        if (currType == TypeUtil.PERSON) {
+            EventsCenter.getInstance().post(new PersonBrowserChangeEvent(new Person(new PersonDescriptor())));
+        } else if (currType == TypeUtil.MODULE) {
+            EventsCenter.getInstance().post(new ModuleBrowserChangeEvent(new Module(new ModuleDescriptor())));
+        } else {
+            EventsCenter.getInstance().post(new OccasionBrowserChangeEvent(new Occasion(new OccasionDescriptor())));
         }
     }
 
@@ -117,7 +134,7 @@ public class AttendanceListUtil {
     //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**
-     * Removes a module from the moduleList of all associated Persons.
+     * Edits a module from the moduleList of all associated Persons.
      */
     public static void editModuleFromAssociatedPersons(Model model, Module moduleToEdit, Module editedModule) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -286,6 +303,7 @@ public class AttendanceListUtil {
     /**
      * Returns a consumer that takes in a Module and removes it from the specified Person in the Model.
      */
+
     private static Consumer<Module> removeModuleFromPerson(Model model, Person person) {
         return module -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
@@ -297,7 +315,6 @@ public class AttendanceListUtil {
             model.updatePerson(person, updatedPerson);
         };
     }
-
     //@@author waytan
     /**
      * Returns a consumer that takes in an Occasion and removes it from the specified Person in the Model.
@@ -365,12 +382,11 @@ public class AttendanceListUtil {
         return module -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
-            int indexOfModuleToEdit = updatedModules.indexOf(editModule);
+            int indexOfModuleToEdit = updatedModules.indexOf(module);
             if (indexOfModuleToEdit != -1) {
                 updatedModules.remove(module);
                 updatedModules.add(indexOfModuleToEdit, editModule);
-                UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
-                updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
+                updatedPersonDescriptor.setUniqueModuleList(new UniqueModuleList(updatedModules));
                 Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
                 model.updatePerson(person, updatedPerson);
             }
@@ -386,7 +402,7 @@ public class AttendanceListUtil {
         return occasion -> {
             PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
-            int indexOfOccasionToEdit = updatedOccasions.indexOf(editOccasion);
+            int indexOfOccasionToEdit = updatedOccasions.indexOf(occasion);
             if (indexOfOccasionToEdit != -1) {
                 updatedOccasions.remove(occasion);
                 updatedOccasions.add(indexOfOccasionToEdit, editOccasion);
