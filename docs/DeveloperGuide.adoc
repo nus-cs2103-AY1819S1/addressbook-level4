@@ -504,8 +504,7 @@ The following sequence diagram illustrates how the mechanism works:
 .Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 // end::viewarangeoftasks[]
-.Sequence Diagram of ListMonth Command
-image::ListMonthCommandSequenceDiagram.png[]
+
 // tag::viewarangeoftasks2[]
 ==== Design Considerations
 
@@ -2031,7 +2030,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `filterstrict tutorial GEH1034`
    Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
    the `UI`
-
 
 === Testing GUI
 
