@@ -351,7 +351,7 @@ This event type is subscribed to by `MainWindow`, which will load the respective
 (`BrowserPanel` or `HelpWindow`). These interactions are illustrated in the class diagram below:
 
 .Class Diagram of help mechanism
-image::AutocompleteSuggestActivityDiagram1.png[width="800"]
+image::HelpClassDiagram.png[width="800"]
 
 [#accessibility_autocomplete]
 ===== Autocomplete
