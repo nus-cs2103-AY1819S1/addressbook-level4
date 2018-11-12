@@ -406,7 +406,7 @@ private static Consumer<Person> removePersonFromModule(Model model, Module modul
 
 
 Similar implementations are used for both `delete` and `edit` in the various combinations of entries and lists.
-// end::updatinglistsgeneral[]
+// end::updatinglists[]
 
 // tag::add[]
 === Add Person/Module/Occasion Feature
@@ -973,8 +973,8 @@ image::DeletePersonSdForLogic.png[width="800"]
 
 However, the current implementation also allows for 2 useful functionalities in this feature:
 
-* Inferred Deletion: As we maintain the <<Type Inference, active type>>, the deletion will be applied to the currently active list.
-* Deep Deletion: Using <<list updating, list updating>>, all references to this entry can be removed (i.e. from other entries' lists).
+* Inferred Deletion: As we maintain the active type, the deletion will be applied to the currently active list.
+* Deep Deletion: By updating the associated lists, all references to this entry can be removed (i.e. from other entries' lists).
 
 The following activity diagram gives a broad overview of the deletion process:
 

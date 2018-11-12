@@ -74,8 +74,11 @@ These were useful in implementing the `edit`, `insertperson` and `removeperson` 
 |===
 
 include::../UserGuide.adoc[tag=GUIComponents]
+
 include::../UserGuide.adoc[tag=types]
+
 include::../UserGuide.adoc[tag=delete]
+
 include::../UserGuide.adoc[tag=select]
 
 == Contributions to the Developer Guide
@@ -85,4 +88,7 @@ include::../UserGuide.adoc[tag=select]
 |===
 
 include::../DeveloperGuide.adoc[tag=polymorphismdecision]
+
+include::..//DeveloperGuide.adoc[tag=updatinglists]
+
 include::../DeveloperGuide.adoc[tag=delete]
