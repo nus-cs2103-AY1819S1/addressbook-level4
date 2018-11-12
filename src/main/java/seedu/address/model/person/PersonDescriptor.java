@@ -35,8 +35,8 @@ public class PersonDescriptor {
         setEmail(toCopy.email);
         setAddress(toCopy.address);
         setTags(toCopy.tags);
-        setUniqueModuleList(toCopy.getModuleList().orElse(new UniqueModuleList()));
-        setUniqueOccasionList(toCopy.getOccasionList().orElse(new UniqueOccasionList()));
+        setUniqueModuleList(toCopy.getModuleList().orElse(null));
+        setUniqueOccasionList(toCopy.getOccasionList().orElse(null));
     }
 
     /**
