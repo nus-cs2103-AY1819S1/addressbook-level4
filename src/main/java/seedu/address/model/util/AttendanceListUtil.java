@@ -60,7 +60,7 @@ public class AttendanceListUtil {
     /**
      * Removes a person from the attendanceList of all associated Occasions.
      */
-    public static void removePersonFromAssociatedOccasions(Model model, Person personToDelete) {
+    public static void removePersonFromAssociatedOccasions(Model model, Person personToRemove) {
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         List<Occasion> completeOccasionList = model.getFilteredOccasionList();
 
@@ -71,7 +71,7 @@ public class AttendanceListUtil {
             occasion.getAttendanceList()
                     .asNormalList()
                     .stream()
-                    .filter(person -> person.isSamePerson(personToDelete))
+                    .filter(person -> person.isSamePerson(personToRemove))
                     .findFirst()
                     .ifPresent(removePersonFromOccasion(model, occasion));
         }
@@ -81,7 +81,7 @@ public class AttendanceListUtil {
     /**
      * Removes a person from the studentList of all associated Modules.
      */
-    public static void removePersonFromAssociatedModules(Model model, Person personToDelete) {
+    public static void removePersonFromAssociatedModules(Model model, Person personToRemove) {
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         List<Module> completeModuleList = model.getFilteredModuleList();
 
@@ -92,7 +92,7 @@ public class AttendanceListUtil {
             module.getStudents()
                     .asNormalList()
                     .stream()
-                    .filter(person -> person.isSamePerson(personToDelete))
+                    .filter(person -> person.isSamePerson(personToRemove))
                     .findFirst()
                     .ifPresent(removePersonFromModule(model, module));
         }
@@ -102,7 +102,7 @@ public class AttendanceListUtil {
     /**
      * Removes a module from the moduleList of all associated Persons.
      */
-    public static void removeModuleFromAssociatedPersons(Model model, Module moduleToDelete) {
+    public static void removeModuleFromAssociatedPersons(Model model, Module moduleToRemove) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
 
@@ -113,9 +113,30 @@ public class AttendanceListUtil {
             person.getModuleList()
                     .asNormalList()
                     .stream()
-                    .filter(module -> module.isSameModule(moduleToDelete))
+                    .filter(module -> module.isSameModule(moduleToRemove))
                     .findFirst()
                     .ifPresent(removeModuleFromPerson(model, person));
+        }
+    }
+
+    //@@author waytan
+    /**
+     * Removes an Occasion from the occasionList of all associated Persons.
+     */
+    public static void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToRemove) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            person.getOccasionList()
+                    .asNormalList()
+                    .stream()
+                    .filter(occasion -> occasion.isSameOccasion(occasionToRemove))
+                    .findFirst()
+                    .ifPresent(removeOccasionFromPerson(model, person));
         }
     }
 
@@ -138,28 +159,6 @@ public class AttendanceListUtil {
                     .filter(module -> module.isSameModule(moduleToEdit))
                     .findFirst()
                     .ifPresent(editModuleFromPerson(model, person, editedModule));
-        }
-    }
-
-
-    //@@author waytan
-    /**
-     * Removes an Occasion from the occasionList of all associated Persons.
-     */
-    public static void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToDelete) {
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> completePersonList = model.getFilteredPersonList();
-
-        ListIterator<Person> personListIterator = completePersonList.listIterator();
-
-        while (personListIterator.hasNext()) {
-            Person person = personListIterator.next();
-            person.getOccasionList()
-                    .asNormalList()
-                    .stream()
-                    .filter(occasion -> occasion.isSameOccasion(occasionToDelete))
-                    .findFirst()
-                    .ifPresent(removeOccasionFromPerson(model, person));
         }
     }
 
