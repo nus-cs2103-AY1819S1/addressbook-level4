@@ -684,17 +684,17 @@ The following sequence diagrams shows how the login works:
 
 .Sequence Diagram for the `LoginCommand` for the logic component.
 image::LoginLogicSequenceDiagram.png[width="1080"]
-+
+
 **Model**
 
 .Sequence Diagram for the `LoginCommand` for the model component.
 image::LoginModelSequenceDiagram.png[width="1080"]
-+
+
 **Commons**
 
 .Sequence Diagram for the `LoginCommand` for the commons component.
-image::LoginCommonsSequenceDiagram.png[width="1080"]
-+
+image::LoginCommonsSequenceDiagram.png[width="1080"] 
+{sp} +
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
 .Activity Diagram for the `LoginCommand`
