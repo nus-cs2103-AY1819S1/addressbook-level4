@@ -530,7 +530,7 @@ which informs the user that there are no expenditures
 This feature allows users to filter out specific expenses by entering multiple keywords.
 Only the expenses which contain all the keywords will be shown on the expense list panel.
 
-This implementation is under Logic and Model Components.
+This implementation is under `Logic` and `Model` Components.
 
 ==== Current Implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -580,7 +580,7 @@ The alternative ways of implementation are shown below.
 This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
 targeted expenses as well as the fields they would like to edit.
 
-This implementation is under Logic and Model components.
+This implementation is under `Logic` and `Model` components.
 
 ==== Current implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
