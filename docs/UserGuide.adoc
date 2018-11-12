@@ -154,7 +154,7 @@ Entering the command `help` into the Command Box achieves the same outcome.
 ** E.g. if a command format contains the parameter `t/TAG...`, the parameter can be replaced with `t/friend` or `t/friend t/family`
 * Parameters can be in any order e.g. if the command format specifies `n/NAME c/CATEGORY`, using the parameters `c/CATEGORY n/NAME` is also acceptable.
 ====
-//tag::useraccounts[]
+//tag::security1[]
 [NOTE]
 ====
 * Before you are logged in, only `login`, `signup` and `help` commands are useable.
@@ -204,7 +204,8 @@ Format: `login u/USERNAME [p/PASSWORD]`
 * If a user has no password set, then the login will be successful
 regardless of whether a PASSWORD has been provided
 ====
-
+//end::security1[]
+//tag::security2[]
 === Setting a password for the current user : `setpassword`
 Sets a new password for the user which is currently logged in.
 
@@ -225,7 +226,7 @@ Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 * OLD_PASSWORD and NEW_PASSWORD are case sensitive
 * OLD_PASSWORD and NEW_PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 ====
-//end::useraccounts[]
+//end::security2[]
 
 === Viewing help : `help`
 Opens up a new window with the User Guide.
@@ -673,6 +674,7 @@ Exits the program. +
 
 Format: `exit`
 
+// tag::encrypt[]
 === Encrypting text using your password : `encrypt`
 WARNING: This command is for advanced users only and should be used with caution.
 
@@ -696,6 +698,9 @@ Format: `encrypt TEXT`
 ====
 
 === Decrypting text using your password : `decrypt`
+
+// end::encrypt[]
+
 WARNING: This command is for advanced users only and should be used with caution.
 
 Decrypts an encrypted text that has been encrypted using your account's password.
