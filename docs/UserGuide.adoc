@@ -137,7 +137,7 @@ Example:
 * `addTime n/John Doe ts/mon 1300 1500` +
 Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
-
+// tag::exchange[]
 === Edit certain class time of certain student: `exchangeTime`
 
 Exchange class time between two students who are in the same grade of same education level +
@@ -163,6 +163,7 @@ It will be considered as invalid command.
 The ordinal number of the time is 0 base.
 If the the corresponding time-slot doesn't exit based on the ordinal number, then return invalid input.
 ====
+// end::exchange[]
 
 === Deleting tuition time of a student : `deleteTime`
 
@@ -334,6 +335,7 @@ Selects the 2nd person in the student list.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+// tag::filter1[]
 === Filter students by tuition fee: `filterByFee`
 
 List all the students whose tuition fee is greater or equal to the input fee. +
@@ -353,7 +355,9 @@ returns a list of students whose tuition fee is greater or equals to $24/hour.
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
+// end::filter1[]
 
+// tag::filter2[]
 === Filter students by educational level: `filterByEducation`
 
 List all the students with given educational level +
@@ -377,7 +381,9 @@ If no students qualify the filter criteria, an empty list is returned along with
 
 The input of the education level must be "JC" "Secondary" or "Primary". Other input will be considered invalid input.
 ====
+// end::filter2[]
 
+// tag::filter3[]
 === Filter students by grade: `filterByGrade`
 
 List all the students whose grades fall between the minimum and maximum grade(both inclusive). +
@@ -398,7 +404,9 @@ If the input minimal grade is larger than maximal grade, then it will be regarde
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+// end::filter3[]
 
+// tag::filter4[]
 === Filter students by time slot: `filterByTime`
 
 List the student who has class at the given time. +
@@ -419,7 +427,9 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+// end::filter4[]
 
+// tag::suggestq[]
 === Give Suggestions to students: `suggestion`
 
 Give Suggestions to students +
@@ -439,7 +449,9 @@ Show the suggestion to Alice according to her performance.
 If the student has not taken any exam before
 No suggestion gonna be shown.
 ====
+// end::suggestq[]
 
+// tag::suggest2[]
 === Give Suggestions to students: `suggestionByIndex`
 
 Give Suggestions to students +
@@ -459,7 +471,7 @@ Show the suggestion to the first student in the list according to his or her per
 If the student has not taken any exam before
 No suggestion gonna be shown.
 ====
-
+// end::suggest2[]
 
 === Listing entered commands : `history`
 

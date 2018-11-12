@@ -1224,7 +1224,7 @@ Use case ends
 
 
 
-
+// tag::filter1[]
 === Use case: Filter by grade
 
 *MSS*
@@ -1245,8 +1245,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter1[]
 
-
+// tag::filter2[]
 === Use case: Filter by fee
 
 *MSS*
@@ -1267,8 +1268,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter2[]
 
-
+// tag::exchange[]
 === Use case: Exchange time slot between students
 
 *MSS*
@@ -1289,8 +1291,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::exchange[]
 
-
+// tag::suggest1[]
 === Use case: Provide suggestions to certain student
 
 *MSS*
@@ -1311,7 +1314,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::suggest1[]
 
+// tag::suggest2[]
 === Use case: Provide suggestions to certain student with index
 
 *MSS*
@@ -1332,9 +1337,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::suggest2[]
 
-
-
+// tag::filter3[]
 === Use case: Find students list of the given Education
 
 *MSS*
@@ -1355,8 +1360,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter3[]
 
-
+// tag::filter4[]
 === Use case: Filter by Timeslot
 
 *MSS*
@@ -1377,7 +1383,7 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
-
+// end::filter4[]
 
 
 === Use case: Calculate total earnings
