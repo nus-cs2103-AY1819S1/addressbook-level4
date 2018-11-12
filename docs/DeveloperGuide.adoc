@@ -359,8 +359,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
 //tag::security[]
+//tag::security1[]
 
 === Data Security
 The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.
@@ -375,7 +375,8 @@ On initialization, `MainApp` class loads all xml files within the data folder ac
 ====
 The username value will be forced to match the name of the xml data filename (ignoring file extentions).
 ====
-
+//end::security1[]
+//tag::modelsecurity[]
 This feature is facilitated by newly added methods in the Model interface which now supports the following operations:
 
 * `Model#loadUserData(Username, Password)` -- Logs in to the user with the input `Username` and `Password` and loads the associated data into `Model`. Returns true if the `Password` matches the user's `Password`, else the user is not logged into and false is returned
@@ -387,7 +388,8 @@ This feature is facilitated by newly added methods in the Model interface which 
 * `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
 * `Model#encryptString(String)` -- Encrypts the input `String` using the currently logged in user's encryption key
 * `Model#decryptString(String)` -- Decrypts the input `String` using the currently logged in user's encryption key.
-
+//end::modelsecurity[]
+//tag::security2[]
 When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
 .New method example
@@ -396,9 +398,7 @@ When implementing methods in `ModelManager` that requires a user to already be l
 @Override
 public void methodName() throws NoUserSelectedException {
     requireUserSelected();
-    /*
-    Perform required operations here.
-    */
+    // Rest of the method body...
 }
 ----
 
@@ -408,7 +408,7 @@ The classes `Username` and `Password` have also been implemented and have the fo
 * `Username` cannot be constructed with a `String` containing a white space or any of the following characters: _" > < : \ / | ? *_
 * When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal `String` in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
-
+//end::security2[]
 Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
 
 * `EncryptionUtil#decryptString(String, String)` -- Decrypts a `String` with by using the input encryption key
@@ -416,7 +416,7 @@ Utility methods related to data encryption are implemented in the `EncryptionUti
 * `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password `String`. Equivalent passwords will always map to equivalent keys.
 * `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an `EncryptedExpense` instance of the given `Expense` by encrypting its data using the given encryption key
 * `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an `EncryptedExpenseTracker` instance of the given `ExpenseTracker` by encrypting it using its encryption key. This is always called when sending users' data to `Storage` for saving.
-
+//tag::security3[]
 Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
 
 .Class diagram for `Enrypted` classes
@@ -438,22 +438,23 @@ Below is an example usage scenario and how the User Account System behaves at ea
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
 
 .Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="450"]
 
 Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
-. The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
+. The `login` command calls the `LoginCredentials(Username, String)` constructor with a null `String` password as a password was not provided.
+. The `login` command then calls `Model#loadUserData(LoginCredentials)` with the `LoginCredentials` instance created in the previous step. The method is executed successfully as the user `john` has no password set.
 . `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty `String` is used as the password since `john`&#8217;s account has no password).
 . The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
-
+//end::security3[]
 Below is the UML sequence diagram that shows how `SignUpCommand` works.
 
 .Sequence diagram showing how `SignUpCommand` works
 image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
-
+//tag::security4[]
 Below is the UML sequence diagram that shows how `LoginCommand` works.
 
 .Sequence diagram showing how `LoginCommand` works
@@ -461,8 +462,8 @@ image::implementation/LoginCommandSequenceDiagram.png[width="800"]
 
 Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
-. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
-. The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
+. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setPassword o/password1 n/password2` to change his password to `password2`
+. The `setPassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
 . `john`&#8217;s expense data gets encrypted using a new encryption key generated from the `String` `password2`. This also applies in future whenever it is saved to the data file.
 
@@ -472,15 +473,6 @@ Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Storage of Separate User Data
-
-* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
-** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
-** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
-* **Alternative 2:** Save all the separated user data in a single xml data file
-** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
-** Cons: Users will be unable to easily transfer their individual data to another computer
-
 ===== Aspect: Loading of User Data
 
 * **Alternative 1 (current choice):** Loading of User data is only done on initialization of Expense Tracker
@@ -489,7 +481,16 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
 ** Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user's data.
-// end::security[]
+// end::security4[]
+===== Aspect: Storage of Separate User Data
+
+* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
+** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
+** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
+* **Alternative 2:** Save all the separated user data in a single xml data file
+** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
+** Cons: Users will be unable to easily transfer their individual data to another computer
+//end::security[]
 
 // tag::statistics[]
 === Statistics
@@ -1486,32 +1487,7 @@ Use case ends
     ** Use case ends.
 
 * 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
-** Use case ends
-
-[discrete]
-
-=== Use case: Login without password
-
-*MSS*
-
-1. User keys in command to login to an account.
-2. Expense Tracker logs user into account.
-+
-Use case ends
-
-*Exceptions*
-
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
-
-* 1a.Expense Tracker detects that specified user does not exist.
-    ** 1a1. Expense Tracker informs user that user does not exist
-    ** Use case ends.
-
-* 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
+** 1a1. Expense tracker informs the user that a password is incorrect.
 ** Use case ends
 
 [discrete]
@@ -1701,12 +1677,6 @@ Use case ends
 +
 Use case ends
 
-*Extensions*
-
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
-
 [discrete]
 
 === Use case: Decrypt
@@ -1718,10 +1688,6 @@ Use case ends
 Use case ends
 
 *Extensions*
-
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
 
 * 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
     ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
