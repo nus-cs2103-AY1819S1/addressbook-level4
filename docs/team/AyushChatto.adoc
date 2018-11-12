@@ -16,7 +16,7 @@
 * *Major enhancement*: added *the ability to schedule meetings with clients*
 ** What it does: allows the user to schedule a meeting with a client. Schedule meetings can be searched using the meetings command.
 ** Justification: This feature allows insurance agents to keep track of their schedules by enabling them to have a record of all their meetings. It also allows them to quickly search through all their meetings, and prevents them from accidentally scheduling clashing meetings.
-** Highlights: This enhancement added a new command. It required the use of multiple Java API classes for the validation of dates and times, as well the implementation of a new global data strcuture to store all meeting timings to prevent meetings from being scheduled at the same time.
+** Highlights: This enhancement added a new command. It required the use of multiple Java API classes for the validation of dates and times, as well the implementation of a new global data structure to store all meeting timings to prevent meetings from being scheduled at the same time.
 
 * *Minor enhancement*: added shorthand commands for all existing commands for faster access.
 
