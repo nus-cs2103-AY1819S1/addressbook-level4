@@ -492,6 +492,8 @@ The following sequence diagram shows how the add_all_day_event operation works:
 image::AddAllDayEventSeqDiagram.png[width="1500"]
 _Figure 4.3.1.2: Sequence diagram for add_all_day_event command_
 
+// end::calendar[]
+
 ====== Add_Event Command
 Given below is an example usage scenario and how the `add_event` command behaves at each step:
 
@@ -591,6 +593,8 @@ _Figure 4.3.1.5: Sequence diagram for view_calendar command_
 
 The following activity diagram summarizes what happens when a user executes a calendar command:
 
+// tag::calendarDesign[]
+
 image::CalendarCommandActivityDiagram.png[width="650"]
 _Figure 4.3.1.6: Activity diagram for budget command_
 
@@ -608,7 +612,8 @@ Hallper.
 
 https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
 The library is widely used and easy to understand so any new developer can easily extend the current features.
-// end::calendar[]
+
+// end::calendarDesign[]
 
 // tag::budget[]
 === Budget feature
