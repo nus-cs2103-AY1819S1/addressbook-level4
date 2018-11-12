@@ -88,7 +88,7 @@ each of the sections is explained as below.
 
 The *Menu Bar* provide you quick access to functions as below.
 
-.Ui Menu Bar
+.Screenshot of Menu Bar
 image::user-guide-ui-walkthrough-menu-bar.png[width="900"]
 
 Here are the available options currently: +
@@ -112,7 +112,17 @@ The *Result Display* provides you information with regards to the result of the 
 [[Tab-Pane]]
 === Tab Pane
 
-The *Tab Pane* provides you with more accessibility to ClinicIO. +
+The *Tab Pane* provides you with more accessibility to different areas of ClinicIO system. +
+
+.Screenshot of Tab Pane
+image::user-guide-ui-walkthrough-tab-pane.png[width="900"]
+
+There are 4 tabs in the tab pane altogether. The sections are as follow:
+
+. Patient
+. Queue
+. Appointment
+. Medicine
 
 [[List-Panel]]
 === List Panel
