@@ -681,9 +681,6 @@ This constructor is used when working with an event that does not yet exist in t
 It increments the current highest event ID in the system and assigns that value to the new event that is created. This behaviour is illustrated in the code snippet of the `Event` class below.
 +
 ``` Java
-// Used to keep track of current highest event ID in the system
-private static int maxId = 0;
-
 public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
         ...
         incrementMaxId();
@@ -691,7 +688,6 @@ public Event(Name name, Location location, Date startDate, Date endDate, Time st
         ...
 }
 
-// Increments the current highest event ID by 1
 private void incrementMaxId() {
     maxId += 1;
 }
@@ -707,9 +703,6 @@ If this condition is true, the current highest event ID value will be replaced b
 This behaviour is illustrated in the code snippet of the `Event` class below.
 +
 ``` Java
-// Used to keep track of current highest event ID in the system
-private static int maxId = 0;
-
 public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
         ...
         if (isEventIdGreaterThanMaxId(eventId.id)) {
@@ -718,7 +711,6 @@ public Event(Name name, Location location, Date startDate, Date endDate, Time st
         ...
 }
 
-// Replaces current highest event ID with the ID of the event being initialised
 private void replaceMaxIdWithEventId(int eventId) {
     maxId = eventId;
 }
@@ -875,12 +867,6 @@ This behaviour is illustrated in the code snippet below.
 ``` Java
 public static int getEventStatus(Date startDate, Time startTime, Date endDate, Time endTime) {
     ...
-    //build start from startDate and startTime
-    java.util.Date start = inf.parse(startDate + " " + startTime);
-
-    //build end from endDate and endTime
-    java.util.Date end = inf.parse(endDate + " " + endTime);
-
     if (now.compareTo(start) < 0) {
         return UPCOMING_EVENT;
     } else if (now.compareTo(start) >= 0 && now.compareTo(end) <= 0) {

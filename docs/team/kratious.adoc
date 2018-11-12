@@ -11,47 +11,43 @@
 :sectnums:
 == Overview
 
-This portfolio documents my involvement in the SocialCare project, under the CS2103T Software Engineering module in NUS.
-The main scope of the module requires students to modify an existing application with an established code base
-while applying proper software engineering practices.
+This portfolio documents my involvement in the SocialCare project that was developed under the CS2103T (Software Engineering) module taken in the National University of Singapore (NUS).
 
-SocialCare is a desktop application designed to serve the volunteer and event management needs of non-profit organizations.
+SocialCare is a desktop application designed to serve the *volunteer and event management* needs of social welfare organizations.
+The main aim of the project was to streamline manual and inefficient processes faced by administrators of such organizations.
 Users primarily interact with the application using a Command Line Interface (CLI) with elements of a Graphical User Interface (GUI) to display information.
 
-My contributions to the project focused on the event management features as well as improving upon the original GUI.
+My primary role as a developer for SocialCare involved implementing *event management functions* as well as handling *extensive user interface improvements*.
+
 
 
 == Summary of Contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added the ability to manage and display *event records*
+** What it does: This feature allows the user to create and manage events that span a period of time.
+** Justification: This feature improves the product significantly because a user is able to display and keep track of events by the organisation. This is a core requirement to the application as volunteers have to be assigned to events for basic operations.
+** Highlights:
+This enhancement is one of the major building blocks of the system and affects majority of the other components. It required an in-depth analysis of design alternatives. The implementation too was challenging as other components are dependent on this component.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added an overview command that allows the user to have a statistical overview of existing volunteers and events.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kratious[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kratious[link] to my code on the Project Code Dashboard.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Applied upstream bug fix: link:{pullURL}/78/[#78]
 ** Enhancements to existing features:
-*** Updated the GUI aesthetics and layout (Pull requests link:{pullURL}/92/[#92],link:{pullURL}/148/[#148])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests)
+*** Updated the user interface aesthetics and behaviour: link:{pullURL}/92/[#92], link:{pullURL}/158/[#158], link:{pullURL}/243/[#243]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: link:{pullURL}/118/[#118], link:{pullURL}/128/[#128]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58],
-*** Contributed to forum discussions (examples:  )
-*** Reported bugs and suggestions for other teams in the class (examples:  )
-*** Some parts of the history feature I added was adopted by several other class mates ()
+*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58], link:{pullURL}/232/[#232]
+*** Enquired about and resolved a team issue on the forum: https://github.com/nus-cs2103-AY1819S1/forum/issues/134[#134]
 ** Tools:
-*** Integrated a third party library (Natty) to the project ()
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a new Github plugin (Coveralls) to the team repository
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -70,9 +66,5 @@ include::../UserGuide.adoc[tag=eventmanagement]
 
 include::../DeveloperGuide.adoc[tag=eventmanagement]
 
+include::../DeveloperGuide.adoc[tag=command-overview]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
