@@ -148,6 +148,7 @@ public class CertGenerator {
     private void addContributionRecords(PDPageContentStream contStream) throws IOException {
         int totalHours = 0;
         int numRecordsDisplayed = 0;
+        boolean toShowRecord = true;
 
         for (Pair<Record, Event> pair: volunteerRecordEventPairs) {
             // Truncate if not all records can be displayed
@@ -155,10 +156,9 @@ public class CertGenerator {
                 contStream.showText("... and " + (volunteerRecordEventPairs.size() - numRecordsDisplayed)
                         + " more event(s)");
                 contStream.newLine();
-                break;
+                toShowRecord = false;
             }
 
-            // Input information from event record
             Record thisRecord = pair.getKey();
             Event thisEvent = pair.getValue();
 
@@ -168,20 +168,22 @@ public class CertGenerator {
             Date endDate = thisEvent.getEndDate();
             Date startDate = thisEvent.getStartDate();
 
-            // Trim event name to prevent exceeding page width
-            if (eventName.length() > MAX_EVENT_NAME_LENGTH) {
-                eventName = eventName.substring(0, MAX_EVENT_NAME_LENGTH - 1) + "...";
+            if (toShowRecord) {
+                // Trim event name to prevent exceeding page width
+                if (eventName.length() > MAX_EVENT_NAME_LENGTH) {
+                    eventName = eventName.substring(0, MAX_EVENT_NAME_LENGTH - 1) + "...";
+                }
+
+                String eventEntryLine = eventName + " [" + eventId + "]" + " - " + eventHours + " hour(s) from "
+                        + startDate + " to " + endDate;
+
+                contStream.showText(BULLET);
+                contStream.showText(eventEntryLine);
+                contStream.newLine();
+                numRecordsDisplayed++;
             }
 
-            String eventEntryLine = eventName + " [" + eventId + "]" + " - " + eventHours + " hour(s) from "
-                    + startDate + " to " + endDate;
-
-            contStream.showText(BULLET);
-            contStream.showText(eventEntryLine);
-            contStream.newLine();
-
             totalHours += Integer.parseInt(eventHours.toString());
-            numRecordsDisplayed++;
         }
         contStream.newLine();
 
