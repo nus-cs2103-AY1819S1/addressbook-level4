@@ -136,8 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.joinGroup(person, group);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        showAllListEntries();
         indicateMeetingBookChanged();
     }
 
@@ -145,11 +144,21 @@ public class ModelManager extends ComponentManager implements Model {
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.leaveGroup(person, group);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        showAllListEntries();
         indicateMeetingBookChanged();
     }
 
+    // @@author
+
+    // @@author jeffreyooi
+    /**
+     * Filters all lists to show all entries.
+     */
+    private void showAllListEntries() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+    }
     // @@author
 
     // @@author NyxF4ll
