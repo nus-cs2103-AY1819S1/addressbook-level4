@@ -1858,6 +1858,37 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Leave management
+
+. Applying for leave while leave applications are listed
+
+.. Prerequisites: List all leave applications using the `leavelist` command. There need not be any leave applications in the list.
+.. Test case: `leaveapply -de Family holiday -da 2018-12-05 -da 2018-12-06` +
+   Expected: A new leave application record with the description "Family holiday" and the dates "2018-12-05" and "2018-12-06" appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `leaveapply -de Second family holiday -da 2018-12-16 -da 2018-12-15 -da 2018-12-15` +
+   Expected: A new leave application record with the description "Second family holiday" and the dates "2018-12-15" and "2018-12-16" in this order appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user without either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with a user that has neither "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions (in a fresh install, the default username "Alex Yeoh" and password "Pa55w0rd" will suffice). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the leave applications do not change. Error details shown in the status message. Status bar remains the same.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user with either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with the Admin account (the default username "Admin" and password "Pa55w0rd"). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with a non-admin user with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the first leave application changes to "APPROVED" or "REJECTED", depending on the command issued. Status message indicates that the leave has been approved. Timestamp in status bar is updated.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 0` (non-positive integer index) +
+   Expected: Status message shows that the command format is invalid.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 1000` (index larger than displayed list size). +
+   Expected: Status message shows that the leave list index is invalid.
+   
+
 === Saving data
 
 . Dealing with missing/corrupted data files
