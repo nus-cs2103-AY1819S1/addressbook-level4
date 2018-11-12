@@ -52,7 +52,7 @@ public class RideListPanel extends UiPart<Region> {
     /**
      * Unselects current {@code RideCard}.
      */
-    private void unselect() {
+    public void unselect() {
         Platform.runLater(() -> rideListView.getSelectionModel().clearSelection());
     }
 
@@ -64,12 +64,6 @@ public class RideListPanel extends UiPart<Region> {
             rideListView.scrollTo(index);
             rideListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-
-    @Subscribe
-    private void handleShowHelpRequestEvent(ShowHelpRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        unselect();
     }
 
     @Subscribe

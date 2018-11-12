@@ -329,14 +329,13 @@ It can be decomposed into the following components: +
 * <<accessibility_help, *Help*>>
 * <<accessibility_autocomplete, *Autocomplete/Suggest*>>
 * <<accessibility_history, *Command History retrieval*>>
-* <<accessibility_UI, *UI changes*>>
 
 [#accessibility_help]
 ===== Help
 The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
 When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
-This event is subscribed to by `MainWindow`, which will load the respective help page in the required window
-(`BrowserPanel` or `HistoryWindow`). These interactions are illustrated in the class diagram below:
+This event type is subscribed to by `MainWindow`, which will load the respective help page in the required window
+(`BrowserPanel` or `HelpWindow`). These interactions are illustrated in the class diagram below:
 
 .Class diagram of help mechanism
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
@@ -360,6 +359,40 @@ These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRe
 
 .Activity diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="800"]
+
+You can easily add other pattern matching heuristics such as `nearest word distance` by implementing the following interface, `PatternMatcher`:
+[source,java]
+----
+public interface PatternMatcher {
+
+    /**
+     * Matches a list of items as Strings against a given pattern.
+     */
+    public String[] matchPattern(String[] items, String pattern);
+}
+----
+An example of doing a prefix matchers is shown below:
+[source,java]
+----
+public class PrefixMatcher implements PatternMatcher {
+    private static final String PATTERN_PREFIX = "^%1$s.*";
+
+    /**
+     * Default constructor
+     */
+    public PrefixMatcher() {
+        ;
+    }
+
+    @Override
+    public String[] matchPattern(String[] items, String pattern) {
+        return Arrays.stream(items).filter(s
+            -> s.matches(String.format(PATTERN_PREFIX, pattern))).toArray(String[]::new);
+    }
+
+}
+----
+
 
 [#accessibility_history]
 ===== History
