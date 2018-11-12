@@ -64,6 +64,8 @@ The following section shows all the other minor enhancements done for the projec
 |_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
 |===
 
+include::../UserGuide.adoc[tag=quickstart-begin]
+
 include::../UserGuide.adoc[tag=myself]
 
 include::../UserGuide.adoc[tag=passwd]
