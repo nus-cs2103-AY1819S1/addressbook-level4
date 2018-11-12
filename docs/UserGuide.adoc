@@ -133,10 +133,12 @@ Do read our short explanation about Command Format below so that the subsequent 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-item n/ITEM_NAME`, `ITEM_NAME` is a
+parameter which can be used as `add-item n/Burger`.
+* Items in square brackets are optional e.g `n/ITEM_NAME [t/TAG]` can be used as `n/Burger t/beef` or as `n/Burger`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME p/ITEM_PRICE`, `p/ITEM_PRICE n/ITEM_NAME`
+ is also acceptable.
 ====
 
 As this is a management system, all but the following commands cannot be executed without first being authenticated.
@@ -485,10 +487,11 @@ Deletes the specified item from the menu. +
 Format: `delete-item-index INDEX [ei/INDEX]`
 
 ****
-* Deletes the item at the specified `INDEX`.
+* Deletes the item(s) specified by `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * You can delete a range of items by adding the ending index `ei\INDEX`.
+* The ending index can not be smaller than starting index.
 ****
 
 Examples:
@@ -507,7 +510,7 @@ Format: `delete-item-name ITEM_NAME`
 
 ****
 * Deletes the item by the specified `ITEM_NAME`.
-* The ITEM_NAME *must be in the displayed item list*.
+* The ITEM_NAME *must be in the menu*.
 * ITEM_NAME is case-insensitive. e.g `burger` will match `Burger`
 ****
 
@@ -515,10 +518,9 @@ Examples:
 
 * `list-items` +
 `delete-item-name Apple Juice` +
-Deletes the `Apple Juice` item in the menu.
-* `fi Cheese` +
-`din Cheese Fries` +
-Deletes `Cheese Fries` item in the results of the `find-item` command.
+Deletes the `Apple Juice` item from the menu.
+* `din Cheese Fries` +
+Deletes the `Cheese Fries` item from the menu.
 //end::menuPart1[]
 
 ==== Listing all items in the menu : `list-items` or `li`
@@ -575,8 +577,8 @@ Returns any item having names `Cheese`, `Chocolate`, or `Fruit`
 //tag::menuPart2[]
 ==== Filter menu by tag: `filter-menu` or `fm`
 
-Finds items that contain the given tag in the menu. +
-Format: `filter-menu t/TAG`
+Finds items whose tags match any of the given keywords. +
+Format: `filter-menu KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
@@ -588,19 +590,20 @@ items that are tagged with drinks or burger.
 
 Examples:
 
-* `filter-menu t/monday` +
+* `filter-menu monday` +
 Returns any item that contains tag `monday`
-* `fm t/set` +
-Returns any item that contains tag `set`
+* `fm set monday` +
+Returns any item that contains tag `set` or `monday`
 
 ==== Sort menu : `sort-menu` or `sm`
 
 Sort the menu by name or price. +
-Format: `sort-menu [NAME] [PRICE]`
+Format: `sort-menu SORTING_METHOD`
 
 ****
 * Sort the menu by name or price.
-* Case-insensitive, can be: `sort-menu name` or `sort-menu NAME`
+* `SORTING_METHOD` refers the method to sort menu: name or price
+* Case-insensitive, it can be: `sort-menu name` or `sort-menu NAME`
 * Only one of the sorting method should be provided.
 ****
 
@@ -622,9 +625,9 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove discount by typing `0` for the percentage.
-* You can give a discount to the whole menu by typing `ALL` instead of a specified `INDEX`.
+* You can give a discount to the whole menu by typing `ALL`(case-insensitive) instead of a specified `INDEX`.
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`.
-* The ending index can not be smaller than index.
+* The ending index can not be smaller than starting index.
 ****
 
 Examples:
@@ -633,8 +636,8 @@ Examples:
 `discount-item 2 dp/20` +
 Give the 2nd item in the menu a 20% discount.
 * `fi Cheese` +
-`dci 1 dp/0` +
-Revert the 1st item in the results of the `find-item` command to original price.
+`dci ALL dp/0` +
+Revert all items in the results of the `find-item` command to original price.
 * `li` +
 `dci 1 ei/3 dp/50` +
 Give the 1st item to the 3rd item in the menu a 50% discount.
@@ -645,6 +648,9 @@ Give the 1st item to the 3rd item in the menu a 50% discount.
 Lists the items that have been tagged with `DAY_OF_THE_WEEK` in the menu. +
 Format: `today-special`
 
+****
+* `DAY_OF_THE_WEEK` refers to monday, tuesday, ...
+****
 Examples:
 
 * `today-special` +
@@ -658,7 +664,7 @@ Format: `recipe-item INDEX r/RECIPE`
 
 ****
 * Adds a recipe to the item at the specified `INDEX`.
-* If the item has a recipe already, it will update the recipe.
+* If the item has a recipe already, it will overwite the existing recipe.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove recipe by typing `r/` without specifying any recipe after it..
@@ -675,12 +681,12 @@ Add/Update the recipe of the 1st item in the results of the `find-item` command 
 [[add-required-ingredient]]
 ==== Adding required ingredients: `add-required-ingredients` or `ari`
 
-Adds/ required ingredients to the item identified by the index number used in the menu. +
+Adds required ingredients to the item identified by the index number used in the menu. +
 Format: `add-required-ingredients INDEX n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 
 ****
 * Adds required ingredients to the item at the specified `INDEX`.
-* If the item has required ingredients already, it will update the required ingredients.
+* If the item has required ingredients already, it will overwrite the existing required ingredients.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * NUMBER_OF_INGREDIENTS for an ingredient must be paired with the INGREDIENT_NAME for that particular ingredient.
@@ -689,7 +695,7 @@ e.g. `n/apple nu/3` or `nu/3 n/apple`
 
 Examples:
 
-* `add-required-ingredients 1 n/Apple nu/3`
+* `add-required-ingredients 1 n/Apple nu/3` +
 Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
