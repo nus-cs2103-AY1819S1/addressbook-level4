@@ -3,8 +3,10 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlElement;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.game.DecreasingMode;
 import seedu.address.model.game.FlatMode;
@@ -17,6 +19,7 @@ import seedu.address.model.game.PriorityMode;
  * JAXB-friendly version of the {@code GameManager}.
  */
 public class XmlAdaptedGameManager {
+    private static final Logger logger = LogsCenter.getLogger(XmlAdaptedGameManager.class);
 
     @XmlElement(required = true)
     private String gameMode;
@@ -61,7 +64,7 @@ public class XmlAdaptedGameManager {
     public GameManager toModelType() throws IllegalValueException {
         // If game type is null, return new GameManager
         if (gameMode == null) {
-            // If GameManager does not exist in storage, create new one.
+            logger.info("No game manager detected, creating default");
             return new GameManager();
         }
 
@@ -85,6 +88,7 @@ public class XmlAdaptedGameManager {
             break;
         default:
             // Illegal gameMode -- return a new default one
+            logger.info("Invalid game manager detected, resetting to default");
             return new GameManager();
         }
 
