@@ -1,5 +1,7 @@
 package seedu.restaurant.logic.commands.menu;
 
+import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
@@ -39,6 +41,7 @@ public class DeleteItemByNameCommand extends Command {
         try {
             Item itemToDelete = model.findItem(targetName);
             model.deleteItem(itemToDelete);
+            model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
             model.commitRestaurantBook();
             EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
             return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
