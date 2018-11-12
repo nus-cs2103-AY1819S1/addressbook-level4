@@ -92,6 +92,14 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             break;
 
+        case A:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("add ");
+            }
+            break;
+
         case F:
             // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
             keyEvent.consume();
@@ -100,11 +108,19 @@ public class CommandBox extends UiPart<Region> {
             }
             break;
 
-        case A:
+        case L:
             // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
             keyEvent.consume();
             if (keyEvent.isControlDown()) {
-                replaceText("add ");
+                replaceText("list ");
+            }
+            break;
+
+        case S:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("select ");
             }
             break;
 
