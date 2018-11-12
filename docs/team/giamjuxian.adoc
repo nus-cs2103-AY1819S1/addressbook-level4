@@ -41,12 +41,6 @@ the HealthBook. It required an extensive understanding of integration in Java an
 In addition, this implementation required a good analysis of how the Google Calendar can compliment the features in the HealthBook.
 ** Credits: Google's API https://developers.google.com/resources/api-libraries/documentation/calendar/v3/java/latest/
 
-* *Minor enhancement*:
-** Implemented patient and doctor models into HealthBook
-** Modified storage of patient and doctor so that their information can be extracted and saved accordingly.
-
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=giamjuxian [Functional code]
-
 * *Other contributions*:
 ** Project management:
 *** Setting up of Jar files for Release.
@@ -54,7 +48,7 @@ In addition, this implementation required a good analysis of how the Google Cale
 
 ** Implementation of new features:
 *** Added `register-patient` and `register-doctor` commands
-(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/29[#29])
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/15[#15])
 *** Added `complete-appointment` command
 (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/62[#62])
 *** Integrated Google Calendar to `add-appointment`, `delete-appointment` and `complete-appointment` commands
@@ -63,7 +57,8 @@ https://github.com/CS2103-AY1819S1-T10-2/main/pull/27[#27])
 *** Modified storage to accommodate patients, doctors, appointments and prescriptions.
 (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/32[#32])
 *** Wrote test cases for new commands
-(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/56[#56])
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/56[#56],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/59[#59])
 *** Wrote test cases for changes in models
 (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/76[#76])
 *** Wrote test cases for changes in storage
@@ -78,7 +73,7 @@ https://github.com/CS2103-AY1819S1-T10-2/main/pull/27[#27])
 ** Documentation:
 *** Updated User Guide
 (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/131[#131],
-https://github.com/CS2103-AY1819S1-T10-2/main/pull/80[#80])
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/5[#5])
 *** Updated Developer Guide
 (Pull requests  https://github.com/CS2103-AY1819S1-T10-2/main/pull/131[#131],
 https://github.com/CS2103-AY1819S1-T10-2/main/pull/155[#155],
@@ -108,8 +103,6 @@ include::../UserGuide.adoc[tag=registerdoctor]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=logicomponent]
 
 include::../DeveloperGuide.adoc[tag=calendarcomponent]
 
