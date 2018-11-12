@@ -684,12 +684,12 @@ The following sequence diagrams shows how the login works:
 
 .Sequence Diagram for the `LoginCommand` for the logic component.
 image::LoginLogicSequenceDiagram.png[width="1080"]
-
+{sp} +
 **Model**
 
 .Sequence Diagram for the `LoginCommand` for the model component.
 image::LoginModelSequenceDiagram.png[width="1080"]
-
+{sp} +
 **Commons**
 
 .Sequence Diagram for the `LoginCommand` for the commons component.
@@ -699,7 +699,7 @@ The following activity diagram summarizes what happens when a user executes `Log
 
 .Activity Diagram for the `LoginCommand`
 image::LoginActivityDiagram.png[width="1080"]
-+
+{sp} +
 ===== `LogoutCommand`
 
 The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
