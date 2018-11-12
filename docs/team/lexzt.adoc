@@ -44,12 +44,12 @@ Interested? Head towards our releases page to download and try it out! No instal
 |_Given below are sections I contributed to the development of the application. They showcase my technical depth and ability._
 |===
 
-* *Major enhancement 1*: modified the *find feature to search for partial words* and *ignore certain words*.
+* *Major enhancement 1*: Modified the *find feature to search for partial words* and *ignore certain words*.
 ** What it does: Allows the user to search for partial instances of words without needed to type everything.
 ** Justification: This feature improves the product significantly because a user can type lesser and the app should provide the same data still.
 ** Highlights:  This enhancement affects the existing commands and commands to be added in the future. I also wrote extra code which allowed us to re-use in the future.
 
-* *Major enhancement 2*: integrated *Google maps* javascript api.
+* *Major enhancement 2*: Integrated *Google maps* javascript api.
 ** What it does: Every time the user sends a command, the display will be updated accordingly. E.g. Selecting a car park shows that one and only carpark.
 ** Justification: This feature greatly improves the look and feel of the application. Plus it allows further more information to be displayed.
 ** Highlights:  This enhancement allows the user to see where the car park is in the entire map without needing to interact with the GUI itself.

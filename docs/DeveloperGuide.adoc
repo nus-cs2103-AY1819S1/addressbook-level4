@@ -475,7 +475,7 @@ The diagram above describes how the flow of a find command would execute. It rel
 
 ==== Example
 
-Given below is an example usage scenario of how the Find mechanism behaves at each step.
+Given below is an example usage scenario of how the `find` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
 
@@ -957,7 +957,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire car park finder.
+* **Alternative 1 (current choice):** Save the entire car park finder.
 
 [cols="1,10"]
 |===
@@ -1195,7 +1195,7 @@ and an example of how it works.
 
 ==== Overview
 As we wanted to showcase real time updates when the user issues a command, we had to update the HTML accordingly.
-However, we did not want to just update it. We wanted to showcase the selected car park or the filtered list accordingly.
+However, we did not want to just update it, we wanted to showcase the selected car park or the filtered list accordingly.
 
 ==== Example
 Step 1. The user launches the application and is greeted by this UI.
@@ -2211,4 +2211,3 @@ testers to work on; testers are expected to do more *exploratory* testing.
 .. Type several commands into the command box
 .. Type into the command box a `history` command +
    Expected: The command box now shows a list of the past commands that you previously entered.
-   
