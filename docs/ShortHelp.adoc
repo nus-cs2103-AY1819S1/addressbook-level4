@@ -6,6 +6,7 @@ Command syntax summary, enter `help more` for full manual.
 |=======================================================================
 |*Manage Attractions*
 |add <attraction> <maintenance> <waitTime> <address> [tag(s)] delete <index>
+|delete <index>
 |update <index> <tag> <value>
 |shutdown <index>
 |open <index>
@@ -14,9 +15,9 @@ Command syntax summary, enter `help more` for full manual.
 
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
-|*Get help and accessibility*
+|*Manage Commands*
 |help [option]
-|Autocomplete: kbd:[TAB]
+|Using Autocomplete: kbd:[TAB]
 |history [option]
 |undo
 |redo

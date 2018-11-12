@@ -50,9 +50,11 @@ similar to below:
 
 image::Ui.png[width="800"]
 
+[TIP]
+The bar at the top of the window allows you to access `Help` or `About`. The `About` option on the navigation bar opens an About Us window.
+
 [WARNING]
 You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`.
-Similarly, the `About` button on the navigation bar opens a help window.
 
 
 Congratulations! You have successfully set up ThanePark!
@@ -83,7 +85,7 @@ Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
 Example: `{tab}` is the kbd:[TAB] keystroke.
 * Items ending with ellipses `...` denotes variable number of arguments. +
-Example: `history [findargs...]`
+Example: `filter <tag> <condition> [[tag] [condition]...]`
 
 * Parameters with prefix `/` can be in any order +
 Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
@@ -168,7 +170,7 @@ This section contains all commands related to managing commands.
 Display short summary of important commands. A summarized help
 sheet showing command syntax without details should appear as shown below. +
 
-image::ui_screenshots/help-example-1.png[width="400"]
+image::ui_screenshots/help-example-1.png[width="600"]
 
 Format: `help`
 
@@ -181,6 +183,7 @@ Any arguments beyond the 2nd position will be discarded and ignored.
 Information provided in the short help only shows the rough syntax of commands. For full information,
 do refer to this User Guide. Also note that `help` will cause the currently selected `Ride` to be deselected.
 
+[.white]
 |===
 a|
 Examples:
@@ -280,6 +283,7 @@ Extended usage of suggesting commands:
 
 // tag::autocomplete2[]
 
+[.white]
 |===
 a|
 [#suggest_examples]
@@ -310,6 +314,7 @@ ThanePark stores the command history in `commandHistory.xml`. If the storage fil
 no new command history will be logged. Additionally, if the file format is changed, the program will
 restart the collation of history.
 
+[.white]
 |===
 a|
 Examples:
@@ -331,16 +336,17 @@ Undo previous command during current session. +
  +
 Format: `undo`
 
+[.white]
 |===
 a|
 Examples:
 
 * `delete 1` +
-`view` +
+`viewAll` +
 `undo` (reverses the `delete 1` command) +
 
 * `view 1` +
-`view` +
+`viewAll` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -516,7 +522,7 @@ Format: `logout`
 
 2+|*Get help and accessibility*
 |*Help* |`help [option]`
-|*Autocomplete* |kbd:[TAB]
+|*Using Autocomplete* |kbd:[TAB]
 |*History* |`history [option]`
 |*Undo* |`undo`
 |*Redo* |`redo`
@@ -524,8 +530,8 @@ Format: `logout`
 
 2+|*View information on the list of rides*
 |*View all* |`viewall`
-|*View* |`view`
-|*View status* |`viewstatus <name>`
+|*View* |`view <index>`
+|*View status* |`viewstatus <status>`
 
 2+|*Find the relevant list of rides*
 |*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`

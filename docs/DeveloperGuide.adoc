@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
-By: `Team CS2103-W14-2`      Since: `Sep 2018`      Licence: `MIT`
+By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 Welcome to ThanePark!
