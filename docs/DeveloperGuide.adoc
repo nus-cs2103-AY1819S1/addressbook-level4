@@ -122,7 +122,7 @@ abstract method in command.
 
 Simplified class diagram for the command component:
 
-image::CommandComponentClassDiagram.png[width="1200"]
+image::CommandComponentClassDiagram.png[width="600"]
 // end::command[]
 
 
@@ -578,19 +578,17 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded `Dependencies` object. This object internally represents dependencies with
-a hashset that contains the hashcode of the object that the task is dependent upon.
+The dependency mechanism is facilitated by an embedded `Dependencies` object. This object represents dependencies with
+a hashset that contains the hashcodes of the tasks that the task is dependent upon.
 
 Sequence Diagram of the dependencies command
 
-image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 ==== Design Considerations
 ===== Aspect: Modelling of the embedded dependency object.
 
 * ** Alternative 1(current choice):** Dependencies specified by unique hashcodes of tasks
 ** Pros:
-*** Simple to implement.
 *** There is no task creation propogation when task dependency is added. (refer to alternative 2).
 *** Easy to reform the dependency graph.
 ** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
@@ -634,7 +632,13 @@ depend on each other.
 
 *** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
+
+===== Aspect: Implementing topological sort
+image::ShowTopologicalOrderCommandSequenceDiagram.png[width="1200"]
+
 // end::dependency[]
+
+
 
 // tag::time_implementation[]
 === Monitoring time
@@ -1187,10 +1191,143 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+// tag::seanmanualtest[]
+=== Effective Due Date field
+. Showcasing Effective due date field +
+[NOTE]
+====
+Effective due date is a field in the UI that updates accordingly to command changes.
+Effective due date can only be seen by selecting the task on task panel with the mouse or by entering the command
+`select x`, where x is the index of the task.
+====
+.. Prerequisites:
+
+image::EffectiveDueDate1.png[width="200"]
+_Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled_
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add Task C using `add n/C t/1-3-19 p/5 d/blank`
+
+image::EffectiveDueDate2.png[width="200"]
+_Diagram of Due Dates and Effective Due Dates for test case 1_
+
+.. Test case 1: `dependency 2 1`, `select 1` or click on Task A +
+Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
+Number of dependencies field on the task card updated.
+
+image::EffectiveDueDate3.png[width="200"]
+_Diagram of Due Dates and Effective Due Dates for test case 2_
+
+.. Test case 2: [Execute commands from test case 1] + `dependency 3 2` + `select 3` or click on task C +
+   Expected: No change to effective due date.
+// end::seanmanualtest[]
+
+=== Achievement Mechanism
+
+. Update of xp and number of tasks completed on task completion
+
+.. Test case: `complete 1` +
+Expected: Xp value on the achievement panel increases, tasks completed increases by 1. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.
+
+.. Test case: `complete l/tutorial` +
+Expected: Xp value on the achievement panel increases. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.
+Tasks completed increases by the number of tasks completed by the batch complete command (as specified in the
+complete command message).
+
+. Update of level on task completion
+.. Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:
+`<xp>499</xp>` +
+`<level>lvl.1</level>` +
+`<xpValueByDay>0</xpValueByDay>` +
+`<xpValueByWeek>0</xpValueByWeek>` +
+.. Test case: `complete 1` +
+Expected: Xp value on the achievement panel increases, and level increases with xp(as the minimum xp of level 2 is 500).
+The actual amount of xp value awarded is determined by the current game mode and reported by complete command message.
+The level will always match the updated xp.
+
+. Update of achievement information on undo/redo of complete command.
+.. Test case: `complete 1` `undo` `redo` +
+Expected: Achievement information updates as specified in the other test cases, changes back
+to original values on `undo`, and changes again to the updated values on `redo`.
+
+. Change of display option on achievement UI
+
+.. Test case: `achievements today` +
+Expected: Achievement panel shows "Daily achievements from [today's date]:", current level, xp earned and number of
+tasks completed from the beginning of the day. +
+
+.. Test case: `achievements this week` +
+Expected: Achievement panel shows "Weekly achievements from [date]:", current level, xp earned and number of tasks
+completed from the specified date, which is no earlier than today and not more than 6 days after today. +
+
+.. Test case: `achievements all-time` +
+Expected: Achievement panel shows "All-time achievements:", current level, xp earned and number of tasks
+completed across all time. +
+
+.. Test case: `achievements all-time` `achievements today` `undo` `redo` +
+Expected: Achievement panel shows all-time achievement information followed by today's achievement information.
+On `undo`, it shows all-time achievement information again and on `redo`, it shows back today's achievement information.
+
+. Reset of time-based achievement fields
+.. Prerequisites:
+... change the specified fields in data/taskmanager.xml(or other storage path) to: +
+`<xp>400</xp>` +
+`<numTaskCompleted>14</numTaskCompleted>` +
+`<nextDayBreakPoint>dd-mm-yy 0000</nextDayBreakPoint>`(where dd-mm-yy is tomorrow's date) +
+`<xpValueByDay>200</xpValueByDay>` +
+`<numTaskCompletedByDay>5</numTaskCompletedByDay>` +
+`<nextWeekBreakPoint>dd-mm-yy 0000</nextWeekBreakPoint>`(where dd-mm-yy is today's date + 7 days) +
+`<xpValueByWeek>300</xpValueByWeek>` +
+`<numTaskCompletedByWeek>12</numTaskCompletedByWeek>` +
+.. Test case:
+... `achievements today`
+... set the system time of the testing computer to be tomorrow(one day after today)
+... `achievements today` +
+Expected: Before system time change, `achievements today` shows "Daily achievements from [today's date]:", today's
+xp to be 200, tasks completed to be 5. After system time change, `achievements today` shows "Daily achievements from
+[tomorrow's date]:", this day's xp to be 0, tasks completed to be 0. All-time xp value remains 400, tasks completed
+remains 14. This week's xp value remains 300, tasks completed remains 12.
+
+.. Test case:
+... `achievements this week`
+... set the system time of the testing computer to be next week(7 days after today)
+... `achievements this week`
+... `achievements today` +
+Expected: Before system time change, `achievements this week` shows "Weekly achievements from [today's date]:",
+this week's xp to be 300, tasks completed to be 12. After system time change, `achievements this week` shows "Weekly
+achievements from [next week's date]:", this week's xp to be 0, tasks completed to be 0. Now, `achievements today`
+shows "Daily achievements from [next week's date]:", this day's xp to be 0, tasks completed to be 0.
+
+. Detection of invalid/corrupted achievement information from storage +
+ +
+change the specified fields in data/taskmanager.xml(or other storage path) to:
+.. Test case: `<displayOption>5</displayOption>` (invalid display option)
+.. Test case: `<xp>59</xp>` `<level>lvl.2</level>` (non-matching xp value and level)
+.. Test case: `<xp>559</xp>` `<xpValueByDay>90</xpValueByDay>` `<xpValueByWeek>60</xpValueByWeek>` +
+(Inconsistent xp values. All-time xp should never be smaller than this week's xp, which should never be smaller
+than today's xp.)
+.. Test case: `<numTaskCompleted>10</numTaskCompleted>` `<numTaskCompletedByDay>12</numTaskCompletedByDay>`
+`<numTaskCompletedByWeek>12</numTaskCompletedByWeek>` +
+(Inconsistent number of tasks completed. All-time number should never be smaller than this week's number, which
+should never be smaller than today's number.)
+.. Test case: `<nextDayBreakPoint>12-11-18 0000</nextDayBreakPoint>`
+`<nextWeekBreakPoint>19-11-18 0000</nextWeekBreakPoint>` +
+(Inconsistent date breakpoints. `nextWeekBreakPoint` should never be earlier than `nexDayBreakPoint`, it should never be
+more than 6 days later than nexDayBreakPoint.)
+.. Test case: `<xp>1000000001</xp>` +
+(The maximum integer value maintained by achievement record is 1000000000.)
+
+Expected: Due to the invalid data fields, the data file is considered corrupted and task manager is initialized with an
+empty data file. Task manager will be empty.
+
 === Adding or removing a dependency
 
 . Adding a dependency when all tasks are listed
-.. Prerequisites: List all persons using the `list` command
+.. Prerequisites: List all tasks using the `list` command, at least 2 or more tasks in Task Manager
 .. Test case: `dependency 1 2` +
 Expected: Dependency added between task at index 1 to task at index 2.
 Details of added dependency shown on screen. Timestamp in the status bar is updated.
@@ -1211,6 +1348,7 @@ Number of dependencies field on the task card updated.
 .. Other incorrect dependency commands to try: `dependency`, `dependency x 1` (where x is larger than the list size), adding a
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
+
 === List topological order of tasks
 . List topological order of tasks
 .. Prerequisites: -
