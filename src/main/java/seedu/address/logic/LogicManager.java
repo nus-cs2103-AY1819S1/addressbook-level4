@@ -27,8 +27,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.person.Username;
 import seedu.address.model.project.Assignment;
-import seedu.address.ui.AssignmentListPanel;
-import seedu.address.ui.PersonListPanel;
 
 /**
  * The main LogicManager of the app.
@@ -179,8 +177,8 @@ public class LogicManager extends ComponentManager implements Logic {
             }
         }
         if (event.getNewSelection() == 1) {
-            try{
-            execute("list");
+            try {
+                execute("list");
             } catch (CommandException e) {
                 System.out.println(e.getMessage());
             } catch (ParseException e) {
@@ -188,7 +186,7 @@ public class LogicManager extends ComponentManager implements Logic {
             }
         }
         if (event.getNewSelection() == 3) {
-            try{
+            try {
                 execute("listassignments");
             } catch (CommandException e) {
                 System.out.println(e.getMessage());

@@ -19,7 +19,6 @@ import seedu.address.commons.events.ui.ArchiveListEvent;
 import seedu.address.commons.events.ui.AssignmentListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
-import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.PersonListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
