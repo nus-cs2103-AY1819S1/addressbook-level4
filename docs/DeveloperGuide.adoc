@@ -369,54 +369,69 @@ Step 6: The user lists all patients in the queue by using `showqueue` command. A
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `ClinicIO` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedClinicIo`.
+It extends `ClinicIO` with an undo/redo history, stored internally as an `clincIoStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current ClinicIO state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous ClinicIO state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone ClinicIO state from its history.
+* `VersionedClinicIo#commit()` -- Saves the current ClinicIO state in its history.
+* `VersionedClinicIo#undo()` -- Restores the previous ClinicIO state from its history.
+* `VersionedClinicIo#redo()` -- Restores a previously undone ClinicIO state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitClinicIo()`, `Model#undoClinicIo()` and `Model#redoClinicIo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial ClinicIO state, and the `currentStatePointer` pointing to that single Clinic IO state.
+Step 1. The user launches the application for the first time. The `VersionedClinicIo` will be initialized with the initial ClinicIO state, and the `currentStatePointer` pointing to that single Clinic IO state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th patient in the ClinicIO. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the ClinicIO after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted ClinicIO state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the ClinicIO. The `delete` command calls
+`Model#commitClinicIo()`, causing the modified state of the ClinicIO after the `delete 5` command executes to be
+saved in the `clinicIoStateList`, and the `currentStatePointer` is shifted to the newly inserted ClinicIO state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified ClinicIO state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitClinicIo()`,
+causing another modified ClinicIO state to be saved into the `clinicIoStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the ClinicIO state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitClinicIo()`, so the ClinicIO state will not be saved
+into the `clinicIoStateList`.
 
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous ClinicIO state, and restores the ClinicIO to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoClinicIo()`, which will shift the `currentStatePointer` once to
+the left, pointing it to the previous ClinicIO state, and restores the ClinicIO to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial ClinicIO state, then there are no previous ClinicIO states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial ClinicIO state, then there are no previous ClinicIO
+states to restore. The `undo` command uses `Model#canUndoClinicIo()` to check if this is the case. If so, it will return
+an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the ClinicIO to that state.
+The `redo` command does the opposite -- it calls `Model#redoClinicIo()`, which shifts the
+`currentStatePointer` once to the right, pointing to the previously undone state, and restores the ClinicIO to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest ClinicIO state, then there are no undone ClinicIO states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `clinicIoStateList.size() - 1`, pointing to the latest ClinicIO state, then
+there are no undone ClinicIO states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the ClinicIO, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the ClinicIO, such as `list`,
+will usually not call `Model#commitClinicIo()`, `Model#undoClinicIo()` or `Model#redoClinicIo()`. Thus, the
+`clinicIoStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all ClinicIO states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitClinicIo()`. Since the `currentStatePointer` is not pointing
+at the end of the `clinicIoStateList`, all ClinicIO states after the `currentStatePointer` will be purged. We designed
+it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that
+most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -439,7 +454,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of ClinicIO states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedClinicIo`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
