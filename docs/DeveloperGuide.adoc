@@ -574,12 +574,6 @@ generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it t
 .. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
 generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
 
-All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
-either a bar chart or a pie chart like the ones in the diagram below:
-
-.Example bar and pie charts for Statistics Panel
-image::StatsCharts.png[]
-
 ==== Design Considerations
 
 ===== Aspect: How to handle statistics data and parameters
