@@ -38,7 +38,7 @@ Responsibilities: Storage
 
 '''
 
-=== Leong Engsea
+=== Leong Eng Sea
 image::leongengsea.png[width="150", align="left"]
 {empty}[https://github.com/leongengsea[github]] [<<leongengsea#, portfolio>>]
 

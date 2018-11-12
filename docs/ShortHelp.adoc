@@ -5,7 +5,7 @@ Command syntax summary, enter `help more` for full manual.
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Manage Attractions*
-|add <attraction> <maintenance> <waitTime> <address> [tag(s)] delete <index>
+|add <attraction> <maintenance> <waitTime> <address> [tag(s)]
 |delete <index>
 |update <index> <tag> <value>
 |shutdown <index>
