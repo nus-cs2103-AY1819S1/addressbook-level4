@@ -248,6 +248,7 @@ public class MainWindow extends UiPart<Stage> {
         patientListPanelPlaceholder.setVisible(false);
         appointmentListPanelPlaceholder.setVisible(false);
         queuePanelPlaceholder.setVisible(false);
+        medicineListPanelPlaceholder.setVisible(false);
         splitPane.setVisible(false);
         titleScreenPlaceHolder.setVisible(true);
         titleScreenPlaceHolder.setManaged(true);
@@ -262,6 +263,7 @@ public class MainWindow extends UiPart<Stage> {
         patientListPanelPlaceholder.setVisible(true);
         appointmentListPanelPlaceholder.setVisible(true);
         queuePanelPlaceholder.setVisible(true);
+        medicineListPanelPlaceholder.setVisible(true);
         splitPane.setVisible(true);
         titleScreenPlaceHolder.setVisible(false);
         titleScreenPlaceHolder.setManaged(false);
@@ -351,6 +353,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param isShowAnalytics Check whether want to show analytics display panel.
      * @param isShowBrowser Check whether want to show browser display panel.
      * @param isShowPatientDetails  Check whether want to show patient details display panel.
+     * @param isShowMedicineDetails  Check whether want to show medicine details display panel.
      */
     private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails,
                                   boolean isShowMedicineDetails) {
@@ -377,7 +380,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false, true);
+        showDisplayPanel(false, false, false, true);
     }
 
     @Subscribe
