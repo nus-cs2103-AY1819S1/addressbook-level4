@@ -28,8 +28,7 @@ public class SuggestionCommandByIndex extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        
-        if (model.getFilteredPersonList().size()<indexNum) {
+        if (model.getFilteredPersonList().size() < indexNum) {
             return new CommandResult("The index is out of the boundary");
         }
 
