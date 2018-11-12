@@ -1659,6 +1659,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Promote a certain number of students in TutorPal
 
+.. Prerequisites: The use of `List` command in conjunction with the following test case is *optional*.
+.. Test case: `promote 1 2 5` +
+   Expected: Promotes the first, second and fifth student in the displayed list to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
+
 === Adding a tuition time of a student
 
 . Adding a tuition time for a student while all persons are listed
@@ -1688,15 +1695,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
 .. Test case: `deleteTime 1 ts/mon 1300 1500` +
    Expected: Student at index 1 has a tuition time "Monday 1300 1500" removed. Status message display command success message and timestamp in the status bar is updated.
-
-=== Saving data
-=======
-.. Prerequisites: The use of `List` command in conjunction with the following test case is *optional*.
-.. Test case: `promote 1 2 5` +
-   Expected: Promotes the first, second and fifth student in the displayed list to the next educational grade.
-   The number of students promoted and new graduates are shown in the status message.
-   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
-   before the execution this command.
 
 === Retrieving earnings
 
