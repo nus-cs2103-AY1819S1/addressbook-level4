@@ -358,7 +358,7 @@ Written below is the implementation of the Email feature and considerations in i
 
 ==== Current Implementation
 
-image::EmailActivityDiagram.png[width="1500"]
+image::EmailActivityDiagram.png[width="1400"]
 _Figure 4.2.1.1: Activity diagram of_ `ComposeEmailList`.
 
 The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
