@@ -493,9 +493,9 @@ Format: `mode [Optional: GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 
 ** *Edit* : `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 
-** *Complete* : `complete INDEX` or `complete l/LABEL`
+** *Complete* : `complete INDEX` or `complete [l/LABEL]+`
 
-** *List* : `list`
+** *List* : `list [f/FILTER]`
 
 ** *Find* : `find KEYWORD`
 
@@ -504,6 +504,8 @@ Format: `mode [Optional: GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 ** *Achievements* : `achievements TIME_SPAN`
 
 ** *Topological order* : `topoorder`
+
+** *Game mode* : `mode` or `mode GAME_MODE` or `mode GAME_MODE GAME_DIFFICULTY`
 
 
 // tag::complete-2.0[]
