@@ -39,8 +39,10 @@ the system.
 *** Justification: This will enable the users to search for infomation of the assignment
 they are working on.
 
-** *Highlights:* Being the first time working in a medium-sized project and making improvement to the existing implementation, I picked up many technical and
-writing skills. Prior understanding of the model and interaction of the component is also needed. However, the most important lesson I learnt is the importance of writing clear documentation. It is because with clear documentation, collaborating with others is easier. 
+** *Highlights:* Being the first time working in a medium-sized project and making improvements to the existing implementation, I picked up
+many technical and writing skills. Prior understanding of the model and interaction of the components is also needed, However, the most
+important lesson I learnt is the importance of writing clear documentation. It is because with clear documentation, collaborating with others
+is easier.
 
 * *Minor enhancement:*
 ** Keyboard Shortcuts
