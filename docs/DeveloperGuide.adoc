@@ -469,6 +469,7 @@ general idea of the flow of execution before attempting to understand the follow
 _If you require involved context for the execution of the whole `CompleteCommand` please refer
 to: Appendix E: Complete Command Activity Diagram_
 
+// tag::complete-label-execution[]
 ==== Current Implementation
 
 The batch completion mechanism is facilitated by `CompleteLabelCommand`. It extends
@@ -504,13 +505,13 @@ it's status to `COMPLETED`
 
 **Extensions**
 
-Step 1.2.1.a If all tasks are not updated successfull, `Model#rollbal()` will be called. All
+Step 1.2.1.a If all tasks are not updated successful, `Model#rollback()` will be called. All
 uncommitted changes will be reset to the current state pointed to in `taskManagerStateList`.
 
 image::CompleteViaLabelOnFail.png[width="700"]
 
-Step 1.2.1.a1 Then user will see a relevant error message pertaining to what went wrong.
-
+Step 1.2.1.a1 Then user will see a relevant error message reporting what went wrong.
+// end::complete-label-execution[]
 
 ===== Auxiliary Changes
 
@@ -529,7 +530,7 @@ any of the desired `Label`(s) specified (case-insensitive).
 * `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
 commands
 
-
+// tag::design-considerations-main[]
 ==== Design Considerations
 
 ===== Aspect: Implementation of atomicity
@@ -538,7 +539,7 @@ commands
 otherwise `Model#commit()`
 ** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
 ensuring that there are no partially-done batch operation resulting in a possibly invalid state.
-** Cons: Requires extending the Model class and depending on its funcationalities; resulting in
+** Cons: Requires extending the Model class and depending on its functionality; resulting in
 tighter coupling.
 * **Alternative 2:** Doing a check on all tasks to see if they can be completed successfully. If
 yes, then proceed to update the model and commit else throw an exception.
@@ -582,6 +583,7 @@ quirks as opposed to commonly recognised _Alternative 2_
 ** Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
  Abstract Methods.
 ** Cons: Inability to properly check for equality.
+// end::design-considerations-main[]
 
 === Model Rollback feature
 ==== Current Implementation
@@ -1118,7 +1120,7 @@ Use case ends.
 Use case ends.
 
 * 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
-** 1b1. Application displays a relevant error message.
+** 1c1. Application displays a relevant error message.
 
 Use case ends.
 
@@ -1156,10 +1158,10 @@ already been completed.
 
 Use case ends.
 
-* 2c. At least one of tasks identified via label to be completed has unfulfilled dependencie(s)
-that must be completed first.
-** 2c1. Application displays an error message, resetting the batch of tasks to their
-pre-completed state and no points are earned.
+* 2c. At least one of tasks identified via label to be completed has unfulfilled
+dependencie(s) that must be completed first.
+** 2c1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2c2. Application displays a relevant error message.
 
 Use case ends.
 
