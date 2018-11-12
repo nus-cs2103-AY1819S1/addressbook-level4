@@ -2499,6 +2499,20 @@ used is dash.
               Parameters: c/CCA
               Example: delete_cca c/ basketball
 
+=== Deleting a Transaction Entry
+. Deletes a transaction entry for a specified CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The transaction entry must exist for that CCA.
+.. Test case: `delete_trans c/basketball trans/1` +
+   Expected: Deleted CCA: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `delete_cca c/tennis` +
+    Expected: The CCA does not exist.
+.. Test case: `delete_cca` +
+    Expected: Invalid command format!
+              delete_cca: Deletes the CCA specified
+              Parameters: c/CCA
+              Example: delete_cca c/ basketball
+
 === Showing CCAs' Budget
 . Displays the CCA information and its transaction history.
 

@@ -201,4 +201,14 @@ public class Entry {
             && otherEntry.amount.equals(this.amount)
             && otherEntry.remarks.equals(this.remarks);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" Entry Number: " + this.entryNum);
+        sb.append(" Date: " + this.date);
+        sb.append(" Amount: " + this.amount);
+        sb.append(" Remarks: " + this.remarks);
+        return sb.toString();
+    }
 }
