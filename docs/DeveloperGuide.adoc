@@ -631,6 +631,8 @@ The following sequence diagram shows how the readImportContactsFile operation wo
 image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
+
+// tag::showFacultyLocationDisplay[]
 === Show Person's faculty location visually
 ==== Current Implementation
 
@@ -681,7 +683,9 @@ image::showLocation_UI_LogicManager_seqDiagram.PNG[width="800"]
 
 image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
 
-//tag::meetinglocation[]
+// end::showFacultyLocationDisplay[]
+
+// tag::generateMeetinglocation[]
 === Generate a random meeting location for event
 
 The generation of a random meeting location primarily builds upon the visual display of a ``Person``'s faculty. However
@@ -711,6 +715,8 @@ method of the GenerateLocationCommand.
 
 Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
 Display Tab) and subsequently by `LocationDisplayPanel`.
+
+// end::generateMeetingLocation[]
 
 === Logging
 
@@ -1297,11 +1303,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |university student |check if an event clashes with my schedule |better decide if I can set up an appointment at that time slot
 
-|`* * *` |considerate  university student |obtain a meeting time that is convenient for all contacts in a group [Coming in V2.0]
-|find a convenient time for meetups
+|`* * *` |new university student |visually locate a contact's faculty on a map
+|find faculty locations easily as I am unfamiliar with the campus
 
-|`* * *` |considerate university student |obtain a meeting location that is convenient for all contacts in a group
-(based on faculty) |find a convenient location for meetups
+|`* * *` |busy university student |find a possible meeting location for an event or a meeting
+|find a meeting location on campus quickly so as to save time and energy thinking about such minor details
+
+|`* * *` |considerate  university student |obtain a meeting time that is convenient for all contacts in a group [Coming in V2.0]
+|find a convenient time for events or meetings
+
+|`* * *` |considerate university student |obtain a meeting location that is convenient for all contacts in a group [Coming in V2.0]
+(based on faculty) |find a convenient location for events or meetings
 
 |`* * *` |university student |view my events for a particular week [Coming in V2.0] |gauge my availability for that week
 
@@ -1594,7 +1606,13 @@ Use case ends.
 . System returns to original screen.
 +
 
-User case ends.
+*Extensions*
+
+* 3a. User exits email screen without sending email.
++
+** 3a1. System returns to original screen.
++
+Use case ends.
 
 === UC16: Generate possible event location based on people tagged to event
 
@@ -1616,12 +1634,26 @@ _Note: this builds on the existing functionality of Use Case 8._
 ** 5a3. If user does not like the generated location, user does not have to do anything and continues using the application according to what he/she wants to do.
 +
 
+Use case ends.
+
+=== UC17: Generate possible meeting timing based on people in a group
+
+*MSS*
+
+. User selects the group that he/she wants to find a common meeting timing for.
+. System generates a common meeting timing where everyone is free based on the schedule's of the people in the group.
+. System displays this timing in the status message.
+. User considers the timing and deems it to be acceptable or not.
+. System also indicates in status message what course of action to take from here.
+
 *Extensions*
 
-* 3a. User exits email screen without sending email.
+* 5a. User accepts the generated timing.
+** 5a1. User creates an event for the group based on the timing generated (as indicated in the status message).
+** 5a2. Handling of the event creation is done by a separate command (to be developed).
+** 5a3. If user does not like the generated timing, user does not have to do anything and continues using the application according to what he/she wants to do.
 +
-** 3a1. System returns to original screen.
-+
+
 Use case ends.
 
 
