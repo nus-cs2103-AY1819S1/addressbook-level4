@@ -38,7 +38,8 @@ the user will have an easier time searching for what they need.
 name, phone number, email address, or home address by lexicographical order.
 
 * *Code contributed*:
-https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Abetakuwe[Pull requests]
+[https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Abetakuwe[Pull requests]]
+[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=betakuwe&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
@@ -55,7 +56,15 @@ https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[#134]
 *** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/161[#161],
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/95[#95]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-3/main/pull/211[#211]
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-W17-3/main/pull/211[#211],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/118[#118],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/116[#116],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/92[#92],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/71[#71],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/56[#56],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/47[#47],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/43[#43],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/42[#42].
 
 == Contributions to the User Guide
 
