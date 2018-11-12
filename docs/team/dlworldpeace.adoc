@@ -87,81 +87,127 @@ to write documentation for end-users to understand easily. We are targeting car
 owners, e.g. taxi drivers.
 
 
-=== Auto complete the command line
+=== Abbreviation: abbrev.
 
-Display the full format of an executable command line. +
-Format: `COMMAND_WORD` followed by 'Tab' key.
-Function: press 'Tab' key again to move to the next parameter.
+If you find the command words too long to type. Guess what? We have executable short form
+for each command in our command list.
 
-Example(s)
+You can find abbreviations of each command in the table that we provide to each section from 3.1 to 3.19.
 
-* key in `fi` in command box and then press 'Tab' key.
+[NOTE]
+However, there are ambiguous abbreviations that are not distinguishable between multiple commands.
+Thus, you *CANNOT* use them: `c`, `f`, `fi`, `h`.
 
-Only available in the following commands:
+To see how useful it can be, please take a look at the examples below.
 
-* <<Features-Find,*`find`*>>
-* <<Features-Select,*`select`*>>
-* <<Features-Filter,*`filter`*>>
-* <<Features-Sort,*`sort`*>>
+==== Example: Calculate Command
 
-=== Command Summary
-Here are the summarize list of commands available to the user.
+Step 1. Instead of entering `calculate` into the _Command Box_, you can enter `ca` instead.
+
+Step 2. complete the rest of the fields with `TJ39 SUN 7.00AM 9.00PM`, followed by pressing Enter to execute.
+
+
+=== Autocomplete: Tab
+
+If you forgotten how to type a command, do not worry! By typing in the first letter of the command in the
+_Command Box_ and pressing the Tab key, it will display the full format of the command.
+
+[NOTE]
+====
+Only available for the following commands: +
+[underline]#<<Features-Select, `select`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
+[underline]#<<Features-Notify, `notify`>># | [underline]#<<Features-Calculate, `calculate`>>#
+====
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Select Command
+
+Step 1. Enter `s` into the _Command Box_, followed by pressing Tab.
+Your `select` command will be completed.
+
+Step 2. Substitute the selected field `INDEX` with `1`, followed by pressing Enter to execute.
+
+==== Example: Filter Command
+
+Step 1. Enter `fil` into the _Command Box_, followed by pressing Tab.
+Your `filter` command will be completed.
+
+Step 2. Substitute the selected field `DAY` with `SUN`, followed by pressing Tab to move to the next field.
+
+Step 3. Repeat step 2 until you substitute all the fields with actual value. (You can remove those fields you
+choose not to use). Then press Enter to execute.
+
+[appendix]
+== Command Summary
+This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
+Refer to [underline]#<<generaltable>># for general commands and [underline]#<<managetable>># for car park management.
+For more details on what each command does, please refer to [underline]#<<Features>>#.
 
 .General Commands
-[cols="1,4,2"]
+[[generaltable]]
+[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
 |===
 |Command |Format |Example
 
 |*Help*
-|`help`
-|`h`
+|help
+|he
+
+|*List*
+|list
+|l
+
+|*Undo*
+|undo
+|u
+
+|*Redo*
+|redo
+|r
 
 |*Clear*
-|`clear`
-|`c`
+|clear
+|cl
 
 |*History*
-|`history`
-|`hi`
-
-|*Query*
-|`query`
-|`q`
+|history
+|hi
 
 |*Exit*
-|`exit`
-|`e`
+|exit
+|e
 |===
 
-
-.Carpark Management
-[cols="1,4,2"]
+.Car Park Management
+[[managetable]]
+[cols="^.^1,^.^4,^.^2"]
 |===
 |Command |Format |Example
 
-|*List*
-|`list`
-|`l`
+|*Query*
+|query
+|q
 
 |*Select*
-|`select INDEX`
-|`s 2`
+|select INDEX
+|s 2
 
 |*Find*
-|`find KEYWORD [MORE_KEYWORDS]`
-|`f punggol`
+|find KEYWORD [MORE_KEYWORDS]
+|fin punggol
 
 |*Filter*
-|`filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]`
-|`fi f/true n/false ct/multi`
+|filter FLAG/ PARAMETER [MORE_FLAG/ PARAMETER]
+|fil f/ SUN 7.30AM 5.30PM ct/ SURFACE
 
-|*Sort*
-|`sort FILTER_TYPE`
-|`so DISTANCE`
+|*Calculate*
+|calculate DAY START_TIME END_TIME
+|cal SUN 3.30PM 6.30PM
 
 |*Notify*
-|`notify`
-|`n 60`
+|notify TIME_SECONDS
+|n 60
 |===
 
 == Contributions to the Developer Guide
@@ -329,6 +375,7 @@ The `Storage` component can perform the following functions:
 
 * save `UserPref` objects in json format and read it back.
 * save the Car Park Finder data in xml format and read it back.
+
 === Abbreviation
 
 The abbreviation feature reduces the amount of characters needed to type.
@@ -405,7 +452,7 @@ each step.
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user enters `fi` in command box and then presses kbd:[Tab] . `autoComplete()`
+Step 2. The user enters `fi` in command box and then presses Tab . `autoComplete()`
 compares `input` through the list of applicable command words and abbreviations, and
 proceeds to `displayFormat()` because `fi` is an ambiguous COMMAND, it fails with an exception.
 
@@ -416,7 +463,7 @@ from the following diagrams.
 .After `fil` is entered.
 image::screenshot-fi.png[width="800", align="left"]
 
-.After kbd:[Tab] is pressed for the first time.
+.After Tab is pressed for the first time.
 image::screenshot-fiFirstArgSelected.png[width="800", align="left"]
 
 Step 3. The user replaces `DAY` with an actual value, `SUN`, and presses 'Tab'
@@ -424,16 +471,16 @@ key again. `autoComplete()` is called again, but because this time it checks tha
 `isFilterCommandFormat`, the next placeholder, `START_TIME`, is highlighted. Result
 is shown in the following diagram.
 
-.After kbd:[Tab] is pressed for the second time.
+.After Tab is pressed for the second time.
 image::screenshot-fiSecondArgSelected.png[width="800", align="left"]
 
 Step 4. The user continues step 3 until all placeholders are filled up with actual
-values and then presses kbd:[Enter]  to execute this command.
+values and then presses Enter to execute this command.
 
 .Activity Diagram for Auto Completion Mechanism.
 image::ActivityDiagram-autocompletion.png[width="880", align="left"]
 
-The _Activity Diagram_ above explains what happens when user presses kbd:[Tab].
+The _Activity Diagram_ above explains what happens when user presses Tab.
 
 ==== Design Considerations
 
