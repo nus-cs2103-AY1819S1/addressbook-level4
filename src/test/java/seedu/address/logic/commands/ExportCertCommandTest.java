@@ -50,7 +50,7 @@ public class ExportCertCommandTest {
         ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
 
         String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS
-                + ExportCertCommand.getCurrentSavePath(), INDEX_FIRST_VOLUNTEER.getOneBased());
+                + exportCertCommand.getCurrentSavePath(), INDEX_FIRST_VOLUNTEER.getOneBased());
 
         // Make sure there is a pdf file with the volunteer's name ONLY
         assertExportCommandSuccess(exportCertCommand, modelWithRecords, commandHistory,
@@ -82,7 +82,7 @@ public class ExportCertCommandTest {
         ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
 
         String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS
-                        + ExportCertCommand.getCurrentSavePath(), INDEX_FIRST_VOLUNTEER.getOneBased());
+                        + exportCertCommand.getCurrentSavePath(), INDEX_FIRST_VOLUNTEER.getOneBased());
 
         assertExportCommandSuccess(exportCertCommand, modelWithRecords, commandHistory,
                 expectedMessage, volunteerToExport);

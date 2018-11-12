@@ -27,7 +27,7 @@ public class ExportVolunteerCsvCommandParser implements Parser<ExportVolunteerCs
 
         ArrayList<Index> index = new ArrayList<Index>();
         try {
-            String[] inputs = userInput.split(" ");
+            String[] inputs = userInput.split("\\s+");
             for ( String i : inputs ) {
                 if ( i != null || !i.isEmpty()) {
                     index.add(ParserUtil.parseIndex(i));
