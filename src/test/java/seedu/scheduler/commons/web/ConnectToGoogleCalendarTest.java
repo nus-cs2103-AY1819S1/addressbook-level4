@@ -55,7 +55,6 @@ import com.google.api.services.calendar.model.Events;
 import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.AddCommand;
-import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
