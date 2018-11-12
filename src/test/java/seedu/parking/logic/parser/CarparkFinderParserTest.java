@@ -11,8 +11,10 @@ import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
 import static seedu.parking.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -214,13 +216,25 @@ public class CarparkFinderParserTest {
 
     @Test
     public void parseCommand_calculate() throws Exception {
+        
+        Date inputStart = null;
+        Date inputEnd = null;
+        try {
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh.mmaa");
+            inputStart = dateFormat1.parse("3.30am");
+            inputEnd = dateFormat1.parse("6.30pm");
+
+        } catch (java.text.ParseException pe) {
+            System.out.println("Parse exception");
+        }
+
         String[] flags = "TJ39 SUN 3.30AM 6.30PM".trim().split("\\s+");
         CalculateCommand command = (CalculateCommand) parser.parseCommand(
             CalculateCommand.COMMAND_WORD + " TJ39 SUN 3.30AM 6.30PM");
-        assertEquals(new CalculateCommand(flags), command);
+        assertEquals(new CalculateCommand("TJ39", "SUN", inputStart, inputEnd), command);
         command = (CalculateCommand) parser.parseCommand(
             CalculateCommand.COMMAND_WORD.substring(0, 2) + " TJ39 SUN 3.30AM 6.30PM");
-        assertEquals(new CalculateCommand(flags), command);
+        assertEquals(new CalculateCommand("TJ39", "SUN", inputStart, inputEnd), command);
 
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
