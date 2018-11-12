@@ -186,6 +186,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
         event.setOrganiser(currentUser);
         event.addParticipant(currentUser);
+
+        assert(!hasEvent(event));
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
@@ -202,6 +204,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (!target.getOrganiser().equals(currentUser)) {
             throw new NotEventOrganiserException();
         }
+
+        assert(hasEvent(target));
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
     }
