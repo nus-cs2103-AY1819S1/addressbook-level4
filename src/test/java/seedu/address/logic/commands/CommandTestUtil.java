@@ -239,11 +239,9 @@ public class CommandTestUtil {
      */
     public static void showToDoListEventAtIndex(ModelToDo modelToDo, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < modelToDo.getFilteredToDoListEventList().size());
-
         ToDoListEvent toDoListEvent = modelToDo.getFilteredToDoListEventList().get(targetIndex.getZeroBased());
-        //System.out.printf(toDoListEvent.toString());
+
         final String[] splitTitle = toDoListEvent.getTitle().value.split("\\s+");
-        //System.out.printf(splitTitle[0]);
         modelToDo.updateFilteredToDoListEventList(new TitleToDoContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
         assertEquals(1, modelToDo.getFilteredToDoListEventList().size());
