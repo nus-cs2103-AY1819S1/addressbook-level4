@@ -1026,7 +1026,7 @@ Prerequisites: There must be at least 1 deck in AnakinModel
 
 === Exporting a deck
 Exporting a deck from Anakin to a `.xml` file.
-Prerequisites: There must be at least 1 deck in AnakinModel
+Prerequisites: There must be at least 1 deck in the application.
 
 . Enter the command `export INDEX_OF_DECK` where `INDEX_OF_DECK` is the currently displayed index of the target deck.
 
