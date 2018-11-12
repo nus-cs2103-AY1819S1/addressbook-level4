@@ -515,7 +515,7 @@ Given below is an example usage scenario and how the import mechanism behaves at
 
 Step 1. The user launches an application and there is either a list of existing contacts or the list is empty.
 
-Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up.
+Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser will pop up.
 If the user includes a file path, InsuRen will attempt to retrieve the file from the given path.
 
 image::import.png[width="400"]
