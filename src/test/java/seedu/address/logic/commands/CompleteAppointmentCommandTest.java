@@ -17,7 +17,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -64,7 +64,7 @@ public class CompleteAppointmentCommandTest {
         expectedDoctor.addUpcomingAppointment(expectedAppointment);
         expectedDoctor.addUpcomingAppointment(FOURTH);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(BENSON_PATIENT_APPT, expectedPatient);
         expectedModel.updatePerson(GEORGE_DOCTOR_APPT, expectedDoctor);
         expectedModel.setAppointment(SECOND, expectedAppointment);

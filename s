@@ -282,7 +282,7 @@
  .../invalidPersonAddressBook.xml                   |   10 [32m+[m
  .../duplicatePersonAddressBook.xml                 |   22 [32m+[m
  .../invalidPersonAddressBook.xml                   |   10 [32m+[m
- .../typicalPersonsAddressBook.xml                  |   57 [32m+[m
+ .../typicalPersonsHealthBook.xml                  |   57 [32m+[m
  src/test/data/XmlUtilTest/empty.xml                |    0
  src/test/data/XmlUtilTest/invalidPersonField.xml   |   10 [32m+[m
  src/test/data/XmlUtilTest/missingPersonField.xml   |    9 [32m+[m

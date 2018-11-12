@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -64,7 +64,7 @@ public class DeleteMedicalHistoryCommandTest {
 
         String expectedMessage = String.format(DeleteMedicalHistoryCommand.MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS,
                 editedPatient);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPatient, editedPatient);
         expectedModel.commitAddressBook();
 

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,7 +24,7 @@ public class FilterDoctorCommandTest {
     public void filterMultipleDoctors() {
         FilterDoctorCommand filterDoctorCommand = new FilterDoctorCommand();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         final TagContainsDoctorPredicate predicate = new TagContainsDoctorPredicate();
         expectedModel.updateFilteredPersonList(predicate);
         String expectedMessage = String.format(
@@ -39,7 +39,7 @@ public class FilterDoctorCommandTest {
         model.updateFilteredPersonList(predicate);
         FilterDoctorCommand filterDoctorCommand = new FilterDoctorCommand();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         final TagContainsDoctorPredicate predicate2 = new TagContainsDoctorPredicate();
         expectedModel.updateFilteredPersonList(predicate2);
         String expectedMessage = String.format(
