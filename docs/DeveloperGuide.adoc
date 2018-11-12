@@ -423,13 +423,13 @@ Each student's grade records are also displayed on the PersonCard GUI.
 
 Add a new attribute into the person class, we have to change the structure of the model part as follow:
 
-
+image::ModelForGrade.png[width="800"]
 
 Because the adding of the grades attribute, the storage part have to add XmlAdaptedGrade to adapt grade attribute during the interaction with the storage.
 
 The following UML diagram shows the new structure of the storage:
 
-
+image::StorageForGrade.png[width="800"]
 
 ===== Add Grade Using Add Command
 * The add command now can add grade records, Using the format of "g/examName examScore".
@@ -451,7 +451,7 @@ To Keep the undo and redo feature, edit will create a new person(not the copy of
 
 The following sequence diagram shows how the edit function works with the grades attribute:
 
-
+image::EditDiagram.png[width="800"]
 
 ===== Delete Grade Using `deleteGrade` Command
 * The deleteGrade command accepts an INDEX of the student and one exam name to delete.
@@ -459,6 +459,8 @@ The following sequence diagram shows how the edit function works with the grades
 To Keep the undo and redo feature, deleteGrade will create a new person(not the copy of the reference) as well and then edit it.
 
 The following sequence diagram shows how the deleteGrade function works:
+
+image::DeleteGradeDiagram.png[width="800"]
 
 ==== Future Implementation
 

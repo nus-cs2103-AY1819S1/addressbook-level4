@@ -1,4 +1,4 @@
-= Xiong Haoran - Project Portfolio
+= XIONG HAORAN - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,33 +13,36 @@ TutorPal is a desktop application used by private home tutors for managing stude
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: implemented the *add and edit grades feature*
+** What it does: Allows tutors to add one or more than one grade records for a student during using editing command or adding a student with the help of add command.
+** Justification: As an indicator of the quality of teaching,grades are a very important part of tutoring.
+If the exam results can be recorded, the tutor can more easily analyze the student's learning status and reflect his or her own teaching ability as well.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: implemented the *delete grades feature*
+** What is does: Allow tutors to delete a grade record of a students stored in TutorPal.
+** Justification: Tutor can also use the undo command to delete the wrong records inputted. And this way is more efficient way if the tutor
+is good at typing. But if the tutor inputs a wrong name of the exam and then closes the TutorPal unfortunately, the undo command will out of action.
+So a deleteGrade command is added to fix this logic bug.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Configuring Travis, Coverage and auto-publishing of documentation.
+*** Setting up and assigning of the issue tracker.
+*** Editing project Milestone.
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added test for grade part.
+*** Fixed the bug when the project totally broke down.
+*** Updated the GUI of "grades" to become more tidy.
+*** Fixed the logic conflict caused by the education enum.
+*** Guaranteed the grades feature working normally without affecting other function
+such as storage, undo and redo command.
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Did cosmetic tweaks to existing contents of the AboutUs and README.
+*** Removed some information about AB4 and updated relevant documents with TutorPal project.
 
 == Contributions to the User Guide
 
