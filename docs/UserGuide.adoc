@@ -451,7 +451,7 @@ Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
 [WARNING]
 ====
 * `NUMBER_OF_UNITS` for an ingredient must follow the `INGREDIENT_NAME` for that particular ingredient
-* If the same ingredient is specified more than once, the last `NUMBER_OF_UNITS` will supercede.
+* If the same ingredient is specified more than once, the last `NUMBER_OF_UNITS` will supercede
 ====
 
 Examples:
@@ -493,7 +493,7 @@ Adds an item to the menu +
 Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 
 ****
-* `ITEM_NAME` and `ITEM_PRICE` must be provided.
+* `ITEM_NAME` and `ITEM_PRICE` must be provided
 * An item can have any number of tags (including 0)
 * `ITEM_NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `ITEM_PRICE` should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to
