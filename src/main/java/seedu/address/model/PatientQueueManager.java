@@ -3,17 +3,13 @@ package seedu.address.model;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Patient;
 
 /**
  * Represents the current patient queue during runtime.
  */
 public class PatientQueueManager implements PatientQueue {
-    private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
-
     private LinkedList<Patient> patientQueue = new LinkedList<>();
 
     public PatientQueueManager() {}
