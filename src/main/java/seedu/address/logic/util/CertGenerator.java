@@ -64,15 +64,15 @@ public class CertGenerator {
     private void populatePdf() throws IOException {
         // Define some constants used in the population
         int maxEventNameLength = 43;
+        int maxNumRecordsDisplayable = 20;
         int titleHeightOffset = 740;
         int bodyIndentWidth = 20;
         String bullet = "\u2022  ";
         Color borderColor = Color.DARK_GRAY;
         float titleLeading = 20f;
-        float bodyLeading = 17f;
+        float bodyLeading = 18f;
         int titleFontSize = 24;
         int bodyFontSize = 14;
-
 
         // Create a new page and add it to the document
         PDPage page = new PDPage();
@@ -143,7 +143,16 @@ public class CertGenerator {
 
         // Event contribution information
         int totalHours = 0;
+        int numRecordsDisplayed = 0;
         for (Pair<Record, Event> pair: volunteerRecordEventPairs) {
+            // Truncate if not all records can be displayed
+            if (numRecordsDisplayed > maxNumRecordsDisplayable) {
+                contStream.showText("... and " + (volunteerRecordEventPairs.size() - numRecordsDisplayed)
+                        + " more event(s)");
+                contStream.newLine();
+                break;
+            }
+
             // Input information from event record
             Record thisRecord = pair.getKey();
             Event thisEvent = pair.getValue();
@@ -167,6 +176,7 @@ public class CertGenerator {
             contStream.newLine();
 
             totalHours += Integer.parseInt(eventHours.toString());
+            numRecordsDisplayed++;
         }
         contStream.newLine();
 
