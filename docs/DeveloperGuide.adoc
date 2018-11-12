@@ -611,20 +611,28 @@ This is only possible when in the 'volunteer' context. The information included 
 * Date of export
 * Volunteer name
 * Volunteer ID
-* List of events involved in - Event name, hours contributed, event start and event end dates
+* List of events involved in - Event name, event ID, hours contributed, event start and event end dates
+* Total hours contributed across all events
 
 Currently, the certificate will be exported to either of these two locations:
 
-* Folder named 'Certs' in the user's current working directory (next to jar file)
-* Direct to Desktop (if permission not allowed for the above)
+* Folder named 'Certs' in the user's current working directory
+* Direct to the user's current working directory (next to the .jar file)
 
-This is what the exported PDF certificate currently looks like:
+This is what the exported PDF certificate will look like:
 
-.Current form of exported volunteer certificate
+.Sample exported volunteer certificate
 [.thumb]
-image::CurrentVolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="500"]
 
+// tag::exportcert-sharan-ppp[]
 ===== Implementation
+
+The following activity diagram shows us the control flow of the `exportcert` feature. Analysing this diagram would be a good way to understand the intended functionality of this feature.
+
+.`exportcert` command activity diagram
+[.thumb]
+image::command_exportcert_ad.png[width="500"]
 
 The following steps were involved in this feature's implementation:
 
@@ -646,10 +654,20 @@ The following steps were involved in this feature's implementation:
 * Retrieve the event IDs from the relevant filtered records, along with the hours contributed.
 * Get the Event that corresponds to the event ID, and retrieve its name, startDate and endDate for input into the certificate.
 
-5. Use Apache PDFBox to create and export a volunteer certificate with the information retrieved.
+5. Use of Apache PDFBox to create and export a volunteer certificate with the information retrieved.
 * Involves the creation of a new https://pdfbox.apache.org/docs/2.0.2/javadocs/index.html?org/apache/pdfbox/pdmodel/PDDocument.html[PDDocument],
 with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPage.html[PDPage] to write the content to.
-* A https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPageContentStream.html[PDPageContentStream] is then used to write the information to a page content stream.
+* Writing of the information to a page content stream is then achieved using https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPageContentStream.html[PDPageContentStream].
+
+The following sequence diagrams show how the `exportcert` operation will be executed for a valid command `exportcert 1`. Analyse these diagrams to achieve a more detailed understanding of the internal interactions involved in the execution of this feature.
+
+.Sequence diagram for `exportcert 1` with simplified ExportCertCommand execution
+image::command_exportcert_sd_1.png[exportcert SD, 800]
+
+The next sequence diagram below looks at the ExportCertCommand's execution in detail, including it's interaction with the model.
+
+.Detailed sequence diagram for ExportCertCommand execution
+image::command_exportcert_sd_2.png[exportcert SD, 650]
 
 ===== Design Considerations
 
@@ -704,14 +722,65 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 +
 
 
+====== Aspect: Choice of export location
+
+* **Alternative 1 (current choice):** Export to the user's current working directory
++
+[cols="1,10"]
+|===
+|*Pros*| Putting the files relative to where the app is allows the user to locate, manage and access the exports easily as this is a portable app. The app jar and the exported files can be shifted to different locations together easily as well.
+|*Cons*| Navigating to this directory would be necessary if he/she wishes to access the files independent of using the application.
+|===
++
+
+* **Alternative 2:** Export to the user's Desktop
++
+[cols="1,10"]
+|===
+|*Pros*| Easy to access files when not using the application.
+|*Cons*| As it is a portable app, it may be cumbersome to keep navigating to the Desktop to access the exports when using the application. It also becomes harder to move the app jar and exports together from place to place.
+|===
++
+
+* **Alternative 3:** Allow the user to specify the export filepath as an argument
++
+[cols="1,10"]
+|===
+|*Pros*| Allows for greater customisability, thus catering to each user's unique needs.
+|*Cons*| Requires user to have accurate prior knowledge of the machine's filepath format. Moreover, support for all possible OS filepath formats within the application may not be possible as well (e.g. custom OS filepath).
+|===
++
+
+
+====== Aspect: Organisation of PDF generation code
+
+* **Alternative 1 (current choice):** Encapsulate within a `CertGenerator` class with exposed public method(s)
++
+[cols="1,10"]
+|===
+|*Pros*| Allows for separation of concerns as handling command result or exceptions & retrieving volunteer data is separated from the creation, population and export of the certificate. Also allows for future extension of the PDF generation feature (e.g. generating event reports) through adding a `ExportPdf` abstract class or interface with `generatePdf`, `populatePdf` and `exportPdf` methods to be implemented.
+|*Cons*| Introduces inherent coupling between `ExportCertCommand` and `CertGenerator` classes as currently, only `ExportCertCommand` includes the certificate generation functionality.
+|===
++
+
+* **Alternative 2:** Leave PDF generation code inside a method within the `ExportCertCommand` class
++
+[cols="1,10"]
+|===
+|*Pros*| Allows the certificate generation code to reside exactly where it is used, as the certificate generation functionality is currently only used by `ExportCertCommand`.
+|*Cons*| Causes a low level of cohesion by packaging different functionalities within `ExportCertCommand`. The functionality to export PDFs also remains unabstracted, and thus extending the functionality to create e.g. event report PDFs would require repetition of the PDF generation code.
+|===
++
+// end::exportcert-sharan-ppp[]
+
 ====== Aspect: Choice of additional details for identifying volunteer from certificate
 
 * **Alternative 1 (current choice):** Use Volunteer's NRIC
 +
 [cols="1,10"]
 |===
-|*Pros*| Is unique to each volunteer and can be recovered easily, given the volunteer's name or other personal information. It also adds credibility to the exported volunteer certificate.
-|*Cons*| Requires more space as each NRIC can be represented as string of length 9 or a 7-digit integer.
+|*Pros*| Adds credibility to the certificate by displaying something that is unique to each volunteer, and can be recovered easily given the volunteer's name or other personal information.
+|*Cons*| Requires more space as each NRIC has to be represented as string of length 9 or a 7-digit integer.
 |===
 +
 
@@ -719,29 +788,8 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 +
 [cols="1,10"]
 |===
-|*Pros*| Shorter than NRIC and still serves the purpose, and can be auto-incremented.
-|*Cons*| Hard to recover, even if additional information about the volunteer is provided. Would also be meaningless to a third person to whom the certificate is presented for verification purposes.
-|===
-+
-
-
-====== Aspect: Choice of export location
-
-* **Alternative 1 (current choice):** Create a folder in the user's current working directory
-+
-[cols="1,10"]
-|===
-|*Pros*| Putting the files relative to where the app is allows the user to locate, manage and access the exports easily as this is a portable app. The app jar and the exported files can be shifted to different locations together easily as well.
-|*Cons*| The user would have to navigate to this directory if he/she wishes to access the files independent of using the application.
-|===
-+
-
-* **Alternative 2 (also part of current choice, if no permission for 1):** Export to the user's Desktop
-+
-[cols="1,10"]
-|===
-|*Pros*| Easy to access files when not using the application.
-|*Cons*| As it is a portable app, it may be cumbersome to keep navigating to the Desktop to access the exports when using the application. It also becomes harder to move the app jar and exports together from place to place.
+|*Pros*| Achieves the intended purpose (additional volunteer identification), while encompassing the ability to be auto-incremented.
+|*Cons*| Hard to recover, even if additional information about the volunteer is provided. It would also be meaningless to a third person to whom the certificate is presented for verification purposes.
 |===
 +
 
@@ -1801,8 +1849,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a volunteer
 
 . Deleting a volunteer while all persons are listed
@@ -1814,13 +1860,3 @@ _{ more test cases ... }_
    Expected: No volunteer is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
