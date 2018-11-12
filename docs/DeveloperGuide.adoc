@@ -446,26 +446,37 @@ this week` commands to specify their choices.
 // end::achievements[]
 
 // tag::complete[]
+// tag::complete-preamble[]
+
 === Batch Completion via Label feature
+
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
 
 The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
 `Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
 takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
 
+Common execution paths for both subclasses are implemented in `CompleteCommand` class using the
+template method pattern to let subclasses implement varying behaviour and avoid duplication in
+the code. As `CompleteLabelCommand` is coupled to `CompleteCommand`, it is imperative to grasp a
+general idea of the flow of execution before attempting to understand the following section. It
+ assumes the developer is familiar enough with the codebase to understand where each method call
+ are with respect to the activity diagram.
+
+// end::complete-preamble[]
+
 _If you require involved context for the execution of the whole `CompleteCommand` please refer
 to: Appendix E: Complete Command Activity Diagram_
 
-[NOTE]
-This section and its subsections are written with reference to commit:
-9ddb0ffddf5d769d357e28fbd5337011614e7b14
-
+// tag::complete-label-execution[]
 ==== Current Implementation
 
 The batch completion mechanism is facilitated by `CompleteLabelCommand`. It extends
 `CompleteCommand` and encapsulates the internal logic of finding completable tasks via a supplied
  `Task<Predicate>`. Additionally it is able to complete and rollback multiple tasks atomically.
 
-These are the methods in the CompleteCommand class supporting the batch completion:
+These are the methods in the CompleteLabelCommand class supporting the batch completion:
 
 * `#completeAllTasksReturnStringOfTasks(Model)`
 * `#completeTasksInSetUpdateModel(Model, Set<Task>)`
@@ -477,13 +488,14 @@ Step 1. The user executes `complete l/many` command to complete all the tasks la
 
 Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
 if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
-result a new `CompleteLabelCommand` instance is created. It contains a
-`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task` containing a
-`Label::many`.
+result a new `CompleteLabelCommand` instance is created. It consumes a
+`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task`
+containing a `many` label.
 
 Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
-created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
-called which encapsulates the logic for updating all valid completable tasks matching the predicate.
+created instance. Subsequently `CompleteLabelCommand#completeAllTasksReturnStringOfTasks(...)` is
+called which encapsulates the logic for updating all valid completable tasks matching the supplied
+predicate.
 
 image::CompleteViaLabelOnSuccess.png[width="700"]
 
@@ -494,13 +506,13 @@ it's status to `COMPLETED`
 
 **Extensions**
 
-Step 1.2.1.a If all tasks are not updated successfull, `Model#rollbal()` will be called. All
+Step 1.2.1.a If all tasks are not updated successful, `Model#rollback()` will be called. All
 uncommitted changes will be reset to the current state pointed to in `taskManagerStateList`.
 
 image::CompleteViaLabelOnFail.png[width="700"]
 
-Step 1.2.1.a1 Then user will see a relevant error message pertaining to what went wrong.
-
+Step 1.2.1.a1 Then user will see a relevant error message reporting what went wrong.
+// end::complete-label-execution[]
 
 ===== Auxiliary Changes
 
@@ -519,7 +531,7 @@ any of the desired `Label`(s) specified (case-insensitive).
 * `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
 commands
 
-
+// tag::design-considerations-main[]
 ==== Design Considerations
 
 ===== Aspect: Implementation of atomicity
@@ -528,7 +540,7 @@ commands
 otherwise `Model#commit()`
 ** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
 ensuring that there are no partially-done batch operation resulting in a possibly invalid state.
-** Cons: Requires extending the Model class and depending on its funcationalities; resulting in
+** Cons: Requires extending the Model class and depending on its functionality; resulting in
 tighter coupling.
 * **Alternative 2:** Doing a check on all tasks to see if they can be completed successfully. If
 yes, then proceed to update the model and commit else throw an exception.
@@ -572,6 +584,7 @@ quirks as opposed to commonly recognised _Alternative 2_
 ** Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
  Abstract Methods.
 ** Cons: Inability to properly check for equality.
+// end::design-considerations-main[]
 
 === Model Rollback feature
 ==== Current Implementation
@@ -1108,7 +1121,7 @@ Use case ends.
 Use case ends.
 
 * 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
-** 1b1. Application displays a relevant error message.
+** 1c1. Application displays a relevant error message.
 
 Use case ends.
 
@@ -1146,10 +1159,10 @@ already been completed.
 
 Use case ends.
 
-* 2c. At least one of tasks identified via label to be completed has unfulfilled dependencie(s)
-that must be completed first.
-** 2c1. Application displays an error message, resetting the batch of tasks to their
-pre-completed state and no points are earned.
+* 2c. At least one of tasks identified via label to be completed has unfulfilled
+dependencie(s) that must be completed first.
+** 2c1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2c2. Application displays a relevant error message.
 
 Use case ends.
 
