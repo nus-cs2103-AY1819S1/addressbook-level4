@@ -38,7 +38,7 @@ public class AssignmentCard extends UiPart<Region> {
         super(FXML);
         this.assignment = assignment;
         id.setText(displayedIndex + ". ");
-        assignmentName.setText(assignment.getProjectName().fullProjectName);
+        assignmentName.setText(assignment.getAssignmentName().fullProjectName);
         author.setText("Author: " + assignment.getAuthor().fullName);
         description.setText("Description: " + assignment.getDescription().value);
     }
