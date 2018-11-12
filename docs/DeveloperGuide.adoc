@@ -527,7 +527,8 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::importActivityDiagram.png[width="400"]
 
-The following sequence diagram shows what happens when a user executes the `Import` Command:
+The following sequence diagram shows what happens when a user executes the `Import` Command (user input mode only,
+file browser mode omitted):
 
 image::ImportSequenceDiagram.png[width="800"]
 
@@ -569,6 +570,10 @@ Step 3. InsuRen fetches the current contact list, creates a new .csv file and co
 The following activity diagram summarizes what happens when a user executes the `Export` Command:
 
 image::ExportActivityDiagram.png[width="400"]
+
+The following sequence diagram shows what happens when a user executes the `Export` Command:
+
+image::ExportSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -1119,7 +1124,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Mass Import Contact Details
+=== Use Case: Mass import contacts into InsuRen
 
 *MSS*
 
@@ -1130,7 +1135,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. No file at directory path or invalid file type (must be a csv)
+* 1a. File does not exist at directory path or invalid file type (must be .csv or .txt)
 +
 [none]
 ** 1a1. InsuRen shows an error message.
@@ -1138,18 +1143,18 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use Case: Export Email Addresses
+=== Use Case: Export contact list from InsuRen
 
 *MSS*
 
-1. User requests to export email addresses to a user-given directory.
-2. InsuRen compiles all emails into a csv, saves it in the given directory.
+1. User requests to export current state of InsuRen to a csv file whose name is given by the user.
+2. InsuRen compiles all contacts into a csv (with the given name), saves it in the root project/application directory.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. No file directory given
+* 1a. No file name given, or given file name does not contain .csv suffix
 +
 [none]
 ** 1a1. InsuRen shows an error message.
