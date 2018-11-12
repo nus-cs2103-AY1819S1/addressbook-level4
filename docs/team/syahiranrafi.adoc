@@ -16,7 +16,7 @@ CLInic is a desktop application, which means it can run on a computer’s operat
 
 * Maintaining a database of patients and their medical records
 * Checking and updating medicine inventory
-* Generating receipts, medical certificates and referred letters for patients
+* Generating receipts, medical certificates and referral letters for patients
 
 CLI is an acronym for "Command Line Interface", as CLInic works by typing commands directly into the application through the CLI. Together with CLInic’s clean Graphical User Interface (GUI), the application allows for an easy and intuitive experience for both technical and non-technical users alike.
 
@@ -28,7 +28,7 @@ CLI is an acronym for "Command Line Interface", as CLInic works by typing comman
 
 * *Major enhancement*: I supported the implementation of the `*Document*` class, along with its accompanying
                        extending classes `MedicalCertificate` and `ReferralLetter`.
-** What it does: This feature allows for the doctor to input information, like the duration of medical leave and referral location, to easily generate medical certificate and referral letter documents in the form of HTML files.
+** What it does: This feature allows for the doctor to input information, like the duration of medical leave and referred location, to easily generate medical certificate and referral letter documents in the form of HTML files.
 ** Justification: This feature takes in the relevant information that has been keyed in and structures them in a way that is *presentable and professional*. This can help to *reduce the incidences of error* that arise due to illegible handwriting.
 ** Highlights: This feature is intended to *decrease the need for pen and paper documentation*. Most people can type significantly faster than they can write. Also, legibility of handwriting may affect comprehension. In the case of referral letters, where *vital medical information* may be conveyed, we want the information to be presented as clearly as possible.
 
