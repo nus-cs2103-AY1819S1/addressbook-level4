@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULEINDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONINDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
 
 import java.util.List;
@@ -31,8 +32,10 @@ public class RemovePersonCommand extends Command {
     public static final String MESSAGE_INCORRECT_INDEX = "Please enter a valid index.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes a person from a module/occasion "
-            + "bidirectionally.\n" + "Example " + COMMAND_WORD + " "
-            + PREFIX_PERSONINDEX + "1 " + PREFIX_MODULEINDEX + "2";
+            + "bidirectionally.\n" + "Example 1: " + COMMAND_WORD + " "
+            + PREFIX_PERSONINDEX + "1 " + PREFIX_MODULEINDEX + "2"
+            + "\nExample 2: " + COMMAND_WORD + " "
+            + PREFIX_PERSONINDEX + "1 " + PREFIX_OCCASIONINDEX + "1";
     private TypeUtil currType;
     private int personIndex;
     private int moduleIndex;
