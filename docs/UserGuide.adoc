@@ -178,11 +178,7 @@ Archived employees will remain in archive list until they are restored which wil
 
 Format: `archive`
 
-****
-* Replaces current view on the left panel to the archive list.
-****
-
-Type in `archive` command in the command box at the top of the application and hit enter, you will be shown the following screen shown below:
+Type `archive` command in box at the top and hit enter and you will be shown the following screen:
 
 image:archiveUserGuide.png[width=800]
 
@@ -205,11 +201,9 @@ Examples:
 
 * `restore 2` to delete second employee from the archive list.
 
-Sample output when `restore 2` command is executed show below:
+Sample output when `restore 2` command is executed shown below:
 
-* Step 1: Type `archive` command in the command box on the top of the application and click enter. You will be taken to the archive list shown below:
-
-image:restoreUserGuide1.png[width=800]
+* Step 1: Type `archive` command in the command box on the top of the application and click enter.
 
 * Step 2: Type `restore 2` command in the same command box as Step 1 and employee at location 2 (Terrence Tan) will be removed from the archive list. You will see the following output on your screen:
 
