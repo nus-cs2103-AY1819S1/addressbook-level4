@@ -86,4 +86,9 @@ public abstract class GameMode {
     public abstract int getHighXp();
 
     public abstract String getDescription();
+
+    /**
+     * Returns the name of the mode, i.e. a name that can be concatenated with " Mode". E.g. "Flat".
+     */
+    public abstract String getName();
 }

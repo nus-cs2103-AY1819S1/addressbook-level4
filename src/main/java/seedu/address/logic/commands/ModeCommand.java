@@ -55,10 +55,9 @@ public class ModeCommand extends Command {
         requireNonNull(model);
 
         if (newGameModeName == null && newGameDifficultyName == null) {
-            GameMode gameMode = model.getTaskManager().getGameManager().getGameMode();
-            String modeName = gameMode.getClass().getSimpleName();
-            String shortName = modeName.split("Mode")[0];
-            return new CommandResult(String.format(MESSAGE_CURRENT_MODE, shortName, gameMode.getDescription()));
+            GameMode gameMode = model.getGameMode();
+            String modeName = gameMode.getName();
+            return new CommandResult(String.format(MESSAGE_CURRENT_MODE, modeName, gameMode.getDescription()));
         } else if (newGameDifficultyName == null) {
             model.updateGameMode(newGameModeName);
         } else {

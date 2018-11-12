@@ -121,4 +121,9 @@ public class IncreasingMode extends GameMode {
                         + "beginning %d days before the due \ndate, to reflect increasing urgency.",
                 initialXp, boostedXp, daysBefore);
     }
+
+    @Override
+    public String getName() {
+        return "Increasing";
+    }
 }

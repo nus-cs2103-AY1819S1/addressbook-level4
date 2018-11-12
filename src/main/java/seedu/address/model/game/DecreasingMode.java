@@ -122,4 +122,9 @@ public class DecreasingMode extends GameMode {
                 + "decreasing gradually \ntill %d xp for a task completed just on time.",
                 daysBefore, completedXp, overdueXp);
     }
+
+    @Override
+    public String getName() {
+        return "Decreasing";
+    }
 }

@@ -78,4 +78,9 @@ public class FlatMode extends GameMode {
         return String.format("Completing a task will earn you %d xp, or %d xp if it is overdue.",
                 completedXp, overdueXp);
     }
+
+    @Override
+    public String getName() {
+        return "Flat";
+    }
 }
