@@ -1,0 +1,137 @@
+= Terence Goh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SSENISUB
+
+image::Ui.png[width="600"]
+
+== Overview
+
+This project portfolio serves to document my contributions to SSENISUB, a CS2103 (Software Engineering)
+project, as part of my Computer Science curriculum in National University of Singapore (NUS).
+
+SSENISUB is a business management application which is used for managing employees' information within an organisation.
+Its name is inspired from the word "business", and is simply a palindrome of it. It is morphed from the given
+`addressbook-level4` application as its base. The user interacts with it mainly using a
+Command Line Interface (CLI). In conjunction with the CLI, a Graphical User Interface (GUI) is used to make it more
+user-friendly, supported by coloured text and symbols. This application is written in Java with about 15 kLoC,
+and its GUI is created with JavaFX, CSS and HTML.
+
+My main responsibility in SSENISUB is to implement commands (`feedback` and `rate`) that a manager would want to have to support a continuous
+review and tracking of his/her employees' performance throughout their time in the organisation. This is used to support
+making informed management decisions.
+
+I also played a key role in creating an identity for SSENISUB by designing an icon and making it the
+face of the application.
+
+== Summary of contributions
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=iamrence[[RepoSense for IamRENCE]]
+
+* *Major enhancement 1*: added *the ability to give ratings to staff* stored inside the application
+** What it does: Allows the user to update a rating of a staff to keep track of his/her performance in the organisation.
+** Justification: This feature improves the product significantly because a user is provided with a way to keep track of
+his/her employees' performance, which is especially important during the *year-end performance review*. It potentially
+affects how much bonus or credit is given to the staff in the organisation.
+** Highlights: This enhancement looks similar to the add and edit command, but has to be made to *execute asynchronous* to
+these commands. In future releases, where users of different levels of authorisation are allowed to use different commands,
+this command would only be accessible to managers (or direct superiors). The reason is that they have the right to and are in
+the best position to give any rating to their staff.
+
+* *Major enhancement 2*: added *the ability to give feedback to staff* stored inside the application
+** What it does: Allows the user to give professional feedback to staff in the organisation, so that the staff knows what he/she is
+doing well in and to find out what areas of improvement he/she can engage in.
+** Justification: This feature, like the rate command, improves the product to a large extent because a user is provided
+with a way to inform his/her employees what to look out for in their performance so that they can improve themselves.
+Coupled with the rate command, a manager can make *more informed reviews* of his/her employees' performance. At the same
+time, employees can use the feedback assigned to them as *motivation* for continuous improvement, or as a *wake up call* for
+any bad performance. This can *boost the organisation's productivity* as a whole.
+** Highlights: Just like the rate command, the feedback command is *run non-parallel to the add and edit command* due to
+future user authorisation implementations. Another highlight of this command is that users *cannot enter profanities*
+(even if it is entered in leetspeak). Designing an efficient way to check for profanities proved to be a very tough task: Whether
+to base the runtime on input length or the number of profanities to be rejected. A detailed analysis had to be done to make a choice.
+** Credits: [https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941[Simple Profanity Filter by PimDeWitte]]
+
+//* *Code contributed*:
+//** Functional code:
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/logic/commands/RateCommand.java[RateCommand.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/logic/parser/RateCommandParser.java[RateCommandParser.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/model/person/Rating.java[Rating.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/logic/commands/FeedbackCommand.java[FeedbackCommand.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/logic/parser/FeedbackCommandParser.java[FeedbackCommandParser.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/java/seedu/address/model/person/Feedback.java[Feedback.java]]
+
+//** Test code:
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/logic/commands/RateCommandTest.java[RateCommandTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/logic/parser/RateCommandParserTest.java[RateCommandParserTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/model/person/RatingTest.java[RatingTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/systemtests/RateCommandSystemTest.java[RateCommandSystemTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/logic/commands/FeedbackCommandTest.java[FeedbackCommandTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/logic/parser/FeedbackCommandParserTest.java[FeedbackCommandParserTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/seedu/address/model/person/FeedbackTest.java[FeedbackTest.java]]
+//*** [https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/test/java/systemtests/FeedbackCommandSystemTest.java[FeedbackCommandSystemTest.java]]
+
+* *Other contributions*:
+
+** Project management:
+*** Checked `v1.1` - `v1.4` (4 releases) before they got released them on GitHub.
+** Enhancements to existing features:
+*** Updated the application icon
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/42[#42]).
+*** Wrote additional tests for existing features to increase coverage from 93.4% to 93.6%
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/58[#58]).
+** Bug fixes:
+*** Fixed bugs commands that allowed for inputs that otherwise should have been rejected
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/58[#58]).
+*** Fixed overall UI/code bug where "Address Book"/"AddresBook" is displayed or used instead of our application "SSENISUB"
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/107[#107]).
+** Documentation:
+*** Updated existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/101[#101],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/102[#102],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/109[#109].
+*** Updated existing contents of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/29[#29],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/109[#109].
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/12[#12],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/16[#16],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/27[#27],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/31[#31],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/44[#44],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/49[#49],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/54[#54],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/81[#81],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/100[#100],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/103[#103],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/104[#104],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/106[#106],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/108[#108].
+*** Reported bugs and suggestions for other teams in the class
+(examples:  https://github.com/CS2103-AY1819S1-F11-3/main/issues/184[1],
+https://github.com/CS2103-AY1819S1-F11-3/main/issues/198[2],
+https://github.com/CS2103-AY1819S1-F11-3/main/issues/200[3]).
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=rate]
+
+include::../UserGuide.adoc[tag=feedback]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ratecommand]
+
+include::../DeveloperGuide.adoc[tag=feedbackcommand]

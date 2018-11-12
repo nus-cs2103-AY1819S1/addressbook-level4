@@ -19,7 +19,7 @@ public class PersonCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/SSENISUB-level4/issues/336">The issue on SSENISUB level 4</a>
      */
 
     public final Person person;
@@ -29,24 +29,45 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label favouritedName;
+    @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
+    private Label favouritedId;
     @FXML
     private Label email;
+    @FXML
+    private Label department;
     @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+        if (person.getFavourite()) {
+            favouritedId.setText(displayedIndex + ". ");
+            favouritedName.setText(person.getName().fullName + " ★");
+        } else {
+            id.setText(displayedIndex + ". ");
+            name.setText(person.getName().fullName);
+        }
+        department.setText(person.getDepartment().value + " Department");
         email.setText(person.getEmail().value);
+        //            if (person.getPhone().isPrivate()) {
+        //                phone.setText("Private phone number");
+        //            } else {
+        //                phone.setText(person.getPhone().value);
+        //            }
+        //            if (person.getAddress().isPrivate()) {
+        //               address.setText("Private address");
+        //            } else {
+        //                address.setText(person.getAddress().value);
+        //            }
+        //            if (person.getEmail().isPrivate()) {
+        //                email.setText("Private email");
+        //            } else {
+        //                email.setText(person.getEmail().value);
+        //            }
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

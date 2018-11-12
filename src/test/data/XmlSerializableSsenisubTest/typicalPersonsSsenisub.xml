@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Ssenisub save file which contains the same Person values as in TypicalPersons#getTypicalSsenisub() -->
+<ssenisub>
+    <persons>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <rating>0</rating>
+        <department>Accounting</department>
+        <manager>Ben Leong</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Benson Meier</name>
+        <phone>98765432</phone>
+        <email>benson@example.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+        <rating>0</rating>
+        <department>Marketing</department>
+        <manager>Marcus Tan</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Carl Kurz</name>
+        <phone>95352563</phone>
+        <email>carl@example.com</email>
+        <address>wall street</address>
+        <rating>0</rating>
+        <department>Tech</department>
+        <manager>Moses Lim</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+    </persons>
+    <persons>
+        <name>Daniel Meier</name>
+        <phone>87652533</phone>
+        <email>daniel@example.com</email>
+        <address>10th street</address>
+        <rating>0</rating>
+        <department>Accounting</department>
+        <manager>Lionel Lim</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Elle Meyer</name>
+        <phone>94822241</phone>
+        <email>elle@example.com</email>
+        <address>michegan ave</address>
+        <rating>0</rating>
+        <department>Marketing</department>
+        <manager>Edward Loh</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+    </persons>
+    <persons>
+        <name>Fiona Kunz</name>
+        <phone>94824271</phone>
+        <email>fiona@example.com</email>
+        <address>little tokyo</address>
+        <rating>0</rating>
+        <department>Tech</department>
+        <manager>Joanne Lee</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+    </persons>
+    <persons>
+        <name>George Best</name>
+        <phone>94824421</phone>
+        <email>george@example.com</email>
+        <address>4th street</address>
+        <rating>0</rating>
+        <department>Accounting</department>
+        <manager>Ben Leong</manager>
+        <salary>0</salary>
+        <hours>0</hours>
+        <rate>0</rate>
+        <deductibles>0</deductibles>
+        <feedback>-NO FEEDBACK YET-</feedback>
+    </persons>
+</ssenisub>

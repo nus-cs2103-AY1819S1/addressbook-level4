@@ -3,9 +3,15 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEDUCTIBLES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MANAGER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OTHOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OTRATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -27,12 +33,16 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
+
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                        PREFIX_DEPARTMENT, PREFIX_MANAGER, PREFIX_SALARY, PREFIX_OTHOUR,
+                        PREFIX_OTRATE, PREFIX_DEDUCTIBLES, PREFIX_TAG);
 
         Index index;
 
@@ -54,6 +64,26 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_SALARY).isPresent()) {
+            editPersonDescriptor.setSalary(ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_OTHOUR).isPresent()) {
+            editPersonDescriptor.setHours(ParserUtil.parseHours(argMultimap.getValue(PREFIX_OTHOUR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_OTRATE).isPresent()) {
+            editPersonDescriptor.setRate(ParserUtil.parseRate(argMultimap.getValue(PREFIX_OTRATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DEDUCTIBLES).isPresent()) {
+            editPersonDescriptor.setDeductibles(ParserUtil.parseDeductibles(argMultimap
+                .getValue(PREFIX_DEDUCTIBLES).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DEPARTMENT).isPresent()) {
+            editPersonDescriptor.setDepartment(ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT)
+                    .get()));
+        }
+        if (argMultimap.getValue(PREFIX_MANAGER).isPresent()) {
+            editPersonDescriptor.setManager(ParserUtil.parseManager(argMultimap.getValue(PREFIX_MANAGER).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

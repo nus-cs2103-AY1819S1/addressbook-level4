@@ -1,0 +1,84 @@
+= Ngeow Xiu Qi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SSENISUB
+image::Ui.png[width="600"]
+---
+
+== Overview
+
+This project portfolio serves to document the work that I have contributed to the software, SSENISUB, during my time as a student of CS2103 (Software Engineering),
+under the team T13-2 in the National University of Singapore (NUS).
+
+SSENISUB is a software that aims to improve workplace productivity. It assists the Human Resource (HR) department to better manage the employees in the company, it also serves as a tool for
+managers to better manage their staff and lastly, serve as a contact list for users to find and contact other staff within the company or department.
+This software consists of about 15 kLoC and it makes use of both the Command Line Interface (CLI) and a Graphical User Interface (GUI) to
+interact with the user.
+
+My role as a developer in the team was to implement finance related functions for the software. Specifically, I have implemented the Salary, Overtime Hours,
+ Overtime Rate and Pay Deductibles fields for a Staff to allow the Human Resource sector to better manage their staff's payroll.
+
+== Summary of contributions
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=NgeowXiuQi[Functional code]]
+
+* *Major enhancement 1*: Implemented four new fields for a staff, namely : Salary, Overtime Hours, Overtime Rate and Pay Deductibles.
+** What it does: This feature allows the HR department to store all payroll aspects for a staff and ensure that they are properly accounted for.
+** Justification: This feature not only allows the staff to ensure that he/she is being paid the right amount, but also helps the HR department to store these information in their records and edit them whenever necessary. Thus, this removes
+the need for paper records of pay which may result in confusion and loss of records.
+** Highlights: The four new fields are able to behave seamlessly as part of the Staff and behaves just like the other attributes would like with Phone and Address.
+
+* *Major enhancement 2*: Modified the edit function to be able to edit the four new fields implemented above.
+** What it does: This feature allows the HR department to edit the Salary, Overtime Hours, Overtime Rate and Pay Deductibles on an existing staff.
+** Justification: A HR staff can now edit the abovementioned fields to adjust any of the fields. Such a feature is critical as it affects a staff's payroll, and we would not want
+the staff to be wrongly paid. Additionally, this function is of utmost importance as a person's salary, overtime hours and pay deductibles would change regularly. Hence, this feature is needed to manage to staff's payroll.
+** Highlights: The HR staff would also be able to edit the four fields whenever necessary to allow changes (such as a pay raise or when the staff has worked more overtime hours than initially recorded).
+
+* *Minor enhancement*:
+** Tweaked the staff panel to be able to display the net salary. This required some very minor calculations to be done in the backend.
+ Net salary in this case refers to the final salary calculated after all additions and deductions are taken into account. (Pull Request https://github.com/CS2103-AY1819S1-T13-2/main/pull/53[#53])
+
+* *Other contributions*:
+** Test Case Review :
+*** Reviewed some of the tests and removed any unnecessary checks within the test case itself (Pull Request  https://github.com/CS2103-AY1819S1-T13-2/main/pull/63[#63]).
+
+** Documentation:
+*** Edited the README document to reflect our software's (SSENISUB) overview and features (Pull Request https://github.com/CS2103-AY1819S1-T13-2/main/pull/5[#5]).
+
+** Community:
+*** Reviewed several PRs of major features : https://github.com/CS2103-AY1819S1-T13-2/main/pull/23[#23], https://github.com/CS2103-AY1819S1-T13-2/main/pull/27[#27], https://github.com/CS2103-AY1819S1-T13-2/main/pull/55[#55], https://github.com/CS2103-AY1819S1-T13-2/main/pull/56[#56], https://github.com/CS2103-AY1819S1-T13-2/main/pull/119[#119]
+*** Tested other team's software, reported bugs and suggested improvements (Examples : https://github.com/CS2103-AY1819S1-W10-3/main/issues/137[Issue 1], https://github.com/CS2103-AY1819S1-W10-3/main/issues/141[Issue 2], https://github.com/CS2103-AY1819S1-W10-3/main/issues/144[Issue 3])
+*** Helped to ensure that teammates codes in PRs were according to proper coding guidelines (Done when reviewing PRs).
+*** All PRs Reviewed :
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/23[#23]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/24[#24]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/27[#27]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/49[#49]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/55[#55]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/56[#56]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/62[#62]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/67[#67]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/79[#79]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/119[#119]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/123[#123]
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/124[#124]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=edit]
+include::../UserGuide.adoc[tag=select]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=salaryfunction]

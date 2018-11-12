@@ -1,0 +1,87 @@
+= Tan Yuxuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SSENISUB
+
+---
+image::Ui.png[width="700"]
+Hi, my name is Tan Yuxuan. I am a Year 2 Computer Science Student studying in NUS. This project portfolio
+will serve to document my contributions to SSENISUB, a CS2103 Software Engineering module project.
+
+== Overview
+
+SSENISUB is a business management application that is designed for ease of management of staffs and their related informations.
+
+The main features of SSENISUB allows users to
+
+* Find the contact details of other co-workers that they need to reach
+* Add, Delete and Edit staff information
+* Personalize the list of contacts by favouriting contacts that they may need to view more often
+* Give feedback and ratings to staff
+* Have the choice to set their private information to a private state
+
+My main responsibility in the SSENISUB project is to implement the privacy feature which can allow staff
+to set their information to private, if they prefer it. Doing so will then hide that information from the regular
+staff in the GUI.
+
+== Summary of contributions
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=abtyx[RepoSense]]
+
+* *Major enhancement 1*: Added the Privacy command feature.
+** What it does: This feature allows staff to have the choice to set their private information to a `private` or `public` state, which will allow only the appropriate personnel to be able to view it on SSENISUB. +
+Currently only the `Phone`, `Email` and `Address` fields of a Staff can have their privacy set using this command.
+** Justification: This feature is important as it respects and protects the privacy of the staff's information, disallowing misuse of their information by regular staff.
+** Highlights: The implementation of this feature is quite universal within the constraints of the project, and thus 'privacy' can be implemented to other fields deemed necessary in the future with similar logic.
+
+* *Major enhancement 2*: Modify add command feature.
+** What it does: This enhancement modifies the AddCommand to be able to take in three new prefixes for private Phone `pp/`,
+private Email `pe/` and private Address `pa/`. This allows a user to add a staff directly with private fields if required.
+
+** Justification: This feature will allow HR Managers whose job require them to add Staff into the SSENISUB system to have an easier time as they can
+immediately add in a staff with private fields if they requested so, instead of first adding the staff in, then using the privacy command to change their
+privacy fields.
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Made the staff panel portion of the GUI reflect the staff's information differently based on its privacy settings. https://github.com/CS2103-AY1819S1-T13-2/main/pull/56[#56]
+*** Made Phone Numbers and Email addresses unique within the SSENISUB staff list as no two staff should be using the same phone number or email address.
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/114[#114]
+**** Implementation: changed the AddCommand and EditCommand to check the existing staffs for duplicate phone or emails before fully executing the command.
+
+** Documentation:
+*** Updated the User Guide: https://github.com/CS2103-AY1819S1-T13-2/main/pull/62[#62], https://github.com/CS2103-AY1819S1-T13-2/main/pull/79[#79], https://github.com/CS2103-AY1819S1-T13-2/main/pull/117[#117]
+*** Updated the Developer Guide: https://github.com/CS2103-AY1819S1-T13-2/main/pull/32[#32], https://github.com/CS2103-AY1819S1-T13-2/main/pull/117[#117]
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/22[#22],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/41[#41],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/78[#78],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/125[#125]
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=privacy]
+
+include::../UserGuide.adoc[tag=login]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=privacycommand]
+
+include::../DeveloperGuide.adoc[tag=login]

@@ -11,83 +11,144 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.SsenisubChangedEvent;
 import seedu.address.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Ssenisub data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedSsenisub versionedSsenisub;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given Ssenisub and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlySsenisub ssenisub, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(ssenisub, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with SSENISUB: " + ssenisub + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedSsenisub = new VersionedSsenisub(ssenisub);
+        filteredPersons = new FilteredList<>(versionedSsenisub.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Ssenisub(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlySsenisub newData) {
+        versionedSsenisub.resetData(newData);
+        indicateSsenisubChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlySsenisub getSsenisub() {
+        return versionedSsenisub;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateSsenisubChanged() {
+        raise(new SsenisubChangedEvent(versionedSsenisub));
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedSsenisub.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasName(Person person) {
+        requireNonNull(person);
+        return versionedSsenisub.hasName(person);
+    }
+    @Override
+    public boolean hasPhoneNumber(Person person) {
+        requireNonNull(person);
+        return versionedSsenisub.hasPhoneNumber(person);
+    }
+
+    @Override
+    public boolean hasEmail(Person person) {
+        requireNonNull(person);
+        return versionedSsenisub.hasEmail(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+        versionedSsenisub.removePerson(target);
+        indicateSsenisubChanged();
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedSsenisub.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+        indicateSsenisubChanged();
     }
 
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        versionedSsenisub.updatePerson(target, editedPerson);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void favouritePerson(Person target, Person favouritedPerson) {
+        requireAllNonNull(target, favouritedPerson);
+
+        versionedSsenisub.favouritePerson(target, favouritedPerson);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void unfavouritePerson(Person target, Person unfavouritedPerson) {
+        requireAllNonNull(target, unfavouritedPerson);
+
+        versionedSsenisub.favouritePerson(target, unfavouritedPerson);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void sortByName() {
+        versionedSsenisub.sortByName();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void sortByDept() {
+        versionedSsenisub.sortByDept();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void sortByRatingUp() {
+        versionedSsenisub.sortByRatingUp();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateSsenisubChanged();
+    }
+
+    @Override
+    public void sortByRatingDown() {
+        versionedSsenisub.sortByRatingDown();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateSsenisubChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedSsenisub}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -103,30 +164,30 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoSsenisub() {
+        return versionedSsenisub.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoSsenisub() {
+        return versionedSsenisub.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoSsenisub() {
+        versionedSsenisub.undo();
+        indicateSsenisubChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoSsenisub() {
+        versionedSsenisub.redo();
+        indicateSsenisubChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitSsenisub() {
+        versionedSsenisub.commit();
     }
 
     @Override
@@ -143,7 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedSsenisub.equals(other.versionedSsenisub)
                 && filteredPersons.equals(other.filteredPersons);
     }
 

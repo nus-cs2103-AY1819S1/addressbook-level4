@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= SSENISUB - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,34 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T13-2`      Since: `Nov 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SSENISUB is intended for organizations who follows a strict hierarchical structure to manage their manpower and
+allows the staff to use this as contact book.
+
+Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `SSENISUB.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for SSENISUB software.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+   e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all staff
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John Street Blk 123, #01-01 d/Tech m/Alice Tan` :
+adds a staff named `John Doe` to SSENISUB.
+* **`delete`**`3` : deletes the 3rd staff shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,80 +52,115 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as
+`{nbsp}` (i.e. 0 times), `t/staff`, `t/manager` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Adding a 'p' infront of the parameter private. e.g. pp/PHONE makes the phone number private to the other user.
+* Only `PHONE`, `EMAIL` and `ADDRESS` fields can be initialized as private.
 ====
+
+*Fields restrictions*
+[width="100%",cols="20%,<80%"]
+|=======================================================================
+
+|NAME | Names should only contain alphabetical characters and spaces, and should not be blank
+
+|PHONE | Phone numbers should only contain numbers, starts with digit '6', '8' or '9', and should be 8 digits long
+
+|EMAIL | Emails should be of the format local-part@domain and adhere to the following constraints: +
+
+ 1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses,
+ (!#$%&'*+/=?`{}~^.-), 1 to 50 characters long  +
+
+ 2. This is followed by a '@' and then a domain name. +
+ The domain name must: +
+ - be at least 2 characters long +
+ - start and end with alphanumeric characters +
+ - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+
+|ADDRESS | Addresses can take any values, should not be blank, and should be 1 to 50 characters long
+
+|SALARY | Salary should only contain integers with no spaces or commas
+
+|OT HOUR | Overtime hours should only contain numbers up to two decimal places with no spaces or commas
+
+|OT RATE | Overtime rate should only contain numbers up to two decimal places with no spaces or commas
+
+|DEDUCTIBLE | Deductible should only contain numbers up to two decimal places with no spaces or commas
+
+|DEPARTMENT | Department should only contain alphabetic characters and spaces, should not be blank,
+and should be 1 to 30 characters long
+
+|MANAGER | Manager should only contain alphabetic characters and spaces, should not be blank,
+and should be 1 to 50 characters long
+
+|RATING | Rating should only contain numbers between 1 to 10
+
+|FEEDBACK | Feedback can take any values, should not be blank, and should be 1 to 65 characters long
+
+|INDEX | Refers to the index number shown by the staff list command, and must be a positive integer 1, 2, 3, ...
+
+|=======================================================================
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::add[]
+=== Adding a staff: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a staff to SSENISUB +
+Format: `add n/NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS d/DEPARTMENT m/MANAGER [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A staff can have any number of tags (including 0)
+
+[CAUTION]
+`Phone` numbers and `Email` addresses are unique, you will not be able to add a new staff with a pre-existing `Phone` number or `Email` address within SSENISUB
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John Street, Block 123, #01-01 d/Accounting m/Marcus Lim t/staff`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/81729817 d/Marketing m/Edmund Tan t/staff`
+// end::add[]
 
-=== Listing all persons : `list`
+=== Listing all staff : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all staff in SSENISUB. +
 Format: `list`
 
-=== Editing a person : `edit`
+// tag::edit[]
+=== Editing a staff : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing staff in SSENISUB. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY] [oth/OTHOUR] [otr/OTRATE] [de/DEDUCTIBLES] [d/DEPARTMENT] [m/MANAGER] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the staff at the specified `INDEX`. The index refers to the index number shown in the displayed staff list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
+* Staff has 4 additional editable fields: salary, overtime hours (ot hours), overtime rate (ot rate) and pay deductibles.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the staff will be removed, i.e. adding of tags is not cumulative.
+* You can remove all the staff's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 1 p/91234567 e/johndoe@example.com s/1000` +
+Edits the phone number, email address, salary of the 1st staff to be `91234567`, `johndoe@example.com` and `1000`
+respectively.
 * `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd staff to be `Betsy Crower` and clears all existing tags.
+// end::edit[]
 
-=== Locating persons by name: `find`
+=== Deleting a staff : `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+Deletes the specified staff from SSENISUB. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the staff at the specified `INDEX`.
+* The index refers to the index number shown in the displayed staff list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,30 +168,276 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd staff in SSENISUB.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st staff in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a staff : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the staff identified by the index number used in the displayed staff list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the staff and loads the Google search page the staff at the specified `INDEX`.
+* The index refers to the index number shown in the displayed staff list.
 * The index *must be a positive integer* `1, 2, 3, ...`
+* When a staff is selected, *net salary* is being displayed instead of gross salary
 ****
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd staff in SSENISUB.
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st staff in the results of the `find` command.
+
+// tag::feedback[]
+=== Giving feedback to a staff: `feedback`
+
+Provides feedback for an existing staff in SSENISUB +
+Format: `feedback INDEX fb/FEEDBACK`
+
+****
+* Updates the feedback of the staff at specified `INDEX`. The index refers to the index number shown in the displayed
+staff list. The index *must be a positive integer* 1, 2, 3, ...
+* The feedback field must be provided.
+* Profanities are not allowed, even if it is encapsulated within a word.
+* Profanities written in leetspeak will be caught as well.
+****
+
+Examples:
+
+* `feedback 1 fb/You are great!` +
+Gives the 1st staff a feedback of "You are great!".
+// end::feedback[]
+
+// tag::rate[]
+=== Rating a staff: `rate`
+
+Rates an existing staff in SSENISUB +
+Format: `rate INDEX r/RATING`
+
+****
+* Rates the staff at the specified `INDEX`. The index refers to the index number shown in the displayed staff list. The index *must be a positive integer* 1, 2, 3, ...
+* The rating field must be provided.
+* Ratings can only be from 1 - 10.
+* Existing values will be updated to the input values if they are different.
+****
+
+Examples:
+
+* `rate 3 r/8` +
+Rates the 3rd staff of a rating 8.
+// end::rate[]
+
+// tag::privacy[]
+=== Setting private fields: `privacy`
+
+Sets the mentioned field into a private field (displays as 'private' on staff panel). +
+
+Format: `privacy INDEX [p/ y or n] [e/ y or n] [a/ y or n]`
+
+****
+* Modifies the privacy of the information of the staff at the specified `INDEX`.
+* The index refers to the index number shown in the displayed staff list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Only Phone, Email and Address can be set to private.
+* 'y' means setting to private and 'n' means setting to public.
+* Coming in v2.0: View private fields +
+** With the authorization level features implemented, a user with high enough level of authority
+will be able to see the actual values of the private field (instead of 'private'). +
+****
+
+Examples:
+
+* `privacy 1 p/y a/n` +
+Sets the `Phone` number and `Address` of the 1st staff  in SSENISUB to private and public respectively.
+
+* `privacy 4 e/n p/n` +
+Sets the `Email` and `Phone` number of the 4th staff in SSENISUB to public.
+// end::privacy[]
+
+// tag::find-n[]
+=== Locating staff by name: `find-n`
+
+Finds staff whose names contain any of the given keywords. +
+Format: `find-n KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive, e.g `hans` will match `Hans`
+* The order of the keywords does not matter, e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched, e.g. `Han` will not match `Hans`
+* Staff matching at least one keyword will be returned (i.e. `OR` search), e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find-n John` +
+Returns `John` and `John Doe`
+* `find-n Betsy Tim John` +
+Returns any staff having names `Betsy`, `Tim`, or `John`
+// end::find-n[]
+
+// tag::find-e[]
+=== Locating staff by email: `find-e`
+
+Finds staff whose email contain any of the given keywords. +
+Format: `find-e KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive, e.g `hans@example.com` will match `Hans@example.com`
+* The order of the keywords does not matter, e.g. `hans@example.com` `dan@example.com` will match `dan@example.com`
+`hans@example.com`
+* Only the email is searched.
+* Only full words will be matched, e.g. `Han@example.com` will not match `Hans@example.com`
+****
+
+Examples:
+
+* `find-e John@example.com` +
+Returns `John`
+* `find-n Betsy@example.com Tim@example.com` +
+Returns any staff having emails `Betsy`, `Tim`
+// end::find-e[]
+
+// tag::find-d[]
+=== Locating staff by department: `find-d`
+
+Finds staff whose department contain any of the given keywords. +
+Format: `find-d KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive, e.g `accounting` will match `AccountinG`
+* The order of the keywords does not matter, e.g. `Accounting Tech` will match `Tech Accounting`
+* Only the department is searched.
+* Only full words will be matched, e.g. `Account` will not match `Accounting`
+* Staff matching at least one keyword will be returned (i.e. `OR` search)
+****
+
+Examples:
+
+* `find-d Accounting` +
+Returns any staff in Accounting Department `John`
+* `find-d Accounting Tech` +
+Returns any staff in Accounting or Tech Department `John`, `Betsy`, `Tim`
+// end::find-d[]
+
+// tag::find-m[]
+=== Locating staff by manager: `find-m`
+
+Finds manager whose names contain any of the given keywords. +
+Format: `find-m KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the manager is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Manager matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`,
+`Bo Yang`
+****
+
+Examples:
+
+* `find-m John` +
+Returns `john` and `John Doe`
+* `find-m Betsy Tim John` +
+Returns any manager having names `Betsy`, `Tim`, or `John`
+// end::find-m[]
+
+// tag::sort[]
+=== Sorting all staff by name : `sort`
+
+Sorts the staff list by name. +
+Format: `sort`
+
+****
+* Sorts by favourite then by name, favourite staffs stay on top of the list
+****
+// end::sort[]
+
+// tag::sortDept[]
+=== Sorting all staff by department : `sortDept`
+
+Sorts the staff list by department. +
+Format: `sortDept`
+
+****
+* Sorts by department then by favourite then by name
+****
+// end::sortDept[]
+
+// tag::sortRatingDown[]
+=== Sorting all staff by rating : `sortRatingDown`
+
+Sorts the staff list by rating from highest to lowest. +
+Format: `sortRatingDown` or `sortRating`
+
+****
+* Sorts by rating (highest-lowest) then by favourite then by name
+****
+// end::sortRatingDown[]
+
+// tag::sortRatingUp[]
+=== Sorting all staff by rating : `sortRatingUp`
+
+Sorts the staff list by rating from lowest to highest. +
+Format: `sortRatingUp`
+
+****
+* Sorts by rating (lowest-highest) then by favourite then by name
+****
+// end::sortRatingUp[]
+
+// tag::favourite[]
+=== Favouriting a staff : `favourite`
+
+Favourites the specified staff and moves it up to the top of the list. +
+Format: `favourite INDEX` or `fav INDEX`
+
+****
+* Favourites the staff at the specified `INDEX`.
+* The index refers to the index number shown in the displayed staff list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+* Staff at the specified `INDEX` needs to not be on the favourite list
+****
+
+Examples:
+
+* `list` +
+`favourite 2` +
+Favourites the 2nd staff in SSENISUB.
+* `find Betsy` +
+`fav 1` +
+Favourites the 1st staff in the results of the `find` command.
+// end::favourite[]
+
+// tag::unfavourite[]
+=== Unfavouriting a staff : `unfavourite`
+
+Favourites the specified staff and moves it up to the top of the list. +
+Format: `unfavourite INDEX` or `unfav INDEX`
+
+****
+* Removes the staff at the specified `INDEX` from favourite list.
+* The index refers to the index number shown in the displayed staff list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+* Staff at the specified `INDEX` needs to be on the favourite list
+****
+
+Examples:
+
+* `list` +
+`unfavourite 2` +
+Removes the 2nd staff from favourite list.
+* `find Betsy` +
+`unfav 1` +
+Removes the 1st staff in the results of the `find` command from favourite list.
+// end::unfavourite[]
 
 === Listing entered commands : `history`
 
@@ -167,12 +452,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores SSENISUB to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify SSENISUB's content (`add`, `delete`, `edit`, `rate`, `feedback`, `privacy`, and `clear`).
 ====
 
 Examples:
@@ -214,47 +499,115 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Counting the number of staff [coming in v2.0]: `count`
+
+Count the number of staff in specific department in SSENISUB +
+Format: `count d/DEPARTMENT`
+
+Examples:
+
+* `count d/accounting` +
+
+// tag::lockunlock[]
+=== Locking SSENISUB [coming in v2.0]: `lock`
+
+Locks SSENISUB with a specified password. +
+Format: `lock PASSWORD`
+
+=== Unlocking SSENISUB [coming in v2.0]: `unlock`
+
+Unlocks SSENISUB with a specified password. +
+Format: `unlock PASSWORD`
+//end::lockunlock[]
+
+// tag::login[]
+=== Authorization levels for features [coming in v2.0]: `login`, `logout`
+
+Allows a user to log into the SSENISUB system with different authorization levels. +
+Format: `login USERNAME PASSWORD`, `logout`
+
+****
+* In future versions, we plan to have features locked by authorization level, as we intend for
+SSENISUB to be used by all staff within the same Organization, it makes more sense if only
+a HR Manager is allowed to add or delete staff, or only the staff himself to be able to change his
+own information privacy settings.
+* Implementation of this authorization level feature will then allow us to develop new features makes
+the organization hierachy more understandable and obvious.
+****
+
+Examples:
+
+* `login AmyBee 123456` +
+* `logout`
+// end::login[]
+
+// tag::dataencryption[]
+=== Encrypting data files [coming in v2.0]
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from SSENISUB. +
 Format: `clear`
+
+=== Saving the data
+
+SSENISUB data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SSENISUB folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Help* : `help`
+* *Add* `add n/NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS d/DEPARTMENT m/MANAGER [t/TAG]...` +
+e.g. `add n/James Ho p/91829309 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Accounting m/David Choo t/staff`
+* *List* : `list`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/SALARY] [oth/OTHOUR] [otr/OTRATE] [de/DEDUCTIBLES] [d/DEPARTMENT] [m/MANAGER] [t/TAG]..
+.` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com oth/10`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Feedback* : `feedback INDEX fb/FEEDBACK` +
+e.g. `feedback 1 fb/Excellent job!`
+* *Rate* : `rate INDEX r/RATING` +
+e.g. `rate 1 r/8`
+* *Privacy* : `privacy INDEX [p/ y or n] [e/ y or n] [a/ y or n]` +
+e.g. `privacy 2 p/y a/n`
+* *Find by Name* : `find-n KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-n James Jake`
+* *Find by Email* : `find-e KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-e johnd@example.com`
+* *Find by Department* : `find-d KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-d Accounting`
+* *Find by Manager* : `find-m KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-m Moses Ben`
+* *Sort by Name* : `sort`
+* *Sort by Department* : `sortDept`
+* *Sort by Rating from Highest to Lowest* : `sortRatingDown` or `sortRating`
+* *Sort by Rating from Lowest to Highest* : `sortRatingUp`
+* *Favourite* : `favourite INDEX` or `fav INDEX` +
+e.g. `favourite 1` or `fav 2`
+* *Unfavourite* : `unfavourite INDEX` or `unfav INDEX` +
+e.g. `unfavourite 1` or `unfav 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Lock SSENISUB* [coming in v2.0] : `lock PASSWORD`
+* *Unlock SSENISUB* [coming in v2.0]: `unlock PASSWORD`
+* *Login SSENISUB* [coming in v2.0] : `login USERNAME PASSWORD`
+* *Logout SSENISUB* [coming in v2.0] : `logout`
+* *Clear* : `clear`
+* *Exit* : `exit`

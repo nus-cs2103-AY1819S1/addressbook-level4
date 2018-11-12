@@ -13,34 +13,81 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlySsenisub newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns Ssenisub */
+    ReadOnlySsenisub getSsenisub();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in Ssenisub.
      */
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same Name as {@code person} exists in Ssenisub.
+     */
+    boolean hasName(Person person);
+
+    /**
+     * Returns true if a person has the same Phone Number as {@code person} exists in Ssenisub.
+     */
+    boolean hasPhoneNumber(Person person);
+
+    /**
+     * Returns true if a person has the same Email as {@code person} exists in Ssenisub.
+     */
+    boolean hasEmail(Person person);
+
+    /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in Ssenisub.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in Ssenisub.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in Ssenisub.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in Ssenisub.
      */
     void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Adds the given person to favourite.
+     * The person must exist in Ssenisub.
+     */
+    void favouritePerson(Person target, Person favouritedPerson);
+
+    /**
+     * Removes the given person from favourite.
+     * The person must exist in the favourites.
+     */
+    void unfavouritePerson(Person target, Person unfavouritedPerson);
+
+    /**
+     * Sorts the person list by name
+     */
+    void sortByName();
+
+    /**
+     * Sorts the person list by dept
+     */
+    void sortByDept();
+
+    /**
+     * Sorts the person list by rating from lowest to highest
+     */
+    void sortByRatingUp();
+
+    /**
+     * Sorts the person list by rating from highest to lowest
+     */
+    void sortByRatingDown();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -54,25 +101,25 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoSsenisub();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoSsenisub();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undoSsenisub();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoSsenisub();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitSsenisub();
 }

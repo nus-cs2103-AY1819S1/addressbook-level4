@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "DanKhoo",
+      "displayName": "Daniel Khoo",
+      "authorNames": ["DanKhoo", "Daniel Khoo"]
+    },
+    {
+      "githubId": "IamRENCE",
+      "displayName": "Terence Goh",
+      "authorNames": ["Terence Goh"]
+    },
+    {
+      "githubId": "valensia0711",
+      "displayName": "Valensia Sebastiani",
+      "authorNames": ["Valensia Sebastiani"]
+    },
+    {
+      "githubId": "NgeowXiuQi",
+      "displayName": "Ngeow Xiu Qi",
+      "authorNames": ["NgeowXiuQi", "Xiu Qi"]
+    },
+    {
+      "githubId": "abtyx",
+      "displayName": "Ashburn Tan",
+      "authorNames": ["abtyx"]
+    }
+  ]
+}

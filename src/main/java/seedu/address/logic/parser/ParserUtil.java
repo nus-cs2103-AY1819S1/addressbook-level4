@@ -10,9 +10,17 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Feedback;
+import seedu.address.model.person.Manager;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.OtHour;
+import seedu.address.model.person.OtRate;
+import seedu.address.model.person.PayDeductibles;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rating;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,7 +53,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
     }
@@ -60,7 +68,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
     }
@@ -75,7 +83,7 @@ public class ParserUtil {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
     }
@@ -90,9 +98,137 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a (@code String salary) into an (@code Salary).
+     * Leading and trailing whitespaces will be trimmed.
+     * @param salary
+     * @return A salary object after trimming.
+     * @throws ParseException
+     */
+
+    public static Salary parseSalary(String salary) throws ParseException {
+        requireNonNull(salary);
+        String trimmedSalary = salary.trim();
+        if (!Salary.isValidSalary(trimmedSalary)) {
+            throw new ParseException(Salary.MESSAGE_CONSTRAINTS);
+        }
+        return new Salary(trimmedSalary);
+    }
+
+    /**
+     * Parses a (@code String hours) into an (@code OtHour).
+     * Leading and trailing whitespaces will be trimmed.
+     * @param hours
+     * @return An OtHour object after trimming.
+     * @throws ParseException
+     */
+
+    public static OtHour parseHours(String hours) throws ParseException {
+        requireNonNull(hours);
+        String trimmedHours = hours.trim();
+        if (!OtHour.isValidTwoDecimalNumber(trimmedHours)) {
+            throw new ParseException(OtHour.MESSAGE_CONSTRAINTS);
+        }
+        return new OtHour(trimmedHours);
+    }
+
+    /**
+     * Parses a (@code String rate) into an (@code OtRate).
+     * Leading and trailing whitespaces will be trimmed.
+     * @param rate
+     * @return An OtRate object after trimming.
+     * @throws ParseException
+     */
+
+    public static OtRate parseRate(String rate) throws ParseException {
+        requireNonNull(rate);
+        String trimmedRate = rate.trim();
+        if (!OtRate.isValidTwoDecimalNumber(trimmedRate)) {
+            throw new ParseException(OtRate.MESSAGE_CONSTRAINTS);
+        }
+        return new OtRate(trimmedRate);
+    }
+
+    /**
+     * Parses a (@code String deductibles) into an (@code PayDeductibles).
+     * Leading and trailing whitespaces will be trimmed.
+     * @param deductibles
+     * @return A PayDeductibles object after trimming.
+     * @throws ParseException
+     */
+
+    public static PayDeductibles parseDeductibles(String deductibles) throws ParseException {
+        requireNonNull(deductibles);
+        String trimmedDeductibles = deductibles.trim();
+        if (!PayDeductibles.isValidTwoDecimalNumber(trimmedDeductibles)) {
+            throw new ParseException(PayDeductibles.MESSAGE_CONSTRAINTS);
+        }
+        return new PayDeductibles(trimmedDeductibles);
+    }
+
+    /**
+     * Parses a {@code String department} into an {@code Department}
+     * Leading and trailing whitespaces wil be trimmed.
+     *
+     * @throws ParseException if the given {@code department} is invalid.
+     */
+    public static Department parseDepartment(String department) throws ParseException {
+        requireNonNull(department);
+        String trimmedDepartment = department.trim();
+        if (!Department.isValidDepartment(trimmedDepartment)) {
+            throw new ParseException(Department.MESSAGE_CONSTRAINTS);
+        }
+        return new Department(trimmedDepartment);
+    }
+
+    /**
+     * Parses a {@code String manager} into an {@code Manager}
+     * Leading and trailing whitespaces wil be trimmed.
+     *
+     * @throws ParseException if the given {@code manager} is invalid.
+     */
+    public static Manager parseManager(String manager) throws ParseException {
+        requireNonNull(manager);
+        String trimmedManager = manager.trim();
+        if (!Manager.isValidManager(trimmedManager)) {
+            throw new ParseException(Manager.MESSAGE_CONSTRAINTS);
+        }
+        return new Manager(trimmedManager);
+    }
+
+    /**
+     * Parses a {@code String privacy} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code privacy} is invalid.
+     */
+    public static String parsePrivacy(String privacy) throws ParseException {
+        requireNonNull(privacy);
+        String trimmedPrivacy = privacy.trim().toUpperCase();
+        if (!trimmedPrivacy.equals("Y") && (!trimmedPrivacy.equals("N"))) {
+            throw new ParseException("Privacy option should be only Y or N!");
+        }
+        return trimmedPrivacy;
+    }
+
+    /**
+     * Parses a {@code String feedback} into an {@code Feedback}
+     * Leading and trailing whitespaces wil be trimmed.
+     *
+     * @throws ParseException if the given {@code feedback} is invalid.
+     */
+    public static Feedback parseFeedback(String feedback) throws ParseException {
+        requireNonNull(feedback);
+        String trimmedFeedback = feedback.trim();
+        if (!Feedback.isValidFeedback(trimmedFeedback)) {
+            throw new ParseException(Feedback.MESSAGE_CONSTRAINTS);
+        }
+        return new Feedback(trimmedFeedback);
     }
 
     /**
@@ -105,9 +241,24 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidInputRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
     }
 
     /**

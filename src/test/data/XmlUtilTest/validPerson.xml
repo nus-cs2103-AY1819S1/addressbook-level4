@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <person>
     <name>Hans Muster</name>
-    <phone>9482424</phone>
+    <phone>94824241</phone>
     <email>hans@example</email>
     <address>4th street</address>
+    <rating>0</rating>
+    <department>Accounting</department>
+    <manager>Ben Leong</manager>
+    <salary>0</salary>
+    <hours>0</hours>
+    <rate>0</rate>
+    <deductibles>0</deductibles>
+    <feedback>-NO FEEDBACK YET-</feedback>
     <tagged>friends</tagged>
 </person>

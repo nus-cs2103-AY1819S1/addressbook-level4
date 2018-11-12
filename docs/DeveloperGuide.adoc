@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= SSENISUB - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -11,11 +11,10 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
-:experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T13-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T13-2`      Since: `Oct 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -47,10 +46,6 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -152,7 +147,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `SsenisubChangedEvent` when SSENISUB data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -172,7 +167,8 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+`StatusBarFooter`, `StaffPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -192,9 +188,9 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SsenisubParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a staff) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -213,12 +209,12 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores SSENISUB data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `SSENISUB`, which `Person` can reference. This would allow `SSENISUB` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -233,7 +229,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save SSENISUB data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -244,58 +240,508 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::addcommand[]
+=== Add Feature
+
+==== Current Implementation
+
+The `add` command allows HR users to add staff into SSENISSUB. It will ensure that there will be no duplicate with
+any existing staff.
+
+The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a HR user
+enter a `add` command:
+
+image::AddSequenceDiagram.png[width="800"]
+Figure 3.4.1.1 Sequence Diagram for `add` command
+
+From the sequence diagram:
+
+1. When `Logic Manager` receives the `execute` command from the app, it calls the parseCommand method in
+`SsenisubParser`.
+
+2. `SsenisubParser` will receive add as the command and instantiate `AddCommandParser` to parse the rest of the
+command.
+
+3. If the arguments specified are valid, a `AddCommand` would be created and returned by to the `LogicManager`.
+
+4. `LogicManager` would proceed to call `execute` of the `AddCommand`.
+
+5. A new staff would be added and a successful `CommandResult` would be returned and displayed.
+
+SSENISSUB's staff is stored with name, phone, email address, home address, department, manager name and can
+be search and listed only with names.
+
+All fields are checked against respective validations with each model. If the provided command either does not have
+any field, or field with invalid input, a `ParseException` would be thrown.
+
+==== Design Considerations
+
+===== Implementation of `AddCommandParser`
+* ** Alternative 1 (current choice):** `add` is parsed first, then the rest of the arguments as `AddCommandParser`
+** Pros: Better modularization for commands
+** Cons: More classes will be needed = more code to be written
+
+* ** Alternative 2:** `add` is parsed straight from `SsenisubParser`
+** Pros: Reduces the number of classes needed = less code to be written
+** Cons: Poor modularization for commands
+// end::addcommand[]
+
+// tag::salaryfunction[]
+=== Salary, OT Hours, OT Rate and Pay Deductibles For Staff
+
+==== Introduction
+We have introduced four new fields to a staff namely the salary, overtime(OT) hours, OT rate and Pay deductibles
+for a staff. This is to allow the HR department of the company to keep track of individual staff's details.
+
+==== Current Implementation
+
+The current implementation of this feature is embedded into a Person object together with the other information
+that was originally in the Person object. Prefixes for the respective fields were also created to allow the HR user
+to edit the necessary information whenever needed.
+
+A newly added staff into SSENISUB would be assigned the default values of 0 for all four fields. This is to better
+allow the HR staff to manage the information of the staff. Naturally, when a person first joins the company, he would
+not have raked up any OT hours and the rate is dependent on the job of the individual.
+
+Should the user now want to edit a staff's salary, OT hours, OT rate or pay deductibles, the user can now simply
+input the prefixes followed by the numerals of each field to edit in the edit command. The fields would then be
+edited depending if the prefixes were there or not (similar to the edit command).
+
+==== Design Considerations
+* ** Alternative 1 (First Implementation):** Merging the OT hours, OT rate and pay deductibles within a Salary class
+** Pros: Easier to calculate net pay
+** Cons: Harder to implement and would result in many conflicts within the software itself. Harder to debug
+
+image::FirstImplementation.png[height="450"]
+Figure 3.9.3.1 Idea of First Implementation
+
+* **Alternative 2 (Current Implementation):** Separating out each field to their own classes
+** Pros: Easier to implement and allows for more flexibility if the fields are required to be computed/used for other
+ information, easier to identify issues when something goes wrong
+** Cons: Does not seem intuitive to separate it out since OT hours, OT rate and pay deductibles are used to compute salary
+
+image::SecondImplementation.png[height="450"]
+Figure 3.9.3.2 Idea of Second Implementation
+// end::salaryfunction[]
+
+// tag::feedbackcommand[]
+=== Feedback command feature
+==== Introduction
+Similar to the rate command, we have implemented a feedback command feature as an enhancement, which also focuses on the
+`Logic` component. A `Feedback` class is implemented to support this, which the `Person` class is dependent on. This
+command allows users, especially for managers, to give feedback to their employees within an organisation for them to
+know what to look out for in their performance and improve themselves.
+
+[NOTE]
+This command also differs from the add and edit command, because users cannot simply add an employee with a feedback
+through the add command or edit an employee's feedback through the edit command. Every employee added will start off
+without any feedback assigned to him/her.
+
+[CAUTION]
+Any updates to an employee's feedback should only
+be done by a *person of authority*, i.e. `Manager`.
+
+==== Current Implementation
+The feedback command, like the rate command, executes nonparallel to the add and edit command. Upon adding an employee,
+a `FEEDBACK.DEFAULT_INITIAL_FEEDBACK` with a default value of "-NO FEEDBACK YET-", is initialised on the `Person` and
+then saved.
+
+Given below is a sequence diagram shows how the feedback operation works:
+
+image::FeedbackSequenceDiagram.png[width="800"]
+
+A simple profanity is implemented in the `Feedback` class, which checks for any profanity found within the feedback
+input (Adapted from https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941[Simple Profanity Filter]).
+The list of English and Singlish profanities (https://github.com/CS2103-AY1819S1-T13-2/main/blob/master/src/main/resources/words%20to%20ban/Bad_Words_List.txt[Profanity List])
+used can be subjected to expansion and modification. The filter works by iterating through the whole input to find any possible
+sequence of words (no re-ordering) that match any profanity found within the profanity list. As such, runtime will be
+dependent on input length rather than profanity list length.
+
+Given below is a sequence diagram to show how the profanity filter operation works (This extends from the previous diagram,
+which omitted the part where `Feedback` is called by `FeedbackCommandParser`):
+
+image::FeedbackProfanitySequenceDiagram.png[width="800"]
+
+[[Feedback-Features]]
+==== Noteworthy Features:
+
+* The filter is case insensitive.
+
+* In the profanity list, profanities are separated into rows with the format: `[THE_BAD_WORD]`, `[IGNORE_IN_COMBINATION_WITH]`
+
+** `[THE_BAD_WORD]` is the profanity to filter out.
+
+** `[IGNORE_IN_COMBINATION_WITH]` can be empty, or contain a series of 1 or more words (separated by commas) that
+`[THE_BAD_WORD]` can be used with, e.g. paki, pakistan. "paki" is a racial slur and will be rejected, but if "pakistan", a
+country name, is entered, "pakistan" will be accepted even though it contains "paki".
+
+** Each iteration ends when the end of the string is reached or the length of the current substring checked reaches the longest profanity
+string length within the profanity list (For increased performance).
+
+* Any leetspeak in the input will be replaced by its appropriate characters before the check, i.e. "H3ll0" will be
+corrected to "Hello".
+
+[CAUTION]
+This profanity filter is quite basic and can be bypassed because of replacing leetspeak. For example, "2 girls 1 cup" is
+considered as inappropriate, but the replacement of "1" to "i" will cause the input to be accepted. An easy solution is
+to hard code the check of this input, but there will be many other examples like this that we would have to hard code for.
+As such, we have decided to accept this as a minor shortfall of this implementation.
+
+Given below is a sample run of the profanity filter with a feedback input of "u suckz":
+
+* Iteration 1:
+
+** 1a: "u": Not a profanity (No match with line in profanity list).
+** 1b: "u ": Not a profanity (No match with line in profanity list).
+** ...
+** 1g: "u suckz": Not a profanity (No match with line in profanity list).
+
+* Iteration 2:
+
+** 2a: " ": Not a profanity (No match with line in profanity list).
+** 2b: "  s": Not a profanity (No match with line in profanity list).
+** ...
+** 2f: " suckz": Not a profanity (No match with line in profanity list).
+
+* Iteration 3:
+
+** 3a: "s": Not a profanity (No match with line in profanity list).
+** 3b: "su": Not a profanity (No match with line in profanity list).
+** 3c: "suc": Not a profanity (No match with line in profanity list).
+** 3d: "suck": *Profanity*! (Matches with a line in profanity list). Added to a list of bad words found.
+** 3e: "suckz": Not a profanity (No match with line in profanity list).
+
+* ...
+
+* Iteration 7:
+
+** 7a: "z": Not a profanity (No match with line in profanity list).
+
+* The resulting list has only 1 value: "suck" and the input will be rejected since there is at least 1 profanity found.
+
+==== Design Considerations
+===== How to implement the profanity filter
+To ensure **fast retrieval**, a HashMap is used to store profanities to be rejected from the data file before using it to check if the
+input contains any profanities inside.
+
+* **Alternative 1 (current choice):** Check every substring of the input to see if it matches any profanity-to-reject
+within the HashMap.
+** Pros: **O(1)** runtime per substring when checking whether a particular substring of the input.
+** Cons: Runs for **O(n^2^)** time, where n is the number of characters in the input.
+*** While this may look daunting, we have a character input limit on `Person` attributes (feedback included) of 50.
+As such, there is an imposed upper bound on the performance time, preventing any significant decline in performance.
+*** Also, one optimisation method implemented (mentioned in <<Feedback-Features, Feedback noteworthy features>>) is
+ending the iteration when the length of the longest string within the profanities-to-reject is reached. This
+improves the performance time to **O(ln)**, where l is length of the longest profanity-to-reject.
+
+* **Alternative 2 :** Check every element in HashMap to see if it is contained within the input.
+** Pros: Runs for **O(n)** time per element in HashMap using the String.contains() method, where n is the number of
+characters in the input, and is capped at n ≤ 50 (Mentioned in Alternative 1).
+** Cons: Runs for **O(nm)** time, where m is the number of elements in the HashMap. m can increase infinitely by
+extending the list of profanities-to-reject (i.e. Adding profanities of other languages, adding newly created profanities,
+adding profanities that have been overlooked, etc.)
+*** Hence, this alternative is not as efficient as **O(lm)** in Alternative 1 as l can be capped but m may not.
+
+// end::feedbackcommand[]
+
+// tag::ratecommand[]
+=== Rate command feature
+==== Introduction
+We have implemented a rate command feature as an enhancement, which focuses on the `Logic` component.
+A `Rating` class is implemented to support this, which the `Person` class is dependent on. This command
+allows users, especially for managers to update ratings of employees within an organisation.
+
+[NOTE]
+This command differs from the add and edit command, because users cannot simply add an employee with a rating through
+the add command or edit an employee's rating through the edit command.
+
+[CAUTION]
+Any updates to an employee's rating should only
+be done by a *person of authority*, i.e. `Manager`.
+
+==== Current Implementation
+The rate command, as mentioned, executes asynchronous to the add and edit command. Upon adding an employee, a `Rating.DEFAULT_INITIAL_RATING`
+with a default value of 0, is initialised on the `Person` and then saved.
+
+There are 2 validation regular expressions found in the `Rating` class:
+
+* `VALIDATION_REGEX` which checks for integer values from 0 - 10 of `Rating` which have already been added. 0 is included
+as there may be a case when a `Person` has already been added but his/her `Rating` has yet to be updated.
+* `VALIDATION_INPUT_REGEX` which checks for integer values from 1 - 10 of `Rating` to be added by users with the rate
+command.
+
+
+Given below is a sequence diagram shows how the rate operation works:
+
+image::RateSequenceDiagram.png[width="800"]
+
+// end::ratecommand[]
+
+// tag::privacycommand[]
+=== Privacy Feature
+==== Introduction
+
+We have implemented a privacy feature to fields that we deem to have importance in having an option to be
+made private. A Privacy Command is implemented to be able to set the privacy values of the information of
+the selected person.
+
+==== Current implementation
+
+The privacy feature is currently implemented as a boolean field under information classes that can be made private
+(Phone, Email, Address as of v1.4).
+
+A new command PrivacyCommand is implemented to be able to change the Privacy values of classes that have a Privacy field.
+The add command can also add a Staff with private fields directly.
+
+The GUI will also display private fields as private.
+
+[NOTE]
+This command can only change fields that can be made private, and will throw an exception otherwise.
+
+Coming in v2.0: +
+To change a field to private or not private, a 'y' or 'n' is the expected input respectively. This is planned to
+change in future updates where there can be different levels of privacy for different fields.
+
+Given below is an activity diagram that shows how the Privacy command works:
+
+image::PrivacyCommandActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== How to implement Privacy
+* **Alternative 1 (current choice):** Use privacy as a boolean value
+** Pros: Easy to implement as there is only 2 values to take note off
+** Cons: Restrictive in what it can do looking at a future aspect where different level of privacy may be required
+* **Alternative 2:** Implement Privacy as a Enum class
+** Pros: Able to have different level of Privacy and prevents wrong input automatically
+** Cons: Harder to implement and extra work not required in current stage of project
+// end::privacycommand[]
+
+// tag::sortcommand[]
+=== Sort Feature
+
+==== Introduction
+
+We have implemented a sort command that focuses on the `Logic` component. A `SortCommand` class is added.
+
+==== Current Implementation
+
+This `sort` command sorts the staff list by name in lexicographical order.
+
+Given below is a sequence diagram that shows how the sort command works:
+
+image::SortSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of sort command
+* ** Alternative 1 (current choice):** Sorts by favourite then by name
+** Pros: Favourited staff stays on top of the list, favourited staff still easier to find
+** Cons: The overall list is not 100% sorted by name
+
+* ** Alternative 2:** Sorts by name then by favourite
+** Pros: Overall list sorted wholly by name, easier to find a specific person when not known whether favourited or not
+** Cons: Favourited person scattered all over in the list, defeats the purpose of having favourited staff
+// end::sortcommand[]
+
+// tag::sortdeptcommand[]
+=== Sort By Department Feature
+
+==== Introduction
+
+This sort by department command is a further enhancement to the sort command that also focuses on the `Logic` component. A `SortDeptCommand` class is added.
+
+==== Current Implementation
+
+This `sortDept` command sorts the staff list by department in lexicographical order.
+
+Given below is a sequence diagram that shows how the sortDept command works:
+
+image::SortDeptSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of sortDept command
+* ** Alternative 1 (current choice):** Sorts by department then by favourite then by name
+** Pros: Easier to go through the different departments without a hassle
+** Cons: Favourited staff does not stay on top of the list
+
+* ** Alternative 2:** Sorts by favourite then by department then by name
+** Pros: Favourited staff stay on top of the list
+** Cons: The main purpose of sorting by department is to group the staff by the different department, so there is no point in putting the favourites on top of the list
+// end::sortdeptcommand[]
+
+// tag::sortratingdowncommand[]
+=== Sort By Rating From Highest To Lowest Feature
+
+==== Introduction
+
+This sort by rating command is a further enhancement to the sort command that also focuses on the `Logic` component. A `SortRatingDownCommand` class is added.
+
+==== Current Implementation
+
+This `sortRatingDown` command sorts the staff list by rating from highest to lowest.
+
+Given below is a sequence diagram that shows how the sortRatingDown command works:
+
+image::SortRatingDownSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of sortRatingDown command
+* ** Alternative 1 (current choice):** Sorts by rating down then by favourite then by name
+** Pros: Staff list is sorted wholly by their ratings, easier to process for the case of staff performance review as being favourited or not should not affect its rating ranking
+** Cons: Favourited staff does not stay on top of the list
+
+* ** Alternative 2:** Sorts by favourite then by rating down then by name
+** Pros: Favourited staff stay on top of the list
+** Cons: As rating by rating is intended for the use of staff performance review, it would not be helpful to do it this way
+
+===== The use of sortRatingDown when command alias `sortRating` is called
+* ** Alternative 1 (current choice):** Inputting sortRating sorts the staff list by rating from highest to lowest
+** Pros: This alternative is chosen as it is believed that there are more cases that make use of sorting from highest rating, e.g. job promotion review, performance-related additional wage
+** Cons: Some people might expect the default sort by rating to sort the list from lowest to highest
+
+* ** Alternative 2:** Inputting sortRating sorts the staff list by rating from lowest to highest
+** Pros: There are cases where sort rating from lowest is needed, e.g. the need to let go of staff due to budget cuts
+** Cons: Some people might expect the default sort by rating to sort the list from highest to lowest
+// end::sortratingdowncommand[]
+
+// tag::sortratingupcommand[]
+=== Sort By Rating From Lowest To Highest Feature
+
+==== Introduction
+
+This sort by rating command is a further enhancement to the sort command that also focuses on the `Logic` component. A `SortRatingDownCommand` class is added.
+
+==== Current Implementation
+
+This `sortRatingUp` command sorts the staff list by rating from lowest to highest.
+
+Given below is a sequence diagram that shows how the sortRatingUp command works:
+
+image::SortRatingUpSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of sortRatingUp command
+* ** Alternative 1 (current choice):** Sorts by rating up then by favourite then by name
+** Pros: Staff list is sorted wholly by their ratings, easier to process for the case of staff performance review as being favourited or not should not affect its rating ranking
+** Cons: Favourited staff does not stay on top of the list
+
+* ** Alternative 2:** Sorts by favourite then by rating up then by name
+** Pros: Favourited staff stay on top of the list
+** Cons: As rating by rating is intended for the use of staff performance review, it would not be helpful to do it this way
+// end::sortratingupcommand[]
+
+// tag::favouritecommand[]
+=== Favourite Feature
+
+==== Introduction
+
+We have implemented a favourite command that focuses on the `Logic` component. A 'FavouriteCommand` class is added.
+
+
+==== Current Implementation
+
+This `favourite` command allows contacts to be added to a favourite list and moves the contact to the top of the list.
+
+Given below is a sequence diagram that shows how the favourite command works:
+
+image::FavouriteSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of favourite command
+* ** Alternative 1 (current choice):** Favourite command can be called using a command alias 'fav'
+** Pros: Easier and faster command calling
+** Cons: Ambiguity in choosing command alias (can be either fave or fav)
+
+* ** Alternative 2:** Favourite command takes in command word 'favourite'
+** Pros: Clear command word taken in
+** Cons: Slower command calling
+// end::favouritecommand[]
+
+// tag::unfavouritecommand[]
+=== Unfavourite Feature
+
+==== Introduction
+
+As we have implemented a favourite command, we also have implemented an unfavourite command that focuses on the `Logic` component. An 'UnfavouriteCommand` class is added.
+
+
+==== Current Implementation
+
+This `unfavourite` command allows contacts to be removed from the favourite list.
+
+Given below is a sequence diagram that shows how the unfavourite command works:
+
+image::UnfavouriteSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Implementation of unfavourite command
+* ** Alternative 1 (current choice):** Using a separate unfavourite command
+** Pros: Clear use of command
+** Cons: Adds yet another command to command list
+
+* ** Alternative 2:** Doing a favourite command on a favourited person will unfavourite them instead
+** Pros: Easier implementation
+** Cons: Ambiguous use of this feature as the command is a favourite command
+// end::unfavouritecommand[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSsenisub`.
+It extends `SSENISUB` with an undo/redo history, stored internally as an `SsenisubStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSsenisub#commit()` -- Saves the current SSENISUB state in its history.
+* `VersionedSsenisub#undo()` -- Restores the previous SSENISUB state from its history.
+* `VersionedSsenisub#redo()` -- Restores a previously undone SSENISUB state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSsenisub()`, `Model#undoSsenisub()` and `Model#redoSsenisub()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSsenisub` will be initialized with the initial SSENISUB state, and the `currentStatePointer` pointing to that single SSENISUB state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th staff in SSENISUB. The `delete` command calls `Model#commitSsenisub()`, causing the modified state of SSENISUB after the `delete 5` command executes to be saved in the `SsenisubStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new staff. The `add` command also calls `Model#commitSsenisub()`, causing another modified address book state to be saved into the `SsenisubStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSsenisub()`, so SSENISUB state will not be saved into the `SsenisubStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the staff was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSsenisub()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores SSENISUB to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoSsenisub()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSsenisub()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores SSENISUB to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `SsenisubStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoSsenisub()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify SSENISUB, such as `list`, will usually not call `Model#commitSsenisub()`, `Model#undoSsenisub()` or `Model#redoSsenisub()`. Thus, the `SsenisubStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSsenisub()`. Since the `currentStatePointer` is not pointing at the end of the `SsenisubStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -311,24 +757,78 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the staff being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSsenisub`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::lockunlockcommand[]
+=== Lock and Unlock Feature (coming in v2.0)
+
+==== Introduction
+
+We will implement an unlock command that focuses on the `Storage` component. An `UnlockCommand` class is added
+and an `UnlockEvent` event is also added.
+
+
+==== Current Implementation
+
+The `unlock` command allows changes made to be saved to SSENISUB.
+
+Without the correct (for now hardcoded) password, all the changes made (add, edit, delete)during the session
+will not be saved and will not be shown once the window is closed and reopened.
+
+The following activity diagram shows how the current `Unlock` command works:
+
+Given below is an activity diagram that shows how the unlock command is intended to work:
+
+image::UnlockActivityDiagram.png[height="650"]
+
+==== Design Considerations
+
+===== Implementation of unlock
+* ** Alternative 1 (current choice):** Unlocking is handled as an event rather than a command.
+** Pros: Unlocking can be done at any time and event handler is used
+** Cons: Does not resemble a real unlocking function, minimal functionality
+
+* ** Alternative 2:** Unlocking is a command that overrides all other commands
+** Pros: Makes more sense as an unlock function
+** Cons: Harder to implement
+// end::lockunlockcommand[]
+
+// tag::login[]
+=== [Proposed] Login Feature
+==== Introduction
+
+The login feature will be implemented together with an authorization level feature. Based on the login credentials, the staff
+using the SSENISUB will have varying levels of access to the various features offered.
+
+The idea and motivation behind this is that as we plan for SSENISUB to be used as a central database and can be used by any
+staff, not all commands and features should be utilized by a typical staff, such as `delete`. Only a HR Manager should have the
+authorization to be able to `delete` or `add` staff.
+
+With the implementation of authorization levels, we will then be able to categorize the other features based on authority required
+to access them, and also affect the visibility state of private information.
+
+A Logout feature will also be implemented for the case of a shared device, which multiple staff can be using throughout the day.
+
+Given below is an activity diagram that shows how this feature works when a user wants to use the `Delete` command.
+
+image::LoginLogoutActivityDiagram.png[width="800"]
+// end::login[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
-
 // end::dataencryption[]
 
 === Logging
@@ -533,7 +1033,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, SSENISUB depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -560,14 +1060,14 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all staff in the list.
 +
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/SsenisubParser.java[`SsenisubParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/SsenisubParser.java[`SsenisubParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -576,21 +1076,21 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in SSENISUB, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in SSENISUB.
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/Ssenisub.java[`Ssenisub`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/Ssenisub.java[`Ssenisub`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/Ssenisub.java[`Ssenisub`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/Ssenisub.java[`Ssenisub`]. Loop through each staff, and remove the `tag` from each staff.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `Ssenisub#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -643,12 +1143,12 @@ image::getting-started-ui-result-after.png[width="200"]
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/src/test/java/systemtests/SsenisubSystemTest.java[`SsenisubSystemTest#assertCommandBoxShowsDefaultStyle() and SsenisubSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in SSENISUB.
 +
 **Before**
 +
@@ -661,29 +1161,29 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever SSENISUB is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleSsenisubChangedEvent(SsenisubChangedEvent)`] to update the number of persons whenever there are new changes to SSENISUB.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/SsenisubSystemTest.java[`SsenisubSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving SSENISUB to the cloud. However, the current implementation of the application constantly saves SSENISUB after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for SSENISUB storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupSsenisub(ReadOnlySsenisub)`, so that SSENISUB can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/SsenisubStorage.java[`SsenisubStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlSsenisubStorage.java[`XmlSsenisubStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -693,7 +1193,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `SSENISUB`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -714,12 +1214,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SsenisubParser.java[`SsenisubParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/SsenisubParserTest.java[`SsenisubParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -728,14 +1228,14 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SsenisubParser.java[`SsenisubParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/SsenisubParserTest.java[`SsenisubParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
@@ -768,7 +1268,7 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `ssenisub.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
@@ -779,7 +1279,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidPersonSsenisub.xml`, `typicalPersonsSsenisub.xml`, `validSsenisub.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
 Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
@@ -820,13 +1320,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* For organisations to maintain a hierarchical form of managing manpower within the organisation itself
+* Has a need to manage a significant number of contacts
+* Prefer desktop apps over other types
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: This software allows the organisation to manage their staff and details, improving work productivity.
 
 [appendix]
 == User Stories
@@ -835,36 +1335,112 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+| Priority | As a ... | I want to be able to …                                                                                         | So that I can ...                                                        |
+ * * *      | Staff    | Log in                                                                                                         | Access the system                                                         |
+ * * *      | Staff    | Log out                                                                                                        | Safely log out of the system and prevent others from accessing my account |
+ * * *      | Staff    | Edit my profile                                                                                                | Update personal information                                               |
+ * * *      | Staff    | See a help page                                                                                                | Know what is the functionality of the software                            |
+ * * *      | Staff    | Have my personal information set to private                                                                    | Continue working in peace                                                 |
+ * * *      | Staff    | View current personal ratings and feedbacks                                                                    | Improve myself to work better                                             |
+ * * *      | Staff    | Find staff by name                                                                                             | I can find his/her contact information                                    |
+ * *       | Staff    | Undo my last command                                                                                           | I can undo my mistakes                                                    |
+ *        | Staff    | View past personal ratings and feedbacks                                                                       | Look at my progress performance                                           |
+ *        | Staff    | Be able to give my manager feedback                                                                            | Allow my manager to improve on himself/herself                            |
+ *        | Staff    | Receive an email if rating fall before average                                                                 | Track my work progress and set reminder to myself to work harder          |
+ *        | Staff    | Set a rating goal                                                                                              | Strive to work harder to hit my promotion                                 |
+ *        | Staff    | Change command keywords                                                                                        | Use words i prefer                                                        |
+ *        | Staff    | Upload a display picture                                                                                       | Allow other users of the system to identify who I am                      |
+ *        | Staff    | Arrange for meetings with other staff                                                                          | Discuss project details with the other core members                       |
+ * * *      | HR User  | Add a new staff                                                                                                | Update the organisation’s structure appropriately                         |
+ * * *      | HR User  | Delete a staff                                                                                                 | Remove entries that no longer work here                                   |
+ * * *      | HR User  | Edit staff details                                                                                             | Update the staff position if he/she is promoted                           |
+ * *       | HR User  | Have different authorization settings for people                                                               | Staff can only use commands they should be able to                    |
+ * * *      | HR User  | Allocate staff to a department                                                                                 | Manage the manpower within the organization                               |
+ * * *      | HR User  | Allocate staff to a manager                                                                                    | Manage staff to manager                                                   |
+ * *       | HR User  | Set a salary for a staff                                                                                   | Maintain a record of the staff’s payroll                               |
+ * *       | HR User  | Know the number of staff in each department                                                                    | Plan for activities                                                       |
+ * * *      | Manager  | Be able to look for a particular staff information from a particular department                                | Search a list of contacts by tags                                         |
+ * * *      | Manager  | Be able to list the staff                                                                                      | View all the staff under my supervision                                   |
+ * *       | Manager  | Set work ratings & feedback for certain staff                                                                  | Evaluate the staff under me                                           |
+ * *       | Manager  | Update work ratings & feedback for certain staff                                                               | Edit the staff’s rating under me                                       |
+ * *       | Manager  | Sort by ratings                                                                                                | Reward the highly rated performers and identify the weaker ones           |
+ * *       | Manager  | Search by staff tags                                                                                        | Find the people I require more conveniently                               |
+ *        | Manager  | Receive notification to rate staff                                                                             | Remember to rate my staff and give timely feedback                        |
+ *        | Manager  | Receive notification of staff whose rating falls below average for 3 months consecutively under my supervision | Better manage my staff and find out if they need any help             |
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Ssenisub` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: view help page
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. A user logs into SSENISUB
+2. User keys in the keyword to display the help page
+3. SSENISUB displays the help page
++
+Use case ends
+
+[discrete]
+=== Use case: add staff
+
+*MSS*
+
+1. HR staff logs in to SSENISUB
+2. HR staff adds the staff details into SSENISUB
+3. SSENISUB shows success details of the add
++
+Use case ends
+
+*Extensions*
+[none]
+* 1b. User inputs wrong login information, receives warning
++
+Use case ends
+
+* 2b. Staff details already exists, receives a warning
++
+Use case ends
+[none]
+* 2c. User does not have authorization to add staff, receives warning
++
+Information of User gets sent to higher up in charge
++
+Use case ends
+
+[discrete]
+=== Use case: edit a staff information
+
+*MSS*
+
+1. HR staff logs in to SSENISUB
+2. HR staff searches for the staff to edit and selects it
+3. HR staff makes the necessary changes to the staff
+4. SSENISUB confirms with the HR staff the changes
+5. HR staff confirms and the changes are made
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a.  No staff are being displayed by SSENISUB
++
+Use case ends
+
+[discrete]
+=== Use case: delete staff
+
+*MSS*
+
+1.  User requests to list staff
+2.  SSENISUB shows a list of staff
+3.  User requests to delete a specific staff in the list
+4.  SSENISUB deletes the staff
 +
 Use case ends.
 
@@ -878,20 +1454,144 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. SSENISUB shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: remove staff
+
+*MSS*
+
+1. HR staff logs in to SSENISUB
+2. HR staff searches for the particular staff to remove
+3. HR inputs command to remove the staff
+4. SSENISUB confirms with the HR staff before removing the staff
+5. SSENISUB removes the staff and displays a success message
++
+Use case ends
+
+*Extensions*
+[none]
+* 3a. The staff cannot be found
++
+Use case ends
+
+[discrete]
+=== Use case: give staff feedback
+
+*MSS*
+
+1. Manager logs in to SSENISUB
+2. Manager requests to look for staff
+3. SSENISUB shows a list of staff
+4. Manager requests to update feedback for a particular staff
+5. SSENISUB updates feedback of staff
++
+Use case ends
+
+*Extensions*
+[none]
+* 3a. The list is empty, receives warning
++
+Use case ends     
+
+* 4a. The given index is invalid, SSENISUB shows an error message
++
+Use case ends
+
+* 4b. The given feedback contains profanity, SSENISUB shows an error message and the profanity found
++
+Use case ends
+
+[discrete]
+=== Use case: rate staff
+
+*MSS*
+
+1. Manager logs in to SSENISUB
+2. Manager requests to look for staff
+3. SSENISUB shows a list of staff
+4. Manager requests to update review of a particular staff
+5. SSENISUB updates review of staff
++
+Use case ends
+
+*Extensions*
+[none]
+* 3a. The list is empty, receives warning
++
+Use case ends     
+
+* 4a. The given index is invalid, SSENISUB shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: view personal ratings
+
+*MSS*
+
+1. Staff logs into SSENISUB
+2. Staff inputs keyword to view his own ratings
+3. SSENISUB displays the current user’s ratings and feedback (if any)
++
+Use case ends
+
+[discrete]
+=== Use case: search for staff
+
+*MSS*
+
+1. Staff logs in to SSENISUB
+2. Staff inputs the keyword to search followed by certain keywords pertaining to the staff.
+3. SSENISUB displays the list of staff that matches the keywords supplied.
++
+Use case ends
+
+*Extensions*
+[none]
+* 3a. SSENISUB shows no staff with the matching keywords
++
+Use case ends
+
+[discrete]
+=== Use case: sort ratings of staff
+
+*MSS*
+
+1. Manager logs into SSENISUB
+2. Manager displays all staff under him/her
+3. Manager inputs the command to sort the staff by their ratings
+4. SSENISUB sorts the staff by the user’s preference and displays
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. SSENISUB does not show any staff under the user
++
+Use case ends
+[none]
+
+[discrete]
+=== Use case: undo last action
+
+*MSS*
+
+1. User does some action on SSENISUB
+2. User enters the command to undo the last action made
+3. SSENISUB undo last action and tells user that previous action has been undone
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to hold up to 100,000 staff without a noticeable sluggishness in performance for typical usage.
+.  Should have a customizable personalized interface.
+. Should be able to change font size.
 
 [appendix]
 == Glossary
@@ -901,23 +1601,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -943,19 +1626,116 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+// tag::addStaffTC[]
+=== Adding a staff
 
-. Deleting a person while all persons are listed
+.. Prerequisites: Phone and email must be unique, it should not been used for any existing staff.
+... Test case: `add` n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 d/Tech m/Ben t/staff +
+   Expected: The command result panel should display that the person has been added with all the details. Timestamp
+   in the status bar is updated.
+... Test case: `add` n/John-Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 d/Tech m/Ben t/staff +
+   Expected: Error message will be shown in the command result panel - Names should only contain alphabetical
+   characters and spaces, and it should not be blank. Timestamp in the status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: Phone or email exists in SSENISUB
+... Test case: `add` n/Johnny p/98765432 e/johnny@example.com a/311, Clementi Ave 2, #02-25 d/Tech m/Ben t/staff +
+    Expected: Error message will be shown in the command result panel - This phone number is already in use.
+    Timestamp in the status bar remains the same.
+// end::addStaffTC[]
+
+=== Deleting a staff
+
+. Deleting a staff while all staff are listed
+
+.. Prerequisites: List all staff using the `list` command. Multiple staff in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No staff is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+// tag::selectStaffTC[]
+=== Selecting a staff
+
+. Selecting a staff while all staff are listed
+
+.. Prerequisites: List all staff using the `list` command. Multiple staff in the list.
+... Test case: `select 1` +
+   Expected: The details of the selected staff would be displayed on the staff display panel.
+... Other correct select commands to try: `select x` (where x is larger than 0 but less than the list size) +
+   Expected: Similar to previous.
+... Test case: `select 0` +
+   Expected: No staff would be selected and would display invalid message in the command result panel.
+... Other incorrect select commands to try: `select`, `select x` (where x is 0 or lesser than 0 or larger than the
+list size) +
+   Expected: Similar to previous.
+// end::selectStaffTC[]
+
+// tag::FindingStaffTC[]
+=== Finding staff
+
+. Finding staff by name
+
+.. Prerequisites: Having at least 1 staff.
+... Test case: Valid name +
+   Command: `find-n` John +
+   Expected: Staff/s with name John will be shown on the left panel.
+... Other correct find by name commands to try: `find-n Valid name` (where valid name contain alphabetical characters
+that are in SSENISUB) +
+   Expected: Similar as previous
+... Test case: Invalid name +
+   Command: `find-n` 123 +
+   Expected: No staff will be shown on the left panel.
+... Other find by name commands to try: `find-n Invalid name` (where invalid name contain alphanumeric
+characters or names that are not in SSENISUB) +
+   Expected: Similar as previous
+... Test case: Empty value +
+   Command: `find-n` +
+   Expected: Error message is shown in the command result panel.
+// end::FindingStaffTC[]
+
+// tag::FavouriteStaffTC[]
+=== Favouriting a staff
+
+. Favourite a staff while all staff are listed
+
+.. Prerequisites: List all staff using the `list` or `sort` command. Multiple staff in the list.
+.. Test case: `fav 3` +
+   Expected: Third contact is moved to the top of the list. Once on top of the list, the name of the staff changes color to yellow and a star is added next to it in the list panel on the left.
+.. Test case: `fav 0` +
+   Expected: No staff is favourited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect favourite commands to try: `fav`, `fav x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Favouriting a staff that is already favourited
+
+.. Prerequisites: List all staff using the `list` or `sort` command. Multiple staff in the list. First staff in the list favourited.
+.. Test case: `fav 1` +
+   Expected: Staff is already favourited. Error details shown in the status message. Status bar remains the same.
+//end::FavouriteStaffTC[]
+
+// tag::UnfavouriteStaffTC[]
+=== Unfavouriting a staff
+
+. Unfavourite a staff while all staff are listed
+
+.. Prerequisites: List all staff using the `list` or `sort` command. Multiple staff in the list. One or more staff is favourited.
+.. Test case: `unfav 1` +
+   Expected: First contact is moved back from the top of the list. The name of the staff changes color back from yellow and the star next to it is removed in the list panel on the left.
+.. Test case: `unfav 0` +
+   Expected: No staff is unfavourited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unfavourite commands to try: `unfav`, `unfav x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Unfavouriting a staff that is already not favourited
+
+.. Prerequisites: List all staff using the `list` or `sort` command. Multiple staff in the list. No staff in the list already favourited.
+.. Test case: `unfav 3` +
+   Expected: Staff is already unfavourited. Error details shown in the status message. Status bar remains the same.
+//end::UnfavouriteStaffTC[]
 
 === Saving data
 

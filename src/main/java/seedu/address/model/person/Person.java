@@ -10,30 +10,50 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in SSENISUB.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
+    //
 
     // Data fields
+    private final Department department;
+    private final Manager manager;
     private final Address address;
+    private final Salary salary;
+    private final OtHour otHours;
+    private final OtRate otRate;
+    private final PayDeductibles deductibles;
+    private final Rating rating;
+    private final Feedback feedback;
     private final Set<Tag> tags = new HashSet<>();
+    private boolean favourite;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Rating rating, Department department,
+                  Manager manager, Salary salary, OtHour hours, OtRate rate,
+                  PayDeductibles deductibles, Feedback feedback, Set<Tag> tags, boolean favourite) {
+        requireAllNonNull(name, phone, email, address, rating, department, manager, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.salary = salary;
+        this.otHours = hours;
+        this.otRate = rate;
+        this.deductibles = deductibles;
+        this.rating = rating;
+        this.department = department;
+        this.manager = manager;
+        this.feedback = feedback;
         this.tags.addAll(tags);
+        this.favourite = favourite;
     }
 
     public Name getName() {
@@ -52,12 +72,84 @@ public class Person {
         return address;
     }
 
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public OtHour getOtHours() {
+        return otHours;
+    }
+
+    public OtRate getOtRate() {
+        return otRate;
+    }
+
+    public PayDeductibles getDeductibles() {
+        return deductibles;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public boolean getFavourite() {
+        return favourite;
+    }
+
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if both persons have the same name.
+     */
+    public boolean hasSameName(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if both persons have the same phone number.
+     */
+    public boolean hasSamePhone(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getPhone().value.equals(getPhone().value);
+    }
+
+    /**
+     * Returns true if both persons have the same email.
+     */
+    public boolean hasSameEmail(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     /**
@@ -93,13 +185,22 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSalary().equals(getSalary())
+                && otherPerson.getOtHours().equals(getOtHours())
+                && otherPerson.getOtRate().equals(getOtRate())
+                && otherPerson.getDeductibles().equals(getDeductibles())
+                && otherPerson.getRating().equals(getRating())
+                && otherPerson.getDepartment().equals(getDepartment())
+                && otherPerson.getManager().equals(getManager())
+                && otherPerson.getFeedback().equals(getFeedback())
+                && otherPerson.getFavourite() == getFavourite()
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, rating, department, manager, feedback, tags, favourite);
     }
 
     @Override
@@ -112,9 +213,26 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Salary: ")
+                .append(getSalary())
+                .append(" OT Hours: ")
+                .append(getOtHours())
+                .append(" OT Rate: ")
+                .append(getOtRate())
+                .append(" Deductibles: ")
+                .append(getDeductibles())
+                .append(" Rating: ")
+                .append(getRating())
+                .append(" Department: ")
+                .append(getDepartment())
+                .append(" Manager: ")
+                .append(getManager())
+                .append(" Feedback: ")
+                .append(getFeedback())
+                .append(" Favourite: ")
+                .append(getFavourite())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
