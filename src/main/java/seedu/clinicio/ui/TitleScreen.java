@@ -39,7 +39,7 @@ public class TitleScreen extends UiPart<Region> {
     /**
      * Start the animation.
      */
-    public void startAnimation() {
+    void startAnimation() {
         transition.play();
     }
 }

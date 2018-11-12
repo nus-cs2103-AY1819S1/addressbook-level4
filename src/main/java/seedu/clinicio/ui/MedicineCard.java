@@ -23,16 +23,6 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label medicineName;
     @FXML
-    private Label medicineType;
-    @FXML
-    private Label effectiveDosage;
-    @FXML
-    private Label lethalDosage;
-    @FXML
-    private Label price;
-    @FXML
-    private Label quantity;
-    @FXML
     private Label id;
 
     public MedicineCard(Medicine medicine, int displayedIndex) {
@@ -40,11 +30,6 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         medicineName.setText(medicine.getMedicineName().medicineName);
-        medicineType.setText(medicine.getMedicineType().medicineType);
-        effectiveDosage.setText(medicine.getEffectiveDosage().medicineDosage);
-        lethalDosage.setText(medicine.getLethalDosage().medicineDosage);
-        price.setText(medicine.getPrice().medicinePrice);
-        quantity.setText(medicine.getQuantity().medicineQuantity);
     }
 
     @Override

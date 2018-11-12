@@ -116,6 +116,8 @@ public abstract class Statistics {
      * @return All data to be displayed.
      */
     public StatData getAllData() {
+        statData.resetSummaryValues();
+        statData.clearVisualizations();
         computeSummaryData();
         computeVisualizationData();
         return statData;

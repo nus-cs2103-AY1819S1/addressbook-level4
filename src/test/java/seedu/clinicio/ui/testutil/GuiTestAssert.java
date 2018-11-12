@@ -66,11 +66,6 @@ public class GuiTestAssert {
     public static void assertMedicineCardEquals(MedicineCardHandle expectedCard, MedicineCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getMedicineName(), actualCard.getMedicineName());
-        assertEquals(expectedCard.getMedicineType(), actualCard.getMedicineType());
-        assertEquals(expectedCard.getEffectiveDosage(), actualCard.getEffectiveDosage());
-        assertEquals(expectedCard.getLethalDosage(), actualCard.getLethalDosage());
-        assertEquals(expectedCard.getPrice(), actualCard.getPrice());
-        assertEquals(expectedCard.getQuantity(), actualCard.getQuantity());
     }
 
     /**
@@ -78,11 +73,6 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysMedicine(Medicine expectedMedicine, MedicineCardHandle actualCard) {
         assertEquals(expectedMedicine.getMedicineName().medicineName, actualCard.getMedicineName());
-        assertEquals(expectedMedicine.getMedicineType().medicineType, actualCard.getMedicineType());
-        assertEquals(expectedMedicine.getEffectiveDosage().medicineDosage, actualCard.getEffectiveDosage());
-        assertEquals(expectedMedicine.getLethalDosage().medicineDosage, actualCard.getLethalDosage());
-        assertEquals(expectedMedicine.getPrice().medicinePrice, actualCard.getPrice());
-        assertEquals(expectedMedicine.getQuantity().medicineQuantity, actualCard.getQuantity());
     }
 
     /**
