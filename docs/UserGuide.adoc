@@ -101,6 +101,7 @@ Examples:
 * `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/-`
 * `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC`
 
+[[listPersons]]
 === Listing all persons : `list`, alias `ls`
 
 Shows a list of all persons in the address book. +
@@ -311,7 +312,7 @@ Format: `generateLocation d/EVENT_DATE i/EVENT_INDEX`
 
 Examples:
 
-* `generateLocation d/2018-04-06 i/1`
+* `generateLocation d/2018-04-01 i/1`
 // end::suggestedMeetingLocation[]
 
 // tag::addEvent[]
@@ -396,6 +397,7 @@ Format: `seeEventContacts d/DATE(YYYY-MM-DD) i/EVENT_INDEX`
 
 [TIP]
 ====
+* To view all persons again after this command, use the <<listPersons, list>> command.
 * Event dates should be in the format YYYY-MM-DD
 * Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
 e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
@@ -412,6 +414,7 @@ and when hovering over the event contact.
 Example:
 
 * `seeEventContacts d/2018-04-01 i/1` +
+To view all persons again after this command, use the `list` command.
 //end::seeEventContacts[]
 
 image::see-event-contacts-1.PNG[Event contact display, width="790"]
@@ -420,6 +423,7 @@ image::see-event-contacts-1.PNG[Event contact display, width="790"]
  `seeEventContacts d/2018-04-01 i/1`
  The phone number of the person is edited, but is still the same person as the originally-added event contact.
  Hence, the system will show the edited event contact.
+ To view all persons again after this command, use the `list` command.
 
 image::see-event-contacts-2.PNG[Event contact display after edit, width="790"]
 
@@ -428,12 +432,14 @@ image::see-event-contacts-2.PNG[Event contact display after edit, width="790"]
  The edited is a different person from the originally-added event contact.
  There is no existing person in the system who is the same as the originally-added event contact.
  No persons are shown.
+ To view all persons again after this command, use the `list` command.
 
 image::see-event-contacts-3.PNG[Event contact display after edit, width="790"]
 
 * `delete 1` +
  `seeEventContacts d/2018-04-01 i/1`
 As `Alex` has been deleted, no persons are shown.
+To view all persons again after this command, use the `list` command.
 
 image::see-event-contacts-4.PNG[Event contact display after delete, width="790"]
 
@@ -792,6 +798,7 @@ Examples:
 
 * `unarchive group/CS2103Group`
 
+// tag::pratyayVersionTwo[]
 === Generate timing for a group's event/meeting : `generateTiming`
 
 Generates a possible meeting timing for a group's event/meeting based on all member's schedule and availability.
@@ -828,6 +835,7 @@ Examples:
 ====
 * This command works with both group events and user's own personal events.
 ====
+// end::pratyayVersionTwo[]
 
 == FAQ
 
@@ -850,7 +858,7 @@ Examples:
 // e.g. `createGroup group/CS2103Group`
 // * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
 // e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
-| *Show Faculty Location visually* | `showLocation INDEX` | `showLocation 5`
+| *Show Faculty location visually* | `showLocation INDEX` | `showLocation 5`
 | *Suggest Location* | `generateLocation d/EVENT_DATE i/EVENT_INDEX` | `generateLocation d/2018-01-14 i/1`
 | *Add Event* | `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) [a/EVENT_ADDRESS] [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 | `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`

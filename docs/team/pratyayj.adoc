@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Pratyay Jaidev - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,39 +9,63 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+EventsPlus+ is a desktop address book application catered for busy university students to manage their contacts, events, project meetings and ad-hoc events efficiently.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
+using a Command Line Interface (CLI). The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pratyayj[RepoSense]]
+* *Major enhancement*: added *location-related functionality*
+** What it does: The two features added provide the following: 1. the ability to visually display the faculty location of a contact on a map and 2. the ability to generate a (random) meeting location
+for events or meetings and display this location on a map.
+** Justification: Events cannot take place without a location set in place. Adding location-related functionality with respect to a contact's faculty and events
+improves the user experience significantly by providing the user one-stop location functionality without having to exit the application at all.
+** Highlights: A Faculty field is added to the Person class which is crucial given that this application is primarily targeted toward university students and thus such a field is necessary.
+Selecting which particular Google Maps API to be integrated into the application required careful consideration (the Embed API was eventually chosen for its flexibility with the JavaFX web browser).
+In the long run, the implementation of this foundational functionality allows for further development of other location-related features such as generating
+directions or generating convenient meeting locations (based on faculty locations) which is one of the features to be done in V2.0.
+** Credits: Google Maps Embed API was used for the map display.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+** Minor enhancements:
+*** Added a separate Location Display tab to display location-related information instead of using pre-existing Webpage tab:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
+*** Application opens maximized at launch:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/176[#176])
+*** Added simple default landing pages (when application is first launched) for Location Display tab and Webpage tab:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[134])
+*** Wrote and modified tests to increase coverage by 4.4%:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/191[191])
+
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.3.1` and `v1.4` on GitHub
+*** Managed issue tracker and helped close issues upon completion: (examples: https://github.com/CS2103-AY1819S1-W13-2/main/issues/50[50],
+ https://github.com/CS2103-AY1819S1-W13-2/main/issues/146[146],
+ https://github.com/CS2103-AY1819S1-W13-2/main/issues/152[152],
+ https://github.com/CS2103-AY1819S1-W13-2/main/issues/160[160],
+ https://github.com/CS2103-AY1819S1-W13-2/main/issues/170[170], amongst many others)
 
-_{you can add/remove categories in the list above}_
+
+** Documentation:
+*** Added non-functional requirements to Developer Guide:
+(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/69[#69])
+*** Edited and formatted use cases in Developer Guide:
+(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/172[#172], https://github.com/CS2103-AY1819S1-W13-2/main/pull/190[#190])
+
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177], https://github.com/CS2103-AY1819S1-W13-2/main/pull/183[#183]
+*** Reported bugs and suggestions for other teams in the class:
+(examples:  https://github.com/CS2103-AY1819S1-T13-1/main/issues/134[134], https://github.com/CS2103-AY1819S1-T13-1/main/issues/142[142],
+ https://github.com/CS2103-AY1819S1-T13-1/main/issues/144[144], https://github.com/CS2103-AY1819S1-T13-1/main/issues/159[159])
+
+
+** Tools:
+*** Integrated Google Maps API into the project: (Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
 
 == Contributions to the User Guide
 
@@ -50,7 +74,22 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=showFacultyLocation]
+
+=== Suggested Meeting Location : `generateLocation`
+
+Creates a randomly suggested location in NUS to meet up for an event
+(uniquely identified by date and event's index number).
+
+Format: `generateLocation d/EVENT_DATE i/EVENT_INDEX`
+
+Examples:
+
+* `generateLocation d/2018-04-01 i/1`
+
+=== Features coming up in future *V2.0*:
+
+include::../UserGuide.adoc[tag=pratyayVersionTwo]
 
 == Contributions to the Developer Guide
 
@@ -58,11 +97,6 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=showFacultyLocationDisplay]
+include::../DeveloperGuide.adoc[tag=generateMeetingLocation]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -424,6 +424,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 [[AddDeleteEvents]]
 //tag::addEventsHeader[]
+
 === Add/Delete Events feature
 
 ==== Current Implementation
@@ -440,8 +441,10 @@ doing so will also allow the developer to alter the definition of the different 
 `Event` class easily.
 
 //tag::eventDiagram[]
+
 image::Event.png[Event class]
-//tag::eventDiagram[]
+
+//end::eventDiagram[]
 
 //tag::addEvents[]
 ===== Adding/Deleting of an Event
@@ -499,7 +502,7 @@ For instance, when an `Event` is added (or deleted), the event triggers are hand
 
 image::add-event_event-trigger.png[Handling of triggered events]
 
-===== UI Events Display
+==== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
 Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
 we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
@@ -666,8 +669,9 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 
 [[filteringEvents]]
 //tag::filterEvents[]
+
 === Filtering of Events
-[[findEvent]]
+[[FindEvent]]
 ==== Find Event (by tag) feature
 ===== Current Implementation
 To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
@@ -696,7 +700,7 @@ To list all events, we make use of a `Predicate` which is always true (the `PRED
 
 image::list-event_logic-model.png[Interactions between Logic and Model, width="650"]
 
-The `UI` components are updated using a similar flow (by event triggers) to the <<findEvent, find event>> feature. +
+The `UI` components are updated using a similar flow (by event triggers) to the <<FindEvent, find event>> feature. +
 *Note:* The inclusion of the `EventDisplayPanelChangedEvent` is required in `Model#updateFilteredEventList`
 so that `TabPanel` can switch to the event tab automatically whenever any of these commands are executed,
 even if there is no change to data in the filtered list
@@ -785,7 +789,7 @@ image::ImportContactsSequenceDiagram.PNG[width="800"]
 The displaying of the a ``Person``'s faculty is facilitated by the newly added `Faculty` field in the `Person` class. This
 `Faculty` field is defined as a separate class (akin to other classes constituting the `Person` class such as `Email` and `Address`).
 
-During the adding of ``Person``'s to the EventsPlus+ address book, the `Faculty` class will ensure that the argument passed in is that of
+During the adding of ``Person``'s to EventsPlus+'s address book, the `Faculty` class will ensure that the argument passed in is that of
 a valid NUS faculty. It does this via an inner enum class called `Faculties` which stores as constants the only accepted `Faculty`
 argument values. The `isInEnum` method is used to check that the argument passed already exists as one of the constants.
 
@@ -802,8 +806,8 @@ The valid arguments allowed are namely:
 * YSTCOM (Yong Siew Toh Conservatory of Music)
 * FASS (Faculty of Arts and Social Sciences)
 
-A "-" response is also allowed as it is possible that the address book may indeed have contacts who are not in NUS at the
-current point in time.
+A "-" response is also allowed as it is possible that EventsPlus+'s address book
+ may indeed have contacts who are not students of NUS at the current point in time.
 
 The command used to display the faculty visually is `showLocation`.
 
@@ -813,13 +817,13 @@ on the map. For each faculty, these place IDs are stored in a newly created clas
 application. Together with the Google Maps API key, the place ID allows for the generation of the exact spot of the person's
 faculty to be displayed in the Location Display Tab.
 
-When the (correct) showLocation command is input together with the index of the individual whose faculty location is to be displayed,
+When the (correct) `showLocation` command is input together with the index of the individual whose faculty location is to be displayed,
 the index is first checked to determine if it is correct (more than 0 and not larger than the size of the list of contacts
-in the address book). Following this, the appropriate person is obtained from the `FilteredPersonList` (note: this is so as to allow
+in EventsPlus+'s addressbook). Following this, the appropriate person is obtained from the `FilteredPersonList` (this is so as to allow
 the displaying of the contact's faculty location even if the list is filtered).
 
 A event, `FacultyLocationDisplayChangedEvent`, also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
-Display Tab) and subsequently by `LocationDisplayPanel`. The status message will show "Selected person: [INDEX] faculty location being displayed."
+Display Tab) and subsequently by `LocationDisplayPanel`. The status message will show "Selected person: [INDEX]. Faculty location successfully displayed."
 
 If the contact has no faculty, a default location - University Hall - is displayed on the map.
 
@@ -831,7 +835,7 @@ image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
 
 // end::showFacultyLocationDisplay[]
 
-// tag::generateMeetinglocation[]
+// tag::generateMeetingLocation[]
 === Generate a random meeting location for event
 
 The generation of a random meeting location primarily builds upon the visual display of a ``Person``'s faculty. However
@@ -841,28 +845,28 @@ The command used to generate this possible meeting location is `generateLocation
 
 In order to generate a random location for an event, the user needs to input (in addition to the command) the
 event date and event index. This is to detect the unique event (because some events may have the same name) and to ensure
-that this event is currently in the address book.
+that this event is currently in EventsPlus+.
 
-Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
-these kind of commands. The GenerateLocationCommand object created will then consist of three fields:
+Command parsing is handled in a similar manner as other commands but there exists a specific `GenerateLocationCommandParser` to specifically parse
+these kind of commands. The GenerateLocationCommand object created will then consist of two fields:
 
 * Event date
 * Event index
 
 The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
-commands before the object is created. Following this, the address book is checked to determine whether this event does
-exist. If it does exist, the event name is retrieved and stored in the GenerateCommandLocation object.
+commands before the object is created. Following this, EventsPlus+ is checked to determine whether this event does
+exist. If it does exist, the event name is retrieved and stored in the `GenerateCommandLocation` object.
 The status message indicates that a meeting location (it will show the meeting name too) has been generated, if not it indicates to the user
 that such as event does not exist.
 
 A random meeting location is generated based on 7 locations (more will be added in future iterations) that have their Google Maps Place IDs stored in the `EmbedGoogleMaps` class.
 A call to the method that generates this location (more specifically, returns the Place ID of the location) is made in the execute
-method of the GenerateLocationCommand.
+method of GenerateLocationCommand.
 
 Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
 Display Tab) and subsequently by `LocationDisplayPanel`.
 
-For simplicity, only the logic and event handling section of the sequence diagram is shown below for generateLocation command:
+For simplicity, only the logic and event handling sections of the sequence diagram are shown below for the `generateLocation` command:
 
 image::generateLocation_EventsCenter_EmbedGoogleMaps_seqDiagram.png[width="800"]
 
@@ -1088,14 +1092,14 @@ Typical university student who
 
 Our enhanced Addressbook application will offer its users the following benefits:
 
-* Avoid contact duplication, so the user has a clean and well-maintained address book.
+* Avoid contact duplication, so the user has a clean and well-maintained contacts list.
 * Show location of a person's faculty visually, so that it is easier for user to see the location
 (and can even use the embedded Google Maps to show walking directions).
 * Provide suggested locations for events or meetings to prevent the need for the user to spend energy thinking
 about where the group can meet by providing a list of locations that can be considered.
 * Notifications to alert the user to favourited events
 * Allow the user to import contacts from an external source
-* Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
+* Allow the user to manage events neatly in EventsPlus+, so that he/she can avoid event clashes.
 
 [appendix]
 //tag::userStories[]
