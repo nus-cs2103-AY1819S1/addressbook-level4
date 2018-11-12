@@ -1038,11 +1038,23 @@ Prerequisites: Target deck must not already exist in Anakin. Renaming an existin
 
 . Enter the command `import DECK_FILEPATH` where `DECK_FILEPATH` is the relative filepath of the deck from the folder that Anakin.jar is in.
 
-. The deck should appear in Anakin.
+. Anakin should display an import success message and the deck should appear in the deck panel.
 
 . Navigating into the deck should display all the cards of that deck. (Assuming the deck was not empty)
 
 . Performing the same operation again should display an error that states "This deck already exist in Anakin"
+
+*Importing a file that is in the same folder as Anakin.jar*
+Prerequisites: Target must be in the same folder as Anakin.jar. Target deck must not already exist in Anakin. Renaming an existing deck is acceptable.
+
+. Enter the command `import DECK_NAME` where `DECK_NAME` is the name of the `.xml` file.
+
+. Anakin should display an import success message and the deck should appear in the deck panel.
+
+. Navigating into the deck should display all the cards of that deck. (Assuming the deck was not empty)
+
+. Performing the same operation again should display an error that states "This deck already exist in Anakin"
+
 
 *Importing from an invalid location*
 
