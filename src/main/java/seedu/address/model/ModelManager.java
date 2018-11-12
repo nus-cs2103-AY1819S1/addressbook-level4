@@ -23,12 +23,11 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -181,19 +180,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //===========Events ======================================================================================
     @Override
-    public void addEvent(Event event) throws NoUserLoggedInException {
+    public void addEvent(Event event) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
         event.setOrganiser(currentUser);
-        event.addPerson(currentUser);
+        event.addParticipant(currentUser);
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteEvent(Event target) throws NoUserLoggedInException, NotEventOrganiserException {
+    public void deleteEvent(Event target) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -208,8 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) throws
-            NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
+    public void editEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -220,11 +218,35 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NotEventOrganiserException();
         }
 
-        name.ifPresent(eventName -> currentEvent.setName(eventName));
-        location.ifPresent(eventLocation -> currentEvent.setLocation(eventLocation));
-        tags.ifPresent(eventTags -> currentEvent.setTags(eventTags));
-        versionedAddressBook.updateEvent(currentEvent, currentEvent);
+        Event editedEvent = createEditedEvent(name, location, tags);
+
+        if (hasEvent(editedEvent)) {
+            throw new DuplicateEventException();
+        }
+
+        versionedAddressBook.updateEvent(currentEvent, editedEvent);
         indicateAddressBookChanged();
+    }
+
+    /**
+     * Creates a new edited event based on the provided edit parameters.
+     */
+    private Event createEditedEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) {
+        EventName eventName = name.orElse(currentEvent.getName());
+        Address eventLocation = location.orElse(currentEvent.getLocation());
+        Set<Tag> eventTags = tags.orElse(currentEvent.getTags());
+        Event editedEvent = new Event(eventName, eventLocation, eventTags);
+
+        if (currentEvent.getDate().isPresent()) {
+            editedEvent.setDate(currentEvent.getDate().get());
+        }
+        if (currentEvent.getStartTime().isPresent() && currentEvent.getEndTime().isPresent()) {
+            editedEvent.setTime(currentEvent.getStartTime().get(), currentEvent.getEndTime().get());
+        }
+        editedEvent.setOrganiser(currentEvent.getOrganiser());
+        editedEvent.setPolls(currentEvent.getPolls());
+        editedEvent.setParticipantList(currentEvent.getParticipantList());
+        return editedEvent;
     }
 
     /**
@@ -275,8 +297,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public String addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
-            NotEventOrganiserException {
+    public String addPoll(String pollName) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -293,8 +314,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public String addTimePoll(LocalDate startDate, LocalDate endDate) throws NoUserLoggedInException,
-            NoEventSelectedException, NotEventOrganiserException {
+    public String addTimePoll(LocalDate startDate, LocalDate endDate) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -310,7 +330,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public String addPollOption(Index index, String option) throws NoEventSelectedException {
+    public String addPollOption(Index index, String option) {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
@@ -320,8 +340,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public String voteOption(Index index, String optionName) throws NoEventSelectedException,
-            NoUserLoggedInException, UserNotJoinedEventException {
+    public String voteOption(Index index, String optionName) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -334,8 +353,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setDate(LocalDate date) throws NoEventSelectedException, NoUserLoggedInException,
-            NotEventOrganiserException {
+    public void setDate(LocalDate date) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -350,8 +368,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTime(LocalTime startTime, LocalTime endTime) throws NoEventSelectedException,
-            NoUserLoggedInException, NotEventOrganiserException {
+    public void setTime(LocalTime startTime, LocalTime endTime) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
@@ -367,12 +384,12 @@ public class ModelManager extends ComponentManager implements Model {
 
 
     @Override
-    public void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException {
+    public void joinEvent(Index index) {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
         }
         Event event = getEvent(index);
-        event.addPerson(currentUser);
+        event.addParticipant(currentUser);
         updateEvent(event, event);
     }
 

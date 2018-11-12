@@ -45,14 +45,20 @@ public class EventAttributesPredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
-        return (date == null
-                || event.getDate().equals(date))
+        boolean datesAreEqual = (date == null
+                || (event.getDate().isPresent()
+                && event.getDate().get().equals(date)));
+
+        boolean startTimesAreEqual = (startTime == null
+                || (event.getStartTime().isPresent()
+                && event.getStartTime().get().equals(startTime)));
+
+        return datesAreEqual
                 && (name == null
                 || event.getName().equals(name))
                 && (address == null
                 || event.getLocation().equals(address))
-                && (startTime == null
-                || event.getStartTime().equals(startTime))
+                && startTimesAreEqual
                 && (organiser == null
                 || event.getOrganiser().equals(organiser))
                 && (participant == null

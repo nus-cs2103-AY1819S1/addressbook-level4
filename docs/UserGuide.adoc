@@ -485,6 +485,7 @@ Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`
 ****
 * This is a special type of poll which generates poll options based on the given date range and the schedules of the
 participants who have joined the event.
+* The time poll options represent 30 minute slots starting at the date and time specified. All event particpants must be free at that slot for it to be in the time poll.
 * The date with prefix `d1` represents the start of the given date range and `d2` represents the end of the date range.
 * The start date must not be after the end date, and the given dates must not be more than 30 days apart.
 * The time poll does not automatically update if a new user joins the event, and should be created only after all users have joined.
@@ -591,6 +592,7 @@ Format: `voteDate i/POLL_INDEX o/POLL_OPTION`
 * The index is the index of the poll in the pre-selected event.
 * The option specified must be in the poll.
 * User must have joined the event in order to vote.
+* A user may vote for multiple options in the poll.
 * Adding a vote may or may not change the most popular options list.
 ****
 
@@ -603,6 +605,19 @@ In the following example, `Alex Yeoh` has voted for `13 November`.
 Since it is the most popular option, `13 November` appears in the most popular options list.
 
 image::VoteOptionDisplay.png[width="800"]
+
+=== [Coming in v2.0] Leave event : `leaveEvent`
+Leaves event identified by event index in the event list. +
+Format: `leaveEvent INDEX`
+
+****
+* Login is required. The current user is removed from the participant lists and polls.
+* Event organisers may not leave the event they organised.
+****
+
+Examples:
+
+* `leaveEvent 2`
 
 === Listing entered commands : `history`
 
