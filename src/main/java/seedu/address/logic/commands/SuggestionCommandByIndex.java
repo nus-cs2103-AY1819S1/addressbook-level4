@@ -1,46 +1,35 @@
 package seedu.address.logic.commands;
 
-import java.util.ArrayList;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Grades;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 
 /**
  * Given suggestions to students.
  */
-public class SuggestionCommand extends Command {
-    public static final String COMMAND_WORD = "suggestion";
+public class SuggestionCommandByIndex extends Command {
+    public static final String COMMAND_WORD = "suggestionByIndex";
 
     public static final String MESSAGE_SUCCESS = "Suggestion provided as following";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Student name";
-    private String name;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Student index";
+    private int indexNum;
 
     /**
      * filter by grade command
      *
      * @param args
      */
-    public SuggestionCommand(String args) {
-        name = args.trim();
-        this.name = name;
+    public SuggestionCommandByIndex(String args) {
+        indexNum = Integer.parseInt(args);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
 
-        ArrayList<String> pplList = new ArrayList<>();
-        pplList.add(name);
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList));
-        Person targetPerson = model.getFilteredPersonList().get(0);
-        if (model.getFilteredPersonList().size() > 1) {
-            return new CommandResult("The name is not specific enough, you are adviced to use "
-                    + "SuggestionByIndex command (refer to userguide).");
-        }
+        Person targetPerson = model.getFilteredPersonList().get(indexNum-1);
 
         double averageGrade;
         double sumGrade = 0;
@@ -72,7 +61,7 @@ public class SuggestionCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SuggestionCommand
-                && name.equals(((SuggestionCommand) other).name));
+                || (other instanceof SuggestionCommandByIndex
+                && ((SuggestionCommandByIndex) other).indexNum == indexNum);
     }
 }

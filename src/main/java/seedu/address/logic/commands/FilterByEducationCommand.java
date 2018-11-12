@@ -24,7 +24,7 @@ public class FilterByEducationCommand extends FilterCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": FilterByEducation. "
             + "Parameters: "
-            + "Education Level";
+            + "Education Level in format: Secondary JC Primary";
 
     private String education;
 

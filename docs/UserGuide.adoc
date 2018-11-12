@@ -453,6 +453,27 @@ If the student has not taken any exam before
 No suggestion gonna be shown.
 ====
 
+=== Give Suggestions to students: `suggestionByIndex`
+
+Give Suggestions to students +
+Format: `suggestion index (base 1)`
+
+****
+* result: show the suggestions.
+****
+
+Examples:
+
+* `suggestion 1`
+Show the suggestion to the first student in the list according to his or her performance.
+
+[NOTE]
+====
+If the student has not taken any exam before
+No suggestion gonna be shown.
+====
+
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +

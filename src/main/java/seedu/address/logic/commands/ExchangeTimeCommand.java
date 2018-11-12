@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -18,10 +21,11 @@ public class ExchangeTimeCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Already exchanged the time"
             + " between the given students with given time!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": ExchangeTime. "
-            + "StudentA: "
-            + "The Ordinal number of the wanted time//base 0"
-            + "StudentB: "
-            + "The Ordinal number of the wanted time//base 0";
+            + "The Ordinal number of the wanted time of first student//base 0"
+            + "The Ordinal number of the wanted time of first student//base 0"
+            + PREFIX_NAME + "StudentA: "
+            + PREFIX_NAME + "StudentB: ";
+
 
     private String nameA;
     private String nameB;
@@ -34,15 +38,15 @@ public class ExchangeTimeCommand extends Command {
      * @param args
      */
     public ExchangeTimeCommand(String args) {
+
         String[] stringCommand = args.trim().split(" ");
-        if (stringCommand.length != 4) {
-            this.nameA = "invalid";
-        } else {
-            this.nameA = stringCommand[0];
-            this.numA = Integer.parseInt(stringCommand[1]);
-            this.nameB = stringCommand[2];
-            this.numB = Integer.parseInt(stringCommand[3]);
-        }
+        numA = Integer.parseInt(stringCommand[0]);
+        numB = Integer.parseInt(stringCommand[1]);
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+
+        nameA = argMultimap.getAllValues(PREFIX_NAME).get(0);
+        nameB = argMultimap.getAllValues(PREFIX_NAME).get(1);
     }
 
     @Override
@@ -75,11 +79,11 @@ public class ExchangeTimeCommand extends Command {
         // Execute the display of student's grades here
         requireNonNull(model);
 
-        if (numA >= targetPersonA.getTime().size() || numA <= 0) {
+        if (numA >= targetPersonA.getTime().size() || numA < 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 
-        if (numB >= targetPersonB.getTime().size() || numB <= 0) {
+        if (numB >= targetPersonB.getTime().size() || numB < 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 
