@@ -37,8 +37,8 @@ This enhancement is completely new and required an in-depth analysis of design a
 It was challenging as a complete understanding of all code components was needed so that it can be properly implemented.
 
 * *Minor enhancement*:
-* Added a command to allow users to *switch between panels*.
-* Created charts for the `overview` command.
+** Added a command to allow users to *switch between panels*.
+** Created charts for the `overview` command.
 
 * *Code contributed*:
 Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=imarbles[link]
