@@ -1719,14 +1719,3 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Delete the patient data file manually before starting the application +
 .. Expected: The application will start with the sample contact list.
 
-=== Generating documents
-
-. Generating medical certificate for a patient
-.. Prerequisites: The patient is in the Served Patient list.
-.. Test case: `mc 1` +
-.. Expected: Medical certificate is generated for the first patient in the Served Patient list.
-
-. Generating referral letter for a patient
-.. Prerequisites: The patient is in the Served Patient list.
-.. Test case: `refer 1` +
-.. Expected: Referral letter is generated for the first patient in the Served Patient list.
