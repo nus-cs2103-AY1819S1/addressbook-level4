@@ -33,7 +33,7 @@ image::chantca95.png[width="150", align="left"]
 {empty}[https://github.com/chantca95[github]] [<<alexchan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing, UI Component
+Responsibilities: Testing, UI Component, Documentation
 
 '''
 

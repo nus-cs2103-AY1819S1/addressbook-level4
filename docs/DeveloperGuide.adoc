@@ -491,6 +491,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 // tag::undoredo[]
 
+// tag::import[]
 === Import feature
 ==== Current Implementation
 The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file
@@ -530,6 +531,11 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::importActivityDiagram.png[width="400"]
 
+The following sequence diagram shows what happens when a user executes the `Import` Command (user input mode only,
+file browser mode omitted):
+
+image::ImportSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How import executes
@@ -542,7 +548,9 @@ entries with invalid formats
 ** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
 not cause import to crash.
 ** Cons: Higher coupling.
+// end::import[]
 
+// tag::export[]
 === Export feature
 ==== Current Implementation
 The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen
@@ -567,6 +575,10 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::ExportActivityDiagram.png[width="400"]
 
+The following sequence diagram shows what happens when a user executes the `Export` Command:
+
+image::ExportSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How export executes
@@ -575,6 +587,7 @@ image::ExportActivityDiagram.png[width="400"]
 Export makes use of model.getAddressBook() and the getPersonList method within.
 ** Pros: Easy to implement. Since we are only dealing with a ReadOnlyAddressBook, the state of InsuRen will not be altered.
 ** Cons: Only able to capture snapshots of the contact list. Not dynamically updated.
+// end::export[]
 
 // tag::addpicture[]
 === Add Picture feature
@@ -1115,7 +1128,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Mass Import Contact Details
+=== Use Case: Mass import contacts into InsuRen
 
 *MSS*
 
@@ -1126,7 +1139,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. No file at directory path or invalid file type (must be a csv)
+* 1a. File does not exist at directory path or invalid file type (must be .csv or .txt)
 +
 [none]
 ** 1a1. InsuRen shows an error message.
@@ -1134,18 +1147,18 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use Case: Export Email Addresses
+=== Use Case: Export contact list from InsuRen
 
 *MSS*
 
-1. User requests to export email addresses to a user-given directory.
-2. InsuRen compiles all emails into a csv, saves it in the given directory.
+1. User requests to export current state of InsuRen to a csv file whose name is given by the user.
+2. InsuRen compiles all contacts into a csv (with the given name), saves it in the root project/application directory.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. No file directory given
+* 1a. No file name given, or given file name does not contain .csv suffix
 +
 [none]
 ** 1a1. InsuRen shows an error message.

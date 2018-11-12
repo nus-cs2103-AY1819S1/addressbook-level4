@@ -266,6 +266,7 @@ Format: `exit`
 
 Shorthand: `q`
 
+// tag::import[]
 === Mass import contacts: `import`
 
 Import contacts from a csv file.
@@ -298,7 +299,8 @@ Example (user provides a file path):
 ** `import l/AddressbookCorrect.csv` (relative pathing).
 * Regardless which method is used, InsuRen will load contacts from the given csv file.
 * Each contact's Name, Phone, Email, Address, Meeting and Tag(s) fields must be keyed in the csv in that order.
-* All fields are optional, and can be left blank, except for Name.
+* All fields are optional, except for Name. Contacts with no Address, Phone etc. must have those fields left BLANK. Ie. the
+corresponding Excel cell MUST have nothing in it.
 * Any invalid entries (contacts with no name) will be ignored.
 * Examples of properly formatted csv files are shown below.
 
@@ -306,11 +308,13 @@ Example (user provides a file path):
 image::import-acceptable-csv.png[width="790"]
 +
 image::import-acceptable-csv2.png[width="790"]
+// end::import[]
 
+// tag::export[]
 === Export contact list: `export`
 
 Exports the current contact list into a csv file whose name is given as the second argument. The export file
- can be found in the root directory of the project. +
+ can be found in the root directory of the project/application. +
 Format: `export DESTINATION_FILE_NAME.csv`
 
 Shorthand: `x`
@@ -326,6 +330,7 @@ Example:
 InsuRen contacts are exported to `28Nov.csv`
 +
 image::exportedCsv.png[width="790"]
+// end::export[]
 
 // tag::schedule[]
 === Add meeting time: `schedule`
@@ -506,6 +511,9 @@ The first person in the list will now have image `denzelchung.png` from the `Git
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InsuRen folder.
 
+Alternatively, use the export command to get your current contact list and save it in portable storage (email, thumbdrive). Install InsuRen on the other computer
+and import the abovementioned csv file into your new computer's copy of InsuRen.
+
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
@@ -527,7 +535,7 @@ e.g.`select 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Import contacts* : `import` or `import l/FILE_PATH`
-* *Export email addresses* : `export DESTINATION_DIRECTORY`
+* *Export contacts* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
 * *Meetings* : `meetings [DD/MM/YY]`
 * *Add picture* : `​pic INDEX l/FILE_LOCATION`
