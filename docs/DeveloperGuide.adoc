@@ -1195,6 +1195,21 @@ Step 8. SidebarPanel responds to the ShowTagsRequestEvent with SidebarPanel#hand
 
 Step 9. The TitledPane with the matching name "Modules" is expanded to display all the tags listed under the Modules category.
 
+Below is a code snippet showing how the SidebarPanel handles a ShowTagsRequestEvent:
+
+----
+@Subscribe
+    public void handleShowTagsRequestEvent(ShowTagsRequestEvent e) {
+        String catName = e.getCategory();
+        ObservableList<TitledPane> titledPanes = accordion.getPanes();
+        for (TitledPane titledPane : titledPanes) {
+            if (titledPane.getText().equals(catName)) {
+                accordion.setExpandedPane(titledPane);
+            }
+        }
+    }
+----
+
 ==== Design Considerations
 
 ===== Aspect: How to update the tags on UI
