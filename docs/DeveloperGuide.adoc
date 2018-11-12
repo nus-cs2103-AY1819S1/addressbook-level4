@@ -117,8 +117,8 @@ This section describes the architecture and components of the application.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+_Figure 3.1.1: Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component:
 
@@ -150,24 +150,26 @@ Each of the four components:
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.1.2: Class Diagram of the Logic Component_
+
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
+_Figure 3.1.2: Component interactions for `delete 1` command (part 1)_
+
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
+_Figure 3.1.3: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -177,8 +179,9 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1: Structure of the UI Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -198,8 +201,8 @@ The `UI` component:
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1: Structure of the Logic Component_
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -216,14 +219,15 @@ A typical flow in the `Logic` component is given below:
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
+_Figure 3.3.2: Interactions Inside the Logic Component for the `delete 1` Command_
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+_Figure 3.4.1: Structure of the Model Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -244,8 +248,9 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1: Structure of the Storage Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -349,13 +354,17 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::compose[]
 === Email feature
-Written below is the implementation of the Email feature.
+Written below is the implementation of the Email feature and considerations in its design.
 
 ==== Current Implementation
+
+image::EmailActivityDiagram.png[width="1500"]
+_Figure 4.2.1.1: Activity diagram of_ `ComposeEmailList`.
 
 The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
 It allows `.eml` files to be created and saved onto the computer.
 The feature is facilitated by `EmailModel` and `EmailDirStorage`.
+A simple activity diagram depicting how `ComposeEmailList` works is shown above in Figure 4.2.1.1.
 It implements the following operations:
 
 * `EmailModel#saveComposedEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
@@ -364,7 +373,7 @@ It implements the following operations:
 These operations are exposed in the `Model` interface as `Model#saveComposedEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
 
 image::EmailSequenceDiagram.png[width="1500"]
-_Figure 4.2.1.1: Sequence diagram of_ `ComposeEmailList`.
+_Figure 4.2.1.2: Sequence diagram of_ `ComposeEmailList`.
 
 Given below is an example usage scenario and how the Compose feature behaves at each step:
 
@@ -496,6 +505,8 @@ The following sequence diagram shows how the add_all_day_event operation works:
 image::AddAllDayEventSeqDiagram.png[width="1500"]
 _Figure 4.3.1.2: Sequence diagram for add_all_day_event command_
 
+// end::calendar[]
+
 ====== Add_Event Command
 Given below is an example usage scenario and how the `add_event` command behaves at each step:
 
@@ -595,6 +606,8 @@ _Figure 4.3.1.5: Sequence diagram for view_calendar command_
 
 The following activity diagram summarizes what happens when a user executes a calendar command:
 
+// tag::calendarDesign[]
+
 image::CalendarCommandActivityDiagram.png[width="650"]
 _Figure 4.3.1.6: Activity diagram for budget command_
 
@@ -612,7 +625,8 @@ Hallper.
 
 https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
 The library is widely used and easy to understand so any new developer can easily extend the current features.
-// end::calendar[]
+
+// end::calendarDesign[]
 
 
 === Budget feature
@@ -756,7 +770,6 @@ the existing `ccabook.xml` with the updated CCA and its transaction entry.
 
 The following sequence diagram shows how the add transaction operation works:
 
-.Sequence diagram for update command
 image::AddTransCommandSequenceDiagram.png[width="1500"]
 __Figure 4.4.1.3: Sequence diagram for add_trans command_
 
@@ -1218,8 +1231,8 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.3.1: Saving documentation as PDF files in Chrome_
 
 [[Docs-SiteWideDocSettings]]
 === Site-wide documentation settings
@@ -1230,7 +1243,7 @@ The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-spec
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of site-wide attributes
+_Table 5.4.1: List of site-wide attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -1262,7 +1275,7 @@ Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built
 Attributes left unset in `.adoc` files will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of per-file attributes, excluding Asciidoctor's built-in attributes
+_Table 5.5.1: List of per-file attributes, excluding Asciidoctor's built-in attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -1722,8 +1735,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -2281,16 +2292,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 *  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 *  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 *  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -2329,11 +2336,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a Person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all persons are listed.
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
@@ -2343,12 +2349,73 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Composing an Email to All Currently Listed Residents
 
-=== Saving Data
+. Deleting an email while all persons are listed.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of the first and second contact as recipients of the email.
 
-_{ more test cases ... }_
+.. Test case: `compose_email_list from/john@gmail.com to/100 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+.. Test case: `compose_email_list from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+. Deleting an email while no persons are listed.
+
+.. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
+
+.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Clearing Persons
+. Clearing persons while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `clear soccer` (where `soccer` exists in list) +
+   Expected: Person(s) associated with `soccer` is/are cleared from the list.
+.. Test case: `clear A123` (where `A123` exists in list) +
+   Expected: Person(s) associated with `A123` is/are cleared from the list.
+.. Test case: `clear soccer A123` (where `soccer` and/or `A123` exist in list) +
+   Expected: Person(s) associated with `soccer` or `A123` is/are cleared from the list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No person(s) are deleted. No persons cleared message displayed.
+
+=== Erasing CCAs
+. Erasing CCAs while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `erase basketball` (where `basketball` exists in list) +
+   Expected: `basketball` is removed from associated person(s) in list.
+.. Test case: `clear basketball soccer` (where `basketball` and `soccer` exist in list) +
+   Expected: `basketball` and `soccer` are removed from associated person(s) in list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No CCA is erased. No CCAs erased message displayed.
+
+=== Exporting data
+. Exporting Hallper persons to the computer.
+
+.. Prerequisites: `C://Users/Me/Documents` and `~/Desktop` are valid, accessible paths.
+.. Test case: `export dst/C://Users/Me/Documents fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `C://Users/Me/Documents`.
+.. Test case: `export dst/~/Desktop fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `~/Desktop`.
+.. Test case: `export dst/~/Desktop fn/export.txt` +
+   Expected: Data not exported. Invalid file type message displayed.
+
+
+=== Importing data
+. Importing data files from computer to update Hallper.
+
+.. Prerequisites: Data files created in accessible path on computer with valid format and named `import.xml`.
+   Refer to User Guide Section 4.1.9 for valid data formats. `C://Users/Me/Documents` and `~/Desktop` are valid,
+   accessible paths.
+.. Test case: `import dst/C://Users/Me/Documents/import.xml` +
+   Expected: Data imported from `import.xml` in `C://Users/Me/Documents`.
+.. Test case: `import f/~/Desktop/import.xml` +
+   Expected: Data imported from `import.xml` in `~/Desktop`.
+.. Test case: `import f/C://Users/Me/Documents/import.txt` +
+   Expected: Data not imported. Invalid file type message displayed.
