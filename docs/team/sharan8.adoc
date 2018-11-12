@@ -84,8 +84,8 @@ include::../UserGuide.adoc[tag=exportcert-sharan-ppp]
 == Contributions to the Developer Guide
 
 |===
-|_Given below is an excerpt from the section I contributed to the Developer Guide pertaining to my implementation of the `exportcert` feature. It showcases my ability to write technical
-documentation aimed at allowing developers to understand my implementation of the feature, including design decisions made. It also showcases the technical depth of my contributions to the project, along with my ability to critically analyse design considerations._
+|_Given below is an excerpt from the section I contributed to the Developer Guide. It showcases my ability to write technical
+documentation which showcases the technical depth of my contributions to the project, along with my ability to critically analyse design considerations._
 |===
 
 include::../DeveloperGuide.adoc[tag=exportcert-sharan-ppp]
