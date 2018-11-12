@@ -41,10 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
     public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
     public static final String VALID_DESCRIPTION_ASSIGNMENT = "greedy algorithm";
-    public static final String VALID_VENUE_LECTURE = "Block 312, Amy Street 1";
-    public static final String VALID_VENUE_TUTORIAL = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_VENUE_LECTURE = "i3 Auditorium";
+    public static final String VALID_VENUE_TUTORIAL = "COM1 02-09";
+    public static final String VALID_TAG_LECTURE = "lecture";
+    public static final String VALID_TAG_TUTORIAL = "tutorial";
     public static final String VALID_START_DATETIME_LECTURE = "2018-10-16 14:00";
     public static final String VALID_END_DATETIME_LECTURE = "2018-10-16 16:00";
     public static final String VALID_START_DATETIME_LECTURE_2 = "2018-11-15 16:00";
@@ -76,8 +76,8 @@ public class CommandTestUtil {
     public static final String END_DESC_TUTORIAL = " " + PREFIX_END + VALID_END_DATETIME_TUTORIAL;
     public static final String VENUE_DESC_LECTURE = " " + PREFIX_VENUE + VALID_VENUE_LECTURE;
     public static final String VENUE_DESC_TUTORIAL = " " + PREFIX_VENUE + VALID_VENUE_TUTORIAL;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     public static final String TITLE_1 = "CS100";
@@ -119,11 +119,11 @@ public class CommandTestUtil {
         DESC_LECTURE = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
             .withDescription(VALID_DESCRIPTION_LECTURE).withStart(VALID_START_DATETIME_LECTURE)
             .withEnd(VALID_END_DATETIME_LECTURE).withVenue(VALID_VENUE_LECTURE)
-            .withTags(VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_TUTORIAL).build();
         DESC_TUTORIAL = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
             .withDescription(VALID_DESCRIPTION_TUTORIAL).withStart(VALID_START_DATETIME_TUTORIAL)
             .withEnd(VALID_END_DATETIME_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL).build();
     }
 
     /**
@@ -177,7 +177,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Scheduler expectedScheduler = new Scheduler(actualModel.getScheduler());
-        List<CalendarEvent> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCalendarEventList());
+        List<CalendarEvent> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedCalendarEventList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -187,7 +187,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedScheduler, actualModel.getScheduler());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCalendarEventList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedCalendarEventList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -224,13 +224,13 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showCalendarEventAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCalendarEventList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAndSortedCalendarEventList().size());
 
-        CalendarEvent calendarEvent = model.getFilteredCalendarEventList().get(targetIndex.getZeroBased());
+        CalendarEvent calendarEvent = model.getFilteredAndSortedCalendarEventList().get(targetIndex.getZeroBased());
         final String[] splitTitle = calendarEvent.getTitle().value.split("\\s+");
         model.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(splitTitle[1])));
         // fuzzy search may cause the size to be more than 1, e.g. CS2103 and CS2104 are similar words
-        assertEquals(1, model.getFilteredCalendarEventList().size());
+        assertEquals(1, model.getFilteredAndSortedCalendarEventList().size());
     }
 
     /**
@@ -251,7 +251,7 @@ public class CommandTestUtil {
      * Deletes the first calendar event in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstCalendarEvent(Model model) {
-        CalendarEvent firstCalendarEvent = model.getFilteredCalendarEventList().get(0);
+        CalendarEvent firstCalendarEvent = model.getFilteredAndSortedCalendarEventList().get(0);
         model.deleteCalendarEvent(firstCalendarEvent);
         model.commitScheduler();
     }
