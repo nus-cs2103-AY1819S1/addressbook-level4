@@ -425,7 +425,9 @@ Note: Further elaboration of the above implementation is discussed within the `D
 
 ==== Design Considerations
 
-Why it is non-trivial: For the feature to work coherently with `undo`/`redo` as well as `edit` an entire new replica of state
+Why it is non-trivial:
+
+* For the feature to work coherently with `undo`/`redo` as well as `edit` an entire new replica of state
 of `TheTracker` must be created with the relevant entities bi-directionally inserted after this command has been executed.
 In accordance with this logic, two such methods were introduced to facilitate this feature's functionality. The first is
 the method `makeDeepDuplicate`, the following class diagram shows how the method works in relation to calling `makeDeepDuplicate`
