@@ -93,7 +93,7 @@ public class SelectEventCommandTest {
     }
 
     /**
-     * Executes a {@code SelectEventCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code SelectEventCommand} with the given {@code index} and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
