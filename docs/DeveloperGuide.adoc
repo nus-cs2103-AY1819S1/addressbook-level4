@@ -1503,64 +1503,91 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: Sorting students by grades
+
+// tag::grades1[]
+=== Use case: add grade records for the student when creating a new student
 
 *MSS*
 
-1. User requests to sort students by grades in a exam
-2. System display the relevant information sorted
-+
+1. User indicate the names of the exams and the scores when adding a student.
+2. System add the student with some grade records.
 Use case ends
 
 *Extensions*
 
 [none]
-* 1a. User did not indicate the exam or indicate a wrong exam number
+* 1a. User inputs an invalid score.
 +
 [none]
-** 1a1. System display the list of exams.
+** 1a1. System displays an error message.
 +
-** 1a2. User choose one exam.
+** 1a2. System prompts user for a corrected input.
 +
-** 1a3. System display the relevant information sorted.
-+
-Use case ends.
+Use case resumes from step 2.
+// end::grades1[]
 
-*** 1a2a. User choose a wrong number of exam.
-+
-[none]
-**** 1a2a1. System print a warning of “wrong input”.
-+
-Use case ends.
-
-=== Use case: Listing grades of a student
+// tag::grades2[]
+=== Use case: add or edit grade record for a student using edit
 
 *MSS*
 
-1. User request to listing grades of a student
-2. System display the list
-+
+1. User indicate the index of the student and the grade record when editing a student.
+2. System edit the student with some grade records.
 Use case ends
 
 *Extensions*
 
 [none]
-* 1a. User did not indicate the student or indicate a wrong student.
+* 1a. User inputs an invalid score.
 +
 [none]
-** 1a1. System display the list of students.
+** 1a1. System displays an error message.
 +
-** 1a2. User choose one student.
+** 1a2. System prompts user for a corrected input.
 +
-** 1a3. System display the list of grades.
-+
-Use case ends.
+Use case resumes from step 2.
 
-*** 1a2a. User choose a wrong number of student.
+[none]
+* 1b. User input a non-existing exam name.
 +
-**** 1a2a1. System print a warning of “wrong input”.
+[none]
+** 1b1. System add a new grade record for the student.
 +
-Use case ends.
+Use case ends
+// end::grades2[]
+
+// tag::grades3[]
+=== Use case: delete a grade record
+
+*MSS*
+
+1. User indicate the index of the student and the exam name.
+2. System delete the grade record from the student.
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs a non-existing exam name.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+[none]
+* 1b. User input command in error format.
++
+[none]
+** 1b1. System displays an error message.
++
+** 1b2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::grades3[]
+
 
 [appendix]
 == Non Functional Requirements
