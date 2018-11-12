@@ -827,12 +827,24 @@ Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
 
 ==== `add-reservation` Command
 The command takes in 3 parameters, `Name`, `Pax`, and `DateTime` to create a `Reservation` object.
+[NOTE]
+====
+The `Date` class will reject dates that have already passed the current date
 
-When parsing the `Date` for `Reservation`, the `Date` class will check to see if the date entered is in the
-`DD-MM-YYYY` format. If it is, then it will continue to parse the date normally using the parse method of `LocalDate`.
-If not, it will use the `Natty` Library to parse the date value.
+Dates are parsed using the `Natty` Library
+====
 
-The `Date` class will also reject dates that have already passed the current date.
+[WARNING]
+====
+Due to the way `Natty` is implemented, `Natty` will try to parse dates in `MM-DD-YYYY` format +
+i.e. `03-11-2019` will be parsed as `11th March` instead of `3rd November`
+
+As a temporary workaround, the `Date` class will  check to see if the date entered is in the
+`DD-MM-YYYY` format
+
+If it is, then it will be parsed using `LocalDate.parse()` +
+If not, it will continue use the `Natty` Library to parse the date value
+====
 
 After the `Reservation` Object is created, `RestaurantBook#addReservation(Reservation reservation)` is called to add the
 `Reservation` Object to the `UniqueReservationsList`.
