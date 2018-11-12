@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,26 +25,55 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_SELF_FAILURE = "You cannot delete yourself";
 
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
+        requiredPermission.addPermissions(Permission.DELETE_EMPLOYEE);
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        int state = model.getState();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (state == 1) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
+                throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
+            }
+
+            model.deletePerson(personToDelete);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        } else if (state == 2) {
+            List<Person> lastShownList = model.getArchivedPersonList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
+                throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
+            }
+
+            model.deleteFromArchive(personToDelete);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        } else {
+            return null;
         }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     @Override

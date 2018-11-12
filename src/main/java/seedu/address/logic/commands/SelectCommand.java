@@ -34,16 +34,27 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        List<Person> filteredPersonList;
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        if (model.getState() == 1) {
+            filteredPersonList = model.getFilteredPersonList();
+        } else if (model.getState() == 2) {
+            filteredPersonList = model.getArchivedPersonList();
+        } else {
+            filteredPersonList = null;
+        }
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        if (model.getState() == 1) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex, 1));
+        } else if (model.getState() == 2) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex, 2));
+        }
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

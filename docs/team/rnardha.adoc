@@ -1,0 +1,92 @@
+= Raynard Hadiwidjaja - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+
+---
+
+== Overview
+
+OASIS is an employee management application that is suitable for small-to-medium sized enterprises. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster compared traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
+
+== Summary of contributions
+
+The following section highlights my major and minor contributions to OASIS:
+
+*Code Contributed:* [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=rnardha&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Reposense]]
+
+* *Major enhancement: Assignment Management*
+** *Adding new assignment:* `addasignment`
+*** What it does: This command allows authorized users to create new assignment.
+*** Justification: This function allows authorized user to computirized assignment documents, which would assist in easy retrieval as well as reduces paper waste.
+
+** *Delete assignment:* `deleteassignment`
+*** What it does: This command allows authorized users to delete assignment from the system when it is no longer needed.
+*** Justification: Having an overwhealming number of data might not necessarily be good.
+Especially, when the data is no longer important. Therefore, when the assignment data is
+not used anymore, it can be remove from the system.
+
+** *Edit assignment:* `editassignment`
+*** What it does: This allows authorized users to make changes to existing
+assignment documents.
+*** Justification: Making changes in order to document improvement will be needed during the course of the assignment.
+
+** *List assignments:* `listassignments`
+*** What it does: This allows the user to view all the existing assignments in
+the system.
+*** Justification: This will enable the users to search for infomation of the assignment
+they are working on.
+
+** *Highlights:* Being the first time working in a medium-sized project and making improvements to the existing implementation, I picked up
+many technical and writing skills. Prior understanding of the model and interaction of the components is also needed, However, the most
+important lesson I learnt is the importance of writing clear documentation. It is because with clear documentation, collaborating with others
+is easier.
+
+* *Minor enhancement:*
+** Keyboard Shortcuts
+*** What it does: With valid key combinations, command word corresponding to the
+key pressed will be written into the command box.
+*** Justification: Frequent users could access commonly used commands quickly.
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Update `AddCommand` to accept new person with assignment, if and only if
+the assignments exist withing the system.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/184[#184])
+*** Wrote additional tests for existing features implemented by me.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/116[#116])
+** Community:
+*** Reported bugs and suggestions for other teams in the class
+(examples:  https://github.com/CS2103-AY1819S1-T13-4/main/issues/175[#1],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/152[#2],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/154[#3],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/156[#4],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/159[#5],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/161[#6],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/168[#7])
+** Documentation:
+*** Updated Model and UI diagram.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation with minimal technical terms targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=assignment]
+
+include::../UserGuide.adoc[tag=keyboardshortcuts]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=assignment]
+
+include::../DeveloperGuide.adoc[tag=keyboardshortcuts]

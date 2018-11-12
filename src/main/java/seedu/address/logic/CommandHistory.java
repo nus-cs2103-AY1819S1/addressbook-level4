@@ -28,6 +28,13 @@ public class CommandHistory {
     }
 
     /**
+     * Resets the history of the program such that there is no history.
+     */
+    public void resetHistory() {
+        userInputHistory.clear();
+    }
+
+    /**
      * Returns a defensive copy of {@code userInputHistory}.
      */
     public List<String> getHistory() {

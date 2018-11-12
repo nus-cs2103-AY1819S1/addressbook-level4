@@ -3,12 +3,13 @@ package seedu.address.ui.testutil;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import guitests.guihandles.AssignmentCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -19,11 +20,20 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
+        assertEquals(expectedCard.getSalary(), actualCard.getSalary());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(AssignmentCardHandle expectedCard, AssignmentCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getProjectName(), actualCard.getProjectName());
+        assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
+        assertEquals(expectedCard.getDescription(), actualCard.getDescription());
     }
 
     /**
@@ -33,9 +43,7 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+        assertEquals(expectedPerson.getSalary().value, actualCard.getSalary());
     }
 
     /**
@@ -70,5 +78,14 @@ public class GuiTestAssert {
      */
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedAssignment}.
+     */
+    public static void assertCardDisplaysAssignment(Assignment expectedAssignment, AssignmentCardHandle actualCard) {
+        assertEquals(expectedAssignment.getAssignmentName().fullProjectName, actualCard.getProjectName());
+        assertEquals("Author: " + expectedAssignment.getAuthor().fullName, actualCard.getAuthor());
+        assertEquals("Description: " + expectedAssignment.getDescription().value, actualCard.getDescription());
     }
 }

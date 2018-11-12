@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "ChooJeremy",
+      "displayName": "JEREM...UN KA",
+      "authorNames": ["ChooJeremy", "Jeremy Choo", "Jeremy"]
+    },
+    {
+      "githubId": "elliottan",
+      "displayName": "ELLIO...W HAN",
+      "authorNames": ["elliottan", "Elliot Tan"]
+    },
+    {
+      "githubId": "KokJianYu",
+      "displayName": "KOK J...AN YU",
+      "authorNames": ["KokJianYu", "Kok Jian Yu"]
+    },
+    {
+      "githubId": "RnardHa",
+      "displayName": "RAYNA...DJAJA",
+      "authorNames": ["RnardHa", "Raynard"]
+    },
+    {
+      "githubId": "jroberts91",
+      "displayName": "DE JE...UZMAN",
+      "authorNames": ["jroberts91", "Laptop-Josh Jr", "joshrobert"]
+    }
+  ]
+}

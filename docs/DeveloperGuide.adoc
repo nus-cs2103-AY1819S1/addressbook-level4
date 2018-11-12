@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,11 +13,23 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
+
+== Introduction
+
+=== What is OASIS?
+
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
+
+=== Architectural Overview
+
+This document describes the design, implemented features and possible features that could be implemented in OASIS. These could serve as guidelines for future developers. Happy Programming!!
 
 == Setting up
+
+It is time to start, follow the instructions below to get your developing environment ready.
 
 === Prerequisites
 
@@ -47,10 +59,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -78,9 +90,9 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:https://github.com/CS2103-AY1819S1-F10-1/main/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -106,6 +118,7 @@ When you are ready to start coding,
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -114,9 +127,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -144,6 +157,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
@@ -165,16 +179,17 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The sections below give more details of each component.
 
 [[Design-Ui]]
+
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -183,6 +198,7 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -190,7 +206,7 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -203,12 +219,13 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
+
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -217,18 +234,14 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
-
 [[Design-Storage]]
+
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -236,6 +249,7 @@ The `Storage` component,
 * can save the Address Book data in xml format and read it back.
 
 [[Design-Commons]]
+
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
@@ -324,12 +338,727 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+//tag::commandautocomplete[]
+=== Command Auto Complete
 
-_{Explain here how the data encryption feature will be implemented}_
+When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
 
-// end::dataencryption[]
+==== Current Implementation
+
+Auto complete functionality in OASIS is supported by both `org.controlsfx.control.textfield.TextFields` API and `AutoCompleteCommandHelper` class.
+
+When text is typed into the Command Box (`commandTextField` object), it will display a drop down list of possible commands, that is retrieved from `AutoCompleteCommandHelper` class.
+
+* `org.controlsfx.control.textfield.TextFields` API is utilised to display the drop down list.
+
+* `AutoCompleteCommandHelper` class is used to generate the `Set` of possible commands with the input given in `CommandBox`.
+
+
+===== Aspect: Logic & UI
+When `CommandBox` class is being constructed, `bindAutoCompletion` method provided by `TextFields` API will be utilised to create an auto-completion binding between the `commandTextField` object and `AutoCompleteCommandHelper#autoCompleteWord` method.
+
+With this binding, whenever `commandTextField` is updated, it will display a drop down list of possible commands retrieved from `AutoCompleteCommandHelper#autoCompleteWord` if it exist.
+
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Make use of `TextFields` API
+
+** Pros: Easy to implement.
+
+** Pros: Can view ALL possible commands.
+
+** Cons: There is a slight delay before the drop down list appear. Can potentially slow down users who type fast.
+
+* Alternative 2: Immediately place predicted command as text into `commandTextField`.
+
+** Pros: No delay, predicted command is immediately displayed.
+
+** Cons: Only able to view 1 possible command.
+
+//end::commandautocomplete[]
+
+// tag::permissionsystem[]
+=== Permission System
+There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees.
+Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS.
+
+==== Current implementation
+
+===== Aspect: Model
+Model of a person have been changed to reflect the permission that each user possesses.
+
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
+
+image::permissionPersonModel.png[width="750"]
+
+* `Permission` class contains the all possible Permissions that are available to a Person.
+
+* All values in `PermissionSet` must be from `Permission` class.
+
+* `PresetPermission` is a enumeration class that resides in `PermissionSet`. `PresetPermission` is utilised by `PermissionSet` class to generate a `PermissionSet` object that represents the set of permission that a certain type of User will possess.
+
+[NOTE]
+As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Manager` and `Employee`.
+
+===== Aspect: Storage
+Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
+
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
+
+image::permissionStorage.png[width="350]
+
+===== Aspect: Logic
+Commands will be required to populate a `requiredPermission:PermissionSet` object with all `Permission` the command requires user to have to execute the command.
+
+The following is an example on how to assign permission to a Command.
+
+.AddCommand.java
+[source,java]
+----
+public AddCommand(Person person) {
+    requireNonNull(person);
+    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE); <1>
+    toAdd = person;
+}
+----
+<1> The method to assign permission to a command
+
+The code to ensure that each command is only executed by user with the correct permission is located in `Command#execute`.
+
+When any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object, before performing the command.
+
+Given below is an example scenario of how commands will be executed.
+
+Step 1. The user enters a command `delete 1` into the CLI.
+
+Step 2. The system retrieves current user's `PermissionSet`
+
+Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requiredPermission`.
+
+* Two different cases
+
+** User have required permissions, execute command.
+
+** User don't have required permissions, show error message.
+
+The following activity diagram summarizes what happens when a user executes a command.
+
+image::permissionCommandActivityDiagram.png[width="450"]
+
+==== Design Considerations
+
+* Alternative 1 (Current Implementation): Assign permission to each individual user and restrict commands executable by user based on permission assigned.
+
+** Pros: Easy to control the commands a user can access.
+
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
+
+* Alternative 2: Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
+The commands executable by the user will depend on their class.
+
+** Pros: Easy to implement. Only require small modification in existing classes.
+
+** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+// end::permissionsystem[]
+
+// tag::modifypermission[]
+=== Supporting commands for Permission System
+
+The following are commands that have been implemented to support the Permission System.
+
+==== Modify Permissions of employee
+
+This feature allows the user to change the Permission that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+===== Current Implementation
+
+This feature allows the user to indicate what permission to add and remove based on the prefix.
+
+* `-a PERMISSION_TO_ADD` to add permission
+* `-r PERMISSION_TO_REMOVE` to remove permission
+
+====== Aspect: Logic
+
+To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which is used to retrieve the `index` of the targeted employee.
+
+All the keywords is then added to either `permissionToAdd:Set<Permission>` or `permissionToRemove:Set<Permission>` depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
+
+[NOTE]
+A ParseException will be thrown if any of the permission names are invalid.
+
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission from `permissionToAdd` and removing permissions from `permissionToRemove`.
+
+[NOTE]
+The command will be executed successfully if at least one permission is added or removed.
+
+The following is a sequence diagram that visualizes how this operation works.
+
+image::modifyPermissionSequenceDiagram.png[width="700"]
+
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Allow both adding and removing of multiple permissions with one command with the use of prefixes.
+
+** Pros: Only need to learn how to use 1 command. Can perform both adding and removing of permissions with a single command.
+
+** Cons: Harder to implement then other alternatives.
+
+* Alternative 2: Create 2 separate commands to handle adding and removing of permission. (E.g. `AddPermissionCommand` and `RemovePermissionCommand`)
+
+** Pros: Easy to implement.
+
+** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
+// end::modifypermission[]
+
+// tag::viewpermission[]
+
+==== View Permissions of employee
+
+This feature allows the user to view the permissions that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
+
+===== Current Implementation
+To use this command, the user only have to give an `INDEX` parameter.
+
+====== Aspect: Logic
+
+To process this command, `ViewPermissionCommandParser` simply utilise `ParserUtil#parseIndex` to parse the argument into the `index` of the target employee.
+
+The index will then be used to create a `ViewPermissionCommand`.
+
+When `ViewPermissionCommand` is executed, it will retrieve the targeted employee from the `Model`, and print out the list of permission that the employee possesses.
+
+The following is a sequence diagram that visualizes how this operation works.
+
+image::viewPermissionSequenceDiagram.png[width="700"]
+
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Display permissions in the command box result text field.
+
+** Pros: Easy to implement.
+
+** Cons: Can only view permissions of a single employee at a time.
+
+* Alternative 2: Display all permissions in the Person card.
+
+** Pros: Able to view all permissions, of all employee in one go.
+
+** Pros: No commands required.
+
+** Cons: Person card can get very cluttered if employee have many permissions.
+
+// end::viewpermission[]
+
+// tag::keyboardshortcuts[]
+=== Command Shortcuts
+
+With various keyboard combinations user will be able to access command keywords quickly.
+
+==== Current Implementation
+
+Keyboard shortcuts in OASIS is implemented using KeyEvent handler within the `CommandBox` class.
+
+When valid key combination is pressed, the text in the command box will be replaced with the corresponding command word.
+
+==== Aspect: Logic & UI
+
+Within the `CommandBox` class, there is KeyEvent handler method which handles keyboard’s input. If the key pressed is a valid
+combination, then the text field in command box will be replaced with the command corresponding to one of the existing commands.
+
+==== Design Consideration
+
+Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
+
+** Pros: It is easy and simple to implement.
+
+** Cons: As the number of commands increase, there might not be
+enough key combination to accommodate all the commands.
+
+// end::keyboardshortcuts[]
+
+// tag::assignment[]
+=== Assignment Management
+There are four commands related to assignments. The four commands are `addassignment`,
+`listassignments`, `deleteassignment` and `editassignment`.
+
+These commands could only be executed by user with the appropriate permission.
+
+==== Current Implementation
+
+An assignment is represented by `Assignment` model object. `Assignment` object stores the information
+of `AssignmentName`, `Author` and `Description`.
+
+The following diagram shows the classes to model `Assignment`:
+
+image::AssignmentModel.png[width="450"]
+
+===== Add Assignment
+
+The following sequence diagram shows how adding an assignment works:
+
+image::AddAssignmentSequenceDiagram.png[width="1000"]
+
+Below is an example on how addassignment mechanism behaves when a new assignment
+is added.
+
+1. When user executes `addassignment -au ASSIGNMENTNAME -au AUTHOR -de DESCRIPTION` command, it
+will be parsed, then new `Assignment` object will be initialized. If the current user does not have
+the permission to add new assignment, error message will be thrown.
+
+2. If user has the required permission, then the current `Assignment` object will
+be compared to the existing assignments in the system with `hasAssignment(toAdd)`
+method. If the new object is unique, then it will be added into the system. However,
+if there is duplicate, the system will throw `DuplicateAssignmentException`.
+
+2. The new `Assignment` will then be copied and transformed to become `XmlAdaptedAssignment` object,
+which is then saved into a file by the <<25-storage-component, Storage>> component.
+
+===== Delete Assignment
+[WARNING]
+Deleting an assignment form the system will remove it permanently!
+
+The following sequence diagram shows how deleting an assignment works:
+
+image::DeleteAssignmentSequenceDiagram.png[width="1000"]
+
+Given is an example of how deleting an assignment mechanism behaves when it is executed.
+
+1. When user executes the `deleteassignment INDEX` command, `DeleteAssignmentCommand` object will be created.
+It then checks if the current user has the required permission to execute the command. If the user
+does not have the required permission, then and error message will be displayed.
+
+2. Meanwhile, if the user has the required permission, system gets the `Assignment` object to be deleted from list of assignments
+and finally delete it. It will then update the list in the <<25-storage-component, Storage>> component.
+
+===== List Assignment
+
+The parsing sequence of listing all assignments is similar to adding and deleting an assignment. In addition, there is no permission
+required to run `listassignment` command.
+
+When user executes `listassignment` command, system will retrieve all assignment data in the <<25-storage-component, Storage>>
+component using `updateFilteredAssignmentList()` and update the User Interface to list all the assignments.
+
+.ListAssignmentCommand.java
+[source,java]
+----
+public CommandResult runBody(Model model, CommandHistory history) {
+        requireNonNull(model);
+        model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);<1>
+        EventsCenter.getInstance().post(new AssignmentListEvent());
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+----
+<1> The method to retrieve all assignments.
+
+===== Edit Assignment
+
+Parsing the command when executing `editassignment` is similar to `deleteassignment` command.
+
+1. When user executes `editassignment 1 -an ASSIGNMENTNAME` command, the command will be parsed. The given prefix and field indicate that the corresponding field of `Assignment` should be edited with the new field.
+To do so, `EditAssignmentDescriptor` object will be produce. This object has the newly edited `Assignment` object.
+
+2. After, the 'Permission' of the user will be check. If the user does not have the appropriate permission, error message will be displayed.
+
+3. While if the user has the appropriate permission, the old `Assignment` object will be replaced with the new `Assignment` object.
+
+4. The list of the assignments will then be updated in the <<25-storage-component, Storage>>.
+
+==== Design Consideration
+===== Aspect: How the `Assignment` object is stored
+* Alternative 1 (Current Implementation): store assignment information in Xml file.
+
+** Pros: Xml file has extensibility, as it has no fixed set of tags. Allowing future developers to enhance the information of the assignment.
+** Cons: Inefficient retrieval of information of the assignment when the storage size gets too big.
+
+* Alternative 2: store the assignment information using database system.
+
+** Pros: Fast and efficient retrieval of information, even when the amount of data is massive.
+** Cons: Separated system needs to be set up to store information. Thus, might result in additional cost.
+
+// end::assignment[]
+
+
+// tag::archive[]
+=== Archive employee feature
+Employees with the "DELETE_EMPLOYEE" permissions can delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list. This feature allows an employee to view the archive list of employees.
+
+==== Proposed implementation
+The archive employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
+
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VerisionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
+
+Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The selected Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person’s data.
+
+Step 3. The user executes archive command to change view from active list to the archive list.
+
+Step 4. OASIS shows delete person in step 2 in the archive list on the left panel.
+
+The following activity diagram summarizes what happens when a user executes delete and restore command:
+
+image::archiveActivityDiagram.PNG[width="350]
+
+=== Changes to architecture
+This section documents the changes made to the architecture and its components.
+
+===== Aspect: Model
+Added a `VersionedArchiveList` object. `UniquePersonList` in `VersionedArchiveList` will store 0 or more `Person` objects.
+
+The following diagram shows the class `VersionedArchiveList` added to reflect the changes in the Model component:
+
+image::modelChangeJosh.PNG[width="350]
+
+===== Aspect: Storage
+Added `ArchiveListStorage` interface, `XmlArchiveListStorage` and `XmlSerializableArchiveList` classes to Storage component.
+
+The following diagram shows the interface and classes added to the Storage component:
+
+image::storageModelChangeJosh.PNG[width="350]
+
+==== Design considerations
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
+
+===== Aspect: Lifetime of objects in Archive list
+* **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
+** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
+** Cons: May have performance issues in terms of memory usage as employee records stored a few years back could still be stored.
+* **Alternative 2:** Deleted after a certain number of time has passed.
+** Pros: More efficient memory usage wont store old employee records which could cause high memory usage.
+** Cons: Loss of data possible if an employee is accidentally deleted and not restored right away.
+
+===== Aspect: Data structure to support the archive commands
+
+* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
+** Pros: Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as the user doesn’t need to search every employee in the system to get the employees archived.
+** Cons: We must maintain a separate list for archived objects.
+* **Alternative 2:** Assign an archive attribute to each employee object in the active list and show only in the active list if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+** Pros: Only need to change 1 attribute when an employee is deleted.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you must go through all employees to check the archive attribute.
+// end::archive[]
+
+// tag::restore[]
+=== Restore employee feature
+Employees with the "RESTORE_EMPLOYEE" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “DELETE_EMPLOYEE” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
+
+==== Proposed implementation
+The Restore or completely remove employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
+
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VersionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
+
+Step 2. The user executes archive command to change view from active list to the archive list.
+
+Step 3a1. The user executes restore 1 command to restore the first person in the archive list. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be transferred to the `UniquePersonList` in `VersionedAddressBook` and be back in the active list.
+
+Step 3a2. The user executes list command to change view from archive list to active list.
+
+Step 3a3. The employee restored in Step 3a1 is shown in active list
+
+Step 3b1. The user executes delete 1 command to completely remove the first person in the archive list from OASIS. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be deleted.
+
+Step3b2. Archive list updated and deleted employee is removed.
+
+The following activity diagram summarizes what happens when a user executes remove and restore command:
+
+image::archiveActivityDiagram.PNG[width="350]
+
+The following sequence diagram shows the method calls when the restore command is executed:
+
+image::restoreSequenceDiagram.jpg[width="350]
+
+==== Design considerations
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
+
+===== Aspect: Data restored from employee
+* **Alternative 1 (current choice):** All data from the time when the employee was deleted will be restored when the employee object is restored.
+** Pros: Employee being restored wont lose any important information and skips the task of having to key in all the employee’s information again.
+** Cons: Employee may have changed job scopes and permissions assigned may be different, this could lead to big problems if employees have permissions they are not supposed to have.
+* **Alternative 2:** Only certain information like name and phone number will be restored when employee is restored.
+** Pros: More efficient memory usage, don’t have to store other information about the employee.  Restored employees will not have the same permissions they had before which could save potential problems of employees having permissions they are not supposed to have.
+** Cons: Could potentially add more workload to the user restoring the employee as the user will need to fill in all necessary details of the employee when the restore command is executed.
+// end::restore[]
+
+// tag::login-begin[]
+=== Login/Logout feature
+==== Current Implementation
+
+The Login/Logout feature is facilitated through the use of creating a login screen before the application begins, ensuring that the user starts by logging into his account.
+
+These operations are exposed in the MainWindow class through `fillLoginParts()`, `removeLoginWindow()`, `removeInnerElements()`, `processLogin(LoginEvent)` and `processLogout(LogoutEvent)`
+
+[NOTE]
+While the login screen is displayed, other usual UI elements, such as the `browserPanel`, `PersonListPanel`, `ResultDisplay`, `StatusBarFooter`, `CommandBox` are not initialized at all, so they cannot be accessed.
+
+[NOTE]
+To ensure that most tests still work with a login system, the `MainWindowHandle`, used by all GUI tests, automatically logs the user in right after the UI element loads.
+
+The following sequence diagram shows a high level overview between the components when a User begins logging into OASIS.
+
+.A high level overview of how components interact when a login is performed.
+image::LoginSequenceDiagram.png[]
+
+This situation branches if the user's input of username and password is invalid. The following activity diagram shows the branching case:
+
+.An activity diagram showing where the login code branches if the input does not match a user.
+image::LoginActivityDiagram.png[]
+
+The communication between `UI`, `Logic` and `Model` is mainly from using `EventsCenter` and firing events to tell the other components to act.
+The following detailed steps show how the program works as the user login.:
+
+1. When the program is started, UIManager creates the MainWindow and tells it to `fillLoginParts()`.
+
+2. The user enters his details, and clicks login.
+
+3. This causes the `LoginForm` to fire a `LoginEvent` onto the central EventBus, with the username and password saved into the `LoginEvent`.
+
+4. The Logic Manager catches the LoginEvent. It then checks if the username and password combination matches a person in the system, or the admin user. To do so, it communicates with the `model` to retrieve everyone in the system.
+
+a. If there is no successful match, then a `FailedLoginEvent` is fired. The LoginForm catches this Event and displays the error message provided by the FailedLoginEvent.
+
+5. If there is a successful match, then a `SuccessfulLoginEvent` is fired. This event contains the person that is currently logging in, wrapped in a User object.
+
+6. The `mainWindow` class catches the `SuccessfulLoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
+
+When the user wishes to logout, he enters logout, which triggers the following:
+
+1. The `LogoutEvent` is fired by the `LogoutCommand`.
+
+2. The `mainWindow` class catches the `LogoutCommand` and processes it, removing the main UI elements and replacing it with the `fillLoginParts()`
+
+==== Design Considerations
+
+===== Aspect: How the login screen is displayed
+
+The login screen needs to be displayed to the user in some fashion.
+
+* **Alternative 1 (current choice):** Create a login screen before initializing other UI elements on the fly.
+** Pros: One single window. Clear to the user which window to focus on. Most applications work this way, so it should be familiar to the majority of our users.
+** Cons: Harder to implement. Need to take into account other possible UI elements, preload only those that are required, and ensure that tests stay supported.
+* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup. Once the user has logged in, the login window will close and the main window will pop up.
+** Pros: Far easier to implement. Login system abstracted away from other functionality.
+** Cons: It will be hard to maintain the same window size as the login window, if the user resizes it. More coupling would be required to maintain the same window size. Very odd and unfamiliar to most users. No application today opens a login window, then on successful login, closes that login window and opens a new one, meant for the user to use. This can cause a lot of user confusion. They may think that:
+*** The new window is representing error message, it should not have opened.
+*** The application had an error and unexpectedly shutdown.
+*** The new window is from another application that the user has running on his computer.
+*** They did something wrong (perhaps they pressed the button to close the window instead?)
+
+// end::login-begin[]
+
+===== Aspect: UI Elements to build the login system
+
+When OASIS boots up, the login screen needs to be displayed. The UI elements used to build this login screen needs to be decided on where they should go on the screen.
+
+* **Alternative 1 (current choice):** Using the same placeholders already available, place the appropriate UI elements on the screen.
+** Pros: Easy to implement. Utilizes the same placeholders currently in the system, so will adapt the same way to window re-sizing.
+** Cons: Looks uglier than if the window was created solely to enter login data
+* **Alternative 2:** Build the window from scratch to show login UI elements.
+** Pros: Nicer, the UI elements are built for login
+** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might as well go with Alternative 1.
+
+// tag::login-middle[]
+
+===== Aspect: How the UI and Logic elements should communicate.
+
+Whenever a login is done by the User, the `UI`, `Logic` and `Model` elements need to communicate to handle the event.
+
+* The `UI` needs to provide the User Input information.
+* The `Logic` needs to perform the check of whether this is a valid Username and Password combination.
+* The `Model` needs to provide the data for the logic to do it's work.
+
+There needs to be a solution to handle this cleanly and without causing unnecessary coupling, as this will likely be required to be extended upon in the long run.
+
+* **Alternative 1 (current choice):** Utilize the EventBus to allow `UI`, `Model` and `Logic` to communicate
+** Pros: Reduces coupling, as UI, Model and Logic doesn't need to know about each other. If required, other classes can also listen for the Event and process accordingly
+** Cons: Needs some work to implement. Requires building up new classes.
+* **Alternative 2:** Let UI, Logic and Model know about each other, allowing them to call the relevant methods and do the relevant checks
+** Pros: Easy to implement.
+** Cons: Grealy increases coupling. Not a good design decision, as it will make it harder to maintain the code in the future.
+* **Alternative 3:** Build a command like system (similar to how Commands are implemented in the system) for UI to talk to Logic. Logic then uses the Command system to reply back to UI.
+** Pros: Reduces the amount of coupling added into the system. Provides a way for UI to get Logic to do things, in case more functionality is added that uses UI input.
+** Cons: Very time consuming to implement. Hard to design as there is no clear functionality that might also need this system in the future.
+
+==== Username and Password storage
+
+To store username and password, the class `Person` has been extended to include a Username and Password variable as well. These two variables represent the Username and Password stored in the system for that Person.
+
+==== Admin account
+
+There is a possibility that the entire system is cleared of all employees (i.e when initializing, or an accidental deleting of all employees). To resolve this issue, an admin account is added that will ensure that there is always a user that can login in. The admin account cannot be removed and always has full access rights. By default, the username of the admin account is `Admin` and the password is `Pa55w0rd`.
+
+[NOTE]
+The password of the admin account can be modified through the `passwd` command.
+
+==== Design Considerations
+
+===== Aspect: Where the admin account password can be stored.
+
+Since the admin account would cause the system to be very insecure if it's password couldn't be changed, the admin account password must be changeable and stored somewhere, so that it persists across sessions. But where?
+
+* **Alternative 1 (current choice):** Place the storage in User Preferences
+** Pros: Easy to implement. A nice, centralized place to store general application information.
+** Cons: If the file is deleted, then the password will revert back to the default, which leaves the admin account vulnerable.
+** As we plan to store the system in a central server, the admin account's information will be stored in the server, and not locally. As this is intended to change before the final release, we went for the option that is the simplest to implement.
+* **Alternative 2:** Add it into the address book.xml file
+** Pros: If the password was attempted to be removed through the deletion of the file, then this will also delete everyone in the system as well, thus rendering the access to the admin account useless.
+** Cons: Since the file is stored in an xml format, it is easy for any dedicated attacker to find and remove the password information, reverting it to the default. Harder to implement, as would require large changes in the address book parser.
+* **Alternative 3:** Store it within environment variables
+** Pros: Somewhat harder to find. Ensures that admin password remains even when the data files are deleted.
+** Cons: The admin password would not transfer over systems for the average user. It would be difficult and require technical knowledge of the user to get it to transfer.
+
+==== passwd Command
+
+To change the password, a passwd command is required. However, this command is very different from the other commands. Specifically, it requires a chain of input, and subsequent inputs from the user should not be stored in history (otherwise the user's password are easily retrievable).
+
+This is, however, not easy to handle. This command history is automatically populated by `LogicManager`, which `Command.execute` does not have access to. To complicate things further, `CommandParser` doesn't handle exceptions like storing a command for future use, or redirecting user input to a specific Command.
+
+To resolve this issue, `CommandResult` is extended to hold interceptors - a list of `ProcessCommand`. `ProcessCommand` is a functional interface, similar to Function except that it can throw a specific error as well. To implement passwd, it returns an implementor of `ProcessCommand` to `CommandResult`, which forwards it to `LogicManager`.
+
+`LogicManager` now accepts `ProcessCommand` from `CommandResult`, adding them to a list. As long as there exists at least one `ProcessCommand`, further messages are pushed to `ProcessCommand` instead of processed normally, and they aren't added to history.
+
+Other possible design considerations are shown below.
+
+==== Design Considerations
+
+===== Aspect: How to implement the passwd Command
+
+* **Alternative 1 (current choice):** Build a foundation of `ProcessCommand` that will intercept user input and process it instead. If it does so, `LogicManager` doesn't add the command to history.
+** Pros: Doesn't increase coupling unnecessarily. Allows other functions to utilize this, allowing other commands to also easily extend to a chain of user inputs.
+** Cons: Harder to implement. Somewhat hard to understand, as it requires knowledge of lambdas and functional interfaces.
+* **Alternative 2:** Apply a hack for passwd where `LogicManager` checks that if a passwd command is ongoing, it redirects there instead.
+** Pros: Easy to implement.
+** Cons: Greatly increases coupling. If further commands were to require the same functionality, this hack would need to be done again for that function.
+
+==== Password Security
+There is a need to have passwords be stored securely as opposed to being stored in plain text. The standard today is to have password be salted and hashed, which is also the standard that OASIS is implemented in.
+
+All of this is handled within the `Password` class. API: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/person/Password.java[`Password.java`]
+
+The `Password` class stores the password in plaintext (if available), the salt and the hash of the password. The salt and the hash are always available.
+
+If the password object was created this session (i.e. the user changed his password this session), the plaintext will be available. Otherwise, if it was read from the saved XML file, then only the salt and hash are available.
+
+[NOTE]
+When checking if 2 Passwords are the same, it is better to call `isSamePassword` to verify if the 2 passwords are the same. `isSamePassword` checks if both passwords would have had the same plaintext. Utilizing `.equals` would also require the salt to match as well.
+
+==== Design Considerations
+===== Aspect: How much security is required for the password
+
+* **Alternative 1:** Just store and save the password in plaintext.
+** Pros: Very easy to implement. Makes testing significantly easier. Can verify both appropriate input and output.
+** Cons: No security. Anyone who wants to view someone else's password can just look into the data files and find it easily.
+* **Alternative 2:** Apply a hash to all passwords (i.e. SHA512).
+** Pros: Still somewhat easy to implement.
+** Cons: Testing becomes slightly harder as test code can no longer rely on getting the password in plaintext. Still not very secure, rainbowtables and hash crackers exist that can easily get back the plaintext password.
+* **Alternative 3: (current choice):** Apply a salt + hash to all passwords
+** Pros: Full security suite. Ensures that we aren't storing our user's passwords, so if the database is compromised, our user's passwords aren't easily broken.
+** Cons: Very hard to implement. Testing becomes significantly harder because calling `.equals` on Passwords that are the same may return false due to differences in salt.
+// end::login-middle[]
+
+// tag::leaveapplication[]
+=== Leave Application
+In OASIS, an employee can make a leave application by specifying a description, as well as the dates, that he or she wishes to apply for. Users are also able to view a list of all their own leave applications and their details, while those with the required permissions have the added ability to view all leave applications of all employees, as well as approve or reject leave applications.
+
+==== Current Implementation
+A leave application is represented by a `LeaveApplication` model object, as follows:
+
+.Structure of a leave application
+image::LeaveApplicationModelDiagram.png[width="300"]
+*API*: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
+A leave applications contains a description, status (`PENDING`, `APPROVED`, or `REJECTED`), and one or more dates.
+
+[NOTE]
+The `LeaveApplication` constructor removes duplicates, and orders all dates in ascending order.
+
+===== Applying for leave
+This section describes and illustrates how an application for leave by a user works in OASIS.
+
+The user issues a `leaveapply` command, which includes a description and one or more dates, in the command box UI. The Logic Manager in the Logic Component is then called upon to execute the command. The Model is then updated with the changes, and finally the EventsCenter is notified of this, and it goes on to ask the Storage Component to update the stored file data. This component-level interaction is depicted as follows:
+
+.Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
+image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
+[NOTE]
+There are further interactions of the EventCenter reacting to the event raised with the Storage Component, but they are ommitted.
+
+Now, we zoom in on the Logic Component to have a more detailed look as to how the `leaveapply` command is handled. The command entered is firstly parsed to ensure validity, and then a new `LeaveApplication` is instantiated with the data parsed from the command. This `LeaveApplication` is kept inside a newly created `LeaveApplyCommand`, which is then executed to update the `Person` in the Model, which corresponds to the user who applied for leave. The sequence diagram is as follows:
+
+.The Logic Component when `leaveapply -de family holiday -da 2018-11-11` is executed
+image::LeaveApplicationSequenceDiagram.png[width="1000"]
+[NOTE]
+There are further interactions within the Model component that are omitted.
+
+[[LeaveApplication-Apply-Usage]]
+Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
+
+1. The user executes the `leaveapply -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
+
+2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the Model will be replaced with that new `Person` (see link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
+
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedLeaveApplication`] object, which is then added into the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
+
+===== Viewing leave applications
+Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
+
+1. The user executes the `leavelist` command.
+
+2. The system checks if the user is an Admin, or has the required permissions (`VIEW_EMPLOYEE_LEAVE` or `APPROVE_LEAVE`). If so, all leave applications of all other users will be displayed. If not, only the current logged-in user's own leave application records will be shown.
+
+The following activity diagram summarizes how the command is executed:
+
+.How the leave application list displayed is filtered currently
+image::LeaveViewActivityDiagram.png[width="400"]
+*API:* link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
+
+[NOTE]
+See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
+
+===== Approving or rejecting leave applications
+Users with the required permissions can approve or reject leave applications made by other users. Given below is an example usage scenario of when a user issues a `leaveapprove 3` command:
+
+1. The user executes the `leaveapprove 3` command (the index specified in the command is based on what is displayed when the user issues a `leavelist` command).
+
+2. The corresponding `LeaveApplicationWithEmployee` is retrieved from the list. For more details about `LeaveApplicationWithEmployee`, see <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">>.
+
+3. Internally, a duplicate `Person` is created, with the original leave application being replaced with a copy of itself with an `APPROVED` status. The original `Person` in the Model will then be replaced with that new `Person`, similar to what happens when <<LeaveApplication-Apply-Usage, applying for leave>>.
+
+[NOTE]
+The `leaveapprove` and `leavereject` commands behave is nearly identical fashion, with the only difference being what the status that the specified `LeaveApplication` is changed to (either `APPROVED` or `REJECTED`).
+
+==== Design Considerations
+// tag::leaveapplicationstored[]
+===== Aspect: How leave applications are stored
+* **Alternative 1 (current choice):** Saved only as a part of `Person`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
+* **Alternative 2:** Stored only as a part of `AddressBook`.
+** Pros: Easy to implement.
+** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
+* **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
+** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
+** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+// end::leaveapplicationstored[]
+
+[[LeaveApplication-DesignConsiderations-Listed]]
+===== Aspect: How leave applications are listed
+* **Alternative 1 (current choice):** Leave applications are tagged with the user that applied for them (see link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationWithEmployee.java[`LeaveApplicationWithEmployee.java`]), and stored in a link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationList.java[`LeaveApplicationList.java`] in `AddressBook` in the Model Component. This additional tagging and storing into a list is done when the application is started where all leave applications are read from each `Person`, and also when any leave application is created or updated.
+** Pros: Leave applications stored are lightweight, as they are kept within the `Person` that applied for them, and do not have to contain fields that uniquely identify that `Person`.
+** Cons: This additional tagging, that only exists while the application is running, is slightly clumsy and not the best way to do it (see the <<LeaveApplication-DesignConsiderations-Listed-Note, note below Alternative 2>> for more details).
+* **Alternative 2:** Leave applications contain the unique identification fields of a `Person`.
+** Pros: Leave applications innately store who applied for them, so no additional processing is required when generating the list of leave applications.
+** Cons: Leave applications will have to be stored with 3 additional fields that are used to unique identify a `Person`. Also, if there are any updates to the `Person`, it must be ensured that their corresponding leave applications will also have to be updated correctly.
+
+[[LeaveApplication-DesignConsiderations-Listed-Note]]
+[NOTE]
+Alternative 2 is actually cleaner to implement and understand. However, Alternative 1 is currently implemented because a `Person` has 3 identification fields, which means that a lot of unnecessary information would have to be duplicated and stored. In future versions, we suggest that each `Person` be given a unique ID number that can be used to identify them. This would make it convenient for other entities, like `LeaveApplication`, to store which `Person` it is linked to, without too much overhead incurred.
+
+// end::leaveapplication[]
 
 === Logging
 
@@ -384,7 +1113,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:https://github.com/CS2103-AY1819S1-F10-1/main/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -442,15 +1171,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -482,6 +1211,10 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+[NOTE]
+You may encounter a problem with running Gradle commands on the command line, with the following error message: Cannot find System Java Compiler. Ensure that you have installed a JDK (not just a JRE) and configured your JAVA_HOME system variable to point to the according directory.
+If you encounter this error, you can apply the fix shown https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/[here] for Windows.
 
 === Types of tests
 
@@ -526,7 +1259,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -539,6 +1272,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 [appendix]
+////
 == Suggested Programming Tasks to Get Started
 
 Suggested path for new programmers:
@@ -564,10 +1298,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -585,12 +1319,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/Model.java[`Model`] and the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -615,16 +1349,16 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
+** You may wish to modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
 ** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -636,19 +1370,19 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
 +
 **Before**
 +
@@ -660,13 +1394,13 @@ image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** Modify the constructor of link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Use link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** For tests, modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
+** For system tests, modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -682,8 +1416,8 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
+** Implement the logic in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -713,13 +1447,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -728,33 +1462,33 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
+. Add FXML annotation in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -762,16 +1496,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+. Add `getRemark()` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -782,23 +1516,23 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Try and use the method on any sample `Person` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+Our remark label in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -820,14 +1554,18 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to manage a significant number of employees
+* Prefers desktop applications over applications on other platforms
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonable comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
 
+* The ability to manage employees faster than typical mouse or GUI driven app
+* Still retains mouse and GUI features for users that are less proficient or less comfortable
+with text command
+////
 [appendix]
 == User Stories
 
@@ -835,54 +1573,391 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a/an ... |I want to ... |So that I can...
+|`* * *` |Employee |See usage instructions |Get help when I forget how to use a feature of the application
 
-|`* * *` |user |add a new person |
+|`* * *` |Employee |Log in |Access the features of the system
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Employee |Change my password |Ensure that my account will not be compromised
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Employee |View my own profile and personal information |Check if it is up-to-date
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most recent contact information
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
+
+|`* * *` |Employee with add employee permissions |Add a new employee into my department |Have the new hire listed in the system
+
+|`* * *` |Employee with delete employee permissions |Delete an employee from my department |Remove employees that have left or have been fired
+
+|`* * *` |Employee |View all other employees in the system |Find out more about employees in the company
+
+|`* * *` |Employee |View the profile of an employee in the system |Find out more a certain employee
+
+|`* * *` |Employee |Apply for leave |Get approval for my yearly leave from my manager
+
+|`* * *` |Employee with view employee leave permissions |View leave application of employees in my department |See who has applied for leave
+
+|`* * *` |Employee with approve leave permissions |Approve or reject employee requests for leave |Plan out future projects
+
+|`* * *` |Employee with add project permissions |Create a new project |Have the new project listed in the application
+
+|`* * *` |Employee with add project permissions |Add an employee from any department into a project I created |Have the employee listed in the project team
+
+|`* * *` |Employee with add project permissions |Remove an employee from a project I created |Have the employee removed from the project team
+
+|`* * *` |Employee with add project permissions |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
+
+|`* * *` |Employee |View all projects and project teams in the company |Find out more about ongoing projects and employees in the project teams
+
+|`* * *` |Employee |View all projects that I am a part of |Find out more about my projects and employees in the project team
+
+|`* * *` |Employee |View all tasks assigned to me by a project |Check what I have to do for a particular project
+
+|`* *` |Employee with "Department Manager" permissions |See the total manpower strength in each department |Allocate manpower to department in need for more employees
+
+|`* *` |Employee |Search for employees by a certain criteria (e.g. name, department, etc.) |Find a particular employee easily
+
+|`* *` |Employee |Sort employees in the display list by a certain criteria (e.g. name, department, etc.) |View the employees sequentially and increasing clarity
+
+|`* *` |Employee |Filter employees in the display list by a certain criteria |Find details of a specific employee without going through every employee in the system
+
+|`* *` |Employee with view employee leave permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
+
+|`* *` |Employee with "Department Manager" permissions |View workload of employees in my department |Delegate the work evenly
+
+|`* *` |Employee |See income summary |Know my monthly income.
+
+|`* *` |Employee with "Administrative" permissions |Modify the access permissions of an employee |Accommodate to the tasks that an employee is allowed to do, possibly in line with promotions or demotions
+
+|`* *` |Employee with "Administrative" permissions |Change the department of an employee |Have the system reflect the change of an employee moving to another department
+
+|`* *` |Employee |Upload a profile picture |Other users can see my face when they access my profile in the system
+
+|`* *` |Employee |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
+
+|`*` |Employee with "Department Manager" permissions |See the performance of every department/sector |Keep track of which departments are not performing
+
+|`*` |Employee with "Department Manager" permissions |Record accomplishments of my employees |Identify the better employees
+
+|`*` |Employee with "Department Manager" permissions |See the list of potential candidates for hiring |Easily rank my top choices on who to hire
+
+|`*` |Employee |Submit claim |Claim money related to company matters
+
+|`*` |Employee |Submit overtime claim |Receive my overtime pay
+
+|`*` |Employee with "Department Manager" permissions |See the performance of individual employees |Identify underperforming employees
+
+|`*` |Employee |View current assigned tasks to me |Track which assignments I have left to finish
+
+|`*` |Employee |Write and send email |Send an email to one or more employees in the company
+
+|`*` |Employee with "Department Manager" permissions |Find out how much I am paying my employees in total |Calculate profit margins for the organization and any bonus for my employees at the end of the year
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `OASIS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a new employee
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+.  User login to the system
+.  Oasis shows home page
+.  User enters add employee with details
+.  Oasis request for confirmation
+.  User enters confirm
+.  Oasis shows success message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. User enters invalid details
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change user details
+
+*MSS*
+
+.  Employee login to the system
+.  Oasis shows home page
+.  Employee enters new user details
+.  Oasis request for confirmation
+.  Employee enters confirm
+.  Oasis save the new user details and show success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The details are in an invalid format.
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The employee chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete employee
+
+*MSS*
+
+.  Employee login to the system
+.  Oasis shows home page and displays list of employees
+.  Employee executes delete command on a selected employee
+.  Oasis deletes the employee, moves it to archive list and show success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2b. Employee moves to archive list.
 +
+** 2b1. OASIS shows archive list.
+** 2b2. Employee executes delete command on a selected employee
+** 2b3. Oasis deletes the employee from the system and shows success message.
++
+Use case ends.
+
+* 3a. The chosen employee is invalid.
++
+** 3a1. OASIS shows an error message.
++
+
+* 3b. Employee does not have required permissions.
++
+** 3a1. OASIS shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Apply for leave
+
+*MSS*
+
+.  User login to the system
+.  OASIS shows home page
+.  User enters description, start date and end date
+.  OASIS displays confirmation message
+.  User enters confirm
+.  OASIS sends the application to the manager
+.  OASIS shows success message
++
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 2.
 
+* 5a. The user chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List leave applications
+
+Preconditions: user is logged in
+
+*MSS*
+
+.  User enters command to view leave applications
+.  OASIS lists all leave applications of the user
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format is invalid
+** 1a1. OASIS shows an error message
++
+User case ends.
+
+* 2a. The user has permission to be able to view all employee leaves.
+** 2a1. OASIS lists all the leaves allplicationsof all users
++
+Use case ends.
+
+[discrete]
+=== Use case: Approve a leave application
+
+Preconditions: user is logged in
+
+*MSS*
+
+.  User <<Use case: List leave applications, lists leave applications (Use case: List leave applications)>>
+.  User enters command to approve a leave, and chooses the leave application to approve
+.  OASIS approves the leave application
+.  OASIS shows success message
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The format is invalid
++
+** 2a1. OASIS shows an error message
++
+* 2b. The index is does not exist
++
+** 2b1. OASIS shows an error message
++
+* 2c. The user does not have the permissions to approve leaves
++
+** 2c1. OASIS shows an error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add new assignment
+
+*MSS*
+
+.  User login to the system
+.  Oasis shows home page
+.  User enters assignment name, author and description
+.  Oasis displays confirmation message
+.  User enters confirm
+.  Oasis sends the application to the manager
+.  Oasis shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List assignments
+Precondition: user is logged in
+
+*MSS*
+
+.  User enterscommand to view list of assignments
+.  OASIS lists all the assignments in the system
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format is invalid
+** 1a1. OASIS shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete assignment
+
+*MSS*
+
+.  User login to the system
+.  User <<Use case: List assignments, lists assignments (Use case: List assignments)>>
+.  Employee executes delete command on selected assignment
+.  Oasis deletes the assignment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. Employee does not have the required permissions
+** 3a1. Oasis shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit assignment
+
+*MSS*
+
+.  Employee login to the system
+.  User <<Use case: List assignments, lists assignments (Use case: List assignments)>>
+.  Emplyee executes edit command on selected assignment
+.  OASIS edits the assignment
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. Employee does not have the required permissions
+** 3a1. Oasis shows an error message
++
+Use case ends.
+
 _{More to be added}_
+
 
 [appendix]
 == Non Functional Requirements
@@ -890,34 +1965,16 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user should only be allowed to perform the tasks that he has the credentials to perform based on his login credentials
+.  Passwords should be salted and hashed
+.  The system should crash no more than 1 time a month.
+.  The system should stay responsive even when there are updates to the GUI
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -933,7 +1990,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the login screen which prompts for a username and password.
 
 . Saving window preferences
 
@@ -941,13 +1998,46 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Logging into the system.
+
+. Logging in as an admin.
+
+.. After opening OASIS, enter in "Admin" and "Pa55w0rd" as the password.
+.. Click submit or press enter. +
+   Expected: You should now be logged in as an admin.
+
+. Logging in as a User.
+.. Delete the data folder to have OASIS start with the sample data set
+.. Open OASIS.
+.. Enter in "David Li" for the username and "Pa55w0rd" as the password. (David Li is only of the sample people loaded when no data file is found)
+.. Click submit or press enter. +
+   Expected: You should now be logged in as David Li.
+
+=== Logging out of the system
+
+. Prerequisities: The user is currently logged in.
+. Type in "Logout" into the command box, then press enter. +
+  Expected: You should now be logged out. OASIS should now show the login screen.
+
+=== Editing details of currently logged in user
+
+. Editing a valid user.
+
+.. Prerequisites: The user is currently logged in as a valid user in the system, not as an admin.
+.. Test case: `myself -p 99900999` +
+   Expected: The currently logged in user's phone number is changed to 99900999
+
+. Attempting to edit the admin user
+
+.. Prerequisites: The user is currently logged in as admin.
+.. Test cases: `myself -p 999009991 +
+   Expected: An error message saying that you cannot edit the admin account.
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while active persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `active` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -955,12 +2045,90 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting a person while archived persons are listed
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `archive` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the archive list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+=== Modify permission of an employee
+
+. Add or remove employee's permission using `modifypermission` command while active persons are listed
+
+.. Adding one permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `ADD_EMPLOYEE`.
+
+... Test case: `modifypermission 1 -a ADD_EMPLOYEE` +
+Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Removing multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is removed from employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding and removing permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with only `ADD_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE` +
+Expected: Employee at index 1 only has `DELETE_EMPLOYEE` permission. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Incorrect `modifypermission` commands to try:
+
+... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` +
+Expected: Status message shows that permission name is invalid.
+... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: Status message shows that the command format is invalid.
+
+=== Leave management
+
+. Applying for leave while leave applications are listed
+
+.. Prerequisites: List all leave applications using the `leavelist` command. There need not be any leave applications in the list.
+.. Test case: `leaveapply -de Family holiday -da 2018-12-05 -da 2018-12-06` +
+   Expected: A new leave application record with the description "Family holiday" and the dates "2018-12-05" and "2018-12-06" appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `leaveapply -de Second family holiday -da 2018-12-16 -da 2018-12-15 -da 2018-12-15` +
+   Expected: A new leave application record with the description "Second family holiday" and the dates "2018-12-15" and "2018-12-16" in this order appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user without either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with a user that has neither "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions (in a fresh install, the default username "Alex Yeoh" and password "Pa55w0rd" will suffice). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the leave applications do not change. Error details shown in the status message. Status bar remains the same.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user with either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with the Admin account (the default username "Admin" and password "Pa55w0rd"). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with a non-admin user with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the first leave application changes to "APPROVED" or "REJECTED", depending on the command issued. Status message indicates that the leave has been approved. Timestamp in status bar is updated.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 0` (non-positive integer index) +
+   Expected: Status message shows that the command format is invalid.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 1000` (index larger than displayed list size). +
+   Expected: Status message shows that the leave list index is invalid.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. The data files are located under data folder. For example, data/addressbook.xml contains data of everyone stored in the system.
+[NOTE]
+Data is only witten to disk if there is any change in the system. If OASIS was simply opened and closed with no changes made, no data file would be written.
+.. To modify the data files to simulate missing or corrupted data files, the element's tag may be modified. Note that information between the tag may also be modified, but it could still remain valid and would not be detected as an error. +
+   Expected: If a missing or corrupted data file is used, OASIS will then begin with an empty system instead.

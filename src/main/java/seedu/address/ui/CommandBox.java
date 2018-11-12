@@ -2,15 +2,21 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AutoCompleteCommandHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,16 +33,46 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private ListElementPointer historySnapshot;
 
+    private boolean isNavigatingHistory = false;
+
+    private AutoCompletionBinding<String> acbCommandTextField;
+
     @FXML
     private TextField commandTextField;
 
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+
+        enableAutoComplete();
+
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
     }
+
+    /**
+     * Disable auto complete function. Mainly used for testing purposes.
+     */
+    public void disableAutoComplete() {
+        acbCommandTextField.dispose();
+    }
+
+    /**
+     * Enable auto complete function.
+     */
+    public void enableAutoComplete() {
+        acbCommandTextField = TextFields.bindAutoCompletion(commandTextField, partialWord -> {
+            if (isNavigatingHistory) {
+                isNavigatingHistory = false;
+                return null;
+            }
+
+            return AutoCompleteCommandHelper.autoCompleteWord(partialWord.getUserText());
+        });
+    }
+
 
     /**
      * Handles the key press event, {@code keyEvent}.
@@ -55,6 +91,45 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+
+        case A:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("add ");
+            }
+            break;
+
+        case F:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("find ");
+            }
+            break;
+
+        case L:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("list ");
+            }
+            break;
+
+        case S:
+            // CONTROL + 'KeyCode' will allow the user to use keyboard shortcuts
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                replaceText("select ");
+            }
+            break;
+
+        case Q:
+            keyEvent.consume();
+            if (keyEvent.isControlDown()) {
+                Platform.exit();
+            }
+            break;
         default:
             // let JavaFx handle the keypress
         }
@@ -69,7 +144,7 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasPrevious()) {
             return;
         }
-
+        isNavigatingHistory = true;
         replaceText(historySnapshot.previous());
     }
 
@@ -82,7 +157,7 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasNext()) {
             return;
         }
-
+        isNavigatingHistory = true;
         replaceText(historySnapshot.next());
     }
 
@@ -106,15 +181,15 @@ public class CommandBox extends UiPart<Region> {
             historySnapshot.next();
             // process result of the command
             commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            raise(new NewResultAvailableEvent(commandResult.getFeedbackToUser(), true));
 
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
-            raise(new NewResultAvailableEvent(e.getMessage()));
+            raise(new NewResultAvailableEvent(e.getMessage(), false));
         }
     }
 
@@ -147,5 +222,6 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
+
 
 }

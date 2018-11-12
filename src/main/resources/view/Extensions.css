@@ -3,6 +3,10 @@
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
+.success {
+    -fx-text-fill: #2ECC71; /* The error class should always override the default text-fill style */
+}
+
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
     -fx-background: #383838;
@@ -17,4 +21,8 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-background-color: white;
 }

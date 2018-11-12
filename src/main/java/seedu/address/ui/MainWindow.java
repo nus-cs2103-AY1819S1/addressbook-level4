@@ -15,8 +15,14 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ArchiveListEvent;
+import seedu.address.commons.events.ui.AssignmentListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LeaveListEvent;
+import seedu.address.commons.events.ui.LogoutEvent;
+import seedu.address.commons.events.ui.PersonListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SuccessfulLoginEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -35,10 +41,21 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private AssignmentListPanel assignmentListPanel;
     private PersonListPanel personListPanel;
+    private LeaveListPanel leaveListPanel;
+    private PersonListPanel archivedListPanel;
+    private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
+    private CommandBox commandBox;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private ListPicker listPicker;
+
+    // Independent UI parts for login.
+    private LoginIntroduction loginIntroduction;
+    private LoginForm loginForm;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -53,10 +70,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane assignmentListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane listPickerPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -122,17 +145,174 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillPersonListParts();
 
-        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
+        commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+
+        listPicker = new ListPicker();
+        listPickerPlaceholder.getChildren().add(listPicker.getRoot());
+
+        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
+    }
+
+    /**
+     * Fills up the window with a login screen
+     */
+    void fillLoginParts() {
+        loginIntroduction = new LoginIntroduction();
+        commandBoxPlaceholder.getChildren().add(loginIntroduction.getRoot());
+
+        loginForm = new LoginForm();
+        personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the person list
+     */
+    void fillPersonListParts() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the archive list
+     */
+    void fillArchiveListParts() {
+        personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the leave application list
+     */
+    void fillLeaveParts() {
+        if (leaveListPanel == null) {
+            leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
+        }
+        personListPanelPlaceholder.getChildren().add(leaveListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the leave application list
+     */
+    void fillAssignmentListParts() {
+        if (assignmentListPanel == null) {
+            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        }
+        personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+    }
+
+    /**
+     * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
+     * @param loginEvent The login information
+     */
+    @Subscribe
+    void processLogin(SuccessfulLoginEvent loginEvent) {
+        removeLoginWindow();
+        fillInnerParts();
+    }
+
+    /**
+     * Listens for a login Event from the EventBus. This will be triggered when a LoginEvent is pushed to the EventBus.
+     * @param logoutEvent The login information
+     */
+    @Subscribe
+    void processLogout(LogoutEvent logoutEvent) {
+        removeInnerElements();
+        fillLoginParts();
+    }
+
+    /**
+     * Listens for a person list Event from the EventBus. This will be triggered when a PersonListEvent is pushed
+     * to the EventBus.
+     * @param personListEvent The event information
+     */
+    @Subscribe
+    void processPersonList(PersonListEvent personListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillPersonListParts();
+        listPicker.setActiveList();
+    }
+
+    /**
+     * Listens for a archive list Event from the EventBus. This will be triggered when a ArchiveListEvent is pushed
+     * to the EventBus.
+     * @param archiveListEvent The event information
+     */
+    @Subscribe
+    void processArchiveList(ArchiveListEvent archiveListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillArchiveListParts();
+        listPicker.setArchiveList();
+    }
+
+    /**
+     * Listens for a leave list Event from the EventBus. This will be triggered when a LeaveListEvent is pushed
+     * to the EventBus.
+     * @param leaveListEvent The event information
+     */
+    @Subscribe
+    void processLeaveList(LeaveListEvent leaveListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillLeaveParts();
+    }
+
+    /**
+     * Listens for a assignment list Event from the EventBus. This will be triggered when a AssignmentListEvent
+     * is pushed to the EventBus.
+     * @param assignmentListEvent The event information
+     */
+    @Subscribe
+    void processAssignmentList(AssignmentListEvent assignmentListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillAssignmentListParts();
+        listPicker.setAssignmentList();
+    }
+
+    private void removeLoginWindow() {
+        commandBoxPlaceholder.getChildren().remove(loginIntroduction.getRoot());
+        personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
+    }
+
+    /**
+     * Removes the elements built in fillInnerParts() to reset to a blank screen.
+     */
+    private void removeInnerElements() {
+
+        this.releaseResources();
+        browserPlaceholder.getChildren().remove(browserPanel.getRoot());
+        removePersonListPanelPlaceholderElements();
+        resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
+        statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
+        commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
+        listPickerPlaceholder.getChildren().remove(listPicker.getRoot());
+    }
+
+    /**
+     * Removes the elements in the person list panel placeholder.
+     */
+    private void removePersonListPanelPlaceholderElements() {
+        if (personListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        }
+        if (archivedListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+        }
+        if (leaveListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
+        }
+        if (assignmentListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
+        }
     }
 
     void hide() {
@@ -192,7 +372,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        if (browserPanel != null) {
+            browserPanel.freeResources();
+        }
     }
 
     @Subscribe

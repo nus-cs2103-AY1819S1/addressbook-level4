@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -14,13 +15,22 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveList;
+import seedu.address.model.ReadOnlyAssignmentList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
+import seedu.address.model.project.Project;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddCommandTest {
 
@@ -42,10 +52,27 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).runBody(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_adminUsername_addFailed() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withUsername("Admin").build();
+
+        try {
+            CommandResult commandResult = new AddCommand(validPerson).runBody(modelStub, commandHistory);
+            //should not reach here
+            assert false;
+        } catch (CommandException ce) {
+            assert ce.getMessage().equals(AddCommand.MESSAGE_ADMIN_USERNAME);
+        }
+
+        assertEquals(Arrays.asList(), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -57,7 +84,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.runBody(modelStub, commandHistory);
     }
 
     @Test
@@ -94,12 +121,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public int getState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setState(int state) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean alreadyContainsUsername(String username, Person ignore) {
+            return false;
+        }
+
+        @Override
+        public void resetArchive(ReadOnlyArchiveList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAssignmentList getAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyArchiveList getArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,7 +171,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteFromArchive(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public User getLoggedInUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLoggedInUser(User u) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,7 +201,47 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getArchivedPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateArchivedPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Assignment> getFilteredAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLeaveApplicationListForPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentListForPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -134,7 +251,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean canUndoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,12 +271,52 @@ public class AddCommandTest {
         }
 
         @Override
+        public void undoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void redoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void redoArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAssignment(Assignment assignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAssignment(Assignment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAssignment(Assignment assignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAssignment(Assignment target, Assignment editedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsAssignment(Set<Project> newAssignment, Assignment ignore) {
+            return false;
+        }
+
+        @Override
+        public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -199,6 +366,11 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
-    }
 
+        @Override
+        public ReadOnlyArchiveList getArchiveList() {
+            return new ArchiveList();
+        }
+
+    }
 }

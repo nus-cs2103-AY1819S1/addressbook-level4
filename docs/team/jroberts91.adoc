@@ -1,0 +1,86 @@
+= Joshua Robert - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+ ---
+== Overview
+Hi, I am Joshua and welcome to my Project Portfolio. Office Assistance Specialized Integrated System (OASIS) is one of the projects I have done in my 2nd year studying Computer Science in NUS. OASIS was built up by enhancing, improving and morphing an existing AddressBook application. This project is written in Java and has about 12 kLoC.
+
+OASIS is an employee management application catered for small-to-medium sized enterprises. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. OASIS comes with many efficient problem-solving features that solve employee management problems of today, some of these features are: employee records management, authentication and permissions, assignment management, archiving of employees, and leave management.
+
+My team consists of 4 other year 2 Computer Science students taking CS2103T and this document summarizes my contribution of work done in OASIS.
+
+== Summary of contributions
+This section shows in detail my contributions to the project, namely my major enhancement, my minor enhancement and other notable contributions to OASIS.
+
+* *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Reposense]
+
+* *Major enhancement*: Added *the ability to archive and restore employees*
+** Added *the ability to delete active employees and archive them*
+*** Behaviour:
+Allows a user with `DELETE_EMPLOYEE` permission to delete an active employee and send it to the archive list.
+
+*** Justification:
+This feature improves OASIS significantly as it mimics the scenario when an employee leaves the company but data of the employee must be kept for future references, which is an important aspect of employee management.
+
+** Added *the ability to restore employees*
+*** Behaviour:
+Allows a user with `RESTORE_EMPLOYEE` permission to restore an archived employee and send it to the active list.
+
+*** Justification:
+This feature improves OASIS significantly as it allows rehired ex-employees to be added back to the active employee list with all their past information.
+
+** Added *the ability to permanently delete archived employees*
+*** Behaviour:
+Allows a user with `DELETE_EMPLOYEE` permission to permanently remove archived employee from the application.
+
+*** Justification:
+This feature improves OASIS significantly as it removes unwanted employee information when they leave the company or when their data is no longer needed.
+
+** Highlights
+*** This feature required enhancements to the 4 major components of the application, namely: Logic, Model, Storage and UI. Implementing the feature was challenging as an in depth knowledge of the entire project design must be needed to achieve success.
+
+* *Minor enhancements*:
+** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+
+** Enhancements to existing features:
+*** Updated the GUI to show a ListPicker to toggle between active and archive list. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/115[#115], https://github.com/CS2103-AY1819S1-F10-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-F10-1/main/pull/178/files[#178])
+*** Updated DeleteCommand to delete from either active or archive list depending on which list the user is on. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/178[#178], https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+*** Updated ClearCommand to clear all employees in OASIS, both active and archive. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+*** Wrote tests for features I implemented. (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+
+** Documentation:
+*** Updated the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram] and link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[UI class diagram] in the Developer Guide to reflect all the changes that we did.
+*** Added documentation for Archive and Restore features in the Developer Guide and User Guide.
+
+** Community:
+*** `Listpicker` menu feature that I added was adopted by several other class mates (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/184[#184])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/125[1], https://github.com/CS2103-AY1819S1-W12-3/main/issues/124[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/139[3],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=archive]
+
+include::../UserGuide.adoc[tag=restore]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=archive]
+
+include::../DeveloperGuide.adoc[tag=restore]
