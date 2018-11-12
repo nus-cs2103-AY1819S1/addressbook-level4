@@ -15,7 +15,7 @@ It aims to simplify some of the more time-consuming administrative tasks
 such as coordinating location and date of ad-hoc events.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has more than 10 kLoC.
 
-== Summary of contributions
+== Summary of contributions	
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kaitingpeck[RepoSense]]
 * *Major enhancement*: added the *Events feature*
