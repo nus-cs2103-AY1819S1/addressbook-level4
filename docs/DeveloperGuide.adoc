@@ -866,9 +866,6 @@ image::PQMS-gui.png[width="850"]
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
 
-.GUI for the PQMS after several commands
-image::PQMS-GUI-2.png[width="650]
-
 This UI element is implemented using JavaFX's `WebView` and a local HTML file. The sequence of events for how the `WebView` is updated is as follows:
 
 Step 1. On a fresh start-up of the application, the `WebView` is intialized with the local HTML file `QueueDisplay.html` that draws the labels and boxes onto the `WebView`.
