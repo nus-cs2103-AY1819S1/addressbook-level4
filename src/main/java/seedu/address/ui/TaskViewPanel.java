@@ -107,7 +107,7 @@ public class TaskViewPanel extends UiPart<Region> {
         try {
             return logic.getTaskManager().getEarliestDependentTimeForNode(this.displayedTask.get()).value;
         } catch (Exception e) {
-            return "";
+            return "------";
         }
     }
 

@@ -3,13 +3,12 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
----
+== PROJECT: WatchOver
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+WatchOver is a desktop Task Manager application used for learning Software Engineering principles.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -48,7 +47,10 @@ used to provide better data integrity of the application in future development.
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn[RepoSense]
 
 * *Other contributions*:
-
+** *Minor Enhancements*:
+*** Extended the model to check if it is in an invalid state where completed tasks
+have uncompleted dependencies. Integrated this with CompleteCommand to prevent completion of
+tasks that will result in the aformentioned invalid state.
 ** Project management:
 *** Set up team's organisation.
 *** Managed releases `v1.1`, `v1.3` (2 releases) on GitHub
@@ -90,4 +92,10 @@ include::../UserGuide.adoc[tag=complete-2.0]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=complete]
+include::../DeveloperGuide.adoc[tag=complete-preamble]
+
+image::CompleteCommandActivityDiagram.png[width="800"]
+
+include::../DeveloperGuide.adoc[tag=complete-label-execution]
+
+include::../DeveloperGuide.adoc[tag=design-considerations-main]

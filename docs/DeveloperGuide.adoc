@@ -109,20 +109,22 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
 == Design
 // tag::command[]
-===== Command Component
-Command is refactored to be implemented using a https://en.wikipedia.org/wiki/Template_method_pattern[template method pattern].
+==== Command Component
+Command is refactored to be implemented using a template method pattern.
  The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
  method to update the status of tasks to overdue if their due date is past current time.
 
 
 The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
 Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
-The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as an
 abstract method in command.
 
-Simplified class diagram for the command component:
 
-image::CommandComponentClassDiagram.png[width="600"]
+image::CommandComponentClassDiagram.png[width="400"]
+
+_Simplified class diagram for the command component_
+
 // end::command[]
 
 
@@ -446,20 +448,82 @@ this week` commands to specify their choices.
 // end::achievements[]
 
 // tag::complete[]
+// tag::complete-preamble[]
 
 === Batch Completion via Label feature
+
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
+
+The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
+`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
+takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
+
+Common execution paths for both subclasses are implemented in `CompleteCommand` class using the
+template method pattern to let subclasses implement varying behaviour and avoid duplication in
+the code. As `CompleteLabelCommand` is coupled to `CompleteCommand`, it is imperative to grasp a
+general idea of the flow of execution before attempting to understand the following section. It
+ assumes the developer is familiar enough with the codebase to understand where each method call
+ are with respect to the activity diagram.
+
+// end::complete-preamble[]
+
+_If you require involved context for the execution of the whole `CompleteCommand` please refer
+to: Appendix E: Complete Command Activity Diagram_
+
+// tag::complete-label-execution[]
 ==== Current Implementation
 
-The batch completion mechanism is facilitated by `CompleteLabelCommand`.
-It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
-tasks atomically.
+The batch completion mechanism is facilitated by `CompleteLabelCommand`. It extends
+`CompleteCommand` and encapsulates the internal logic of finding completable tasks via a supplied
+ `Task<Predicate>`. Additionally it is able to complete and rollback multiple tasks atomically.
+
+These are the methods in the CompleteLabelCommand class supporting the batch completion:
+
+* `#completeAllTasksReturnStringOfTasks(Model)`
+* `#completeTasksInSetUpdateModel(Model, Set<Task>)`
+* `#completeOneTaskReturnStringOfTasks(Task, Model)`
+
+_Premise: The application has several tasks tagged with the label: many._
+
+Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
+
+Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
+if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
+result a new `CompleteLabelCommand` instance is created. It consumes a
+`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task`
+containing a `many` label.
+
+Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
+created instance. Subsequently `CompleteLabelCommand#completeAllTasksReturnStringOfTasks(...)` is
+called which encapsulates the logic for updating all valid completable tasks matching the supplied
+predicate.
+
+image::CompleteViaLabelOnSuccess.png[width="700"]
+
+Step 1.2.1 If all tasks are updated successfully, `Model#commit()` will be called.
+
+Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it's status to `COMPLETED`
+
+**Extensions**
+
+Step 1.2.1.a If all tasks are not updated successful, `Model#rollback()` will be called. All
+uncommitted changes will be reset to the current state pointed to in `taskManagerStateList`.
+
+image::CompleteViaLabelOnFail.png[width="700"]
+
+Step 1.2.1.a1 Then user will see a relevant error message reporting what went wrong.
+// end::complete-label-execution[]
+
+===== Auxiliary Changes
 
 Additionally, in order to facilitate the finding of task and completing tasks atomically, the
 following auxiliary classes have been created / extended as a result:
 
-* `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
+* `LabelMatchesAnyKeywordsPredicate` -- Extension of the functional interface `Predicate<E>`
 ** This class is required to encapsulate the logic of determining if a task has a `Label` matching
-the desired `Label` (case-insensitive).
+any of the desired `Label`(s) specified (case-insensitive).
 
 *Updated*
 
@@ -469,44 +533,7 @@ the desired `Label` (case-insensitive).
 * `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
 commands
 
-These are the methods in the CompleteCommand class supporting the batch completion:
-
-* `#completeAllTasksReturnStringOfTasks(Model)`
-* `#completeOneTaskReturnStringOfTasks(Task, Model)`
-
-[NOTE]
-The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
-`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
-takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-_Premise: The application has several tasks tagged with the label: many._
-
-Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
-
-Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
-if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
-result a new `CompleteCommand` instance containing a  `LabelMatchesKeywordPredicate` which
-will only test true against a `Task` containing a `Label::many`.
-
-Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
-created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
-called which handles the logic for updating all valid completable tasks matching the predicate.
-
-image::CompleteViaLabelOnFail.png[width="1200"]
-
-[NOTE]
-If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
-all current changes will be reset to the latest commit / state in `taskManagerStateList`.
-
-image::CompleteViaLabelOnSuccess.png[width="1200"]
-
-Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
-
-Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it's status to `COMPLETED`
-
+// tag::design-considerations-main[]
 ==== Design Considerations
 
 ===== Aspect: Implementation of atomicity
@@ -514,11 +541,12 @@ it's status to `COMPLETED`
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
 ** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
-ensuring that there are no partially-done batch operation resulting in harder to debug state.
-** Cons: Increases coupling of components.
-* **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
-commit if deemed that all tasks can be completed successfully else throw an exception.
-** Pros: Reduces coupling.
+ensuring that there are no partially-done batch operation resulting in a possibly invalid state.
+** Cons: Requires extending the Model class and depending on its functionality; resulting in
+tighter coupling.
+* **Alternative 2:** Doing a check on all tasks to see if they can be completed successfully. If
+yes, then proceed to update the model and commit else throw an exception.
+** Pros: Looser coupling as checks are implemented within CompleteCommand.
 ** Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
 batch operation.
 
@@ -526,14 +554,17 @@ batch operation.
 
 * **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
-** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
-coupling.
-** Cons: Possibly goes against the Separations of Concerns principle.
+** Pros: This is one easy way of grouping possibly tightly coupled code together into a single
+class; thus reducing coupling.
+** Cons: Goes against the Separations of Concerns principle.
 * **Alternative 2 (current choice)** Implementing `CompleteCommand` as an abstract class. Each class would then inherit
 and implement the abstract methods, providing different polymorphic behaviours for `CompleteCommand`. Currently, the
 two different behaviours implemented are: completion via index and completion via label.
 ** Pros: Clear separation of concern, respecting the Single Responsibility Principle.
-** Cons: Harder to initially design properly.
+Additionally, there is less duplicated code as similar code can be implemented in the
+`CompleteCommand` class.
+** Cons: Harder to initially design properly, also sub-classes of CompleteCommand are now coupled
+ to CompleteCommand.
 
 [NOTE]
 Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
@@ -545,9 +576,9 @@ a high amount of coupling.
 ===== Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
-`LabelMatchesKeywordPredicate`.
+`LabelMatchesAnyKeywordsPredicate`.
 ** Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
-`LabelMatchesKeywordPredicate`. In sum, it allows for the checking of structural equality rather than just referential
+`LabelMatchesAnyKeywordsPredicate`. In sum, it allows for the checking of structural equality rather than just referential
 equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
 quirks as opposed to commonly recognised _Alternative 2_
@@ -555,6 +586,7 @@ quirks as opposed to commonly recognised _Alternative 2_
 ** Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
  Abstract Methods.
 ** Cons: Inability to properly check for equality.
+// end::design-considerations-main[]
 
 === Model Rollback feature
 ==== Current Implementation
@@ -566,62 +598,77 @@ Allows for any uncommitted changes to be discarded.
 * `VersionedTaskManager` -- Implements a `rollback()` method
 
 When `VersionedTaskManager#Rollback()` is called, the current data is reset to the state of the
-latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to reset the data to
-the latest commit, also the `currentStatePointer` is set to point at the index of the latest
-commit in `taskManagerStateList`.
+latest commit. Internally, `VersionedTaskManager#resetData(...)` is called to reset the data to
+the commit pointed by the `currentStatePointer` in the `taskManagerStateList`.
 
 image::RollbackModelSequenceDiagram.png[width="1200"]
 
-_Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
+_Calls to the Commons/Event component has been omitted for brevity._
 // end::complete[]
 // tag::dependency[]
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded `Dependencies` object. This object represents dependencies with
+The dependencies of a task is modelled by an embedded `Dependencies` object in the task. This object represents dependencies with
 a hashset that contains the hashcodes of the tasks that the task is dependent upon.
 
-Sequence Diagram of the dependencies command
+The dependencies between tasks are added or removed using the dependency command. If a given task A is dependent on a given task B,
+task A is the dependant task while task B is the dependee task.
 
+When deleting a task, all dependencies to the deleted task will be removed.
+When editing a task, all dependencies to the edited task will be updated with the hashcode of the new edited task.
+
+image::DependencyActivityDiagram.png[width="600"]
+
+_Activity diagram for the dependency command (dependencies are toggled using the command)_
 
 ==== Design Considerations
-===== Aspect: Modelling of the embedded dependency object.
+===== Aspect: Modelling a dependency
 
 * ** Alternative 1(current choice):** Dependencies specified by unique hashcodes of tasks
 ** Pros:
-*** There is no task creation propogation when task dependency is added. (refer to alternative 2).
-*** Easy to reform the dependency graph.
-** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
-finding reference of the dependee task given its hashcode.
+When a task dependency is updated, the updating of tasks do not propagate . (Refer to alternative 2) +
+The hashcodes are generated without a task's dependencies. Hence, when updating a given task A, tasks dependent
+to task A do not need to be recreated as the hashcode of the new task A is the same hashcode as the old task A.
+** Cons:
+Some functions such as UI display require details of the dependee tasks. Additional computation required to
+find reference of the dependee task from its hashcode.
 
-* ** Alternative 2: **Dependencies specified by (references to) the Tasks objects themselves
-** Pros:
-*** It allows an easy reference to the task object.
-*** Allows for the implementation of a real-time dependency graph, which is referenced
-to rather than recreated every time a topological sort or a cyclical check is needed.
-** Cons: Introduces unnecessary complications.
-*** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph to the edited task needs to be reinstantiated.
-i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
-other tasks that depends on A has to be recreated as the dependencies is updated.
-*** [Assumption: *In storage*, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
-as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.
+* ** Alternative 2: **Dependencies specified by (references to) the Task objects themselves
+** Pros: Easy reference the task object.
+** Cons: Introduces unnecessary complications. +
+1)Tasks are immutable. Whenever a task dependency is added or removed a new task is created. All tasks dependent
+to the updated task have to have their dependencies updated. Consequently, all tasks that are dependent to the the tasks dependent
+to the original task have to have their dependencies updated as well. +
+2)[Assumption: *In storage*, task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
+as a set of hashcodes before transforming the hashcodes to references to tasks only when all tasks are instantiated from storage.
 
 
-=== Modelling Dependency Validity
+=== Modelling Dependency Checks
 ==== Current Implementation
-The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
-so useful functions can be implemented such as cyclic and topological sort.
+The `DependencyGraph` is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.
+
+image::ShowTopologicalOrderCommandSequenceDiagram.png[width="800"]
+
+_Sequence Diagram of the Show Topological Order Command (DependencyGraph on the right hand side of diagram)_
+
+`DependencyGraph` is instantiated whenever it is needed. Transformations such as inverting the graph or pruning COMPLETED
+tasks from graph.
 
 ==== Design Considerations
 ===== Aspect: Real-time graph or graph instantiated on function call.
 * **Alternative 1(current choice):** Graph is only instantiated when needed.
-** Pros: Graph does not have to be updated or maintained.
+** Pros: +
+1) Graph does not have to be maintained at every relevant command +
+2) Graph can be transformed (pruning/inverting) without worrying about modifying the original dependencies object
+
 ** Cons: Slight increase in latency, but mitigated by the fact that a typical user won't
 have an extremely large amount of tasks.
-* ** Alternative 2:** Graph created on start-up and maintained during run-time.
-*** Pros: Slightly faster speed for dependency related commands.
-*** Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
-benefit being a slightly shorter run-time
+* ** Alternative 2:** Graph created on start-up and maintained during run-time
+*** Pros: Slightly faster speed for dependency related commands
+*** Cons: Upkeep of graph is complex to implement especially with the immutable nature of the Tasks
+// end::dependency[]
 
 ===== Aspect: Task dependencies modelled with a graph
 * **Alternative 1(current choice):** Using a graph.
@@ -633,10 +680,41 @@ depend on each other.
 *** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
 
-===== Aspect: Implementing topological sort
-image::ShowTopologicalOrderCommandSequenceDiagram.png[width="1200"]
 
-// end::dependency[]
+
+// tag::effective_duedate[]
+=== Effective Due Date
+==== Current Implementation
+
+Effective Due Date (EDD) is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
+dependent on the task, including the task itself.
+
+Steps to find effective due date of task A:
+
+. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
+
+. Invert the dependencies in the `DependencyGraph` (to allow graph traversal in the opposite direction)
+
+
+image::EffectiveDueDateImplementation1.png[width="300"]
+
+_Diagram for effective due date implementation_
+
+[start=3]
+. Perform a depth first search from Task A to find earliest effective due date among
+all children (i.e. B)
+.. Task C's effective due date will be 1-3-19 [No children]
+.. Task B's effective due date will be 1-1-19 [C: 1-3-19, B's due date is earlier than EDD of C]
+.. Task A's effective due date will be 1-1-19 [B: 1-1-19, B's EDD is earlier than A's due date]
+
+Note: comparison of due date with EDDs of children in square brackets
+
+image::EffectiveDueDateImplementation2.png[width="400"]
+
+_Table for effective due date implementation_
+
+
+// end::effective_duedate[]
 
 
 
@@ -660,7 +738,7 @@ should never undo an overdue. Simple implementation prevents race conditions (re
 ** Cons: If a user does not input a command, the task state will not be updated. (Mitigated by the fact that
 the number of commands that a person uses likely occurs at a higher rate than the number of tasks itself).
 * **Alternative 2:** Run a cron job that checks at a regular interval if the task is overdue
-** Pros: The overdue state of the task is definitely current
+** Pros: The overdue state of the task is current
 ** Cons: Potential race condition and might introduce latency to the application.
 // end::time[]
 
@@ -851,7 +929,7 @@ The build.gradle file specifies some project-specific asciidoc attributes which 
 
 Attributes left unset in the build.gradle file will use their default value, if any.
 Table 1. List of site-wide attributes
-Attribute name  Description Default value
+Attribute name	Description	Default value
 site-name
 
 The name of the website. If set, the name will be displayed near the top of the page.
@@ -966,26 +1044,29 @@ First, add small local-impact (i.e. the impact of the change does not go beyond 
 Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. Section A.2, “Creating a new command: remark” explains how to go about adding such a feature.
 
 [appendix]
+// tag::target-user-profile[]
 == Target User Profile
 
-Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.
+We target overworked students that like mobile games with positive reinforcement.
 
-The target age group is from 15 years old to 25 years old.
-
-Attributable to our target demographic are the following qualities:
-
-  * Adept with technology
-  * Inclined to vicariously project a virtual avatar's experience unto themselves
-  * Inclined against keeping data on physical mediums
-  * Perpetually experiencing the continuous bombardment of deadlines from assignments
+* Needs extrinsic motivation to complete tasks, such as XP system
+** Finds constant affirmation of their progress in the form of preserved
+statistics over varying time window to be particularly motivational for them.
+** Would like to spice things up with different gamified modes in earning XP.
+* Leads a multifaceted life with variation in tasks they need to do
+** Prioritises activities differently
+** Some tasks have natural dependencies on other tasks in their lives
+** Has a high volume of tasks with differing deadlines
+* Prefer CLI apps over fancy GUI
+// end::target-user-profile[]
 
 [appendix]
-== Appendix B: Value proposition
+== Value proposition
 
 By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
 
 [appendix]
-== Appendix C: User Stories
+== User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
@@ -1138,30 +1219,83 @@ Use case ends.
 
 Use case ends.
 
+// tag::use-case-complete[]
 === Use case: Completing Task (Single)
 ==== MSS
-. User marks task as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying the index of the task to complete.
+. Application reports both points earned and tasks completed to the user.
+
+Use case ends.
 
 ==== Extensions
-* 1a. An error occurs, causes one of the task to not be completed
-** 1a1. Application displays error message, no points are earned either.
+* 1a. The selected task is already completed.
+** 1a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1b. The index supplied is invalid.
+** 1b1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
+** 1b1. Application displays a relevant error message.
+
+Use case ends.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a trivial congratulatory message, level achieved, points earned and
+tasks completed to the user.
+
+Use case ends.
 
 === Use case: Completing Task (Batch via `Label`)
 ==== MSS
-. User marks a batch of tasks with the same specified `Label` as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying one or more `Label`(s) that are tagged to the tasks he
+wishes to complete.
+. Application identifies a completable batch of tasks that contains the specified `Label`(s) to be
+completed and completes them one by one.
+. Application reports both points earned and tasks completed to user.
+
+Use case ends.
 
 ==== Extensions
-* 1a. An error occurs, causes one of the tasks to not be able to be completed
-** 1a1. Application displays an error message, resetting the batch of tasks to their
-pre-completed state and no points are earned.
+* 1a. The label supplied is invalid
+** 1a1. Application displays a relevant error message.
 
-* 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+Use case ends.
+
+* 2a. There are no completable tasks identified by the label
+** 2a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 2b. There is an error internally with the application, it tries to complete a task that has
+already been completed.
+** 2b1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2b2. Application displays a relevant error message.
+
+Use case ends.
+
+* 2c. At least one of tasks identified via label to be completed has unfulfilled
+dependencie(s) that must be completed first.
+** 2c1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2c2. Application displays a relevant error message.
+
+Use case ends.
+
+* 3a. User earns enough points to level up
+** 3a1. Application displays a trivial congratulatory message, level achieved, points
+earned and tasks completed to the user.
+
+Use case ends.
+// end::use-case-complete[]
+
+[appendix]
+== Complete Command Activity Diagram
+
+image::CompleteCommandActivityDiagram.png[width="800"]
+
 
 [appendix]
 == Non-functional requirements
@@ -1217,13 +1351,13 @@ These instructions only provide a starting point for testers to work on; testers
 . Showcasing Effective due date field +
 [NOTE]
 ====
-Effective due date is a field in the UI that updates accordingly to command changes.
-Effective due date can only be seen by selecting the task on task panel with the mouse or by entering the command
+Effective due date is a field in the UI that updates according to command changes.
+Effective due date can be seen by selecting the task on task panel with the mouse or by entering the command
 `select x`, where x is the index of the task.
 ====
 .. Prerequisites:
 
-image::EffectiveDueDate1.png[width="200"]
+image::EffectiveDueDate1.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled_
 
 ... Clear task manager with `clear`
@@ -1231,18 +1365,18 @@ _Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled
 ... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
 ... Add Task C using `add n/C t/1-3-19 p/5 d/blank`
 
-image::EffectiveDueDate2.png[width="200"]
+image::EffectiveDueDate2.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates for test case 1_
 
 .. Test case 1: `dependency 2 1`, `select 1` or click on Task A +
 Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
 Number of dependencies field on the task card updated.
 
-image::EffectiveDueDate3.png[width="200"]
+image::EffectiveDueDate3.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates for test case 2_
 
-.. Test case 2: [Execute commands from test case 1] + `dependency 3 2` + `select 3` or click on task C +
-   Expected: No change to effective due date.
+.. Test case 2: `dependency 2 1` + `dependency 3 2` + `select 3` or click on task C +
+   Expected: No change to effective due date. Number of dependencies field on the task card updated.
 // end::seanmanualtest[]
 
 === Achievement Mechanism
@@ -1370,6 +1504,76 @@ Number of dependencies field on the task card updated.
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
 
+=== Deleting task where there exists dependencies to deleted task
+. Deleting a task where there exists dependencies to deleted task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `delete 1` +
+   Expected: Only task B remaining. Task B has 0 dependencies instead of its previous value of 1.
+
+
+=== Editing task where there exists dependencies to edited task
+. Editing a task where there exists dependencies to the edited task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `edit 1 n/C` +
+   Expected: Name of 1st task changed to C. Number of dependencies of B remains the same.
+
+// tag::completemanualtest[]
+=== Interactions of Complete Command with Dependencies
+[NOTE]
+As the standard output for Complete Command is quite verbose, we shall alias "standard output" to
+ mean "Xp change, new level acquired (if any) and Task(s) Completed is/are shown to user."
+
+==== Index based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete 2`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete 1`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete 2`, followed by `complete 1`
+Expected: Task B is completed, followed by it's standard output. Task A is completed, followed by
+ its standard output.
+
+==== Label based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank l/one`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete l/two`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete l/one`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete l/one l/two`,
+Expected: Both Task A and Task B are completed in no defined order, followed by
+ its standard output.
+// end::completemanualtest[]
+
 === List topological order of tasks
 . List topological order of tasks
 .. Prerequisites: -
@@ -1387,7 +1591,7 @@ constraints will be displayed in the window below the command line.
 +
 Expected: Current game mode details will be shown. +
 For example, +
-`You are currently using the Priority mode! 
+`You are currently using the Priority mode!
 Completing a task will earn you 6 times the priority value as xp, or 3 times if the task is overdue.`
 
 . Changing game mode
@@ -1399,7 +1603,7 @@ Completing a task will earn you 6 times the priority value as xp, or 3 times if 
 `mode` +
 +
 Expected: Description shown will be different during both invocations of
-`mode`. 
+`mode`.
 
 . Correct xp awarded in Flat mode
 .. Prerequisites: +
@@ -1414,7 +1618,7 @@ Set game mode by running `mode flat`
 +
 Expected: +
 Task One is overdue, and should award 30 xp under Flat mode, medium difficulty. +
-Task Two is on time, and should award 60 xp. 
+Task Two is on time, and should award 60 xp.
 
 . Correct xp awarded in Increasing mode
 .. Prerequisites: +
@@ -1468,7 +1672,7 @@ Task Two has priority value 10 and is not overdue, and should award 60 xp. +
 Task Three has priority value 1 and is overdue, and should award 3 xp. +
 Task Four has priority value 10 and is overdue, and should award 30 xp. +
 
-. Correct xp awarded in various game difficulties 
+. Correct xp awarded in various game difficulties
 .. Prerequisites: -
 .. Test case: +
 `clear` +
