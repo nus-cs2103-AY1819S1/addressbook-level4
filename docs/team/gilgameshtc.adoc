@@ -50,14 +50,16 @@ I implemented the calendar feature with external libraries,  https://github.com/
 
 ** Documentation:
 *** Updated the README:
-(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/22[#22])
+(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/22[#22],
+https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
 *** Updated the Developer Guide:
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/73[#73],
  https://github.com/CS2103-AY1819S1-W16-1/main/pull/97[#97],
  https://github.com/CS2103-AY1819S1-W16-1/main/pull/174[#174])
 *** Updated the User Guide:
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/120[#120],
- https://github.com/CS2103-AY1819S1-W16-1/main/pull/136[#136])
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/136[#136],
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
 
 ** Community:
 *** Pull request reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-1/main/pull/13[#13]
