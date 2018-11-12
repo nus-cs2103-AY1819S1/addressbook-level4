@@ -656,7 +656,7 @@ The User Authentication feature comprises of commands as below:
 The following class diagram below illustrates the association between the Staff class and its associated class.
 
 .Class Diagram for the Staff.
-image::LoginClassDiagram.png[width="1080"] 
+image::LoginClassDiagram.png[width="1080"]
 
 ===== `login` Command
 
@@ -775,7 +775,7 @@ The Patient Management feature contains multiple operations to indirectly manipu
 The following class diagram below illustrates the association between the Patient class and its associated class:
 
 .Class Diagram for the Patient.
-image::PatientClassDiagram.png[width="1080"] 
+image::PatientClassDiagram.png[width="1080"]
 {sp} +
 
 ===== `addpatient` Command
