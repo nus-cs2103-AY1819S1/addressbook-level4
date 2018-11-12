@@ -415,12 +415,12 @@ Format: `import FILEPATH`
 ****
 * You must include the filename of the target file in `FILEPATH`.
 * This operation is disabled when you navigate into a deck.
-* The default base directory is the same directory as the Anakin.jar file.
+* The default base directory is the directory that the Anakin.jar file is in.
 ****
 
 Examples:
 
-Say you want to import a deck called "Geography" and you have the `Geography.xml` file in the same directory as Anakin.jar. +
+Say you want to import a deck called "Geography" and you have the `Geography.xml` file in the same folder as Anakin.jar. +
 
 image::exportScreenshot3.png[width="300"]
 
@@ -435,7 +435,7 @@ image::importScreenshot1.png[width="500"]
 image::importScreenshot2.png[width="500"]
 
 
-* If you want to import a deck that is located elsewhere, for example on the desktops, you can enter `import` followed by the full filepath (something like: `import C:/Users/Admin/Desktop/My Deck2.xml`) and Anakin will be able to import the deck. +
+* If you want to import a deck that is located elsewhere, for example the file is in Desktop, you can enter `import` followed by the full filepath (something like: `import C:/Users/Admin/Desktop/My Deck2.xml`) and Anakin will be able to import the deck. +
 
 // end::importexport[]
 
