@@ -70,7 +70,7 @@ public class SampleDataUtil {
 
     //@@author hyperionnkJ
     private static SalesRecord[] getSampleSalesRecords() {
-        return new SalesRecord[]{
+        return new SalesRecord[] {
                 new SalesRecord(new seedu.restaurant.model.sales.Date("14-11-2018"), new ItemName("Apple Juice"),
                         new QuantitySold("31"), new seedu.restaurant.model.sales.Price("2"))
                         .setIngredientsUsed(getRequiredIngredients(Map.of("Apple", "93"))),
@@ -184,7 +184,6 @@ public class SampleDataUtil {
     }
 
     //@@author
-
     /**
      * Returns a tag set containing the list of strings given.
      */
