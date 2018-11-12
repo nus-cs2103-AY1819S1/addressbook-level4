@@ -1432,3 +1432,65 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+=== Canvases and Layers
+. Canvas manipulation
+
+.. Positive cases
+
+... Test case: `canvas size 1000x1000` +
+    Expected: The canvas should now a size of 1000 by 1000 pixels.
+
+... Test case: `canvas bgcolor none` +
+    Expected: The canvas should now have a transparent background. If the canvas is too small, the background shouldn't even be visible.
+
+... Test case: `canvas auto-resize on` +
+    Expected: The canvas should now expand to ensure that all layers are within the frame. The canvas should ignore all options provided by `size`.
+
+.. Negative cases
+... Test case: `canvas bgcolor invalid` +
+... Test case: `canvas size -123x456` +
+... Test case: `canvas auto-resize invalid` +
+Expected: the help message demonstrating proper usage of the command should show up in the console output panel.
+
+. Layer manipulation
+
+.. Positive cases
+... Test case: `layer add 1` +
+    Expected: The first image in the `Film Reel` is added as a new layer with on top of all existing layers.
+
+... Test case: `layer remove 2` +
+    Expected: The second layer in the canvas should be removed if the following conditions are satisfied:
+.... The layer index provided is valid.
+.... The layer is not currently selected.
+.... The layer is not the last one in the canvas.
+
+
+... Test case: `layer select 2` +
+    Expected: The layer at index 2 is selected to be the current working layer, highlighted in the `Layers Panel` and be the target of all subsequent transformations if the following condition is satisfied:
+.... The layer index provided is valid.
+
+... Test case: `layer swap 1 2` +
+    Expected: The layers at index 1 and 2 should be swapped if the following conditions are satisfied:
+.... The layer indexes provided are valid.
+.... The layer indexes provided are distinct.
+
+... Test case: `layer position -400x400` +
+    Expected: The top-left corner of the layer will be set to the coordinate provided. If the coordinates are too far out of the canvas and `auto-resize` isn't turned on, clipping or complete invisibility should occur. Note that negative coordinates are accepted and this is intended behavior.
+
+.. Negative cases
+... Test case: `layer add 11`. +
+... Test case: `layer remove 1` when there is only one layer left in the canvas.
+... Test case: `layer remove 2` when index 2 is the layer that is selected.
+... Test case: `layer swap -1 -3`.
+... Test case: `layer swap 1 1`.
+... Test case: `layer position invalid`. +
+    Expected : A specific error message about the constraint violated should show up in the console output panel and no other operations should be performed.
+
+
+
+
+
+
+
