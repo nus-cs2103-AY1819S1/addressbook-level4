@@ -1862,3 +1862,18 @@ These instructions only provide a starting point for testers to work on; testers
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+=== Modify permission of an employee
+
+. Modify permission of an employee while active persons are listed
+
+.. Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without any permission.
+
+..Test case: `modifypermission 1 -a ADD_EMPLOYEE`
+Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Test case: 
+
+... `modifypermission 1 -a ADD_EMPLOYEE`
+... `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE`
+Expected: 
