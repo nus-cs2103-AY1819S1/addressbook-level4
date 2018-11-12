@@ -13,6 +13,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REMINDER_DURATION_LIST_1H;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
@@ -33,7 +34,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
@@ -72,7 +73,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
                 + "  " + VENUE_DESC_CS2103 + "  "
                 + REPEAT_TYPE_DESC_CS2103 + "  " + REPEAT_UNTIL_DATETIME_DESC_CS2103
                 + EVENT_NAME_DESC_CS2103 + " " + PREFIX_TAG;
-        Event repeatedEvent = new EventBuilder(CS2103_LECTURE)
+        Event repeatedEvent = new EventBuilder(FRIDAY_LECTURE)
                 .withEventUid(model.getFilteredEventList().get(index.getZeroBased()).getEventUid())
                 .withEventSetUid(model.getFilteredEventList().get(index.getZeroBased()).getEventSetUid())
                 .build();
@@ -87,7 +88,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + EVENT_NAME_DESC_MA3220
                 + "  " + START_DATETIME_DESC_MA3220 + "  " + END_DATETIME_DESC_MA3220 + "  " + DESCRIPTION_DESC_MA3220
                 + "  " + VENUE_DESC_MA3220 + "  " + REPEAT_TYPE_DESC_MA3220 + "  " + REPEAT_UNTIL_DATETIME_DESC_MA3220
-                + "  " + TAG_DESC_PLAY;
+                + "  " + TAG_DESC_PLAY + " " + REMINDER_DURATION_LIST_1H;
         Event firstEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
                 .withEventUid(model.getFilteredEventList().get(index.getZeroBased()).getEventUid())
                 .withEventSetUid(model.getFilteredEventList().get(index.getZeroBased()).getEventSetUid()).build();
@@ -108,7 +109,8 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         /* Case: edit an event with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + EVENT_NAME_DESC_MA3220
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220
-                + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY;
+                + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY
+                + REMINDER_DURATION_LIST_1H;
         assertCommandSuccess(command, index, firstEditedEvent);
 
         /* Case: edit an event with new values some same as event's values some different -> edited */
@@ -117,7 +119,8 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         assertNotEquals(getModel().getFilteredEventList().get(index.getZeroBased()), MA3220_JANUARY_1_2019_SINGLE);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + EVENT_NAME_DESC_MA3220
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA2101
-                + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_SCHOOL;
+                + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_SCHOOL
+                + REMINDER_DURATION_LIST_1H;
         Event secondEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
                 .withEventUid(getModel().getFilteredEventList().get(index.getZeroBased()).getEventUid())
                 .withEventSetUid(getModel().getFilteredEventList().get(index.getZeroBased()).getEventSetUid())

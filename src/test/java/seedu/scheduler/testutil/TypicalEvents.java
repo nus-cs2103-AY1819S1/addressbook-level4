@@ -82,6 +82,67 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 1, 2, 15, 0))
             .withTags("Interview", "Work")
             .withReminderDurationList(getReminderDurationList(1)).build();
+    public static final Event CHRISTMAS = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("Christmas")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 25, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 25, 23, 0))
+            .withDescription("Celebration")
+            .withVenue("Home")
+            .withRepeatType(RepeatType.NONE)
+            .withReminderDurationList(getReminderDurationList(1))
+            .build();
+    public static final Event AFTER_CHRISTMAS = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("After Christmas")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 26, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 26, 23, 0))
+            .withDescription("Celebration")
+            .withVenue("Home")
+            .withRepeatType(RepeatType.NONE)
+            .withReminderDurationList(getReminderDurationList(1))
+            .build();
+    public static final Event LOCAL_SINGLE_EVENT = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .build();
+    public static final Event LOCAL_REPEAT_EVENT = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withRepeatType(RepeatType.DAILY)
+            .build();
+    public static final Event CHRISTMASEVE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("Christmas Eve")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 24, 1, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 24, 23, 0))
+            .withDescription("Celebration")
+            .withVenue("Home")
+            .withRepeatType(RepeatType.NONE)
+            .build();
+    public static final Event EXAM_CS2103 = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS2103 Examination")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 5, 17, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 5, 19, 0))
+            .withDescription("MCQ+Essay")
+            .withVenue("MPSH")
+            .withRepeatType(RepeatType.NONE)
+            .build();
+    public static final Event EXAM_CS2103_UPDATED = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS2103 Exam")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 5, 17, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 5, 19, 0))
+            .withDescription("MCQ+Essay")
+            .withVenue("MPSH2")
+            .withRepeatType(RepeatType.NONE)
+            .build();
 
     // daily event
     public static final Event STUDY_WITH_JANE_DAY_ONE = new EventBuilder()
@@ -182,21 +243,139 @@ public class TypicalEvents {
             .build();
 
     // weekly event
-
-    public static final Event CS2103_LECTURE = new EventBuilder()
+    public static final Event SATURDAY_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS9999")
+            .withStartDateTime(LocalDateTime.of(2018, 11, 30, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 30, 18, 0))
+            .withDescription("CS9999 Description").withVenue("LT99")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event FRIDAY_LECTURE = new EventBuilder()
             .withEventUid(UUID.randomUUID())
             .withEventSetUid(UUID.randomUUID())
             .withEventName("CS2103")
-            .withStartDateTime(LocalDateTime.of(2018, 8, 17, 16, 0))
-            .withEndDateTime(LocalDateTime.of(2018, 8, 17, 18, 0))
+            .withStartDateTime(LocalDateTime.of(2018, 11, 30, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 30, 18, 0))
             .withDescription("CS2103 Description").withVenue("I3")
             .withRepeatType(RepeatType.WEEKLY)
-            .withRepeatUntilDateTime(LocalDateTime.of(2018, 11, 16, 18, 1))
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
             .build();
+    public static final Event THURDSDAY_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS0000")
+            .withStartDateTime(LocalDateTime.of(2018, 11, 29, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 29, 18, 0))
+            .withDescription("CS0000 Description").withVenue("LT16")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 11, 28, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 11, 28, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT18")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED_ONE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 5, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 5, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT19")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED_TWO = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 12, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 12, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT19")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED_THREE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 19, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 19, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT19")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED_FOUR = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 26, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 26, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT19")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final List<Event> WEDNESDAY_LECTURE_UPDATED = new ArrayList<>(
+            Arrays.asList(WEDNESDAY_LECTURE_UPDATED_ONE,
+                    WEDNESDAY_LECTURE_UPDATED_TWO,
+                    WEDNESDAY_LECTURE_UPDATED_THREE,
+                    WEDNESDAY_LECTURE_UPDATED_FOUR));
+    public static final Event WEDNESDAY_LECTURE_UPDATED2_ONE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 5, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 5, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT20")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED2_TWO = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 12, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 12, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT20")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED2_THREE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 19, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 19, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT20")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final Event WEDNESDAY_LECTURE_UPDATED2_FOUR = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS1000")
+            .withStartDateTime(LocalDateTime.of(2018, 12, 26, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 12, 26, 18, 0))
+            .withDescription("CS1000 Description").withVenue("LT20")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 30, 18, 1))
+            .build();
+    public static final List<Event> WEDNESDAY_LECTURE_UPDATED2 = new ArrayList<>(
+            Arrays.asList(WEDNESDAY_LECTURE_UPDATED2_ONE,
+                    WEDNESDAY_LECTURE_UPDATED2_TWO,
+                    WEDNESDAY_LECTURE_UPDATED2_THREE,
+                    WEDNESDAY_LECTURE_UPDATED2_FOUR));
 
     // monthly event
     public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
-
             .withEventUid(CONSTANT_EVENTUID.get(4))
             .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
             .withEventName("Dinner with Joe")
@@ -294,7 +473,7 @@ public class TypicalEvents {
             .withRepeatType(RepeatType.YEARLY)
             .withRepeatUntilDateTime(LocalDateTime.of(2020, 2, 29, 1, 0))
             .withTags("Celebration")
-            .withReminderDurationList(getReminderDurationList(1, 2))
+            .withReminderDurationList(getReminderDurationList(0))
             .build();
     public static final Event JIM_BIRTHDAY_YEAR_ONE = new EventBuilder()
             .withEventUid(CONSTANT_EVENTUID.get(7))
@@ -386,7 +565,8 @@ public class TypicalEvents {
             .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_PLAY)
             .withReminderDurationList(getReminderDurationList(3)).build();
 
-    private TypicalEvents() {} // prevents instantiation
+    private TypicalEvents() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code Scheduler} with all the typical events.
@@ -408,4 +588,10 @@ public class TypicalEvents {
                 JIM_BIRTHDAY_YEAR_THREE, LEAP_DAY_CELEBRATION_YEAR_ONE, LEAP_DAY_CELEBRATION_YEAR_TWO,
                 STARTUP_LECTURE_MONTH_ONE, STARTUP_LECTURE_MONTH_TWO, STARTUP_LECTURE_MONTH_THREE));
     }
+
+    public static List<Event> getStudyWithJaneAllList() {
+        return new ArrayList<>(Arrays.asList(STUDY_WITH_JANE_DAY_ONE,
+                STUDY_WITH_JANE_DAY_TWO, STUDY_WITH_JANE_DAY_THREE, STUDY_WITH_JANE_DAY_FOUR));
+    }
+
 }

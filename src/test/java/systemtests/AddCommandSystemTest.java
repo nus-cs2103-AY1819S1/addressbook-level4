@@ -19,7 +19,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
-import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
+
 import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
 import static seedu.scheduler.testutil.TypicalEvents.ONE_TIME_JOB;
@@ -91,7 +92,8 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(toAdd);
 
         /* Case: add a repeated event -> added */
-        toAdd = new EventBuilder(CS2103_LECTURE).build();
+        toAdd = new EventBuilder(FRIDAY_LECTURE).build();
+
         command = AddCommand.COMMAND_WORD + REPEAT_UNTIL_DATETIME_DESC_CS2103 + START_DATETIME_DESC_CS2103
                 + VENUE_DESC_CS2103 + REPEAT_TYPE_DESC_CS2103 + END_DATETIME_DESC_CS2103
                 + DESCRIPTION_DESC_CS2103 + EVENT_NAME_DESC_CS2103;
