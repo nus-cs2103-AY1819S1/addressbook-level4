@@ -8,18 +8,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class GsonUtilTest {
+public class GsonUtilTest extends GsonUtil {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void fetchCarparkTest() {
-        try {
-            assertNotNull(GsonUtil.fetchAllCarparkInfo());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void fetchAllCarparkInfo_getAllCarparks_notNullReturned() throws Exception {
+        assertNotNull(fetchAllCarparkInfo());
     }
 
     @Test
