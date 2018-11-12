@@ -6,6 +6,7 @@ import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_OWNER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -48,6 +49,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_MOUSE = " " + PREFIX_NAME + VALID_NAME_MOUSE;
     public static final String FINDER_DESC_POWERBANK = " " + PREFIX_FINDER + VALID_FINDER_POWERBANK;
     public static final String FINDER_DESC_MOUSE = " " + PREFIX_FINDER + VALID_FINDER_MOUSE;
+    public static final String OWNER_DESC_POWERBANK = " " + PREFIX_OWNER + VALID_OWNER_POWERBANK;
+    public static final String OWNER_DESC_MOUSE = " " + PREFIX_OWNER + VALID_OWNER_MOUSE;
     public static final String PHONE_DESC_POWERBANK = " " + PREFIX_PHONE + VALID_PHONE_POWERBANK;
     public static final String PHONE_DESC_MOUSE = " " + PREFIX_PHONE + VALID_PHONE_MOUSE;
     public static final String EMAIL_DESC_POWERBANK = " " + PREFIX_EMAIL + VALID_EMAIL_POWERBANK;
@@ -59,6 +62,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Wallet&"; // '&' not allowed in names
     public static final String INVALID_FINDER_DESC = " " + PREFIX_FINDER + "John&"; // '&' not allowed in names
+    public static final String INVALID_OWNER_DESC = " " + PREFIX_OWNER + "David&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_DESCRIPTION_DESC =

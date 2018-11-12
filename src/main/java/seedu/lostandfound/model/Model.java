@@ -10,9 +10,7 @@ import seedu.lostandfound.model.article.NotResolvedPredicate;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Article> PREDICATE_SHOW_ALL_ARTICLES = unused -> true;
-
+    /** {@code Predicate} that always returns unresolved articles */
     Predicate<Article> NOT_RESOLVED_PREDICATE = new NotResolvedPredicate();
 
     /** Clears existing backing model and replaces with the provided new data. */

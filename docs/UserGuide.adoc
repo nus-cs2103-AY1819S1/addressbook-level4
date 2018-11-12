@@ -183,7 +183,7 @@ Examples:
 * `find-d Jacket` returns unresolved article entries with description `Jacket` and `Torn Jacket`.
 * `find-d central library` returns unresolved article entries with description `near Central library`, `Central library toilet`.
 
-==== Finding unresolved articles by name: `find-f`
+==== Finding unresolved articles by finder: `find-f`
 Description: Finds unresolved articles whose finder's name contains *all* of the given keywords.
 
 Format: `find-f KEYWORD [MORE_KEYWORDS]`
@@ -196,7 +196,7 @@ Examples:
 * `find-f John` returns unresolved article entries with finder `John Doe` and `John Ham`.
 * `find-f John Doe` returns unresolved article entries with finder `John Doe` and `John Hamilton Doe`.
 
-==== Finding unresolved articles by name: `find-t`
+==== Finding unresolved articles by tag: `find-t`
 Description: Finds unresolved articles whose tag's contains *all* of the given keywords.
 
 Format: `find-t KEYWORD [MORE_KEYWORDS]`

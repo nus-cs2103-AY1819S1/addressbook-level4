@@ -15,12 +15,18 @@ image::dan-delion.png[width="150", align="left"]
 {empty}[https://github.com/dan-delion[github]]
 {empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/dan-delion.html[portfolio]]
 
+Role: Developer
+Responsibilities: UI
+
 '''
 
 === Jerrell Ezralemuel
 image::plty.png[width="150", align="left"]
 {empty}[https://github.com/plty[github]]
 {empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/plty.html[portfolio]]
+
+Role: Developer
+Responsibilities: Logic and Model
 
 '''
 
@@ -35,6 +41,9 @@ image::kevvvinn.png[width="150", align="left"]
 image::swiftkage.png[width="150", align="left"]
 {empty}[https://github.com/Swiftkage[github]]
 {empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/swiftkage.html[portfolio]]
+
+Role: Developer
+Responsibilities: Logic and Model
 
 '''
 

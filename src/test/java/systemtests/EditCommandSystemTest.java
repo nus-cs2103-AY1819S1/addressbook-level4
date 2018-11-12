@@ -26,7 +26,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
@@ -243,7 +243,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.updateArticle(expectedModel.getFilteredArticleList().get(toEdit.getZeroBased()), editedArticle);
-        expectedModel.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        expectedModel.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle), expectedSelectedCardIndex);
@@ -274,7 +274,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        expectedModel.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

@@ -2,7 +2,7 @@ package seedu.lostandfound.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 import static seedu.lostandfound.testutil.TypicalArticles.BAG;
 import static seedu.lostandfound.testutil.TypicalArticles.WALLET;
 
@@ -74,7 +74,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(articleList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
+        modelManager.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

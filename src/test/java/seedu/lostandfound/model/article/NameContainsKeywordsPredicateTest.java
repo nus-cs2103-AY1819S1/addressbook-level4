@@ -41,35 +41,34 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new ArticleBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Nike"));
+        assertTrue(predicate.test(new ArticleBuilder().withName("Nike Wallet").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new ArticleBuilder().withName("Alice Bob").build()));
-
-        // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertTrue(predicate.test(new ArticleBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Nike", "Wallet"));
+        assertTrue(predicate.test(new ArticleBuilder().withName("Nike Wallet").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new ArticleBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("nIkE", "wALLET"));
+        assertTrue(predicate.test(new ArticleBuilder().withName("Nike Wallet").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("-n"));
-        assertFalse(predicate.test(new ArticleBuilder().withName("Alice").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("-r"));
+        assertFalse(predicate.test(new ArticleBuilder().withName("Nike").build()));
+
+        // match one keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Nike", "Hoe"));
+        assertFalse(predicate.test(new ArticleBuilder().withName("Nike").build()));
+
+        // match all but one keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Nike", "White", "Wallet"));
+        assertFalse(predicate.test(new ArticleBuilder().withName("Nike Wallet").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new ArticleBuilder().withName("Alice Bob").build()));
-
-        // Keywords match phone, email and description, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new ArticleBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withDescription("Main Street").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("White"));
+        assertFalse(predicate.test(new ArticleBuilder().withName("Nike Wallet").build()));
     }
 }
