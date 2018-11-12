@@ -28,11 +28,11 @@ CLI is an acronym for "Command Line Interface", as CLInic works by typing comman
 
 * *Major enhancement*: I supported the implementation of the `*Document*` class, along with its accompanying
                        extending classes `MedicalCertificate` and `ReferralLetter`.
-** What it does: This feature allows for the doctor to input information, like the duration of medical leave and referral location, to easily generate medical certificate and referral letter documents in the form of `HTML` files.
-** Justification: This feature takes in the relevant information that has been keyed in and structures them in a way that is presentable and professional. This can help to reduce the incidences of error that arise due to illegible handwriting.
-** Highlights: This feature is intended to reduce the need for pen and paper documentation. Most people can type significantly faster than they can write. Also, legibility of handwriting may affect comprehension. In the case of referral letters, where vital medical information may be conveyed, we want the information to be presented as clearly as possible.
+** What it does: This feature allows for the doctor to input information, like the duration of medical leave and referral location, to easily generate medical certificate and referral letter documents in the form of HTML files.
+** Justification: This feature takes in the relevant information that has been keyed in and structures them in a way that is *presentable and professional*. This can help to *reduce the incidences of error* that arise due to illegible handwriting.
+** Highlights: This feature is intended to *decrease the need for pen and paper documentation*. Most people can type significantly faster than they can write. Also, legibility of handwriting may affect comprehension. In the case of referral letters, where *vital medical information* may be conveyed, we want the information to be presented as clearly as possible.
 
-* *Minor enhancement*: I added *shorthand codes or aliases* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
+* *Minor enhancement*: I added *shorthand codes* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
 ** Justification: Some commands like `dispenseMedicine` and `MedicalCertificate` are really long, so it can be troublesome for the user to type the whole command in order to execute the command. Instead, users can type `dm` and `mc` to execute the same respective commands.
 
 * *Code contributed*: View my code for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[here]!
@@ -40,7 +40,7 @@ CLI is an acronym for "Command Line Interface", as CLInic works by typing comman
 * *Other contributions*:
 
 ** Documentation:
-*** Edited the language, style and tone of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
+*** Edited the language and style of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
 *** Added a Command Summary table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
 ** Community:
 *** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115[#115]
