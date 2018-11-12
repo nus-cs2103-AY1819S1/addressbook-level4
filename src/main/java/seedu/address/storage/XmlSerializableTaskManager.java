@@ -23,6 +23,8 @@ public class XmlSerializableTaskManager {
     @XmlElement
     private XmlAdaptedAchievementRecord achievements;
     @XmlElement
+    private XmlAdaptedGameManager gameManager;
+    @XmlElement
     private List<XmlAdaptedTask> tasks;
 
     /**
@@ -31,6 +33,7 @@ public class XmlSerializableTaskManager {
      */
     public XmlSerializableTaskManager() {
         achievements = new XmlAdaptedAchievementRecord();
+        gameManager = new XmlAdaptedGameManager();
         tasks = new ArrayList<>();
     }
 
@@ -40,6 +43,7 @@ public class XmlSerializableTaskManager {
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         this();
         achievements = new XmlAdaptedAchievementRecord(src.getAchievementRecord());
+        gameManager = new XmlAdaptedGameManager(src.getGameManager());
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
@@ -59,6 +63,7 @@ public class XmlSerializableTaskManager {
             taskManager.addTask(task);
         }
         taskManager.setAchievements(achievements.toModelType());
+        taskManager.setGameManager(gameManager.toModelType());
         return taskManager;
     }
 

@@ -16,7 +16,7 @@ public class IncreasingMode extends GameMode {
     private int initialXp;
     private int boostedXp;
 
-    IncreasingMode() {
+    public IncreasingMode() {
         this(3, 30, 60);
     }
 
@@ -27,12 +27,12 @@ public class IncreasingMode extends GameMode {
      *
      * @param daysBefore  The time period of falling XP.
      * @param overdueXp   The minimum XP, awarded to overdue tasks.
-     * @param completedXp The maximum XP, awarded to tasks completed early.
+     * @param boostedXp The maximum XP, awarded to tasks completed early.
      */
-    IncreasingMode(int daysBefore, int overdueXp, int completedXp) {
+    public IncreasingMode(int daysBefore, int overdueXp, int boostedXp) {
         this.daysBefore = daysBefore;
         this.initialXp = overdueXp;
-        this.boostedXp = completedXp;
+        this.boostedXp = boostedXp;
     }
 
     @Override
@@ -94,6 +94,36 @@ public class IncreasingMode extends GameMode {
         }
 
         return 1 - earlyByMilliseconds / windowMilliseconds;
+    }
 
+    public IncreasingMode copy() {
+        return new IncreasingMode(daysBefore, initialXp, boostedXp);
+    }
+
+    @Override
+    public int getPeriod() {
+        return daysBefore;
+    }
+
+    @Override
+    public int getLowXp() {
+        return initialXp;
+    }
+
+    @Override
+    public int getHighXp() {
+        return boostedXp;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format("Completing tasks will give you a base amount of %d xp, increasing to %d xp gradually "
+                        + "beginning %d days before the due \ndate, to reflect increasing urgency.",
+                initialXp, boostedXp, daysBefore);
+    }
+
+    @Override
+    public String getName() {
+        return "Increasing";
     }
 }

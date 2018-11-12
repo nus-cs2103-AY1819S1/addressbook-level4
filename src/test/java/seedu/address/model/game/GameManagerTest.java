@@ -21,6 +21,37 @@ public class GameManagerTest {
         public int appraiseXpChange(Task taskFrom, Task taskTo) {
             return 50;
         }
+
+        @Override
+        public GameMode copy() {
+            return null;
+        }
+
+        @Override
+        public int getPeriod() {
+            return 0;
+        }
+
+        @Override
+        public int getLowXp() {
+            return 0;
+        }
+
+        @Override
+        public int getHighXp() {
+            return 0;
+        }
+
+        @Override
+        public String getDescription() {
+            return "";
+        }
+
+        @Override
+        public String getName() {
+            throw new AssertionError("This method should not be called.");
+
+        }
     }
 
     @Before
