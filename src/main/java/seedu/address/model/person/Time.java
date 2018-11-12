@@ -28,8 +28,8 @@ public class Time {
      */
 
     public static final String DAY_PART_REGEX = "[a-w]{3}";
-    public static final String START_TIME_REGEX = "\\d{4}";
-    public static final String END_TIME_REGEX = "\\d{4}";
+    public static final String START_TIME_REGEX = "[0,1,2]{1}" + "\\d{1}" + "[0,1,2,3,4,5]{1}" + "\\d{1}";
+    public static final String END_TIME_REGEX = "[0,1,2]{1}" + "\\d{1}" + "[0,1,2,3,4,5]{1}" + "\\d{1}";
     public static final String TIME_VALIDATION_REGEX = DAY_PART_REGEX + " "
             + START_TIME_REGEX + " " + END_TIME_REGEX;
 
