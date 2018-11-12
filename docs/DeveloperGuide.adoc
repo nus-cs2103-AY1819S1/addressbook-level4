@@ -1844,9 +1844,23 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Logging out of the system
 
-. Firstly, perform the steps stated in "Logging into the system".
+. Prerequisities: The user is currently logged in.
 . Type in "Logout" into the command box, then press enter. +
   Expected: You should now be logged out. OASIS should now show the login screen.
+
+=== Editing details of currently logged in user
+
+. Editing a valid user.
+
+.. Prerequisites: The user is currently logged in as a valid user in the system, not as an admin.
+.. Test case: `myself -p 99900999` +
+   Expected: The currently logged in user's phone number is changed to 99900999
+
+. Attempting to edit the admin user
+
+.. Prerequisites: The user is currently logged in as admin.
+.. Test cases: `myself -p 999009991 +
+   Expected: An error message saying that you cannot edit the admin account.
 
 === Deleting a person
 
