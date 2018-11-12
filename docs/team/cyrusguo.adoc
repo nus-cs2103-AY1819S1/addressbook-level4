@@ -28,12 +28,10 @@ Tutors interact with the application through the CLI, and the GUI is implemented
 ** Project management:
 *** Assisted team member in Email functions with respect to RESTful API and outlook API
 ** Community:
-*** Aided teammates in their own features and/or documentation. (Pull requests
-https://github.com/CS2103-AY1819S1-W13-3/main/pull/69[#69]
-https://github.com/CS2103-AY1819S1-W13-3/main/pull/133[#133])
 *** Updated documentation and sequence diagrams (Pull requests
 https://github.com/CS2103-AY1819S1-W13-3/main/pull/153[#153]
-https://github.com/CS2103-AY1819S1-W13-3/main/pull/160[#160])
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/160[#160]
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/166[#166])
 *** PRs reviewed: (Pull requests
 https://github.com/CS2103-AY1819S1-W13-3/main/pull/4[#4]
 https://github.com/CS2103-AY1819S1-W13-3/main/pull/33[#33]
