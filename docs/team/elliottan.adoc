@@ -15,7 +15,7 @@ OASIS is an office administration and communication application for small-to-med
 == Summary of contributions
 This section documents the major and minor contributions that I have made to this project.
 
-* *Major enhancement*: implemented a *leave management* feature*
+* *Major enhancement*: implemented a *leave management* feature
 ** What it does: this feature allows an employee to apply for leave on specified dates. Also, it allows the user to view his/her own leave applications with their current approval status. Finally, it allows a user, with the required permissions, to view all employee leave applications and the ability to approve or reject them.
 ** Justification: This leave management system provides an extremely quick and easy way for employees to apply for leave and view the status of their current applications. It also consolidates all employee leave applications into one place, and is thus very useful for managers who have many employees under them. Furthermore, it also provides a clean and fast way for managers to approve or reject employee leave applications.
 ** Highlights: This enhancement required careful deliberation of how it was to be designed. It was necessary to have an in-depth understanding of the existing code-base and how the many components worked together, so that I could consider the pros and cons of each design alternative that I conceptualized.
@@ -23,7 +23,7 @@ This section documents the major and minor contributions that I have made to thi
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: see on [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]]
+* *Code contributed*: see on link::https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
 
 * *Other contributions*:
 
@@ -52,7 +52,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=leaveapplication]
+include::../UserGuide.adoc[tag=leaveapplication]
 
 == Contributions to the Developer Guide
 
@@ -60,6 +60,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-// include::../DeveloperGuide.adoc[tag=leaveapplication]
+include::../DeveloperGuide.adoc[tag=leaveapplication]
 
 ---
