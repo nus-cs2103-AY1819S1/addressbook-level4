@@ -266,6 +266,7 @@ Format: `exit`
 
 Shorthand: `q`
 
+// tag::import[]
 === Mass import contacts: `import`
 
 Import contacts from a csv file.
@@ -306,7 +307,9 @@ Example (user provides a file path):
 image::import-acceptable-csv.png[width="790"]
 +
 image::import-acceptable-csv2.png[width="790"]
+// end::import[]
 
+// tag::export[]
 === Export contact list: `export`
 
 Exports the current contact list into a csv file whose name is given as the second argument. The export file
@@ -326,6 +329,7 @@ Example:
 InsuRen contacts are exported to `28Nov.csv`
 +
 image::exportedCsv.png[width="790"]
+// end::export[]
 
 === Add meeting time: `schedule`
 

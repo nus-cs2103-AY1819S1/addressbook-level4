@@ -492,6 +492,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 // tag::undoredo[]
 
+// tag::import[]
 === Import feature
 ==== Current Implementation
 The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file
@@ -543,7 +544,9 @@ entries with invalid formats
 ** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
 not cause import to crash.
 ** Cons: Higher coupling.
+// end::import[]
 
+// tag::export[]
 === Export feature
 ==== Current Implementation
 The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen
@@ -576,6 +579,7 @@ image::ExportActivityDiagram.png[width="400"]
 Export makes use of model.getAddressBook() and the getPersonList method within.
 ** Pros: Easy to implement. Since we are only dealing with a ReadOnlyAddressBook, the state of InsuRen will not be altered.
 ** Cons: Only able to capture snapshots of the contact list. Not dynamically updated.
+// end::export[]
 
 // tag::addpicture[]
 === Add Picture feature
