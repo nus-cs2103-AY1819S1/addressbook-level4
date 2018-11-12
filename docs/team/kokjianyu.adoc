@@ -76,3 +76,5 @@ include::../UserGuide.adoc[tag=modifypermission]
 include::../DeveloperGuide.adoc[tag=permissionsystem]
 
 include::../DeveloperGuide.adoc[tag=modifypermission]
+
+include::../DeveloperGuide.adoc[tag=viewpermission]
