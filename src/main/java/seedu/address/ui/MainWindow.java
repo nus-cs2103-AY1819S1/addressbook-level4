@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -15,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -85,13 +87,14 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
-        // TODO refactor switchtab to belong to the calendar panel
         setAccelerator(() -> handleSwitchTab(new SwitchTabEvent()), new KeyCodeCombination(KeyCode.TAB,
             KeyCombination.SHIFT_ANY, KeyCombination.CONTROL_DOWN));
         registerAsAnEventHandler(this);
 
-        setAccelerator(() -> calendarDisplay.displayPreviousWeek(), new KeyCodeCombination(KeyCode.LEFT));
-        setAccelerator(() -> calendarDisplay.displayNextWeek(), new KeyCodeCombination(KeyCode.RIGHT));
+        // disable TabPane switching by left and right arrow keys
+        setAccelerator(() -> {}, new KeyCodeCombination(KeyCode.LEFT));
+        setAccelerator(() -> {}, new KeyCodeCombination(KeyCode.RIGHT));
+
         helpWindow = new HelpWindow();
     }
 
@@ -110,7 +113,10 @@ public class MainWindow extends UiPart<Stage> {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (!(event.getTarget() instanceof TextInputControl) && keyCombination.match(event)) {
                 action.run();
-                event.consume();
+                // consume event unless the target is the calendar display
+                if (!(event.getTarget() instanceof ScrollPane)) {
+                    event.consume();
+                }
             }
         });
     }
