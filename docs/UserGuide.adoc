@@ -145,7 +145,7 @@ Updates the details of the ride identified by the index number used in the displ
 [NOTE]
 The length limit for zone and tag(s) field is 40 characters.
 
-Format: `update <index> <tag/value>`
+Format: `update <index> <prefix/value>`
 
 Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG]...
 
@@ -169,6 +169,11 @@ Maintenance and waiting time should only contain positive integers with at least
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
 
+Example:
+
+* `shutdown 1` +
+  Closes the 1st ride in ThanePark.
+
 [NOTE]
 This command will reset the waiting time field to zero.
 
@@ -176,6 +181,11 @@ This command will reset the waiting time field to zero.
 
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
+
+Example:
+
+* `open 2` +
+  Opens the 2nd ride in ThanePark.
 
 [NOTE]
 This command also resets the waiting time field to zero.
