@@ -200,7 +200,7 @@ Format: `help`
 // tag::add[]
 
 
-=== Adding an entry: `add[]`
+=== Adding an entry: `add` + `person`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -267,7 +267,7 @@ Example: +
 
 // tag::list[]
 
-=== Listing all entries : `list[]`
+=== Listing all entries : `list` + `person`
 
 The different list commands will show the specified list in TheTracker. +
 
@@ -317,7 +317,7 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // end::select[]
 
 // tag::edit[]
-=== Editing an entry : `edit[]`
+=== Editing an entry : `edit` + `person`
 
 A command to allow the user to edit an existing person, module or occasion in TheTracker. +
 It can be used to add optional field that is not specified in the add command.
@@ -433,7 +433,7 @@ command box.
 // end::removeperson[]
 
 // tag::find[]
-=== Locating entries: `find[]`
+=== Locating entries: `find` + `person`
 
 ==== Finding a person: `findperson`
 A command to allow the user to find a person in TheTracker. +
@@ -509,7 +509,7 @@ Format: +
 [NOTE]
 ====
 
-Undoable commands: those commands that modify the address book's content (`add[]`, `delete`, `edit[]`, `clear` and `insertperson`).
+Undoable commands: those commands that modify the address book's content (`add` + `person`, `delete`, `edit` + `person`, `clear` and `insertperson`).
 
 ====
 
@@ -533,7 +533,7 @@ Format:
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add[]`, `delete`, `edit[]`, `clear` and `insertperson`).
+Undoable commands: those commands that modify the address book's content (`add` + `person`, `delete`, `edit` + `person`, `clear` and `insertperson`).
 ====
 
 Examples:
