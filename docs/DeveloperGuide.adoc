@@ -109,8 +109,8 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
 == Design
 // tag::command[]
-===== Command Component
-Command is refactored to be implemented using a https://en.wikipedia.org/wiki/Template_method_pattern[template method pattern].
+==== Command Component
+Command is refactored to be implemented using a template method pattern.
  The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
  method to update the status of tasks to overdue if their due date is past current time.
 
@@ -120,9 +120,11 @@ Concrete implementations of each execute function is implemented in the `execute
 The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
 abstract method in command.
 
-Simplified class diagram for the command component:
 
 image::CommandComponentClassDiagram.png[width="600"]
+
+_Simplified class diagram for the command component_
+
 // end::command[]
 
 
@@ -674,7 +676,7 @@ should never undo an overdue. Simple implementation prevents race conditions (re
 ** Cons: If a user does not input a command, the task state will not be updated. (Mitigated by the fact that
 the number of commands that a person uses likely occurs at a higher rate than the number of tasks itself).
 * **Alternative 2:** Run a cron job that checks at a regular interval if the task is overdue
-** Pros: The overdue state of the task is definitely current
+** Pros: The overdue state of the task is current
 ** Cons: Potential race condition and might introduce latency to the application.
 // end::time[]
 
