@@ -52,30 +52,33 @@ public class CommandBox extends UiPart<Region> {
         // As up and down buttons will alter the position of the caret,
         // consuming it causes the caret's position to remain unchanged
         keyEvent.consume();
-
-        switch (keyEvent.getCode()) {
-        case UP:
-            navigateToPreviousInput();
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), true, false);
-            break;
-        case DOWN:
-            navigateToNextInput();
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), true, false);
-            break;
-        case LEFT: case RIGHT: case BACK_SPACE: case SPACE:
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), false, true);
-            break;
-        case ENTER:
-            return;
-        default:
-            // let JavaFx handle the keypress
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), false, false);
-            break;
-        }
-
+        formattedText = detectKeyCodeEvent(keyEvent);
         replaceText(formattedText);
     }
 
+    /**
+     * Detect the key code event .
+     * @param keyEvent The key press event.
+     */
+    private String detectKeyCodeEvent(KeyEvent keyEvent) {
+        // mask password accordingly to key pressed.
+        switch (keyEvent.getCode()) {
+        case UP:
+            navigateToPreviousInput();
+            return passwordFormatter.maskPassword(commandTextField.getText(), true, false);
+        case DOWN:
+            navigateToNextInput();
+            return passwordFormatter.maskPassword(commandTextField.getText(), true, false);
+        case LEFT: case RIGHT: case BACK_SPACE: case SPACE:
+            return passwordFormatter.maskPassword(commandTextField.getText(), false, true);
+        case ENTER:
+            return "";
+        default:
+            // let JavaFx handle the keypress
+            return passwordFormatter.maskPassword(commandTextField.getText(), false, false);
+        }
+    }
+    
     /**
      * Updates the text field with the previous input in {@code historySnapshot},
      * if there exists a previous input in {@code historySnapshot}
