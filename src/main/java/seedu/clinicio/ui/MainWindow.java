@@ -17,7 +17,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
@@ -362,17 +361,17 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        showDisplayPanel(false,true, false);
+        showDisplayPanel(false, true, false);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        showDisplayPanel(false,false, true);
+        showDisplayPanel(false, false, true);
     }
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        showDisplayPanel(false,true, false);
+        showDisplayPanel(false, true, false);
     }
 
     @Subscribe
