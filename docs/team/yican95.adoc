@@ -72,6 +72,8 @@ include::../UserGuide.adoc[tag=menuPart1]
 
 include::../UserGuide.adoc[tag=menuPart2]
 
+include::../UserGuide.adoc[tag=menuPart3]
+
 [[dev]]
 == Contributions to the Developer Guide
 

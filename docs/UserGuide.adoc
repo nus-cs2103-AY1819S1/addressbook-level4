@@ -600,6 +600,7 @@ Examples:
 Returns any item that contains tag `monday`
 * `fm set monday` +
 Returns any item that contains tag `set` or `monday`
+//end::menuPart2[]
 
 ==== Sort menu : `sort-menu` or `sm`
 
@@ -620,6 +621,7 @@ Sorts the menu by item name in lexicographical order.
 * `sm PRICE` +
 Sorts the menu by item price in ascending order(lowest to highest).
 
+//tag::menuPart3[]
 ==== Giving a discount to an item : `discount-item` or `dci`
 
 Gives the item identified by the index number used in the displayed item list a discount. +
@@ -648,7 +650,7 @@ Revert all items in the results of the `find-item` command to original price.
 * `li` +
 `dci 1 ei/3 dp/50` +
 Give the 1st item to the 3rd item in the menu a 50% discount.
-//end::menuPart2[]
+//end::menuPart3[]
 
 ==== Today's specials : `today-special` or `ts`
 

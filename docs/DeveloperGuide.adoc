@@ -2069,14 +2069,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort-menu price` +
    *Expected*: Sorts the menu by price. Sorting method shown in status message.
 
-. Giving a discount to all item
+. Giving discount to all item
 
 .. Prerequisites: You must have at least 1 item in the menu.
 .. Test case: `discount-item ALL dp/20` +
-   *Expected*: Gives all items in the menu a discount. Number of item given a discount shown in status message.
+   *Expected*: Gives all items in the menu a discount. Number of items given a discount shown in status message.
 .. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
 
-. Adding recipe to an item
+. Adding a recipe to an item
 
 .. Prerequisites: You must have at least 1 item in the menu.
 .. Test case: `recipe-item 1 r/some recipe` +
