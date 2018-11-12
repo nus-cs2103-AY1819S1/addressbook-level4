@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main/tree/master
 
 By: `Team CS2103T-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -140,7 +140,7 @@ image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
-
+x
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
