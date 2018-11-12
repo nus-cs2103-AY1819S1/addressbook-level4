@@ -13,7 +13,7 @@ TheTracker is an application specifically built for NUS students. Allowing a stu
 
 == Summary of contributions
 
-* *Major enhancement*: implemented *the insertperson feature with UI components*
+* *Major enhancement*: implemented *the insertperson feature*
 ** What it does: Allows the user to build an association between a person and a module, or a person and an occasion.
 ** Justification: This feature improves the product significantly as the user can now conveniently register his/her associated persons with modules and occasions. This makes TheTracker more of a holistic and useful product.
 ** Highlights: This enhancement affects the existing delete and edit commands as now an edit to an entity must edit all the entities associated with it as well.
