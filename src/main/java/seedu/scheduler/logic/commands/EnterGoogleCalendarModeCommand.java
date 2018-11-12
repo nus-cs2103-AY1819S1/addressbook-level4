@@ -36,7 +36,6 @@ public class EnterGoogleCalendarModeCommand extends Command {
             + "download the events from primary google calendar.\n"
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
-
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
     public static final String MESSAGE_EVENT_NOT_SUPORTED = "Event Format Not supported";
     public static final String MESSAGE_FORMAT_CONVERTION_ERROR =
@@ -60,12 +59,14 @@ public class EnterGoogleCalendarModeCommand extends Command {
         }
 
         //Get the Google Calendar calendar object
-        logger.info("Getting a calendar calendar");
+        logger.info("Getting a calendar");
         Calendar calendar = connectToGoogleCalendar.getCalendar();
 
         //Obtain Google Events
+        logger.info("Getting Google Events");
         Events events = connectToGoogleCalendar.getEvents(calendar);
         if (events == null) {
+            logger.info(MESSAGE_INTERNET_ERROR);
             return new CommandResult(MESSAGE_INTERNET_ERROR);
         }
 
@@ -102,22 +103,26 @@ public class EnterGoogleCalendarModeCommand extends Command {
         HashMap<String, DateTime> googleiCalAndRepeatUntilTime = new HashMap<>();
 
         //Obtain a list of Google Events
+        logger.info("Obtaining a list of Google Events with NO instances");
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents =
                 events.getItems();
 
         //Retrieve any recurrence property if any
         //and then check whether we support its format
+        logger.info("Retrieving recurrence event property");
         retrieveRecurrenceEventProperty(googleiCalAndRepeatType, googleiCalAndRepeatUntilTime,
                 listOfGoogleEvents);
         checkForRepeatTypeSupport(googleiCalAndRepeatType);
 
         //Obtain a list Of Google Events instances
         //Previously only Events (not
+        logger.info("Obtaining a list of Google Events with instances");
         Events eventsIncludingInstances = connectToGoogleCalendar.getSingleEvents(calendar);
         //Retrieve the event instances
         listOfGoogleEvents = eventsIncludingInstances.getItems();
         if (listOfGoogleEvents.isEmpty()) {
             ConnectToGoogleCalendar.setGoogleCalendarEnabled();
+            logger.info(MESSAGE_NO_EVENTS);
             return new CommandResult(MESSAGE_NO_EVENTS);
         } else {
             //Upcoming events
@@ -127,6 +132,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
         //Add to local database
         for (Event event : eventsToadd) {
+            logger.info("Adding events to local databse");
             model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
         }
         ConnectToGoogleCalendar.setGoogleCalendarEnabled();
@@ -147,6 +153,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
             if (frequency > 1) {
                 //More than one means the Google Event has two repeating properties
                 //eg: repeat weekly and monthly
+                logger.info(MESSAGE_EVENT_NOT_SUPORTED);
                 throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
             }
         }
@@ -172,6 +179,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
             List<String> recurrence = googleEvent.getRecurrence();
             boolean isRecurrentEvent = false;
             if (recurrence != null) {
+                logger.info("A Google recurrent event is retrieved");
                 isRecurrentEvent = true;
             }
 
@@ -180,6 +188,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
                         googleiCalAndRepeatType,
                         googleiCalAndRepeatUntilTime, googleEvent, recurrence);
                 if (repeatUntilDateTime == null) {
+                    logger.info(MESSAGE_EVENT_NOT_SUPORTED);
                     throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
                 }
             }
@@ -210,6 +219,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         //RRULE:FREQ=WEEKLY;UNTIL=20181203T155959Z;BYDAY=MO
         //This is specified by Google
         if (recurrenceText.length != 3) {
+            logger.info(MESSAGE_EVENT_NOT_SUPORTED);
             throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
         }
         //Make sense of each field
@@ -220,16 +230,16 @@ public class EnterGoogleCalendarModeCommand extends Command {
         if (recurrenceDayTextField.length() > expectedLengthOfRecurrenceDay) {
             //beyond this means the event is repeated by more than one day. eg, Monday AND Tuesday
             //This is NOT supported by this app
+            logger.info(MESSAGE_EVENT_NOT_SUPORTED);
             throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
         }
 
         //Retrieve repeat type and repeat until DateTime
+        logger.info("Retrieving repeat type and repeat until DateTime");
         retrieveRepeatTypeFromRecurrenceRuleTextField(
                 googleiCalAndRepeatTypeMap, googleEvent, recurrenceRuleTextField);
-        DateTime repeatUntilDateTime = convertToLocalRepeatUntilDateTimeFromTextField(
+        return convertToLocalRepeatUntilDateTimeFromTextField(
                 googleiCalAndRepeatUntilTime, googleEvent, recurrenceUntilTextField);
-
-        return repeatUntilDateTime;
     }
 
     /**
@@ -247,7 +257,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
             HashMap<String, DateTime> googleiCalAndRepeatUntilTimeMap,
             com.google.api.services.calendar.model.Event googleEvent,
             String recurrenceUntilTextField)
-            throws ParseException, java.text.ParseException {
+            throws ParseException, java.text.ParseException, CommandException {
 
         DateTime repeatUntilDateTimeFromGoogleEvent =
                 formatRepeatUntilDateTimeFrom(recurrenceUntilTextField);
@@ -274,6 +284,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
      * @return the adjusted DateTime in String format
      */
     private String adjustTheTimeZone(DateTime repeatUntilDateTime) {
+        logger.info("Adjusting the time zone");
         Parser parser = new Parser();
         //+0 for setting the timezone (GMT)
         List<DateGroup> groups = parser.parse(
@@ -287,11 +298,12 @@ public class EnterGoogleCalendarModeCommand extends Command {
      *
      * @return the epeatUntilDateTime
      */
-    private DateTime formatRepeatUntilDateTimeFrom(String recurrenceUntilTextField) {
+    private DateTime formatRepeatUntilDateTimeFrom(String recurrenceUntilTextField) throws CommandException {
         DateTime newRepeatUntilDateTime = null;
         try {
             //local format:2018-10-20T17:00:00
             //UNTIL=20181108T155959Z
+            logger.info("Formatting the RepeatUntilDateTime from recurrenceUntilTextField");
             String newRepeatUntil = recurrenceUntilTextField.substring(6, 19);
             StringBuilder newRepeatUntil2 = new StringBuilder(newRepeatUntil);
             newRepeatUntil2.insert(4, "-")
@@ -300,7 +312,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
                     .append(":00");
             newRepeatUntilDateTime = ParserUtil.parseDateTime(newRepeatUntil2.toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new CommandException(MESSAGE_FORMAT_CONVERTION_ERROR);
         }
         return newRepeatUntilDateTime;
     }
@@ -315,6 +327,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
             HashMap<String, RepeatType> googleiCalAndRepeatTypeMap,
             com.google.api.services.calendar.model.Event googleEvent,
             String recurrenceRuleTextField) {
+        logger.info("Retrieving RepeatType From RecurrenceRuleTextField");
         RepeatType repeatType;
         //This position depends on Google's implementation
         int rulePosition = recurrenceRuleTextField.indexOf("=") + 1;
@@ -326,6 +339,8 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     private String[] getRecurrenceRuleFromRecurrenceAttribute(List<String> recurrence) throws CommandException {
         String[] recurrenceText;
+        //The size and position depends on Google's implementation
+        logger.info("Getting RecurrenceRule from recurrence Attribute");
         switch (recurrence.size()) {
         case 1:
             recurrenceText = recurrence.get(0).split(";");
@@ -346,6 +361,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
      * @return corresponding RepeatType
      */
     private RepeatType convertToRepeatTypeFromRecurrenceRule(String recurrenceRule) {
+        logger.info("Converting to RepeatType from recurrenceRule");
         RepeatType repeatType;
         switch (recurrenceRule) {
         case "YEARLY":
