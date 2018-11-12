@@ -294,7 +294,7 @@ Example (user does not provide a file path):
 * `import`
 * A file browser will pop up as shown below:
 +
-image::import.png[width="790"]
+image::import.png[width="550"]
 
 Example (user provides a file path):
 
@@ -312,9 +312,9 @@ corresponding Excel cell MUST have nothing in it.
 * Examples of properly formatted csv files are shown below.
 
 +
-image::import-acceptable-csv.png[width="790"]
+image::import-acceptable-csv.png[width="550"]
 +
-image::import-acceptable-csv2.png[width="790"]
+image::import-acceptable-csv2.png[width="550"]
 // end::import[]
 
 // tag::export[]
@@ -336,7 +336,7 @@ Example:
 * `export 28Nov.csv` +
 InsuRen contacts are exported to `28Nov.csv`
 +
-image::exportedCsv.png[width="790"]
+image::exportedCsv.png[width="550"]
 // end::export[]
 
 // tag::schedule[]
