@@ -34,7 +34,6 @@ public class RemoveCategoryCommandTest {
 
     @Test
     public void execute_nonexistentCategory_throwsCommandException() {
-        ModelManager expectedModel = new ModelManager(model.getSchedulePlanner(), new UserPrefs());
         //Category "work" does not exist in categories, test should fail
         RemoveCategoryCommand removeCommand = new RemoveCategoryCommand("work");
         assertCommandFailure(removeCommand, model, commandHistory, Messages.MESSAGE_NONEXISTENT_CATEGORY);
