@@ -562,7 +562,6 @@ Since there are no voters yet, the most popular options list is empty.
 
 image::AddOptionDisplay.png[width="800"]
 
-
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
 Format: `displayPoll i/POLL_INDEX`
@@ -706,7 +705,7 @@ e.g. `login n/Alex Yeoh pass/password`
 * *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST] ` +
+`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST]` +
 e.g. `findUser n/Alex Yeoh`
 
 * *Delete User* : `deleteUser` +
@@ -728,7 +727,7 @@ e.g. `listFriends 1`
 // end::agendazhang(commandsummary)[]
 
 // tag::scheduletimetable[]
-* *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]... [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
+* *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]... [tt/TIMETABLE] [su/SCHEDULE_UPDATE]` +
 e.g. `editUser n/Alex Yeoh e/jameslee@example.com` +
 e.g. `editUser tt/ http://modsn.us/H4v8s` +
 e.g. `editUser su/ monday 0000`
@@ -741,7 +740,7 @@ e.g.`selectUser 2`
 
 // tag::maxschedule[]
 * *Free time between persons*: `maxSchedule INDEX INDEX ... [sl/ LIMIT]` +
-e.g. `maxSchedule 1 2 3`
+e.g. `maxSchedule 1 2` +
 e.g. `maxSchedule 1 2 3 sl/ 0800-0900`
 // end::maxschedule[]
 
