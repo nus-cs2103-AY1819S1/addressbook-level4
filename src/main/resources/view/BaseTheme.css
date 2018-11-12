@@ -130,7 +130,8 @@
 }
 
 .status-bar {
-    -fx-text-fill: black;
+    -fx-background-color: black;
+    -fx-text-fill: #464646;
     -fx-font-size: 10px;
 }
 
@@ -150,17 +151,11 @@
 
 .status-bar .label {
     -fx-font-family: "Arial";
-    -fx-text-fill: white;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#FFF, 30%);
-    -fx-border-color: derive(#FFF, 25%);
-    -fx-border-width: 1px;
+    -fx-text-fill: #464646;
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #464646;
 }
 
 .grid-pane {

@@ -51,7 +51,7 @@ After logging in, the interface will display as such:
 .User interface
 image::userguide/ui.png[width="790"]
 
-There are five main components to Expense Tracker, each highlighted by the coloured box in the diagram above.
+There are 6 main components to Expense Tracker, each highlighted by the coloured box in the diagram above.
 
 === Left Panel
 
@@ -93,6 +93,9 @@ The type of statistics shown can be changed via the `stats` command.
  See <<StatsCommand, `stats`>> command for more details.
 
 The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
+
+[NOTE]
+If there are no category budgets set, the lower section will be empty, save for the title.
 
  See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
@@ -138,6 +141,13 @@ Entering the command `exit` into the Command Box achieves the same outcome.
 Click on "help" to reveal a dropdown containing the option "help". Clicking on "help", or pressing the `F1` key on your
 keyboard, will open a Help Window.
 Entering the command `help` into the Command Box achieves the same outcome.
+
+=== Status Bar
+This component is highlighted by the pink box.
+
+On the leftmost side, the Status Bar displays the date and time of the last update to the Expense Tracker.
+
+On the rightmost side, the Status Bar displays the directory or folder where the updated data was saved to.
 
 [[Features]]
 == Features
@@ -582,7 +592,7 @@ up most of your budget.
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
 
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
 
 .Statistics Panel showing a bar chart in Time mode
 image::userguide/barChart.png[width="790"]

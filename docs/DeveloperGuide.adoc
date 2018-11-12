@@ -539,10 +539,28 @@ and passes the data as parameters by calling
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
 an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
-`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
-If `StatsMode` is set to CATEGORY, the key value pair represents category and cost.
 
+. `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost. Regardless of mode, the values are
+cumulative and is implemented using the algorithm in the following code snippet, using the example of category mode:
++
+```
+LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+for (Expense e : expenseList) {
+    String category;
+    category = e.getCategory().categoryName;
+
+    if (stats.containsKey(category)) {
+        stats.put(
+                category,
+                stats.get(category) + e.getCost().getCostValue()
+        );
+    } else {
+        stats.put(category, e.getCost().getCostValue());
+    }
+}
+```
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
@@ -1375,6 +1393,10 @@ Use case ends.
     ** 1b1. Expense Tracker sends warning to the user that they have almost gone over budget.
     ** Use Case ends.
 
+* 1d.Expense Tracker detects that the user is not logged into an account.
+    ** 1d1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Delete expenditure
@@ -1393,8 +1415,13 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker cannot find specified expenditure.
-    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1415,8 +1442,13 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker cannot find specified expenditure.
-    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1437,6 +1469,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 * 3a.Expense Tracker detects error in the entered data.
@@ -1465,6 +1501,10 @@ Use case ends
     ** 1a1. Expense Tracker inform user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Set a recurring budget
@@ -1483,6 +1523,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 * 4a.Expense Tracker detects that the specified period of time has not passed.
@@ -1504,6 +1548,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1620,8 +1668,12 @@ Use case ends
     ** Use case ends.
 
 
-* 1a.Expense Tracker detects that the user is not logged in.
-    ** 1a1. Expense Tracker informs user that they need to log into an account.
+* 1b.Expense Tracker detects that the user is not logged in.
+    ** 1b1. Expense Tracker informs user that they need to log into an account.
+    ** Use case ends.
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1635,6 +1687,10 @@ Use case ends
 3. Expense Tracker displays a success message.
 +
 Use case ends
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
 
 [discrete]
 
@@ -1651,6 +1707,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1671,6 +1731,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: View statistics
@@ -1687,6 +1751,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1722,6 +1790,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user that are no commands to redo.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Undo Command
@@ -1736,6 +1808,10 @@ Use case ends
 
 * 1a.Expense Tracker detects that are no commands to undo.
     ** 1a1. Expense Tracker informs user that are no commands to undo.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1754,6 +1830,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Encrypt
@@ -1768,6 +1848,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1786,8 +1870,12 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
-    ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
+* 1b.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1b1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+    ** Use case ends.
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1854,8 +1942,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-_{ more test cases ... }_
-
 === Deleting a expense
 
 . Deleting a expense while all expenses are listed
@@ -1865,10 +1951,102 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Showing statistics
+
+. Showing statistics based on expenses in Expense Tracker
+
+.. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
+categories and costs.
+
+.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
+   If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/d m/t` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Exactly the same as above.
+
+.. Test case: `stats n/7 p/m m/t` (periodAmount = 7, period = month, mode = time) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 months, starting from the current month, aggregated by month.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/m m/c` (periodAmount = 7, period = month, mode = category) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *pie chart* for expenses in the last 7 months, starting from the current month, aggregated by category.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+=== Notification Panel
+
+. Updating the Notification Panel
+
+.. Prerequisites: Create a new account using `signup x` where x is any valid username.
+.. Test case: `login x`, where x is the username of the new account.
+   Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
+    to the user that their recurrence time has not been set.
+.. Test case: `add n/test c/test $/27.00`.
+   Expected: A notification should appear at the top of the  `NotificationPanel` containing a warning to the user that they are about to go over budget.
+.. Additional command to try: `edit 1 $/27.50`
+   Expected: Similar to previous.
+.. Test case: `add n/test c/test $/28.50`.
+   Expected: A notification should appear at the top of the `NotificationPanel` containing a warning to the user that they are over budget.
+.. Additional command to try: `edit 1 $/29.00`
+   Expected: Similar to previous.
+
+=== Toggling Notifications
+
+. Toggling Notifications On and Off
+
+.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`.
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
+   Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
+   Expected: No new notifications should appear on the `NotificationPanel`.
+.. Test case: `notification n/tip t/on`
+   Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
+.. Test case: `notification n/tip t/off`
+   Expected: No new notifications containing saving tips should appear after any length of time.
+.. Test case: `notification` +
+   Expected: Error details shown in the status message.
+.. Other incorrect delete commands to try: `notification x` where x is any input,
+   `notification n/x t/on` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
+   x is any input other than `on` or `off`.
+   Expected: Similar to previous.
+
+=== Budget Panel
+
+. Updating the Budget Panel
+
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Test case: `add n/test c/test $/4.00`
+   Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
+   Both of these elements should be colored green.
+.. Test case: `add n/test c/test $/40.00`
+   Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#expenseDisplay` should be updated to display "$40.00".
+                Both of these elements should be colored red.
+.. Test case: `setBudget $/1000.00`
+   Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#budgetCapDisplay` should be updated to display "$1000.00".
+   `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should be colored green.
+
+=== Category Panel
+
+. Updating the Category Panel
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
+.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
+"50.00%"
+.. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats`
+.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
+"1000.00%"
+.. Test case: `setCategoryBudget c/Food b/25.00`
+.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Food b/25.00`
+.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00`
+.. Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
 
 === Find expenses
 
