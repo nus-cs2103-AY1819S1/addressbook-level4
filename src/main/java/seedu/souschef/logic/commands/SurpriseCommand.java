@@ -47,7 +47,7 @@ public class SurpriseCommand extends Command {
             throw new CommandException(Messages.MESSAGE_EMPTY_RECIPE_LIST);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent((randomIndex)));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(randomIndex));
         return new CommandResult(String.format(MESSAGE_SURPRISE_SUCCESS, randomIndex.getOneBased()));
     }
 

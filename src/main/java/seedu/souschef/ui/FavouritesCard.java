@@ -4,16 +4,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import seedu.souschef.model.favourite.Favourites;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class FavouritesCard extends GenericCard<Favourites> {
+public class FavouritesCard extends GenericCard<Recipe> {
 
     private static final String FXML = "FavouritesCard.fxml";
 
-    public final Favourites favourite;
+    public final Recipe recipe;
 
     @FXML
     private HBox cardPane;
@@ -28,14 +28,14 @@ public class FavouritesCard extends GenericCard<Favourites> {
     @FXML
     private FlowPane tags;
 
-    public FavouritesCard(Favourites favourite, int displayedIndex) {
+    public FavouritesCard(Recipe recipe, int displayedIndex) {
         super(FXML);
-        this.favourite = favourite;
+        this.recipe = recipe;
         id.setText(displayedIndex + ". ");
-        name.setText(favourite.getName().fullName);
-        duration.setText("Duration: " + favourite.getCookTime().toString());
-        difficulty.setText("Difficulty: " + favourite.getDifficulty().toString());
-        favourite.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(recipe.getName().fullName);
+        duration.setText("Duration: " + recipe.getCookTime().toString());
+        difficulty.setText("Difficulty: " + recipe.getDifficulty().toString());
+        recipe.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -53,6 +53,6 @@ public class FavouritesCard extends GenericCard<Favourites> {
         // state check
         FavouritesCard card = (FavouritesCard) other;
         return id.getText().equals(card.id.getText())
-                && favourite.equals(card.favourite);
+                && recipe.equals(card.recipe);
     }
 }

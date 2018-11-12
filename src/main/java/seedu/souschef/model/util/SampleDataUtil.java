@@ -464,6 +464,14 @@ public class SampleDataUtil {
 
     }
 
+    public static Recipe[] getFavourites() {
+        Recipe[] recipes = new Recipe[3];
+        recipes[0] = getRecipes()[1];
+        recipes[1] = getRecipes()[2];
+        recipes[2] = getRecipes()[3];
+        return recipes;
+    }
+
     public static HealthPlan[] getSampleHealthPlan() {
         return new HealthPlan[] {
             new HealthPlan(new HealthPlanName("Lose weight"), new TargetWeight("70"), new CurrentWeight("80"),
@@ -583,6 +591,15 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
+
+    public static ReadOnlyAppContent getSampleFavourites() {
+        AppContent sampleAb = new AppContent();
+        for (Recipe sampleRecipe : getFavourites()) {
+            sampleAb.getFavourites().add(sampleRecipe);
+        }
+        return sampleAb;
+    }
+
 
     public static ReadOnlyAppContent getSampleIngredients() {
         AppContent sampleIngredients = new AppContent();
