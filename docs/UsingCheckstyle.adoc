@@ -35,7 +35,7 @@ image::checkstyle-idea-configuration.png[width="700"]
 == Troubleshooting Checkstyle-IDEA
 
 **Problem: When importing `checkstyle.xml`, Checkstyle-IDEA plugin complains that `The Checkstyle rules file could not
-be parsed. 
+be parsed.
 ... The file has been blacklisted for 60s.`**
 
 * Reason: `checkstyle.xml` is written for a particular version, but the plugin was not configured to the correct

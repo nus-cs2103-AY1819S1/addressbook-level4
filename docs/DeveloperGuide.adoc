@@ -252,7 +252,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Scheduler data.
-* exposes an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that 
+* exposes an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -351,7 +351,7 @@ will usually not call `Model#commitScheduler()`, `Model#undoScheduler()` or `Mod
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitScheduler()`. Since the `currentStatePointer` is not 
+Step 6. The user executes `clear`, which calls `Model#commitScheduler()`. Since the `currentStatePointer` is not
 pointing at the end of the `schedulerStateList`, all scheduler states after the `currentStatePointer` will be purged. We
 designed it this way because it no longer makes sense to redo the `add n/Party ...` command. This is the behavior that
 most modern desktop applications follow.
@@ -972,7 +972,7 @@ a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
 ** link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/SchedulerParser.java[`SchedulerParser`] is responsible for
 analyzing command words.
 * Solution
-** Modify the switch statement in 
+** Modify the switch statement in
 link:{repoURL}/src/main/java/seedu/scheduler/logic/parser/SchedulerParser.java[`schedulerParser#parseCommand(String)`]
 such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
@@ -998,7 +998,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 ** The link:{repoURL}/src/main/java/seedu/scheduler/model/Model.java[`Model`] and the
 link:{repoURL}/src/main/java/seedu/scheduler/model/Scheduler.java[`Scheduler`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in 
+**  Find out which of the existing API methods in
 link:{repoURL}/src/main/java/seedu/scheduler/model/Scheduler.java[`Scheduler`] and
 link:{repoURL}/src/main/java/seedu/scheduler/model/event/Event.java[`Event`] classes can be used to implement the tag
 removal logic. link:{repoURL}/src/main/java/seedu/scheduler/model/Scheduler.java[`Scheduler`] allows you to update an
@@ -1007,7 +1007,7 @@ event, and link:{repoURL}/src/main/java/seedu/scheduler/model/event/Event.java[`
 ** Implement a `removeTag(Tag)` method in
 link:{repoURL}/src/main/java/seedu/scheduler/model/Scheduler.java[`Scheduler`]. Loop through each event, and remove the
 `tag` from each event.
-** Add a new API method `deleteTag(Tag)` in 
+** Add a new API method `deleteTag(Tag)` in
 link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`]. Your
 link:{repoURL}/src/main/java/seedu/scheduler/model/ModelManager.java[`ModelManager`] should call
 `Scheduler#removeTag(Tag)`.
@@ -1074,7 +1074,7 @@ image::getting-started-ui-result-after.png[width="200"]
 * Hints
 ** link:{repoURL}/src/main/java/seedu/scheduler/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`]
 is raised by link:{repoURL}/src/main/java/seedu/scheduler/ui/CommandBox.java[`CommandBox`] which also knows whether the
-result is a success or failure, and is caught by 
+result is a success or failure, and is caught by
 link:{repoURL}/src/main/java/seedu/scheduler/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the
 style to.
 ** Refer to link:{repoURL}/src/main/java/seedu/scheduler/ui/CommandBox.java[`CommandBox`] for an example on how to
@@ -1134,7 +1134,7 @@ also verify the new total number of events status bar.
 of saving the scheduler to the cloud. However, the current implementation of the application constantly saves the
 scheduler after the execution of each command, which is not ideal if the user is working on a limited internet
 connection. Your team decided that the application should instead save the changes to a temporary local backup file
-first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the 
+first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the
 scheduler storage.
 
 [TIP]
@@ -1147,7 +1147,7 @@ location.
 * Hint
 ** Add the API method in link:{repoURL}/src/main/java/seedu/scheduler/storage/SchedulerStorage.java[`SchedulerStorage`]
 interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/scheduler/storage/StorageManager.java[`StorageManager`] and 
+** Implement the logic in link:{repoURL}/src/main/java/seedu/scheduler/storage/StorageManager.java[`StorageManager`] and
 link:{repoURL}/src/main/java/seedu/scheduler/storage/XmlSchedulerStorage.java[`XmlSchedulerStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
@@ -1238,7 +1238,7 @@ let's follow the conventional class structure that the codebase already uses by 
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from 
+. Add `Remark` to model component (you can copy from
 link:{repoURL}/src/main/java/seedu/scheduler/model/event/Venue.java[`Venue`], remove the regex and change the names
 accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
@@ -1248,7 +1248,7 @@ accordingly).
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Event` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside 
+Now we have the `Remark` class, we need to actually use it inside
 link:{repoURL}/src/main/java/seedu/scheduler/model/event/Event.java[`Event`].
 
 **Main:**
