@@ -16,8 +16,8 @@ import seedu.souschef.model.UniqueType;
 public class Day extends UniqueType {
 
     // Attributes
-    private LocalDate date;
-    private ObservableList<Meal> meals;
+    private final LocalDate date;
+    private final ObservableList<Meal> meals;
 
     /**
      * Sets the date and initialises the ObservableList to have 3 indexes for 3 meals.
