@@ -421,7 +421,7 @@ Aspect: How to implement ToDoList UI
 ** Cons: Need to consruct a lot parts in GUI.
 // end::ToDoList[]
 
-// tag::FuzzySearch[]
+// tag::fuzzysearch[]
 === Fuzzy Search and Filter by Date/Time and Tags
 ==== Current Implementation
 
@@ -489,7 +489,7 @@ The `FindEventCommand` could be modified to allow users to specify custom filter
 
 In order to implement this feature, we could create a new class specifically to take in the list of input `Predicates` as well as the specific rules by which to apply the AND/OR, and then to generate the appropriate predicate based on those instructions. This could then be fed to the `ModelManager` to update the `FilteredList`.
 
-// end::FuzzySearch[]
+// end::fuzzysearch[]
 
 
 // tag::calendardisplay[]
