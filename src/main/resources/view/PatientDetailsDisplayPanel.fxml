@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.ListView?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
+    <VBox alignment="CENTER_LEFT" spacing="16.0">
+        <padding>
+          <Insets top="16" right="16" bottom="16" left="16"/>
+        </padding>
+        <Text fx:id="name" styleClass="patient-details-title"/>
+        <Text fx:id="nric" styleClass="patient-details-text"/>
+        <Text fx:id="phone" styleClass="patient-details-text"/>
+        <Text fx:id="email" styleClass="patient-details-text"/>
+        <Text fx:id="address" styleClass="patient-details-text"/>
+        <Text fx:id="preferredDoctor" styleClass="patient-details-text"/>
+        <TabPane fx:id="patientTabLists" id="patientTabLists" tabClosingPolicy="UNAVAILABLE">
+            <Tab fx:id="medProbTab">
+              <tooltip>
+                <Tooltip text="Medical Problems"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/stethoscope.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <ListView fx:id="medProbListView" mouseTransparent="true" focusTraversable="false"/>
+              </VBox>
+            </Tab>
+            <Tab fx:id="medTab">
+              <tooltip>
+                <Tooltip text="Medications"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/medicine.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <ListView fx:id="medListView" mouseTransparent="true" focusTraversable="false"/>
+              </VBox>
+            </Tab>
+            <Tab fx:id="alrgTab">
+              <tooltip>
+                <Tooltip text="Allergies"/>
+              </tooltip>
+              <graphic>
+                <ImageView>
+                  <Image url="@/images/allergy.png"/>
+                </ImageView>
+              </graphic>
+              <VBox>
+                <ListView fx:id="alrgListView" mouseTransparent="true" focusTraversable="false"/>
+              </VBox>
+            </Tab>
+        </TabPane>
+    </VBox>
+</StackPane>

@@ -18,20 +18,20 @@ import seedu.clinicio.model.person.Person;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class BrowserDisplayPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://cs2103-ay1819s1-w14-1.github.io/main/DummySearchPage.html?name=";
 
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "BrowserDisplayPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
 
-    public BrowserPanel() {
+    public BrowserDisplayPanel() {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.

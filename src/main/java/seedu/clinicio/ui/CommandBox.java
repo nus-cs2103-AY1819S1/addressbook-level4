@@ -1,5 +1,7 @@
 package seedu.clinicio.ui;
 
+import static javafx.scene.input.KeyCode.ENTER;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -47,33 +49,37 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        String formattedText = "";
+        if (keyEvent.getCode().equals(ENTER)) {
+            return;
+        }
 
         // As up and down buttons will alter the position of the caret,
         // consuming it causes the caret's position to remain unchanged
         keyEvent.consume();
 
+        detectKeyPress(keyEvent);
+    }
+
+    /**
+     * Detect key entered by user.
+     * @param keyEvent The key press event.
+     */
+    private void detectKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:
             navigateToPreviousInput();
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), true, false);
             break;
         case DOWN:
             navigateToNextInput();
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), true, false);
             break;
         case LEFT: case RIGHT: case BACK_SPACE: case SPACE:
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), false, true);
+            replaceText(passwordFormatter.maskPassword(commandTextField.getText(), false, true));
             break;
-        case ENTER:
-            return;
         default:
             // let JavaFx handle the keypress
-            formattedText = passwordFormatter.maskPassword(commandTextField.getText(), false, false);
+            replaceText(passwordFormatter.maskPassword(commandTextField.getText(), false, false));
             break;
         }
-
-        replaceText(formattedText);
     }
 
     /**
@@ -87,7 +93,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         passwordFormatter.resetTempPassword();
-        replaceText(historySnapshot.previous());
+        replaceText(passwordFormatter.maskPassword(historySnapshot.previous(), true, false));
     }
 
     /**
@@ -101,7 +107,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         passwordFormatter.resetTempPassword();
-        replaceText(historySnapshot.next());
+        replaceText(passwordFormatter.maskPassword(historySnapshot.next(), true, false));
     }
 
     /**
