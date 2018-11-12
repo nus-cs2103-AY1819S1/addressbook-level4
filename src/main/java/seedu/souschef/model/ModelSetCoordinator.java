@@ -135,7 +135,9 @@ public class ModelSetCoordinator implements ModelSet {
     protected void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
         Recipe toDelete = event.recipe;
         mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        favouriteModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<Day> mealPlanList = mealPlannerModel.getFilteredList();
+        List<Recipe> favouriteList = favouriteModel.getFilteredList();
 
         for (Day d : mealPlanList) {
             for (Meal m : d.getMeals()) {
@@ -149,10 +151,18 @@ public class ModelSetCoordinator implements ModelSet {
             }
         }
 
+        for (Recipe r : favouriteList) {
+            if (r.isSame(toDelete)) {
+                favouriteModel.delete(r);
+            }
+        }
+
         setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
         setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
+        setFeatureStorage(Context.FAVOURITES);
+        favouriteModel.indicateAppContentChanged();
         setFeatureStorage(Context.RECIPE);
     }
 
@@ -173,7 +183,9 @@ public class ModelSetCoordinator implements ModelSet {
     @Subscribe
     protected void handleRecipeEditedEvent(RecipeEditedEvent event) {
         mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        favouriteModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<Day> mealPlanList = mealPlannerModel.getFilteredList();
+        List<Recipe> favouriteList = favouriteModel.getFilteredList();
         Recipe oldRecipe = event.oldRecipe;
         Recipe newRecipe = event.newRecipe;
 
@@ -185,10 +197,18 @@ public class ModelSetCoordinator implements ModelSet {
             }
         }
 
+        for (Recipe r : favouriteList) {
+            if (r.isSame(oldRecipe)) {
+                favouriteModel.update(oldRecipe, newRecipe);
+            }
+        }
+
         setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
         setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
+        setFeatureStorage(Context.FAVOURITES);
+        favouriteModel.indicateAppContentChanged();
         setFeatureStorage(Context.RECIPE);
     }
 }
