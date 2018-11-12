@@ -26,7 +26,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.model.person.Name;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 
 public class EditAssignmentCommandParserTest {
@@ -66,13 +66,13 @@ public class EditAssignmentCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_ASSIGNMENT_NAME_DESC,
-                ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS); // invalid assignment name
+                AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS); // invalid assignment name
         assertParseFailure(parser, "1" + INVALID_ASSIGNMENT_AUTHOR_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_ASSIGNMENT_NAME_DESC + INVALID_ASSIGNMENT_AUTHOR_DESC
-                        + VALID_SALARY_AMY + VALID_PHONE_AMY, ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+                        + VALID_SALARY_AMY + VALID_PHONE_AMY, AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
     }
 
     @Test

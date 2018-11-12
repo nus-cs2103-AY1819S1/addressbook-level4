@@ -24,7 +24,7 @@ public class AssignmentUtil {
      */
     public static String getAssignmentDetails(Assignment assignment) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_ASSIGNMENT_NAME + assignment.getProjectName().fullProjectName + " ");
+        sb.append(PREFIX_ASSIGNMENT_NAME + assignment.getAssignmentName().fullProjectName + " ");
         sb.append(PREFIX_AUTHOR + assignment.getAuthor().fullName + " ");
         sb.append(PREFIX_ASSIGNMENT_DESCRIPTION + assignment.getDescription().value + " ");
         return sb.toString();

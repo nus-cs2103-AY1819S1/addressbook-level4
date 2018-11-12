@@ -169,31 +169,51 @@ Examples:
 * `delete 3`
 
 // tag::archive[]
-=== View deleted employee archive : `archive`
+=== To view deleted employee archive : `archive`
 
-Displays the list of active employees removed from the system. To delete an employee from the OASIS completely simply remove it from archive list again.
+Displays all archived employees in OASIS.
+
+[NOTE]
+Archived employees will remain in archive list until they are restored which will send it back to the active list or deleted from archive which will erase all selected employee data completely.
 
 Format: `archive`
 
 ****
 * Replaces current view on the left panel to the archive list.
 ****
+
+Type in `archive` command in the command box at the top of the application and hit enter, you will be shown the following screen shown below:
+
+image:archiveUserGuide.png[width=800]
+
 // end::archive[]
 
 // tag::restore[]
-=== Restoring employee to active list : `restore`
+=== To restore employee to active list : `restore`
 
-Restores an employee to active list from the archived list.
+Adds the restored employee to the active list and removes the employee from the archive list.
 
 Format: `restore INDEX`
 
 ****
 * Restored employee will be moved back to the active list.
+* Restore the employee at the specified INDEX. The index refers to the number shown in the displayed archive list. The index must be a positive integer 1, 2, 3, … and be in the range of the number of archived employees.
+* To use this command, you must be logged in and have the "RESTORE_EMPLOYEE" permission.
 ****
 
 Examples:
 
-* `restore 1`
+* `restore 2` to delete second employee from the archive list.
+
+Sample output when `restore 2` command is executed show below:
+
+* Step 1: Type `archive` command in the command box on the top of the application and click enter. You will be taken to the archive list shown below:
+
+image:restoreUserGuide1.png[width=800]
+
+* Step 2: Type `restore 2` command in the same command box as Step 1 and you will see the following output on your screen:
+
+image:restoreUserGuide2.png[width=800]
 // end::restore[]
 
 === List details of employee : `select`
@@ -266,22 +286,19 @@ Apply for leave on specific dates.
 Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
-* Format of date: YYYY-MM-DD (Dashes are required)
-* Your leave will be applied for all the dates specified after each `-da`.
+* Format of date: YYYY-MM-DD (Dashes are required, and the month and day must have both digits)
+* Your leave will be for all the dates specified after each `-da`. You must specify at least 1 `DATE`.
 ****
 
-[NOTE]
-====
-You must specify at least 1 `DATE`.
-====
-
 [WARNING]
-====
 If the `DATE` is of an illegal format, the command will be rejected.
-====
 
 Example: `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
-The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
+
+The system will display a message indicating a succesful creation of the new leave, as shown:
+
+image:LeaveApplyResult.PNG[width=800]
+
 [TIP]
 If you do not see your list of leave applications, run the `leavelist` command.
 
@@ -291,13 +308,12 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
-Example: `leavelist`
-A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below: image:LeaveListResult.PNG[width=800]
+A list of your leave records will be displayed in the left panel. An example is shown below:
+
+image:LeaveListResult.PNG[width=800]
 
 [NOTE]
-====
 If you have the "VIEW_EMPLOYEE_LEAVE" permission, all other employee leave applications will be shown too.
-====
 
 === Approve a leave application : `leaveapprove`
 
@@ -306,17 +322,20 @@ Sets the status of a leave application to the "Approved" status.
 Format: `leaveapprove [INDEX]`
 
 ****
-* Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* INDEX refers to the number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * Note that leave applications that have already been rejected can still be approved afterwards.
 ****
 
 [NOTE]
-====
 To use this command, you must have "APPROVE_LEAVE" permissions.
-====
 
 Example: `leaveaprove 8`
-The status of the 8th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `APPROVED`, as shown below: image:LeaveApproveResult.PNG[width=800]
+
+The status of the 8th leave application displayed with <<View a list of leave applications : `leavelist`, `leavelist`>> is changed to `APPROVED`, as shown:
+
+image:LeaveApproveResult.PNG[width=800]
+
+// end::leaveapplication[]
 
 === Reject a leave application : `leavereject`
 
@@ -325,18 +344,18 @@ Sets the status of a leave application to the "Rejected" status.
 Format: `leavereject [INDEX]`
 
 ****
-* Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* INDEX refers to the number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * Note that leave applications that have already been approved can still be rejected afterwards.
 ****
 
 [NOTE]
-====
 To use this command, you must have "APPROVE_LEAVE" permissions.
-====
 
 Example: `leavereject 7`
-The status of the 7th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `REJECTED`, as shown below: image:LeaveRejectResult.PNG[width=800]
-// end::leaveapplication[]
+
+The status of the 7th leave application displayed with <<View a list of leave applications : `leavelist`, `leavelist`>> is changed to `REJECTED`, as shown:
+
+image:LeaveRejectResult.PNG[width=800]
 
 === Search employees by name : `find`
 
@@ -602,25 +621,23 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
  |Command | Format | Example
+ |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
+ |Change password|passwd|passwd
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
+ |Exit|exit|exit
+ |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo -d Development
  |Help|help|help
  |History|history|history
- |List all employees|list|list
  |List all assignments|listassignments|listassignments
- |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
- |Sort employee display list| sort -CRITERIA| sort -df
- |Select an employee|select INDEX | select 1
- |Search employees by name|find NAME| find Joshua
- |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
- -d Development
- |Change password|passwd|passwd
- |View archived employees|archive|archive
- |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
- |View your own leave application list|leavelist|leavelist
- |Undo commands|undo|undo
- |Redo commands|Redo|Redo
+ |List all employees|list|list
  |Logout from the system|logout|logout
- |Exit|exit|exit
-
+ |Redo commands|Redo|Redo
+ |Search employees by name|find NAME| find Joshua
+ |Select an employee|select INDEX | select 1
+ |Sort employee display list| sort -CRITERIA| sort -df
+ |Undo commands|undo|undo
+ |View archived employees|archive|archive
+ |View your own leave application list|leavelist|leavelist
 |=========================================================
 
 === Commands that require permission
@@ -628,22 +645,19 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
  |Command|Required Permission|Format|Example
- |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -p NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
- 81234567 -a 81 Joshua's Road  Singapore 123456
- |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
- |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
- |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
-  | edit 1 -p 91234567 -e johndoe@example.com
+ |Add an assignment|ADD_ASSIGNMENT|addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION| addassignment -an KRYPTONE -au Jhonny English -d Data encription application.
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -p NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456
+ |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
  |Clear|Admin|clear|clear
- |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
- modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
+ |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
+ |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
+ |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT] | edit 1 -p 91234567 -e johndoe@example.com
+ |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...| modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
+ |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
+ |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
  |View all Permissions of employee|ASSIGN_PERMISSION|viewpermission INDEX|viewpermission 1
  |View leave application list of all employees|VIEW_EMPLOYEE_LEAVE|leavelist|leavelist
- |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
- |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
- |Add an assignment|ADD_ASSIGNMENT|addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION| addassignment -an KRYPTONE -au Jhonny English -d Data encription application.
- |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
- |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 //end::commandsummary[]
 
@@ -654,13 +668,10 @@ Format: `summary`
 |=========================================================
 |Command|Key
 |Add employee | CTRL + A
+|Exit | CTRL + Q
+|Find employee | CTRL + F
 |List employees | CTRL + L
 |Select | CTRL + S
-|Find employee | CTRL + F
-|Exit | CTRL + Q
 |=========================================================
 // end::keyboardshortcuts[]
-
-
-
 

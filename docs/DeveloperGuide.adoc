@@ -21,7 +21,7 @@ By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`  �
 
 === What is OASIS?
 
-Office Assistance Specialized Integration System (OASIS) is an all-in-one office management software. It has the common of management system and additional features that would make managing efficient, quick and fun. Unlike any other management software, OASIS adopts Command Line Interface.
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
 
 === Architectural Overview
 
@@ -387,7 +387,7 @@ Permission system is used to ensure that each user are only able to perform comm
 ===== Aspect: Model
 Model of a person have been changed to reflect the permission that each user possesses.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionPersonModel.png[width="750"]
 
@@ -403,7 +403,7 @@ As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Man
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionStorage.png[width="350]
 
@@ -441,19 +441,19 @@ Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requ
 
 ** User don't have required permissions, show error message.
 
-The following activity diagram summarizes what happens when a user excutes a command.
+The following activity diagram summarizes what happens when a user executes a command.
 
 image::permissionCommandActivityDiagram.png[width="450"]
 
 ==== Design Considerations
 
-* Alternative 1 (Current Implementation): Assign permission to each individual user, and restrict commands executable by user based on permission assigned.
+* Alternative 1 (Current Implementation): Assign permission to each individual user and restrict commands executable by user based on permission assigned.
 
 ** Pros: Easy to control the commands a user can access.
 
 ** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
-* Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
+* Alternative 2: Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
 
 ** Pros: Easy to implement. Only require small modification in existing classes.
@@ -489,7 +489,7 @@ All the keywords is then added to either `permissionToAdd:Set<Permission>` or `p
 [NOTE]
 A ParseException will be thrown if any of the permission names are invalid.
 
-When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission from `permissionToAdd` and removing permissions from `permissionToRemove`.
 
 [NOTE]
 The command will be executed successfully if at least one permission is added or removed.
@@ -512,6 +512,7 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 // end::modifypermission[]
+
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
@@ -682,7 +683,7 @@ To do so, `EditAssignmentDescriptor` object will be produce. This object has the
 
 // tag::archive[]
 === Archive employee feature
-Employees with the "Delete_employee" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list.
+Employees with the "DELETE_EMPLOYEE" permissions can delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list. This feature allows an employee to view the archive list of employees.
 
 ==== Proposed implementation
 The archive employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
@@ -695,12 +696,14 @@ Step 2. The user executes delete 3 command on the active list to delete the 3rd 
 
 Step 3. The user executes archive command to change view from active list to the archive list.
 
-Step 4. OASIS shows delete person in step 2 in the archive list
+Step 4. OASIS shows delete person in step 2 in the archive list on the left panel.
 
 The following activity diagram summarizes what happens when a user executes delete and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
 
+=== Changes to architecture
+This section documents the changes made to the architecture and its components.
 
 ===== Aspect: Model
 Added a `VersionedArchiveList` object. `UniquePersonList` in `VersionedArchiveList` will store 0 or more `Person` objects.
@@ -717,6 +720,8 @@ The following diagram shows the interface and classes added to the Storage compo
 image::storageModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
+
 ===== Aspect: Lifetime of objects in Archive list
 * **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
 ** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
@@ -728,16 +733,16 @@ image::storageModelChangeJosh.PNG[width="350]
 ===== Aspect: Data structure to support the archive commands
 
 * **Alternative 1 (current choice):** Use a list to store the archived employee objects.
-** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
+** Pros: Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as the user doesn’t need to search every employee in the system to get the employees archived.
 ** Cons: We must maintain a separate list for archived objects.
-* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+* **Alternative 2:** Assign an archive attribute to each employee object in the active list and show only in the active list if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
-** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you must go through all employees to check the archive attribute.
 // end::archive[]
 
 // tag::restore[]
 === Restore employee feature
-Employees with the "Restore_employee" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “Delete_employee” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
+Employees with the "RESTORE_EMPLOYEE" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “DELETE_EMPLOYEE” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
 
 ==== Proposed implementation
 The Restore or completely remove employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
@@ -762,27 +767,20 @@ The following activity diagram summarizes what happens when a user executes remo
 
 image::archiveActivityDiagram.PNG[width="350]
 
-The following sequence diagram shows how the archive operation works:
+The following sequence diagram shows the method calls when the restore command is executed:
 
 image::restoreSequenceDiagram.jpg[width="350]
 
 ==== Design considerations
-===== Aspect: Lifetime of objects in Archive list
-* **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
-** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
-** Cons: May have performance issues in terms of memory usage as employee records stored a few years back could still be stored.
-* **Alternative 2:** Deleted after a certain number of time has passed.
-** Pros: More efficient memory usage wont store old employee records which could cause high memory usage.
-** Cons: Loss of data possible if an employee is accidentally deleted and not restored right away.
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
 
-===== Aspect: Data structure to support the archive commands
-
-* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
-** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
-** Cons: We must maintain a separate list for archived objects.
-* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
-** Pros: Only need to change 1 attribute when an employee is deleted.
-** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+===== Aspect: Data restored from employee
+* **Alternative 1 (current choice):** All data from the time when the employee was deleted will be restored when the employee object is restored.
+** Pros: Employee being restored wont lose any important information and skips the task of having to key in all the employee’s information again.
+** Cons: Employee may have changed job scopes and permissions assigned may be different, this could lead to big problems if employees have permissions they are not supposed to have.
+* **Alternative 2:** Only certain information like name and phone number will be restored when employee is restored.
+** Pros: More efficient memory usage, don’t have to store other information about the employee.  Restored employees will not have the same permissions they had before which could save potential problems of employees having permissions they are not supposed to have.
+** Cons: Could potentially add more workload to the user restoring the employee as the user will need to fill in all necessary details of the employee when the restore command is executed.
 // end::restore[]
 
 // tag::login-begin[]
@@ -971,10 +969,10 @@ A leave application is represented by a `LeaveApplication` model object, as foll
 .Structure of a leave application
 image::LeaveApplicationModelDiagram.png[width="300"]
 *API*: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
-A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
+A leave applications contains a description, status (`PENDING`, `APPROVED`, or `REJECTED`), and one or more dates.
 
 [NOTE]
-During creation, the `LeaveApplication` constructor removes duplicate dates, and orders all the dates in ascending order.
+The `LeaveApplication` constructor removes duplicates, and orders all dates in ascending order.
 
 ===== Applying for leave
 This section describes and illustrates how an application for leave by a user works in OASIS.
@@ -988,10 +986,10 @@ There are further interactions of the EventCenter reacting to the event raised w
 
 Now, we zoom in on the Logic Component to have a more detailed look as to how the `leaveapply` command is handled. The command entered is firstly parsed to ensure validity, and then a new `LeaveApplication` is instantiated with the data parsed from the command. This `LeaveApplication` is kept inside a newly created `LeaveApplyCommand`, which is then executed to update the `Person` in the Model, which corresponds to the user who applied for leave. The sequence diagram is as follows:
 
-.Interactions in the Logic Component when a `leaveapply -de family holiday -da 2018-11-11` command is issued
+.The Logic Component when `leaveapply -de family holiday -da 2018-11-11` is executed
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
 [NOTE]
-There are further interactions within the Model component, and beyond, that are omitted in this diagram.
+There are further interactions within the Model component that are omitted.
 
 [[LeaveApplication-Apply-Usage]]
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
@@ -1007,7 +1005,7 @@ Employees can view their leave applications using the `leavelist` command. Given
 
 1. The user executes the `leavelist` command.
 
-2. The system checks if the user is an Admin, or has the required permissions (`VIEW_EMPLOYEE_LEAVE` or `APPROVE_LEAVE`). If either one of the aforementioned conditions are satisfied, all leave applications of all other users will be displayed. If not, only the current logged-in user's own leave application records will be shown.
+2. The system checks if the user is an Admin, or has the required permissions (`VIEW_EMPLOYEE_LEAVE` or `APPROVE_LEAVE`). If so, all leave applications of all other users will be displayed. If not, only the current logged-in user's own leave application records will be shown.
 
 The following activity diagram summarizes how the command is executed:
 
@@ -1585,9 +1583,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
 
-|`* * *` |Employee with "Department Manager" permissions |Add a new employee into my department |Have the new hire listed in the system
+|`* * *` |Employee with add employee permissions |Add a new employee into my department |Have the new hire listed in the system
 
-|`* * *` |Employee with "Department Manager" permissions |Delete an employee from my department |Remove employees that have left or have been fired
+|`* * *` |Employee with delete employee permissions |Delete an employee from my department |Remove employees that have left or have been fired
 
 |`* * *` |Employee |View all other employees in the system |Find out more about employees in the company
 
@@ -1595,17 +1593,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |Apply for leave |Get approval for my yearly leave from my manager
 
-|`* * *` |Employee with "Department Manager" permissions |View leave application of employees in my department |See who has applied for leave
+|`* * *` |Employee with view employee leave permissions |View leave application of employees in my department |See who has applied for leave
 
-|`* * *` |Employee with "Department Manager" permissions |Approve or reject employee requests for leave |Plan out future projects
+|`* * *` |Employee with approve leave permissions |Approve or reject employee requests for leave |Plan out future projects
 
-|`* * *` |Employee with "Project Leader" permissions |Create a new project |Have the new project listed in the application
+|`* * *` |Employee with add project permissions |Create a new project |Have the new project listed in the application
 
-|`* * *` |Employee with "Project Leader" permissions |Add an employee from any department into a project I created |Have the employee listed in the project team
+|`* * *` |Employee with add project permissions |Add an employee from any department into a project I created |Have the employee listed in the project team
 
-|`* * *` |Employee with "Project Leader" permissions |Remove an employee from a project I created |Have the employee removed from the project team
+|`* * *` |Employee with add project permissions |Remove an employee from a project I created |Have the employee removed from the project team
 
-|`* * *` |Employee with "Project Leader" permissions |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
+|`* * *` |Employee with add project permissions |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
 
 |`* * *` |Employee |View all projects and project teams in the company |Find out more about ongoing projects and employees in the project teams
 
@@ -1621,7 +1619,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |Filter employees in the display list by a certain criteria |Find details of a specific employee without going through every employee in the system
 
-|`* *` |Employee with "Department Manager" permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
+|`* *` |Employee with view employee leave permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
 
 |`* *` |Employee with "Department Manager" permissions |View workload of employees in my department |Delegate the work evenly
 
@@ -1633,7 +1631,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |Upload a profile picture |Other users can see my face when they access my profile in the system
 
-|`* *` |Employee with "Department Manager" permissions |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
+|`* *` |Employee |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
 
 |`*` |Employee with "Department Manager" permissions |See the performance of every department/sector |Keep track of which departments are not performing
 
@@ -1769,12 +1767,12 @@ Use case ends.
 *MSS*
 
 .  User login to the system
-.  Oasis shows home page
-.  User enters leave, start date and end date
-.  Oasis displays confirmation message
+.  OASIS shows home page
+.  User enters description, start date and end date
+.  OASIS displays confirmation message
 .  User enters confirm
-.  Oasis sends the application to the manager
-.  Oasi shows success message
+.  OASIS sends the application to the manager
+.  OASIS shows success message
 +
 Use case ends.
 
@@ -1796,6 +1794,60 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
+=== Use case: List leave applications
+
+Preconditions: user is logged in
+
+*MSS*
+
+.  User enters command to view leave applications
+.  OASIS lists all leave applications of the user
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format is invalid
+** 1a1. OASIS shows an error message
++
+User case ends.
+
+* 2a. The user has permission to be able to view all employee leaves.
+** 2a1. OASIS lists all the leaves allplicationsof all users
++
+Use case ends.
+
+[discrete]
+=== Use case: Approve a leave application
+
+Preconditions: user is logged in
+
+*MSS*
+
+.  User <<Use case: List leave applications, lists leave applications (Use case: List leave applications)>>
+.  User enters command to approve a leave, and chooses the leave application to approve
+.  OASIS approves the leave application
+.  OASIS shows success message
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The format is invalid
++
+** 2a1. OASIS shows an error message
++
+* 2b. The index is does not exist
++
+** 2b1. OASIS shows an error message
++
+* 2c. The user does not have the permissions to approve leaves
++
+** 2c1. OASIS shows an error message
++
+Use case resumes at step 1.
+
+[discrete]
 === Use case: Add new assignment
 
 *MSS*
@@ -1806,7 +1858,7 @@ Use case resumes at step 2.
 .  Oasis displays confirmation message
 .  User enters confirm
 .  Oasis sends the application to the manager
-.  Oasi shows success message
+.  Oasis shows success message
 +
 Use case ends.
 
@@ -1903,6 +1955,7 @@ Use case ends.
 
 _{More to be added}_
 
+
 [appendix]
 == Non Functional Requirements
 
@@ -1919,23 +1972,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1959,11 +1995,46 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Logging into the system.
+
+. Logging in as an admin.
+
+.. After opening OASIS, enter in "Admin" and "Pa55w0rd" as the password.
+.. Click submit or press enter. +
+   Expected: You should now be logged in as an admin.
+
+. Logging in as a User.
+.. Delete the data folder to have OASIS start with the sample data set
+.. Open OASIS.
+.. Enter in "David Li" for the username and "Pa55w0rd" as the password. (David Li is only of the sample people loaded when no data file is found)
+.. Click submit or press enter. +
+   Expected: You should now be logged in as David Li.
+
+=== Logging out of the system
+
+. Prerequisities: The user is currently logged in.
+. Type in "Logout" into the command box, then press enter. +
+  Expected: You should now be logged out. OASIS should now show the login screen.
+
+=== Editing details of currently logged in user
+
+. Editing a valid user.
+
+.. Prerequisites: The user is currently logged in as a valid user in the system, not as an admin.
+.. Test case: `myself -p 99900999` +
+   Expected: The currently logged in user's phone number is changed to 99900999
+
+. Attempting to edit the admin user
+
+.. Prerequisites: The user is currently logged in as admin.
+.. Test cases: `myself -p 999009991 +
+   Expected: An error message saying that you cannot edit the admin account.
+
 === Deleting a person
 
 . Deleting a person while active persons are listed
 
-.. Prerequisites: List all persons using the `active` command. Multiple persons in the list.
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `active` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1972,7 +2043,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 . Deleting a person while archived persons are listed
-.. Prerequisites: List all persons using the `archive` command. Multiple persons in the list.
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `archive` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the archive list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1980,8 +2051,81 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Modify permission of an employee
+
+. Add or remove employee's permission using `modifypermission` command while active persons are listed
+
+.. Adding one permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `ADD_EMPLOYEE`.
+
+... Test case: `modifypermission 1 -a ADD_EMPLOYEE` +
+Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Removing multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is removed from employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding and removing permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with only `ADD_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE` +
+Expected: Employee at index 1 only has `DELETE_EMPLOYEE` permission. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Incorrect `modifypermission` commands to try:
+
+... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` +
+Expected: Status message shows that permission name is invalid.
+... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: Status message shows that the command format is invalid.
+
+=== Leave management
+
+. Applying for leave while leave applications are listed
+
+.. Prerequisites: List all leave applications using the `leavelist` command. There need not be any leave applications in the list.
+.. Test case: `leaveapply -de Family holiday -da 2018-12-05 -da 2018-12-06` +
+   Expected: A new leave application record with the description "Family holiday" and the dates "2018-12-05" and "2018-12-06" appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `leaveapply -de Second family holiday -da 2018-12-16 -da 2018-12-15 -da 2018-12-15` +
+   Expected: A new leave application record with the description "Second family holiday" and the dates "2018-12-15" and "2018-12-16" in this order appears in the list. Details of the new leave application shown in the status message. Timestamp in the status bar is updated.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user without either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with a user that has neither "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions (in a fresh install, the default username "Alex Yeoh" and password "Pa55w0rd" will suffice). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the leave applications do not change. Error details shown in the status message. Status bar remains the same.
+.. Incorrect `leaveapply` commands to try: `leaveapply -de -da 2018-12-15` (empty description), `leaveapply -de Family holiday -da 2018-4-5` (date format not YYYY-MM-DD). +
+   Expected: Status message shows that the command format is invalid.
+
+. Approving or rejecting leave applications as a user with either "VIEW_EMPLOYEE_LEAVE" or "APPROVE_LEAVE" permissions
+
+.. Prerequisites: Login with the Admin account (the default username "Admin" and password "Pa55w0rd"). List all leave applications using the `leavelist` command. There should be at least one leave application shown. Perform one leave application with a non-admin user with `leaveapply` if there isn't.
+.. Test case: `leaveapprove 1` or `leavereject 1` +
+   Expected: The status of the first leave application changes to "APPROVED" or "REJECTED", depending on the command issued. Status message indicates that the leave has been approved. Timestamp in status bar is updated.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 0` (non-positive integer index) +
+   Expected: Status message shows that the command format is invalid.
+.. Incorrect `leaveapprove` commands to try: `leaveapprove 1000` (index larger than displayed list size). +
+   Expected: Status message shows that the leave list index is invalid.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. The data files are located under data folder. For example, data/addressbook.xml contains data of everyone stored in the system.
+[NOTE]
+Data is only witten to disk if there is any change in the system. If OASIS was simply opened and closed with no changes made, no data file would be written.
+.. To modify the data files to simulate missing or corrupted data files, the element's tag may be modified. Note that information between the tag may also be modified, but it could still remain valid and would not be detected as an error. +
+   Expected: If a missing or corrupted data file is used, OASIS will then begin with an empty system instead.

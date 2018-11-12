@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * A utility class to help with building Assignment objects.
@@ -13,12 +13,12 @@ public class AssignmentBuilder {
     public static final String DEFAULT_AUTHOR = "Amy Bee";
     public static final String DEFAULT_DESCRIPTION = "Project Management System for all.";
 
-    private ProjectName pName;
+    private AssignmentName pName;
     private Name author;
     private Description description;
 
     public AssignmentBuilder() {
-        pName = new ProjectName(DEFAULT_ASSIGNMENT_NAME);
+        pName = new AssignmentName(DEFAULT_ASSIGNMENT_NAME);
         author = new Name(DEFAULT_AUTHOR);
         description = new Description(DEFAULT_DESCRIPTION);
     }
@@ -27,7 +27,7 @@ public class AssignmentBuilder {
      * Initializes the AssignmentBuilder with the data of {@code assignmentToCopy}.
      */
     public AssignmentBuilder(Assignment assignmentToCopy) {
-        pName = assignmentToCopy.getProjectName();
+        pName = assignmentToCopy.getAssignmentName();
         author = assignmentToCopy.getAuthor();
         description = assignmentToCopy.getDescription();
     }
@@ -49,10 +49,10 @@ public class AssignmentBuilder {
     }
 
     /**
-     * Sets the {@code ProjectName} of the {@code Assignment} that we are building.
+     * Sets the {@code AssignmentName} of the {@code Assignment} that we are building.
      */
     public AssignmentBuilder withAssignmentName(String pName) {
-        this.pName = new ProjectName(pName);
+        this.pName = new AssignmentName(pName);
         return this;
     }
 

@@ -19,7 +19,7 @@ import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * Edits the details of an existing assignment in the address book.
@@ -90,8 +90,8 @@ public class EditAssignmentCommand extends Command {
                                                             editAssignmentDescriptor) {
         assert assignmentToEdit != null;
 
-        ProjectName updatedAssignmentName =
-                editAssignmentDescriptor.getAssignmentName().orElse(assignmentToEdit.getProjectName());
+        AssignmentName updatedAssignmentName =
+                editAssignmentDescriptor.getAssignmentName().orElse(assignmentToEdit.getAssignmentName());
         Name updatedAuthor = editAssignmentDescriptor.getAuthor().orElse(assignmentToEdit.getAuthor());
         Description updatedDescription =
                 editAssignmentDescriptor.getDescription().orElse(assignmentToEdit.getDescription());
@@ -122,7 +122,7 @@ public class EditAssignmentCommand extends Command {
      * corresponding field value of the assignment.
      */
     public static class EditAssignmentDescriptor {
-        private ProjectName assignmentName;
+        private AssignmentName assignmentName;
         private Name author;
         private Description description;
 
@@ -145,11 +145,11 @@ public class EditAssignmentCommand extends Command {
             return CollectionUtil.isAnyNonNull(assignmentName, author, description);
         }
 
-        public void setAssignmentName(ProjectName name) {
+        public void setAssignmentName(AssignmentName name) {
             this.assignmentName = name;
         }
 
-        public Optional<ProjectName> getAssignmentName() {
+        public Optional<AssignmentName> getAssignmentName() {
             return Optional.ofNullable(assignmentName);
         }
 
