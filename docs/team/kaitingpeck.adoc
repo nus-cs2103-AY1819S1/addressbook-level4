@@ -26,31 +26,12 @@ contacts in EventsPlus+ into events, since both are features of the application.
 without searching for the person directly. Event tags are standardized based on a list of event tags displayed, which can
 be modified by the user. This feature sets the foundation for the inclusion of more event-related functionalities in future.
 
+//~
 * *Other enhancements*:
-** added *the ability to add Event tags*
-*** What it does: Allows the user to add event tags into the system, which are needed for tagging new events added into
-EventsPlus+.
-*** Justification: This is required standardization of events tagging in EventsPlus+
-*** Highlights: Event tags are shown at the top of the *Events* tab and can be used for easy reference of all types of events
-in EventsPlus+.
-
-////
-** added *the ability to find events by Event tags*
-*** What it does: Allows the user to find events based on their tags.
-*** Justification: Users should be able to search for a certain type of event quickly, instead of scanning through the whole list.
-*** Highlights: Since event tags are displayed on the top of the *Events* tab, users can refer to the list easily and
-find all events tagged as that particular type easily.
-////
-
-** added *the ability to auto-complete commands*
-*** What it does: Reduces the time required for user to finish a command, especially when command words are long.
-*** Justification: Saves time on the user on typing commands, and reduces effort on users to remember the whole command word.
-*** Highlights: Only requires a simple pressing of the `Tab` key for command auto-completion.
-
-** re-organised the `BrowserPanel` under `TabPanel`
-*** Justification: Sets the foundation for more tabs to be included in the application.
-*** Highlights: Tabs with different functionalities can be added as separate classes in the source code.
-
+** added *the command auto-completion feature*
+*** What it does: Allows user to use the `Tab` key to auto-complete command words.
+*** Justification: Saves time on typing commands and reduces effort of remembering full commands.
+//~
 * *Other contributions*:
 
 ** Project management:
@@ -71,11 +52,10 @@ find all events tagged as that particular type easily.
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
 *** Added the add event tag/find event functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
-*** Added the command auto-completion feature (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
-*** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
+*** Added the command auto-completion feature (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
+*** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
 
 ** Documentation:
-*** Updated
 *** Updated documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
@@ -86,8 +66,8 @@ find all events tagged as that particular type easily.
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1819S1/forum/issues/116[#116])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W17-3/main/issues/177[1],
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1819S1/forum/issues/116[#116])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W17-3/main/issues/177[1],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/179[2],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/181[3],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/182[4],
@@ -99,7 +79,7 @@ find all events tagged as that particular type easily.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some excerpts of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=addEvent]
 //include::../UserGuide.adoc[tag=editEvent]
@@ -114,7 +94,7 @@ include::../UserGuide.adoc[tag=deleteEvent]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some excerpts of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=events]
 //include::../DeveloperGuide.adoc[tag=seeEventContacts]
