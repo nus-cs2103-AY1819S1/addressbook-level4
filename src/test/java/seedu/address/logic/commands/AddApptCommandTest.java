@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
-import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,10 +18,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Type;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,10 +37,10 @@ public class AddApptCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private String validNric;
-    private Type type;
+    private String type;
     private String procedure;
     private String dateTime;
-    private String invalidDateTime;
+    private String duplicateDateTime;
     private String doctor;
     private Appointment appt;
     private Person patient;
@@ -54,10 +51,10 @@ public class AddApptCommandTest {
         validNric = "S8888888A";
         patient = new Person(new Nric(validNric), new Name("AddAppt Test"), new Phone("91234567"),
                 new Email("addappttest@gmail.com"), new Address("12 Addappt Ave, #01-01"), new HashSet<Tag>());
-        type = Type.SURGICAL;
+        type = "SRG";
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 10:30";
-        invalidDateTime = "12-12-1000 23:30";
+        duplicateDateTime = "12-12-2022 10:30";
         doctor = "Dr. Pepper";
         appt = new Appointment(type, procedure, dateTime, doctor);
     }
@@ -79,20 +76,23 @@ public class AddApptCommandTest {
     public void execute_addapptToNonexistentPatient_throwsCommandException() throws Exception {
         Person patientNotInModel = new PersonBuilder().build();
         AddApptCommand addApptCommand = new AddApptCommand(patientNotInModel.getNric(), appt);
-        ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
+        CommandTestUtil.ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddApptCommand.MESSAGE_NO_SUCH_PATIENT);
+        thrown.expectMessage(CommandUtil.MESSAGE_NO_SUCH_PATIENT);
         addApptCommand.execute(modelStub, commandHistory);
     }
 
     @Test
-    public void execute_addapptWithInvalidDateTime_throwsCommandException() throws Exception {
-        appt = new Appointment(type, procedure, invalidDateTime, doctor);
+    public void execute_addapptWithDuplicateDateTime_throwsCommandException() throws Exception {
+        appt = new Appointment(type, procedure, dateTime, doctor);
         AddApptCommand addApptCommand = new AddApptCommand(patient.getNric(), appt);
-        ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
+        appt = new Appointment(type, procedure, duplicateDateTime, doctor);
+        AddApptCommand addDuplicateDateTime = new AddApptCommand(patient.getNric(), appt);
+        CommandTestUtil.ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddApptCommand.MESSAGE_DATE_TIME_INVALID);
+        thrown.expectMessage(AddApptCommand.MESSAGE_DUPLICATE_DATE_TIME);
         addApptCommand.execute(modelStub, commandHistory);
+        addDuplicateDateTime.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -126,54 +126,9 @@ public class AddApptCommandTest {
     }
 
     /**
-     * A default model stub that has all of the methods failing
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that always accepts addappt commands for a single person.
      */
-    private class ModelStubAcceptingAddappt extends ModelStub {
+    private class ModelStubAcceptingAddappt extends CommandTestUtil.ModelStub {
         private Person patient;
 
         public ModelStubAcceptingAddappt(Person patient) {
@@ -196,14 +151,17 @@ public class AddApptCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getFilteredCheckedOutPersonList() {
+            ObservableList<Person> checkedOutPatients = FXCollections.observableArrayList();
+
+            FilteredList<Person> filteredCheckedOutPatients = new FilteredList<>(checkedOutPatients);
+            return FXCollections.unmodifiableObservableList(filteredCheckedOutPatients);
+        }
+
+        @Override
         public void updatePerson(Person personToUpdate, Person updatedPerson) {
             requireAllNonNull(personToUpdate, updatedPerson);
-            if (!personToUpdate.isSamePerson(updatedPerson)) {
-                // TODO: what should be an appropriate response?
-                assertTrue(false);
-                return;
-            }
-
+            assertTrue(personToUpdate.isSamePerson(updatedPerson));
             patient = updatedPerson;
         }
     }

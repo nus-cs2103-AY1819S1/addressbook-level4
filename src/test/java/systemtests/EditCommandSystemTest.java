@@ -22,10 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_CHARLIE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DRUG_ALLERGY_PENICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_CHARLIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG_ALLERGY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -50,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends HealthBaseSystemTest {
 
     @Test
     public void edit() {
@@ -74,24 +72,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + DRUG_ALLERGY_DESC_PENICILLIN;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a person with new values same as another person's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        /* Case: edit a person with new values same as another person's values but with different nric -> edited */
+        assertTrue(getModel().getHealthBase().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NRIC_DESC_BOB + NAME_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NRIC_DESC_CHARLIE + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN
                 + DRUG_ALLERGY_DESC_PENICILLIN;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
-
-        /* Case: edit a person with new values same as another person's values but with different phone and email
-         * -> edited
-         */
-        index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NRIC_DESC_BOB + NAME_DESC_BOB
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + DRUG_ALLERGY_DESC_ASPIRIN
-                + DRUG_ALLERGY_DESC_PENICILLIN;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedPerson = new PersonBuilder(BOB).withNric(VALID_NRIC_CHARLIE).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear drug allergies -> cleared */
@@ -116,7 +104,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getHealthBase().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -178,9 +166,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + INVALID_DRUG_ALLERGY_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
-        executeCommand(PersonUtil.getCheckinCommandDiffNric(BOB));
+        executeCommand(PersonUtil.getRegisterCommandDiffNric(BOB));
 
-        // assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        // assertTrue(getModel().getHealthBase().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(CHARLIE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NRIC_DESC_CHARLIE + NAME_DESC_BOB
@@ -259,9 +247,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see HealthBaseSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -284,8 +272,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

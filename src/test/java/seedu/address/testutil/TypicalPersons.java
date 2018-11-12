@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBase;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,17 +68,24 @@ public class TypicalPersons {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code HealthBase} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static HealthBase getTypicalHealthBase() {
+        HealthBase ab = new HealthBase();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+        }
+        for (Person person : getTypicalCheckedOutPersons()) {
+            ab.addCheckedOutPerson(person);
         }
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalCheckedOutPersons() {
+        return new ArrayList<>(Arrays.asList(HOON, IDA));
     }
 }

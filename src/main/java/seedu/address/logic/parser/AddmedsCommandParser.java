@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -23,12 +24,23 @@ import seedu.address.model.person.Nric;
  * Parses input arguments and creates a new AddmedsCommand object
  */
 public class AddmedsCommandParser implements Parser<AddmedsCommand> {
+    public static final String MESSAGE_DOSAGE_FORMAT = "Incorrect format for dosage detected. "
+        + "Please ensure that the dosage is a positive number, "
+        + "and that the doses per day is a positive integer value!";
+    public static final String MESSAGE_DURATION_FORMAT = "Incorrect format for duration detected. "
+        + "Please ensure that the duration is a positive integer value, "
+        + "and that that value is not too high!";
+
+    public static final String MESSAGE_DRUGNAME_FORMAT = "Drug name cannot be empty.";
+    public static final String MESSAGE_DOSAGE_UNIT_FORMAT = "Dosage unit cannot be empty.";
+
+    private Pattern emptyString = Pattern.compile("(\\s)*");
 
     /**
      * Parses the given {@code String} of arguments in the context of the
      * AddmedsCommand and returns an AddmedsCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform to the expected format
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     @Override
     public AddmedsCommand parse(String args) throws ParseException {
@@ -42,10 +54,19 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
 
         String patientNric = argMultimap.getValue(PREFIX_NRIC).get();
         String drugName = argMultimap.getValue(PREFIX_DRUGNAME).get();
+        String dosageUnit = argMultimap.getValue(PREFIX_DOSE_UNIT).get();
         Dose dose;
         Duration duration;
         Nric nric;
         Prescription med;
+
+        if (emptyString.matcher(drugName).matches()) {
+            throw new ParseException(MESSAGE_DRUGNAME_FORMAT);
+        }
+
+        if (emptyString.matcher(dosageUnit).matches()) {
+            throw new ParseException(MESSAGE_DOSAGE_UNIT_FORMAT);
+        }
 
         try {
             dose = ParserUtil.parseDose(
@@ -54,13 +75,13 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
                 Integer.parseInt(argMultimap.getValue(PREFIX_DOSES_PER_DAY).get())
                 );
         } catch (NumberFormatException | IllegalValueException e) {
-            throw new ParseException("Exception while parsing dosage.", e);
+            throw new ParseException(MESSAGE_DOSAGE_FORMAT, e);
         }
 
         try {
             duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
         } catch (NumberFormatException | IllegalValueException e) {
-            throw new ParseException("Exception while parsing duration.", e);
+            throw new ParseException(MESSAGE_DURATION_FORMAT, e);
         }
 
         nric = ParserUtil.parseNric(patientNric);

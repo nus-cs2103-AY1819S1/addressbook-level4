@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.function.Predicate;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,14 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.PersonBuilder;
 
 
-//@@ omegafishy
+// @@author omegafishy
+// Old code removed from HealthBase, no longer relevant.
 public class ViewmhCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -49,7 +46,7 @@ public class ViewmhCommandTest {
         ViewmhCommand viewmhCommand = new ViewmhCommand(diffValidPerson.getNric());
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(ViewmhCommand.MESSAGE_UNREGISTERED);
+        thrown.expectMessage(CommandUtil.MESSAGE_NO_SUCH_PATIENT);
         viewmhCommand.execute(modelStub, commandHistory);
     }
 
@@ -109,7 +106,7 @@ public class ViewmhCommandTest {
     /**
      * A Model stub that contains a registered patient
      */
-    private class ModelStubWithRegisteredPatient extends ModelStub {
+    private class ModelStubWithRegisteredPatient extends CommandTestUtil.ModelStub {
         private Person patient;
 
         ModelStubWithRegisteredPatient(Person patient) {
@@ -126,50 +123,14 @@ public class ViewmhCommandTest {
             FilteredList<Person> filteredPatients = new FilteredList<>(patients);
             return FXCollections.unmodifiableObservableList(filteredPatients);
         }
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
+        public ObservableList<Person> getFilteredCheckedOutPersonList() {
+            // is called by {@code ViewmhCommand#execute()}
+            ObservableList<Person> checkedOutPatients = FXCollections.observableArrayList();
 
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
+            FilteredList<Person> filteredCheckedOutPatients = new FilteredList<>(checkedOutPatients);
+            return FXCollections.unmodifiableObservableList(filteredCheckedOutPatients);
         }
     }
 }

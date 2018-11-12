@@ -13,15 +13,32 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyHealthBase newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the HealthBase */
+    ReadOnlyHealthBase getHealthBase();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the list of checked out patients.
+     */
+    boolean hasCheckedOutPerson(Person person);
+
+    /**
+     * Checkout the given person.
+     * The person must exist in person list of the address book.
+     */
+    void checkOutPerson(Person person);
+
+    /**
+     * Re-checkin the given person.
+     * The person must exist in the checkedOutPerson list of the address book.
+     */
+    void reCheckInPerson(Person person);
 
     /**
      * Deletes the given person.
@@ -44,6 +61,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered checked out person list */
+    ObservableList<Person> getFilteredCheckedOutPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

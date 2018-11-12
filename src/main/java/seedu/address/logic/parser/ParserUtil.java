@@ -58,11 +58,14 @@ public class ParserUtil {
      * Parse a {@code List<String> diets} in to a {@code Set<Diet> diets}, given the {@code DietType type}.
      * Leading and trialing whitespaces for each item in the List will be trimmed.
      */
-    public static Set<Diet> parseDiet(List<String> diets, DietType type) {
+    public static Set<Diet> parseDiet(List<String> diets, DietType type) throws ParseException {
         requireAllNonNull(diets, type);
         Set<Diet> parsedDiets = new HashSet<>();
         for (String diet: diets) {
             String trimmedDiet = diet.trim();
+            if (!Diet.isValidDietDetail(trimmedDiet)) {
+                throw new ParseException(Diet.MESSAGE_INVALID_DIET);
+            }
             parsedDiets.add(new Diet(trimmedDiet, type));
         }
         return parsedDiets;
@@ -85,7 +88,6 @@ public class ParserUtil {
         return new Nric(trimmedName);
     }
 
-    // @@ omegafishy
     /**
      * Parses a {@code String diagnosis} into a {@code Diagnosis}. Leading
      * and trailing whitespaces will be trimmed.
@@ -98,11 +100,11 @@ public class ParserUtil {
         requireNonNull(doctor);
         String trimmedDiagnosis = diagnosis.trim();
         String trimmedDoctor = doctor.trim();
-        if (!Diagnosis.isValidDiagnosis(trimmedDiagnosis)) {
-            throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
-        }
         if (!Diagnosis.isValidDoctor(trimmedDoctor)) {
-            throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
+            throw new ParseException(Diagnosis.MESSAGE_NAME_CONSTRAINTS_DOCTOR);
+        }
+        if (!Diagnosis.isValidDiagnosis(trimmedDiagnosis)) {
+            throw new ParseException(Diagnosis.MESSAGE_NAME_CONSTRAINT_DIAGNOSIS);
         }
         return new Diagnosis(trimmedDiagnosis, trimmedDoctor);
     }

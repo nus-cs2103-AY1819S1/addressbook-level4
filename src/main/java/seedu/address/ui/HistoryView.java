@@ -100,7 +100,7 @@ public class HistoryView extends UiPart<Region> implements Swappable, Sortable {
     }
 
     /**
-     * The AddressBook {@code Person} object is immutable, hence any changes
+     * The HealthBase {@code Person} object is immutable, hence any changes
      * results in a wholly new {@code Person} object being created. This method
      * helps to refresh our reference to the currently selected {@code Person} object
      * to point to the new {@code Person} object.
@@ -213,7 +213,6 @@ public class HistoryView extends UiPart<Region> implements Swappable, Sortable {
      * Current strategy is to refresh every panel every time a new result is available.
      * This might potentially burden the app for every new result available.
      * Might want to consider creating a new type of event for submitting medication and subscribing only to that.
-     * TODO?
      */
     @Subscribe
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {

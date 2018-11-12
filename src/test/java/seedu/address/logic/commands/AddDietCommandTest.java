@@ -84,7 +84,7 @@ public class AddDietCommandTest {
         ModelStubAcceptingAdddiet modelStub = new ModelStubAcceptingAdddiet(patient);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddDietCommand.MESSAGE_NO_SUCH_PATIENT);
+        thrown.expectMessage(CommandUtil.MESSAGE_NO_SUCH_PATIENT);
         addDietCommand.execute(modelStub, commandHistory);
     }
 
@@ -97,7 +97,7 @@ public class AddDietCommandTest {
 
         AddDietCommand adddietCommand = new AddDietCommand(patientNric, dietsToAdd);
         AddDietCommand adddietCommandCopy = new AddDietCommand(patientNric, dietsToAdd);
-        CheckinCommand checkinCommand = new CheckinCommand(patient);
+        RegisterCommand registerCommand = new RegisterCommand(patient);
         AddDietCommand adddietOtherDietCommand = new AddDietCommand(patientNric, otherDietCollection);
         AddDietCommand adddietOtherPatientCommand = new AddDietCommand(otherPatient.getNric(), dietsToAdd);
 
@@ -108,7 +108,7 @@ public class AddDietCommandTest {
         assertTrue(adddietCommand.equals(adddietCommandCopy));
 
         // compare with a different type of command, returns false
-        assertFalse(adddietCommand.equals(checkinCommand));
+        assertFalse(adddietCommand.equals(registerCommand));
 
         // same patientNric, different dietsToAdd, return false
         assertFalse(adddietCommand.equals(adddietOtherDietCommand));
@@ -135,6 +135,15 @@ public class AddDietCommandTest {
 
             FilteredList<Person> filteredPatients = new FilteredList<>(patients);
             return FXCollections.unmodifiableObservableList(filteredPatients);
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredCheckedOutPersonList() {
+            // called by {@code AddDietCommand#execute()}
+            ObservableList<Person> checkedOutPatients = FXCollections.observableArrayList();
+
+            FilteredList<Person> filteredCheckedOutPatients = new FilteredList<>(checkedOutPatients);
+            return FXCollections.unmodifiableObservableList(filteredCheckedOutPatients);
         }
 
         @Override
