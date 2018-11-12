@@ -230,8 +230,9 @@ public class Group {
 
     // @@author zenious
     /**
-     * Remove a person from this group that is not in groups yet.
-     *
+     * Remove a person from this group.
+     * This method differs from {@link #removeMember(Person)} as the person will not be
+     * updated with the new group relation.
      */
     public void removeMemberNoGroups(Person toRemove) {
         requireNonNull(toRemove);
