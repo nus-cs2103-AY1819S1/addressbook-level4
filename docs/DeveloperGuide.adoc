@@ -378,6 +378,8 @@ image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
 ==== Design Considerations
 
+This section lists out some of the different implementations that were considered during the designing phase of this feature, including the rationale for our choice.
+
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the old `MedicalRecord` with it.
@@ -923,6 +925,9 @@ public void runScript(String script) {
 ```
 
 ==== Design Considerations
+
+This section lists out some of the different implementations that were considered during the designing phase of this feature, including the rationale for our choice.
+
 ===== Aspect: Implementation approach
 * **Alternative 1 (current choice)**: Using a `WebView` to display HTML code +
 ** Pros:
