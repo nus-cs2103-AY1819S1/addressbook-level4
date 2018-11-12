@@ -208,6 +208,7 @@ The following sequence diagram shows how the `newcard` operation works:
 
 image::NewCard Sequence Diagram.png[width="790", align="left"]
 
+
 ==== Design consideration
 
 * *Alternative 1 (current choice):* Implement the logic of card-level operations in Anakin class.
