@@ -62,7 +62,7 @@ image::bugeyedbug.png[width="150", align="left"]
 {empty}[http://github.com/BugEyedBug[github]] [<<bugeyedbug#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities:
 * Testing
 
 '''
