@@ -9,8 +9,7 @@ import org.junit.Test;
 import seedu.parking.logic.commands.NotifyCommand;
 
 /**
- * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * Check for valid arguments
  */
 public class NotifyCommandParserTest {
 

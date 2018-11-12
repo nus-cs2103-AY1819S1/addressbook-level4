@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.carpark.Carpark;
-import seedu.parking.model.util.SampleDataUtil;
 import seedu.parking.testutil.TestUtil;
 
 public class SampleDataTest extends CarparkFinderSystemTest {
@@ -44,8 +43,8 @@ public class SampleDataTest extends CarparkFinderSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Carpark[] expectedList = SampleDataUtil.getSampleCarpark();
+    public void addressBook_dataFileDoesNotExist_emptyData() {
+        Carpark[] expectedList = new Carpark[0];
         assertListMatching(getCarparkListPanel(), expectedList);
     }
 }

@@ -9,7 +9,7 @@ toc::[]
 
 ---
 
-image::keith.png[width="180", align="left"]
+image::lexzt.png[width="180", align="left"]
 {empty}https://github.com/Lexzt[Github] | https://www.linkedin.com/in/fong-keith[LinkedIn] | https://lexzt.github.io[Website]
 
 == Introduction

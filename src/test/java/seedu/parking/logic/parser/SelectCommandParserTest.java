@@ -10,8 +10,7 @@ import org.junit.Test;
 import seedu.parking.logic.commands.SelectCommand;
 
 /**
- * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * Check for valid arguments
  */
 public class SelectCommandParserTest {
 

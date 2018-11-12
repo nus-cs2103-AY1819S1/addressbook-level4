@@ -15,14 +15,18 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* Car Park Finder is an application for all car owners seeking a hassle-free way to find HDB (Housing Development Board) car parks.
-It has a GUI (Graphic User Interface) but most of the user interactions happen using the CLI (Command Line Interface).
-* It is a Java application developed by us using data provided by https://data.gov.sg[Data.gov.sg].
+* _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
+Housing & Development Board (HDB) car parks in Singapore. It has a GUI (Graphic User Interface) that allows users to
+view vital information such as parking lots availability for each car park.
 
-* Features
-** A sophisticated GUI that includes a list panel and an in-built Browser.
-** Test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* Our purpose is to help busy car owners plan their trip by getting details of nearby car parks from their destination in a fast and
+efficient manner.
+
+* Main features of _Car Park Finder_:
+** Find by location helps to narrows down the car parks near your destination
+** Filter through the list of car parks with the use of flags to get the preferred choice of car park
+** Receive notifications on how many parking lots are still available for a car park
+** Use of autocomplete to simplify overcomplicated commands by prompting correct format
 
 == Site Map
 
@@ -33,13 +37,17 @@ It has a GUI (Graphic User Interface) but most of the user interactions happen u
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent Java FX tutorial by Marco Jakob.
-* This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4], a project created by the SE-EDU initiative.
-* Libraries used: https://github.com/google/gson[Gson],
-https://github.com/TestFX/TestFX[TextFX],
+* This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4], a project
+created by the SE-EDU initiative.
+* This application would not be possible without https://data.gov.sg/[data.gov.sg] providing us with all the HDB car
+parks information. (https://data.gov.sg/dataset/hdb-carpark-information[HDB Carpark Information] and
+https://data.gov.sg/dataset/carpark-availability[Carpark Availability])
+* Libraries used: https://github.com/TestFX/TestFX[TextFX],
 https://bitbucket.org/controlsfx/controlsfx/[ControlsFX],
 https://github.com/FasterXML/jackson[Jackson],
 https://github.com/google/guava[Guava],
 https://github.com/junit-team/junit5[JUnit5],
+https://github.com/google/gson[Gson],
 https://developers.google.com/maps/documentation/[Google Maps],
 https://github.com/cgcai/SVY21[SVY21]
 

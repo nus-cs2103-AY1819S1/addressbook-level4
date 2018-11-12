@@ -2,6 +2,7 @@ package seedu.parking.model.carpark;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -45,14 +46,12 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         try {
             if (hasFreeParkingTiming) {
 
-                // Check if timePeriod contains day
+                // Check if the specified day has free-parking
                 hasDay = timePeriod.contains(day);
 
-                // Split time period using spacing
+                // Parse car park free-parking info
                 String[] timePeriodArray = timePeriod.split("\\s+");
-                // Get the last element of the array
                 String time = timePeriodArray[timePeriodArray.length - 1];
-                // Split the string into half by hyphen
                 String[] startAndEndTime = time.split("-");
 
                 SimpleDateFormat dateFormat1 = new SimpleDateFormat("hhaa");
@@ -97,7 +96,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
     }
 
     /**
-     * Checks if the car park is of the specified car park type.
+     * Checks if the car park has the specified parking system.
      */
     private boolean checkParkingSystemType(String selectedParkingSystemType, String parkingSystemType) {
         switch (selectedParkingSystemType) {
@@ -178,9 +177,41 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof CarparkFilteringPredicate // instanceof handles nulls
-                && locationKeywords.equals(((CarparkFilteringPredicate) other).locationKeywords)); // state check
-    }
 
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CarparkFilteringPredicate)) {
+            return false;
+        }
+
+        CarparkFilteringPredicate otherPredicate = (CarparkFilteringPredicate) other;
+
+        Collections.sort(flagList);
+        Collections.sort(otherPredicate.flagList);
+        boolean checkFlagList = flagList.equals(otherPredicate.flagList); // flagList is always present
+
+        Collections.sort(locationKeywords);
+        Collections.sort(otherPredicate.locationKeywords);
+        boolean checkLocationKeywords = locationKeywords.equals(otherPredicate.locationKeywords);
+
+        boolean checkFreeParkingParameter = (freeParkingParameter == null
+                && otherPredicate.freeParkingParameter == null)
+                || (freeParkingParameter.getDay().equals(otherPredicate.freeParkingParameter.getDay())
+                && freeParkingParameter.getStartTime().equals(otherPredicate.freeParkingParameter.getStartTime())
+                && freeParkingParameter.getEndTime().equals(otherPredicate.freeParkingParameter.getEndTime()));
+
+        boolean checkCarparkTypeParameter = (carparkTypeParameter == null
+                && otherPredicate.carparkTypeParameter == null)
+                || carparkTypeParameter.getCarparkType().equals(otherPredicate.carparkTypeParameter.getCarparkType());
+
+        boolean checkParkingSystemTypeParameter = (parkingSystemTypeParameter == null
+                && otherPredicate.parkingSystemTypeParameter == null)
+                || parkingSystemTypeParameter.getParkingSystemType()
+                .equals(otherPredicate.parkingSystemTypeParameter.getParkingSystemType());
+
+        return checkFlagList && checkLocationKeywords && checkFreeParkingParameter && checkCarparkTypeParameter
+                && checkParkingSystemTypeParameter;
+    }
 }

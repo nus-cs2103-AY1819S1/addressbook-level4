@@ -25,7 +25,6 @@ import seedu.parking.model.Model;
 import seedu.parking.model.ModelManager;
 import seedu.parking.model.ReadOnlyCarparkFinder;
 import seedu.parking.model.UserPrefs;
-import seedu.parking.model.util.SampleDataUtil;
 import seedu.parking.storage.CarparkFinderStorage;
 import seedu.parking.storage.JsonUserPrefsStorage;
 import seedu.parking.storage.Storage;
@@ -40,7 +39,7 @@ import seedu.parking.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 1, true);
+    public static final Version VERSION = new Version(1, 3, 2, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -87,11 +86,12 @@ public class MainApp extends Application {
         try {
             carparkFinderOptional = storage.readCarparkFinder();
             if (!carparkFinderOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Car Park Finder");
+                logger.info("Data file not found. Will be starting with an empty Car Park Finder");
+                initialData = new CarparkFinder();
             } else {
                 logger.info("Data file found. Loading from saved data");
+                initialData = carparkFinderOptional.get();
             }
-            initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Car Park Finder");
             initialData = new CarparkFinder();
@@ -190,6 +190,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Car Park Finder ] =============================");
         ui.stop();
         try {
+            storage.saveCarparkFinder(model.getCarparkFinder());
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
