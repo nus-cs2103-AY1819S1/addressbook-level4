@@ -30,7 +30,7 @@ public class MedicineName {
     public MedicineName(String name) {
         requireNonNull(name);
         checkArgument(isValidMedicineName(name), MESSAGE_MEDICINE_NAME_CONSTRAINTS);
-        medicineName = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+        medicineName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     /**
