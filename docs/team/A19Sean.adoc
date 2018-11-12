@@ -26,11 +26,11 @@
 ** Project management:
 *** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Edited ResultDisplay such that upon an invalid command, the result display text would be in a red font. (Pull request https://github.com[#13])
+*** Edited ResultDisplay such that upon an invalid command, the result display text would be in a red font. (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/13[#13])
 ** Documentation:
-*** Regularly updated User Guide and Developer Guide: https://github.com[#9], https://github.com[#102], https://github.com[#108], https://github.com[#172], https://github.com[#183]
+*** Regularly updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/9[#9], https://github.com/CS2103-AY1819S1-W13-1/main/pull/102[#102], https://github.com/CS2103-AY1819S1-W13-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-W13-1/main/pull/172[#172], https://github.com/CS2103-AY1819S1-W13-1/main/pull/183[#183]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#39], https://github.com[#73], https://github.com[#79]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-1/main/pull/39[#39], https://github.com/CS2103-AY1819S1-W13-1/main/pull/73[#73], https://github.com/CS2103-AY1819S1-W13-1/main/pull/79[#79]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/127[1],
 https://github.com/CS2103-AY1819S1-W12-3/main/issues/142[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/145[3])
 
