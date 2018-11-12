@@ -25,14 +25,23 @@ public class Analytics {
         doctorStatistics = new DoctorStatistics();
     }
 
+    /**
+     * Sets patients for all types of statistics that require it.
+     */
     public void setPatients(ObservableList<Patient> patients) {
         patientStatistics.setPatients(patients);
     }
 
+    /**
+     * Sets appointments for all types of statistics that require it.
+     */
     public void setAppointments(ObservableList<Appointment> appointments) {
         appointmentStatistics.setAppointments(appointments);
     }
 
+    /**
+     * Sets doctors for all types of statistics that require it.
+     */
     public void setDoctors(ObservableList<Staff> doctors) {
         doctorStatistics.setDoctors(doctors);
     }
@@ -42,6 +51,7 @@ public class Analytics {
      */
     public void setConsultations(ObservableList<Consultation> consultations) {
         doctorStatistics.setConsultations(consultations);
+        patientStatistics.setConsultations(consultations);
     }
 
     /**
@@ -51,13 +61,10 @@ public class Analytics {
         switch (type) {
         case PATIENT:
             return patientStatistics.getAllData();
-
         case APPOINTMENT:
             return appointmentStatistics.getAllData();
-
         case DOCTOR:
             return doctorStatistics.getAllData();
-
         default:
             return appointmentStatistics.getAllData();
         }
