@@ -15,7 +15,7 @@ This portfolio serves as a summary to showcase my contribution for https://githu
 
 == Summary of contributions
 
-The following section shows my code contribution for OASIS.
+The following section shows my various contributions for OASIS.
 
 *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kokjianyu&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Link to RepoSense]]
 
@@ -31,9 +31,7 @@ authorization. Usage of permission allows the admins to easily ensure that previ
 Therefore, implementation was challenging as it requires in-depth knowledge of the different components.
 *** This feature is coded to be simple to use and extensible. New permissions can be added simply into `Permission` enum class, and any new Command class only need to 1 line of code to ensure that it can only be executed by authorized employees.
 
-=== Minor Enhancement
-
-* Added *Command Auto-Complete* feature
+=== Minor Enhancement: Added Command Auto-Complete feature
 ** What it does:
 *** When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
 ** Justification:
