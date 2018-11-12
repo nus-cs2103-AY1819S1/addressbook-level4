@@ -51,7 +51,7 @@ Responsibilities: Documentation, In charge of Logic, Deliverables and Deadlines
 
 === Lim Jiho
 image::jiholim.png[width="150", align="left"]
-{empty}[https://mobbin.design/[homepage]] [http://github.com/jiholim[github]] [<<jiholim#, portfolio>>]
+{empty}[https://mobbin.design/[homepage]] [http://github.com/jiholim[github]] [<<jiholim_ppp#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI, In charge of UI component
