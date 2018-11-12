@@ -625,7 +625,7 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` a
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings matches the name or address of a car park fully or partially.
 
 .How the find operation works
-image::seqdiagram-find.png[width="700", align="left"]
+image::FindSdForLogic.png[width="700", align="left"]
 
 The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
 
@@ -648,7 +648,7 @@ Step 4. The filtered list of car parks is returned to the GUI.
 The flow chart below describes the user interaction with the application and how it processes it.
 
 .Flow chart of the find operation.
-image::actdiagram-find.png[width="700", align="left"]
+image::actdiagram-findresize.png[width="700", align="left"]
 
 ==== Design Considerations
 
