@@ -43,7 +43,7 @@ public class AcademicYear {
     /**
      * Makes an identical deep copy of this academic year.
      */
-    public AcademicYear makeDeepDuplicate() {
+    public AcademicYear makeCopy() {
         AcademicYear newYear = new AcademicYear(toString());
         return newYear;
     }
