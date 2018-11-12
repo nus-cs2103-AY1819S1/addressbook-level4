@@ -1732,7 +1732,7 @@ Milo dt/30-10-2018 00:00:01` +
 
 .. Test case: 2 names field are specified. +
     Command: `/order find n/john n/tom` +
-    Expected: Only order/s with the name `tom` is shown on the left panel.
+    Expected: Only order/s with the name `tom` is shown on the left panel. Only the last field is taken.
 
 === Editing an order
 . Edit an order while all orders are listed
@@ -1878,7 +1878,7 @@ To achieve this, you can filter deliveryman by name, then assign him a `Pending`
     Expected: Deliveryman with the name `tom`, `tommy`, `tom hanks` would be displayed on the display panel.
 
 ... Test case: `/deliveryman find n/tom n/john` +
-    Expected: Deliveryman with the name `john`, `johnny`, `john doe` would be displayed on the display panel.
+    Expected: Deliveryman with the name `john`, `johnny`, `john doe` would be displayed on the display panel. Only the last field is taken.
 
 ... Test case: `/deliveryman find n/` +
     Expected: Error is shown in the status message. Value cannot be empty.
