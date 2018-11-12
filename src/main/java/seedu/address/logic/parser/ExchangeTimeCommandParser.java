@@ -55,7 +55,7 @@ public class ExchangeTimeCommandParser implements Parser<ExchangeTimeCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
             }
-            return new ExchangeTimeCommand(args);
+            return new ExchangeTimeCommand(numA, numB, nameA, nameB);
 
         } catch (IllegalArgumentException e) {
             throw new ParseException(

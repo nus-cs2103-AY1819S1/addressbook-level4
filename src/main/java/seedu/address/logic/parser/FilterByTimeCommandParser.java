@@ -32,6 +32,6 @@ public class FilterByTimeCommandParser implements Parser<FilterByTimeCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE + "1" + args));
         }
-        return new FilterByTimeCommand(args);
+        return new FilterByTimeCommand(time);
     }
 }

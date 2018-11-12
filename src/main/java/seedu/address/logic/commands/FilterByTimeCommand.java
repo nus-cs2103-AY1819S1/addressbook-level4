@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -34,17 +31,11 @@ public class FilterByTimeCommand extends FilterCommand {
     /**
      * filter by grade command
      *
-     * @param args
+     * @param time
      */
 
-    public FilterByTimeCommand(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIME);
-
-        if (!argMultimap.getValue(PREFIX_TIME).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
-        }
-
-        time = new Time(argMultimap.getValue(PREFIX_TIME).get());
+    public FilterByTimeCommand(Time time) throws ParseException {
+        this.time = time;
     }
 
     @Override

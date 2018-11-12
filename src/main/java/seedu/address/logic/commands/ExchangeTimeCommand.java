@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import java.util.ArrayList;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -35,18 +33,17 @@ public class ExchangeTimeCommand extends Command {
     /**
      * Change timeslot command
      *
-     * @param args
+     * @param indexOne
+     * @param indexTwo
+     * @param nameA
+     * @param nameB
      */
-    public ExchangeTimeCommand(String args) {
+    public ExchangeTimeCommand(int indexOne, int indexTwo, String nameA, String nameB) {
 
-        String[] stringCommand = args.trim().split(" ");
-        numA = Integer.parseInt(stringCommand[0]);
-        numB = Integer.parseInt(stringCommand[1]);
-
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-
-        nameA = argMultimap.getAllValues(PREFIX_NAME).get(0);
-        nameB = argMultimap.getAllValues(PREFIX_NAME).get(1);
+        this.numA = indexOne;
+        this.numB = indexTwo;
+        this.nameA = nameA;
+        this.nameB = nameB;
     }
 
     @Override
