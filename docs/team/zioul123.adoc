@@ -19,7 +19,7 @@
 ** Highlights: This enhancement extends the `edit` and `delete` commands and makes use of a new `Predicate` and `PersonFinderUtil` to find a `Person` when provided a unique identifier.
 ** Credits: Nil.
 
-* *Minor enhancement*: Make the address, email and phone number fields `Optional` (Pull requests https://github.com[#16], https://github.com[#33]).
+* *Minor enhancement*: Make the address, email and phone number fields `Optional` (Pull requests https://github.com/CS2103-AY1819S1-W13-1/main/pull/16[#16], https://github.com/CS2103-AY1819S1-W13-1/main/pull/33[#33]).
 ** What it does: Instead of requiring all fields to be filled when adding a person, which may require an Insurance Agent to fill placeholder information, she can leave several fields blank instead.
 ** Justification: This feature improves the product significantly, because insurance agents do not always have all the information about their clients they need, but they may still need to keep track of them and contact them with whatever incomplete information they have. This feature thus adds a degree of freedom and ease of use to insurance agents.
 
@@ -30,16 +30,16 @@
 ** Project management:
 *** Managed release `v1.2` and `v1.3.1` on GitHub
 ** Enhancements to existing features:
-*** Add a display for the number of people in InsuRen on the status bar (Pull request https://github.com[#8])
-*** Change aesthetics and add text wrapping to Person Cards (Pull request https://github.com[#4])
+*** Add a display for the number of people in InsuRen on the status bar (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/8[#8])
+*** Change aesthetics and add text wrapping to Person Cards (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/4[#4])
 ** Documentation:
-*** Update the About Us page to reflect our team (Pull requests https://github.com[#14], https://github.com[#15])
-*** Update the images shown on the project page (Pull requests https://github.com[#2], https://github.com[#15], https://github.com[#28], https://github.com[#56])
+*** Update the About Us page to reflect our team (Pull requests https://github.com/CS2103-AY1819S1-W13-1/main/pull/2[#2], https://github.com/CS2103-AY1819S1-W13-1/main/pull/15[#15])
+*** Update the images shown on the project page (Pull requests https://github.com/CS2103-AY1819S1-W13-1/main/pull/2[#2], https://github.com/CS2103-AY1819S1-W13-1/main/pull/15[#15], https://github.com/CS2103-AY1819S1-W13-1/main/pull/28[#28], https://github.com/CS2103-AY1819S1-W13-1/main/pull/56[#56])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#22], https://github.com[#23], https://github.com[#40], https://github.com[#57], https://github.com[#58], https://github.com[#60], https://github.com[#71]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-1/main/pull/22[#22], https://github.com/CS2103-AY1819S1-W13-1/main/pull/23[#23], https://github.com/CS2103-AY1819S1-W13-1/main/pull/40[#40], https://github.com/CS2103-AY1819S1-W13-1/main/pull/57[#57], https://github.com/CS2103-AY1819S1-W13-1/main/pull/58[#58], https://github.com/CS2103-AY1819S1-W13-1/main/pull/60[#60], https://github.com/CS2103-AY1819S1-W13-1/main/pull/71[#71]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-F11-4/main/issues/169[1], https://github.com/CS2103-AY1819S1-F11-4/main/issues/171[2], https://github.com/CS2103-AY1819S1-F11-4/main/issues/184[3], https://github.com/CS2103-AY1819S1-F11-4/main/issues/186[4], https://github.com/CS2103-AY1819S1-F11-4/main/issues/190[5])
 ** Tools:
-*** Get CI tools to print stack traces on failed tests (Pull request https://github.com[#77])
+*** Get CI tools to print stack traces on failed tests (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/77[#77])
 
 == Contributions to the User Guide
 
