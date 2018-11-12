@@ -523,7 +523,7 @@ exception while local tests pass)
 
 // end::playbackFeature_yingnan[]
 
-// tag::playlistNew[]
+// tag::playlistNew-hayden[]
 === Playlist Management feature
 ==== Current Implementation
 
@@ -576,7 +576,7 @@ image::PlaylistNewActivityDiagram.png[width="800"]
 * **Alternative 3:** New playlists display at the top of the playlist panel.
 ** Pros: Keeps the most recent / relevant playlists at the top and easily accessible.
 ** Cons: Has larger compute time cost when list is large
-// end::playlistNew[]
+// end::playlistNew_hayden[]
 
 
 
@@ -807,6 +807,8 @@ b. Require developers to download those libraries manually (this creates extra w
 *Value proposition*: listen to music and manage playlists faster than a typical mouse/GUI driven app
 
 [appendix]
+
+//tag::userStories_hayden[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -830,6 +832,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |Shuffle a playlist |Listen to playlists in different order
 |`*` |user |See usage instructions |Refer to instructions when I need help
 |=======================================================================
+//end::userStories_hayden[]
 
 [appendix]
 // tag::useCase_yingnan[]
