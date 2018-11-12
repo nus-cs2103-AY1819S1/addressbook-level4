@@ -10,7 +10,7 @@
 == Overview
 
 This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
-For this project, my team had the goal of wanting to _'harness the potential of software to create sustainable social change'_.
+For this project, my team had the goal to _'harness the potential of software to create sustainable social change'_.
 
 With our goal in mind, we developed SocialCare, a desktop application made for social welfare organizations.
 The application is designed to help manage volunteers and events effectively.
@@ -26,7 +26,7 @@ My main role as a developer for SocialCare was to implement *record management f
 
 == Summary of Contributions
 * *Major enhancement*:
-added commands to *manage volunteer records*
+Added commands to *manage volunteer records*
 ** What it does:
 The commands implemented allows the user to manage volunteering records.
 They will be able to assign volunteers to events and update the number of hours contributed by the volunteer.
@@ -36,10 +36,11 @@ These functions are part of the core requirements for the application because we
 
 ** Highlights:
 This enhancement is completely new and required an in-depth analysis of design alternatives.
-It was challenging as it required complete understanding of all code components so that it can be properly implemented.
+It was challenging as a complete understanding of all code components was needed so that it can be properly implemented.
 
 * *Minor enhancement*:
-added a command to allow users to *switch between panels*. The panels are used to display either volunteers or events for users to manage.
+* Added a command to allow users to *switch between panels*.
+* Created charts for the `overview` command.
 
 * *Code contributed*:
 Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=imarbles[link]

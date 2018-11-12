@@ -560,7 +560,7 @@ image::command_record_manage_eventIndex.png[switch execution, 200]
 .Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The following changes are observed:
+The following changes are observed (refer to labelled figure above):
 
 . Panel displays the list of volunteers that you can assign to an event.
 . Name of event being managed and total number of volunteers assigned to it.
