@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.souschef.logic.CrossFilterPredicate;
+import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.commands.CrossFindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -23,6 +24,12 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
+    private static final String DUPLICATE_INGREDIENT = "Ingredients should not be duplicated between include and "
+            + "prioritize.";
+    private static final String INCLUDE = "include";
+    private static final String PRIORITIZE = "prioritize";
+    private static final String INVENTORY = "inventory";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CrossFindCommand
      * and returns an CrossFindCommand object for execution.
@@ -54,9 +61,11 @@ public class CrossFindCommandParser {
 
         int index = 1;
         boolean hasInventory = false;
-        if (index < tokens.length && tokens[index].equals("include")) {
-            index++;
-            if (tokens[index].equals("inventory")) {
+        if (index < tokens.length && tokens[index].equals(INCLUDE)) {
+            if (++index >= tokens.length) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
+            }
+            if (tokens[index].equals(INVENTORY)) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
                     include.add(new IngredientDefinition(ingredient.getName()));
@@ -64,7 +73,7 @@ public class CrossFindCommandParser {
                 index++;
             }
             while (index < tokens.length) {
-                if (tokens[index].equals("prioritize")) {
+                if (tokens[index].equals(PRIORITIZE)) {
                     break;
                 }
                 if (!IngredientName.isValid(tokens[index])) {
@@ -75,9 +84,14 @@ public class CrossFindCommandParser {
             }
         }
 
-        if (index < tokens.length && tokens[index].equals("prioritize")) {
-            index++;
-            if (hasInventory == false && tokens[index].equals("inventory")) {
+        if (index < tokens.length && tokens[index].equals(PRIORITIZE)) {
+            if (++index >= tokens.length) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
+            }
+            if (tokens[index].equals(INVENTORY)) {
+                if (hasInventory) {
+                    throw new ParseException(String.format(DUPLICATE_INGREDIENT, CrossFindCommand.MESSAGE_USAGE));
+                }
                 for (Ingredient ingredient : ingredientList) {
                     prioritize.add(new IngredientDefinition(ingredient.getName()));
                 }
@@ -89,12 +103,16 @@ public class CrossFindCommandParser {
                 }
                 IngredientDefinition key = new IngredientDefinition(tokens[index]);
                 if (include.contains(key)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    throw new ParseException(String.format(DUPLICATE_INGREDIENT,
                             CrossFindCommand.MESSAGE_USAGE));
                 }
                 prioritize.add(key);
                 index++;
             }
+        }
+
+        if (!tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
 
         crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
@@ -115,7 +133,7 @@ public class CrossFindCommandParser {
             matchedCrossRecipeMap.put(recipe, matchedIngredients);
         }
 
-        return new CrossFindCommand(crossRecipeModel, ingredientModel, new CrossFilterPredicate(include),
-                matchedCrossRecipeMap, numberOfServings);
+        return new CrossFindCommand(crossRecipeModel, ingredientModel, new CrossSortComparator(matchedCrossRecipeMap),
+                new CrossFilterPredicate(include), numberOfServings);
     }
 }
