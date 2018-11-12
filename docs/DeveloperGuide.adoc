@@ -1441,50 +1441,64 @@ Expected:
 .. Test case: `mode` +
 Expected: 
 
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. 
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-
 // end::gamemode-test[]
+
+// tag::listfiltermanualtest[]
+=== List filter results
+. Expected results for time-based filters
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A p/5 d/due today l/one t/X Y` where `X` is today's date and Y is a
+time before the end of the day
+... Add Task B using `add n/B p/5 d/due before sunday l/two t/X Y` where `X` is any valid date before the end of the
+week and `Y` is any valid time
+... Add Task C using `add n/C p/5 d/due before end of month l/two t/X Y` where `X` is any valid date before
+the end of the month and `Y` is any valid time
+
+.. Test case 1: `list f/today`,
+Expected: Only Task A is listed.
+
+.. Test case 2: `list f/week`,
+Expected: Only Task B is listed.
+
+.. Test case 3: `list f/month`,
+Expected: Only Task C is listed.
+
+. Expected results for dependency-based filter (`doable`)
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-1-19 p/5 d/blank l/two`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+... Add Task C using `add n/C t/1-1-19 p/5 d/blank l/two`
+... List all tasks using `list`
+... Add a dependency from A to B using `dependency 1 2`
+
+.. Test case 1: `list f/doable`,
+Expected: Tasks B and C are listed.
+
+.. Test case 2: `list`, `complete 2`, `list f/doable`,
+Expected: Tasks A and C are listed.
+// end::listfiltermanualtest[]
+
+// tag::taskviewpanelmanualtest[]
+=== Task View Panel
+. Expected view for selecting tasks
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-1-19 p/5 d/blank l/two`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+
+.. Test case 1: `select 1`,
+Expected: Task A is selected and its details are displayed on the Task View Panel on the right hand side.
+
+.. Test case 2: `select 2`,
+Expected: Task B is selected and its details are displayed on the Task View Panel on the right hand side.
+
+.. Test case 3: `edit 2 n/C`,
+Expected: Task B is edited to become Task C, gets selected and its details are displayed on the
+Task View Panel on the right hand side.
+
+.. Test case 3: `edit 2 n/C`,
+Expected: Task B is edited to become Task C, gets selected and its details are displayed on the
+Task View Panel on the right hand side.
+// end::taskviewpanelmanualtest[]
