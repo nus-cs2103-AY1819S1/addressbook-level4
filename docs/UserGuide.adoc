@@ -122,20 +122,19 @@ Format: `list`
 
 === Adding tuition time of a student : `addTime`
 
-Adds a tuition time slot for a student in the address book.
+Adds a tuition timing for a student in Tutor Pal.
 
-Format: `addTime n/NAME ts/TIME`
+Format: `addTime INDEX ts/TIME`
 
 ****
-* The student with the name `NAME` must be already be in the address book.
-* Adds the tuition time `TIME` for the student called `NAME`.
-* `TIME` must not clash with any other tuition time in the address book.
+* Adds tuition timing `TIME` for a student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
+* `TIME` must not clash with any other tuition timings already in Tutor Pal.
 ****
 
 Example:
 
-* `addTime n/John Doe ts/mon 1300 1500` +
-Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `addTime 1 ts/mon 1300 1500` +
+Adds the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
 
 === Edit certain class time of certain student: `editTime`
 
@@ -179,17 +178,18 @@ If the the corresponding time-slot doesn't exit based on the ordinal number, the
 
 === Deleting tuition time of a student : `deleteTime`
 
-Deletes a tuition time slot for a student in the address book.
-Format: `deleteTime n/NAME ts/TIME`
+Deletes a tuition timing for a student in Tutor Pal.
+Format: `deleteTime INDEX ts/TIME`
 
-* The student with the name `NAME` must be already be in the address book.
-* `TIME` must already exist in the student's tuition timings.
-* The student with the name `NAME` will have the tuition timing `TIME` deleted.
+****
+* Deletes tuition timing `TIME` for the student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
+* `TIME` must already exist for the student's tuition timings in Tutor Pal.
+****
 
 Example:
 
-* `deleteTime n/John Doe ts/mon 1300 1500` +
-Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `deleteTime 1 ts/mon 1300 1500` +
+Deletes the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
 
 
 === Deleting grade of a student : `deleteGrade`
