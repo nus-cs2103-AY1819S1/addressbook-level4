@@ -7,7 +7,6 @@ import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -90,7 +89,6 @@ public class EditCommand extends Command {
         }
 
         model.updateArticle(articleToEdit, editedArticle);
-        model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         model.commitArticleList();
         return new CommandResult(String.format(MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle));
     }

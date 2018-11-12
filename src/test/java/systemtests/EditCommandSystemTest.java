@@ -26,7 +26,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWER
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
@@ -112,7 +112,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered article list, edit index within bounds of article list and article list -> edited */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_ARTICLE;
         assertTrue(index.getZeroBased() < getModel().getFilteredArticleList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_MOUSE;
@@ -123,7 +123,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         /* Case: filtered article list, edit index within bounds of article list but out of bounds of article list
          * -> rejected
          */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getArticleList().getArticleList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_MOUSE,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);

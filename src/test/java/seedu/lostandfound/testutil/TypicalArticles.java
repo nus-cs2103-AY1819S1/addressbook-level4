@@ -49,6 +49,13 @@ public class TypicalArticles {
     public static final Article CARD = new ArticleBuilder().withFinder("George Best").withOwner("Not Claimed")
             .withIsResolved(false).withPhone("9482442").withEmail("anna@example.com").withName("Matric Card")
             .withDescription("Found at 4th street").build();
+    public static final Article FAN = new ArticleBuilder().withFinder("Helen Walker").withPhone("9481124")
+            .withEmail("walker@example.com").withDescription("Found at lalaland ave").withIsResolved(true)
+            .withName("Mini Fan").withOwner("Jenny Bee").build();
+    public static final Article PEN = new ArticleBuilder().withFinder("Ollie Dee")
+            .withIsResolved(true).withPhone("8182427").withName("Nice Pen").withOwner("Carl Kurz")
+            .withEmail("Dee@example.com").withDescription("Found at Little India").build();
+
 
     // Manually added
     public static final Article SHIRT = new ArticleBuilder().withName("Blue PayPal Shirt").withPhone("8482424")
@@ -68,7 +75,7 @@ public class TypicalArticles {
             .withDescription(VALID_DESCRIPTION_MOUSE).withIsResolved(false).withOwner(DEFAULT_OWNER)
             .withTags(VALID_TAG_BLUE, VALID_TAG_RED).withFinder(VALID_FINDER_MOUSE).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "-f Meier"; // A keyword that matches MEIER
+    public static final String FINDER_KEYWORD_MATCHING_MEIER = "-f Meier"; // A keyword that matches MEIER
 
     private TypicalArticles() {} // prevents instantiation
 
@@ -84,6 +91,6 @@ public class TypicalArticles {
     }
 
     public static List<Article> getTypicalArticles() {
-        return new ArrayList<>(Arrays.asList(BAG, WALLET, WATCH, HEADPHONE, LAPTOP, PHONE, CARD));
+        return new ArrayList<>(Arrays.asList(BAG, WALLET, WATCH, HEADPHONE, LAPTOP, PHONE, CARD, FAN, PEN));
     }
 }

@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends ArticleListSystemTest {
 
         /* Case: filters the article list before clearing -> entire article list cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original article list
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

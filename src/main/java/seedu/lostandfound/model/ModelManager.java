@@ -78,8 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateArticle(Article target, Article editedArticle) {
         requireAllNonNull(target, editedArticle);
-
         versionedArticleList.updateArticle(target, editedArticle);
+        updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         indicateArticleListChanged();
     }
 
@@ -115,12 +115,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoArticleList() {
         versionedArticleList.undo();
+        updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         indicateArticleListChanged();
     }
 
     @Override
     public void redoArticleList() {
         versionedArticleList.redo();
+        updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         indicateArticleListChanged();
     }
 
