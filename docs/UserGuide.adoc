@@ -165,6 +165,7 @@ Full set of commands `add` `cont` `end` must be performed for the adding of reci
 * User can perform other commands and continue adding instructions as required. `cont` command need not be continuous.
 * To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
 and enter a new recipe details as desired.
+* The `end` command record and save the recipe.
 
 [NOTE]
 ====
