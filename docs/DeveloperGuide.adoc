@@ -1427,10 +1427,62 @@ _{ more test cases ... }_
 .. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
    Expected: Similar to previous.
 
-=== Saving data
+=== Authenticating with Google Photos
 
-. Dealing with missing/corrupted data files
+. Logging in and out of Google Photos
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `login`, then authenticate with Google +
+   Expected: Logged in email shown in console.
+.. Test case: `login`, then close login window without logging in +
+   Expected: The Piconso application should work smoothly as usual
+.. Test case: `logout` when an account is logged into +
+   Expected: Feedback user is logged out
+.. Test case: Launch application when user has not logged out +
+   Expected: User is automatically logged in as indicated in StatusBarFooter.
 
-_{ more test cases ... }_
+=== Listing with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g ls` +
+  Expected: Lists names of all photos in account.
+.. Test case: `g ls /a` +
+  Expected: Lists names of all albums in account.
+.. Test case: `g ls <ALBUM>` +
+  Expected: Lists names of all images in that album.
+.. Test case: `g ls <INVALID_ALBUM>` +
+  Expected: Error message is shown stating album not found.
+.. You may also try the methods without <> to test for validity, and also for duplicate image/album names to ensure they list properly.
+
+=== Downloading with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g dl` +
+  Expected: Error should be thrown requesting parameter
+.. Test case: `g dl /i<IMAGE>` +
+  Expected: Downloads the image
+.. Test case: `g dl /a<ALBUM> /i<IMAGE>` +
+  Expected: Downloads the image found in the specified album.
+.. Test case: `g dl /a<ALBUM>` +
+Expected: Downloads the entire album
+.. You may also try the methods without <> to test for validity and also test with a variety of non-existent albums and image names to ensure
+the requests throw an accurate error message.
+
+=== Downloading with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g ul` +
+  Expected: Error should be thrown requesting parameter
+.. Test case: `g ul <IMAGE>` +
+  Expected: Uploads the image
+.. Test case: `g ul all` +
+  Expected: Uploads all images in current directory to Google Photos.
+.. Test case: `g ul all`, in a folder with 2 images copies +
+  Expected: Uploads only one image.
+.. Test case: `g ul all`, an image that already exists in Google Photos +
+  Expected: Uploads the image as the name it already had in Google Photos.
+.. You may also try the methods without <> to test for validity and also test with a variety of image names and duplicate images to ensure
+the requests throw an accurate error message.
+
