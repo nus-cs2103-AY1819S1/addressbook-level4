@@ -53,8 +53,8 @@ using Webhook.
 *** Morphed the existing contents of the User Guide and Developer Guide with respect to
 the morphed code base.
 ** Community:
-*** http://bit.ly/azhikai-contribution[Contributed] more than 40 PRs.
-*** http://bit.ly/azhikai-PR-review[Reviewed] more than 70 PRs with non-trivial review comments.
+*** http://bit.ly/azhikai-contribution[Contributed] more than 50 PRs.
+*** http://bit.ly/azhikai-PR-review[Reviewed] more than 80 PRs, most with non-trivial review comments.
 *** Contributed to forum discussions using GitHub's Issue Tracker:
 https://github.com/nus-cs2103-AY1819S1/forum/issues/7[#7],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/20[#20],
