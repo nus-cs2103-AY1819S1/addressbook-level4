@@ -617,48 +617,19 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 // tag::delete[]
 === Delete
-`delete` is a basic feature provided by every version of `TheTracker`.
-It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeletePersonCommand` `DeleteModuleCommand` and
-`DeleteOccasionCommand` respectively.
 
 ==== Current Implementation
-This following section will use `DeletePersonCommand` as an example, `DeleteModuleCommand` and  `DeleteOccasionCommand`
-uses the same mechanism. `DeletePersonCommand`extends the `Command` class and uses inheritance to facilitate
-implementation.
+The `delete` command will delete a `Person`, `Module` or `Occasion`.
+Similar to other commands, a new `ReadOnlyAddressBook` is created upon the execution of this command. +
+It can then be accessed within the `VersionedAddressBook` when executing `undo` or `redo`.
 
-Generally, it implements the following operation:
+The following activity diagram shows how the `delete` command may be used from a user's perspective:
 
-* `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
+image::DeleteActivityDiagram.png[width="800"]
 
-This operation is exposed in the Model interface as Model#getFilteredEntity(), Model#deleteEntity() and Model#commitAddressBook() respectively.
-
-Provided below is an usage scenario instance. It illustrates how the
-delete mechanism behaves at each step.
-
-Step 1: The user launches TheTracker for the first time. The
-`VersionedAddressBook` will be initialised with the initial address book
-state.
-
-image::DeleteStartingStateListDiagram.png[width="800"]
-
-Step 2: The user executes `addperson n/David...` command to add a person named
-David in his TheTracker. The parser `AddPersonCommandParser` will identify by
-the 'n/' tag that the entity to be added is a person. The `addperson` command
-calls `Model#commitAddressBook()`, causing the modified state of TheTracker
-after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
-
-image::DeleteNewCommand1StateListDiagram.png[width="800"]
-
-Step 3: The user executes `deleteperson 1` to delete the person named David in the address
-book who has an index 1. The parser `DeletePersonCommandParser` will identify by the index of the person to be
-deleted.The `deleteperson` command calls Model#getFilteredPersonList(), Model#deletePerson()
-and `Model#commitAddressBook()`, and causes modified address book state to be saved into the `addressBookStateList`
-
-image::DeleteDeleteCommandStateListDiagram.png[width="800"]
-
-The following sequence diagram shows how the delete operation works:
-
-image::DeleteSequenceDiagram.png[width="800"]
+In implementing this feature, there are two key components to consider.
+* Inferred Deletion: The deletion will be applied to the currently active list.
+* Deep Deletion: The deletion will automatically all references to this entry (i.e. from other entries' lists).
 
 ==== Design Considerations
 ===== Aspect: How delete executes
@@ -678,6 +649,8 @@ image::DeleteSequenceDiagram.png[width="800"]
 *** User needs to know the index number of the Entity to be deleted.
 
 // end::delete[]
+
+
 
 == Documentation
 

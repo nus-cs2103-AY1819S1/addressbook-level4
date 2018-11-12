@@ -16,10 +16,10 @@ It demonstrates my ability to contribute as a team member of a software engineer
 
 * *Major enhancement*: *Improved `delete` function to properly delete any type of entry*
 ** Description: Allows the user to delete a person, module or occasion by index. It also removes this entry from all other linked entries.
-** Importance: This feature makes it easy for a user to remove any unnecessary entries from TheTracker.
-It also saves users from manually removing the entry from all associated entries.
-** Highlights: This enhancement required deletion from the three lists to be handled independently, but with entries in all lists being updated.
-This was challenging to implement as it required new objects to be create and linked in order for the undo/redo operations to work.
+** Highlights: This enhancement has two aspects:
+*** Inferred Deletion: The deletion will be applied to the currently active list.
+*** Deep Deletion: The deletion will automatically all references to this entry (i.e. from other entries' lists)
+** Design Considerations: Based on the current undo/redo implementation, new copies must be created for updated entries.
 
 * *Minor enhancement*: Improved `select` function to handle the three lists
 ** Description: Allows the user to select an entry from the active list, and view additional info
@@ -37,13 +37,15 @@ This was challenging to implement as it required new objects to be create and li
 *** Manage Issue Tracker for v1.3, v1.4
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W10-1/main/pull/87[#87]
+*** Methods written for implementation of deep deletion were adapted for edit and removeModule.
+*** Set up test utils for modules and occasions: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
 *** Helped in identifying bugs and offered suggestions for debugging
 ** Documentation:
 *** Wrote user stories, use cases for v1.0
 *** Updated description of user guide to match application design
 ** Key Code Components
-*** Set up module class, various components and their unit tests.
-*** Set up test utils for modules and occasions: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
+*** Set up `Module` class and its associated fields/exceptions
+
 
 == Contributions to the User Guide
 
