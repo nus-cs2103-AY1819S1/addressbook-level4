@@ -87,36 +87,6 @@ public class TypicalTasks {
         .withDescription("Reply to Damith").withPriorityValue("1")
         .withDueDate("01-12-19").withLabels("owesMoney").withDependency(D3_TASK).build();
 
-    //Multiple tasks with the same label for Complete Command to trigger an easy level up.
-    public static final Task LA_TASK = new TaskBuilder().withName("Address CS2103 email")
-        .withDescription("Reply to Damith").withPriorityValue("10")
-        .withDueDate("01-12-19").withLabels("friends").withDependency(D3_TASK).build();
-    public static final Task LB_TASK = new TaskBuilder().withName("Build addressbook for tutorial")
-        .withDescription("Press 'Build' in IntelliJ")
-        .withPriorityValue("10").withDueDate("02-12-19 1330")
-        .withLabels("owesMoney", "friends").withStatus(Status.IN_PROGRESS).build();
-    public static final Task LC_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-19")
-        .withPriorityValue("10").withDescription("Call number +6562353535").withLabels("friends")
-        .withStatus(Status.IN_PROGRESS).build();
-    public static final Task LD_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-19")
-        .withPriorityValue("10").withDescription("Preferably before it").withLabels("friends").build();
-    public static final Task LE_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-19")
-        .withPriorityValue("10").withDescription("Add more words")
-        .withStatus(Status.IN_PROGRESS).withLabels("friends").build();
-    public static final Task LF_TASK = new TaskBuilder().withName("Find suitable reagents for experiment")
-        .withDueDate("06-12-2019").withPriorityValue("10").withDescription("Missing spice and everything nice")
-        .withStatus(Status.IN_PROGRESS).withLabels("friends").build();
-    public static final Task LG_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-19")
-        .withPriorityValue("10").withDescription("Then enter grades into IVLE").withLabels("friends").build();
-    public static final Task LH_TASK = new TaskBuilder().withName("Edit Developer Guide").withDueDate("05-12-19")
-        .withPriorityValue("10").withDescription("Add more words")
-        .withStatus(Status.IN_PROGRESS).withLabels("friends").build();
-    public static final Task LI_TASK = new TaskBuilder().withName("Watch PowerpuffGirls")
-        .withDueDate("06-12-2019").withPriorityValue("10").withDescription("Missing spice and everything nice")
-        .withStatus(Status.IN_PROGRESS).withLabels("friends").build();
-    public static final Task LJ_TASK = new TaskBuilder().withName("Grade Students for CS1010").withDueDate("07-12-19")
-        .withPriorityValue("10").withDescription("Then enter grades into IVLE").withLabels("friends").build();
-
     public static final String KEYWORD_MATCHING_TUTORIAL = "tutorial"; // A keyword that matches tutorial
 
     private TypicalTasks() {
@@ -134,13 +104,6 @@ public class TypicalTasks {
      */
     public static TaskManager getTypicalDependentTaskManager() {
         return getTaskManagerWithGivenTasks(getTypicalDependentTasks());
-    }
-
-    /**
-     * Returns an {@code TaskManager} with easily level-able tasks.
-     */
-    public static TaskManager getLevelableTaskManager() {
-        return getTaskManagerWithGivenTasks(getTypicalLevelableTasks());
     }
 
     /**
@@ -174,16 +137,5 @@ public class TypicalTasks {
      */
     public static List<Task> getTypicalDependentTasks() {
         return new ArrayList<>(Arrays.asList(D1_TASK, D2_TASK, D3_TASK));
-    }
-
-    /**
-     * Typical tasks created to specifically trigger a level up on label completion
-     * with friends.
-     *
-     * @return List of typical tasks (No dependencies)
-     */
-    public static List<Task> getTypicalLevelableTasks() {
-        return new ArrayList<>(Arrays.asList(LA_TASK, LB_TASK, LC_TASK, LD_TASK,
-            LE_TASK, LF_TASK, LG_TASK, LH_TASK, LI_TASK, LJ_TASK));
     }
 }

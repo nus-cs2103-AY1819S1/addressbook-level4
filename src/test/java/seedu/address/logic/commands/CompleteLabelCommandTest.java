@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.feedbackMessageTokenizer;
 import static seedu.address.testutil.LabelsBuilder.createLabelsFromKeywords;
-import static seedu.address.testutil.TypicalTasks.getLevelableTaskManager;
 import static seedu.address.testutil.TypicalTasks.getTypicalDependentTaskManager;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
@@ -20,7 +19,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.achievement.Level;
 import seedu.address.model.task.LabelMatchesAnyKeywordPredicate;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
@@ -46,7 +44,6 @@ public class CompleteLabelCommandTest {
         new LabelMatchesAnyKeywordPredicate(createLabelsFromKeywords("AOSDIJPQWEOIDJPQWOiodj120349871238493qw"));
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
     private Model dependentModel = new ModelManager(getTypicalDependentTaskManager(), new UserPrefs());
-    private Model levelableModel = new ModelManager(getLevelableTaskManager(), new UserPrefs());
 
 
     private CommandHistory commandHistory = new CommandHistory();
@@ -54,15 +51,6 @@ public class CompleteLabelCommandTest {
     @Test
     public void execute_validLabel_success() {
         assertCompleteLabelCommandSuccess(PREDICATE_FRIENDS, model, KEYWORD_FRIENDS);
-    }
-
-    /**
-     * Precondition, supplied model must trigger a level up.
-     * TODO: v2.0 Rewrite this test case such that it will fail if there is no level up detected.
-     */
-    @Test
-    public void execute_validLabel_levelUpSuccess() {
-        assertCompleteLabelCommandSuccess(PREDICATE_FRIENDS, levelableModel, KEYWORD_FRIENDS);
     }
 
     @Test
@@ -201,55 +189,24 @@ public class CompleteLabelCommandTest {
         Model model, String... labelStrings) {
 
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-
-        //Stores old xp and level
         int oldXp = expectedModel.getXpValue();
-        Level oldLevel = expectedModel.getLevel();
-
         StringBuilder completedTasksOutput = new StringBuilder();
         completeTasksUpdateModelAndProcessCompleteTasksOutput(expectedModel, completedTasksOutput, labelStrings);
 
-        // get change in xp and level
+        // get change in xp
         int newXp = expectedModel.getXpValue();
         int xpChange = newXp - oldXp;
-        Level newLevel = expectedModel.getLevel();
-        boolean isLevelChanged = oldLevel != newLevel;
 
         expectedModel.commitTaskManager();
 
-        StringBuilder expectedMessage = new StringBuilder();
-        generateExpectedMessage(completedTasksOutput, xpChange, newLevel, isLevelChanged, expectedMessage);
+        String expectedMessage = String.format(
+            CompleteCommand.MESSAGE_SUCCESS,
+            xpChange,
+            completedTasksOutput.toString().trim());
 
-        Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage.toString());
+        Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage);
 
         return new Pair<>(expectedModel, expectedTokens);
-    }
-
-    /**
-     * Generates Expected message for the command. Current caters for the normal success message and message on level
-     * up.
-     *
-     * @param completedTasksOutput StringBuilder with completed task info to format output with
-     * @param xpChange change in Xp to format output message with
-     * @param newLevel new Level to optionally format output message with
-     * @param isLevelChanged determines if there's a change in level
-     * @param expectedMessage Empty StringBuilder to append output to
-     */
-    private void generateExpectedMessage(StringBuilder completedTasksOutput, int xpChange, Level newLevel,
-                                         boolean isLevelChanged, StringBuilder expectedMessage) {
-        if (isLevelChanged) {
-            expectedMessage.append(String.format(
-                CompleteCommand.MESSAGE_SUCCESS_WITH_LEVEL,
-                newLevel,
-                xpChange,
-                completedTasksOutput.toString().trim()));
-
-        } else {
-            expectedMessage.append(String.format(
-                CompleteCommand.MESSAGE_SUCCESS,
-                xpChange,
-                completedTasksOutput.toString().trim()));
-        }
     }
 
     /**
