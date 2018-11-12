@@ -25,9 +25,9 @@ import seedu.parking.commons.core.LogsCenter;
  * Converts JSON from API call to a Java Object
  */
 public class GsonUtil {
-    private static final HashSet<CarparkJson> carparkList = new HashSet<>();
-    private static final HashMap<Long, String> postalCodeMap = new HashMap<>();
-    private static final HashSet<String[]> parkingData = new HashSet<>();
+    private static HashSet<CarparkJson> carparkList = new HashSet<>();
+    private static HashMap<Long, String> postalCodeMap = new HashMap<>();
+    private static HashSet<String[]> parkingData = new HashSet<>();
 
     private static final Logger logger = LogsCenter.getLogger(GsonUtil.class);
 
@@ -176,6 +176,7 @@ public class GsonUtil {
                 .getAsJsonObject()
                 .getAsJsonArray("carpark_data");
 
+        parkingData = new HashSet<>();
         for (int i = 0; i < array.size(); i++) {
             JsonObject carObject = array.get(i).getAsJsonObject();
             String[] carparkNumber = carObject.get("carpark_number")
@@ -217,6 +218,7 @@ public class GsonUtil {
         JsonArray array;
         Gson gson = new Gson();
 
+        carparkList = new HashSet<>();
         do {
             URL link = new URL(urlFull.toString());
             URLConnection communicate = link.openConnection();
@@ -256,7 +258,7 @@ public class GsonUtil {
      * @throws IOException if unable to open file.
      */
     private static void loadCarparkPostalCode() throws IOException {
-        postalCodeMap.clear();
+        postalCodeMap = new HashMap<>();
         InputStream in = MainApp.class.getResourceAsStream("/view/postalcodeData.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String st;

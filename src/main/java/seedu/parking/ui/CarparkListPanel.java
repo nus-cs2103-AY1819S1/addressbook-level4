@@ -105,13 +105,25 @@ public class CarparkListPanel extends UiPart<Region> {
         return selectIndex;
     }
 
+    public static void setSelectIndex(int newIndex) {
+        selectIndex = newIndex;
+    }
+
+    public static void setSelectedCarpark(Carpark newCarpark) {
+        selectedCarpark = newCarpark;
+    }
+
     public static Carpark getSelectedCarpark() {
         return selectedCarpark;
     }
 
     public static int getTimeInterval() {
         return timeInterval;
-    };
+    }
+
+    public static void setTimeInterval(int newInterval) {
+        timeInterval = newInterval;
+    }
 
     public static ScheduledExecutorService getTimer() {
         return timer;
