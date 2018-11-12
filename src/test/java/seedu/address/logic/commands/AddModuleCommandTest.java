@@ -51,6 +51,43 @@ public class AddModuleCommandTest {
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
+
+    @Test
+    public void execute_moduleWithoutModuleTitleAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
+        Module validModule = new ModuleBuilder().withoutModuleTitle().build();
+
+        CommandResult commandResult = new AddModuleCommand(validModule).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_moduleWithoutAcademicYearAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
+        Module validModule = new ModuleBuilder().withoutAcademicYear().build();
+
+        CommandResult commandResult = new AddModuleCommand(validModule).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_moduleWithoutSemesterAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
+        Module validModule = new ModuleBuilder().withoutSemester().build();
+
+        CommandResult commandResult = new AddModuleCommand(validModule).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Module validModule = new ModuleBuilder().build();

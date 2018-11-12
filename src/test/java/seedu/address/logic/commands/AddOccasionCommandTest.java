@@ -51,6 +51,30 @@ public class AddOccasionCommandTest {
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
+
+    @Test
+    public void execute_occasionWithoutOccasionDateAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingOccasionAdded modelStub = new ModelStubAcceptingOccasionAdded();
+        Occasion validOccasion = new OccasionBuilder().withoutOccasionDate().build();
+
+        CommandResult commandResult = new AddOccasionCommand(validOccasion).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddOccasionCommand.MESSAGE_SUCCESS, validOccasion), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validOccasion), modelStub.occasionssAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_occasionWithoutOccasionLocationAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingOccasionAdded modelStub = new ModelStubAcceptingOccasionAdded();
+        Occasion validOccasion = new OccasionBuilder().withoutOccasionLocation().build();
+
+        CommandResult commandResult = new AddOccasionCommand(validOccasion).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddOccasionCommand.MESSAGE_SUCCESS, validOccasion), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validOccasion), modelStub.occasionssAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
     @Test
     public void execute_duplicateOccasion_throwsCommandException() throws Exception {
         Occasion validOccasion = new OccasionBuilder().build();
