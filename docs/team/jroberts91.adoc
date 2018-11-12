@@ -10,8 +10,7 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
  This project portfolio summarizes the contributions that I have to the project.
 
 == Summary of contributions
-* *Code contributed*:
-** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Link to reposense]]
 
 * *Major enhancement*: Added *the ability to archive and restore employees*
 ** Added *the ability to delete active employees and archive them*
@@ -68,8 +67,8 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=archive]
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archive]
+include::../UserGuide.adoc[tag=restore]
 
 == Contributions to the Developer Guide
 
@@ -78,4 +77,4 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |===
 
 include::../DeveloperGuide.adoc[tag=archive]
-// include::../DeveloperGuide.adoc[tag=da/taencryption]
+include::../DeveloperGuide.adoc[tag=restore]
