@@ -447,7 +447,7 @@ The `switch` command updates the context found in `ModelManager` before raising 
 
 In addition to updating the context, the `switch` command also does the following:
 
-* Clears all predicates for volunteer, events and record lists.
+* Clears all predicates for volunteers, events and record lists.
 * Resets the state pointer (for undo/redo functions).
 * Raises `ContextChangeEvent` to update the UI.
 
@@ -481,7 +481,7 @@ The contextId (which is retrieved from the user's input) is either 'e' for event
 This contextId will be used when the execute method is called.
 
 When the execute method is called, the context is set in the model via the 'setCurrentContext' method.
-The model contains different methods to update the various lists. A predicate is passed to help to reset each of the lists to the initial state.
+The model contains different methods to update the various lists. A predicate is passed to reset each of the lists to the initial state.
 
 The model also resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
 
