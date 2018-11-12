@@ -290,9 +290,8 @@ Format: `showLocation INDEX`
 Examples:
 
 * `showLocation 5`
-// end::showFacultyLocation[]
-
 ////
+// end::showFacultyLocation[]
 
 // tag::suggestedMeetingLocation[]
 === Suggested Meeting Location : `generateLocation`
