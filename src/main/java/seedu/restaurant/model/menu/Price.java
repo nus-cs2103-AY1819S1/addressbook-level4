@@ -14,7 +14,7 @@ public class Price {
             "Item price should only contain numbers, at most 2 decimal place and smaller than or equals to "
                     + Integer.MAX_VALUE;
     public static final String MESSAGE_PERCENT_CONSTRAINTS =
-            "Percent should only contain numbers, and it should be at most 2 digits";
+            "Percentage should only contain numbers, and it should be at most 2 digits";
     private static final String DECIMAL_PLACE_REGEX = "\\d{0,2}";
     private static final String PERCENT_VALIDATION_REGEX = "\\d{0,2}";
     private static final String PRICE_VALIDATION_REGEX = "\\d+" + ".?" + DECIMAL_PLACE_REGEX;
