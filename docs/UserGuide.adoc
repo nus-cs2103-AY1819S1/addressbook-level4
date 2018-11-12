@@ -111,8 +111,8 @@ A ride can have any number of tags (including 0). +
 Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
 1 billion.
 
-[NOTE]
-The length limit for zone and tag(s) field is 40 characters.
+[WARNING]
+The length for zone and tag(s) field exceeds 30 characters is undefined behaviour.
 
 Examples:
 
@@ -146,8 +146,8 @@ Examples:
 
 Updates the details of the ride identified by the index number used in the displayed ride list.
 
-[NOTE]
-The length limit for zone and tag(s) field is 40 characters.
+[WARNING]
+The length for zone and tag(s) field exceeds 30 characters is undefined behaviour.
 
 Format: `update <index> <prefix/value>`
 
