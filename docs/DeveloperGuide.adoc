@@ -1433,8 +1433,8 @@ Expected: New group _grp1_ created with 2 students
    Expected: Error message shown in status bar.
 // end::graphtests[]
 
-=== Emailing a student
 // tag::emailManualTest[]
+=== Emailing a student
 . Emailing a student
 
 .. Prerequisites: The student must exist on the list, at the correct index. If student does not exist yet, add student first.

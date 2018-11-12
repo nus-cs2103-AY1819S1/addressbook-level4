@@ -69,7 +69,7 @@ include::../UserGuide.adoc[tag=email]
 |===
 
 include::../DeveloperGuide.adoc[tag=email]
+
 include::../DeveloperGuide.adoc[tag=emailUseCase]
 
-*Manual Test:* +
 include::../DeveloperGuide.adoc[tag=emailManualTest]
