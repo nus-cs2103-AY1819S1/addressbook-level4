@@ -142,6 +142,8 @@ Entering the command `help` into the Command Box achieves the same outcome.
 [[Features]]
 == Features
 
+Take note of these instructions related to the format of the commands before using them:
+
 ====
 *Command Format*
 
