@@ -26,12 +26,27 @@ public class IncreasingMode extends GameMode {
      * for tasks completed at or after the deadline.
      *
      * @param daysBefore  The time period of falling XP.
-     * @param overdueXp   The minimum XP, awarded to overdue tasks.
+     * @param initialXp   The minimum XP, awarded to overdue tasks.
      * @param boostedXp The maximum XP, awarded to tasks completed early.
      */
-    public IncreasingMode(int daysBefore, int overdueXp, int boostedXp) {
+    public IncreasingMode(int daysBefore, int initialXp, int boostedXp) {
+        if (daysBefore < 1) {
+            // Disallow too short periods
+            daysBefore = 1;
+        }
+
+        if (initialXp < 0) {
+            // Disallow negative awards
+            initialXp = 0;
+        }
+
+        if (boostedXp < initialXp) {
+            // Boosted reward should never be lower than for overdue tasks
+            boostedXp = initialXp;
+        }
+
         this.daysBefore = daysBefore;
-        this.initialXp = overdueXp;
+        this.initialXp = initialXp;
         this.boostedXp = boostedXp;
     }
 
@@ -51,7 +66,7 @@ public class IncreasingMode extends GameMode {
         Date now = getCurrentDate();
 
         if (taskFrom.isStatusOverdue() && taskTo.isStatusCompleted()) {
-            return initialXp;
+            return boostedXp;
         }
 
         double fraction = interpolateDate(daysBefore, now, taskTo.getDueDate().valueDate);

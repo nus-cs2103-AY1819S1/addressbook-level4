@@ -29,6 +29,21 @@ public class DecreasingMode extends GameMode {
      * @param completedXp The maximum XP, awarded to tasks completed early.
      */
     public DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
+        if (daysBefore < 1) {
+            // Disallow too short periods
+            daysBefore = 1;
+        }
+
+        if (overdueXp < 0) {
+            // Disallow negative awards
+            overdueXp = 0;
+        }
+
+        if (completedXp < overdueXp) {
+            // Reward for completion should never be lower than for overdue tasks
+            completedXp = overdueXp;
+        }
+
         this.daysBefore = daysBefore;
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;

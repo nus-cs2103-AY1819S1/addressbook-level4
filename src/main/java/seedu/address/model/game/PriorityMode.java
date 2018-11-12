@@ -17,6 +17,16 @@ public class PriorityMode extends GameMode {
     }
 
     public PriorityMode(int overdueMultiplier, int completedMultiplier) {
+        if (overdueMultiplier < 0) {
+            // Cannot award no xp
+            overdueMultiplier = 0;
+        }
+
+        if (completedMultiplier < overdueMultiplier) {
+            // Cannot award less xp for tasks completed on time
+            completedMultiplier = overdueMultiplier;
+        }
+
         this.overdueMultiplier = overdueMultiplier;
         this.completedMultiplier = completedMultiplier;
     }

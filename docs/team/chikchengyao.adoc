@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: WatchOver
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+WatchOver is a gamified desktop task manager.
 
 == Summary of contributions
 
@@ -50,3 +50,4 @@ include::../UserGuide.adoc[tag=gamemode-usage]
 
 include::../DeveloperGuide.adoc[tag=gamemode-impl]
 
+include::../DeveloperGuide.adoc[tag=gamemode-test]

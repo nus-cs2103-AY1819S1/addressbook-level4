@@ -630,39 +630,77 @@ image::ListCommandSequenceDiagram.png[width="1200"]
 // end::list[]
 
 // tag::gamemode-impl[]
+
 === Game Manager
 
-==== Current Implementation
+The Game Manager is responsible for the gamification aspects of WatchOver.
 
-The GameManager class is responsible for the gamification aspects of WatchOver.
+==== Structural Overview
+
+image::GameManagerClassDiagram.png[width="1200"]
+
+The Task Manager owns a `GameManager` object, which handles the core logic of gamification. All xp calculations are
+handled exclusively by the current `GameManager`.
+
+The `GameManager`, in turn, owns a `GameMode` object. `GameMode` is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract `GameMode`. The `GameMode` handles the actual appraisal of tasks
+for xp, delegated from the `GameManager`. Individual variations of `GameMode` will contain their own logic to determine
+xp earned, accessible through `appraiseXpChange(Task taskFrom, Task taskTo)`.
+
+==== Mechanism
+
+When a task is completed, `ModelManager::updateTaskStatus(Task target, Task updatedTask)` is used to change the
+target task into the updated task. `TaskManager::appraiseXpChange(target, updatedTask)` is then called (from
+the current `versionedTaskManager` instance).
+
+At this point, the `TaskManager` calls `GameManager::appraiseXpChange(Task taskFrom, Task taskTo)`, passing
+control to the gamification component.
 
 image::GameManagerSequenceDiagram.png[width="1200"]
 
-A GameManager object is owned by a TaskManager, available to be called by its other methods. **Any calls from anywhere
-requiring XP evaluation must be passed through the current GameManager**.
+The `GameManager` delegates the xp calculation to its owned `GameMode` through
+`GameMode::appraiseXpChange(Task taskFrom, Task taskTo)`. The `GameMode` first checks if the tasks are valid. In
+particular, the tasks must be the same tasks (that is, they have the same fields), and the status change must be
+a valid change (e.g. from `IN_PROGRESS` to `COMPLETED`, and not something like `COMPLETED` to `OVERDUE`).
 
-The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
-implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
-for XP, delegated from the GameManager.
+Following that, the `GameMode` performs the specific calculations unique to each `GameMode`, to determine the xp
+to be awarded.
 
-The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
-can decide how much to award. The default FlatMode awards based on `Status` of the task, where `IN_PROGRESS` tasks are
-awarded a full amount of XP whereas `OVERDUE` tasks are awarded somewhat less.
+==== Storage
 
-GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
-example, in the `FlatMode()` constructor, arguments can be specified for how much XP a completed task should obtain,
-as well as how much XP an overdue task should obtain.
+The current `GameManager` is persisted in WatchOver's storage.
 
-One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
-date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
-to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
-are. This limitation might be overcome if a creation date is implemented as a field in Task.
+image::GameManagerStorageClassDiagram.png[width="1200"]
 
-==== Design Considerations
+The `XmlSerializableTaskManager` contains a `XmlAdaptedGameManager`, to capture the state of the `GameManager`,
+allow persisting state between sessions, and take advantage of the version control to allow undoing and redoing
+of changing the game mode.
 
-===== Aspect: Location of Implementation
+Four fields are written to file:
 
-* **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
+* the game mode,
+* the period,
+* the lower bound of xp awarded, and
+* the higher bound of xp awarded.
+
+The game mode is serialised as the SimpleName of the `GameMode` subclass in the stored GameManager.
+
+The period is the time before the due date at which the xp awarded by `DecreasingMode` and `IncreasingMode` will start
+to fall or rise, respectively. Other modes ignore this field.
+
+The lower and higher bound of xp awarded are the scalings to which the game modes peg their xp awards, used by all
+existing game modes.
+
+Using these fields, the `GameManager` state can be fully reconstructed.
+
+If an invalid game mode is found written to storage, then the invalid data is ignored and a new default `GameManager`,
+using the default `FlatMode` set at medium difficulty, will be created, overwriting the invalid data.
+
+==== Game Manager Design Considerations
+
+===== Aspect: Location of xp Calculation Logic
+
+* **Alternative 1 (current choice):** Using a separate GameManager class to calculate awarded XP.
 ** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
 ** Cons: Less flexibility, and will apply flatly across all tasks, with no window for individual variation.
 
@@ -673,7 +711,35 @@ are. This limitation might be overcome if a creation date is implemented as a fi
 * **Alternative 3:** Embedding XP calculation logic inside each individual task.
 ** Pros: This would allow users to set different modes for each individual task, rather than having a one-size-fits-all
 policy apply to all tasks.
-** Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, it has the potential to get messy.
+** Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, the different modes attached to
+individual tasks may cause user confusion, especially if the user decides to change mode later but forgets to update
+previously set tasks. It is best to centralise all calculations to a single type of mode.
+
+===== Aspect: Placement of `GameMode` Logic
+
+* **Alternative 1 (current choice):** Wrapping the `GameMode` inside a `GameManager`
+** Pros: Since not all gamification elements are tied to the game mode, this allows future extensibility by creating
+the scaffolding for future such features to be included, such as in `v2.0`.
+** Cons: One more layer of abstraction, and additional code and tests need to be written.
+
+* **Alternative 2:** `TaskManager` contains a `GameMode` directly, instead of a `GameManager`
+** Pros: There is less code to write, and the code becomes more readable.
+** Cons: The above is only true so long as `GameMode` is the only gamification feature in WatchOver. Once a new feature
+is added, significant restructuring needs to take place which will break many things.
+
+==== Extensions
+
+===== Creating a new `GameMode`
+
+Creating a new `GameMode` can be done by extending `GameMode` and implementing the required abstract methods.
+
+Note that the following areas must also be changed to accomodate the new command:
+
+`GameMode::setGameMode` must handle the new game mode.
+`GameMode::isValidGameMode` must recognise the game mode as an existing mode.
+
+Additionally, if the new game mode requires additional storage, the `XmlAdaptedGameManager` storage class must be
+modified to accomodate the additional stored information.
 
 // end::gamemode-impl[]
 
@@ -1386,6 +1452,139 @@ Expected: Both Task A and Task B are completed in no defined order, followed by
 .. Test case: `topoorder` +
 Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
 constraints will be displayed in the window below the command line.
+
+// tag::gamemode-test[]
+
+=== Game Mode testing
+
+. Displaying current mode
+.. Prerequisites: -
+.. Test case: `mode` +
++
+Expected: Current game mode details will be shown. +
+For example, +
+`You are currently using the Priority mode!
+Completing a task will earn you 6 times the priority value as xp, or 3 times if the task is overdue.`
+
+. Changing game mode
+.. Prerequisites: -
+.. Test case: +
+`mode decreasing easy` +
+`mode` +
+`mode increasing extreme` +
+`mode` +
++
+Expected: Description shown will be different during both invocations of
+`mode`.
+
+. Correct xp awarded in Flat mode
+.. Prerequisites: +
+Set game mode by running `mode flat`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 30 xp under Flat mode, medium difficulty. +
+Task Two is on time, and should award 60 xp.
+
+. Correct xp awarded in Increasing mode
+.. Prerequisites: +
+Set game mode by running `mode increasing`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 60 xp under Increasing mode, medium difficulty. +
+Task Two is on time, and should award 30 xp. +
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.
+
+. Correct xp awarded in Decreasing mode
+.. Prerequisites: Set game mode by running `mode decreasing`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 30 xp under Decreasing mode, medium difficulty. +
+Task Two is on time, and should award 60 xp. +
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.
+
+. Correct xp awarded in Priority mode
+.. Prerequisites: Set game mode by running `mode priority`
+.. Test case: +
+`clear` +
+`add n/Task One t/31-12-2019 p/1 d/Some description` +
+`add n/Task Two t/31-12-2019 p/10 d/Some description` +
+`add n/Task Three t/01-01-2019 p/1 d/Some description` +
+`add n/Task Four t/01-01-2019 p/10 d/Some description` +
+`edit 3 t/01-01-2018` +
+`edit 4 t/01-01-2018` +
+`complete 1` +
+`complete 2` +
+`complete 3` +
+`complete 4` +
++
+Expected: +
+Task One has priority value 1 and is not overdue, and should award 6 xp under Priority mode, medium difficulty. +
+Task Two has priority value 10 and is not overdue, and should award 60 xp. +
+Task Three has priority value 1 and is overdue, and should award 3 xp. +
+Task Four has priority value 10 and is overdue, and should award 30 xp. +
+
+. Correct xp awarded in various game difficulties
+.. Prerequisites: -
+.. Test case: +
+`clear` +
+`mode flat easy` +
+`add n/Task One t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`mode flat extreme` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 2` +
++
+Expected: +
+Task One was completed in Easy mode, and should award 50 xp. +
+Task Two was completed in Extreme mode, and should award 80 xp.
+
+. Game mode persists between sessions
+.. Prerequisites: -
+.. Test case: +
+`mode` +
+`exit` +
+Restart application +
+`mode` +
++
+Expected: Mode should remain the same before and after exiting
+
+. Change of game mode can be undone
+.. Prerequisites: -
+.. Test case: +
+`mode priority easy` +
+`mode` +
+`mode flat extreme` +
+`mode` +
+`undo` +
+`mode` +
+`redo` +
+`mode` +
++
+Expected: +
+Undoing will return the mode to the previous Priority mode, and redoing will restore the subsequent Flat mode.
+
+// end::gamemode-test[]
 
 // tag::listfiltermanualtest[]
 === List filter results

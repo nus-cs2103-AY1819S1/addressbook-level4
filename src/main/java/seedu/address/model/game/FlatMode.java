@@ -23,6 +23,16 @@ public class FlatMode extends GameMode {
      * @param completedXp The XP to award to tasks completed on time.
      */
     public FlatMode(int overdueXp, int completedXp) {
+        if (overdueXp < 0) {
+            // Cannot award no xp
+            overdueXp = 0;
+        }
+
+        if (completedXp < overdueXp) {
+            // Cannot award less xp for tasks completed on time
+            completedXp = overdueXp;
+        }
+
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
     }
