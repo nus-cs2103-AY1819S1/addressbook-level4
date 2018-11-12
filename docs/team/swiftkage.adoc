@@ -21,17 +21,15 @@ LostBUTFound has a graphical user interface built with JavaFX but most of the us
 ** What it does: It allows the user to search for articles depending on different fields and parameters.
 ** Justification: This features helps users find relevant articles quickly and easily.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=swiftkage&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[Code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=swiftkage&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense Report]]
 
 * *Other contributions*:
 
 ** Project management
 *** Managed release `v1.3.1` on GitHub
 *** Responded and assigned issues to team members
-** Enhancements to existing features:
-*** Refactored code according to LostBUTFound's specifications to create a personalised experience for the user.
 ** Documentation:
-*** Overall update and format of User Guide, Developer Guide and ReadMe [https://github.com/CS2103-AY1819S1-W12-1/main/pull/71/commits/34f91727e4e30a99a4129c8ee0971088c17bee31[#71]] [https://github.com/CS2103-AY1819S1-W12-1/main/pull/122/commits/e065166655947ff0ac060964eedd9eceadf38c02[#122]] [https://github.com/CS2103-AY1819S1-W12-1/main/pull/122/commits/263575c65d825e6b1a9a6073844e3d9b3968b183[#122]]
+*** Overall update and format of User Guide, Developer Guide and ReadMe [https://github.com/CS2103-AY1819S1-W12-1/main/pull/71/commits/34f91727e4e30a99a4129c8ee0971088c17bee31[PR #71]] [https://github.com/CS2103-AY1819S1-W12-1/main/pull/122/commits/e065166655947ff0ac060964eedd9eceadf38c02[PR #122]]
 ** Community:
 *** Reported bugs and suggestions for other teams in the class [https://github.com/CS2103-AY1819S1-T12-4/main/issues/154[#154]] [https://github.com/CS2103-AY1819S1-T12-4/main/issues/155[#155]] [https://github.com/CS2103-AY1819S1-T12-4/main/issues/159[#159]]
 
@@ -51,8 +49,8 @@ include::../UserGuide.adoc[tag=findfeature]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=user]
 include::../DeveloperGuide.adoc[tag=find]
+
 include::../DeveloperGuide.adoc[tag=resolve]
 
 

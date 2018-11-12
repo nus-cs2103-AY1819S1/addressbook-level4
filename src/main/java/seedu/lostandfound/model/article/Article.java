@@ -80,7 +80,8 @@ public class Article {
     }
 
     public String getStringTags() {
-        return getTags().toString().replace("[", "").replace("]", "");
+        return getTags().toString().replace("[", "").replace("]", "")
+                .replace(",", "");
     }
 
     /**

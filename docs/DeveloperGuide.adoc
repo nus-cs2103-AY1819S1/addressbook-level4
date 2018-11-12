@@ -335,6 +335,34 @@ image::FindSequenceDiagram.PNG[width="800"]
 
 The `find-(FIELD)` command input is passed into an ArticleListParser object. The ArticleListParser reads the command word `find` and creates a `FindCommandParser` object that further parses the command input and creates a `FindCommand`. The `FindCommand` filters the the article list based on the keywords and updates the `Model` component on changes in the filtered article list.
 
+The `find` command is facilitated by the `Predicate` class, which have a number of predicates that determine the fields ad type of keyword matching that are supported by the search. The diagram below shows the different predicates implemented.
+
+image::PredicateClassDiagram.PNG[width="800"]
+
+The following code snippet shows an example of one type of predicate - `ResolvedAndContainsKeywordsPredicate`. If no keywords are given, all resolved articles will be returned. If keywords are given, all fields of an Article object will be matched.
+
+[source,java]
+public boolean test(Article article) {
+        if (keywords.isEmpty()) {
+            return article.getIsResolved();
+        }
+        return article.getIsResolved()
+                && (keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getPhone().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getEmail().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getFinder().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getOwner().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getStringTags(), keyword)));
+    }
+
 ==== Design Considerations
 ===== Aspect: Keyword matching
 * **Alternative 1 (current choice):** Match all of the keywords
@@ -366,10 +394,13 @@ image::ResolveActivityDiagram.PNG[width="800"]
 
 In the ResolveCommand, a new `Article` object is created directly with the following information:
 
-        Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(), articleToEdit.getEmail(),
-            articleToEdit.getDescription(), articleToEdit.getFinder(), owner, SET_ISRESOLVED, articleToEdit.getTags());
+[source,java]
+Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
+    articleToEdit.getEmail(), articleToEdit.getDescription(),
+        articleToEdit.getFinder(), owner, SET_ISRESOLVED,
+            articleToEdit.getTags());
 
-Unlike the `edit` command where there can be multiple fields edited, only 2 fields - `owner` and `isResolved` is changed for the `resolve` feature. Thus, once the `owner` field is parsed and accepted, a new `Article` object can be created. The Article would have the same data as the target Article, except for the new `owner` and `isResolved` field.
+Unlike the `edit` command where there can be multiple fields edited, only 2 fields - `owner` and `isResolved` is changed for the `resolve` feature. The `isResolved` field is set to `true`, and  once the `owner` field is parsed and accepted, a new `Article` object can be created. The Article would have the same data as the target Article, except for the new `owner` and `isResolved` field. The target Article will be replaced with the newly created Article.
 
 ==== Design Considerations
 ===== Aspect: changing the owner and isResolved field
