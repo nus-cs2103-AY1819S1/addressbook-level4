@@ -279,7 +279,8 @@ public class AttendanceListUtil {
             updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
             Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
 
-            assert !updatedOccasion.getAttendanceList().contains(person); //person is removed, and no duplicates exist
+            // ensure person is properly removed without any remaining duplicates
+            assert !updatedOccasion.getAttendanceList().contains(person);
 
             model.updateOccasion(occasion, updatedOccasion);
         };
@@ -299,7 +300,8 @@ public class AttendanceListUtil {
             updatedModuleDescriptor.setStudents(updatedPersonList);
             Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
 
-            assert !updatedModule.getStudents().contains(person); // person is removed, and no duplicates exist
+            // ensure person is properly removed without any remaining duplicates
+            assert !updatedModule.getStudents().contains(person);
 
             model.updateModule(module, updatedModule);
         };
@@ -320,7 +322,8 @@ public class AttendanceListUtil {
             updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
 
-            assert !updatedPerson.getModuleList().contains(module); // module is removed, and no duplicates exist
+            // ensure module is properly removed without any remaining duplicates
+            assert !updatedPerson.getModuleList().contains(module);
 
             model.updatePerson(person, updatedPerson);
         };
@@ -339,7 +342,8 @@ public class AttendanceListUtil {
             updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
 
-            assert !updatedPerson.getOccasionList().contains(occasion); //occasion is removed, and no duplicates exist
+            // ensure occasion is properly removed without any remaining duplicates
+            assert !updatedPerson.getOccasionList().contains(occasion);
 
             model.updatePerson(person, updatedPerson);
         };
@@ -435,7 +439,7 @@ public class AttendanceListUtil {
                 PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
                 updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
                 Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
-                
+
                 model.updatePerson(person, updatedPerson);
             }
         };

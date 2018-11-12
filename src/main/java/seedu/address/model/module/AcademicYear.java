@@ -61,6 +61,8 @@ public class AcademicYear {
         Integer combinedYear = Integer.parseInt(number);
         Integer firstYear = combinedYear / 100;
         Integer secondYear = combinedYear % 100;
+
+        // checks that the two years are consecutive
         return (firstYear + 1) % 100 == secondYear;
     }
 
