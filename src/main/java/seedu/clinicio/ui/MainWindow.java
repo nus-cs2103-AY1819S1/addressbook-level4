@@ -33,7 +33,6 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
@@ -79,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane queuePanelPlaceholder;
 
+    @FXML
     private StackPane medicineListPanelPlaceholder;
 
     @FXML
@@ -313,6 +313,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
+        analyticsDisplay.setVisible(false);
+        browserPanel.setVisible(true);
+    }
+
+    @Subscribe
+    private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
         analyticsDisplay.setVisible(false);
         browserPanel.setVisible(true);
     }
