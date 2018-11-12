@@ -470,6 +470,9 @@ error.
 The `removeperson` command is a complementary feature to the `insertperson` command. It enables the
 removal of a `Person` from either a `Module` students list or an `Occasion` attendance list. This thus
 means that the module or occasion will be removed from the respective list that the `Person` carries.
+The activity diagram below illustrates what happens when `removeperson` is called:
+
+image::RemovePersonActivityDiagram.png[width="800"]
 
 ====  Current Implementation
 Currently, removeperson creates a whole new copy of the `Person`, and a whole new copy of the `Module` to replace.
@@ -491,7 +494,7 @@ For this feature to be possible, it has to be possible to somehow remove the lin
 and `Module`/`Occasion`.
 The link (or pointer) to the objects can be best illustrated in the class diagram below:
 
-image::PMORelationshipClassDiagram.png[width="800"]
+image::PersonModuleOccasionClassDiagram.png[width="800"]
 
 As seen, the `Person` class is associated with the `Module` class and the `Occasion` class as `Person`
 stores a list of modules and occasions. A person can thus have associations with multiple modules and
@@ -529,6 +532,52 @@ To mitigate this problem, we had to make a shallow duplicate of the `Person` / `
 list to prevent infinite recursion), and put in a complete duplicate (we named it deep duplicate) when
 repopulating the internal list of `Person` / `Module` / `Occasion`.
 // end::removeperson[]
+
+// tag::list[]
+=== List feature
+The list feature acts as a switching between the lists of `Person`, `Module`, `Occasion`.
+In essence, it acts as a context switch between the 3.
+
+==== Current Implementation
+Currently, the list command will raise a context switch event, a `ShowPersonRequestEvent`
+if the `listperson` command is called. This then tells the MainWindow to update with
+the correct list of persons in its list panel, and to change the browser panel to
+show the lists of `Module` and `Occasion` that `Person` may have.
+
+[source, java]
+----
+private void handlePerson() {
+    getBrowserPlaceholder().getChildren().clear();
+    getEntityListPanelPlaceholder().getChildren().clear();
+    personListPanel.clearSelection();
+
+    personListPanel.updatePanel(logic.getFilteredPersonList());
+    getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+    getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+    logic.setActiveType(PERSON);
+    AttendanceListUtil.postClearEvent();
+}
+----
+
+The above code shows how the `MainWindow` deals with the context switch, which includes the
+setting of the active type (the context of the current window), so that contextual commands
+such as `delete` and `select` are able to function properly with correct indices.
+
+==== Design Considerations
+We had to examine whether it was better to:
+Alternative 1:
+Be able to make all commands contextual, and commands cannot be used out of context.
+This means that the `list` will set the context to limit other commands.
+
+Alternative 2:
+Leave it possible for other commands to be called even if the context is not correct.
+
+In the end, we chose alternative 1 so that users have the freedom to call specific commands
+without even looking at the specific list of choice, and to have more freedom to play around
+in the application.
+
+// end::list[]
 
 // tag::undoredo[]
 === Undo/Redo feature
