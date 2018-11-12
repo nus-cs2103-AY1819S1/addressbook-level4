@@ -1,0 +1,95 @@
+= Ananda Kumar - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: WishBook
+
+---
+
+== Overview
+
+WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track
+of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals
+for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material
+wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they
+know they can spend on their wants.
+
+This project portfolio consists of the contributions I have made to WishBook over the semester. +
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to save towards a wish or remove an amount from a wish.*
+** What it does: Allows the user to save a specified amount of money to a particular wish or remove a specified amount
+from it. A wish will be fulfilled when the user saves up to 100% of a wish's price and excess amount cannot be saved
+towards it any longer.
+** Justification: This feature is a crucial feature in the WishBook as it cannot fulfill its primary requirement
+without it.The fact that two actions, namely saving and removing can be done with a single command means that there are
+less commands to remember.
+** Highlights: This enhancement touches multiple components and required thorough consideration of alternative design.
+Hence it is naturally my most time consuming contribution. Significant effort was also expended in modifying the tests
+to test this new feature.
+
+* *Minor enhancement*: Added *the ability to find wishes by name, tag and remark.*
+** What it does: Allows a user to find a wish by its name, tag and remark with varying level of inclusiveness.
+** Justification: The flexible design of this command allows user to specify varying number of arguments to the wish
+which gives the user multiple ways to find a wish or a group of wishes for ease of access.
+** Highlights: It required an in-depth analysis of design alternatives. The implementation too was challenging as
+it required rewriting and adapting the code written for an existing command. Significant effort was also expended in
+modifying the tests to test this new feature.
+
+* *Minor enhancement*: Converted email attribute in a wish to date attribute which stores the due date of a wish. The
+date cannot be earlier or equal to the current date.
+
+* *Minor enhancement*: Made the wish list to be permanently sorted by due date regardless of the commands applied
+on them.
+** Highlights: Required modification of test data which led to modification of a significant number of tests.
+
+* *Minor enhancement*: Made the wishes be identified only by a newly added attribute, UUID. This allows
+for addition of wishes with the same attribute values, something which was not allowed previously. UUID of a wish also
+cannot be changed upon addition of a wish.
+
+* *Minor enhancement*: Added a remark command.
+** Credits: Code was adapted from https://github.com/se-edu/addressbook-level4/pull/599.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dioptrique&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.1` on GitHub
+** Documentation:
+*** Did structural changes to User Guide: https://github.com/CS2103-AY1819S1-T16-1/main/pull/67[#67],
+https://github.com/CS2103-AY1819S1-T16-1/main/pull/136[#136]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T16-1/main/pull/4[#4]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T16-1/main/issues/71[#71],
+                                                               https://github.com/CS2103-AY1819S1-T16-1/main/issues/20[#20],
+                                                               https://github.com/CS2103-AY1819S1-T16-1/main/issues/127[#127],
+                                                               https://github.com/CS2103-AY1819S1-T16-1/main/issues/130[#130],
+                                                               https://github.com/CS2103-AY1819S1-T16-1/main/issues/77[#5],
+                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/70[#6],
+                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/85[#7],
+                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/72[#8])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation
+targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=implementationmodel]
+
+include::../DeveloperGuide.adoc[tag=find]
+
