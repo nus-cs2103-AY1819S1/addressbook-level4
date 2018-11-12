@@ -75,19 +75,6 @@ public class LayerAddCommandTest extends GuiUnitTest {
     }
 
     /**
-     * Executes a {@code LayerAddCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
-     * is raised with the correct index.
-     * @param index - A string with a valid index
-     */
-    private void assertExecutionSuccess(String index) {
-        LayerAddCommand openCommand = new LayerAddCommand(index);
-        String expectedMessage = LayerAddCommand.OUTPUT_SUCCESS;
-
-        assertCommandSuccess(openCommand, model, commandHistory, expectedMessage, expectedModel);
-    }
-
-
-    /**
      * Executes a {@code OpenCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */

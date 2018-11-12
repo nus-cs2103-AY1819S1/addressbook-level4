@@ -96,7 +96,7 @@ image::tutorial/step 6.png[width:2000]
 . Now we can begin to use some of the more advanced features in Piconso! We add some noise to the image with `apply raw +noise gaussian`.
 . Feel free to repeat the step 15 a few times to get the desired amount of noise! We did it five times to be sure. If you ever go overboard, use the `undo` command to ... undo the previous command. But face it, you're going to `redo` it anyway.
 
-.Noisy indeed.
+.Turn down for what?
 image::tutorial/step 7.png[width:2000]
 
 [start=17]
@@ -125,10 +125,10 @@ You can use the `apply rotate [degree]` command to spice the meme up a bit. If y
 image::tutorial/step 9.png[width:2000]
 
 [start=21]
-. Save the image again (`save lit_meme.png`) and we're ready to upload our image!
+. Save the image again (`save lit_meme.png`) and we're ready to upload it!
 . Login with the aptly named `login` command. Don't worry, Piconso will never store your password in any shape or form!
 . Upload the file with `g ul <lit_meme.png>`. You should see a confirmation message when the upload is complete.
-. `logout` when you're done! Congrats, you have just went from to a Piconso-certified meme hero!
+. `logout` when you're done! Congrats, you have just went from zero to a Piconso-certified meme hero!
 
 Before we let you go, wonder how we made the very first image you saw? Try this before you go!
 
@@ -149,7 +149,7 @@ Before we let you go, wonder how we made the very first image you saw? Try this 
 == Features
 
 === Command Format
-* Items in square brackets are compulsory parameters to be added e.g `convert [TRANSFORMATION]` +
+* Items in square brackets are compulsory parameters to be added e.g `apply [TRANSFORMATION]` +
 * Items in round brackets are optional parameters and can be omitted, e.g `canvas size (NEW_SIZE)` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
 ** e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>` +
@@ -201,7 +201,7 @@ Format: `next` -> Retrieves the next 10 images for editing
 Format: `prev` -> Retrieves the previous 10 images for editing
 
 // end::dir[]
-// tag::convert[]
+// tag::apply[]
 
 === Applies a transformation to an image : `apply`
 There are 3 different ways to apply a transformation to an image. +
@@ -241,10 +241,10 @@ The effect of `contrast` may not very obvious depending on the image you are usi
 You may repeat the transformation again or use `sigmodial-contrast` instead if want further enhance the effect.
 
 ==== `sigmoidal-contrast`: Contrasts the image without saturating highlights or shadows.
-* Format: `convert sigmoidal-contrast [ContrastxMidpoint]`
+* Format: `apply sigmoidal-contrast [ContrastxMidpoint]`
 ** Contrast (1-99): How much to increase the contrast.
 ** Midpoint (1%-99%): Where the maximum change 'slope' in contrast should fall in the resultant image (0 is white; 50% is middle-gray; 100% is black).
-** Example: `convert sigmoidal-contrast 10x10%`
+** Example: `apply sigmoidal-contrast 10x10%`
 
 ==== `noise`: Increases the noise in the image
 * _Format_: `apply noise [Radius]`
@@ -254,15 +254,16 @@ You may repeat the transformation again or use `sigmodial-contrast` instead if w
 ==== `resize`: Resizes the image
 * _Format_: `apply resize [percentage]`
 ** Percentage (1%-300%): Percentage of resize relative to the original image.
-* _Example_: `convert resize 50%`
+* _Example_: `apply resize 50%`
 
 [NOTE]
-As all the images will be resized to the canvas when displayed, the resize command may leave an image unaffected.
+As all the display image will be resized to fit the panel when displayed, the `resize` command may appear to have taken no effect when used on a canvas with only one layer.
+
 
 ==== `rotate`: Rotates an image
 * _Format_: `apply rotate [value]`
 ** Value (-360 to 360): Degree to rotate the image by. Negative values rotate the image to the anti-clockwise.
-* _Example_: `convert rotate 90`
+* _Example_: `apply rotate 90`
 
 ==== `sharpen`: Sharpens the currently opened image
 
@@ -271,15 +272,15 @@ As all the images will be resized to the canvas when displayed, the resize comma
 ** Sigma (0-29): Determines the extent of the sharpen
 ** _Example_: `apply sharpen 0x8`
 
-*Advanced `apply` command*
+==== *Advanced `apply` commands*
 
-Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
+** Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
 
 [WARNING]
 **Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
 
+// end::apply[]
 
-// end::convert[]
 // tag::create[]
 
 === Creates custom transformation sets for use : `create`
@@ -309,7 +310,7 @@ Example:
 
 === Undoes a transformation : `undo`
 
-Format: `undo` -> Steps back to the previous image state (in current layer)
+Format: `undo` -> Undoes your previous transformation, putting your image to its previous state (in current layer)
 
 [NOTE]
 ====
@@ -320,11 +321,11 @@ Example:
 
 `apply blur 0x8` +
 `apply contrast` +
-`undo` -> (undos the `apply contrast` command, image will be returned to be `blur 0x8` state) +
+`undo` -> (undoes the `apply contrast` command, image will be returned to be `blur 0x8` state) +
 
 === Undoes all transformations : `undo-all`
 
-Format: `undo-all` -> Undoes all transformations (reverts image to original state)
+Format: `undo-all` -> Undoes all your transformations, reverting your image to its original state
 
 Example:
 
@@ -335,26 +336,26 @@ Example:
 
 === Redoes a transformation : `redo`
 
-Format: `redo` -> Steps forward to the previously undone transformation
+Format: `redo` -> Reapplies your previously undone transformation, putting your image in its next state (in current layer)
 
 Example:
 
-`convert blur 0x8` +
-`convert contrast` +
+`apply blur 0x8` +
+`apply contrast` +
 `undo` -> (undoes the `apply contrast` command, image will be at `blur 0x8` state) +
 `redo` -> (reapplies the `apply contrast` command) +
 
 === Redoes all transformations : `redo-all`
 
-Format: `redo-all` -> Redoes all undone transformations
+Format: `redo-all` -> Reapplies all your undone transformations, putting your image in the state with all transformations applied
 
 Example:
 
 `apply blur 0x8` +
 `apply contrast` +
 `apply rotate 90` +
-`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
-`redo-all` (reapplies all 3 `convert` commands) +
+`undo-all` (undoes all 3 `apply` commands, image will be at original state) +
+`redo-all` (reapplies all 3 `apply` commands) +
 // end::undoredo[]
 
 // tag::canvas[]
@@ -544,7 +545,7 @@ Format: `exit` -> Closes the application
 * *Help* : `help` +
 * *Ls* : `ls` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
-* *open* : `open [INDEX 1-10]` +
+* *Open* : `open [INDEX 1-10]` +
 e.g. `open 1` +
 * *Next* : `next` +
 * *Previous* : `prev` +
