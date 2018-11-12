@@ -558,7 +558,8 @@ The `CalendarDisplay` class acts as a wrapper around `Agenda`.
 * Initialize the `Agenda` UI with the desired settings.
 * Listen for changes in the list of calendar events in `Model` and
  update `Agenda` accordingly.
-* Respond to user selecting Calendar Events and displays it to the user.
+* Respond to the user selecting calendar events by
+displaying the selected event to the user.
 * Extend the in-built UI controls of `Agenda` by including functionality
 to navigate the calendar.
 
@@ -568,7 +569,7 @@ to navigate the calendar.
 
 Unlike a `ListView`, `Agenda` does not provide a way to directly set
 a list of `Appointments` to be displayed.
-`CalendarDisplay` takes the list of calendar events to be displayed
+Therefore, `CalendarDisplay` takes the list of calendar events to be displayed
 and adds them to `Agenda`.
 `CalendarDisplay` then listens for changes in
 changes in the `Model` and forwards the same changes to `Agenda`.
@@ -584,12 +585,8 @@ However, these features would not be very useful for a product that is
 designed to be used with the command line.
 Their implementation would also make the data flow bi-directional, and
 increase coupling between `Agenda` and `Model`.
-Therefore, functions have been disabled so as to make `Agenda`
+Therefore, these functions have been disabled so as to make `Agenda`
 solely for displaying the user's events as a calendar.
-
-1. Double click on displayed events to open a dialog box containing the details of the event.
-
-2. Jump to the time period containing an event by selecting the event in the list of calendar events.
 
 === Calendar Display Navigation
 
@@ -598,14 +595,14 @@ solely for displaying the user's events as a calendar.
 The navigation features available are:
 
 1. View a `CalendarEvent` in the calendar display by selecting
-the event. The time table display will jump to the correct time
+the event. The calendar display will jump to the correct time
 period and attempt to centralize the selected event.
 
 2. View the next/previous week or using the `left` and `right`
-arrows keys.
+arrow keys.
 
 3. The user can scroll up and down the 24-hour timeline using
-`up` and `down` arrow keys, or using the mouse scroll wheel.
+the `up` and `down` arrow keys, or by using the mouse scroll wheel.
 
 ==== Implementation
 
@@ -645,26 +642,27 @@ arrow keys or the scroll wheel to navigate.
 
 Therefore, while this feature is not a CLI feature,
 it was retained as a fast and easy way to navigate around
-the time table display.
+the calendar display.
 
 === Further Extensions
 
 ==== Command Line Navigation
 
-To make the command line instructions more complete, it would be
+To make the command line instruction set more complete, it would be
 good if users are able to navigate the calendar display using the
-command line.
+command line as well. Some possible extensions could be:
 
 ===== View Next and Previous Week
 
-1. User enters `view next`.
+1. User executes `view next`.
 
-2. The command is parsed and the correct date is calculated.
-A `ChangePeriodCommand` containing the target date is created.
+2. The command is parsed and the correct date to navigate to
+is calculated. A `ChangePeriodCommand` containing the
+target date is created.
 
 3. `ChangePeriodCommand#execute` raises a JumpToDateTimeEvent.
 
-4. The CalendarDisplay responds by setting `Agenda` to
+4. `CalendarDisplay` responds by setting `Agenda` to
 display the specified date and time.
 
 ===== Jump to a Specified Date
@@ -680,7 +678,7 @@ containing the target date.
 
 3. `ChangePeriodCommand#execute` raises a JumpToDateTimeEvent.
 
-4. The CalendarDisplay responds by setting `Agenda` to
+4. `CalendarDisplay` responds by setting `Agenda` to
 display the specified date and time.
 // end::calendardisplay[]
 
