@@ -52,7 +52,7 @@ image::Ui.png[width="800"]
 
 [WARNING]
 You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`.
-Similarly, the `About` button on the navigation bar opens a help window.
+Similarly, the `About` button on the navigation bar opens a window to the teams' profile page.
 
 
 Congratulations! You have successfully set up ThanePark!
@@ -421,35 +421,11 @@ There are only three statuses that are valid, namely open, shutdown and maintena
 // tag::filter[]
 === Find the relevant list of rides
 
-This section contains all commands related to finding rides that is relevant to you.
-
-==== Finding rides that fits the given condition: `filter`
-
-Display all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
-`Maintenance` and `WaitTime`. +
-
-Format: `filter <tag> <condition> [[tag] [condition]...]` +
-Can include more conditions as desired. +
-
-|===
-a|
-Examples:
-
-* `filter w/ < 10` +
-Filters attractions with waiting time less than 10 minutes. If no changes were made to your application
-(i.e. no delete, add commands were done), your window should look like this: +
-
-image::./ui_screenshots/filter-example-1.png[width="600"]
-
-* `filter w/ < 10 m/ > 50` +
-Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
-The result should be as follows:
-
-image::./ui_screenshots/filter-example-2.png[width="600"]
+This section contains all commands related to finding rides that you need at any time.
 
 ==== Finding a particular attraction: `find`
 
-Find the rides that the user needs to check on. Case insensitive. +
+Find a list of rides that the you need to check on. Case insensitive. +
 Can only find the name, the zone, and the tags of the attractions. +
 
 Format: `find <[name] [[tag][keyword]...]>` +
@@ -461,20 +437,61 @@ a|
 Examples:
 
 * `find accelerator` +
-Finds and displays the list of attractions in ThanePark with the name "accelerator".
+Finds and displays the list of attractions in ThanePark with the name "accelerator". +
+[NOTE]
+You can only use `find` to look for a full word in the name. This means a part of the name like "accel" will not work
+and only the full name like "accelerator" will work.
+
+The list of results should be like this if no changes were made to the application (ie. delete or add or update): +
 
 image::./ui_screenshots/find-example-1.png[width="600"]
 
+[NOTE]
+The input argument is case-insensitive i.e. "accelerator" and "Accelerator" should give the same result.
+
 * `find z/ sci-fi` +
 Finds and displays the list of attractions with zones that contain the word "sci-fi".
+The list of results should look like this:
 
 image::./ui_screenshots/find-example-2.png[width="600"]
 
 * `find zone sci-fi t/popular tag rollerCoaster` +
-Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
-and "popular"
+Finds and displays the list of attractions with zones in the theme park that contain the word "sci-fi" and the
+tags "rollerCoaster" and "popular".
+The list of results should look like this:
 
 image::./ui_screenshots/find-example-3.png[width="600"]
+|===
+
+==== Finding rides that fits the given condition: `filter`
+
+Display all rides that fits the condition in a list. It can only filter conditions that have numeric values i.e.
+`Maintenance` and `WaitTime`. +
+
+Format: `filter <tag> <condition> [[tag] [condition]...]` +
+Can include more conditions as desired. +
+
+|===
+a|
+Examples:
+
+* `filter w/ < 10` +
+Filters attractions with waiting time less than 10 minutes.
+The list of results should like this if no changes were made to the application (ie. delete or add or update): +
+
+image::./ui_screenshots/filter-example-1.png[width="600"]
+
+* `filter w/ < 10 m/ >= 50` +
+Filters attractions with waiting time less than 10 and maintenance of more than equals 50 days.
+The list of results should look like this:
+
+image::./ui_screenshots/filter-example-2.png[width="600"]
+|===
+
+[NOTE]
+If a ride is selected, a `find` or `filter` is performed, the ride panel will still show the ride that was previously
+selected. Future versions will automatically select the first ride on the list and allow you to see information about it
+on the `BrowserPanel` or show the short help menu if no rides are found.
 // end::filter[]
 
 === See commands to be implemented in v2.0
@@ -531,6 +548,6 @@ Format: `logout`
 |*View status* |`viewstatus <name>`
 
 2+|*Find the relevant list of rides*
-|*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
 |*Find* |`find <[name] [[tag][keyword]…​]>`
+|*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
 |=======================================================================
