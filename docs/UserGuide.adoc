@@ -170,7 +170,7 @@ This section contains all commands related to managing commands.
 Display short summary of important commands. A summarized help
 sheet showing command syntax without details should appear as shown below. +
 
-image::ui_screenshots/help-example-1.png[width="600"]
+image::ui_screenshots/help-example-1.png[width="800"]
 
 Format: `help`
 
@@ -182,6 +182,8 @@ Any arguments beyond the 2nd position will be discarded and ignored.
 [WARNING]
 Information provided in the short help only shows the rough syntax of commands. For full information,
 do refer to this User Guide. Also note that `help` will cause the currently selected `Ride` to be deselected.
+
+<<<
 
 [.white]
 |===
@@ -208,6 +210,8 @@ image::ui_screenshots/help-example-3.png[width="600"]
 Displays suggested list of commands when kbd:[TAB] is pressed. +
  +
 Format: kbd:[TAB]
+
+<<<
 
 // end::autocomplete1[]
 

@@ -19,40 +19,38 @@ ThanePark is a *theme park management* application primarily designed for theme 
 with the ability to manage and find essential theme park ride information at a glance. +
 
 This project was done as part of NUS CS2103 module requirement on 2018, to practice and showcase my ability
-to develop a `Java` application as a team of 4 undergraduate students taking the module. This project had a
+to develop a *Java application* as *a team of 4* undergraduate students taking the module. This project had a
 *constraint of developing a Command Line Interface (CLI)*. In the course of this project, my team
 extended an existing AddressBook application to build this theme park management application.
 
 == Summary of Contributions
 
 * *Major enhancement*: Developed features that assists users in managing commands of the ThanePark application to *improve user productivity*.
-** What it does: It facilitates finding help on specific commands, assist users in completing commands,
+** *What it does*: It facilitates finding help on specific commands, assist users in completing commands,
 provide a mechanism to log and retrieve command history and gives users important information at a glance.
-** Justification: The primary role of theme park operators is to manage the ride they are stationed at.
+** *Justification*: The primary role of theme park operators is to manage the ride they are stationed at.
 By making the application easier to use, operators will not find using the application a chore, can quickly
 perform required actions and focus on managing their ride.
-** Highlights: This enhancement affects existing commands and can be easily extended on addition of new commands. There
+** *Highlights*: This enhancement affects existing commands and can be easily extended on addition of new commands. There
 is an added challenge of reducing dependencies across the `Logic`, `Model`, `Storage` and `UI` components of ThanePark.
-** Credits: https://github.com/tipsy/j2html[j2html] library to aid formatting of HTML reports.
+** *Credits*: https://github.com/tipsy/j2html[j2html] library to aid formatting of HTML reports.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yupeihenry[Code]
 
 * *Other contributions*:
 
-** Roles:
-*** Team Lead: Responsible for designing the main scope of the application.
-*** Code Quality: Responsible for identifying areas of improvement in code written by team mates.
-*** Deliverables and Deadlines: Responsible for managing team deadlines of the project.
-*** Integration: Responsible for handling integration of code across all team members.
-** Project management:
-*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests #102)
-** Community:
-*** PRs reviewed (with non-trivial review comments): (Pull requests #12, #48, #82, #99)
+** *Roles*:
+*** *Team Lead*: Responsible for designing the main scope of the application.
+*** *Code Quality*: Responsible for identifying areas of improvement in code written by team mates.
+*** *Deliverables and Deadlines*: Responsible for managing team deadlines of the project.
+*** *Integration*: Responsible for handling integration of code across all team members.
+** *Project management*: Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+** *Enhancements* to existing features: Updated the GUI color scheme (Pull requests #102)
+** *Community*:
+*** Reviewed Pull Requests (with non-trivial review comments): (Pull requests #12, #48, #82, #99)
 *** Contributed to forum discussions: (Issues #1, #89, #94)
 ** Tools:
-*** Set up Travis CI, coveralls and autodoc to the project
+*** Installed Travis CI, coveralls and autodoc for team repository
 *** Integrated a third party library (j2html) to the project (Pull request #79)
 
 <<<
