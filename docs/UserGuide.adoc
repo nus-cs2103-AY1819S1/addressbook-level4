@@ -60,10 +60,9 @@ Ensure you have Java version `9` or later installed in your Computer. +
 .  Download the latest `clinicio.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ClinicIO.
 .  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below.
-+
+
+.Startup Window
 image::Ui.png[width="1200"]
-_Figure 1 Startup Window_
-+
 
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -75,17 +74,22 @@ This section is designed to help you familiarise with all of the user component 
 
 Here is an example of how ClinicIO looks like:
 
+.Ui Screen after login.
 image::user-guide-ui-walkthrough-overview.png[width="900"]
 
-It consists of 8 parts: <<#Menu Bar, Menu Bar>>, <<#Command Box, Command Box>>,
-<<#Result Display, Result Display>>, <<#List Panel, List Panel>>,
-<<#Card, Card>>, <<#Display Panel, Display Panel>>
-<<#Sync Status Bar, Sync Status Bar>>, <<#User Session Status Bar, User Session Status Bar>>,
+It consists of 9 parts: <<#Menu-Bar, Menu Bar>>, <<#Command-Box, Command Box>>,
+<<#Result-Display, Result Display>>, <<#Tab-Pane, Tab Pane>>, <<#List-Panel, List Panel>>,
+<<#Card, Card>>, <<#Display-Panel, Display Panel>>
+<<#SSB, Sync Status Bar>>, <<#USSB, User Session Status Bar>>,
 each of the sections is explained as below.
 
+[[Menu-Bar]]
 === Menu Bar
 
 The *Menu Bar* provide you quick access to functions as below.
+
+.Ui Menu Bar
+image::user-guide-ui-walkthrough-menu-bar.png[width="900"]
 
 Here are the available options currently: +
 
@@ -95,30 +99,42 @@ Here are the available options currently: +
 
 You can also press F1 to show ClinicIO tutorial.
 
+[[Command-Box]]
 === Command Box
 
 The *Command Box* allow you to enter command input. +
 
+[[Result-Display]]
 === Result Display
 
 The *Result Display* provides you information with regards to the result of the command. +
 
+[[Tab-Pane]]
+=== Tab Pane
+
+The *Tab Pane* provides you with more accessibility to ClinicIO. +
+
+[[List-Panel]]
 === List Panel
 
 The *List Panel* displays a list of objects. +
 
+[[Card]]
 === Card
 
 The *Card* displays the object with minimal information. +
 
+[[Display-Pane]]
 === Display Panel
 
 The *Display Panel* displays the object in detail. +
 
+[[SSB]]
 === Sync Status Bar
 
 The *Sync Status Bar* displays the last updated date and time of any changes to the data. +
 
+[[USSB]]
 === User Session Status Bar
 
 The *User Session Status Bar* displays the current user session. +
@@ -148,6 +164,7 @@ Format: `help`
 You will be able to view ClinicIO guide (as below)
 in a new window. +
 
+.Help Window
 image::user-guide-help-window-after.png[width="500"]
 
 ==== Listing entered commands : `history`
