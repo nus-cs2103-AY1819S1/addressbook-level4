@@ -257,7 +257,7 @@ public class GsonUtil {
      */
     private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
-        InputStream in = MainApp.class.getResourceAsStream("/docs/script/postalcodeData.txt");
+        InputStream in = MainApp.class.getResourceAsStream("/view/postalcodeData.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String st;
 

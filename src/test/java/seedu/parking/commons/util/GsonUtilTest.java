@@ -11,12 +11,7 @@ public class GsonUtilTest extends GsonUtil {
 
     @Test
     public void fetchAllCarparkInfo_getAllCarparks_notNullReturned() throws Exception {
-
-        try {
-            assertNotNull(fetchAllCarparkInfo());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        assertNotNull(fetchAllCarparkInfo());
     }
 
     @Test

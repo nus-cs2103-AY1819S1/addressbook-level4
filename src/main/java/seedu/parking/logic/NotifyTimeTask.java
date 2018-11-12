@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.core.Messages;
 import seedu.parking.commons.core.index.Index;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
@@ -35,6 +37,8 @@ public class NotifyTimeTask extends TimerTask {
     private Model model;
     private int targetTime;
 
+    private final Logger logger = LogsCenter.getLogger(NotifyTimeTask.class);
+
     public NotifyTimeTask(Model model, int targetTime) {
         this.model = model;
         this.targetTime = targetTime;
@@ -42,11 +46,11 @@ public class NotifyTimeTask extends TimerTask {
 
     @Override
     public void run() {
-        //System.out.println("Task performed on " + new Date());
-
         try {
+            logger.info("Task started");
             int validity = CarparkListPanel.getSelectedIndex();
             if (validity < 0) {
+                logger.info("Invalid index");
                 throw new CommandException(MESSAGE_ERROR);
             }
 
@@ -54,6 +58,7 @@ public class NotifyTimeTask extends TimerTask {
             List<Carpark> filteredCarparkList = model.getFilteredCarparkList();
 
             if (notifyIndex.getZeroBased() >= filteredCarparkList.size()) {
+                logger.info("Invalid displayed index");
                 throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
             }
 
@@ -68,8 +73,7 @@ public class NotifyTimeTask extends TimerTask {
                             new TotalLots(updateData.get(2))));
             EventsCenter.getInstance().post(new NotifyCarparkRequestEvent());
             model.commitCarparkFinder();
-            //System.out.println("Lots Available: " + updateData.get(1) + " Total Lots: "
-            //        + updateData.get(2));
+            logger.info("Lots Available: " + updateData.get(1) + " Total Lots: " + updateData.get(2));
 
             if (CarparkListPanel.getTimeInterval() > 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(notifyIndex));
