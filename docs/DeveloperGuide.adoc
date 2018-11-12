@@ -1019,7 +1019,7 @@ Initial launch
 Expected: Shows the GUI with a set of sample decks.
 
 === Navigating into a deck
-Prerequisites: There must be at least 1 deck in AnakinModel
+Prerequisites: There must be at least 1 deck in the application.
 
 . `cd INDEX_OF_DECK` where `INDEX_OF_DECK` is the currently displayed index of the target deck.
 . The card panel on the right of the deck panel should be populated with a list of the cards in the target deck. If the deck is empty, no cards will be shown.
