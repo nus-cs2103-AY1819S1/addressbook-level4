@@ -67,6 +67,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 
 Format: `help`
 
+// tag::add[]
 === Adding a person: `add`
 
 
@@ -90,9 +91,16 @@ e.g. `... g/mid-test 100 ...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney`
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4` +
+Add a person without grade and tag.
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney` +
+Add a person with one or more than one grades and tags. +
+// end::add[]
 
+
+// tag::edit[]
 [[edit]]
+
 === Editing a person : `edit`
 
 Edits an existing person in the student list. +
@@ -115,14 +123,20 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
 * `edit 5 el/Secondary 1` +
 Edits the educational level of the 5th student to Secondary 1.
+* `edit 2 g/Y1819S1_Mid 100 ` +
+Change the score of an exam.
+* `edit 1 g/test1 100 g/test2 99` +
+Add more new grade records for a student.
 
 [NOTE]
 ====
 By editing the educational level of any student using this command will remove any "Graduated" +
 tag by default. To promote the educational grade of a student, please use the `promote` command.
 ====
+// end::edit[]
 
 === Listing all persons : `list`
 
@@ -192,6 +206,7 @@ Example:
 Deletes the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
 // end::deletetimecommand[]
 
+// tag::deleteGrade[]
 === Deleting grade of a student : `deleteGrade`
 
 Deletes a grade record for a student in the address book.
@@ -204,6 +219,9 @@ Example:
 
 * `deleteGrade 1 Y1819S1_Mid` +
 Deletes grade record named "Y1819S1_Mid" for the first person in the display panel.
+
+// end::deleteGrade[]
+
 
 // tag::find[]
 === Locating persons by name: `find`
@@ -507,6 +525,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::grade[]
 [[grade]]
 === Grades attribute
 
@@ -539,6 +558,7 @@ Edit grade will not delete the previous grades as tap attribute.
 Change grade:
 
 if you need to change the score of a exam, you can use edit as well.
+// end::grade[]
 
 // tag::promote[]
 === Promote students stored in TutorPal : `promote`
