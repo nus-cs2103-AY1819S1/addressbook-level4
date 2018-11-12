@@ -30,7 +30,7 @@ It is written in Java, and has about 10 kLoC.
 ** *[https://github.com/CS2103-AY1819S1-T13-3/main/blame/master/src/main/java/seedu/jxmusic/model/Track.java[Track]]* boolean:equals (critical for TrackAdd and TrackDel), int:hashCode
 
 * *Other contributions*:
-** Project management: 
+** Project management:
 *** Managed some issues: https://github.com/CS2103-AY1819S1-T13-3/main/issues/69[#69],
 https://github.com/CS2103-AY1819S1-T13-3/main/issues/71[#71]
 *** Managed some pull requests:
@@ -40,7 +40,7 @@ https://github.com/CS2103-AY1819S1-T13-3/main/pull/104[#104],
 https://github.com/CS2103-AY1819S1-T13-3/main/pull/107[#107]
 
 ** Community:
-*** PRs reviewed: 
+*** PRs reviewed:
 https://github.com/CS2103-AY1819S1-T13-3/main/pull/61[#61],
 https://github.com/CS2103-AY1819S1-T13-3/main/pull/55[#55],
 https://github.com/CS2103-AY1819S1-T13-3/main/pull/100[#100]
