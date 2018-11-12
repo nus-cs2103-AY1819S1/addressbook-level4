@@ -64,7 +64,7 @@ that can be edited.
 ==== Editable fields
 * Name: the name of a task
 * Due Date: the date and time when a task is due
-* Priority: the priority value that a task has
+* Priority Value: the priority value that a task has
 * Description: additional description regarding the task
 * Labels: a list of labels that can be used to classify/identify the task
 
