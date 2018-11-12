@@ -617,14 +617,65 @@ image::command_exportcert_sd_2.png[exportcert SD, 800]
 +
 
 
+====== Aspect: Choice of export location
+
+* **Alternative 1 (current choice):** Export to the user's current working directory
++
+[cols="1,10"]
+|===
+|*Pros*| Putting the files relative to where the app is allows the user to locate, manage and access the exports easily as this is a portable app. The app jar and the exported files can be shifted to different locations together easily as well.
+|*Cons*| Navigating to this directory would be necessary if he/she wishes to access the files independent of using the application.
+|===
++
+
+* **Alternative 2:** Export to the user's Desktop
++
+[cols="1,10"]
+|===
+|*Pros*| Easy to access files when not using the application.
+|*Cons*| As it is a portable app, it may be cumbersome to keep navigating to the Desktop to access the exports when using the application. It also becomes harder to move the app jar and exports together from place to place.
+|===
++
+
+* **Alternative 3:** Allow the user to specify the export filepath as an argument
++
+[cols="1,10"]
+|===
+|*Pros*| Allows for greater customisability, thus catering to each user's unique needs.
+|*Cons*| Requires user to have accurate prior knowledge of the machine's filepath format. Moreover, support for all possible OS filepath formats within the application may not be possible as well (e.g. custom OS filepath).
+|===
++
+
+
+====== Aspect: Organisation of PDF generation code
+
+* **Alternative 1 (current choice):** Encapsulate within a `CertGenerator` class with exposed public method(s)
++
+[cols="1,10"]
+|===
+|*Pros*| Allows for separation of concerns as handling command result or exceptions & retrieving volunteer data is separated from the creation, population and export of the certificate. Also allows for future extension of the PDF generation feature (e.g. generating event reports) through adding a `ExportPdf` abstract class or interface with `generatePdf`, `populatePdf` and `exportPdf` methods to be implemented.
+|*Cons*| Introduces inherent coupling between `ExportCertCommand` and `CertGenerator` classes as currently, only `ExportCertCommand` includes the certificate generation functionality.
+|===
++
+
+* **Alternative 2:** Leave PDF generation code inside a method within the `ExportCertCommand` class
++
+[cols="1,10"]
+|===
+|*Pros*| Allows the certificate generation code to reside exactly where it is used, as the certificate generation functionality is currently only used by `ExportCertCommand`.
+|*Cons*| Causes a low level of cohesion by packaging different functionalities within `ExportCertCommand`. The functionality to export PDFs also remains unabstracted, and thus extending the functionality to create e.g. event report PDFs would require repetition of the PDF generation code.
+|===
++
+
+
 ====== Aspect: Choice of additional details for identifying volunteer from certificate
 
 * **Alternative 1 (current choice):** Use Volunteer's NRIC
 +
 [cols="1,10"]
 |===
-|*Pros*| Is unique to each volunteer and can be recovered easily, given the volunteer's name or other personal information. It also adds credibility to the exported volunteer certificate.
-|*Cons*| Requires more space as each NRIC can be represented as string of length 9 or a 7-digit integer.
+|*Pros*| Adds credibility to the certificate by displaying something that is unique to each volunteer, and can be recovered easily given the volunteer's name or other personal information.
+|*Cons*| Requires more space as each NRIC has to be represented as string of length 9 or a 7-digit integer.
 |===
 +
 
@@ -632,29 +683,8 @@ image::command_exportcert_sd_2.png[exportcert SD, 800]
 +
 [cols="1,10"]
 |===
-|*Pros*| Shorter than NRIC and still serves the purpose, and can be auto-incremented.
-|*Cons*| Hard to recover, even if additional information about the volunteer is provided. Would also be meaningless to a third person to whom the certificate is presented for verification purposes.
-|===
-+
-
-
-====== Aspect: Choice of export location
-
-* **Alternative 1 (current choice):** Create a folder in the user's current working directory
-+
-[cols="1,10"]
-|===
-|*Pros*| Putting the files relative to where the app is allows the user to locate, manage and access the exports easily as this is a portable app. The app jar and the exported files can be shifted to different locations together easily as well.
-|*Cons*| The user would have to navigate to this directory if he/she wishes to access the files independent of using the application.
-|===
-+
-
-* **Alternative 2 (also part of current choice, if no permission for 1):** Export to the user's Desktop
-+
-[cols="1,10"]
-|===
-|*Pros*| Easy to access files when not using the application.
-|*Cons*| As it is a portable app, it may be cumbersome to keep navigating to the Desktop to access the exports when using the application. It also becomes harder to move the app jar and exports together from place to place.
+|*Pros*| Achieves the intended purpose (additional volunteer identification), while encompassing the ability to be auto-incremented.
+|*Cons*| Hard to recover, even if additional information about the volunteer is provided. It would also be meaningless to a third person to whom the certificate is presented for verification purposes.
 |===
 +
 
