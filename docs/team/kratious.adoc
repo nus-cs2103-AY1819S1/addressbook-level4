@@ -43,7 +43,7 @@ This enhancement is one of the major building blocks of the system and affects m
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the Developer Guide: link:{pullURL}/118/[#118], link:{pullURL}/128/[#128]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58], link:{pullURL}/72/[#72], link:{pullURL}/232/[#232]
+*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58], link:{pullURL}/232/[#232]
 *** Enquired about and resolved a team issue on the forum: https://github.com/nus-cs2103-AY1819S1/forum/issues/134[#134]
 ** Tools:
 *** Integrated a new Github plugin (Coveralls) to the team repository
