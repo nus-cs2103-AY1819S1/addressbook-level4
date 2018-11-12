@@ -58,11 +58,11 @@ for commands he/she has forgotten. This will allow for a better user experience 
 
 
 * *Minor enhancements*:
-** Added Help command which allows user to seek help when he/she is lost.
+** Added `help` command which allows user to seek help when he/she is lost.
 ** Implemented the `editdeck` command that allows users to update the name of their deck.
 ** Added the `exit` command to allow the user to leave the deck
 ** Added the `select` command which eventually formed the basis for other commands to be developed.
-** Add `undo` and `redo` commands
+** Added `undo` and `redo` commands
 
 
 *Code contributed:*
@@ -73,9 +73,9 @@ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leeyjj
 
 ** Project management:
 *** Set up Continuous Integration
-*** Update contact us page (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/68[#68])
-*** Added initial documentation for team README (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/23[#23])
-*** Integrate Reposense for code contribution tracking (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/75/files[#75])
+*** Update contact us page(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/68[#68])
+*** Added initial documentation for team README(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/23[#23])
+*** Integrate Reposense for code contribution tracking(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/75/files[#75])
 *** Configure naming convention of files and packages across the project to comply with project style guide(Pull Requests: https://github.com/CS2103-AY1819S1-T09-2/main/pull/38/files[#38]
 , https://github.com/CS2103-AY1819S1-T09-2/main/pull/106/files[#106])
 

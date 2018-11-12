@@ -531,13 +531,13 @@ Format: `rank` +
 Examples: Suppose you are studying for an important exam, and you want to find out which cards you performed poorly on so you can review them.
 
 
-1. Classify cards as described in the `classify` section above and type `rank`
+1. Classify cards as described in the `classify` section above and then type `rank`
 
 image::rankScreenshot1.png[width="500"]
 
 Image: Appearance of cards before sorting by performance
 
-2. Type  and you will instantly get the desired result
+2. Type `rank` and you will instantly get the desired result
 
 image::rankScreenshot2.png[width="500"]
 Image: Appearance of cards after sorting by performance. As can be seen, harder cards move to the top. +
