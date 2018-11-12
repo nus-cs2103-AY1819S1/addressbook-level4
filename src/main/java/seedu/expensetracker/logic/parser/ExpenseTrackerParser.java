@@ -73,7 +73,7 @@ public class ExpenseTrackerParser {
             //Fallthrough
         case MassEditCommand.COMMAND_WORD:
             return new MassEditCommandParser().parse(arguments);
-            
+
         case DeleteCommand.COMMAND_ALIAS:
             //Fallthrough
         case DeleteCommand.COMMAND_WORD:
