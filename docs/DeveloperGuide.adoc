@@ -24,15 +24,14 @@ with features such as setting a budget and expense statistics, which help you st
 
 The *Expense Tracker Developer Guide* contains all the information you need to start development on Expense Tracker. It
 also includes information about the overall architecture and implementation of various features in Expense Tracker.
-Whether this is your first project or your 37th project, this guide will help you to start contribute to Expense Tracker.
-Jump to <<Setting up, Setting up>> to start setting up your environment.
+Whether this is your first project or your 37th project, this guide will help you to start contributing to Expense Tracker.
+Jump to <<Setup, Set up>> to start setting up your environment.
 
+[[Setup]]
 == Set Up
 
 '''
-Follow the steps in the section below to start development on Expense Tracker
-
-'''
+Follow the steps in the sections below to start development on Expense Tracker:
 
 === Prerequisites
 
@@ -727,7 +726,7 @@ As an example of how the new UI elements were implemented, we will examine the i
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
 *   `BudgetPanel#percentageDisplay` - A `TextFlow` objects that manages `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay`.
-*	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
+*	`BudgetPanel#budgetBar` – A `ProgressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
 Given below are the steps of an example scenario of how `BudgetPanel` is updated:
@@ -2067,9 +2066,9 @@ one expense. +
 .. Test case: `setPassword n/password11 o/password1` +
    Expected: A message indicating that the password has been changed is shown.
 
-=== Encrypt and Decrypt `Strings`
+=== Encrypting and Decrypting `String`&#8217;s
 
-. Encrypt and decrypt `String`s
+. Encrypting and Decrypting a `String`
 .. Prerequisites: Already logged into a user account
 .. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command. +
    Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
@@ -2162,10 +2161,10 @@ Test cases should be performed one after the other.
    Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
 "50.00%"
 .. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats` +
-   Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
+    Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
 "1000.00%"
 .. Test case: `setCategoryBudget c/Food b/25.00` +
-   Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+    Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
 .. Test case: `setCategoryBudget c/Food b/25.00` +
    Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
 .. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00` +
