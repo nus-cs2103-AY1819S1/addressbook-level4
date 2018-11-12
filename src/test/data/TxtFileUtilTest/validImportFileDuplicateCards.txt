@@ -1,0 +1,3 @@
+ t/topic
+A question?	An answer.
+A question?	Same question?

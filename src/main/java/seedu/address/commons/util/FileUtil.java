@@ -19,10 +19,14 @@ public class FileUtil {
 
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
-     * otherwise returns false.
+     * otherwise returns false. Ensures {@code Path} is non-empty.
      * @param path A string representing the file path. Cannot be null.
      */
     public static boolean isValidPath(String path) {
+        if (path.isEmpty()) {
+            return false;
+        }
+
         try {
             Paths.get(path);
         } catch (InvalidPathException ipe) {

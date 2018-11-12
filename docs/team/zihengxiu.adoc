@@ -1,0 +1,58 @@
+= Xiu Ziheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: 3via
+
+---
+
+== Overview
+
+3via is a desktop application designed for self-learners to overcome their weaknesses and enhance their knowledge
+at the same time. 3via contains three vital steps in learning path: learning, testing and reviewing. Each step will direct the user into the
+respective page and the user will interact with it using a CLI, and it has a GUI created with JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*:
+
+ ** Added `clear` command
+ *** The `clear` command was morphed from `clear` command in AddressBook.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=cary-xx&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Functional code]]
+
+* *Other contributions*:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=clear]
+
+include::../UserGuide.adoc[tag=stats]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
+=======
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+>>>>>>> origin/master

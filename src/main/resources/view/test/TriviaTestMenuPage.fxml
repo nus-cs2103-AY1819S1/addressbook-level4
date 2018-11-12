@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane fx:id="testMenuSplitPane" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="95.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label prefHeight="15.0" prefWidth="216.0" styleClass="label-bright-header" text="Open Ended Test" underline="true" wrapText="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ImageView fx:id="matchTestImage1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@../../images/openendedtest.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label styleClass="label-bright" text="Enter your answer and compare it to the correct answer!" wrapText="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Label styleClass="label-bright-sub-header" text="Instructions:" underline="true" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="label-bright" text="To start: testO TOPIC" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label prefHeight="16.0" prefWidth="474.0" styleClass="label-bright" text="To answer: Key in your answer in the interface and submit" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="label-bright" text="To check: Check your input against the correct answer, and enter 'Y' if correct, 'N' if not" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="label-bright" text="To End: exit" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="95.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label styleClass="label-bright-header" text="Match Test" underline="true" wrapText="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ImageView fx:id="matchTestImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@../../images/matchtest.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label styleClass="label-bright" text="Match the questions to their right answer!" wrapText="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Label styleClass="label-bright-sub-header" text="Instructions:" underline="true" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="label-bright" text="To start: testM TOPIC" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="label-bright" text="To match: QUESTION_INDEX ANSWER_INDEX" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="label-bright" text="To match quickly: ANSWER_INDEX" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="label-bright" text="To End: exit" wrapText="true">
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</VBox>

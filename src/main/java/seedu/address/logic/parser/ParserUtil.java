@@ -7,20 +7,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Question;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.portation.ImportFile;
+import seedu.address.model.topic.Topic;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "%s is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -30,7 +34,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(MESSAGE_INVALID_INDEX, trimmedIndex));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -96,29 +100,73 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String question} into an {@code Question}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code question} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+    public static Question parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
+            throw new ParseException(Question.MESSAGE_QUESTION_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Question(trimmedQuestion);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String answer} into an {@code Answer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code answer} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_ANSWER_CONSTRAINTS);
         }
-        return tagSet;
+        return new Answer(trimmedAnswer);
+    }
+
+    /**
+     * Parses a {@code String topic} into a {@code Topic}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code topic} is invalid.
+     */
+    public static Topic parseTopic(String topic) throws ParseException {
+        requireNonNull(topic);
+        String trimmedTopic = topic.trim();
+        if (!Topic.isValidTopicName(trimmedTopic)) {
+            throw new ParseException(Topic.MESSAGE_TOPIC_CONSTRAINTS);
+        }
+        return new Topic(trimmedTopic);
+    }
+
+    /**
+     * Parses {@code Collection<String> topics} into a {@code Set<Topic>}.
+     */
+    public static Set<Topic> parseTopics(Collection<String> topics) throws ParseException {
+        requireNonNull(topics);
+        final Set<Topic> topicSet = new HashSet<>();
+        for (String topicName : topics) {
+            topicSet.add(parseTopic(topicName));
+        }
+        return topicSet;
+    }
+
+    /**
+     * Parses {@code pathName} into an {@code ImportFile} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if no path name is specified.
+     */
+    public static ImportFile parsePath(String pathName) throws ParseException {
+        String trimmedPathName = pathName.trim();
+        requireNonNull(trimmedPathName);
+        if (!FileUtil.isValidPath(trimmedPathName)) {
+            throw new ParseException(ImportFile.MESSAGE_INVALID_FILE);
+        }
+        return new ImportFile(trimmedPathName);
     }
 }

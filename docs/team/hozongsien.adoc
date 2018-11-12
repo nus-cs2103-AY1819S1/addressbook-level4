@@ -1,0 +1,57 @@
+= Ho Zong Sien - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: 3VIA
+
+---
+
+== Overview
+
+The purpose of this portfolio is to document my role and contributions to project 3VIA.
+3VIA is a desktop flash card application designed for self-driven learners to reinforce their knowledge.
+The main form of interaction with the application is via the keyboard.
+3 notable features are learning, testing and reviewing. This is a team-based project.
+My main task was to implement a mass import feature.
+Additionally, my assigned role was to review the code quality written by each member which is done by reviewing each member’s pull request on Github.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to *import multiple cards*.
+** What it does: allows the user to add multiple cards into 3VIA at one go.
+** Justification: This feature incentivizes non-existing users to use 3VIA more as the users can import their existing digital notes quickly.
+** Highlight: This enhancement allows grouping of multiple pairs of questions and answers under a set of topics. Thereby reducing the need to repeatedly tag each question and answer pair with the same set of topics.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hozongsien[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Conceptualized future releases.
+*** Assigned roles and responsibilities to team members.
+** Enhancements to existing features:
+*** Ported list and select functions from original AddressBook to 3VIA.
+** Documentation:
+*** Updated storage class diagram for 3VIA.
+** Community:
+*** Reviewed PRs of team members to improve code quality.
+*** Reported bugs and suggestions for team members. (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/pull/79[1], https://github.com/CS2103-AY1819S1-W12-3/main/pull/99[2], https://github.com/CS2103-AY1819S1-W12-3/main/pull/110[3])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=import]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=import]
+
+include::../DeveloperGuide.adoc[tag=deleteMultiple]
+
+---

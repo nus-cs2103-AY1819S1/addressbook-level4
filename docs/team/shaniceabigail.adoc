@@ -1,0 +1,60 @@
+= Shanice Abigail - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: 3VIA
+
+---
+
+== Overview
+
+3VIA is a desktop trivia application used by learners for material iteration in active recall.
+The user interacts with it using a Command Line Interface (CLI), and it has a GUI created with JavaFX. It is written in Java, and has about 12 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Navigation Tab Commands*
+** What it does: allows user to take note of which AppState they are at, as well as simplifies navigation through writing the page they want to navigate to as a command or through, more intuitively, mouse clicks.
+** Justification: This feature reduces the need for the user to remember and additional commands to use the app. It allows the user to visually check the location of their app state, and the methods available in that page, through the user guide.
+** Highlights: This enhancement requires an understanding of the user, and well-designed learning experience for the user, also known as design thinking methodology. It requires both technical and non-technical skills to analyse the needs of the potential users, as well as technical skills to implement the analysis. The implementation was challenging as it required editing the user interface, and learning to use additional software and coding languages to make desired changes in a short time span.
+** Credits: _[http://synappse.co/blog/vertical-stateful-jfxtabpane-with-icons-in-javafx/[Vertical, Stateful JFXTabPane tutorial]]_
+
+* *Major enhancement*: added *Mode command*
+** What it does: Allows the user to toggle between the modes of the application through a simple command, changing the GUI, by providing a more comfortable use of the app depending on their preference and environment.
+** Justification: This feature allows the user to use the app in any situation, being in a bright or dark surrounding. This feature has also been implemented in a lot of web-applications and social media, such as Twitter and Reddit. With the user in mind, they are likely to continue using the app if they're able to use it comfortably.
+** Highlights: This is an enhancement which is designed specifically for the user in mind. Design and implementation of this feature requires a lot of technical and non-technical skills get to know the user and how they will use the app. Implementation of this feature required a new CSS file to toggle between back and forth, as well as a proper design to toggle the modes, which was not part of the main learning curve.
+
+* *Minor enhancement*: modified the "learn" and "review" command to allow navigation between tabs.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=shaniceabigail[Shanice's Reposense]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Redesigned GUI colour scheme: PR https://github.com/CS2103-AY1819S1-W12-3/main/pull/155[#155]
+** Documentation:
+*** Edited existing contents of the User Guide: PR https://github.com/CS2103-AY1819S1-W12-3/main/pull/159[#159]
+*** Added and edited User and Developer guides: PR https://github.com/CS2103-AY1819S1-W12-3/main/pull/180[#180]
+** Tools:
+*** Integrated a third party library (JFoenix) to the project: PR https://github.com/CS2103-AY1819S1-W12-3/main/pull/73[#73]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They highlight my ability to write documentation for end-users._
+|===
+
+include::../UserGuide.adoc[tag=NavigationTabCommands]
+
+include::../UserGuide.adoc[tag=ModeCommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=NavigationTabCommands]
+
+include::../DeveloperGuide.adoc[tag=ModeCommand]

@@ -154,6 +154,4 @@ public class StringUtilTest {
         thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
-
-
 }

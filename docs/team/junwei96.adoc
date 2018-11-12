@@ -1,0 +1,91 @@
+= Koh Jun Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: 3VIA
+
+---
+
+== Overview
+
+3VIA is a desktop application that can be used by motivated learners who wants to reinforce their knowledge. 3VIA features 3 main
+components to facilitate this reinforcement of knowledge, namely learning, testing and reviewing. 3VIA was written
+using Java, with the user mainly interacting with 3VIA through command line but an user interface is also provided that
+was created using JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*:
+** Set up *the foundation for the different test features in 3VIA*
+*** What it does: Different generic classes that spans across the Model, UI and Storage components were written.
+*** Justification: There are different test features in 3VIA. Hence, by doing so, it will allow easier future development
+of the more test features.
+*** Highlights: The highlights of this enhancement involves the `Model` and `Storage` feature that was written for
+`TriviaTest` and `TriviaResult` respectively. It allows standardized set of data spanning across different tests to be
+recorded down. This data collection would also allow for wide array of analysis allowing us to customize 3VIA for the user.
+
+** Added *the ability to perform matching test in 3VIA* [Main Feature]
+*** What it does: In this test, the user would be given a list of questions and answers. They have to match the questions
+to their correct answer.
+*** Justification: It is 1 of the 2 testing features in 3VIA. It allows users to be able to test themselves on concepts and
+misconceptions that spans different questions. Allowing users to draw comparisons and similarities between different questions
+and answers, coming up with insights that are not possible by just testing themselves on a per question basis.
+*** Highlights: This enhancement is challenging in terms of providing the user a user friendly interface. Due to the
+possibility of having a large number of questions and answers in a topic, design considerations and alternatives
+are being considered.
+
+* *Minor enhancement*:
+** Added `CardInfoPanel`
+*** Designed and implemented `CardInfoPanel` to allow user to receive feedback and track their progress in each card
+(which consist of a question and an answer) in 3VIA.
+
+** Added `learn` Command
+***  The `learn` Command was morphed from the `list` command in AddressBook, with the added functionality of allowing user
+to type in intuitive commands such as `learn Physics` or `learn` if the user wants to see all the cards.
+
+** Added `research` Command
+***  The `research` Command allow users to browse online resources that are related to the questions in 3VIA.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junwei96[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Spearheaded the morphing of the existing project from AddressBook into 3VIA, by setting up 3VIA related models and
+test cases.
+*** Managed releases from `v1.1` to `v1.4`.
+*** In charged of scheduling, deliverables and deadline management.
+** Enhancements to existing features:
+*** Refactored the existing `MainWindow` to allow for easier transitioning between pages.
+** Documentation:
+*** Drew the https://cs2103-ay1819s1-w12-3.github.io/main/DeveloperGuide.html#Design-Model[UML Model Class Diagram] for 3VIA.
+** Community:
+*** Wrote https://github.com/CS2103-AY1819S1-W12-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3AJunWei96+[PR reviews] to improve code quality of 3VIA.
+*** https://github.com/CS2103-AY1819S1-W17-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+junwei96+[Reported bugs and suggestions] for other teams in the class.
+** Tools:
+*** Added TravisCI, Coveralls and Netifly to the team repo, improving the workflow and coding standard.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=research]
+
+include::../UserGuide.adoc[tag=matchtest1]
+
+include::../UserGuide.adoc[tag=matchtest2]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=triviatest]
+
+include::../DeveloperGuide.adoc[tag=matchtest]
+
+---

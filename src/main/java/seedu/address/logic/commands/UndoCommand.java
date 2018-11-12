@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideCardInfoPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -20,12 +22,14 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndoTriviaBundle()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.undoTriviaBundle();
+        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+
+        EventsCenter.getInstance().post(new HideCardInfoPanelEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

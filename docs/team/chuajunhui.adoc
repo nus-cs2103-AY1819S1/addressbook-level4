@@ -1,0 +1,56 @@
+= Chua Jun Hui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: 3VIA
+
+---
+
+== Overview
+
+3VIA is a desktop application that can be used by motivated learners who wants to reinforce their knowledge. 3VIA features 3 main
+components to facilitate this reinforcement of knowledge, namely learning, testing and reviewing. 3VIA was written
+using Java, with the user mainly interacting with 3VIA through command line but an user interface is also provided that
+was created using JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Open Ended Test* feature.
+** What it does: In this test mode, users are shown questions and they will have to key in their answer, and check if
+their user supplied answer is correct when compared with the correct answer.
+** Justification: It is 1 of the 2 testing features in 3VIA. It allows users to be able to test themselves on whether
+they have the knowledge in the topic that is tested.
+** Highlights: The feature was challenging because it dealt with multiple components, `Logic`, `Model`, `Storage`, `Commands` and UI.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junhui2778[Functional code & Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Conceptualized future releases.
+** Enhancements to existing features:
+*** Ported undo and redo functions from original AddressBook to 3VIA.
+** Documentation:
+*** Updated user guide and developer guide for 3VIA.
+** Community:
+*** Reviewed PRs of team members to improve code quality.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=openendedtest]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=openendedtest]
+
+---

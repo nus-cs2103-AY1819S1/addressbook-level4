@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<triviabundle>
+    <!-- Card with invalid question field -->
+    <cards>
+        <question></question>
+        <answer>What question?</answer>
+        <tag>NoQuestion</tag>
+    </cards>
+</triviabundle>

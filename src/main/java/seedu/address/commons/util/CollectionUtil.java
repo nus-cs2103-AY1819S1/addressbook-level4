@@ -32,4 +32,15 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
+
+    /**
+     * If the given object is null, it will throw the exception that was defined in the second parameter.
+     */
+    public static <E extends Exception> void ifNullThrows(Object item, E exceptionToThrow) throws E {
+        try {
+            requireNonNull(item);
+        } catch (NullPointerException e) {
+            throw exceptionToThrow;
+        }
+    }
 }

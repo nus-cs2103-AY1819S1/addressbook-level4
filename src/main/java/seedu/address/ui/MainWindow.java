@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -15,10 +16,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ChangeModeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,23 +37,22 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private MainDisplay mainDisplay;
+    private Scene currentScene;
 
-    @FXML
-    private StackPane browserPlaceholder;
+    private boolean isDayMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private MenuItem exitAppItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -58,8 +60,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane displayPagePlaceHolder;
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
+        isDayMode = true;
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -118,24 +124,21 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    public void fillInnerParts() {
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        mainDisplay = new MainDisplay(logic);
+        displayPagePlaceHolder.getChildren().add(mainDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getTriviaBundleFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
-    void hide() {
+    public void hide() {
         primaryStage.hide();
     }
 
@@ -158,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Returns the current size and the position of the main Window.
      */
-    GuiSettings getCurrentGuiSetting() {
+    public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
@@ -175,7 +178,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void releaseResources() {
+        mainDisplay.releaseResources();
+    }
+
+    public void show() {
         primaryStage.show();
     }
 
@@ -187,17 +194,32 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    private void handleChangeModeEvent(ChangeModeEvent event) throws IllegalArgumentException {
+        currentScene = primaryStage.getScene();
+        currentScene.getStylesheets().clear();
+
+        if (isDayMode && event.getToggleValue()) {
+            currentScene.getStylesheets().add(getClass()
+                    .getResource("/view/DarkTheme.css").toExternalForm());
+            currentScene.getStylesheets().add(getClass()
+                    .getResource("/view/Extensions.css").toExternalForm());
+            isDayMode = false;
+        } else if (!isDayMode && event.getToggleValue()) {
+            currentScene.getStylesheets().add(getClass()
+                    .getResource("/view/3VIATheme.css").toExternalForm());
+            currentScene.getStylesheets().add(getClass()
+                    .getResource("/view/LightThemeExtensions.css").toExternalForm());
+            isDayMode = true;
+        } else {
+            throw new IllegalArgumentException("Day and Night mode did not toggle properly.");
+        }
     }
 }

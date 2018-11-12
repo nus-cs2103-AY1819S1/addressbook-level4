@@ -9,6 +9,8 @@ package seedu.address.commons.core.index;
  * convert it back to an int if the index will not be passed to a different component again.
  */
 public class Index {
+    public static final String MESSAGE_POSITIVE_INDEX = "Index have to be positive.";
+
     private int zeroBasedIndex;
 
     /**

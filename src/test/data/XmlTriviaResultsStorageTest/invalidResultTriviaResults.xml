@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testresult>
+    <!-- Card with invalid testType field -->
+    <results>
+        <testType>NON_EXISTENT_TEST</testType>
+        <topic>Physics</topic>
+        <date>01 Jun 2016, 04:13 PM</date>
+        <duration>11.5</duration>
+        <attempt>
+            <attemptedCard>
+                <question>Will this work?</question>
+                <answer>Definitely!</answer>
+                <topic>NoTopic</topic>
+            </attemptedCard>
+            <answer>Hmmmmm...</answer>
+            <isCorrect>true</isCorrect>
+            <timestamp>01 Jun 2016, 04:13 PM</timestamp>
+        </attempt>
+    </results>
+</testresult>

@@ -9,5 +9,7 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.xml"
+  "addressBookFilePath" : "addressbook.xml",
+  "triviaBundleFilePath"  : "triviabundle.xml",
+  "triviaResultsFilePath" : "testresult.xml"
 }
