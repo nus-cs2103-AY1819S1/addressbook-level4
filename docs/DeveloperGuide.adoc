@@ -611,7 +611,7 @@ image::AddFriendCommand.png[width="800"]
 
 ===== Aspect: Unilateral friendships
 
-Friendships can be unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.
+Friendships are unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.
 
 In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the `ListFriendsCommand` which can display all the friends of the particular user and their details in the display panel as shown below.
 
