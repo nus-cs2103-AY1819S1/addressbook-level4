@@ -28,7 +28,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectEventCommand;
 import seedu.address.logic.commands.ShowDescriptionCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -121,9 +121,9 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_ELEMENT), command);
+        SelectEventCommand command = (SelectEventCommand) parser.parseCommand(
+            SelectEventCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new SelectEventCommand(INDEX_FIRST_ELEMENT), command);
     }
 
     @Test
