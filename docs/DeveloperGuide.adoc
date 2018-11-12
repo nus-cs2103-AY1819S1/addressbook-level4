@@ -1099,7 +1099,13 @@ Use case ends.
 
 *Extensions*
 
-none
+[none]
+* 1a. User requests for history report.
++
+[none]
+** 1a1. ThanePark generates and shows history report.
++
+Use case ends.
 
 [discrete]
 === Use case: Redo
