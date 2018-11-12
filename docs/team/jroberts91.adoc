@@ -57,6 +57,8 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 
 ** Community:
 *** `Listpicker` menu feature that I added was adopted by several other class mates ()
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/125[1], https://github.com/CS2103-AY1819S1-W12-3/main/issues/124[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/139[3],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
 
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
