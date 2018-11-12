@@ -337,7 +337,7 @@ AttributePredicate to test the attribute
 ==== Current Implementation
 
 The Command Management feature is responsible for making ThanePark application easier to use.
-It can be decomposed into the following components: +
+It can be decomposed into the following segments: +
 
 * <<accessibility_help, *Help*>>
 * <<accessibility_autocomplete, *Autocomplete/Suggest*>>

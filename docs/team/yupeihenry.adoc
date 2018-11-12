@@ -40,14 +40,14 @@ is an added challenge of reducing dependencies across the `Logic`, `Model`, `Sto
 * *Other contributions*:
 
 ** *Roles*:
-*** *Team Lead*: Responsible for designing the main scope of the application.
+*** *Team Lead*: Responsible for directing the scope of the application.
 *** *Code Quality*: Responsible for identifying areas of improvement in code written by team mates.
 *** *Deliverables and Deadlines*: Responsible for managing team deadlines of the project.
 *** *Integration*: Responsible for handling integration of code across all team members.
 ** *Project management*: Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
-** *Enhancements* to existing features: Updated the GUI color scheme (Pull requests #102)
+** *Enhancements* to existing features: Updated the GUI color scheme (Pull Requests #102)
 ** *Community*:
-*** Reviewed Pull Requests (with non-trivial review comments): (Pull requests #12, #48, #82, #99)
+*** Reviewed Pull Requests (with non-trivial review comments): (Pull Requests #12, #48, #82, #99)
 *** Contributed to forum discussions: (Issues #1, #89, #94)
 ** *Tools*:
 *** Installed Travis CI, coveralls and autodoc for team repository

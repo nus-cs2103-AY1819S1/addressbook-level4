@@ -170,21 +170,22 @@ This section contains all commands related to managing commands.
 
 ==== Viewing help: `help`
 
-Display short summary of important commands. A similar-looking summarized help
-sheet showing command syntax without details should appear as shown below. +
+Displays short summary of important commands. You should see a similar-looking summarized help
+sheet as shown below. +
 
 image::ui_screenshots/help-example-1.png[width="800"]
 
 Format: `help`
 
 [NOTE]
-Extended usage of `help` command: `help [more]` or `help [commandWord]`. If provided `[commandWord]` is invalid,
-the default summarized help message will be shown.
-Any arguments beyond the 2nd position will be discarded and ignored.
+Extended usage of `help` command: If you want to see the full help manual, use `help [more]`.
+If you want to see the full help for a specific `commandWord`, use `help [commandWord]`.
+Should you provide an invalid `[commandWord]`, you will be shown the default short help message.
+Please note that any arguments beyond the 2nd position will be discarded and ignored.
 
 [WARNING]
-Information provided in the short help only shows the rough syntax of commands. For full information,
-do refer to this User Guide. Also note that `help` will cause the currently selected `Ride` to be deselected.
+Please note that the short help only shows the rough syntax of commands. If you want the full help,
+do refer to this User Guide. You should also note that `help` will cause the currently selected `Ride` to be deselected.
 
 <<<
 
@@ -193,15 +194,15 @@ do refer to this User Guide. Also note that `help` will cause the currently sele
 a|
 Examples:
 
-* `help more`: Opens the help window to show full usage of ThanePark.
+* `help more`: Opens a help window that describes the usage of ThanePark. You should see something similar to the image below.
 
-image::ui_screenshots/help-example-2.png[width="600"]
+image::ui_screenshots/help-example-2.png[width="500"]
 
 a|
-* `help add`: Opens the help window and scrolls to `add` command word usage.
+* `help add`: Opens a help window and scrolls to `add` command word usage. You should see something similar to the image below.
 * `help add 1234`: Same as previous, the extra arguments are discarded and ignored.
 
-image::ui_screenshots/help-example-3.png[width="600"]
+image::ui_screenshots/help-example-3.png[width="500"]
 |===
 
 // end::help[]
@@ -219,8 +220,8 @@ Format: kbd:[TAB]
 // end::autocomplete1[]
 
 [WARNING]
+If you want to see common usage, skip to <<suggest_examples, examples>> to view common usage.
 The full functionality of suggesting commands can be quite heavy.
-Skip to <<suggest_examples, examples>> to view common usage.
 
 [NOTE]
 Extended usage of suggesting commands:
@@ -230,14 +231,14 @@ Extended usage of suggesting commands:
 |kbd:[TAB] a|
 * `CommandBox` contains half complete command
 * *Only 1* command word match to first prefix in `CommandBox` a|
-* Strip all text behind first prefix in `CommandBox`.
-* Replace prefix with matching command word in `CommandBox`.
-* Display matching command word in result panel.
+* Strips all text behind first prefix in `CommandBox`.
+* Replaces prefix with matching command word in `CommandBox`.
+* Displays matching command word in result panel.
 
 |kbd:[TAB] a|
 * `CommandBox` contains half complete command
 * *More than 1* command word match to first prefix in `CommandBox` a|
-* Display all matching command words in result panel.
+* Displays all matching command words in result panel.
 * No change in `CommandBox`.
 
 |kbd:[TAB] a|
@@ -252,27 +253,27 @@ Extended usage of suggesting commands:
 |kbd:[TAB] a|
 * `CommandBox` starts with a complete command word
 * *More than 1* command word match to first prefix in `CommandBox` a|
-* Display all matching command words in result panel.
+* Displays all matching command words in result panel.
 * No change in `CommandBox`.
 
 |kbd:[TAB] a|
 * `CommandBox` starts with a complete command word
 * *Only 1* command word match to first prefix in `CommandBox` a|
-* Strip all text behind command word in `CommandBox`.
+* Strips all text behind command word in `CommandBox`.
 * Command in `CommandBox` will not be executed.
 * Command word will be shown in result panel.
 
 |kbd:[ENTER] a|
 * `CommandBox` contains half complete command
 * *Only 1* command word match to first prefix in `CommandBox` a|
-* Strip all text behind first prefix in `CommandBox`.
-* Replace prefix with matching command word in `CommandBox`.
-* Display matching command word in result panel.
+* Strips all text behind first prefix in `CommandBox`.
+* Replaces prefix with matching command word in `CommandBox`.
+* Displays matching command word in result panel.
 
 |kbd:[ENTER] a|
 * `CommandBox` contains half complete command
 * *More than 1* command word match to first prefix in `CommandBox` a|
-* Display all matching command words in result panel.
+* Displays all matching command words in result panel.
 * Remove all text in `CommandBox`.
 
 |kbd:[ENTER] a|
@@ -308,18 +309,18 @@ kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command
 
 ==== Viewing history of previous commands: `history`
 
-Display previous user inputs during this session. Does not include the executed `history` itself. +
+Displays previous user inputs during this session. Does not include the executed `history` itself. +
  +
 Format: `history [more]`
 
 [NOTE]
 Extended usage of `history`: +
-Use `history more` to generate a report of all cumulative command history.
+If you wish to get a report of all commands executed across sessions, use `history more` and a report will be generated.
 
 [WARNING]
-ThanePark stores the command history in `commandHistory.xml`. If the storage file size exceeds 5MB,
-no new command history will be logged. Additionally, if the file format is changed, the program will
-restart the collation of history.
+If you experience any loss of command history, it may be caused by problems in the command history storage file,
+`commandHistory.xml`. Logging will stop if storage file size exceeds 5MB.
+ThanePark might discard its current history if the storage file is unintentionally modified.
 
 [.white]
 |===
