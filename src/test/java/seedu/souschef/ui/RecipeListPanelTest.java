@@ -93,18 +93,20 @@ public class RecipeListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithRecipes(int recipeCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<souschef>\n");
         for (int i = 0; i < recipeCount; i++) {
             builder.append("<recipes>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
+            builder.append("<difficulty>3</difficulty>\n");
+            builder.append("<cooktime>30M</cooktime>\n");
+            builder.append("<instructions>\n");
+            builder.append("<instruction>Boil the chicken in water 700 ml.</instruction>\n");
+            builder.append("</instructions>\n");
             builder.append("</recipes>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</souschef>\n");
 
-        Path manyRecipesFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
+        Path manyRecipesFile = TEST_DATA_FOLDER.resolve("manyRecipes.xml");
         FileUtil.createFile(manyRecipesFile);
         FileUtil.writeToFile(manyRecipesFile, builder.toString());
         manyRecipesFile.toFile().deleteOnExit();
