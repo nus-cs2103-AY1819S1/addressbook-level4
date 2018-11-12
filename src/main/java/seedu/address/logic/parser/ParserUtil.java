@@ -23,7 +23,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -138,18 +138,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String projectName} into an {@code ProjectName}.
+     * Parses a {@code String assignmentName} into an {@code AssignmentName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code projectName} is invalid.
+     * @throws ParseException if the given {@code assignmentName} is invalid.
      */
-    public static ProjectName parseProjectName(String projectName) throws ParseException {
+    public static AssignmentName parseProjectName(String projectName) throws ParseException {
         requireNonNull(projectName);
         String trimmedProjectName = projectName.trim();
-        if (!ProjectName.isValidName(trimmedProjectName)) {
-            throw new ParseException(ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+        if (!AssignmentName.isValidName(trimmedProjectName)) {
+            throw new ParseException(AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
         }
-        return new ProjectName(trimmedProjectName);
+        return new AssignmentName(trimmedProjectName);
     }
 
     /**
