@@ -4,19 +4,26 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
+import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
+import seedu.address.commons.events.ui.ToggleTabEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -29,37 +36,43 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
+    private final int toDoListPanelTab = 0;
+    private final int searchPanelTab = 1;
+    private final int numberOfTabs = 2;
     private Stage primaryStage;
     private Logic logic;
-
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private CalendarDisplay calendarDisplay;
+    private CalendarPanel calendarPanel;
+    private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    @FXML
+    private TabPane tabPane;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
-    private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane taskListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane calendarDisplayPlaceholder;
+
+    @FXML
+    private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private StackPane calendarPanelPlaceholder;
+
+    @FXML
+    private VBox monthYearPanelPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
+
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -71,8 +84,13 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
-        setAccelerators();
+        setAccelerator(() -> handleToggleTab(new ToggleTabEvent()), new KeyCodeCombination(KeyCode.TAB,
+            KeyCombination.SHIFT_ANY, KeyCombination.CONTROL_DOWN));
         registerAsAnEventHandler(this);
+
+        // disable TabPane switching by left and right arrow keys
+        setAccelerator(() -> {}, new KeyCodeCombination(KeyCode.LEFT));
+        setAccelerator(() -> {}, new KeyCodeCombination(KeyCode.RIGHT));
 
         helpWindow = new HelpWindow();
     }
@@ -81,36 +99,21 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
 
     /**
-     * Sets the accelerator of a MenuItem.
+     * Sets the accelerator of an action.
+     *
+     * @param action         the action to execute when the keyCombination is pressed
      * @param keyCombination the KeyCombination value of the accelerator
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
+    private void setAccelerator(Runnable action, KeyCombination keyCombination) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
+            if (!(event.getTarget() instanceof TextInputControl) && keyCombination.match(event)) {
+                action.run();
+                // consume event unless the target is the calendar display
+                if (!(event.getTarget() instanceof ScrollPane)) {
+                    event.consume();
+                }
             }
         });
     }
@@ -119,17 +122,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredToDoListEventList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        calendarDisplay = new CalendarDisplay(logic.getFullCalendarEventList());
+        calendarDisplayPlaceholder.getChildren().add(calendarDisplay.getRoot());
+
+        MonthYearPanel monthYearPanel = new MonthYearPanel(logic.getFilteredCalendarEventList());
+        monthYearPanelPlaceholder.getChildren().add(monthYearPanel.getRoot());
+
+        CalendarPanel calendarPanel = new CalendarPanel(logic.getFilteredCalendarEventList());
+        calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -160,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     /**
@@ -175,6 +181,32 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches to the tab for the task list panel (if it is not already open)
+     */
+    @FXML
+    public void showTaskListPanel() {
+        if (!tabPane.getSelectionModel().isSelected(toDoListPanelTab)) {
+            tabPane.getSelectionModel().select(toDoListPanelTab);
+        }
+    }
+
+    /**
+     * Updates the calendar event search panel and switches to its tab (if it is not already open)
+     */
+    @FXML
+    public void showCalendarEventPanel() {
+        if (!tabPane.getSelectionModel().isSelected(searchPanelTab)) {
+            tabPane.getSelectionModel().select(searchPanelTab);
+        }
+    }
+
+    private void switchPanel() {
+        SelectionModel selectionModel = tabPane.getSelectionModel();
+        int currentIndex = selectionModel.getSelectedIndex();
+        selectionModel.select((currentIndex + 1) % numberOfTabs);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -187,17 +219,35 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public CalendarPanel getCalendarPanel() {
+        return calendarPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleSwitchToTasksTabEvent(SwitchToTasksTabEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showTaskListPanel();
+    }
+
+    @Subscribe
+    private void handleSwitchToSearchTabEvent(SwitchToSearchTabEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showCalendarEventPanel();
+    }
+
+    @Subscribe
+    private void handleToggleTab(ToggleTabEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchPanel();
     }
 }

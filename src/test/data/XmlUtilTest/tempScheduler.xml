@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduler>
+    <calendarEvents>
+        <title>CS2103 Lecture</title>
+        <description>Abstraction, Gradle, JUnit</description>
+        <venue>i3 Auditorium</venue>
+        <start>2018-11-15 16:00</start>
+        <end>2018-11-15 18:00</end>
+        <tagged>CS2103</tagged>
+        <tagged>lecture</tagged>
+    </calendarEvents>
+</scheduler>

@@ -12,10 +12,11 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path schedulerFilePath = Paths.get("data", "scheduler.xml");
+    private Path toDoListFilePath = Paths.get("data", "toDoList.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(1200, 675, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {
@@ -30,12 +31,20 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getSchedulerFilePath() {
+        return schedulerFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setSchedulerFilePath(Path schedulerFilePath) {
+        this.schedulerFilePath = schedulerFilePath;
+    }
+
+    public Path getToDoListFilePath() {
+        return toDoListFilePath;
+    }
+
+    public void setToDoListFilePath(Path toDoListFilePath) {
+        this.toDoListFilePath = toDoListFilePath;
     }
 
     @Override
@@ -50,19 +59,20 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+            && Objects.equals(schedulerFilePath, o.schedulerFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, schedulerFilePath, toDoListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal scheduler data file location : " + schedulerFilePath);
+        sb.append("\nLocal todolist data file locattion: " + toDoListFilePath);
         return sb.toString();
     }
 

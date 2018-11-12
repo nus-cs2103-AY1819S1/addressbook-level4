@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.ModelToDo;
+import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * A utility class for test cases.
@@ -33,23 +35,30 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the calendarevent in the {@code model}'s calendarevent list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredAndSortedCalendarEventList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the calendarevent in the {@code model}'s calendarevent list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredAndSortedCalendarEventList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the calendarevent in the {@code model}'s calendarevent list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static CalendarEvent getPerson(Model model, Index index) {
+        return model.getFilteredAndSortedCalendarEventList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the todolistevent in the {@code modelToDo}'s todolistevent list at {@code index}.
+     */
+    public static ToDoListEvent getTask(ModelToDo modelToDo, Index index) {
+        return modelToDo.getFilteredToDoListEventList().get(index.getZeroBased());
     }
 }

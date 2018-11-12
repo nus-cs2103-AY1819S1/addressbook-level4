@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Scheduler save file which contains the same CalendarEvent values as in TypicalPersons#getTypicalAddressBook() -->
+<scheduler>
+    <calendarEvents>
+        <title>CS2103 Lecture</title>
+        <description>Abstraction, Gradle, JUnit</description>
+        <venue>i3 Auditorium</venue>
+        <start>2018-11-15 16:00</start>
+        <end>2018-11-15 18:00</end>
+        <tagged>lecture</tagged>
+        <tagged>CS2103</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>CS2104 Tutorial</title>
+        <description>Monadic Parsers</description>
+        <venue>AS6 04-21</venue>
+        <start>2018-11-13 14:00</start>
+        <end>2018-11-13 16:00</end>
+        <tagged>tutorial</tagged>
+        <tagged>CS2104</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>CS2040 Lab</title>
+        <description>Linked Lists</description>
+        <venue>COM1 02-09</venue>
+        <start>2018-11-14 08:00</start>
+        <end>2018-11-14 10:00</end>
+    </calendarEvents>
+    <calendarEvents>
+        <title>FIN3101 Seminar</title>
+        <description>One-Fund Theorem</description>
+        <venue>Marina Boulevard</venue>
+        <start>2018-11-16 10:00</start>
+        <end>2018-11-16 15:00</end>
+        <tagged>FIN3101</tagged>
+        <tagged>seminar</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Choir Practice</title>
+        <description>Bring songbook</description>
+        <venue>Little Tokyo</venue>
+        <start>2018-11-16 19:00</start>
+        <end>2018-11-16 22:00</end>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Career Fair</title>
+        <description>Bring resume</description>
+        <venue>MPSH 1</venue>
+        <start>2018-11-17 09:00</start>
+        <end>2018-11-17 18:00</end>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Google Interview</title>
+        <description>Bring water bottle</description>
+        <venue>Mountain View</venue>
+        <start>2018-11-14 14:00</start>
+        <end>2018-11-14 16:00</end>
+        <tagged>interview</tagged>
+    </calendarEvents>
+</scheduler>
+

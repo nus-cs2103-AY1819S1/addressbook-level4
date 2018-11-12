@@ -9,28 +9,52 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores scheduler data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given scheduler data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableAddressBook addressBook)
-            throws FileNotFoundException {
+    public static void saveDataToFile(Path file, XmlSerializableScheduler scheduler)
+        throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, scheduler);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Saves the given toDoList data to the specified file.
      */
-    public static XmlSerializableAddressBook loadDataFromSaveFile(Path file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static void saveToDoListDataToFile(Path file, XmlSerializableToDoList toDoList)
+        throws FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+            XmlUtil.saveDataToFile(file, toDoList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Returns scheduler in the file or an empty scheduler
+     */
+    public static XmlSerializableScheduler loadDataFromSaveFile(Path file) throws DataConversionException,
+        FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableScheduler.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
+     * Returns toDoList in the file or an empty toDoList
+     */
+    public static XmlSerializableToDoList loadToDoListDataFromSaveFile(Path file) throws DataConversionException,
+        FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableToDoList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

@@ -1,0 +1,67 @@
+= Bryan Wong Wei Heng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: U-Schedule
+
+---
+
+== Overview
+
+U-Schedule is a desktop calendar application for university students written for the project for the module CS2103
+Software Engineering. The user interacts with it using a CLI, and it has a GUI created with JavaFX for user feedback. It
+ is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added ability to have both two and one word commands
+** What it does: allows the app to have commands with one word and commands with two words
+** Justification: this feature allows the app to have more specific commands
+* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=bryanwongweiheng[Code Contributed]
+
+* *Other contributions*:
+
+** Project management:
+*** Review issues created from PE dry run
+*** Reviewed PRs (with non-trivial review comments) e.g.
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/16[#16]
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/37[#37]
+*** Labeled issues in the tracker
+** Enhancements to existing features:
+*** Changed GUI layout and color scheme https://github.com/CS2103-AY1819S1-T10-1/main/pull/38[#38]
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/40[#40] https://github.com/CS2103-AY1819S1-T10-1/main/pull/41[#41]
+*** Update Test Data https://github.com/CS2103-AY1819S1-T10-1/main/pull/112[#112]
+*** Change model from person to calendar event https://github.com/CS2103-AY1819S1-T10-1/main/pull/20[#20]
+** Documentation:
+*** Managed user guide through the project
+*** Updated README
+*** Updated AboutUs
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=features]
+
+include::../UserGuide.adoc[tag=summary]
+
+include::../UserGuide.adoc[tag=select]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=CalendarModel]
+
+include::../DeveloperGuide.adoc[tag=parsing]
+
+

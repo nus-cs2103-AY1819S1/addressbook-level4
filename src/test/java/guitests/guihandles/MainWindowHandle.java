@@ -7,26 +7,27 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final CalendarPanelHandle calendarPanel;
+    private final TaskListPanelHandle toDoListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
-    private final StatusBarFooterHandle statusBarFooter;
-    private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    private final CalendarDisplayHandle calendarDisplay;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
-
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        calendarPanel = new CalendarPanelHandle(getChildNode(CalendarPanelHandle.CALENDAR_VIEW_ID));
+        toDoListPanel = new TaskListPanelHandle(getChildNode(TaskListPanelHandle.TODOLIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
-        statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
-        mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        calendarDisplay = new CalendarDisplayHandle(getChildNode(CalendarDisplayHandle.CALENDAR_DISPLAY_BOX_ID));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public CalendarPanelHandle getCalendarPanel() {
+        return calendarPanel;
+    }
+
+    public TaskListPanelHandle getToDoListPanel() {
+        return toDoListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -37,15 +38,8 @@ public class MainWindowHandle extends StageHandle {
         return commandBox;
     }
 
-    public StatusBarFooterHandle getStatusBarFooter() {
-        return statusBarFooter;
+    public CalendarDisplayHandle getCalendarDisplay() {
+        return calendarDisplay;
     }
 
-    public MainMenuHandle getMainMenu() {
-        return mainMenu;
-    }
-
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
-    }
 }

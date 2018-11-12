@@ -20,18 +20,24 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ModelManagerToDo;
+import seedu.address.model.ModelToDo;
+import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyToDoList;
+import seedu.address.model.Scheduler;
+import seedu.address.model.ToDoList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.ToDoListStorage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlSchedulerStorage;
+import seedu.address.storage.XmlToDoListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -40,7 +46,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, false);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -48,13 +54,17 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected ModelToDo modelToDo;
     protected Config config;
     protected UserPrefs userPrefs;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing U-Schedule ]=============================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,14 +72,17 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        SchedulerStorage schedulerStorage = new XmlSchedulerStorage(userPrefs.getSchedulerFilePath());
+        ToDoListStorage toDoListStorage = new XmlToDoListStorage(userPrefs.getToDoListFilePath());
+        storage = new StorageManager(schedulerStorage, toDoListStorage, userPrefsStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model);
+        modelToDo = initModelManagerToDo(storage, userPrefs);
+
+        logic = new LogicManager(model, modelToDo);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -77,28 +90,53 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s scheduler and {@code userPrefs}. <br>
+     * The data from the sample scheduler will be used instead if {@code storage}'s scheduler is not found,
+     * or an empty scheduler will be used instead if errors occur when reading {@code storage}'s scheduler.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyScheduler> schedulerOptional;
+        ReadOnlyScheduler initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            schedulerOptional = storage.readScheduler();
+            if (!schedulerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Scheduler");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = schedulerOptional.orElseGet(SampleDataUtil::getSampleScheduler);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Scheduler");
+            initialData = new Scheduler();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Scheduler");
+            initialData = new Scheduler();
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ModelManagerToDo} with the data from {@code storage}'s todolist and {@code userPrefs}. <br>
+     * The data from the sample todolist will be used instead if {@code storage}'s todolist is not found,
+     * or an empty todolist will be used instead if errors occur when reading {@code storage}'s todolist.
+     */
+    private ModelToDo initModelManagerToDo(Storage storage, UserPrefs userPrefs) {
+        Optional<ReadOnlyToDoList> toDoListOptional;
+        ReadOnlyToDoList initialData;
+        try {
+            toDoListOptional = storage.readToDoList();
+            if (!toDoListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ToDoList");
+            }
+            initialData = toDoListOptional.orElseGet(SampleDataUtil::getSampleToDoList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ToDoList");
+            initialData = new ToDoList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ToDoList");
+            initialData = new ToDoList();
+        }
+
+        return new ModelManagerToDo(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -128,7 +166,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -156,10 +194,10 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Scheduler");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,13 +217,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Scheduler " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping U-Schedule ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
@@ -200,9 +238,5 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         stop();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

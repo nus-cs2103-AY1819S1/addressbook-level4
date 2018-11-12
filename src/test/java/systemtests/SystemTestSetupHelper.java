@@ -9,7 +9,8 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyToDoList;
 
 /**
  * Contains helper methods that system tests require.
@@ -17,20 +18,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
-
-    /**
-     * Sets up a new {@code TestApp} and returns it.
-     */
-    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
-        try {
-            FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.", te);
-        }
-
-        return testApp;
-    }
 
     /**
      * Initializes TestFX.
@@ -42,6 +29,24 @@ public class SystemTestSetupHelper {
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Sets up a new {@code TestApp} and returns it.
+     */
+    public TestApp setupApplication(Supplier<ReadOnlyScheduler> addressBook,
+                                    Supplier<ReadOnlyToDoList> toDoList,
+                                    Path saveFileLocationCalendarEvent,
+                                    Path saveFileLocationToDo) {
+        try {
+            FxToolkit.registerStage(Stage::new);
+            FxToolkit.setupApplication(() -> testApp =
+                new TestApp(addressBook, toDoList, saveFileLocationCalendarEvent, saveFileLocationToDo));
+        } catch (TimeoutException te) {
+            throw new AssertionError("Application takes too long to set up.", te);
+        }
+
+        return testApp;
     }
 
     /**
