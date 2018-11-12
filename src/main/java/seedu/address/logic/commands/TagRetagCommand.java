@@ -26,11 +26,11 @@ public class TagRetagCommand extends TagCommand {
     public static final String COMMAND_WORD2 = "rt";
 
     public static final String MESSAGE_SUCCESS = "Entries retagged";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retag entries "
+    public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD + ": Retag entries \n"
             + "Parameters: INDEX "
             + PREFIX_CATEGORY + "CATEGORY "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_CATEGORY + "work "
             + PREFIX_TAG + "java ";
 

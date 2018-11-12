@@ -26,11 +26,11 @@ public class TagRmCommand extends TagCommand {
 
     public static final String MESSAGE_SUCCESS = "Removed tags from entry";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Remove tags from entry"
+    public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD + ": Remove tags from entry"
             + " (leave empty to remove all tags) \n"
             + "Parameters: INDEX "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "java ";
 
     private final Index index;

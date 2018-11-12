@@ -25,11 +25,11 @@ public class TagAddCommand extends TagCommand {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "Added new tags to entry";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add tags to entry "
+    public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD + ": Add tags to entry \n"
             + "Parameters: INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_CATEGORY + "work "
             + PREFIX_TAG + "java ";
 
