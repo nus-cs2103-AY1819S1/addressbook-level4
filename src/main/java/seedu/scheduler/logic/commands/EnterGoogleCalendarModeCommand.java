@@ -113,9 +113,9 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
         //Obtain a list Of Google Events instances
         //Previously only Events (not
-        events = connectToGoogleCalendar.getSingleEvents(calendar);
+        Events eventsIncludingInstances = connectToGoogleCalendar.getSingleEvents(calendar);
         //Retrieve the event instances
-        listOfGoogleEvents = events.getItems();
+        listOfGoogleEvents = eventsIncludingInstances.getItems();
         if (listOfGoogleEvents.isEmpty()) {
             ConnectToGoogleCalendar.setGoogleCalendarEnabled();
             return new CommandResult(MESSAGE_NO_EVENTS);
@@ -205,7 +205,6 @@ public class EnterGoogleCalendarModeCommand extends Command {
             List<String> recurrence)
             throws CommandException, ParseException, java.text.ParseException {
         String[] recurrenceText;
-        RepeatType repeatType;
         recurrenceText = getRecurrenceRuleFromRecurrenceAttribute(recurrence);
         //Expected recurrence rule text:
         //RRULE:FREQ=WEEKLY;UNTIL=20181203T155959Z;BYDAY=MO
