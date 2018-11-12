@@ -262,7 +262,7 @@ Apply for leave on specific dates.
 Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
-* Format of date: YYYY-MM-DD (Dashes are required)
+* Format of date: YYYY-MM-DD (Dashes are required, and the month and day must have both digits)
 * Your leave will be applied for all the dates specified after each `-da`.
 ****
 
