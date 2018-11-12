@@ -59,6 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AppointmentDetailsDisplayPanel appointmentDetailsDisplayPanel;
     private AnalyticsDisplayPanel analyticsDisplay;
     private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
     private MedicineDetailsDisplayPanel medicineDetailsDisplayPanel;
@@ -174,8 +175,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         setUpTab();
+
         setUpDisplayPanel();
         hideInnerParts();
+
         setUpListPanel();
         setUpOtherParts();
     }
@@ -198,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
     private void setUpDisplayPanel() {
         analyticsDisplay = new AnalyticsDisplayPanel();
         analyticsDisplay.setVisible(false);
+        appointmentDetailsDisplayPanel = new AppointmentDetailsDisplayPanel();
+        appointmentDetailsDisplayPanel.setVisible(false);
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
         medicineDetailsDisplayPanel = new MedicineDetailsDisplayPanel();
@@ -208,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
         displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        displayPanelPlaceholder.getChildren().add(appointmentDetailsDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(medicineDetailsDisplayPanel.getRoot());
     }
@@ -354,33 +360,35 @@ public class MainWindow extends UiPart<Stage> {
      * @param isShowBrowser Check whether want to show browser display panel.
      * @param isShowPatientDetails  Check whether want to show patient details display panel.
      * @param isShowMedicineDetails  Check whether want to show medicine details display panel.
+     * @param isShowAppointmentDetails Check whether to show appointment details display panel.
      */
     private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails,
-                                  boolean isShowMedicineDetails) {
+                                  boolean isShowMedicineDetails, boolean isShowAppointmentDetails) {
         analyticsDisplay.setVisible(isShowAnalytics);
         browserDisplayPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
         medicineDetailsDisplayPanel.getRoot().setVisible(isShowMedicineDetails);
+        appointmentDetailsDisplayPanel.setVisible(isShowAppointmentDetails);
     }
 
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        showDisplayPanel(true, false, false, false);
+        showDisplayPanel(true, false, false, false, false);
     }
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false, false);
+        showDisplayPanel(false, true, false, false, true);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        showDisplayPanel(false, false, true, false);
+        showDisplayPanel(false, false, true, false, false);
     }
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        showDisplayPanel(false, false, false, true);
+        showDisplayPanel(false, false, false, true, false);
     }
 
     @Subscribe
