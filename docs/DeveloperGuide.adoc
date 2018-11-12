@@ -489,7 +489,7 @@ we make use of a listener on the `filteredEvents` list in `Model`.
 
 *** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
 *** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
-
++
 image::ui-display-ad.png[Refresh of Tab Panel on Event Change]
 
 ** *Cons:* There is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs.

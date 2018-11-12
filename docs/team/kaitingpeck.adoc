@@ -27,10 +27,9 @@ without searching for the person directly. Event tags are standardized based on 
 be modified by the user. This feature sets the foundation for the inclusion of more event-related functionalities in future.
 
 * *Other enhancements*:
-** added *the ability to add Event tags*
-*** What it does: Allows the user to add event tags into the system, which are needed for tagging new events added into
-EventsPlus+.
-*** Justification: This is required standardization of events tagging in EventsPlus+
+** added *the ability to work with event tags*
+*** What it does: Allows the user to add event tags into EventsPlus+ and find events by their tags, used for tagging new events added.
+*** Justification: This is required for standardization of events tagging and makes it easier to find events by tags.
 *** Highlights: Event tags are shown at the top of the *Events* tab and can be used for easy reference of all types of events
 in EventsPlus+.
 
@@ -75,7 +74,6 @@ find all events tagged as that particular type easily.
 *** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
 
 ** Documentation:
-*** Updated
 *** Updated documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
