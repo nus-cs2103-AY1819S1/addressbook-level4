@@ -34,6 +34,22 @@ public class FindCommandParser implements Parser<FindEventCommand> {
     public FindEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_TO, PREFIX_TAG);
 
+        String trimmedKeywords = argMultimap.getPreamble().trim();
+
+        // Throws parse exception if no keywords are provided and there are no other prefixes
+        if (trimmedKeywords.isEmpty() && !argMultimap.getValue(PREFIX_TAG).isPresent()
+                && !argMultimap.getValue(PREFIX_FROM).isPresent() && !argMultimap.getValue(PREFIX_TO).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+        }
+
+        // Parse list of keywords (if any)
+        List<String> keywordList;
+        if (trimmedKeywords.isEmpty()) {
+            keywordList = Collections.emptyList();
+        } else {
+            keywordList = Arrays.stream(trimmedKeywords.split("\\s+")).collect(Collectors.toList());
+        }
+
         // Parses date/time from and date/time to (if any)
         DateTime dateFrom = null;
         if (argMultimap.getValue(PREFIX_FROM).isPresent()) {
@@ -50,6 +66,7 @@ public class FindCommandParser implements Parser<FindEventCommand> {
                                                     DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
         }
 
+        // Parse set of tag strings (if any)
         Set<String> tagSet = argMultimap.getAllValues(PREFIX_TAG).stream()
                                                                 .map(String::trim)
                                                                 .collect(Collectors.toSet());
@@ -57,25 +74,8 @@ public class FindCommandParser implements Parser<FindEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
         }
 
-        String keywords = argMultimap.getPreamble();
-        String trimmedKeywords = keywords.trim();
-        List<String> nameKeywords;
-
-        if (!trimmedKeywords.isEmpty()) {
-            nameKeywords = Arrays.stream(trimmedKeywords.split("\\s+"))
-                    .filter(tag -> !tag.isEmpty())
-                    .collect(Collectors.toList());
-        } else if (!argMultimap.getValue(PREFIX_FROM).isPresent() && !argMultimap.getValue(PREFIX_TO).isPresent()
-                    && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            // Throws parse exception if no keywords are provided and there are no
-            // valid 'from' date/time, 'before' date/time or tags
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
-        } else {
-            nameKeywords = Collections.emptyList();
-        }
-
-        return new FindEventCommand(new FuzzySearchFilterPredicate(nameKeywords),
-            new FuzzySearchComparator(nameKeywords),
+        return new FindEventCommand(new FuzzySearchFilterPredicate(keywordList),
+            new FuzzySearchComparator(keywordList),
             new DatePredicate(dateFrom, dateTo),
             new TagsPredicate(tagSet));
     }
