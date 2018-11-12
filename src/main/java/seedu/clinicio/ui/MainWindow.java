@@ -188,10 +188,10 @@ public class MainWindow extends UiPart<Stage> {
         titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
-        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
+        //displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
+        displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-        displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
 
         hideInnerParts();
         setUpListPanel();
@@ -343,32 +343,36 @@ public class MainWindow extends UiPart<Stage> {
         return patientListPanel;
     }
 
+    /**
+     * Show the display panel according to event request.
+     * @param isShowAnalytics Check whether want to show analytics display panel.
+     * @param isShowBrowser Check whether want to show browser display panel.
+     * @param isShowPatientDetails  Check whether want to show patient details display panel.
+     */
+    private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails) {
+        analyticsDisplay.setVisible(isShowAnalytics);
+        browserPanel.setVisible(isShowBrowser);
+        patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
+    }
+    
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        analyticsDisplay.setVisible(true);
-        browserPanel.setVisible(false);
-        patientDetailsDisplayPanel.getRoot().setVisible(false);
+        showDisplayPanel(true, false, false);
     }
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
-        patientDetailsDisplayPanel.getRoot().setVisible(false);
+        showDisplayPanel(false,true, false);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(false);
-        patientDetailsDisplayPanel.getRoot().setVisible(true);
+        showDisplayPanel(false,false, true);
     }
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        analyticsDisplay.setVisible(false);
-        browserPanel.setVisible(true);
-        patientDetailsDisplayPanel.getRoot().setVisible(false);
+        showDisplayPanel(false,true, false);
     }
 
     @Subscribe

@@ -124,8 +124,8 @@
                             </VBox>
                         </Tab>
                     </TabPane>
-                    <ScrollPane>
-                        <StackPane fx:id="displayPanelPlaceholder" prefWidth="340">
+                    <ScrollPane prefWidth="340">
+                        <StackPane fx:id="displayPanelPlaceholder">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10" />
                             </padding>
