@@ -1651,7 +1651,7 @@ Milo dt/30-10-2018 00:00:01` +
 ... Test case: `/order select 0` +
     Expected: No order would be selected and displayed as this is an invalid index.
 
-=== Finding order/s
+=== Finding orders
 . Finding order by phone
 .. Prerequisites: Having at least 1 order.
 .. Test case: Valid phone without space +
@@ -1730,6 +1730,10 @@ Milo dt/30-10-2018 00:00:01` +
     Command: `/order find n/john st/pending` +
     Expected: Order/s with the name `john` and the status `PENDING` is shown on the left panel.
 
+.. Test case: 2 names field are specified. +
+    Command: `/order find n/john n/tom` +
+    Expected: Only order/s with the name `tom` is shown on the left panel.
+
 === Editing an order
 . Edit an order while all orders are listed
 .. Prerequisites: Logged into the application. List all orders using the `/order list` command. Multiple orders in the
@@ -1773,8 +1777,6 @@ _{give more}_ +
 .. Test case: Logged into the application. Deleting an `Ongoing` order +
    Command: `/order delete o/<ongoing_order_index>`
    Expected: Unable to delete the order because it is already assigned to a deliveryman.
-
-_{ more test cases ... }_
 
 === Mark an order as Completed
 
@@ -1869,3 +1871,14 @@ To achieve this, you can filter deliveryman by name, then assign him a `Pending`
 ... Test case: `/deliveryman select 0` +
     Expected: No deliveryman would be selected and displayed as this is an invalid index.
 
+=== Finding deliveryman
+.. Prerequisite: Logged into the application. Having at least one deliveryman.
+
+... Test case: `/deliveryman find n/tom` +
+    Expected: Deliveryman with the name `tom`, `tommy`, `tom hanks` would be displayed on the display panel.
+
+... Test case: `/deliveryman find n/tom n/john` +
+    Expected: Deliveryman with the name `john`, `johnny`, `john doe` would be displayed on the display panel.
+
+... Test case: `/deliveryman find n/` +
+    Expected: Error is shown in the status message. Value cannot be empty.
