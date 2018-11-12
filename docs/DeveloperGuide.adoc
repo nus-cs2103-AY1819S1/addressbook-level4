@@ -600,7 +600,7 @@ The resultant wish will have the following properties:
 * Expired: `false`
 
 [NOTE]
-`Amount` can be a negative value where it would mean a withdrawal of money from a particular wish.
+`Amount` to be saved can be a negative value where it would mean a withdrawal of money from a particular wish.
 
 [NOTE]
 `SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
