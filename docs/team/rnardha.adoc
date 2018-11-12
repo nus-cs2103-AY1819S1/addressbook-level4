@@ -69,6 +69,8 @@ https://github.com/CS2103-AY1819S1-T13-4/main/issues/156[#4],
 https://github.com/CS2103-AY1819S1-T13-4/main/issues/159[#5],
 https://github.com/CS2103-AY1819S1-T13-4/main/issues/161[#6],
 https://github.com/CS2103-AY1819S1-T13-4/main/issues/168[#7])
+** Documentation:
+*** Updated Model and UI diagram.
 
 == Contributions to the User Guide
 
