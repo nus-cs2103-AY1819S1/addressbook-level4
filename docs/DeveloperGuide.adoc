@@ -1433,4 +1433,56 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
+=== Applying transformation to image
+
+. Apply build in transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `blur 0x8` is shown in the history panel
+.. Test case: `apply rotate 180` +
+   Expected: the image in the preview panel is rotated 180 degrees, the `rotate 180` is shown in the history panel
+.. Test case: `apply blur` +
+   Expected: the image in the preview panel does not change, invalid message will be shown, command usage will be shown.
+
+=== Applying raw transformation to image
+
+. Apply raw transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply raw blur 0x8` +
+   Expected: the image in the preview panel does not change, invalid operation message will be shown, nothing will be shown in the history panel.
+.. Test case: `apply raw -blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `[-blur 0x8]` is shown in the history panel.
+
+=== Creating new transformation
+
+. Create a new transformation
+
+.. Test case: `create blurSample blur|0x8` +
+   Expected: message for new transformation created will be shown.
+.. Test case: `create blurSample blur` +
+   Expected: invalid argument message will be shown, command usage message will be shown.
+
+=== Apply a customised transformation
+
+. Apply a customised transformation
+.. Prerequisites: customised transformation `blurSample` has been created already.
+.. Test case: `apply @blurSample` +
+   Expected: the image in the preview panel is blurred, the `@blurSample` is shown in the history panel.
+.. Test case: `apply blurSample` +
+   Expected: the image in the preview panel does not change, the invalid operation message will be shown.
+
+=== Save a image
+
+. save a edited image
+.. Prerequisites: some transformations has been proceeded to image.
+.. Test case: `save` +
+   Expected: The modified image will be save to the original image.
+.. Test case: `save test.jpg` +
+   Expected: A new image test.jpg will be created in the current directory. The modified image will be saved to test.jpg.
+.. Test case: `save test.test` +
+   Expected: A invalid format message will be shown, and the image will not be saved.
+
+
 _{ more test cases ... }_
