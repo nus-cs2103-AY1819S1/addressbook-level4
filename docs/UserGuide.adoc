@@ -39,7 +39,7 @@ e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `add -m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
 `4` MCs taken in Semester `1` as a Year `2` student.
-* **`goal 4.5`** : Sets a CAP goal of 4.5. 
+* **`goal 4.5`** : Sets a CAP goal of 4.5.
 * **`delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
 * `delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
 `1` from CAPTracker.

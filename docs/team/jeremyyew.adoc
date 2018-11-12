@@ -14,7 +14,7 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 == Summary of contributions
 
 * *Major enhancement*: Transcript file storage feature.
-** What it does: Automatically saves and updates all of user's transcript data into a file, and loads this file. 
+** What it does: Automatically saves and updates all of user's transcript data into a file, and loads this file.
 ** Justification: Users should be able to access previously created modules when opening the app again, otherwise they would have to re-enter all their modules again. They can also load their data in another computer or share it with other users if desired, simply by sharing the file itself.
 ** Highlights:
 *** By using the `Jackson` library to store the Transcript data as a JSON file instead of an XML file, we avoid having to write `XMLSerializableTranscript` and `XMLAdaptedModule` classes.
@@ -33,7 +33,7 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 *** Set up initial GUI layout (See PR #52).
 ** Documentation:
 *** Updated existing content of the Storage Section of Developer Guide.
-*** Added feature overview and updated "Saving your module data" section of User Guide. 
+*** Added feature overview and updated "Saving your module data" section of User Guide.
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): #23, #37, #121
