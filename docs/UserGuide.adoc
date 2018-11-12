@@ -302,7 +302,7 @@ fin HG83
 [NOTE]
 ====
 * Common words like `BLK` and `AVE` are ignored.
-* It does not matter whether it is upper or lower case characters.
+* It does not matter whether the keywords are upper or lower case characters.
 ====
 
 '''
@@ -339,7 +339,7 @@ image::find_number.png[width="700"]
 Type `find PP5` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
 typed in correctly. [underline]#<<find_number>># shows how it would look like, with the Google Maps zoomed in.
 
-==== Example: Cannot find car park
+==== Example: Unable to find car park
 If _Car Park Finder_ is unable to find your location or car park number, it will display nothing.
 
 [caption="Message: "]
@@ -348,7 +348,7 @@ If _Car Park Finder_ is unable to find your location or car park number, it will
 | 0 car park(s) found!
 |===
 
-The message above will ben shown, as well as an empty list in the _Display Panel_ and no markers in the _Google Maps_.
+The message above will be shown, as well as an empty list in the _Display Panel_ and no markers in the _Google Maps_.
 
 // end::find[]
 
@@ -439,12 +439,12 @@ If you accidentally type an undoable command and wish to undo it, here is how.
 | Undo success!
 |===
 
-Type `undo` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+Type `undo` into the _Command Box_. The message above should appear in the `Message Box` as confirmation that you
 typed in correctly.
 
-==== Example: Cannot undo
+==== Example: Unable to undo
 
-Not all commands are undoable, or you reach the end of how far you can undo.
+Not all commands are undoable as there is a limit to the number of undo commands.
 
 [caption="Message: "]
 .Success in undoing
@@ -491,7 +491,7 @@ If you decided to [underline]#<<Features-Redo, `redo`>># the [underline]#<<Featu
 Type `redo` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
 typed in correctly.
 
-==== Example: Cannot redo
+==== Example: Unable to redo
 
 You reach the end of how far you can redo. Take note that not all commands are *undoable / redoable*.
 
@@ -885,6 +885,18 @@ weather off
 
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.
+
+*Q*: How much do I need to pay for the application? +
+*A*: It is totally free! Head over to our releases page to try it out!
+
+*Q*: Does car park finder harm the environment? +
+*A*: No! It reduces the amount of cars on the road by reducing the waiting time for car parks!
+
+*Q*: How do you plan to earn money in the future? +
+*A*: We plan to serve you deals on the best deals based off your selected car park!
+
+*Q*: What future expansions do you see in the future? +
+*A*: We plan on listing hawker centers and have a real time CCTV feed of the entrance of the car park.
 
 [appendix]
 == Glossary
