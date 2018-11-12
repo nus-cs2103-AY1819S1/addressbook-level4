@@ -12,9 +12,9 @@
 
 This portfolio records my contributions to the SocialCare project, under the CS2103T Software Engineering module offered by the School of Computing in NUS.
 
-SocialCare is a volunteer management system that allows Social Welfare Organisations to streamline the process of managing their volunteers and events.
-The user interacts with it by through typing commands in the application, and it has a Graphical User Interface (GUI) to organise their information more systematically.
+SocialCare empowers volunteer managers to revolutionise the way they manage their resources. With features such as Statistics and Exporting of Certificates with a simple command, the organisational process has never been as effective.
 
+With my role as a Developer for this project, I implemented *volunteer management functions*, ensuring that the organizational process is simpler yet systematic.
 
 == Summary of contributions
 
@@ -27,7 +27,17 @@ My contributions to the project mainly focuses on volunteer management.
 
 * *Minor enhancement*: Added a Birthday util that exports birth date to a readable format and checks if birth day is before current date.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-W16-2/main/tree/master/src/main/java/seedu/address/model/volunteer[Functional Code]] [https://github.com/CS2103-AY1819S1-W16-2/main/tree/master/src/test/java/seedu/address/model/volunteer[Test Code]]
+* *Code contributed*:
+Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=afiqlattif[link]
+to my code on the Project Code Dashboard.
+
+* *Other contributions*:
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: link:https://github.com/CS2103-AY1819S1-W16-2/main/pull/173[#173]
+*** Revised content in the Developer Guide: link:https://github.com/CS2103-AY1819S1-W16-2/main/pull/72[#72], link:https://github.com/CS2103-AY1819S1-W16-2/main/pull/121[#121]
+** Community:
+*** Reviewed PRs for team members (with non-trivial comments) : link:https://github.com/CS2103-AY1819S1-W16-2/main/pull/144[#144], link:https://github.com/CS2103-AY1819S1-W16-2/main/pull/174[#174]
 
 == Contributions to the User Guide
 
