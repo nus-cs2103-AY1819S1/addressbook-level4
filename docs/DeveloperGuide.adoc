@@ -1,4 +1,4 @@
-:site-section: DeveloperGuide
+﻿:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
