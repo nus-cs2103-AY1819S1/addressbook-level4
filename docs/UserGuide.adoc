@@ -267,18 +267,15 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required, and the month and day must have both digits)
-* Your leave will be applied for all the dates specified after each `-da`.
+* Your leave will be applied for all the dates specified after each `-da`. You must specify at least 1 `DATE`.
 ****
-
-[NOTE]
-You must specify at least 1 `DATE`.
 
 [WARNING]
 If the `DATE` is of an illegal format, the command will be rejected.
 
 Example: `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
 
-The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows:
+The system will display a message indicating a succesful creation of the new leave. You should see something as follows:
 
 image:LeaveApplyResult.PNG[width=800]
 
@@ -291,9 +288,7 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
-Example: `leavelist`
-
-A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below:
+A list of your leave records will be displayed in the panel on the left. An example of what you should see is shown below:
 
 image:LeaveListResult.PNG[width=800]
 
@@ -307,7 +302,7 @@ Sets the status of a leave application to the "Approved" status.
 Format: `leaveapprove [INDEX]`
 
 ****
-* Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* INDEX refers to the number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * Note that leave applications that have already been rejected can still be approved afterwards.
 ****
 
@@ -327,7 +322,7 @@ Sets the status of a leave application to the "Rejected" status.
 Format: `leavereject [INDEX]`
 
 ****
-* Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* INDEX refers to the number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
 * Note that leave applications that have already been approved can still be rejected afterwards.
 ****
 
