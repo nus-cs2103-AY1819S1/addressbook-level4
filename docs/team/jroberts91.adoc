@@ -18,21 +18,21 @@ This document summarizes my contribution of work done in OASIS.
 * *Major enhancement*: Added *the ability to archive and restore employees*
 ** Added *the ability to delete active employees and archive them*
 *** Behaviour:
-Allows a user with `Delete_employee` permission to delete an active employee and send it to the archive list.
+Allows a user with `DELETE_EMPLOYEE` permission to delete an active employee and send it to the archive list.
 
 *** Justification:
 This feature improves OASIS significantly as it mimics the scenario when an employee leaves the company but data of the employee must be kept for future references, which is an important aspect of employee management.
 
 ** Added *the ability to restore employees*
 *** Behaviour:
-Allows a user with `Restore_employee` permission to restore an archived employee and send it to the active list.
+Allows a user with `RESTORE_EMPLOYEE` permission to restore an archived employee and send it to the active list.
 
 *** Justification:
 This feature improves OASIS significantly as it allows rehired ex-employees to be added back to the active employee list with all their past information.
 
 ** Added *the ability to permanently delete archived employees*
 *** Behaviour:
-Allows a user with `Delete_employee` permission to permanently remove archived employee from the application.
+Allows a user with `DELETE_EMPLOYEE` permission to permanently remove archived employee from the application.
 
 *** Justification:
 This feature improves OASIS significantly as it removes unwanted employee information when they leave the company or when their data is no longer needed.
