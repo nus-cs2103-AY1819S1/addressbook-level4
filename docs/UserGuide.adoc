@@ -452,10 +452,10 @@ Format: `list`
 
 Adds a health plan under the user. +
 Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
-TARGET WEIGHT, AND DURATION+
+TARGET WEIGHT, AND DURATION
 
 Format: +
-`add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION` +
+`add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
 
 ****
 * Height is numeric and input is of centimetre units
@@ -480,7 +480,7 @@ Format: +
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
 
 ****
 * INDEX specifies the entry to edit, has to be numeric and more than 0
@@ -496,7 +496,7 @@ Format : +
 After being shown the meal planner list by the system +
 User selects to add to intake List +
 Format: +
-`addDay p/PLAN_INDEX d/DAY_INDEX'
+`addDay p/PLAN_INDEX d/DAY_INDEX`
 
 ****
 * Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
@@ -515,17 +515,17 @@ Format: +
 * Day index specifies the day to delete from the specified plan, has to be more than 0 and be a valid index on the list
 ****
 
-==== Show Meal Planner list beside Health Plan List : 'showMeal'
+==== Show Meal Planner list beside Health Plan List : `showMeal`
 
 User enters command to view the full list of meals beside the health plan list
 Format: +
-'showMeal'
+`showMeal`
 
-==== Hide view on the right : 'hideMeal'
+==== Hide view on the right : `hideMeal`
 
 User enters command to hide any view that is currently displayed on the right
 Format: +
-'hideMeal'
+`hideMeal`
 
 ==== View plan details : `showDetails`
 
