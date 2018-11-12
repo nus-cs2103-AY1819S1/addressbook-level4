@@ -888,6 +888,8 @@ Use case ends.
 +
 Use case ends.
 
+// end::useCase_yingnan[]
+
 [discrete]
 === Use case: Create playlist
 
@@ -964,8 +966,6 @@ Use case ends.
 ** 3a1. System displays an error message.
 +
 Use case ends.
-
-// end::useCase_yingnan[]
 
 [discrete]
 === Use case: Delete a track from playlist
