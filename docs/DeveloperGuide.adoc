@@ -24,15 +24,14 @@ with features such as setting a budget and expense statistics, which help you st
 
 The *Expense Tracker Developer Guide* contains all the information you need to start development on Expense Tracker. It
 also includes information about the overall architecture and implementation of various features in Expense Tracker.
-Whether this is your first project or your 37th project, this guide will help you to start contribute to Expense Tracker.
-Jump to <<Setting up, Setting up>> to start setting up your environment.
+Whether this is your first project or your 37th project, this guide will help you to start contributing to Expense Tracker.
+Jump to <<Setup, Set up>> to start setting up your environment.
 
+[[Setup]]
 == Set Up
 
 '''
-Follow the steps in the section below to start development on Expense Tracker
-
-'''
+Follow the steps in the sections below to start development on Expense Tracker:
 
 === Prerequisites
 
@@ -1950,12 +1949,12 @@ Given below are instructions to test the app manually.
     accordingly.
 ** Test case: `setBudget 0.00` +
     Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.
-** Test case: `setBudget -1.00`+
+** Test case: `setBudget -1.00` +
     Expected: Similar to previous
 ** Test case: `setBudget 1` +
     Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
     shown in the status message. UI is not updated.
-** Testcase: `setBudget x` where x is not a number` +
+** Testcase: `setBudget x`, where x is not a number` +
     Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
     not updated.
 
