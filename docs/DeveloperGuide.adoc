@@ -389,7 +389,7 @@ These operations are exposed in the `Model` interface as `Model#updateCurrentPre
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user opens an image with the `open` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the opened image. The `currentStatePointer` pointing to that state.
+Step 1. The user opens an image with the `open` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the opened image. The `currentStatePointer` is pointing to that state.
 
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
