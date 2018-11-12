@@ -731,7 +731,7 @@ For displaying of the data a donut graph is to display the 3 main attendance sta
 
 .Rendering of the Attendance Graph
 image::GraphMockup.png[width="500"]
-// end::graph[]
+
 
 ==== Use Cases:
 A tutor can graph and understand the attendance information of students in various tags or names.
@@ -749,6 +749,19 @@ Using graphs:
  <graph of attendance statistics is displayed>
  graph t/cs2103
  <graph of attendance statistics of all students with the cs2103 tag is displayed>
+
+// end::graph[]
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption for v2.0
+
+Data Encryption can be done using by encrypting the contents addressbook.xml and other data files with the tutor asymmetric key (2048-bit RSA keys).
+
+We would incorporate the `javax.crypto` and `java.security` packages to perform the keypair generation, encrypting and decrypting.
+
+For future use cases we would consider AES 256 for faster symmetric encyption for more frequent operations.
+
+// end::dataencryption[]
 
 === Logging
 
