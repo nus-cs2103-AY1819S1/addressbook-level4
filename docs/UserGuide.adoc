@@ -261,7 +261,7 @@ Format: +
 
 // end::recipeCommand[]
 
-==== Add recipe to favourite: `favourite`
+==== Add recipe to favourite [coming in V2.0]: `favourite`
 Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
@@ -617,7 +617,7 @@ or +
 * Search recipes: `find KEYWORD...`
 * Delete recipe details: `delete INDEX`
 * Activate cook-mode [coming in V2.0]: `cook INDEX`
-* Add recipe to favourite: `favourite`
+* Add recipe to favourite [coming in V2.0]: `favourite`
 * Add to meal plan: `plan INDEX DATE MEAL`
 * Add to review [Coming in V2.0]: `review [COMMENT] RATING`
 
