@@ -16,9 +16,7 @@ In this project, I, together with Chen Shin, Lin Xu, Thaddeus Lim and Xiao Yilin
 
 As mentioned before, Student Schedule Planner targets a very specific group of people: students. We took into account the pains that we as university students faced when we were using conventional to-do lists and aimed to solve these pains during this project.
 
-Student Schedule Planner is hence a desktop application made specifically for students. The user interacts with the application using a CLI, but it has a Grap
-Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-[optional: write ur key contributions to this project]
+Student Schedule Planner is hence a desktop application made specifically for students. The user interacts with the application using a CLI, but it has a Graphical User Interface (GUI) for users to view results in a more user-friendly manner. The application was built using Java and has approximately 10 kLoC.
 
 == Summary of contributions
 
@@ -26,7 +24,7 @@ Student Schedule Planner is a desktop schedule planner application used by stude
 ** What it does: allows the user to add a recurring task by specifying the number of repeats and interval between each repeat.
 ** Justification: This feature gives convenience to users as users with to-do tasks that happen repeatedly (eg. weekly) will not have to manually add the same tasks over and over again.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: The Calendar API from Java provided a variety of functions made implementing the AddRepeatCommand simpler than if I had started from scratch._
 
 * *Minor enhancement*: added a list overdue command that allows the user to view his/her overdue tasks.
 
@@ -43,7 +41,6 @@ Student Schedule Planner is a desktop schedule planner application used by stude
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
