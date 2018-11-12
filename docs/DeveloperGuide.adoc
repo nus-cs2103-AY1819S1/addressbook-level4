@@ -218,7 +218,10 @@ that
 the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+// tag::storagecomponent[]
 === Storage component
+
+The following diagram shows how the Storage component is structured.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -229,10 +232,35 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the FoodZoom data in xml format and read it back.
+** FoodZoom allows deliverymen and users to be stored separately to prevent
+duplication of data while retaining object associations.
 * can save the Users' data in xml format and read it back.
+
+The following diagram depicts the sequence diagram of how `StorageManager` saves changes every time a change is made
+in FoodZoom.
 
 .Interactions inside the Storage component for whenever `ModelManager.saveFoodZoom(orderBook, deliverymenList)` is called.
 image::StorageSequenceDiagram.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Implementation of file storage structure for FoodZoom
+This concerns the implementation of how application data is stored in a reloadable file.
+
+* **Alternative 1**: Use two separate files for the storage of FoodZoom data
+** Pros:
+*** This solution presents a better separation of concerns between deliverymen and orders. This means that corruption of one
+file would not affect the other.
+** Cons:
+*** It is more difficult to manage JXML marshalling from two separate files.
+
+* **Alternative 2 (current choice):** Use a single file to the storage of `deliverymen` and `orders`
+** Pros:
+*** Coupling of `deliverymen` and `orders` allows more cohesion, as information like `id` for a deliveryman's orders would
+be unusable without knowing the orders.
+** Cons:
+*** Corruption of one file would mean corruption of all application data.
+// end::storagecomponent[]
 
 === Common classes
 
@@ -689,6 +717,8 @@ a `ParseException` would be thrown.
 ==== Design Considerations
 
 ===== Implementation of `DeliverymanAddCommandParser`
+This concerns the implementation and organization of a `DeliverymanAddCommand`
+
 * ** Alternative 1 (current choice):** `DeliverymanCommand` is parsed first, then as a `DeliverymanAddCommand`.
 ** Pros: Better modularization for all commands relating to `Deliveryman`
 ** Cons: More complicated file & package organization
@@ -698,6 +728,8 @@ a `ParseException` would be thrown.
 ** Cons: Poor modularization of related `Command` classes.
 
 ===== Implementation of `DeliverymanAddCommand`
+This concerns how deliverymen data is stored with relation to orders.
+
 * **Alternative 1 (current choice):** Deliverymen are stored in separate file
 ** Pros: Allows for greater flexibility in how deliverymen interact with other resources like order/routes - better separation of concerns.
 ** Cons: Harder to implement & maintain
