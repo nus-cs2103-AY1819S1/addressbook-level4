@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main/tree/master
 
 By: `Team CS2103T-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -140,7 +140,7 @@ image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
-
+x
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
@@ -356,7 +356,7 @@ that exist in this MeetingBook. The commands thus modify and update this list of
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook`. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -497,26 +497,6 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
 
-// tag::meetingbook[]
-=== MeetingBook feature
-
-==== Current Implementation
-
-.The object diagram of MeetingBook
-image::addressbookObject.png[width="350"]
-
-*Enhancements:*
-
-* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
-* `Group` can be created or removed from the MeetingBook.
-* `Meeting` can be scheduled or cancelled from the MeetingBook.
-* When a `Group` is removed from the MeetingBook, all members will be removed from this group.
-* When a `Person` is removed from the MeetingBook, all groups containing this person as member will remove this person from the group.
-
-[NOTE]
-The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-// end::meetingbook[]
-
 // tag::sortfind[]
 === Sort and Find feature
 
@@ -531,16 +511,98 @@ include::UserGuide.adoc[tag=sort]
 
 include::UserGuide.adoc[tag=find]
 
-==== Implementation of `sort` and `find` commands
+==== Implementation of `find` command
+
+===== Structure of `find` command
+
+image::FindCommandClassDiagram.png[width="800"]
+
+When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
+ depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
+ `FindCommand<Person>`, `FindCommand<Meeting>`, and `FindCommand<Group>` abstract classes respectively.
+The `FindCommand<E>` abstract class extends the `Command` abstract class. +
+
+[source, java]
+----
+public abstract class FindCommand<E> extends Command {
+
+    public static final String COMMAND_WORD = "find";
+
+    public static final String MESSAGE_USAGE = ...
+
+    protected final Predicate<E> predicate;
+
+    FindCommand(Predicate<E> predicate) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+`ModelManager` maintains 3 lists of type `FilteredList`. The lists are `filteredPersons`, `filteredMeetings`, and `filteredGroups`.
+When the `find` command is executed, a predicate is passed into the respective `FilteredList`. The elements in the list that passes the predicate
+ test will be displayed in the UI. +
+
+Referring to the code snippet above, `FindCommand<E>` implements the `equals()` method and contains a predicate of type `Predicate<E>`.
+ This predicate will be applied to the `filteredPersons` list if `FindPersonCommand` is executed, `filteredGroups` list if `FindGroupCommand` is executed,
+ and `filteredMeetings` list if `FindMeetingCommand` is executed. Each of `FindPersonCommand`, `FindGroupCommand`, and `FindMeetingCommand`
+ implements the `execute()` method required by the `Command` abstract class. +
+
+
+
+===== Structure of Predicates
+
+image::PredicateClassDiagram.png[width="1000"]
+
+The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
+`PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
+`GroupTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Group>`, and
+`MeetingTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Meeting>`.
+
+[source, java]
+----
+public abstract class EntityContainsKeywordsPredicate<E> implements Predicate<E> {
+    private final List<String> allKeywords; // the list of keywords that the tested element has to match all of
+    private final List<String> someKeywords; // the list of keywords that the tested element has to match some of
+    private final List<String> noneKeywords; // the list of keywords that the tested element cannot match any of
+
+    private final Function<E, Predicate<String>> testKeywordPredicateGetter;
+
+    public EntityContainsKeywordsPredicate(List<String> allKeywords, List<String> someKeywords, List<String> noneKeywords, Function<E, String> entityKeywordGetter) {...}
+
+    @Override
+    public boolean test(E element) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+As seen in the code snippet above, `EntityContainsKeywordsPredicate` maintains 3 lists of `String`, the `allKeywords` list,
+the `someKeywords` list, and the `noneKeywords` list. The lists of strings are generated by the `FindCommandParser` that
+parses the `find` command entered. `testKeywordPredicateGetter` is used to generate the predicate that will be used to test
+whether each keyword matches the element being tested. +
+
+Each of `PersonNameContainsKeywordsPredicate`, `GroupTitleContainsKeywordsPredicate`, and `MeetingTitleContainsKeywordsPredicate`
+ contains a predefined function used to retrieve the `Person` name, `Group` title, or `Meeting` title.
+ This predefined function will be used passed into the constructor of `EntityContainsKeywordsPredicate` to generate
+ `testKeywordPredicateGetter`. +
+
+When the predicate is passed into the `FilteredList` in `ModelManager`, the `test()` method in this predicate will be used
+to test the elements in the list.
+
+==== How the `sort` command works with the `find` command
+
+In the current implementation, the `sort` command only applies on the list of persons.
 
 `ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
 `FilteredList<Person>`. +
 
-Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
+image::sortedList-filteredList-persons.png[width="400"]
+
+Illustrated in the figure above, `sortedPersons` list wraps the `filteredPersons` list and
 `filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
 `persons` list in `versionedMeetingBook` contains all the persons stored in the MeetingBook.
-
-image::sortedList-filteredList-persons.png[width="400"]
 
 The list displayed in the UI is bound to the `sortedPersons` list. Hence, the `persons` list has two layers of
 modification before being displayed in the GUI as `sortedPersons`. +
@@ -558,7 +620,20 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 ==== Design considerations
 
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
-list.
+list. +
+
+image::findThenSortExample.png[width="800"]
+
+An example can be seen in the diagram above by executing the command `find p s/yu li` followed by `sort name`.
+After applying the `sort` command, the `find` filter remains applied. The next example will demonstrate a different order. +
+
+image::sortThenFindExample.png[width="800"]
+
+The diagram above shows another example of back-to-back execution.
+The diagram shows the execution of `sort name` followed by `find p s/yeoh li`.
+As can be seen in the diagram, the sorting order remains even after executing the `find` command.
+
+
 // end::sortfind[]
 
 // tag::undoredo[]
@@ -715,17 +790,19 @@ Step 1. The user launches the application. `ModelManager` will be initialized wi
 without filter.
 
 Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
-parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
-parses the command to determine the list type, and the command executes the following steps:
+parameters are `person`, `meeting`, `group` and `all`, or their shorthand equivalent `p`, `m`, `g` and `a`.
+`ListCommandParser` parses the command to determine the list type, and the command executes the following steps:
 
 * Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
 `PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
 
-* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+* Step 2.2. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
 `PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
 
-* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+* Step 2.3. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
 `PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+* Step 2.4. If the parameter is `all` / `a` / empty, steps 2.1., 2.2. and 2.3. will be executed.
 
 [NOTE]
 List will remain unchanged if it does not have any filters applied before executing `list` command.
@@ -813,85 +890,44 @@ The code snippet below showcase how MeetingBook toggle between the behaviour.
 [source, java]
 ----
 public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
-    // If Both book contains same entries
-    if (equals(imported)) {
-        return;
-    }
-    if (imported instanceof MeetingBook) {
-        MeetingBook importedBook = (MeetingBook) imported;
-        Iterator<Person> personItr = importedBook.persons.iterator();
-        while (personItr.hasNext()) {
-            Person importPerson = personItr.next();
-            if (!hasPerson(importPerson)) {
-                addPerson(importPerson);
-            } else {
-                if (overwrite) {
-                    Person samePerson = getPersonByName(importPerson.getName());
-                    updatePerson(samePerson, importPerson);
-                }
-            }
+        // If Both book contains same entries
+        if (equals(imported)) {
+            return;
         }
 
-      // ... Do likewise for group...
+        if (!(imported instanceof MeetingBook)) {
+            return;
+        }
+        MeetingBook importedBook = (MeetingBook) imported;
+        importedBook.persons.iterator()
+                .forEachRemaining((person) -> mergePerson(person, overwrite));
 
+        importedBook.groups.iterator()
+                .forEachRemaining((group) -> mergeGroup(group, overwrite));
     }
-}
 ----
 
 
 ==== Handling of irrelevant imported data
 
-The behaviour when importing data that is incorrectly formatted differs on where the incorrect data detected. If the data imported is wrong in entirety, `DataConversionException` is thrown and the error message, "Data file provided is not in the correct format." is shown to the user.
+The default conflicting resolving behavior (ignoring any conflict files) may cause `Person` to lose their association with `Group`.
 
-However, when a XML file which is valid yet incorrectly formatted (e.g. `persons` stored in `groups` is not stored also in `persons`), the `persons` inside the `members` tag of the XML file is ignored. This removes and prevents the addition of the association between `Person` and `Group` to the current MeetingBook.
+Take this case for example. Current MeetingBook and the imported MeetingBook both have a Person named "Alex Lim" with the following attributes.
 
-Also, when `--force` is not used in the command and integrating the imported groups into the current MeetingBook, the `persons` inside the `members` tag may not be available in the current MeetingBook. The behaviour to handle this situation is the same as how it handles valid yet incorrectly formatted XML.
+.Object Diagram of "Alex Lim" `Person` Object in current MeetingBook and imported MeetingBook
+image::AlexLimObjectDiagram.png[]
 
-.Example of correctly Formatted XML file.
-[source, xml]
-----
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<meetingbook>
-    <persons>
-        <name>Alex Yeoh</name>
-        // Meeting info..
-    </persons>
-    <groups>
-        <title>CS2101</title>
-        <meeting>
-            // Meeting info...
-        </meeting>
-        <members>
-            <name>Alex Yeoh</name>
-            // Person info...
-        </members>
-    </groups>
-</meetingbook>
-----
-<1> The `Person` is available as it is also contained as `persons` in this XML file  as well as in `members`.
+When the default conflicting resolving behaviour is used, "Alex Lim" of the imported MeetingBook will not be imported into current MeetingBook.
 
-.Example of Incorrectly Formatted XML file where Unknown Person contained inside Group
-[source, xml]
-----
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<meetingbook>
-    <persons>
-        <name>Alex Yeoh</name>
-        // Person info...
-    </persons>
-    <groups>
-        <title>CS2101</title>
-        <meeting>
-          // Meeting info...
-        </meeting>
-        <members>
-            <name>Incorrect User</name> <!--1-->
-            // Person info
-        </members>
-    </groups>
-</meetingbook>
-----
-<1> The `Person` is not available as is not contained as `persons` in this XML file but only in `members`.
+However, "Alex Lim" of the imported MeetingBook belongs to a `Group`.
+
+.Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` before merging to current MeetingBook
+image::BeforeImportAlexLimGroup.png[]
+
+Therefore, when importing the `Group` that "Alex Lim" of the imported MeetingBook is in, the `Group` will be imported without "Alex Lim" of the imported MeetingBook. The `Group` will not contains "Alex Lim" of the current MeetingBook as these two "Alex Lim" are not of the same `Person`. Even if "Alex Lim" of the imported MeetingBook is the sole member of the `Group`, the `Group` will still be created but with no members instead.
+
+.Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` after merging to current MeetingBook
+image::AfterImportAlexLimGroup.png[]
 
 ==== Design Consideration
 ===== Aspect: Handling of conflict entries
@@ -1097,7 +1133,7 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
 
 === Coverage Reporting
 
