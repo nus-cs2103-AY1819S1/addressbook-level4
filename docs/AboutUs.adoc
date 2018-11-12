@@ -29,7 +29,7 @@ Responsibilities: Git, User Accounts (Login, Passwords, Profiles)
 
 === Elliot Tan
 image::elliottan.png[width="150", align="left"]
-{empty}[http://github.com/elliottan[github]]
+{empty}[http://github.com/elliottan[github]] [https://cs2103-ay1819s1-f10-1.github.io/main/team/elliottan.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Leave System (Applying, Accepting, Rejecting)
@@ -47,10 +47,10 @@ Responsibilities: Projects
 
 === Joshua Robert
 image::jroberts91.png[width="150", align="left"]
-{empty}[http://github.com/jroberts91[github]] [http://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/team/jroberts91.adoc[portfolio]]
+{empty}[http://github.com/jroberts91[github]] [https://cs2103-ay1819s1-f10-1.github.io/main/team/jroberts91.html[portfolio]]
 
 Role: Developer +
-Responsibilities: Archive (Archive, Restore)
+Responsibilities: Archive (Archive, Restore, Delete)
 
 '''
 

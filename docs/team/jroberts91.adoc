@@ -10,8 +10,7 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
  This project portfolio summarizes the contributions that I have to the project.
 
 == Summary of contributions
-* *Code contributed*:
-** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Link to reposense]]
 
 * *Major enhancement*: Added *the ability to archive and restore employees*
 ** Added *the ability to delete active employees and archive them*
@@ -41,9 +40,11 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 
 *** Highlights:
 
+* *Minor enhancements*:
+** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
+
+
 * *Other contributions*:
-** Minor enhancements:
-*** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
 
 ** Project management:
 *** Managed releases v1.1 - v1.2 on GitHub
@@ -58,6 +59,8 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 
 ** Community:
 *** `Listpicker` menu feature that I added was adopted by several other class mates ()
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/125[1], https://github.com/CS2103-AY1819S1-W12-3/main/issues/124[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/139[3],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
 
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
@@ -68,8 +71,8 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=archive]
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archive]
+include::../UserGuide.adoc[tag=restore]
 
 == Contributions to the Developer Guide
 
@@ -78,4 +81,4 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |===
 
 include::../DeveloperGuide.adoc[tag=archive]
-// include::../DeveloperGuide.adoc[tag=da/taencryption]
+include::../DeveloperGuide.adoc[tag=restore]
