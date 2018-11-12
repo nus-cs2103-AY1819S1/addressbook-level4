@@ -29,7 +29,7 @@ For more information on documentation, testing and dev ops for this application,
 
 == Setting up
 
- This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
+This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
 
 === Prerequisites
 
@@ -118,6 +118,9 @@ When you are ready to start coding,
 == Design
 
  This section contains information about the main architecture and design of various components in CLInic.
+
+[IMPORTANT]
+Note that since CLInic was built on top of the `addressbook-level4` application, `addressbook` and its associated acronyms are used interchangeably with `CLInic` for the rest of the guide.
 
 [[Design-Architecture]]
 === Architecture
@@ -224,11 +227,12 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` and an `ObservableList<Medicine>` that can be 'observed' +
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -374,6 +378,8 @@ image::addMedicalRecord-SequenceDiagram.png[width="900"]
 
 ==== Design Considerations
 
+This section lists out some of the different implementations that were considered during the designing phase of this feature, including the rationale for our choice.
+
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the old `MedicalRecord` with it.
@@ -400,7 +406,10 @@ The _Medicine_ class and the properties of the medicine are located in <<Model c
 They are modeled after the properties of a real medicine in a clinic context.
 The list of medicines currently tracked in the clinic is located in the AddressBook class.
 
-See the <<UserGuide.adoc#Medicine Records System,User Guide>> for the list of commands related to the medicine class.
+Refer to the diagram below for the commands that involves the _Medicine Class_:
+
+.Class Diagram for Medicine Commands
+image::ClassDiagramForMedicineCommands.png[width="650"]
 
 Given below are examples of how the medicine commands are used:
 
@@ -465,12 +474,12 @@ image::checkstockfilter.png[width="450"]
 ==== Design Considerations
 // preface
 The medicines in the clinic need to be stored in a Java Collection.
-Listed below are the ones we considered and the analysis of each choice:
+We considered using a list or a hash map. See below for the analysis of each choice:
 
 ===== Aspect: Execution of the command
 
 * **Current choice:** Stores the medicines in a list.
-** Pros: Many easy and useful methods to manipulate medicines in the list, such as `add`, `get` and `remove`.
+** Pros: Many easy and useful methods to manipulate medicines in the list such as `add`, `get` and `remove`.
 ** Cons: Relatively slow when searching through the list to find a medicine.
 * **Alternative:** Stores the medicines in a hash map.
 ** Pros: Quick reference for object given the medicine name or serial number.
@@ -594,7 +603,7 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 ==== Implementation of `Document`
 The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
  `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
- to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
+ to henceforth as _document related commands_, all inherit from it. It can be thought of as a *formatter* that
  specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
  template file. +
  Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
@@ -635,7 +644,8 @@ It is used as a means of separating fields of information in file names.
 ====
 Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder
 values prefixed by a `$` that will be replaced with the actual information pertaining to the `ServedPatient's`
-consultation. Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
+consultation. +
+Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
 ``` Java
 private String convertHtmlIntoString() {
     StringBuilder contentBuilder = new StringBuilder();
@@ -688,21 +698,21 @@ is used to write the updated `string` into the `HTML` file, concluding the gener
 ===== Aspect: Implementation of the Document
 * **Alternative 1 (current choice)**: Use an `abstract class` to implement `Document`. +
 ** Pros:
-*** Allows `inheriting` classes to use a standardised method to format common information while granting them the
+*** Allows inheriting classes to use a standardised method to format common information while granting them the
 flexibility of structuring the contents unique to its document type by means of `abstract methods`.
 ** Cons:
-*** Prevents `inheriting` classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
-*** More computationally expensive than an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
+*** Prevents inheriting classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
+*** More computationally expensive than an `interface` due to the overhead incurred looking up inherited methods and various class members.
 * **Alternative 2**: Use an `interface` to implement `Document`.
 ** Pros:
-*** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
+*** Can convert inheriting classes to `enums`, ensuring that the inputs fed to these classes are valid.
 ****
 `Enums` can restrict the period of medical leave to be counted in only days/weeks. This prevents absurd scenarios like issuing a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ****
 ** Cons:
-*** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
+*** Unable to standardise the way inheriting classes implement the `generateHeader` method.
 ****
-* Potentially allow the `inheriting` classes to omit certain header fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Potentially allow the inheriting classes to omit certain header fields that are relevant to the printing of a document, such as the `date` and `time` of the consultation.
 * Information might be formatted differently.
 ****
 //end::documentpreamble[]
@@ -713,7 +723,7 @@ The `Receipt` class structure is as follows:
 
 * Contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `ServedPatient` from which the `Receipt` was constructed from.
 * Contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
-* Has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
+* Contains a `totalPrice` attribute which stores the total price of all the `Services` and `Medicines` received by the patient during the consultation.
 
 Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
  `ServedPatient` 's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
@@ -721,8 +731,8 @@ Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `R
 .Sequence diagram for ReceiptCommand.
 image::ReceiptSequenceDiagram.png[width="900"]
 
-When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
-from the `ServedPatient` specified by the `index`.
+When the `ReceiptCommand` is executed, it constructs a new `Receipt` object and extracts the relevant information
+from the `ServedPatient` specified by the `index`. +
 Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual
  table entries for the cost of different medicines.
 ``` Java
@@ -856,9 +866,6 @@ image::PQMS-gui.png[width="850"]
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
 
-.GUI for the PQMS after several commands
-image::PQMS-GUI-2.png[width="650]
-
 This UI element is implemented using JavaFX's `WebView` and a local HTML file. The sequence of events for how the `WebView` is updated is as follows:
 
 Step 1. On a fresh start-up of the application, the `WebView` is intialized with the local HTML file `QueueDisplay.html` that draws the labels and boxes onto the `WebView`.
@@ -915,6 +922,9 @@ public void runScript(String script) {
 ```
 
 ==== Design Considerations
+
+This section lists out some of the different implementations that were considered during the designing phase of this feature, including the rationale for our choice.
+
 ===== Aspect: Implementation approach
 * **Alternative 1 (current choice)**: Using a `WebView` to display HTML code +
 ** Pros:
