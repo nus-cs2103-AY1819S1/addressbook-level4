@@ -376,7 +376,7 @@ as shown in the figure below.
 
 [#over-budget-warning]
 .Notification that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="300"]
+image::Overbudget.png[width="200"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -404,10 +404,7 @@ until you draw your next salary/allowance.
 
 If you have a daily budget, setting the recurrence frequency to 24 hours causes your available spending to reset
 everyday. Likewise, if you have a weekly budget, setting the frequency to 168 (24*7) hours causes your available
-spending to reset every week.
-
-Expense Tracker will reset your available spending after every user defined frequency.
-A detailed use case is given below:
+spending to reset every week. A detailed use case is given below:
 
 . User types in the command `setRecurrenceFrequency hrs/1` as he wants his available spending to reset every hour.
 . User closes his application.
@@ -416,12 +413,12 @@ A detailed use case is given below:
 to inform you that this is done. This is shown in the figure below.
 
 .Notification that is shown when the expense tracker resets the available spending.
-image::reset_notif.png[width="300"]
+image::reset_notif.png[width="200"]
 
 A walk-through of the above steps is clearly shown in the diagram below.
 
 .Diagram showing the operation of the setRecurrenceFrequency feature
-image::userguide/recurrenceFrequencyGuide.png[width="790"]
+image::userguide/recurrenceFrequencyGuide.png[width="500"]
 
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
@@ -451,6 +448,9 @@ Sets a Budget to limit expenses on a certain category.
 If adding an expense causes the available spending of that category to exceeds Category budget, a
 <<over-budget-warning, warning>> will be displayed.
 
+// end::budget[]
+
+
 Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
 ****
@@ -469,7 +469,6 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
   Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.
 ====
 
-// end::budget[]
 
 === Listing entered commands : `history`
 
