@@ -59,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private AppointmentDisplay appointmentDisplay;
+    private AppointmentDetailsDisplayPanel appointmentDetailsDisplayPanel;
     private AnalyticsDisplayPanel analyticsDisplay;
     private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
     private TitleScreen titleScreen;
@@ -200,8 +200,8 @@ public class MainWindow extends UiPart<Stage> {
     private void setUpDisplayPanel() {
         analyticsDisplay = new AnalyticsDisplayPanel();
         analyticsDisplay.setVisible(false);
-        appointmentDisplay = new AppointmentDisplay();
-        appointmentDisplay.setVisible(false);
+        appointmentDetailsDisplayPanel = new AppointmentDetailsDisplayPanel();
+        appointmentDetailsDisplayPanel.setVisible(false);
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
         browserDisplayPanel = new BrowserDisplayPanel();
@@ -210,7 +210,7 @@ public class MainWindow extends UiPart<Stage> {
         displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
         displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-        displayPanelPlaceholder.getChildren().add(appointmentDisplay.getRoot());
+        displayPanelPlaceholder.getChildren().add(appointmentDetailsDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
     }
 
@@ -360,7 +360,7 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay.setVisible(isShowAnalytics);
         browserDisplayPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
-        appointmentDisplay.setVisible(isShowAppointmentDetails);
+        appointmentDetailsDisplayPanel.setVisible(isShowAppointmentDetails);
     }
 
     @Subscribe

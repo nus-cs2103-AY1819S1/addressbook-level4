@@ -16,10 +16,10 @@ import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 /**
  * Ui to display appointment details.
  */
-public class AppointmentDisplay extends UiPart<Region> {
+public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
-    private static final String FXML = "AppointmentDisplay.fxml";
+    private static final String FXML = "AppointmentDetailsDisplayPanel.fxml";
 
     @FXML
     private VBox appointmentBox;
@@ -40,7 +40,7 @@ public class AppointmentDisplay extends UiPart<Region> {
     @FXML
     private Label staff;
 
-    public AppointmentDisplay() {
+    public AppointmentDetailsDisplayPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
         appointmentBox.setVisible(false);
@@ -59,7 +59,10 @@ public class AppointmentDisplay extends UiPart<Region> {
         ic.setText("IC: " + event.getNewSelection().getPatient().getNric().toString());
         status.setText(event.getNewSelection().statusToString());
         type.setText(event.getNewSelection().typeToString());
-
+        setStaffText(event);
+    }
+    
+    public void setStaffText(AppointmentPanelSelectionChangedEvent event) {
         if (!event.getNewSelection().getAssignedStaff().isPresent()) {
             staff.setText("Doctor: None assigned");
         } else {
