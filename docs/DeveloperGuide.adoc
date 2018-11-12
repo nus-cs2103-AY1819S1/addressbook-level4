@@ -343,7 +343,6 @@ are empty.
 // end::duplicationoflists[]
 
 // tag::updatinglists[]
-
 [[Updating-Lists]]
 === Updating of Lists
 When executing commands for a particular type of entry, __another__ type of entry can modified.
