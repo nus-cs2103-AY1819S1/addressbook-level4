@@ -36,7 +36,7 @@ These functions are part of the core requirements for the application because we
 This enhancement is completely new and required an in-depth analysis of design alternatives.
 It was challenging as to properly implement this, a complete understanding of all code components was needed.
 
-* *Minor enhancement*:
+* *Minor enhancements*:
 ** Added a command to allow users to *switch between panels*.
 ** Created charts for the `overview` command.
 
