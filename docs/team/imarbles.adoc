@@ -26,7 +26,7 @@ My main role as a developer for SocialCare was to implement *record management f
 * *Major enhancement*:
 Added commands to *manage volunteer records*
 ** What it does:
-The commands implemented allows users to manage volunteering records.
+The commands implemented allow users to manage volunteering records.
 They will be able to assign volunteers to events and update the number of hours contributed by the volunteer.
 
 ** Justification:
