@@ -3,8 +3,8 @@ package seedu.thanepark.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.logic.commands.CommandTestUtil.showRideAtIndex;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
@@ -40,7 +40,7 @@ public class ShutDownCommandTest {
      */
     @Test
     public void execute_invalidRideIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showRideAtIndex(model, INDEX_FIRST_RIDE);
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
@@ -65,10 +65,10 @@ public class ShutDownCommandTest {
 
     @Test
     public void equals() {
-        final ShutDownCommand standardCommand = new ShutDownCommand(INDEX_FIRST_PERSON);
+        final ShutDownCommand standardCommand = new ShutDownCommand(INDEX_FIRST_RIDE);
 
         // same values -> returns true
-        ShutDownCommand commandWithSameValues = new ShutDownCommand(INDEX_FIRST_PERSON);
+        ShutDownCommand commandWithSameValues = new ShutDownCommand(INDEX_FIRST_RIDE);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

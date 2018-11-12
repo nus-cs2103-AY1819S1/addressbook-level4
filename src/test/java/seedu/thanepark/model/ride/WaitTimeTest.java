@@ -15,9 +15,9 @@ public class WaitTimeTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new WaitTime(invalidEmail));
+    public void constructor_invalidWaitingTime_throwsIllegalArgumentException() {
+        String invalidWaitingTime = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new WaitTime(invalidWaitingTime));
     }
 
     @Test

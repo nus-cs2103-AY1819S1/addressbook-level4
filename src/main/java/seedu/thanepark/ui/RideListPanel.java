@@ -12,12 +12,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
-import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.thanepark.commons.events.ui.RidePanelSelectionChangedEvent;
+import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of rides.
  */
 public class RideListPanel extends UiPart<Region> {
     private static final String FXML = "RideListPanel.fxml";
@@ -34,7 +35,7 @@ public class RideListPanel extends UiPart<Region> {
 
     private void setConnections(ObservableList<Ride> rideList) {
         rideListView.setItems(rideList);
-        rideListView.setCellFactory(listView -> new PersonListViewCell());
+        rideListView.setCellFactory(listView -> new RideListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -43,9 +44,16 @@ public class RideListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in ride list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new RidePanelSelectionChangedEvent(newValue));
                     }
                 });
+    }
+
+    /**
+     * Unselects current {@code RideCard}.
+     */
+    private void unselect() {
+        Platform.runLater(() -> rideListView.getSelectionModel().clearSelection());
     }
 
     /**
@@ -59,6 +67,12 @@ public class RideListPanel extends UiPart<Region> {
     }
 
     @Subscribe
+    private void handleShowHelpRequestEvent(ShowHelpRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        unselect();
+    }
+
+    @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
@@ -67,7 +81,7 @@ public class RideListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Ride} using a {@code RideCard}.
      */
-    class PersonListViewCell extends ListCell<Ride> {
+    class RideListViewCell extends ListCell<Ride> {
         @Override
         protected void updateItem(Ride ride, boolean empty) {
             super.updateItem(ride, empty);

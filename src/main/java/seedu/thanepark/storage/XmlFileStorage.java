@@ -9,16 +9,16 @@ import seedu.thanepark.commons.exceptions.DataConversionException;
 import seedu.thanepark.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores thanePark data in an XML file
  */
 public class XmlFileStorage {
     /**
      * Saves the given thanepark data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableThanePark addressBook)
+    public static void saveDataToFile(Path file, XmlSerializableThanePark thanePark)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, thanePark);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

@@ -3,7 +3,7 @@ package seedu.thanepark.logic.parser;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class MaintainCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsMaintainCommand() {
-        assertParseSuccess(parser, "1", new MaintainCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new MaintainCommand(INDEX_FIRST_RIDE));
     }
 
     @Test

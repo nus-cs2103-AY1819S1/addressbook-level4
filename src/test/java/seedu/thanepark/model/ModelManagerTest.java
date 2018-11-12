@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
-import seedu.thanepark.testutil.AddressBookBuilder;
+import seedu.thanepark.testutil.ThaneParkBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -23,37 +23,37 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRide_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasRide(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasRide_rideNotInThanePark_returnsFalse() {
         assertFalse(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasRide_rideInThanePark_returnsTrue() {
         modelManager.addRide(ACCELERATOR);
         assertTrue(modelManager.hasRide(ACCELERATOR));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRideList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredRideList().remove(0);
     }
 
     @Test
     public void equals() {
-        ThanePark addressBook = new AddressBookBuilder().withPerson(ACCELERATOR).withPerson(BIG).build();
-        ThanePark differentAddressBook = new ThanePark();
+        ThanePark thanePark = new ThaneParkBuilder().withRide(ACCELERATOR).withRide(BIG).build();
+        ThanePark differentThanePark = new ThanePark();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(thanePark, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(thanePark, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -65,13 +65,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different thanePark -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentThanePark, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ACCELERATOR.getName().fullName.split("\\s+");
         modelManager.updateFilteredRideList(new RideContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(thanePark, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
@@ -79,6 +79,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setThaneParkFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(thanePark, differentUserPrefs)));
     }
 }

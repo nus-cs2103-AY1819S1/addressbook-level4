@@ -25,16 +25,16 @@ public class XmlSerializableThaneParkTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalRidesFile_success() throws Exception {
         XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(TYPICAL_RIDES_FILE,
                 XmlSerializableThanePark.class);
-        ThanePark addressBookFromFile = dataFromFile.toModelType();
-        ThanePark typicalPersonsAddressBook = TypicalRides.getTypicalThanePark();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        ThanePark thaneParkFromFile = dataFromFile.toModelType();
+        ThanePark typicalRidesThanePark = TypicalRides.getTypicalThanePark();
+        assertEquals(thaneParkFromFile, typicalRidesThanePark);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidRideFile_throwsIllegalValueException() throws Exception {
         XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(INVALID_RIDE_FILE,
                 XmlSerializableThanePark.class);
         thrown.expect(IllegalValueException.class);
@@ -42,11 +42,11 @@ public class XmlSerializableThaneParkTest {
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateRides_throwsIllegalValueException() throws Exception {
         XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_RIDE_FILE,
                 XmlSerializableThanePark.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableThanePark.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(XmlSerializableThanePark.MESSAGE_DUPLICATE_RIDE);
         dataFromFile.toModelType();
     }
 

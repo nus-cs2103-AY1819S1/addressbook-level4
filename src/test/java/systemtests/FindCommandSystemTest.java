@@ -151,16 +151,16 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
         // assertSelectedCardUnchanged();
 
         /* Case: find while a ride is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DUMBO.getName().fullName));
+        showAllRides();
+        selectRide(Index.fromOneBased(1));
+        assertFalse(getRideListPanel().getHandleToSelectedCard().getName().equals(DUMBO.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Dumbo";
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find ride in empty thane park -> 0 rides found */
-        deleteAllPersons();
+        deleteAllRides();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);

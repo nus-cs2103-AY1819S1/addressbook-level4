@@ -71,7 +71,7 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the thanepark book data stored inside the storage file.
      */
-    public ThanePark readStorageAddressBook() {
+    public ThanePark readStorageThanePark() {
         try {
             return new ThanePark(storage.readThanePark().get());
         } catch (DataConversionException dce) {

@@ -9,8 +9,8 @@ import seedu.thanepark.model.ride.Ride;
 public interface ReadOnlyThanePark {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the rides list.
+     * This list will not contain any duplicate rides.
      */
     ObservableList<Ride> getRideList();
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- ThanePark save file which contains the same Ride values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- ThanePark save file which contains the same Ride values as in TypicalRides#getTypicalThanePark() -->
 <thanepark>
     <rides>
         <name>Accelerator</name>

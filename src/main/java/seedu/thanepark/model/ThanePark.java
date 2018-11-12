@@ -30,7 +30,7 @@ public class ThanePark implements ReadOnlyThanePark {
     public ThanePark() {}
 
     /**
-     * Creates an ThanePark using the Persons in the {@code toBeCopied}
+     * Creates an ThanePark using the Rides in the {@code toBeCopied}
      */
     public ThanePark(ReadOnlyThanePark toBeCopied) {
         this();

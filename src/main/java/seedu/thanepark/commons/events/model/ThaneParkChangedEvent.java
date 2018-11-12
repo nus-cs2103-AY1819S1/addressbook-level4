@@ -14,6 +14,6 @@ public class ThaneParkChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of persons " + data.getRideList().size();
+        return "number of rides " + data.getRideList().size();
     }
 }

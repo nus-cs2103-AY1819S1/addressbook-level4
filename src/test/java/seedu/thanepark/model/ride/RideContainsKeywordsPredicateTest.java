@@ -68,7 +68,7 @@ public class RideContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new RideBuilder().withName("Alice Bob").build()));
 
         // Keywords match days since last maintenance, current waiting time and thanepark, but does not match name
-        predicate = new RideContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+        predicate = new RideContainsKeywordsPredicate(Arrays.asList("12345", "1", "Main", "Street"));
         assertFalse(predicate.test(new RideBuilder().withName("Alice").withMaintenance("12345")
                 .withWaitTime("1").withAddress("Main Street").build()));
     }

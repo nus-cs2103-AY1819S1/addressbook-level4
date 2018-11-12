@@ -92,9 +92,9 @@ public class XmlAdaptedRide {
      * @throws IllegalValueException if there were any data constraints violated in the adapted ride
      */
     public Ride toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> rideTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            rideTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -131,7 +131,7 @@ public class XmlAdaptedRide {
         }
         final Zone modelZone = new Zone(zone);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(rideTags);
 
         if (statusString == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));

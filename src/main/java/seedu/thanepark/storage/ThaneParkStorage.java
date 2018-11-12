@@ -33,14 +33,14 @@ public interface ThaneParkStorage {
 
     /**
      * Saves the given {@link ReadOnlyThanePark} to the storage.
-     * @param addressBook cannot be null.
+     * @param thanePark cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveThanePark(ReadOnlyThanePark addressBook) throws IOException;
+    void saveThanePark(ReadOnlyThanePark thanePark) throws IOException;
 
     /**
      * @see #saveThanePark(ReadOnlyThanePark)
      */
-    void saveThanePark(ReadOnlyThanePark addressBook, Path filePath) throws IOException;
+    void saveThanePark(ReadOnlyThanePark thanePark, Path filePath) throws IOException;
 
 }

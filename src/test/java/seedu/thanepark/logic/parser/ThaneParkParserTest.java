@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,8 +60,8 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_RIDE), command);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class ThaneParkParserTest {
         Ride ride = new RideBuilder().build();
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(ride).build();
         UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + RideUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_RIDE.getOneBased() + " " + RideUtil.getEditRideDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_RIDE, descriptor), command);
     }
 
     @Test
@@ -124,8 +124,8 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         ViewCommand command = (ViewCommand) parser.parseCommand(
-                ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new ViewCommand(INDEX_FIRST_PERSON), command);
+                ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased());
+        assertEquals(new ViewCommand(INDEX_FIRST_RIDE), command);
     }
 
     @Test

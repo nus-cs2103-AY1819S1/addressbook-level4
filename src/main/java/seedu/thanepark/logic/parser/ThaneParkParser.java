@@ -1,7 +1,6 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,12 +18,12 @@ import seedu.thanepark.logic.commands.MaintainCommand;
 import seedu.thanepark.logic.commands.OpenCommand;
 import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.ShutDownCommand;
-import seedu.thanepark.logic.commands.SuggestCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.ViewAllCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.logic.commands.ViewStatusCommand;
+import seedu.thanepark.logic.matchers.PrefixMatcher;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 
 
@@ -107,11 +106,7 @@ public class ThaneParkParser {
             return new ViewStatusCommandParser().parse(arguments);
 
         default:
-            SuggestCommand command = new SuggestCommand(commandWord);
-            if (!command.isPrefixValid()) {
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-            return command;
+            return new SuggestCommandParser(new PrefixMatcher()).parse(commandWord);
         }
     }
 

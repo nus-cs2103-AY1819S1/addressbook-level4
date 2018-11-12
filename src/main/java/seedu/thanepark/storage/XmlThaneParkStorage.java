@@ -51,9 +51,9 @@ public class XmlThaneParkStorage implements ThaneParkStorage {
             return Optional.empty();
         }
 
-        XmlSerializableThanePark xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableThanePark xmlthanePark = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlthanePark.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlThaneParkStorage implements ThaneParkStorage {
     }
 
     @Override
-    public void saveThanePark(ReadOnlyThanePark addressBook) throws IOException {
-        saveThanePark(addressBook, filePath);
+    public void saveThanePark(ReadOnlyThanePark thanePark) throws IOException {
+        saveThanePark(thanePark, filePath);
     }
 
     /**
      * Similar to {@link #saveThanePark(ReadOnlyThanePark)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveThanePark(ReadOnlyThanePark addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveThanePark(ReadOnlyThanePark thanePark, Path filePath) throws IOException {
+        requireNonNull(thanePark);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableThanePark(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableThanePark(thanePark));
     }
 
 }

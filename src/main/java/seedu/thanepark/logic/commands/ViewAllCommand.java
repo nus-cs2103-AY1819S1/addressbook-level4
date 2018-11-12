@@ -11,7 +11,7 @@ import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
 
 /**
- * Lists all persons in the thanepark book to the user.
+ * Lists all rides in the thanepark book to the user.
  */
 public class ViewAllCommand extends Command {
 
