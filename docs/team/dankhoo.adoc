@@ -1,0 +1,162 @@
+= Daniel Khoo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SSENISUB
+
+---
+
+Hello! I am Daniel Khoo. Year 2, Computer Science Student at National University of Singapore (NUS). This project
+portfolio serves to document what I have contributed to the project SSENISUB, a Software Engineering project (CS2103).
+
+== Overview
+
+SSENISUB is a desktop business management application designed to manage staffs' information within an organisation.
+SSENISUB is built by a team of 5 students namely Daniel Khoo, Terence Goh, Ashburn Tan, Ngeow Xiu Qi and Valensia
+Sebastiani.
+
+* Features of SSENISUB:
+** Allows staff to find contact information of their co-staff and supervisor easily.
+** Allows staff to set privacy on their sensitive information such as phone number and home address.
+** Allows HR to add/edit/delete contact information.
+** Allows manager to give rating and feedback on their staff's performance.
+** Allows manager to favourite the staff to place it on top of the list.
+
+User interacts with SSENISUB mainly using the Command Line Interface (CLI).
+
+My main responsibility in this project is to enhance the commands (`add`, `edit`, `find`)
+
+I also played a key role in designing the UI, to make a better experience for the user on the whole. The UI was also
+further improved to display the details of the staff. A few UI event triggers have also been implemented. The picture
+below shows the main page of SSENISUB.
+
+image::Ui.png[width="800"]
+
+== Summary of contributions
+
+|===
+|_Given below are sections I contributed to the Application. They showcase my ability to write and manage the code
+within the project._
+|===
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dankhoo[RepoSense]
+
+* *Major enhancement 1*: Added the ability to *add staff*
+** What it does: HR staff can add staff with this feature.
+** Justification: This feature provides HR department a better management of staffs in the organisation.
+** Highlights: This enhancement adds new commands into the application, and requires in-depth analysis of design
+analysis with regards to information storage. In the upcoming v2.0, users with different level of authorisations
+are only allowed to use certain commands, this command would only be accessible to HR department.
+
+* *Major enhancement 2*: Added the ability to *edit existing staff*
+** What it does: This feature allows the staff and HR staff to make any amendments to any staff they have created
+previously in the SSENISUB.
+** Justification: HR staff could add the staff with the wrong information, this feature will allow the HR staff
+to make any edits to the staff's information. In addition, information such as phone number or home address or
+manager can change over time thus, this feature will allow staff to make any edits only to their own information.
+** Highlights: This enhancement delete and re-create a new Person object. In the upcoming v2.0, users with different
+level of authorisations are only allowed to use certain commands, this command would only be accessible to HR
+department and staff itself.
+
+* *Major enhancement 3*: Added the ability to *find existing staff*
+** What it does: This feature allows all users to find existing staff in the list with only name, email,
+department and manager parameters.
+** Justification: This feature will help users to find any particular staff information easily instead of scrolling
+through the long list of staff. Also, when a staff is planning for an event for the department and needs a list of
+names, this feature will be able to find all staff according to the department. Lastly, in the event when a manager
+needs to give a rating or feedback to the staff, he can find all staff that is under him so that he will not
+overlook on any staff.
+** Highlights: This enhancement changes the `INDEX` accordingly in the User Interface. Any command that relies on
+`INDEX` needs to keep it in mind.
+
+* *Other contributions*:
+** Project management:
+*** Managed release for
+https://github.com/CS2103-AY1819S1-T13-2/main/releases/tag/v1.2[v1.2],
+https://github.com/CS2103-AY1819S1-T13-2/main/releases/tag/v1.2.1[v1.2.1],
+https://github.com/CS2103-AY1819S1-T13-2/main/releases/tag/v1.3[v1.3],
+https://github.com/CS2103-AY1819S1-T13-2/main/releases/tag/midv1.4[midv1.4] on GitHub
+*** Added reposense/config.json
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/24[#24])
+** Enhancements to existing features:
+*** Updated the UI
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/44[#44],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/50[#50])
+*** Wrote additional tests for existing features to increase coverage from 94.1% to 94.3%
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/106[#106])
+** Bug fixes:
+*** Fixed UI bugs
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/104[#104],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/108[#108])
+*** Fixed Phone Field bug that can accept less than 3 digits
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/103[#103])
+** Documentation:
+*** Updated existing contents of the About Us:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/1[#1]
+*** Updated existing contents of the README:
+(Pull request https://github.com/CS2103-AY1819S1-T13-2/main/pull/31[#31],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/36[#36])
+*** Updated existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/13[#13],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/65[#65],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/113[#113]
+*** Updated existing contents and diagrams of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/118[#118]
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/5[#5],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/7[#7],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/29[#29],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/32[#32],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/40[#40],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/42[#42],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/47[#47],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/63[#63],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/64[#64],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/66[#66],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/75[#75],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/76[#76],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/80[#80],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/101[#101],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/102[#102],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/107[#107],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/111[#111],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/112[#112],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/114[#114],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/115[#115],
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/117[#117]
+*** Reported bugs and suggestions for other project
+(https://github.com/CS2103-AY1819S1-W12-3/main/issues/130[#130],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/133[#133],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/137[#137],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/144[#144])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+ end-users._
+|===
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=find-n]
+
+include::../UserGuide.adoc[tag=find-e]
+
+include::../UserGuide.adoc[tag=find-d]
+
+include::../UserGuide.adoc[tag=find-m]
+
+include::../UserGuide.adoc[tag=edit]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addcommand]

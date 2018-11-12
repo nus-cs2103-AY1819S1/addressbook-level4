@@ -1,0 +1,115 @@
+= Valensia Sebastiani - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SSENISUB
+
+image::Ui.png[width="600"]
+
+---
+
+== Overview
+
+This project portfolio provides detail of my contribution to our group (T13-2) project, SSENISUB, for CS2103.
+
+SSENISUB is a desktop application intended for business organizations to manage information regarding its staff.
+SSENISUB is CLI-interactive and has a GUI created with JavaFX. It is written in Java and has about 15kLoC.
+
+As a team member, I was in charge of implementing new commands, i.e. favourite/unfavourite and sort/sortDept/sortRatingDown/sortRatingUp.
+These implemented commands are helpful in increasing the efficiency of the application use by moving favourited staff to the top or the list and sorting the list of staff by the different parameters.
+
+== Summary of contributions
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=valensia0711[RepoSense for valensia0711]]
+
+* *Major enhancement 1*: added *the ability to favourite and unfavourite* a staff
+** What it does: Allows the user to favourite a staff (i.e. moves the specified staff to the top of the list) and also allows the user to unfavourite favourited staff (i.e. moves the specified staff back from the top)
+** Justification: The favourite feature makes the use of the application more efficient as some user would always have a few staff with whom they interact or contact frequently. By moving that particular staff to the top of the list, the amount of hassle needed to find and select the staff is omitted.
+On the other hand, the unfavourite feature is also needed as there are many cases that would lead to no longer frequent interaction with said favourited staff.
+** Highlights: This enhancement also affects the UI other than moving the staff to the top of the list. Favourited staff will be highlighted in yellow and will have a star next to their name.
+** Credits: [https://github.com/CS2103AUG2017-T10-B1/main/blob/master/src/main/java/seedu/address/logic/commands/FavouriteCommand.java[Favourite Command by CS2103-2017-T10-B1]]
+
+* *Major enhancement 2*: added *the ability to sort* the staff list *by different parameters*
+** What it does: Allows the user to sort the staff list by three different parameters, i.e. by name, by department, and by rating
+** Justification: Sorting the list by name is significant as it will ease the process of finding a certain staff without having to know their exact name.
+Sorting the list by department would be really helpful for people at higher positions who are in charge of more than one departments.
+Sorting the list by rating would be important for managers or HRs as this is the main key needed to review staff performances, and having both options to sort it in ascending or descending order further helps for the different cases possible in an organization setting.
+** Highlights: This enhancement takes into consideration not only the surface sorting but also the minor details,
+e.g. sort by name command would sort the list by favourite first then sort by name, leaving the favourited staff on top
+e.g. sort by department command would sort the list by department then by favourite then by name
+e.g. sort by rating command would sort the list by rating then by favourite then by name
+** Credits: [https://www.baeldung.com/java-8-comparator-comparing[Guide to Java 8 Comparator.comparing()]]
+
+* *Other contributions*:
+
+** Project management:
+*** Checked `v1.1` - `v1.4` (4 releases) before its release
+** Enhancements to existing features:
+*** Designed SSENISUB.png used in the UI right side: https://github.com/CS2103-AY1819S1-T13-2/main/pull/42
+** Bug fixes:
+*** Fixed bugs in favourite/unfavourite command related to undo/redo command: https://github.com/CS2103-AY1819S1-T13-2/main/pull/100
+** UI changes:
+*** Edited person list card UI for favourite/unfavourite command: https://github.com/CS2103-AY1819S1-T13-2/main/pull/76
+*** Edited staff panel UI: https://github.com/CS2103-AY1819S1-T13-2/main/pull/122
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-T13-2/main/pull/123
+*** Updated existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/16,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/64,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/67,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/123
+*** Updated existing contents of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/40,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/49,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/67
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/13,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/36,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/40,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/47,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/50,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/53,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/58,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/65,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/109,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/120,
+https://github.com/CS2103-AY1819S1-T13-2/main/pull/121
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/153[1]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/155[2]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/157[3]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/161[4]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/162[5]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/166[6]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/174[7]
+https://github.com/CS2103-AY1819S1-T12-3/main/issues/183[8]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=sortDept]
+
+include::../UserGuide.adoc[tag=sortRatingDown]
+
+include::../UserGuide.adoc[tag=sortRatingUp]
+
+include::../UserGuide.adoc[tag=favourite]
+
+include::../UserGuide.adoc[tag=unfavourite]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=favouritecommand]
+
+include::../DeveloperGuide.adoc[tag=unfavouritecommand]

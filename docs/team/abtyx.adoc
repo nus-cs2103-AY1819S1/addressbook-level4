@@ -19,7 +19,7 @@ allows the staff to use this as contact book.
 * *Major enhancement*: added the Privacy feature to Phone, Email and Address fields of a Staff.
 ** What it does: This feature allows staff to have the choice to set their private information to a 'private' state, which will allow only the appropriate personnel to be able to view it on SSENISUB.
 ** Justification: This feature is important as it respects and protects the privacy of the staff's information, disallowing misuse of their information by regular staff.
-** Highlights: The implementation of this feature is quite universal within the constraints of the project, and thus 'privacy' can be implemented to other fields deemed neccesary in the future with similar logic.
+** Highlights: The implementation of this feature is quite universal within the constraints of the project, and thus 'privacy' can be implemented to other fields deemed necessary in the future with similar logic.
 
 * *Minor enhancement*:
 ** Modified the AddCommand to take in three new prefixes `pp/`, `pe/` and `pa/` which represent private `Phone`, private `Email` and private `Address`. This allows the direct addition of a staff with private fields.
@@ -66,4 +66,3 @@ include::../UserGuide.adoc[tag=login]
 include::../DeveloperGuide.adoc[tag=privacycommand]
 
 include::../DeveloperGuide.adoc[tag=logincommand]
-
