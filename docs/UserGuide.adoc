@@ -66,6 +66,9 @@ Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 Examples:
 
 * `register-patient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+
+[TIP]
+After registering the patient, all commands that requires the patient's name are non-case sensitive for convenience.
 // end::registerpatient[]
 
 // tag::registerdoctor[]
@@ -80,6 +83,10 @@ Please ensure login is done before proceeding back to the HealthBook.
 Examples:
 
 * `register-doctor n/Mary Jane p/98765432 e/maryj@example.com a/John street, block 123, #01-01`
+
+
+[TIP]
+After registering the doctor, all commands that requires the doctor's name are non-case sensitive.
 // end::registerdoctor[]
 
 // tag::deletepatient[]
@@ -232,6 +239,10 @@ Examples:
 * There cannot be a duplicate of drug name for that particular appointment.
 * Drug that patient is allergic to cannot be added
 ****
+
+
+[TIP]
+After adding the prescription, all commands that requires the prescription's medicine name are non-case sensitive.
 // end::addprescription[]
 
 // tag::deleteprescription[]
@@ -261,9 +272,11 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Duplicated allergy or condition is not allowed.
-* Allergy and condition is NOT case sensitive (`EGG` and `egg` are treated as the same).
 * Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 ****
+
+[TIP]
+After adding the condition/allergy, all commands that requires the allergy/condition are non-case sensitive.
 // end::addmedicalhistory[]
 
 // tag::deletemedicalhistory[]
@@ -330,6 +343,11 @@ There is no need to save manually.
 
 In the command box, user can type the first few characters of the command and tab to autocomplete it.
 // end::autocomplete[]
+
+// tag::noncasesensitivity[]
+=== Non case sensitive parameters
+All alphanumeric parameters for commands are not case sensitive except for `Address` and `Email`.
+// end::noncasesensitivity[]
 
 === Remind patient on their upcoming appointment `[coming soon in v2.0]`
 Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform

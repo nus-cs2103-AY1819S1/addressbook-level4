@@ -1,0 +1,72 @@
+= Flora Fong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthBook
+
+---
+
+== Overview
+
+HealthBook is for clinic receptionist who *prefer to use a desktop app for managing doctors and patients information and appointments*.
+It is *optimized for receptionist who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add/delete a prescription of an appointment*
+** What it does: allows the user (receptionist) to add/delete a prescription to add more relevant details to the appointment.
+** Justification: This allows the receptionist to keep a record of the prescription related to the appointment to have more information about the visit and patient's conditions.
+It will also be useful in the event where patients forgets/is unsure about the prescription and this can be easily accessed.
+** Highlights: This enhancement value adds to the HealthBook and is one of the major features of a medical appointment.
+It required an in-depth analysis of design alternatives. The implementation too was challenging as it required creating of new models and interaction with all components of the code.
+
+* *Minor enhancement*:
+** Added remark command that adds an unconstrained information snippet to each contact for each person's place card for a quick view of the person's details.
+** Made parameters non-case sensitive for all commands i.e `view-patient n/john doe` will view the patient `John Doe`
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=florafong97[Functional code]
+
+* *Other contributions*:
+
+** Implementation of new features:
+*** Added `remark` command (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/10[#10])
+*** Added `add-prescription` command (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/30[#30])
+*** Added `delete-prescription` command (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/55[#50])
+*** Wrote test cases for new commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/10[#10], https://github.com/CS2103-AY1819S1-T10-2/main/pull/55[#55], https://github.com/CS2103-AY1819S1-T10-2/main/pull/82[#82], https://github.com/CS2103-AY1819S1-T10-2/main/pull/130[#30])
+** Enhancements to existing features:
+*** Removed case-sensitivity for parameters for all commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/125[#125])
+** Documentation:
+*** Updated User Guide
+*** Updated Developers guide (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/21[#21], https://github.com/CS2103-AY1819S1-T10-2/main/pull/165[#165])
+** Community:
+*** Reported bugs and suggestions for other teams in the module (Example https://github.com/CS2103-AY1819S1-W12-4/main/issues/127[1], https://github.com/CS2103-AY1819S1-W12-4/main/issues/135[2], https://github.com/CS2103-AY1819S1-W12-4/main/issues/138[3])
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=remark]
+
+include::../UserGuide.adoc[tag=addprescription]
+
+include::../UserGuide.adoc[tag=deleteprescription]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=remark]
+
+include::../DeveloperGuide.adoc[tag=addprescription]
+
+include::../DeveloperGuide.adoc[tag=deleteprescription]
+
+include::../DeveloperGuide.adoc[tag=usecases]
