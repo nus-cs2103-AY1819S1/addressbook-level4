@@ -19,6 +19,13 @@ TheTracker is an application specifically built for NUS students. Allowing a stu
 ** Highlights: This enhancement affects existing commands and commands to be added in future. As they must have to ability to render changes to this new UI. The implementation was also extremely challenging as the underlying structure of the previous UI had to be changed significantly.
 ** Credits: _{All abstractions, logic was conceived of solely by me, whilst the design of the new UI was a group effort}_
 
+* *Major enhancement*: implemented *the insertperson feature*
+** What it does: Allows the user to build an association between a person and a module, or a person and an occasion.
+** Justification: This feature improves the product significantly as the user can now conveniently register his/her associated persons with modules and occasions, making TheTracker more of a holistic and useful product.
+** Highlights: This enhancement is affects the existing delete and edit commands as now an edit to an entity must edit all the entities associated with it as well.
+** Credits: _{All abstractions, logic was conceived of solely by me}_
+
+* *Minor enhancement*: Changed the underlying architecture of how a Person, Occasion and Module are interlinked with each other.
 * *Minor enhancement*: Designed and implemented the new Tagging System that uses a dynamic key/value mapping enabling the user to find by certain attributes.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-W10-1/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java[Functional code]] [https://github.com/CS2103-AY1819S1-W10-1/main/blob/master/src/test/java/guitests/guihandles/MainMenuHandle.java[Test code]]
@@ -30,6 +37,8 @@ TheTracker is an application specifically built for NUS students. Allowing a stu
 *** Managed Pull Request to upstream CS2103 Main Repo for assessment by tutors.
 ** Tools:
 *** Integrated Travis CI into the repo.
+
+
 
 == Contributions to the User Guide
 
