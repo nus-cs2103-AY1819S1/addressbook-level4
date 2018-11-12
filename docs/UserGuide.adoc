@@ -72,6 +72,7 @@ _Coming in V2.0: Command format can be typed case-insensitive_
 Adds an event to the scheduler. +
 Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
 [ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]… ` +
+// end::add[]
 Aliases: `ad` OR `a` in place of `add` +
 _Coming in V2.0: Command format can be typed case-insensitive_
 
