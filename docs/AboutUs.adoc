@@ -14,7 +14,10 @@ image::alexkmj.png[width="150", align="left"]
 {empty} [https://github.com/alexkmj[github]] [<<alexkmj#, portfolio>>]
 
 Role: Developer +
-Responsibilities: [Refer to W6.10]
+Responsibilities:
+* Tools Expert
+* Code quality
+* In charge of Logic Component
 
 '''
 
@@ -23,7 +26,10 @@ image::josephambe.png[width="150", align="left"]
 {empty}[http://github.com/josephambe[github]] [<<josephambe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: [Refer to W6.10]
+Responsibilities:
+* Documentation
+* Deliverables and deadlines
+* In charge of UI Component
 
 '''
 
@@ -32,7 +38,10 @@ image::jeremyyew.png[width="150", align="left"]
 {empty}[http://github.com/jeremyyew[github]] [<<jeremyyew#, portfolio>>]
 
 Role: Developer +
-Responsibilities: [Refer to W6.10]
+Responsibilities:
+* Team Lead
+* Code quality
+* In charge of Storage Component
 
 '''
 
@@ -41,7 +50,10 @@ image::jeremiah-ang.png[width="150", align="left"]
 {empty}[http://github.com/jeremiah-ang[github]] [<<jeremiah-ang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: [Refer to W6.10]
+Responsibilities:
+* Scheduling and tracking
+* Integration
+* In charge of Model Component
 
 '''
 
@@ -50,6 +62,7 @@ image::bugeyedbug.png[width="150", align="left"]
 {empty}[http://github.com/BugEyedBug[github]] [<<bugeyedbug#, portfolio>>]
 
 Role: Developer +
-Responsibilities: [Refer to W6.10]
+Responsibilities: 
+* Testing
 
 '''
