@@ -265,8 +265,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::registerpatient[]
 === Register Patient Feature
 ==== Current Implementation
-The register patient are facilitated by `RegisterPatientCommand` and `RegisterPatientCommandParser`. This command extends
-the `AddCommand` and `AddCommandParser` such that it is able to create a `Patient` object. The Patient object is
+The register patient are facilitated by `RegisterPatientCommand` and `RegisterPatientCommandParser`. The Patient object is
 automatically tagged as `Patient`.
 
 .Register Patient Sequence Diagram
@@ -305,8 +304,7 @@ through easily when required.
 // tag::registerdoctor[]
 === Register Doctor Feature
 ==== Current Implementation
-The register doctor are facilitated by `RegisterDoctorCommand` and `RegisterDoctorCommandParser`. This command extends
-the `AddCommand` and `AddCommandParser` such that it is able to create a `Doctor` object. The Doctor object is
+The register doctor are facilitated by `RegisterDoctorCommand` and `RegisterDoctorCommandParser`. The Doctor object is
 automatically tagged as `Doctor`.
 
 .Register Doctor Sequence Diagram
