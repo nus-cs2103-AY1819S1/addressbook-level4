@@ -171,16 +171,17 @@ public class EventFormatUtil {
             startDateTime = convertStartDateTime(start, yearMonthDateStartPosition,
                     yearMonthDateEndPosition, hourMinStartPosition, hourMinDateEndPosition);
             //Converts endDateTime
-            endDateTime = convertDateTimeToLocalFormat(googleEvent,
+            endDateTime = convertDateTimeToLocalFormatFromGoogleEvent(googleEvent,
                     yearMonthDateStartPosition, yearMonthDateEndPosition,
                     hourMinStartPosition, hourMinDateEndPosition);
         } catch (ParseException e) {
             throw new CommandException(MESSAGE_INVALID_EVENT_ERROR);
         }
-        Description description = convertDescriptionToLocalFormatFrom(googleEvent);
+        Description description = convertDescriptionToLocalFormatFromGoogleEvent(googleEvent);
         Venue venue = convertVenueToLocalFormatFrom(googleEvent);
         //Converts reminders
-        ReminderDurationList reminderDurationList = convertReminderDurationListToLocalFormatFrom(googleEvent);
+        ReminderDurationList reminderDurationList =
+                convertReminderDurationListToLocalFormatFromGoogleEvent(googleEvent);
         //Converts repeatUntilDateTime
         seedu.scheduler.model.event.DateTime repeatUntilDateTime = convertsRepeatUntilDaTimeToLocalFormat(
                 googleEvent, googleiCalAndRepeatUntilTime, endDateTime);
@@ -194,28 +195,44 @@ public class EventFormatUtil {
 
     /**
      * Checks the necessary objects cannot be null
+     *
      * @param googleEvent                  a Google Event object
      * @param googleICalAndRepeatType      a map storing iCalId and its RepeatType
      * @param googleiCalAndRepeatUntilTime a map storing iCalId and its RepeatUntilDateTime
      */
-    private void checkNotNullForConvertGoogleEventToLocalEvent(com.google.api.services.calendar.model.Event googleEvent,
-                                                               HashMap<String, RepeatType> googleICalAndRepeatType,
-                                                               HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime) {
+    private void checkNotNullForConvertGoogleEventToLocalEvent(
+            com.google.api.services.calendar.model.Event googleEvent,
+            HashMap<String, RepeatType> googleICalAndRepeatType,
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime) {
         assert (googleEvent != null);
         assert (googleICalAndRepeatType != null);
         assert (googleiCalAndRepeatUntilTime != null);
     }
 
+    /**
+     * Retrieve StartDateTime From GoogleEvent
+     *
+     * @param googleEvent a Google Event
+     *
+     * @return DateTime in local format
+     */
     private DateTime retrieveStartDateTimeFromGoogleEvent(com.google.api.services.calendar.model.Event googleEvent) {
         assert (googleEvent != null);
         DateTime start = googleEvent.getStart().getDateTime();
-        if (start == null) {//if no time, only date
+        if (start == null) { //if no time, only date
             start = googleEvent.getStart().getDate();
         }
         return start;
     }
 
-    private ReminderDurationList convertReminderDurationListToLocalFormatFrom(
+    /**
+     * Converts ReminderDurationList To Local Format From Google Event
+     *
+     * @param googleEvent a Google Event
+     *
+     * @return ReminderDurationList in local format
+     */
+    private ReminderDurationList convertReminderDurationListToLocalFormatFromGoogleEvent(
             com.google.api.services.calendar.model.Event googleEvent) {
         ReminderDurationList reminderDurationList = new ReminderDurationList();
         Reminders reminder = googleEvent.getReminders();
@@ -233,12 +250,33 @@ public class EventFormatUtil {
         return convertVenueToLocalFormat(convertedVenue);
     }
 
-    private Description convertDescriptionToLocalFormatFrom(com.google.api.services.calendar.model.Event googleEvent) {
+    /**
+     * converts Description To Local Format From Google event
+     *
+     * @param googleEvent a google event
+     *
+     * @return description in local format
+     */
+    private Description convertDescriptionToLocalFormatFromGoogleEvent(
+            com.google.api.services.calendar.model.Event googleEvent) {
         String convertedDescription = googleEvent.getDescription() == null ? "" : googleEvent.getDescription();
         return convertDescriptionToLocalFormat(convertedDescription);
     }
 
-    private seedu.scheduler.model.event.DateTime convertDateTimeToLocalFormat(
+    /**
+     * Converts DateTime To Local Format From GoogleEvent
+     *
+     * @param googleEvent                a google event
+     * @param yearMonthDateStartPosition position start specifier for yearMonthDate
+     * @param yearMonthDateEndPosition   position end specifier for yearMonthDate
+     * @param hourMinStartPosition       position start specifier for hourMinStart
+     * @param hourMinDateEndPosition     position end specifier for hourMinStart
+     *
+     * @return local DateTime
+     *
+     * @throws ParseException if any
+     */
+    private seedu.scheduler.model.event.DateTime convertDateTimeToLocalFormatFromGoogleEvent(
             com.google.api.services.calendar.model.Event googleEvent, int yearMonthDateStartPosition,
             int yearMonthDateEndPosition, int hourMinStartPosition,
             int hourMinDateEndPosition) throws ParseException {
@@ -251,6 +289,19 @@ public class EventFormatUtil {
         return convertTargetDateTimeToLocalFormat(convertedEventEndDate, convertedEventEndTime);
     }
 
+    /**
+     * Convert StartDateTime to Local Format
+     *
+     * @param start                      StartDateTime
+     * @param yearMonthDateStartPosition position start specifier for yearMonthDate
+     * @param yearMonthDateEndPosition   position end specifier for yearMonthDate
+     * @param hourMinStartPosition       position start specifier for hourMinStart
+     * @param hourMinDateEndPosition     position end specifier for hourMinStart
+     *
+     * @return local DateTime
+     *
+     * @throws ParseException if any
+     */
     private seedu.scheduler.model.event.DateTime convertStartDateTime(DateTime start, int yearMonthDateStartPosition,
                                                                       int yearMonthDateEndPosition,
                                                                       int hourMinStartPosition,
@@ -298,6 +349,16 @@ public class EventFormatUtil {
         return ParserUtil.parseDateTime(convertedEventStartDate + " " + convertedEventStartTime);
     }
 
+    /**
+     * Converts EventName To Local Format From String
+     *
+     * @param convertedEventName convertedEventName in string format
+     *
+     * @return converted EventName
+     *
+     * @throws ParseException   if any
+     * @throws CommandException if any
+     */
     private EventName convertsEventNameToLocalFormatFromString(String convertedEventName) throws ParseException,
                                                                                                  CommandException {
         if (convertedEventName == null) {

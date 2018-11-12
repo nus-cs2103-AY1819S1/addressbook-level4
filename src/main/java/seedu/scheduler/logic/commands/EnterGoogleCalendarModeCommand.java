@@ -145,9 +145,9 @@ public class EnterGoogleCalendarModeCommand extends Command {
      * @throws ParseException           if any
      * @throws java.text.ParseException if any
      */
-    private void getAListOfRepeatEventAndSingleEvents
-    (Events events, HashMap<String, RepeatType> googleiCalAndRepeatType,
-     HashMap<String, DateTime> googleiCalAndRepeatUntilTime)
+    private void getAListOfRepeatEventAndSingleEvents (
+            Events events, HashMap<String, RepeatType> googleiCalAndRepeatType,
+            HashMap<String, DateTime> googleiCalAndRepeatUntilTime)
             throws CommandException, ParseException, java.text.ParseException {
         //Obtain a list of Google Events
         logger.info("Obtaining a list of Google Events with NO instances");
