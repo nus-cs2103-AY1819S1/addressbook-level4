@@ -405,19 +405,18 @@ Say you want to import a deck called "Geography" and you have the `Geography.xml
 
 image::exportScreenshot3.png[width="300"]
 
-* Simply  enter `import Geography.xml` +
+* Simply  enter `import Geography.xml` and Anakin will import the deck "Geography". +
 
-Before:
+**Before**
 
 image::importScreenshot1.png[width="500"]
 
-After:
+**After**
 
 image::importScreenshot2.png[width="500"]
 
-Anakin imports the deck "My Deck" if it is in the same directory as the Anakin.jar file.
-* `import C:/Users/Admin/Desktop/My Deck2.xml` +
-Anakin imports the deck "My Deck2".
+
+* If you want to import a deck that is located elsewhere, for example on the desktops, you can enter `import` followed by the full filepath (something like: `import C:/Users/Admin/Desktop/My Deck2.xml`) and Anakin will be able to import the deck. +
 
 // end::importexport[]
 
