@@ -74,3 +74,5 @@ include::../DeveloperGuide.adoc[tag=time_implementation]
 include::../DeveloperGuide.adoc[tag=list]
 
 include::../DeveloperGuide.adoc[tag=listfiltermanualtest]
+
+include::../DeveloperGuide.adoc[tag=taskviewpanelmanualtest]
