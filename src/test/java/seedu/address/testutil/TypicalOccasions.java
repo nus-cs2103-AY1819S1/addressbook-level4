@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.occasion.Occasion;
 
+//@@author waytan
 /**
  * A utility class containing a list of {@code Occasions} objects to be used in tests.
  */
@@ -54,6 +55,7 @@ public class TypicalOccasions {
 
     public static final String KEYWORD_MATCHING_CONCERT = "MA1101R"; // A keyword that matches Concert
 
+    //@@author waytan
     private TypicalOccasions() {} // prevents instantiation
 
     /**

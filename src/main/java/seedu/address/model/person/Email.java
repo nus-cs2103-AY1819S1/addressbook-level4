@@ -50,7 +50,7 @@ public class Email {
     /**
      * Makes an identical deep copy of this Email.
      */
-    public Email makeDeepDuplicate() {
+    public Email makeCopy() {
         if (this.value.equals("")) {
             return new Email();
         }

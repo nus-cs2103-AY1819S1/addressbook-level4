@@ -124,6 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author waytan
     @Override
     public void updateModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
@@ -140,12 +141,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
+    //@@author waytan
     @Override
     public void deleteModule(Module target) {
         versionedAddressBook.removeModule(target);
@@ -158,6 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public void insertPerson(Person personToInsertDeep, Module moduleToInsertDeep, Person personToInsertShallow,
                                     Module moduleToInsertShallow, Person personToReplace, Module moduleToReplace) {
@@ -193,6 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Module List Accessors =============================================================
 
+    //@@author waytan
     /**
      * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
      * {@code versionedAddressBook}
@@ -202,6 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredModules);
     }
 
+    //@@author
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
@@ -210,6 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Occasion List Accessors =============================================================
 
+    //@@author waytan
     /**
      * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
      * {@code versionedAddressBook}
@@ -219,6 +226,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredOccasions);
     }
 
+    //@@author
     @Override
     public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
         requireNonNull(predicate);

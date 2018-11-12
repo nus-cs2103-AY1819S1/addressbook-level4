@@ -48,7 +48,7 @@ public class Name {
     /**
      * Makes an identical deep copy of this Name.
      */
-    public Name makeDeepDuplicate() {
+    public Name makeCopy() {
         Name newName = new Name(new String(this.fullName));
         return newName;
     }

@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 
 import com.google.common.io.Files;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ExportXmlRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -31,6 +33,7 @@ public class ExportXmlCommand extends ExportCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         requireNonNull(storage);
+        EventsCenter.getInstance().post(new ExportXmlRequestEvent());
 
         if (!isValidXmlFile()) {
             throw new CommandException(String.format(MESSAGE_INVALID_XML_FILE_PATH));

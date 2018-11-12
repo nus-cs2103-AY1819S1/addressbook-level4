@@ -30,9 +30,8 @@ This section explains how to setup TheTracker on your computer, and lists a few 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 
-image::UI_v1.3_Persons.png[width="790"]
-image::UI_v1.3_Modules.png[width="790"]
-image::UI_v1.3_Occasions.png[width="790"]
+image::UI_v1.4_Persons.png[width="790"]
+
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -68,10 +67,6 @@ image::GUIComponents.png[width="600"]
 . List Panel: panel displaying all saved persons/modules/occasions
 . Info Panel: panel displaying additional information for selected entry
 
-[TIP]
-The info panel does not refresh even after you switch between lists, just in case you want to refer to other lists
-while editing an entry. To refresh the info panel, use the `select` command.
-
 === Using the GUI
 
 * Switching between person, module and occasion lists can be done from the Menu Bar by clicking on the desired type,
@@ -92,8 +87,8 @@ All three types of entries contain the following fields:
 ****
 * *Tags* - One or more alphanumeric strings (A-Z, 0-9), with no limit on length. +
 Note: An entry can have 0 or any positive number of tags. +
-Valid: Friend, CS2103, Must RSVP +
-Invalid: Buddy!, CS2103:(, 25/12/2018
+Valid: `Friend, CS2103, Must RSVP` +
+Invalid: `Buddy!, CS2103:(, 25/12/2018`
 ****
 
 === Person
@@ -101,27 +96,27 @@ Invalid: Buddy!, CS2103:(, 25/12/2018
 A *Person* has the following fields:
 
 ****
-* *Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
-Valid: Ashwin Raj, Damith Rajapakse, Bob12345 +
-Invalid: Ashwin Raj S/O Yadav, Damith C. Rajapakse, Bob12345!!!
+* *Name* (compulsory) - One or more alphanumeric strings, with no limit on length. +
+Valid: `Ashwin Raj, Damith Rajapakse, Bob12345` +
+Invalid: `Ashwin Raj S/O Yadav, Damith C. Rajapakse, Bob12345!!!`
 
 * *Phone Number* - 3 or more digits (0-9), with no limit on length. +
-Valid: 999, 1800123456, 659192939495 +
-Invalid: 9, 1800 123456, +659192939495
+Valid: `999, 1800123456, 659192939495` +
+Invalid: `9, 1800 123456, +659192939495`
 
 * *Email* - A single string with an @ character in between the username and domain name. +
 Username can contain the following special characters: !#$%&'*+/=?`{|}~^.- +
 Domain name should be at least 3 letters long. +
-Valid: alex@abc, bob123@xyz.com, example!123@nus.edu.sg +
-Invalid: alex, bob@co, example@123@nus.edu.sg
+Valid: `alex@abc, bob123@xyz.com, example!123@nus.edu.sg` +
+Invalid: `alex, bob@co, example@123@nus.edu.sg`
 
 * *Address* - Any non-blank input, with no limit on length. +
-Valid: NIL, Singapore, 123 Clementi Ave 999 S(654123)
+Valid: `NIL, Singapore, 123 Clementi Ave 999 S(654123)`
 ****
 A person will also have a *module list* and *occasion list*. These are comprised of modules and occasions that *are currently* in the address book. +
 These lists will be initialized as empty until modules or occasions are added.
 
-Warning: Persons with the same name are permitted as long as they differ in at least one other field.
+Warning: Persons with the same name are permitted as long as they have a *different phone number or email address*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a module's registration list).
 
 === Module
@@ -131,28 +126,28 @@ A *Module* has the following fields:
 ****
 * *Module Code* (compulsory) - 2 or 3 letters, followed by 4 digits and an optional letter behind. +
 Note: Does not check whether the module is an actual NUS module. +
-Valid: CS2103, CS2103T, GER1001 +
-Invalid: CS210, CS2103AB, GER10000
+Valid: `CS2103, CS2103T, GER1001` +
+Invalid: `CS210, CS2103AB, GER10000`
 
 * *Module Title* - One or more alphanumeric strings, with no limit on length. +
 Note: Does not check whether the module title matches the module code. +
-Valid: Software Engineering, Programming Methodology, A very annoying module +
-Invalid: Software Engineering!, Object-Oriented Design, ARGH:o
+Valid: `Software Engineering, Programming Methodology, A very annoying module` +
+Invalid: `Software Engineering!, Object-Oriented Design, ARGH:o`
 
 * *Academic Year* - 4 digit number, with the first and last 2 numbers representing consecutive years. +
-Valid: 1819, 9900, 0001, 0304 +
-Invalid: 123, AY1819, 18/19, 2018
+Valid: `1819, 9900, 0001, 0304` +
+Invalid: `123, AY1819, 18/19, 2018`
 
 * *Semester* - 1 digit number between 1 and 4. +
 Remark: Semesters 3 and 4 are used to refer to Special Term I and II. +
-Valid: 1, 2, 3, 4 +
-Invalid: Sem 1, 01, 1819/1
+Valid: `1, 2, 3, 4` +
+Invalid: `Sem 1, 01, 1819/1`
 ****
 
 A module will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the module will appear in their module lists).
 
-Warning: Module with the same code are permitted as long as they differ in at least one other field.
+Warning: Modules with the same code are permitted as long as they have a *different academic year or semester*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a person's module list).
 
 === Occasion
@@ -160,23 +155,23 @@ Use with caution, as they may be difficult to distinguish (e.g. in a person's mo
 An *Occasion* has the following features:
 
 ****
-* *Occasion Name* (compuslory) - One or more alphanumeric strings, with no limit on length. +
-Valid: Project Discussion, CS2103 Exam, Recess Week +
-Invalid: Ad-hoc Work, Meeting**, Friend's Birthday
+* *Occasion Name* (compulsory) - One or more alphanumeric strings, with no limit on length. +
+Valid: `Project Discussion, CS2103 Exam, Recess Week` +
+Invalid: `Ad-hoc Work, Meeting**, Friend's Birthday`
 
 * *Occasion Date* - Date in YYYY-MM-DD format. +
 Remark: Checks whether date is valid. +
-Valid: 2018-11-13, 2000-02-29, 2010-10-31 +
-Invalid: 2018/11/13, 2001-02-29, 2010-09-31
+Valid: `2018-11-13, 2000-02-29, 2010-10-31` +
+Invalid: `2018/11/13, 2001-02-29, 2010-09-31`
 
 * *Occasion Location* - One or more alphanumeric strings, with no limit on length. +
-Valid: Home, NUS COM1, 123 Clementi Rd +
-Invalid: John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)
+Valid: `Home, NUS COM1, 123 Clementi Rd` +
+Invalid: `John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)`
 ****
 An occasion will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the occasion will appear in their occasion lists).
 
-Warning: Occasions with the same name are permitted as long as they differ in at least one other field.
+Warning: Occasions with the same name are permitted as long as they have a *different date*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a person's occasion list).
 //end::types[]
 
@@ -210,7 +205,7 @@ Format: `help`
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
 
 ==== Adding a person: `addperson`
-Adds a person to TheTracker. +
+A command to allow user to add a person to TheTracker. +
 
 Format: +
 `addperson n/NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...` +
@@ -230,7 +225,7 @@ Example: +
 
 ==== Adding a module: `addmodule`
 
-Adds a module to TheTracker. +
+A command to allow user to add a module to TheTracker. +
 
 Format: +
 `addmodule mc/MODULE_CODE [mt/MODULE_TITLE] [ay/ACADEMIC_YEAR] [sem/SEMESTER] [t/TAG]...` +
@@ -250,7 +245,7 @@ Example: +
 
 ==== Adding an occasion: `addoccasion`
 
-Adds an occasion to TheTracker. +
+A command to allow user to add an occasion to TheTracker. +
 
 Format: +
 `addoccasion on/OCCASION_NAME [od/OCCASION_DATE] [loc/LOCATION] [t/TAG]...`
@@ -272,21 +267,21 @@ Example: +
 // tag::list[]
 === Listing all entries : `list`
 
-Shows a desired list in TheTracker. +
+A command to show a desired list in TheTracker. +
 
 ==== List all Persons: `listperson`
 
-Shows the complete list of persons in TheTracker. +
+A command to show the complete list of persons in TheTracker. +
 Format: `listperson`
 
 ==== List all Modules: `listmodule`
 
-Shows the complete list of modules in TheTracker. +
+A command to show the complete list of modules in TheTracker. +
 Format: `listmodule`
 
 ==== List all Occasions: `listoccasion`
 
-Shows the complete list of occasions in TheTracker. +
+A command to show the complete list of occasions in TheTracker. +
 Format: `listoccasion`
 
 [TIP]
@@ -298,7 +293,7 @@ and `listoccasion` commands to populate the entire list again.
 // tag::select[]
 === Selecting an Entry: `select`
 
-Selects the event identified by the index number in the List Panel.
+A command to allow the user to select the event identified by the index number in the List Panel.
 The Info Panel will display the additional information for that entry.
 
 Format: `select INDEX`
@@ -310,15 +305,15 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // tag::edit[]
 === Editing an entry : `edit`
 
-Edits an existing person, module or occasion in TheTracker. +
+A command to allow the user to edit an existing person, module or occasion in TheTracker. +
 It can be used to add optional field that is not specified in the add command.
 
 ==== Editing a person : `editperson`
 
-Edits an existing person in TheTracker. +
+A command to allow the user to edit an existing person in TheTracker. +
 
 Format: +
-`editperson INDEX x/VALUE ...`
+`editperson INDEX [PREFIX]/VALUE ...`
 
 Example: +
 `editperson 6 p/91234567 e/johndoe@example.com` +
@@ -327,17 +322,19 @@ Edits the person at INDEX 6 in TheTracker: edits his phone to 91234567 and email
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `n/`, `p/`, `e/`, `a/`, `t/` to edit the Name, Phone, Email,
-Address and Tag respectively of the Person which is specified by INDEX.
-* The INDEX must be valid.
+* The `[PREFIX]/` should be replaced by `n/` (for Name), `p/` (Person), `e/` (Email), `a/` (Address), `t/` (Tag) to specify the field you want to edit.
+* You can specify multiple fields you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 
 ==== Editing a module : `editmodule`
 
-Edits an existing module in TheTracker. +
+A command to allow the user to edit an existing module in TheTracker. +
 
 Format: +
-`editmodule INDEX x/VALUE ...`
+`editmodule INDEX [PREFIX]/VALUE ...`
 
 Example: +
 `editmodule 1 mc/CS1101S` +
@@ -346,14 +343,15 @@ Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `mc/`, `mt/`, `ay/`, `sem/`, `t/` to edit the Module Code,
-Module Title, Academic Year, Semester and Tag respectively of the Module which is specified by INDEX respectively.
-* The INDEX must be valid.
-
+* The `[PREFIX]/` should be replaced by `mc/` (for Module Code), `mt/` (for Module Title), `ay/` (for Academic Year), `sem/` (for Semester), `t/` (for Tag) to
+specify the field you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 ==== Editing an occasion : `editoccasion`
 
-Edits an existing occasion in TheTracker. +
+A command to allow the user to edit an existing occasion in TheTracker. +
 Format: +
 `editoccasion x/VALUE ...`
 
@@ -364,19 +362,49 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `on/`, `od/`, `loc/`, `t/` to edit the Occasion Name,
-Occasion Date, Occasion Location and Tag respectively of the Occasion which is specified by INDEX respectively.
-* The INDEX must be valid.
+* The `[PREFIX]/` should be replaced by `on/` (for Occasion Name), `od/` (for Occasion Date), `loc/` (for Occasion Location), `t/` (for Tag) to
+specify the field you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 
 // end::edit[]
 
+// tag::insertperson[]
+=== Inserting a Person: `insertperson`
+
+==== Inserting a person into a module: `insertperson`
+Builds an association between a module and a person within `TheTracker` by inserting
+a `person` bi-directionally into a `module`.
+
+Format: +
+`insertperson pi/PERSON_INDEX mi/MODULE_INDEX`
+
+Example:
+
+* `insertperson pi/1 mi/1` Builds an association between the first `person` and `module` by inserting `person` 1 bi-directionally
+into `module` 1.
+
+==== Inserting a person into an occasion: `insertperson`
+Builds an association between an occasion and a person within `TheTracker` by inserting
+a `person` bi-directionally into an `occasion`.
+
+Format: +
+`insertperson pi/PERSON_INDEX oi/OCCASION_INDEX`
+
+Example:
+
+* `insertperson pi/1 oi/1` Builds an association between the first `person` and `occasion` by inserting `person` 1 bi-directionally
+into `occasion` 1.
+
+// end::insertperson[]
 
 // tag::find[]
 === Locating entries: `find`
 
 ==== Finding a person: `findperson`
-Finds a person in TheTracker. +
+A command to allow the user to find a person in TheTracker. +
 
 Format: +
 `findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS`,
@@ -391,7 +419,7 @@ Example:
 
 ==== Finding a module: `findmodule`
 
-Finds a module in TheTracker. +
+A command to allow the user to find a module in TheTracker. +
 
 Format: +
 `findmodule mc/MODULE_CODE`, `findmodule mt/MODULE_TITLE`, `findmodule ay/ACADEMIC_YEAR`,
@@ -403,7 +431,7 @@ Example:
 
 ==== Finding an occasion: `findoccasion`
 
-Finds an occasion in TheTracker. +
+A command to allow the user to find an occasion in TheTracker. +
 
 Format: +
 `findoccasion on/OCCASION_NAME`, `findoccasion od/OCCASION_DATE`, `findoccasion loc/LOCATION`
@@ -417,7 +445,7 @@ Example:
 // tag::delete[]
 === Deleting an entry: `delete`
 
-Deletes the specified entry from the active list in TheTracker. +
+A command to allow the user to delete the specified entry from the active list in TheTracker. +
 Format: `delete INDEX`
 
 ****
@@ -427,6 +455,7 @@ Format: `delete INDEX`
 ****
 
 Examples:
+
 * `listperson` +
 `delete 1` +
 Deletes the 1st person in TheTracker.
@@ -532,7 +561,10 @@ Format: +
 *Command Format*
 
 * Use a single whitespace to divide `--xml` and `[FILEPATH]`.
-* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
+* The `[FILEPATH]` should be valid:
+** The `file name` and `folder names` specified in the `file path`
+should contain only alphanumeric and underscores (whitespaces are not allowed)
+** The `file name` should end with `.xml`
 ****
 
 Examples: +
@@ -551,7 +583,10 @@ Format: +
 *Command Format*
 
 * Use a single whitespace to divide `--txt` and `[FILEPATH]`.
-* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
+* The `[FILEPATH]` should be valid:
+** The `file name` and `folder names` specified in the `file path`
+should contain only alphanumeric and underscores (whitespaces are not allowed)
+** The `file name` should end with `.txt`
 ****
 
 Examples: +
