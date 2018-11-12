@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.FindModuleRequestEvent;
 import seedu.address.commons.events.ui.ShowModuleRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -41,6 +42,8 @@ public class FindModuleCommand extends Command {
         model.updateFilteredModuleList(predicate);
         model.setActiveType(MODULE);
         EventsCenter.getInstance().post(new ShowModuleRequestEvent());
+
+        EventsCenter.getInstance().post(new FindModuleRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, model.getFilteredModuleList().size()));
     }

@@ -13,26 +13,27 @@ TheTracker is an application specifically built for NUS students. Allowing a stu
 
 == Summary of contributions
 
-* *Major enhancement*: added *the multi-panel UI*
-** What it does: Allows the user to switch in between module, person and occasion tabs. To allow a user to, conveniently, his/her modules and occasions.
-** Justification: This feature improves the product significantly as the user can now conveniently have a consolidated place where he/she can find information on his existing modules and occasions.
-** Highlights: This enhancement affects existing commands and commands to be added in future. As they must have to ability to render changes to this new UI. The implementation was also extremely challenging as the underlying structure of the previous UI had to be changed significantly.
-** Credits: _{All abstractions, logic was conceived of solely by me, whilst the design of the new UI was a group effort}_
+* *Major enhancement*: implemented *the insertperson feature*
+** What it does: Allows the user to build an association between a person and a module, or a person and an occasion.
+** Justification: This feature improves the product significantly as the user can now conveniently register his/her associated persons with modules and occasions. This makes TheTracker more of a holistic and useful product.
+** Highlights: This enhancement affects the existing delete and edit commands as now an edit to an entity must edit all the entities associated with it as well.
+** Credits: _{All abstractions, logic was conceived of solely by me}_
 
-* *Minor enhancement*: Designed and implemented the new Tagging System that uses a dynamic key/value mapping enabling the user to find by certain attributes.
+* *Minor enhancement*: Added the new UI panels to display the contents of modules and occasions.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-W10-1/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java[Functional code]] [https://github.com/CS2103-AY1819S1-W10-1/main/blob/master/src/test/java/guitests/guihandles/MainMenuHandle.java[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=spikerheado1234&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Contributed Code]]
 
 * *Other contributions*:
 
 ** Project management:
+
 *** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
 *** Managed Pull Request to upstream CS2103 Main Repo for assessment by tutors.
+***
 ** Tools:
 *** Integrated Travis CI into the repo.
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
