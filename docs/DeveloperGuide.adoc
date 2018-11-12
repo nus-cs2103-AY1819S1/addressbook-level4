@@ -36,7 +36,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repo, and then clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -653,10 +653,6 @@ needs of their choice. Users are able to add a health list to based on their spe
 whether they intend to gain/lose/maintain weight from their
 set age, current weight and also their current height. this will then tell them what is the required calories to
 eat per day to hit their target.
-
-==== Class Diagram
-
-image::healthPlanClassDiagram.png[width="800"]
 
 ==== Current implementation
 
