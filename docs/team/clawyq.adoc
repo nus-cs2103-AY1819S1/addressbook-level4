@@ -7,7 +7,7 @@
 
 ---
 
-== Introduction
+== 1. Introduction
 
 This Project Portfolio Page documents my contributions to the development of `CLInic`, the product of a team of five
 students from NUS School Of Computing as part of the `CS2103T Software Engineering` module. The main
@@ -28,7 +28,7 @@ I played a major role in the development of the `Document` class, the relevant `
 and `ReferralLetter` classes that extend it and the relevant patient management operations that are required for
 them to work.
 
-== Summary of contributions
+== 2. Summary of contributions
 
 * *Major enhancement*: Implemented the `Document` class, its accompanying HTML template and
 extending classes, which includes the `Receipt`, `MedicalCertificate` and `ReferralLetter` classes.
@@ -48,7 +48,7 @@ abstractions(placeholders) that help to 'finalise' the information to be used fo
 ** Integrated `MedicalCertificate` with the `DocumentAddContentCommand`.
 ** Designed the `HTML` template which all the classes that extend `Document` use to format their information.
 
-* *Code contributed*: View my code for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=clawyq&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[here]!
+* *Code contributed*: View the code I have written for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=clawyq&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[here]!
 
 * *Other contributions*:
 
@@ -58,7 +58,7 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/98[#98],
 https://github.com/CS2103-AY1819S1-W16-4/main/pull/104[#104])
 ** Community:
 *** Reviewed PRs and provided constructive feedback: (Pull requests: https://github.com/CS2103-AY1819S1-W16-4/main/pull/110[#110],
-https://github.com/clawyq/main/pull/6[#119],
+https://github.com/ChesterSng/addressbook-level4/pull/24[#119],
 https://github.com/CS2103-AY1819S1-W16-4/main/pull/120[#120])
 ** Documentation:
 *** Wrote the introduction to the User Guide (Pull Request: https://github.com/CS2103-AY1819S1-W16-4/main/pull/134[#134])
@@ -67,29 +67,29 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/120[#120])
  https://github.com/CS2103-AY1819S1-W16-4/main/pull/172[#172],
  https://github.com/CS2103-AY1819S1-W16-4/main/pull/174[#174])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 |===
 |_Given below are the sections I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Implementation of the Patient Record Management System
+=== 3.1. Implementation of the Patient Record Management System
 '''
 
 include::../UserGuide.adoc[tag=patientfirsthalf]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are the sections I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Implementation of the Document class
+=== 4.1. Implementation of the Document class
 '''
 
 include::../DeveloperGuide.adoc[tag=documentpreamble]
 
-=== Implementation of the Receipt class
+=== 4.2. Implementation of the Receipt class
 '''
 
 include::../DeveloperGuide.adoc[tag=receipt]
