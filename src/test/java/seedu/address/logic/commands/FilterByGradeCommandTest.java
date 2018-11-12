@@ -43,10 +43,19 @@ public class FilterByGradeCommandTest {
 
         String expectedMessage = String.format("Cannot find person whose grade between 0.0 and 0.0 !");
         GradeFilterPredicate predicate = new GradeFilterPredicate(0, 0);
+
         FilterByGradeCommand command = new FilterByGradeCommand("0 0");
 
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+
+        String expectedMessageS = String.format("Cannot find person whose grade between 1.0 and 2.0 !");
+        GradeFilterPredicate predicateS = new GradeFilterPredicate(1, 2);
+
+        FilterByGradeCommand commandS = new FilterByGradeCommand("1 2");
+
+        expectedModel.updateFilteredPersonList(predicateS);
+        assertCommandSuccess(commandS, model, commandHistory, expectedMessageS, expectedModel);
     }
 
     /**

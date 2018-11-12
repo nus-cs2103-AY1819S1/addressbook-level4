@@ -3,21 +3,30 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.EDUCATION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EDUCATION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EDUCATION_DESC_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_G1;
+import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_G2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -29,9 +38,13 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.GRADETEST;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPersons.MULTIGRADE;
+import static seedu.address.testutil.TypicalPersons.NONEGRADE;
+import static seedu.address.testutil.TypicalPersons.ONEGRADE;
 
 import org.junit.Test;
 
@@ -43,6 +56,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -77,6 +91,29 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         model.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* ------------------------ Test the grade attribute with the undo and redo --------------------------------- */
+        /* undo and redo command can work properly with the grade attribute under the add command */
+        Model model1 = getModel();
+
+        Person toAdd1 = GRADETEST;
+        command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_GRADE + "  " + PHONE_DESC_GRADE + " "
+                + EMAIL_DESC_GRADE + "   " + ADDRESS_DESC_GRADE + "   " + EDUCATION_DESC_GRADE + "   "
+                + GRADES_DESC_G1 + GRADES_DESC_G2
+                + "   " + TAG_DESC_FRIEND + " ";
+        assertCommandSuccess(command, toAdd1);
+
+        /* Case: undo adding GRADETEST to the list -> GRADETEST deleted */
+        command = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model1, expectedResultMessage);
+
+        /* Case: redo adding GRADETEST to the list -> Amy added again */
+
+        command = RedoCommand.COMMAND_WORD;
+        model1.addPerson(toAdd1);
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model1, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
@@ -194,6 +231,28 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + EDUCATION_DESC_AMY + GRADES_DESC_AMY + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
+
+        /* ------------------------------- Test more details about grade attribute ---------------------------------- */
+        /* tests below are to test the behavior of grade attribute under the add command */
+
+        /* Case: add a person, missing grades -> added */
+        assertCommandSuccess(NONEGRADE);
+
+        /* Case: add a person, with one grade -> added */
+        assertCommandSuccess(ONEGRADE);
+
+        /* Case: add a person, with more than one grade -> added */
+        assertCommandSuccess(MULTIGRADE);
+
+        /* Case: invalid grade1 -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + EDUCATION_DESC_AMY + INVALID_GRADE_DESC1 + TAG_DESC_FRIEND;
+        assertCommandFailure(command, Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
+
+        /* Case: invalid grade2 -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + EDUCATION_DESC_AMY + INVALID_GRADE_DESC2 + TAG_DESC_FRIEND;
+        assertCommandFailure(command, Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
     }
 
     /**

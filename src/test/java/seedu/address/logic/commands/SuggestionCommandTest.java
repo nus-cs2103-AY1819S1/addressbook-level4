@@ -27,6 +27,18 @@ public class SuggestionCommandTest {
         // different types -> returns false
         assertFalse(suggestionFirstCommand.equals(1));
 
+        String second = "Bob";
+
+        SuggestionCommand suggestionSecondCommand = new SuggestionCommand(second);
+        // same object -> returns true
+        assertTrue(suggestionSecondCommand.equals(suggestionSecondCommand));
+
+        // same values -> returns true
+        SuggestionCommand suggestionSecondCommandCopy = new SuggestionCommand(second);
+        assertTrue(suggestionSecondCommand.equals(suggestionSecondCommandCopy));
+
+        // different types -> returns false
+        assertFalse(suggestionFirstCommand.equals(1));
     }
 
 

@@ -2,6 +2,8 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.EarningsCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.EarningsCommand.MESSAGE_USEAGE_WARNING;
 import static seedu.address.logic.parser.EarningsCommandParser.MESSAGE_INVALID_DATE;
 
 import java.time.LocalDate;
@@ -21,11 +23,11 @@ public class EarningsCommandSystemTest extends AddressBookSystemTest {
          * no timeslots
          */
         // Case: Input is a valid date
-        String expectedMessage = String.format(EarningsCommand.MESSAGE_SUCCESS, 0.00,
-                convertStringToLocalDate("0101"), convertStringToLocalDate("0701"));
-        assertCommandSuccess("earnings 0101 0701", expectedMessage);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, 0.00,
+                convertStringToLocalDate("2512"), convertStringToLocalDate("3112"));
+        assertCommandSuccess("earnings 2512 3112", expectedMessage);
 
-        expectedMessage = String.format(EarningsCommand.MESSAGE_SUCCESS, 0.00,
+        expectedMessage = String.format(MESSAGE_SUCCESS + MESSAGE_USEAGE_WARNING, 0.00,
                 convertStringToLocalDate("0701"), convertStringToLocalDate("2304"));
         assertCommandSuccess("earnings 0701 2304", expectedMessage);
         assertCommandSuccess("     earnings 0701 2304   ", expectedMessage);
@@ -47,11 +49,11 @@ public class EarningsCommandSystemTest extends AddressBookSystemTest {
          */
         addTimeslotsForSomeStudents();
         // Case: Input is a valid date
-        expectedMessage = String.format(EarningsCommand.MESSAGE_SUCCESS, 184.00,
+        expectedMessage = String.format(MESSAGE_SUCCESS + MESSAGE_USEAGE_WARNING, 184.00,
                 convertStringToLocalDate("0101"), convertStringToLocalDate("0701"));
         assertCommandSuccess("earnings 0101 0701", expectedMessage);
 
-        expectedMessage = String.format(EarningsCommand.MESSAGE_SUCCESS, 2760.00,
+        expectedMessage = String.format(MESSAGE_SUCCESS + MESSAGE_USEAGE_WARNING, 2760.00,
                 convertStringToLocalDate("0701"), convertStringToLocalDate("2304"));
         assertCommandSuccess("earnings 0701 2304", expectedMessage);
         assertCommandSuccess("     earnings 0701 2304   ", expectedMessage);

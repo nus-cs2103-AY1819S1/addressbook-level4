@@ -164,6 +164,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -172,7 +173,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `StudentPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -183,6 +184,8 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+// end::ui[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -325,21 +328,86 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::findfeature[]
-=== Find Feature
+=== Find Related Feature
+
+The find related features include four commands, which are `FindCommand`, `FindAddressCommand`, `FindEmailCommand`, and `FindPhoneCommand`. They support finding by name, address, email, and phone numbers.
 
 ==== Current Implementation
 
-* Tutor Pal is able to find a student through his/her name by using the command "find NAME".
+===== Find command (`find KEYWORD [MORE_KEYWORDS]...`)
 
-* A Find by Email command has been added, which allows a tutor to find a student through his/her
-email by using the command "find/e EMAIL".
+The `find` command has been implemented to find students by their names.
 
-==== Future Implementation
+* The `find` command accepts one or more arguments, each argument represent a keyword.
 
-* Further enhance the find command so that a tutor is able to find a student through his/her
-phone number and address.
+* The `find` command finds persons whose names contain any of the given keywords.
 
-==== Design Considerations[ongoing]
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose names match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied, we set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindCommandLogicDiagram.png[width="800"]
+
+===== Find by address command (`find/a KEYWORD [MORE_KEYWORDS]...`)
+
+The `find/a` command has been implemented to find students by their address.
+
+* The `find/a` command accepts one or more arguments, each argument represent a keyword.
+
+* The `find/a` command finds persons whose addresses contain all the given keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .allMatch(...) on the keywords stream to find all the students whose addresses match all the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied and the length of keyword is 4 to 7, we set the Levenshtein Distance to be less than 3; if the length of keyword is more than 8, we set the Levenshtein Distance to be less than 4.
+
+image::FindAddressCommandLogicDiagram.png[width="800"]
+
+===== Find by email command (`find/e EMAIL [MORE_EMAILS]...`)
+
+The `find/e` command has been implemented to find students by their email.
+
+* The `find/e` command accepts one or more arguments, each argument represent an email address keyword.
+
+* The `find/e` command finds persons whose emails are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose emails match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 4, which means at most three differences.
+
+image::FindEmailCommandLogicDiagram.png[width="800"]
+
+===== Find by phone number command (`find/p PHONE_NUMBER [MORE_PHONE_NUMBERS]...`)
+
+The `find/p` command has been implemented to find students by their phone number.
+
+* The `find/p` command accepts one or more arguments, each argument represent a phone number keyword.
+
+* The `find/p` command finds persons whose phone numbers are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose phone numbers match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindPhoneCommandLogicDiagram-1.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Fuzzy matching
+
+* **Alternative 1 (current choice):** Allow fuzzy matching in searching.
+** Pros:
+. Small typos will not affect the searching output.
+. Make the application much more practical and easier to use.
+** Cons:
+. Some minor mistakes in spelling might lead to totally different meanings. We have tried to prevent this from happening by limiting the minimum length of keywords for fuzzy matching, however, there might still be a few cases that exist problems.
 // end::findfeature[]
 
 // tag::gradesfeature[]
@@ -358,7 +426,7 @@ phone number and address.
 
 * Add more function for grade command such as sorting students by grades, analysing the grades fluctuation of a students, listing all grades of a student and even using Gui to layout the grades.
 
-==== Design Considerations[ongoing]
+==== Design Considerations
 // end::gradesfeature[]
 
 // tag::earningfeature[]
@@ -1245,7 +1313,7 @@ Use case ends
 
 
 
-
+// tag::filter1[]
 === Use case: Filter by grade
 
 *MSS*
@@ -1266,8 +1334,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter1[]
 
-
+// tag::filter2[]
 === Use case: Filter by fee
 
 *MSS*
@@ -1288,10 +1357,78 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter2[]
 
+// tag::exchange[]
+=== Use case: Exchange time slot between students
 
+*MSS*
 
+1. User requests to exchange time slot between students whose Education is the same.
+2. System filter the personList and displays the qualified list
++
+Use case ends
 
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::exchange[]
+
+// tag::suggest1[]
+=== Use case: Provide suggestions to certain student
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her name.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::suggest1[]
+
+// tag::suggest2[]
+=== Use case: Provide suggestions to certain student with index
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her index number.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::suggest2[]
+
+// tag::filter3[]
 === Use case: Find students list of the given Education
 
 *MSS*
@@ -1312,8 +1449,9 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
+// end::filter3[]
 
-
+// tag::filter4[]
 === Use case: Filter by Timeslot
 
 *MSS*
@@ -1334,30 +1472,7 @@ Use case ends
 ** 1a2. System prompts user for a corrected input.
 +
 Use case resumes from step 2.
-
-
-
-=== Use case: Edit time
-
-*MSS*
-
-1. User requests to change a student class time into new time slot
-2. System change the student previous time slot into new time slot
-+
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. User inputs an invalid time slot.
-+
-[none]
-** 1a1. System displays an error message.
-+
-** 1a2. System prompts user for a corrected input.
-+
-Use case resumes from step 2.
-
+// end::filter4[]
 
 
 === Use case: Calculate total earnings
@@ -1489,23 +1604,6 @@ A contact detail that is not meant to be shared with others
 Find something whose edit distance with keyword is less than or equal to 2.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1527,21 +1625,39 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a new student
 
-=== Deleting a person
+. Adding a student to TutorPal
 
-. Deleting a person while all persons are listed
+.. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney` +
+   Expected: A new student with the above details is added to TutorPal. +
+   Details of the new student will be shown in the status message.
+.. Test case: `add n/Desmond Hume p/91234567 e/Hume.D@example.com` +
+   Expected: No student is added. Error details shown in the status message. Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a student
+
+. Deleting a student while all students are listed
+
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Promoting student(s)
+
+. Promote all students in TutorPal
+
+.. Test case: `promote all` +
+   Expected: Promotes all student in TutorPal to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
+
+. Promote a certain number of students in TutorPal
 
 === Adding a tuition time of a student
 
@@ -1574,9 +1690,19 @@ _{ more test cases ... }_
    Expected: Student at index 1 has a tuition time "Monday 1300 1500" removed. Status message display command success message and timestamp in the status bar is updated.
 
 === Saving data
+=======
+.. Prerequisites: The use of `List` command in conjunction with the following test case is *optional*.
+.. Test case: `promote 1 2 5` +
+   Expected: Promotes the first, second and fifth student in the displayed list to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
 
-. Dealing with missing/corrupted data files
+=== Retrieving earnings
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Retrieve earnings between two dates.
 
-_{ more test cases ... }_
+.. Test case: `earnings 0712 2412` +
+   Expected: The amount in dollar of tuition fees earned between the two dates (current year) are shown in the status message.
+.. Test case: `earnings 0912 0912` +
+   Expected: The amount in dollar of tuition fees earned on 9 December 2018.
