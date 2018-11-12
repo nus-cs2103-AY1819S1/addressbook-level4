@@ -606,25 +606,23 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
  |Command | Format | Example
+ |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
+ |Change password|passwd|passwd
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
+ |Exit|exit|exit
+ |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo -d Development
  |Help|help|help
  |History|history|history
- |List all employees|list|list
  |List all assignments|listassignments|listassignments
- |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
- |Sort employee display list| sort -CRITERIA| sort -df
- |Select an employee|select INDEX | select 1
- |Search employees by name|find NAME| find Joshua
- |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
- -d Development
- |Change password|passwd|passwd
- |View archived employees|archive|archive
- |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
- |View your own leave application list|leavelist|leavelist
- |Undo commands|undo|undo
- |Redo commands|Redo|Redo
+ |List all employees|list|list
  |Logout from the system|logout|logout
- |Exit|exit|exit
-
+ |Redo commands|Redo|Redo
+ |Search employees by name|find NAME| find Joshua
+ |Select an employee|select INDEX | select 1
+ |Sort employee display list| sort -CRITERIA| sort -df
+ |Undo commands|undo|undo
+ |View archived employees|archive|archive
+ |View your own leave application list|leavelist|leavelist
 |=========================================================
 
 === Commands that require permission
@@ -632,22 +630,19 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
  |Command|Required Permission|Format|Example
- |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -p NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
- 81234567 -a 81 Joshua's Road  Singapore 123456
- |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
- |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
- |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
-  | edit 1 -p 91234567 -e johndoe@example.com
+ |Add an assignment|ADD_ASSIGNMENT|addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION| addassignment -an KRYPTONE -au Jhonny English -d Data encription application.
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -p NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456
+ |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
  |Clear|Admin|clear|clear
- |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
- modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
+ |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
+ |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
+ |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT] | edit 1 -p 91234567 -e johndoe@example.com
+ |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...| modifypermission 2 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE
+ |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
+ |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
  |View all Permissions of employee|ASSIGN_PERMISSION|viewpermission INDEX|viewpermission 1
  |View leave application list of all employees|VIEW_EMPLOYEE_LEAVE|leavelist|leavelist
- |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
- |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
- |Add an assignment|ADD_ASSIGNMENT|addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION| addassignment -an KRYPTONE -au Jhonny English -d Data encription application.
- |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
- |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 //end::commandsummary[]
 
@@ -658,10 +653,10 @@ Format: `summary`
 |=========================================================
 |Command|Key
 |Add employee | CTRL + A
+|Exit | CTRL + Q
+|Find employee | CTRL + F
 |List employees | CTRL + L
 |Select | CTRL + S
-|Find employee | CTRL + F
-|Exit | CTRL + Q
 |=========================================================
 // end::keyboardshortcuts[]
 
