@@ -833,6 +833,27 @@ public class ManageCommand extends Command {
 +
 
 
+//tag::command-overview[]
+[[Implementation-Overview]]
+=== Overview command
+The `overview` command is used in the 'event' or 'volunteer' context to show statistics for the number of types of events and volunteer distribution.
+
+===== Current implementation
+The `overview` command raises a `OverviewPanelChangedEvent` to start calculating statistical data and to
+update the UI.
+
+Because of the volatile nature of the data (it can change when attributes of events or volunteers are changed), the data is not stored persistently in the `ModelManager`.
+
+Instead, whenever the `OverviewPanel` UI class detects an `OverviewPanelChangedEvent`, it calls on the `Overview` to provide it with updated statistics.
+
+The figure below is the sequence diagram to show how the `overview` command works when running from the 'event' context.
+
+.Simplified sequence diagram for manage command
+image::command_overview_sd.png[manage SD, 800]
+
+
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
