@@ -82,8 +82,11 @@ include::../UserGuide.adoc[tag=menuPart3]
 ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+=== Extracts of Implementation Section
 include::../DeveloperGuide.adoc[tag=menu]
 
+=== Extracts of Use Case Section
 include::../DeveloperGuide.adoc[tag=ucmenu]
 
+=== Extracts of Instructions for Manual Testing Section
 include::../DeveloperGuide.adoc[tag=testMenu]
