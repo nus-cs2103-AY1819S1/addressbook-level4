@@ -11,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.EducationFilterPredicate;
 import seedu.address.model.person.Person;
 
-
 /**
  * Finds and lists the list of person whose grade is between A to B.
  */
