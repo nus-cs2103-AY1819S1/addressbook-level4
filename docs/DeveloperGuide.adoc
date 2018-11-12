@@ -758,7 +758,6 @@ This patient management is the equivalent of <<crud, Create, Read, Update and De
 
 The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, and `FindPatientCommand`.
 
-
 ===== `AddPatientCommand`
 
 The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
