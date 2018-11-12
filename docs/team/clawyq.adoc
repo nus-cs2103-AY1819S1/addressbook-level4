@@ -73,7 +73,8 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/120[#120])
 |_Given below are the sections I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-[.big.underline]#*Implementation of the Patient Record Management System*#
+=== Implementation of the Patient Record Management System
+'''
 
 include::../UserGuide.adoc[tag=patientfirsthalf]
 
@@ -83,10 +84,12 @@ include::../UserGuide.adoc[tag=patientfirsthalf]
 |_Given below are the sections I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-[.big.underline]#*Implementation of the Document class*#
+=== Implementation of the Document class
+'''
 
 include::../DeveloperGuide.adoc[tag=documentpreamble]
 
-[.big.underline]#*Implementation of the Receipt class*#
+=== Implementation of the Receipt class
+'''
 
 include::../DeveloperGuide.adoc[tag=receipt]
