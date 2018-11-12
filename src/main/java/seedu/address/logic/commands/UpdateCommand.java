@@ -75,8 +75,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_UPDATE_SUCCESS = "CCA updated: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to be update must be provided.";
-    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before "
-        + "adding its member!";
+    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist.";
     public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the budget book.";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";

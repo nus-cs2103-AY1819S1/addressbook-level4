@@ -2246,3 +2246,50 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Creating CCA
+. Adds a CCA with a given budget
+
+.. Prerequisites: The name of the given CCA is alphanumeric. The budget given is numeric and the only symbol can be
+used is dash.
+.. Test case: `create n/Basketball budget/500` +
+   Expected: New CCA added: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `create n/Basketball` +
+   Expected: Invalid command format!
+             create: Create a new CCA to the address book.
+             Parameters: n/CCA NAME budget/BUDGET
+             Example: create n/Basketball budget/500
+.. Test case: `create` +
+    Expected: Invalid command format!
+              create: Create a new CCA to the address book.
+              Parameters: n/CCA NAME budget/BUDGET
+              Example: create n/Basketball budget/500
+.. Test case: `create n/Basketball-M budget/500` +
+    Expected: CCA names should only contain alphabet characters and spaces, and it should not be blank!
+.. Test case: `create n/Basketball budget/$500`
+    Expected: Budget should only contain numbers and it should not be blank.
+
+=== Deleting CCA
+. Deletes a CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `delete_cca c/basketball` +
+   Expected: Deleted CCA: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `delete_cca c/tennis` +
+    Expected: The CCA does not exist.
+.. Test case: `delete_cca` +
+    Expected: Invalid command format!
+              delete_cca: Deletes the CCA specified
+              Parameters: c/CCA
+              Example: delete_cca c/ basketball
+
+=== Showing CCAs' Budget
+. Displays the CCA information and its transaction history.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `budget` +
+   Expected: Display budget.
+.. Test case: `budget c/basketball` +
+   Expected: Display budget.
+.. Test case: `budget c/tennis` +
+    Expected: The CCA does not exist.
