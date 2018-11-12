@@ -236,7 +236,7 @@ Examples:
 
 * `login id/root pw/1122qq`
 
-[TIP]
+[NOTE]
 ====
 To testers: You may access the application using the default `root` account: `login id/root pw/1122qq`
 ====
