@@ -216,7 +216,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_registerAlias() throws Exception {
         RegisterCommand command = (RegisterCommand) parser.parseCommand(
-                RegisterCommand.COMMAND_ALIAS + c" " + INDEX_FIRST_PERSON.getOneBased());
+                RegisterCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new RegisterCommand(INDEX_FIRST_PERSON), command);
     }
 
