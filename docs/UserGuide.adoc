@@ -92,6 +92,7 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney`
 
+[[edit]]
 === Editing a person : `edit`
 
 Edits an existing person in the student list. +
@@ -114,6 +115,14 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 5 el/Secondary 1` +
+Edits the educational level of the 5th student to Secondary 1.
+
+[NOTE]
+====
+By editing the educational level of any student using this command will remove any "Graduated" +
+tag by default. To promote the educational grade of a student, please use the `promote` command.
+====
 
 === Listing all persons : `list`
 
@@ -545,8 +554,8 @@ Promotes all students in TutorPal.
 
 ****
 * The promote function does not promote students across educational levels +
-i.e. from Primary to Secondary. For such changes, see command: edit.
-* For students advancing to Secondary 5, use command: edit.
+i.e. from Primary to Secondary. For such changes, kindly refer to <<edit>>.
+* For students advancing to Secondary 5, please also refer to <<edit>>.
 * For students in their final year (Primary 6, Secondary 4/5, JC 2), +
 the promote function automatically adds a tag "Graduated" to indicate that
 the student has graduated.
@@ -556,6 +565,7 @@ edit the student's educational level and/or grade.
 according to their needs.
 ****
 // end::promote[]
+
 === Analyzing grades commands `[coming in v2.0]`
 
 Analyze the grades of students +
@@ -577,19 +587,30 @@ Retrieve the total earnings from tuition fees from all students between a range 
 Format: `earnings START_DATE END_DATE`
 
 * `START_DATE` and `END_DATE` should be given in the format of DDMM.
+* The beginning and ending dates are included in the calculation of tuition fees.
 * The year field is not required as TutorPal assumes current calender year by default.
 * To calculate the amount of money earned within a day, input the same `START_DATE` and `END_DATE`.
-* Students without tuition time slot(s) are ignored by the earnings function.
+* Graduated students and students without tuition time slot(s) are ignored by the earnings function.
 * Due to the lack of built-in attendance taking capability in TutorPal, the earnings function: +
 . Follows a standard one lesson per week schedule and does not account for cancelled or ad-hoc lessons.
-. Does not account for students whose time slots have been changed when calculating earnings from a period
-before his/her time slot has been changed.
 . Should only be used to calculate tuition fees that will be earned in the future.
+. Does not account for the tuition fees of graduated students.
+
+[NOTE]
+====
+While the use of earnings command for dates before the current date is not prohibited, it is not
+encouraged as the values calculated will be inaccurate if tutorPal contains either *graduated students* and/or
+*students whom had their time slot(s) changed before*.
+====
 
 Example:
 
 * `earnings 0204 2506` +
 This command returns the total amount of tuition fees earned between 2 April 2018 to 25 June 2018 inclusive.
+A warning message will be displayed to remind the user on the useage of past dates.
+
+* `earnings 1212 1212` +
+This command will return the total amount of tuition fees to be earned on 12 December.
 // end::earnings[]
 
 // tag::undoredo[]
