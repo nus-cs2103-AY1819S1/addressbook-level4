@@ -655,7 +655,7 @@ We must remember to skip this wish in methods that involve displaying the WishLi
 
 ==== Current Implementation
 
-The find mechanism is supported by `FindCommandParser`. It implements `Parser` that implements the following operations:
+The find mechanism is supported by `FindCommandParser`. It implements `Parser` that implements the following operation:
 
 * `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is
 found. It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an `ArgumentMultimap`. Keywords of
