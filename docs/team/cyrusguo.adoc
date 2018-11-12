@@ -1,0 +1,65 @@
+= Cyrus Guo Xuhui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ConTAct
+
+---
+
+== Overview
+
+ConTAct is a desktop application designed to aid teaching assistants by providing them with features that is
+catered specifically for their use while still managing to be all-purpose enough to serve a variety of needs.
+
+Tutors interact with the application through the CLI, and the GUI is implemented using JavaFX. The app itself is written in Java.
+
+== Summary of contributions
+
+* Code Contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=cyrusguo&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[RepoSense Report]
+
+* *Major enhancement*: added the Graph feature in ConTAct
+** What it does: Allows the tutor to graph the attendance and understand the ratio of students present and absent through the use of search keywords or tags.
+** Justification: This feature significantly improves the product by offering a means for the tutor to understand the attendance of his classes or groups of students at a glance and take actions if needed.
+** Highlights: This feature adds the `graph` command as ways for the user to interact with the graph, while integrating existing commands such as `tag` to be able to search and produce graphs by `tag`. The design considerations were significant to ensure that the calendar was implemented effectively. The graph used has a clean and responsive design. Visually representing the data sets very well.
+** Credits: The initial addressbook-level4 provided a good starting platform for the implementation of this feature.
+
+* *Other contributions*:
+** Project management:
+*** Assisted team member in Email functions with respect to RESTful API and outlook API
+** Community:
+*** Aided teammates in their own features and/or documentation. (Pull requests
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/69[#69]
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/133[#133])
+*** Updated documentation and sequence diagrams (Pull requests
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/153[#153]
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/160[#160])
+*** PRs reviewed: (Pull requests
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/4[#4]
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/33[#33]
+https://github.com/CS2103-AY1819S1-W13-3/main/pull/34[#34])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=graph]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Updated UML diagrams
+
+image::GraphCI.png[width"800"]
+
+image::GraphSD.png[width="800"]
+
+include::../DeveloperGuide.adoc[tag=graph]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
