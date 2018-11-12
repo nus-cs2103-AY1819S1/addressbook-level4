@@ -30,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int LIMIT = 250;
+    private static final int CHARACTER_LIMIT = 250;
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
@@ -55,12 +55,12 @@ public class CommandBox extends UiPart<Region> {
             public void changed(ObservableValue<? extends Number> observable,
                                 Number oldValue, Number newValue) {
                 if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (commandTextField.getText().length() >= LIMIT) {
+                    // Check if the new character is greater than CHARACTER_LIMIT
+                    if (commandTextField.getText().length() >= CHARACTER_LIMIT) {
 
                         // if it's 11th character then just setText to previous
                         // one
-                        commandTextField.setText(commandTextField.getText().substring(0, LIMIT));
+                        commandTextField.setText(commandTextField.getText().substring(0, CHARACTER_LIMIT));
                     }
                 }
             }
