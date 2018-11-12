@@ -9,7 +9,7 @@
 
 == Overview
 This document showcases my contributions in building desktop application Student Schedule Planner
- for software engineering module CS2103T as a member of team T12-3. +
+ for software engineering module CS2103T as a member of team T12-3 together with other 4 members. +
 
 Student Schedule Planner is a desktop task management application built specially for university students.
 Our application offers university students more convenience than other todo-list application through a series of features,
@@ -19,7 +19,7 @@ Currently our Student Schedule Planner has approximately 10kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: Major enhancement: Task management, which mainly involves two components, one is archive and another
+* *Major enhancement*: Major enhancement: Task management, which mainly involves two components: one is archive and another
 is category.
 ** What it does: Archive command allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command “listarchived”.
 The tags used on tasks are managed by customizable categories.
