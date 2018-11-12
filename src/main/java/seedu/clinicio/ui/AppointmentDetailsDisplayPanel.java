@@ -51,7 +51,6 @@ public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
     }
 
     public void setAllText(AppointmentPanelSelectionChangedEvent event) {
-
         header.setText("Appointment Details");
         date.setText(event.getNewSelection().getAppointmentDate().toString());
         time.setText(event.getNewSelection().getAppointmentTime().toString());
@@ -61,7 +60,7 @@ public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
         type.setText(event.getNewSelection().typeToString());
         setStaffText(event);
     }
-    
+
     public void setStaffText(AppointmentPanelSelectionChangedEvent event) {
         if (!event.getNewSelection().getAssignedStaff().isPresent()) {
             staff.setText("Doctor: None assigned");
