@@ -24,7 +24,7 @@ Responsibilities: Meeting
 
 === Ooi Heng Seng Jeffrey
 image::jeffreyooi.png[width="150", align="left"]
-{empty}[https://github.com/jeffreyooi[github]]
+{empty}[https://github.com/jeffreyooi[github]][<<jeffreyooi#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
@@ -51,7 +51,7 @@ Responsibilities: Group
 
 === Tan Kuan Wei Benjamin
 image::betakuwe.png[width="150", align="left"]
-{empty}[https://github.com/betakuwe[github]]
+{empty}[https://github.com/betakuwe[github]][<<betakuwe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic

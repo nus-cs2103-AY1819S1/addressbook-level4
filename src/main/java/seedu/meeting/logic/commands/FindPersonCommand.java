@@ -9,6 +9,7 @@ import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.model.Model;
 import seedu.meeting.model.person.Person;
 
+// @@author betakuwe
 /**
  * Finds and lists all persons in MeetingBook whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.

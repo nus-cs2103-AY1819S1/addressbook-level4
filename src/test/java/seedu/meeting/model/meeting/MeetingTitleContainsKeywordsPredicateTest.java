@@ -13,6 +13,7 @@ import seedu.meeting.logic.parser.exceptions.ParseException;
 import seedu.meeting.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.meeting.testutil.MeetingBuilder;
 
+// @@author betakuwe
 public class MeetingTitleContainsKeywordsPredicateTest {
 
     @Test

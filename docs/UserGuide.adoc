@@ -312,17 +312,19 @@ The person should also be an existing member of the group.
 
 Display all existing groups on the group list / meetings on the meeting list / persons on the person list display.
 
-Format: `list <group|meeting|person>` +
-Shorthand: `list <g|m|p>`
+Format: `list <group|meeting|person|all>` +
+Shorthand: `list <g|m|p|a>`
 
 [NOTE]
 If the list is unfiltered, the list will remain the same.
+If list command does not have parameters entered, it will execute list all by default.
 
 Examples:
 
 * `list group`: list all groups.
 * `list m`: list all meetings.
 * `list person`: list all persons.
+* `list a`: list all groups, meetings and persons.
 
 // tag::import[]
 === Importing data : `import`
@@ -382,7 +384,7 @@ The image below shows the result after successfully executing the command.
 
 image::filepath--showOutput.png[width="450"]
 ****
-
+// end::filepath[]
 
 === Saving the data
 
@@ -432,7 +434,7 @@ e.g. `leave n/Derek g/CS2101`
 * *Find a person / group / meeting* : `find <person|group|meeting> [all/KEYWORDS] [some/KEYWORDS] [none/KEYWORDS]`
 * *Selecting a group / meeting / person* : `select <g|m|p>/INDEX` +
 e.g. `select g/1`
-* *List all groups / meetings / person* : `list <group|meeting|person>` +
+* *List all groups / meetings / person* : `list <group|meeting|person|all>` +
 e.g. `list meeting`
 * *Import data* : `import [--force] f/FILEPATH`
 * *Export data* : `export f/FILEPATH`

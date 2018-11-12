@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.meeting.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.meeting.testutil.PersonBuilder;
 
+// @@author betakuwe
 public class PersonNameContainsKeywordsPredicateTest {
 
     @Test

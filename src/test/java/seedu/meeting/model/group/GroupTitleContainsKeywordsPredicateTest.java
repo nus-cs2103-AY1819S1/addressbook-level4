@@ -12,6 +12,7 @@ import org.junit.Test;
 import seedu.meeting.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.meeting.testutil.GroupBuilder;
 
+// @@author betakuwe
 public class GroupTitleContainsKeywordsPredicateTest {
 
     @Test
