@@ -13,7 +13,7 @@
         <padding>
             <Insets top="5" bottom="5" right="5" left="15" />
         </padding>
-        <Label fx:id="feedback" styleClass="cell_small_label" text="\$feedback" />
+        <Label fx:id="feedback" styleClass="cell_small_label" wrapText="true" text="\$feedback" />
     </VBox>
 </GridPane>
 </VBox>
