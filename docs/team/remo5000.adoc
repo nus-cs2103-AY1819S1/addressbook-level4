@@ -69,3 +69,5 @@ include::../DeveloperGuide.adoc[tag=list]
 include::../DeveloperGuide.adoc[tag=listfiltermanualtest]
 
 include::../DeveloperGuide.adoc[tag=taskviewpanelmanualtest]
+
+include::../DeveloperGuide.adoc[tag=target-user-profile]

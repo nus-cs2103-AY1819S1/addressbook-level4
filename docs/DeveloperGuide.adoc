@@ -929,6 +929,7 @@ First, add small local-impact (i.e. the impact of the change does not go beyond 
 Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. Section A.2, “Creating a new command: remark” explains how to go about adding such a feature.
 
 [appendix]
+// tag::target-user-profile[]
 == Target User Profile
 
 We target overworked students that like mobile games with positive reinforcement.
@@ -942,6 +943,7 @@ statistics over varying time window to be particularly motivational for them.
 ** Some tasks have natural dependencies on other tasks in their lives
 ** Has a high volume of tasks with differing deadlines
 * Prefer CLI apps over fancy GUI
+// end::target-user-profile[]
 
 [appendix]
 == Value proposition
