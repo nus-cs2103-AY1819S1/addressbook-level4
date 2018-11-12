@@ -230,17 +230,17 @@ Format: `import f/FILEPATH`
 
 File format examples for importable `.xml` files are as shown below:
 
-image::AddressBookExample.png[width="790"]
+image::AddressBookExample.png[width="700"]
 _Figure 4.1.9.1: Resident information example. Multiple `persons` can be specified._
 
-image::CCAListExample.png[width="790"]
+image::CCAListExample.png[width="700"]
 _Figure 4.1.9.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
 specified for multiple `cca`._
 
-image::BudgetBookExample.png[width="790"]
+image::BudgetBookExample.png[width="700"]
 _Figure 4.1.9.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
 
-image::TransactionsExample.png[width="790"]
+image::TransactionsExample.png[width="700"]
 _Figure 4.1.9.4: Transaction information example. Multiple `transaction` can be specified._
 
 Example:
