@@ -6,11 +6,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Module's code in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidCode(String)}
- *
- * @author waytan
  */
 public class ModuleCode {
-
+    //@@author waytan
     public static final String MESSAGE_MODULECODE_CONSTRAINTS =
             "Module codes should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -39,14 +37,16 @@ public class ModuleCode {
         fullModuleCode = code;
     }
 
+    //@@author spikerheado1234
     /**
      * Makes an identical deep copy of this ModuleCode.
      */
-    public ModuleCode makeDeepDuplicate() {
+    public ModuleCode makeCopy() {
         ModuleCode newCode = new ModuleCode(new String(fullModuleCode));
         return newCode;
     }
 
+    //@@author waytan
     /**
      * Returns true if a given string is a valid code.
      */

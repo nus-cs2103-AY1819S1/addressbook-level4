@@ -18,6 +18,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.module.Module;
 
+//@@author waytan
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.
  */
@@ -56,6 +57,7 @@ public class TypicalModules {
 
     public static final String KEYWORD_MATCHING_MA1101R = "MA1101R"; // A keyword that matches MA1101R
 
+    //@@author waytan
     private TypicalModules() {} // prevents instantiation
 
     /**

@@ -28,7 +28,7 @@ public class Tag {
     /**
      * Makes an identical deep copy of this Tag.
      */
-    public Tag makeDeepDuplicate() {
+    public Tag makeCopy() {
         Tag newTag = new Tag(new String(tagName));
         return newTag;
     }
