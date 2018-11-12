@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         patientDetailsDisplayPanel.getRoot().setVisible(false);
         browserPanel = new BrowserPanel();
         browserPanel.setVisible(false);
-        
+
         titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
@@ -354,7 +354,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
     }
-    
+
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
         showDisplayPanel(true, false, false);
