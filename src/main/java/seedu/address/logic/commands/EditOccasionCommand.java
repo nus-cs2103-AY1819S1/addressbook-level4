@@ -79,7 +79,7 @@ public class EditOccasionCommand extends Command {
 
         AttendanceListUtil.editOccasionFromAssociatedPersons(model, occasionToEdit, editedOccasion);
 
-        if (!occasionToEdit.isSameOccasion(editedOccasion) || model.hasOccasion(editedOccasion)) {
+        if (!occasionToEdit.isSameOccasion(editedOccasion) && model.hasOccasion(editedOccasion)) {
             throw new CommandException(MESSAGE_DUPLICATE_OCCASION);
         }
 
