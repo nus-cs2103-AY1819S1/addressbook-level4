@@ -16,11 +16,16 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.account.Account;
+import seedu.address.model.contact.Contact;
+import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.TypicalAccount;
+import seedu.address.testutil.VendorBuilder;
 
 public class AddCommandTest {
 
@@ -32,38 +37,75 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_clientAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Contact validContact = new ClientBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_serviceProviderAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Contact validContact = new VendorBuilder().build();
+
+        CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateClient_throwsCommandException() throws Exception {
+        Contact validContact = new ClientBuilder().build();
+        AddCommand addCommand = new AddCommand(validContact);
+        ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateServiceProvider_throwsCommandException() throws Exception {
+        Contact validContact = new VendorBuilder().build();
+        AddCommand addCommand = new AddCommand(validContact);
+        ModelStub modelStub = new ModelStubWithContact(validContact);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_noWritePrivilege_throwsLackOfPrivilegeException()
+            throws CommandException, LackOfPrivilegeException {
+        Contact validContact = new ClientBuilder().build();
+        AddCommand addCommand = new AddCommand(validContact);
+        ModelStub modelStub = new ModelStubWithoutWritePrivilege();
+
+        thrown.expect(LackOfPrivilegeException.class);
+        thrown.expectMessage(String.format(AddCommand.COMMAND_WORD_GENERAL, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Contact alice = new ClientBuilder().withName("Alice").build();
+        Contact bob = new ClientBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -80,7 +122,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -89,7 +131,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
+        public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,27 +146,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
+        public void updateContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,42 +194,92 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitUserLoggedInSuccessfully(Account account) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Account getUserAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isUserLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitUserLoggedOutSuccessfully() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAutoMatchResult(AutoMatchResult newResults) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AutoMatchResult getAutoMatchResult() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single contact.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithContact extends ModelStub {
+        private final Contact contact;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithContact(Contact contact) {
+            requireNonNull(contact);
+            this.contact = contact;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasContact(Contact contact) {
+            requireNonNull(contact);
+            return this.contact.isSameContact(contact);
+        }
+
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.ROOTACCOUNT;
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that does NOT have write privilege.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubWithoutWritePrivilege extends ModelStub {
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.READ_ONLY_USER_ACCOUNT;
+        }
+    }
+
+    /**
+     * A Model stub that always accept the client being added.
+     */
+    private class ModelStubAcceptingContactAdded extends ModelStub {
+        final ArrayList<Contact> contactsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasContact(Contact contact) {
+            requireNonNull(contact);
+            return contactsAdded.stream().anyMatch(contact::isSameContact);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addContact(Contact contact) {
+            requireNonNull(contact);
+            contactsAdded.add(contact);
         }
 
         @Override
@@ -198,6 +290,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.ROOTACCOUNT;
         }
     }
 

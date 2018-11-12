@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalContacts.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,6 +56,25 @@ public class VersionedAddressBookTest {
         assertAddressBookListStatus(versionedAddressBook,
                 Collections.singletonList(emptyAddressBook),
                 emptyAddressBook,
+                Collections.emptyList());
+    }
+
+    @Test
+    public void resetState_success() {
+        VersionedAddressBook versionedAddressBook = prepareAddressBookList(
+                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+
+        versionedAddressBook.commit();
+        assertAddressBookListStatus(versionedAddressBook,
+                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
+                addressBookWithBob,
+                Collections.emptyList());
+
+        versionedAddressBook.clearState();
+        versionedAddressBook.commit();
+        assertAddressBookListStatus(versionedAddressBook,
+                Arrays.asList(addressBookWithBob),
+                addressBookWithBob,
                 Collections.emptyList());
     }
 

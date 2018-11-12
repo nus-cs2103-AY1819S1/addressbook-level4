@@ -3,14 +3,16 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.account.Account;
+import seedu.address.model.contact.Contact;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    //TODO: this predicate shows contacts only. javadocs is incorrect here but KIV first
+    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = contact -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,37 +21,38 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasContact(Contact contact);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given contact.
+     * The contact must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteContact(Contact target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given contact.
+     * {@code contact} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addContact(Contact contact);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given contact {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address
+     *     book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateContact(Contact target, Contact editedContact);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered contact list */
+    ObservableList<Contact> getFilteredContactList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredContactList(Predicate<Contact> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -75,4 +78,44 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * The user has logged in with an account successfully. Saves this account
+     * into
+     * @param account The account user used to log in successfully
+     */
+    void commitUserLoggedInSuccessfully(Account account);
+
+    /**
+     * Get the user account which he used to logged in to this application.
+     * @return The account used to logged in to this application.
+     */
+    Account getUserAccount();
+
+    /**
+     * Return true if user has logged in successfully, false otherwise.
+     * @return true if user has logged in successfully, false otherwise.
+     */
+    boolean isUserLoggedIn();
+
+    /**
+     * The user has logged out of his account successfully.
+     */
+    void commitUserLoggedOutSuccessfully();
+
+    /**
+     * The user has changed his old password to {@code newPassword}.
+     */
+    void commiteUserChangedPasswordSuccessfully(String newPassword);
+
+    /**
+     * Updates the auto-matching results.
+     * @param newResults The new results to replace the old one.
+     */
+    void updateAutoMatchResult(AutoMatchResult newResults);
+
+    /**
+     * Retrieves the last updated results for the auto-matching.
+     */
+    AutoMatchResult getAutoMatchResult();
 }

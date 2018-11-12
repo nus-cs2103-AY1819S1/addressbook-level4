@@ -4,52 +4,84 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a client identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s delete";
+    /*
+    the below are necessary for switch statements as a constant expression is required for to compile switch
+    statements
+     */
+    public static final String COMMAND_WORD_CLIENT = "client delete";
+    public static final String COMMAND_WORD_VENDOR = "vendor delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
+            + ": Deletes the %1$s identified by the assigned unique %1$s ID.\n"
+            + "Parameters: #<ID> (must be a positive integer)\n"
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted %1$s: %2$s";
 
-    private final Index targetIndex;
+    private final Index id;
+    private final ContactType contactType;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Index id, ContactType contactType) {
+        this.id = id;
+        this.contactType = contactType;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException,
+            LackOfPrivilegeException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (!model.getUserAccount().hasDeletePrivilege()) {
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
+        model.updateFilteredContactList(contactType.getFilter()
+                .and(contact -> contact.getId() == id.getOneBased()));
+
+        List<Contact> filteredList = model.getFilteredContactList();
+
+        if (filteredList.size() == 0) {
+            // filtered list size is 0, meaning there is no such contact
+            model.updateFilteredContactList(contactType.getFilter());
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                    id.getOneBased()));
+        }
+
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
+        // filtered list size is 1 (unique ID for client/vendor)
+        Contact contactToDelete = filteredList.get(0);
+        model.deleteContact(contactToDelete);
+        model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
+                contactToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && id.equals(((DeleteCommand) other).id)); // state check
     }
 }

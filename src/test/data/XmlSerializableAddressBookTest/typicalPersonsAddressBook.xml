@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- AddressBook save file which contains the same Client values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
@@ -7,6 +7,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
+        <type>CLIENT</type>
     </persons>
     <persons>
         <name>Benson Meier</name>
@@ -15,12 +16,17 @@
         <address>311, Clementi Ave 2, #02-25</address>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <type>CLIENT</type>
     </persons>
     <persons>
         <name>Carl Kurz</name>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
+        <type>CLIENT</type>
+        <services>hotel $200.00</services>
+        <services>dress $80.00</services>
+        <services>catering $1080.00</services>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -28,23 +34,98 @@
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <tagged>friends</tagged>
+        <type>CLIENT</type>
+        <services>photographer $1888.80</services>
+        <services>hotel $700.00</services>
+        <services>ring $888.88</services>
     </persons>
     <persons>
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
+        <type>CLIENT</type>
+        <services>photographer $1000.00</services>
+        <services>hotel $288.00</services>
+        <services>catering $2000.00</services>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
+        <type>CLIENT</type>
+        <services>catering $2800.00</services>
     </persons>
     <persons>
         <name>George Best</name>
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <address>4th street</address>
+        <type>CLIENT</type>
+        <services>ring $2000.00</services>
+    </persons>
+    <persons>
+        <name>Dominic Dong</name>
+        <phone>94311253</phone>
+        <email>dominicdong@example.com</email>
+        <address>123, Jurong East Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+        <type>VENDOR</type>
+    </persons>
+    <persons>
+        <name>Ng Ee Hooi</name>
+        <phone>98762432</phone>
+        <email>eehooid@example.com</email>
+        <address>313, Clementi Ave 5, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+        <type>VENDOR</type>
+        <services>dress $68.00</services>
+    </persons>
+    <persons>
+        <name>Gan Chin Yao</name>
+        <phone>18762432</phone>
+        <email>gan@example.com</email>
+        <address>313, Pioneer Ave 5, #02-25</address>
+        <type>VENDOR</type>
+        <services>ring $588.00</services>
+        <services>invitation $100.00</services>
+    </persons>
+    <persons>
+        <name>Liau Jian Jie</name>
+        <phone>93762432</phone>
+        <email>jj@example.com</email>
+        <address>444, River Valley Ave 5, #02-25</address>
+        <type>VENDOR</type>
+        <services>photographer $1888.00</services>
+        <services>invitation $288.00</services>
+    </persons>
+    <persons>
+        <name>Lim Wai Lun</name>
+        <phone>98761432</phone>
+        <email>wailunoob@example.com</email>
+        <address>313, Red Hill Ave 5, #02-25</address>
+        <type>VENDOR</type>
+        <services>transport $60.00</services>
+        <services>dress $100.00</services>
+    </persons>
+    <persons>
+        <name>Dong SiJi</name>
+        <phone>91232432</phone>
+        <email>dong.siji@example.com</email>
+        <address>313, Buona Vista Ave 5, #02-25</address>
+        <type>VENDOR</type>
+        <services>catering $2800.00</services>
+        <services>transport $100.80</services>
+    </persons>
+    <persons>
+        <name>Chino</name>
+        <phone>98711132</phone>
+        <email>chinoyaobi@example.com</email>
+        <address>313, Pasir Ris Ave 5, #02-25</address>
+        <type>VENDOR</type>
+        <services>hotel $600.00</services>
+        <services>ring $1800.00</services>
     </persons>
 </addressbook>

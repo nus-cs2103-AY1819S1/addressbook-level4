@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Login" minWidth="600" minHeight="450" onCloseRequest="#handleExit">
+    <icons>
+        <Image url="@/images/heart2_logo_transparent.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <VBox prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1"
+                  xmlns:fx="http://javafx.com/fxml/1">
+
+                <StackPane prefHeight="312.0" prefWidth="600.0" style="-fx-background-color: #ffffff;"
+                           VBox.vgrow="ALWAYS">
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="112.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="587.0" />
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="562.0" />
+                    <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../images/heart2_logo.png" />
+                        <effect>
+                            <Glow />
+                        </effect>
+                    </ImageView>
+                </StackPane>
+
+                <StackPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #f7d2e0;"
+                           VBox.vgrow="ALWAYS">
+                    <VBox>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <Region prefHeight="140.0" prefWidth="601.0" />
+                        </StackPane>
+
+                        <StackPane prefHeight="250.0" prefWidth="200.0">
+                            <Label fx:id="statusPlaceholder" alignment="CENTER" wrapText="true" prefHeight="250.0" prefWidth="1000.0"
+                                   text="Welcome! Please log in to use Heart².">
+                                <font>
+                                    <Font size="16.0" />
+                                </font>
+                            </Label>
+                        </StackPane>
+
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <Region prefHeight="20.0" prefWidth="200.0" />
+                        </StackPane>
+
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <TextField fx:id="loginCli" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
+                                       prefWidth="468.0" maxWidth="600" promptText="Enter a command..."
+                                       style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
+                                               -fx-border-radius: 20;" focusTraversable="false">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </TextField>
+                            <VBox.margin>
+                                <Insets left="30.0" right="30.0" />
+                            </VBox.margin>
+                        </StackPane>
+
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <Region prefHeight="25.0" prefWidth="200.0" />
+                        </StackPane>
+
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <Separator opacity="0.84" prefHeight="0.0" prefWidth="422.0"
+                                       style="-fx-background-color: #F9F4F4;" />
+                            <VBox.margin>
+                                <Insets left="30.0" right="30.0" />
+                            </VBox.margin>
+                        </StackPane>
+
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <Region prefHeight="10.0" prefWidth="200.0" />
+                        </StackPane>
+                    </VBox>
+                </StackPane>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

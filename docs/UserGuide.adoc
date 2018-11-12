@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Heart² - Enterprise Wedding Management System
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -11,250 +11,513 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+image::userguide.png[width="700"]
+
+By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`      Licence: `MIT`
 
 == Introduction
+image::intropicture.png[width="256"]
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
+You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise feature set. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
 
+This section provides a quick overview to get you started with the application.
+
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `heart2.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Wedding Planner.
+.  Double-click the file to start the app. The GUI for the login page should appear in a few seconds:
 +
-image::Ui.png[width="790"]
+image::UiLoginDiagram.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
 .  Refer to <<Features>> for details of each command.
+.  After logging in, the GUI for the main page should appear:
++
+image::Ui.png[width="790"]
 
 [[Features]]
 == Features
 
-====
-*Command Format*
+image::format.png[width="256"]
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+The following format is consistent for all the commands listed in this section.
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as in `add n/John Doe`.
+* Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times, including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `<CONTACT_TYPE>` is to replaced with either `client` *or* `vendor`.
+* `<ID>` is to replaced with a valid ID, and only positive integers are recognised as an ID.
+
+* An example table shows the usage with actual data for a particular command. Below shows one instance of such a table.
+
+._An example table for login command_
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`login u/rootUser p/rootPassword`
+|=====
+
+image::callouts2.png[width="256"]
+
+Callouts are rectangular boxes with an icon and words to point out various types of information. Below are 3 callouts that will be used throughout this document:
+
+[NOTE]
+This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
+
+[TIP]
+This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
+
+[WARNING]
+This represents a *warning*. A warning denotes something of crucial importance, and you should be extremely cautious when reading the statement.
+
+{empty} +
+
+image::commands.png[width="256"]
+
+*_Heart²_* is designed with an intuitive command syntax for your ease of use.
+The following section documents all the commands available for you in this application.
+
+[NOTE]
+Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and might be marked as Unknown Command prior to logging in.
+
+[NOTE]
+For all commands that require an `#ID`, your ID must be a valid ID that matches the entries that you have. This user guide's ID `#123` may not be available in your data. Change the ID accordingly to the ID that you wish for a command.
 
 === Viewing help : `help`
 
+Opens a new window that contains the user guide to help you find out any information you need.
+
 Format: `help`
 
-=== Adding a person: `add`
+[NOTE]
+You cannot `undo` a help.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Logging in : `login`
 
-[TIP]
-A person can have any number of tags (including 0)
+Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
 
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Format: `login u/USERNAME p/PASSWORD`
 
 [NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Condition of use: You must not be logged in. Otherwise, it will be an unknown command.
 
 [NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+You cannot `undo` a login.
 
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`login u/rootUser p/rootPassword`
+|=====
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`
+
+=== Logging out : `logout`
+
+Securely logs you out of the system.
+
+Format: `logout`
+
+[NOTE]
+You cannot `undo` a logout.
+
+=== Registering a new account : `register account`
+
+Register a new account for this application. You can only register a new account after logging in with a `SUPER_USER` account. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+
+Format: `register account u/USERNAME p/PASSWORD r/ROLE`
+
+[NOTE]
+`r/ROLE`: either `r/superuser` or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
+
+[NOTE]
+It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+
+[NOTE]
+You cannot `undo` registering a new account.
+
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`register account u/myNewUsername p/p@ssw0rd r/superuser`
+|=====
+
+[WARNING]
+Username and password cannot be empty, or contain spaces.
+
+[WARNING]
+Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
+
+=== Change the current password : `change password`
+
+Change your current account password from an old password to a new password.
+
+Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+
+[NOTE]
+You cannot `undo` changing of password.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`change password o/jf3nv n/j9y3nd`
+|=====
+
+[WARNING]
+New password should not be the same as old password, and it cannot be empty, or contain spaces.
+
+[WARNING]
+Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
+
+=== Working with contacts
+
+There are two types of contacts supported by *_Heart²_*, namely `client` and `vendor`.
+
+[TIP]
+All commands pertaining to contacts start with either `client` or `vendor`.
+
+==== Adding a contact: `add`
+
+You can `add` a contact together with its particulars into *_Heart²_* by specifying its contact type first, that is, `client` or `vendor`.
+
+Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+
+[NOTE]
+You cannot add a contact that already exists in the application. Two contacts are considered duplicates if they are of the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor add n/Mary Jane p/98765432 e/maryjane@gmail.com a/123 Lorem Street, #67-89, Singapore 890321`
+|=====
+
+[TIP]
+You can `undo` and `redo` adding of a contact!
+
+// tag::list[]
+==== Listing and searching for contacts: `list`
+
+You can view all the contacts of a specific type in a list by specifying the contact type to be shown.
+
+Format: `<CONTACT_TYPE> list`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list`
+|=====
+
+*_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+To search, simply append your search parameters to the back of the original command.
+
+Only contacts that matches all the search parameters will be displayed to you in the form of a list.
+Searching is done through substring matching, so you do not need to enter the full name, just part of the name will do.
+
+Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list n/John`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list p/98765432`
+|=====
+// end::list[]
+
+=== Working with a specific contact
+
+Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
+
+
+[TIP]
+Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`.
+
+[TIP]
+These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
+
+[NOTE]
+IDs can be similar for `client` and `vendor`. However, since the contact type and ID come hand in hand, the contacts are still effectively unique!
+
+==== Viewing a contact: `view`
+
+You can `view` detailed information about a specific contact using its unique ID.
+This information will be displayed on the right panel in *_Heart²_*.
+
+[TIP]
+`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
+
+[NOTE]
+*Any* command following `view` will hide the information shown before on the panel on the right.
+
+Format: `<CONTACT_TYPE>#<ID> view`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#3 view`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#3 view`
+|=====
+
+[TIP]
+Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
+
+==== Deleting a contact: `delete`
+
+You can also `delete` a contact from *_Heart²_*, by specifying its unique ID.
+
+Format: `<CONTACT_TYPE>#<ID> delete`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 delete`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 delete`
+|=====
+
+[TIP]
+You can `undo` and `redo` deleting a contact!
+
+==== Updating a contact: `update`
+
+You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
+
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[NOTE]
+You cannot update a contact to another contact that already exists in the application. Two contacts are considered duplicates if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
+[NOTE]
+When editing tags, adding of tags is not cumulative and existing tags of the contact will be removed.
+
+[TIP]
+You can remove all tags for a contact by updating the contact with `t/` (without specifying any tags after it)!
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 update n/Jane Doe e/janedoe@gmail.com`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 update n/Bob Vans e/bobvans@gmail.com`
+|=====
+
+[TIP]
+You can `undo` and `redo` updating a contact!
+
+// tag::addservice[]
+==== Adding a service: `addservice`
+
+You can add attributes of the services your clients require or vendors can provide by using the
+ `addservice` command specified by the contacts' unique IDs.
+
+[WARNING]
+Every service can only be added *once*. Updating this service is not supported.
+
+[NOTE]
+Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',').
+
+Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+
+Available service types for `SERVICE_TYPE`:
+
+|=======
+|`photographer` |`hotel`         | `catering`   |`dress`
+|`ring`         |`transport`     | `invitation` |
+|=======
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 addservice s/photographer c/2000.00`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 addservice s/catering c/10000.00`
+|=====
+
+[TIP]
+You can `undo` and `redo` adding a service to a contact!
+// end::addservice[]
+
+==== Automatching for a client: `automatch`
+
+You can easily find vendors that can fulfil the request services with this command.
+
+Format: `client#<ID> automatch`
+
+[NOTE]
+It only shows you the vendors within the budget requirement that fulfils a particular service requirement of the client.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 automatch`
+|=====
+
+==== Automatching for a vendor: `automatch`
+
+You can easily find clients whose service requirements match the services offered by a vendor.
+
+Format: `vendor#<ID> automatch`
+
+[NOTE]
+It only shows you the clients whose budgets can afford the service of the particular vendor.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 automatch`
+|=====
+
+=== Listing entered commands: `history`
+
+Lists all the commands that you have entered in reverse chronological order for this particular session. Histories are deleted upon logging out or exiting the app.
+
+By default, the following commands will have their parameters censored when saving to history. This is because these commands contain sensitive information such as user password.
+
+* `login`
+* `register account`
+* `change password`
+
+The command `logout` will not be saved to history as the session has ended due to logging out.
+
+Format: `history`
+
+[NOTE]
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+
+// tag::undoredo[]
+=== Undo the previous command: `undo`
+
+Undo the commands that you have entered in chronological order for this particular session. Once you logout or exit the application, you cannot `undo` a command from the last session.
+
+Format: `undo`
+
+[NOTE]
+The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
+
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was undone.
+
+=== Redo the commands undone: `redo`
+
+Redo the commands that you have undone by undo in chronological order for this particular session. Once you logout or exit the application, you cannot `redo` a command from the last session.
+
+Format: `redo`
+
+[NOTE]
+Commands that have been undone will be reset upon a `clear` command.
+
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was redone.
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Address book data are saved in the hard disk automatically after any command that changes the data.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+There is no need for you to save manually.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+== Command summary
+
+Below is a summary of the commands available for you to use.
+
+*Before logging in*
+
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To get help | `help`
+|To log in | `login u/USERNAME p/PASSWORD`
+|To close the application | `exit`
+|===
+
+*After logging in*
+
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To register a new account | `register account u/USERNAME p/PASSWORD r/ROLE`
+|To change your account password | `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+|To add a contact | `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+|To add a service requirement | `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+|To update a specific contact | `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To list contacts that matches the inputs | `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To find a match that fits a particular contact's requirements | `<CONTACT_TYPE>#<ID> automatch`
+|To view a specific contact | `<CONTACT_TYPE>#<ID> view`
+|To delete a specific contact | `<CONTACT_TYPE>#<ID> delete`
+|To delete all contacts | `clear`
+|To list all the commands entered in this session | `history`
+|To undo the previous command | `undo`
+|To redo the previous undone command | `redo`
+|To get help | `help`
+|To log out of your account | `logout`
+|To close the application | `exit`
+|===
+
+*Coming in v2.0*
+
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To retrieve forgotten password | `forget password`
+|To assigning vendors to clients | `client#<ID> assign vendor#<ID>`
+|To assigning clients to vendors | `vendor#<ID> assign client#<ID>`
+|===
 
 == FAQ
+image::faqpicture.png[width="400"]
 
-*Q*: How do I transfer my data to another Computer? +
+*[red]#Q*#: [red]#How do I transfer my data to another Computer?# +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-== Command Summary
+*[red]#Q*#: [red]#What platform is this application available on?# +
+*A*: This application is cross-platform, and can be used on both Windows and Mac OS.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+*[red]#Q*#: [red]#Is this application free-of-charge?# +
+*A*: Yes, this application is open-source and can be used for free, even commercially.
+
+*[red]#Q*#: [red]#How can I report an issue?# +
+*A*: You can raise an issue in the issue section and our team will get back to you as soon as possible.

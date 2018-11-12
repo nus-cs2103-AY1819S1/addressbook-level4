@@ -1,0 +1,211 @@
+= Liau Jian Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+This document serves as a summary for my contribution to the https://github.com/CS2103-AY1819S1-F10-3/main[*Heart²*
+project].
+
+For more, you can visit my https://jianjie.co[personal website] to see other projects I was involved in.
+
+== Overview
+
+*Heart²* is a cross-platform enterprise wedding management desktop application that enables wedding agencies to easily
+match clients (couples looking to have a wedding ceremony) to vendors (companies that offer services catered to
+weddings).
+
+*Some features include*:
+
+* CLI interface and rich GUI interface
+* Client and vendor database
+* Detailed tabular breakdown of services listed
+* Auto-matching of clients and vendors
+
+*General metrics of my contribution* (as of 4 Nov 2018)
+
+* ✔ 2,136 LoC changed
+* ✔ 38 commits created
+* ✔ 26 pull requests merged
+* ✔ 19 issues raised
+* Code contribution on https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=liaujianjie[reposense]
+
+== Summary of contributions
+
+=== *Major enhancement*: Auto-matching
+** *What it does:* Automatically finds vendors that can fulfill the service requirements of a specific client.
+Inversely, it can also find all clients for which a specific vendor can serve.
+** *Justification:* Manually searching for vendors for clients is extremely laborious and repetitive. This feature
+reduces the search of vendors or clients to a single line of command.
+** *Highlights:* Simple single one-line command: `client#123 automatch`
+** *Contribution to functional code:* https://github.com/CS2103-AY1819S1-F10-3/main/pull/88[#88], https://github.com/CS2103-AY1819S1-F10-3/main/pull/195[#195], https://github.com/CS2103-AY1819S1-F10-3/main/pull/199[#199], https://github.com/CS2103-AY1819S1-F10-3/main/pull/205[#205], https://github.com/CS2103-AY1819S1-F10-3/main/pull/222[#222], https://github.com/CS2103-AY1819S1-F10-3/main/pull/240[#240], https://github.com/CS2103-AY1819S1-F10-3/main/pull/274[#274], https://github.com/CS2103-AY1819S1-F10-3/main/pull/277[#277]
+** *Contribution to tests:* https://github.com/CS2103-AY1819S1-F10-3/main/pull/291[#291]
+
+=== *Major enhancement*: Profile panel
+** *What it does:* Renders the profile panel in an aesthetically appealing visual format.
+** *Justification:* The previous static page was not very helpful and could not be customised to contain objects such as
+arrays or maps.
+** *Highlights:* Built with the blazing-fast GatsbyJS React Javascript framework for static websites.
+** *Note:* The code for this portion resides in a https://github.com/CS2103-AY1819S1-F10-3/profile-site[separate
+repository].
+
+
+image::automatching.png[width:600]
+_Annotated screenshot of the auto-matching feature and profile panel_
+
+=== *Minor enhancement*: Contact type serialization
+** *What it does:* Serializes the contact (both clients and vendors) as different types of entities in the same XML
+file.
+** *Justification:* Prior to this change, there was no mechanism to differentiate between clients and vendors when the
+data was de-serialized from the XML file.
+** *Highlights:* Serializes both client and vendor data into the same address book XML each type with a differentiable
+format.
+** *Contribution to functional code:* https://github.com/CS2103-AY1819S1-F10-3/main/pull/143[#143]
+
+=== *Other contributions*:
+** Refactored `ServiceProvider` to `Vendor` (https://github.com/CS2103-AY1819S1-F10-3/main/pull/239[#239])
+** Ensure there is only one service name and cost when adding service (https://github.com/CS2103-AY1819S1-F10-3/main/pull/273[#273])
+** Made sure repository was up to date with the upstream branch (https://github.com/CS2103-AY1819S1-F10-3/main/pull/79[#79])
+** Minor readme updates (https://github.com/CS2103-AY1819S1-F10-3/main/pull/35[#35], https://github.com/CS2103-AY1819S1-F10-3/main/pull/49[#49])
+** Took initiative to ensure that we had everything prioritized in the right order and ensure the team was focused
+during our discussions.
+** Spearheaded the various architecture design discussions.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
+|===
+
+=== Modifying the global structure of user guide
+
+Since I was involved in the modelling of our application, I took charge in making the first wave of sweeping updates to our user guide. In doing so, I created a clear separation between _entity types_ (such as `client`) and _entity instances_ (like `client#123`).
+
+Commands acting on a collection of a specific entity type were preceded by the name of the entity type whilst commands acting on a specific entity instance are preceded by a composition of the instance entity type and identifier.
+
+Example documentation of a command that acts on an entity type:
+
+====
+*Listing and searching for contacts: `list`*
+
+You can view all the contacts of a specific type in a list by specifying the contact type to be shown.
+
+Format: `<CONTACT_TYPE> list`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list`
+|=====
+====
+
+Example documentation of a command that acts on an entity instance:
+
+====
+*Deleting a contact: `delete`*
+
+You can also `delete` a contact from *_Heart²_*, by specifying its unique ID.
+
+Format: `<CONTACT_TYPE>#<ID> delete`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 delete`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 delete`
+|=====
+
+[TIP]
+You can `undo` and `redo` deleting a contact!
+====
+
+Pull requests: https://github.com/CS2103-AY1819S1-F10-3/main/pull/30[#30], https://github.com/CS2103-AY1819S1-F10-3/main/pull/64[#64]
+
+=== Documentation for auto-matching
+
+I wrote the entire instructions for using one of the most critial feature of our application--auto-matching.
+
+====
+*Automatching for a client: `automatch`*
+
+You can easily find vendors that can fulfil the request services with this command.
+
+Format: `client#<ID> automatch`
+
+[NOTE]
+It only shows you the vendors within the budget requirement that fulfils a particular service requirement of the client.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 automatch`
+|=====
+====
+
+You can see it https://cs2103-ay1819s1-f10-3.github.io/main/UserGuide.html#automatching-for-a-client-code-automatch-code[in the user guide].
+
+Pull request: https://github.com/CS2103-AY1819S1-F10-3/main/pull/210[#210]
+
+=== Experimenting with icons
+
+Additionally, I have experimented with coloured icons for notes, tips and warnings to provide a consistent visual format when additional content is appended. We eventually decided to remove it because of formatting issues with AsciiDoctor.
+
+====
+image:icon-notes.png[width="48"]
+image:icon-tips.png[width="48"]
+image:icon-danger.png[width="48"]
+====
+
+Pull request: https://github.com/CS2103-AY1819S1-F10-3/main/pull/290[#290]
+
+=== Other changes
+
+I have also made some minor tweaks to make the user guide squeaky clean.
+
+Pull requests: https://github.com/CS2103-AY1819S1-F10-3/main/pull/213[#213], https://github.com/CS2103-AY1819S1-F10-3/main/pull/272[#272], https://github.com/CS2103-AY1819S1-F10-3/main/pull/279[#279], https://github.com/CS2103-AY1819S1-F10-3/main/pull/289[#289]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+=== Document design decisions for auto-matching
+
+I documented the design decisions behind auto-matching and created a custom graphic to assist in the explanation. Below is an excerpt from the developer guide:
+
+====
+*Finding matches between clients and service providers*
+
+The application boasts auto-matching features that reduces the (once-laborious) task of matching service providers a single command.
+
+*High level design*
+
+.High level overview of how auto-matching works
+image::auto-matching.png[width:"800"]
+
+1. On invocation, the auto-matching algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
+2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
+====
+
+To see more, check it out https://cs2103-ay1819s1-f10-3.github.io/main/DeveloperGuide.html#finding-matches-between-clients-and-service-providers[in the developer guide].
+
+Pull request: https://github.com/CS2103-AY1819S1-F10-3/main/pull/117[#117]
+
+'''
+
+To see more of my works, visit my https://jianjie.co[personal website] to see other projects I worked on.

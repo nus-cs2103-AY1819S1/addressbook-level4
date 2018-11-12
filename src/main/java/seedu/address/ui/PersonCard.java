@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Client}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Contact contact;
 
     @FXML
     private HBox cardPane;
@@ -39,15 +39,46 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Contact contact, int displayedIndex) {
         super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        this.contact = contact;
+        id.setText("#" + displayedIndex + ". ");
+        name.setText(contact.getName().fullName);
+        phone.setText(contact.getPhone().value);
+        address.setText(contact.getAddress().value);
+        email.setText(contact.getEmail().value);
+        assignTags(contact);
+    }
+
+    /**
+     * Assigns all tags for the client with a label.
+     *
+     * @param contact Current client to assign tags to
+     */
+    private void assignTags(Contact contact) {
+        contact.getTags().forEach(tag -> {
+            Label tagLabel = createLabelforTag(tag.tagName);
+            tags.getChildren().add(tagLabel);
+        });
+    }
+
+    /**
+     * Creates a label for the tag. Label is set to grey if the tag indicates price.
+     * Otherwise, it would be set to pink as default.
+     *
+     * @param tagName Name of the tag
+     * @return new Label for the tag
+     */
+    private Label createLabelforTag(String tagName) {
+        Label tagLabel = new Label(tagName);
+
+        if (tagName.toLowerCase().contains("price")) {
+            tagLabel.getStyleClass().add("grey");
+        } else {
+            tagLabel.getStyleClass().add("pink");
+        }
+
+        return tagLabel;
     }
 
     @Override
@@ -65,6 +96,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && contact.equals(card.contact);
     }
 }
