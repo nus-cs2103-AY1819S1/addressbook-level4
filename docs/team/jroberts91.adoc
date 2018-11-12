@@ -67,6 +67,7 @@ https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
 |===
 
 include::../UserGuide.adoc[tag=archive]
+
 include::../UserGuide.adoc[tag=restore]
 
 == Contributions to the Developer Guide
@@ -76,4 +77,5 @@ include::../UserGuide.adoc[tag=restore]
 |===
 
 include::../DeveloperGuide.adoc[tag=archive]
+
 include::../DeveloperGuide.adoc[tag=restore]
