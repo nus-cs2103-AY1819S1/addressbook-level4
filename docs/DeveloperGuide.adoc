@@ -433,10 +433,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::apptfeature[]
 === Appointment feature
-The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment
+schedules and to cancel them.
 
 ==== Current Implementation
-The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList`.
 The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
@@ -448,44 +449,112 @@ The class diagram below illustrates the interactions between the Appointment cla
 .Appointment class diagram.
 image::ApptClassDiagram.png[width=""]
 
-Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`. An `Appointment` object must have 1 `Date`, and `Time`. `Patient` contains an `Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. `UniqueAppointmentList` then contains 0 or more `Appointment` s.
+Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
+`Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
+`UniqueAppointmentList` contains 0 or more `Appointment` s.
 
-The current implementation of `Appointment` has the `Patient` object as a separate entity from the `Patient` s in `UniquePatientList`. This means that the `Patient` object only exists within the context of the `Appointment` object, or according to the diagram, would be destroyed if the `Appointment` object is destroyed (composition). Likewise, the `Optional<Staff>` would be destroyed if the `Appointment` object is destroyed too.
+The current implementation of `Appointment` has the `Patient` object as a separate entity from the `Patient` s in
+`UniquePatientList`. This means that the `Patient` object only exists within the context of the `Appointment` object,
+or according to the diagram, would be destroyed if the `Appointment` object is destroyed (composition). Likewise, the
+`Optional<Staff>` would be destroyed if the `Appointment` object is destroyed too.
 
-In future implementations, i.e. v2.0, the `Patient` object will be checked if it exists within the `UniquePatientList` before constructing the `Appointment` object. This ensures that the `Patient` is registered before making an appointment.
+In future implementations, i.e. v2.0, the `Patient` object will be checked if it exists within the `Model#UniquePatientList`
+before constructing the `Appointment` object. This ensures that the `Patient` is registered before making an
+appointment.
 
 ==== `addappt` Command
 
-The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified upon the complete implementation of the `Patient` class  in v2.0. +
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
+parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
+upon the complete implementation of the `Patient` class  in v2.0. +
 
-The image below illustrates the process from the input `addappt` all the way to the addition of the new `Appointment` object into the `UniqueAppointmentList`.
+.Logic sequence for AddAppt.
+image::AddApptSequenceDiagramLogic.png[width=""]
 
-.Appointment construction process.
-image::ApptConstructorSequenceDiagram.png[width="0"]
+.Model sequence for AddAppt.
+image::AddApptSequenceDiagramModel.png[width=""]
 
-Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
+Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the
+Appointment object into the `UniqueAppointmentList`.
 
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
+Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried
+out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
 
-Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
+Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception
+is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
 
-`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest state, i.e. The addition of a new `Appointment` object.
+`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest
+state, i.e. The addition of a new `Appointment` object.
 
 This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList` containing appointments that land on the date that was entered by the user.
+The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList`
+containing appointments that land on the date that was entered by the user. (fact check)
 
-A `Date` object is instantiated from the user-entered date. This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate` object. The list of filtered appointments by date are generated once the method `ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with appointments chronologically ordered with their respective indices.
+*Replace current addappt seq diagram with cknstruction diagram. Use the addappt seq diagram for listappt instead.*
+.Sequence Diagram for ListAppt.
+image::ListApptSequenceDiagram.png[width=""]
 
-For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed. [too much create!!!]
+The listappt requires a date as it’s argument and this date will act as the #apptcontainsdatepredicate to filter the
+list of appointments. A `Date` object is instantiated from the user-entered date.
+
+The argument is first parsed using the #listapptparser into a string array of date components: day, month, year in that
+order. The string array is then used to construct #appointmentcontainsdate predicate.
+
+Following which, the predicate is used to construct the ListApptCommand. The ListApptCommand then executes the function
+#model.updateFilteredAppointmentList.
+It filters the #model.filteredappointments to only show the appointments that land on the date indicated by the user.
+This changes the list of appointments currently ‘viewable’ and ‘interactable’ by the user i.e. ability to be cancelled.
+
+[NOTE]
+What is ‘viewable’ to the viewer (what is seen in the UI) is actually the unmodifiable
+`ClinicIO#ObservableAppointment`. Commands that require the `listappt` are actually modifying the
+`Model#filteredAppointmentList` and then updating the `ObservableAppointmentList`. (
+Verify the usages of observableappointment)
+
+
+This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate`
+object. The list of filtered appointments by date are generated once the method
+`ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with
+appointments chronologically ordered with their respective indices.
+
+For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`,
+`Date#Year` filled out as 3, 3 and 2018 respectively, is constructed.
+
+==== `listallappt` Command
+
+The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
+Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
+`Model#updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
+
+Refer to the above `listappt` section for a more elaborate explanation of the internal process.
 
 ==== `cancelappt` Command
 
-Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+`cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
+The index is parsed using the `ParseUtil#parseIndex()` and is used to identify the target appointment in the
+`Model#FilteredAppointmentList`
+
+.Sequence diagram of cancelappt.
+image::CancelApptSequenceDiagram.png[width=""]
+
+The `Model#CancelAppointment` method is called. It first changes the `Appointment#status` of the `Appointment` object to
+`CANCELLED` via `Appointment#cancelAppointment()` method. The `Appointment` object then adds
+itself to the `Patient#appointmentHistoryList. `cancelAppt` is the only command that directly modifies the
+`Patient#AppointmentHistoryList`.
+
+[NOTE]
+Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
+of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
+
+Aspect: Using a separate tab for appointments
+
+Aspect:
 
 //end::apptfeature[]
 
