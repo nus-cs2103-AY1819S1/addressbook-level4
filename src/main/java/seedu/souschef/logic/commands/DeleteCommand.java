@@ -30,16 +30,22 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     @Override
     public CommandResult execute(History history) {
         model.delete(toDelete);
-
-        if (history.getContext().equals(Context.RECIPE)) {
-            EventsCenter.getInstance().post(new RecipeDeletedEvent((Recipe) toDelete));
-        } else if (history.getContext().equals(Context.MEAL_PLAN)) {
-            EventsCenter.getInstance().post(new MealPlanDeletedEvent((Day) toDelete, Context.MEAL_PLAN));
-        }
-
+        raiseEvent(history.getContext());
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS,
                 history.getContextString(), toDelete));
+    }
+
+    /**
+     * Raises a RecipeDeletedEvent or MealPlanDeletedEvent based on the current context.
+     * @param context
+     */
+    private void raiseEvent(Context context) {
+        if (context.equals(Context.RECIPE)) {
+            EventsCenter.getInstance().post(new RecipeDeletedEvent((Recipe) toDelete));
+        } else if (context.equals(Context.MEAL_PLAN)) {
+            EventsCenter.getInstance().post(new MealPlanDeletedEvent((Day) toDelete, Context.MEAL_PLAN));
+        }
     }
 
     @Override
