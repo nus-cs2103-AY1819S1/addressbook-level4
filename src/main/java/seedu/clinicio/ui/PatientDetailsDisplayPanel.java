@@ -90,7 +90,6 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
 
         setAllListView(patient);
     }
-    
 
     /**
      * Set all the list view with items.
