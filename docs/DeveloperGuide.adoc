@@ -1873,8 +1873,6 @@ Use case ends
 .  Should be able to hold up to 1000 expenses without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -2085,7 +2083,7 @@ one expense. +
 .. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
 categories and costs.
 
-.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+.. Test case: `stats` (defaults to periodAmount = 7, period = day, mode = time)
    Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
    a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
    If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
