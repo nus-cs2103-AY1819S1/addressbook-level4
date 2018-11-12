@@ -154,7 +154,7 @@ If no one is qualified then shows cannot find.
 === Edit certain class time of certain student: `exchangeTime`
 
 Exchange class time between two students who are in the same grade of same education level +
-Format: `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDINAL_NUMBER`
+Format: `exchangeTime A_TIME_SLOT_ORDINAL_NUMBER B_TIME_SLOT_ORDINAL_NUMBER n/NAME_A n/NAME_B`
 
 ****
 * exchange result: exchanged the time between the given students with given time found by the ordinal number.
@@ -162,7 +162,7 @@ Format: `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDIN
 
 Examples:
 
-* `exchangeTime Alice 0 Bob 0`
+* `exchangeTime 0 0 Alice Bob`
 Exchange Alice first time slot and Bob first time slot.
 
 [NOTE]
@@ -415,7 +415,7 @@ If no students qualify the filter criteria, an empty list is returned along with
 === Filter students by time slot: `filterByTime`
 
 List the student who has class at the given time. +
-Format: `filterByTime TIME_SLOT`
+Format: `filterByTime ts/TIME_SLOT`
 
 ****
 * filter result: A student who has a lesson at the given time slot.
@@ -423,7 +423,7 @@ Format: `filterByTime TIME_SLOT`
 
 Examples:
 
-* `filterByTime mon 1300 1400` +
+* `filterByTime ts/mon 1300 1400` +
 returns the student whose has tuition time in monday 1300-1400.
 
 [NOTE]

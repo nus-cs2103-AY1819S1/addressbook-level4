@@ -29,7 +29,7 @@ public class SuggestionCommandByIndex extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
 
-        Person targetPerson = model.getFilteredPersonList().get(indexNum-1);
+        Person targetPerson = model.getFilteredPersonList().get(indexNum - 1);
 
         double averageGrade;
         double sumGrade = 0;

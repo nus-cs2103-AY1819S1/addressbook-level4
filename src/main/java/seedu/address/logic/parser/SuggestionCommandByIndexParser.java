@@ -5,10 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionCommandByIndex;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
-
-import java.util.List;
-
 
 /**
  * Give Suggestions.

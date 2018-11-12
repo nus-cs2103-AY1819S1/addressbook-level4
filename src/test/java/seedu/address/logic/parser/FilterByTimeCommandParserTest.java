@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.FilterByTimeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class FilterByTimeCommandParserTest {
     private FilterByTimeCommandParser parser = new FilterByTimeCommandParser();
@@ -18,7 +19,7 @@ public class FilterByTimeCommandParserTest {
     }
 
     @Test
-    public void parseValidArgsReturnsFindCommand() {
+    public void parseValidArgsReturnsFindCommand() throws ParseException {
         // no leading and trailing whitespaces
         FilterByTimeCommand expectedFindCommand =
                 new FilterByTimeCommand("mon 1300 1400");
