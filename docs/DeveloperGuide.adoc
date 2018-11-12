@@ -1706,14 +1706,13 @@ The result of the test cases under each command is assumed to not persist to the
    Expected: The most recent window size and location is retained.
 
 === Add a user
-.. Test case: `addUser p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-   Expected: Add user successful.
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites:
+EventOrganiser has no users currently.
+.. Test case: `addUser n/Alex Yeoh pass/password`
+      Expected: Invalid command format.
+.. Test case: `addUser n/Alex Yeoh e/alex@exmple.com a/Blk 12 John Street, #10-11 pass/password p/91234567`
+      Expected: New person added.
 
 === Login a user
 .. Note: The states of each test case is continued in the next test case.
@@ -1725,12 +1724,8 @@ EventOrganiser does not have a user with name as "Michael Lim" and password as "
    Expected: Login unsuccessful.
 .. Test case: `login n/Michael Lim pass/password`
    Expected: Login unsuccessful.
-
 .. Test case `login n/Alex Yeoh pass/password`
    Expected: Login successful.
-
-.. Test case: `login n/Michael Lim pass/password`
-   Expected: Login unsuccessful.
 
 === Logout a user
 .. Note: The states of each test case is continued in the next test case.
@@ -1781,9 +1776,9 @@ The second user has name as "Bernice Yu" and interest as "play".
 
 === Find free time between two users
 .. Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
-.. Test case `maxSchedule sl/0000-0000`
+.. Test case `maxSchedule 1 2 sl/0000-0000`
    Expected: Free time of 0000 from Monday to Sunday is displayed.
-.. Test case `maxSchedule sl/0800-0900`
+.. Test case `maxSchedule 1 2 sl/0800-0900`
    Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
@@ -1802,15 +1797,17 @@ The second user has name as "Bernice Yu" and interest as "play".
    Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
    "Alex Yeoh" is the event organiser.
    Event details are displayed in the event details panel, and "Alex Yeoh" is a participant of the event under "People attending".
+.. Test case `addEvent n/CS1234 Group Meeting t/URGENT`
+   Expected: Add event unsuccessful.
 
 === Add a poll
-.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the event list, created by him.
 .. Test case `addPoll n/Meeting date`
    Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
 
 === Add a time poll
 .. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
-.. Test case `addTimePoll d/19-12-2018 d2/20-12-2018`
+.. Test case `addTimePoll d1/19-12-2018 d2/20-12-2018`
    Expected: a new poll with name "Time Poll" is created and displayed in
    the event details panel. It is populated by 30 minute slots based on the schedules of the participants.
 
@@ -1849,7 +1846,7 @@ The second user has name as "Bernice Yu" and interest as "play".
 .. Prerequisites: The event list is not empty.
 .. Test case `findEvent e/Linguistics Reading Group`
    Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.
-.. Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+.. Test case `findEvent t1/17:30 on/Charlotte Oliveiro`
    Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.
 
 === Find event by time

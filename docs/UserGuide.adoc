@@ -82,13 +82,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 * As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
+=== Event Uniqueness
+
+* We define the uniqueness of an event by the event name, location, tags and event organiser. No two events may be identical with respect to these four attributes.
+
 === Timetable
 Timetable download guide
 
 To be referenced by any commands that use `tt/` prefix.
-Format `Command tt/ http://modsn.com/XXXX...`
+Format `Command tt/ http://modsn.us/XXXX...`
 
-Example:
+Example: +
 * http://modsn.us/eDmp1 +
 * http://modsn.us/H4v8s
 
@@ -96,11 +100,14 @@ Example:
 * Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
 * Note that the timetable download may take a while regardless if the link is valid or not.
 * Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
-* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* In the case of slow internet speeds or no internet, the download will return with either A or B. Please try again with a better internet connection as we are not able to control such factors.
 * If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
 * If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
 * If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
 ****
+
+Warning: Timetable download will overwrite any existing schedule in the user.
+
 // end::scheduletimetable[]
 
 [[Features]]
@@ -271,6 +278,7 @@ Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD
 * Due to what is mentioned above, you can remove all the user's interests/tags by typing `i/` or `t/` without specifying any interests/tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
 * After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user's friend list will be updated to show the updated version of the edited user.
+* When using schedule update, the parameter should be "day 0000" where day is the day of the week and 0000 is the 24h representation of the time. Note that schedule only records in 30 min slots, thus the minute value will be rounded off to the nearest 30 minutes.
 * <<Timetable>> download requires a valid nusmods link
 * <<User Uniqueness>> property must be satisified.
 ****
@@ -399,7 +407,7 @@ Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/Public`
 * `addEvent n/CS1101S Meet-up a/UTown t/ByInvite`
 
 ==== Delete an event : `deleteEvent`
@@ -489,12 +497,12 @@ Examples:
 * `setTime t1/13:30 t2/14:00`
 
 // tag::KengJi(2)[]
-==== Create a new poll for an event : `addPoll n/NAME`
-Sets up a new poll for the event with the specified name. +
+==== Create a new poll for an event : `addPoll`
+Sets up a new poll for the pre-selected event with the specified name. +
 Format: `addPoll n/POLL_NAME`
 
 ****
-* Only the event organiser may create a new poll.
+* Events must be selected first. Only the event organiser may create a new poll.
 * Multiple polls of the same name are allowed.
 ****
 
@@ -574,10 +582,14 @@ Displays the poll with index 1 associated with the already selected event, if it
 Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants. +
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 
+****
+* All names of event, location, organiser and participant names must match exactly.
+****
+
 Examples:
 
-* `findEvent e/FaceBook Recruitment Talk on/John Doe` +
-Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
+* `findEvent e/CS2103 weekly meeting on/Alex Yeoh` +
+Finds all events with the name "CS2103 weekly meeting" and with the organiser whose name is "Alex Yeoh".
 
 ==== Find event by a time interval: `findEventByTime`
 Finds events held on a specific date, and is held between a start and end time. +
@@ -675,7 +687,6 @@ There is no need to save manually.
 
 == Command Summary
 
-
 === User commands
 * *Help* : `help`
 
@@ -742,6 +753,9 @@ e.g. `deleteEvent 1`
 * *Edit Event* : `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...` +
   e.g. `editEvent n/CS2102 Meeting t/URGENT t/ByInvite`
 
+* *Select Event* : `selectEvent INDEX` +
+e.g. `selectEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
 
@@ -761,8 +775,6 @@ e.g. `setDate d/12-12-2018`
 e.g. `setTime t1/12:30 t2/13:45`
 
 === Event participant commands
-* *Select Event* : `selectEvent INDEX` +
-e.g. `selectEvent 1`
 
 * *Join Event* : `joinEvent INDEX` +
 e.g. `joinEvent 1`

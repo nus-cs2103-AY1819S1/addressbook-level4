@@ -60,7 +60,7 @@ public class EventAttributesPredicate implements Predicate<Event> {
                 || event.getLocation().equals(address))
                 && startTimesAreEqual
                 && (organiser == null
-                || event.getOrganiser().equals(organiser))
+                || event.getOrganiser().getName().equals(organiser))
                 && (participant == null
                 || event.containsPerson(participant));
     }
