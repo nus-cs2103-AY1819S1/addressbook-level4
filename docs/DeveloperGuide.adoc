@@ -447,52 +447,122 @@ If there was some error saving the current state of the `WishTransaction` to the
 
 The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
 is facilitated mainly by the `ModelManager` which implements `Model`.
-It also affects `versionedWishBook` and `versionedWishTransaction` by adding the target wish to both of their
-respective data structures.
-After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the latest WishBook.
+It also affects `versionedWishBook` and `versionedWishTransaction` by adding the
+resultant wish to both of their respective data structures.
+After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the
+latest version of WishBook.
 The UI is also prompted to refresh through a `WishBookChangedEvent`.
+
+`AddCommandParser` parses the user's input for parameters using prefixes,
+and checks them against their respective regular expressions (regex), specified
+in their respective classes.
+
+====
+
+The following prefix/parameter pairs are **compulsory**, where a user's input will be
+rejected if they are not provided:
+
+* `n/`: Name
+* `p/`: Price
+* One of the following Date parameters:
+** `d/`: Exact expiry date
+** `a/`: duration (or lifetime) from time when command is entered
+
+The following prefix/parameter pairs are **optional**, where a user's input will
+be successful even if they are not provided:
+
+* `t/`: tags (more than one allowed)
+* `u/`: product's URL (product page)
+
+====
+
+[NOTE]
+====
+**Regarding Duration (`a/`) vs Date (`d/`)**
+
+* If `d/` is used, a valid Date should be used.
+** Date comes in the format of `dd/mm/yyyy`,
+`dd` being days, `mm` being months, `yyyy` being the year, and the
+** Specified date should also be a valid date in the future.
+* If `a/` is used, a valid Duration should be used.
+** length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
+* In any command, only `Duration` or `Date` can be used. Never both.
+* If an invalid string for date or duration is provided, a warning will be
+displayed to prompt the user to enter a valid date or duration.
+
+====
 
 Given below is an example usage scenario and how an AddCommand is carried out.
 
-Step 1. The user types in a valid `AddCommand`, for example, `add n/1 TB Toshiba SSD p/158 d/200d`, and the current
-date is 2nd October 2017 (2/10/2017).
-
-[NOTE]
-* The Date format should be `dd/mm/yyyy` where the specified date should be a valid date in the future.
-* If the date provided after the date prefix `d/` is of valid duration length instead of `dd/mm/yyyy` format, the
-format should be `<years>y<months>m<days>d`.
-* If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.
+Step 1. The user types in a valid `AddCommand`, `add n/1 TB Toshiba SSD p/158 a/200d`, and the current date is 2nd October 2017 (2/10/2017).
 
 The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
-`Date` attribute which follows `d/` in the command will be discussed below.
+`Duration` attribute which follows `a/` in the command will be discussed below.
 
-The computation of wish expiry date is handled internally in the `ParserUtil` class,
-which is able to take days, months, and years as input to generate a proper `Date` with the current date that the user
-executes the command.
-Internally, `ParserUtil#parseDate()` converts the input date specified, and adds it to the current date to get the
-desired `Date`.
+Since `Duration` prefix is used, the computation of a wish's expiry date is handled
+internally in the `ParserUtil` class, which `ParserUtil#parseDate()` parses and converts
+the input string into a `Period` object (if input is valid),
+and adds the resultant `Period` to the current `Date` to get the desired
+`Date` of the `Wish`.
 
-The resultant wish will have the following properties:
+The resultant `Wish` will have the following properties:
 
+* id: `a randomly-generated UUID`
 * Name: _1TB Toshiba SSD_
-* SavedAmount: 0
+* SavedAmount: 0.00
 * Price: 158.00
 * Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
+* Fulfilled: `false`
+* Expired: `false`
 
-Step 2. The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
+The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
 which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
 as `filteredSortedWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
 
-_{TO-DO: Sequence Diagram here}_
+The following sequence diagram shows how an `AddCommand` is processed in WB:
+
+image::AddWishSequenceDiagram.png[width="800"]
+
+Step 2. Some time later, the user decides that she wants the exact same wish,
+but duplicated, and enters the exact same command, but with an exact `Date`
+instead of `Duration`, so the command entered is
+`add n/1 TB Toshiba SSD p/158 d/20/4/2018`.
+
+Since `Date` prefix is used, the `ParserUtil` parses the string into a `Date` object,
+and the resultant object is used directly for the resultant `Wish`.
+
+Similar to in Step 1, the command will be parsed successfully and a second `Wish`
+will be added, albeit with a different (hidden) id generated.
+
+The resultant `Wish` will have the following properties:
+
+* id: `another randomly-generated UUID`
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 0.00
+* Price: 158.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
 
 ==== Design Considerations
+* **Alternative 1 (current choice)**: Different prefixes for `Duration` and `Date`.
+** Pros: More focused user experience.
+User get more specific feedback depending on their preferred way of inputting date if a wrong input was made.
+If user uses `a/` and enters an incorrect `Duration`, the user will not receive an error message about the correct format
+for an exact `Date`, and will only be notified of the correct format of a `Duration`.
+** Pros: Easier to implement and handle isolate errors related to respective input parameters.
+** Cons: More prefixes for user to remember.
 
-
-_{TO-DO}_
+* **Alternative 2**: Have `Duration` and `Date` use the same prefix.
+** Pros: More natural usage of one prefix to determine `Wish` 's desired expiry date.
+** Cons: Conflating implementation of `Duration` and `Date`, hence harder to debug.
+** Cons: Tricky to implement, as we are parsing one input for two different desired formats.
 
 // end::wish[]
 
@@ -522,11 +592,10 @@ The resultant wish will have the following properties:
 * Name: _1TB Toshiba SSD_
 * SavedAmount: 10.00
 * Price: 15.00
-* DueDate: 20/4/2018 (20th April 2018)
+* Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
 * Fulfilled: `false`
 * Expired: `false`
 
@@ -545,11 +614,10 @@ The resultant wish will have the following properties:
 * Name: _1TB Toshiba SSD_
 * SavedAmount: 15.00
 * Price: 15.00
-* DueDate: 20/4/2018 (20th April 2018)
+* Date: 20/4/2018 (20th April 2018)
 * URL: `empty string`
 * Remark: `empty string`
 * Tags: `none`
-* Transactions: `empty LinkedList`
 * Fulfilled: `true`
 * Expired: `false`
 
@@ -657,6 +725,122 @@ keywords appended to the same prefixes are grouped with a logical OR when being 
 ** Pros: Search results will be more inclusive.
 ** Cons: Very slim chance for such a use case.
 // end::find[]
+
+// tag::list[]
+=== List feature
+
+The `list -c and list -u` command allows the user to view the list of all wishes, completed and ongoing, respectively.
+A wish is completed if the savedAmount is greater or equal to the price of the wish.
+
+==== Current Implementation
+
+
+Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
+
+.  The user executes the command `list -c`.
+.  `model.updateFilteredWishList()` will update the wish list with `WishCompletedPredicate` as the parameter (boolean). `wish.isFulfilled()` is called to check whether the wish is completed or not.
+.  The updated wish list would be reflected on the UI to be displayed to the user.
+
+The following sequence diagram shows how the Wish Detail Panel displays its updated content:
+
+image::ListCompletedSequenceDiagram.png[width="790"]
+// end::list[]
+
+// tag::redesign[]
+=== Redesign of User Interface
+
+The UI has been redesigned to implement the following UI components required for WishBook:
+
+* Command Box
+* Wish List Panel
+* Wish Detail Panel
+
+
+==== Wish List Panel
+
+The Wish List Panel consists of a list of Wish Card which contains 4 UI elements:
+
+* `WishCard#nameLabel` - A `Text` element that displays the wish’s name.
+* `WishCard#progressLabel` - A `Text` element that displays the wish’s saving progress in percentage format.
+* `WishCard#tags` - A `FlowPane` element that contains a `Text` element which displays the wish’s assigned tags.
+* `WishCard#progressBar` - A `progressBar` element that visually presents the percentage of the wish’s current saving progress.
+
+Whenever the user adds a new wish or edits an existing wish, a new WishCard containing the wish will be added to the Wish List Panel or the content in the existing WishCard will be updated respectively.
+
+The user will be able to view the wish’s current saving progress both in terms of text on the progressLabel (e.g. ’80%’) and the progressBar. Also, the user will be able to see all the tags he/she assigned to categorize the wish.
+
+===== Problem with the old design
+
+The UI (MainWindow) constructs the `WishListPanel` by obtaining an `ObservableList` of wish cards from `Model`, this list is assigned when UI starts, and will never be re-assigned.
+The UI "observes" the list and updates when it is modified.
+
+This approach works well for the `WishListPanel` because WishBook contains only 1 list of wish cards.
+However, the saving history list in the `WishDetailPanel` can not be updated in the same manner because Model component will change its card list’s reference when a user adds a new wish or updates the content of the wish.
+
+In this case, the `WishDetailPanel` in UI will not be updated because the card list of which UI has reference to is actually not changed.
+
+===== Design considerations
+
+* **Alternative 1 (current choice)**: Have a wishList in `Model` and keep it updated with the current list of cards
+** Explanation: The UI needs only 1 reference to this `wishList`, each time user executes any changes, `wishList` is cleared and the new list of cards is copy to the `wishList`.
+** Pros: The structure of `Model` and UI component needs not be changed
+** Cons: Need to keep a copy of the current card list, copying the whole list of cards for each command operation has bad effect on performance .
+
+* **Alternative 2**: Model component raises an event when its current card list’s reference is changed
+** Explanation: When user adds a new wish or executes save, `Model` will raise an event (`WishPanelUpdatedEvent`), which is subscribed by UI, then UI can re-assign its list of cards and update the cards panel accordingly.
+** Pros: Better performance
+** Cons: Need to re-design `Model` and UI components 
+
+==== Wish Detail Panel
+
+The Wish Detail Panel consists of 3 UI sub-components:
+
+* `WishDetailSavingAmount` that contains `Text` elements to display price and the saving progress of the wish
+* `WishDetailSavingHistory` that contains a `List` of history of saving inputs of the wish
+* `WishBrowserPanel` that displays `WebView` of the URL of the wish.
+
+Whenever the user adds a new wish or edits an existing wish, the content of the wish in Wish Detail Panel will be updated.
+The user will be able to view the wish’s current saving progress and the history of his/her saving inputs of the wish in the list format.
+Also, the user will be able to browse through the wish’s product page via its assigned URL.
+
+===== Current Implementation
+
+Every time a new Wish is added or an existing wish is updated by the commands such as save, it raises a `WishDataUpdatedEvent`.
+The UI will then handle that event and update the `WishDetailPanel` with the new version of wish.
+
+Given below is an example usage scenario and how the WishBook behaves and `WishDetailPanel` is updated at each step:
+
+.  The user executes the command `save 1 1000`.
+
+[NOTE]
+If a command fails its execution, WishDataUpdatedEvent will not be posted.
+
+.  The save command updates the model with the new wish and raises a new `WishDataUpdatedEvent`.
+.  `WishDetailSavingAmount` and `WishDetailSavingHistory` responds to the `WishDataUpdatedEvent` with `WishListPanel#handleWishUpdatedEvent()`.
+.  The `WishDetailSavingAmount` updates the wish’s current saving progress when `WishDetailSavingAmount#loadWishDetails` is called.
+.  The progress is calculated from when `Wish#getProgress` is called. The value is saveAmount / price. Then the progress label for the wish is set to that fraction.
+.  The `WishDetailSavingHistory` updates the wish’s saving history list when `WishDetailSavingHistory#loadWishDetails` is called.
+.  The saving history list is cleared.
+.  The new set of history entry is retrieved from `wishTransaction#getWishMap` and the saved amount is calculated from subtracting previous saving amount from the next one.
+.  The saving history list is now filled with the new list of updated saving history.
+
+The following sequence diagram shows how the Wish Detail Panel displays its updated content:
+
+image::WishDetailPanelSequenceDiagram.png[width="790"]
+
+===== Design Considerations
+
+**Aspect: How to update the progress and saving history on UI**
+
+* **Alternative 1 (current choice)**: Clear all the sub components and add new sub components accordingly
+** Pros: No matter which progress or history is changed, or what type of change (ie. delete, add, or edit), this change can be handled by the same method each time.
+** Cons: It is redundant to clear everything and replace them with new sub components.
+
+* **Alternative 2**: Handle different kinds of changes to the progress or history lists.
+** Pros: It is a lot faster to only change the sub component that is affected.
+** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: wish is deleted/edited/created/cleared, or a `wishTransaction` is deleted/added)
+
+// end::redesign[]
 
 // tag::savingsNotifications[]
 === [Proposed] Savings Notifications
@@ -876,284 +1060,6 @@ A project often depends on third-party libraries. For example, Wish Book depends
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all wishes in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/url/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/url/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/url/logic/parser/WishBookParser.java[`WishBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/url/logic/parser/WishBookParser.java[`WishBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the wish book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the wish book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/url/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/url/model/WishBook.java[`WishBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/url/model/WishBook.java[`WishBook`] and link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/url/model/WishBook.java[`WishBook`] allows you to update a wish, and link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/url/model/WishBook.java[`WishBook`]. Loop through each wish, and remove the `tag` from each wish.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/url/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/url/model/ModelManager.java[`ModelManager`] should call `WishBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your wish book application. You realize that one of the users occasionally tries to delete non-existent tags from a wish, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last wish in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside wish cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[the `WishCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `WishCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/url/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/url/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/url/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/url/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/url/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/url/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/url/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/url/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/WishBookSystemTest.java[`WishBookSystemTest#assertCommandBoxShowsDefaultStyle() and WishBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of wishes in the wish book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the wish book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of wishes when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter#handleWishBookChangedEvent(WishBookChangedEvent)`] to update the number of wishes whenever there are new changes to the wishbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/WishBookSystemTest.java[`WishBookSystemTest`] to also verify the new total number of wishes status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the wish book to the cloud. However, the current implementation of the application constantly saves the url book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the url book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupWishBook(ReadOnlyWishBook)`, so that the wish book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/url/storage/WishBookStorage.java[`WishBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/url/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/url/storage/XmlWishBookStorage.java[`XmlWishBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `wishbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a wish specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Buying this for dad.` +
-Edits the remark for the first wish to `Buying this for dad.`
-* `remark 1 r/` +
-Removes the remark for the first wish.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/url/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/url/logic/parser/WishBookParser.java[`WishBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/url/logic/parser/WishBookParserTest.java[`WishBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Buying this for dad.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/url/logic/parser/WishBookParser.java[`WishBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/url/logic/parser/WishBookParserTest.java[`WishBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `WishCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] s to display a remark for each wish later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/WishListCard.fxml[`WishListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/WishCardHandle.java[`WishCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Wish` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the wish will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/url/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `wishBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedWish` class
-We now have `Remark` s for `Wish` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedWish.java[`XmlAdaptedWish`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidWishWishBook.xml`, `typicalWishesWishBook.xml`, `validWishBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `WishBuilder`
-Since `Wish` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/url/testutil/WishBuilder.java[`WishBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/url/testutil/WishBuilder.java[`WishBuilder`]. This method will create a new `Remark` for the wish that it is currently building.
-. Try and use the method on any sample `Wish` in link:{repoURL}/src/test/java/seedu/url/testutil/TypicalWishes.java[`TypicalWishes`].
-
-===== [Step 7] Ui: Connect `Remark` field to `WishCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`]'s constructor to bind the `Remark` field to the `Wish` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/url/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysWish(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a wish.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
@@ -1222,7 +1128,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  *Actor* enters a wish with Name, Date, Price, Index (Optional).
+1.  *Actor* enters a wish with Name, Date, Price.
 2.  *System* adds wish to the wish list.
 +
 Use case ends.
@@ -1230,10 +1136,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. *Actor* fails to specify Name/Price.
+* 2a. *Actor* fails to specify any of the compulsory fields (Name, Price, and Date/Duration).
 +
 [none]
-** 2a1. *System* shows Add command usage.
+** 2a1. *System* shows a correct Add command usage with example.
 +
 Use case ends.
 
@@ -1241,7 +1147,7 @@ Use case ends.
 +
 [none]
 ** 2b1. *System* shows Add command usage.
-** 2b2. *Actor* is prompted to enter a valid argument.
+** 2b2. *Actor* is prompted to enter a valid argument in a specific format shown.
 +
 Use case ends.
 
@@ -1346,22 +1252,87 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Save money for a wish
+=== Use case: Move amount between wishes
 
 *MSS*
 
-1.  *Actor* enters [underline]#X# amount of money to be saved.
-2.  *System* transfers [underline]#X# from the bank to the wish that has the earliest due date.
+1.  *Actor* specifies the origin wish index, the destination wish index, and amount to move.
+2.  *System* moves specified amount from origin wish to destination wish.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. *Actor* specifies a wish to allocate the money to.
+* 1a. *System* has no recorded wishes.
 +
 [none]
-** 1a1. *System* adds [underline]#X# to the specified wish.
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments.
++
+[none]
+** 1b1. *System* shows Move command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1c. *Actor* enters the same index for origin wish and destination wish.
++
+[none]
+** 1c1. *System* shows Move command usage.
+** 1c2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1d. The amount to move is greater than the existing saved amount in the origin wish.
++
+[none]
+** 1d1. *System* reports that saved amount of wish cannot become negative.
++
+Use case ends.
+
+* 1e. The amount moved to destination wish exceeds the amount needed to fulfil the wish.
++
+[none]
+** 1e1. *System* moves to destination wish the required amount needed to fulfil it.
+** 1e2. *System* moves the excess amount to unused funds.
++
+Use case ends.
+
+* 1f. *Actor* specifies unused funds as the origin wish.
++
+[none]
+** 1f1. *System* moves amount from unused funds to the destination wish.
++
+Use case ends.
+
+* 1g. *Actor* specifies unused funds as the destination wish.
++
+[none]
+** 1g1. *System* moves amount from origin wish to unused funds.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save money for a wish
+
+*MSS*
+
+1.  *Actor* enters [underline]#X# amount of money to be saved.
+2.  *System* transfers [underline]#X# to the wish with the specified index.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* specifies to allocate the money to unused funds.
++
+[none]
+** 1a1. *System* adds [underline]#X# to unused funds.
 +
 Use case ends.
 
@@ -1376,6 +1347,21 @@ Use case ends.
 +
 [none]
 ** 1c1. *Actor* is prompted to enter a valid value.
++
+Use case ends.
+
+* 1d. *Actor* enters an amount of money that causes the wish's saved amount to exceed the amount needed to fulfil the wish.
++
+[none]
+** 1d1. *System* adds the required amount to fulfil the saved amount of the wish at the specified index.
+** 1d2. *System* adds the excess amount to unused funds.
++
+Use case ends.
+
+* 1e. *Actor* enters an amount that causes the wish's resulting saved amount to become negative.
++
+[none]
+** 1e1. *Actor* is prompted to enter a valid value.
 +
 Use case ends.
 
@@ -1523,23 +1509,6 @@ Something the user wants to save up money for.
 
 [[wishlist]] Wishlist::
 A record of all wishes added by the user.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

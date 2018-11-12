@@ -5,6 +5,7 @@
 
 == PROJECT: WishBook
 By: `CS2103T Team T16-1`
+
 ---
 
 == Overview
@@ -130,12 +131,6 @@ _Fig 7: Storage Class Diagram_
 
 include::../UserGuide.adoc[tag=savingsHistory]
 
-|===
-|_Proposed enhancement for V2.0_
-|===
-include::../UserGuide.adoc[tag=dataencryption]
-
-
 == Contributions to the Developer Guide
 
 |===
@@ -144,9 +139,11 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=savingsHistory]
 
+
 |===
 |_Proposed enhancement for V2.0_
 |===
+
 include::../DeveloperGuide.adoc[tag=savingsNotifications]
 
 ---

@@ -154,6 +154,7 @@ Format: `history -c`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
 box.
 ====
+
 // tag::savingsHistory[]
 === View your saving history: `history -s`
 

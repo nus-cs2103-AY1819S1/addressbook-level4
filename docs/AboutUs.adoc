@@ -42,7 +42,7 @@ Responsibilities: Testing, Integration, IntelliJ Expert
 
 === Lionel Tan
 image::lionelat.png[width="150", align="left"]
-{empty}[http://github.com/lionelat[github]] [[portfolio]]
+{empty}[http://github.com/lionelat[github]] [<<lionel#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation, In charge of Logic, Deliverables and Deadlines
