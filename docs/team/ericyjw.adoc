@@ -76,6 +76,7 @@ window.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=create]
 include::../UserGuide.adoc[tag=budget]
 
 == 4) Contributions to the Developer Guide
@@ -84,5 +85,6 @@ include::../UserGuide.adoc[tag=budget]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=create]
 include::../DeveloperGuide.adoc[tag=budget]
 
