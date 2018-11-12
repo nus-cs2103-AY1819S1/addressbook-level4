@@ -467,7 +467,7 @@ Format: `select INDEX`
 * Selects the person and loads the appointment list of the person at the specified `INDEX`.
 * The index is the position of the person selected from the person card list.
 * The index *must be a positive integer* `1, 2, 3, ...`
-* The appointment list will be displayed on the top right of the screen as shown in figure below.
+* The appointment list will be displayed on the top right of the screen.
 ****
 
 Examples:
@@ -477,13 +477,15 @@ Examples:
 .Display list diagram
 image::ListCommand.png[width="600"]
 +
-`select 2` selects the 2nd person in the database and display the appointments of that person as shown in the figure below.
+`select 2` selects the 2nd person in the database and display the appointments of that person
+on the top right of the screen as shown in the figure below.
 +
 .Display appointment diagram
 image::DisplayAppointment.png[width="600"]
 * `find Betsy` +
 `select 1` +
-Selects the 1st patient in the results of the `find` command and display the appointments. Similar to the example above.
+Selects the 1st patient in the results of the `find` command and display the appointments.
+This is similar to the example above.
 // end::displayappt[]
 
 // tag::schedule[]
