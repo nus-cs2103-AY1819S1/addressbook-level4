@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Haw Zhe Hao Elroy
 image::elroyhaw.png[width="150", align="left"]
-{empty} [https://github.com/elroyhaw[github]]
+{empty} [https://github.com/elroyhaw[github]] [<<elroyhaw#, portfolio>>]
 
 Role: Team Lead
 
@@ -20,7 +20,7 @@ Role: Team Lead
 
 === Giam Ju Xian
 image::giamjuxian.png[width="150", align="left"]
-{empty}[http://github.com/giamjuxian[github]]
+{empty}[http://github.com/giamjuxian[github]] [<<giamjuxian#, portfolio>>]
 
 Role: Developer and Testing +
 Responsibilities: Ensures the testing of the project is done properly and on time.
@@ -29,7 +29,7 @@ Responsibilities: Ensures the testing of the project is done properly and on tim
 
 === Fong Mei Yee Flora
 image::florafong97.png[width="150", align="left"]
-{empty}[http://github.com/florafong97[github]]
+{empty}[http://github.com/florafong97[github]] [<<florafong97#, portfolio>>]
 
 Role: Documentation and Code Quality +
 Responsibilities: Looks after code quality, ensures adherence to coding standards, and the quality of various project documents.
