@@ -698,11 +698,11 @@ The `n/` parameter can be omitted. In this case, all types of notifications will
 
 // end::userInterfaceRedesign[]
 
-// tag::budget[]
+// tag::budgetPart1[]
 
 === Budgeting
 
-The budget feature allows the user to set a budget for their expenses.
+The budget feature allows the user to set budgets for their expenses.
 
 Available spending is defined as the total amount of expenses you can add before you exceed your budget.
 
@@ -710,13 +710,14 @@ If the user's spending exceeds their available spending for the budget, a warnin
  to the user.
 
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="790"]
+image::Overbudget.png[width="300"]
 
 
 
 The current implementation for budgeting and its related features are described below.
 
 ==== Setting a Budget
+This feature allows the user to set a budget for Expense tracker.
 
 Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget
 
@@ -735,6 +736,7 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 
 
 ==== Setting a recurring Budget
+This feature allows the user's available spending to reset every user defined frequency.
 
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 when the
@@ -743,8 +745,9 @@ Expense Tracker will track the set recurrence time against the time now. If it e
 reset, else nothing will be done.
 
 ===== Setting the recurrence frequency
+This section explains the implementations of `setRecurrenceFrequency` command.
 
-* Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
+* Recurrence time is set by `setRecurrenceFrequency`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`. This is shown in the code snippet below.
 ```
 public void setRecurrenceFrequency(long seconds) {
@@ -794,6 +797,8 @@ method to update the time when the next expenses of `totalBudget` is reset.
 
 ===== Resetting available spending.
 
+This section explains the implementations of the recurring budget.
+
 Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
 of available spending resetting is given below.
 
@@ -812,10 +817,10 @@ available spending is to be reset.
 . `TotalBudget#checkBudgetRestart()` either return `NOT_SET` or `SPENDING_RESET`, which will add their respective
 notifications. It will also return `DO_NOTHING`, which will results in `Model` to continue its execution.
 
-
+//end::budgetPart1[]
 ==== Setting a Budget by Category
 
-An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+An extension to the budget feature, this feature allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
 If the user's expenses for a `Category` exceeds the available spending for their `CategoryBudget`, a warning will be
 shown
@@ -845,6 +850,9 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 . `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
 method to add a `CategoryBudget`.
 
+// tag::budgetPart2[]
+
+
 ===== Setting budgets for different time frames (Proposed)
 Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
 This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
@@ -852,10 +860,10 @@ the budget for this week, he could potentially spend lesser to make up for his o
 tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.
 
 .Diagram of a weekly budget
-image::budgetOfTheWeek.png[width="800"]
+image::budgetOfTheWeek.png[width="300"]
 
 .Diagram of a monthly budget.
-image::budgetOfTheMonth.png[width="800"]
+image::budgetOfTheMonth.png[width="300"]
 
 The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
 the
@@ -876,7 +884,7 @@ This section provides alternative design patterns that we have considered for fe
 logging in, this should not be possible
 
 
-// end::budget[]
+// end::budgetPart2[]
 
 === Logging
 

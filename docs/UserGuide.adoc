@@ -374,8 +374,9 @@ The Expense Tracker will warn you when adding an expense results in your availab
 budget that is set,
 as shown in the figure below.
 
+[#over-budget-warning]
 .Notification that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="790"]
+image::Overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -415,7 +416,7 @@ A detailed use case is given below:
 to inform you that this is done. This is shown in the figure below.
 
 .Notification that is shown when the expense tracker resets the available spending.
-image::reset_notif.png[width="790"]
+image::reset_notif.png[width="300"]
 
 A walk-through of the above steps is clearly shown in the diagram below.
 
@@ -447,8 +448,8 @@ it is possible that you have 10 expenses of $200.00 with a budget of $10, and ye
 === Setting a Category Budget: `setCategoryBudget`
 Sets a Budget to limit expenses on a certain category.
 
-If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
-figure 3 will be displayed
+If adding an expense causes the available spending of that category to exceeds Category budget, a
+<<over-budget-warning, warning>> will be displayed.
 
 Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 

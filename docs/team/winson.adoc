@@ -1,6 +1,7 @@
 = Winson Heng Yong Seng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
+:relfileprefix: /
 :stylesDir: ../stylesheets
 
 == PROJECT: ExpenseTracker
@@ -41,7 +42,7 @@ main purpose of an expense tracker.
 their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=winsonhys&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Code]]
 
 * *Other contributions*:
 
@@ -77,9 +78,17 @@ include::../UserGuide.adoc[tag=budget]
 == 4. Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+ documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=budget]
+include::../DeveloperGuide.adoc[tag=budgetPart1]
+==== Setting a Budget by Category
+An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories. Refer to the <<DeveloperGuide#, developer guide>> for
+more details.
+
+include::../DeveloperGuide.adoc[tag=budgetPart2]
+
 
 
