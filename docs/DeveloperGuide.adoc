@@ -1153,21 +1153,21 @@ Use case ends.
 [none]
 2a. User enters wrong format for command.
 [none]
-** 2a1. Healthbook shows an error message.
+** 2a1. HealthBook shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 2b. User enters a duplicate persons.
 [none]
-** 2b1. Healthbook shows an error message.
+** 2b1. HealthBook shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 3a. User closes google page without logging in.
 [none]
-** 3a1. Healthbook will become unresponsive
+** 3a1. HealthBook will become unresponsive
 ** 3a2. User closes and reopens Healthbook
 +
 Use case restarts from step 1
@@ -1319,7 +1319,7 @@ Use case resumes at step 2
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  HealthBook shows a list of persons
 3.  User requests to delete an appointment in the HealthBook for a specific appointmentId
 4.  HealthBook deletes the appointment
 +
