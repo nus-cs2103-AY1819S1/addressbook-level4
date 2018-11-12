@@ -360,13 +360,14 @@ these fields will no longer be updated.
 // tag::gamemode-usage[]
 ==== Change game mode: `mode`
 [%hardbreaks]
-Used with no arguments, `mode` displays the current game mode. If used with arguments, it sets the game mode and difficulty level.
+Used with no arguments, `mode` displays the current game mode. If used with arguments, it sets the game mode and
+difficulty level.
 
 ===== Difficulty levels
 
 When tasks are completed, they award xp based on criteria unique to each game mode. However, the variance of xp
 changes with the difficulty level. Lower difficulty levels award xp in a smaller range, whereas harder difficulties
-have a higher variance and are therefore riskier. 
+have a higher variance and are therefore riskier.
 
 ====== Easy
 
@@ -388,7 +389,7 @@ Extreme difficulty awards a minimum of 10 and a maximum of 80 xp.
 
 ====== Flat
 
-Flat mode is the most basic mode and is enabled by default, awarding the higher amount of xp for a task 
+Flat mode is the most basic mode and is enabled by default, awarding the higher amount of xp for a task
 completed on time, and the lower amount of xp for overdue task.
 
 ====== Decreasing
