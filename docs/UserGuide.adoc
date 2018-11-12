@@ -419,8 +419,7 @@ the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
 
-A patient needs to see the doctor? Better get him into the queue using the
-this command! +
+A patient needs to see the doctor? Better get him into the queue using this command! +
 Alias: `reg` +
 Format: `register INDEX`
 
