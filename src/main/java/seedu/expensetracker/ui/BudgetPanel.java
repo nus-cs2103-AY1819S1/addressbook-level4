@@ -142,6 +142,7 @@ public class BudgetPanel extends UiPart<Region> {
             alterTextSize();
             timeline.stop();
         });
+
         timeline.playFromStart();
 
     }
@@ -176,7 +177,6 @@ public class BudgetPanel extends UiPart<Region> {
                 }
             });
             timeline.getKeyFrames().add(frame);
-
         }
     }
 
