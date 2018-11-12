@@ -1,8 +1,22 @@
 package seedu.souschef.logic.commands;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static seedu.souschef.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.souschef.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_HR;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_1;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BEE;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_STAPLE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.souschef.logic.EditRecipeDescriptor;
+import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
+
 public class EditRecipeDescriptorTest {
 
-    /*@Test
+    @Test
     public void equals() {
         // same values -> returns true
         EditRecipeDescriptor descriptorWithSameValues = new EditRecipeDescriptor(DESC_AMY);
@@ -32,12 +46,8 @@ public class EditRecipeDescriptorTest {
         editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withCooktime(VALID_COOKTIME_HR).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
         // different tags -> returns false
         editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_STAPLE).build();
         assertFalse(DESC_AMY.equals(editedAmy));
-    }*/
+    }
 }
