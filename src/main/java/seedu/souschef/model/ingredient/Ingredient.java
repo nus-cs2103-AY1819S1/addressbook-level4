@@ -22,6 +22,10 @@ public class Ingredient extends IngredientPortion {
         this.date = new IngredientDate(date);
     }
 
+    public IngredientDate getDate() {
+        return date;
+    }
+
     @Override
     public Ingredient convertToCommonUnit() {
         IngredientServingUnitDefinition definition = IngredientServingUnit.DICTIONARY.get(this.getUnit().toString());
@@ -32,10 +36,6 @@ public class Ingredient extends IngredientPortion {
         IngredientDate ingredientDate = date;
 
         return new Ingredient(ingredientName, ingredientAmount, ingredientUnit, ingredientDate);
-    }
-
-    public IngredientDate getDate() {
-        return date;
     }
 
     /**

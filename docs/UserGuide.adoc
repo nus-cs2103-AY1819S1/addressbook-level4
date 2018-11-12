@@ -96,7 +96,8 @@ Format: +
 `-ingredient`
 
 ==== Switch to ingredient-recipe query context: `-cross`
-Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients includes and get information of needed amounts of ingredients. +
+Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients
+included and get information of needed amounts of ingredients. +
 See <<Ingredient-Recipe Query Commands (Only applicable in cross context)>> to view commands for ingredient-recipe
 query context. +
 Format: +
@@ -300,11 +301,11 @@ Format: +
 * Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
 teaspoon and cup.
 * Amounts are converted with common serving unit(e.g. gram).
-* Format for date should be MM-dd-yyyy
+* Format for date should be MM-dd-yyyy.
 * Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
-expire date.
+expiry date.
 ****
-==== List all ingredients: `list`
+==== Sort and list all ingredients: `list`
 
 Shows a list of ingredients in ingredient manager. Ingredients are sorted by date, so that the ingredients with
 earlier date
@@ -370,8 +371,10 @@ spring_onion)
  the
 most number of following ingredients would be placed high in order. +
 * "include" part and "prioritize" part is optional. It is possible that only one of either part is provided. (For
-example, "view 1 prioritize onion"). If both are not provided, recipe list remains the same and only the number of
-servings are considered for calculation of needed amounts ingredients later.
+example, "view 1 prioritize onion") If both are not provided(For
+                                                             example, "view 4"), recipe list remains the same and
+                                                             only the number of
+servings are considered for calculation of needed amounts ingredients.
 * "inventory" keyword provides all the ingreident in Ingredient
 Manager
 as parameter to the keyword it follows. +
@@ -393,7 +396,7 @@ Format: +
 e.g. If positive, (Number of Servings ×
  Total Amount of an ingredient for a Recipe - Amount of an ingredient stored in ingredient manager). Otherwise, 0.
 ****
-==== List all recipes: `list`
+==== List all recipes and undo calculation: `list`
 Shows a list of recipes. It restores the default state of the list, undoing the calculation resulting from 'view
 recipes based on ingredients'
 command(3.4.1.). +
@@ -615,17 +618,18 @@ or +
 *Ingredient Manager Commands (Only applicable in ingredient context)*
 
 * Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
-* List all ingredients: `list`
-* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
-* Search ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
+* Sort and list all ingredients: `list`
+* Edit ingredient info: `edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Find ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
 * Delete ingredient: `delete INDEX`
 * Clear all ingredients: `clear`
 
 *Recipe-Ingredient Query Commands (Only applicable in cross context)*
 
-* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]…​ prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​`
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS [include [inventory] KEYWORD [MORE_KEYWORDS]…​]
+[prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​]`
 * View needed amount of ingredients for a Recipe: `select INDEX`
-* List all recipes: `list`
+* List all recipes and undo calculation: `list`
 
 
 *Meal Planner Commands (Only applicable in meal planner context)*
