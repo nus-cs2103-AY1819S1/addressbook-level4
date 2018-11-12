@@ -11,6 +11,7 @@ import seedu.lostandfound.logic.parser.exceptions.ParseException;
 import seedu.lostandfound.model.article.DescriptionContainsKeywordsPredicate;
 import seedu.lostandfound.model.article.FinderContainsKeywordsPredicate;
 import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
+import seedu.lostandfound.model.article.TagContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,6 +20,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     private static final String FIND_BY_NAME = "-n";
     private static final String FIND_BY_DESCRIPTION = "-d";
     private static final String FIND_BY_FINDER = "-f";
+    private static final String FIND_BY_TAG = "-t";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -50,6 +52,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case FIND_BY_FINDER:
             return new FindCommand(new FinderContainsKeywordsPredicate(listKeywords));
+
+        case FIND_BY_TAG:
+            return new FindCommand(new TagContainsKeywordsPredicate(listKeywords));
 
         default:
             throw new ParseException(

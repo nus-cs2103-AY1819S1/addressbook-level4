@@ -196,6 +196,19 @@ Examples:
 * `find-f John` returns unresolved article entries with finder `John Doe` and `John Ham`.
 * `find-f John Doe` returns unresolved article entries with finder `John Doe` and `John Hamilton Doe`.
 
+==== Finding unresolved articles by name: `find-t`
+Description: Finds unresolved articles whose tag's contains *all* of the given keywords.
+
+Format: `find-t KEYWORD [MORE_KEYWORDS]`
+
+* Only the tag field of unresolved articles will be searched.
+* Unresolved articles matching all the keyword in the tag field will be returned (AND operation).
+
+Examples:
+
+* `find-t black` returns unresolved article entries with tags containing `Black` or `black`.
+* `find-t black worn` returns unresolved article entries with tags `Black` and `worn`.
+
 ==== Finding unresolved articles by keyword: `findall`
 Description: Finds unresolved articles which contains *any* of the given keywords.
 
