@@ -3,9 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
@@ -14,9 +12,7 @@ import seedu.address.model.person.ServedPatient;
  * Represents the current list of served patients during runtime.
  */
 public class ServedPatientListManager implements ServedPatientList {
-    private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
     private ArrayList<ServedPatient> servedPatientList = new ArrayList<>();
-
 
     public ServedPatientListManager() {}
 
