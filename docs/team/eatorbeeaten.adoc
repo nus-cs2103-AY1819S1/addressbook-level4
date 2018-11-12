@@ -16,19 +16,22 @@ Hallper's interface is created with JavaFX, and the other components are written
 
 Some of its main features are:
 
-* Convenient management of multiple contacts
-* Profile view of contacts
-* Budget allocation and management
-* Composition of emails to multiple contacts
-* Calendar to update monthly events
+* Clearing and importing of multiple contacts conveniently
+* Tagging contacts by categories (CCA, room, etc)
+* Filtering through contacts quickly
+* Viewing of contact profile
+* Updating of profile pictures of contacts
+* Allocating and managing the budget
+* Composing emails to multiple contacts
+* Updating monthly events to the calendar
 
 == 2. Summary of contributions
 
-* *Major enhancement*: added *the ability to compose emails*
-** What it does: allows the user to compose emails to recipients consisting of selected persons in Hallper.
-** Justification: improves Hallper significantly by allowing simple email creation with specified residents as recipients.
-** Highlights: touches all components in Hallper. This made the implementation challenging as it required an understanding of all the various components.
-** Credits: uses http://www.simplejavamail.org/[Simple Java Mail]
+* *Major enhancement*: Added *the ability to compose emails*
+** What it does: Allows the user to compose emails to recipients consisting of selected persons in Hallper.
+** Justification: Amproves Hallper significantly by allowing simple email creation with specified residents as recipients.
+** Highlights: Touches all components in Hallper. This made the implementation challenging as it required an understanding of all the various components.
+** Credits: Uses http://www.simplejavamail.org/[Simple Java Mail] to create emails.
 
 * *Minor enhancement*: added a few commands (delete_email, list_emails, view_email) to improve email manipulation in Hallper.
 
@@ -37,7 +40,7 @@ Some of its main features are:
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2.1` - `v1.4` (4 releases) on GitHub
+*** Managed releases `v1.2.1` - `v1.4` (4 releases) on GitHub.
 
 ** Documentation:
 *** Added email features to the User Guide.
