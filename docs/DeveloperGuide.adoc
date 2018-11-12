@@ -693,12 +693,12 @@ The Game Manager is responsible for the gamification aspects of WatchOver.
 
 image::GameManagerClassDiagram.png[width="1200"]
 
-The Task Manager owns a GameManager object, which handles the core logic of gamification. All xp calculations are
-handled exclusively by the current GameManager.
+The Task Manager owns a `GameManager` object, which handles the core logic of gamification. All xp calculations are
+handled exclusively by the current `GameManager`.
 
-The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
-implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
-for xp, delegated from the GameManager. Individual variations of GameMode will contain their own logic to determine
+The `GameManager`, in turn, owns a `GameMode` object. `GameMode` is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract `GameMode`. The `GameMode` handles the actual appraisal of tasks
+for xp, delegated from the `GameManager`. Individual variations of `GameMode` will contain their own logic to determine
 xp earned, accessible through `appraiseXpChange(Task taskFrom, Task taskTo)`.
 
 ==== Mechanism
@@ -712,25 +712,47 @@ control to the gamification component.
 
 image::GameManagerSequenceDiagram.png[width="1200"]
 
-The GameManager delegates the xp calculation to its owned GameMode through
-`GameMode::appraiseXpChange((Task taskFrom, Task taskTo))`. The GameMode first checks if the tasks are valid. In
+The `GameManager` delegates the xp calculation to its owned `GameMode` through
+`GameMode::appraiseXpChange(Task taskFrom, Task taskTo)`. The `GameMode` first checks if the tasks are valid. In
 particular, the tasks must be the same tasks (that is, they have the same fields), and the status change must be
 a valid change (e.g. from `IN_PROGRESS` to `COMPLETED`, and not something like `COMPLETED` to `OVERDUE`).
 
-Following that, the GameMode performs the specific calculations unique to each GameMode, to determine the xp
+Following that, the `GameMode` performs the specific calculations unique to each `GameMode`, to determine the xp
 to be awarded.
 
 ==== Storage
 
-The current GameManager is persisted in WatchOver's storage.
+The current `GameManager` is persisted in WatchOver's storage.
 
-The `XmlSerializableTaskManager` contains a field 
+image::GameManagerStorageClassDiagram.png[width="1200"]
 
-==== Design Considerations
+The `XmlSerializableTaskManager` contains a `XmlAdaptedGameManager`, to capture the state of the `GameManager`,
+allow persisting state between sessions, and take advantage of the version control to allow undoing and redoing
+of changing the game mode. 
 
-===== Aspect: Wrapping inside GameManager
+Four fields are written to file:
 
-===== Aspect: Location of Implementation
+* the game mode,
+* the period,
+* the lower bound of xp awarded, and
+* the higher bound of xp awarded.
+
+The game mode is serialised as the SimpleName of the `GameMode` subclass in the stored GameManager.
+
+The period is the time before the due date at which the xp awarded by `DecreasingMode` and `IncreasingMode` will start
+to fall or rise, respectively. Other modes ignore this field.
+
+The lower and higher bound of xp awarded are the scalings to which the game modes peg their xp awards, used by all
+existing game modes.
+
+Using these fields, the `GameManager` state can be fully reconstructed.
+
+If an invalid game mode is found written to storage, then the invalid data is ignored and a new default `GameManager`,
+using the default `FlatMode` set at medium difficulty, will be created, overwriting the invalid data.
+
+==== Game Manager Design Considerations
+
+===== Aspect: Location of xp Calculation Logic
 
 * **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
 ** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
@@ -747,37 +769,31 @@ policy apply to all tasks.
 individual tasks may cause user confusion, especially if the user decides to change mode later but forgets to update
 previously set tasks. It is best to centralise all calculations to a single type of mode.
 
+===== Aspect: Placement of `GameMode` Logic
+
+* **Alternative 1(current choice):** Wrapping the `GameMode` inside a `GameManager`
+** Pros: Since not all gamification elements are tied to the game mode, this allows future extensibility by creating
+the scaffolding for future such features to be included, such as in `v2.0`. 
+** Cons: One more layer of abstraction, and additional code and tests need to be written.
+
+* **Alternative 2:** `TaskManager` contains a `GameMode` directly, instead of a `GameManager`
+** Pros: There is less code to write, and the code becomes more readable.
+** Cons: The above is only true so long as `GameMode` is the only gamification feature in WatchOver. Once a new feature
+is added, significant restructuring needs to take place which will break many things. 
+
 ==== Extensions
 
-===== Creating a new GameMode
+===== Creating a new `GameMode`
 
-===== Additional gamification elements
+Creating a new `GameMode` can be done by extending `GameMode` and implementing the required abstract methods.
 
+Note that the following areas must also be changed to accomodate the new command:
 
+`GameMode::setGameMode` must handle the new game mode.
+`GameMode::isValidGameMode` must recognise the game mode as an existing mode.
 
-A GameManager object is owned by a TaskManager, available to be called by its other methods. **Any calls from anywhere
-requiring XP evaluation must be passed through the current GameManager**.
-
-
-The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
-can decide how much to award. The default FlatMode awards based on `Status` of the task, where `IN_PROGRESS` tasks are
-awarded a full amount of XP whereas `OVERDUE` tasks are awarded somewhat less.
-
-GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
-example, in the `FlatMode()` constructor, arguments can be specified for how much XP a completed task should obtain,
-as well as how much XP an overdue task should obtain.
-
-One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
-date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
-to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
-are. This limitation might be overcome if a creation date is implemented as a field in Task.
-
-
-image::GameManagerSequenceDiagram.png[width="1200"]
-
-==== Design Considerations
-
-
+Additionally, if the new game mode requires additional storage, the `XmlAdaptedGameManager` storage class must be
+modified to accomodate the additional stored information.
 
 // end::gamemode-impl[]
 
@@ -835,7 +851,7 @@ The build.gradle file specifies some project-specific asciidoc attributes which 
 
 Attributes left unset in the build.gradle file will use their default value, if any.
 Table 1. List of site-wide attributes
-Attribute name	Description	Default value
+Attribute name  Description Default value
 site-name
 
 The name of the website. If set, the name will be displayed near the top of the page.
