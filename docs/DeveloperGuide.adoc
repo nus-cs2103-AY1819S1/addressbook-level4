@@ -497,26 +497,6 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
 
-// tag::meetingbook[]
-=== MeetingBook feature
-
-==== Current Implementation
-
-.The object diagram of MeetingBook
-image::meetingbookObject.png[width="350"]
-
-*Enhancements:*
-
-* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
-* `Group` can be created or removed from the MeetingBook.
-* `Meeting` can be scheduled or cancelled from the MeetingBook.
-* When a `Group` is removed from the MeetingBook, all members will be removed from this group.
-* When a `Person` is removed from the MeetingBook, all groups containing this person as member will remove this person from the group.
-
-[NOTE]
-The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-// end::meetingbook[]
-
 // tag::sortfind[]
 === Sort and Find feature
 
