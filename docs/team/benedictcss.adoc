@@ -53,7 +53,7 @@ directory.
 
 === *Code contributed*
 
-Here are the code contributed that I have made. [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
+Here are the code contributions that I have made. [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
 
 === *Other contributions*:
 
