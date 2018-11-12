@@ -145,7 +145,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-// tag:eventDrivenandUI[]
+// tag::eventDrivenandUI[]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del 1`.
@@ -184,7 +184,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
-// tag:eventDrivenandUI[]
+// end::eventDrivenandUI[]
 
 [[Design-Logic]]
 === Logic component
