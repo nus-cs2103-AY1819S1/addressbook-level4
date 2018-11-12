@@ -442,6 +442,8 @@ between a period of time. A `Fee` class has been added to the list of attributes
 
 * Each student's educational level and tuition fee per hour are also displayed on the PersonCard GUI. The tuition
 fee of an individual student is determined by his or her educational level and grade.
++
+image::PersonCardExample.png[width="170"]
 
 * The earnings command word and two arguments which contains a start and end date are taken as an
 input into the `AddressBookParser` class. An `EarningsCommand` object is returned,
@@ -503,7 +505,8 @@ methods and implements their own overridden `execute()` function.
 
 * As the promote feature do not promote students across educational levels (e.g. Primary to Secondary), a "Graduated" tag
 is assigned to a student if the promote function is called on a student who is in his/her final year.
-
++
+image::GraduateExample.png[width="170"]
 
 ==== Future Implementation
 
