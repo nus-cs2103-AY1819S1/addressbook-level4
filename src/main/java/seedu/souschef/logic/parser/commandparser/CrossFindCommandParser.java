@@ -111,7 +111,7 @@ public class CrossFindCommandParser {
             }
         }
 
-        if (!tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
+        if (index < tokens.length && !tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
 
