@@ -515,11 +515,11 @@ Currently, the certificate will be exported to either of these two locations:
 * Folder named 'Certs' in the user's current working directory (next to jar file)
 * Direct to Desktop (if permission not allowed for the above)
 
-This is what the exported PDF certificate currently looks like:
+This is what the exported PDF certificate will look like:
 
-.Current form of exported volunteer certificate
+.Sample exported volunteer certificate
 [.thumb]
-image::CurrentVolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="500"]
 
 ===== Implementation
 
