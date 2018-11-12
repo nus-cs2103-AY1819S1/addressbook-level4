@@ -366,6 +366,12 @@ Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all
 -Example: `achievements all time`
 -Example: `achievements TODAY`
 
+Daily time-based achievement fields(today's xp and number of tasks completed) are reset every day. Weekly time-based
+achievement fields(this week's xp and number of tasks completed) are reset every week. The time range for all-time, today
+and this week's achievements are shown as in the diagram.
+
+image::timeBasedAch.png[width="1200"]
+
 [TIP]
 Today and this week's achievements assume users do not time travel. +
 Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
