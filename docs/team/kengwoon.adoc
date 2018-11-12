@@ -76,13 +76,11 @@ just a single command line as multiple keywords can be specified at once in any 
 == Contributions to the User Guide
 
 |===
-|This section contains my contributions to the User Guide for Hallper.
+|This section contains some of my contributions to the User Guide for Hallper.
 It has been documented and worded to facilitate mastering of features by end-users.
 |===
 
 include::../UserGuide.adoc[tag=clear]
-
-include::../UserGuide.adoc[tag=erase]
 
 include::../UserGuide.adoc[tag=export]
 
@@ -91,7 +89,7 @@ include::../UserGuide.adoc[tag=import]
 == Contributions to the Developer Guide
 
 |===
-|This section contains my contributions to the Developer Guide for Hallper.
+|This section contains some of my contributions to the Developer Guide for Hallper.
 It contains a technical documentation of my implementations of the features assigned to me as mentioned in the
 introduction.
 |===
