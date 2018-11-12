@@ -105,7 +105,7 @@ When you are ready to start coding,
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagramWithGoogle.png[width="600"]
+image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -126,11 +126,10 @@ The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Calendar,*`Calendar`*>>: Google Calendar integration for App.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the Five components
+Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -272,7 +271,8 @@ automatically tagged as `Patient`.
 .Register Patient Sequence Diagram
 image::RegisterPatientSequenceDiagram.png[width="600"]
 
-Patient model contains a List of upcoming appointment and List of past appointments.
+Patient model contains a PriorityQueue of upcoming appointment and ArrayList of past appointments. We implemented
+the patient model in this way to allow ease of addition of new upcoming appointment to the patient.
 
 Step 1. The user types in `register-patient` in the command box followed by the parameters `n/John Doe p/91234567
 e/test@test.com a/123 Clementi Road`
@@ -283,24 +283,17 @@ Command Exception will be thrown if any of the information is missing or invalid
 Step 2. Upon hitting enter, the `Patient` will be created and added to the storage of the system
 
 [NOTE]
-====
-* Patient is saved in the storage as person. However, when we retrieve the patient object from storage, it will be
+Patient is saved in the storage as person. However, when we retrieve the patient object from storage, it will be
 created as a patient as determined by their tag.
-* Patient and Doctor must be mutually exclusive. Patient cannot be a instance of Doctor. This will result in
-duplicate person exception
-* Patient is identified as a duplicate person if both their name and their number is the same. This allows patient with
-the same name or same number to exist.
-====
 
 ==== Design Considerations
 ===== Aspect: Data Structure of Upcoming and Past Appointments
-* Alternative 1 (Current Choice): Upcoming Appointments stored within a List and Past Appointments stored within an
-List. This allows easy traversal and iteration of the appointments. This is also to allow the data structure to match with the
- model and storage component more easily.
+* Alternative 1 (Current Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
+ArrayList. This allows the appointments to be added in a non-chronological order. Past appointments can also be iterated
+through easily when required.
 
-* Alternative 2 (Previous Implementation): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within a
-ArrayList. This allows the appointments to be added in a chronological order but it resulted in several instances of
-data required to be converted when added to storage.
+* Alternative 2 (Previous Implementation): Upcoming Appointments stored within a Queue and Past Appointments stored within a
+Stack.
 // end::registerpatient[]
 
 // tag::registerdoctor[]
@@ -331,14 +324,8 @@ Login to Google Calendar is MANDATORY for registration of doctor. This is to fac
 to interact with the address book. If no login is done, the HealthBook will not proceed.
 
 [NOTE]
-====
-* Doctor is saved in the storage as person. However, when we retrieve the doctor object from storage, it will be
- created as a doctor as determined by their tag.
-* Patient and Doctor must be mutually exclusive. Doctor cannot be a instance of Patient. This will result in
-duplicate person exception.
-* Doctor is identified as a duplicate person if both their name and their number is the same. This allows doctor with
-the same name or same number to exist.
-====
+Doctor is saved in the storage as person. However, when we retrieve the doctor object from storage, it will be
+created as a doctor as determined by their tag.
 
 ==== Design Considerations
 ===== Aspect: Presenting Google Calendar Login to Doctors
@@ -351,18 +338,15 @@ Instead of having an additional browser, we load the login page into the Browser
 login for the login but user might miss the login compared to having a popped up browser.
 
 ===== Aspect: Saving Doctor with respect to Google Login
-* Alternative 1 (Current Choice): Doctor object will not be created and application will not respond if login is
-unsuccessful. Due to the integration of Google OAuth, it is mandatory for user to login before any process can
-continue. This is mandatory as our features is complimentary for our application as HealthBook will work at its best with
-the google calendar login.
-** Pros: Easy to implement
-** Cons: Program is unable to continue if google login is not completed.
+* Alternative 1 (Current Choice): Allow doctor to still be created with or without the Google Login. Since the Google
+Calendar acts as an add-on, it should not interfere with the main function of the HealthBook. As such, we implemented
+register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
+prompt the user to login.
 
-* Alternative 2 (Alternative Choice): Allow doctor to still be created with or without the Google Login. We implemented
-register-doctor to have Google Login as optional.
-** Pros: Flexible access to Google Calendar
-** Cons: Hard to implement. Have to recreate an Google OAuth system that does not require the program to wait for
-verification code.
+* Alternative 2 (Alternative Choice): Doctor object will not be created and application will not respond if login is
+unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
+continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
+the google calendar login.
 // end::registerdoctor[]
 
 // tag::deleteperson[]

@@ -63,9 +63,6 @@ Format: `help`
 Registers a patient to the HealthBook. Patient is automatically tagged as a "Patient". +
 Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
-[NOTE]
-Patient and doctors should be mutually exclusive. Doctors cannot be patients and likewise, patients cannot be doctors.
-
 Examples:
 
 * `register-patient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -75,9 +72,6 @@ Examples:
 === Registering a doctor: `register-doctor`
 Registers a doctor to the HealthBook. Doctor is automatically tagged as a "Doctor". +
 Format: `register-doctor n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
-
-[NOTE]
-Patient and doctors should be mutually exclusive. Doctors cannot be patients and likewise, patients cannot be doctors.
 
 [WARNING]
 Login to Google Calendar is mandatory. If no login is done, the application will not be able to proceed.
