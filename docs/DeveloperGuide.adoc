@@ -276,6 +276,9 @@ TheTracker to be able to track the modules a person takes, as
 well as the occasions he participates in.
 // end::supportforocassionandmodule[]
 
+
+// tag::add[]
+
 === Add Person/Module/Occasion Feature
 The add feature is currently implemented the same way to add persons, modules and occasions.
 There are thus three similar commands which are related to this add command:
@@ -283,19 +286,55 @@ There are thus three similar commands which are related to this add command:
 
 The add command adds the entity (person, module, occasion) with the attributes / fields provided by the user.
 
-The figure below shows how the add command is processed through the logic of TheTracker:
-
-image::AddCommandLogicDiagram.png[width="800"]
-
 ==== Current Implementation
 As the `addperson`, `addmodule`, `addoccasion` commands' logic are similar to one another,
-the `addperson` command will be taken as the sole example in this document. The `addperson` string
-input in the command line is passed into the `AddressBookParser` object, which parses the input
-and creates an `AddPersonCommandParser` to help it further parse the argument and create an
-`AddPersonCommand`. This `AddPersonCommandParser` creates a Person with the Compulsory attribute `Name`,
-and optional fields `Phone`, `Email`, `Address` and `Tag` as provided by the user and passes this
-person to be added to a new `AddPersonCommand`. The `AddPersonCommand` adds the person to the model and
-commit and save the AddressBook.
+the `addperson` command will be taken as the sole example in this document.
+
+`AddPersonCommand` extends the `Command` class and uses inheritance to facilitate implementation.
+It's mechanism is facilitated by `VersionAddressBook`. In addition, it implements the following operations:
+* `VersionedAddressBook#addPerson(Person)`: Update the targetedPerson with edited fields
+* `VersionedAddressBook#commit()`: Saves the current book state in the command history
+
+Provided below is a usage scenario instance. It illustrates how the add mechanism behaves at each step.
+
+Step 1: The user launches TheTracker for the first time. The
+`VersionedAddressBook` will be initialised with the initial address book
+state, which the `currentStatePointer` is currently pointing to.
+
+image::AddStartingStateListDiagram.png[width="800"]
+
+Step 2: The user executes `addperson n/David...` command to add a person named David in his TheTracker. The `addperson`
+string input in the command line is passed into the `AddressBookParser` object, which parses the input and creates an
+`AddPersonCommandParser` to help it further parse the argument. This `AddPersonCommandParser` creates a Person with the
+Compulsory attribute `Name`, and optional fields `Phone`, `Email`, `Address` and `Tag` as provided by the user and
+passes this person to be added to a new `AddPersonCommand`. The `addPersonCommand` calls `Model#addPerson()`,
+thus adding the new `Person` into the versionedAddressBook. The `addperson` command
+then calls `Model#commitAddressBook()`, causing the modified state of TheTracker
+after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
+
+image::AddNewCommand1StateListDiagram.png[width="800"]
+
+The following sequence diagram shows how the `addperson` operation works:
+`addperson n/David`
+image::AddCommandLogicDiagram.png[width="800"]
+
+`addmodule` and `addoccasion` works in a similar way as `addperson`
+
+==== Design Considerations
+===== Aspect: How addperson/addmodule/addoccasion executes
+* **Alternative 1 (Current Implementation):** `AddPersonCommand`, `AddModuleCommand` and `AddOccasionCommand` require
+users to input only one compulsory attribute, and may also add any number of optional attributes.
+** E.g. `addperson n/David`, `addmodule mc/CS2103`, `addoccasion on/project meeting` are the easiest way to add a person,
+module and occasion
+** Pros: This is more user friendly, such that users can add a contact even they only know the name of the contact. And,
+they can input details of that contact if needed.
+** Cons: This may be hard for the storage of TheTracker, and needs to work compatibly with other features.
+* **Alternative 2:**  `AddPersonCommand`, `AddModuleCommand` and `AddOccasionCommand` require users to input all
+pre-defined attributes.
+** Pros: Easy to implement.
+** Cons: Less flexible, such that users cannot add in a contact with some details they do not know.
+
+// tag::add[]
 
 
 // tag::find[]
@@ -395,7 +434,7 @@ image::EditPersonSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: How editperson/editmodule/editoccasion executes
-* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally inrelevant to each other
+* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally irrelevant to each other
 **Pros:
 *** Implementation is easy to understand
 **Cons:
@@ -659,8 +698,8 @@ state.
 image::DeleteStartingStateListDiagram.png[width="800"]
 
 Step 2: The user executes `addperson n/David...` command to add a person named
-David in his TheTracker. The parser `AddPersonCommandParser` will identify by
-the 'n/' tag that the entity to be added is a person. The `addperson` command
+David in his TheTracker. The parser `AddPersonCommandParser` will parse the person's attributes and create
+a new person object with these attributes and pass the person to `AddPersonCommand`. The `addperson` command
 calls `Model#commitAddressBook()`, causing the modified state of TheTracker
 after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
 

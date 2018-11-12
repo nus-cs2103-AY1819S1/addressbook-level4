@@ -15,21 +15,24 @@ TheTracker is a desktop address book application that helps NUS students to moni
 
 * *Major enhancement*: extended AddCommand to *AddPersonCommand, AddModuleCommand, AddOccasionCommand*
 ** What it does: allows the user to adds Person, Module, and Occasion to their own TheTracker. Any Persons, Modules and
-Occasions added by users in the command line will show in separate windows.
-** Justification: These features is the basics of the product such that a user can track not onlt his or her contacts
-but also modules and occasions happening in the school.
+Occasions added by users in the command line will show in separate windows. It also allows users to input only one
+compulsory attribute to add one Person, Module or Occasion.
+** Justification: These features is the basics of the product such that a user can track his or her contacts, modules
+and occasions happening in the school. It is more convenient for the users to input any number of optional attributes
+when they are adding the Person, Module and Occasion, and to update these optional attributes at any time they feel
+needed, rather than requiring the users to input all the attributes at the first place.
 
 * *Major enhancement*: extended FindCommand to *FindPersonCommand, FindModuleCommand, FindOccasionCommand*
-** What it does: allows the user to finds Person by name, phone, or email, or address; similarly, it allows finding
-Modules by module code, module name, academic year or semester; finding occasions by occasion name, occasion date,
-or occasion location.
+** What it does: allows the user to finds Person by name, phone, or email, address, modules they are taking, and
+occasions they are involved in; similarly, it allows finding Modules by module code, module name, academic year or
+semester; finding occasions by occasion name, occasion date, or occasion location.
 ** Justification: These features largely improve the convenience for finding a specific Person, Module or Occasion. For
-instance, a Person now can be found by his or her name, phone, email or address, and multiple step of findperson command
+instance, a Person now can be found by his or her name, phone, email, address, module code of the module he is taking,
+and occasion name of the occasion he is involved in. Multiple steps of findperson command
 can be used to find a person by more than one kind of conditions.
-** Highlights: The finding is based on the compulsory prefixes entered by the user when he or she adds a Person, Module
-or Occasion. This may be improved in TheTracker v1.4 by employing a new tagging system, which allows more dynamic
-finding.
-
+** Highlights: The finding is based on the prefixes entered by the user when he or she adds a Person, Module
+or Occasion. It is compatible with the Add Command, such that Person, Module and Occasion will only be found by the
+attributes that have been entered by the user.
 * *Minor enhancement*: built tests for Occasion related classes, and unit and system tests for the above-mentioned
 commands.
 
@@ -78,12 +81,8 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=delete]
-
 include::../DeveloperGuide.adoc[tag=add]
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=delete]
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_
