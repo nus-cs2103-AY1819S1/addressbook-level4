@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
@@ -16,6 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
@@ -24,9 +26,12 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
 import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
+import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.commons.events.ui.SwitchTabEvent;
@@ -34,7 +39,7 @@ import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
 import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.ui.analytics.AnalyticsDisplay;
+import seedu.clinicio.ui.analytics.AnalyticsDisplayPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -56,7 +61,9 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private AnalyticsDisplay analyticsDisplay;
+    private AnalyticsDisplayPanel analyticsDisplay;
+    private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
+    private TitleScreen titleScreen;
 
     @FXML
     private StackPane displayPanelPlaceholder;
@@ -164,8 +171,14 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         setUpTab();
 
-        analyticsDisplay = new AnalyticsDisplay();
-        PatientDetailsDisplayPanel patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+        analyticsDisplay = new AnalyticsDisplayPanel();
+        //analyticsDisplay.setVisible(false);
+        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+
+        titleScreen = new TitleScreen();
+        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
+
+        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
 
         hideInnerParts();
@@ -186,13 +199,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setUpTab() {
         patientTab.setContent(patientListPanelPlaceholder);
-        patientTab.setClosable(false);
-
         appointmentTab.setContent(appointmentListPanelPlaceholder);
-        appointmentTab.setClosable(false);
-
         queueTab.setContent(queuePanelPlaceholder);
-        queueTab.setClosable(false);
 
         tabLists = new TabPane(patientTab, appointmentTab, queueTab);
     }
@@ -222,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setVisible(false);
         titleScreenPlaceHolder.setVisible(true);
         titleScreenPlaceHolder.setManaged(true);
+        statusbarPlaceholder.setVisible(false);
     }
 
     /**
@@ -235,6 +244,7 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setVisible(true);
         titleScreenPlaceHolder.setVisible(false);
         titleScreenPlaceHolder.setManaged(false);
+        statusbarPlaceholder.setVisible(true);
     }
 
     //@@author iamjackslayer
@@ -324,12 +334,36 @@ public class MainWindow extends UiPart<Stage> {
         return patientListPanel;
     }
 
+    /**
+     * Clear any display panel and show the region display panel.
+     * @param displayRegion The display panel to show at the {@code displayPanelPlaceholder}.
+     */
+    private void showDisplayPanel(Region displayRegion) {
+        displayPanelPlaceholder.getChildren().clear();
+        displayPanelPlaceholder.getChildren().add(displayRegion);
+    }
+
+    @Subscribe
+    private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
+        showDisplayPanel(analyticsDisplay.getRoot());
+    }
+
+    @Subscribe
+    private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
+        // Display appointment display panel
+        showDisplayPanel(patientDetailsDisplayPanel.getRoot());
+    }
+
+    @Subscribe
+    private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
+        showDisplayPanel(patientDetailsDisplayPanel.getRoot());
+    }
+
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
-
 
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
@@ -341,5 +375,6 @@ public class MainWindow extends UiPart<Stage> {
     public void handleLogoutClinicIoEvent(LogoutClinicIoEvent logoutClinicIoEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(logoutClinicIoEvent));
         hideInnerParts();
+        titleScreen.startAnimation();
     }
 }

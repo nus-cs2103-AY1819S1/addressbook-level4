@@ -188,7 +188,33 @@
     -fx-background-color: #21777B;
 }
 
+#patientTabLists {
+    -fx-border-width: 0px;
+}
+
+#patientTabLists .tab-header-area {
+    -fx-border-width: 0px;
+}
+
+#patientTabLists .tab-pane {
+    -fx-tab-min-width: 340px;
+    -fx-tab-max-width: 340px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+/** Title Screen */
+.title-screen-header {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+
+.title-screen-subtitle {
+    -fx-font-size: 21px;
+    -fx-font-style: italic;
+}
+
 /** Patient Details */
 .patient-details-title {
-    -fx-text-size: 21px;
+    -fx-font-size: 42px;
 }

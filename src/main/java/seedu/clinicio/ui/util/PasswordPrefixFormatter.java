@@ -146,7 +146,7 @@ public class PasswordPrefixFormatter {
      * the last character unmask
      */
     public StringBuilder unmaskLastCharacter(StringBuilder maskedPassword) {
-        if (tempPassword.length() <= 0) {
+        if ((tempPassword.length() <= 0) || (maskedPassword.length() <= 0)) {
             return maskedPassword;
         }
         char lastPasswordChar = tempPassword.charAt(tempPassword.length() - 1);
