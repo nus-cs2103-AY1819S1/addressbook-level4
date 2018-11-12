@@ -477,7 +477,7 @@ image::historyPanel.png[width="200"]
 ** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like `blur` and `colorspace`.
 // end::undoredo[]
 
-// tag::apply[]
+// tag::transformation[]
 
 === Transformations and ImageMagick
 ==== Current Implementation
@@ -550,10 +550,7 @@ Step 6. The command will then request the UI to update its components, namely th
 .Sequence Diagram for Apply Command
 image::ApplyCommandSequenceDiagram.png[width="800"]
 
-// end::apply[]
 
-
-// tag::create[]
 ==== CreateApplyCommand:
 
 This command allows users to create a named set of commands and store in the disk. All transformation sets will first be validated by `ImageMagickUtil#parseCustomiseCommand`.
@@ -569,13 +566,16 @@ If any of the specified transformations have an invalid name or argument, an err
 
 Step 3. The validated new command will be stored in the json for in the PiconsoCommands folder create when first time run the app.
 
+.Activity Diagram for CreateApply Command
+image::CreateTransformationActivityDiagram.png[width="800"]
+
 ==== Design Considerations
 
  - Combination of the transformations are commonly needed in our daily lives. When users design a serious of operations and
  plan to apply them to multiple images, or store them for future use, this feature will make the image editing more efficient
  and flexible, thus we implemented the create command.
 
-// end::create[]
+// end::transformation[]
 
 // tag::save[]
 

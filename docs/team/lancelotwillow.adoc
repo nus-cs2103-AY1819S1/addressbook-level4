@@ -58,11 +58,14 @@ https://github.com/CS2103-AY1819S1-T09-3/main/pull/177[#177]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../UserGuide.adoc[tag=apply]
+include::../UserGuide.adoc[tag=create]
+include::../UserGuide.adoc[tag=save]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-include::../DeveloperGuide.adoc[tag=apply]
+include::../DeveloperGuide.adoc[tag=transformation]
+include::../DeveloperGuide.adoc[tag=save]
 
