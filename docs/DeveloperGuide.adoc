@@ -1366,8 +1366,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Changing a directory
 
 . Traversing between directories
@@ -1379,7 +1377,7 @@ _{ more test cases ... }_
    Expected: User is now in the previous directory. The full path is shown in the status message. The current directory in the status bar is updated.
 .. Test case (only for Windows): `cd C://Users` +
    Expected: User is now in `C:/Users`. The full path is shown in the status message. The current directory in the status bar is updated.
-.. Test case: `cd ` +
+.. Test case: `cd` +
    Expected: User is unable to traverse to any directory. Error message is shown in the status message. The status bar remains the same.
 .. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
    Expected: Similar to previous.
@@ -1427,12 +1425,6 @@ _{ more test cases ... }_
 .. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
    Expected: Similar to previous.
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 === Applying transformation to image
 
 . Apply build in transformation to image
@@ -1473,20 +1465,46 @@ _{ more test cases ... }_
 .. Test case: `apply blurSample` +
    Expected: the image in the preview panel does not change, the invalid operation message will be shown.
 
+=== Undoing and Redoing transformations
+
+. Undoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied.
+... Test case: `undo` +
+   Expected: The image's latest transformation in the current layer is undone.
+... Test case: `undo-all` +
+   Expected: All of the image's transformations in the current layer are undone (current layer in original state).
+.. Negative Tests
+... Prerequisites: An image has been opened, with no transformations applied. Or image has transformations applied, but all are undone.
+... Test case: `undo` +
+   Expected: Error message to user as there are no transformations to undo.
+... Test case: `undo-all` +
+   Expected: Error message to user as there are no transformations to undo.
+
+. Redoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied and several transformations undone.
+... Test case: `redo` +
+   Expected: The image's last undone transformation in the current layer is redone.
+... Test case: `redo-all` +
+   Expected: All of the image's undone transformations in the current layer is redone.
+.. Negative Tests
+... Prerequisites: An image has been opened, with several transformations applied and no transformations undone. Or image is opened with no transformations applied.
+... Test case: `redo` +
+   Expected: Error message to user as there are no transformations to redo.
+... Test case: `redo-all` +
+   Expected: Error message to user as there are no transformations to redo.
+
 === Save a image
 
 . save a edited image
-.. Prerequisites: some transformations has been proceeded to image.
+.. Prerequisites: some transformations have been applied to an image.
 .. Test case: `save` +
    Expected: The modified image will be save to the original image.
 .. Test case: `save test.jpg` +
    Expected: A new image test.jpg will be created in the current directory. The modified image will be saved to test.jpg.
 .. Test case: `save test.test` +
    Expected: A invalid format message will be shown, and the image will not be saved.
-
-
-_{ more test cases ... }_
-
 
 === Canvases and Layers
 . Canvas manipulation
