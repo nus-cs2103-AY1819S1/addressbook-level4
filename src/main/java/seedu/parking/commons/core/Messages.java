@@ -25,9 +25,10 @@ public class Messages {
             "COUPON, ELECTRONIC\n     Example: filter ps/ coupon";
 
     // calculate command
+    public static final String MESSAGE_INVALID_CARPARK_NAME = "The car park number input is invalid.";
+    public static final String MESSAGE_ERROR_PARSING_CARPARK_INFO = "Error occurred while parsing car park information";
     public static final String MESSAGE_NO_SHORT_TERM_PARKING = "This car park has no short term parking.";
     public static final String MESSAGE_INVALID_START_OR_END_TIME = "Start and end of parking time must be between the s"
             + "tipulated timing.";
-    // Todo: add FORMAT to those with %1$
     public static final String MESSAGE_COST_OF_PARKING = "Cost of parking is $%1$.2f.";
 }

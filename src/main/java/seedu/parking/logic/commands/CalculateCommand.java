@@ -24,17 +24,23 @@ public class CalculateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Calculates the cost of parking at a particular car park for a specified time period.\n"
             + "Parameters: CARPARK_NUMBER DAY START_TIME END_TIME\n"
-            + "Example: " + COMMAND_WORD + " TJ39 " + "FRI " + "7.30AM " + "3.30PM ";
+            + "Example: " + COMMAND_WORD + " TJ39 " + "fri " + "7.30am " + "3.30pm ";
 
     private CarparkIsOfNumberPredicate predicate;
-    private String[] flags;
+    private String carparkNumber;
+    private String day;
+    private Date inputStart;
+    private Date inputEnd;
 
     /**
      * Creates a CalculateCommand with the relevant flags and predicate.
      */
-    public CalculateCommand(String[] flags) {
+    public CalculateCommand(String carparkNumber, String day, Date inputStart, Date inputEnd) {
         this.predicate = null;
-        this.flags = flags;
+        this.carparkNumber = carparkNumber;
+        this.day = day;
+        this.inputStart = inputStart;
+        this.inputEnd = inputEnd;
     }
 
     @Override
@@ -42,22 +48,20 @@ public class CalculateCommand extends Command {
 
         requireNonNull(model);
 
-        String carparkNumber = flags[0];
         this.predicate = new CarparkIsOfNumberPredicate(carparkNumber);
         model.updateFilteredCarparkList(predicate);
 
+        Carpark targetCarpark;
+        try {
+            targetCarpark = model.getCarparkFromFilteredList(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_NAME);
+        }
+
         double cost = 0;
         try {
-            Carpark targetCarpark = model.getCarparkFromFilteredList(0);
-
-            String day = flags[1].toUpperCase();
-            String startTime = flags[2];
-            String endTime = flags[3];
             SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh.mmaa");
             SimpleDateFormat dateFormat2 = new SimpleDateFormat("hhaa");
-
-            Date inputStart = dateFormat1.parse(startTime);
-            Date inputEnd = dateFormat1.parse(endTime);
 
             // check that there is short term parking
             String shortTermParkingTime = targetCarpark.getShortTerm().value;
@@ -126,9 +130,8 @@ public class CalculateCommand extends Command {
                 }
                 cost = cost1 + cost2;
             }
-
         } catch (ParseException e) {
-            System.out.println("parse exception at calculate command."); // do sth about this
+            throw new CommandException(Messages.MESSAGE_ERROR_PARSING_CARPARK_INFO);
         }
 
         return new CommandResult(
@@ -137,8 +140,23 @@ public class CalculateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof CalculateCommand // instanceof handles nulls
-                && predicate.equals(((CalculateCommand) other).predicate)); // state check
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CalculateCommand)) {
+            return false;
+        }
+
+        CalculateCommand otherFilterCommand = (CalculateCommand) other;
+        boolean checkCarparkNumber = carparkNumber.equals(otherFilterCommand.carparkNumber);
+        boolean checkDay = day.equals(otherFilterCommand.day);
+        boolean checkStartTime = inputStart.equals(otherFilterCommand.inputStart);
+        boolean checkEndTime = inputEnd.equals(otherFilterCommand.inputEnd);
+        boolean checkPredicate = ((predicate == null && otherFilterCommand.predicate == null)
+                || predicate.equals(otherFilterCommand.predicate));
+
+        return checkCarparkNumber && checkDay && checkStartTime && checkEndTime && checkPredicate;
     }
 }

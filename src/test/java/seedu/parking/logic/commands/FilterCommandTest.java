@@ -7,10 +7,7 @@ import static seedu.parking.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVI
 import static seedu.parking.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.parking.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.parking.testutil.TypicalCarparks.BRAVO;
-import static seedu.parking.testutil.TypicalCarparks.CHARLIE;
 import static seedu.parking.testutil.TypicalCarparks.DELTA;
-import static seedu.parking.testutil.TypicalCarparks.ECHO;
-import static seedu.parking.testutil.TypicalCarparks.FOXTROT;
 import static seedu.parking.testutil.TypicalCarparks.getTypicalCarparkFinder;
 
 import java.text.ParseException;
@@ -256,14 +253,9 @@ public class FilterCommandTest {
     @Test
     public void execute_filterCommandNotExecutedBefore_throwsCommandException() { // filter s/
 
-        List<String> locationKeywords = new ArrayList<>();
-        locationKeywords.add("sengkang");
         List<String> flagList = new ArrayList<>();
         flagList.add("s/");
-        CarparkFilteringPredicate predicate = new CarparkFilteringPredicate(locationKeywords, flagList,
-                null, null, null);
 
-        expectedModel.updateFilteredCarparkList(predicate);
         String expectedMessage = Messages.MESSAGE_FINDCOMMAND_NEEDS_TO_BE_EXECUTED_FIRST;
         FilterCommand command = new FilterCommand(flagList, null, null,
                 null);
