@@ -135,7 +135,7 @@ public class InsertPersonCommandTest {
         stub.getFilteredModuleList().get(0).getStudents().add(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
+        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE_PERSON_ALREADY_IN_MODULE);
         insertPerson.execute(stub, commandHistory);
     }
 
@@ -152,7 +152,7 @@ public class InsertPersonCommandTest {
         stub.getFilteredOccasionList().get(0).getAttendanceList().add(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
+        thrown.expectMessage(InsertPersonCommand.MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
         insertPerson.execute(stub, commandHistory);
     }
 

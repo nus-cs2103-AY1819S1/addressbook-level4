@@ -172,7 +172,7 @@ Invalid: `John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)`
 An occasion will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the occasion will appear in their occasion lists).
 
-Warning: Occasions with the same name are permitted as long as they have a *different date*.
+Warning: Occasions with the same name are permitted as long as they have a *different date*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a person's occasion list).
 //end::types[]
 
