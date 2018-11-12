@@ -518,22 +518,22 @@ Step 1. The user launches an application and there is either a list of existing 
 Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up.
 If the user includes a file path, InsuRen will attempt to retrieve the file from the given path.
 
-image::import.png[width="800"]
+image::import.png[width="550"]
 
-image::import_user_input.png[width="800"]
+image::import_user_input.png[width="550"]
 
 Step 3. If no such file exists, InsuRen will report an error.
 
-image::import_user_input_fail.png[width="800"]
+image::import_user_input_fail.png[width="550"]
 
 Step 4. If the file is successfully loaded (regardless of method), InsuRen checks for duplicates and incomplete contacts.
 Insuren compiles a list of contacts and runs the `add` Command on all of them, adding them to the list of existing contacts.
 
 Step 5. A relevant message will be displayed, depending on whether there were successful imports, duplicate contacts etc.
 
-image::import_success.png[width="800"]
+image::import_success.png[width="550"]
 
-image::import_duplicates.png[width="800"]
+image::import_duplicates.png[width="550"]
 
 The following activity diagram summarizes what happens when a user executes the `Import` Command:
 
