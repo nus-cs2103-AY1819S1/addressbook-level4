@@ -4,15 +4,10 @@ import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWERBANK;
 import static seedu.lostandfound.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.lostandfound.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.lostandfound.logic.commands.FindCommand;
 import seedu.lostandfound.logic.commands.ResolveCommand;
-import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
 
 public class ResolveCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
