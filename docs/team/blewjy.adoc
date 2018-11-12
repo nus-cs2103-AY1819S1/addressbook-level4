@@ -2,7 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
+[none]
 == PROJECT: CLInic
 
 ---
@@ -67,7 +69,7 @@ This section serves to summarise my key contributions to this project.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Listed below are the sections I contributed to the User Guide. This shows my ability to write documentation and instructions meant for end-users of the application._
 |===
 
 include::../UserGuide.adoc[tag=patientsecondhalf]
@@ -76,7 +78,7 @@ include::../UserGuide.adoc[tag=addmedicalrecordcommand]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Listed below are the sections I contributed to the Developer Guide. This shows my ability to write technical documentation meant for developers, and also the extent of my technical knowledge of the application._
 |===
 
 include::../DeveloperGuide.adoc[tag=medicalrecord]
