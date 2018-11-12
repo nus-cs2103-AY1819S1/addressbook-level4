@@ -10,22 +10,18 @@
 == Overview
 
 This Personal Project Portfolio details the contributions which I have made to the Student Schedule Planner(SSP)
-project. It also outlines skills which I have picked up, as well as any relevant experiences from other projects
-I have worked on.
+project. It also outlines skills which I have picked up.
 
-Student Schedule Planner (SSP) is a desktop application, created by a team comprised of teamates Chen Shin, Lin Xu,
-Park Sang Jun, Xiao Yilin, as well as myself, Thaddeus. It is a planner customised for university students, and it aims
- to help university students manage their time effectively.
+Student Schedule Planner (SSP) is a desktop application, created by Team T12-3. It is a planner customised for
+university students, and it aims to help university students manage their time effectively.
 
 SSP incorporates various features that streamline the creation, organisation, and finding of tasks. In addition, it
-allows the user to keep track of the current academic week, and has a progress tracking feature, which displays the
-user's progress.
+allows the user to keep track of the current academic week, and has a progress tracking feature, which displays
+user progress.
 
 Instead of utilising a conventional Graphical User Interface(GUI). SSP is optimised for users who prefer typing out
 their commands. This application has the potential to be much faster than regular planner applications, especially for
 users who are proficient in typing.
-
-This project started out with
 
 == Summary of contributions
 
@@ -34,7 +30,7 @@ implemented were `listmonth`, `filter`, and `filterstrict`.
 
 I also aided in refactoring major parts of the codebase, morphing the original "Address Book (Level 4)" code to suit
 our new SSP application. This included changing "addressbook" and "person" references in the code to
-"scheduleplanner" and "task" references respectively, as well as various other forms of refactoring.
+"scheduleplanner" and "task" references respectively.
 
 The features I implemented are as follows:
 
@@ -45,13 +41,11 @@ The features I implemented are as follows:
 ** _What it does:_ This feature allows the user to list all remaining tasks in the current month, in chronological
    order. This feature takes into account leap years.
 
-** _Justification:_ This feature improves the product significantly because the user can narrow the scope of the list
-    to the current month, making it easier to manage tasks within this period. This provides a convenient way to list
-    tasks that occur in commonly used time frames(day, week, month).
+** _Justification:_ The user can narrow the scope of the list to the current month, making it easier to manage tasks
+within this period. This provides a convenient way to list tasks that occur in commonly used time frames(day, week, month).
 
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. It required an
-   in-depth analysis of design alternatives. The implementation was challenging as it had to factor in the variations
-    of days between months, and in February during leap years.
+** _Highlights:_ It required an in-depth analysis of design alternatives. The implementation was challenging as it
+had to factor in the variations of days between months, and in February during leap years.
 
 ** _Credits:_ Code from ListWeekCommand was referenced in the implementation of ListMonthCommand
 
@@ -60,13 +54,11 @@ The features I implemented are as follows:
 ** _What it does:_ This feature allows the user to filter tasks inclusively by their tags. This means that given 2 or
 more tags as user-input, tasks with ANY of the specified tags will be listed. This includes any number of tags.
 
-** _Justification:_ This feature improves the product significantly because the user can filter out tasks with certain
-tags, expediting the search process, and reducing the time needed to find a specific task, or tasks belonging to the
-same category.
+** _Justification:_ The user can filter out tasks with certain tags, expediting the search process, and reducing the
+time needed to find a specific task, or tasks belonging to the same category.
 
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. The
-implementation was challenging, as it required the filter feature to be able to search for more multiple tags. This
-was made complicated by the fact that each task may contain multiple tags
+** _Highlights:_ The implementation was challenging, as it required the filter feature to be able to search for more
+multiple tags. This was made complicated by the fact that each task may contain multiple tags
 
 ** _Credits:_ Code from FindCommand was referenced in the implementation of FilterCommand
 
@@ -75,14 +67,11 @@ was made complicated by the fact that each task may contain multiple tags
 ** _What it does:_ This feature allows the user to filter tasks exclusively by their tags. This means that given 2 or
 more tags to filter, only tasks with ALL of the specified tags will be listed.
 
-** _Justification:_ This feature improves the product significantly because the user can now narrow the scope of the
-filter function, further expediting the search process. This feature caters to users who prefer a more strict filter
-mechanic.
+** _Justification:_ The user can now narrow the scope of the filter function, further expediting the search process.
+This feature caters to users who prefer a more strict filter mechanic.
 
-** _Highlights:_ This enhancement does not affect existing commands and commands to be added in future. The
-implementation made small tweaks to the filter predicate such that, only tasks containing tags that match all
-user-input tags will be displayed. It resulted in a logic error when no tags were provided, allowing all tasks to be
-listed instead of returning an error. This logic error was resolved.
+** _Highlights:_ The implementation made small tweaks to the filter predicate such that, only tasks containing tags
+that match all user-input tags will be displayed.
 
 ** _Credits:_ Code from FilterCommand was referenced in the implementation of FilterCommand
 
@@ -133,8 +122,6 @@ https://github.com/CS2103-AY1819S1-T12-3/main/pull/76[#76]
 Examples: https://github.com/CS2103-AY1819S1-T10-1/main/issues/110[1] ,
 https://github.com/CS2103-AY1819S1-T10-1/main/issues/106[2]
 
-
-
 == Contributions to the User Guide
 
 |===
@@ -150,7 +137,7 @@ include::../UserGuide.adoc[tag=filtertags]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write intelligible
+|_Provided below are sections I contributed to the Developer Guide. They showcase my ability to write intelligible
 technical documentation to aid developers who are looking at the SSP for the first time. It also showcases the
 technical depth of my contributions to the project, and the value of improvements made to the SSP application._
 |===
@@ -158,15 +145,5 @@ technical depth of my contributions to the project, and the value of improvement
 include::../DeveloperGuide.adoc[tag=listmonth]
 
 include::../DeveloperGuide.adoc[tag=filtertags]
-
-include::../DeveloperGuide.adoc[tag=usecase]
-
-include::../DeveloperGuide.adoc[tag=usecasefilter]
-
-include::../DeveloperGuide.adoc[tag=usecaselistmonth]
-
-include::../DeveloperGuide.adoc[tag=appendix]
-
-include::../DeveloperGuide.adoc[tag=manualtestfilter]
 
 ---
