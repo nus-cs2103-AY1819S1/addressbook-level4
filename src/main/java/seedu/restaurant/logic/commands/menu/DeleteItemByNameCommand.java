@@ -26,7 +26,7 @@ public class DeleteItemByNameCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by name used in the displayed item list.\n"
-            + "Parameters: ITEM_NAME (must be in the displayed item list) "
+            + "Parameters: ITEM_NAME (must be in the displayed item list)\n"
             + "Example: " + COMMAND_WORD + " Apple Juice";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
