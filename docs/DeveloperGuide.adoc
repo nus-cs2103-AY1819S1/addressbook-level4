@@ -776,12 +776,39 @@ To enable it, `notify` must be used in conjunction with the `select` command. Th
 current selected car park and not all the car parks.
 ====
 
-Step 1. The user executes the `select` command on the 10th car park in the list.
+Step 1. The user executes `select 10` to select the 10th car park in the list.
 
-Step 2. The user executes the `notify` command and indicates the interval to be 10 seconds. The `NotifyCommandParser#parse()`
-gets called This means that every 10
-seconds, the user will receive a notification on the number of available lots left for the 10th car park.
+Step 2. The user then executes `notify 10`, indicating the interval to be 10 seconds.
 
+Step 3. The `NotifyCommandParser#parse()` gets called to parse the arguments supplied. It checks if the interval
+is valid non-negative integer, in the range of 10 to 600 and including 0.
+
+Step 4. A new instance of `NotifyCommand` is created by `NotifyCommandParser`, and the argument then gets stored as
+`int targetTime` in `NotifyCommand`.
+
+Step 5. Inside `NotifyCommand`, `ScheduledExecutorService#scheduleAtFixedRate()` starts `NotifyTimeTask#run()` with
+`targetTime` as one of the parameters passed in. This sets `NotifyTimeTask` to run and repeat every `targetTime`.
+
+Step 6. When `NotifyTimeTask#run()` is active, `GsonUtil#getSelectedCarparkInfo()` gets called and fetches the data
+from the database. It returns the specific car park to be updated.
+
+Step 7. To find which car park to be updated in the list, `parallelStream()` is used to filter through. Once it is found,
+`Carpark#setLots()` gets called to update the `TotalLots` and `LotsAvailable` variables.
+
+Step 8. To show that the list of car parks is updated, `NotifyCarparkRequestEvent()` and `NewResultAvailableEvent()` are
+created to update the UI and display a message respectively.
+
+Step 9. Every 10 seconds, the user will receive a notification on the number of available lots left for the 10th car park.
+
+Step 10. The whole process will repeat itself starting from Step 6, until `ScheduledExecutorService#shutdownNow()` gets
+called by `notify 0` which disables notification.
+
+[NOTE]
+====
+Turning notification off goes through the same process as above, but instead of running
+`ScheduledExecutorService#scheduleAtFixedRate()`, it check for '0' then runs
+`ScheduledExecutorService#shutdownNow()` to stop `NotifyTimeTask`.
+====
 
 [underline]#<<actnotify>># below summarises what happens when a user executes the `notify` command:
 
