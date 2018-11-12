@@ -76,6 +76,15 @@ public class MeetingBook implements ReadOnlyMeetingBook {
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
         this.meetings.setMeetings(this.groups.getAllMeetings());
+        for (Group g : groups) {
+            for (Person p : g.getMembers().asUnmodifiableObservableList()) {
+                Person toJoin = this.persons.getPersonByName(p.getName());
+                if (toJoin != null && !toJoin.hasGroup(g)) {
+                    toJoin.addGroup(g);
+                    this.persons.setPerson(p, toJoin);
+                }
+            }
+        }
     }
     // @@author
 
