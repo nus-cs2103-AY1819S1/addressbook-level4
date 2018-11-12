@@ -3,6 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalEvents.CAREER_FAIR;
 import static seedu.address.testutil.TypicalEvents.CHOIR_PRACTICE;
 import static seedu.address.testutil.TypicalEvents.CS2040_LAB;
@@ -88,15 +91,6 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same calendar events in scheduler after deleting 1 of them -> 1 calendar event found */
-        executeCommand(DeleteEventCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getScheduler().getCalendarEventList().contains(CS2104_TUTORIAL));
-        command = FindEventCommand.COMMAND_WORD + " " + "Tutorial Seminar";
-        expectedModel = getModel();
-        ModelHelper.setFilteredAndSortedList(expectedModel, FIN3101_SEMINAR);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: find calendar event in scheduler, keyword is same as title but has different case
          * -> 1 calendar event found
          */
@@ -134,9 +128,44 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of calendar event in address book -> 1 calendar event found */
+        /* Case: filter calendar event in scheduler by tag -> 1 calendar event found */
         List<Tag> tags = new ArrayList<>(FIN3101_SEMINAR.getTags());
-        command = FindEventCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_TAG.getPrefix() + tags.get(0).tagName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: filter calendar events in scheduler from date/time -> 2 calendar event found */
+        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_FROM.getPrefix() + " from/16 nov 2018 5pm";
+        ModelHelper.setFilteredAndSortedList(expectedModel, CHOIR_PRACTICE, CAREER_FAIR);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: filter calendar events in scheduler before date/time -> 3 calendar events found */
+        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_BEFORE.getPrefix() + "before/15 nov 2018 3pm";
+        ModelHelper.setFilteredAndSortedList(expectedModel, CS2104_TUTORIAL, CS2040_LAB, GOOGLE_INTERVIEW);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: filter calendar events in scheduler between 2 date/times -> 3 calendar events found */
+        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_FROM.getPrefix() + "15 nov 2018 8am "
+                + PREFIX_BEFORE.getPrefix() + " 16 nov 2018 8pm";
+        ModelHelper.setFilteredAndSortedList(expectedModel, CS2103_LECTURE, FIN3101_SEMINAR, CHOIR_PRACTICE);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: search keywords and filter calendar events in scheduler before date/time -> 2 calendar event found */
+        command = FindEventCommand.COMMAND_WORD + " lecture tutorial lab "
+                + PREFIX_BEFORE.getPrefix() + "14 nov 2018 5pm";
+        ModelHelper.setFilteredAndSortedList(expectedModel, CS2104_TUTORIAL, CS2040_LAB);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find same calendar events in scheduler after deleting 1 of them -> 1 calendar event found */
+        executeCommand(DeleteEventCommand.COMMAND_WORD + " 1");
+        assertFalse(getModel().getScheduler().getCalendarEventList().contains(CS2104_TUTORIAL));
+        command = FindEventCommand.COMMAND_WORD + " " + "Tutorial Seminar";
+        expectedModel = getModel();
+        ModelHelper.setFilteredAndSortedList(expectedModel, FIN3101_SEMINAR);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

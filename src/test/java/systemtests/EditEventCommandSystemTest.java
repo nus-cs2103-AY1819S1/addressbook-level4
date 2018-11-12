@@ -43,6 +43,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DateTimeInfo;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
@@ -134,7 +135,6 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         calendar event list
          * -> rejected
          */
-        //showCalendarEventsWithTitle(KEYWORD_MATCHING_EXACT_TUTORIAL);
         showCalendarEventsWithTitle(VALID_TITLE_SEMINAR);
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         assertCommandFailure(EditEventCommand.COMMAND_WORD + " " + invalidIndex + TITLE_DESC_TUTORIAL,
@@ -213,12 +213,16 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
             + VENUE_DESC_LECTURE + TAG_DESC_LECTURE;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
-        /* Case: edit a calendarevent with new values same as another calendarevent's values but with different
+        /* Case: edit a calendar event with new values same as another calendar event's values but with different
         description -> rejected */
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
             + DESCRIPTION_DESC_TUTORIAL + START_DESC_LECTURE_2 + END_DESC_LECTURE_2
             + VENUE_DESC_LECTURE + TAG_DESC_LECTURE;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
+
+        /* Case: edit a calendar event with new start date/time after the new end date/time -> rejected */
+        command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + START_DESC_TUTORIAL + END_DESC_LECTURE;
+        assertCommandFailure(command, DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
 
     }
 
