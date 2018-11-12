@@ -317,6 +317,19 @@ for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
 This loop occurs after the first task is added. The tasks are created within the loop with duplicate names, priorities, venues and tags.
 Before adding a task, the function checks with the model if such a task already exists. If not, the task is added. If the task is a duplicate task, it is skipped and the loop proceeds until it terminates.
 
+The following outlines an example of the command's usage.
+
+Step 1. The user enters the command `repeat n/CS2103T Tutorial i/7 r/3 p/3 t/CS2103T t/Tutorial v/COM1`
+
+Step 2. The AddRepeatParser parses the command and isolates each of the arguments.
+
+Step 3. The Model checks if the first task exists. If the first task does not exist in Model, it is added. If not, it is skipped.
+
+Step 4. The execute command loops through to build each repeated task. In each loop, the date is incremented by the specified interval. Same as Step 3, a duplicate task is skipped and a task that does not exist in Model is added.
+
+Step 5. The changes are committed and the new list is shown to the user.
+
+
 The following sequence diagram shows how the add repeat operation works:
 
 image::AddRepeatSequenceDiagram.png[width="800"]
