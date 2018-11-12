@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
 
@@ -24,8 +23,8 @@ public class FilterByTimeCommandParserTest {
         // no leading and trailing whitespaces
         FilterByTimeCommand expectedFindCommand =
                 new FilterByTimeCommand(new Time("mon 1300 1500"));
-        assertParseFailure(parser, "ts/mon 1300 1500", "Invalid command format! \n" +
-                "filterByTime: filter by tutorial time slot. ts/TIME ");
+        assertParseFailure(parser, "ts/mon 1300 1500", "Invalid command format! \n"
+                + "filterByTime: filter by tutorial time slot. ts/TIME ");
 
 
     }
