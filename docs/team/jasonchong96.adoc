@@ -19,46 +19,41 @@ under the constraints described https://nus-cs2103-ay1819s1.github.io/cs2103-web
 Some of its main features are:
 
 . Setting a budget for expenses.
-. Multiple user accounts with data encryption.
+. Data security.
 . Categorization of expenses.
 . Statistics for expenses.
 
 == Summary of contributions
 
-* *Major enhancement*: added *user accounts system with data encryption*
-** What it does: Allows multiple users to use the application on the same machine without affecting each other's data. Also keeps each user's data encrypted and inaccessible by others.
+* *Major enhancement*: added *Data Security*
+** What it does: Allows multiple users to use the application on the same machine without being able to view or affect each other's data without their passwords. Also keeps each user's data file encrypted and inaccessible by others.
 ** Justification: This feature improves the product significantly because multiple users can share the application on the same computer. For many people, financial information is often kept private so this function allows them to use the application without fear of other's having unauthorized access to their spending data.
 ** The following are the highlights of this feature:
 *** This enhancement adds a robust user accounts system that comes with several features, namely `signup`, `login` and `setpassword`. Each user's data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the `Storage` component and stored in the `Model` component.
 *** The encryption algorithm also makes use of hash algorithms and the AES symmetric key encryption algorithm to ensure that no one can gain access to a user's information unless he/she knows the plain text password of the user, which is not stored anywhere.
 ** Credits: Google Guava library for common hashing algorithms.
 
-* *Minor enhancement*: added a encrypt command to allow the user to manually encrypt strings for them to edit the data files directly
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jasonchong96[Code collated by RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (5 releases) on GitHub
-//** Enhancements to existing features:
-//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Updated `Storage` component section of the Developer Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-1/main/pull/25[#25], https://github.com/CS2103-AY1819S1-T12-1/main/pull/30[#30], https://github.com/CS2103-AY1819S1-T12-1/main/pull/35[#35], https://github.com/CS2103-AY1819S1-T12-1/main/pull/39[#39], https://github.com/CS2103-AY1819S1-T12-1/main/pull/70[#70], https://github.com/CS2103-AY1819S1-T12-1/main/pull/82[#82])
 *** Attempts to help other batch mates on forums (examples:
 https://github.com/nus-cs2103-AY1819S1/forum/issues/111[1],
 https://github.com/nus-cs2103-AY1819S1/forum/issues/58[2])
-// TODO: Add bug reports
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W14-2/main/issues/138[1]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/135[2]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/125[3]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/122[4]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/120[5]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/116[6]
+, https://github.com/CS2103-AY1819S1-W14-2/main/issues/113[7]
+)
 ** Tools:
-*** Integrated the following Github plugins to the team repo:
-**** TravisCI
-**** Appveyor
-**** Codacy
-**** Coveralls
+*** Integrated the following Github plugins to the team repo: TravisCI, Appveyor, Codacy, Coveralls
 *** Added Reposense configuration file to allow for collation of teammates' code contributions
 
 == Contributions to the User Guide
@@ -68,7 +63,21 @@ https://github.com/nus-cs2103-AY1819S1/forum/issues/58[2])
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 == Features
-include::../UserGuide.adoc[tag=useraccounts]
+
+include::../UserGuide.adoc[tag=security1]
+
+If the log in is successful (ie. the USERNAME and PASSWORD are correct and the user's data has no issues), then the UI will be expanded as shown in the diagram below:
+
+.Diagram showing log in success UI expansion for sample user
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+
+include::../UserGuide.adoc[tag=security2]
+
+include::../UserGuide.adoc[tag=encrypt]
+
+|===
+|_This command has been omitted from this Portfolio as it is largely a repetition of the encrypt command, except that it decrypts strings rather than encrypt them. You can view this section in the `UserGuide` if you wish to_
+|===
 
 == Frequently Asked Questions
 include::../UserGuide.adoc[tag=dataencryption]
@@ -79,7 +88,5 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=useraccounts]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=security]
 
