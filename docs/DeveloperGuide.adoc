@@ -447,9 +447,9 @@ The `switch` command updates the context found in `ModelManager` before raising 
 
 In addition to updating the context, the `switch` command also does the following:
 
-* Clear all predicates for volunteer, events and record lists.
+* Clears all predicates for volunteer, events and record lists.
 * Resets the state pointer (for undo/redo functions).
-* Raise a `ContextChangeEvent` to update the UI.
+* Raises `ContextChangeEvent` to update the UI.
 
 The following code snippet shows what the `switch` command does upon execution:
 ```Java
@@ -724,11 +724,11 @@ The `manage` command updates the context found in `ModelManager` through the `mo
 
 In addition to updating the context, the `manage` command also does the following:
 
-* Clear all predicates for volunteer list.
-* Filter the existing records by the selected event.
+* Clears all predicates for volunteer list.
+* Filters the existing records by the selected event.
 * Resets the state pointer (for undo/redo functions).
-* Raise a `RecordChangeEvent` to set the selected event.
-* Raise a `ContextChangeEvent` to update the UI.
+* Raises `RecordChangeEvent` to set the selected event.
+* Raises `ContextChangeEvent` to update the UI.
 
 The following code snippet shows what the `manage` command does upon execution:
 
