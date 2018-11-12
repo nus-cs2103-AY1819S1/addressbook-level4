@@ -139,7 +139,7 @@ public class TabPanel extends UiPart<Region> {
             }
         }
     }
-    
+
     @Subscribe
     private void handleEventPanelDisplayChangedEvent(EventPanelDisplayChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
