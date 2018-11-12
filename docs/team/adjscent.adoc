@@ -20,7 +20,6 @@ This project portfolio summarizes the contributions that I have done to EventOrg
 ** Justification: This feature improves the product significantly because a user is able to find out the vacant time slots of every person, so that he can plan the event time with more considerations.
 ** Highlights: It required an in-depth analysis of design alternatives. There is a need to choose a tradeoff between ease of management vs schedule detail or else the performance of the event organiser will suffer. The integration of NusMods was challenging as it requires the reading of documentation and analysing how nusmods handles valid and invalid api requests.
 ** Credits: JSON Reference from [https://github.com/nusmodifications/nusmods-api[NusMods API]]
-
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Functional code]]
 
 * *Other contributions*:
