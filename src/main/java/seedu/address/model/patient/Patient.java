@@ -174,6 +174,12 @@ public class Patient extends Person {
                 return true;
             }
         }
+
+        for (Appointment app : pastAppointments) {
+            if (app.getAppointmentId() == appointmentId) {
+                return true;
+            }
+        }
         return false;
     }
 

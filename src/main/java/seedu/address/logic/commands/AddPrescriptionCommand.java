@@ -25,6 +25,8 @@ import seedu.address.model.patient.Allergy;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
+import javax.print.Doc;
+
 
 /**
  * Adds a prescription to an appointment
@@ -97,12 +99,16 @@ public class AddPrescriptionCommand extends Command {
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
-                    doctorToEdit = (Doctor) person;
+                    if (((Doctor) person).hasAppointment(id)) {
+                        doctorToEdit = (Doctor) person;
+                    }
                 }
             }
             if (person instanceof Patient) {
                 if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
-                    patientToEdit = (Patient) person;
+                    if (((Patient) person).hasAppointment(id)) {
+                        patientToEdit = (Patient) person;
+                    }
                 }
             }
             if (doctorToEdit != null && patientToEdit != null) {
@@ -115,13 +121,13 @@ public class AddPrescriptionCommand extends Command {
         }
 
         // check if patient is allergic to medicine
-        for (Allergy allergy: patientToEdit.getMedicalHistory().getAllergies()) {
+        for (Allergy allergy : patientToEdit.getMedicalHistory().getAllergies()) {
             String allergyString = allergy.toString();
             if ((allergyString.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase()))) {
                 throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
             }
         }
-        
+
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
