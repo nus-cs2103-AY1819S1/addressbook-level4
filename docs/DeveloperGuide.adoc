@@ -1359,6 +1359,55 @@ Number of dependencies field on the task card updated.
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
 
+// tag::completemanualtest[]
+=== Interactions of Complete Command with Dependencies
+[NOTE]
+As the standard output for Complete Command is quite verbose, we shall alias "standard output" to
+ mean "Xp change, new level acquired (if any) and Task(s) Completed is/are shown to user."
+
+==== Index based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete 2`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete 1`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete 2`, followed by `complete 1`
+Expected: Task B is completed, followed by it's standard output. Task A is completed, followed by
+ its standard output.
+
+==== Label based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank l/one`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete l/two`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete l/one`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete l/one l/two`,
+Expected: Both Task A and Task B are completed in no defined order, followed by
+ its standard output.
+// end::completemanualtest[]
+
 === List topological order of tasks
 . List topological order of tasks
 .. Prerequisites: -
