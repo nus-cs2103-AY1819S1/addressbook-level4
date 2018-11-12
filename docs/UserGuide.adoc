@@ -520,7 +520,7 @@ Exits the program, automatically saving data and logging you out.
 
 Format: `exit`
 
-== Future Commands (Currently not implemented yet)
+== Future Commands (Coming in v2.0)
 
 === Sort employee display list : `sort`
 
@@ -588,6 +588,7 @@ Format: `summary`
 *Q*: Is it possible for me to change my username? +
 *A*: No, the username assigned to you is fixed.
 //tag::commandsummary[]
+
 == Command Summary
 
 === Commands that do not require permissions
@@ -624,6 +625,7 @@ Format: `summary`
  |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
  |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
+ |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
  |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
   | edit 1 -p 91234567 -e johndoe@example.com
  |Clear|Admin|clear|clear
