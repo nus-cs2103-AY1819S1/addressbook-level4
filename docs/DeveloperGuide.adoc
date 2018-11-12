@@ -267,7 +267,7 @@ batch. The `UserPrefs` class implements the following operation:
 
 The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the opened image and the
 `PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
-Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature. (refer to 3.5)
+Additionally, the operation also creates a canvas and a layer to facilitate the `transformation` feature. (refer to 3.5)
 
 Given below is an example usage scenario and how the open mechanism behaves at each step.
 
@@ -478,53 +478,50 @@ image::historyPanel.png[width="200"]
 
 // tag::apply[]
 
-=== Transmission feature
+=== Transformations and ImageMagick
 ==== Current Implementation
 
-The transmission mechanism is facilitated by https://www.imagemagick.org/script/index.php[`ImageMagick`], an external API Library that helps process the target image by the specified commands given.
-The transmission feature mainly consists of:
+The transformation mechanism is facilitated by https://www.imagemagick.org/script/index.php[`ImageMagick`], an external API Library that helps process the target image by the specified commands given.
+The transformation feature mainly consists of:
 
 * `ImageMagicUtil`: A class which will check, create, and run the imageMagick executable file
 * `applyCommand`: Applies the specified transformation to the image
 * `createApplyCommand`: Allows users to define their own custom transformation set.
 
 The following describes main operations and processes contained in the classes above.
+==== ImageMagickUtil:
 
-==== ImageMagicUtil:
+This class is used to provide utility methods to facilitate interoperability with ImageMagick such as:
 
-This class is used to provide the methods touching the ImageMagic package, here are some methods related to applying transformation
-
-* `copyOutside()` -- copy the ImageMagick zipped package outside and unzip basing on the current OS
-* `parseArguments()` -- parse the argument from the operation.
-* `processImage()` -- process the specified transformation to the image.
-* `runProcessBuilder()` -- run the process builder with the arguments given
+* `copyOutside()` -- Copies the OS-specific payload for ImageMagick.
+* `processImage()` -- Converts user input to a valid ImageMagick command.
+* `runProcessBuilder()` -- Given a valid ImageMagick command, runs the command and retrieves the output.
 
 ==== ApplyCommand:
 
-this command is exposed to the model as `Model#addTransformation()`, which is used to update the transformationSet of the currentPreviewImage.
+This command validates a transformation provided by the user and attempts to add it to the current `PreviewImage`++'s++ `TransformationSet`.
 
-Given below is an example usage scenario and how the transmission should behave at each step.
+Given below is an example usage scenario and how the command should behave at each step.
 
-Step 1. Upon first running the app, the corresponding zip package of ImageMagick will be copied out of the jar and unzipped. A temp folder is also created.
+. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
 
-Step 2. The user opens an image with the `open` command. the method `model.getPreviewImage()` will be called to get the bufferedImage of the current preview scene.
+. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
 
-Step 3. The user enters the command `apply blur 0x8`. The entered command is parsed and the corresponding transformation is created.
+. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
 
 [NOTE]
-If the input is invalid for the command enter, the processing of the image will not be started, and a reminder of how to use the command will be given to the user.
+If an invalid transformation is provided, a reminder of how to use the command will be given to the user and no ImageMagick command will be run.
 
-Step 4. An process builder will be built inside the method `processImage` which will take the image stored,
-        the processing info stored in the transmission set, use the ImageMagic executable file to do the processing,
-        then store the modified image in the temp folder created.
+[start=4]
+. `ImageMagick#processImage` is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image.
+. The same method also executes the `ProcessBuilder` and reads the output back from the temporary folder.
 [NOTE]
-if the arguments passed is invalid, a reminder about the limit of the passed command will be given
+While normal `apply` commands will show a useful help message after a failure, an `apply raw` command cannot provide the same granularity and will return a generic error message.
 
-Step 5. the transformation will be added to the transformation set store in the preview image in the model.
-[NOTE]
-An error is prompted if the transformation set gotten from the model is invalid.
+[start=6]
+. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
 
-Step 6. The output bufferedImage will be generated by the modified file stored in the temp folder, and the stored file will be removed.
+. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
 
 .Sequence Diagram for Apply Command
 image::ApplyCommandSequenceDiagram.png[width="800"]
@@ -535,25 +532,26 @@ image::ApplyCommandSequenceDiagram.png[width="800"]
 // tag::create[]
 ==== CreateApplyCommand:
 
-This command allows users to create a customised command (custom set of transformations) and store in the disk, All transformation sets will first be checked by `checkValidation()`.
+This command allows users to create a named set of commands and store in the disk. All transformation sets will first be validated by `ImageMagickUtil#parseCustomiseCommand`.
 
-Given below is an example usage scenario and how the transmission should behave at each step.
+Given below is an example usage scenario and how the transformation should behave at each step.
 
-Step 1. The user sequentially enters the transformations he wants to store, in the form of `create blurgray blur|0x8 colorspace|GRAY`.
+Step 1. The user sequentially enters the transformations he wants to store, in the form of `create [command name] (command|argument)`. For example,
+`create blurgray blur|0x8 colorspace|GRAY` will create a new command named 'blurgray'.
 
 Step 2. The specified transformations are parsed and checked by the templates stored in the app.
 [NOTE]
-If any of the specified transformations have an invalid name or argument, an error will be thrown. If validation checks have passed, the specified transformations are stored as a new command in the a json file within the PiconsoCommands folder created upon first running the app.
+If any of the specified transformations have an invalid name or argument, an error will be thrown.
 
 Step 3. The validated new command will be stored in the json for in the PiconsoCommands folder create when first time run the app.
-// end::create[]
 
 ==== Design Considerations
 
- - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify.
- The image has to be stored in a temp folder first, and replaces any previous modified image when modified.
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
+ intermediate images have to be stored in a temp folder first.
 
  - Combination of the transformations are commonly needed in our daily lives, thus we implemented the create command.
+// end::create[]
 
 // tag::save[]
 
@@ -691,9 +689,10 @@ Where blocks enclosed by `{ }` need to be repeated per layer.
 
 _Evaluation_
 
-* This solution is the most straight-forward and results in no intermediate files which is usually desirable. However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
+This solution is the most straight-forward and results in no intermediate files which is usually desirable.
 
-* Con: This results in a poor user experience and hence we have decided against it.
+However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
+This results in a poor user experience and hence we have decided against it.
 
 === Canvas and Layers in action
 
