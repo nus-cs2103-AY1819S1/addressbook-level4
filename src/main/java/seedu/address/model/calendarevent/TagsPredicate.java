@@ -18,6 +18,7 @@ public class TagsPredicate implements Predicate<CalendarEvent> {
 
     @Override
     public boolean test(CalendarEvent calendarEvent) {
+        // Always accepts if tag list is empty, otherwise accepts only if all tags have a (case-insensitive) full match
         return !hasTags()
                 || tags.stream().allMatch(tag -> StringUtil.containsIgnoreCase(calendarEvent.getTagStrings(), tag));
     }
