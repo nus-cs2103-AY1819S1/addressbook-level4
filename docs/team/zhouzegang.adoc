@@ -269,7 +269,6 @@ of diseases that are mapped to a set of symptoms containing the given set.
     }
 ----
 
-
 ==== Design Considerations
 
 ===== Aspect: Disease-symptom matching data structures

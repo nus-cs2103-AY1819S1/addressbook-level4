@@ -488,6 +488,27 @@ Now, the `add disease` command calls `DiagnosisModel#addMatcher(Disease disease,
 Now it will call the `static` method `writeDataFromCsvFile(Disease disease, Set<Symptom> symptoms)` which returns
 a `Hashmap` of type `HashMap<Disease, Set<Symptom>>` and assigns it to `this.matcher` to update the `private` attribute.
 
+.Add Command Code Snippet
+[source,java]
+----
+    /**
+     * Adds a disease and its related symptoms into the database
+     *
+     * @param disease  disease input.
+     * @param symptoms related symptoms.
+     */
+
+
+    public void addMatcher(Disease disease, Set<Symptom> symptoms) {
+        requireNonNull(disease);
+        requireAllNonNull(symptoms);
+        boolean hasDisease = this.hasDisease(disease);
+        if (!hasDisease) {
+            this.matcher = writeDataToCsvFile(disease, symptoms);
+        }
+    }
+----
+
 Step 4. The user executes `list disease` command to get a list of diseases stored in the patient book.
 The `list disease` command calls `DiagnosisModel#getDiseases()` which returns a `list` of diseases present in the
 `key set of matcher`.
@@ -496,6 +517,21 @@ Step 5. Now the user decides to execute the command `predict` to search for a `d
 matches with input symptoms. This command calls `DiasnosisModel#predictDisease(Set<Symptom>)` which returns a `list`
 of diseases that are mapped to a set of symptoms containing the given set.
 
+----
+    /**
+     * Predicts a disease with a given set of symptoms.
+     *
+     * @param symptoms symptoms input.
+     * @return a list of qualified diseases.
+     */
+    public List<Disease> predictDisease(Set<Symptom> symptoms) {
+        requireAllNonNull(symptoms);
+        List<Disease> diseases = this.matcher.keySet().stream()
+                .filter(disease -> this.matcher.get(disease).containsAll(symptoms)).collect(Collectors.toList());
+        diseases.sort(Comparator.comparing(Disease::toString));
+        return diseases;
+    }
+----
 
 ==== Design Considerations
 
