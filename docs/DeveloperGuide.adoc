@@ -1120,7 +1120,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: Ensure Internet Connection is established.
 .. Test case: `learn potato` +
-   Expected: The word `potato` is added to LearnVocabulary, together with its definition and a default tag `toLearn`. Details of the learnt word shown in the status message. Timestamp in the status bar is updated.
+   Expected: The word `potato` is added to LearnVocabulary, with its definition and a default tag. Details of the learnt word shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `learn !potato` +
    Expected: No word is learnt. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect learn commands to try: `learn`, `learn x`, `learn 1`, `learn notarealword` +
