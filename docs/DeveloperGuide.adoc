@@ -1102,57 +1102,67 @@ Given below is an example usage scenario and how the category mechanism behaves 
 Step 1. User enters command `addcat c/Game list` to add a category named `Game list`.
 
 . The `addcat` command is executed. `AddCategoryCommand#execute()` calls `Model#addCategory()`.
-. `Model#addCategory()` then calls `VersionedSchedulePlanner#addCategory()`.
-`SchedulePlanner#addCategory()` then calls `UniqueCategoryList#add()`. `UniqueCategoryList#add()` checks if
+. `Model#addCategory()` calls `VersionedSchedulePlanner#addCategory()`.
+. `SchedulePlanner#addCategory()` then calls `UniqueCategoryList#add()`.
+. `UniqueCategoryList#add()` checks if
 the existing category list contains any category with identical name as new category, if exists, `DuplicateCategoryException()`
-is thrown; if not, new category is created and added to category list.
+is thrown; if not, new category is created and added to category list. +
+Given below is the sequence diagram of add category command which explains how the mechanism works:
+
 
 .Sequence Diagram of Add Category Command
 
 image::AddCategoryCommand.png[width="800"]
 
+When user is adding tasks using unspecified tags (tags that have never been added to any category),
+the tags will be automatically added to default category `Others`.
+
 Step 2. User enters command `addtag c/Game list t/Zelda` to add tag `Zelda` into category `Game list`.
-The command string is first passed to `AddTagCommandParser`, which parses string `Zelda` to tag (let us call it `tagZelda`)
+
+. The command string is first passed to `AddTagCommandParser`, which parses string `Zelda` to tag (let us call it `tagZelda`)
 and creates `AddTag` command.
-The command is then executed. `AddTagCommand#execute()` calls `Model#addTag()` and passes
- `tagZelda` and ` "Game list" ` as parameter. `Model#addTag()` then calls
-`VersionedSchedulePlanner#addTag()`, passes in `tagZelda` and ` "Game list" ` as parameter.
- `VersionedSchedulePlanner#addCategory()` then calls
-`UniqueCategoryList#getCategory()`, passing in `Game list` as parameter and obtains corresponding category
+. The command is then executed. `AddTagCommand#execute()` calls `Model#addTag()` and passes
+ `tagZelda` and string `Game list` as parameter.
+ . `Model#addTag()` calls
+`VersionedSchedulePlanner#addTag()`, passes in `tagZelda` and string `Game list` as parameter.
+. `VersionedSchedulePlanner#addCategory()` then calls
+`UniqueCategoryList#getCategory()`, passing in string `Game list` as parameter and obtains corresponding category
 (let us call it `categoryGameList`).
-`Category#addTag()` is then called with parameter `categoryGameList` to add tag `tagZelda` to category `categoryGameList`.
+. `Category#addTag()` is then called with parameter `categoryGameList` to add tag `tagZelda` to category `categoryGameList`.
 If there already exists a tag named `Zelda` in UniqueTagList of category `categoryGameList`, exception `DuplicateTagException`
-is thrown.
+is thrown. +
+
+Given below is the sequence diagram of add tag command.
 
 .Sequence Daigram of Add Tag Command
 image::AddTagCommand.png[width="800"]
 
-Step 3. User enters command `editcat c/Game list c/Reading list` to rename category named `Game list` to `Reading list`.
-`EditCategoryCommandParser` creates `EditCategoryCommand`.
-When `EditCategoryCommand` executes, it calls `Model#editCategory()` and passes in `"Game list"` and `"Reading list"`
- as parameter. `Model#editCategory()` then calls `VersionedSchedulePlanner#editCategory()` with parameter
- `"Game list"` and `"Reading list"`. `VersionedSchedulePlanner` then calls `UniqueCategoryList#setCategory()`
- to create a new category with name "Reading list" and same tag list as category `categoryGameList`, replace category
- `categoryGameList` with this new category.
- Below is a snippet of implementation of `UniqueCategoryList#setCategory()` used here:
- ----
+Step 3. User enters command `editcat c/Game list c/Reading list` to rename category from `Game list` to `Reading list`.
+
+. `EditCategoryCommandParser` creates `EditCategoryCommand`.
+When `EditCategoryCommand` executes, it calls `Model#editCategory()` and passes in string `Game list` and string `Reading list`
+as parameter.
+. `Model#editCategory()` calls `VersionedSchedulePlanner#editCategory()` with parameter
+ string `Game list` and string `Reading list`.
+. `VersionedSchedulePlanner` then calls `UniqueCategoryList#setCategory()`
+to obtain the category named `Game list` (let us call it `categoryGameList`) and create a new category with
+name `Reading list` and same tag list as category `categoryGameList`, replace category
+`categoryGameList` with this new category.
+Below is a snippet of implementation of `UniqueCategoryList#setCategory()` used here:
+
+----
     public void setCategory(String originalName, String newName) {
         //...
-        if ((!contains(originalName))) {
-            //If there is no category with name "Game list", throw error
-            throw new CategoryNotFoundException();
-        }
-        if (newName.equals(originalName)) {
-            //If name "Reading list" has been used by another category, throw error
-            throw new DuplicateCategoryException();
-        }
         //Obtain the category with name "Game list"
         Category oldCategory = getCategory(originalName);
         //Creat a new category which is identical to original category except name
         Category newCategory = new Category(newName, oldCategory.getUniqueTagList());
         internalList.set(internalList.indexOf(oldCategory), newCategory);
     }
- ----
+----
+
+Given below is the sequence diagram of edit category command:
+
 
 . Sequence Diagram of Edit Category Command
 
@@ -1160,19 +1170,25 @@ image::EditCategoryCommand.png[width="800"]
 
 Step 4. User enters command `removecat c/Reading list` to remove the category named `Reading list`. Let us call this
 category `categoryReadingList`.
-`RemoveCategoryCommandParser` first creates `RemoveCategoryCommand`.
-When `RemoveCategoryCommand` executes, it calls `Model#removeCategory()` and passes in `"Reading list"` as parameter.
-`Model#removeCategory()` calls `VersionedSchedulePlanner#removeCategory()` with parameter `"Reading list"`.
-`VersionedSchedulePlanner` then calls `UniqueCategoryList#removeCategory()` to find category
-`categoryReadingList` and remove it.
-After `categoryReadingList` is removed, its tag list is removed as well. For example, if user has added tag `Zelda` only in
-category named `Reading list`, then after removing this category, tag `Zelda` will be lost from schedule planner.
 
-. Sequence Diagram of Remove Category Command
+. `RemoveCategoryCommandParser` creates `RemoveCategoryCommand`.
+. When `RemoveCategoryCommand` executes, it calls `Model#removeCategory()` and passes in string `Reading list` as parameter.
+. `Model#removeCategory()` calls `VersionedSchedulePlanner#removeCategory()` with parameter string `Reading list`.
+. `VersionedSchedulePlanner` then calls `UniqueCategoryList#removeCategory()` to obtain category named `Reading list`
+(let us call it `categoryReadingList`) and remove it.
+. After `categoryReadingList` is removed, its tag list is removed as well. For example, if user has added tag `Zelda` only in
+category named `Reading list`, then after removing this category, tag `Zelda` will be lost from schedule planner. +
+
+Given below is the sequence diagram of remove category command:
+
+
+.Sequence Diagram of Remove Category Command
 
 image::RemoveCategory.png[width="800"]
 
+
 Besides adding tag, renaming (editing) and removing, we support clearing category as well.
+Clear category command clears the tags list of selected category.
 Mechanism of clearing category is very similar to renaming (editing) category.
 `Model#clearCategory()` calls `VersionedSchedulePlanner#clearCategory()`, which then initialize a new empty
 category with name `"Modules"`.
@@ -1203,7 +1219,7 @@ add tags to categories. There will be no `UniqueTagList` directly managed by sch
 are saved under UniqueTagList under individual Category. Because our application is catered for university
 students, we set two default categories, `Modules` and `Others`.
 ** Pros: We allow users more freedom to manipulate with their tags and categorize their tags.
-User can add same tag to several categories, and the categories do not interfere. This is the most
+User can add one tag to several categories, and the tags saved under different categories do not interfere with each other. This is the most
 user-friendly design we can think of so far.
 ** Cons: The implementation is more complicated than Alternative 2. Besides, this mechanism requires more
 commands to operate, which could be harder for user to remember.
