@@ -21,7 +21,7 @@ It is written in Java, and has about 10 kLoC.
 ** Highlights: This enhancement uses a different model from calendar events and it need re-construct logic, storage and ui conponents.
 
 * *Minor enhancement*:
-** Add a showDescriptionCommand to show description of task with a popup window. 
+** Add a showDescriptionCommand to show description of task with a popup window.
 ** Make priorities displyed in different colors.
 
 * *Code contributed*: * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli *
