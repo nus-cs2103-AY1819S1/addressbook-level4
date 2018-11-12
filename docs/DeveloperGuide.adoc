@@ -1617,7 +1617,7 @@ _{ more test cases ... }_
 .. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be added is not in the list.
 .. Test case: `addmedicine sn/12839400 mn/panadol s/122 ppu/2 msq/20` +
    Expected: Medicine is added to the records. Name of the added medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect delete commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
+.. Other incorrect addmedicine commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
    Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
 
 === Editing a medicine
@@ -1626,7 +1626,7 @@ _{ more test cases ... }_
 .. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
 .. Test case: `editmedicine 1 msq/50` +
    Expected: Medicine at index 1 will have its minimum stock quantity changed to 50. Name of the edited medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect delete commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
+.. Other incorrect editmedicine commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
    Expected: No medicine is edited. Error details shown in the status message. Status bar remains the same.
 
 === Restocking a medicine
@@ -1635,7 +1635,7 @@ _{ more test cases ... }_
 .. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
 .. Test case: `restock 1 amt/50` +
    Expected: Medicine at index 1 will have its stock increased by 50. Name and restocked quantity of the restocked medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect delete commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
+.. Other incorrect restock commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
    Expected: No medicine is restocked. Error details shown in the status message. Status bar remains the same.
 
 === Check the stocks of all medicines
