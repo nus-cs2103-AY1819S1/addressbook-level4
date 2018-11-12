@@ -75,9 +75,6 @@ each of the sections is explained as below.
 
 The *Menu Bar* provide you quick access to functions as below.
 
-.Screenshot of Menu Bar
-image::user-guide-ui-walkthrough-menu-bar.png[width="900"]
-
 Here are the available options currently: +
 
 * File: Provide access to file functions.
