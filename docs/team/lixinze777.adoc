@@ -27,7 +27,7 @@ The patient book allows users to manipulate patient and appointment data in vari
 
 *This section records the enhancements and contributions of `LI XINZE` to the project.*
 
-* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lixinze777
+* *Code Contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=lixinze777[code]]
 
 * *Main feature implemented* : added the *appointment management mode* and the *switching feature between different modes*
 ** What it does: Allows appointment related data to be displayed. Allows users to switch between the patient management
