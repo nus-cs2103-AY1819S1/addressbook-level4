@@ -26,6 +26,11 @@ public class EarningsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "You've earned a total of $%.2f between %s and %s";
 
+    public static final String MESSAGE_USEAGE_WARNING = "\nThe date(s) that you have entered is before the current"
+            + " system date.\n"
+            + "Please note that the given figure will be inaccurate should there been any prior changes to"
+            + " any students' time slot.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the total tuition fees earned "
             + "between a range of date, inclusive of the beginning date and ending date.\n"
             + "The dates should be in the format \"ddmm\", separated by a whitespace in between.\n"
@@ -140,20 +145,41 @@ public class EarningsCommand extends Command {
         return sumOfFees;
     }
 
+    /**
+     * Returns an ArrayList containing the collated time slots from all students in tutorPal
+     */
+    public ArrayList<Pair<Fees, Time>> getAllTimeSlots(List<Person> persons) {
+        ArrayList<Pair<Fees, Time>> timeSlots = new ArrayList<>();
+
+        for (Person p : persons) {
+            if (p.hasGraduated()) {
+                continue;
+            }
+            for (Time t: p.getTime()) {
+                timeSlots.add(new Pair<>(p.getFees(), t));
+            }
+        }
+        return timeSlots;
+    }
+
+    /**
+     * Returns a boolean variable which indicated whether any part of the range of dates is in the past
+     */
+    public Boolean isRangeOfDateInThePast() {
+        return !startDate.isAfter(LocalDate.now()) || !endDate.isAfter(LocalDate.now());
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-
         List<Person> persons = model.getInternalList();
-        ArrayList<Pair<Fees, Time>> timeslotOfAllStudents = new ArrayList<>();
+        ArrayList<Pair<Fees, Time>> timeSlotOfAllStudents = getAllTimeSlots(persons);
+        double totalFeesEarned = calculateTotalFeesEarned(timeSlotOfAllStudents);
 
-        for (Person p : persons) {
-            for (Object t : p.getTime()) {
-                timeslotOfAllStudents.add(new Pair<>(p.getFees(), (Time) t));
-            }
+        if (isRangeOfDateInThePast()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_USEAGE_WARNING, totalFeesEarned,
+                    startDate.toString(), endDate.toString()));
         }
-
-        double totalFeesEarned = calculateTotalFeesEarned(timeslotOfAllStudents);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalFeesEarned,
                 startDate.toString(), endDate.toString()));
