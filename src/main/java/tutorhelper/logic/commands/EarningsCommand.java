@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import tutorhelper.logic.CommandHistory;
-import tutorhelper.logic.commands.exceptions.CommandException;
 import tutorhelper.model.Model;
 import tutorhelper.model.student.Payment;
 import tutorhelper.model.student.Student;
@@ -33,8 +32,7 @@ public class EarningsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
 
@@ -64,7 +62,7 @@ public class EarningsCommand extends Command {
 
         // state check
         EarningsCommand e = (EarningsCommand) other;
-        return month == ((EarningsCommand) other).month
-                && year == ((EarningsCommand) other).year;
+        return month == e.month
+                && year == e.year;
     }
 }

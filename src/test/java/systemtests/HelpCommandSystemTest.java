@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static tutorhelper.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
@@ -95,12 +94,4 @@ public class HelpCommandSystemTest extends TutorHelperSystemTest {
         new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
         getMainWindowHandle().focus();
     }
-
-    /**
-     * Asserts that the help window isn't open.
-     */
-    private void assertHelpWindowNotOpen() {
-        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
-    }
-
 }
