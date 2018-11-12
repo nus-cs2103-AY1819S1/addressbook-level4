@@ -27,9 +27,8 @@ TheTracker is an application specifically built for NUS students. Allowing a stu
 
 ** Project management:
 
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
-*** Managed Pull Request to upstream CS2103 Main Repo for assessment by tutors.
-***
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub and
+managed Pull Request to upstream CS2103 Main Repo for assessment by tutors.
 ** Tools:
 *** Integrated Travis CI into the repo.
 
