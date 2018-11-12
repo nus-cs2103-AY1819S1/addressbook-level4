@@ -278,7 +278,7 @@ If the `DATE` is of an illegal format, the command will be rejected.
 
 Example: `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
 ****
-* The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
+* The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: .The red outlines indicate the success message as well as new leave application added to the leave list. image:LeaveApplyResult.PNG[width=800]
 [TIP]
 If you do not see your list of leave applications, run the `leavelist` command.
 ****
@@ -291,7 +291,7 @@ Format: `leavelist`
 
 Example: `leavelist`
 ****
-* A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below: image:LeaveListResult.PNG[width=800]
+* A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below: .The red outline indicates the list of leave applications. image:LeaveListResult.PNG[width=800]
 ****
 
 [NOTE]
