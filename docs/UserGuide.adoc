@@ -99,7 +99,7 @@ This section contains all commands related to managing attractions.
 ==== Adding attractions: `add`
 
 Adds an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
+Format: ``add `<n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` [t/tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
@@ -107,10 +107,13 @@ A ride can have any number of tags (including 0). +
 Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
 1 billion.
 
+[NOTE]
+The length limit for zone and tag(s) field is 40 characters.
+
 Examples:
 
-* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
-* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+* add n/Transformers m/1 w/30 z/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
 
 ==== Deleting attractions: `delete`
 
@@ -137,8 +140,22 @@ Examples:
 
 ==== Updating information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
-Format: `update <index> <tag> <value>`
+Updates the details of the ride identified by the index number used in the displayed ride list.
+
+[NOTE]
+The length limit for zone and tag(s) field is 40 characters.
+
+Format: `update <index> <tag/value>`
+
+Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG]...
+
+Examples:
+
+* `update 1 m/90` +
+  Updates the 1st ride in ThanePark.
+
+* `update 2 m/90 w/60` +
+  Updates the 2nd ride in ThanePark.
 
 [NOTE]
 This command cannot update the waiting time and maintenance field when the ride is not open.
