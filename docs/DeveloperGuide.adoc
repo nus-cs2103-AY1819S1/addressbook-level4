@@ -616,7 +616,7 @@ to the original task have to have their dependencies updated as well. +
 as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.
 
 
-=== Modelling Dependency Validity
+=== Modelling Dependency Checks
 ==== Current Implementation
 The `DependencyGraph` is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.
