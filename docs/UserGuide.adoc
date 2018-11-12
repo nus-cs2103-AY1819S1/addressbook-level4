@@ -210,7 +210,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 
 [NOTE]
-Undo and redo commands do not refresh the detailed panel. Select the item to see the updated result
+Undo and redo commands do not refresh the detailed panel
 // end::undoredo[]
 
 ==== Clearing all entries : `clear` or `c`
