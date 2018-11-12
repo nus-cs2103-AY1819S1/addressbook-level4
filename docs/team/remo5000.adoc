@@ -33,7 +33,9 @@ time-based comparison (and testing) was very challenging.
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=remo5000[RepoSense]]
 
 * *Other contributions*:
-
+** *Minor Enhancement*: Added UI to see details of a Task
+*** This replaces the default browser in AB4, and allows the user to view all the details of a particular
+Task conveniently.
 ** Project management:
 *** Managed release `v1.2` on GitHub
 ** Enhancements to existing features:
@@ -58,6 +60,7 @@ https://github.com/CS2103-AY1819S1-T13-2/main/issues/98[98]
 |===
 
 include::../UserGuide.adoc[tag=list-usage]
+include::../UserGuide.adoc[tag=task-fields]
 
 == Contributions to the Developer Guide
 

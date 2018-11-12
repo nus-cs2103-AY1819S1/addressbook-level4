@@ -24,7 +24,7 @@
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label styleClass="cell_big_label">TAGS: </Label>
+                <Label styleClass="cell_big_label">LABELS: </Label>
                 <FlowPane fx:id="tags" />
             </HBox>
 

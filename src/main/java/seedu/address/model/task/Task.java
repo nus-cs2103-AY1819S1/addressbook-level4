@@ -86,6 +86,10 @@ public class Task {
         return this.dependencies;
     }
 
+    public Set<String> getDependencyHashes() {
+        return this.dependencies.getHashes();
+    }
+
     public boolean isStatusCompleted() {
         return this.status == Status.COMPLETED;
     }

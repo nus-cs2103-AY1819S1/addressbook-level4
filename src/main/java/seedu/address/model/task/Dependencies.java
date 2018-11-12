@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Represents all of a Task's dependencies to other tasks in the task manager.
  * Hashes contained in the hashes field are hash codes of tasks that a Task is dependent on.
- * <p>
+ *
  * When "this task" is used in the comments below, it refers to the task that has this dependencies object.
  * This task is the dependent task, and the tasks that it is dependent on can be referred to as the dependee tasks.
  * Guarantees: immutable;
@@ -53,6 +53,7 @@ public class Dependencies {
      * @return dependencies with dependency to task
      */
     public Dependencies spliceDependency(Task task) {
+        requireNonNull(task);
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(Integer.toString(task.hashCode()));
         return new Dependencies(newValue);
@@ -66,6 +67,7 @@ public class Dependencies {
      * otherwise
      */
     public boolean containsDependency(Task task) {
+        requireNonNull(task);
         return hashes.contains(Integer.toString(task.hashCode()));
     }
 

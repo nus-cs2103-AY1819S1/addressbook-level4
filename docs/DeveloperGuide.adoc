@@ -754,7 +754,7 @@ using the default `FlatMode` set at medium difficulty, will be created, overwrit
 
 ===== Aspect: Location of xp Calculation Logic
 
-* **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
+* **Alternative 1 (current choice):** Using a separate GameManager class to calculate awarded XP.
 ** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
 ** Cons: Less flexibility, and will apply flatly across all tasks, with no window for individual variation.
 
@@ -771,7 +771,7 @@ previously set tasks. It is best to centralise all calculations to a single type
 
 ===== Aspect: Placement of `GameMode` Logic
 
-* **Alternative 1(current choice):** Wrapping the `GameMode` inside a `GameManager`
+* **Alternative 1 (current choice):** Wrapping the `GameMode` inside a `GameManager`
 ** Pros: Since not all gamification elements are tied to the game mode, this allows future extensibility by creating
 the scaffolding for future such features to be included, such as in `v2.0`. 
 ** Cons: One more layer of abstraction, and additional code and tests need to be written.
@@ -1376,3 +1376,9 @@ dependency that will cause a cyclic dependency +
 .. Test case: `topoorder` +
 Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
 constraints will be displayed in the window below the command line.
+
+// tag::gamemode-test[]
+
+=== Game Mode testing
+
+// end::gamemode-test[]
