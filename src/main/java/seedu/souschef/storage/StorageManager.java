@@ -139,7 +139,7 @@ public class StorageManager extends ComponentManager implements Storage {
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
         readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);
-        readFeature(Context.FAVOURITES, SampleDataUtil::getFavourites);
+        readFeature(Context.FAVOURITES, SampleDataUtil::getSampleFavourites);
         featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
         return Optional.of(this.appContent);

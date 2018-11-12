@@ -155,6 +155,11 @@
         <instructions>
             <instruction>Sift flour, add salt and water to make dough.</instruction>
             <ingredients>
+                <name>ghee</name>
+                <amount>0.5</amount>
+                <unit>cup</unit>
+            </ingredients>
+            <ingredients>
                 <name>water</name>
                 <amount>0.5</amount>
                 <unit>cup</unit>
@@ -163,11 +168,6 @@
                 <name>flour</name>
                 <amount>300.0</amount>
                 <unit>g</unit>
-            </ingredients>
-            <ingredients>
-                <name>ghee</name>
-                <amount>0.5</amount>
-                <unit>cup</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -244,11 +244,6 @@
         <instructions>
             <instruction>Heat grill to medium-high. In a bowl, toss the chicken, garlic, thyme, oil and 1/2 tsp salt and pepper each. Thread the chicken on the skewers.</instruction>
             <ingredients>
-                <name>thyme</name>
-                <amount>1.0</amount>
-                <unit>tablespoon</unit>
-            </ingredients>
-            <ingredients>
                 <name>pepper</name>
                 <amount>0.5</amount>
                 <unit>teaspoon</unit>
@@ -259,14 +254,19 @@
                 <unit>tablespoon</unit>
             </ingredients>
             <ingredients>
-                <name>salt</name>
-                <amount>0.5</amount>
-                <unit>teaspoon</unit>
-            </ingredients>
-            <ingredients>
                 <name>garlic</name>
                 <amount>2.0</amount>
                 <unit>clove</unit>
+            </ingredients>
+            <ingredients>
+                <name>thyme</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>salt</name>
+                <amount>0.5</amount>
+                <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
                 <name>chicken</name>
@@ -289,11 +289,6 @@
         <instructions>
             <instruction>Heat the vegetable oil in a wok, add the onion and leek and fry gently until softened but not browned.</instruction>
             <ingredients>
-                <name>leek</name>
-                <amount>150.0</amount>
-                <unit>g</unit>
-            </ingredients>
-            <ingredients>
                 <name>onion</name>
                 <amount>5.0</amount>
                 <unit>g</unit>
@@ -303,27 +298,27 @@
                 <amount>0.125</amount>
                 <unit>teaspoon</unit>
             </ingredients>
+            <ingredients>
+                <name>leek</name>
+                <amount>150.0</amount>
+                <unit>g</unit>
+            </ingredients>
         </instructions>
         <instructions>
             <instruction>Add the eggs and whisk until they are beginning to scramble and cook. Add the soy sauce and whisk.</instruction>
-            <ingredients>
-                <name>soy sauce</name>
-                <amount>2.0</amount>
-                <unit>tablespoon</unit>
-            </ingredients>
             <ingredients>
                 <name>eggs</name>
                 <amount>2.0</amount>
                 <unit>whole</unit>
             </ingredients>
+            <ingredients>
+                <name>soy sauce</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
         </instructions>
         <instructions>
             <instruction>Add the cooked rice and stir well to coat in the eggs. Stir in the chopped chives, salt and freshly ground black pepper and spoon into a serving dish. Drizzle with soy sauce and serve.</instruction>
-            <ingredients>
-                <name>salt</name>
-                <amount>0.5</amount>
-                <unit>tablespoon</unit>
-            </ingredients>
             <ingredients>
                 <name>chives</name>
                 <amount>1.0</amount>
@@ -339,6 +334,11 @@
                 <amount>200.0</amount>
                 <unit>g</unit>
             </ingredients>
+            <ingredients>
+                <name>salt</name>
+                <amount>0.5</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
         </instructions>
         <tagged>Staple</tagged>
         <tagged>Asian</tagged>
@@ -350,13 +350,13 @@
         <instructions>
             <instruction>Stir together the kimchi, kimchi juice, flour, eggs, and green onion in a bowl.</instruction>
             <ingredients>
-                <name>flour</name>
-                <amount>300.0</amount>
+                <name>kimchi</name>
+                <amount>150.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
-                <name>egg</name>
-                <amount>100.0</amount>
+                <name>flour</name>
+                <amount>300.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
@@ -365,8 +365,8 @@
                 <unit>g</unit>
             </ingredients>
             <ingredients>
-                <name>kimchi</name>
-                <amount>150.0</amount>
+                <name>egg</name>
+                <amount>100.0</amount>
                 <unit>g</unit>
             </ingredients>
         </instructions>
@@ -384,7 +384,7 @@
         <instructions>
             <instruction>Stir water, kimchi, pork shoulder, hot pepper paste, sugar, and salt together in a pot.</instruction>
             <ingredients>
-                <name>kimchi</name>
+                <name>pork shoulder</name>
                 <amount>50.0</amount>
                 <unit>g</unit>
             </ingredients>
@@ -394,7 +394,7 @@
                 <unit>tablespoon</unit>
             </ingredients>
             <ingredients>
-                <name>pork shoulder</name>
+                <name>kimchi</name>
                 <amount>50.0</amount>
                 <unit>g</unit>
             </ingredients>
@@ -470,6 +470,16 @@
         <instructions>
             <instruction>Crack 2 whole eggs and beat the eggs with 3/4 cup milk, apinch of salt and black pepper</instruction>
             <ingredients>
+                <name>milk</name>
+                <amount>0.75</amount>
+                <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>blackpepper</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
                 <name>salt</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
@@ -478,16 +488,6 @@
                 <name>egg</name>
                 <amount>2.0</amount>
                 <unit>whole</unit>
-            </ingredients>
-            <ingredients>
-                <name>blackpepper</name>
-                <amount>1.0</amount>
-                <unit>pinch</unit>
-            </ingredients>
-            <ingredients>
-                <name>milk</name>
-                <amount>0.75</amount>
-                <unit>cup</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -529,11 +529,6 @@
         <instructions>
             <instruction>Crack 2 whole eggs and beat the eggs with 3/4 cup milk, ateaspoon of sugar</instruction>
             <ingredients>
-                <name>milk</name>
-                <amount>0.75</amount>
-                <unit>cup</unit>
-            </ingredients>
-            <ingredients>
                 <name>egg</name>
                 <amount>2.0</amount>
                 <unit>whole</unit>
@@ -542,6 +537,11 @@
                 <name>sugar</name>
                 <amount>1.0</amount>
                 <unit>teaspoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>milk</name>
+                <amount>0.75</amount>
+                <unit>cup</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -572,14 +572,14 @@
         <instructions>
             <instruction>Serve dish, topping with 1 tablespoon of condense milk and 1 teaspoon of butter</instruction>
             <ingredients>
-                <name>butter</name>
-                <amount>1.0</amount>
-                <unit>teaspoon</unit>
-            </ingredients>
-            <ingredients>
                 <name>condensemilk</name>
                 <amount>1.0</amount>
                 <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>butter</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
             </ingredients>
         </instructions>
         <tagged>HK</tagged>
@@ -601,12 +601,12 @@
         <instructions>
             <instruction>Season beef lightly with pinch of salt and pepper</instruction>
             <ingredients>
-                <name>blackpepper</name>
+                <name>salt</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
             </ingredients>
             <ingredients>
-                <name>salt</name>
+                <name>blackpepper</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
             </ingredients>
@@ -663,5 +663,321 @@
         </instructions>
         <tagged>Western</tagged>
         <tagged>American</tagged>
+    </recipes>
+    <recipes>
+        <name>Hot Ham And Cheese Sandwich</name>
+        <difficulty>1</difficulty>
+        <cooktime>15M</cooktime>
+        <instructions>
+            <instruction>Preheat a skillet over medium-high heat.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>Spread one side of each slice of bread with 1 teaspoon butter.</instruction>
+            <ingredients>
+                <name>butter</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>bread</name>
+                <amount>2.0</amount>
+                <unit>whole</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Place one slice, butter-side down in the hot skillet. Top with Swiss cheese and ham.</instruction>
+            <ingredients>
+                <name>ham</name>
+                <amount>2.0</amount>
+                <unit>whole</unit>
+            </ingredients>
+            <ingredients>
+                <name>swiss cheese</name>
+                <amount>2.0</amount>
+                <unit>whole</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Spread the unbuttered side of the second slice of bread with mayonnaise and mustard; place it, butter-side up on top of the sandwich. </instruction>
+            <ingredients>
+                <name>mayonnaise</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>mustard</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Cook until the sandwich is golden brown and the cheese is melted, about 3 minutes per side.</instruction>
+            <cooktime>6M</cooktime>
+        </instructions>
+        <tagged>Light</tagged>
+    </recipes>
+    <recipes>
+        <name>Mac And Cheese</name>
+        <difficulty>2</difficulty>
+        <cooktime>30M</cooktime>
+        <instructions>
+            <instruction>In a pot, bring the milk to a boil.</instruction>
+            <ingredients>
+                <name>milk</name>
+                <amount>0.4</amount>
+                <unit>l</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Add the pasta and stir constantly until the pasta is cooked, about 10 minutes.</instruction>
+            <ingredients>
+                <name>macaroni</name>
+                <amount>150.0</amount>
+                <unit>g</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Turn off the heat, then add the cheddar. Stir until the cheese is melted and the pasta is evenly coated.</instruction>
+            <ingredients>
+                <name>cheddar cheese</name>
+                <amount>2.0</amount>
+                <unit>cup</unit>
+            </ingredients>
+        </instructions>
+        <tagged>Light</tagged>
+    </recipes>
+    <recipes>
+        <name>French Omelette</name>
+        <difficulty>1</difficulty>
+        <cooktime>10M</cooktime>
+        <instructions>
+            <instruction>Beat eggs, water, salt and pepper in small bowl until blended.</instruction>
+            <ingredients>
+                <name>salt</name>
+                <amount>0.125</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>pepper</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>water</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>egg</name>
+                <amount>2.0</amount>
+                <unit>whole</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Heat butter in 6 to 8-inch nonstick omelet pan or skillet over medium-high heat until hot. TILT pan to coat bottom. Pour in egg mixture. Mixture should set immediately at edges.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>Gently push cooked portions from edges toward the center with inverted turner so that uncooked eggs can reach the hot pan surface. Continue cooking, tilting pan and gently moving cooked portions as needed.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>When top surface of eggs is thickened and no visible liquid egg remains, Place filling on one side of the omelet. Fold omelet in half with turner. With a quick flip of the wrist, turn pan and invert or slide omelet onto plate. Serve immediately.</instruction>
+        </instructions>
+        <tagged>French</tagged>
+        <tagged>Light</tagged>
+    </recipes>
+    <recipes>
+        <name>Basil Pork Rice</name>
+        <difficulty>3</difficulty>
+        <cooktime>10M</cooktime>
+        <instructions>
+            <instruction>In a hot pan, add the oil and stir fry garlic and chilli until fragrant.</instruction>
+            <ingredients>
+                <name>oil</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>chilli</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>garlic</name>
+                <amount>2.0</amount>
+                <unit>clove</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Add pork and continue to stir fry on medium heat until almost ready.</instruction>
+            <ingredients>
+                <name>pork</name>
+                <amount>200.0</amount>
+                <unit>g</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Keep stir frying and add pork stock as needed.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>Add oyster sauce, fish sauce, sugar.</instruction>
+            <ingredients>
+                <name>oyster sauce</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>fish sauce</name>
+                <amount>1.5</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>sugar</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Increase heat to high and add fresh thai basil. Keep stir frying for few seconds.</instruction>
+            <ingredients>
+                <name>thai basil</name>
+                <amount>0.5</amount>
+                <unit>cup</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Serve with white basmati rice and fried eggs.</instruction>
+        </instructions>
+        <tagged>Spicy</tagged>
+        <tagged>Thai</tagged>
+        <tagged>Staple</tagged>
+    </recipes>
+    <recipes>
+        <name>Creamy Garlic Penne Pasta</name>
+        <difficulty>3</difficulty>
+        <cooktime>15M</cooktime>
+        <instructions>
+            <instruction>Melt butter and add garlic in a medium sauce pan.</instruction>
+            <ingredients>
+                <name>butter</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>garlic</name>
+                <amount>2.0</amount>
+                <unit>clove</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Cook over medium for 1 minute.</instruction>
+            <cooktime>1M</cooktime>
+        </instructions>
+        <instructions>
+            <instruction>Add flour and cook 1 minute, stirring constantly.</instruction>
+            <cooktime>1M</cooktime>
+            <ingredients>
+                <name>flour</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Stir in broth and milk and cook, stirring frequently, until sauce boils and thickens.</instruction>
+            <ingredients>
+                <name>chicken broth</name>
+                <amount>0.75</amount>
+                <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>milk</name>
+                <amount>0.75</amount>
+                <unit>cup</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Add parsley, salt, pepper and cheese.</instruction>
+            <ingredients>
+                <name>parsley</name>
+                <amount>2.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>pepper</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>cheese</name>
+                <amount>0.33</amount>
+                <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>salt</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Stir until cheese is melted.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>Toss hot pasta with sauce and serve immediately.</instruction>
+            <ingredients>
+                <name>penne</name>
+                <amount>150.0</amount>
+                <unit>g</unit>
+            </ingredients>
+        </instructions>
+        <tagged>Italian</tagged>
+    </recipes>
+    <recipes>
+        <name>Baked Salmon Fillets Dijon</name>
+        <difficulty>2</difficulty>
+        <cooktime>25M</cooktime>
+        <instructions>
+            <instruction>Preheat oven to 400 degrees F (200 degrees C). Line a shallow baking pan with aluminum foil.</instruction>
+        </instructions>
+        <instructions>
+            <instruction>Place salmon skin-side down on foil. Spread a thin layer of mustard on the top of each fillet, and season with salt and pepper.</instruction>
+            <ingredients>
+                <name>pepper</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>salt</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>dijon mustard</name>
+                <amount>3.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>salmon</name>
+                <amount>450.0</amount>
+                <unit>g</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Top with bread crumbs, then drizzle with melted butter.</instruction>
+            <ingredients>
+                <name>bread crumbs</name>
+                <amount>0.25</amount>
+                <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>butter</name>
+                <amount>0.25</amount>
+                <unit>cup</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Bake in a preheated oven for 15 minutes, or until salmon flakes easily with a fork.</instruction>
+            <cooktime>15M</cooktime>
+        </instructions>
+        <tagged>Light</tagged>
+        <tagged>Fish</tagged>
     </recipes>
 </souschef>

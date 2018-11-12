@@ -46,7 +46,7 @@ public class XmlFileStorage {
             } else if (Context.MEAL_PLAN.equals(context)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableMealPlan.class);
             } else if (Context.FAVOURITES.equals(context)) {
-                return XmlUtil.getDataFromFile(file, XmlSerializableFavourite.class)
+                return XmlUtil.getDataFromFile(file, XmlSerializableFavourite.class);
             }
 
         } catch (JAXBException e) {
