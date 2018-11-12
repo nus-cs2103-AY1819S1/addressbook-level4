@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ public class ExchangeTimeCommand extends Command {
         Person targetPersonA = model.getFilteredPersonList().get(0);
         ArrayList<String> pplList2 = new ArrayList<>();
         pplList2.add(nameB);
+
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList2));
         if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult("Cannot find the student or the input is not complete,"
@@ -85,13 +87,13 @@ public class ExchangeTimeCommand extends Command {
         }
 
         Time timeA = (Time) targetPersonA.getTime().get(numA);
-        Time timeB = (Time) targetPersonB.getTime().get(numA);
+        Time timeB = (Time) targetPersonB.getTime().get(numB);
 
         targetPersonA.getTime().remove(timeA);
         targetPersonB.getTime().remove(timeB);
         targetPersonA.addTime(timeB);
         targetPersonB.addTime(timeA);
-
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult("the time slot changed successfully");
     }
