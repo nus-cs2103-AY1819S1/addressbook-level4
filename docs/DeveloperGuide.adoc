@@ -388,6 +388,73 @@ polymorphism and put everything together
 
 // end::edit[]
 
+// tag:insertperson[]
+=== InsertPerson feature
+The `InsertPerson` command is an advanced feature for TheTracker. It enables a bi-directional insert of a Person into
+either one of a `module` or an `occasion`.
+
+====  Current Implementation
+To enable this feature to exist, the underlying structure between the entities `Person`, `Module` and `Occasion` have to
+be linked in a manner that will facilitate injections of one entity bi-directionally into another. The following class diagram
+depicts this new structure:
+
+image::PersonModuleOccasionClassDiagram.png[width="800"]
+
+For the following example we will use `InsertPerson` command to insert a `person`, bi-directionally, into a `module`.
+The usage for a bi-directional insert into an `occasion` is similar.
+
+`InsertPerson` command extends the `Command` class and uses inheritance to facilitate implementation. It's mechanism is
+facilitated by `VersionAddressBook`. Below is the associated sequence diagram for the `InsertPerson` command:
+
+image::InsertPersonSequenceDiagram.png[width="800"]
+
+When the user first opens up `TheTracker` it loads up an instance of a `VersionAddressBook` and initializes
+the `currentStatePointer` to point at this instance of the `TheTracker`. When the user then executes the `InsertPerson`
+command an entirely new copy of the state of `TheTracker` is created and inserted as a new `VersionAddressBook` with the
+currentStatePointer being updated. Below is a diagram that depicts this:
+
+image::InsertPersonStatePointerDiagram.png[width="800"]
+
+The following steps represent the internal implementation of the `InsertPerson` command when inserting a `Person` into a `Module`:
+
+* Create a `DeepDuplicate` and a `ShallowDuplicate` of the Both the `Person` and the `Module`
+* Insert the `ShallowDuplicate` of the module into the `DeepDuplicate` of the `Person's` `UniqueModuleList`
+* Insert the `ShallowDuplicate` of the person into the `DeepDuplicate` of the `Module's` `UniquePersonsList`
+
+Note: Further elaboration of the above implementation is discussed within the `Design Considerations` section.
+
+==== Design Considerations
+
+Why it is non-trivial: For the feature to work coherently with `undo`/`redo` as well as `edit` an entire new replica of state
+of `TheTracker` must be created with the relevant entities bi-directionally inserted after this command has been executed.
+In accordance with this logic, two such methods were introduced to facilitate this feature's functionality. The first is
+the method `makeDeepDuplicate`, the following class diagram shows how the method works in relation to calling `makeDeepDuplicate`
+on a person:
+
+image::PersonMakeDeepDuplicate.png[width="800"]
+
+The method merely makes an entirely new copy of a `Person`/`Module`/`Occasion` by copying by `value` all of its predecessor's
+attributes. We cannot, however, make do with only `makeDeepDuplicate` in order to implement the `InsertPerson` feature.
+The following scenario illustrates why:
+
+* Insertion of `Person` `x` into `Occasion` `y` would cause `x's` occasion list to be populated by `y` and `y's` person list
+to be populated by `x`
+* Insertion of `Person` `x` into `Module` `z` would cause `x's` module list to be populated by `z` and `z's` person list
+to be populated by `x`. But if we insert a deep copy of `x` into `z` this would entail us replicating `y`, which would entail
+us replicating the person list of `y` and, thus, `x` and so the program will halt in an infinite regress until a
+`StackOverFlow` is thrown.
+
+To counter this, we have implemented a `makeShallowDuplicate` which replicates an entity, but with an empty list. For example,
+calling `makeShallowDuplicate` on a `Person` would have the following effect:
+
+image::PersonMakeShallowDuplicate.png[width="800"]
+
+Upon insertion of a `Module` into a `Person` the respective `Module's` `ShallowDuplicate` is inserted to avoid this
+error.
+
+
+// end::insertperson[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
