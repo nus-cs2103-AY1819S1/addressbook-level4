@@ -96,6 +96,7 @@ include::../UserGuide.adoc[tag=findEvent]
 |_Given below are some excerpts of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=addEventsHeader]
+include::../DeveloperGuide.adoc[tag=eventDiagram]
 include::../DeveloperGuide.adoc[tag=addEvents]
 More details can be found in the <<DeveloperGuide.adoc#AddDeleteEvents, Developer Guide>>.
 include::../DeveloperGuide.adoc[tag=addEvents2]
