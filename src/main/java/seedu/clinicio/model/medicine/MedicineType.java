@@ -31,7 +31,7 @@ public class MedicineType {
     public MedicineType(String type) {
         requireNonNull(type);
         checkArgument(isValidType(type), MESSAGE_MEDICINE_TYPE_CONSTRAINTS);
-        medicineType = type.toLowerCase();
+        medicineType = type.substring(0,1).toUpperCase() + type.substring(1).toLowerCase();
     }
 
     /**
