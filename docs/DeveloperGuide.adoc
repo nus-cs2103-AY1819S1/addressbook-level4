@@ -1269,6 +1269,70 @@ Use case ends
 Use case resumes from step 2.
 
 
+=== Use case: Exchange time slot between students
+
+*MSS*
+
+1. User requests to exchange time slot between students whose Education is the same.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+
+=== Use case: Provide suggestions to certain student
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her name.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+=== Use case: Provide suggestions to certain student with index
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her index number.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
 
 
 === Use case: Find students list of the given Education
@@ -1299,29 +1363,6 @@ Use case resumes from step 2.
 
 1. User requests to get the name of the student who takes class at given timeslot
 2. System find out the student and show his or her name
-+
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. User inputs an invalid time slot.
-+
-[none]
-** 1a1. System displays an error message.
-+
-** 1a2. System prompts user for a corrected input.
-+
-Use case resumes from step 2.
-
-
-
-=== Use case: Edit time
-
-*MSS*
-
-1. User requests to change a student class time into new time slot
-2. System change the student previous time slot into new time slot
 +
 Use case ends
 

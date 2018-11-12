@@ -49,6 +49,13 @@ public class FilterByFeeCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        String expectedMessageS = String.format("Cannot find person whose fee not less than " + 10000.00 + " !");
+        FeeFilterPredicate predicateS = new FeeFilterPredicate(10000);
+        FilterByFeeCommand commandS = new FilterByFeeCommand("10000");
+        expectedModel.updateFilteredPersonList(predicateS);
+        assertCommandSuccess(commandS, model, commandHistory, expectedMessageS, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
 
