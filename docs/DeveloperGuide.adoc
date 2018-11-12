@@ -971,7 +971,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 [cols="1,10"]
 |===
 |Pros| Less memory usage (e.g. for `select`, just save the car park being selected).
-|Cons| We must ensure that the implementation of each individual command are correct.
+|Cons| Need to ensure that the implementation of each individual command are correct.
 |===
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -988,7 +988,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 [cols="1,10"]
 |===
-|Pros| We do not need to maintain a separate list, and just reuse what is already in the codebase.
+|Pros| Need not to maintain a separate list and just reuse what is already in the codebase.
 |Cons| Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 |===
 // end::undoredo[]
@@ -1150,7 +1150,7 @@ car park to a postal code whenever possible.
 
 ==== Overview
 Currently, postal code data are stored in a separate file. This is due to it being too slow and unreliable to convert coordinate to postal code
-in real time. However, in order to generate the file, we first had to go through every carpark and find respective their postal code.
+in real time. However, in order to generate the file, we went through every car park and found their respective postal code.
 
 ==== Example
 
@@ -1174,7 +1174,7 @@ As certain car park do not have postal code, `000000` is the default value and a
 [cols="1,10"]
 |===
 |Pros| Fast and efficient. No need to change due to no postal code changes.
-|Cons| Unable to update for new car parks. Require you to download the .jar file again.
+|Cons| Unable to update for new car parks. Requires user to download updated jar file.
 |===
 
 * **Alternative 2:** Pull data from API
@@ -1190,12 +1190,13 @@ As certain car park do not have postal code, `000000` is the default value and a
 // tag::ui[]
 [[Implementation-UI]]
 === UI
-The UI was a combination of JavaFX, HTML and CSS. This section describes the challenges faced, how it was overcome
+It is a combination of JavaFX, HTML and CSS. This section describes the challenges faced, how it was overcome
 and an example of how it works.
 
 ==== Overview
-As we wanted to showcase real time updates when the user issues a command, we had to update the HTML accordingly.
-However, we did not want to just update it, we wanted to showcase the selected car park or the filtered list accordingly.
+Initially, we wanted to showcase real time updates when the user issues a command.
+This would mean updating the HTML accordingly. However, we did not want to just update it,
+we wanted to showcase the selected car park or the filtered list accordingly.
 
 ==== Example
 Step 1. The user launches the application and is greeted by this UI.
