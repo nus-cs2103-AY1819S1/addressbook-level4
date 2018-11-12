@@ -8,7 +8,10 @@ import java.util.List;
 import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -29,6 +32,12 @@ public class PlanMealCommandParser {
             String[] arguments = args.split("\\s+");
 
             if (arguments.length != 3) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
+            }
+
+            if (!arguments[2].equalsIgnoreCase(Breakfast.SLOT)
+                && !arguments[2].equalsIgnoreCase(Lunch.SLOT)
+                && !arguments[2].equalsIgnoreCase(Dinner.SLOT)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
             }
 
