@@ -29,11 +29,11 @@ public class DeleteAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "delete-appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes a patient's appointment in the health book. "
+            + ": Deletes a patient's appointment in the health book. \n"
             + "Parameters: "
             + "APPOINTMENT_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + "3 ";
+            + "10001 ";
 
     public static final String MESSAGE_SUCCESS = "Appointment deleted";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";

@@ -28,7 +28,7 @@ public class DeletePrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-prescription";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a prescription to an appointment. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a prescription to an appointment. \n"
             + "Parameters: "
             + "APPOINTMENT ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME \n"

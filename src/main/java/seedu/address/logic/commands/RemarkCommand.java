@@ -32,7 +32,7 @@ public class RemarkCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE" + "] "
-            + PREFIX_REMARK + "REMARK "
+            + PREFIX_REMARK + "REMARK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98371931 "

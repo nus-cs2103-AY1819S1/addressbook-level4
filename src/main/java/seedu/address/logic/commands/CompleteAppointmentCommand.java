@@ -29,7 +29,7 @@ public class CompleteAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "complete-appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Completes a patient's appointment in the health book. "
+            + ": Completes a patient's appointment in the health book. \n"
             + "Parameters: "
             + "APPOINTMENT_ID \n"
             + "Example: " + COMMAND_WORD + " "

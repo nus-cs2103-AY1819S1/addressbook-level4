@@ -25,7 +25,7 @@ public class RegisterDoctorCommand extends Command {
 
     public static final String COMMAND_WORD = "register-doctor";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a doctor to the HealthBook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a doctor to the HealthBook. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

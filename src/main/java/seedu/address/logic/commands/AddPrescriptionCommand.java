@@ -33,7 +33,7 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-prescription";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. \n"
             + "Parameters: "
             + "APPOINTMENT_ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME "
@@ -119,8 +119,7 @@ public class AddPrescriptionCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
             }
         }
-
-        //TODO update google calendar
+        
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
