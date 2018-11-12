@@ -1,4 +1,4 @@
-package seedu.clinicio.ui.analytics;
+package seedu.clinicio.ui;
 
 import static java.util.Objects.requireNonNull;
 

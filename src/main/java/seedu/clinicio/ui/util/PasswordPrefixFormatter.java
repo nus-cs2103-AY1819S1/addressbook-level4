@@ -50,7 +50,7 @@ public class PasswordPrefixFormatter {
             return commandTextValue;
         }
 
-        int passwordPrefixIndex = commandTextValue.indexOf("pass/");
+        int passwordPrefixIndex = commandTextValue.indexOf(PREFIX_PASSWORD.getPrefix());
         int spaceAfterPasswordIndex = commandTextValue.indexOf(' ', passwordPrefixIndex);
 
         String prefixesBeforePasswordPrefix = commandTextValue.substring(0, passwordPrefixIndex);

@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -37,8 +36,6 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.ui.analytics.AnalyticsDisplayPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
