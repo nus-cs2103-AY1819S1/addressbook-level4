@@ -145,7 +145,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 // tag::find[]
 === Locating person by any attribute: `find`
 
-There are two types of Find Commands: Global Find and Specific Find, which can be used in conjunction with one
+There are two types of Find Commands: Global Find and Specific Find. They can be used in conjunction with one
 another. +
 Format: `find [PREFIX] KEYWORDS [NEXT_PREFIX] [MORE_KEYWORDS]`
 
@@ -194,7 +194,7 @@ It is performed when a `Prefix` is specified in the input field. +
 Below is a list of all searchable attributes and their corresponding `Prefix`:
 
 .Table of searchable prefixes
-[width="20"]
+[width="80"]
 |===
 | *Attribute*        | *Prefix*
 | Name               | `n/`
@@ -557,8 +557,8 @@ md/Dentistry`
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Find* : `find [PREFIX] KEYWORDS [NEXT_PREFIX] [MORE_KEYWORDS]` +
+e.g. `find n/James t/friends`
 * *List People* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
