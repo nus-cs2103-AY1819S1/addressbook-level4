@@ -1945,7 +1945,7 @@ Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at i
 
 ... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
 
-... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` + 
+... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` +
 Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is removed from employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
 
 .. Adding and removing permission
@@ -1957,9 +1957,9 @@ Expected: Employee at index 1 only has `DELETE_EMPLOYEE` permission. List of upd
 
 .. Incorrect `modifypermission` commands to try:
 
-... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` + 
+... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` +
 Expected: Status message shows that permission name is invalid.
-... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` + 
+... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
 Expected: Status message shows that the command format is invalid.
 
 === Leave management
