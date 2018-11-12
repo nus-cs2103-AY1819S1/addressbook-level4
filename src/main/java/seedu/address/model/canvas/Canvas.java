@@ -71,24 +71,12 @@ public class Canvas {
     }
 
     /**
-     * Adds a layer without a specified name
-     * @param i
+     * Adds a layer without a specified name. A non-unique name will be generated.
+     * @param i - PreviewImage of the new Layer.
      */
     public void addLayer(PreviewImage i) {
         layerNameCounts++;
         layers.add(new Layer(i, String.format(LAYER_NAME, layerNameCounts)));
-    }
-
-    public Layer getCurrentLayer() {
-        return currentLayer;
-    }
-
-    public void setCurrentLayerPosition(int x, int y) {
-        currentLayer.setPosition(x, y);
-    }
-
-    public Index getCurrentLayerIndex() {
-        return currentLayerIndex;
     }
 
     /**
@@ -143,8 +131,18 @@ public class Canvas {
         }
     }
 
-    // Canvas operations
     // Misc accessors
+    public Layer getCurrentLayer() {
+        return currentLayer;
+    }
+
+    public void setCurrentLayerPosition(int x, int y) {
+        currentLayer.setPosition(x, y);
+    }
+
+    public Index getCurrentLayerIndex() {
+        return currentLayerIndex;
+    }
 
     public int getHeight() {
         return height;
