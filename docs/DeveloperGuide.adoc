@@ -377,7 +377,7 @@ With this binding, whenever `commandTextField` is updated, it will display a dro
 
 //end::commandautocomplete[]
 
-// tag::permission[]
+// tag::permissionsystem[]
 === Permission System
 There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees.
 Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS.
@@ -459,7 +459,9 @@ The commands executable by the user will depend on their class.
 ** Pros: Easy to implement. Only require small modification in existing classes.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+// end::permissionsystem[]
 
+// tag::modifypermission[]
 === Supporting commands for Permission System
 
 The following are commands that have been implemented to support the Permission System.
@@ -509,7 +511,7 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 ** Pros: Easy to implement.
 
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
-
+// end::modifypermission[]
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
@@ -548,7 +550,6 @@ image::viewPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: Person card can get very cluttered if employee have many permissions.
 
-// end::permission[]
 
 
 // tag::keyboardshortcuts[]
