@@ -58,15 +58,15 @@ public class UpdateRideDescriptorBuilder {
     /**
      * Sets the {@code WaitTime} of the {@code UpdateRideDescriptor} that we are building.
      */
-    public UpdateRideDescriptorBuilder withWaitTime(String email) {
-        descriptor.setWaitTime(new WaitTime(email));
+    public UpdateRideDescriptorBuilder withWaitTime(String waitTime) {
+        descriptor.setWaitTime(new WaitTime(waitTime));
         return this;
     }
 
     /**
      * Sets the {@code Zone} of the {@code UpdateRideDescriptor} that we are building.
      */
-    public UpdateRideDescriptorBuilder withAddress(String address) {
+    public UpdateRideDescriptorBuilder withZone(String address) {
         descriptor.setZone(new Zone(address));
         return this;
     }

@@ -1,7 +1,5 @@
 package seedu.thanepark.testutil;
 
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -10,6 +8,8 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,18 +51,22 @@ public class TypicalRides {
 
     // Manually added - Ride's details found in {@code CommandTestUtil}
     public static final Ride AMY = new RideBuilder().withName(VALID_NAME_AMY).withMaintenance(VALID_MAINTENANCE_AMY)
-            .withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ZONE_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Ride BOB = new RideBuilder().withName(VALID_NAME_BOB).withMaintenance(VALID_MAINTENANCE_BOB)
             .withWaitTime(VALID_WAIT_TIME_BOB)
-            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+    public static final Ride RACHEL = new RideBuilder().withName("R@chel")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withWaitTime("16").withMaintenance("31")
+            .withTags("heightRestrictions", "rollerCoaster").build();
 
     public static final String KEYWORD_MATCHING_THE = "The"; // A keyword that matches MEIER
 
     private TypicalRides() {} // prevents instantiation
 
     /**
-     * Returns an {@code ThanePark} with all the typical persons.
+     * Returns an {@code ThanePark} with all the typical rides.
      */
     public static ThanePark getTypicalThanePark() {
         ThanePark ab = new ThanePark();

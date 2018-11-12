@@ -2,11 +2,11 @@ package seedu.thanepark.model.ride;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
 
@@ -35,7 +35,7 @@ public class RideTest {
         // null -> returns false
         assertFalse(ACCELERATOR.isSameRide(null));
 
-        // different phone and email but same name -> returns true
+        // different phone and waitTime but same name -> returns true
         Ride editedAlice = new RideBuilder(ACCELERATOR)
                 .withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
@@ -47,17 +47,17 @@ public class RideTest {
         assertFalse(ACCELERATOR.isSameRide(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new RideBuilder(ACCELERATOR).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new RideBuilder(ACCELERATOR).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ZONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ACCELERATOR.isSameRide(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new RideBuilder(ACCELERATOR).withMaintenance(VALID_MAINTENANCE_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same name, same waitTime, different attributes -> returns true
+        editedAlice = new RideBuilder(ACCELERATOR).withMaintenance(VALID_MAINTENANCE_BOB).withAddress(VALID_ZONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ACCELERATOR.isSameRide(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same phone, same waitTime, different attributes -> returns true
+        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ACCELERATOR.isSameRide(editedAlice));
     }
 
@@ -87,12 +87,12 @@ public class RideTest {
         editedAlice = new RideBuilder(ACCELERATOR).withMaintenance(VALID_MAINTENANCE_BOB).build();
         assertFalse(ACCELERATOR.equals(editedAlice));
 
-        // different email -> returns false
+        // different waitTime -> returns false
         editedAlice = new RideBuilder(ACCELERATOR).withWaitTime(VALID_WAIT_TIME_BOB).build();
         assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different thanepark -> returns false
-        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).build();
+        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).build();
         assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different tags -> returns false

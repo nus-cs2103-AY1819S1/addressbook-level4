@@ -82,9 +82,9 @@ public class RideListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Ride> createBackingList(int rideCount) throws Exception {
         Path xmlFile = createXmlFileWithRides(rideCount);
-        XmlSerializableThanePark xmlAddressBook =
+        XmlSerializableThanePark xmlThanePark =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableThanePark.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRideList());
+        return FXCollections.observableArrayList(xmlThanePark.toModelType().getRideList());
     }
 
     /**

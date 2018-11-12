@@ -18,7 +18,6 @@ public class OpenCommandParser implements Parser<OpenCommand> {
      * and returns an OpenCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-
     @Override
     public OpenCommand parse(String args) throws ParseException {
         requireNonNull(args);

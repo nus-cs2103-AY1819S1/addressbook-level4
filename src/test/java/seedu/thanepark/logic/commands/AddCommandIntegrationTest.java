@@ -28,7 +28,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newRide_success() {
         Ride validRide = new RideBuilder().buildDifferent();
 
         Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
@@ -47,7 +47,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateRide_throwsCommandException() {
         Ride rideInList = model.getThanePark().getRideList().get(0);
         assertCommandFailure(new AddCommand(rideInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_RIDE);

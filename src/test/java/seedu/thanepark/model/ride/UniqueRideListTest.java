@@ -3,8 +3,8 @@ package seedu.thanepark.model.ride;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
 
@@ -27,63 +27,63 @@ public class UniqueRideListTest {
     private final UniqueRideList uniqueRideList = new UniqueRideList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.contains(null);
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_rideNotInList_returnsFalse() {
         assertFalse(uniqueRideList.contains(ACCELERATOR));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_rideInList_returnsTrue() {
         uniqueRideList.add(ACCELERATOR);
         assertTrue(uniqueRideList.contains(ACCELERATOR));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_rideWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRideList.add(ACCELERATOR);
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueRideList.contains(editedAlice));
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.add(null);
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateRide_throwsDuplicateRideException() {
         uniqueRideList.add(ACCELERATOR);
         thrown.expect(DuplicateRideException.class);
         uniqueRideList.add(ACCELERATOR);
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setRide_nullTargetRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.setRide(null, ACCELERATOR);
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setRide_nullEditedRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.setRide(ACCELERATOR, null);
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setRide_targetRideNotInList_throwsRideNotFoundException() {
         thrown.expect(RideNotFoundException.class);
         uniqueRideList.setRide(ACCELERATOR, ACCELERATOR);
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setRide_editedRideIsSameRide_success() {
         uniqueRideList.add(ACCELERATOR);
         uniqueRideList.setRide(ACCELERATOR, ACCELERATOR);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
@@ -92,9 +92,9 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setRide_editedRideHasSameIdentity_success() {
         uniqueRideList.add(ACCELERATOR);
-        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ZONE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueRideList.setRide(ACCELERATOR, editedAlice);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
@@ -103,7 +103,7 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setRide_editedRideHasDifferentIdentity_success() {
         uniqueRideList.add(ACCELERATOR);
         uniqueRideList.setRide(ACCELERATOR, BOB);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
@@ -112,7 +112,7 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setRide_editedRideHasNonUniqueIdentity_throwsDuplicateRideException() {
         uniqueRideList.add(ACCELERATOR);
         uniqueRideList.add(BOB);
         thrown.expect(DuplicateRideException.class);
@@ -120,19 +120,19 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.remove(null);
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_rideDoesNotExist_throwsRideNotFoundException() {
         thrown.expect(RideNotFoundException.class);
         uniqueRideList.remove(ACCELERATOR);
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingRide_removesRide() {
         uniqueRideList.add(ACCELERATOR);
         uniqueRideList.remove(ACCELERATOR);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
@@ -140,13 +140,13 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setRides_nullUniqueRideList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.setRides((UniqueRideList) null);
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setRides_uniqueRideList_replacesOwnListWithProvidedUniqueRideList() {
         uniqueRideList.add(ACCELERATOR);
         UniqueRideList expectedUniqueRideList = new UniqueRideList();
         expectedUniqueRideList.add(BOB);
@@ -155,13 +155,13 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setRides_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueRideList.setRides((List<Ride>) null);
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setRides_list_replacesOwnListWithProvidedList() {
         uniqueRideList.add(ACCELERATOR);
         List<Ride> rideList = Collections.singletonList(BOB);
         uniqueRideList.setRides(rideList);
@@ -171,7 +171,7 @@ public class UniqueRideListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setRides_listWithDuplicateRides_throwsDuplicateRideException() {
         List<Ride> listWithDuplicateRides = Arrays.asList(ACCELERATOR, ACCELERATOR);
         thrown.expect(DuplicateRideException.class);
         uniqueRideList.setRides(listWithDuplicateRides);

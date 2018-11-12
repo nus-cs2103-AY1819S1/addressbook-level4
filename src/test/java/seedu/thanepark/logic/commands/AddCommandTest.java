@@ -33,13 +33,13 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullRide_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_rideAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingRideAdded modelStub = new ModelStubAcceptingRideAdded();
         Ride validRide = new RideBuilder().build();
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateRide_throwsCommandException() throws Exception {
         Ride validRide = new RideBuilder().build();
         AddCommand addCommand = new AddCommand(validRide);
         ModelStub modelStub = new ModelStubWithRide(validRide);

@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the ride in the {@code model}'s ride list at {@code index}.
      */
-    public static Ride getPerson(Model model, Index index) {
+    public static Ride getRide(Model model, Index index) {
         return model.getFilteredRideList().get(index.getZeroBased());
     }
 }

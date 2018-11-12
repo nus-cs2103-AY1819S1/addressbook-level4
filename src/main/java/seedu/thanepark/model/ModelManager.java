@@ -24,15 +24,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Ride> filteredRides;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given thanePark and userPrefs.
      */
-    public ModelManager(ReadOnlyThanePark addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyThanePark thanePark, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(thanePark, userPrefs);
 
-        logger.fine("Initializing with thanepark book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with thanepark book: " + thanePark + " and user prefs " + userPrefs);
 
-        versionedThanePark = new VersionedThanePark(addressBook);
+        versionedThanePark = new VersionedThanePark(thanePark);
         filteredRides = new FilteredList<>(versionedThanePark.getRideList());
     }
 
@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyThanePark newData) {
         versionedThanePark.resetData(newData);
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicatethaneParkChanged() {
         raise(new ThaneParkChangedEvent(versionedThanePark));
     }
 
@@ -65,14 +65,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteRide(Ride target) {
         versionedThanePark.removeRide(target);
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     @Override
     public void addRide(Ride ride) {
         versionedThanePark.addRide(ride);
         updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedRide);
 
         versionedThanePark.updateRide(target, editedRide);
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     //=========== Filtered Ride List Accessors =============================================================
@@ -115,13 +115,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoThanePark() {
         versionedThanePark.undo();
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     @Override
     public void redoThanePark() {
         versionedThanePark.redo();
-        indicateAddressBookChanged();
+        indicatethaneParkChanged();
     }
 
     @Override

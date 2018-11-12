@@ -1,25 +1,30 @@
 package systemtests;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_WAIT_TIME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ZONE_DESC;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_JESSIE;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_SYMBOLS;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_ZONE_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.WAIT_TIME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ZONE_DESC_BOB;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.AMY;
@@ -59,7 +64,7 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
          */
         Ride toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + MAINTENANCE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + WAIT_TIME_DESC_AMY + "   " + ZONE_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -75,11 +80,11 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: add a ride with all fields same as another ride in the thanepark book except name -> added */
         toAdd = new RideBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and email
+        /* Case: add a ride with all fields same as another ride in the thanepark book except phone and waitTime
          * -> added
          */
         toAdd = new RideBuilder(AMY).withName("Different")
@@ -88,28 +93,35 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty thanepark book -> added */
-        deleteAllPersons();
+        deleteAllRides();
         assertCommandSuccess(ACCELERATOR);
 
         /* Case: add a ride with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MAINTENANCE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MAINTENANCE_DESC_BOB + ZONE_DESC_BOB + NAME_DESC_BOB
+                + TAG_DESC_HUSBAND + WAIT_TIME_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a ride, missing tags -> added */
         assertCommandSuccess(HAUNTED);
 
+        /* Case: valid name with symbols -> accepted */
+        toAdd = new RideBuilder(AMY).withName(VALID_NAME_JESSIE).withMaintenance(VALID_MAINTENANCE_AMY)
+                .withAddress(VALID_ZONE_AMY).withWaitTime(VALID_WAIT_TIME_AMY).withTags().build();
+        command = AddCommand.COMMAND_WORD + VALID_NAME_SYMBOLS
+                + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
+        assertCommandSuccess(command, toAdd);
+
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the ride list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a ride card is selected --------------------------- */
 
         /* Case: selects first card in the ride list, add a ride -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectRide(Index.fromOneBased(1));
         assertCommandSuccess(CASTLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -123,13 +135,13 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: add a duplicate ride except with different email -> rejected */
+        /* Case: add a duplicate ride except with different waitTime -> rejected */
         toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different thanepark -> rejected */
-        toAdd = new RideBuilder(HAUNTED).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new RideBuilder(HAUNTED).withAddress(VALID_ZONE_BOB).build();
         command = RideUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
@@ -138,47 +150,47 @@ public class AddCommandSystemTest extends ThaneParkSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + ADDRESS_DESC_AMY;
+        /* Case: missing waitTime -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing thanepark -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + RideUtil.getPersonDetails(toAdd);
+        command = "adds " + RideUtil.getRideDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC
-                + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
+        /* Case: invalid maintenance -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + INVALID_MAINTENANCE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + INVALID_MAINTENANCE_DESC + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY;
         assertCommandFailure(command, Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid waitTime -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + MAINTENANCE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+                + MAINTENANCE_DESC_AMY + INVALID_WAIT_TIME_DESC + ZONE_DESC_AMY;
         assertCommandFailure(command, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid thanepark -> rejected */
+        /* Case: invalid zone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+                + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + INVALID_ZONE_DESC;
         assertCommandFailure(command, Zone.MESSAGE_ZONE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + WAIT_TIME_DESC_AMY + ZONE_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }

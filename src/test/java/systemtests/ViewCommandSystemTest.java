@@ -4,10 +4,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_RIDE_SUCCESS;
 import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
-import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.model.Model;
+import seedu.thanepark.model.ride.Ride;
 
 public class ViewCommandSystemTest extends ThaneParkSystemTest {
     @Test
@@ -28,13 +29,13 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
         /* Case: select the first card in the ride list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        String command = "   " + ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_RIDE);
 
         /* Case: select the last card in the ride list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = ViewCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index rideCount = getLastIndex(getModel());
+        command = ViewCommand.COMMAND_WORD + " " + rideCount.getOneBased();
+        assertCommandSuccess(command, rideCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -59,7 +60,7 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
         /* Case: filtered ride list, select index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_THE);
+        showRidesWithName(KEYWORD_MATCHING_THE);
         int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
@@ -96,8 +97,8 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
         assertCommandFailure("VieW 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty thanepark book -> rejected */
-        deleteAllPersons();
-        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        deleteAllRides();
+        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_RIDE.getOneBased(),
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
     }
 
@@ -117,9 +118,11 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
+        Ride expectedRide = expectedModel.getFilteredRideList().get(expectedSelectedCardIndex.getZeroBased());
+        String expectedName = expectedRide.getName().fullName;
         String expectedResultMessage = String.format(
-                MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+                MESSAGE_SELECT_RIDE_SUCCESS, expectedName, expectedSelectedCardIndex.getOneBased());
+        int preExecutionSelectedCardIndex = getRideListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
