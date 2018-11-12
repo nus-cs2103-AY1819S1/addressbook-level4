@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <friendship>
+        <friendUser>themyth</friendUser>
+        <me>brotherLoong</me>
+        <initiatedBy>brotherLoong</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+    <friendship>
+        <friendUser>chelchia</friendUser>
+        <me>Meena567</me>
+        <initiatedBy>Meena567</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+    <friendship>
+        <friendUser>brotherLoong</friendUser>
+        <me>themyth</me>
+        <initiatedBy>brotherLoong</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+    <friendship>
+        <friendUser>Meena567</friendUser>
+        <me>chelchia</me>
+        <initiatedBy>Meena567</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+    <friendship>
+        <friendUser>microsoft</friendUser>
+        <me>google</me>
+        <initiatedBy>microsoft</initiatedBy>
+        <friendshipStatus>PENDING</friendshipStatus>
+    </friendship>
+</users>

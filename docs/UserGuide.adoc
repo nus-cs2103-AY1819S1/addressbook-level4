@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Makan Book - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Makan Book is for those who *prefer to use a desktop app to search for restaurants within NUS to eat at alone or with friends*. More importantly, MakanBook is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). MakanBook also allows users to add and manage friends and groups, start private and public jios and so much more! Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `makanbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Makan Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,126 +33,59 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all restaurants
+* **`signup`**`u/johnnydoe pwd/pAssw0rd n/John Doe p/98765432 e/johnd@example.com` : Sign Up for an account in the Makan Book.
+Allows you to use Makan Book's many features
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+== Features (Does Not Require Login)
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Waa Cow`.
+* Items in square brackets are optional e.g `n/NAME [u/USERNAME]` can be used as `n/Waa Cow u/navekom` or as `n/Waa Cow`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[u/USERNAME]...` can represent `u/navekom`, `u/katespade u/themyth` etc.
+* Parameters can be in any order e.g. if the command specifies `u/USERNAME pwd/PASSWORD`, `pwd/PASSWORD u/USERNAME` is also acceptable.
+====
+
+[NOTE]
+====
+Makan Book data is saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Listing all restaurants : `list`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
+Shows a list of all restaurants in the makan book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Locating restaurants by name: `find`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
+Finds restaurants whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `Waa Cow` will match `waa cow`
+* The order of the keywords does not matter. e.g. `Cow Waa` will match `Waa Cow`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Cow` will not match `Co`
+* Restaurants matching at least one keyword will be returned (i.e. `OR` search). e.g. `Waa Lao` will return `Waa Cow`, `Lao Ban`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `find Waa Lao` +
+Returns `Waa Cow` and `Lao Ban`
+* `find Din Tai Fung` +
+Returns any restaurant having names `Din`, `Tai`, or `Fung`
 
 === Listing entered commands : `history`
 
@@ -163,9 +96,442 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+// tag::evanmok2401(1)[]
+=== Selecting a restaurant : `selectRestaurant`
+
+Selects the restaurant identified by the index number used in the displayed restaurant list. It will display the webpage of the restaurant
+which contains it's details, overall rating and reviews written by users +
+Format: `selectRestaurant INDEX`
+
+****
+* Selects the restaurant and loads the restaurant page at the specified `INDEX`.
+* The index refers to the index number shown in the displayed restaurant list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`selectRestaurant 2` +
+Selects the 2nd restaurant in the address book.
+* `find Hwangs` +
+`selectRestaurant 1` +
+Selects the 1st restaurant in the results of the `find` command.
+
+=== Selecting a restaurant : `selectOther`
+
+Selects the item (Friend, Group, Debt, Request, Jio) identified by the index number used in the displayed item list (the second list panel). It will display details of the item
+which varies based on the item selected (eg. Jio contains name, date, address, people) +
+Format: `selectOther INDEX`
+
+****
+* Selects the item and loads the item page at the specified `INDEX`.
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `listJio` +
+`selectOther 2` +
+Selects the 2nd jio in the address book.
+* `listGroups` +
+`selectOther 1` +
+Selects the 1st group in the address book.
+
+=== Signing Up for a Makan Book Account: `signup`
+
+Allows a User to create an account for use in the Makan Book. Automatic log in upon sign up. +
+Format: `signup u/USERNAME pwd/PASSWORD n/NAME p/PHONE_NUMBER e/EMAIL`
+
+Example:
+
+* `signup u/davemyth pwd/pwd123123 n/Dave Batik p/92225822 e/davebaumb@gmail.com`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+== Features (Requires Login)
+
+=== Log In into an existing Makan Book Account: `login`
+
+Allows a User to log into an existing account in the Makan Book. +
+Format: `login u/USERNAME pwd/PASSWORD`
+
+Example:
+
+* `login u/davemyth pwd/pwd123123`
+
+=== Log Out of an existing Session: `logout`
+
+Allows a User to log out of an existing session. +
+Format: `logout`
+
+=== Write Review For Restaurant: `writeReview`
+
+Allows user to write a review for a specific restaurant. +
+Format: `writeReview INDEX rate/RATING rvw/REVIEW`
+
+Examples:
+
+* `writeReview 3 rate/3 rvw/The food is not the best, but definitely value for money!`
+
+=== Display User Profile: `displayProfile`
+
+Allows a user to view his own profile in the Makan Book. The browser panel will then contains the user's details and
+the reviews he's written. +
+Format: `displayProfile`
+// end::evanmok2401(1)[]
+
+// tag::meena567[]
+=== Adding friends: `addFriend`
+
+A User will send a friend request to another User who will then have to accept the friend request. +
+Format: `addFriend u/USERNAME`
+
+Examples:
+
+* `addFriend u/meena567`
+
+=== Accept friend request: `acceptFriend`
+
+A User can accept a friend request of another User so that the pair of them can become friends. +
+Format: `acceptFriend u/USERNAME`
+
+Examples:
+
+* `acceptFriend u/meena567`
+
+=== Delete friend request: `deleteFriendRequest`
+
+A User can delete friend request of another User whom they might not know. +
+Format: `deleteFriendRequest u/USERNAME`
+
+Examples:
+
+* `deleteFriendRequest u/meena567`
+
+=== Delete friend: `deleteFriend`
+
+A User can delete friend whom they may no longer want to be friends with. +
+Format: `deleteFriend u/USERNAME`
+
+Examples:
+
+* `deleteFriend u/meena567`
+
+=== List friend requests: `listFriendRequests`
+
+A User can list friend requests that they have received. Only the party that did not initiate the friend request will receive the friend request +
+Format: `listFriendRequests`
+
+=== List friends: `listFriends`
+
+A User can list their friends. +
+Format: `listFriends`
+
+=== Adding groups: `addGroup`
+
+A User will create a group by specifying the group name.  +
+Format: `addGroup g/GROUPNAME`
+
+****
+* Every group will automatically add the user creating the group into its list of accepted Users.
+****
+
+Examples:
+
+* `addGroup g/CS2103`
+
+=== Adding members: `addMembers`
+
+A User already in the group can add members to a particular group by specifying the group name and the usernames of the users they wish to add to that group. +
+Format: `addMembers g/GROUPNAME [Users u/USERNAMES]...`
+
+Examples:
+
+* `addMembers g/CS2103 u/chelchia u/evanmok2401 u/katenhy u/yewwoei`
+
+=== Accepting group requests: `acceptGroup`
+
+A User can accept the invitation to join a group. +
+Format: `acceptGroup g/GROUPNAME`
+
+Examples:
+
+* `acceptGroup g/CS2103`
+
+=== Deleting group requests: `deleteGroupRequest`
+
+A User can choose to delete the group request should they not want to join the group. +
+Format: `deleteGroupRequest g/GROUPNAME`
+
+Examples:
+
+* `deleteGroupRequest g/CS2103`
+
+=== Deleting groups: `deleteGroup`
+
+A User can leave a group and they will be removed from the group. +
+Format: `deleteGroup g/GROUPNAME`
+
+Examples:
+
+* `deleteGroup g/CS2103`
+
+=== List group requests: `listGroupRequests`
+
+A User can list group requests that they have received. +
+Format: `listGroupRequests`
+
+=== List groups: `listGroups`
+
+A User can list groups that they are a part of. +
+Format: `listGroups`
+// end::meena567[]
+
+// tag::chelchia[]
+=== Finding people to eat with: `createJio`
+
+Users can find other users to eat with through inviting users. “createJio” creates a jio that is added to the global list of jios. +
+Format: `createJio n/NAME w/WEEK d/DAY h/TIME a/PLACE [g/GROUP NAME]`
+
+****
+* Jio -- an invitation to hang out.
+* Name, date, time, place must be provided. The other parameters are optional.
+* All users will be able to view the list of jios.
+* If group name is present, all group members are automatically added to jio. Jio is still visible to all.
+****
+
+Examples:
+
+* `createJio n/MALA w/1 d/mon h/1200 a/FineFood`
+* `createJio n/saporeFriends w/1 d/mon h/1800 a/Sapore g/2103`
+
+
+=== Joining an existing jio: `joinJio`
+
+Examples:
+
+Users can join an existing jio to find people to eat with, without having to create one of their own. +
+Format: `joinJio n/NAME`
+
+****
+* User has to indicate the name of the jio.
+****
+
+Examples:
+
+* `joinJio n/MALA`
+
+=== Deleting old jios: `deleteJio`
+
+Users can specify a jio to delete. Only the creator of a jio can delete the jio. +
+Format: `deleteJio n/NAME`
+
+Examples:
+
+* `deleteJio n/MALA`
+
+=== List jios: `listJio`
+
+Lists all jios created by all users, so that user can see which one to join.
+Format: `listJio`
+// end::chelchia[]
+
+// tag::kate[]
+
+===  Sent add debt request: `addDebt`
+
+User(Creditor) send a debt request to another user with specific amount.
+Record will be created between two users with a `Pending` status. +
+Format: `addDebt u/USERNAME amt/AMOUNT`
+
+Examples:
+
+* `addDebt u/katespades amt/4.30`
+
+=== Sent add debt request to a group `addGroupDebt`
+
+User(Creditor) send a debt request to all other users in the group with specific amount.
+with amount will split equally to everyone in the group.
+Record will be created between with a `Pending` status. +
+Format: `addGroupDebt g/GROUP amt/AMOUNT`
+
+Examples:
+
+* `addGroupDebt g/CS2103 amt/4.30`
+
+===  Sent clear debt request: `clearDebt`
+
+User(Creditor) clear amount between users. If the amount is equal to the debt,
+the status will change to `Cleared`. Otherwise, the amount will be balanced off from the debt. +
+Format: `clearDebt u/NAME amt/AMOUNT`
+
+Examples:
+
+* `clearDebt u/katespades amt/4.30`
+
+===  Accept debt request: `acceptDebtRequest`
+
+****
+Unique ID is generate for each debt, even though the input parameters are the same.
+This is to ensure that mutiple debts can be recorded and differentiated.
+****
+
+User(Debtor) accept request from another user(Creditor). The debt status will change
+ from `Pending` to `Accepted`. If there are any other accepted debt between this two
+ users, the debt will balanced off as one debt record. +
+Format: `acceptDebtRequest u/NAME amt/AMOUNT id/ID` +
+*ID is unique and should copy from the Debt Card in UI when you test it*
+
+Examples:
+
+* `acceptDebtRequest u/katespades amt/4.30 id/18103013460314(copy from UI)`
+
+===  Delete debt request: `deleteDebtRequest`
+
+User(Debtor) delete/reject request send by other user if it is a wrong request. +
+Format: `deleteDebtRequest u/USERNAME amt/AMOUNT id/ID` +
+*ID is unique and should copy from the Debt Card in UI when you test it*
+
+Examples:
+
+* `deleteDebtRequest u/Kate123 amt/4.30 id/18103013460314(copy from UI)`
+
+=== List all login user's creditor `listCreditor`
+
+List all creditor of the login user in list panel. +
+Format: `listCreditor`
+
+=== List all login user's debtor `listDebtor`
+
+List all debtor of the login user in list panel. +
+Format: `listDebtor`
+
+=== List all login user's debt request received `listDebtRequestReceived`
+
+List all debt request received by login user from other user in list panel. +
+Format: `listDebtRequestReceived`
+
+=== List all login user's debt request sent `listDebtRequestSent`
+
+List all debt request sent by login user to other user in list panel. +
+Format: `listDebtRequestSent`
+
+=== List all login user's debt history `listDebtor`
+
+List all debt history(regardless of status) of the login user in list panel.
+Format: `listDebtor`
+
+// end::kate[]
+
+// tag::yewwoei[]
+
+===  Block unavailable timeslot manually: `blockDate`
+
+Blocks out that timeslot in the user’s schedule to signify that he is busy and not available to eat.
+Weeks only range from 1-6, recess, 7-13, reading, 15, 16 +
+Format: `blockDate w/WEEKNUMBER d/DAY h/HHHH`
+
+Examples:
+
+* `blockDate w/5 d/tue h/1800`
+
+===  Free timeslot manually: `freeDate`
+
+Frees up that timeslot in the user’s schedule to signify that he is free and available to eat. +
+Format: `freeDate w/recess d/DAY h/HHHH`
+
+Examples:
+
+* `freeDate w/5 d/wed h/1800`
+
+===  See free Time: `listScheduleForWeek`
+
+Views the list of free time to eat on a NUS week according to your calendar.
+Format: `listScheduleForWeek w/WEEK_NUMBER`
+
+Examples:
+
+* `listScheduleForWeek w/5`
+
+
+===  Find common group meeting times: `findDates`
+
+Views the available times to meet in your group. You must be a part of a group and the group name stated must exist. +
+Format: `findDates g/GROUP_NAME w/WEEK_NUMBER`
+
+Examples:
+
+* `findDates g/2103 w/5`
+
+// end::yewwoei[]
+
+== Administrator Level Features
+=== Adding a restaurant: `add` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
+
+Adds a restaurant to the address book +
+Format: `add n/NAME p/PHONE_NUMBER a/ADDRESS [t/TAG]...`
+
+[TIP]
+A restaurant can have any number of tags (including 0)
+
+Examples:
+
+* `add n/Macdonalds p/6231 8837 a/Engineering Block Eg 4`
+* `add n/Japanese Delights t/Halal a/Engineering Canteen EG5 #02-01 t/Japanese`
+
+=== Deleting a restaurant : `delete` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
+
+Deletes the specified restaurant from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the restaurant at the specified `INDEX`.
+* The index refers to the index number shown in the displayed restaurant list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd restaurant in the address book.
+* `find Hwangs` +
+`delete 1` +
+Deletes the 1st restaurant in the results of the `find` command.
+
+=== Editing a restaurant : `edit` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
+
+Edits an existing restaurant in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the restaurant at the specified `INDEX`. The index refers to the index number shown in the displayed restaurant list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
+* You can remove all the restaurant's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/macdonalds@example.com` +
+Edits the phone number and email address of the 1st restaurant to be `91234567` and `macdonalds@example.com` respectively.
+* `edit 2 n/Hwangs t/` +
+Edits the name of the 2nd restaurant to be `Hwangs` and clears all existing tags.
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+
+=== Clearing all entries : `clear` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Undoing previous command : `undo` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -181,7 +547,7 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
+* `selectRestaurant 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -191,7 +557,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo` [DEPRECIATED, DO NOT USE, ONLY FOR ADMINISTRATORS]
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -214,47 +580,169 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+== Changes coming in v2.0
+// tag::evanmok2401(2)[]
+=== Restriction of Privileges to Makan Book
+Currently, all users are can add, delete, edit and make changes to restaurants in the makan book even if the User Guide says otherwise.
+This can affect all other users.
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Creation of Administrator Account
+To prevent this, administrator accounts will be created. Only administrators will have the ability to
+call commands that modify the restaurants in Makan book.
 
-=== Exiting the program : `exit`
+==== Allowing Users to suggest restaurants to be added into Makan Book
+To allow users to suggest restaurants outside of NUS to be included to the Makan Book. This would
+be sent to the administrators for review. Administrators can choose to add these restaurants for
+all users in the Makan Book.
 
-Exits the program. +
-Format: `exit`
+=== New Features in v2.0
 
-=== Saving the data
+==== List Visited Restaurant: `listVisitedRestaurants`
+Lists the restaurants a user has visited. +
+Format: `listVisitedRestaurants`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Add Visited Restaurant: `addVisitedRestaurants`
+Allows user to add a restaurant into his visited restaurant list with date, price, rating/score and meal consumed. +
+Format: `addVisitedRestaurants INDEX t/DATE p/PRICE r/SCORE rvw/WRITTEN_REVIEW m/MEAL_CONSUMED`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Examples:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `addVisitedRestaurants 3 t/2011-11-11 p/3.70 r/4 rvw/Value for money indeed m/Lemon Chicken Rice`
+
+==== Add Favourites: `addFavourite`
+Allows User to add a restaurant into his account’s favourites. +
+Format: `addFavourite INDEX`
+
+Examples:
+
+* `addFavourite 3`
+
+==== List Favourites: `listFavourites`
+Allows User to list the restaurants he has entered into his favourites. +
+Format: `listFavourites`
+// end::evanmok2401(2)[]
+
+====  Find common timeslots with friends: `findTime`
+Find common eating timeslots with a list of friends. +
+Format: `findTime [w/week number] [u/USERNAME]…`
+
+===  Find jios that fit a user’s timetable for a given NUS academic week: `findJio`
+
+Views the list of free time to eat on those dates. +
+Format: `findJio w/WEEKNUMBER`
+
+Examples:
+
+* `findJio w/8`
+
+==== Add NUSMODS schedule to block out calendar: `addNUSMODS`
+
+Block out schedules on the timetable using a NUSMODS link. +
+Format: `addNUSMODS NUSMODSLINK`
+
+Examples:
+
+* `addCalendar nusmods.com/g91j3g08sdgl13`
+
+==== Add Google Calendar schedule to block out calendar: `addCalendar`
+
+Block out schedules on the timetable using a google account. +
+Format: `addCalendar USERNAME PASSWORD`
+
+Examples:
+
+* `addCalendar aiden@gmail.com aidenpassword`
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Makan Book folder.
 
 == Command Summary
 
+=== Commands that do not require log in of User
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find Waa Lao`
+* *List* : `list`
+* *List Jio* : `listJio` +
+e.g. `listJio`
+* *Help* : `help`
+* *selectRestaurant* : `selectRestaurant INDEX` +
+e.g.`selectRestaurant 2`
+* *History* : `history`
+* *Sign Up* : `signup u/USERNAME pwd/PASSWORD n/NAME p/PHONE_NUMBER e/EMAIL` +
+e.g. `signup u/johnnydoe pwd/pAssw0rd n/John Doe p/98765432 e/johnd@example.com`
+* *Login* : `login u/USERNAME pwd/PASSWORD` +
+e.g. `login u/navekom pwd/pwwd123`
+
+=== Commands that require log in of User
+
+* *Logout* : `logout`
+* *Write a Review* : `writeReview INDEX rate/RATING rvw/WRITTEN_REVIEW` +
+e.g. `writeReview 2 rate/5 rvw/I tried the Salmon Mentaiko Chirashi and it was amazing.`
+* *Display User Profile*: `displayProfile`
+* *selectOther* : `selectOther INDEX` +
+e.g.`selectOther 2`
+* *Add Friend* : `addFriend u/USERNAME` +
+e.g. `addFriend u/meena567`
+* *Accept Friend Request* : `acceptFriend u/USERNAME` +
+e.g. `acceptFriend u/meena567`
+* *Delete Friend Request* : `deleteFriendRequest u/USERNAME` +
+e.g. `deleteFriendRequest u/meena567`
+* *Delete Friend* : `deleteFriend u/USERNAME` +
+e.g. `deleteFriend u/meena567`
+* *List Friend Requests* : `listFriendRequests` +
+* *List Friends* : `listFriends` +
+* *Add Group* : `addGroup g/GROUP_NAME` +
+e.g. addGroup g/CS2103
+* *Add Members* : `addMembers g/GROUP_NAME [u/USERNAME]...` +
+e.g. addMembers g/CS2103 u/thejrlinguist u/meena567
+* *Accept Group* : `acceptGroup g/GROUP_NAME` +
+e.g. acceptGroup g/CS2103
+* *Delete Group Request* : `deleteGroupRequest g/GROUP_NAME` +
+e.g. deleteGroupRequest g/CS2103
+* *Delete Group* : `deleteGroup g/GROUP_NAME` +
+e.g. deleteGroup g/CS2103
+* *List Group Requests* : `listGroupRequests` +
+* *List Groups* : `listGroups` +
+* *Create Jio* : `createJio` +
+e.g. `createJio n/MALA w/1 d/mon h/1200 a/FineFood` +
+e.g. `createJio n/saporeFriends w/1 d/mon h/1800 a/Sapore g/mygroup`
+* *Join Jio* : `joinJio` +
+e.g. `joinJio n/MALA`
+* *Delete Jio* : `deleteJio` +
+e.g. `deleteJio n/MALA`
+* *Add Debt* : `addDebt u/USERNAME amt/AMOUNT` +
+ e.g. `addDebt u/katespades amt/2.3`
+* *Add Group Debt* : `addGroupDebt g/GROUP_NAME amt/AMOUNT` +
+e.g. `addGroupDebt g/2103 amt/27`
+* *Clear Debt* : `clearDebt u/USERNAME amt/AMOUNT` +
+e.g. `clearDebt u/katespades amt/1.3`
+* *Accept Debt Request* : `acceptDebtRequest u/USERNAME amt/AMOUNT id/DEBTID` +
+e.g. `acceptDebtRequest u/katespades amt/7.9 id/181030224951280`
+* *Delete Debt Request* : `deleteDebtRequest u/USERNAME amt/AMOUNT id/DEBTID` +
+e.g. `deleteDebtRequest u/katespades amt/7.9 id/181030224951280`
+* *List Creditor* : `listCreditor` +
+* *List Debtor* : `listDebtor` +
+* *List Debt Request Received* : `listDebtRequestReceived` +
+* *List Debt Request Sent* : `listDebtRequestSent`
+* *List Debt History* : `listDebtHistory`
+* *Block Date* : `blockDate w/WEEKNUMBER d/DAY h/HHHH` +
+e.g. `blockDate w/reading d/thu h/1800`
+* *Free Date* : `freeDate w/WEEK_NUMBER d/DAY h/HHHH` +
+e.g. `freeDate w/11 d/tue h/0600`
+* *List User's Free Timeslots for a Week* : `listScheduleForWeek w/WEEK_NUMBER` +
+e.g. `listScheduleForWeek w/6`
+* *List free timeslots for your group for a week* : `findDates g/GROUP_NAME w/WEEK_NUMBER` +
+e.g. `findDates g/2103 w/reading`
+
+=== Depreciated Commands
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `add n/Macdonalds p/6231 8837 a/Engineering Block Eg 4 t/FastFood t/Halal`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

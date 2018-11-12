@@ -1,0 +1,67 @@
+= Chelsea Chia Jia Hwa - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Makan Book
+
+---
+
+== Overview
+
+Makan Book is a restaurant guide and application for diners in National University of Singapore (NUS). It allows users to write and view
+reviews for restaurants within NUS. Additionally, Users are able to interact with one another to create a more enjoyable experience.
+
+== Summary of contributions
+
+* *Major Enhancement*: *Jio feature* - the creation, deletion and joining of jios
+** What it does: Allows a user to create a public event (a jio). Other users can view a list of all jios (details and people going), and can join a jio, which will update the list of people going on the jio. The jio event can only be deleted by the creator.
+** Justification: This feature improves the product significantly by complementing the restaurant book (user can decide on a particular restaurant, and invite friends to eat there with him). It allows users to set an event (a Jio) to meet at a certain time and address. This is a public event, thus is free for all to see and join. However it is managed by the creator only, who can delete the jio once over.
+** Highlights: Works together with `Group` to create group jios.
+
+* *Minor Enhancement*: listJio command for listing all jios in the list panel
+
+* *Minor Enhancement*: created menubar for listing for other items
+
+* *Minor Enhancement*: created second list panel for displaying items other than restaurants (eg.debts, jios)
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chelchia[here]]
+
+* *Other contributions*:
+
+** Project management:
+*** Deliverables and Deadline
+*** Assigned issues and managed milestones and releases
+(Pull requests https://github.com/CS2103-AY1819S1-W10-2/main/pull/309[#309], https://github.com/CS2103-AY1819S1-W10-2/main/pull/42[#42])
+** Enhancements to existing features:
+*** Updated the GUI for listing all items other than restaurant
+*** Worked on browser panel displays
+** Documentation:
+*** Adapted the developer's guide to describe Makanbook
+*** Bug fixes in user guide
+** Community:
+*** Reported bugs and suggestions for other teams in the class (Examples:  https://github.com/CS2103-AY1819S1-F11-4/main/issues/177[1], https://github.com/CS2103-AY1819S1-F11-4/main/issues/189[2], https://github.com/CS2103-AY1819S1-F11-4/main/issues/193[3])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide._
+|===
+
+include::../UserGuide.adoc[tag=chelchia]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide._
+|===
+
+*Added the class diagram for `Jio` into the Model class diagram*:
+include::../DeveloperGuide.adoc[tag=chelchia(1)]
+
+*Detailed explanation of the implementation of Jio feature with UML sequence diagram*:
+include::../DeveloperGuide.adoc[tag=chelchia(2)]
+
+*Test cases for manual testing*:
+include::../DeveloperGuide.adoc[tag=chelchia(3)]

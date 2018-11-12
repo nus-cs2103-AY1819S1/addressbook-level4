@@ -4,14 +4,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to the list of items.
  */
 public class JumpToListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
+    public final String type;
 
-    public JumpToListRequestEvent(Index targetIndex) {
+    public JumpToListRequestEvent(String type, Index targetIndex) {
         this.targetIndex = targetIndex.getZeroBased();
+        this.type = type;
     }
 
     @Override

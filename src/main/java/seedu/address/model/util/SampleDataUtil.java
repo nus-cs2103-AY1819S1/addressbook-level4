@@ -6,45 +6,81 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.restaurant.Address;
+import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Rating;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Reviews;
+import seedu.address.model.restaurant.UserReview;
+import seedu.address.model.restaurant.WrittenReview;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.Username;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
+
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static final Reviews WAA_COW_REVIEWS = new Reviews()
+            .addUserReview(new UserReview(new Username("navekom"), new Rating(3),
+                new WrittenReview("I tried the Ultimate Beef Sushi and they were delicious.")))
+            .addUserReview(new UserReview(new Username("chelchia"), new Rating(2),
+                new WrittenReview("I tried the Udon Cirashi and they were so-so.")))
+            .addUserReview(new UserReview(new Username("meena567"), new Rating(2),
+                new WrittenReview("Definitely coming back.")))
+            .addUserReview(new UserReview(new Username("katespade"), new Rating(2),
+                new WrittenReview("The maki was fantastic.")));
+
+    public static final Reviews SUBWAY_REVIEWS = new Reviews()
+            .addUserReview(new UserReview(new Username("themyth"), new Rating(5),
+                    new WrittenReview("Subway eat fresh.")))
+            .addUserReview(new UserReview(new Username("chelchia"), new Rating(5),
+                    new WrittenReview("Namaste. Subway nice nice. Good food.")))
+            .addUserReview(new UserReview(new Username("meena567"), new Rating(4),
+                    new WrittenReview("Subway give fresh food.")))
+            .addUserReview(new UserReview(new Username("katespade"), new Rating(5),
+                    new WrittenReview("5 stars sub.")));
+
+    public static final Reviews ROYAL_BISTRO_REVIEWS = new Reviews()
+            .addUserReview(new UserReview(new Username("brotherLoong"), new Rating(5),
+                    new WrittenReview("The food here is 5 stars. Just like the Singapore flag.")))
+            .addUserReview(new UserReview(new Username("themyth"), new Rating(5),
+                    new WrittenReview("I stalked LHL here.")));
+
+    public static Restaurant[] getSampleRestaurants() {
+        return new Restaurant[] {
+            new Restaurant(new Name("Waa Cow"), new Phone("63421111"),
+                new Address("Stephen Riady Centre"),
+                getTagSet("Western"), WAA_COW_REVIEWS),
+            new Restaurant(new Name("The Royals Bistro"), new Phone("61221218"),
+                new Address("Town Plaza"),
+                getTagSet("Italian", "Halal"), ROYAL_BISTRO_REVIEWS),
+            new Restaurant(new Name("Subway"), new Phone("66596109"),
+                new Address("Town Plaza"),
+                getTagSet("Halal", "FastFood"), SUBWAY_REVIEWS),
+            new Restaurant(new Name("Starbucks"), new Phone("66596081"),
+                new Address("Education Resource Centre"),
+                getTagSet("Cafe"), new Reviews()),
+            new Restaurant(new Name("Spice Table by Pines"), new Phone("63399912"),
+                new Address("Town Plaza"),
+                getTagSet("Asian"), new Reviews()),
+            new Restaurant(new Name("Sapore Italian Restaurant"), new Phone("62620287"),
+                new Address("Town Plaza"),
+                getTagSet("Italian"), new Reviews()),
+            new Restaurant(new Name("Pizza Hut"), new Phone("62353535"),
+                new Address("Stephen Riady Centre"),
+                getTagSet("FastFood", "Halal"), new Reviews())
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+
+        for (Restaurant sampleRestaurant : getSampleRestaurants()) {
+            sampleAb.addRestaurant(sampleRestaurant);
         }
+
         return sampleAb;
     }
 

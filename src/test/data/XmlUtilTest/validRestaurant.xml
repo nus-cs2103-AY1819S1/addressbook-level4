@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurant>
+    <name>Waa Cow</name>
+    <phone>63421111</phone>
+    <address>Stephen Riady Centre</address>
+    <reviews>
+        <rating>3.00</rating>
+        <userReviews>
+            <rating>3</rating>
+            <username>navekom</username>
+            <writtenReview>I tried the Ultimate Beef Sushi Experience and they were delicious.</writtenReview>
+        </userReviews>
+    </reviews>
+    <tagged>Western</tagged>
+</restaurant>

@@ -2,17 +2,19 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserData;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.testutil.RestaurantBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -24,26 +26,26 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserData());
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newRestaurant_success() throws CommandException {
+        Restaurant validRestaurant = new RestaurantBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserData());
+        expectedModel.addRestaurant(validRestaurant);
         expectedModel.commitAddressBook();
-
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validRestaurant), model, commandHistory,
+               String.format(AddCommand.MESSAGE_SUCCESS, validRestaurant), expectedModel);
     }
 
+
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateRestaurant_throwsCommandException() {
+        Restaurant restaurantInList = model.getAddressBook().getRestaurantList().get(0);
+        assertCommandFailure(new AddCommand(restaurantInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_RESTAURANT);
     }
 
 }

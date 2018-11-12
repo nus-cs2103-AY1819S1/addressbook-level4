@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <persons>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@example.com</email>
-        <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@example.com</email>
-        <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@example.com</email>
-        <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@example.com</email>
-        <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@example.com</email>
-        <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
-        <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@example.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@example.com</email>
-        <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">chicago ave</address>
-    </persons>
+    <restaurants>
+        <name>Waa Cow</name>
+        <phone>63421111</phone>
+        <address>Stephen Riady Centre</address>
+        <reviews>
+            <rating>3.00</rating>
+            <totalRatings>3.0</totalRatings>
+            <userReviews>
+                <rating>3</rating>
+                <username>navekom</username>
+                <writtenReview>I tried the Ultimate Beef Sushi Experience and they were delicious.</writtenReview>
+            </userReviews>
+        </reviews>
+        <tagged>Western</tagged>
+    </restaurants>
+    <restaurants>
+        <name>The Royals Bistro</name>
+        <phone>61221218</phone>
+        <address>Town Plaza</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+        <tagged>Italian</tagged>
+        <tagged>Halal</tagged>
+    </restaurants>
+    <restaurants>
+        <name>Subway</name>
+        <phone>66596109</phone>
+        <address>Town Plaza</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+    </restaurants>
+    <restaurants>
+        <name>Starbucks</name>
+        <phone>66596081</phone>
+        <address>Education Resource Centre</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+        <tagged>Cafe</tagged>
+    </restaurants>
+    <restaurants>
+        <name>Spice Table by Pines</name>
+        <phone>63399912</phone>
+        <address>Town Plaza</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+    </restaurants>
+    <restaurants>
+        <name>Sapore Italian Restaurant</name>
+        <phone>62620287</phone>
+        <address>Town Plaza</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+    </restaurants>
+    <restaurants>
+        <name>Pizza Hut</name>
+        <phone>62353535</phone>
+        <address>Stephen Riady Centre</address>
+        <reviews>
+            <rating>0.00</rating>
+            <totalRatings>0.0</totalRatings>
+        </reviews>
+    </restaurants>
 </addressbook>

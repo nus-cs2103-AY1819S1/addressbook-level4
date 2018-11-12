@@ -1,0 +1,74 @@
+= Low Yew Woei (Aiden) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Makan Book
+---
+
+== Overview
+
+Makan Book is a restaurant guide and application for diners in National University of Singapore (NUS) during the NUS semester.
+
+Users of Makan Book can write reviews for restaurants, interact with other users via friends and groups, or arrange meal sessions easily
+using jios and scheduling features.
+
+Makan Book aims to make it easy for users to eat together in NUS.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for users to manage schedules on the platform and easily find common eating times among their groups.*
+** What it does: Users are able to add or remove their busy timeslots on their schedule. Then, users can easily find common times to eat
+among the people in their group through a simple command.
+** Justification: This feature improves the user experience on the application significantly as users can find a meeting time quickly among their group.
+** Highlights: This feature is integrated to work with the Groups feature and User feature implemented by 2 other developers.
+
+* *Minor enhancement*: Created NUS Dates system going from Week 1 to Week 15, including reading and recess week along with a random Date generator that can quickly generate a unique list of thousands of dates for testing.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yewwoei[here]]
+
+* *Other contributions*:
+
+** Developer
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI to display weekly schedules. (Pull requests https://github.com/CS2103-AY1819S1-W10-2/main/pull/220[#220], https://github.com/CS2103-AY1819S1-W10-2/main/pull/231[#226] https://github.com/CS2103-AY1819S1-W10-2/main/pull/346[#346])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide: (Pull requests https://github.com/CS2103-AY1819S1-W10-2/main/pull/161[#161], https://github.com/CS2103-AY1819S1-W10-2/main/pull/231[#231], https://github.com/CS2103-AY1819S1-W10-2/main/pull/238[#238], https://github.com/CS2103-AY1819S1-W10-2/main/pull/346[#346])
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W16-3/main/issues/178[1], https://github.com/CS2103-AY1819S1-W16-3/main/issues/174[2], https://github.com/CS2103-AY1819S1-W16-3/main/issues/168[3])
+** Tools:
+*** Integrated Continuous Integration tools (Travis, AppVeyor) to the team repo.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=yewwoei]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+* Created Model diagram for MakanBook*:
+include::../DeveloperGuide.adoc[tag=yewwoeiModel]
+
+* Wrote Developer Guide for MakanBook Date Implementation*:
+include::../DeveloperGuide.adoc[tag=yewwoeiDate]
+
+* Wrote Developer Guide for MakanBook Timetable Features Implementation*:
+include::../DeveloperGuide.adoc[tag=yewwoeiFeature]
+
+* Wrote Developer Guide for manual testing of timetable features*:
+include::../DeveloperGuide.adoc[tag=yewwoeiManual]
+
+
+
+
+

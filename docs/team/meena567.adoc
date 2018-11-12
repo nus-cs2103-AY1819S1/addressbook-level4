@@ -1,0 +1,53 @@
+= Solayappan Meenakshi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Makan Book
+
+---
+
+== Overview
+
+Makan Book is a restaurant guide and application for diners in National University of Singapore (NUS). It allows users to write and view
+reviews for restaurants within NUS. Additionally, Users are able to interact with one another to create a more enjoyable experience.
+
+== Summary of contributions
+
+* *Major Enhancement*: Addition of friendship feature*
+** What it does: Users are able to add other users as friends, accept any existing friend requests as well as delete friends or friend requests.
+** Justification: This feature improves the product as users can now have a storage (such as phone number and email address) of the personal particulars of their friends.
+
+* *Other enhancements*: Addition of groups functionality (not my feature)*
+** What it does: Even though this is not my feature, a lot of code was implemented for groups. Users are able to create groups, add other users to groups, delete group requests that they have received and leave groups that they are part of.
+** Justification: This feature improves the functionality of the product as it allows for users to be grouped together much like creating groups in the real world (like Facebook or whatsapp).
+** Highlights: Groups feature was used by 3 other members/features - to split debt among members of the group, add all members of a group to a jio and find free dates among all members of the group.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=meena567[here]]
+
+* *Other contributions*:
+** Developer
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Delete email across whole AddressBook4 for all Person classes (now Restaurant classes in Makan Book).
+** Enhancements to existing features:
+*** Updated the GUI for displaying friends and groups
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide
+** Community:
+*** Reported bugs and suggestions for other teams in the class (Examples: https://github.com/CS2103-AY1819S1-T16-1/main/issues/124 , https://github.com/CS2103-AY1819S1-T16-1/main/issues/111 , https://github.com/CS2103-AY1819S1-T16-1/main/issues/108)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide._
+|===
+
+include::../UserGuide.adoc[tag=meena567]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide._
+|===
+
+include::../DeveloperGuide.adoc[tag=meena567]

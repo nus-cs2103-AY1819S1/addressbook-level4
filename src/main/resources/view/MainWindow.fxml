@@ -31,6 +31,24 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu mnemonicParsing="false" text="Features">
+            <Menu mnemonicParsing="false" text="Groups">
+              <MenuItem fx:id="groupRequests" mnemonicParsing="false" onAction="#handleGroupRequest" text="Group requests" />
+              <MenuItem fx:id="groups" mnemonicParsing="false" onAction="#handleGroup" text="Groups" />
+            </Menu>
+            <MenuItem fx:id="jios" mnemonicParsing="false" onAction="#handleJio" text="Jios" />
+            <Menu mnemonicParsing="false" text="Debts">
+              <MenuItem fx:id="debtrequestreceived" mnemonicParsing="false" onAction="#handleDebtRequestReceived" text="Request Received" />
+              <MenuItem fx:id="creditor" mnemonicParsing="false" onAction="#handleCreditor" text="Creditors" />
+              <MenuItem fx:id="debtrequestsent" mnemonicParsing="false" onAction="#handleDebtRequestSent" text="Request Sent" />
+              <MenuItem fx:id="debtor" mnemonicParsing="false" onAction="#handleDebtor" text="Debtors" />
+              <MenuItem fx:id="debts" mnemonicParsing="false" onAction="#handleAllDebt" text="Debts History" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Friends">
+              <MenuItem fx:id="friendRequests" mnemonicParsing="false" onAction="#handleFriendRequests" text="Friend requests received" />
+              <MenuItem fx:id="friends" mnemonicParsing="false" onAction="#handleFriends" text="Friends" />
+            </Menu>
+          </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
@@ -47,13 +65,18 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="restaurantList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="restaurantListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
+          <VBox fx:id="jioList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="featuresListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />

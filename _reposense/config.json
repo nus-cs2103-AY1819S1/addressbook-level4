@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "chelchia",
+      "displayName": "CHELS...A HWA",
+      "authorNames": ["chelchia"]
+    },
+    {
+      "githubId": "yewwoei",
+      "displayName": "LOW Y... WOEI",
+      "authorNames": ["yewwoei", "Yew Woei"]
+    },
+    {
+      "githubId": "evanmok2401",
+      "displayName": "MOK K... EVAN",
+      "authorNames": ["evanmok2401", "Evanmok2401", "EvanMok", "navekom", "Navekom"]
+    },
+    {
+      "githubId": "katenhy",
+      "displayName": "NG HO... YING",
+      "authorNames": ["katenhy"]
+    },
+    {
+      "githubId": "meena567",
+      "displayName": "SOLAY...AKSHI",
+      "authorNames": ["meena567"]
+    }
+  ]
+}

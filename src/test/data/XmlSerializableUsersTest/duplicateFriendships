@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <friendship>
+        <friendUser>themyth</friendUser>
+        <me>brotherLoong</me>
+        <initiatedBy>brotherLoong</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+
+    <!-- Friendship is the same -->
+    <friendship>
+        <friendUser>themyth</friendUser>
+        <me>brotherLoong</me>
+        <initiatedBy>brotherLoong</initiatedBy>
+        <friendshipStatus>ACCEPTED</friendshipStatus>
+    </friendship>
+</users>

@@ -15,10 +15,18 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.ListJioCommandEvent;
+import seedu.address.commons.events.model.ListingDebtCommandEvent;
+import seedu.address.commons.events.model.ListingFriendCommandEvent;
+import seedu.address.commons.events.model.ListingGroupCommandEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.accounting.Debt;
+import seedu.address.model.friend.Friendship;
+import seedu.address.model.group.Group;
+import seedu.address.model.jio.Jio;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,13 +37,17 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private RestaurantListPanel restaurantListPanel;
+    private ListPanel<Jio> jioListPanel;
+    private ListPanel<Group> groupListPanel;
+    private ListPanel<Debt> debtListPanel;
+    private ListPanel<Friendship> friendRequestListPanel;
+    private ListPanel<Friendship> friendListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -50,7 +62,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane restaurantListPanelPlaceholder;
+
+    @FXML
+    private StackPane featuresListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,8 +137,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+        restaurantListPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,8 +202,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public RestaurantListPanel getRestaurantListPanel() {
+        return restaurantListPanel;
     }
 
     void releaseResources() {
@@ -199,5 +214,184 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    /**
+     * Updates list panel with jios.
+     */
+    @FXML
+    public void handleJio() {
+        jioListPanel = new ListPanel<>(logic.getJioList());
+        featuresListPanelPlaceholder.getChildren().add(jioListPanel.getRoot());
+
+    }
+
+    /**
+     * Updates list panel with groups.
+     */
+    @FXML
+    public void handleGroup() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            groupListPanel = new ListPanel<>(logic.getGroupList());
+            featuresListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with group requests.
+     */
+    @FXML
+    public void handleGroupRequest() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            groupListPanel = new ListPanel<>(logic.getGroupRequestList());
+            featuresListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's debts.
+     */
+    @FXML
+    public void handleAllDebt() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(logic.getDebtList());
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's creditors.
+     */
+    @FXML
+    public void handleCreditor() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(logic.getCreditorList());
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's debtors.
+     */
+    @FXML
+    public void handleDebtor() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(logic.getDebtorList());
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's received request.
+     */
+    @FXML
+    public void handleDebtRequestReceived() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(logic.getDebtRequestReceived());
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's received sent.
+     */
+    @FXML
+    public void handleDebtRequestSent() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(logic.getDebtRequestSent());
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with listing command.
+     */
+    @Subscribe
+    @FXML
+    void handleListingDebtCommandEvent(ListingDebtCommandEvent event) {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            debtListPanel = new ListPanel<>(event.listingItem);
+            featuresListPanelPlaceholder.getChildren().add(debtListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with friend listing command.
+     */
+    @Subscribe
+    @FXML
+    void handleListingFriendCommandEvent(ListingFriendCommandEvent event) {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            friendListPanel = new ListPanel<>(event.listingItem);
+            featuresListPanelPlaceholder.getChildren().add(friendListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with group listing command.
+     */
+    @Subscribe
+    @FXML
+    void handleListingGroupCommandEvent(ListingGroupCommandEvent event) {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            groupListPanel = new ListPanel<>(event.listingItem);
+            featuresListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's received request.
+     */
+    @FXML
+    public void handleFriendRequests() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            friendRequestListPanel = new ListPanel<>(logic.getFriendRequestsList());
+            featuresListPanelPlaceholder.getChildren().add(friendRequestListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with login user's friends.
+     */
+    @FXML
+    public void handleFriends() {
+        if (!logic.isCurrentlyLoggedIn()) {
+            browserPanel.loadNotLoggedInPage();
+        } else {
+            friendListPanel = new ListPanel<>(logic.getFriendsList());
+            featuresListPanelPlaceholder.getChildren().add(friendListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Updates list panel with listing command.
+     */
+    @Subscribe
+    @FXML
+    void handleListJioCommandEvent(ListJioCommandEvent event) {
+        jioListPanel = new ListPanel<>(event.listingItem);
+        featuresListPanelPlaceholder.getChildren().add(jioListPanel.getRoot());
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <user>
+        <username>johnDoe123</username>
+        <password>passw0rd</password>
+        <name>John Doe</name>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+    </user>
+
+    <!-- User with same username as johnDoe123 -->
+    <user>
+        <username>johnDoe123</username>
+        <password>yamahahaha</password>
+        <name>John Peanut</name>
+        <phone>933654232</phone>
+        <email>johndelow@example.com</email>
+    </user>
+</users>

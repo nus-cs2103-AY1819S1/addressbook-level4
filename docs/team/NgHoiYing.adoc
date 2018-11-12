@@ -1,0 +1,83 @@
+= Ng Hoi Ying - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Makan Book
+
+---
+
+== Overview
+
+Makan Book is a restaurant guide and application for diners in National University of Singapore (NUS).
+It is not just a restaurant list, more importantly is that the Makan book allows user to create personal account, which
+ provide more feature to optimizing their dining experience. For example, user can create a jio to invite other user
+ to join his dinner, or find a free time between user to arrange a meal. Also,user can find a good restaurant base on
+ other users' rating and review. After his meal, user can even rate and write review for the restaurant, which everyone can see, to share his experience. Also, if the user is
+  eating in a group, or with friend, they can create a debt, to clearly mark down who and how much other own you or you own them.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add/accept/delete/clear a debt between user*
+** What it does: allows user to keep debt record. A debt need to be confirm by both user to ensure the
+accuracy. Also, auto-balancing is implemented as to simplified the record. The record store in both user is
+the same.
+** Justification: This feature improves the product significantly because it allows users to keep track on who and how much they
+owns people and who and how much owns them, it effectively solve a common problem between diner on payment splitting.
+Beside, the auto-balancing improve the usability as user can prevent the troublesome for keeping track on multiple debt
+with other user. Also, the storage to both user keep the same recording which greatly reduce the confusion.
+** Highlights: This enhancement required an in-depth knowledge of the whole design, and good communication with other
+ group member as it highly depends on other member's feature (e.g.login/logout and group).
+
+* *Minor enhancement*: added 5 *listing command* that allows the user to list different type of debts
+(credit debts, debit debts, debt requests received, debt requests sent, all debts)
+
+* *Minor enhancement*: added *selectRestaurant and selectOther command* that allows the user to select item on list panel
+by command.
+
+* *Minor enhancement*: *Modify the GUI* to match the needs of the Makan Book.
+** What it does: allows ist panel auto refresh when user data changed, added sub menu bar to allow user choosing different
+ type of item to show on list panel, added auto update after user logout(empty the list panel and replace browser panel
+ with notLoggedInPage).
+** Justification: The feature improve the product usability the GUI change with user's need, and simplified the listing
+ process as the user can list everything with a simple click instead of finding/memorising and typing all different
+ listing command. This enhancement also prevent the user privacy leakage and improve the security of the product as it
+ no longer showing the user's information after logout.
+** Highlights: This enhancement required understanding on the GUI and knowledge of JavaFx.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=katenhy[here]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Wrote additional tests for debt feature to increase coverage by more than 6%
+(Pull requests https://github.com/CS2103-AY1819S1-W10-2/main/pull/305[#305], https://github.com/CS2103-AY1819S1-W10-2/main/pull/308[#308],
+https://github.com/CS2103-AY1819S1-W10-2/main/pull/312[#312], https://github.com/CS2103-AY1819S1-W10-2/main/pull/326[#326])
+***
+** Documentation:
+*** Update Readme.adoc, add mockup UI to match the project: https://github.com/CS2103-AY1819S1-W10-2/main/pull/38[#38]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W10-2/main/pull/218[#218]
+** Community:
+*** Helped other members on implementation and debugging.
+*** PRs reviewed (with non-trivial review comments) for other member.
+*** Reported bugs and suggestions for other teams in the class: https://github.com/CS2103-AY1819S1-T13-1/main/issues/141[#141],
+https://github.com/CS2103-AY1819S1-T13-1/main/issues/152[#152], https://github.com/CS2103-AY1819S1-T13-1/main/issues/155[#155]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=kate]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=kate]
+

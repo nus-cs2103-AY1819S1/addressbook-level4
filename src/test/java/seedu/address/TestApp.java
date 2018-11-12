@@ -15,7 +15,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserData;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.User;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
@@ -92,8 +94,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(), new UserData());
+        ModelHelper.setFilteredList(copy, model.getFilteredRestaurantList());
         return copy;
     }
 
@@ -117,4 +119,34 @@ public class TestApp extends MainApp {
             throw new RuntimeException(e);
         }
     }
+
+    public void login(User user) {
+        model.loginUser(user);
+    }
+
+    public void logout() {
+        model.logoutUser();
+    }
+
+    public void addUser(User user) {
+        model.addUser(user);
+    }
+
+    public void clearJio() {
+        model.clearJio();
+    }
+
+    /**
+     * Added a millie second sleep.
+     * Use to prevent fast execution which generate two debt with same id in a millie second.
+     */
+    public void addSleep() {
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

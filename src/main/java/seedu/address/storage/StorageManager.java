@@ -10,9 +10,11 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.UserDataChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserData;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -23,12 +25,20 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
+    private UsersStorage usersStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          UsersStorage usersStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.usersStorage = usersStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -90,4 +100,41 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    // ================ Users methods ==============================
+    public Path getUsersFilePath() {
+        return usersStorage.getUsersFilePath();
+    }
+
+    @Override
+    public Optional<UserData> readUserData() throws DataConversionException, IOException {
+        return readUserData(usersStorage.getUsersFilePath());
+    }
+
+    @Override
+    public Optional<UserData> readUserData(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return usersStorage.readUserData(filePath);
+    }
+
+    @Override
+    public void saveUserData(UserData userData) throws IOException {
+        saveUserData(userData, usersStorage.getUsersFilePath());
+    }
+
+    @Override
+    public void saveUserData(UserData userData, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        usersStorage.saveUserData(userData, filePath);
+    }
+
+    @Override
+    @Subscribe
+    public void handleUserDataChangedEvent(UserDataChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveUserData(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 }
