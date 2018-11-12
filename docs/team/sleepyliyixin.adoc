@@ -16,21 +16,29 @@ It is written in Java, and has about 10 kLoC.
 == Summary of contributions
 
 * *Major enhancement*: added *the ToDoList feature*
-** What it does: It allows users to record the tasks with different priorities that need to be completed and delete if completed. And it can also show description of the task to users.
+** What it does: It allows users to record the tasks with different priorities that need to be completed and delete if completed.
 ** Justification: This feature improves the product significantly because in addition to those events that occur at specific times, users also need to record tasks that do not have a specific time. These tasks can be assignments, projects or some simple plans that need to be finished. And if users record priorities, they can do tasks according to priority.
 ** Highlights: This enhancement uses a different model from calendar events and it need re-construct logic, storage and ui conponents.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli] _{give links to collated code files}_
+* *Minor enhancement*: 
+** Add a showDescriptionCommand to show description of task with a popup window.
+** Make priorities displyed in different colors.
+
+* *Code contributed*: * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli
 
 * *Other contributions*:
 
 ** Project management:
-*** Set up some issues. Managing milestones.
+*** Set up some issues. 
+*** Managing milestones.
 ** Enhancements to existing features:
 *** Implement GUI for todo lisk (Pull requests https://github.com/CS2103-AY1819S1-T10-1/main/pull/64)
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-T10-1/main/pull/120
+*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/CS2103-AY1819S1-T10-1/main/pull/120
+** Community:
+*** PRs reviewed (with non-trivial review comments)
 
 _{you can add/remove categories in the list above}_
 
@@ -41,13 +49,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=deleteshowtodo]
-
-include::../UserGuide.adoc[tag=deletetodo]
-
-include::../UserGuide.adoc[tag=showToDo]
-
-include::../UserGuide.adoc[tag=showtodo]
+include::../UserGuide.adoc[tag=showDes]
 
 == Contributions to the Developer Guide
 
