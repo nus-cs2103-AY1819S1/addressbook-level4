@@ -410,7 +410,7 @@ A success message will also be displayed in the following form: 'Certificate exp
 If SocialCare has the permission to create folders on your machine, the certificates will be exported to a folder named 'Certs'. Else, they can be found next to the .jar file used to run the application.
 ====
 
-Here is what the exported certificate will look like:
+Here is what the exported certificate will look like: (Note that the number within the square brackets [ ] following the event name corresponds to the event ID)
 
 .Sample exported volunteer certificate
 [.thumb]
