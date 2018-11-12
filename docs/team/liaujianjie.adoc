@@ -29,7 +29,7 @@ weddings).
 * ✔ 38 commits created
 * ✔ 26 pull requests merged
 * ✔ 19 issues raised
-* Code contribution on https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[reposense]
+* Code contribution on https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=liaujianjie[reposense]
 
 == Summary of contributions
 
