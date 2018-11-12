@@ -74,6 +74,11 @@ that can be edited.
 It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
 * Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
 
+[NOTE]
+====
+The "Remaining time" and "Effective Due Date" fields are blank for completed tasks.
+====
+
 // end::task-fields[]
 === System Commands
 ==== Viewing help: `help`
