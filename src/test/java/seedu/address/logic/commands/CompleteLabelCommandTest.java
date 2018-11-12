@@ -26,6 +26,9 @@ import seedu.address.model.task.Task;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand, Dependencies)
  * and unit tests for {@code CompleteLabelCommand}.
+ *
+ * Both this and CompleteIndexCommandTest provide coverage to the common execution paths of its superclass,
+ * CompleteCommand.
  */
 public class CompleteLabelCommandTest {
 
