@@ -35,24 +35,23 @@ components. Also, the implementation was challenging as it required modification
 ** *Credits*: Passwords are secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
 
 * *Other contributions*:
-** Minor enhancements:
+** *Minor enhancements*:
 *** Added side navigation bar to allow access to the different components of the application with a click of a mouse
 or trackpad, in addition to doing so via the CLI.
 *** https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a different product.
-** Project management:
+** *Project management*:
 *** Team Lead; responsible for overall project coordination.
-*** Set up GitHub repository, Travis, AppVeyor, Codacy, Coveralls, RepoSense and Discord automatic notifications
-using Webhook.
+*** Set up and configured GitHub repository, Travis, AppVeyor, Codacy, Coveralls, Netlify, RepoSense and Discord
+https://i.imgur.com/iHyQAML.png[automatic notifications] using Webhook.
 *** Maintained issue tracker, milestone, project board and merging of pull requests (PRs).
 *** Managed https://github.com/CS2103-AY1819S1-F10-4/main/releases[releases] `v1.1`, `v1.2`, `v1.2.1`, `v1.3`,
 `v1.3.1`, `v1.4` (6 releases) on GitHub.
-*** Configured deployment of static pages to GitHub Pages and Netlify.
-** Documentation:
+** *Documentation*:
 *** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 *** Morphed the existing contents of the User Guide and Developer Guide with respect to
 the morphed code base.
-** Community:
+** *Community*:
 *** http://bit.ly/azhikai-contribution[Contributed] more than 50 PRs.
 *** http://bit.ly/azhikai-PR-review[Reviewed] more than 80 PRs, most with non-trivial review comments.
 *** Contributed to forum discussions using GitHub's Issue Tracker:
@@ -68,11 +67,11 @@ https://github.com/CS2103-AY1819S1-W14-2/main/issues/112[#112],
 https://github.com/CS2103-AY1819S1-W14-2/main/issues/113[#113],
 https://github.com/CS2103-AY1819S1-W14-2/main/issues/124[#124],
 https://github.com/CS2103-AY1819S1-W14-2/main/issues/130[#130]
-** Tools:
+** *Tools*:
 *** Integrated a third party library (bcrypt) to the project:
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/38[#38],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/70[#70]
-** Miscellaneous:
+** *Miscellaneous*:
 *** Practiced good PR hygiene by ensuring no loss of code coverage.
 *** Chaired weekly face-to-face meeting.
 

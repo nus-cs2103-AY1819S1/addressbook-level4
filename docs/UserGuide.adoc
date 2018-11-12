@@ -258,7 +258,7 @@ Format: `register id/USERNAME pw/PASSWORD n/FULL_NAME` or `reg id/USERNAME pw/PA
 
 [NOTE]
 ====
-This command will be improved in the future to support role (i.e. privilege system). See <<Register-Improvement>,
+This command will be improved in the future to support user role (i.e. privilege system). See <<Register-Improvement>,
 Section 5.7.1, “Improving registration [coming in v2.0]”>> for more information
 ====
 
