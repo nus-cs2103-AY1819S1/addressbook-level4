@@ -36,7 +36,7 @@ public class Messages {
     public static final String MESSAGE_ERROR_PARSING_CARPARK_INFO = "Error occurred while parsing car park information";
     public static final String MESSAGE_NO_SHORT_TERM_PARKING = "This car park has no short term parking.";
     public static final String MESSAGE_INVALID_START_OR_END_TIME = "Start and end of parking time must be between the s"
-            + "tipulated timing.";
+            + "tipulated car park operation time.";
     public static final String MESSAGE_COST_OF_PARKING = "Cost of parking is $%1$.2f.";
 
     // auto-complete
