@@ -259,7 +259,8 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Duplicated allergy or condition is not allowed.
-* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` are treated as the same).
+* Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 ****
 // end::addmedicalhistory[]
 
@@ -277,7 +278,8 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Input allergy or condition must exist in the HealthBook.
-* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` are treated as the same).
+* Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 ****
 // end::deletemedicalhistory[]
 
