@@ -419,8 +419,7 @@ the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
 
-A patients needs to see the doctor? Better get him into the queue using the
-register command! +
+A patient needs to see the doctor? Better get him into the queue using this command! +
 Alias: `reg` +
 Format: `register INDEX`
 
@@ -475,7 +474,7 @@ Removes the 2nd patient in the queue.
 
 ==== Inserting a patient to Waiting Queue: `insert`
 
-A patient needs to be inserted into a certain position? Insert him into any position! +
+Insert a patient into any position using this command! +
 Alias: `ins` +
 Format: `insert INDEX p/POSITION`
 
@@ -506,7 +505,7 @@ Inserts the 3rd patient into the 5th position in the patient queue.
 [[serve]]
 ==== Serving the first patient in Waiting queue: `serve`
 
-Doctor is finally ready to the serve the next patient? Use the serve command!
+Doctor is finally ready to serve the next patient? Use the serve command!
 Alias: `ser` +
 Format: `serve`
 
@@ -555,14 +554,14 @@ Adds referral to the Current Patient.
 // end::pqms2[]
 ==== Displaying document contents for Current Patient: `displaydocuments`
 
-Displays document contents for the Current Patient. +
+What documents have you added to the patient? Use this command to find out! +
 Alias: `dd`
 Format: `displaydocuments`
 
 // tag::pqms3[]
 ==== Dispensing medicine to Current Patient: `dispensemedicine`
 
-An apple a day certainly is not enough! Time to get give the patient some medicine!  +
+An apple a day certainly is not enough! Time to give the patient some medicine!  +
 Alias: `dm` +
 Format `dispensemedicine MEDICINE_INDEX amt/AMOUNT`
 
