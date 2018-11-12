@@ -48,8 +48,8 @@ This section lists the major and minor enhancements I have contributed to buildi
 *** Did refactoring of addressbook to tutorHelper (Pull requests https://github.com/CS2103-AY1819S1-W13-4/main/pull/143[#143])
 ** Documentation:
 *** Added section for payment and earnings in the User Guide
-*** Added section for payment and earnings in the Developer Guide
-*** Added section for Instructions for manual testing in Developer Guide
+*** Added section for payment and earnings in the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W13-4/main/pull/81[#81])
+*** Added section for Instructions for manual testing in Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W13-4/main/pull/236[#236])
 ** Community:
 *** Reviewed other PRs
 *** Reported bugs and suggestions for other teams in the class
