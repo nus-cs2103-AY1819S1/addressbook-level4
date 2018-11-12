@@ -21,7 +21,7 @@ TutorPal is a desktop application used by mainly private home tutors to manage t
 ** What it does: It allows user to add or delete tuition timings of their students in Tutor Pal.
 ** Justification: The commands enable users to easily manage the tuition timings of their students. If there is a need to change the tuition timings of a student, users do not have to recreate the student entirely in Tutor Pal. Tuition timings of students are one of the details that changes the most in Tutor Pal as the year progresses. This may be due to changes in the student's timetable or additional school commitments. Hence, having *addTime* and *deleteTime* will make our product more convenient for our target users, private tutors, and increase our product's relevance to them.
 
-* *Code contributed*: [https://github.com[Reposense]] _{https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junjiee&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=false}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junjiee&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=false[Reposense]]
 
 * *Other contributions*:
 
