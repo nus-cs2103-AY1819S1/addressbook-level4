@@ -45,6 +45,17 @@ You are now able to use all the commands of the app. +
 Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+[NOTE]
+====
+* For Linux users, if the error `expensetracker.jar is not marked as executable` error appears, please follow the
+steps below:
+. Open `Terminal`, enter the command `cd path/to/expensetracker.jar`
+. Enter the command `sudo chmod 666 expensetracker.jar`
+
+`expensetracker.jar` will now be executable.
+====
+
+
 == User Interface
 After logging in, the interface will display as such:
 
@@ -410,7 +421,7 @@ exceeding the total budget that is set to prevent yourself from overspending. Th
 
 [#over-budget-warning]
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="300"]
+image::overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
