@@ -68,7 +68,21 @@ directions or generating convenient meeting locations (based on faculty location
 |===
 
 include::../UserGuide.adoc[tag=showFacultyLocation]
-include::../UserGuide.adoc[tag=suggestedMeetingLocation]
+
+=== Suggested Meeting Location : `generateLocation`
+
+Creates a randomly suggested location in NUS to meet up for an event
+(uniquely identified by date and event's index number).
+
+Format: `generateLocation d/EVENT_DATE i/EVENT_INDEX`
+
+Examples:
+
+* `generateLocation d/2018-04-06 i/1`
+
+=== Features coming up in V2.0
+
+include::../UserGuide.adoc[tag=pratyayVersionTwo]
 
 == Contributions to the Developer Guide
 

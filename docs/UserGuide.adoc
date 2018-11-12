@@ -780,6 +780,7 @@ Examples:
 
 * `unarchive group/CS2103Group`
 
+// tag::pratyayVersionTwo[]
 === Generate timing for a group's event/meeting : `generateTiming`
 
 Generates a possible meeting timing for a group's event/meeting based on all member's schedule and availability.
@@ -816,6 +817,7 @@ Examples:
 ====
 * This command works with both group events and user's own personal events.
 ====
+// end::pratyayVersionTwo[]
 
 == FAQ
 
