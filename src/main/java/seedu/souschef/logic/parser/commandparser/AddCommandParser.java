@@ -43,6 +43,8 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser {
+    private static final String MESSAGE_INGREDIENT_PROMPT_EDIT = "Ingredient with the same name and date already "
+            + "exist! Please use edit function instead.";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -84,6 +86,10 @@ public class AddCommandParser {
 
         Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount,
                 ingredientServingUnit, ingredientDate).convertToCommonUnit();
+
+        if (model.has(toAdd)) {
+            throw new ParseException(MESSAGE_INGREDIENT_PROMPT_EDIT);
+        }
 
         return new AddCommand<>(model, toAdd);
     }
