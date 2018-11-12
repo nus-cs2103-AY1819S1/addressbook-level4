@@ -685,6 +685,10 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::TagCommandActivityDiagram.png[width="500"]
 
+The following sequence diagram shows what happens when a user executes the `TagCommand`:
+
+image::TagCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How tag command works
