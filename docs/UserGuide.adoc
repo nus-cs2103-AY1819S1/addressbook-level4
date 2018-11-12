@@ -168,6 +168,7 @@ Returns attendance graph of any student having names `Betsy`, `Tim`, or `John`
 Returns attendance graph of students tagged with `t/students`
 * `graph t/students t/colleagues` +
 Returns attendance graph of students tagged with `t/students` or `t/colleagues`
++
 // end::graph[]
 
 // tag::schedule[]
@@ -206,6 +207,7 @@ Examples:
 
 * `cancel event/CS2103 Consultation date/24-9-2019 start/18:00 end/19:00` +
 Cancels the event named `CS2103 Consultation` on 24-9-2019 from 6:00pm to 7:00pm that is present in the calendar.
++
 // end::cancel[]
 
 === Locating students by name/tag: `find`
