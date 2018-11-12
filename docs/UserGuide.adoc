@@ -205,7 +205,7 @@ Format: `help`
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
 
 ==== Adding a person: `addperson`
-Adds a person to TheTracker. +
+A command to allow user to add a person to TheTracker. +
 
 Format: +
 `addperson n/NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...` +
@@ -225,7 +225,7 @@ Example: +
 
 ==== Adding a module: `addmodule`
 
-Adds a module to TheTracker. +
+A command to allow user to add a module to TheTracker. +
 
 Format: +
 `addmodule mc/MODULE_CODE [mt/MODULE_TITLE] [ay/ACADEMIC_YEAR] [sem/SEMESTER] [t/TAG]...` +
@@ -245,7 +245,7 @@ Example: +
 
 ==== Adding an occasion: `addoccasion`
 
-Adds an occasion to TheTracker. +
+A command to allow user to add an occasion to TheTracker. +
 
 Format: +
 `addoccasion on/OCCASION_NAME [od/OCCASION_DATE] [loc/LOCATION] [t/TAG]...`
@@ -267,21 +267,21 @@ Example: +
 // tag::list[]
 === Listing all entries : `list`
 
-Shows a desired list in TheTracker. +
+A command to show a desired list in TheTracker. +
 
 ==== List all Persons: `listperson`
 
-Shows the complete list of persons in TheTracker. +
+A command to show the complete list of persons in TheTracker. +
 Format: `listperson`
 
 ==== List all Modules: `listmodule`
 
-Shows the complete list of modules in TheTracker. +
+A command to show the complete list of modules in TheTracker. +
 Format: `listmodule`
 
 ==== List all Occasions: `listoccasion`
 
-Shows the complete list of occasions in TheTracker. +
+A command to show the complete list of occasions in TheTracker. +
 Format: `listoccasion`
 
 [TIP]
@@ -293,7 +293,7 @@ and `listoccasion` commands to populate the entire list again.
 // tag::select[]
 === Selecting an Entry: `select`
 
-Selects the event identified by the index number in the List Panel.
+A command to allow the user to select the event identified by the index number in the List Panel.
 The Info Panel will display the additional information for that entry.
 
 Format: `select INDEX`
@@ -305,15 +305,15 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // tag::edit[]
 === Editing an entry : `edit`
 
-Edits an existing person, module or occasion in TheTracker. +
+A command to allow the user to edit an existing person, module or occasion in TheTracker. +
 It can be used to add optional field that is not specified in the add command.
 
 ==== Editing a person : `editperson`
 
-Edits an existing person in TheTracker. +
+A command to allow the user to edit an existing person in TheTracker. +
 
 Format: +
-`editperson INDEX x/VALUE ...`
+`editperson INDEX [PREFIX]/VALUE ...`
 
 Example: +
 `editperson 6 p/91234567 e/johndoe@example.com` +
@@ -322,17 +322,19 @@ Edits the person at INDEX 6 in TheTracker: edits his phone to 91234567 and email
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `n/`, `p/`, `e/`, `a/`, `t/` to edit the Name, Phone, Email,
-Address and Tag respectively of the Person which is specified by INDEX.
-* The INDEX must be valid.
+* The `[PREFIX]/` should be replaced by `n/` (for Name), `p/` (Person), `e/` (Email), `a/` (Address), `t/` (Tag) to specify the field you want to edit.
+* You can specify multiple fields you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 
 ==== Editing a module : `editmodule`
 
-Edits an existing module in TheTracker. +
+A command to allow the user to edit an existing module in TheTracker. +
 
 Format: +
-`editmodule INDEX x/VALUE ...`
+`editmodule INDEX [PREFIX]/VALUE ...`
 
 Example: +
 `editmodule 1 mc/CS1101S` +
@@ -341,14 +343,15 @@ Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `mc/`, `mt/`, `ay/`, `sem/`, `t/` to edit the Module Code,
-Module Title, Academic Year, Semester and Tag respectively of the Module which is specified by INDEX respectively.
-* The INDEX must be valid.
-
+* The `[PREFIX]/` should be replaced by `mc/` (for Module Code), `mt/` (for Module Title), `ay/` (for Academic Year), `sem/` (for Semester), `t/` (for Tag) to
+specify the field you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 ==== Editing an occasion : `editoccasion`
 
-Edits an existing occasion in TheTracker. +
+A command to allow the user to edit an existing occasion in TheTracker. +
 Format: +
 `editoccasion x/VALUE ...`
 
@@ -359,9 +362,11 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 ====
 *Notice*
 
-* The `x/` in the format can should be replaced by `on/`, `od/`, `loc/`, `t/` to edit the Occasion Name,
-Occasion Date, Occasion Location and Tag respectively of the Occasion which is specified by INDEX respectively.
-* The INDEX must be valid.
+* The `[PREFIX]/` should be replaced by `on/` (for Occasion Name), `od/` (for Occasion Date), `loc/` (for Occasion Location), `t/` (for Tag) to
+specify the field you want to edit
+* The INDEX must be valid:
+** Be a positive number
+** Not larger than the size of the address book list
 ====
 
 // end::edit[]
@@ -399,7 +404,7 @@ into `occasion` 1.
 === Locating entries: `find`
 
 ==== Finding a person: `findperson`
-Finds a person in TheTracker. +
+A command to allow the user to find a person in TheTracker. +
 
 Format: +
 `findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS`,
@@ -414,7 +419,7 @@ Example:
 
 ==== Finding a module: `findmodule`
 
-Finds a module in TheTracker. +
+A command to allow the user to find a module in TheTracker. +
 
 Format: +
 `findmodule mc/MODULE_CODE`, `findmodule mt/MODULE_TITLE`, `findmodule ay/ACADEMIC_YEAR`,
@@ -426,7 +431,7 @@ Example:
 
 ==== Finding an occasion: `findoccasion`
 
-Finds an occasion in TheTracker. +
+A command to allow the user to find an occasion in TheTracker. +
 
 Format: +
 `findoccasion on/OCCASION_NAME`, `findoccasion od/OCCASION_DATE`, `findoccasion loc/LOCATION`
@@ -440,7 +445,7 @@ Example:
 // tag::delete[]
 === Deleting an entry: `delete`
 
-Deletes the specified entry from the active list in TheTracker. +
+A command to allow the user to delete the specified entry from the active list in TheTracker. +
 Format: `delete INDEX`
 
 ****
@@ -556,7 +561,10 @@ Format: +
 *Command Format*
 
 * Use a single whitespace to divide `--xml` and `[FILEPATH]`.
-* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
+* The `[FILEPATH]` should be valid:
+** The `file name` and `folder names` specified in the `file path`
+should contain only alphanumeric and underscores (whitespaces are not allowed)
+** The `file name` should end with `.xml`
 ****
 
 Examples: +
@@ -575,7 +583,10 @@ Format: +
 *Command Format*
 
 * Use a single whitespace to divide `--txt` and `[FILEPATH]`.
-* A valid `[FILEPATH]` can only contain alphanumeric and underscore.
+* The `[FILEPATH]` should be valid:
+** The `file name` and `folder names` specified in the `file path`
+should contain only alphanumeric and underscores (whitespaces are not allowed)
+** The `file name` should end with `.txt`
 ****
 
 Examples: +
