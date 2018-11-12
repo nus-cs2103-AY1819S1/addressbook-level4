@@ -517,6 +517,8 @@ Step 5. Now the user decides to execute the command `predict` to search for a `d
 matches with input symptoms. This command calls `DiasnosisModel#predictDisease(Set<Symptom>)` which returns a `list`
 of diseases that are mapped to a set of symptoms containing the given set.
 
+.Predict Command Code Snippet
+[source,java]
 ----
     /**
      * Predicts a disease with a given set of symptoms.
