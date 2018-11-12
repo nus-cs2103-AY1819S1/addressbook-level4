@@ -77,7 +77,7 @@ enter a valid command regarding patient in appointment management mode, the appl
 mode automatically.
 
 .Patient Mode
-image::mode_patient.PNG[width="600"]
+image::Ui.png[width="600"]
 
 === Switch to appointment management mode : `mode appointment`
 
