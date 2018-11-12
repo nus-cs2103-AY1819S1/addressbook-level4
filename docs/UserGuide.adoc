@@ -877,7 +877,8 @@ Examples:
 * `dis 30-09-2018` +
 Displays the sales report dated 30-09-2018.
 
-The following is an example of what you will see if the sales report is generated and displayed correctly:
+The following (Figure 5.6.2.1) is an example of what you will see if the sales report is generated and displayed
+correctly:
 
 image::display-sales-pic.png[width="465"]
 _Figure 5.6.2.1: Sales Report_
@@ -951,7 +952,7 @@ Format: `chart-sales` or `cs`
 * Only existing dates in the record list are tabulated and shown.
 ****
 
-The following is an example of what you will see if the sales chart is generated and displayed correctly:
+The following (Figure 5.6.5.1) is an example of what you will see if the sales chart is generated and displayed correctly:
 
 image::chart-sales-pic.png[width="550"]
 _Figure 5.6.5.1: Sales Chart of revenue against date_
@@ -972,7 +973,7 @@ You can generate the sales report of a specific date to get a more detailed anal
 Section 5.6.2, “Display sales report">> for more information
 ====
 
-The following is an example of what you will see if the ranking is generated and displayed correctly:
+The following (Figure 5.6.6.1) is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-date-pic.png[width="325"]
 _Figure 5.6.6.1: Ranking of dates by revenue_
@@ -993,7 +994,7 @@ You can check the sales history of a specific item to get a more detailed analys
 in v2.0. See <<check-history, Section 5.7.6, “Checking item sales history">> for more information
 ====
 
-The following is an example of what you will see if the ranking is generated and displayed correctly:
+The following (Figure 5.6.7.1) is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-item-pic.png[width="325"]
 _Figure 5.6.7.1: Ranking of items by revenue_
