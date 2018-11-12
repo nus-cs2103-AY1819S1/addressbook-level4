@@ -225,7 +225,6 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
             Index expectedSelectedCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        //assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
             assertSelectedCardChanged(expectedSelectedCardIndex);

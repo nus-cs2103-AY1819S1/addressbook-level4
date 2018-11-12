@@ -1,20 +1,18 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static java.util.Objects.requireNonNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-import java.util.Iterator;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
@@ -24,7 +22,6 @@ import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.testutil.TaskBuilder;
 
 public class AddTagCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -48,7 +45,7 @@ public class AddTagCommandTest {
         CommandResult commandResult = new AddTagCommand(tag, "Others").execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddTagCommand.MESSAGE_SUCCESS, tag, "Others"), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(tag), modelStub.Others.getTags());
+        assertEquals(Arrays.asList(tag), modelStub.others.getTags());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -233,22 +230,22 @@ public class AddTagCommandTest {
      * A Model stub that contains two default categories.
      */
     private class ModelStubWithTag extends AddTagCommandTest.ModelStub {
-        final ArrayList<Tag> OthersCategory = new ArrayList<>();
-        final Category Others = new Category("Others");
+        final ArrayList<Tag> othersCategory = new ArrayList<>();
+        final Category others = new Category("Others");
 
         ModelStubWithTag(Tag tag) {
             requireNonNull(tag);
-            this.Others.addTag(tag);
+            this.others.addTag(tag);
         }
 
         @Override
         public boolean hasCategory(String category) {
-            return category.equals(Others.getName());
+            return category.equals(others.getName());
         }
 
         @Override
         public Category getCategory (String name) {
-            return Others;
+            return others;
         }
 
         @Override
@@ -260,7 +257,7 @@ public class AddTagCommandTest {
         public void addTag(Tag tag, String name) {
             requireNonNull(name);
             requireNonNull(tag);
-            OthersCategory.add(tag);
+            othersCategory.add(tag);
         }
 
         @Override
@@ -273,8 +270,8 @@ public class AddTagCommandTest {
      * A Model stub that always accept the category being added.
      */
     private class ModelStubAcceptingTagAdded extends AddTagCommandTest.ModelStub {
-        final ArrayList<Tag> OthersCategory = new ArrayList<>();
-        final Category Others = new Category("Others");
+        final ArrayList<Tag> othersCategory = new ArrayList<>();
+        final Category others = new Category("Others");
 
         @Override
         public boolean hasCategory(String category) {
@@ -285,17 +282,17 @@ public class AddTagCommandTest {
         public void addTag(Tag tag, String name) {
             requireNonNull(name);
             requireNonNull(tag);
-            Others.addTag(tag);
+            others.addTag(tag);
         }
 
         @Override
         public Category getCategory(String name) {
-            return Others;
+            return others;
         }
 
         @Override
         public boolean hasTagInCategory(Tag tag, Category category) {
-            return OthersCategory.contains(tag);
+            return othersCategory.contains(tag);
         }
 
         @Override
