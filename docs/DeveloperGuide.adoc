@@ -565,7 +565,8 @@ for (Expense e : expenseList) {
  by calling the method of the same name in `Model`.
 
 . Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
-any display elements in `StackPane`. Then there are three scenarios which could happen:
+any display elements in `StackPane`. JavaFX's `BarChart` and `PieChart` are used to render the charts.
+There are three scenarios which could happen:
 
 .. If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
 which informs the user that there are no expenditures
@@ -573,6 +574,7 @@ which informs the user that there are no expenditures
 generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
 .. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
 generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+
 
 ==== Design Considerations
 
