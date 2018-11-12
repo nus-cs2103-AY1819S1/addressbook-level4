@@ -38,7 +38,7 @@ public class GroupTest {
         Group group = new GroupBuilder().withNewPerson(ALICE).build();
         UniquePersonList list = group.getMembers();
 
-        assertTrue(list.contains(ALICE));
+        assertTrue(list.hasEquivalentPerson(ALICE));
     }
 
     @Test
