@@ -1190,7 +1190,7 @@ fish u/kilogram p/20 m/1`
 |`edit-ingredient 3 n/thin fries` or `edit-ingredient on/ketchup n/tomato ketchup`
 |*Delete ingredient* |`delete-ingredient INDEX` or `delete-ingredient INGREDIENT_NAME` |`delete-ingredient 1` or
 `delete-ingredient cod fish`
-|*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
+|*Stock up* |`stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...` |`stockup n/cod fish nu/5`
 |*Select ingredient* |`select-ingredient INDEX` |`select-ingredient 3`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*List items* |`list-items` |`list-items`
