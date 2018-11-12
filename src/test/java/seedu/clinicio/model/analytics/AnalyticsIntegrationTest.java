@@ -98,10 +98,10 @@ public class AnalyticsIntegrationTest {
         ALEX.setPreferredDoctor(ADAM);
         BRYAN.setPreferredDoctor(BEN);
 
-        int NUM_DOCTORS = 2;
-        int CONSULTATIONS_PER_DAY = 2;
+        int numberDoctors = 2;
+        int consultationsPerDay = 2;
         // add consultations to model manager
-        for (Consultation consultation : generateConsultations(CONSULTATIONS_PER_DAY)) {
+        for (Consultation consultation : generateConsultations(consultationsPerDay)) {
             modelManager.addConsultation(consultation);
         }
 
@@ -114,17 +114,17 @@ public class AnalyticsIntegrationTest {
 
         // test summary data
         assertEquals(summaryElements.get(0).getKey(), "Today");
-        assertEquals((long) summaryElements.get(0).getValue(), (long) CONSULTATIONS_PER_DAY / NUM_DOCTORS);
+        assertEquals((long) summaryElements.get(0).getValue(), (long) consultationsPerDay / numberDoctors);
         assertEquals(summaryElements.get(1).getKey(), "This Week");
-        assertEquals((long) summaryElements.get(1).getValue(), (long) CONSULTATIONS_PER_DAY * 7 / NUM_DOCTORS);
+        assertEquals((long) summaryElements.get(1).getValue(), (long) consultationsPerDay * 7 / numberDoctors);
         int numMonthDays = LocalDate.now().lengthOfMonth();
         assertEquals(summaryElements.get(2).getKey(), "This Month");
-        assertEquals((long) summaryElements.get(2).getValue(), (long) CONSULTATIONS_PER_DAY * numMonthDays /
-            NUM_DOCTORS);
+        assertEquals((long) summaryElements.get(2).getValue(), (long) consultationsPerDay * numMonthDays
+            / numberDoctors);
         int numYearDays = LocalDate.now().lengthOfYear();
         assertEquals(summaryElements.get(3).getKey(), "This Year");
-        assertEquals((long) summaryElements.get(3).getValue(), (long) CONSULTATIONS_PER_DAY * numYearDays /
-            NUM_DOCTORS);
+        assertEquals((long) summaryElements.get(3).getValue(), (long) consultationsPerDay * numYearDays
+            / numberDoctors);
 
         // get visualization data
         CircularList<VisualizationData> visualizationData = statData.getVisualizationData();
