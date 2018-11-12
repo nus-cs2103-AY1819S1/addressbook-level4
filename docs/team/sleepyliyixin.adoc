@@ -59,4 +59,4 @@ include::../UserGuide.adoc[tag=showDes]
 
 include::../DeveloperGuide.adoc[tag=ToDoList]
 
-And modify diagrams in Design parts, including Architecture, UI Component, Logic Component and Storage Component.
+*And modify diagrams in Design parts, including Architecture, UI Component, Logic Component and Storage Component.*
