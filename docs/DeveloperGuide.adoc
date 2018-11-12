@@ -904,7 +904,7 @@ In the calculateVolunteerDemographics method, the ages of volunteers are derived
 |Cons| Have to propagate changes to statistical data after changes to volunteers and events.
 |===
 +
-
+//end::command-overview[]
 
 
 == Documentation
