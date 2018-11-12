@@ -716,6 +716,10 @@ method of the GenerateLocationCommand.
 Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
 Display Tab) and subsequently by `LocationDisplayPanel`.
 
+For simplicity, only the logic and event handling section of the sequence diagram is shown below for generateLocation command:
+
+image::generateLocation_EventsCenter_EmbedGoogleMaps_seqDiagram.PNG[width="800"]
+
 // end::generateMeetingLocation[]
 
 === Logging
