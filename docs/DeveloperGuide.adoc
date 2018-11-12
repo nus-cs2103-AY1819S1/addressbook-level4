@@ -1829,14 +1829,9 @@ Use case ends
 
 *Extensions*
 
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
+* 1a.Expense Tracker detects that the user is not logged into an account.
+    ** 1a1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
-
-* 1b.Expense Tracker detects that the user is not logged into an account.
-    ** 1b1. Expense Tracker informs user that they are not logged into any user.
-    ** Use case ends.
-
 
 [discrete]
 
@@ -1850,17 +1845,13 @@ Use case ends
 
 *Extensions*
 
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
+* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
     ** Use case ends.
 
-* 1b.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
-    ** 1b1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
-
-* 1c.Expense Tracker detects that the user is not logged into an account.
-    ** 1c1. Expense Tracker informs user that they are not logged into any user.
-
 
 [discrete]
 
@@ -2080,7 +2071,7 @@ one expense. +
 .. Test case: `setPassword n/password11 o/password1`
    Expected: A message indicating that the password has been changed is shown.
 
-== Encrypt and Decrypt `Strings`
+=== Encrypt and Decrypt `Strings`
 
 . Encrypt and decrypt `String`s
 .. Prerequisites: Already logged into a user account
@@ -2213,13 +2204,3 @@ categories and costs.
 .. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
 .. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
    Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.
-
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
