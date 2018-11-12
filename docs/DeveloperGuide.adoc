@@ -793,17 +793,12 @@ image::implementation/NotificationCommandSequenceDiagram.png[width="800"]
 
 === Budgeting
 
-The budget feature allows the user to set budgets for their expenses.
+This group of features allows the user to set budgets for their expenses.
 
-Available spending is defined as the total amount of expenses you can add before you exceed your budget.
-
-If the user's spending exceeds their available spending for the budget, a warning like the image below will be shown
+Available spending is defined as the total
+amount of expenses you can add before you exceed your budget. If the user's spending exceeds their available spending
+ for the budget, a <<UserGuide#over-budget-warning, warning>> will be shown
  to the user.
-
-.Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="200"]
-
-
 
 The current implementation for budgeting and its related features are described in the sections below.
 
@@ -825,15 +820,10 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="700"]
 . `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
 
 
-
 ==== Setting a recurring Budget
 This feature allows the user's available spending to reset every user defined frequency.
 
-Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
-when the
-available spending will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
-Expense Tracker will track the set recurrence time against the time now. If it exceeds, available spending will be
-reset, else nothing will be done.
+The implementation for this feature is describe in the two sections below.
 
 ===== Setting the recurrence frequency
 This section explains the implementations of `setRecurrenceFrequency` command.
@@ -856,7 +846,7 @@ if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
     {
 ```
 //end::budgetPart1[]
-
+[[recc-seq-diag]]
 Given below is a sequence diagram
 and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.
 
@@ -896,7 +886,7 @@ Every time the user logs in, Expense Tracker will check if the available spendin
 of available spending resetting is given below.
 
 .Sequence diagram of a user setting a recurrence frequency.
-image::implementation/RecurrenceFrequencySequenceDiagram.png[width="550"]
+image::implementation/RecurrenceFrequencySequenceDiagram.png[width="600"]
 
 Execution steps of resetting available spending are as follows:
 
@@ -913,6 +903,7 @@ notifications. It will also return `DO_NOTHING`, which will results in `Model` t
 
 //end::budgetPart2[]
 
+[[Budget-Category]]
 ==== Setting a Budget by Category
 
 An extension to the budget feature, this feature allows the user to divide their budget based on categories. Users can
