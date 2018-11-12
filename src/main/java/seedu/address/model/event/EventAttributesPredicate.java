@@ -65,6 +65,18 @@ public class EventAttributesPredicate implements Predicate<Event> {
                 || event.containsPerson(participant));
     }
 
+    /**
+     * Returns true if all the attributes are null.
+     */
+    public boolean allAttributesNull() {
+        return (name == null
+                && address == null
+                && organiser == null
+                && participant == null
+                && date == null
+                && startTime == null);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

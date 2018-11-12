@@ -316,9 +316,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (!currentUser.equals(currentEvent.getOrganiser())) {
             throw new NotEventOrganiserException();
         }
-        int index = versionedAddressBook.getEventList().indexOf(currentEvent);
         String pollDetails = currentEvent.addPoll(pollName);
-        updateEvent(index, currentEvent);
+        updateEvent(currentEvent, currentEvent);
         return pollDetails;
     }
 
@@ -399,7 +398,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         Event event = getEvent(index);
         event.addParticipant(currentUser);
-        updateEvent(index.getZeroBased(), event);
+        updateEvent(event, event);
     }
 
     @Override
@@ -410,14 +409,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         versionedAddressBook.updateEvent(target, editedEvent);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updateEvent(int index, Event editedEvent) {
-        requireAllNonNull(index, editedEvent);
-
-        versionedAddressBook.updateEvent(index, editedEvent);
         indicateAddressBookChanged();
     }
 
