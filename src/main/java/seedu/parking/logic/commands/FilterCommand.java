@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.sun.istack.Nullable;
+
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
 import seedu.parking.commons.events.ui.FilterResultChangedEvent;
@@ -24,8 +26,12 @@ import seedu.parking.model.carpark.CarparkFilteringPredicate;
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
-    public static final String COMMAND_ABBREVIATION = "fi";
-    public static final String FORMAT = "filter f/ DAY START_TIME END_TIME n/ ct/ CARPARK_TYPE";
+    public static final String FORMAT = "filter f/ DAY STARTBY ENDBYTI ct/ CARP_TYPE ps/ SY_TYPE a/ n/ st/";
+    public static final String FREEPARKING_FIRST_ARG = "DAY";
+    public static final String FREEPARKING_SECOND_ARG = "STARTBY";
+    public static final String FREEPARKING_THIRD_ARG = "ENDBYTI";
+    public static final String CARPARKTYPE_ARG = "CARP_TYPE";
+    public static final String SYSTEMTYPE_ARG = "SY_TYPE";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters the list of car parks returned by the previous find command with the use of flags.\n"
@@ -47,8 +53,9 @@ public class FilterCommand extends Command {
     /**
      * Creates a FilterCommand with the relevant flags
      */
-    public FilterCommand(List<String> flagList, FreeParkingParameter freeParkingParameter, CarparkTypeParameter
-            carparkTypeParameter, ParkingSystemTypeParameter parkingSystemTypeParameter) {
+    public FilterCommand(List<String> flagList, @Nullable FreeParkingParameter freeParkingParameter,
+        @Nullable CarparkTypeParameter carparkTypeParameter,
+        @Nullable ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.predicate = null;
         this.flagList = flagList;
         this.freeParkingParameter = freeParkingParameter;
@@ -77,6 +84,7 @@ public class FilterCommand extends Command {
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
     }
 
+    // Please fix the last line, it will give NULLPOINTEREXCEPTION because predicate is initialized as null value.
     @Override
     public boolean equals(Object other) {
 

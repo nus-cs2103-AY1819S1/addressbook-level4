@@ -1,12 +1,24 @@
 package seedu.parking.ui;
 
+import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE;
+import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND;
+import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND;
+import static seedu.parking.logic.commands.CalculateCommand.FIRST_ARG;
+import static seedu.parking.logic.commands.FilterCommand.CARPARKTYPE_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_FIRST_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_SECOND_ARG;
+import static seedu.parking.logic.commands.FilterCommand.FREEPARKING_THIRD_ARG;
+import static seedu.parking.logic.commands.FilterCommand.SYSTEMTYPE_ARG;
+import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_AVAILABLE_PARKING;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_NIGHT_PARKING;
 import static seedu.parking.logic.parser.CliSyntax.PREFIX_PARKING_TIME;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
+import static seedu.parking.logic.parser.CliSyntax.PREFIX_SYSTEM_TYPE;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -22,9 +34,11 @@ import seedu.parking.commons.events.ui.NewResultAvailableEvent;
 import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.logic.ListElementPointer;
 import seedu.parking.logic.Logic;
+import seedu.parking.logic.commands.CalculateCommand;
 import seedu.parking.logic.commands.CommandResult;
 import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.commands.FindCommand;
+import seedu.parking.logic.commands.NotifyCommand;
 import seedu.parking.logic.commands.SelectCommand;
 import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.logic.parser.exceptions.ParseException;
@@ -36,15 +50,13 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int INDEX_OF_FILTER_FIRST_ARG = 10;
-    private static final int END_OF_FILTER_FIRST_ARG = 13;
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
 
     //autocomplete variables
-    private Set<String> autoCompleteCommands = new HashSet<>();
+    private Map<String, String> autoCompleteCommands = new HashMap<>();
     private int anchorPosition;
     private int caretPosition;
     private String selectedText = "";
@@ -61,12 +73,11 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
 
-        autoCompleteCommands.addAll(
-            Arrays.asList(FindCommand.COMMAND_WORD, FindCommand.COMMAND_ABBREVIATION));
-        autoCompleteCommands.addAll(
-            Arrays.asList(SelectCommand.COMMAND_WORD, SelectCommand.COMMAND_ABBREVIATION));
-        autoCompleteCommands.addAll(
-            Arrays.asList(FilterCommand.COMMAND_WORD, FilterCommand.COMMAND_ABBREVIATION));
+        autoCompleteCommands.put(FindCommand.COMMAND_WORD, FindCommand.FORMAT);
+        autoCompleteCommands.put(SelectCommand.COMMAND_WORD, SelectCommand.FORMAT);
+        autoCompleteCommands.put(NotifyCommand.COMMAND_WORD, NotifyCommand.FORMAT);
+        autoCompleteCommands.put(FilterCommand.COMMAND_WORD, FilterCommand.FORMAT);
+        autoCompleteCommands.put(CalculateCommand.COMMAND_WORD, CalculateCommand.FORMAT);
     }
 
     /**
@@ -79,7 +90,6 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
@@ -87,10 +97,14 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             break;
         case TAB:
-            if (keyEvent.isShiftDown()) {
-                //selectPreviousField();
-            } else {
+            logger.info("----------------[AUTO COMPLETE][" + commandTextField.getText() + "]");
+            try {
                 autoComplete();
+            } catch (ParseException e) {
+                // handle command failure
+                setStyleToIndicateCommandFailure();
+                logger.info("Invalid command: " + commandTextField.getText());
+                raise(new NewResultAvailableEvent(e.getMessage()));
             }
             break;
         default:
@@ -102,65 +116,102 @@ public class CommandBox extends UiPart<Region> {
      * Handles autocomplete logic to either display full format, or select next
      * select next argument placeholder if full format is already displayed.
      */
-    private void autoComplete() {
-        String input = commandTextField.getText().trim().toLowerCase();
-        if (autoCompleteCommands.contains(input)) { //auto-complete the formats
+    private void autoComplete() throws ParseException {
+
+        String input = commandTextField.getText().trim();
+
+        if (input.equals("f") || input.equals("fi")) {
+
+            throw new ParseException(String.format("%s\n%s",
+                MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE, MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND));
+
+        } else if (input.equals("c")) {
+
+            throw new ParseException(String.format("%s\n%s",
+                MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE, MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND));
+
+        } else if (!input.equals("") && containedInAutoCompleteCommands(input)) {
+
             displayFormat(input);
 
             // auto select first argument placeholder
             commandTextField.requestFocus();
-            switch(input) {
-            case FindCommand.COMMAND_WORD:
-            case FindCommand.COMMAND_ABBREVIATION:
-            case SelectCommand.COMMAND_WORD:
-            case SelectCommand.COMMAND_ABBREVIATION:
+            if (containsFromFirstLetter(FindCommand.COMMAND_WORD, input)
+                || containsFromFirstLetter(SelectCommand.COMMAND_WORD, input)
+                || containsFromFirstLetter(NotifyCommand.COMMAND_WORD, input)) {
+
                 String text = commandTextField.getText();
                 int indexOfFirstSpace = text.indexOf(" ");
                 commandTextField.selectRange(
                     indexOfFirstSpace + 1, text.length());
-                break;
-            case FilterCommand.COMMAND_WORD:
-            case FilterCommand.COMMAND_ABBREVIATION:
+
+            } else if (!input.equals("f") && !input.equals("fi")
+                && containsFromFirstLetter(FilterCommand.COMMAND_WORD, input)) {
+
+                int indexOfFirstArg = FilterCommand.FORMAT.indexOf(FREEPARKING_FIRST_ARG);
                 commandTextField.selectRange(
-                    INDEX_OF_FILTER_FIRST_ARG, END_OF_FILTER_FIRST_ARG);
+                    indexOfFirstArg, indexOfFirstArg + FREEPARKING_FIRST_ARG.length());
                 caretPosition = commandTextField.getCaretPosition();
-                break;
-            default:
-                break;
+
+            } else if (containsFromFirstLetter(CalculateCommand.COMMAND_WORD, input)) {
+
+                int indexOfFirstArg = CalculateCommand.FORMAT.indexOf(FIRST_ARG);
+                commandTextField.selectRange(
+                    indexOfFirstArg, indexOfFirstArg + FIRST_ARG.length());
+                caretPosition = commandTextField.getCaretPosition();
+
             }
+
         } else if (isFilterCommandFormat(input)) {
-            int positionOfWeekDay = input.indexOf(PREFIX_PARKING_TIME.toString()) + 3;
-            int positionOfStartTime = input.indexOf(PREFIX_PARKING_TIME.toString()) + 7;
-            int positionOfEndTime = input.indexOf(PREFIX_PARKING_TIME.toString()) + 18;
+            int positionOfWeekDay = input.indexOf(FREEPARKING_FIRST_ARG);
+            int positionOfStartTime = input.indexOf(FREEPARKING_SECOND_ARG);
+            int positionOfEndTime = input.indexOf(FREEPARKING_THIRD_ARG);
+            int positionOfCarparkType = input.indexOf(CARPARKTYPE_ARG);
+            int positionOfSystemType = input.indexOf(SYSTEMTYPE_ARG);
+            int positionOfAvailableParking = input.indexOf(PREFIX_AVAILABLE_PARKING.toString());
             int positionOfNightParking = input.indexOf(PREFIX_NIGHT_PARKING.toString());
-            int positionOfCarParkType = input.indexOf(PREFIX_CAR_TYPE.toString()) + 4;
+            int positionOfShortTermParking = input.indexOf(PREFIX_SHORT_TERM.toString());
             int[] argumentsArray = {positionOfWeekDay, positionOfStartTime,
-                positionOfEndTime, positionOfNightParking, positionOfCarParkType};
+                positionOfEndTime, positionOfCarparkType, positionOfSystemType,
+                positionOfAvailableParking, positionOfNightParking,
+                positionOfShortTermParking};
 
             selectNextField(argumentsArray);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FOR_AUTOCOMPLETE);
         }
     }
 
     /**
-     * Displays the entire command format in command box
-     * @param command input by the user
+     * Checks if this user input is a valid auto-complete command
+     *
+     * @param actualCommand actual command input by the user
+     * @return true if list of auto-complete command contains the user input from index 0
+     * and false otherwise.
      */
-    private void displayFormat(String command) {
-        switch (command) {
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ABBREVIATION:
-            replaceText(FindCommand.FORMAT);
-            break;
-        case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ABBREVIATION:
-            replaceText(SelectCommand.FORMAT);
-            break;
-        case FilterCommand.COMMAND_WORD:
-        case FilterCommand.COMMAND_ABBREVIATION:
-            replaceText(FilterCommand.FORMAT);
-            break;
-        default:
-            break;
+    private boolean containedInAutoCompleteCommands(String actualCommand) {
+        boolean isAutoCompleteCommand = false;
+        for (Map.Entry<String, String> entry : autoCompleteCommands.entrySet()) {
+            String command = entry.getKey();
+            if (containsFromFirstLetter(command, actualCommand)) {
+                isAutoCompleteCommand = true;
+                break;
+            }
+        }
+        return isAutoCompleteCommand;
+    }
+
+    /**
+     * Displays the entire command format in command box using our HashMap of
+     * auto-complete command and format pairs
+     * @param actualCommand input by the user
+     */
+    private void displayFormat(String actualCommand) {
+        for (Map.Entry<String, String> entry : autoCompleteCommands.entrySet()) {
+            String command = entry.getKey();
+            if (containsFromFirstLetter(command, actualCommand)) {
+                replaceText(entry.getValue());
+            }
         }
     }
 
@@ -168,28 +219,37 @@ public class CommandBox extends UiPart<Region> {
      * autocomplete helper function to check if the text input is already in
      * filter command format.
      * @param input input by the user
+     * @return true if it is of filter command format and false otherwise
      */
     private boolean isFilterCommandFormat(String input) {
-        return input.startsWith("filter") && (input.contains("f/")
-            || input.contains("n/") || input.contains("ct/"));
+        return input.startsWith("filter") && (input.contains(PREFIX_PARKING_TIME.toString())
+            || input.contains(PREFIX_NIGHT_PARKING.toString())
+            || input.contains(PREFIX_CAR_TYPE.toString())
+            || input.contains(PREFIX_AVAILABLE_PARKING.toString())
+            || input.contains(PREFIX_SYSTEM_TYPE.toString())
+            || input.contains(PREFIX_SHORT_TERM.toString()));
     }
 
     /**
      * Checks the current position is in between which two fields
      * And navigates to the next field
      * @param argumentsArray array of field positions in the order of left to right
-     *                            last element is the end position of text input
+     * last element is the end position of text input
      */
     private void selectNextField(int[] argumentsArray) {
+        for (int i: argumentsArray) {
+            System.out.println(String.format("[%d]", i));
+        }
         boolean updatedSelection = false;
         for (int i = 0; i < argumentsArray.length - 1; i++) {
-            //check if the current position is in between ard[i] and ard[i + 1], if so, change selection
-            //to the placeholder of ard[i + 1]
+            //check if the current position is in between arg[i] and arg[i + 1], if so, change selection
+            //to the placeholder of arg[i + 1]
             System.out.println("caret at: " + caretPosition + " current at: " + argumentsArray[i]);
             if (caretPosition > argumentsArray[i] && caretPosition < argumentsArray[i + 1]) {
                 commandTextField.positionCaret(argumentsArray[i + 1]);
                 changeSelectionToNextField();
                 updatedSelection = true;
+                break;
             }
         }
         if (!updatedSelection) {

@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.parking.model.carpark.Carpark;
 
 /**
- * Provides a handle for {@code CarparkListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code CarparkListPanel} containing the list of {@code CarparkCard}.
  */
 public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     public static final String CARPARK_LIST_VIEW_ID = "#carparkListView";
@@ -29,15 +29,15 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CarparkCardHandle getHandleToSelectedCard() {
-        List<Carpark> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Carpark> selectedCarparkList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (selectedPersonList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+        if (selectedCarparkList.size() != 1) {
+            throw new AssertionError("Car park list size expected 1.");
         }
 
         return getAllCardNodes().stream()
                 .map(CarparkCardHandle::new)
-                .filter(handle -> handle.equals(selectedPersonList.get(0)))
+                .filter(handle -> handle.equals(selectedCarparkList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
@@ -65,13 +65,13 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     /**
      * Navigates the listview to display {@code carpark}.
      */
-    public void navigateToCard(Carpark person) {
-        if (!getRootNode().getItems().contains(person)) {
-            throw new IllegalArgumentException("Person does not exist.");
+    public void navigateToCard(Carpark carpark) {
+        if (!getRootNode().getItems().contains(carpark)) {
+            throw new IllegalArgumentException("Car park does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(person);
+            getRootNode().scrollTo(carpark);
         });
         guiRobot.pauseForHuman();
     }
@@ -91,7 +91,7 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code CarparkCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);

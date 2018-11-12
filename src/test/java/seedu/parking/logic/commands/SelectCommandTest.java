@@ -41,11 +41,11 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredCarparkList().size());
+        Index lastCarparkIndex = Index.fromOneBased(model.getFilteredCarparkList().size());
 
         assertExecutionSuccess(INDEX_FIRST_CARPARK);
         assertExecutionSuccess(INDEX_THIRD_CARPARK);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastCarparkIndex);
     }
 
     @Test

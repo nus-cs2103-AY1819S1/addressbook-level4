@@ -75,18 +75,6 @@ public class CarparkFinder implements ReadOnlyCarparkFinder {
     }
 
     /**
-     * Replaces the given car park {@code target} in the list with {@code editedCarpark}.
-     * {@code target} must exist in the car park finder.
-     * The car park identity of {@code editedCarpark} must not be the same as
-     * another existing car park in the car park finder.
-     */
-    public void updateCarpark(Carpark target, Carpark editedCarpark) {
-        requireNonNull(editedCarpark);
-
-        carparks.setCarpark(target, editedCarpark);
-    }
-
-    /**
      * Removes {@code key} from this {@code CarparkFinder}.
      * {@code key} must exist in the car park finder.
      */

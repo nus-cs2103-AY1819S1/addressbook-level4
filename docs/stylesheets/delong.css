@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url('https://fonts.googleapis.com/css?family=Cabin');
 article,
 aside,
 details,
@@ -14,15 +14,11 @@ summary {
 	display: block
 }
 
-
-/* CUSTOMISATIONS */
-
-
 /* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
 
 :root {
-	--bgcolor: #fffaef;
-	/* White Base3 */
+	--bgcolor: #ffeb3b;
+	/* Yellow Base3 */
 	--fgcolor: #F2F2F2;
 	/* Base3 */
 	--altcolor: #eee8d5;
@@ -64,9 +60,6 @@ summary {
 	color: var(--secondarycolor) !important;
 	font-size: 26px;
 	text-align: left;
-	margin-top: 0px;
-	margin-left: 16px;
-	margin-bottom: 0px;
 }
 
 #toc a {
@@ -77,7 +70,7 @@ summary {
 /* document body (contains all content) */
 
 body {
-	font-family: "Roboto";
+	font-family: "Cabin";
 	font-size: 16px;
 	line-height: 1.42857143;
 	color: #2c3e50;
@@ -107,7 +100,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Roboto";
+	font-family: "Cabin";
 	font-weight: 400;
 	line-height: 1.1;
 	color: inherit;

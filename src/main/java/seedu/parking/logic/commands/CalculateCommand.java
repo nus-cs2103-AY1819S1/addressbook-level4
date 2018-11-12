@@ -19,8 +19,10 @@ import seedu.parking.model.carpark.CarparkIsOfNumberPredicate;
  */
 public class CalculateCommand extends Command {
     public static final String COMMAND_WORD = "calculate";
-    public static final String COMMAND_ALIAS = "cal";
-
+    public static final String FORMAT = "calculate CARPARK_NUMBER DAY START_TIME END_TIME\n";
+    public static final String FIRST_ARG = "DAY";
+    public static final String SECOND_ARG = "START_TIME";
+    public static final String THIRD_ARG = "END_TIME";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Calculates the cost of parking at a particular car park for a specified time period.\n"
             + "Parameters: CARPARK_NUMBER DAY START_TIME END_TIME\n"
@@ -138,6 +140,7 @@ public class CalculateCommand extends Command {
                 String.format(Messages.MESSAGE_COST_OF_PARKING, cost));
     }
 
+    // Please fix the last line, it will give NULLPOINTEREXCEPTION because predicate is initialized as null value.
     @Override
     public boolean equals(Object other) {
 

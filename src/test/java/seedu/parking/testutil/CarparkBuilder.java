@@ -20,7 +20,7 @@ import seedu.parking.model.tag.Tag;
 import seedu.parking.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Car park objects.
  */
 public class CarparkBuilder {
 

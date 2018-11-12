@@ -25,24 +25,24 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCarpark_nullCarpark_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasCarpark(null);
     }
 
     @Test
-    public void hasPerson_personNotInCarparkFinder_returnsFalse() {
+    public void hasCarpark_carparkNotInCarparkFinder_returnsFalse() {
         assertFalse(modelManager.hasCarpark(ALFA));
     }
 
     @Test
-    public void hasPerson_personInCarparkFinder_returnsTrue() {
+    public void hasCarpark_carparkInCarparkFinder_returnsTrue() {
         modelManager.addCarpark(ALFA);
         assertTrue(modelManager.hasCarpark(ALFA));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredCarparkList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredCarparkList().remove(0);
     }

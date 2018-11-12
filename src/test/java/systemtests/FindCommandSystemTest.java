@@ -25,7 +25,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in car park finder, command with leading spaces and trailing spaces
+        /* Case: find multiple car park in car park finder, command with leading spaces and trailing spaces
          * -> 2 car parks found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG + "   ";
@@ -148,7 +148,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of car park in car park finder -> 0 persons found */
+        /* Case: find tags of car park in car park finder -> 0 car park found */
         List<Tag> tags = new ArrayList<>(DELTA.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
@@ -164,7 +164,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
-        /* Case: find car park in empty car park finder -> 0 persons found */
+        /* Case: find car park in empty car park finder -> 0 car park found */
         deleteAllCarparks();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         expectedModel = getModel();

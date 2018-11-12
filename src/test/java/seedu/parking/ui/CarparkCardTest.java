@@ -55,7 +55,7 @@ public class CarparkCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code carparkCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code carparkCard} displays the details of {@code expectedCarpark} correctly and matches
      * {@code expectedId}.
      */
     private void assertCardDisplay(CarparkCard carparkCard, Carpark expectedCarpark, int expectedId) {
