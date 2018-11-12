@@ -9,7 +9,7 @@
 ---
 
 == Overview
-This project portfolio page serves to document my contributions to *_SocialCare_, a software engineering project* that was
+This project portfolio page serves to document my contributions to _SocialCare_, a *software engineering project* that was
 undertaken as part of the National University of Singapore (NUS) School of Computing's beginner Software Engineering
 module, CS2103T. More information on this module can be found
 https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/index.html[here].
@@ -31,6 +31,8 @@ Through the use of the CLI, _SocialCare_ enables the above functionalities to be
 mouse/GUI driven application.
 
 == Summary of contributions
+
+This section summarizes my contributions to this project and to my fellow course mates throughout the course of the module. It includes enhancements made and a link to the code that I contributed as well.
 
 * *Major enhancement*: I added *the ability to export volunteer certificates in PDF format.*
 ** _What it does_: This feature allows the user to export a volunteer’s event records and contributed hours in the form
@@ -73,7 +75,7 @@ social welfare organisations that I have worked with in the past, who are part o
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+|_Given below is the section I contributed to the User Guide pertaining to the feature that I implemented, `exportcert`. It showcases my ability to write and design documentation targeting
 end-users._
 |===
 
@@ -82,8 +84,8 @@ include::../UserGuide.adoc[tag=exportcert-sharan-ppp]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
-documentation and the technical depth of my contributions to the project._
+|_Given below is an excerpt from the section I contributed to the Developer Guide pertaining to my implementation of the `exportcert` feature. It showcases my ability to write technical
+documentation aimed at allowing developers to understand my implementation of the feature, including design decisions made. It also showcases the technical depth of my contributions to the project, along with my ability to critically analyse design considerations._
 |===
 
 include::../DeveloperGuide.adoc[tag=exportcert-sharan-ppp]
