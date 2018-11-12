@@ -1334,6 +1334,22 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== UC12: View contacts of an event
+
+*MSS*
+
+. User requests to view contacts for an event.
+. System displays the contact information for all contacts included in the event.
++
+
+Use case ends.
+
+*Extensions*
+* 2a. System is unable to find a matching contact
+** 2a1. System does not display the information for the contact which cannot be found and shows only the existing contacts' information.
++
+Use case ends.
 ////
 === Coming in V2.0
 
