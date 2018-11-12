@@ -398,12 +398,12 @@ AttributePredicate to test the attribute
 
 // end::filter[]
 
-=== Accessibility feature
+=== Command Management Feature
 
-// tag::accessibility[]
+// tag::commandManagement[]
 ==== Current Implementation
 
-The accessibility feature is responsible for making ThanePark application easier to use.
+The Command Management feature is responsible for making ThanePark application easier to use.
 It can be decomposed into the following components: +
 
 * <<accessibility_help, *Help*>>
@@ -474,7 +474,7 @@ Event types in the application.
 
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
-// end::accessibility[]
+// end::commandManagement[]
 
 // tag::viewstatus[]
 === View Status Feature

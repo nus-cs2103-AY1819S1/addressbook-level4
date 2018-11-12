@@ -1,4 +1,4 @@
-= Yu Pei Henry - Project Portfolio
+= Yu Pei, Henry - Project Portfolio
 :toc:
 :toc-title:
 :site-section: AboutUs
@@ -19,7 +19,7 @@ ThanePark is a *theme park management* application primarily designed for theme 
 with the ability to manage and find essential theme park ride information at a glance. +
 
 This project was done as part of NUS CS2103 module requirement on 2018, to practice and showcase my ability
-to develop a `Java` application as a team of 4 students. This project had a
+to develop a `Java` application as a team of 4 undergraduate students taking the module. This project had a
 *constraint of developing a Command Line Interface (CLI)*. In the course of this project, my team
 extended an existing AddressBook application to build this theme park management application.
 
@@ -55,6 +55,7 @@ is an added challenge of reducing dependencies across the `Logic`, `Model`, `Sto
 *** Set up Travis CI, coveralls and autodoc to the project
 *** Integrated a third party library (j2html) to the project (Pull request #79)
 
+<<<
 == Contributions to the User Guide
 
 
@@ -73,5 +74,5 @@ include::../UserGuide.adoc[tag=history]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=accessibility]
+include::../DeveloperGuide.adoc[tag=commandManagement]
 
