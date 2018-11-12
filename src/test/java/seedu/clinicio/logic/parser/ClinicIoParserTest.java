@@ -41,11 +41,13 @@ import seedu.clinicio.logic.commands.ExportPatientsCommand;
 import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.FindMedicineCommand;
+import seedu.clinicio.logic.commands.FindPatientCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListApptCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.ListMedicineCommand;
+import seedu.clinicio.logic.commands.ListPatientCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
 import seedu.clinicio.logic.commands.PatientStatisticsCommand;
@@ -59,6 +61,7 @@ import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.medicine.MedicineNameContainsKeywordsPredicate;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.patient.PatientNameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
@@ -161,6 +164,14 @@ public class ClinicIoParserTest {
     }
 
     @Test
+    public void parseCommand_findPatient() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
+                FindPatientCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindPatientCommand(new PatientNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_findMedicine() throws Exception {
         List<String> keywords = Arrays.asList("paracetamol", "oracort", "ventolin");
         FindMedicineCommand command = (FindMedicineCommand) parser.parseCommand(
@@ -220,6 +231,12 @@ public class ClinicIoParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD) instanceof ListPatientCommand);
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
     }
 
     @Test
