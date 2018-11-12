@@ -229,12 +229,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         Event editedEvent = createEditedEvent(name, location, tags);
-
         if (hasEvent(editedEvent)) {
             throw new DuplicateEventException();
         }
-
-        versionedAddressBook.updateEvent(currentEvent, editedEvent);
+        updateEvent(currentEvent, editedEvent);
+        currentEvent = editedEvent;
         indicateAddressBookChanged();
     }
 
@@ -400,12 +399,15 @@ public class ModelManager extends ComponentManager implements Model {
         }
         Event event = getEvent(index);
         event.addParticipant(currentUser);
-        updateEvent(event, event);
+        updateEvent(index.getZeroBased(), event);
     }
 
     @Override
     public void updateEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
+        if (currentEvent.equals(target)) {
+            currentEvent = editedEvent;
+        }
 
         versionedAddressBook.updateEvent(target, editedEvent);
         indicateAddressBookChanged();
