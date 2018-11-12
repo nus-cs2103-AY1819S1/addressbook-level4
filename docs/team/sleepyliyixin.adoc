@@ -36,7 +36,7 @@ It is written in Java, and has about 10 kLoC.
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-T10-1/main/pull/120
 ** Community:
-*** PRs reviewed (with non-trivial review comments)
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T10-1/main/pull/130
 
 == Contributions to the User Guide
 
