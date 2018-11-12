@@ -1872,7 +1872,7 @@ Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of upd
 
 ... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
 
-... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE`+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
 Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
 
 .. Removing multiple permission
