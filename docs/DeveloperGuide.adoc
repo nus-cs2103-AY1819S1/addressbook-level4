@@ -109,20 +109,22 @@ Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
 == Design
 // tag::command[]
-===== Command Component
-Command is refactored to be implemented using a https://en.wikipedia.org/wiki/Template_method_pattern[template method pattern].
+==== Command Component
+Command is refactored to be implemented using a template method pattern.
  The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
  method to update the status of tasks to overdue if their due date is past current time.
 
 
 The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
 Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
-The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as an
 abstract method in command.
 
-Simplified class diagram for the command component:
 
-image::CommandComponentClassDiagram.png[width="600"]
+image::CommandComponentClassDiagram.png[width="400"]
+
+_Simplified class diagram for the command component_
+
 // end::command[]
 
 
@@ -607,50 +609,66 @@ _Calls to the Commons/Event component has been omitted for brevity._
 
 === Dependency Feature Modelling
 ==== Current Implementation
-The dependency mechanism is facilitated by an embedded `Dependencies` object. This object represents dependencies with
+The dependencies of a task is modelled by an embedded `Dependencies` object in the task. This object represents dependencies with
 a hashset that contains the hashcodes of the tasks that the task is dependent upon.
 
-Sequence Diagram of the dependencies command
+The dependencies between tasks are added or removed using the dependency command. If a given task A is dependent on a given task B,
+task A is the dependant task while task B is the dependee task.
 
+When deleting a task, all dependencies to the deleted task will be removed.
+When editing a task, all dependencies to the edited task will be updated with the hashcode of the new edited task.
+
+image::DependencyActivityDiagram.png[width="600"]
+
+_Activity diagram for the dependency command (dependencies are toggled using the command)_
 
 ==== Design Considerations
-===== Aspect: Modelling of the embedded dependency object.
+===== Aspect: Modelling a dependency
 
 * ** Alternative 1(current choice):** Dependencies specified by unique hashcodes of tasks
 ** Pros:
-*** There is no task creation propogation when task dependency is added. (refer to alternative 2).
-*** Easy to reform the dependency graph.
-** Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
-finding reference of the dependee task given its hashcode.
+When a task dependency is updated, the updating of tasks do not propagate . (Refer to alternative 2) +
+The hashcodes are generated without a task's dependencies. Hence, when updating a given task A, tasks dependent
+to task A do not need to be recreated as the hashcode of the new task A is the same hashcode as the old task A.
+** Cons:
+Some functions such as UI display require details of the dependee tasks. Additional computation required to
+find reference of the dependee task from its hashcode.
 
-* ** Alternative 2: **Dependencies specified by (references to) the Tasks objects themselves
-** Pros:
-*** It allows an easy reference to the task object.
-*** Allows for the implementation of a real-time dependency graph, which is referenced
-to rather than recreated every time a topological sort or a cyclical check is needed.
-** Cons: Introduces unnecessary complications.
-*** Tasks are immutable, so whenever a task dependency is added, all connected components of the graph to the edited task needs to be reinstantiated.
-i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
-other tasks that depends on A has to be recreated as the dependencies is updated.
-*** [Assumption: *In storage*, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
-as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.
+* ** Alternative 2: **Dependencies specified by (references to) the Task objects themselves
+** Pros: Easy reference the task object.
+** Cons: Introduces unnecessary complications. +
+1)Tasks are immutable. Whenever a task dependency is added or removed a new task is created. All tasks dependent
+to the updated task have to have their dependencies updated. Consequently, all tasks that are dependent to the the tasks dependent
+to the original task have to have their dependencies updated as well. +
+2)[Assumption: *In storage*, task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
+as a set of hashcodes before transforming the hashcodes to references to tasks only when all tasks are instantiated from storage.
 
 
-=== Modelling Dependency Validity
+=== Modelling Dependency Checks
 ==== Current Implementation
-The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
-so useful functions can be implemented such as cyclic and topological sort.
+The `DependencyGraph` is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.
+
+image::ShowTopologicalOrderCommandSequenceDiagram.png[width="800"]
+
+_Sequence Diagram of the Show Topological Order Command (DependencyGraph on the right hand side of diagram)_
+
+`DependencyGraph` is instantiated whenever it is needed. Transformations such as inverting the graph or pruning COMPLETED
+tasks from graph.
 
 ==== Design Considerations
 ===== Aspect: Real-time graph or graph instantiated on function call.
 * **Alternative 1(current choice):** Graph is only instantiated when needed.
-** Pros: Graph does not have to be updated or maintained.
+** Pros: +
+1) Graph does not have to be maintained at every relevant command +
+2) Graph can be transformed (pruning/inverting) without worrying about modifying the original dependencies object
+
 ** Cons: Slight increase in latency, but mitigated by the fact that a typical user won't
 have an extremely large amount of tasks.
-* ** Alternative 2:** Graph created on start-up and maintained during run-time.
-*** Pros: Slightly faster speed for dependency related commands.
-*** Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
-benefit being a slightly shorter run-time
+* ** Alternative 2:** Graph created on start-up and maintained during run-time
+*** Pros: Slightly faster speed for dependency related commands
+*** Cons: Upkeep of graph is complex to implement especially with the immutable nature of the Tasks
+// end::dependency[]
 
 ===== Aspect: Task dependencies modelled with a graph
 * **Alternative 1(current choice):** Using a graph.
@@ -662,10 +680,41 @@ depend on each other.
 *** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
 
-===== Aspect: Implementing topological sort
-image::ShowTopologicalOrderCommandSequenceDiagram.png[width="1200"]
 
-// end::dependency[]
+
+// tag::effective_duedate[]
+=== Effective Due Date
+==== Current Implementation
+
+Effective Due Date (EDD) is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
+dependent on the task, including the task itself.
+
+Steps to find effective due date of task A:
+
+. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
+
+. Invert the dependencies in the `DependencyGraph` (to allow graph traversal in the opposite direction)
+
+
+image::EffectiveDueDateImplementation1.png[width="300"]
+
+_Diagram for effective due date implementation_
+
+[start=3]
+. Perform a depth first search from Task A to find earliest effective due date among
+all children (i.e. B)
+.. Task C's effective due date will be 1-3-19 [No children]
+.. Task B's effective due date will be 1-1-19 [C: 1-3-19, B's due date is earlier than EDD of C]
+.. Task A's effective due date will be 1-1-19 [B: 1-1-19, B's EDD is earlier than A's due date]
+
+Note: comparison of due date with EDDs of children in square brackets
+
+image::EffectiveDueDateImplementation2.png[width="400"]
+
+_Table for effective due date implementation_
+
+
+// end::effective_duedate[]
 
 
 
@@ -689,7 +738,7 @@ should never undo an overdue. Simple implementation prevents race conditions (re
 ** Cons: If a user does not input a command, the task state will not be updated. (Mitigated by the fact that
 the number of commands that a person uses likely occurs at a higher rate than the number of tasks itself).
 * **Alternative 2:** Run a cron job that checks at a regular interval if the task is overdue
-** Pros: The overdue state of the task is definitely current
+** Pros: The overdue state of the task is current
 ** Cons: Potential race condition and might introduce latency to the application.
 // end::time[]
 
@@ -1236,13 +1285,13 @@ These instructions only provide a starting point for testers to work on; testers
 . Showcasing Effective due date field +
 [NOTE]
 ====
-Effective due date is a field in the UI that updates accordingly to command changes.
-Effective due date can only be seen by selecting the task on task panel with the mouse or by entering the command
+Effective due date is a field in the UI that updates according to command changes.
+Effective due date can be seen by selecting the task on task panel with the mouse or by entering the command
 `select x`, where x is the index of the task.
 ====
 .. Prerequisites:
 
-image::EffectiveDueDate1.png[width="200"]
+image::EffectiveDueDate1.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled_
 
 ... Clear task manager with `clear`
@@ -1250,18 +1299,18 @@ _Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled
 ... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
 ... Add Task C using `add n/C t/1-3-19 p/5 d/blank`
 
-image::EffectiveDueDate2.png[width="200"]
+image::EffectiveDueDate2.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates for test case 1_
 
 .. Test case 1: `dependency 2 1`, `select 1` or click on Task A +
 Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
 Number of dependencies field on the task card updated.
 
-image::EffectiveDueDate3.png[width="200"]
+image::EffectiveDueDate3.png[width="400"]
 _Diagram of Due Dates and Effective Due Dates for test case 2_
 
-.. Test case 2: [Execute commands from test case 1] + `dependency 3 2` + `select 3` or click on task C +
-   Expected: No change to effective due date.
+.. Test case 2: `dependency 2 1` + `dependency 3 2` + `select 3` or click on task C +
+   Expected: No change to effective due date. Number of dependencies field on the task card updated.
 // end::seanmanualtest[]
 
 === Achievement Mechanism
@@ -1388,6 +1437,27 @@ Number of dependencies field on the task card updated.
 .. Other incorrect dependency commands to try: `dependency`, `dependency x 1` (where x is larger than the list size), adding a
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
+
+=== Deleting task where there exists dependencies to deleted task
+. Deleting a task where there exists dependencies to deleted task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `delete 1` +
+   Expected: Only task B remaining. Task B has 0 dependencies instead of its previous value of 1.
+
+
+=== Editing task where there exists dependencies to edited task
+. Editing a task where there exists dependencies to the edited task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `edit 1 n/C` +
+   Expected: Name of 1st task changed to C. Number of dependencies of B remains the same.
 
 // tag::completemanualtest[]
 === Interactions of Complete Command with Dependencies
