@@ -31,7 +31,7 @@ In Charge Of: UI
 
 === Li Yixin
 image::sleepysanjinli.png[width="150", align="left"]
-{empty}[https://github.com/SleepySanjinLi] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SleepySanjinLi] [<<sleepyliyixin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, Deliverables and deadlines, Gradle expert +
