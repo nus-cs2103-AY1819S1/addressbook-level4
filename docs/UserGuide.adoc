@@ -68,10 +68,6 @@ image::GUIComponents.png[width="600"]
 . List Panel: panel displaying all saved persons/modules/occasions
 . Info Panel: panel displaying additional information for selected entry
 
-[TIP]
-The info panel does not refresh even after you switch between lists, just in case you want to refer to other lists
-while editing an entry. To refresh the info panel, use the `select` command.
-
 === Using the GUI
 
 * Switching between person, module and occasion lists can be done from the Menu Bar by clicking on the desired type,
@@ -121,7 +117,7 @@ Valid: `NIL, Singapore, 123 Clementi Ave 999 S(654123)`
 A person will also have a *module list* and *occasion list*. These are comprised of modules and occasions that *are currently* in the address book. +
 These lists will be initialized as empty until modules or occasions are added.
 
-Warning: Persons with the same name are permitted as long as they have a different phone number or email address. +
+Warning: Persons with the same name are permitted as long as they have a *different phone number or email address*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a module's registration list).
 
 === Module
@@ -152,7 +148,7 @@ Invalid: `Sem 1, 01, 1819/1`
 A module will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the module will appear in their module lists).
 
-Warning: Modules with the same code are permitted as long as they have a different academic year or semester. +
+Warning: Modules with the same code are permitted as long as they have a *different academic year or semester*. +
 Use with caution, as they may be difficult to distinguish (e.g. in a person's module list).
 
 === Occasion
@@ -176,7 +172,7 @@ Invalid: `John's Home, NUS COM1 02-18, 123 Clementi Rd S(654123)`
 An occasion will also have a *person list*. This will be consistent with the persons in the list
 (i.e. the occasion will appear in their occasion lists).
 
-Warning: Occasions with the same name are permitted as long as they have a different date.
+Warning: Occasions with the same name are permitted as long as they have a *different date*.
 Use with caution, as they may be difficult to distinguish (e.g. in a person's occasion list).
 //end::types[]
 
