@@ -505,7 +505,7 @@ into the medical history of the patient with the NRIC `S1234567A`.
 
 ==== Command execution
 
-The sequence diagram in Figure 4 shows the execution of the given scenario:
+The sequence diagram below shows the execution of the given scenario:
 
 .Execution sequence of the `addmh` command
 image::AddmhSequenceDiagram.png[width="1000"]
