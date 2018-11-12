@@ -3,7 +3,6 @@ package seedu.meeting.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.meeting.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -291,6 +290,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         return meetings.asUnmodifiableObservableList();
     }
 
+    // @@author Zenious
     /**
      * merges the {@code importedPerson} into the MeetingBook with regards to the {@code overwrite} flag.
      */
@@ -302,6 +302,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
             updatePerson(samePerson, importedPerson);
         }
     }
+    // @@author NyxF4ll
 
     /**
      * merges the {@code importedGroup} into the MeetingBook with regards to the {@code overwrite} flag.
@@ -314,6 +315,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
                 .collect(Collectors.toList());
         inValidMembers.forEach(importedGroup::removeMemberNoGroups);
 
+        // @@author Zenious
         if (!hasGroup(importedGroup)) {
             addGroup(importedGroup);
         } else if (overwrite) {
@@ -336,7 +338,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         if (!(imported instanceof MeetingBook)) {
             return;
         }
-
+        // @@author NyxF4ll
         MeetingBook importedBook = (MeetingBook) imported;
         importedBook.persons.iterator()
                 .forEachRemaining((person) -> mergePerson(person, overwrite));
@@ -344,6 +346,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         importedBook.groups.iterator()
                 .forEachRemaining((group) -> mergeGroup(group, overwrite));
     }
+    // @@author
 
     @Override
     public boolean equals(Object other) {
