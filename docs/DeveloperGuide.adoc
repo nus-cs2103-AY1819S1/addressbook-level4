@@ -474,17 +474,16 @@ public class SwitchCommand extends Command {
 }
 ```
 
-From the code above, we see that upon calling `SwitchCommand`, a contextId is set.
+From the code snippet above, we see that upon calling the `SwitchCommand`, a contextId is set.
 The contextId (which is retrieved from the user's input) is either 'e' for event or 'v' for volunteers.
 This contextId will be used when the execute method is called.
 
 When the execute method is called, the context is set in the model via the 'setCurrentContext' method.
-The model contains different methods to update the various lists. Passing the predicates help to reset each of the lists to the initial state.
+The model contains different methods to update the various lists. A predicate is passed to help to reset each of the lists to the initial state.
 
 The model also resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
 
 Lastly, the `EventsCenter` posts a new event so that the panels would update accordingly and display the relevant lists.
-
 
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
@@ -729,11 +728,6 @@ In addition to updating the context, the `manage` command also does the followin
 * Raise a `RecordChangeEvent` to set the selected event.
 * Raise a `ContextChangeEvent` to update the UI.
 
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram for manage command
-image::command_manage_sd.png[manage SD, 800]
-
 The following code snippet shows what the `manage` command does upon execution:
 
 ```Java
@@ -770,6 +764,23 @@ public class ManageCommand extends Command {
     //...
 }
 ```
+
+From the code snippet above, we see that the the current state of event list from the model is stored into another another list called 'filteredEventList'.
+This is so that the list can be easily referenced in later parts of the code.
+
+The volunteer list in the model is updated with the predicate so that it now contains the list of all volunteers in the system.
+
+A quick check is done to ensure that the user input is valid. Otherwise, an exception is thrown.
+
+If the user input is valid, the application can change to the record context. The selected event by the user is also stored in the model.
+The model also resets the state pointer so that the undo and redo functions will point to a fresh, new state.
+
+Lastly, all the relevant UI is updated by posting events via the `EventsCenter`.
+
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram for manage command
+image::command_manage_sd.png[manage SD, 800]
 
 ===== Design considerations
 ====== Aspect: Context switching (to volunteering records)
