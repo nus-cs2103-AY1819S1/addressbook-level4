@@ -92,4 +92,10 @@ include::../UserGuide.adoc[tag=complete-2.0]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=complete]
+include::../DeveloperGuide.adoc[tag=complete-preamble]
+
+image::CompleteCommandActivityDiagram.png[width="800"]
+
+include::../DeveloperGuide.adoc[tag=complete-label-execution]
+
+include::../DeveloperGuide.adoc[tag=design-considerations-main]
