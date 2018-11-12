@@ -515,7 +515,7 @@ include::UserGuide.adoc[tag=find]
 
 ===== Structure of `find` command
 
-image::FindCommandClassDiagram.png[width="800"]
+image::FindCommandClassDiagram.png[width="400"]
 
 When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
  depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
@@ -552,7 +552,7 @@ Referring to the code snippet above, `FindCommand<E>` implements the `equals()` 
 
 ===== Structure of Predicates
 
-image::PredicateClassDiagram.png[width="1000"]
+image::PredicateClassDiagram.png[width="400"]
 
 The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
 `PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
@@ -598,7 +598,7 @@ In the current implementation, the `sort` command only applies on the list of pe
 `ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
 `FilteredList<Person>`. +
 
-image::sortedList-filteredList-persons.png[width="400"]
+image::sortedList-filteredList-persons.png[width="200"]
 
 Illustrated in the figure above, `sortedPersons` list wraps the `filteredPersons` list and
 `filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
@@ -622,12 +622,12 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
 list. +
 
-image::findThenSortExample.png[width="800"]
+image::findThenSortExample.png[width="600"]
 
 An example can be seen in the diagram above by executing the command `find p s/yu li` followed by `sort name`.
 After applying the `sort` command, the `find` filter remains applied. The next example will demonstrate a different order. +
 
-image::sortThenFindExample.png[width="800"]
+image::sortThenFindExample.png[width="600"]
 
 The diagram above shows another example of back-to-back execution.
 The diagram shows the execution of `sort name` followed by `find p s/yeoh li`.
