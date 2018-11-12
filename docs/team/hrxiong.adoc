@@ -77,10 +77,10 @@ include::../UserGuide.adoc[tag=deleteGrade]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=grade1]
+include::../DeveloperGuide.adoc[tag=grades1]
 
-include::../DeveloperGuide.adoc[tag=grade2]
+include::../DeveloperGuide.adoc[tag=grades2]
 
-include::../DeveloperGuide.adoc[tag=grade3]
+include::../DeveloperGuide.adoc[tag=grades3]
 
 include::../DeveloperGuide.adoc[tag=gradesfeature]
