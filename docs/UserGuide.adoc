@@ -216,8 +216,13 @@ Examples:
 
 // tag::completeappointment[]
 === Completing an appointment `complete-appointment`
-Complete an appointment. +
+Complete an appointment that has already passed. +
 Format: `complete-appointment APPOINTMENT_ID`
+
+****
+* Only able to complete past appointments
+* Not allowed to complete future appointments
+****
 
 Examples:
 
