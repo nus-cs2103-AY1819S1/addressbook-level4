@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.meeting.commons.util.StringUtil;
 
+// @@author betakuwe
 /**
  * A predicate that matches the keyword an entity to some given lists of keywords.
  * @param <E> the entity type

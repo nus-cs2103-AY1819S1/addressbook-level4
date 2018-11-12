@@ -22,6 +22,7 @@ import seedu.meeting.logic.commands.UndoCommand;
 import seedu.meeting.model.Model;
 import seedu.meeting.model.tag.Tag;
 
+// @@author betakuwe
 public class FindCommandSystemTest extends MeetingBookSystemTest {
 
     @Test

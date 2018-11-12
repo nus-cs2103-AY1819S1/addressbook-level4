@@ -23,6 +23,7 @@ import seedu.meeting.model.ModelManager;
 import seedu.meeting.model.UserPrefs;
 import seedu.meeting.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 
+// @@author betakuwe
 public class FindMeetingCommandTest {
 
     private Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());

@@ -16,6 +16,7 @@ import seedu.meeting.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.meeting.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.meeting.model.person.util.PersonNameContainsKeywordsPredicate;
 
+// @@author betakuwe
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();

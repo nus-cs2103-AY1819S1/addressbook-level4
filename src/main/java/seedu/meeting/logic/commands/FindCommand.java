@@ -12,6 +12,7 @@ import static seedu.meeting.logic.parser.CliSyntax.PREFIX_SOME;
 
 import java.util.function.Predicate;
 
+// @@author betakuwe
 /**
  * Finds and lists all entities in MeetingBook whose property contains any of the argument keywords.
  * Keyword matching is case insensitive.

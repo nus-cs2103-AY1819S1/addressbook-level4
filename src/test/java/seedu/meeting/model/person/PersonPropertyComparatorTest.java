@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.meeting.model.person.util.PersonPropertyComparator;
 
+// @@author betakuwe
 class PersonPropertyComparatorTest {
     private PersonPropertyComparator nameComparator = PersonPropertyComparator.NAME;
     private PersonPropertyComparator phoneComparator = PersonPropertyComparator.PHONE;
