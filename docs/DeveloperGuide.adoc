@@ -980,12 +980,21 @@ Use case ends.
 +
 Use case ends.
 
-* 1aa. There is no substring match.
+* 1b. There is no substring match.
 +
 [none]
-** 1aa1. ThanePark shows warning message to user.
+** 1b1. ThanePark shows warning message to user.
 +
 Use case ends
+
+* 1c. User finds an attraction by the name of the zone that it is in and the tags it contains.
++
+[none]
+** 1c1. ThanePark shows a list of rides that matches the zone and the tags input by the user.
++
+Use case ends
+
+
 
 [discrete]
 === Use case: Help
@@ -1199,8 +1208,21 @@ none
 Use case ends.
 
 *Extensions*
+[none]
+* 1a. There is no rides that matches the given condition in the query.
++
+[none]
+** 1a1. ThanePark shows warning message to user.
++
+Use case ends
 
-none
+* 1b. The filter query has multiple conditions.
++
+[none]
+** 1b1. ThanePark shows a list of rides that matches the conditions from the user.
++
+Use case ends
+
 
 [discrete]
 === Use case: Autocomplete
