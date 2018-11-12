@@ -583,7 +583,6 @@ a hashset that contains the hashcodes of the tasks that the task is dependent up
 
 Sequence Diagram of the dependencies command
 
-image::DependencyCommandSequenceDiagram.png[width="1200"]
 
 ==== Design Considerations
 ===== Aspect: Modelling of the embedded dependency object.
@@ -633,7 +632,13 @@ depend on each other.
 
 *** A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
+
+===== Aspect: Implementing topological sort
+image::ShowTopologicalOrderCommandSequenceDiagram.png[width="1200"]
+
 // end::dependency[]
+
+
 
 // tag::time_implementation[]
 === Monitoring time
@@ -1178,7 +1183,7 @@ _Diagram of Due Dates and Effective Due Dates for test case 2_
 === Adding or removing a dependency
 
 . Adding a dependency when all tasks are listed
-.. Prerequisites: List all tasks using the `list` command
+.. Prerequisites: List all tasks using the `list` command, at least 2 or more tasks in Task Manager
 .. Test case: `dependency 1 2` +
 Expected: Dependency added between task at index 1 to task at index 2.
 Details of added dependency shown on screen. Timestamp in the status bar is updated.

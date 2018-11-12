@@ -4,13 +4,10 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: WatchOver
-
 ---
-
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+OverWatch is a desktop task manager.
 
 == Summary of contributions
 
@@ -25,7 +22,7 @@ displayed for that given task (an effective due date)
 Some tasks have complicated dependencies with other tasks hence the user would want to ensure that he or she completes the
 tasks in the right order.
 A useful information to have when deciding how to prioritise tasks is not just to look at the due date of a task but
-also the earliest due date among all tasks that directly or indirectly dependant on the task.
+also the earliest due date among all tasks that directly or indirectly dependent on the task.
 
 ** Highlights:
 *** There were significant design choices that needed to be made to specify dependencies given that tasks are immutable. (i.e.
@@ -34,32 +31,13 @@ has to be recreated as the dependencies on task A has to reflect the dependency 
 *** Dependency feature is strongly connected to
 
 * *Code contributed*:
-
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pengnam[[Project Code Dashboard]]
 https://github.com/CS2103-AY1819S1-F11-3/main/commits?author=pengnam[[Github Commits]]
 
 * *Other contributions*:
 ** *Minor Enhancements:*
-**** Minor Enhancement 1: Time-based status update
-***** What it does:
-The Task Manager needs to update the status field accordingly when a task is completed or deleted.
-***** Justification:
-The status needs to be accordingly responsive. i.e. If I was to update a task that is IN-PROGRESS to a new due date that
-is before current time, the status of the task needs to be flagged as OVERDUE. If I decide to update an overdue task with
-a new due date that is after current time, the status of the task needs to be adjusted to IN-PROGRESS.
-***** Highlights:
-****** Appropriate dependencies objects have to be adjusted accordingly after edits/task completion because Tasks are designed
-to be immutable.
-****** This check has to be triggered at every command hence a significant design pattern had to be adopted for an elegant
-and clean solution.
-
+**** Minor Enhancement 1: Time-based status update (between IN PROGRESS and OVERDUE)
 **** Minor Enhancement 2: Topological sort (`topoorder` command)
-***** What it does:
-User can display a list of tasks in order of their topology
-***** Justification:
-Aids the user in prioritising which task to complete.
-***** Highlights:
-https://github.com/CS2103-AY1819S1-F11-3/main/blob/master/src/main/java/seedu/address/model/DependencyGraph.java[Topological sort implementation]
 
 ** *Bugs found in other team's code:*
 Bugs not due to inaccurate documentation are listed here. Some are relatively major and difficult to find.
@@ -69,41 +47,27 @@ Bugs not due to inaccurate documentation are listed here. Some are relatively ma
 ** *Project Management:*
 *** Coordinated releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Product Manager Role
-***** Coordinated and facilitated meetings one to two times a week to ensure group is on track
+***** Coordinated and facilitated meetings one to two times a week
 ***** Ensures that deadlines are completed on-time (all team milestones met at all milestones)
-https://github.com/CS2103-AY1819S1-F11-3/main/issues/169[#169(1.3)]
-https://github.com/CS2103-AY1819S1-F11-3/main/issues/124[#124(1.2)]
-https://github.com/CS2103-AY1819S1-F11-3/main/issues/64[#64(1.1)]
-*** Maintained Issue Tracker and addressed bug reports from Dry-PE
-https://github.com/CS2103-AY1819S1-F11-3/main/issues[Issues Page]
 *** Created and maintained all project boards
-https://github.com/CS2103-AY1819S1-F11-3/main/projects[project boards]
 
 ** Enhancements to existing features:
 *** Enhanced the GUI by allowing it to display time until completion
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/219[#219]
+[PR #219]
 
 *** Did a significant amount of initial refactoring for the team:
-Pull request 41, 47, 48, 50, 51, 54, 66
+[PR 41, 47, 48, 50, 51, 54, 66]
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the Developer Guide:
-*** Actively maintained the Developer Guide:
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/171[#171]
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/216[#216]
+*** Did cosmetic tweaks to existing contents of the Developer Guide
+*** Actively maintained the Developer Guide
 
 ** Community:
 *** Reported bug on module website
 (examples:  https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3[#3],
 https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
 *** PRs reviewed (with non-trivial review comments):
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/76[#76 (Batch complete command)],
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/95[#95 (list filter)],
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/154[#154 (list filter)],
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/67[#67 (Complete command)]
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/213[#213 (Tests for achievements)]
-https://github.com/CS2103-AY1819S1-F11-3/main/pull/241[#241 (Task UI)]
-
+[PR 76, 95, 154, 67, 213, 241]
 
 ** Tools:
 *** Maintained a Github plugin (TravisCI) in team repo https://github.com/CS2103-AY1819S1-F11-3/main/pull/60[#60]
