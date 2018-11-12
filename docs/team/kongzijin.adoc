@@ -74,7 +74,9 @@ https://github.com/CS2103-AY1819S1-W10-1/main/pull/183[#183]
 |===
 
 include::../UserGuide.adoc[tag=edit]
+
 include::../UserGuide.adoc[tag=export]
+
 include::../UserGuide.adoc[tag=import]
 
 
@@ -86,7 +88,9 @@ include::../UserGuide.adoc[tag=import]
 |===
 
 include::../DeveloperGuide.adoc[tag=personcd]
+
 include::../DeveloperGuide.adoc[tag=edit]
+
 include::../DeveloperGuide.adoc[tag=export]
 
 
