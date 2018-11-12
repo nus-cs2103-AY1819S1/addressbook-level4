@@ -59,24 +59,6 @@ public class AddmhCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, patientNric));
     }
 
-    /**
-     * Getter method to get the patient.
-     *
-     * @param model the model used that stores the data of HMK2K18
-     * @return the {@code Person} with the matching NRIC
-     * @throws CommandException if there is no person in the `model` that matches the person's NRIC.
-     */
-    private Person getPatient(Model model) throws CommandException {
-        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                .filtered(p -> patientNric.equals(p.getNric()));
-
-        if (filteredByNric.size() < 1) {
-            throw new CommandException(MESSAGE_UNREGISTERED);
-        }
-
-        return filteredByNric.get(0);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
