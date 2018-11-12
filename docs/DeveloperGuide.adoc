@@ -728,7 +728,7 @@ image::GameManagerStorageClassDiagram.png[width="1200"]
 
 The `XmlSerializableTaskManager` contains a `XmlAdaptedGameManager`, to capture the state of the `GameManager`,
 allow persisting state between sessions, and take advantage of the version control to allow undoing and redoing
-of changing the game mode. 
+of changing the game mode.
 
 Four fields are written to file:
 
@@ -773,13 +773,13 @@ previously set tasks. It is best to centralise all calculations to a single type
 
 * **Alternative 1 (current choice):** Wrapping the `GameMode` inside a `GameManager`
 ** Pros: Since not all gamification elements are tied to the game mode, this allows future extensibility by creating
-the scaffolding for future such features to be included, such as in `v2.0`. 
+the scaffolding for future such features to be included, such as in `v2.0`.
 ** Cons: One more layer of abstraction, and additional code and tests need to be written.
 
 * **Alternative 2:** `TaskManager` contains a `GameMode` directly, instead of a `GameManager`
 ** Pros: There is less code to write, and the code becomes more readable.
 ** Cons: The above is only true so long as `GameMode` is the only gamification feature in WatchOver. Once a new feature
-is added, significant restructuring needs to take place which will break many things. 
+is added, significant restructuring needs to take place which will break many things.
 
 ==== Extensions
 
@@ -1380,5 +1380,111 @@ constraints will be displayed in the window below the command line.
 // tag::gamemode-test[]
 
 === Game Mode testing
+
+. Displaying current mode
+.. Prerequisites: -
+.. Test case: `mode` +
++
+Expected: Current game mode details will be shown. +
+For example, +
+`You are currently using the Priority mode! 
+Completing a task will earn you 6 times the priority value as xp, or 3 times if the task is overdue.`
+
+. Changing game mode
+.. Prerequisites: -
+.. Test case: +
+`mode decreasing easy` +
+`mode` +
+`mode increasing extreme` +
+`mode` +
++
+Expected: Description shown will be different during both invocations of
+`mode`. 
+
+. Correct xp awarded in Flat mode
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Correct xp awarded in Increasing mode
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Correct xp awarded in Decreasing mode
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Correct xp awarded in Priority mode
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Correct xp awarded in various game difficulties
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Game mode persists between sessions
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Change of game mode can be undone
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. Application is robust against missing xml fields
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
+. 
+.. Prerequisites: -
+.. Test case: `mode` +
+Expected: 
+
 
 // end::gamemode-test[]

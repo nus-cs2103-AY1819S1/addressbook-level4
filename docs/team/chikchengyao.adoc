@@ -50,3 +50,4 @@ include::../UserGuide.adoc[tag=gamemode-usage]
 
 include::../DeveloperGuide.adoc[tag=gamemode-impl]
 
+include::../DeveloperGuide.adoc[tag=gamemode-test]
