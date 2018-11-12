@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.ClearCommand;
+import seedu.souschef.logic.commands.ClearMealPlannerCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.FindCommand;
@@ -54,8 +55,8 @@ public class MealPlannerParser {
         final String arguments = matcher.group("arguments").trim();
 
         switch(commandWord) {
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand<Day>(mealPlannerModel);
+        case ClearMealPlannerCommand.COMMAND_WORD:
+            return new ClearMealPlannerCommand(mealPlannerModel);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseMealPlan(mealPlannerModel, arguments);
         case PlanMealCommand.COMMAND_WORD:

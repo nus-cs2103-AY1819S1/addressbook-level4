@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
+import seedu.souschef.commons.events.model.MealPlannerClearedEvent;
 import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
 import seedu.souschef.logic.parser.Context;
@@ -145,5 +146,17 @@ public class ModelSetCoordinator implements ModelSet {
         EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
         mealPlannerModel.indicateAppContentChanged();
         EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.RECIPE));
+    }
+
+    @Subscribe
+    protected void handleMealPlannerClearedEvent(MealPlannerClearedEvent event) {
+        healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<HealthPlan> hpList = healthPlanModel.getFilteredList();
+        for (HealthPlan hp : hpList) {
+            hp.getMealPlans().clear();
+        }
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        healthPlanModel.indicateAppContentChanged();
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
     }
 }
