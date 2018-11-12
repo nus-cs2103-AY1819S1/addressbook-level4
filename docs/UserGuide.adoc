@@ -19,7 +19,10 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop app for the JCRC that allows *for better and faster management of residents' residents*. More importantly, Hallper is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Hallper can get your resident management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Hallper is a desktop application for the Junior Common Room Committee(JCRC) that allows *for better and faster management of residents' contacts*.
+More importantly, Hallper is *optimized for those who prefer to work using their keyboards*.
+If you can type fast, Hallper can get your contact management tasks done faster than most apps.
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -217,26 +220,24 @@ Imports file containing Hallper-related information and updates Hallper accordin
 Format: `import f/FILEPATH`
 
 ****
-* Allows for the mass upload of resident(s) information.
-* Allows for the mass upload of CCA(s) list.
-* Allows for the mass upload of budget book information.
-* Allows for the mass upload of CCA transaction(s).
+* Allows for the mass upload of resident or CCA information.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
 File format examples for importable `.xml` files are as shown below:
 
-image::AddressBookExample.png[width="790"]
-_Figure 4.1.9.1: Resident information example. Multiple `residents` can be specified._
+image::AddressBookExample.png[width="400"]
+_Figure 4.1.9.1: Resident information example. Multiple `persons` can be specified._
 
-image::CCAListExample.png[width="790"]
+
+image::CCAListExample.png[width="400"]
 _Figure 4.1.9.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
 specified for multiple `cca`._
 
-image::BudgetBookExample.png[width="790"]
+image::BudgetBookExample.png[width="400"]
 _Figure 4.1.9.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
 
-image::TransactionsExample.png[width="790"]
+image::TransactionsExample.png[width="400"]
 _Figure 4.1.9.4: Transaction information example. Multiple `transaction` can be specified._
 
 Example:
@@ -450,10 +451,12 @@ _Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
 
 // end::email[]
 
-// tag::calendar[]
+// tag::calendarIntro[]
 === Calendar
 This section lists features related to managing the calendar in Hallper.
+// end::calendarIntro[]
 
+// tag::calendarAddEvent[]
 ==== Adding all day event into calendar : `add_all_day_event`
 
 Adds an all day event into the calendar. +
@@ -471,14 +474,15 @@ Example:
 
 Before executing command:
 
-image::add_all_day_event_diagram_before.png[width="790"]
+image::add_all_day_event_diagram_before.png[width="700"]
 _Figure 4.4.1.1: Screen before running `add_all_day_event` on Hallper._
 
 * `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
 
-image::add_all_day_event_diagram_after.png[width="790"]
+image::add_all_day_event_diagram_after.png[width="700"]
 _Figure 4.4.1.2: Screen after running `add_all_day_event` on Hallper._
+// end::calendarAddEvent[]
 
 ==== Adding event into calendar : `add_event`
 
@@ -499,16 +503,17 @@ Example:
 
 Before executing command:
 
-image::add_event_diagram_before.png[width="790"]
+image::add_event_diagram_before.png[width="700"]
 _Figure 4.4.2.1: Screen before running `add_event` on Hallper._
 
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
 
-image::add_event_diagram_after.png[width="790"]
+image::add_event_diagram_after.png[width="700"]
 _Figure 4.4.2.2: Screen after running `add_event` on Hallper._
 
+// tag::calendarCreate[]
 ==== Creating calendar : `create_calendar`
 
 Creates a calendar file in Hallper for updating of events. +
@@ -525,6 +530,7 @@ Example:
 * `create_calendar month/Feb year/2018` +
 Creates a calendar for the month of `Feb` and year `2018` and
 saves it as a *`.ics`* file.
+// end::calendarCreate[]
 
 ==== Deleting event from calendar : `delete_event`
 
@@ -544,20 +550,20 @@ Example:
 
 Before executing command: +
 
-image::delete_event_diagram_before.png[width="790"]
+image::delete_event_diagram_before.png[width="700"]
 _Figure 4.4.4.1: Screen before running `delete_event` on Hallper._
 
 * Deleting a non-existing event (Title is case sensitive) +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
 
-image::delete_event_diagram_after_invalid.png[width="790"]
+image::delete_event_diagram_after_invalid.png[width="700"]
 _Figure 4.4.4.2: Screen after running `delete_event` with a non-existing event in Hallper._
 
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
 
-image::delete_event_diagram_after_valid.png[width="790"]
+image::delete_event_diagram_after_valid.png[width="700"]
 _Figure 4.4.4.3: Screen after running `delete_event` with an existing event in Hallper._
 
 ==== Viewing calendar : `view_calendar`
@@ -576,8 +582,7 @@ Example:
 * `view_calendar month/Oct year/2018` +
 Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
 
-image::calendar_view_diagram.png[width="790"]
-// end::calendar[]
+image::calendar_view_diagram.png[width="700"]
 
 
 === Budget and CCA
