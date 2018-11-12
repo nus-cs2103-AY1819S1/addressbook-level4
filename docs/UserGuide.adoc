@@ -114,6 +114,14 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 5 el/Secondary 1` +
+Edits the educational level of the 5th student to Secondary 1.
+
+[NOTE]
+====
+By editing the educational level of any student using this command will remove any "Graduated" +
+tag by default. To promote the educational grade of a student, please use the `promote` command.
+====
 
 === Listing all persons : `list`
 
