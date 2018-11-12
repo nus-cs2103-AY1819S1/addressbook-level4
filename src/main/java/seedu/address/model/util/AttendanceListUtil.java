@@ -205,6 +205,10 @@ public class AttendanceListUtil {
         }
     }
 
+    //
+
+    // editOccasionFromAssociatedPerson
+
     //@@author KongZijin
     //Reused from teammate @waytan with minor modifications
     /**

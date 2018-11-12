@@ -281,6 +281,23 @@ The add feature is currently implemented the same way to add persons, modules an
 There are thus three similar commands which are related to this add command:
 `addperson`, `addmodule`, `addoccasion`.
 
+The add command adds the entity (person, module, occasion) with the attributes / fields provided by the user.
+
+The figure below shows how the add command is processed through the logic of TheTracker:
+
+image::AddCommandLogicDiagram.png[width="800"]
+
+==== Current Implementation
+As the `addperson`, `addmodule`, `addoccasion` commands' logic are similar to one another,
+the `addperson` command will be taken as the sole example in this document. The `addperson` string
+input in the command line is passed into the `AddressBookParser` object, which parses the input
+and creates an `AddPersonCommandParser` to help it further parse the argument and create an
+`AddPersonCommand`. This `AddPersonCommandParser` creates a Person with the Compulsory attribute `Name`,
+and optional fields `Phone`, `Email`, `Address` and `Tag` as provided by the user and passes this
+person to be added to a new `AddPersonCommand`. The `AddPersonCommand` adds the person to the model and
+commit and save the AddressBook.
+
+
 // tag::find[]
 === Find Person/Module/Occasion Feature
 The find feature currently is implemented the same way to find persons, modules, and occasions.
@@ -290,7 +307,7 @@ There are thus three similar commands which are related to this find command:
 The find command family finds the entity (person, module, occasion), based on their attributes /
 fields.
 
-The figure below shows how the find command is processed through the logic of the address book:
+The figure below shows how the find command is processed through the logic of TheTracker:
 
 image::FindCommandLogicDiagram.png[width="800"]
 
@@ -623,12 +640,12 @@ It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeleteP
 
 ==== Current Implementation
 This following section will use `DeletePersonCommand` as an example, `DeleteModuleCommand` and  `DeleteOccasionCommand`
-uses the same mechanism. `DeletePersonCommand`extends the `Command` class and uses inheritance to facilitate
+follows the same mechanism. `DeletePersonCommand` extends the `Command` class and uses inheritance to facilitate
 implementation.
 
 Generally, it implements the following operation:
 
-* `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
+* `DeletePersonCommand#excute(Model model, CommandHistory history)`: deletes the Person of the `Index` passed to the `DeletePersonCommand` class
 
 This operation is exposed in the Model interface as Model#getFilteredEntity(), Model#deleteEntity() and Model#commitAddressBook() respectively.
 
